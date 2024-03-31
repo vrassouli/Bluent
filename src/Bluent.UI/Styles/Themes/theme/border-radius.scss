@@ -1,0 +1,8 @@
+@use "sass:map";
+@import "maps/border-radius.scss";
+
+@mixin border-radius {
+    @each $name, $value in $border-radius-map {
+        --borderRadius#{$name}: #{$value};
+    }
+}

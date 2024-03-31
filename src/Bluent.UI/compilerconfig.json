@@ -1,0 +1,30 @@
+﻿[
+  {
+    "outputFile": "Styles/Components/components.css",
+    "inputFile": "Styles/Components/components.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-blue-dark.css",
+    "inputFile": "Styles/Themes/theme-blue-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-blue-light.css",
+    "inputFile": "Styles/Themes/theme-blue-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-red-dark.css",
+    "inputFile": "Styles/Themes/theme-red-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-red-light.css",
+    "inputFile": "Styles/Themes/theme-red-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/styles.css",
+    "inputFile": "Styles/Themes/styles.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/icons.css",
+    "inputFile": "Styles/Themes/icons.scss"
+  }
+]

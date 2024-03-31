@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/spacings.scss';
+
+@mixin vertical-spacings {
+    @each $name, $value in $spacings-map {
+        --spacingVertical#{$name}: #{$value};
+    }
+}

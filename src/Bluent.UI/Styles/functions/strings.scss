@@ -1,0 +1,108 @@
+// ----
+// Sass (v3.3.4)
+// Compass (v1.0.0.alpha.18)
+// ----
+
+// Capitalize string
+// --------------------------------------------------------------------------------
+// @param [string] $string
+// --------------------------------------------------------------------------------
+// @return [string]
+
+@function capitalize($string) {
+    @return to-upper-case(str-slice($string, 1, 1))+str-slice($string, 2);
+}
+
+// Alias
+@function str-ucfirst($string) {
+    @return capitalize($string);
+}
+
+
+
+// Uncapitalize string
+// --------------------------------------------------------------------------------
+// @param [string] $string
+// --------------------------------------------------------------------------------
+// @return [string]
+
+@function uncapitalize($string) {
+    @return to-lower-case(str-slice($string, 1, 1))+str-slice($string, 2);
+}
+
+// Alias
+@function str-lcfirst($string) {
+    @return uncapitalize($string);
+}
+
+
+
+// Capitalize each word in string
+// --------------------------------------------------------------------------------
+// @param [string] $string
+// --------------------------------------------------------------------------------
+// @return [string]
+
+@function str-ucwords($string) {
+    $progress: $string;
+    $result: "";
+
+    $running: true;
+
+    @while $running {
+        $index: str-index($progress, " ");
+
+        @if $index {
+            $result: $result + capitalize(str-slice($progress, 1, $index));
+            $progress: str-slice($progress, ($index + 1));
+        }
+
+        @else {
+            $running: false;
+        }
+    }
+
+    @return capitalize($result)+capitalize($progress);
+}
+
+
+
+// Return whether `$value` is contained in `$list`
+// --------------------------------------------------------------------------------
+// @param [list] $list
+// @param [$value] $value
+// --------------------------------------------------------------------------------
+// @return [boolean]
+
+@function contain($list, $value) {
+    @return not not index($list, $value);
+}
+
+
+
+// Camelize string
+// --------------------------------------------------------------------------------
+// @param [string] $string
+// --------------------------------------------------------------------------------
+// @return [string]
+
+@function camelize($string) {
+    $progress: $string;
+    $result: "";
+    $exclude: " ", "-", "–", "—", "_", ",", ";", ":", ".";
+
+    @while str-length($progress)>0 {
+        $char: str-slice($progress, 1, 1);
+
+        @if contain($exclude, $char) {
+            $progress: capitalize(str-slice($progress, 2, 2)) + str-slice($progress, 3);
+        }
+
+        @else {
+            $result: $result + $char;
+            $progress: str-slice($progress, 2);
+        }
+    }
+
+    @return $result;
+}

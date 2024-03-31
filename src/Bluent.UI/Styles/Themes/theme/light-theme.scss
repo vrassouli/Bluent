@@ -1,0 +1,30 @@
+@import "border-radius.scss";
+@import "font-sizes.scss";
+@import "line-heights.scss";
+@import "font-families.scss";
+@import "font-weights.scss";
+@import "stroke-widths.scss";
+@import "horizontal-spacings.scss";
+@import "vertical-spacings.scss";
+@import "durations.scss";
+@import "curves.scss";
+@import "light/brand-palette.scss";
+@import "light/color-palette.scss";
+@import "light/status-color-palette.scss";
+
+@mixin light-theme($brand) {
+    @include border-radius;
+    @include font-sizes;
+    @include line-heights;
+    @include font-families;
+    @include font-weights;
+    @include stroke-widths;
+    @include horizontal-spacings;
+    @include vertical-spacings;
+    @include durations;
+    @include curves;
+
+    @include brand-palette($brand);
+    @include color-palette;
+    @include status-color-palette;
+}

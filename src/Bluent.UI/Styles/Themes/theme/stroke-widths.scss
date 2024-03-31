@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/stroke-widths.scss';
+
+@mixin stroke-widths {
+    @each $name, $value in $stroke-widths-map {
+        --#{$name}: #{$value};
+    }
+}

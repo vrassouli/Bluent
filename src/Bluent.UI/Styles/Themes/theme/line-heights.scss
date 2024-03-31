@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/line-heights.scss';
+
+@mixin line-heights {
+    @each $name, $value in $line-heights-map {
+        --#{$name}: #{$value};
+    }
+}

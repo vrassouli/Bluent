@@ -1,0 +1,53 @@
+﻿@page "/components/buttons"
+
+<div class="p-10">
+    <div>
+        <h5>Shapes</h5>
+        <Button Text="Rounded" />
+        <Button Text="Circular" Shape="ButtonShape.Circular" />
+        <Button Text="Square" Shape="ButtonShape.Square" />
+    </div>
+
+    <div>
+        <h5>Appearance</h5>
+        <Button Text="Default" Icon="icon-ic_fluent_checkmark_20_filled" />
+        <Button Text="Primary" Icon="icon-ic_fluent_checkmark_20_filled" Appearance="ButtonAppearance.Primary" />
+        <Button Text="Outline" Icon="icon-ic_fluent_checkmark_20_filled" Appearance="ButtonAppearance.Outline" />
+        <Button Text="Subtle" Icon="icon-ic_fluent_checkmark_20_filled" Appearance="ButtonAppearance.Subtle" />
+        <Button Text="Transparent" Icon="icon-ic_fluent_checkmark_20_filled" Appearance="ButtonAppearance.Transparent" />
+    </div>
+
+    <div>
+        <h5>Icon</h5>
+        <Button Text="Default" Icon="icon-ic_fluent_checkmark_20_filled" />
+        <Button Icon="icon-ic_fluent_checkmark_20_filled" />
+    </div>
+
+    <div>
+        <h5>Size</h5>
+        <div class="d-flex mb-3">
+            <Button Size="ButtonSize.Small" Text="Small" />
+            <Button Size="ButtonSize.Small" Text="Small with icon" Icon="icon-ic_fluent_checkmark_20_filled" />
+            <Button Size="ButtonSize.Small" Icon="icon-ic_fluent_checkmark_20_filled" />
+        </div>
+        <div class="d-flex mb-3">
+            <Button Text="Medium" />
+            <Button Text="Medium with icon" Icon="icon-ic_fluent_checkmark_20_filled" />
+            <Button Icon="icon-ic_fluent_checkmark_20_filled" />
+        </div>
+        <div class="d-flex mb-3">
+            <Button Size="ButtonSize.Large" Text="Large" />
+            <Button Size="ButtonSize.Large" Text="Large with icon" Icon="icon-ic_fluent_checkmark_20_filled" />
+            <Button Size="ButtonSize.Large" Icon="icon-ic_fluent_checkmark_20_filled" />
+        </div>
+    </div>
+
+    <div>
+        <h5>Disabled</h5>
+        <Button Text="Default" />
+        <Button Text="Primary" Appearance="ButtonAppearance.Primary" disabled />
+    </div>
+</div>
+@code {
+
+}

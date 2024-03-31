@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/font-weights.scss';
+
+@mixin font-weights {
+    @each $name, $value in $font-weights-map {
+        --#{$name}: #{$value};
+    }
+}

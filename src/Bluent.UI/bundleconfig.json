@@ -1,0 +1,26 @@
+[
+  {
+    "outputFileName": "wwwroot/bluent.ui.theme.blue.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-blue-light.css",
+      "Styles/Themes/theme-blue-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bluent.ui.theme.red.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-red-light.css",
+      "Styles/Themes/theme-red-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bluent.ui.components.css",
+    "inputFiles": [
+      "Styles/Components/components.css"
+    ]
+  }
+]

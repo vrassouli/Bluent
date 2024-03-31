@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/font-sizes.scss';
+
+@mixin font-sizes {
+    @each $name, $value in $font-sizes-map {
+        --#{$name}: #{$value};
+    }
+}

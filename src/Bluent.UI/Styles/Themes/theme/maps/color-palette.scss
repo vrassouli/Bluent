@@ -1,0 +1,48 @@
+@import "colors.scss";
+
+$status-shared-colors-map: (
+    'red': $red,
+    'green': $green,
+    'darkOrange': $darkOrange,
+    'yellow': $yellow,
+    'berry': $berry,
+    'lightGreen': $lightGreen,
+    'marigold': $marigold
+);
+
+$persona-shared-colors-map: (
+    'darkRed': $darkRed,
+    'cranberry':$cranberry,
+    'pumpkin':$pumpkin,
+    'peach':$peach,
+    'gold': $gold,
+    'brass': $brass,
+    'brown': $brown,
+    'forest':$forest,
+    'seafoam':$seafoam,
+    'darkGreen':$darkGreen,
+    'lightTeal':$lightTeal,
+    'teal':$teal,
+    'steel':$steel,
+    'blue':$blue,
+    'royalBlue':$royalBlue,
+    'cornflower':$cornflower,
+    'navy':$navy,
+    'lavender':$lavender,
+    'purple':$purple,
+    'grape':$grape,
+    'lilac':$lilac,
+    'pink':$pink,
+    'magenta':$magenta,
+    'plum':$plum,
+    'beige':$beige,
+    'mink':$mink,
+    'platinum':$platinum,
+    'anchor':$anchor,
+);
+
+$mapped-status-colors-map: (
+    'cranberry':$cranberry,
+    'green':$green,
+    'orange':$orange,
+);

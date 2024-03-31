@@ -1,0 +1,50 @@
+﻿@page "/css/radius"
+
+@using Bluent.UI.Enums
+@foreach (var radiusSize in Enum.GetValues<Radiuses>())
+{
+    var className = $"radius-{radiusSize.ToString().ToLower()}";
+
+    <div class="@className" style="background-color: var(--colorBrandBackground); color: white; margin-bottom: 5px; padding: 5px;">
+        .@className
+    </div>
+}
+<hr />
+@foreach (var radiusSize in Enum.GetValues<Radiuses>())
+{
+    @foreach (var vSide in Enum.GetValues<VerticalSides>())
+    {
+        var className = $"radius-{vSide.ToString().ToLower()[0]}-{radiusSize.ToString().ToLower()}";
+
+        <div class="@className" style="background-color: var(--colorBrandBackground); color: white; margin-bottom: 5px; padding: 5px;">
+            .@className
+        </div>
+    }
+}
+<hr />
+@foreach (var radiusSize in Enum.GetValues<Radiuses>())
+{
+    @foreach (var hSide in Enum.GetValues<HorizontalSides>())
+    {
+        var className = $"radius-{hSide.ToString().ToLower()[0]}-{radiusSize.ToString().ToLower()}";
+
+        <div class="@className" style="background-color: var(--colorBrandBackground); color: white; margin-bottom: 5px; padding: 5px;">
+            .@className
+        </div>
+    }
+}
+<hr />
+@foreach (var radiusSize in Enum.GetValues<Radiuses>())
+{
+    @foreach (var vSide in Enum.GetValues<VerticalSides>())
+    {
+        @foreach (var hSide in Enum.GetValues<HorizontalSides>())
+        {
+            var className = $"radius-{vSide.ToString().ToLower()[0]}{hSide.ToString().ToLower()[0]}-{radiusSize.ToString().ToLower()}";
+
+            <div class="@className" style="background-color: var(--colorBrandBackground); color: white; margin-bottom: 5px; padding: 5px;">
+                .@className
+            </div>
+        }
+    }
+}

@@ -1,0 +1,6 @@
+@import "_brand.scss";
+@import "theme/dark-theme.scss";
+
+[data-bui-theme=dark] {
+    @include dark-theme($brand-blue);
+}

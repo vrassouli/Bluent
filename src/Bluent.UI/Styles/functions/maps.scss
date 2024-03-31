@@ -1,0 +1,9 @@
+﻿@function to-index-map($source) {
+    $target: (0:'0') !default;
+
+    @each $name, $value in $source {
+        $target: map-merge($target, (index($source, $name $value)-1: #{$value}))
+    }
+
+    @return $target;
+}

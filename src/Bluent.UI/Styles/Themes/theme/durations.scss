@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/durations.scss';
+
+@mixin durations {
+    @each $name, $value in $durations-map {
+        --#{$name}: #{$value};
+    }
+}

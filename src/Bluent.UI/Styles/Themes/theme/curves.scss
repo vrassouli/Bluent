@@ -1,0 +1,8 @@
+@use "sass:map";
+@import 'maps/curves.scss';
+
+@mixin curves {
+    @each $name, $value in $curves-map {
+        --#{$name}: #{$value};
+    }
+}

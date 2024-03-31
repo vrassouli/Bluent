@@ -1,0 +1,13 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<button type="button" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @if(!string.IsNullOrEmpty(Icon))
+    {
+        <i class="icon @Icon"></i>
+    }
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span class="text">@Text</span>
+    }
+</button>

@@ -1,0 +1,43 @@
+@use "sass:map";
+@import "../../../functions/strings.scss";
+@import "../shared/statusSharedColorNames.scss";
+@import "../shared/personaSharedColorNames.scss";
+@import "../maps/color-palette.scss";
+
+@mixin color-palette {
+    @each $sharedColorName in $statusSharedColorNames {
+        $colorPaletteMap: map.get($status-shared-colors-map, $sharedColorName);
+        --colorPalette#{capitalize($sharedColorName)}Background1: #{map.get($colorPaletteMap, 'tint60')};
+        --colorPalette#{capitalize($sharedColorName)}Background2: #{map.get($colorPaletteMap, 'tint40')};
+        --colorPalette#{capitalize($sharedColorName)}Background3: #{map.get($colorPaletteMap, 'primary')};
+
+        @if $sharedColorName =='yellow' {
+            --colorPalette#{capitalize($sharedColorName)}Foreground1: #{map.get($colorPaletteMap, 'shade30')};
+        }
+
+        @else {
+            --colorPalette#{capitalize($sharedColorName)}Foreground1: #{map.get($colorPaletteMap, 'shade10')};
+        }
+
+        --colorPalette#{capitalize($sharedColorName)}Foreground2: #{map.get($colorPaletteMap, 'shade30')};
+        --colorPalette#{capitalize($sharedColorName)}Foreground3: #{map.get($colorPaletteMap, 'primary')};
+        --colorPalette#{capitalize($sharedColorName)}BorderActive: #{map.get($colorPaletteMap, 'primary')};
+        --colorPalette#{capitalize($sharedColorName)}Border1: #{map.get($colorPaletteMap, 'tint40')};
+        --colorPalette#{capitalize($sharedColorName)}Border2: #{map.get($colorPaletteMap, 'primary')};
+    }
+
+    $redMap: map.get($status-shared-colors-map, 'red');
+    $greenMap: map.get($status-shared-colors-map, 'green');
+    $yellowMap: map.get($status-shared-colors-map, 'yellow');
+
+    --colorPaletteRedForegroundInverted: #{map.get($redMap, 'tint20')};
+    --colorPaletteGreenForegroundInverted: #{map.get($greenMap, 'tint20')};
+    --colorPaletteYellowForegroundInverted: #{map.get($yellowMap, 'tint20')};
+
+    @each $sharedColorName in $personaSharedColorNames {
+        $colorPaletteMap: map.get($persona-shared-colors-map, $sharedColorName);
+        --colorPalette#{capitalize($sharedColorName)}Background2: #{map.get($colorPaletteMap, 'tint40')};
+        --colorPalette#{capitalize($sharedColorName)}Foreground2: #{map.get($colorPaletteMap, 'tint30')};
+        --colorPalette#{capitalize($sharedColorName)}BorderActive: #{map.get($colorPaletteMap, 'primary')};
+    }
+}
