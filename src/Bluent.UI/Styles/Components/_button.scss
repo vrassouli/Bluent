@@ -2,6 +2,7 @@
     align-items: center;
     box-sizing: border-box;
     display: inline-flex;
+    gap: var(--spacingHorizontalSNudge);
     justify-content: center;
     text-decoration-line: none;
     vertical-align: middle;
@@ -24,26 +25,63 @@
     cursor: pointer;
 
     > .icon {
-        & + .text {
-            margin-inline-start: var(--spacingHorizontalSNudge);
-        }
     }
-    /*    > .text {
-        & + .end-icon {
-            margin-inline-start: var(--spacingHorizontalSNudge);
-        }
+
+    > .active-icon {
+        display: none;
     }
-*/
+
     &.icon {
         max-width: 32px;
         min-width: 32px;
         padding: 5px;
     }
 
+    &.compound {
+        height: auto;
+        padding-top: 14px;
+        padding-bottom: var(--spacingHorizontalL);
+
+        > .text {
+            flex-direction: column;
+            display: flex;
+            text-align: start;
+
+            > .secondary-text {
+                color: var(--colorNeutralForeground2);
+                line-height: 100%;
+                font-size: var(--fontSizeBase200);
+                font-weight: var(--fontWeightRegular);
+            }
+        }
+    }
+
+    &.toggled {
+        background-color: var(--colorNeutralBackground1Selected);
+        color: var(--colorNeutralForeground1Selected);
+        border-color: var(--colorNeutralStroke1);
+
+        > .active-icon {
+            display: inline;
+
+            & + .icon {
+                display: none;
+            }
+        }
+    }
+
     &:hover {
         background-color: var(--colorNeutralBackground1Hover);
         border-color: var(--colorNeutralStroke1Hover);
         color: var(--colorNeutralForeground1Hover);
+
+        > .active-icon {
+            display: inline;
+
+            & + .icon {
+                display: none;
+            }
+        }
 
         &:active {
             background-color: var(--colorNeutralBackground1Pressed);
@@ -66,6 +104,12 @@
         color: var(--colorNeutralForegroundOnBrand);
         border-color: transparent;
 
+        &.toggled {
+            background-color: var(--colorBrandBackgroundSelected);
+            color: var(--colorNeutralForegroundOnBrand);
+            border-color: transparent;
+        }
+
         &:hover {
             background-color: var(--colorBrandBackgroundHover);
 
@@ -78,6 +122,13 @@
 
     &.outline {
         background-color: var(--colorTransparentBackground);
+
+        &.toggled {
+            background-color: var(--colorTransparentBackgroundSelected);
+            color: var(--colorNeutralForeground1Selected);
+            border-color: var(--colorNeutralStroke1);
+            border-width: var(--strokeWidthThicker);
+        }
 
         &:hover {
             background-color: var(--colorTransparentBackgroundHover);
@@ -97,6 +148,11 @@
         color: var(--colorNeutralForeground2);
         background-color: var(--colorSubtleBackground);
         border-color: transparent;
+
+        &.toggled {
+            color: var(--colorNeutralForeground2Selected);
+            background-color: var(--colorSubtleBackgroundSelected);
+        }
 
         &:hover {
             color: var(--colorNeutralForeground2Hover);
@@ -123,6 +179,11 @@
         color: var(--colorNeutralForeground2);
         background-color: var(--colorTransparentBackground);
         border-color: transparent;
+
+        &.toggled {
+            color: var(--colorNeutralForeground2BrandSelected);
+            background-color: var(--colorTransparentBackgroundSelected);
+        }
 
         &:hover {
             color: var(--colorNeutralForeground2BrandHover);

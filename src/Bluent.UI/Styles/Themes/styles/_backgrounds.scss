@@ -1,0 +1,55 @@
+﻿.bg-1 {
+    background-color: var(--colorNeutralBackground1) !important;
+}
+
+.bg-2 {
+    background-color: var(--colorNeutralBackground2) !important;
+}
+
+.bg-3 {
+    background-color: var(--colorNeutralBackground3) !important;
+}
+
+.bg-4 {
+    background-color: var(--colorNeutralBackground4) !important;
+}
+
+.bg-5 {
+    background-color: var(--colorNeutralBackground5) !important;
+}
+
+.bg-brand-1 {
+    background-color: var(--colorBrandBackground) !important;
+}
+
+.bg-brand-1-hover {
+    &:hover {
+        background-color: var(--colorBrandBackgroundHover) !important;
+    }
+}
+
+.bg-brand-1-pressed {
+    &:hover {
+        &:active {
+            background-color: var(--colorBrandBackgroundPressed) !important;
+        }
+    }
+}
+
+.bg-brand-2 {
+    background-color: var(--colorBrandBackground2) !important;
+}
+
+.bg-brand-2-hover {
+    &:hover {
+        background-color: var(--colorBrandBackground2Hover) !important;
+    }
+}
+
+.bg-brand-2-pressed {
+    &:hover {
+        &:active {
+            background-color: var(--colorBrandBackground2Pressed) !important;
+        }
+    }
+}

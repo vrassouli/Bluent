@@ -1,0 +1,13 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @ChildContent
+
+    @if (Logo != null)
+    {
+        <div class="logo">
+            @Logo
+        </div>
+    }
+</div>

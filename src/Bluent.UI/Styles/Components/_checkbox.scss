@@ -1,0 +1,137 @@
+﻿.bui-checkbox {
+    color: var(--colorNeutralForeground3);
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    vertical-align: middle;
+
+    &.indeterminate {
+        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStroke);
+        --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1);
+        --bui-checkbox-indicator-backgroundColor: unset;
+        color: var(--colorNeutralForeground1);
+
+        &:hover {
+            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStrokeHover);
+            --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1Hover);
+            --bui-checkbox-indicator-backgroundColor: unset;
+        }
+    }
+
+    &.checked {
+        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
+        --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
+        --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
+        color: var(--colorNeutralForeground1);
+
+        &:hover {
+            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackgroundHover);
+            --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
+            --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackgroundHover);
+        }
+    }
+
+    &.unchecked {
+        --bui-checkbox-indicator-borderColor: unset;
+        --bui-checkbox-indicator-color: unset;
+        --bui-checkbox-indicator-backgroundColor: unset;
+    }
+
+    &.disabled {
+        --bui-checkbox-indicator-borderColor: var(--colorNeutralStrokeDisabled) !important;
+        --bui-checkbox-indicator-color: var(--colorNeutralForegroundDisabled) !important;
+        --bui-checkbox-indicator-backgroundColor: unset !important;
+        cursor: default;
+    }
+
+    > input {
+        box-sizing: border-box;
+        cursor: inherit;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(16px + 2* var(--spacingHorizontalS));
+        order: 1;
+    }
+
+    > .indicator {
+        align-self: flex-start;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        color: var(--bui-checkbox-indicator-color);
+        background-color: var(--bui-checkbox-indicator-backgroundColor);
+        border-color: var(--bui-checkbox-indicator-borderColor, var(--colorNeutralStrokeAccessible));
+        border-style: solid;
+        border-width: var(--strokeWidthThin);
+        border-radius: var(--borderRadiusSmall);
+        margin: var(--spacingVerticalS) var(--spacingHorizontalS);
+        fill: currentcolor;
+        pointer-events: none;
+        font-size: 12px;
+        height: 16px;
+        width: 16px;
+        order: 1;
+    }
+
+    > label {
+        cursor: inherit;
+        color: inherit;
+        margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);
+        margin-top: calc((16px - var(--lineHeightBase300)) / 2);
+        align-self: center;
+        padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
+        font-size: var(--fontSizeBase300);
+        font-family: var(--fontFamilyBase);
+        order: 2;
+
+        > .required {
+            padding-inline-start: var(--spacingHorizontalXS);
+            color: var(--colorPaletteRedForeground3);
+        }
+    }
+
+    &.large {
+        > input {
+            width: calc(20px + 2* var(--spacingHorizontalS));
+        }
+
+        > .indicator {
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+        }
+
+        > label {
+            margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
+            margin-top: calc((20px - var(--lineHeightBase300)) / 2);
+            line-height: var(--lineHeightBase300);
+        }
+    }
+
+    &.label-before {
+        > input {
+            order: 2;
+        }
+
+        > .indicator {
+            order: 2;
+        }
+
+        > label {
+            order: 1;
+        }
+    }
+
+    &.circular {
+        > .indicator {
+            border-radius: var(--borderRadiusCircular);
+        }
+    }
+}

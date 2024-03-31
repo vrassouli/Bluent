@@ -1,5 +1,28 @@
-﻿@import "classes/_backgrounds.scss";
-@import "classes/_foregrounds.scss";
-@import "classes/_position.scss";
-/*@import "classes/_radius.scss";*/
-@import "classes/_utilities.scss";
+﻿@import "../../node_modules/bootstrap/scss/vendor/_rfs.scss";
+@import "../../node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+@import "../../node_modules/bootstrap/scss/mixins/_utilities.scss";
+@import "../../node_modules/bootstrap/scss/_functions.scss";
+@import "../../node_modules/bootstrap/scss/_variables.scss";
+
+@import "styles/_backgrounds.scss";
+@import "styles/_foregrounds.scss";
+/*@import "styles/_radius.scss";*/
+@import "styles/_utilities.scss";
+
+// Loop over each breakpoint
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+    // Generate media query if needed
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        // Loop over each utility property
+        @each $key, $utility in $utilities {
+            // The utility can be disabled with `false`, thus check if the utility is a map first
+            // Only proceed if responsive media queries are enabled or if it's the base media query
+            @if type-of($utility) == "map" and (map-get($utility, responsive) or $infix == "") {
+                @include generate-utility($utility, $infix);
+            }
+        }
+    }
+}

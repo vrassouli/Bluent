@@ -1,13 +1,42 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentComponentBase
 
-<button type="button" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    @if(!string.IsNullOrEmpty(Icon))
+@*
+    <button type="button" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"></button>
+*@
+
+@{
+    __builder.OpenElement(0, GetButtonTag());
+    __builder.AddAttribute(1, "type", "button");
+    __builder.AddMultipleAttributes(2, AdditionalAttributes);
+    __builder.AddAttribute(3, "id", Id);
+    __builder.AddAttribute(4, "class", GetComponentClass());
+    __builder.AddAttribute(5, "style", Style);
+    __builder.AddAttribute(6, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+    __builder.OpenRegion(7);
+}
+@if (!string.IsNullOrEmpty(Icon))
+{
+    @if (!string.IsNullOrEmpty(ActiveIcon))
     {
-        <i class="icon @Icon"></i>
+        <i class="active-icon @ActiveIcon"></i>
     }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span class="text">@Text</span>
-    }
-</button>
+    <i class="icon @Icon"></i>
+}
+@if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
+{
+    <div class="text">
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <div>@Text</div>
+        }
+        @if (!string.IsNullOrEmpty(SecondaryText))
+        {
+            <div class="secondary-text">@SecondaryText</div>
+        }
+    </div>
+}
+@{
+    __builder.CloseRegion();
+    __builder.CloseElement();
+}

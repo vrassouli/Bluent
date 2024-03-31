@@ -11,6 +11,7 @@
 @import "dark/brand-palette.scss";
 @import "dark/color-palette.scss";
 @import "dark/status-color-palette.scss";
+@import "shadows.scss";
 
 @mixin dark-theme($brand) {
     @include border-radius;
@@ -27,4 +28,7 @@
     @include brand-palette($brand);
     @include color-palette;
     @include status-color-palette;
+
+    @include shadows(var(--colorNeutralShadowAmbient), var(--colorNeutralShadowKey));
+    @include shadows(var(--colorBrandShadowAmbient), var(--colorBrandShadowKey), 'Brand');
 }

@@ -1,9 +1,11 @@
 ﻿@inherits LayoutComponentBase
 <div class="page">
-    <div class="header">Header</div>
+    <div class="header">
+        <Header/>
+    </div>
     <div class="content">
-        <div class="sidebar">
-            side
+        <div class="sidebar d-flex flex-column">
+            <Side />
         </div>
         <div class="page-content">
             @Body

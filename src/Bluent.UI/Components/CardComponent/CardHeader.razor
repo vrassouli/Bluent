@@ -1,0 +1,29 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @if (Image != null)
+    {
+        <div class="image">
+            @Image
+        </div>
+    }
+    @if (Header != null)
+    {
+        <div class="header">
+            @Header
+        </div>
+    }
+    @if (Description != null)
+    {
+        <div class="description">
+            @Description
+        </div>
+    }
+    @if (Action != null)
+    {
+        <div class="action">
+            @Action
+        </div>
+    }
+</div>

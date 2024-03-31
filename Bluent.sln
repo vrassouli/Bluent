@@ -5,9 +5,9 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C80130C6-5557-40EB-AE1A-BB56A3851B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluent.UI.Demo", "src\Bluent.UI.Demo\Bluent.UI.Demo.csproj", "{177419E4-D049-43DA-987C-3BF39B0B3301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bluent.UI.Demo", "src\Bluent.UI.Demo\Bluent.UI.Demo.csproj", "{177419E4-D049-43DA-987C-3BF39B0B3301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluent.UI", "src\Bluent.UI\Bluent.UI.csproj", "{DD4AFD1C-DA23-4956-97A3-ADFCD8E56710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bluent.UI", "src\Bluent.UI\Bluent.UI.csproj", "{DD4AFD1C-DA23-4956-97A3-ADFCD8E56710}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

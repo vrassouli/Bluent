@@ -6,24 +6,3 @@ $vertical-sides: (
     start: top, 
     end: bottom
 );
-$grid-breakpoints: ( 
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 992px,
-    xl: 1200px,
-    xxl: 1400px 
-) !default;
-
-/* Z-Index */
-$zindex-sticky: 1020 !default;
-$zindex-fixed: 1030 !default;
-
-// Prefix for :root CSS variables
-$variable-prefix: bui- !default;
-$prefix: $variable-prefix !default;
-
-// Options
-//
-// Quickly modify global styling by enabling or disabling optional features.
-$enable-important-utilities: true !default;
