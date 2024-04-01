@@ -1,0 +1,31 @@
+﻿@page "/components/tooltips"
+@using Bluent.UI.Interops.Abstractions
+
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Tooltip</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="My Button" id="button" />
+            <div id="tooltip" class="bui-tooltip">
+                The tooltip...
+            </div>
+        </section>
+    </div>
+</div>
+
+@code {
+    [Inject] private ITooltipService Tooltip { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Tooltip.SetTooltip("#button", "#tooltip");
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}
