@@ -1,0 +1,39 @@
+﻿@page "/components/menu-lists"
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Menu List</h1>
+        <p>
+            A menu list displays a list of actions. It is usually rendered inside of the Menu component.
+        </p>
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <MenuList>
+                <MenuItem Title="Cut" />
+                <MenuItem Title="Paste" />
+                <MenuItem Title="Edit" />
+            </MenuList>
+        </section>
+
+        @*         <h3>Indeterminate</h3>
+        <section class="p-7 rounded-5 shadow-3">
+        <Checkbox @bind-Value="_nullableChecked" Label="Indeterminate checkbox" />
+        @if (_nullableChecked == null)
+        {
+        <pre>Indeterminate</pre>
+        }
+        else if (_nullableChecked == true)
+        {
+        <pre>Checked</pre>
+        }
+        else
+        {
+        <pre>Not checked</pre>
+        }
+        </section>
+        *@
+    </div>
+</div>
+
+@code {
+}

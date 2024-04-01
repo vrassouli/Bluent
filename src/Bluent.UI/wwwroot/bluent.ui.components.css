@@ -491,3 +491,44 @@
 .bui-checkbox.circular > .indicator {
   border-radius: var(--borderRadiusCircular);
 }
+
+.bui-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background-color: var(--colorNeutralBackground1);
+  width: max-content;
+  min-width: 128px;
+  max-width: 300px;
+}
+.bui-menu-list > .menu-item {
+  border-radius: var(--borderRadiusMedium);
+  position: relative;
+  color: var(--colorNeutralForeground2);
+  background-color: var(--colorNeutralBackground1);
+  padding: var(--spacingVerticalSNudge);
+  box-sizing: border-box;
+  max-width: 290px;
+  min-height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: start;
+  font-size: var(--fontSizeBase300);
+  cursor: pointer;
+  gap: 4px;
+  user-select: none;
+}
+.bui-menu-list > .menu-item > .title {
+  padding-left: 2px;
+  padding-right: 2px;
+  background-color: transparent;
+  flex-grow: 1;
+}
+.bui-menu-list > .menu-item:hover {
+  background-color: var(--colorNeutralBackground1Hover);
+  color: var(--colorNeutralForeground2Hover);
+}
+.bui-menu-list > .menu-item:hover:active {
+  background-color: var(--colorNeutralBackground1Pressed);
+  color: var(--colorNeutralForeground2Pressed);
+}
