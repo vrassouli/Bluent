@@ -1,5 +1,4 @@
-﻿<h3>PopoverManager</h3>
-
-@code {
-
+﻿@foreach (var visiblePopover in _popovers.Where(x => x.Visible))
+{
+    <PopoverSurface Config="visiblePopover" @key=visiblePopover.Settings.TriggerId />
 }

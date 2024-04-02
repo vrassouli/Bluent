@@ -7,8 +7,8 @@ namespace Bluent.UI.Services.Abstractions;
 internal interface ITooltipService
 {
     event EventHandler<RegisterTooltipEventArgs>? OnRegister;
-    event EventHandler<RemoveTooltipEventArgs>? OnRemove;
+    event EventHandler<DestroyTooltipEventArgs>? OnDestroy;
 
     void RegisterTooltip(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow);
-    void RemoveTooltip(string elementId);
+    void DestroyTooltip(string elementId);
 }

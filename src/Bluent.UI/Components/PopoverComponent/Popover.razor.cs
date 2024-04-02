@@ -24,7 +24,7 @@ public partial class Popover
 
         if (Surface == null)
             throw new InvalidOperationException($"'{nameof(Popover)}' component requires '{nameof(Surface)}' content property.");
-       
+
         if (PopoverService == null)
             throw new InvalidOperationException($"Required '{nameof(ITooltipService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUI)}' extension method.");
 
@@ -36,8 +36,16 @@ public partial class Popover
         yield return "bui-popover";
     }
 
-    internal void Show()
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    if (firstRender)
+    //        PopoverService.Set(Id, Surface, Placement, DisplayArrow);
+
+    //    base.OnAfterRender(firstRender);
+    //}
+
+    public void SetTrigger(BluentComponentBase triggerComponent)
     {
-        PopoverService.Show(Id, Surface, Placement, DisplayArrow);
+        PopoverService.SetTrigger(new PopoverConfiguration(new PopoverSettings(triggerComponent.Id, Placement), Surface, DisplayArrow));
     }
 }

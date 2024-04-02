@@ -7,10 +7,22 @@ namespace Bluent.UI.Services;
 
 internal class PopoverService : IPopoverService
 {
-    public event EventHandler<ShowPopoverEventArgs>? ShowPopover;
+    public event EventHandler<SetTriggerPopoverEventArgs>? OnSetTrigger;
+    public event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowPopoverSurface;
+    public event EventHandler<DestroyPopoverEventArgs>? OnDestroy;
 
-    public void Show(string popoverId, RenderFragment content, Placement placement, bool displayArrow)
+    public void SetTrigger(PopoverConfiguration config)
     {
-        ShowPopover?.Invoke(this, new ShowPopoverEventArgs(popoverId, content, placement, displayArrow));
+        OnSetTrigger?.Invoke(this, new SetTriggerPopoverEventArgs(config));
+    }
+
+    public void ShowSurface(PopoverConfiguration config)
+    {
+        OnShowPopoverSurface?.Invoke(this, new ShowPopoverSurfaceEventArgs(config));
+    }
+
+    public void Destroy(string triggerId)
+    {
+        OnDestroy?.Invoke(this, new DestroyPopoverEventArgs(triggerId));
     }
 }

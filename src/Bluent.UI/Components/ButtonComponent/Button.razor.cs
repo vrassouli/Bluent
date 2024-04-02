@@ -45,6 +45,14 @@ public partial class Button
             yield return Size.ToString().Kebaberize();
     }
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender && Popover != null)
+            Popover.SetTrigger(this);
+
+        base.OnAfterRender(firstRender);
+    }
+
     private string GetButtonTag()
     {
         if (AdditionalAttributes?.ContainsKey("href") == true)
@@ -63,11 +71,6 @@ public partial class Button
         else
         {
             InvokeAsync(OnClick.InvokeAsync);
-        }
-
-        if(Popover != null)
-        {
-            Popover.Show();
         }
     }
 }

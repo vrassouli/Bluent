@@ -16,12 +16,12 @@ public partial class TooltipManager
             throw new InvalidOperationException($"Required '{nameof(ITooltipService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUI)}' extension method.");
 
         Service.OnRegister += TooltipOnRegister;
-        Service.OnRemove += TooltipOnRemove;
+        Service.OnDestroy += TooltipOnRemove;
 
         base.OnInitialized();
     }
 
-    private void TooltipOnRemove(object? sender, RemoveTooltipEventArgs args)
+    private void TooltipOnRemove(object? sender, DestroyTooltipEventArgs args)
     {
         var config = _tooltips.FirstOrDefault(x => x.ElementId == args.ElementId);
         if (config != null)

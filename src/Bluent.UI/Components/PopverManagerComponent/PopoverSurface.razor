@@ -1,0 +1,20 @@
+﻿@using Bluent.UI.Services
+@using Bluent.UI.Services.Abstractions
+<div id="@Config.SurfaceId" class="bui-popover-surface">
+    @Config.Content
+    @if (Config.DisplayArrow)
+    {
+        <div class="arrow"></div>
+    }
+</div>
+@code {
+    [Parameter, EditorRequired] public PopoverConfiguration Config { get; set; } = default!;
+    [Inject] private IPopoverService Service { get; set; } = default!;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender && Service is PopoverService popoverService)
+            popoverService.ShowSurface(Config);
+        base.OnAfterRender(firstRender);
+    }
+}

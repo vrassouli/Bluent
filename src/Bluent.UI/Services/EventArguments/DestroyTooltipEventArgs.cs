@@ -1,8 +1,8 @@
 ﻿namespace Bluent.UI.Services.EventArguments;
 
-internal class RemoveTooltipEventArgs : EventArgs
+internal class DestroyTooltipEventArgs : EventArgs
 {
-    public RemoveTooltipEventArgs(string elementId)
+    public DestroyTooltipEventArgs(string elementId)
     {
         ElementId = elementId;
     }

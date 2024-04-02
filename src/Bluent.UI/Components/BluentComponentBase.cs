@@ -46,8 +46,6 @@ public abstract class BluentComponentBase : ComponentBase, IDisposable
         if (firstRender)
             RegisterTooltip();
 
-        Console.WriteLine("OnAfterRender.FirstRender=" + firstRender);
-
         base.OnAfterRender(firstRender);
     }
 
@@ -67,7 +65,7 @@ public abstract class BluentComponentBase : ComponentBase, IDisposable
     private void RemoveTooltip()
     {
         if (TooltipContent != null || string.IsNullOrEmpty(Tooltip))
-            TooltipService.RemoveTooltip(Id);
+            TooltipService.DestroyTooltip(Id);
     }
 
     private RenderFragment GetTooltipFragment()

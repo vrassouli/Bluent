@@ -8,15 +8,15 @@ namespace Bluent.UI.Services;
 internal class TooltipService : ITooltipService
 {
     public event EventHandler<RegisterTooltipEventArgs>? OnRegister;
-    public event EventHandler<RemoveTooltipEventArgs>? OnRemove;
+    public event EventHandler<DestroyTooltipEventArgs>? OnDestroy;
 
     public void RegisterTooltip(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow)
     {
         OnRegister?.Invoke(this, new RegisterTooltipEventArgs(elementId, tooltipContent, placement, displayArrow));
     }
     
-    public void RemoveTooltip(string elementId)
+    public void DestroyTooltip(string elementId)
     {
-        OnRemove?.Invoke(this, new RemoveTooltipEventArgs(elementId));
+        OnDestroy?.Invoke(this, new DestroyTooltipEventArgs(elementId));
     }
 }
