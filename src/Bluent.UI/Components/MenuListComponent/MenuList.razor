@@ -2,8 +2,8 @@
 @inherits BluentComponentBase
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    <CascadingValue Value="this">
+    @* <CascadingValue Value="this" IsFixed> *@
         @ChildContent
-    </CascadingValue>
+    @* </CascadingValue> *@
 </div>
 

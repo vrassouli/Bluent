@@ -20,6 +20,7 @@ public partial class Button
     [Parameter] public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
+    [CascadingParameter] public Popover? Popover { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -62,6 +63,11 @@ public partial class Button
         else
         {
             InvokeAsync(OnClick.InvokeAsync);
+        }
+
+        if(Popover != null)
+        {
+            Popover.Show();
         }
     }
 }

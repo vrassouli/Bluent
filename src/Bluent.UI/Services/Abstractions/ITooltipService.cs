@@ -9,6 +9,6 @@ internal interface ITooltipService
     event EventHandler<RegisterTooltipEventArgs>? OnRegister;
     event EventHandler<RemoveTooltipEventArgs>? OnRemove;
 
-    void RegisterTooltip(string elementId, RenderFragment tooltipContent, TooltipPlacement placement, bool displayArrow);
+    void RegisterTooltip(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow);
     void RemoveTooltip(string elementId);
 }

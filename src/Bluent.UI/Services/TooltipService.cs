@@ -10,7 +10,7 @@ internal class TooltipService : ITooltipService
     public event EventHandler<RegisterTooltipEventArgs>? OnRegister;
     public event EventHandler<RemoveTooltipEventArgs>? OnRemove;
 
-    public void RegisterTooltip(string elementId, RenderFragment tooltipContent, TooltipPlacement placement, bool displayArrow)
+    public void RegisterTooltip(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow)
     {
         OnRegister?.Invoke(this, new RegisterTooltipEventArgs(elementId, tooltipContent, placement, displayArrow));
     }

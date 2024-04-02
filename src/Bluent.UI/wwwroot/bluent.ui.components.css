@@ -533,6 +533,10 @@
   color: var(--colorNeutralForeground2Pressed);
 }
 
+.bui-popover {
+  width: max-content;
+}
+
 .bui-tooltip {
   display: none;
   width: max-content;

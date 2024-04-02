@@ -12,7 +12,7 @@ public abstract class BluentComponentBase : ComponentBase, IDisposable
     [Parameter] public string? Style { get; set; }
     [Parameter] public string? Tooltip { get; set; }
     [Parameter] public RenderFragment? TooltipContent { get; set; }
-    [Parameter] public TooltipPlacement TooltipPlacement { get; set; } = TooltipPlacement.Top;
+    [Parameter] public Placement TooltipPlacement { get; set; } = Placement.Top;
     [Parameter] public bool DisplayTooltipArrow { get; set; }
 
     [Inject] private ITooltipService TooltipService { get; set; } = default!;

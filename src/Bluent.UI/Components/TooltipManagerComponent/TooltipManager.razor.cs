@@ -1,11 +1,9 @@
-﻿using Bluent.UI.Components.TooltipManagerComponent;
-using Bluent.UI.Extensions;
-using Bluent.UI.Interops.Abstractions;
+﻿using Bluent.UI.Extensions;
 using Bluent.UI.Services.Abstractions;
 using Bluent.UI.Services.EventArguments;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.Components;
+namespace Bluent.UI.Components.TooltipManagerComponent;
 
 public partial class TooltipManager
 {

@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<ITooltipInteropService, TooltipInteropService>();
         services.AddSingleton<ITooltipService, TooltipService>();
+        services.AddSingleton<IPopoverService, PopoverService>();
 
         return services;
     }

@@ -1,6 +1,6 @@
 ﻿namespace Bluent.UI.Components;
 
-public enum TooltipPlacement
+public enum Placement
 {
     Top,
     Bottom,

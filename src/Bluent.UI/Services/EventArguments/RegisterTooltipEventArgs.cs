@@ -5,7 +5,7 @@ namespace Bluent.UI.Services.EventArguments;
 
 internal class RegisterTooltipEventArgs : EventArgs
 {
-    public RegisterTooltipEventArgs(string elementId, RenderFragment tooltipContent, TooltipPlacement placement, bool displayArrow)
+    public RegisterTooltipEventArgs(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow)
     {
         ElementId = elementId;
         TooltipContent = tooltipContent;
@@ -15,6 +15,6 @@ internal class RegisterTooltipEventArgs : EventArgs
 
     public string ElementId { get; }
     public RenderFragment TooltipContent { get; }
-    public TooltipPlacement Placement { get; }
+    public Placement Placement { get; }
     public bool DisplayArrow { get; }
 }

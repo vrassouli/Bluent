@@ -15,7 +15,7 @@ internal class TooltipInteropService : ITooltipInteropService
         _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI/bluent.ui.js").AsTask());
     }
 
-    public async Task SetTooltip(string elementSelector, string tooltipSelector, TooltipPlacement placement)
+    public async Task SetTooltip(string elementSelector, string tooltipSelector, Placement placement)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("setTooltip", elementSelector, tooltipSelector, placement.ToString().Kebaberize());
