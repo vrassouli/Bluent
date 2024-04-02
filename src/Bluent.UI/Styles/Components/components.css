@@ -539,16 +539,22 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #222;
-  color: white;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 4px;
-  font-size: 90%;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+  box-shadow: var(--shadow16);
+  border-radius: var(--borderRadiusMedium);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase200);
+  transition-property: background, border, color;
+  transition-duration: var(--durationFaster);
+  transition-timing-function: var(--curveEasyEase);
 }
 .bui-tooltip > .arrow {
   position: absolute;
-  background: #222;
+  background-color: var(--colorNeutralBackground1);
   width: 8px;
   height: 8px;
   transform: rotate(45deg);

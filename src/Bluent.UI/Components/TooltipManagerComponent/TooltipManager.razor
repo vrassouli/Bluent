@@ -1,0 +1,7 @@
+﻿@namespace Bluent.UI.Components
+@inherits ComponentBase
+
+@foreach (var tooltip in _tooltips)
+{
+    <Bluent.UI.Components.TooltipManagerComponent.Tooltip @key=tooltip.ElementId Configuration="tooltip"/>
+}

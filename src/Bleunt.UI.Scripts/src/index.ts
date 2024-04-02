@@ -44,13 +44,15 @@ export class Tooltip {
                 left: 'right',
             }[placement.split('-')[0]];
 
-            Object.assign((<HTMLElement>arrowElement).style, {
-                left: arrowX != null ? `${arrowX}px` : '',
-                top: arrowY != null ? `${arrowY}px` : '',
-                right: '',
-                bottom: '',
-                [staticSide]: '-4px',
-            });
+            if (arrowElement) {
+                Object.assign((<HTMLElement>arrowElement).style, {
+                    left: arrowX != null ? `${arrowX}px` : '',
+                    top: arrowY != null ? `${arrowY}px` : '',
+                    right: '',
+                    bottom: '',
+                    [staticSide]: '-4px',
+                });
+            }
         });
     }
 
