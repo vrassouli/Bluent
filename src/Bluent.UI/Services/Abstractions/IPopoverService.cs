@@ -7,8 +7,11 @@ internal interface IPopoverService
 {
     event EventHandler<SetTriggerPopoverEventArgs>? OnSetTrigger;
     event EventHandler<DestroyPopoverEventArgs>? OnDestroy;
-    event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowPopoverSurface;
+    event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowSurface;
+    event EventHandler<HidePopoverSurfaceEventArgs>? OnHideSurface;
 
     void Destroy(string triggerId);
+    void Hide(string triggerId);
     void SetTrigger(PopoverConfiguration config);
+    void Show(string triggerId);
 }

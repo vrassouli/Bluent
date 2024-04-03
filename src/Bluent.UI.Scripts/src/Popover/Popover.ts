@@ -1,4 +1,4 @@
-import { flip, shift, offset, arrow, Placement, OffsetOptions, ReferenceElement, computePosition } from '@floating-ui/dom';
+import { flip, shift, offset, arrow, computePosition } from '@floating-ui/dom';
 import { PopoverSettings } from './PopoverSettings';
 export class Popover {
     private _dotNetRef: any;
@@ -62,7 +62,7 @@ export class Popover {
                     [staticSide]: '-4px',
                 });
             }
-
+            //surface.classList.add(staticSide)
             if (!surface.classList.contains('show'))
                 surface.classList.add('show');
             document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
@@ -77,11 +77,13 @@ export class Popover {
         var trigger = this.getTrigger(settings);
         var surface = this.getSurface(settings);
 
-        if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target)) {
-            document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
-        }
-        else {
-            this.hideSurface(settings);
+        if (trigger && surface) {
+            if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target)) {
+                document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+            }
+            else {
+                this.hideSurface(settings);
+            }
         }
     }
 
@@ -89,16 +91,16 @@ export class Popover {
         const surface = <HTMLElement>this.getSurface(settings);
         if (surface) {
             surface.addEventListener("transitionend", (event) => {
-                this._dotNetRef.invokeMethodAsync('DestroySurface', settings);
+                this._dotNetRef.invokeMethodAsync('HideSurface', settings);
             }, { once: true });
 
             if (surface.classList.contains('show'))
                 surface.classList.remove('show');
             else
-                this._dotNetRef.invokeMethodAsync('DestroySurface', settings);
+                this._dotNetRef.invokeMethodAsync('HideSurface', settings);
         }
         else {
-            this._dotNetRef.invokeMethodAsync('DestroySurface', settings);
+            this._dotNetRef.invokeMethodAsync('HideSurface', settings);
         }
     }
 

@@ -2,6 +2,7 @@
 using Bluent.UI.Services.Abstractions;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
-public partial class Popover
+public partial class Popover : IDisposable
 {
-    private PopoverSettings _settings;
+    private PopoverSettings? _settings;
 
     [Parameter, EditorRequired] public RenderFragment Trigger { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
@@ -37,11 +38,6 @@ public partial class Popover
         base.OnInitialized();
     }
 
-    public override IEnumerable<string> GetClasses()
-    {
-        yield return "bui-popover";
-    }
-
     //protected override void OnAfterRender(bool firstRender)
     //{
     //    if (firstRender)
@@ -50,7 +46,7 @@ public partial class Popover
     //    base.OnAfterRender(firstRender);
     //}
 
-    public void SetTrigger(BluentComponentBase triggerComponent)
+    public void SetTrigger(IBluentComponent triggerComponent)
     {
         _settings = new PopoverSettings(triggerComponent.Id, Placement)
         {
@@ -58,12 +54,29 @@ public partial class Popover
             HideEvents = HideEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
         };
 
-        PopoverService.SetTrigger(new PopoverConfiguration(_settings, Surface, DisplayArrow, Appearance));
+        PopoverService.SetTrigger(new PopoverConfiguration(_settings, GetSurfaceFragment(), DisplayArrow, Appearance));
     }
 
-    public override void Dispose()
+    private RenderFragment GetSurfaceFragment()
     {
-        PopoverService.Destroy(_settings.TriggerId);
-        base.Dispose();
+        return builder => {
+            builder.OpenComponent<CascadingValue<Popover>>(0);
+            builder.AddComponentParameter(1, "IsFixed", true);
+            builder.AddComponentParameter(2, "Value", this);
+            builder.AddComponentParameter(3, "ChildContent", Surface);
+            builder.CloseComponent();
+        };
+    }
+
+    public void Hide()
+    {
+        if (_settings != null)
+            PopoverService.Hide(_settings.TriggerId);
+    }
+
+    public void Dispose()
+    {
+        if (_settings != null)
+            PopoverService.Destroy(_settings.TriggerId);
     }
 }

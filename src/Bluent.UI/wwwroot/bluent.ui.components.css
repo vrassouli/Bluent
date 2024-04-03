@@ -533,7 +533,16 @@
   padding-left: 2px;
   padding-right: 2px;
   background-color: transparent;
-  flex-grow: 1;
+  flex: 1;
+}
+.bui-menu-list > .menu-item > .sub-menu-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 0;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
 }
 .bui-menu-list > .menu-item:hover {
   background-color: var(--colorNeutralBackground1Hover);

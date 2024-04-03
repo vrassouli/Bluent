@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Services.Abstractions;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,34 @@ namespace Bluent.UI.Components;
 
 public partial class MenuItem
 {
+    private Popover? _subMenuPopover;
+
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
-    //[CascadingParameter] public MenuList Menu { get; set; } = default!;
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [CascadingParameter] public Popover? Popover { get; set; }
+    [Inject] IPopoverService PopoverService { get; set; } = default!;
 
-    protected override void OnInitialized()
+    protected override void OnAfterRender(bool firstRender)
     {
-        //if (Menu == null)
-        //    throw new InvalidOperationException($"{nameof(MenuItem)} component should be used inside a {nameof(MenuList)} component.");
+        if (firstRender && ChildContent != null && _subMenuPopover != null)
+            _subMenuPopover.SetTrigger(this);
 
-        base.OnInitialized();
+        base.OnAfterRender(firstRender);
     }
 
     public override IEnumerable<string> GetClasses()
     {
         yield return "menu-item";
+    }
+
+    private void ClickHandler()
+    {
+        InvokeAsync(OnClick.InvokeAsync);
+
+        if (Popover != null)
+        {
+            Popover.Hide();
+        }
     }
 }

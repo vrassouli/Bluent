@@ -1,12 +1,10 @@
-﻿using Bluent.UI.Components;
-
-namespace Bluent.UI.Services.EventArguments;
+﻿namespace Bluent.UI.Services.EventArguments;
 
 internal class ShowPopoverSurfaceEventArgs : EventArgs
 {
-    public ShowPopoverSurfaceEventArgs(PopoverConfiguration config)
+    public ShowPopoverSurfaceEventArgs(string triggerId)
     {
-        Config = config;
+        TriggerId = triggerId;
     }
-    public PopoverConfiguration Config { get; }
+    public string TriggerId { get; }
 }

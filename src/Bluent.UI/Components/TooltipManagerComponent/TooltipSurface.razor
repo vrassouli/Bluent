@@ -10,7 +10,7 @@
 </div>
 @code {
     [Parameter, EditorRequired] public PopoverConfiguration Config { get; set; } = default!;
-    [Inject] private IPopoverService Service { get; set; } = default!;
+    [Inject] private ITooltipService Service { get; set; } = default!;
 
     protected override void OnAfterRender(bool firstRender)
     {

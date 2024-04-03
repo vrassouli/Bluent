@@ -1,0 +1,20 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<Popover @attributes=AdditionalAttributes
+         Placement="Placement"
+         TriggerEvents="click"
+         DisplayArrow="false">
+    <Trigger>
+        @Trigger
+    </Trigger>
+    <Surface>
+        <MenuList>
+            @Items
+        </MenuList>
+    </Surface>
+</Popover>
+
+@code {
+
+}

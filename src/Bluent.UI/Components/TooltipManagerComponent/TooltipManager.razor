@@ -1,5 +1,4 @@
-﻿@using Bluent.UI.Components.PopverManagerComponent
-@foreach (var visiblePopover in _popovers.Where(x => x.Visible))
+﻿@foreach (var visiblePopover in _popovers.Where(x => x.Visible))
 {
-    <PopoverSurface Config="visiblePopover" @key=visiblePopover.Settings.TriggerId />
+    <TooltipSurface Config="visiblePopover" @key=visiblePopover.Settings.TriggerId />
 }

@@ -1,8 +1,6 @@
 ﻿@namespace Bluent.UI.Components
-@inherits BluentComponentBase
+@inherits ComponentBase
 
 <CascadingValue Value="this" IsFixed>
-    <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
         @Trigger
-    </div>
 </CascadingValue>

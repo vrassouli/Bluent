@@ -1,7 +1,25 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentComponentBase
 
-<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    <div class="title">@Title</div>
-</div>
-
+@if (ChildContent == null)
+{
+    <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
+        <div class="title">@Title</div>
+    </div>
+}
+else
+{
+    <Popover @ref=_subMenuPopover TriggerEvents="mouseenter, focus" DisplayArrow="false" Placement="Placement.RightStart">
+        <Trigger>
+            <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
+                <div class="title">@Title</div>
+                <div class="sub-menu-icon ">
+                    <i class="icon-ic_fluent_chevron_right_20_regular"></i>
+                </div>
+            </div>
+        </Trigger>
+        <Surface>
+            @ChildContent
+        </Surface>
+    </Popover>
+}

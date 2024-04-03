@@ -1,8 +1,8 @@
 ﻿namespace Bluent.UI.Services.EventArguments;
 
-internal class DestroyPopoverEventArgs : EventArgs
+internal class HidePopoverSurfaceEventArgs : EventArgs
 {
-    public DestroyPopoverEventArgs(string triggerId)
+    public HidePopoverSurfaceEventArgs(string triggerId)
     {
         TriggerId = triggerId;
     }

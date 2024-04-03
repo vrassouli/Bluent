@@ -15,25 +15,43 @@
             </MenuList>
         </section>
 
-        @*         <h3>Indeterminate</h3>
+        <h3>Menu button</h3>
         <section class="p-7 rounded-5 shadow-3">
-        <Checkbox @bind-Value="_nullableChecked" Label="Indeterminate checkbox" />
-        @if (_nullableChecked == null)
-        {
-        <pre>Indeterminate</pre>
-        }
-        else if (_nullableChecked == true)
-        {
-        <pre>Checked</pre>
-        }
-        else
-        {
-        <pre>Not checked</pre>
-        }
+            <Menu>
+                <Trigger>
+                    <Button Text="Example menu" />
+                </Trigger>
+                <Items>
+                    <MenuItem Title="Cut" OnClick="@(()=>{ _lastMenuItem = "Cut"; })" />
+                    <MenuItem Title="Paste" OnClick="@(()=>{ _lastMenuItem = "Paste"; })" />
+                    <MenuItem Title="Edit" OnClick="@(()=>{ _lastMenuItem = "Edit"; })" />
+                    <MenuItem Title="Find & Replace">
+                        <MenuList>
+                            <MenuItem Title="Quick find" OnClick="@(()=>{ _lastMenuItem = "Quick find"; })" />
+                            <MenuItem Title="Quick replace" OnClick="@(()=>{ _lastMenuItem = "Quick replace"; })" />
+                            <MenuItem Title="Files">
+                                <MenuList>
+                                    <MenuItem Title="Find in files" OnClick="@(()=>{ _lastMenuItem = "Find in files"; })" />
+                                    <MenuItem Title="Replace in files" OnClick="@(()=>{ _lastMenuItem = "Replace in files"; })" />
+                                </MenuList>
+                            </MenuItem>
+                            <MenuItem Title="More...">
+                                <MenuList>
+                                    <MenuItem Title="More 1" OnClick="@(()=>{ _lastMenuItem = "More 1"; })" />
+                                    <MenuItem Title="More 2" OnClick="@(()=>{ _lastMenuItem = "More 2"; })" />
+                                </MenuList>
+                            </MenuItem>
+                        </MenuList>
+                    </MenuItem>
+                </Items>
+            </Menu>
+
+            <div>Last clicked item: @_lastMenuItem</div>
         </section>
-        *@
+
     </div>
 </div>
 
 @code {
+    string? _lastMenuItem;
 }

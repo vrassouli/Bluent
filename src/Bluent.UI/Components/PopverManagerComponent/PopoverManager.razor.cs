@@ -26,20 +26,24 @@ public partial class PopoverManager : IPopoverEventHandler, IAsyncDisposable
     public void RenderSurface(PopoverSettings settings)
     {
         var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == settings.TriggerId);
-        if (config != null)
+        if (config != null && !config.Visible)
+        {
             config.Visible = true;
 
-        StateHasChanged();
+            StateHasChanged();
+        }
     }
 
     [JSInvokable]
-    public void DestroySurface(PopoverSettings settings)
+    public void HideSurface(PopoverSettings settings)
     {
         var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == settings.TriggerId);
-        if (config != null)
+        if (config != null && config.Visible)
+        {
             config.Visible = false;
 
-        StateHasChanged();
+            StateHasChanged();
+        }
     }
 
     protected override void OnInitialized()
@@ -50,7 +54,8 @@ public partial class PopoverManager : IPopoverEventHandler, IAsyncDisposable
         _interop = new PopoverInterop(this, JsRuntime);
 
         Service.OnSetTrigger += PopoverOnSet;
-        Service.OnShowPopoverSurface += PopoverOnShowPopoverSurface;
+        Service.OnShowSurface += PopoverOnShowSurface;
+        Service.OnHideSurface += PopoverOnHideSurface;
         Service.OnDestroy += PopoverOnDestroy;
         base.OnInitialized();
     }
@@ -61,7 +66,8 @@ public partial class PopoverManager : IPopoverEventHandler, IAsyncDisposable
             await _interop.DisposeAsync();
 
         Service.OnSetTrigger -= PopoverOnSet;
-        Service.OnShowPopoverSurface -= PopoverOnShowPopoverSurface;
+        Service.OnShowSurface -= PopoverOnShowSurface;
+        Service.OnHideSurface -= PopoverOnHideSurface;
         Service.OnDestroy -= PopoverOnDestroy;
     }
 
@@ -75,9 +81,20 @@ public partial class PopoverManager : IPopoverEventHandler, IAsyncDisposable
         _interop?.SetPopover(args.Config.Settings);
     }
 
-    private void PopoverOnShowPopoverSurface(object? sender, ShowPopoverSurfaceEventArgs args)
+    private void PopoverOnShowSurface(object? sender, ShowPopoverSurfaceEventArgs args)
     {
-        _interop?.ShowSurface(args.Config.Settings);
+        var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == args.TriggerId);
+        if (config != null)
+            _interop?.ShowSurface(config.Settings);
+        else
+            Console.WriteLine($"config not found for triggerId: {args.TriggerId}");
+    }
+
+    private void PopoverOnHideSurface(object? sender, HidePopoverSurfaceEventArgs args)
+    {
+        var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == args.TriggerId);
+        if (config != null)
+            HideSurface(config.Settings);
     }
 
     private void PopoverOnDestroy(object? sender, DestroyPopoverEventArgs args)

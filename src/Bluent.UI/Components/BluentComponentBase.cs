@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
 
-public abstract class BluentComponentBase : ComponentBase, IDisposable
+public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDisposable
 {
     private Guid? _id;
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }

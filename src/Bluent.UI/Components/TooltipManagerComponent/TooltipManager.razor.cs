@@ -27,7 +27,7 @@ public partial class TooltipManager : IPopoverEventHandler, IAsyncDisposable
     }
 
     [JSInvokable]
-    public void DestroySurface(PopoverSettings settings)
+    public void HideSurface(PopoverSettings settings)
     {
         var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == settings.TriggerId);
         if (config != null)
@@ -44,7 +44,7 @@ public partial class TooltipManager : IPopoverEventHandler, IAsyncDisposable
         _interop = new PopoverInterop(this, JsRuntime);
 
         Service.OnSetTrigger += PopoverOnSet;
-        Service.OnShowPopoverSurface += PopoverOnShowPopoverSurface;
+        Service.OnShowSurface += PopoverOnShowSurface;
         Service.OnDestroy += PopoverOnDestroy;
         base.OnInitialized();
     }
@@ -55,7 +55,7 @@ public partial class TooltipManager : IPopoverEventHandler, IAsyncDisposable
             await _interop.DisposeAsync();
 
         Service.OnSetTrigger -= PopoverOnSet;
-        Service.OnShowPopoverSurface -= PopoverOnShowPopoverSurface;
+        Service.OnShowSurface -= PopoverOnShowSurface;
         Service.OnDestroy -= PopoverOnDestroy;
     }
 
@@ -69,9 +69,11 @@ public partial class TooltipManager : IPopoverEventHandler, IAsyncDisposable
         _interop?.SetPopover(args.Config.Settings);
     }
 
-    private void PopoverOnShowPopoverSurface(object? sender, ShowPopoverSurfaceEventArgs args)
+    private void PopoverOnShowSurface(object? sender, ShowPopoverSurfaceEventArgs args)
     {
-        _interop?.ShowSurface(args.Config.Settings);
+        var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == args.TriggerId);
+        if (config != null)
+            _interop?.ShowSurface(config.Settings);
     }
 
     private void PopoverOnDestroy(object? sender, DestroyPopoverEventArgs args)
