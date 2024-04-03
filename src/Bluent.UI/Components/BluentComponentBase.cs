@@ -13,6 +13,7 @@ public abstract class BluentComponentBase : ComponentBase, IDisposable
     [Parameter] public string? Tooltip { get; set; }
     [Parameter] public RenderFragment? TooltipContent { get; set; }
     [Parameter] public Placement TooltipPlacement { get; set; } = Placement.Top;
+    [Parameter] public PopoverAppearance TooltipAppearance { get; set; } = PopoverAppearance.Default;
     [Parameter] public bool DisplayTooltipArrow { get; set; }
 
     [Inject] private ITooltipService TooltipService { get; set; } = default!;
@@ -59,13 +60,17 @@ public abstract class BluentComponentBase : ComponentBase, IDisposable
         if (TooltipContent == null && string.IsNullOrEmpty(Tooltip))
             return;
 
-        TooltipService.RegisterTooltip(Id, GetTooltipFragment(), TooltipPlacement, DisplayTooltipArrow);
+        var setting = new PopoverSettings(Id, TooltipPlacement) { 
+            TriggerEvents = ["mouseenter", "focus"],
+            HideEvents = ["mouseleave", "blure"],
+        };
+        TooltipService.SetTrigger(new PopoverConfiguration(setting, GetTooltipFragment(), DisplayTooltipArrow, TooltipAppearance));
     }
 
     private void RemoveTooltip()
     {
         if (TooltipContent != null || string.IsNullOrEmpty(Tooltip))
-            TooltipService.DestroyTooltip(Id);
+            TooltipService.Destroy(Id);
     }
 
     private RenderFragment GetTooltipFragment()

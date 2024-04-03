@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Extensions;
 using Bluent.UI.Services.Abstractions;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,15 @@ namespace Bluent.UI.Components;
 
 public partial class Popover
 {
+    private PopoverSettings _settings;
+
     [Parameter, EditorRequired] public RenderFragment Trigger { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
     [Parameter] public Placement Placement { get; set; } = Placement.Top;
-    [Parameter] public bool DisplayArrow { get; set; }
+    [Parameter] public bool DisplayArrow { get; set; } = true;
+    [Parameter] public string? TriggerEvents { get; set; } = "click";
+    [Parameter] public string? HideEvents { get; set; }
+    [Parameter] public PopoverAppearance Appearance { get; set; } = PopoverAppearance.Default;
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
     protected override void OnInitialized()
@@ -46,6 +52,18 @@ public partial class Popover
 
     public void SetTrigger(BluentComponentBase triggerComponent)
     {
-        PopoverService.SetTrigger(new PopoverConfiguration(new PopoverSettings(triggerComponent.Id, Placement), Surface, DisplayArrow));
+        _settings = new PopoverSettings(triggerComponent.Id, Placement)
+        {
+            TriggerEvents = TriggerEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
+            HideEvents = HideEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
+        };
+
+        PopoverService.SetTrigger(new PopoverConfiguration(_settings, Surface, DisplayArrow, Appearance));
+    }
+
+    public override void Dispose()
+    {
+        PopoverService.Destroy(_settings.TriggerId);
+        base.Dispose();
     }
 }

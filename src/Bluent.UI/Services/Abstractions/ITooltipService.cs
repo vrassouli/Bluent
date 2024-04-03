@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Services.Abstractions;
 
-internal interface ITooltipService
+internal interface ITooltipService:IPopoverService
 {
-    event EventHandler<RegisterTooltipEventArgs>? OnRegister;
-    event EventHandler<DestroyTooltipEventArgs>? OnDestroy;
+    //event EventHandler<RegisterTooltipEventArgs>? OnRegister;
+    //event EventHandler<DestroyTooltipEventArgs>? OnDestroy;
 
-    void RegisterTooltip(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow);
-    void DestroyTooltip(string elementId);
+    //void RegisterTooltip(string elementId, RenderFragment tooltipContent, Placement placement, bool displayArrow);
+    //void DestroyTooltip(string elementId);
 }

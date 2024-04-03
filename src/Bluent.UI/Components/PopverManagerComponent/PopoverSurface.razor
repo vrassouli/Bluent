@@ -1,6 +1,7 @@
 ﻿@using Bluent.UI.Services
 @using Bluent.UI.Services.Abstractions
-<div id="@Config.SurfaceId" class="bui-popover-surface">
+@using Humanizer
+<div id="@Config.SurfaceId" class="bui-popover-surface @(Config.Appearance.ToString().Kebaberize()) @(Config.Settings.Placement.ToString().Kebaberize())">
     @Config.Content
     @if (Config.DisplayArrow)
     {

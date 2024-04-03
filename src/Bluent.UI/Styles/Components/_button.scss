@@ -91,6 +91,15 @@
         }
     }
 
+    &:focus {
+        border-color: var(--colorStrokeFocus2);
+        border-radius: var(--borderRadiusMedium);
+        border-width: 1px;
+        outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
+        box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
+        z-index: 1;
+    }
+
     &.circular {
         border-radius: var(--borderRadiusCircular);
     }
@@ -117,6 +126,10 @@
                 background-color: var(--colorBrandBackgroundPressed);
                 color: var(--colorNeutralForegroundOnBrand);
             }
+        }
+
+        &:focus {
+            box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
         }
     }
 

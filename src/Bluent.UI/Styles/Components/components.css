@@ -76,6 +76,14 @@
   color: var(--colorNeutralForeground1Pressed);
   outline-style: none;
 }
+.bui-button:focus {
+  border-color: var(--colorStrokeFocus2);
+  border-radius: var(--borderRadiusMedium);
+  border-width: 1px;
+  outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
+  box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
+  z-index: 1;
+}
 .bui-button.circular {
   border-radius: var(--borderRadiusCircular);
 }
@@ -98,6 +106,9 @@
 .bui-button.primary:hover:active {
   background-color: var(--colorBrandBackgroundPressed);
   color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-button.primary:focus {
+  box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
 }
 .bui-button.outline {
   background-color: var(--colorTransparentBackground);
@@ -538,6 +549,58 @@
 }
 
 .bui-popover-surface {
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+  box-shadow: var(--shadow16);
+  border-radius: var(--borderRadiusMedium);
+  border: 1px solid var(--colorTransparentStroke);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  transition-property: opacity, transform;
+  transition-duration: var(--durationSlower);
+  transition-timing-function: var(--curveDecelerateMid);
+  opacity: 0;
+}
+.bui-popover-surface.right, .bui-popover-surface.right-start, .bui-popover-surfaceright-end {
+  transform: translateX(-10px);
+}
+.bui-popover-surface.left, .bui-popover-surface.left-start, .bui-popover-surface.left-end {
+  transform: translateX(10px);
+}
+.bui-popover-surface.top, .bui-popover-surface.top-start, .bui-popover-surface.top-end {
+  transform: translateY(10px);
+}
+.bui-popover-surface.bottom, .bui-popover-surface.bottom-start, .bui-popover-surface.bottom-end {
+  transform: translateY(-10px);
+}
+.bui-popover-surface.show {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.bui-popover-surface > .arrow {
+  position: absolute;
+  background-color: inherit;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+}
+.bui-popover-surface.brand {
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorBrandBackground);
+}
+.bui-popover-surface.inverted {
+  color: var(--colorNeutralForegroundStaticInverted);
+  background-color: var(--colorNeutralBackgroundStatic);
+}
+
+.bui-tooltip {
   /*display: none;*/
   width: max-content;
   position: absolute;
@@ -552,36 +615,26 @@
   font-size: var(--fontSizeBase200);
   font-weight: var(--fontWeightSemibold);
   line-height: var(--lineHeightBase200);
-  transition-property: background, border, color;
-  transition-duration: var(--durationFaster);
-  transition-timing-function: var(--curveEasyEase);
+  transition-property: all;
+  transition-duration: var(--durationSlower);
+  transition-timing-function: var(--curveDecelerateMid);
+  opacity: 0;
 }
-.bui-popover-surface > .arrow {
-  position: absolute;
-  background-color: var(--colorNeutralBackground1);
-  width: 8px;
-  height: 8px;
-  transform: rotate(45deg);
+.bui-tooltip.right, .bui-tooltip.right-start, .bui-tooltipright-end {
+  transform: translateX(-10px);
 }
-
-.bui-tooltip {
-  display: none;
-  width: max-content;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--colorNeutralBackground1);
-  color: var(--colorNeutralForeground1);
-  padding: var(--spacingVerticalS) var(--spacingHorizontalS);
-  box-shadow: var(--shadow16);
-  border-radius: var(--borderRadiusMedium);
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase200);
-  font-weight: var(--fontWeightSemibold);
-  line-height: var(--lineHeightBase200);
-  transition-property: background, border, color;
-  transition-duration: var(--durationFaster);
-  transition-timing-function: var(--curveEasyEase);
+.bui-tooltip.left, .bui-tooltip.left-start, .bui-tooltip.left-end {
+  transform: translateX(10px);
+}
+.bui-tooltip.top, .bui-tooltip.top-start, .bui-tooltip.top-end {
+  transform: translateY(10px);
+}
+.bui-tooltip.bottom, .bui-tooltip.bottom-start, .bui-tooltip.bottom-end {
+  transform: translateY(-10px);
+}
+.bui-tooltip.show {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 .bui-tooltip > .arrow {
   position: absolute;

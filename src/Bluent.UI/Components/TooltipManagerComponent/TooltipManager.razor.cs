@@ -1,47 +1,84 @@
 ﻿using Bluent.UI.Extensions;
+using Bluent.UI.Interops;
+using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Services.Abstractions;
 using Bluent.UI.Services.EventArguments;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Bluent.UI.Components.TooltipManagerComponent;
 
-public partial class TooltipManager
+public partial class TooltipManager : IPopoverEventHandler, IAsyncDisposable
 {
-    List<TooltipConfiguration> _tooltips = new();
+    List<PopoverConfiguration> _popovers = new();
+    private PopoverInterop? _interop;
+
     [Inject] private ITooltipService Service { get; set; } = default!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
-    protected override void OnInitialized()
+    [JSInvokable]
+    public void RenderSurface(PopoverSettings settings)
     {
-        if (Service == null)
-            throw new InvalidOperationException($"Required '{nameof(ITooltipService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUI)}' extension method.");
-
-        Service.OnRegister += TooltipOnRegister;
-        Service.OnDestroy += TooltipOnRemove;
-
-        base.OnInitialized();
-    }
-
-    private void TooltipOnRemove(object? sender, DestroyTooltipEventArgs args)
-    {
-        var config = _tooltips.FirstOrDefault(x => x.ElementId == args.ElementId);
+        var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == settings.TriggerId);
         if (config != null)
-            _tooltips.Remove(config);
+            config.Visible = true;
 
         StateHasChanged();
     }
 
-    private void TooltipOnRegister(object? sender, RegisterTooltipEventArgs args)
+    [JSInvokable]
+    public void DestroySurface(PopoverSettings settings)
     {
-        var existing = _tooltips.FirstOrDefault(x => x.ElementId == args.ElementId);
+        var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == settings.TriggerId);
+        if (config != null)
+            config.Visible = false;
+
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        if (Service == null)
+            throw new InvalidOperationException($"Required '{nameof(IPopoverService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUI)}' extension method.");
+
+        _interop = new PopoverInterop(this, JsRuntime);
+
+        Service.OnSetTrigger += PopoverOnSet;
+        Service.OnShowPopoverSurface += PopoverOnShowPopoverSurface;
+        Service.OnDestroy += PopoverOnDestroy;
+        base.OnInitialized();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_interop != null)
+            await _interop.DisposeAsync();
+
+        Service.OnSetTrigger -= PopoverOnSet;
+        Service.OnShowPopoverSurface -= PopoverOnShowPopoverSurface;
+        Service.OnDestroy -= PopoverOnDestroy;
+    }
+
+    private void PopoverOnSet(object? sender, SetTriggerPopoverEventArgs args)
+    {
+        var existing = _popovers.FirstOrDefault(x => x.Settings.TriggerId == args.Config.Settings.TriggerId);
         if (existing != null)
-            _tooltips.Remove(existing);
+            _popovers.Remove(existing);
 
-        var config = new TooltipConfiguration(args.ElementId,
-                                              args.TooltipContent,
-                                              args.Placement,
-                                              args.DisplayArrow);
-        _tooltips.Add(config);
+        _popovers.Add(args.Config);
+        _interop?.SetPopover(args.Config.Settings);
+    }
 
+    private void PopoverOnShowPopoverSurface(object? sender, ShowPopoverSurfaceEventArgs args)
+    {
+        _interop?.ShowSurface(args.Config.Settings);
+    }
+
+    private void PopoverOnDestroy(object? sender, DestroyPopoverEventArgs args)
+    {
+        var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == args.TriggerId);
+        if (config != null)
+            _popovers.Remove(config);
 
         StateHasChanged();
     }

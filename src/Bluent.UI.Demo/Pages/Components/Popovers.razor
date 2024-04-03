@@ -12,18 +12,78 @@
                     <Button Text="Popover trigger" />
                 </Trigger>
                 <Surface>
-                    Popover content...
+                    <h4 class="mt-0">Popover</h4>
+                    <div>
+                        This is a sample content.
+                    </div>
                 </Surface>
             </Popover>
-            <Popover Placement="Placement.LeftStart">
+        </section>
+
+        <h3>Internal Update Content</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Popover>
                 <Trigger>
                     <Button Text="Popover trigger" />
                 </Trigger>
                 <Surface>
-                    Popover content...
+                    <Bluent.UI.Demo.Pages.Components.PopoverComponents.ContentSwitch />
                 </Surface>
             </Popover>
         </section>
+
+        <h3>Trigger & Hide Events</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Popover TriggerEvents="mouseenter,focus" HideEvents="mouseleave, blur">
+                <Trigger>
+                    <Button Text="Popover trigger" />
+                </Trigger>
+                <Surface>
+                    <h4 class="mt-0">Popover</h4>
+                    <div>
+                        This is a sample content.
+                    </div>
+                </Surface>
+            </Popover>
+        </section>
+
+        <h3>Appearance</h3>
+        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
+            <Popover>
+                <Trigger>
+                    <Button Text="Default appearance Popover" />
+                </Trigger>
+                <Surface>
+                    <h4 class="mt-0">Popover</h4>
+                    <div>
+                        This is a sample content.
+                    </div>
+                </Surface>
+            </Popover>
+            <Popover Appearance="PopoverAppearance.Brand">
+                <Trigger>
+                    <Button Text="Brand appearance Popover" />
+                </Trigger>
+                <Surface>
+                    <h4 class="mt-0">Popover</h4>
+                    <div>
+                        This is a sample content.
+                    </div>
+                </Surface>
+            </Popover>
+            <Popover Appearance="PopoverAppearance.Inverted">
+                <Trigger>
+                    <Button Text="Inverted appearance Popover" />
+                </Trigger>
+                <Surface>
+                    <h4 class="mt-0">Popover</h4>
+                    <div>
+                        This is a sample content.
+                    </div>
+                </Surface>
+            </Popover>
+        </section>
+
     </div>
 </div>
 

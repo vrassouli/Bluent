@@ -85,6 +85,7 @@ public partial class PopoverManager : IPopoverEventHandler, IAsyncDisposable
         var config = _popovers.FirstOrDefault(x => x.Settings.TriggerId == args.TriggerId);
         if (config != null)
             _popovers.Remove(config);
+
         StateHasChanged();
     }
 }

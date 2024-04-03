@@ -1,5 +1,5 @@
 ﻿.bui-tooltip {
-    display: none;
+    /*display: none;*/
     width: max-content;
     position: absolute;
     top: 0;
@@ -13,9 +13,31 @@
     font-size: var(--fontSizeBase200);
     font-weight: var(--fontWeightSemibold);
     line-height: var(--lineHeightBase200);
-    transition-property: background, border, color;
-    transition-duration: var(--durationFaster);
-    transition-timing-function: var(--curveEasyEase);
+    transition-property: all;
+    transition-duration: var(--durationSlower);
+    transition-timing-function: var(--curveDecelerateMid);
+    opacity: 0;
+
+    &.right, &.right-start, &right-end {
+        transform: translateX(-10px);
+    }
+
+    &.left, &.left-start, &.left-end {
+        transform: translateX(10px);
+    }
+
+    &.top, &.top-start, &.top-end {
+        transform: translateY(10px);
+    }
+
+    &.bottom, &.bottom-start, &.bottom-end {
+        transform: translateY(-10px);
+    }
+
+    &.show {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
 
     > .arrow {
         position: absolute;

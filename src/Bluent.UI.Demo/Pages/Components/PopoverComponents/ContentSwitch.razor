@@ -1,0 +1,15 @@
+﻿<h4>Poper content</h4>
+@if (_switchContent)
+{
+    <div>To switch back, click on button again.</div>
+}
+else
+{
+    <div>Click to switch content.</div>
+}
+<Button Text="Action" OnClick="()=>{ _switchContent = !_switchContent; }" />
+
+@code {
+    bool _switchContent;
+
+}

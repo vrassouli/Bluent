@@ -3,7 +3,6 @@
 }
 
 .bui-popover-surface {
-    /*display: none;*/
     width: max-content;
     position: absolute;
     top: 0;
@@ -13,19 +12,52 @@
     padding: var(--spacingVerticalS) var(--spacingHorizontalS);
     box-shadow: var(--shadow16);
     border-radius: var(--borderRadiusMedium);
+    border: 1px solid var(--colorTransparentStroke);
     font-family: var(--fontFamilyBase);
-    font-size: var(--fontSizeBase200);
-    font-weight: var(--fontWeightSemibold);
-    line-height: var(--lineHeightBase200);
-    transition-property: background, border, color;
-    transition-duration: var(--durationFaster);
-    transition-timing-function: var(--curveEasyEase);
+    font-size: var(--fontSizeBase300);
+    font-weight: var(--fontWeightRegular);
+    line-height: var(--lineHeightBase300);
+    transition-property: opacity, transform;
+    transition-duration: var(--durationSlower);
+    transition-timing-function: var(--curveDecelerateMid);
+    opacity: 0;
+
+    &.right, &.right-start, &right-end {
+        transform: translateX(-10px);
+    }
+
+    &.left, &.left-start, &.left-end {
+        transform: translateX(10px);
+    }
+
+    &.top, &.top-start, &.top-end {
+        transform: translateY(10px);
+    }
+
+    &.bottom, &.bottom-start, &.bottom-end {
+        transform: translateY(-10px);
+    }
+
+    &.show {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
 
     > .arrow {
         position: absolute;
-        background-color: var(--colorNeutralBackground1);
+        background-color: inherit;
         width: 8px;
         height: 8px;
         transform: rotate(45deg);
+    }
+
+    &.brand {
+        color: var(--colorNeutralForegroundOnBrand);
+        background-color: var(--colorBrandBackground);
+    }
+
+    &.inverted {
+        color: var(--colorNeutralForegroundStaticInverted);
+        background-color: var(--colorNeutralBackgroundStatic);
     }
 }

@@ -16,6 +16,10 @@ public record PopoverSettings
     }
 
     public string TriggerId { get; set; } = default!;
+    
+    public string[]? TriggerEvents { get; set; } 
+    
+    public string[]? HideEvents { get; set; } 
 
     [JsonConverter(typeof(JsonKebaberizedStringEnumConverter<Placement>))] 
     public Placement Placement { get; set; }

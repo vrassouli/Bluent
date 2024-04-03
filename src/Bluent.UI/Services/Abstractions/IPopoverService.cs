@@ -10,5 +10,6 @@ internal interface IPopoverService
     event EventHandler<DestroyPopoverEventArgs>? OnDestroy;
     event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowPopoverSurface;
 
+    void Destroy(string triggerId);
     void SetTrigger(PopoverConfiguration config);
 }

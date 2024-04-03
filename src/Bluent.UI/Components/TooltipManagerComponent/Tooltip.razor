@@ -1,6 +1,7 @@
 ﻿@using Bluent.UI.Extensions
 @using Bluent.UI.Interops.Abstractions
-<div id="@GetTooltipId()" class="bui-tooltip">
+@using Humanizer
+<div id="@GetTooltipId()" class="bui-tooltip @(Configuration.Placement.ToString().Kebaberize())">
     @Configuration.TooltipContent
     @if (Configuration.DisplayArrow)
     {

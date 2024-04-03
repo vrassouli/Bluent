@@ -1,6 +1,5 @@
-﻿@inherits ComponentBase
-
-@foreach (var tooltip in _tooltips)
+﻿@using Bluent.UI.Components.PopverManagerComponent
+@foreach (var visiblePopover in _popovers.Where(x => x.Visible))
 {
-    <Bluent.UI.Components.TooltipManagerComponent.Tooltip @key=tooltip.ElementId Configuration="tooltip"/>
+    <PopoverSurface Config="visiblePopover" @key=visiblePopover.Settings.TriggerId />
 }

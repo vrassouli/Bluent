@@ -57,12 +57,16 @@ export class Tooltip {
     }
 
     private showTooltip(reference: ReferenceElement, floating: HTMLElement, arrowElement: Element, placement: Placement, offsetOptions: OffsetOptions) {
-        floating.style.display = 'block';
+        //floating.style.display = 'block';
         this.updateTooltip(reference, floating, arrowElement, placement, offsetOptions);
+        if (!floating.classList.contains('show'))
+            floating.classList.add('show');
     }
 
     private hideTooltip(floating: HTMLElement) {
-        floating.style.display = '';
+        if (floating.classList.contains('show'))
+            floating.classList.remove('show');
+
     }
 
     static create(): Tooltip {

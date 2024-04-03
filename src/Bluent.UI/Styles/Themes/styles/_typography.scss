@@ -1,0 +1,103 @@
+﻿body, .body1 {
+    font-size: var(--fontSizeBase300);
+    font-family: var(--fontFamilyBase);
+    font-weight: var(--fontWeightRegular);
+    line-height: var(--lineHeightBase300);
+    color: var(--colorNeutralForeground1);
+}
+
+.body1Strong {
+    font-size: var(--fontSizeBase300);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase300);
+}
+
+.body1Stronger {
+    font-size: var(--fontSizeBase300);
+    font-weight: var(--fontWeightBold);
+    line-height: var(--lineHeightBase300);
+}
+
+.body2 {
+    font-size: var(--fontSizeBase400);
+    font-weight: var(--fontWeightRegular);
+    line-height: var(--lineHeightBase400);
+}
+
+.caption2 {
+    line-height: var(--lineHeightBase100);
+    font-size: var(--fontSizeBase100);
+    font-weight: var(--fontWeightRegular);
+}
+
+.caption2strong {
+    line-height: var(--lineHeightBase100);
+    font-size: var(--fontSizeBase100);
+    font-weight: var(--fontWeightSemibold);
+}
+
+.caption1 {
+    line-height: var(--lineHeightBase200);
+    font-size: var(--fontSizeBase200);
+    font-weight: var(--fontWeightRegular);
+}
+
+.caption1strong {
+    line-height: var(--lineHeightBase200);
+    font-size: var(--fontSizeBase200);
+    font-weight: var(--fontWeightSemibold);
+}
+
+.caption1Stronger {
+    line-height: var(--lineHeightBase200);
+    font-size: var(--fontSizeBase200);
+    font-weight: var(--fontWeightBold);
+}
+
+.subtitle2 {
+    font-size: var(--fontSizeBase400);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase400);
+}
+
+.subtitle2Stronger {
+    font-size: var(--fontSizeBase400);
+    font-weight: var(--fontWeightBold);
+    line-height: var(--lineHeightBase400);
+}
+
+.subtitle1 {
+    font-size: var(--fontSizeBase500);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase500);
+}
+
+.title3 {
+    font-size: var(--fontSizeBase600);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase600);
+}
+
+.title2 {
+    font-size: var(--fontSizeBase700);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase700);
+}
+
+.title1 {
+    font-size: var(--fontSizeBase800);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase800);
+}
+
+.largeTitle {
+    font-size: var(--fontSizeBase900);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase900);
+}
+
+.display {
+    font-size: var(--fontSizeBase1000);
+    font-weight: var(--fontWeightSemibold);
+    line-height: var(--lineHeightBase1000);
+}

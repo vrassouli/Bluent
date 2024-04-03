@@ -5,4 +5,5 @@ export type PopoverSettings = {
     placement: Placement;
     offsetOptions: OffsetOptions;
     triggerEvents: string[];
+    hideEvents: string[];
 };

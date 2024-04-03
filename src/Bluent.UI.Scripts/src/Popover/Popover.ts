@@ -7,20 +7,23 @@ export class Popover {
         this._dotNetRef = dotNetRef;
     }
     setPopover(settings: PopoverSettings) {
-        settings = Object.assign({
-            placement: <Placement>'top',
-            offsetOptions: <OffsetOptions>6,
-            triggerEvents: ['click']
-        }, settings);
-
         const trigger = this.getTrigger(settings);
         if (trigger) {
-            settings.triggerEvents.forEach((triggerEvent) => {
-                trigger.addEventListener(triggerEvent, (args) => {
-                    this.renderSurface(settings);
+            if (settings.triggerEvents) {
+                settings.triggerEvents.forEach((triggerEvent) => {
+                    trigger.addEventListener(triggerEvent, () => {
+                        this.renderSurface(settings);
+                    });
                 });
-            });
+            }
 
+            if (settings.hideEvents) {
+                settings.hideEvents.forEach((hideEvent) => {
+                    trigger.addEventListener(hideEvent, () => {
+                        this.hideSurface(settings);
+                    });
+                });
+            }
         }
     }
 
@@ -28,8 +31,6 @@ export class Popover {
         const surface = <HTMLElement>this.getSurface(settings);
         const trigger = this.getTrigger(settings);
         const arrowElement = this.getArrow(settings);
-        surface.style.display = 'block';
-        document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
 
         computePosition(trigger, surface, {
             placement: settings.placement,
@@ -61,6 +62,10 @@ export class Popover {
                     [staticSide]: '-4px',
                 });
             }
+
+            if (!surface.classList.contains('show'))
+                surface.classList.add('show');
+            document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
         });
     }
 
@@ -74,6 +79,23 @@ export class Popover {
 
         if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target)) {
             document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+        }
+        else {
+            this.hideSurface(settings);
+        }
+    }
+
+    private hideSurface(settings: PopoverSettings) {
+        const surface = <HTMLElement>this.getSurface(settings);
+        if (surface) {
+            surface.addEventListener("transitionend", (event) => {
+                this._dotNetRef.invokeMethodAsync('DestroySurface', settings);
+            }, { once: true });
+
+            if (surface.classList.contains('show'))
+                surface.classList.remove('show');
+            else
+                this._dotNetRef.invokeMethodAsync('DestroySurface', settings);
         }
         else {
             this._dotNetRef.invokeMethodAsync('DestroySurface', settings);
