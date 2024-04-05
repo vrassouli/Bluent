@@ -1,0 +1,79 @@
+﻿@page "/components/fields"
+@using Bluent.UI.Interops.Abstractions
+@using System.ComponentModel.DataAnnotations
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Fields</h1>
+
+        <h3>Text field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label For="()=>_textField" Class="d-block mb-1" />
+            <TextField @bind-Value="_textField" />
+        </section>
+
+        <h3>Addons</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <TextField @bind-Value="_textField" placeholder="Search...">
+                <StartAddon>
+                    <i class="icon-ic_fluent_search_20_regular"></i>
+                </StartAddon>
+                <EndAddon>
+                    <Button Icon="icon-ic_fluent_search_20_regular" ActiveIcon="icon-ic_fluent_search_20_filled" Appearance="ButtonAppearance.Subtle" />
+                </EndAddon>
+            </TextField>
+        </section>
+
+        <h3>Disabled</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label For="()=>_disabledTextField" Class="d-block mb-1" />
+            <TextField @bind-Value="_disabledTextField" disabled>
+                <StartAddon>
+                    <i class="icon-ic_fluent_search_20_regular"></i>
+                </StartAddon>
+            </TextField>
+        </section>
+
+        <h3>Size</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label For="()=>_smallTextField" Class="d-block mb-1" />
+            <TextField @bind-Value="_smallTextField" Size="FieldSize.Small">
+                <StartAddon>
+                    <i class="icon-ic_fluent_people_20_regular"></i>
+                </StartAddon>
+            </TextField>
+
+            <Label For="()=>_mediumTextField" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_mediumTextField" Size="FieldSize.Medium">
+                <StartAddon>
+                    <i class="icon-ic_fluent_people_20_regular"></i>
+                </StartAddon>
+            </TextField>
+
+            <Label For="()=>_largeTextField" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_largeTextField" Size="FieldSize.Large">
+                <StartAddon>
+                    <i class="icon-ic_fluent_people_20_regular"></i>
+                </StartAddon>
+            </TextField>
+        </section>
+
+    </div>
+</div>
+
+@code {
+    [Display(Name = "Example text field")]
+    private string? _textField;
+
+    [Display(Name = "Disabled text field")]
+    private string? _disabledTextField;
+
+    [Display(Name = "Small")]
+    private string? _smallTextField;
+
+    [Display(Name = "Medium")]
+    private string? _mediumTextField;
+
+    [Display(Name = "Large")]
+    private string? _largeTextField;
+}

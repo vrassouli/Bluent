@@ -18,11 +18,6 @@ public partial class SplitButton
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter, EditorRequired] public RenderFragment? DropdownContent { get; set; }
 
-    private bool IsDisabled =>  AdditionalAttributes?.ContainsKey("disabled") == true &&
-                                AdditionalAttributes["disabled"] != null &&
-                                AdditionalAttributes["disabled"] is bool b &&
-                                b != false;
-
 
     public override IEnumerable<string> GetClasses()
     {

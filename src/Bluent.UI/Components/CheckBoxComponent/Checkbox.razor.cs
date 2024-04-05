@@ -35,11 +35,6 @@ public partial class Checkbox<TValue>
         }
     }
 
-    private bool IsDisabled => AdditionalAttributes?.ContainsKey("disabled") == true &&
-        AdditionalAttributes["disabled"] != null &&
-        AdditionalAttributes["disabled"] is bool b && 
-        b != false;
-
     public Checkbox()
     {
         var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
