@@ -1,0 +1,14 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<ButtonGroup @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Shape="Shape" Appearance="Appearance" Size="Size" OnClick="OnClick" disabled="@IsDisabled" />
+    <Popover Placement="Placement.BottomEnd" DisplayArrow="false">
+        <Trigger>
+            <Button Icon="icon-ic_fluent_caret_down_20_regular" ActiveIcon="icon-ic_fluent_caret_down_20_filled" Shape="Shape" Appearance="Appearance" Size="Size" disabled="@IsDisabled" />
+        </Trigger>
+        <Surface>
+            @DropdownContent
+        </Surface>
+    </Popover>
+</ButtonGroup>

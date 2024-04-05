@@ -74,10 +74,65 @@
         <h5>Tootip</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
             <Button Text="Button with tooltip" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
-                <Tooltip>
+                <TooltipContent>
                     This is a tooltip!
-                </Tooltip>
+                </TooltipContent>
             </Button>
+        </div>
+    </div>
+
+    <div>
+        <h5>Button Group</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center">
+            <ButtonGroup>
+                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" />
+                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
+            </ButtonGroup>
+            <ButtonGroup>
+                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ButtonAppearance.Primary" />
+                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ButtonAppearance.Primary" />
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Primary" />
+            </ButtonGroup>
+            <ButtonGroup>
+                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ButtonAppearance.Outline" />
+                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ButtonAppearance.Outline" />
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Outline" />
+            </ButtonGroup>
+            <ButtonGroup>
+                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ButtonAppearance.Subtle" />
+                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ButtonAppearance.Subtle" />
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Subtle" />
+            </ButtonGroup>
+            <ButtonGroup>
+                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ButtonAppearance.Transparent" />
+                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ButtonAppearance.Transparent" />
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Transparent" />
+            </ButtonGroup>
+        </div>
+    </div>
+
+    <div>
+        <h5>Split button</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center">
+            <SplitButton Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
+                <DropdownContent>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Checked />
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
+                    </MenuList>
+                </DropdownContent>
+            </SplitButton>
+            <SplitButton Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled" disabled>
+                <DropdownContent>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Checked />
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
+                    </MenuList>
+                </DropdownContent>
+            </SplitButton>
         </div>
     </div>
 </div>
