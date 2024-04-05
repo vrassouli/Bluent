@@ -1,0 +1,133 @@
+﻿
+.bui-calendar {
+    &.day-select {
+        width: 196px;
+        padding: 12px;
+        box-sizing: content-box;
+        font-family: var(--fontFamilyBase);
+
+        > .header {
+            line-height: 44px;
+            height: 28px;
+            display: inline-flex;
+            width: 100%;
+
+            > .title {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                line-height: 28px;
+                border-radius: 2px;
+                padding: 0 4px 0 10px;
+                overflow: hidden;
+                display: inline-block;
+                font-weight: var(--fontWeightSemibold);
+                background-color: var(--colorTransparentBackground);
+                flex-grow: 1;
+                font-size: var(--fontSizeBase300);
+                color: var(--colorNeutralForeground1);
+                animation-fill-mode: both;
+                animation-name: fade-in;
+                animation-duration: var(--durationGentle);
+                animation-timing-function: var(--curveEasyEase);
+            }
+
+            > .nav {
+                align-self: flex-end;
+                display: inline-flex;
+
+                > button {
+                    width: 28px;
+                    height: 28px;
+                    line-height: 28px;
+                    border-radius: 2px;
+                    text-align: center;
+                    color: var(--colorNeutralForeground3);
+                    display: block;
+                    padding: 0px;
+                    font-size: var(--fontSizeBase200);
+                    background-color: var(--colorTransparentBackground);
+                    border-style: none;
+                    cursor: pointer;
+
+                    &:hover {
+                        outline-color: var(--colorTransparentStroke);
+                        outline-style: solid;
+                        outline-width: 1px;
+                        color: var(--colorBrandForegroundOnLightHover);
+                        background-color: var(--colorBrandBackgroundInvertedHover);
+
+                        &:active {
+                            color: var(--colorBrandForegroundOnLightPressed);
+                            background-color: var(--colorBrandBackgroundInvertedPressed);
+                            outline-color: var(--colorTransparentStroke);
+                        }
+                    }
+                }
+            }
+        }
+
+        > table {
+            table-layout: fixed;
+            margin-top: 4px;
+            border-spacing: 0px;
+            border-collapse: collapse;
+            width: 196px;
+            padding-bottom: 10px;
+            text-align: center;
+            position: relative;
+            font-size: inherit;
+
+            th {
+                user-select: none;
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                animation-fill-mode: both;
+                animation-name: fade-in;
+                animation-duration: var(--durationGentle);
+                animation-timing-function: var(--curveEasyEase);
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+                font-size: var(--fontSizeBase200);
+                font-weight: var(--fontWeightRegular);
+                color: var(--colorNeutralForeground1);
+            }
+
+            td.day-cell {
+                border-radius: 2px;
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+                font-size: var(--fontSizeBase200);
+                font-weight: var(--fontWeightRegular);
+                color: var(--colorNeutralForeground1);
+
+                > button {
+                    line-height: 24px;
+                    font-weight: inherit;
+                    border-radius: 2px;
+                    padding: 0px;
+                    color: inherit;
+                    cursor: pointer;
+                    width: 24px;
+                    height: 24px;
+                    font-size: var(--fontSizeBase200);
+                    background-color: var(--colorTransparentBackground);
+                    border-style: none;
+                }
+
+                &.prev {
+                    color: var(--colorNeutralForeground4);
+                }
+
+                &.next {
+                    color: var(--colorNeutralForeground4);
+                }
+            }
+        }
+    }
+}

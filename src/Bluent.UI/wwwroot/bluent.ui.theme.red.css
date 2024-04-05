@@ -886,6 +886,22 @@
   --shadow64Brand: 0 0 8px var(--colorBrandShadowAmbient), 0 32px 64px var(--colorBrandShadowKey);
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .bg-1 {
   background-color: var(--colorNeutralBackground1) !important;
 }
