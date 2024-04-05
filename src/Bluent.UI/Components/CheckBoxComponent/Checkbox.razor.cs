@@ -14,7 +14,7 @@ namespace Bluent.UI.Components;
 public partial class Checkbox<TValue>
 {
     [Parameter] public string? Label { get; set; }
-    [Parameter] public bool Required { get; set; }
+    [Parameter] public string? Required { get; set; }
     [Parameter] public bool Circular { get; set; }
     [Parameter] public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
     [Parameter] public CheckboxLabelPosition LabelPosition { get; set; } = CheckboxLabelPosition.After;

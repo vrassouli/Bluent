@@ -31,9 +31,9 @@
     @if (!string.IsNullOrEmpty(Label))
     {
         <label for="@GetInputId()">@Label
-            @if (Required)
+            @if (!string.IsNullOrEmpty(Required))
             {
-                <span class="required">*</span>
+                <span class="required">@Required</span>
             }
         </label>
     }
