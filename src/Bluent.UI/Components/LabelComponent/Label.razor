@@ -1,0 +1,21 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<label for="@GetPropertyName()" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @GetDisplayName()
+    @if(Info != null)
+    {
+        <Popover Placement="Placement.TopStart">
+            <Trigger>
+                <Button Icon="icon-ic_fluent_info_20_regular" ActiveIcon="icon-ic_fluent_info_20_filled" Appearance="ButtonAppearance.Transparent"></Button>
+            </Trigger>
+            <Surface>
+                @Info
+            </Surface>
+        </Popover>
+    }
+    @if (!string.IsNullOrEmpty(Required))
+    {
+        <span class="required">@Required</span>
+    }
+</label>

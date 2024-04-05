@@ -1,0 +1,49 @@
+﻿@page "/components/labels"
+@using Bluent.UI.Interops.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Label</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="This is a label" />
+        </section>
+
+        <h3>Size</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="d-flex justify-content-evenly">
+                <Label Text="Small" Size="LabelSize.Small" />
+                <Label Text="Medium" Size="LabelSize.Medium" />
+                <Label Text="Large" Size="LabelSize.Large" />
+            </div>
+        </section>
+
+        <h3>Required</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="d-flex justify-content-evenly">
+                <Label Text="Required" Required="*" />
+            </div>
+        </section>
+
+        <h3>Disabled</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="d-flex justify-content-evenly">
+                <Label Text="Disabled" Required="*" disabled />
+            </div>
+        </section>
+
+        <h3>Info</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="This is a label">
+                <Info>
+                    This is example information for an InfoLabel. <Link Text="Learn more" href="https://fluent2.microsoft.design/components/web/react/accordion/usage" />
+                </Info>
+            </Label>
+        </section>
+
+    </div>
+</div>
+
+@code {
+}

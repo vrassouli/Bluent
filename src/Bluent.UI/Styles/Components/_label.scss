@@ -1,0 +1,33 @@
+﻿.bui-label {
+    line-height: var(--lineHeightBase300);
+    font-size: var(--fontSizeBase300);
+    font-family: var(--fontFamilyBase);
+    color: var(--colorNeutralForeground1);
+
+    > .required {
+        padding-inline-start: var(--spacingHorizontalXS);
+        color: var(--colorPaletteRedForeground3);
+    }
+
+    &.small {
+        font-size: var(--fontSizeBase200);
+        line-height: var(--lineHeightBase200);
+        font-family: var(--fontFamilyBase);
+        color: var(--colorNeutralForeground1);
+    }
+
+    &.large {
+        font-weight: var(--fontWeightSemibold);
+        font-size: var(--fontSizeBase400);
+        line-height: var(--lineHeightBase400);
+        font-family: var(--fontFamilyBase);
+    }
+
+    &.disabled {
+        color: var(--colorNeutralForegroundDisabled);
+
+        > .required {
+            color: inherit;
+        }
+    }
+}
