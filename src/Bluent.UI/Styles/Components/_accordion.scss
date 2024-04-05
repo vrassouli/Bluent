@@ -1,0 +1,68 @@
+﻿.bui-accordion {
+
+    > .accordion-panel {
+        > .header {
+            margin: 0;
+            background-color: var(--colorTransparentBackground);
+            color: var(--colorNeutralForeground1);
+            cursor: pointer;
+            box-sizing: border-box;
+            min-height: 44px;
+            padding-inline-start: var(--spacingHorizontalMNudge);
+            padding-inline-end: var(--spacingHorizontalM);
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-radius: var(--borderRadiusMedium);
+            border-width: 0px;
+            position: relative;
+            align-items: center;
+            display: flex;
+            line-height: var(--lineHeightBase300);
+            font-weight: var(--fontWeightRegular);
+            font-size: var(--fontSizeBase300);
+            font-family: var(--fontFamilyBase);
+
+            > .expander {
+                height: 100%;
+                font-size: var(--fontSizeBase500);
+                line-height: var(--lineHeightBase500);
+                align-items: center;
+                display: flex;
+                padding-inline-end: var(--spacingHorizontalS);
+                >i{
+                transition-property: transform;
+                transition-duration: var(--durationSlower);
+                transition-timing-function: var(--curveDecelerateMid);
+                }
+            }
+
+            > .icon {
+                height: 100%;
+                font-size: var(--fontSizeBase500);
+                line-height: var(--lineHeightBase500);
+                align-items: center;
+                display: flex;
+                padding-inline-end: var(--spacingHorizontalS);
+            }
+        }
+
+        > .panel {
+            display: none;
+            margin: 0 var(--spacingHorizontalM);
+        }
+
+        &.expanded {
+            > .header {
+                > .expander {
+                    > i {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+
+            > .panel {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="header" @onclick="ClickHandler">
+        <div class="expander">
+            <i class="icon-ic_fluent_chevron_right_20_regular"></i>
+        </div>
+        @if(!string.IsNullOrEmpty(HeaderIcon))
+        {
+            <i class="icon @HeaderIcon"></i>
+        }
+        <div class="title">@Header</div>
+    </div>
+    <div class="panel">
+        @ChildContent
+    </div>
+</div>

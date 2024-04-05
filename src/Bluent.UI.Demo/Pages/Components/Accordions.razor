@@ -1,0 +1,56 @@
+﻿@page "/components/accordions"
+@using Bluent.UI.Interops.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Accordion</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Accordion>
+                <AccordionPanel Header="Accordion header 1" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 1
+                </AccordionPanel>
+                <AccordionPanel Header="Accordion header 2" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 2
+                </AccordionPanel>
+                <AccordionPanel Header="Accordion header 3" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 3
+                </AccordionPanel>
+            </Accordion>
+        </section>
+
+        <h3>Toggle</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Accordion HeaderAction="AccordionHeaderAction.Toggle">
+                <AccordionPanel Header="Accordion header 1" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 1
+                </AccordionPanel>
+                <AccordionPanel Header="Accordion header 2" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 2
+                </AccordionPanel>
+                <AccordionPanel Header="Accordion header 3" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 3
+                </AccordionPanel>
+            </Accordion>
+        </section>
+
+        <h3>Multiple</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Accordion HeaderAction="AccordionHeaderAction.Toggle" Multiple>
+                <AccordionPanel Header="Accordion header 1" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 1
+                </AccordionPanel>
+                <AccordionPanel Header="Accordion header 2" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 2
+                </AccordionPanel>
+                <AccordionPanel Header="Accordion header 3" HeaderIcon="icon-ic_fluent_rocket_20_regular">
+                    Accordion panel 3
+                </AccordionPanel>
+            </Accordion>
+        </section>
+    </div>
+</div>
+
+@code {
+}
