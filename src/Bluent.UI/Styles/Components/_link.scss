@@ -1,0 +1,51 @@
+﻿.bui-link {
+    user-select: text;
+    text-overflow: inherit;
+    text-decoration-thickness: var(--strokeWidthThin);
+    color: var(--colorBrandForegroundLink);
+    background-color: transparent;
+    text-decoration-line: none;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+    display: inline;
+    font-weight: var(--fontWeightRegular);
+    font-family: var(--fontFamilyBase);
+    text-align: start;
+
+    &.subtle {
+        color: var(--colorNeutralForeground2);
+    }
+
+    &:hover {
+        color: var(--colorBrandForegroundLinkHover);
+        text-decoration-line: underline;
+
+        &.subtle {
+            color: var(--colorNeutralForeground2Hover);
+        }
+    }
+
+    &:active {
+        color: var(--colorBrandForegroundLinkPressed);
+        text-decoration-line: underline;
+
+        &.subtle {
+            color: var(--colorNeutralForeground2Pressed);
+        }
+    }
+
+    &:focus-visible {
+        outline-style: none;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        color: var(--colorNeutralForegroundDisabled);
+
+        &:hover {
+            text-decoration-line: none;
+        }
+    }
+}
