@@ -23,4 +23,10 @@ internal static class ExpressionExtensions
             _ => null
         };
     }
+    public static string? GetDisplayName<T>(this Expression<T> expression)
+    {
+        var member = expression.GetMemberInfo();
+
+        return member?.GetDisplayName();
+    }
 }

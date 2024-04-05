@@ -18,6 +18,11 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDi
 
     [Inject] private ITooltipService TooltipService { get; set; } = default!;
 
+    protected bool IsDisabled => AdditionalAttributes?.ContainsKey("disabled") == true &&
+        AdditionalAttributes["disabled"] != null &&
+        AdditionalAttributes["disabled"] is bool b &&
+        b != false;
+
     public string Id
     {
         get
@@ -40,7 +45,10 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDi
 
     public string GetComponentClass() => $"{string.Join(' ', GetClasses())} {Class}";
     
-    public abstract IEnumerable<string> GetClasses();
+    public virtual IEnumerable<string> GetClasses()
+    {
+        return Enumerable.Empty<string>();
+    }
 
     protected override void OnAfterRender(bool firstRender)
     {

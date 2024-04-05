@@ -18,6 +18,11 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>
     [Parameter] public string? Style { get; set; }
 
     [DisallowNull] public ElementReference? Element { get; protected set; }
+    
+    protected bool IsDisabled => AdditionalAttributes?.ContainsKey("disabled") == true &&
+        AdditionalAttributes["disabled"] != null &&
+        AdditionalAttributes["disabled"] is bool b &&
+        b != false;
 
     public string Id
     {

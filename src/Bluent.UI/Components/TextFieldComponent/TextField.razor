@@ -1,0 +1,26 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentFieldComponentBase<string?>
+
+
+<div class="@GetComponentClass()" style="@Style">
+    @if (StartAddon != null)
+    {
+        <div class="start-addon">
+            @StartAddon
+        </div>
+    }
+
+    <input @attributes=GetInputAdditionalAttributes()
+           @ref=Element
+           id="@GetInputId()"
+           name="@NameAttributeValue"
+           value="@CurrentValueAsString"
+           @onchange="(args)=>{ CurrentValueAsString = args.Value?.ToString(); }" />
+
+    @if (EndAddon != null)
+    {
+        <div class="end-addon">
+            @EndAddon
+        </div>
+    }
+</div>
