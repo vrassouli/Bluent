@@ -220,6 +220,14 @@
             border-color: var(--colorNeutralStrokeDisabled);
             background-color: var(--colorNeutralBackgroundDisabled);
 
+            > .active-icon {
+                display: none;
+
+                + .icon {
+                    display: inline;
+                }
+            }
+
             &:active {
                 color: var(--colorNeutralForegroundDisabled);
                 border-color: var(--colorNeutralStrokeDisabled);

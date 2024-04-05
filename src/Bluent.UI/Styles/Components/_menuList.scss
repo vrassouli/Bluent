@@ -24,6 +24,32 @@
         gap: 4px;
         user-select: none;
 
+        > .checked {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+        }
+
+        > .icon {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            line-height: 0;
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+        }
+
+        > .active-icon {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            line-height: 0;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
         > .title {
             padding-left: 2px;
             padding-right: 2px;
@@ -44,6 +70,14 @@
         &:hover {
             background-color: var(--colorNeutralBackground1Hover);
             color: var(--colorNeutralForeground2Hover);
+
+            > .active-icon {
+                display: inline-flex;
+
+                & + .icon {
+                    display: none;
+                }
+            }
 
             &:active {
                 background-color: var(--colorNeutralBackground1Pressed);

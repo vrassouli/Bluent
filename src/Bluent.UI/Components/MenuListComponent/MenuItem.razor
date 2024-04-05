@@ -4,6 +4,25 @@
 @if (ChildContent == null)
 {
     <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
+        @if (MenuList.ShouldRenderCheckmarkBox)
+        {
+            @if (Checked)
+            {
+                <i class="checked icon-ic_fluent_checkmark_20_regular"></i>
+            }
+            else
+            {
+                <i class="checked"></i>
+            }
+        }
+        @if (MenuList.ShouldRenderIconBox)
+        {
+            @if (!string.IsNullOrEmpty(ActiveIcon))
+            {
+                <i class="active-icon @ActiveIcon"></i>
+            }
+            <i class="icon @Icon"></i>
+        }
         <div class="title">@Title</div>
     </div>
 }
@@ -12,6 +31,18 @@ else
     <Popover @ref=_subMenuPopover TriggerEvents="mouseenter, focus" DisplayArrow="false" Placement="Placement.RightStart">
         <Trigger>
             <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
+                @if (Checked)
+                {
+                    <i class="checked icon-ic_fluent_checkmark_20_regular"></i>
+                }
+                @if (!string.IsNullOrEmpty(Icon))
+                {
+                    @if (!string.IsNullOrEmpty(ActiveIcon))
+                    {
+                        <i class="active-icon @ActiveIcon"></i>
+                    }
+                    <i class="icon @Icon"></i>
+                }
                 <div class="title">@Title</div>
                 <div class="sub-menu-icon ">
                     <i class="icon-ic_fluent_chevron_right_20_regular"></i>

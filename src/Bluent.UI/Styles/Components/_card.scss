@@ -89,7 +89,7 @@
         > .action {
             grid-column-start: 3;
             grid-row-start: span 2;
-            margin-left: var(--bui-card-header-gap);
+            margin-inline-start: var(--bui-card-header-gap);
         }
     }
 

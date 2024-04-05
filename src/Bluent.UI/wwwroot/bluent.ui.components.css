@@ -1,3 +1,56 @@
+.bui-accordion > .accordion-panel > .header {
+  margin: 0;
+  background-color: var(--colorTransparentBackground);
+  color: var(--colorNeutralForeground1);
+  cursor: pointer;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding-inline-start: var(--spacingHorizontalMNudge);
+  padding-inline-end: var(--spacingHorizontalM);
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: var(--borderRadiusMedium);
+  border-width: 0px;
+  position: relative;
+  align-items: center;
+  display: flex;
+  line-height: var(--lineHeightBase300);
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--fontSizeBase300);
+  font-family: var(--fontFamilyBase);
+}
+.bui-accordion > .accordion-panel > .header > .expander {
+  height: 100%;
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
+  align-items: center;
+  display: flex;
+  padding-inline-end: var(--spacingHorizontalS);
+}
+.bui-accordion > .accordion-panel > .header > .expander > i {
+  transition-property: transform;
+  transition-duration: var(--durationSlower);
+  transition-timing-function: var(--curveDecelerateMid);
+}
+.bui-accordion > .accordion-panel > .header > .icon {
+  height: 100%;
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
+  align-items: center;
+  display: flex;
+  padding-inline-end: var(--spacingHorizontalS);
+}
+.bui-accordion > .accordion-panel > .panel {
+  display: none;
+  margin: 0 var(--spacingHorizontalM);
+}
+.bui-accordion > .accordion-panel.expanded > .header > .expander > i {
+  transform: rotate(90deg);
+}
+.bui-accordion > .accordion-panel.expanded > .panel {
+  display: block;
+}
+
 .bui-button {
   align-items: center;
   box-sizing: border-box;
@@ -183,6 +236,12 @@
   border-color: var(--colorNeutralStrokeDisabled);
   background-color: var(--colorNeutralBackgroundDisabled);
 }
+.bui-button[disabled]:hover > .active-icon {
+  display: none;
+}
+.bui-button[disabled]:hover > .active-icon + .icon {
+  display: inline;
+}
 .bui-button[disabled]:hover:active {
   color: var(--colorNeutralForegroundDisabled);
   border-color: var(--colorNeutralStrokeDisabled);
@@ -211,6 +270,48 @@
   max-width: 40px;
   min-width: 40px;
   padding: 7px;
+}
+
+.ltr .bui-button-group, [dir=ltr] .bui-button-group {
+  display: flex;
+}
+.ltr .bui-button-group :first-child, [dir=ltr] .bui-button-group :first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.ltr .bui-button-group :last-child, [dir=ltr] .bui-button-group :last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.ltr .bui-button-group :not(:first-child), [dir=ltr] .bui-button-group :not(:first-child) {
+  border-left-color: transparent;
+}
+.ltr .bui-button-group :not(:first-child):not(:last-child), [dir=ltr] .bui-button-group :not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+.ltr .bui-button-group .bui-button.subtle:not(:first-child), .ltr .bui-button-group .bui-button.transparent:not(:first-child), [dir=ltr] .bui-button-group .bui-button.subtle:not(:first-child), [dir=ltr] .bui-button-group .bui-button.transparent:not(:first-child) {
+  border-left-color: var(--colorNeutralStroke1);
+}
+
+.rtl .bui-button-group, [dir=rtl] .bui-button-group {
+  display: flex;
+}
+.rtl .bui-button-group :first-child, [dir=rtl] .bui-button-group :first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.rtl .bui-button-group :last-child, [dir=rtl] .bui-button-group :last-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.rtl .bui-button-group :not(:first-child), [dir=rtl] .bui-button-group :not(:first-child) {
+  border-right-color: transparent;
+}
+.rtl .bui-button-group :not(:first-child):not(:last-child), [dir=rtl] .bui-button-group :not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+.rtl .bui-button-group .bui-button.subtle:not(:first-child), .rtl .bui-button-group .bui-button.transparent:not(:first-child), [dir=rtl] .bui-button-group .bui-button.subtle:not(:first-child), [dir=rtl] .bui-button-group .bui-button.transparent:not(:first-child) {
+  border-right-color: var(--colorNeutralStroke1);
 }
 
 .bui-card {
@@ -297,7 +398,7 @@
 .bui-card > .card-header > .action {
   grid-column-start: 3;
   grid-row-start: span 2;
-  margin-left: var(--bui-card-header-gap);
+  margin-inline-start: var(--bui-card-header-gap);
 }
 .bui-card > .card-preview {
   margin-right: calc(var(--bui-card-size) * -1);
@@ -529,6 +630,29 @@
   gap: 4px;
   user-select: none;
 }
+.bui-menu-list > .menu-item > .checked {
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+}
+.bui-menu-list > .menu-item > .icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 0;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+.bui-menu-list > .menu-item > .active-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 0;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
 .bui-menu-list > .menu-item > .title {
   padding-left: 2px;
   padding-right: 2px;
@@ -547,6 +671,12 @@
 .bui-menu-list > .menu-item:hover {
   background-color: var(--colorNeutralBackground1Hover);
   color: var(--colorNeutralForeground2Hover);
+}
+.bui-menu-list > .menu-item:hover > .active-icon {
+  display: inline-flex;
+}
+.bui-menu-list > .menu-item:hover > .active-icon + .icon {
+  display: none;
 }
 .bui-menu-list > .menu-item:hover:active {
   background-color: var(--colorNeutralBackground1Pressed);
