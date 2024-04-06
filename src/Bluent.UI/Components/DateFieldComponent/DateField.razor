@@ -1,0 +1,53 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentFieldComponentBase<TValue>
+@typeparam TValue
+
+<div class="@GetComponentClass()" style="@Style">
+    @if (StartAddon != null)
+    {
+        <div class="start-addon">
+            @StartAddon
+        </div>
+    }
+
+    <input @attributes=GetInputAdditionalAttributes()
+           @ref=Element
+           @key=_key
+           id="@GetInputId()"
+           dir="ltr"
+           type="text"
+           autocomplete="off"
+           name="@NameAttributeValue"
+           value="@CurrentValueAsString"
+           @onchange="(args)=>{ CurrentValueAsString = args.Value?.ToString(); }" />
+
+    @if (DisplayCalendar)
+    {
+        <Popover>
+            <Trigger>
+                <Button Icon="icon-ic_fluent_calendar_20_regular"
+                        ActiveIcon="icon-ic_fluent_calendar_20_filled"
+                        Appearance="ButtonAppearance.Subtle"
+                        Size="GetButtonSize()"
+                        disabled="@IsDisabled"/>
+            </Trigger>
+            <Surface>
+                <Calendar TValue=TValue
+                          SelectedDate=Value
+                          SelectedDateChanged="OnDatePicked"
+                          Culture=Culture
+                          Mode="Mode"
+                          Min="Min"
+                          Max="Max">
+                </Calendar>
+            </Surface>
+        </Popover>
+    }
+
+    @if (EndAddon != null)
+    {
+        <div class="end-addon">
+            @EndAddon
+        </div>
+    }
+</div>
