@@ -101,3 +101,15 @@
         cursor: pointer;
     }
 }
+
+.rtl, [dir=rtl] {
+    .bui-switch {
+        > input {
+            &:checked {
+                ~ .indicator > * {
+                    transform: translateX(-20px);
+                }
+            }
+        }
+    }
+}
