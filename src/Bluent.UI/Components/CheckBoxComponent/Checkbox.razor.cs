@@ -14,6 +14,8 @@ namespace Bluent.UI.Components;
 public partial class Checkbox<TValue>
 {
     [Parameter] public string? Label { get; set; }
+    [Parameter] public string? UncheckedLabel { get; set; }
+    [Parameter] public string? IndeterminateLabel { get; set; }
     [Parameter] public string? Required { get; set; }
     [Parameter] public bool Circular { get; set; }
     [Parameter] public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
@@ -75,7 +77,7 @@ public partial class Checkbox<TValue>
         throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
     }
 
-    private void ChangeHandler(ChangeEventArgs args)
+    protected void ChangeHandler(ChangeEventArgs args)
     {
         if (!bool.TryParse(args.Value?.ToString(), out var isChecked))
             return;

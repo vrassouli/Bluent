@@ -28,9 +28,30 @@
         {
         }
     </div>
-    @if (!string.IsNullOrEmpty(Label))
+    @if (ValueAsBool == true && !string.IsNullOrEmpty(Label))
     {
-        <label for="@GetInputId()">@Label
+        <label for="@GetInputId()">
+            @Label
+            @if (!string.IsNullOrEmpty(Required))
+            {
+                <span class="required">@Required</span>
+            }
+        </label>
+    }
+    else if (ValueAsBool == false && (!string.IsNullOrEmpty(UncheckedLabel) || !string.IsNullOrEmpty(Label)))
+    {
+        <label for="@GetInputId()">
+            @(UncheckedLabel ?? Label)
+            @if (!string.IsNullOrEmpty(Required))
+            {
+                <span class="required">@Required</span>
+            }
+        </label>
+    }
+    else if (ValueAsBool == null && (!string.IsNullOrEmpty(IndeterminateLabel) || !string.IsNullOrEmpty(Label)))
+    {
+        <label for="@GetInputId()">
+            @(IndeterminateLabel ?? Label)
             @if (!string.IsNullOrEmpty(Required))
             {
                 <span class="required">@Required</span>
