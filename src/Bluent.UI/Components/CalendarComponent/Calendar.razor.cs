@@ -26,7 +26,8 @@ public partial class Calendar<TValue>
     [Parameter] public Func<DateTime, string>? DateClass { get; set; }
     [Parameter] public DateTime? Max { get; set; }
     [Parameter] public DateTime? Min { get; set; }
-    [Inject] IStringLocalizer<CalendarComponent.Resources.Calendar> Localizer { get; set; } = default!;
+    [CascadingParameter] public Popover? Popover { get; set; }
+    [Inject] private IStringLocalizer<CalendarComponent.Resources.Calendar> Localizer { get; set; } = default!;
 
     private int DaysInMonth => Culture.Calendar.GetDaysInMonth(Culture.Calendar.GetYear(_viewDate), Culture.Calendar.GetMonth(_viewDate));
     private DateTime MonthStart => _viewDate.GetMonthStart(Culture);
@@ -110,6 +111,11 @@ public partial class Calendar<TValue>
     {
         SetSelectedDate(date);
         await SelectedDateChanged.InvokeAsync(SelectedDate);
+
+        if (Popover != null)
+        {
+            Popover.Hide();
+        }
     }
 
     private void OnGoToToday()
@@ -192,7 +198,7 @@ public partial class Calendar<TValue>
         {
             await OnSelectDate(_viewDate);
         }
-        else if(_viewMode == CalendarMode.MonthSelect)
+        else if (_viewMode == CalendarMode.MonthSelect)
         {
             _viewMode = CalendarMode.DaySelect;
         }
@@ -205,7 +211,7 @@ public partial class Calendar<TValue>
         {
             await OnSelectDate(_viewDate);
         }
-        else if(_viewMode == CalendarMode.YearSelect)
+        else if (_viewMode == CalendarMode.YearSelect)
         {
             _viewMode = CalendarMode.MonthSelect;
         }
