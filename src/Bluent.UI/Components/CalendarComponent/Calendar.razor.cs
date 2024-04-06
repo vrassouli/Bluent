@@ -17,6 +17,7 @@ public partial class Calendar<TValue>
     private CalendarMode _mode = CalendarMode.DaySelect;
     private TValue _selectedDate = default!;
     private DateTime _viewDate;
+    private string _transitionClass = "up";
 
     [Parameter] public TValue SelectedDate { get; set; } = default!;
     [Parameter] public EventCallback<TValue> SelectedDateChanged { get; set; }
@@ -49,7 +50,8 @@ public partial class Calendar<TValue>
     public override IEnumerable<string> GetClasses()
     {
         yield return "bui-calendar";
-        yield return Mode.ToString().Kebaberize();
+        yield return _viewMode.ToString().Kebaberize();
+        yield return $"transition-{_transitionClass}";
     }
 
     protected override void OnParametersSet()
@@ -94,7 +96,7 @@ public partial class Calendar<TValue>
         {
             SelectedDate = default!;
         }
-        else if (BindConverter.TryConvertTo(date.Value.ToString(), Culture, out TValue? value) && value != null)
+        else if (BindConverter.TryConvertTo(date.Value.ToString(), null, out TValue? value) && value != null)
         {
             SelectedDate = value;
         }
@@ -123,11 +125,37 @@ public partial class Calendar<TValue>
     private void OnPreviousMonth()
     {
         _viewDate = MonthStart.AddMonths(-1, Culture);
+        _transitionClass = "down";
     }
 
     private void OnNextMonth()
     {
         _viewDate = MonthStart.AddMonths(1, Culture);
+        _transitionClass = "up";
+    }
+
+    private void OnPreviousYear()
+    {
+        _viewDate = MonthStart.AddYears(-1, Culture);
+        _transitionClass = "down";
+    }
+
+    private void OnNextYear()
+    {
+        _viewDate = MonthStart.AddYears(1, Culture);
+        _transitionClass = "up";
+    }
+
+    private void OnPreviousYearRange()
+    {
+        _viewDate = MonthStart.AddYears(-13, Culture);
+        _transitionClass = "down";
+    }
+
+    private void OnNextYearRange()
+    {
+        _viewDate = MonthStart.AddYears(13, Culture);
+        _transitionClass = "up";
     }
 
     private async void OnYearChanged(ChangeEventArgs args)
@@ -156,9 +184,41 @@ public partial class Calendar<TValue>
         }
     }
 
+    private async void OnMonthSelected(DateTime monthStart)
+    {
+        _viewDate = monthStart;
+
+        if (Mode == CalendarMode.MonthSelect)
+        {
+            await OnSelectDate(_viewDate);
+        }
+        else if(_viewMode == CalendarMode.MonthSelect)
+        {
+            _viewMode = CalendarMode.DaySelect;
+        }
+    }
+    private async void OnYearSelected(DateTime yearStart)
+    {
+        _viewDate = yearStart;
+
+        if (Mode == CalendarMode.YearSelect)
+        {
+            await OnSelectDate(_viewDate);
+        }
+        else if(_viewMode == CalendarMode.YearSelect)
+        {
+            _viewMode = CalendarMode.MonthSelect;
+        }
+    }
+
     private void OnSelectMonth()
     {
         _viewMode = CalendarMode.MonthSelect;
+    }
+
+    private void OnSelectYear()
+    {
+        _viewMode = CalendarMode.YearSelect;
     }
 
     private async Task OnSelectDayAsync()

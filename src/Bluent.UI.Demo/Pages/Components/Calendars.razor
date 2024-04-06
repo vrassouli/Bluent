@@ -25,6 +25,11 @@
             <Calendar @bind-SelectedDate="_nullableDateTime" Culture="Culture" />
         </section>
 
+        <h3>Min/Max</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Calendar @bind-SelectedDate="_nullableDateTime" Min="DateTime.Today.AddDays(-6)" Max="DateTime.Today.AddDays(6)" />
+        </section>
+
     </div>
 </div>
 

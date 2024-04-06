@@ -1,70 +1,94 @@
 ﻿
 .bui-calendar {
-    &.day-select {
-        width: 196px;
-        padding: 12px;
-        box-sizing: content-box;
-        font-family: var(--fontFamilyBase);
+    width: 196px;
+    padding: 12px;
+    margin: 0;
+    overflow: hidden;
+    box-sizing: content-box;
 
-        > .header {
-            line-height: 44px;
-            height: 28px;
+    > .header {
+        line-height: 44px;
+        height: 28px;
+        display: inline-flex;
+        width: 100%;
+
+        > .title {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-inline: 10px 4px;
+            padding-bottom: 0px;
+            padding-top: 0px;
+            line-height: 28px;
+            display: inline-block;
+            border-radius: 2px;
+            font-family: inherit;
+            overflow: hidden;
+            font-weight: var(--fontWeightSemibold);
+            font-size: var(--fontSizeBase300);
+            text-align: start;
+            color: var(--colorNeutralForeground1);
+            background-color: var(--colorTransparentBackground);
+            flex-grow: 1;
+            cursor: pointer;
+            border-style: none;
+            animation-fill-mode: both;
+            animation-name: fade-in;
+            animation-duration: var(--durationGentle);
+            animation-timing-function: var(--curveEasyEase);
+
+            &:hover {
+                outline-color: var(--colorTransparentStroke);
+                outline-style: solid;
+                outline-width: 1px;
+                color: var(--colorBrandForegroundOnLightHover);
+                background-color: var(--colorBrandBackgroundInvertedHover);
+
+                &:active {
+                    color: var(--colorBrandForegroundOnLightPressed);
+                    background-color: var(--colorBrandBackgroundInvertedPressed);
+                    outline-color: var(--colorTransparentStroke);
+                }
+            }
+        }
+
+        > .nav {
+            align-self: flex-end;
             display: inline-flex;
-            width: 100%;
 
-            > .title {
-                white-space: nowrap;
-                text-overflow: ellipsis;
+            > button {
+                width: 28px;
+                height: 28px;
                 line-height: 28px;
                 border-radius: 2px;
-                padding: 0 4px 0 10px;
-                overflow: hidden;
-                display: inline-block;
-                font-weight: var(--fontWeightSemibold);
+                text-align: center;
+                color: var(--colorNeutralForeground3);
+                display: block;
+                padding: 0px;
+                font-size: var(--fontSizeBase200);
                 background-color: var(--colorTransparentBackground);
-                flex-grow: 1;
-                font-size: var(--fontSizeBase300);
-                color: var(--colorNeutralForeground1);
-                animation-fill-mode: both;
-                animation-name: fade-in;
-                animation-duration: var(--durationGentle);
-                animation-timing-function: var(--curveEasyEase);
-            }
+                border-style: none;
+                cursor: pointer;
 
-            > .nav {
-                align-self: flex-end;
-                display: inline-flex;
+                &:hover {
+                    outline-color: var(--colorTransparentStroke);
+                    outline-style: solid;
+                    outline-width: 1px;
+                    color: var(--colorBrandForegroundOnLightHover);
+                    background-color: var(--colorBrandBackgroundInvertedHover);
 
-                > button {
-                    width: 28px;
-                    height: 28px;
-                    line-height: 28px;
-                    border-radius: 2px;
-                    text-align: center;
-                    color: var(--colorNeutralForeground3);
-                    display: block;
-                    padding: 0px;
-                    font-size: var(--fontSizeBase200);
-                    background-color: var(--colorTransparentBackground);
-                    border-style: none;
-                    cursor: pointer;
-
-                    &:hover {
+                    &:active {
+                        color: var(--colorBrandForegroundOnLightPressed);
+                        background-color: var(--colorBrandBackgroundInvertedPressed);
                         outline-color: var(--colorTransparentStroke);
-                        outline-style: solid;
-                        outline-width: 1px;
-                        color: var(--colorBrandForegroundOnLightHover);
-                        background-color: var(--colorBrandBackgroundInvertedHover);
-
-                        &:active {
-                            color: var(--colorBrandForegroundOnLightPressed);
-                            background-color: var(--colorBrandBackgroundInvertedPressed);
-                            outline-color: var(--colorTransparentStroke);
-                        }
                     }
                 }
             }
         }
+    }
+
+    &.day-select {
+        font-family: var(--fontFamilyBase);
+
 
         > table {
             table-layout: fixed;
@@ -76,6 +100,9 @@
             text-align: center;
             position: relative;
             font-size: inherit;
+            animation-fill-mode: both;
+            animation-duration: var(--durationGentle);
+            animation-timing-function: var(--curveEasyEase);
 
             th {
                 user-select: none;
@@ -83,9 +110,6 @@
                 height: 28px;
                 line-height: 28px;
                 animation-fill-mode: both;
-                animation-name: fade-in;
-                animation-duration: var(--durationGentle);
-                animation-timing-function: var(--curveEasyEase);
                 margin: 0;
                 padding: 0;
                 cursor: pointer;
@@ -127,6 +151,116 @@
                 &.next {
                     color: var(--colorNeutralForeground4);
                 }
+
+                &.selected {
+                    color: var(--colorNeutralForeground1Static);
+                    background-color: var(--colorBrandBackgroundInvertedSelected);
+                }
+
+                &.today {
+                    > button {
+                        border-radius: 100%;
+                        font-weight: var(--fontWeightSemibold);
+                        color: var(--colorNeutralForegroundOnBrand);
+                        background-color: var(--colorBrandBackground);
+                    }
+                }
+
+                &.disabled {
+                    color: var(--colorNeutralForegroundDisabled);
+                    pointer-events: none;
+                    background-color: var(--colorTransparentBackground);
+                    cursor: pointer;
+                }
+
+                &:hover {
+                    outline-color: var(--colorTransparentStroke);
+                    outline-style: solid;
+                    outline-width: 1px;
+                    color: var(--colorBrandForegroundOnLightHover);
+                    background-color: var(--colorBrandBackgroundInvertedHover);
+
+                    &:active {
+                        color: var(--colorBrandForegroundOnLightPressed);
+                        background-color: var(--colorBrandBackgroundInvertedPressed);
+                        outline-color: var(--colorTransparentStroke);
+                    }
+                }
+            }
+        }
+    }
+
+    &.month-select, &.year-select {
+        > div.grid {
+            margin-top: 4px;
+            animation-fill-mode: both;
+            animation-duration: var(--durationGentle);
+            animation-timing-function: var(--curveEasyEase);
+
+            > .row {
+                &:not(:last-child) {
+                    margin-bottom: 16px;
+                }
+
+                > button {
+                    width: 40px;
+                    height: 40px;
+                    min-height: 40px;
+                    min-width: 40px;
+                    line-height: 40px;
+                    border-radius: 2px;
+                    font-family: inherit;
+                    color: var(--colorNeutralForeground3);
+                    padding: 0px;
+                    font-size: var(--fontSizeBase200);
+                    background-color: var(--colorTransparentBackground);
+                    border-style: none;
+                    cursor: pointer;
+
+                    &:not(:last-child) {
+                        margin-inline-end: 12px;
+                    }
+
+                    &:hover {
+                        color: var(--colorNeutralForeground1Static);
+                        outline-color: var(--colorTransparentStroke);
+                        outline-style: solid;
+                        outline-width: 1px;
+                        background-color: var(--colorBrandBackgroundInvertedHover);
+
+                        &:active {
+                            background-color: var(--colorBrandBackgroundInvertedPressed);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.transition-up {
+        &.day-select {
+            > table {
+                animation-name: fade-in, slide-up;
+            }
+        }
+
+        &.month-select, &.year-select {
+            > div.grid {
+                animation-name: fade-in, slide-up;
+            }
+        }
+    }
+
+    &.transition-down {
+        &.day-select {
+            > table {
+                animation-name: fade-in, slide-down;
+            }
+        }
+
+        &.month-select, &.year-select {
+            > div.grid {
+                animation-name: fade-in, slide-down;
             }
         }
     }

@@ -314,41 +314,60 @@
   border-right-color: var(--colorNeutralStroke1);
 }
 
-.bui-calendar.day-select {
+.bui-calendar {
   width: 196px;
   padding: 12px;
+  margin: 0;
+  overflow: hidden;
   box-sizing: content-box;
-  font-family: var(--fontFamilyBase);
 }
-.bui-calendar.day-select > .header {
+.bui-calendar > .header {
   line-height: 44px;
   height: 28px;
   display: inline-flex;
   width: 100%;
 }
-.bui-calendar.day-select > .header > .title {
+.bui-calendar > .header > .title {
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding-inline: 10px 4px;
+  padding-bottom: 0px;
+  padding-top: 0px;
   line-height: 28px;
-  border-radius: 2px;
-  padding: 0 4px 0 10px;
-  overflow: hidden;
   display: inline-block;
+  border-radius: 2px;
+  font-family: inherit;
+  overflow: hidden;
   font-weight: var(--fontWeightSemibold);
+  font-size: var(--fontSizeBase300);
+  text-align: start;
+  color: var(--colorNeutralForeground1);
   background-color: var(--colorTransparentBackground);
   flex-grow: 1;
-  font-size: var(--fontSizeBase300);
-  color: var(--colorNeutralForeground1);
+  cursor: pointer;
+  border-style: none;
   animation-fill-mode: both;
   animation-name: fade-in;
   animation-duration: var(--durationGentle);
   animation-timing-function: var(--curveEasyEase);
 }
-.bui-calendar.day-select > .header > .nav {
+.bui-calendar > .header > .title:hover {
+  outline-color: var(--colorTransparentStroke);
+  outline-style: solid;
+  outline-width: 1px;
+  color: var(--colorBrandForegroundOnLightHover);
+  background-color: var(--colorBrandBackgroundInvertedHover);
+}
+.bui-calendar > .header > .title:hover:active {
+  color: var(--colorBrandForegroundOnLightPressed);
+  background-color: var(--colorBrandBackgroundInvertedPressed);
+  outline-color: var(--colorTransparentStroke);
+}
+.bui-calendar > .header > .nav {
   align-self: flex-end;
   display: inline-flex;
 }
-.bui-calendar.day-select > .header > .nav > button {
+.bui-calendar > .header > .nav > button {
   width: 28px;
   height: 28px;
   line-height: 28px;
@@ -362,17 +381,20 @@
   border-style: none;
   cursor: pointer;
 }
-.bui-calendar.day-select > .header > .nav > button:hover {
+.bui-calendar > .header > .nav > button:hover {
   outline-color: var(--colorTransparentStroke);
   outline-style: solid;
   outline-width: 1px;
   color: var(--colorBrandForegroundOnLightHover);
   background-color: var(--colorBrandBackgroundInvertedHover);
 }
-.bui-calendar.day-select > .header > .nav > button:hover:active {
+.bui-calendar > .header > .nav > button:hover:active {
   color: var(--colorBrandForegroundOnLightPressed);
   background-color: var(--colorBrandBackgroundInvertedPressed);
   outline-color: var(--colorTransparentStroke);
+}
+.bui-calendar.day-select {
+  font-family: var(--fontFamilyBase);
 }
 .bui-calendar.day-select > table {
   table-layout: fixed;
@@ -384,6 +406,9 @@
   text-align: center;
   position: relative;
   font-size: inherit;
+  animation-fill-mode: both;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
 }
 .bui-calendar.day-select > table th {
   user-select: none;
@@ -391,9 +416,6 @@
   height: 28px;
   line-height: 28px;
   animation-fill-mode: both;
-  animation-name: fade-in;
-  animation-duration: var(--durationGentle);
-  animation-timing-function: var(--curveEasyEase);
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -431,6 +453,83 @@
 }
 .bui-calendar.day-select > table td.day-cell.next {
   color: var(--colorNeutralForeground4);
+}
+.bui-calendar.day-select > table td.day-cell.selected {
+  color: var(--colorNeutralForeground1Static);
+  background-color: var(--colorBrandBackgroundInvertedSelected);
+}
+.bui-calendar.day-select > table td.day-cell.today > button {
+  border-radius: 100%;
+  font-weight: var(--fontWeightSemibold);
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorBrandBackground);
+}
+.bui-calendar.day-select > table td.day-cell.disabled {
+  color: var(--colorNeutralForegroundDisabled);
+  pointer-events: none;
+  background-color: var(--colorTransparentBackground);
+  cursor: pointer;
+}
+.bui-calendar.day-select > table td.day-cell:hover {
+  outline-color: var(--colorTransparentStroke);
+  outline-style: solid;
+  outline-width: 1px;
+  color: var(--colorBrandForegroundOnLightHover);
+  background-color: var(--colorBrandBackgroundInvertedHover);
+}
+.bui-calendar.day-select > table td.day-cell:hover:active {
+  color: var(--colorBrandForegroundOnLightPressed);
+  background-color: var(--colorBrandBackgroundInvertedPressed);
+  outline-color: var(--colorTransparentStroke);
+}
+.bui-calendar.month-select > div.grid, .bui-calendar.year-select > div.grid {
+  margin-top: 4px;
+  animation-fill-mode: both;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+}
+.bui-calendar.month-select > div.grid > .row:not(:last-child), .bui-calendar.year-select > div.grid > .row:not(:last-child) {
+  margin-bottom: 16px;
+}
+.bui-calendar.month-select > div.grid > .row > button, .bui-calendar.year-select > div.grid > .row > button {
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  line-height: 40px;
+  border-radius: 2px;
+  font-family: inherit;
+  color: var(--colorNeutralForeground3);
+  padding: 0px;
+  font-size: var(--fontSizeBase200);
+  background-color: var(--colorTransparentBackground);
+  border-style: none;
+  cursor: pointer;
+}
+.bui-calendar.month-select > div.grid > .row > button:not(:last-child), .bui-calendar.year-select > div.grid > .row > button:not(:last-child) {
+  margin-inline-end: 12px;
+}
+.bui-calendar.month-select > div.grid > .row > button:hover, .bui-calendar.year-select > div.grid > .row > button:hover {
+  color: var(--colorNeutralForeground1Static);
+  outline-color: var(--colorTransparentStroke);
+  outline-style: solid;
+  outline-width: 1px;
+  background-color: var(--colorBrandBackgroundInvertedHover);
+}
+.bui-calendar.month-select > div.grid > .row > button:hover:active, .bui-calendar.year-select > div.grid > .row > button:hover:active {
+  background-color: var(--colorBrandBackgroundInvertedPressed);
+}
+.bui-calendar.transition-up.day-select > table {
+  animation-name: fade-in, slide-up;
+}
+.bui-calendar.transition-up.month-select > div.grid, .bui-calendar.transition-up.year-select > div.grid {
+  animation-name: fade-in, slide-up;
+}
+.bui-calendar.transition-down.day-select > table {
+  animation-name: fade-in, slide-down;
+}
+.bui-calendar.transition-down.month-select > div.grid, .bui-calendar.transition-down.year-select > div.grid {
+  animation-name: fade-in, slide-down;
 }
 
 .bui-card {

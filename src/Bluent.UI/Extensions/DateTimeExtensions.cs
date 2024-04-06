@@ -43,6 +43,11 @@ internal static class DateTimeExtensions
         return culture.Calendar.AddMonths(date, months);
     }
 
+    public static DateTime AddYears(this DateTime date, int years, CultureInfo culture)
+    {
+        return culture.Calendar.AddYears(date, years);
+    }
+
     public static DateTime GetMonthStart(this DateTime date)
     {
         return date.GetMonthStart(CultureInfo.CurrentCulture);

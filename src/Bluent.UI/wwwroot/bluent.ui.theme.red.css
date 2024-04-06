@@ -902,6 +902,26 @@
     opacity: 0;
   }
 }
+@keyframes slide-down {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, -20px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-up {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, 20px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
 .bg-1 {
   background-color: var(--colorNeutralBackground1) !important;
 }
