@@ -4,20 +4,44 @@
     "inputFile": "Styles/Components/components.scss"
   },
   {
-    "outputFile": "Styles/Themes/theme-blue-dark.css",
-    "inputFile": "Styles/Themes/theme-blue-dark.scss"
+    "outputFile": "Styles/Themes/theme-default-dark.css",
+    "inputFile": "Styles/Themes/theme-default-dark.scss"
   },
   {
-    "outputFile": "Styles/Themes/theme-blue-light.css",
-    "inputFile": "Styles/Themes/theme-blue-light.scss"
+    "outputFile": "Styles/Themes/theme-default-light.css",
+    "inputFile": "Styles/Themes/theme-default-light.scss"
   },
   {
-    "outputFile": "Styles/Themes/theme-red-dark.css",
-    "inputFile": "Styles/Themes/theme-red-dark.scss"
+    "outputFile": "Styles/Themes/theme-excel-dark.css",
+    "inputFile": "Styles/Themes/theme-excel-dark.scss"
   },
   {
-    "outputFile": "Styles/Themes/theme-red-light.css",
-    "inputFile": "Styles/Themes/theme-red-light.scss"
+    "outputFile": "Styles/Themes/theme-excel-light.css",
+    "inputFile": "Styles/Themes/theme-excel-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-office-dark.css",
+    "inputFile": "Styles/Themes/theme-office-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-office-light.css",
+    "inputFile": "Styles/Themes/theme-office-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-outlook-dark.css",
+    "inputFile": "Styles/Themes/theme-outlook-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-outlook-light.css",
+    "inputFile": "Styles/Themes/theme-outlook-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-powerbi-dark.css",
+    "inputFile": "Styles/Themes/theme-powerbi-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-powerbi-light.css",
+    "inputFile": "Styles/Themes/theme-powerbi-light.scss"
   },
   {
     "outputFile": "Styles/Themes/styles.css",

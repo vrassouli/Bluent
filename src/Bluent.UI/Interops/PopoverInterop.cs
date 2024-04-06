@@ -39,8 +39,8 @@ namespace Bluent.UI.Interops
             if (_popoverReference != null)
                 await _popoverReference.DisposeAsync();
 
-            if (_popoverReference != null)
-                await _popoverReference.DisposeAsync();
+            if (_module != null)
+                await _module.DisposeAsync();
 
             if (_handlerReference != null)
                 _handlerReference.Dispose();

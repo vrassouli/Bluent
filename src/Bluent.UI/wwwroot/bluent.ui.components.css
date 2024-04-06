@@ -197,7 +197,7 @@
   background-color: var(--colorSubtleBackgroundHover);
   border-color: transparent;
 }
-.bui-button.subtle:hover > .icon {
+.bui-button.subtle:hover > .icon, .bui-button.subtle:hover > .active-icon {
   color: var(--colorNeutralForeground2BrandHover);
 }
 .bui-button.subtle:hover:active {
@@ -822,6 +822,11 @@
   border-radius: var(--borderRadiusCircular);
 }
 
+.rtl .bui-checkbox > input, [dir=rtl] .bui-checkbox > input {
+  left: unset;
+  right: 0px;
+}
+
 .bui-field {
   --fui-text-field-line-height: var(--lineHeightBase300);
   --fui-text-field-font-size: var(--fontSizeBase300);
@@ -986,6 +991,7 @@
   font-weight: var(--fontWeightRegular);
   font-family: var(--fontFamilyBase);
   text-align: start;
+  border: 0;
 }
 .bui-link.subtle {
   color: var(--colorNeutralForeground2);
@@ -1083,6 +1089,9 @@
   background-color: var(--colorNeutralBackground1Hover);
   color: var(--colorNeutralForeground2Hover);
 }
+.bui-menu-list > .menu-item:hover > .icon, .bui-menu-list > .menu-item:hover .active-icon {
+  color: var(--colorNeutralForeground2BrandSelected);
+}
 .bui-menu-list > .menu-item:hover > .active-icon {
   display: inline-flex;
 }
@@ -1155,17 +1164,18 @@
   box-sizing: border-box;
   display: inline-flex;
   position: relative;
+  cursor: pointer;
 }
 .bui-switch > input {
   top: 0px;
   left: 0px;
   box-sizing: border-box;
-  cursor: pointer;
   height: 100%;
   margin: 0px;
   opacity: 0;
   position: absolute;
   width: calc(40px + 2 * var(--spacingHorizontalS));
+  cursor: pointer;
 }
 .bui-switch > input:enabled:not(:checked) ~ .indicator {
   color: var(--colorNeutralStrokeAccessible);
@@ -1189,12 +1199,16 @@
 .bui-switch > input:checked ~ .indicator > * {
   transform: translateX(20px);
 }
+.bui-switch > input:disabled {
+  cursor: default;
+}
 .bui-switch > input:disabled ~ .indicator {
   color: var(--colorNeutralForegroundDisabled);
-}
-.bui-switch > input:disabled ~ .fui-Switch__label {
   cursor: default;
+}
+.bui-switch > input:disabled ~ label {
   color: var(--colorNeutralForegroundDisabled);
+  cursor: default;
 }
 .bui-switch > .indicator {
   border-radius: var(--borderRadiusCircular);
@@ -1211,6 +1225,7 @@
   transition-timing-function: var(--curveEasyEase);
   transition-property: background, border, color;
   width: 40px;
+  cursor: inherit;
 }
 .bui-switch > .indicator > svg {
   display: inline;
@@ -1227,7 +1242,15 @@
   line-height: var(--lineHeightBase300);
   font-size: var(--fontSizeBase300);
   font-family: var(--fontFamilyBase);
-  cursor: pointer;
+  cursor: inherit;
+}
+
+.rtl .bui-switch > input, [dir=rtl] .bui-switch > input {
+  left: unset;
+  right: 0px;
+}
+.rtl .bui-switch > input:checked ~ .indicator > *, [dir=rtl] .bui-switch > input:checked ~ .indicator > * {
+  transform: translateX(-20px);
 }
 
 .bui-tooltip {

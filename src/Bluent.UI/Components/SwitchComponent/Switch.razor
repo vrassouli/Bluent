@@ -10,7 +10,7 @@
            checked="@BindConverter.FormatValue(CurrentValue)"
            value="@bool.TrueString"
            @onchange="ChangeHandler" />
-    <div class="indicator">
+    <div class="indicator" @onclick=Toggle>
         <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" fill="currentColor"></path>
         </svg>

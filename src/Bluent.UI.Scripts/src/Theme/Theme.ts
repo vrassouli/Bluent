@@ -18,4 +18,18 @@ export class Theme {
 
         return dir ?? 'ltr';
     }
+
+    public static setTheme(theme: string) {
+        var link = <HTMLLinkElement>document.head.querySelector('link[href*="bluent.ui.theme"]');
+        var href = link?.href;
+
+        if (href && href.includes('bluent.ui.theme')) {
+            var splits = href.split('/');
+            var fileName = splits[splits.length - 1];
+            href = href.replace(fileName, `bluent.ui.theme.${theme}.css`);
+        }
+
+        link.href = href;
+
+    }
 }

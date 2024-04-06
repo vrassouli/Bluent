@@ -13,6 +13,7 @@
     font-weight: var(--fontWeightRegular);
     font-family: var(--fontFamilyBase);
     text-align: start;
+    border: 0;
 
     &.subtle {
         color: var(--colorNeutralForeground2);

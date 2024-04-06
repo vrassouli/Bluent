@@ -3,17 +3,18 @@
     box-sizing: border-box;
     display: inline-flex;
     position: relative;
+    cursor: pointer;
 
     > input {
         top: 0px;
         left: 0px;
         box-sizing: border-box;
-        cursor: pointer;
         height: 100%;
         margin: 0px;
         opacity: 0;
         position: absolute;
         width: calc(40px + 2* var(--spacingHorizontalS));
+        cursor: pointer;
 
         &:enabled:not(:checked) {
             ~ .indicator {
@@ -54,13 +55,16 @@
         }
 
         &:disabled {
+            cursor: default;
+
             ~ .indicator {
                 color: var(--colorNeutralForegroundDisabled);
+                cursor: default;
             }
 
-            ~ .fui-Switch__label {
-                cursor: default;
+            ~ label {
                 color: var(--colorNeutralForegroundDisabled);
+                cursor: default;
             }
         }
     }
@@ -80,6 +84,7 @@
         transition-timing-function: var(--curveEasyEase);
         transition-property: background, border, color;
         width: 40px;
+        cursor: inherit;
 
         > svg {
             display: inline;
@@ -98,13 +103,16 @@
         line-height: var(--lineHeightBase300);
         font-size: var(--fontSizeBase300);
         font-family: var(--fontFamilyBase);
-        cursor: pointer;
+        cursor: inherit;
     }
 }
 
 .rtl, [dir=rtl] {
     .bui-switch {
         > input {
+            left: unset;
+            right: 0px;
+
             &:checked {
                 ~ .indicator > * {
                     transform: translateX(-20px);

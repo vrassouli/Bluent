@@ -1,25 +1,135 @@
-﻿<Button Icon="icon-ic_fluent_app_folder_20_regular" ActiveIcon="icon-ic_fluent_app_folder_20_filled" Size="ButtonSize.Large" Appearance="ButtonAppearance.Subtle" Class="fs-6 bg-brand-2-hover bg-brand-2-pressed rounded-0" />
+﻿@using Blazored.LocalStorage
+@using Bluent.UI.Interops.Abstractions
+<Button Icon="icon-ic_fluent_app_folder_20_regular" ActiveIcon="icon-ic_fluent_app_folder_20_filled" Size="ButtonSize.Large" Appearance="ButtonAppearance.Subtle" Class="fs-6 bg-brand-2-hover bg-brand-2-pressed rounded-0" />
 <Button Appearance="ButtonAppearance.Transparent" href="/" Text="Bluent" />
 <div class="flex-fill"></div>
-<Switch @bind-Value="_darkTheme" Label="Dark" UncheckedLabel="Light" />
-@code {
-    private bool _darkTheme;
+<Popover>
+    <Trigger>
+        <Button Icon="icon-ic_fluent_color_20_regular" ActiveIcon="icon-ic_fluent_color_20_filled" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Large" Class="fs-6 rounded-0" />
+    </Trigger>
+    <Surface>
+        <div class="d-flex flex-column gap-3">
+            @foreach (var color in _colors)
+            {
+                <Card Orientation="CardOrientation.Horizontal">
+                    <CardPreview>
+                        <div style="background-color: @color.ColorHex" class="w-100 h-100">
+                        </div>
+                    </CardPreview>
+                    <CardHeader>
+                        <Header>
+                            @color.Name
+                        </Header>
+                        <Description>
+                            <Link Text="Apply" OnClick="()=>SetTheme(color.Name)" />
+                        </Description>
+                    </CardHeader>
+                </Card>
+            }
+        </div>
+    </Surface>
+</Popover>
+<Switch @bind-Value="IsDarkTheme" Label="Dark" UncheckedLabel="Light" />
+<Switch @bind-Value="IsRtl" Label="RTL" UncheckedLabel="LTR" />
 
-    private bool DarkTheme
+@code {
+    private const string RtlDirection = "rtl";
+    private const string LtrDirection = "ltr";
+    private const string LightTheme = "light";
+    private const string DarkTheme = "dark";
+    private bool _isDarkTheme;
+    private bool _isRtl;
+    private string _color = "default";
+    private List<ThemeColorModel> _colors = new List<ThemeColorModel>
     {
-        get => _darkTheme;
+        new ThemeColorModel("Default", "#0F6CBD"),
+        new ThemeColorModel("Excel", "#107C41"),
+        new ThemeColorModel("Office", "#d83b01"),
+        new ThemeColorModel("Outlook", "#0078d4"),
+        new ThemeColorModel("PowerBI", "#f2c811"),
+    };
+
+    [Inject] private IBluentTheme Theme { get; set; } = default!;
+    [Inject] private ILocalStorageService LocalStorage { get; set; } = default!;
+
+    private bool IsDarkTheme
+    {
+        get => _isDarkTheme;
         set
         {
-            if (value != _darkTheme)
+            if (value != _isDarkTheme)
             {
+                _isDarkTheme = value;
                 UpdateTheme();
-                _darkTheme = value;
             }
         }
     }
 
-    private void UpdateTheme()
+    private bool IsRtl
     {
+        get => _isRtl;
+        set
+        {
+            if (value != _isRtl)
+            {
+                _isRtl = value;
+                UpdateDirection();
+            }
+        }
+    }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadTheme();
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async void UpdateTheme()
+    {
+        var theme = IsDarkTheme ? DarkTheme : LightTheme;
+        Theme.SetThemeMode(theme);
+        await LocalStorage.SetItemAsStringAsync("ThemeMode", theme);
+    }
+
+    private async void UpdateDirection()
+    {
+        var dir = IsRtl ? RtlDirection : LtrDirection;
+        Theme.SetDirection(dir);
+        await LocalStorage.SetItemAsStringAsync("ThemeDir", dir);
+    }
+
+    private async Task LoadTheme()
+    {
+        var themeMode = await LocalStorage.GetItemAsStringAsync("ThemeMode");
+        var themeDir = await LocalStorage.GetItemAsStringAsync("ThemeDir");
+        var themeName = await LocalStorage.GetItemAsStringAsync("ThemeName");
+
+        IsDarkTheme = (themeMode == DarkTheme);
+        IsRtl = string.Compare(themeDir, RtlDirection, true) == 0;
+        if (!string.IsNullOrEmpty(themeName))
+            await SetTheme(themeName);
+    }
+
+    private async Task SetTheme(string themeName)
+    {
+        Theme.SetTheme(themeName.ToLower());
+        await LocalStorage.SetItemAsStringAsync("ThemeName", themeName.ToLower());
+    }
+
+    private class ThemeColorModel
+    {
+        public ThemeColorModel(string name, string colorHex)
+        {
+            Name = name;
+            ColorHex = colorHex;
+        }
+
+        public string Name { get; }
+        public string ColorHex { get; }
     }
 }

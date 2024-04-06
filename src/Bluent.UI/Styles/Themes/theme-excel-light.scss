@@ -2,5 +2,5 @@
 @import "theme/light-theme.scss";
 
 [data-bui-theme=light] {
-    @include light-theme($brand-blue);
+    @include light-theme($brand-excel);
 }

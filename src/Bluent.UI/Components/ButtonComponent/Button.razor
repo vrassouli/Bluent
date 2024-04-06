@@ -1,10 +1,6 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentComponentBase
 
-@*
-    <button type="button" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"></button>
-*@
-
 @{
     __builder.OpenElement(0, GetButtonTag());
     __builder.AddAttribute(1, "type", "button");

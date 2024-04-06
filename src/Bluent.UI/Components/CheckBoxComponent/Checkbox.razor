@@ -11,7 +11,7 @@
            checked="@BindConverter.FormatValue(CurrentValue)"
            value="@bool.TrueString"
            @onchange="ChangeHandler" />
-    <div class="indicator">
+    <div class="indicator" @onclick=Toggle>
         @if (ValueAsBool == null)
         {
             <svg fill="currentColor" class="" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">

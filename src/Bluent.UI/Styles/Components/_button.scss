@@ -172,7 +172,7 @@
             background-color: var(--colorSubtleBackgroundHover);
             border-color: transparent;
 
-            > .icon {
+            > .icon, >.active-icon {
                 color: var(--colorNeutralForeground2BrandHover);
             }
 

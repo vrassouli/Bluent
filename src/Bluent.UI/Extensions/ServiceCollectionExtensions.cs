@@ -1,4 +1,6 @@
-﻿using Bluent.UI.Services;
+﻿using Bluent.UI.Interops;
+using Bluent.UI.Interops.Abstractions;
+using Bluent.UI.Services;
 using Bluent.UI.Services.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddLocalization();
 
+        services.AddSingleton<IBluentTheme, BluentTheme>();
         services.AddSingleton<ITooltipService, TooltipService>();
         services.AddSingleton<IPopoverService, PopoverService>();
 

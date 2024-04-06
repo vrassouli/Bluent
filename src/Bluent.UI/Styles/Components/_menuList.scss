@@ -71,6 +71,10 @@
             background-color: var(--colorNeutralBackground1Hover);
             color: var(--colorNeutralForeground2Hover);
 
+            > .icon, .active-icon {
+                color: var(--colorNeutralForeground2BrandSelected);
+            }
+
             > .active-icon {
                 display: inline-flex;
 

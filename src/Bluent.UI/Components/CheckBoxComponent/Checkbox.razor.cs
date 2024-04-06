@@ -1,13 +1,7 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
@@ -72,6 +66,13 @@ public partial class Checkbox<TValue>
             yield return "circular";
     }
 
+    public void Toggle()
+    {
+        var isChecked = ValueAsBool == true;
+
+        TrySetValue(!isChecked);
+    }
+
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
@@ -82,6 +83,11 @@ public partial class Checkbox<TValue>
         if (!bool.TryParse(args.Value?.ToString(), out var isChecked))
             return;
 
+        TrySetValue(isChecked);
+    }
+
+    private void TrySetValue(bool isChecked)
+    {
         if (BindConverter.TryConvertTo(isChecked, CultureInfo.CurrentCulture, out TValue? result))
         {
             CurrentValue = result;

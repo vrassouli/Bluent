@@ -135,3 +135,11 @@
         }
     }
 }
+.rtl, [dir=rtl] {
+    .bui-checkbox {
+        > input {
+            left: unset;
+            right: 0px;
+        }
+    }
+}

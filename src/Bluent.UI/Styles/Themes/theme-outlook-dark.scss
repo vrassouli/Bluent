@@ -2,5 +2,5 @@
 @import "theme/dark-theme.scss";
 
 [data-bui-theme=dark] {
-    @include dark-theme($brand-blue);
+    @include dark-theme($brand-outlook);
 }
