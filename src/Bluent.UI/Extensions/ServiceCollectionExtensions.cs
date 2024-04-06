@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddLocalization();
 
-        services.AddSingleton<ITooltipInteropService, TooltipInteropService>();
         services.AddSingleton<ITooltipService, TooltipService>();
         services.AddSingleton<IPopoverService, PopoverService>();
 
