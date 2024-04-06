@@ -36,11 +36,56 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/bluent.ui.theme.powerapps.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-powerapps-light.css",
+      "Styles/Themes/theme-powerapps-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/bluent.ui.theme.powerbi.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
       "Styles/Themes/theme-powerbi-light.css",
       "Styles/Themes/theme-powerbi-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bluent.ui.theme.powerpoint.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-powerpoint-light.css",
+      "Styles/Themes/theme-powerpoint-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bluent.ui.theme.stream.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-stream-light.css",
+      "Styles/Themes/theme-stream-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bluent.ui.theme.teams.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-teams-light.css",
+      "Styles/Themes/theme-teams-dark.css",
+      "Styles/Themes/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bluent.ui.theme.word.css",
+    "inputFiles": [
+      "Styles/Themes/icons.css",
+      "Styles/Themes/theme-word-light.css",
+      "Styles/Themes/theme-word-dark.css",
       "Styles/Themes/styles.css"
     ]
   },

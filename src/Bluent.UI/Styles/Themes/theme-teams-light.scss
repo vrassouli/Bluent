@@ -1,0 +1,6 @@
+@import "_brand.scss";
+@import "theme/light-theme.scss";
+
+[data-bui-theme=light] {
+    @include light-theme($brand-teams);
+}

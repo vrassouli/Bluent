@@ -36,12 +36,52 @@
     "inputFile": "Styles/Themes/theme-outlook-light.scss"
   },
   {
+    "outputFile": "Styles/Themes/theme-powerapps-dark.css",
+    "inputFile": "Styles/Themes/theme-powerapps-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-powerapps-light.css",
+    "inputFile": "Styles/Themes/theme-powerapps-light.scss"
+  },
+  {
     "outputFile": "Styles/Themes/theme-powerbi-dark.css",
     "inputFile": "Styles/Themes/theme-powerbi-dark.scss"
   },
   {
     "outputFile": "Styles/Themes/theme-powerbi-light.css",
     "inputFile": "Styles/Themes/theme-powerbi-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-powerpoint-dark.css",
+    "inputFile": "Styles/Themes/theme-powerpoint-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-powerpoint-light.css",
+    "inputFile": "Styles/Themes/theme-powerpoint-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-stream-dark.css",
+    "inputFile": "Styles/Themes/theme-stream-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-stream-light.css",
+    "inputFile": "Styles/Themes/theme-stream-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-teams-dark.css",
+    "inputFile": "Styles/Themes/theme-teams-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-teams-light.css",
+    "inputFile": "Styles/Themes/theme-teams-light.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-word-dark.css",
+    "inputFile": "Styles/Themes/theme-word-dark.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/theme-word-light.css",
+    "inputFile": "Styles/Themes/theme-word-light.scss"
   },
   {
     "outputFile": "Styles/Themes/styles.css",
