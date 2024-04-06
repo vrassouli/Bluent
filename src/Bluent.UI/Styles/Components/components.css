@@ -845,7 +845,7 @@
   line-height: var(--fui-text-field-line-height);
   min-height: var(--fui-text-field-min-height);
 }
-.bui-field > input {
+.bui-field > input, .bui-field select {
   padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);
   align-self: stretch;
   box-sizing: border-box;
@@ -860,12 +860,12 @@
   font-weight: inherit;
   line-height: inherit;
 }
-.bui-field > input:disabled {
+.bui-field > input:disabled, .bui-field select:disabled {
   color: var(--colorNeutralForegroundDisabled);
   background-color: var(--colorTransparentBackground);
   cursor: not-allowed;
 }
-.bui-field > input + .end-addon {
+.bui-field > input + .end-addon, .bui-field select + .end-addon {
   margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);
 }
 .bui-field > .start-addon {
@@ -877,7 +877,7 @@
   align-items: center;
   justify-content: center;
 }
-.bui-field > .start-addon + input {
+.bui-field > .start-addon + input, .bui-field > .start-addon + select {
   padding-inline-start: 0;
 }
 .bui-field > .end-addon {
@@ -1148,6 +1148,86 @@
 .bui-popover-surface.inverted {
   color: var(--colorNeutralForegroundStaticInverted);
   background-color: var(--colorNeutralBackgroundStatic);
+}
+
+.bui-switch {
+  align-items: flex-start;
+  box-sizing: border-box;
+  display: inline-flex;
+  position: relative;
+}
+.bui-switch > input {
+  top: 0px;
+  left: 0px;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 100%;
+  margin: 0px;
+  opacity: 0;
+  position: absolute;
+  width: calc(40px + 2 * var(--spacingHorizontalS));
+}
+.bui-switch > input:enabled:not(:checked) ~ .indicator {
+  color: var(--colorNeutralStrokeAccessible);
+  border-color: var(--colorNeutralStrokeAccessible);
+}
+.bui-switch > input:enabled:not(:checked) ~ label {
+  color: var(--colorNeutralForeground1);
+}
+.bui-switch > input:enabled:checked ~ .indicator {
+  background-color: var(--colorCompoundBrandBackground);
+  color: var(--colorNeutralForegroundInverted);
+  border-color: var(--colorTransparentStroke);
+}
+.bui-switch > input:disabled:not(:checked) ~ .indicator {
+  border-color: var(--colorNeutralStrokeDisabled);
+}
+.bui-switch > input:disabled:checked ~ .indicator {
+  background-color: var(--colorNeutralBackgroundDisabled);
+  border-color: var(--colorTransparentStrokeDisabled);
+}
+.bui-switch > input:checked ~ .indicator > * {
+  transform: translateX(20px);
+}
+.bui-switch > input:disabled ~ .indicator {
+  color: var(--colorNeutralForegroundDisabled);
+}
+.bui-switch > input:disabled ~ .fui-Switch__label {
+  cursor: default;
+  color: var(--colorNeutralForegroundDisabled);
+}
+.bui-switch > .indicator {
+  border-radius: var(--borderRadiusCircular);
+  border: 1px solid;
+  line-height: 0;
+  box-sizing: border-box;
+  fill: currentcolor;
+  flex-shrink: 0;
+  font-size: 18px;
+  height: 20px;
+  margin: var(--spacingVerticalS) var(--spacingHorizontalS);
+  pointer-events: none;
+  transition-duration: var(--durationNormal);
+  transition-timing-function: var(--curveEasyEase);
+  transition-property: background, border, color;
+  width: 40px;
+}
+.bui-switch > .indicator > svg {
+  display: inline;
+  line-height: 0;
+  transition-duration: var(--durationNormal);
+  transition-timing-function: var(--curveEasyEase);
+  transition-property: transform;
+}
+.bui-switch > label {
+  padding: var(--spacingVerticalS) 0;
+  padding-inline: var(--spacingHorizontalXS) var(--spacingHorizontalS);
+  margin-top: calc((20px - var(--lineHeightBase300)) / 2);
+  margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
+  line-height: var(--lineHeightBase300);
+  font-size: var(--fontSizeBase300);
+  font-family: var(--fontFamilyBase);
+  cursor: pointer;
 }
 
 .bui-tooltip {

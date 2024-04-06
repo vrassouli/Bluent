@@ -1,3 +1,4 @@
 import { Popover } from './Popover/Popover';
+import { Theme } from './Theme/Theme';
 
-export { Popover };
+export { Theme, Popover };

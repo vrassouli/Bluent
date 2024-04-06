@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interops\Abstractions\ITooltipInteropService.cs" />
+    <Compile Remove="Interops\TooltipInteropService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 

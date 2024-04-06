@@ -24,6 +24,11 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>
         AdditionalAttributes["disabled"] is bool b &&
         b != false;
 
+    /// <summary>
+    /// Gets the <see cref="FieldIdentifier"/> for the bound value.
+    /// </summary>
+    public FieldIdentifier Field => base.FieldIdentifier;
+
     public string Id
     {
         get

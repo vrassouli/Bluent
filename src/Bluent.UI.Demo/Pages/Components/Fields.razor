@@ -58,6 +58,50 @@
             </TextField>
         </section>
 
+        <h3>Date field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label For="()=>_smallDateField" Class="d-block mb-1" />
+            <DateField @bind-Value="_smallDateField" Size="FieldSize.Small" />
+
+            <Label For="()=>_dateField" Class="d-block mb-1 mt-4" />
+            <DateField @bind-Value="_dateField" Size="FieldSize.Medium" />
+
+            <Label For="()=>_largeDateField" Class="d-block mb-1 mt-4" />
+            <DateField @bind-Value="_largeDateField" Size="FieldSize.Large" />
+
+            <Label For="()=>_disabledDate" Class="d-block mb-1 mt-4" />
+            <DateField @bind-Value="_disabledDate" Size="FieldSize.Medium" disabled />
+        </section>
+
+        <h3>Numeric field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label For="()=>_numericFloat" Class="d-block mb-1 mt-4" />
+            <NumericField @bind-Value="_numericFloat" Size="FieldSize.Medium" />
+        </section>
+
+        <h3>Select field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label For="()=>_selectField" Class="d-block mb-1 mt-4" />
+            <SelectField @bind-Value="_selectField">
+                @foreach (var item in _colors)
+                {
+                    <option value="@item">@item</option>
+                }
+            </SelectField>
+        </section>
+
+        <h3>Checkbox</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_checkBox" Label="Checkbox"/>
+        </section>
+
+        <h3>Switch</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Switch @bind-Value="_switch" Label="Switch is On" UncheckedLabel="Switch is Off" />
+            <Switch @bind-Value="_disabledOffSwitch" Label="Switch is disabled and On" UncheckedLabel="Switch is disabled and Off" disabled />
+            <Switch @bind-Value="_disabledOnSwitch" Label="Switch is disabled and On" UncheckedLabel="Switch is disabled and Off" disabled />
+        </section>
+
     </div>
 </div>
 
@@ -76,4 +120,30 @@
 
     [Display(Name = "Large")]
     private string? _largeTextField;
+
+    [Display(Name = "Small date field")]
+    private DateTime? _smallDateField;
+
+    [Display(Name = "Date field")]
+    private DateTime? _dateField;
+
+    [Display(Name = "Large rate field")]
+    private DateTime? _largeDateField;
+
+    [Display(Name = "Disabled date field")]
+    private DateTime? _disabledDate;
+
+    [Display(Name = "Numeric field")]
+    private float? _numericFloat;
+
+    [Display(Name = "Select field")]
+    private string _selectField = "Green";
+
+    private bool? _checkBox;
+
+    private bool _switch;
+    private bool _disabledOffSwitch;
+    private bool _disabledOnSwitch = true;
+
+    private List<string> _colors = ["Red", "Green", "Blue"];
 }

@@ -1,0 +1,103 @@
+﻿.bui-switch {
+    align-items: flex-start;
+    box-sizing: border-box;
+    display: inline-flex;
+    position: relative;
+
+    > input {
+        top: 0px;
+        left: 0px;
+        box-sizing: border-box;
+        cursor: pointer;
+        height: 100%;
+        margin: 0px;
+        opacity: 0;
+        position: absolute;
+        width: calc(40px + 2* var(--spacingHorizontalS));
+
+        &:enabled:not(:checked) {
+            ~ .indicator {
+                color: var(--colorNeutralStrokeAccessible);
+                border-color: var(--colorNeutralStrokeAccessible);
+            }
+
+            ~ label {
+                color: var(--colorNeutralForeground1);
+            }
+        }
+
+        &:enabled:checked {
+            ~ .indicator {
+                background-color: var(--colorCompoundBrandBackground);
+                color: var(--colorNeutralForegroundInverted);
+                border-color: var(--colorTransparentStroke);
+            }
+        }
+
+        &:disabled:not(:checked) {
+            ~ .indicator {
+                border-color: var(--colorNeutralStrokeDisabled);
+            }
+        }
+
+        &:disabled:checked {
+            ~ .indicator {
+                background-color: var(--colorNeutralBackgroundDisabled);
+                border-color: var(--colorTransparentStrokeDisabled);
+            }
+        }
+
+        &:checked {
+            ~ .indicator > * {
+                transform: translateX(20px);
+            }
+        }
+
+        &:disabled {
+            ~ .indicator {
+                color: var(--colorNeutralForegroundDisabled);
+            }
+
+            ~ .fui-Switch__label {
+                cursor: default;
+                color: var(--colorNeutralForegroundDisabled);
+            }
+        }
+    }
+
+    > .indicator {
+        border-radius: var(--borderRadiusCircular);
+        border: 1px solid;
+        line-height: 0;
+        box-sizing: border-box;
+        fill: currentcolor;
+        flex-shrink: 0;
+        font-size: 18px;
+        height: 20px;
+        margin: var(--spacingVerticalS) var(--spacingHorizontalS);
+        pointer-events: none;
+        transition-duration: var(--durationNormal);
+        transition-timing-function: var(--curveEasyEase);
+        transition-property: background, border, color;
+        width: 40px;
+
+        > svg {
+            display: inline;
+            line-height: 0;
+            transition-duration: var(--durationNormal);
+            transition-timing-function: var(--curveEasyEase);
+            transition-property: transform;
+        }
+    }
+
+    > label {
+        padding: var(--spacingVerticalS) 0;
+        padding-inline: var(--spacingHorizontalXS) var(--spacingHorizontalS);
+        margin-top: calc((20px - var(--lineHeightBase300)) / 2);
+        margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
+        line-height: var(--lineHeightBase300);
+        font-size: var(--fontSizeBase300);
+        font-family: var(--fontFamilyBase);
+        cursor: pointer;
+    }
+}
