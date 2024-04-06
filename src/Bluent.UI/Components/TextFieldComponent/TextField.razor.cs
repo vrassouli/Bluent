@@ -17,6 +17,7 @@ public partial class TextField
 
         yield return "bui-text-field";
     }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
