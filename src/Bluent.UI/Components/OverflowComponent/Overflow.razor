@@ -1,0 +1,13 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<CascadingValue Value="this" IsFixed>
+    @ChildContent
+</CascadingValue>
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @foreach (var item in _items)
+    {
+        @RenderItem().Invoke(item)
+    }
+</div>

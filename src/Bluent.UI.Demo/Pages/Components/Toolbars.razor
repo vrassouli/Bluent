@@ -1,0 +1,37 @@
+﻿@page "/components/toolbars"
+@using Bluent.UI.Interops.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Overflow</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Toolbar>
+                <ToolbarButton Text="Button 1" Icon="icon-ic_fluent_folder_open_20_regular" ActiveIcon="icon-ic_fluent_folder_open_20_filled" Appearance="ToolbarButtonAppearance.Primary" OnClick="@(()=>{SetMessage("Button 1"); })" />
+                <ToolbarButton Text="Button 2" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" OnClick="@(()=>{SetMessage("Button 2"); })" />
+                <ToolbarButton Text="Button 3" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" OnClick="@(()=>{SetMessage("Button 3"); })" />
+                <ToolbarDivider />
+                <ToolbarButton Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
+                <ToolbarButton Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
+                <ToolbarButton Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" OnClick="@(()=>{SetMessage("Paste"); })" Tooltip="Paste" />
+                <ToolbarDivider />
+                <ToolbarButton Text="Quick Actions" OnClick="@(()=>{SetMessage("Paste"); })" />
+            </Toolbar>
+
+            <div>
+                @_message
+            </div>
+        </section>
+
+    </div>
+</div>
+
+@code {
+    string? _message;
+
+    private void SetMessage(string button)
+    {
+        _message = $"{button} clicked.";
+    }
+}

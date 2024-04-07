@@ -1,0 +1,20 @@
+﻿.bui-overflow {
+    display: flex;
+    overflow: hidden;
+
+    > * {
+        flex-shrink: 0;
+    }
+
+    &.vertical {
+        flex-direction: column;
+    }
+
+    &.horizontal {
+        flex-direction: row;
+    }
+
+    > .overflowing {
+        display: none;
+    }
+}

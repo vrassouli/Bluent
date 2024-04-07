@@ -1,0 +1,11 @@
+﻿@using Bluent.UI.Components.OverflowComponent
+@inherits BluentComponentBase
+
+<button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
+    @if (!string.IsNullOrEmpty(ActiveIcon))
+    {
+        <i class="active-icon @ActiveIcon"></i>
+    }
+    <i class="icon @Icon"></i>
+    <span>@Text</span>
+</button>

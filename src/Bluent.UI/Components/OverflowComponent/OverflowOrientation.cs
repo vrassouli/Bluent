@@ -1,7 +1,7 @@
 ﻿namespace Bluent.UI.Components;
 
-public enum CardOrientation
+public enum OverflowOrientation
 {
+    Horizontal,
     Vertical,
-    Horizontal
 }

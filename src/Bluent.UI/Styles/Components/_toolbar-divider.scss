@@ -1,0 +1,47 @@
+﻿.bui-toolbar-divider {
+    &.horizontal {
+        max-width: 1px;
+        min-height: 20px;
+        padding: 0 12px;
+        flex-grow: 1;
+        box-sizing: border-box;
+        flex-direction: column;
+        text-align: center;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        font-family: var(--fontFamilyBase);
+        color: var(--colorNeutralForeground2);
+        line-height: var(--lineHeightBase200);
+        align-items: center;
+        display: flex;
+
+        &:before {
+            min-height: 8px;
+            border-right-width: var(--strokeWidthThin);
+            border-color: var(--colorNeutralStroke2);
+            content: "";
+            margin-right: 0px;
+            margin-bottom: 0px;
+            flex-grow: 1;
+            display: flex;
+            border-right-style: solid;
+            box-sizing: border-box;
+        }
+
+        &:after {
+            min-height: 8px;
+            border-right-width: var(--strokeWidthThin);
+            border-right-style: solid;
+            border-color: var(--colorNeutralStroke2);
+            content: "";
+            margin-top: 0px;
+            margin-left: 0px;
+            flex-grow: 1;
+            display: flex;
+            box-sizing: border-box;
+        }
+    }
+
+    &.vertical {
+    }
+}

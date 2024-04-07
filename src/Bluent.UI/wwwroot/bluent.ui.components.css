@@ -1103,6 +1103,23 @@
   color: var(--colorNeutralForeground2Pressed);
 }
 
+.bui-overflow {
+  display: flex;
+  overflow: hidden;
+}
+.bui-overflow > * {
+  flex-shrink: 0;
+}
+.bui-overflow.vertical {
+  flex-direction: column;
+}
+.bui-overflow.horizontal {
+  flex-direction: row;
+}
+.bui-overflow > .overflowing {
+  display: none;
+}
+
 .bui-popover {
   width: max-content;
 }
@@ -1253,6 +1270,132 @@
   transform: translateX(-20px);
 }
 
+.bui-toolbar {
+  padding: 4px 8px;
+  align-items: center;
+}
+
+.bui-toolbar-button {
+  /*max-width: 32px;*/
+  min-width: 32px;
+  padding: 5px;
+  margin: 0px;
+  color: var(--colorNeutralForeground2);
+  background-color: var(--colorSubtleBackground);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacingHorizontalSNudge);
+  box-sizing: border-box;
+  border: var(--strokeWidthThin) solid transparent;
+  border-radius: var(--borderRadiusMedium);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightSemibold);
+  text-decoration-line: none;
+  line-height: var(--lineHeightBase300);
+  vertical-align: middle;
+  outline-style: none;
+  overflow: hidden;
+  /*min-width: 96px;*/
+  transition-duration: var(--durationFaster);
+  transition-property: background, border, color;
+  transition-timing-function: var(--curveEasyEase);
+  cursor: pointer;
+}
+.bui-toolbar-button > .active-icon {
+  display: none;
+}
+.bui-toolbar-button.icon {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  color: var(--colorNeutralForeground2);
+}
+.bui-toolbar-button:hover {
+  color: var(--colorNeutralForeground2Hover);
+  background-color: var(--colorSubtleBackgroundHover);
+}
+.bui-toolbar-button:hover > .active-icon {
+  display: inline;
+}
+.bui-toolbar-button:hover > .active-icon + .icon {
+  display: none;
+}
+.bui-toolbar-button:hover > .icon, .bui-toolbar-button:hover > .active-icon {
+  color: var(--colorNeutralForeground2BrandHover);
+}
+.bui-toolbar-button:hover:active {
+  color: var(--colorNeutralForeground2Pressed);
+  background-color: var(--colorSubtleBackgroundPressed);
+}
+.bui-toolbar-button:hover:active > .icon, .bui-toolbar-button:hover:active > .active-icon {
+  color: var(--colorNeutralForeground2BrandPressed);
+}
+.bui-toolbar-button.primary {
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorBrandBackground);
+}
+.bui-toolbar-button.primary > .icon {
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-toolbar-button.primary:hover {
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorBrandBackgroundHover);
+}
+.bui-toolbar-button.primary:hover > .icon, .bui-toolbar-button.primary:hover > .active-icon {
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-toolbar-button.primary:hover:active {
+  background-color: var(--colorBrandBackgroundPressed);
+}
+.bui-toolbar-button.primary:hover:active > .icon, .bui-toolbar-button.primary:hover:active > .active-icon {
+  color: var(--colorNeutralForegroundOnBrand);
+}
+
+.bui-toolbar-divider.horizontal {
+  max-width: 1px;
+  min-height: 20px;
+  padding: 0 12px;
+  flex-grow: 1;
+  box-sizing: border-box;
+  flex-direction: column;
+  text-align: center;
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightRegular);
+  font-family: var(--fontFamilyBase);
+  color: var(--colorNeutralForeground2);
+  line-height: var(--lineHeightBase200);
+  align-items: center;
+  display: flex;
+}
+.bui-toolbar-divider.horizontal:before {
+  min-height: 8px;
+  border-right-width: var(--strokeWidthThin);
+  border-color: var(--colorNeutralStroke2);
+  content: "";
+  margin-right: 0px;
+  margin-bottom: 0px;
+  flex-grow: 1;
+  display: flex;
+  border-right-style: solid;
+  box-sizing: border-box;
+}
+.bui-toolbar-divider.horizontal:after {
+  min-height: 8px;
+  border-right-width: var(--strokeWidthThin);
+  border-right-style: solid;
+  border-color: var(--colorNeutralStroke2);
+  content: "";
+  margin-top: 0px;
+  margin-left: 0px;
+  flex-grow: 1;
+  display: flex;
+  box-sizing: border-box;
+}
 .bui-tooltip {
   /*display: none;*/
   width: max-content;
