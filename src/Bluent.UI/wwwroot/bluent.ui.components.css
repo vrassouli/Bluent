@@ -1102,10 +1102,19 @@
   background-color: var(--colorNeutralBackground1Pressed);
   color: var(--colorNeutralForeground2Pressed);
 }
+.bui-menu-list > .menu-divider {
+  width: auto;
+  margin: 4px 0;
+  border-bottom-color: var(--colorNeutralStroke2);
+  border-bottom-width: var(--strokeWidthThin);
+  border-bottom-style: solid;
+}
 
 .bui-overflow {
   display: flex;
+  position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .bui-overflow > * {
   flex-shrink: 0;
@@ -1117,6 +1126,16 @@
   flex-direction: row;
 }
 .bui-overflow > .overflowing {
+  display: none !important;
+}
+.bui-overflow > .overflow-button {
+  display: none;
+}
+.bui-overflow:has(.overflowing) > .overflow-button {
+  display: inline-flex;
+}
+
+.bui-menu-list.overflow-menu > :not(.overflowing) {
   display: none;
 }
 
@@ -1174,6 +1193,9 @@
 .bui-popover-surface.inverted {
   color: var(--colorNeutralForegroundStaticInverted);
   background-color: var(--colorNeutralBackgroundStatic);
+}
+.bui-popover-surface.hidden {
+  display: none;
 }
 
 .bui-switch {
@@ -1271,11 +1293,24 @@
 }
 
 .bui-toolbar {
-  padding: 4px 8px;
   align-items: center;
 }
+.bui-toolbar.horizontal {
+  padding: 4px 8px;
+  height: max-content;
+}
+.bui-toolbar.horizontal > .toolbar-button {
+  height: 100%;
+}
+.bui-toolbar.vertical {
+  padding: 8px 4px;
+  width: max-content;
+}
+.bui-toolbar.vertical > .toolbar-button {
+  width: 100%;
+}
 
-.bui-toolbar-button {
+.toolbar-button {
   /*max-width: 32px;*/
   min-width: 32px;
   padding: 5px;
@@ -1283,6 +1318,7 @@
   color: var(--colorNeutralForeground2);
   background-color: var(--colorSubtleBackground);
   display: inline-flex;
+  flex-direction: inherit;
   align-items: center;
   justify-content: center;
   gap: var(--spacingHorizontalSNudge);
@@ -1303,10 +1339,10 @@
   transition-timing-function: var(--curveEasyEase);
   cursor: pointer;
 }
-.bui-toolbar-button > .active-icon {
+.toolbar-button > .active-icon {
   display: none;
 }
-.bui-toolbar-button.icon {
+.toolbar-button.icon {
   align-items: center;
   display: inline-flex;
   justify-content: center;
@@ -1315,48 +1351,69 @@
   width: 20px;
   color: var(--colorNeutralForeground2);
 }
-.bui-toolbar-button:hover {
+.toolbar-button:hover {
   color: var(--colorNeutralForeground2Hover);
   background-color: var(--colorSubtleBackgroundHover);
 }
-.bui-toolbar-button:hover > .active-icon {
+.toolbar-button:hover > .active-icon {
   display: inline;
 }
-.bui-toolbar-button:hover > .active-icon + .icon {
+.toolbar-button:hover > .active-icon + .icon {
   display: none;
 }
-.bui-toolbar-button:hover > .icon, .bui-toolbar-button:hover > .active-icon {
+.toolbar-button:hover > .icon, .toolbar-button:hover > .active-icon {
   color: var(--colorNeutralForeground2BrandHover);
 }
-.bui-toolbar-button:hover:active {
+.toolbar-button:hover:active {
   color: var(--colorNeutralForeground2Pressed);
   background-color: var(--colorSubtleBackgroundPressed);
 }
-.bui-toolbar-button:hover:active > .icon, .bui-toolbar-button:hover:active > .active-icon {
+.toolbar-button:hover:active > .icon, .toolbar-button:hover:active > .active-icon {
   color: var(--colorNeutralForeground2BrandPressed);
 }
-.bui-toolbar-button.primary {
+.toolbar-button.primary {
   color: var(--colorNeutralForegroundOnBrand);
   background-color: var(--colorBrandBackground);
 }
-.bui-toolbar-button.primary > .icon {
+.toolbar-button.primary > .icon {
   color: var(--colorNeutralForegroundOnBrand);
 }
-.bui-toolbar-button.primary:hover {
+.toolbar-button.primary:hover {
   color: var(--colorNeutralForegroundOnBrand);
   background-color: var(--colorBrandBackgroundHover);
 }
-.bui-toolbar-button.primary:hover > .icon, .bui-toolbar-button.primary:hover > .active-icon {
+.toolbar-button.primary:hover > .icon, .toolbar-button.primary:hover > .active-icon {
   color: var(--colorNeutralForegroundOnBrand);
 }
-.bui-toolbar-button.primary:hover:active {
+.toolbar-button.primary:hover:active {
   background-color: var(--colorBrandBackgroundPressed);
 }
-.bui-toolbar-button.primary:hover:active > .icon, .bui-toolbar-button.primary:hover:active > .active-icon {
+.toolbar-button.primary:hover:active > .icon, .toolbar-button.primary:hover:active > .active-icon {
   color: var(--colorNeutralForegroundOnBrand);
 }
+.toolbar-button.subtle {
+  color: var(--colorNeutralForeground2);
+  background-color: var(--colorSubtleBackground);
+}
+.toolbar-button.subtle > .icon {
+  color: var(--colorNeutralForeground2BrandSelected);
+}
+.toolbar-button.subtle:hover {
+  color: var(--colorNeutralForeground2Hover);
+  background-color: var(--colorSubtleBackgroundHover);
+}
+.toolbar-button.subtle:hover > .icon, .toolbar-button.subtle:hover > .active-icon {
+  color: var(--colorNeutralForeground2BrandHover);
+}
+.toolbar-button.subtle:hover:active {
+  color: var(--colorNeutralForeground2Pressed);
+  background-color: var(--colorSubtleBackgroundPressed);
+}
+.toolbar-button.subtle:hover:active > .icon, .toolbar-button.subtle:hover:active > .active-icon {
+  color: var(--colorNeutralForeground2BrandPressed);
+}
 
-.bui-toolbar-divider.horizontal {
+.toolbar-divider.horizontal {
   max-width: 1px;
   min-height: 20px;
   padding: 0 12px;
@@ -1372,7 +1429,7 @@
   align-items: center;
   display: flex;
 }
-.bui-toolbar-divider.horizontal:before {
+.toolbar-divider.horizontal:before {
   min-height: 8px;
   border-right-width: var(--strokeWidthThin);
   border-color: var(--colorNeutralStroke2);
@@ -1384,7 +1441,7 @@
   border-right-style: solid;
   box-sizing: border-box;
 }
-.bui-toolbar-divider.horizontal:after {
+.toolbar-divider.horizontal:after {
   min-height: 8px;
   border-right-width: var(--strokeWidthThin);
   border-right-style: solid;

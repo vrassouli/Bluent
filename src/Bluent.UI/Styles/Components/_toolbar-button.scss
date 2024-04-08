@@ -1,4 +1,4 @@
-﻿.bui-toolbar-button {
+﻿.toolbar-button {
     /*max-width: 32px;*/
     min-width: 32px;
     padding: 5px;
@@ -6,6 +6,7 @@
     color: var(--colorNeutralForeground2);
     background-color: var(--colorSubtleBackground);
     display: inline-flex;
+    flex-direction: inherit;
     align-items: center;
     justify-content: center;
     gap: var(--spacingHorizontalSNudge);
@@ -87,6 +88,33 @@
 
                 > .icon, > .active-icon {
                     color: var(--colorNeutralForegroundOnBrand);
+                }
+            }
+        }
+    }
+
+    &.subtle {
+        color: var(--colorNeutralForeground2);
+        background-color: var(--colorSubtleBackground);
+
+        > .icon {
+            color: var(--colorNeutralForeground2BrandSelected);
+        }
+
+        &:hover {
+            color: var(--colorNeutralForeground2Hover);
+            background-color: var(--colorSubtleBackgroundHover);
+
+            > .icon, > .active-icon {
+                color: var(--colorNeutralForeground2BrandHover);
+            }
+
+            &:active {
+                color: var(--colorNeutralForeground2Pressed);
+                background-color: var(--colorSubtleBackgroundPressed);
+
+                > .icon, > .active-icon {
+                    color: var(--colorNeutralForeground2BrandPressed);
                 }
             }
         }

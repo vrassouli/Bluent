@@ -2,6 +2,7 @@
 
 public enum ToolbarButtonAppearance
 {
+    Default,
     Primary,
     Subtle
 }

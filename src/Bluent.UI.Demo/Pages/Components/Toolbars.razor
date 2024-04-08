@@ -3,32 +3,56 @@
 
 <div class="p-5 py-md-10 px-md-12">
     <div class="w-100 w-md-50 m-auto">
-        <h1>Overflow</h1>
+        <h1>Toolbars</h1>
 
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Toolbar>
-                <ToolbarButton Text="Button 1" Icon="icon-ic_fluent_folder_open_20_regular" ActiveIcon="icon-ic_fluent_folder_open_20_filled" Appearance="ToolbarButtonAppearance.Primary" OnClick="@(()=>{SetMessage("Button 1"); })" />
-                <ToolbarButton Text="Button 2" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" OnClick="@(()=>{SetMessage("Button 2"); })" />
-                <ToolbarButton Text="Button 3" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" OnClick="@(()=>{SetMessage("Button 3"); })" />
+            <Label Text="Toolbar width (px):" Class="me-4"/>
+            <NumericField @bind-Value="_horizontalToolbarWidth"/>
+
+            <Toolbar Class="my-4 shadow-2" Style="@HorizontalToolbarWidth">
+                <ToolbarButton Text="Open" Icon="icon-ic_fluent_folder_open_20_regular" ActiveIcon="icon-ic_fluent_folder_open_20_filled" Appearance="ToolbarButtonAppearance.Primary" OnClick="@(()=>{SetMessage("Open"); })" />
+                <ToolbarButton Text="Save" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" OnClick="@(()=>{SetMessage("Save"); })" />
+                <ToolbarButton Text="Save All" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" OnClick="@(()=>{SetMessage("Save All"); })" />
                 <ToolbarDivider />
-                <ToolbarButton Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
-                <ToolbarButton Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
-                <ToolbarButton Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" OnClick="@(()=>{SetMessage("Paste"); })" Tooltip="Paste" />
+                <ToolbarButton MenuLabel="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
+                <ToolbarButton MenuLabel="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
+                <ToolbarButton MenuLabel="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Paste"); })" Tooltip="Paste" />
                 <ToolbarDivider />
-                <ToolbarButton Text="Quick Actions" OnClick="@(()=>{SetMessage("Paste"); })" />
+                <ToolbarButton Text="Quick Actions" OnClick="@(()=>{SetMessage("Quick Actions"); })" />
             </Toolbar>
 
             <div>
                 @_message
             </div>
         </section>
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Toolbar height (px):" Class="me-4" />
+            <NumericField @bind-Value="_verticalToolbarHeight" />
+
+            <Toolbar Orientation="OverflowOrientation.Vertical" Class="my-4 shadow-2" Style="@VerticalToolbarHeight">
+                <ToolbarButton Text="Open" Icon="icon-ic_fluent_folder_open_20_regular" ActiveIcon="icon-ic_fluent_folder_open_20_filled" Appearance="ToolbarButtonAppearance.Primary" />
+                <ToolbarButton Text="Save" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" />
+                <ToolbarButton Text="Save All" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" />
+                <ToolbarDivider />
+                <ToolbarButton MenuLabel="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Tooltip="Cut" Appearance="ToolbarButtonAppearance.Subtle" />
+                <ToolbarButton MenuLabel="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Tooltip="Copy" Appearance="ToolbarButtonAppearance.Subtle" />
+                <ToolbarButton MenuLabel="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Tooltip="Paste" Appearance="ToolbarButtonAppearance.Subtle" />
+                <ToolbarDivider />
+                <ToolbarButton Text="Quick Actions" />
+            </Toolbar>
+        </section>
 
     </div>
 </div>
 
 @code {
+    int? _horizontalToolbarWidth;
+    int? _verticalToolbarHeight;
     string? _message;
+    string? HorizontalToolbarWidth => _horizontalToolbarWidth == null ? "" : $"width: {_horizontalToolbarWidth}px";
+    string? VerticalToolbarHeight => _verticalToolbarHeight == null ? "" : $"height: {_verticalToolbarHeight}px";
 
     private void SetMessage(string button)
     {

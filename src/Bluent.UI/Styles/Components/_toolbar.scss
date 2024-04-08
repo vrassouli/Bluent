@@ -1,4 +1,21 @@
 ﻿.bui-toolbar {
-    padding: 4px 8px;
     align-items: center;
+
+    &.horizontal {
+        padding: 4px 8px;
+        height: max-content;
+
+        > .toolbar-button {
+            height: 100%;
+        }
+    }
+
+    &.vertical {
+        padding: 8px 4px;
+        width: max-content;
+
+        > .toolbar-button {
+            width: 100%;
+        }
+    }
 }

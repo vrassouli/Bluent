@@ -1,7 +1,7 @@
 ﻿@using Bluent.UI.Services
 @using Bluent.UI.Services.Abstractions
 @using Humanizer
-<div id="@Config.SurfaceId" class="bui-popover-surface @(Config.Appearance.ToString().Kebaberize()) @(Config.Settings.Placement.ToString().Kebaberize())">
+<div id="@Config.SurfaceId" class="bui-popover-surface hidden @(Config.Appearance.ToString().Kebaberize()) @(Config.Settings.Placement.ToString().Kebaberize())">
     @Config.Content
     @if (Config.DisplayArrow)
     {
@@ -14,7 +14,7 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
-        if(firstRender)
+        if (firstRender && !Config.KeepSurface)
             Service.Show(Config.Settings.TriggerId);
 
         base.OnAfterRender(firstRender);

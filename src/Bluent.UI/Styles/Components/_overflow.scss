@@ -1,6 +1,8 @@
 ﻿.bui-overflow {
     display: flex;
+    position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 
     > * {
         flex-shrink: 0;
@@ -15,6 +17,24 @@
     }
 
     > .overflowing {
+        display: none !important;
+    }
+
+    > .overflow-button {
         display: none;
+    }
+
+    &:has(.overflowing) {
+        > .overflow-button {
+            display: inline-flex;
+        }
+    }
+}
+
+.bui-menu-list {
+    &.overflow-menu {
+        > :not(.overflowing) {
+            display: none;
+        }
     }
 }

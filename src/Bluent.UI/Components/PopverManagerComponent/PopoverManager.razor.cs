@@ -79,6 +79,12 @@ public partial class PopoverManager : IPopoverEventHandler, IAsyncDisposable
 
         _popovers.Add(args.Config);
         _interop?.SetPopover(args.Config.Settings);
+
+        if (args.Config.KeepSurface)
+        {
+            args.Config.Visible = false;
+            StateHasChanged();
+        }
     }
 
     private void PopoverOnShowSurface(object? sender, ShowPopoverSurfaceEventArgs args)

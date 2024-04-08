@@ -46,4 +46,5 @@ public abstract partial class Overflow
     }
 
     protected abstract RenderFragment<IOverflowItem> RenderItem();
+    protected abstract RenderFragment<IOverflowItem> RenderMenuItem();
 }

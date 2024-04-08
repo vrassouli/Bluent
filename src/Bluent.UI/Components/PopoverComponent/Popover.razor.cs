@@ -19,6 +19,7 @@ public partial class Popover : IDisposable
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
     [Parameter] public Placement Placement { get; set; } = Placement.Top;
     [Parameter] public bool DisplayArrow { get; set; } = true;
+    [Parameter] public bool KeepSurface { get; set; } 
     [Parameter] public string? TriggerEvents { get; set; } = "click";
     [Parameter] public string? HideEvents { get; set; }
     [Parameter] public PopoverAppearance Appearance { get; set; } = PopoverAppearance.Default;
@@ -38,14 +39,6 @@ public partial class Popover : IDisposable
         base.OnInitialized();
     }
 
-    //protected override void OnAfterRender(bool firstRender)
-    //{
-    //    if (firstRender)
-    //        PopoverService.Set(Id, Surface, Placement, DisplayArrow);
-
-    //    base.OnAfterRender(firstRender);
-    //}
-
     public void SetTrigger(IBluentComponent triggerComponent)
     {
         _settings = new PopoverSettings(triggerComponent.Id, Placement)
@@ -54,7 +47,7 @@ public partial class Popover : IDisposable
             HideEvents = HideEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
         };
 
-        PopoverService.SetTrigger(new PopoverConfiguration(_settings, GetSurfaceFragment(), DisplayArrow, Appearance));
+        PopoverService.SetTrigger(new PopoverConfiguration(_settings, GetSurfaceFragment(), DisplayArrow, Appearance, KeepSurface));
     }
 
     private RenderFragment GetSurfaceFragment()

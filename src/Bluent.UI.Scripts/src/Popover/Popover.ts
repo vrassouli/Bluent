@@ -12,7 +12,13 @@ export class Popover {
             if (settings.triggerEvents) {
                 settings.triggerEvents.forEach((triggerEvent) => {
                     trigger.addEventListener(triggerEvent, () => {
-                        this.renderSurface(settings);
+                        const surface = <HTMLElement>this.getSurface(settings);
+                        if (surface) {
+                            this.showSurface(settings);
+                        }
+                        else {
+                            this.renderSurface(settings);
+                        }
                     });
                 });
             }
@@ -31,6 +37,7 @@ export class Popover {
         const surface = <HTMLElement>this.getSurface(settings);
         const trigger = this.getTrigger(settings);
         const arrowElement = this.getArrow(settings);
+        surface.classList.remove('hidden');
 
         computePosition(trigger, surface, {
             placement: settings.placement,
@@ -91,17 +98,22 @@ export class Popover {
         const surface = <HTMLElement>this.getSurface(settings);
         if (surface) {
             surface.addEventListener("transitionend", (event) => {
-                this._dotNetRef.invokeMethodAsync('HideSurface', settings);
+                this.doHideSurface(settings, surface);
             }, { once: true });
 
             if (surface.classList.contains('show'))
                 surface.classList.remove('show');
             else
-                this._dotNetRef.invokeMethodAsync('HideSurface', settings);
+                this.doHideSurface(settings, surface);
         }
         else {
-            this._dotNetRef.invokeMethodAsync('HideSurface', settings);
+            this.doHideSurface(settings, surface);
         }
+    }
+
+    private doHideSurface(settings: PopoverSettings, surface: HTMLElement) {
+        surface?.classList.add('hidden');
+        this._dotNetRef.invokeMethodAsync('HideSurface', settings);
     }
 
     private getTrigger(settings: PopoverSettings) {

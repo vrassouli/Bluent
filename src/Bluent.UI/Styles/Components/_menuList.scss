@@ -89,4 +89,12 @@
             }
         }
     }
+
+    > .menu-divider {
+        width: auto;
+        margin: 4px 0;
+        border-bottom-color: var(--colorNeutralStroke2);
+        border-bottom-width: var(--strokeWidthThin);
+        border-bottom-style: solid;
+    }
 }

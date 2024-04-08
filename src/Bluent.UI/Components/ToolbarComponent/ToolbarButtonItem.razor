@@ -2,10 +2,16 @@
 @inherits BluentComponentBase
 
 <button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
-    @if (!string.IsNullOrEmpty(ActiveIcon))
+    @if (!string.IsNullOrEmpty(Icon))
     {
-        <i class="active-icon @ActiveIcon"></i>
+        @if (!string.IsNullOrEmpty(ActiveIcon))
+        {
+            <i class="active-icon @ActiveIcon"></i>
+        }
+        <i class="icon @Icon"></i>
     }
-    <i class="icon @Icon"></i>
-    <span>@Text</span>
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
+    }
 </button>

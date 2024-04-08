@@ -8,10 +8,10 @@
         <Button Icon="icon-ic_fluent_color_20_regular" ActiveIcon="icon-ic_fluent_color_20_filled" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Large" Class="fs-6 rounded-0" />
     </Trigger>
     <Surface>
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: 400px;">
             @foreach (var color in _colors)
             {
-                <Card Orientation="CardOrientation.Horizontal">
+                <Card Orientation="CardOrientation.Horizontal" Class="flex-shrink-0">
                     <CardPreview>
                         <div style="background-color: @color.ColorHex" class="w-100 h-100">
                         </div>

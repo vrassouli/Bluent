@@ -60,4 +60,8 @@
         color: var(--colorNeutralForegroundStaticInverted);
         background-color: var(--colorNeutralBackgroundStatic);
     }
+
+    &.hidden{
+        display: none;
+    }
 }
