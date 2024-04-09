@@ -1292,6 +1292,118 @@
   transform: translateX(-20px);
 }
 
+.bui-tab-list > .header {
+  align-items: center;
+}
+.bui-tab-list > .header > .tab-item {
+  text-transform: none;
+  outline-style: none;
+  padding: var(--spacingVerticalM) var(--spacingHorizontalMNudge);
+  gap: var(--spacingHorizontalSNudge);
+  display: flex;
+  align-items: center;
+  border-width: 0px;
+  border-radius: var(--borderRadiusMedium);
+  background-color: var(--colorTransparentBackground);
+  flex-shrink: 0;
+  line-height: var(--lineHeightBase300);
+  font-family: var(--fontFamilyBase);
+  cursor: pointer;
+  position: relative;
+}
+.bui-tab-list > .header > .tab-item > span {
+  color: var(--colorNeutralForeground2);
+  padding: var(--spacingVerticalNone) var(--spacingHorizontalXXS);
+  line-height: var(--lineHeightBase300);
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--fontSizeBase300);
+  font-family: var(--fontFamilyBase);
+}
+.bui-tab-list > .header > .tab-item:hover {
+  background-color: var(--colorTransparentBackgroundHover);
+}
+.bui-tab-list > .header > .tab-item:hover > span {
+  color: var(--colorNeutralForeground2Hover);
+}
+.bui-tab-list > .header > .tab-item:hover:before {
+  position: absolute;
+  content: "";
+  border-radius: var(--borderRadiusCircular);
+  background-color: var(--colorNeutralStroke1Hover);
+  right: var(--spacingHorizontalM);
+  left: var(--spacingHorizontalM);
+  bottom: 0px;
+  height: var(--strokeWidthThicker);
+  animation-fill-mode: both;
+  animation-name: scale-in-center;
+  animation-duration: var(--durationSlow);
+  animation-timing-function: var(--curveDecelerateMax);
+}
+.bui-tab-list > .header > .tab-item:hover:active {
+  background-color: var(--colorTransparentBackgroundPressed);
+}
+.bui-tab-list > .header > .tab-item:hover:active > span {
+  color: var(--colorNeutralForeground2Pressed);
+}
+.bui-tab-list > .header > .tab-item:hover:active:before {
+  background-color: var(--colorNeutralStroke1Pressed);
+}
+.bui-tab-list > .header > .tab-item.selected > span {
+  color: var(--colorNeutralForeground1);
+  font-weight: var(--fontWeightSemibold);
+}
+.bui-tab-list > .header > .tab-item.selected:after {
+  position: absolute;
+  content: "";
+  border-radius: var(--borderRadiusCircular);
+  background-color: var(--colorCompoundBrandStroke);
+  right: var(--spacingHorizontalM);
+  left: var(--spacingHorizontalM);
+  height: var(--strokeWidthThicker);
+  bottom: 0px;
+  animation-fill-mode: both;
+  animation-name: scale-in-center;
+  animation-duration: var(--durationSlow);
+  animation-timing-function: var(--curveDecelerateMax);
+}
+.bui-tab-list > .header > .tab-item.selected:hover {
+  background-color: var(--colorTransparentBackgroundHover);
+}
+.bui-tab-list > .header > .tab-item.selected:hover > span {
+  color: var(--colorNeutralForeground1Hover);
+}
+.bui-tab-list > .header > .tab-item.selected:hover:active {
+  background-color: var(--colorTransparentBackgroundPressed);
+}
+.bui-tab-list > .header > .tab-item.selected:hover:active > span {
+  color: var(--colorNeutralForeground1Pressed);
+}
+.bui-tab-list > .header.horizontal {
+  height: max-content;
+}
+.bui-tab-list > .header.horizontal > .tab-item {
+  height: 100%;
+}
+.bui-tab-list > .header.vertical {
+  width: max-content;
+}
+.bui-tab-list > .header.vertical > .tab-item {
+  width: 100%;
+}
+.bui-tab-list > .header.vertical > .tab-item:hover:before {
+  top: var(--spacingHorizontalM);
+  bottom: var(--spacingHorizontalM);
+  right: unset;
+  left: 0;
+  width: var(--strokeWidthThicker);
+  height: unset;
+}
+
+.rtl .bui-tab-list > .header.vertical > .tab-item:hover:before, [dir=rtl] .bui-tab-list > .header.vertical > .tab-item:hover:before {
+  right: 0;
+  left: unset;
+}
+
 .bui-toolbar {
   align-items: center;
 }

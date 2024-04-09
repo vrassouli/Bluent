@@ -1,0 +1,32 @@
+﻿@page "/components/tablists"
+@using Bluent.UI.Interops.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Tab list</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <TabList>
+                <Tab Text="First Tab"></Tab>
+                <Tab Text="Second Tab"></Tab>
+                <Tab Text="Third Tab"></Tab>
+                <Tab Text="Fourth Tab"></Tab>
+            </TabList>
+        </section>
+
+        <h3>Vertical</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <TabList Orientation="OverflowOrientation.Vertical">
+                <Tab Text="First Tab"></Tab>
+                <Tab Text="Second Tab"></Tab>
+                <Tab Text="Third Tab"></Tab>
+                <Tab Text="Fourth Tab"></Tab>
+            </TabList>
+        </section>
+
+    </div>
+</div>
+
+@code {
+}

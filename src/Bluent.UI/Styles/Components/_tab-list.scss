@@ -1,0 +1,149 @@
+﻿.bui-tab-list {
+    > .header {
+        align-items: center;
+
+        > .tab-item {
+            text-transform: none;
+            outline-style: none;
+            padding: var(--spacingVerticalM) var(--spacingHorizontalMNudge);
+            gap: var(--spacingHorizontalSNudge);
+            display: flex;
+            align-items: center;
+            border-width: 0px;
+            border-radius: var(--borderRadiusMedium);
+            background-color: var(--colorTransparentBackground);
+            flex-shrink: 0;
+            line-height: var(--lineHeightBase300);
+            font-family: var(--fontFamilyBase);
+            cursor: pointer;
+            position: relative;
+
+            > span {
+                color: var(--colorNeutralForeground2);
+                padding: var(--spacingVerticalNone) var(--spacingHorizontalXXS);
+                line-height: var(--lineHeightBase300);
+                font-weight: var(--fontWeightRegular);
+                font-size: var(--fontSizeBase300);
+                font-family: var(--fontFamilyBase);
+            }
+
+            &:hover {
+                background-color: var(--colorTransparentBackgroundHover);
+
+                > span {
+                    color: var(--colorNeutralForeground2Hover);
+                }
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    border-radius: var(--borderRadiusCircular);
+                    background-color: var(--colorNeutralStroke1Hover);
+                    right: var(--spacingHorizontalM);
+                    left: var(--spacingHorizontalM);
+                    bottom: 0px;
+                    height: var(--strokeWidthThicker);
+                    animation-fill-mode: both;
+                    animation-name: scale-in-center;
+                    animation-duration: var(--durationSlow);
+                    animation-timing-function: var(--curveDecelerateMax);
+                }
+
+                &:active {
+                    background-color: var(--colorTransparentBackgroundPressed);
+
+                    > span {
+                        color: var(--colorNeutralForeground2Pressed);
+                    }
+
+                    &:before {
+                        background-color: var(--colorNeutralStroke1Pressed);
+                    }
+                }
+            }
+
+            &.selected {
+
+                > span {
+                    color: var(--colorNeutralForeground1);
+                    font-weight: var(--fontWeightSemibold);
+                }
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    border-radius: var(--borderRadiusCircular);
+                    background-color: var(--colorCompoundBrandStroke);
+                    right: var(--spacingHorizontalM);
+                    left: var(--spacingHorizontalM);
+                    height: var(--strokeWidthThicker);
+                    bottom: 0px;
+                    animation-fill-mode: both;
+                    animation-name: scale-in-center;
+                    animation-duration: var(--durationSlow);
+                    animation-timing-function: var(--curveDecelerateMax);
+                }
+
+                &:hover {
+                    background-color: var(--colorTransparentBackgroundHover);
+
+                    > span {
+                        color: var(--colorNeutralForeground1Hover);
+                    }
+
+                    &:active {
+                        background-color: var(--colorTransparentBackgroundPressed);
+
+                        > span {
+                            color: var(--colorNeutralForeground1Pressed);
+                        }
+                    }
+                }
+            }
+        }
+
+        &.horizontal {
+            height: max-content;
+
+            > .tab-item {
+                height: 100%;
+            }
+        }
+
+        &.vertical {
+            width: max-content;
+
+            > .tab-item {
+                width: 100%;
+
+                &:hover {
+                    &:before {
+                        top: var(--spacingHorizontalM);
+                        bottom: var(--spacingHorizontalM);
+                        right: unset;
+                        left: 0;
+                        width: var(--strokeWidthThicker);
+                        height: unset;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.rtl, [dir=rtl] {
+    .bui-tab-list {
+        > .header {
+            &.vertical {
+                > .tab-item {
+                    &:hover {
+                        &:before {
+                            right: 0;
+                            left: unset;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

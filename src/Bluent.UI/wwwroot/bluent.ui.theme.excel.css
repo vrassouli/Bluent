@@ -922,6 +922,26 @@
     transform: translate3d(0px, 0px, 0px);
   }
 }
+@keyframes scale-in-center {
+  0% {
+    pointer-events: none;
+    transform: scale(0);
+  }
+  100% {
+    pointer-events: auto;
+    transform: scale(1);
+  }
+}
+@keyframes scale-out-center {
+  0% {
+    pointer-events: none;
+    transform: scale(1);
+  }
+  100% {
+    pointer-events: auto;
+    transform: scale(0);
+  }
+}
 .bg-1 {
   background-color: var(--colorNeutralBackground1) !important;
 }
