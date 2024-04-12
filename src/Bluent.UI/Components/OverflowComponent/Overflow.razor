@@ -3,24 +3,24 @@
 
 <CascadingValue Value="this" IsFixed>
     @ChildContent
-</CascadingValue>
 
-<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    @foreach (var item in _items)
-    {
-        @RenderItem().Invoke(item)
-    }
-    <Popover Placement="@(Orientation == OverflowOrientation.Horizontal ? Placement.BottomEnd : Placement.RightStart)" KeepSurface>
-        <Trigger>
-            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" Class="overflow-button" />
-        </Trigger>
-        <Surface>
-            <MenuList Class="overflow-menu">
-                @foreach (var item in _items)
-                {
-                    @RenderMenuItem().Invoke(item)
-                }
-            </MenuList>
-        </Surface>
-    </Popover>
-</div>
+    <div id="@GetOverflowId()" class="@string.Join(' ', GetOverflowClasses())">
+        @foreach (var item in Items)
+        {
+            @RenderItem().Invoke(item)
+        }
+        <Popover Placement="@(Orientation == OverflowOrientation.Horizontal ? Placement.BottomEnd : Placement.RightStart)" KeepSurface>
+            <Trigger>
+                <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" Class="overflow-button" />
+            </Trigger>
+            <Surface>
+                <MenuList Class="overflow-menu">
+                    @foreach (var item in Items)
+                    {
+                        @RenderMenuItem().Invoke(item)
+                    }
+                </MenuList>
+            </Surface>
+        </Popover>
+    </div>
+</CascadingValue>

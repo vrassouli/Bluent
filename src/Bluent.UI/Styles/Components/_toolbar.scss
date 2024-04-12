@@ -1,12 +1,18 @@
 ﻿.bui-toolbar {
     align-items: center;
+    box-sizing: border-box;
 
     &.horizontal {
         padding: 4px 8px;
         height: max-content;
 
-        > .toolbar-button {
-            height: 100%;
+        > .bui-overflow {
+            width: 100%;
+            align-items: center;
+
+            > .toolbar-button {
+                height: 100%;
+            }
         }
     }
 
@@ -14,8 +20,13 @@
         padding: 8px 4px;
         width: max-content;
 
-        > .toolbar-button {
-            width: 100%;
+        > .bui-overflow {
+            height: 100%;
+            align-items: center;
+
+            > .toolbar-button {
+                width: 100%;
+            }
         }
     }
 }

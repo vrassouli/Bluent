@@ -2,6 +2,7 @@
 using Bluent.UI.Components.ToolbarComponent;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
@@ -9,10 +10,23 @@ public class Toolbar : Overflow
 {
     public override IEnumerable<string> GetClasses()
     {
-        foreach (var c in base.GetClasses())
-            yield return c;
-
         yield return "bui-toolbar";
+        yield return Orientation.ToString().Kebaberize();
+    }
+
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenElement(0, "div");
+        builder.AddMultipleAttributes(1, AdditionalAttributes);
+        builder.AddAttribute(2, "id", Id);
+        builder.AddAttribute(3, "class", GetComponentClass());
+        builder.AddAttribute(4, "style", Style);
+
+        builder.OpenRegion(5);
+        base.BuildRenderTree(builder);
+        builder.CloseRegion();
+
+        builder.CloseElement();
     }
 
     protected override RenderFragment<IOverflowItem> RenderItem()

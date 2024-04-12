@@ -29,6 +29,12 @@ internal class OverflowInterop : IAsyncDisposable
         await module.InvokeVoidAsync("init", id);
     }
 
+    public async void CheckOverflow()
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("checkOverflow");
+    }
+
 
     private async Task<IJSObjectReference> GetModuleAsync()
     {

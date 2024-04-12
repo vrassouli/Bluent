@@ -1,6 +1,7 @@
 ﻿@inherits BluentComponentBase
 
-<button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+<button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
+    @onclick="ClickHandler">
     @if (!string.IsNullOrEmpty(Icon))
     {
         @if (!string.IsNullOrEmpty(ActiveIcon))

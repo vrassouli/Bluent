@@ -1,31 +1,84 @@
 ﻿using Bluent.UI.Components.OverflowComponent;
 using Bluent.UI.Components.TabListComponent;
 using Bluent.UI.Components.ToolbarComponent;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
 
 namespace Bluent.UI.Components;
 
 public class TabList : Overflow
 {
+    private List<TabListTabItem> _tabs = new();
+    [Parameter] public TabListAppearance Appearance { get; set; } = TabListAppearance.Transparent;
+    [Parameter] public int SelectedIndex { get; set; } = 0;
+    [Parameter] public EventCallback<int> SelectedIndexChanged { get; set; }
+
+    protected TabListTabItem? SelectedTab
+    {
+        get
+        {
+            if (SelectedIndex > -1 && SelectedIndex < _tabs.Count)
+                return _tabs[SelectedIndex];
+
+            return null;
+        }
+    }
     public override IEnumerable<string> GetClasses()
     {
-        foreach (var c in base.GetClasses())
-            yield return c;
-
-        yield return "header";
+        yield return "bui-tab-list";
+        yield return Orientation.ToString().Kebaberize();
+        yield return Appearance.ToString().Kebaberize();
     }
 
-    protected override void BuildRenderTree(RenderTreeBuilder __builder)
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        __builder.OpenElement(0, "div");
-        __builder.AddAttribute(1, "class", "bui-tab-list");
+        builder.OpenElement(0, "div");
+        builder.AddMultipleAttributes(1, AdditionalAttributes);
+        builder.AddAttribute(2, "id", Id);
+        builder.AddAttribute(3, "class", GetComponentClass());
+        builder.AddAttribute(4, "style", Style);
 
-        __builder.OpenRegion(2);
-        base.BuildRenderTree(__builder);
-        __builder.CloseRegion();
+        /*** Tab Header ***/
+        builder.OpenElement(5, "div");
+        builder.AddAttribute(6, "class", "header");
 
-        __builder.CloseElement();
+        builder.OpenRegion(7);
+        base.BuildRenderTree(builder);
+        builder.CloseRegion();
+
+        builder.CloseElement();
+        /*-- Tab Header --*/
+
+        if (_tabs.Any(tab => tab.ChildContent != null))
+        {
+            /*** Tab Panels ***/
+            builder.OpenElement(8, "div");
+            builder.AddAttribute(9, "class", "panels");
+
+            foreach (var tabItem in _tabs.Where(tab => tab.ChildContent != null))
+            {
+                builder.OpenElement(10, "div");
+                builder.SetKey(tabItem);
+                builder.AddAttribute(11, "class", $"tab-panel {(SelectedTab == tabItem ? "selected" : "")}");
+                builder.AddContent(12, tabItem.ChildContent);
+                builder.CloseElement();
+            }
+
+            builder.CloseElement();
+            /*-- Tab Panels --*/
+        }
+
+        builder.CloseElement();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            StateHasChanged();
+
+        base.OnAfterRender(firstRender);
     }
 
     protected override RenderFragment<IOverflowItem> RenderItem()
@@ -50,18 +103,64 @@ public class TabList : Overflow
         };
     }
 
+    internal void Add(TabListTabItem tabItem)
+    {
+        _tabs.Add(tabItem);
+        StateHasChanged();
+    }
+
+    internal void Remove(TabListTabItem tabItem)
+    {
+        _tabs.Remove(tabItem);
+        StateHasChanged();
+    }
+
+    internal bool InSelected(TabListTabItem tabItem)
+    {
+        var index = _tabs.IndexOf(tabItem);
+
+        return index == SelectedIndex;
+    }
+
+    internal void SelectTab(TabListTabItem tabItem)
+    {
+        var index = _tabs.IndexOf(tabItem);
+
+        if (index >= 0)
+        {
+            SelectTab(index);
+        }
+    }
+
+    internal void SelectTab(int index)
+    {
+        var currentIndex = SelectedIndex;
+
+        SelectedIndex = index;
+        SelectedIndexChanged.InvokeAsync(index);
+
+        if (currentIndex > -1 && currentIndex < _tabs.Count)
+            _tabs[currentIndex].OnStateChanged();
+
+        if (index > -1 && index < _tabs.Count)
+            _tabs[index].OnStateChanged();
+
+        StateHasChanged();
+        CheckOverflow();
+    }
+
     private RenderFragment RenderTab(Tab tab)
     {
-        return builder => {
+        return builder =>
+        {
             builder.OpenComponent<TabListTabItem>(0);
 
             builder.AddAttribute(1, nameof(TabListTabItem.Text), tab.Text);
             builder.AddAttribute(2, nameof(TabListTabItem.Icon), tab.Icon);
-            builder.AddAttribute(2, nameof(TabListTabItem.ActiveIcon), tab.ActiveIcon);
-            //builder.AddAttribute(3, nameof(TabListTabItem.Appearance), tab.Appearance);
-            builder.AddAttribute(3, nameof(TabListTabItem.Tooltip), tab.Tooltip);
-            //builder.AddAttribute(4, nameof(TabListTabItem.OnClick), tab.OnClick);
-            builder.AddMultipleAttributes(5, tab.AdditionalAttributes);
+            builder.AddAttribute(3, nameof(TabListTabItem.ActiveIcon), tab.ActiveIcon);
+            builder.AddAttribute(4, nameof(TabListTabItem.ChildContent), tab.ChildContent);
+            builder.AddAttribute(5, nameof(TabListTabItem.Tooltip), tab.Tooltip);
+            builder.AddMultipleAttributes(6, tab.AdditionalAttributes);
 
             builder.CloseComponent();
         };
@@ -76,7 +175,7 @@ public class TabList : Overflow
             builder.AddAttribute(1, nameof(MenuItem.Title), tab.MenuLabel ?? tab.Text);
             builder.AddAttribute(2, nameof(MenuItem.Icon), tab.Icon);
             builder.AddAttribute(3, nameof(MenuItem.ActiveIcon), tab.ActiveIcon);
-            //builder.AddAttribute(4, nameof(MenuItem.OnClick), tab.OnClick);
+            builder.AddAttribute(4, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => { SelectTab(Items.IndexOf(tab)); }));
 
             builder.CloseComponent();
         };

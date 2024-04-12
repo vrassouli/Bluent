@@ -23,16 +23,7 @@ export class Overflow {
         this.checkOverflow();
     }
 
-    private getOverflowButtonDimention(btn: HTMLElement) {
-        btn.style.display = 'inline-flex';
-
-        this._overflowButtonWidth = btn.clientWidth;
-        this._overflowButtonHeight = btn.clientHeight;
-
-        btn.style.display = '';
-    }
-
-    private checkOverflow() {
+    public checkOverflow() {
         let children = Array.from(this._element.children)
             .filter(child => !child.classList.contains('overflow-button'));
         let overflowMenuChildren = Array.from(this._overflowMenu.children);
@@ -44,6 +35,15 @@ export class Overflow {
 
         this.setOverflowingItems(firstOverflow, children);
         this.setOverflowingItems(firstOverflow, overflowMenuChildren);
+    }
+
+    private getOverflowButtonDimention(btn: HTMLElement) {
+        btn.style.display = 'inline-flex';
+
+        this._overflowButtonWidth = btn.clientWidth;
+        this._overflowButtonHeight = btn.clientHeight;
+
+        btn.style.display = '';
     }
 
     private setOverflowingItems(firstOverflow: number, children: Element[]) {

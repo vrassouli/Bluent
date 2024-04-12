@@ -1292,10 +1292,13 @@
   transform: translateX(-20px);
 }
 
-.bui-tab-list > .header {
+.bui-tab-list {
+  display: flex;
+}
+.bui-tab-list > .header > .bui-overflow {
   align-items: center;
 }
-.bui-tab-list > .header > .tab-item {
+.bui-tab-list > .header > .bui-overflow > .tab-item {
   text-transform: none;
   outline-style: none;
   padding: var(--spacingVerticalM) var(--spacingHorizontalMNudge);
@@ -1311,7 +1314,25 @@
   cursor: pointer;
   position: relative;
 }
-.bui-tab-list > .header > .tab-item > span {
+.bui-tab-list > .header > .bui-overflow > .tab-item > .icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 0;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+.bui-tab-list > .header > .bui-overflow > .tab-item > .active-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 0;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.bui-tab-list > .header > .bui-overflow > .tab-item > span {
   color: var(--colorNeutralForeground2);
   padding: var(--spacingVerticalNone) var(--spacingHorizontalXXS);
   line-height: var(--lineHeightBase300);
@@ -1319,13 +1340,22 @@
   font-size: var(--fontSizeBase300);
   font-family: var(--fontFamilyBase);
 }
-.bui-tab-list > .header > .tab-item:hover {
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover {
   background-color: var(--colorTransparentBackgroundHover);
 }
-.bui-tab-list > .header > .tab-item:hover > span {
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover > .icon, .bui-tab-list > .header > .bui-overflow > .tab-item:hover .active-icon {
+  color: var(--colorNeutralForeground2BrandSelected);
+}
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover > .active-icon {
+  display: inline-flex;
+}
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover > .active-icon + .icon {
+  display: none;
+}
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover > span {
   color: var(--colorNeutralForeground2Hover);
 }
-.bui-tab-list > .header > .tab-item:hover:before {
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover:before {
   position: absolute;
   content: "";
   border-radius: var(--borderRadiusCircular);
@@ -1339,20 +1369,20 @@
   animation-duration: var(--durationSlow);
   animation-timing-function: var(--curveDecelerateMax);
 }
-.bui-tab-list > .header > .tab-item:hover:active {
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover:active {
   background-color: var(--colorTransparentBackgroundPressed);
 }
-.bui-tab-list > .header > .tab-item:hover:active > span {
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover:active > span {
   color: var(--colorNeutralForeground2Pressed);
 }
-.bui-tab-list > .header > .tab-item:hover:active:before {
+.bui-tab-list > .header > .bui-overflow > .tab-item:hover:active:before {
   background-color: var(--colorNeutralStroke1Pressed);
 }
-.bui-tab-list > .header > .tab-item.selected > span {
+.bui-tab-list > .header > .bui-overflow > .tab-item.selected > span {
   color: var(--colorNeutralForeground1);
   font-weight: var(--fontWeightSemibold);
 }
-.bui-tab-list > .header > .tab-item.selected:after {
+.bui-tab-list > .header > .bui-overflow > .tab-item.selected:after {
   position: absolute;
   content: "";
   border-radius: var(--borderRadiusCircular);
@@ -1366,31 +1396,31 @@
   animation-duration: var(--durationSlow);
   animation-timing-function: var(--curveDecelerateMax);
 }
-.bui-tab-list > .header > .tab-item.selected:hover {
+.bui-tab-list > .header > .bui-overflow > .tab-item.selected:hover {
   background-color: var(--colorTransparentBackgroundHover);
 }
-.bui-tab-list > .header > .tab-item.selected:hover > span {
+.bui-tab-list > .header > .bui-overflow > .tab-item.selected:hover > span {
   color: var(--colorNeutralForeground1Hover);
 }
-.bui-tab-list > .header > .tab-item.selected:hover:active {
+.bui-tab-list > .header > .bui-overflow > .tab-item.selected:hover:active {
   background-color: var(--colorTransparentBackgroundPressed);
 }
-.bui-tab-list > .header > .tab-item.selected:hover:active > span {
+.bui-tab-list > .header > .bui-overflow > .tab-item.selected:hover:active > span {
   color: var(--colorNeutralForeground1Pressed);
 }
-.bui-tab-list > .header.horizontal {
+.bui-tab-list > .header > .bui-overflow.horizontal {
   height: max-content;
 }
-.bui-tab-list > .header.horizontal > .tab-item {
+.bui-tab-list > .header > .bui-overflow.horizontal > .tab-item {
   height: 100%;
 }
-.bui-tab-list > .header.vertical {
+.bui-tab-list > .header > .bui-overflow.vertical {
   width: max-content;
 }
-.bui-tab-list > .header.vertical > .tab-item {
+.bui-tab-list > .header > .bui-overflow.vertical > .tab-item {
   width: 100%;
 }
-.bui-tab-list > .header.vertical > .tab-item:hover:before {
+.bui-tab-list > .header > .bui-overflow.vertical > .tab-item:hover:before {
   top: var(--spacingHorizontalM);
   bottom: var(--spacingHorizontalM);
   right: unset;
@@ -1398,27 +1428,73 @@
   width: var(--strokeWidthThicker);
   height: unset;
 }
+.bui-tab-list > .header > .bui-overflow.vertical > .tab-item.selected:after {
+  top: var(--spacingHorizontalM);
+  bottom: var(--spacingHorizontalM);
+  right: unset;
+  left: 0;
+  width: var(--strokeWidthThicker);
+  height: unset;
+}
+.bui-tab-list > .panels {
+  flex: 1;
+  overflow: auto;
+}
+.bui-tab-list > .panels > .tab-panel {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+}
+.bui-tab-list > .panels > .tab-panel.selected {
+  display: flex;
+}
+.bui-tab-list.vertical {
+  flex-direction: row;
+}
+.bui-tab-list.horizontal {
+  flex-direction: column;
+}
+.bui-tab-list.subtle > .header > .bui-overflow > .tab-item:hover {
+  background-color: var(--colorSubtleBackgroundHover);
+}
+.bui-tab-list.subtle > .header > .bui-overflow > .tab-item:hover:active {
+  background-color: var(--colorSubtleBackgroundPressed);
+}
 
 .rtl .bui-tab-list > .header.vertical > .tab-item:hover:before, [dir=rtl] .bui-tab-list > .header.vertical > .tab-item:hover:before {
+  right: 0;
+  left: unset;
+}
+.rtl .bui-tab-list > .header.vertical > .tab-item.selected:after, [dir=rtl] .bui-tab-list > .header.vertical > .tab-item.selected:after {
   right: 0;
   left: unset;
 }
 
 .bui-toolbar {
   align-items: center;
+  box-sizing: border-box;
 }
 .bui-toolbar.horizontal {
   padding: 4px 8px;
   height: max-content;
 }
-.bui-toolbar.horizontal > .toolbar-button {
+.bui-toolbar.horizontal > .bui-overflow {
+  width: 100%;
+  align-items: center;
+}
+.bui-toolbar.horizontal > .bui-overflow > .toolbar-button {
   height: 100%;
 }
 .bui-toolbar.vertical {
   padding: 8px 4px;
   width: max-content;
 }
-.bui-toolbar.vertical > .toolbar-button {
+.bui-toolbar.vertical > .bui-overflow {
+  height: 100%;
+  align-items: center;
+}
+.bui-toolbar.vertical > .bui-overflow > .toolbar-button {
   width: 100%;
 }
 

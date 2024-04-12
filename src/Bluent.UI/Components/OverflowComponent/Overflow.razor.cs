@@ -10,41 +10,49 @@ namespace Bluent.UI.Components;
 public abstract partial class Overflow
 {
     private OverflowInterop? _interop;
-    private List<IOverflowItem> _items = new();
+    protected List<IOverflowItem> Items { get; private set; } = new();
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public OverflowOrientation Orientation { get; set; } = OverflowOrientation.Horizontal;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
-    public override IEnumerable<string> GetClasses()
+    private IEnumerable<string> GetOverflowClasses()
     {
         yield return "bui-overflow";
         yield return Orientation.ToString().Kebaberize();
     }
+
+    private string GetOverflowId() => $"{Id}_overflow";
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
             _interop = new OverflowInterop(JsRuntime);
-            _interop.Init(Id);
+            _interop.Init(GetOverflowId());
         }
 
         base.OnAfterRender(firstRender);
     }
 
+    protected void CheckOverflow()
+    {
+        _interop?.CheckOverflow();
+    }
+
     internal void Add(IOverflowItem item)
     {
-        _items.Add(item);
+        Items.Add(item);
         StateHasChanged();
     }
 
     internal void Remove(IOverflowItem item)
     {
-        _items.Remove(item);
+        Items.Remove(item);
         StateHasChanged();
     }
 
     protected abstract RenderFragment<IOverflowItem> RenderItem();
     protected abstract RenderFragment<IOverflowItem> RenderMenuItem();
+
 }
