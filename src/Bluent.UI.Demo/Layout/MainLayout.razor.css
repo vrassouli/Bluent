@@ -24,6 +24,7 @@
         .page > .content > .sidebar {
             background-color: var(--colorNeutralBackground4);
             color: var(--colorNeutralForeground1);
+            overflow: auto;
         }
 
         .page > .content > .page-content {

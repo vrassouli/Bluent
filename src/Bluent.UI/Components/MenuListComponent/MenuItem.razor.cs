@@ -61,4 +61,12 @@ public partial class MenuItem
             Popover.Hide();
         }
     }
+
+    private string GetItemTag()
+    {
+        if (AdditionalAttributes?.ContainsKey("href") == true)
+            return "a";
+
+        return "div";
+    }
 }

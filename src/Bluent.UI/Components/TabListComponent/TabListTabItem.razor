@@ -1,17 +1,30 @@
 ﻿@inherits BluentComponentBase
 
-<button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
-    @onclick="ClickHandler">
-    @if (!string.IsNullOrEmpty(Icon))
+@{
+    __builder.OpenElement(0, GetItemTag());
+    if (!IsLink)
+        __builder.AddAttribute(1, "type", "button");
+    __builder.AddMultipleAttributes(2, AdditionalAttributes);
+    __builder.AddAttribute(3, "id", Id);
+    __builder.AddAttribute(4, "class", GetComponentClass());
+    __builder.AddAttribute(5, "style", Style);
+    __builder.AddAttribute(6, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+    __builder.OpenRegion(7);
+}
+
+@if (!string.IsNullOrEmpty(Icon))
+{
+    @if (!string.IsNullOrEmpty(ActiveIcon))
     {
-        @if (!string.IsNullOrEmpty(ActiveIcon))
-        {
-            <i class="active-icon @ActiveIcon"></i>
-        }
-        <i class="icon @Icon"></i>
+        <i class="active-icon @ActiveIcon"></i>
     }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span>@Text</span>
-    }
-</button>
+    <i class="icon @Icon"></i>
+}
+@if (!string.IsNullOrEmpty(Text))
+{
+    <span>@Text</span>
+}
+@{
+    __builder.CloseRegion();
+    __builder.CloseElement();
+}

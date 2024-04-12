@@ -52,4 +52,14 @@ public partial class TabListTabItem
     {
         StateHasChanged();
     }
+
+    private string GetItemTag()
+    {
+        if (IsLink)
+            return "a";
+
+        return "button";
+    }
+
+    private bool IsLink => AdditionalAttributes?.ContainsKey("href") == true;
 }

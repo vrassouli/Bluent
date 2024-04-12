@@ -1,17 +1,17 @@
 ﻿using Bluent.UI.Components.OverflowComponent;
 using Bluent.UI.Components.TabListComponent;
-using Bluent.UI.Components.ToolbarComponent;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 
 namespace Bluent.UI.Components;
 
 public class TabList : Overflow
 {
+    private bool _shouldCheckOverflow;
     private List<TabListTabItem> _tabs = new();
     [Parameter] public TabListAppearance Appearance { get; set; } = TabListAppearance.Transparent;
+    [Parameter] public TabListSize Size { get; set; } = TabListSize.Medium;
     [Parameter] public int SelectedIndex { get; set; } = 0;
     [Parameter] public EventCallback<int> SelectedIndexChanged { get; set; }
 
@@ -25,11 +25,17 @@ public class TabList : Overflow
             return null;
         }
     }
+
     public override IEnumerable<string> GetClasses()
     {
         yield return "bui-tab-list";
         yield return Orientation.ToString().Kebaberize();
-        yield return Appearance.ToString().Kebaberize();
+
+        if (Appearance != TabListAppearance.Transparent)
+            yield return Appearance.ToString().Kebaberize();
+
+        if (Size != TabListSize.Medium)
+            yield return Size.ToString().Kebaberize();
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -77,6 +83,12 @@ public class TabList : Overflow
     {
         if (firstRender)
             StateHasChanged();
+
+        if (_shouldCheckOverflow)
+        {
+            CheckOverflow();
+            _shouldCheckOverflow = false;
+        }
 
         base.OnAfterRender(firstRender);
     }
@@ -145,8 +157,8 @@ public class TabList : Overflow
         if (index > -1 && index < _tabs.Count)
             _tabs[index].OnStateChanged();
 
+        _shouldCheckOverflow = true;
         StateHasChanged();
-        CheckOverflow();
     }
 
     private RenderFragment RenderTab(Tab tab)
@@ -172,10 +184,11 @@ public class TabList : Overflow
         {
             builder.OpenComponent<MenuItem>(0);
 
-            builder.AddAttribute(1, nameof(MenuItem.Title), tab.MenuLabel ?? tab.Text);
-            builder.AddAttribute(2, nameof(MenuItem.Icon), tab.Icon);
-            builder.AddAttribute(3, nameof(MenuItem.ActiveIcon), tab.ActiveIcon);
-            builder.AddAttribute(4, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => { SelectTab(Items.IndexOf(tab)); }));
+            builder.AddMultipleAttributes(1, tab.AdditionalAttributes);
+            builder.AddAttribute(2, nameof(MenuItem.Title), tab.MenuLabel ?? tab.Text);
+            builder.AddAttribute(3, nameof(MenuItem.Icon), tab.Icon);
+            builder.AddAttribute(4, nameof(MenuItem.ActiveIcon), tab.ActiveIcon);
+            builder.AddAttribute(5, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => { SelectTab(Items.IndexOf(tab)); }));
 
             builder.CloseComponent();
         };

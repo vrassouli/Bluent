@@ -7,7 +7,10 @@
 
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <TabList>
+            <Label Text="Tablist width (px):" Class="me-4" />
+            <NumericField @bind-Value="_horizontalTablistWidth" />
+
+            <TabList Style="@HorizontalTablistWidth">
                 <Tab Text="First Tab"></Tab>
                 <Tab Text="Second Tab"></Tab>
                 <Tab Text="Third Tab"></Tab>
@@ -17,7 +20,10 @@
 
         <h3>Vertical</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <TabList Orientation="OverflowOrientation.Vertical">
+            <Label Text="Tablist height (px):" Class="me-4" />
+            <NumericField @bind-Value="_verticalTablistHeight" />
+
+            <TabList Orientation="OverflowOrientation.Vertical" Style="@VerticalTablistHeight">
                 <Tab Text="First Tab"></Tab>
                 <Tab Text="Second Tab"></Tab>
                 <Tab Text="Third Tab"></Tab>
@@ -46,9 +52,36 @@
 
         <h3>Disabled</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <TabList>
+            <TabList SelectedIndex="1">
                 <Tab Text="First Tab"></Tab>
                 <Tab Text="Second Tab" disabled></Tab>
+                <Tab Text="Third Tab"></Tab>
+                <Tab Text="Fourth Tab"></Tab>
+            </TabList>
+        </section>
+
+        <h3>Size</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <h4>Small</h4>
+            <TabList Size="TabListSize.Small">
+                <Tab Text="First Tab" Icon="icon-ic_fluent_icons_20_regular" ActiveIcon="icon-ic_fluent_icons_20_filled"></Tab>
+                <Tab Text="Second Tab"></Tab>
+                <Tab Text="Third Tab"></Tab>
+                <Tab Text="Fourth Tab"></Tab>
+            </TabList>
+
+            <h4>Medium (default)</h4>
+            <TabList Size="TabListSize.Medium">
+                <Tab Text="First Tab" Icon="icon-ic_fluent_icons_20_regular" ActiveIcon="icon-ic_fluent_icons_20_filled"></Tab>
+                <Tab Text="Second Tab"></Tab>
+                <Tab Text="Third Tab"></Tab>
+                <Tab Text="Fourth Tab"></Tab>
+            </TabList>
+
+            <h4>Large</h4>
+            <TabList Size="TabListSize.Large">
+                <Tab Text="First Tab" Icon="icon-ic_fluent_icons_20_regular" ActiveIcon="icon-ic_fluent_icons_20_filled"></Tab>
+                <Tab Text="Second Tab"></Tab>
                 <Tab Text="Third Tab"></Tab>
                 <Tab Text="Fourth Tab"></Tab>
             </TabList>
@@ -204,10 +237,25 @@
                 </TabList>
             </div>
         </section>
+        
+        <h3>Urls</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <TabList Orientation="OverflowOrientation.Vertical">
+                <Tab Icon="icon-ic_fluent_icons_20_regular" ActiveIcon="icon-ic_fluent_icons_20_filled" MenuLabel="Item 1" href="/components/tablists?tab1"></Tab>
+                <Tab Icon="icon-ic_fluent_accessibility_20_regular" ActiveIcon="icon-ic_fluent_accessibility_20_filled" MenuLabel="Item 2" href="/components/tablists?tab2"></Tab>
+                <Tab Icon="icon-ic_fluent_animal_rabbit_20_regular" ActiveIcon="icon-ic_fluent_animal_rabbit_20_filled" MenuLabel="Item 3" href="/components/tablists?tab3"></Tab>
+                <Tab Icon="icon-ic_fluent_beach_20_regular" ActiveIcon="icon-ic_fluent_beach_20_filled" MenuLabel="Item 4" href="/components/tablists?tab4"></Tab>
+            </TabList>
+        </section>
 
     </div>
 </div>
 
 @code {
     int _selectedTabIndex;
+    int? _horizontalTablistWidth;
+    int? _verticalTablistHeight;
+
+    string? HorizontalTablistWidth => _horizontalTablistWidth == null ? "" : $"width: {_horizontalTablistWidth}px";
+    string? VerticalTablistHeight => _verticalTablistHeight == null ? "" : $"height: {_verticalTablistHeight}px";
 }
