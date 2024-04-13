@@ -827,6 +827,89 @@
   right: 0px;
 }
 
+.bui-drawer {
+  position: fixed;
+  width: 320px;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  border-inline-start: var(--strokeWidthThin) solid var(--colorTransparentStroke);
+  box-shadow: var(--shadow64);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
+}
+.bui-drawer.end {
+  right: 0;
+  top: 0;
+  height: 100vh;
+  animation-name: fade-in, slide-in-right;
+}
+.bui-drawer.end.hide {
+  animation-name: fade-out, slide-out-right;
+}
+.bui-drawer.start {
+  left: 0;
+  top: 0;
+  height: 100vh;
+  animation-name: fade-in, slide-in-left;
+}
+.bui-drawer.start.hide {
+  animation-name: fade-out, slide-out-left;
+}
+.bui-drawer.top {
+  left: 0;
+  top: 0;
+  width: 100vw;
+  animation-name: fade-in, slide-in-top;
+}
+.bui-drawer.top.hide {
+  animation-name: fade-out, slide-out-top;
+}
+.bui-drawer.bottom {
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  animation-name: fade-in, slide-in-bottom;
+}
+.bui-drawer.bottom.hide {
+  animation-name: fade-out, slide-out-bottom;
+}
+.bui-drawer > .header {
+  padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS) var(--spacingHorizontalXXL);
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacingHorizontalS);
+  align-items: center;
+  box-sizing: border-box;
+}
+.bui-drawer > .header > .title {
+  flex: 1;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase500);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase500);
+}
+
+.rtl .bui-drawer.end, [dir=rtl] .bui-drawer.end {
+  left: 0;
+  right: unset;
+  animation-name: fade-in, slide-in-left;
+}
+.rtl .bui-drawer.end.hide, [dir=rtl] .bui-drawer.end.hide {
+  animation-name: fade-out, slide-out-left;
+}
+.rtl .bui-drawer.start, [dir=rtl] .bui-drawer.start {
+  left: unset;
+  right: 0;
+  animation-name: fade-in, slide-in-right;
+}
+.rtl .bui-drawer.start.hide, [dir=rtl] .bui-drawer.start.hide {
+  animation-name: fade-out, slide-out-right;
+}
+
 .bui-field {
   --fui-text-field-line-height: var(--lineHeightBase300);
   --fui-text-field-font-size: var(--fontSizeBase300);
@@ -1138,6 +1221,16 @@
 
 .bui-menu-list.overflow-menu > :not(.overflowing) {
   display: none;
+}
+
+.bui-overlay {
+  inset: 0px;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fade-in;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
 }
 
 .bui-popover {

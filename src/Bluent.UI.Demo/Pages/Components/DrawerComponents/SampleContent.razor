@@ -1,0 +1,24 @@
+﻿<div class="p-4">
+    <p class="mt-0">
+        A sample content for drawer...
+    </p>
+
+    <div class="d-flex flex-row-reverse gap-3">
+        <Button Text="Continue" Appearance="ButtonAppearance.Primary" OnClick="OnContinueClicked" />
+        <Button Text="Cancel" OnClick="OnCancelClicked" />
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] public Drawer? Drawer { get; set; }
+
+    private void OnContinueClicked()
+    {
+        Drawer?.Hide(true);
+    }
+
+    private void OnCancelClicked()
+    {
+        Drawer?.Hide(false);
+    }
+}

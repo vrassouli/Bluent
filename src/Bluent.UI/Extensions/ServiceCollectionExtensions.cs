@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IBluentTheme, BluentTheme>();
         services.AddSingleton<ITooltipService, TooltipService>();
         services.AddSingleton<IPopoverService, PopoverService>();
+        services.AddSingleton<IDrawerService, DrawerService>();
 
         return services;
     }

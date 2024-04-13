@@ -1,0 +1,122 @@
+﻿@page "/components/drawers"
+@using Bluent.UI.Components.DrawerComponent
+@using Bluent.UI.Demo.Pages.Components.DrawerComponents
+@using Bluent.UI.Interops.Abstractions
+@using System.ComponentModel.DataAnnotations
+@using Bluent.UI.Services.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Drawers</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Open from Start" Appearance="ButtonAppearance.Primary" OnClick="OpenDrawerFromStart" />
+            <Button Text="Open from End" Appearance="ButtonAppearance.Primary" OnClick="OpenDrawerFromEnd" />
+            <Button Text="Open from Top" Appearance="ButtonAppearance.Primary" OnClick="OpenDrawerFromTop" />
+            <Button Text="Open from Bottom" Appearance="ButtonAppearance.Primary" OnClick="OpenDrawerFromBottom" />
+        </section>
+
+        <h3>Modal</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value=_modal Label="Modal with overlay" Class="d-flex" />
+            <Button Text="@($"Open {(_modal ? "modal " : "")}drawer")" Appearance="ButtonAppearance.Primary" OnClick="OpenDrawerModalSwitch" />
+        </section>
+    </div>
+</div>
+
+@code {
+    private bool _modal = true;
+
+    [Inject] private IDrawerService DrawerService { get; set; } = default!;
+    RenderFragment SampleContentFragment => builder =>
+            {
+                builder.OpenComponent<SampleContent>(0);
+                builder.CloseComponent();
+            };
+
+    private async Task OpenDrawerModalSwitch()
+    {
+        var config = new DrawerConfiguration(
+            SampleContentFragment,
+            "Modal switch",
+            true,
+            DrawerPosition.End,
+            _modal
+        );
+
+        var result = await DrawerService.OpenAsync(config);
+        if (result is null)
+            Console.WriteLine("Dismissed");
+        else
+            Console.WriteLine(result);
+    }
+
+    private async Task OpenDrawerFromStart()
+    {
+        var config = new DrawerConfiguration(
+            SampleContentFragment,
+            "Start",
+            true,
+            DrawerPosition.Start,
+            true
+        );
+
+        var result = await DrawerService.OpenAsync(config);
+        if (result is null)
+            Console.WriteLine("Dismissed");
+        else
+            Console.WriteLine(result);
+    }
+
+    private async Task OpenDrawerFromEnd()
+    {
+        var config = new DrawerConfiguration(
+            SampleContentFragment,
+            "End",
+            true,
+            DrawerPosition.End,
+            true
+        );
+
+        var result = await DrawerService.OpenAsync(config);
+        if (result is null)
+            Console.WriteLine("Dismissed");
+        else
+            Console.WriteLine(result);
+    }
+
+    private async Task OpenDrawerFromTop()
+    {
+        var config = new DrawerConfiguration(
+            SampleContentFragment,
+            "Top",
+            true,
+            DrawerPosition.Top,
+            true
+        );
+
+        var result = await DrawerService.OpenAsync(config);
+        if (result is null)
+            Console.WriteLine("Dismissed");
+        else
+            Console.WriteLine(result);
+    }
+
+    private async Task OpenDrawerFromBottom()
+    {
+        var config = new DrawerConfiguration(
+            SampleContentFragment,
+            "Bottom",
+            true,
+            DrawerPosition.Bottom,
+            true
+        );
+
+        var result = await DrawerService.OpenAsync(config);
+        if (result is null)
+            Console.WriteLine("Dismissed");
+        else
+            Console.WriteLine(result);
+    }
+}

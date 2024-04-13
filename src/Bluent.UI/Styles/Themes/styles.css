@@ -34,6 +34,106 @@
     transform: translate3d(0px, 0px, 0px);
   }
 }
+@keyframes slide-left {
+  0% {
+    pointer-events: none;
+    transform: translate3d(20px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-right {
+  0% {
+    pointer-events: none;
+    transform: translate3d(-20px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    pointer-events: none;
+    transform: translate3d(20px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-out-right {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(20px, 0px, 0px);
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    pointer-events: none;
+    transform: translate3d(-20px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-out-left {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(-20px, 0px, 0px);
+  }
+}
+@keyframes slide-in-top {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, -20px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-out-top {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, -20px, 0px);
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, 20px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slide-out-bottom {
+  0% {
+    pointer-events: none;
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    pointer-events: auto;
+    transform: translate3d(0px, 20px, 0px);
+  }
+}
 @keyframes scale-in-center {
   0% {
     pointer-events: none;

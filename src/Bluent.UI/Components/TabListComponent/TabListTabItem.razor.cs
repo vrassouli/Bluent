@@ -18,6 +18,11 @@ public partial class TabListTabItem
 
         tabList.Add(this);
 
+        if (tabList.Orientation == OverflowOrientation.Horizontal)
+            TooltipPlacement = Placement.Bottom;
+        else
+            TooltipPlacement = Placement.Right;
+
         base.OnInitialized();
     }
 
