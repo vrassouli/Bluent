@@ -171,7 +171,10 @@ public class TabList : Overflow
             builder.AddAttribute(2, nameof(TabListTabItem.Icon), tab.Icon);
             builder.AddAttribute(3, nameof(TabListTabItem.ActiveIcon), tab.ActiveIcon);
             builder.AddAttribute(4, nameof(TabListTabItem.ChildContent), tab.ChildContent);
-            builder.AddAttribute(5, nameof(TabListTabItem.Tooltip), tab.Tooltip);
+            builder.AddAttribute(5, nameof(TabListTabItem.Orientation), tab.Orientation);
+            builder.AddAttribute(6, nameof(TabListTabItem.Tooltip), tab.Tooltip);
+            builder.AddAttribute(7, nameof(TabListTabItem.Class), tab.Class);
+            builder.AddAttribute(8, nameof(TabListTabItem.Style), tab.Style);
             builder.AddMultipleAttributes(6, tab.AdditionalAttributes);
 
             builder.CloseComponent();

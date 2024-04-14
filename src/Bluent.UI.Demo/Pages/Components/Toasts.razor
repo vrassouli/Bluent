@@ -1,0 +1,22 @@
+﻿@page "/components/toasts"
+@using Bluent.UI.Services.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Toast</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Make toast" OnClick="MakeDefaultToast" />
+        </section>
+    </div>
+</div>
+
+@code {
+    [Inject] private IToastService ToastService { get; set; } = default!;
+
+    private void MakeDefaultToast()
+    {
+        ToastService.ShowAsync("Sample toast", "This is a toast.", new ToastConfiguration(intend: ToastIntend.Success));
+    }
+}

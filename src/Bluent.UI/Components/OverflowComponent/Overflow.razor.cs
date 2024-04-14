@@ -13,7 +13,7 @@ public abstract partial class Overflow
     protected List<IOverflowItem> Items { get; private set; } = new();
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public OverflowOrientation Orientation { get; set; } = OverflowOrientation.Horizontal;
+    [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
     private IEnumerable<string> GetOverflowClasses()

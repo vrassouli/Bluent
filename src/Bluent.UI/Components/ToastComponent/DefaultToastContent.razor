@@ -1,0 +1,29 @@
+﻿<div class="title">
+    @if (Config.Intend != ToastIntend.None)
+    {
+        <i class="@GetIconClass()"></i>
+    }
+    <span>@Title</span>
+</div>
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="message">@Message</div>
+}
+
+@code {
+    [Parameter] public string Title { get; set; } = default!;
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public ToastConfiguration Config { get; set; } = default!;
+
+    private string GetIconClass()
+    {
+        return Config.Intend switch
+        {
+            ToastIntend.Success => "icon-ic_fluent_checkmark_circle_20_filled me-2",
+            ToastIntend.Info => "icon-ic_fluent_info_20_filled me-2",
+            ToastIntend.Warning => "icon-ic_fluent_warning_20_filled me-2",
+            ToastIntend.Error => "icon-ic_fluent_dismiss_circle_20_filled me-2",
+            _ => string.Empty
+        };
+    }
+}

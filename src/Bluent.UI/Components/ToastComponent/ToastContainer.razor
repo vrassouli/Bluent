@@ -1,0 +1,15 @@
+﻿@using Humanizer
+@foreach (var contextGroup in _contexts.GroupBy(x => x.Config.Placement))
+{
+    <div class="bui-toast-stack @(contextGroup.Key.ToString().Kebaberize())">
+        @foreach (var context in contextGroup)
+        {
+            <Toast @ref=context.ToastReference
+                   @key=context
+                   Duration="context.Config.Duration"
+                   Placement="context.Config.Placement">
+                @context.Content
+            </Toast>
+        }
+    </div>
+}

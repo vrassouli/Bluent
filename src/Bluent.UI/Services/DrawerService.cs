@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Components.DrawerComponent;
+﻿using Bluent.UI.Components;
+using Bluent.UI.Components.DrawerComponent;
 using Bluent.UI.Services.Abstractions;
 using Bluent.UI.Services.EventArguments;
 
@@ -7,7 +8,6 @@ namespace Bluent.UI.Services;
 internal class DrawerService : IDrawerService
 {
     public event EventHandler<OpenDrawerEventArgs>? OpenDrawer;
-
 
     public Task<dynamic?> OpenAsync(DrawerConfiguration config)
     {

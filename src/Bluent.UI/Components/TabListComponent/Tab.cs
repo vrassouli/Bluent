@@ -8,5 +8,6 @@ public class Tab : OverflowItemComponentBase
     [Parameter] public string? MenuLabel { get; set; } = default!;
     [Parameter] public string Icon { get; set; } = default!;
     [Parameter] public string ActiveIcon { get; set; } = default!;
+    [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
 }

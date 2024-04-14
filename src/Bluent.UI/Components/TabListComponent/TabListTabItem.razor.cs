@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Components;
+using System.Diagnostics;
 
 namespace Bluent.UI.Components.TabListComponent;
 
@@ -8,6 +10,7 @@ public partial class TabListTabItem
     [Parameter] public string? MenuLabel { get; set; } = default!;
     [Parameter] public string Icon { get; set; } = default!;
     [Parameter] public string ActiveIcon { get; set; } = default!;
+    [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
     [CascadingParameter] public Overflow TabListOverflow { get; set; } = default!;
 
@@ -18,7 +21,7 @@ public partial class TabListTabItem
 
         tabList.Add(this);
 
-        if (tabList.Orientation == OverflowOrientation.Horizontal)
+        if (tabList.Orientation == Orientation.Horizontal)
             TooltipPlacement = Placement.Bottom;
         else
             TooltipPlacement = Placement.Right;
@@ -37,6 +40,8 @@ public partial class TabListTabItem
     public override IEnumerable<string> GetClasses()
     {
         yield return "tab-item";
+        if (Orientation != Orientation.Horizontal)
+            yield return Orientation.ToString().Kebaberize();
 
         if (TabListOverflow is TabList tabList)
         {

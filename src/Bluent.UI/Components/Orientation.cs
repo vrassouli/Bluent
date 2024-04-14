@@ -1,6 +1,6 @@
 ﻿namespace Bluent.UI.Components;
 
-public enum OverflowOrientation
+public enum Orientation
 {
     Horizontal,
     Vertical,

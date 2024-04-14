@@ -23,7 +23,7 @@
             <Label Text="Tablist height (px):" Class="me-4" />
             <NumericField @bind-Value="_verticalTablistHeight" />
 
-            <TabList Orientation="OverflowOrientation.Vertical" Style="@VerticalTablistHeight">
+            <TabList Orientation="Orientation.Vertical" Style="@VerticalTablistHeight">
                 <Tab Text="First Tab"></Tab>
                 <Tab Text="Second Tab"></Tab>
                 <Tab Text="Third Tab"></Tab>
@@ -163,7 +163,7 @@
                     </Tab>
                 </TabList>
 
-                <TabList Class="w-100 w-md-50" Orientation="OverflowOrientation.Vertical" @bind-SelectedIndex="_selectedTabIndex">
+                <TabList Class="w-100 w-md-50" Orientation="Orientation.Vertical" @bind-SelectedIndex="_selectedTabIndex">
                     <Tab Text="Arrivals" Icon="icon-ic_fluent_airplane_20_regular" ActiveIcon="icon-ic_fluent_airplane_20_filled">
                         <table>
                             <tr>
@@ -240,7 +240,7 @@
         
         <h3>Urls</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <TabList Orientation="OverflowOrientation.Vertical">
+            <TabList Orientation="Orientation.Vertical">
                 <Tab Icon="icon-ic_fluent_icons_20_regular" ActiveIcon="icon-ic_fluent_icons_20_filled" MenuLabel="Item 1" href="/components/tablists?tab1"></Tab>
                 <Tab Icon="icon-ic_fluent_accessibility_20_regular" ActiveIcon="icon-ic_fluent_accessibility_20_filled" MenuLabel="Item 2" href="/components/tablists?tab2"></Tab>
                 <Tab Icon="icon-ic_fluent_animal_rabbit_20_regular" ActiveIcon="icon-ic_fluent_animal_rabbit_20_filled" MenuLabel="Item 3" href="/components/tablists?tab3"></Tab>

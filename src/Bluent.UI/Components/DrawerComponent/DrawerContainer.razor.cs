@@ -2,11 +2,6 @@
 using Bluent.UI.Services.Abstractions;
 using Bluent.UI.Services.EventArguments;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Components.DrawerComponent;
 

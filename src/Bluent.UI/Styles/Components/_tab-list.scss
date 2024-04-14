@@ -101,6 +101,18 @@
                         font-weight: var(--fontWeightSemibold);
                     }
 
+                    > .icon, .active-icon {
+                        color: var(--colorNeutralForeground2BrandSelected);
+                    }
+
+                    > .active-icon {
+                        display: inline-flex;
+
+                        & + .icon {
+                            display: none;
+                        }
+                    }
+
                     &:after {
                         position: absolute;
                         content: "";
@@ -143,6 +155,10 @@
                     &:after {
                         background-color: var(--colorNeutralForegroundDisabled);
                     }
+                }
+
+                &.vertical {
+                    flex-direction: column;
                 }
             }
 

@@ -1,0 +1,9 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
+     @onanimationend="AnimationEndedHandler">
+    <div class="content">
+        @ChildContent
+    </div>
+</div>
