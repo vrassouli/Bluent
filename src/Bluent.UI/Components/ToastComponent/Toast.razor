@@ -4,6 +4,8 @@
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
      @onanimationend="AnimationEndedHandler">
     <div class="content">
-        @ChildContent
+        <CascadingValue Value="this" IsFixed>
+            @ChildContent
+        </CascadingValue>
     </div>
 </div>

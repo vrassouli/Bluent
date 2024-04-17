@@ -18,51 +18,56 @@ internal class ToastService : IToastService
 {
     public event EventHandler<ShowToastEventArgs>? ShowToast;
 
-    public Task<dynamic?> ShowAsync(RenderFragment content, ToastConfiguration config)
+    public Task<dynamic?> ShowAsync(RenderFragment content, ToastConfiguration? config = null)
     {
-        var context = new ToastContext(content, config);
+        var context = new ToastContext(content, config ?? new());
 
         ShowToast?.Invoke(this, new ShowToastEventArgs(context));
 
         return context.ResultTCS.Task;
     }
 
-    public Task<dynamic?> ShowAsync(string title, ToastConfiguration config)
+    public Task<dynamic?> ShowAsync(string title, string? message = null, ToastIntend intend = ToastIntend.None, string? dismissTitle = null, ToastConfiguration? config = null)
     {
-        return ShowAsync(title, null, config);
-    }
-
-    public Task<dynamic?> ShowAsync(string title, string? message, ToastConfiguration config)
-    {
-        var content = GetContentFragment(title, message, config);
+        var content = GetContentFragment(title, message, intend, dismissTitle);
 
         return ShowAsync(content, config);
     }
 
-    public Task<dynamic?> ShowAsync<TContent>(ToastConfiguration config, object? parameters = null) where TContent : ComponentBase
+    public Task<dynamic?> ShowAsync<TContent>(ToastConfiguration? config = null, IEnumerable<KeyValuePair<string, object?>>? parameters = null) where TContent : ComponentBase
     {
-        var content = GetContentFragment<TContent>(parameters);
+        var content = GetContentFragment<TContent>(parameters ?? Enumerable.Empty<KeyValuePair<string, object?>>());
 
         return ShowAsync(content, config);
     }
 
-    private RenderFragment GetContentFragment(string title, string? message, ToastConfiguration config)
+    private RenderFragment GetContentFragment(string title, string? message, ToastIntend intend, string? dismissTitle)
     {
-        return builder =>
+        var parameters = new Dictionary<string, object?>
         {
-            builder.OpenComponent<DefaultToastContent>(0);
-            builder.AddAttribute(1, nameof(DefaultToastContent.Title), title);
-            builder.AddAttribute(2, nameof(DefaultToastContent.Message), message);
-            builder.AddAttribute(3, nameof(DefaultToastContent.Config), config);
-            builder.CloseComponent();
+            { nameof(DefaultToastContent.Title), title },
+            { nameof(DefaultToastContent.Message), message },
+            { nameof(DefaultToastContent.Intend), intend },
+            { nameof(DefaultToastContent.DismissTitle), dismissTitle },
         };
+        return GetContentFragment<DefaultToastContent>(parameters);
+        //return builder =>
+        //{
+        //    builder.OpenComponent<DefaultToastContent>(0);
+        //    builder.AddAttribute(1, nameof(DefaultToastContent.Title), title);
+        //    builder.AddAttribute(2, nameof(DefaultToastContent.Message), message);
+        //    builder.AddAttribute(3, nameof(DefaultToastContent.Intend), intend);
+        //    builder.AddAttribute(3, nameof(DefaultToastContent.DismissTitle), dismissTitle);
+        //    builder.CloseComponent();
+        //};
     }
 
-    private RenderFragment GetContentFragment<TContent>(object? parameters) where TContent : ComponentBase
+    private RenderFragment GetContentFragment<TContent>(IEnumerable<KeyValuePair<string, object?>> parameters) where TContent : ComponentBase
     {
         return builder =>
         {
             builder.OpenComponent<TContent>(0);
+            builder.AddMultipleAttributes(1, parameters!);
             builder.CloseComponent();
         };
     }

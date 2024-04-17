@@ -7,7 +7,8 @@
             <Toast @ref=context.ToastReference
                    @key=context
                    Duration="context.Config.Duration"
-                   Placement="context.Config.Placement">
+                   Placement="context.Config.Placement"
+                   OnHide="(result)=>{ OnToastHide(result, context); }">
                 @context.Content
             </Toast>
         }

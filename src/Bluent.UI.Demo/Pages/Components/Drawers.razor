@@ -29,6 +29,7 @@
     private bool _modal = true;
 
     [Inject] private IDrawerService DrawerService { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
     RenderFragment SampleContentFragment => builder =>
             {
                 builder.OpenComponent<SampleContent>(0);
@@ -47,9 +48,11 @@
 
         var result = await DrawerService.OpenAsync(config);
         if (result is null)
-            Console.WriteLine("Dismissed");
-        else
-            Console.WriteLine(result);
+            _ = ToastService.ShowAsync("Dismissed", intend: ToastIntend.Info);
+        else if(result == true)
+            _ = ToastService.ShowAsync("Continue clicked", intend: ToastIntend.Success);
+        else if(result == false)
+            _ = ToastService.ShowAsync("Cancel clicked", intend: ToastIntend.Warning);
     }
 
     private async Task OpenDrawerFromStart()
@@ -64,9 +67,11 @@
 
         var result = await DrawerService.OpenAsync(config);
         if (result is null)
-            Console.WriteLine("Dismissed");
-        else
-            Console.WriteLine(result);
+            _ = ToastService.ShowAsync("Dismissed", intend: ToastIntend.Info);
+        else if (result == true)
+            _ = ToastService.ShowAsync("Continue clicked", intend: ToastIntend.Success);
+        else if (result == false)
+            _ = ToastService.ShowAsync("Cancel clicked", intend: ToastIntend.Warning);
     }
 
     private async Task OpenDrawerFromEnd()
@@ -81,9 +86,11 @@
 
         var result = await DrawerService.OpenAsync(config);
         if (result is null)
-            Console.WriteLine("Dismissed");
-        else
-            Console.WriteLine(result);
+            _ = ToastService.ShowAsync("Dismissed", intend: ToastIntend.Info);
+        else if (result == true)
+            _ = ToastService.ShowAsync("Continue clicked", intend: ToastIntend.Success);
+        else if (result == false)
+            _ = ToastService.ShowAsync("Cancel clicked", intend: ToastIntend.Warning);
     }
 
     private async Task OpenDrawerFromTop()
@@ -98,9 +105,11 @@
 
         var result = await DrawerService.OpenAsync(config);
         if (result is null)
-            Console.WriteLine("Dismissed");
-        else
-            Console.WriteLine(result);
+            _ = ToastService.ShowAsync("Dismissed", intend: ToastIntend.Info);
+        else if (result == true)
+            _ = ToastService.ShowAsync("Continue clicked", intend: ToastIntend.Success);
+        else if (result == false)
+            _ = ToastService.ShowAsync("Cancel clicked", intend: ToastIntend.Warning);
     }
 
     private async Task OpenDrawerFromBottom()
@@ -115,8 +124,10 @@
 
         var result = await DrawerService.OpenAsync(config);
         if (result is null)
-            Console.WriteLine("Dismissed");
-        else
-            Console.WriteLine(result);
+            _ = ToastService.ShowAsync("Dismissed", intend: ToastIntend.Info);
+        else if (result == true)
+            _ = ToastService.ShowAsync("Continue clicked", intend: ToastIntend.Success);
+        else if (result == false)
+            _ = ToastService.ShowAsync("Cancel clicked", intend: ToastIntend.Warning);
     }
 }

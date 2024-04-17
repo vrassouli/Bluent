@@ -1,39 +1,92 @@
 ﻿.bui-toast-stack {
     position: absolute;
     display: flex;
-    flex-direction: column;
     padding: 20px;
 
     &.top-start {
         top: 0;
         left: 0;
+        flex-direction: column-reverse;
+
+        > .bui-toast {
+            animation-name: fade-in, slide-in-left;
+
+            &.hide {
+                animation-name: fade-out, slide-out-left;
+            }
+        }
     }
 
     &.top-center {
         top: 0;
         left: 50%;
+        flex-direction: column-reverse;
         transform: translateX(-50%);
+
+        > .bui-toast {
+            animation-name: fade-in;
+
+            &.hide {
+                animation-name: fade-out;
+            }
+        }
     }
 
     &.top-end {
         top: 0;
         right: 0;
+        flex-direction: column-reverse;
+
+        > .bui-toast {
+            animation-name: fade-in, slide-in-right;
+
+            &.hide {
+                animation-name: fade-out, slide-out-right;
+            }
+        }
     }
 
     &.bottom-start {
         bottom: 0;
         left: 0;
+        flex-direction: column;
+
+        > .bui-toast {
+            animation-name: fade-in, slide-in-left;
+
+            &.hide {
+                animation-name: fade-out, slide-out-left;
+            }
+        }
     }
 
     &.bottom-center {
         bottom: 0;
         left: 50%;
+        flex-direction: column;
         transform: translateX(-50%);
+
+        > .bui-toast {
+            animation-name: fade-in;
+
+            &.hide {
+                animation-name: fade-out;
+            }
+        }
     }
 
     &.bottom-end {
         bottom: 0;
         right: 0;
+        flex-direction: column;
+
+        > .bui-toast {
+            animation-name: fade-in, slide-in-right;
+
+            &.hide {
+                animation-name: fade-out, slide-out-right;
+            }
+        }
     }
 }
 
@@ -43,18 +96,36 @@
     pointer-events: all;
     border-radius: var(--borderRadiusMedium);
     box-shadow: var(--shadow8);
+    animation-duration: var(--durationGentle);
+    animation-timing-function: var(--curveEasyEase);
+    animation-fill-mode: both;
 
     > .content {
         padding: 12px;
         border-radius: var(--borderRadiusMedium);
         border: 1px solid var(--colorTransparentStroke);
         font-size: var(--fontSizeBase300);
-        line-height: 20px;
+        line-height: var(--lineHeightBase300);
         color: var(--colorNeutralForeground1);
         background-color: var(--colorNeutralBackground1);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacingHorizontalSNudge);
 
         > .title {
             font-weight: var(--fontWeightSemibold);
+            display: flex;
+            gap: var(--spacingHorizontalSNudge);
+
+            > .text {
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            > .dismiss {
+                padding-inline-start: 12px;
+            }
         }
 
         > .message {
@@ -68,24 +139,56 @@
             top: 0;
             right: 0;
             left: unset;
+
+            > .bui-toast {
+                animation-name: fade-in, slide-in-right;
+
+                &.hide {
+                    animation-name: fade-out, slide-out-right;
+                }
+            }
         }
 
         &.top-end {
             top: 0;
             left: 0;
             right: unset;
+
+            > .bui-toast {
+                animation-name: fade-in, slide-in-left;
+
+                &.hide {
+                    animation-name: fade-out, slide-out-left;
+                }
+            }
         }
 
         &.bottom-start {
             bottom: 0;
             right: 0;
             left: unset;
+
+            > .bui-toast {
+                animation-name: fade-in, slide-in-right;
+
+                &.hide {
+                    animation-name: fade-out, slide-out-right;
+                }
+            }
         }
 
         &.bottom-end {
             bottom: 0;
             left: 0;
             right: unset;
+
+            > .bui-toast {
+                animation-name: fade-in, slide-in-left;
+
+                &.hide {
+                    animation-name: fade-out, slide-out-left;
+                }
+            }
         }
     }
 }

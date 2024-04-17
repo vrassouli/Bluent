@@ -1,0 +1,109 @@
+﻿@use "sass:map";
+@import "../../functions/strings.scss";
+@import "../theme/shared/statusSharedColorNames.scss";
+@import "../theme/shared/personaSharedColorNames.scss";
+@import "../theme/maps/color-palette.scss";
+@import "../theme/maps/status-color.scss";
+
+@each $sharedColorName in $statusSharedColorNames {
+    $colorPaletteMap: map.get($status-shared-colors-map, $sharedColorName);
+
+    .bg-#{$sharedColorName}-1 {
+        background-color: var(--colorPalette#{capitalize($sharedColorName)}Background1) !important;
+    }
+
+    .bg-#{$sharedColorName}-2 {
+        background-color: var(--colorPalette#{capitalize($sharedColorName)}Background2) !important;
+    }
+
+    .bg-#{$sharedColorName}-3 {
+        background-color: var(--colorPalette#{capitalize($sharedColorName)}Background3) !important;
+    }
+
+    .color-#{$sharedColorName}-1 {
+        color: var(--colorPalette#{capitalize($sharedColorName)}Foreground1) !important;
+    }
+
+    .color-#{$sharedColorName}-2 {
+        color: var(--colorPalette#{capitalize($sharedColorName)}Foreground2) !important;
+    }
+
+    .color-#{$sharedColorName}-3 {
+        color: var(--colorPalette#{capitalize($sharedColorName)}Foreground3) !important;
+    }
+
+    .border-#{$sharedColorName}-1 {
+        border-color: var(--colorPalette#{capitalize($sharedColorName)}Border1) !important;
+    }
+
+    .border-#{$sharedColorName}-2 {
+        border-color: var(--colorPalette#{capitalize($sharedColorName)}Border2) !important;
+    }
+
+    .border-#{$sharedColorName}-active {
+        border-color: var(--colorPalette#{capitalize($sharedColorName)}BorderActive) !important;
+    }
+}
+
+.color-red-inverted {
+    color: var(--colorPaletteRedForegroundInverted) !important;
+}
+
+.color-green-inverted {
+    color: var(--colorPaletteGreenForegroundInverted) !important;
+}
+
+.color-yellow-inverted {
+    color: var(--colorPaletteYellowForegroundInverted) !important;
+}
+
+@each $sharedColorName in $personaSharedColorNames {
+    $colorPaletteMap: map.get($persona-shared-colors-map, $sharedColorName);
+    .bg-#{$sharedColorName} {
+        background-color: var(--colorPalette#{capitalize($sharedColorName)}Background2) !important;
+    }
+    .color-#{$sharedColorName} {
+        color: var(--colorPalette#{capitalize($sharedColorName)}Foreground2) !important;
+    }
+    .border-#{$sharedColorName} {
+        border-color: var(--colorPalette#{capitalize($sharedColorName)}BorderActive) !important;
+    }
+}
+
+@each $status, $status-color in $status-color-map {
+    $colorPaletteMap: map.get($mapped-status-colors-map, $status-color);
+
+    .bg-#{$status}-1 {
+        background-color: var(--colorStatus#{capitalize($status)}Background1) !important;
+    }
+    .bg-#{$status}-2 {
+        background-color: var(--colorStatus#{capitalize($status)}Background2) !important;
+    }
+    .bg-#{$status}-3 {
+        background-color: var(--colorStatus#{capitalize($status)}Background3) !important;
+    }
+    .color-#{$status}-1 {
+        color: var(--colorStatus#{capitalize($status)}Foreground1) !important;
+    }
+    .color-#{$status}-2 {
+        color: var(--colorStatus#{capitalize($status)}Foreground2) !important;
+    }
+    .color-#{$status}-3 {
+        color: var(--colorStatus#{capitalize($status)}Foreground3) !important;
+    }
+    .color-#{$status}-inverted {
+        color: var(--colorStatus#{capitalize($status)}ForegroundInverted) !important;
+    }
+    .border-#{$status}-1 {
+        border-color: var(--colorStatus#{capitalize($status)}Border1) !important;
+    }
+    .border-#{$status}-2 {
+        border-color: var(--colorStatus#{capitalize($status)}Border2) !important;
+    }
+    .border-#{$status}-3 {
+        border-color: var(--colorStatus#{capitalize($status)}Border3) !important;
+    }
+    .border-#{$status}-active {
+        border-color: var(--colorStatus#{capitalize($status)}BorderActive) !important;
+    }
+}

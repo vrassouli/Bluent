@@ -425,6 +425,16 @@
   --colorStatusDangerBorderActive: #c50f1f;
   --colorStatusDangerBorder1: #eeacb2;
   --colorStatusDangerBorder2: #c50f1f;
+  --colorStatusInfoBackground1: #f3f9fd;
+  --colorStatusInfoBackground2: #a9d3f2;
+  --colorStatusInfoBackground3: #0078d4;
+  --colorStatusInfoForeground1: #006cbf;
+  --colorStatusInfoForeground2: #004377;
+  --colorStatusInfoForeground3: #0078d4;
+  --colorStatusInfoForegroundInverted: #5caae5;
+  --colorStatusInfoBorderActive: #0078d4;
+  --colorStatusInfoBorder1: #a9d3f2;
+  --colorStatusInfoBorder2: #0078d4;
   --colorStatusDangerBackground3Hover:#b10e1c;
   --colorStatusDangerBackground3Pressed:#960b18;
   --shadow2: 0 0 2px var(--colorNeutralShadowAmbient), 0 1px 2px var(--colorNeutralShadowKey);

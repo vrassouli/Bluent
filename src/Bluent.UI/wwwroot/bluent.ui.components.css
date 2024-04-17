@@ -1653,34 +1653,75 @@
 .bui-toast-stack {
   position: absolute;
   display: flex;
-  flex-direction: column;
   padding: 20px;
 }
 .bui-toast-stack.top-start {
   top: 0;
   left: 0;
+  flex-direction: column-reverse;
+}
+.bui-toast-stack.top-start > .bui-toast {
+  animation-name: fade-in, slide-in-left;
+}
+.bui-toast-stack.top-start > .bui-toast.hide {
+  animation-name: fade-out, slide-out-left;
 }
 .bui-toast-stack.top-center {
   top: 0;
   left: 50%;
+  flex-direction: column-reverse;
   transform: translateX(-50%);
+}
+.bui-toast-stack.top-center > .bui-toast {
+  animation-name: fade-in;
+}
+.bui-toast-stack.top-center > .bui-toast.hide {
+  animation-name: fade-out;
 }
 .bui-toast-stack.top-end {
   top: 0;
   right: 0;
+  flex-direction: column-reverse;
+}
+.bui-toast-stack.top-end > .bui-toast {
+  animation-name: fade-in, slide-in-right;
+}
+.bui-toast-stack.top-end > .bui-toast.hide {
+  animation-name: fade-out, slide-out-right;
 }
 .bui-toast-stack.bottom-start {
   bottom: 0;
   left: 0;
+  flex-direction: column;
+}
+.bui-toast-stack.bottom-start > .bui-toast {
+  animation-name: fade-in, slide-in-left;
+}
+.bui-toast-stack.bottom-start > .bui-toast.hide {
+  animation-name: fade-out, slide-out-left;
 }
 .bui-toast-stack.bottom-center {
   bottom: 0;
   left: 50%;
+  flex-direction: column;
   transform: translateX(-50%);
+}
+.bui-toast-stack.bottom-center > .bui-toast {
+  animation-name: fade-in;
+}
+.bui-toast-stack.bottom-center > .bui-toast.hide {
+  animation-name: fade-out;
 }
 .bui-toast-stack.bottom-end {
   bottom: 0;
   right: 0;
+  flex-direction: column;
+}
+.bui-toast-stack.bottom-end > .bui-toast {
+  animation-name: fade-in, slide-in-right;
+}
+.bui-toast-stack.bottom-end > .bui-toast.hide {
+  animation-name: fade-out, slide-out-right;
 }
 
 .bui-toast {
@@ -1689,38 +1730,78 @@
   pointer-events: all;
   border-radius: var(--borderRadiusMedium);
   box-shadow: var(--shadow8);
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
 }
 .bui-toast > .content {
   padding: 12px;
   border-radius: var(--borderRadiusMedium);
   border: 1px solid var(--colorTransparentStroke);
   font-size: var(--fontSizeBase300);
-  line-height: 20px;
+  line-height: var(--lineHeightBase300);
   color: var(--colorNeutralForeground1);
   background-color: var(--colorNeutralBackground1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingHorizontalSNudge);
 }
 .bui-toast > .content > .title {
   font-weight: var(--fontWeightSemibold);
+  display: flex;
+  gap: var(--spacingHorizontalSNudge);
+}
+.bui-toast > .content > .title > .text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bui-toast > .content > .title > .dismiss {
+  padding-inline-start: 12px;
 }
 .rtl .bui-toast-stack.top-start, [dir=rtl] .bui-toast-stack.top-start {
   top: 0;
   right: 0;
   left: unset;
 }
+.rtl .bui-toast-stack.top-start > .bui-toast, [dir=rtl] .bui-toast-stack.top-start > .bui-toast {
+  animation-name: fade-in, slide-in-right;
+}
+.rtl .bui-toast-stack.top-start > .bui-toast.hide, [dir=rtl] .bui-toast-stack.top-start > .bui-toast.hide {
+  animation-name: fade-out, slide-out-right;
+}
 .rtl .bui-toast-stack.top-end, [dir=rtl] .bui-toast-stack.top-end {
   top: 0;
   left: 0;
   right: unset;
+}
+.rtl .bui-toast-stack.top-end > .bui-toast, [dir=rtl] .bui-toast-stack.top-end > .bui-toast {
+  animation-name: fade-in, slide-in-left;
+}
+.rtl .bui-toast-stack.top-end > .bui-toast.hide, [dir=rtl] .bui-toast-stack.top-end > .bui-toast.hide {
+  animation-name: fade-out, slide-out-left;
 }
 .rtl .bui-toast-stack.bottom-start, [dir=rtl] .bui-toast-stack.bottom-start {
   bottom: 0;
   right: 0;
   left: unset;
 }
+.rtl .bui-toast-stack.bottom-start > .bui-toast, [dir=rtl] .bui-toast-stack.bottom-start > .bui-toast {
+  animation-name: fade-in, slide-in-right;
+}
+.rtl .bui-toast-stack.bottom-start > .bui-toast.hide, [dir=rtl] .bui-toast-stack.bottom-start > .bui-toast.hide {
+  animation-name: fade-out, slide-out-right;
+}
 .rtl .bui-toast-stack.bottom-end, [dir=rtl] .bui-toast-stack.bottom-end {
   bottom: 0;
   left: 0;
   right: unset;
+}
+.rtl .bui-toast-stack.bottom-end > .bui-toast, [dir=rtl] .bui-toast-stack.bottom-end > .bui-toast {
+  animation-name: fade-in, slide-in-left;
+}
+.rtl .bui-toast-stack.bottom-end > .bui-toast.hide, [dir=rtl] .bui-toast-stack.bottom-end > .bui-toast.hide {
+  animation-name: fade-out, slide-out-left;
 }
 
 .bui-toolbar {

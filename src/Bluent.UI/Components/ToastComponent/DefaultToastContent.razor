@@ -1,9 +1,13 @@
 ﻿<div class="title">
-    @if (Config.Intend != ToastIntend.None)
+    @if (Intend != ToastIntend.None)
     {
         <i class="@GetIconClass()"></i>
     }
-    <span>@Title</span>
+    <div class="text">@Title</div>
+    @if (!string.IsNullOrEmpty(DismissTitle))
+    {
+        <Link Text="@DismissTitle" Class="dismiss" OnClick="OnDismissClick" />
+    }
 </div>
 @if (!string.IsNullOrEmpty(Message))
 {
@@ -13,17 +17,24 @@
 @code {
     [Parameter] public string Title { get; set; } = default!;
     [Parameter] public string? Message { get; set; }
-    [Parameter] public ToastConfiguration Config { get; set; } = default!;
+    [Parameter] public string? DismissTitle { get; set; }
+    [Parameter] public ToastIntend Intend { get; set; } = ToastIntend.None;
+    [CascadingParameter] public Toast? Toast{ get; set; }
 
     private string GetIconClass()
     {
-        return Config.Intend switch
+        return Intend switch
         {
-            ToastIntend.Success => "icon-ic_fluent_checkmark_circle_20_filled me-2",
-            ToastIntend.Info => "icon-ic_fluent_info_20_filled me-2",
-            ToastIntend.Warning => "icon-ic_fluent_warning_20_filled me-2",
-            ToastIntend.Error => "icon-ic_fluent_dismiss_circle_20_filled me-2",
+            ToastIntend.Success => "icon-ic_fluent_checkmark_circle_20_filled color-success-1 me-2",
+            ToastIntend.Info => "icon-ic_fluent_info_20_filled color-info-1 me-2",
+            ToastIntend.Warning => "icon-ic_fluent_warning_20_filled color-warning-1 me-2",
+            ToastIntend.Error => "icon-ic_fluent_dismiss_circle_20_filled color-danger-1 me-2",
             _ => string.Empty
         };
+    }
+
+    private void OnDismissClick()
+    {
+        Toast?.Hide(null);
     }
 }
