@@ -10,28 +10,72 @@ internal class DialogService : IDialogService
 {
     public event EventHandler<ShowDialogEventArgs>? ShowDialog;
 
-    public Task<dynamic?> ShowAsync(string title, RenderFragment content, DialogConfiguration? config = null)
+    public Task<dynamic?> ShowAsync(RenderFragment content, DialogConfiguration? config = null)
     {
-        var context = new DialogContext(title, content, config ?? new());
+        var context = new DialogContext(content, config ?? new());
 
         ShowDialog?.Invoke(this, new ShowDialogEventArgs(context));
 
         return context.ResultTCS.Task;
     }
 
-    public Task<dynamic?> ShowAsync<TContent>(string title, DialogConfiguration? config = null, IEnumerable<KeyValuePair<string, object?>>? parameters = null) where TContent : ComponentBase
-    {
-        var content = GetContentFragment<TContent>(parameters ?? Enumerable.Empty<KeyValuePair<string, object?>>());
+    //public Task<dynamic?> ShowAsync<TContentComponent>(string title,
+    //                                                   IDictionary<string, object?>? parameters = null,
+    //                                                   bool showCloseButton = true,
+    //                                                   DialogConfiguration? config = null) where TContentComponent : ComponentBase
+    //{
+    //    var content = GetContentFragment<TContentComponent>(title, parameters, showCloseButton);
 
-        return ShowAsync(title, content, config);
+    //    return ShowAsync(content, config);
+    //}
+
+    public Task<dynamic?> ShowAsync<TContentComponent>(string title,
+                                                       IDictionary<string, object?>? parameters = null,
+                                                       Action<DialogConfigurator>? configBuilder = null)
+        where TContentComponent : ComponentBase
+    {
+        var configurator = new DialogConfigurator();
+        configBuilder?.Invoke(configurator);
+
+        var content = GetContentFragment<TContentComponent>(title,
+                                                            parameters,
+                                                            configurator.ContentConfiguration.ShowCloseButton,
+                                                            configurator.ContentConfiguration.Actions);
+
+        return ShowAsync(content, configurator.DialogConfiguration);
     }
 
-    private RenderFragment GetContentFragment<TContent>(IEnumerable<KeyValuePair<string, object?>> parameters) where TContent : ComponentBase
+    public Task<dynamic?> ShowAsync<TContentComponent>(IDictionary<string, object?>? parameters = null,
+                                                       DialogConfiguration? config = null) where TContentComponent : ComponentBase
+    {
+        var content = GetContentFragment<TContentComponent>(parameters);
+
+        return ShowAsync(content, config);
+    }
+
+    private RenderFragment GetContentFragment<TContentComponent>(IDictionary<string, object?>? parameters) where TContentComponent : ComponentBase
     {
         return builder =>
         {
-            builder.OpenComponent<TContent>(0);
+            builder.OpenComponent<TContentComponent>(0);
             builder.AddMultipleAttributes(1, parameters!);
+            builder.CloseComponent();
+        };
+    }
+
+    private RenderFragment GetContentFragment<TContentComponent>(string title,
+                                                                 IDictionary<string, object?>? parameters,
+                                                                 bool showCloseButton,
+                                                                 List<DialogAction> actions) where TContentComponent : ComponentBase
+    {
+        return builder =>
+        {
+            builder.OpenComponent<DefaultDialogContent>(0);
+            builder.AddAttribute(1, nameof(DefaultDialogContent.Title), title);
+            builder.AddAttribute(2, nameof(DefaultDialogContent.ShowCloseButton), showCloseButton);
+            builder.AddAttribute(3, nameof(DefaultDialogContent.ContentComponentType), typeof(TContentComponent));
+            builder.AddAttribute(4, nameof(DefaultDialogContent.ContentParameters), parameters);
+            builder.AddAttribute(4, nameof(DefaultDialogContent.Actions), actions);
             builder.CloseComponent();
         };
     }

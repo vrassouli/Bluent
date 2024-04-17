@@ -8,5 +8,10 @@ namespace Bluent.UI.Components;
 
 public class DialogConfiguration
 {
-    public bool Modal { get; set; } = true;
+    public DialogConfiguration(bool modal = true)
+    {
+        Modal = modal;
+    }
+
+    public bool Modal { get; }
 }

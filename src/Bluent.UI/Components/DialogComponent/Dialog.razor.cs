@@ -12,7 +12,6 @@ public partial class Dialog
     private bool _hiding;
     private object? _result;
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
-    [Parameter] public string Title { get; set; } = default!;
     [Parameter] public EventCallback<dynamic?> OnClose { get; set; }
 
     public override IEnumerable<string> GetClasses()
@@ -28,6 +27,8 @@ public partial class Dialog
         _result = result;
         StateHasChanged();
     }
+
+    private void OnCloseHandler() => Close();
 
     private void AnimationEndedHandler()
     {

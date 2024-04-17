@@ -5,6 +5,10 @@ namespace Bluent.UI.Services.Abstractions;
 
 public interface IDialogService
 {
-    Task<dynamic?> ShowAsync(string title, RenderFragment content, DialogConfiguration? config = null);
-    Task<dynamic?> ShowAsync<TContent>(string title, DialogConfiguration? config = null, IEnumerable<KeyValuePair<string, object?>>? parameters = null) where TContent : ComponentBase;
+    Task<dynamic?> ShowAsync(RenderFragment content, DialogConfiguration? config = null);
+    Task<dynamic?> ShowAsync<TContentComponent>(IDictionary<string, object?>? parameters = null,
+                                                DialogConfiguration? config = null) where TContentComponent : ComponentBase;
+    Task<dynamic?> ShowAsync<TContentComponent>(string title,
+                                                IDictionary<string, object?>? parameters = null,
+                                                Action<DialogConfigurator>? builder = null) where TContentComponent : ComponentBase;
 }

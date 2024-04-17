@@ -8,16 +8,67 @@
 
         <h3>Dialogs</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Button Text="Show" OnClick="DisplayDefaultDialog" />
+            <Button Text="Show default dialog" OnClick="DisplayDefaultDialog" />
+        </section>
+
+        <h3>Custom Dialog</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Show custom dialog" OnClick="DisplayCustomDialog" />
+        </section>
+
+        <h3>Options</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_isModal" Label="Modal dialog" Class="d-flex" />
+            <Checkbox @bind-Value="_showCloseButton" Label="Show close button" Class="d-flex" />
+            <Button Text="Show default dialog" OnClick="DisplayOptionalDialog" />
+        </section>
+
+        <h3>Actions</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Show dialog with actions" OnClick="DisplayDialogWithActions" />
         </section>
     </div>
 </div>
 
 @code {
+    private bool _isModal = true;
+    private bool _showCloseButton = true;
     [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
 
     private void DisplayDefaultDialog()
     {
         DialogService.ShowAsync<SampleDialogContent>("Dialog title");
+    }
+
+    private void DisplayCustomDialog()
+    {
+        DialogService.ShowAsync<SampleDialogContent>();
+    }
+
+    private void DisplayOptionalDialog()
+    {
+        DialogService.ShowAsync<SampleDialogContent>("Dialog title",
+            null,
+            config => config.SetModal(_isModal)
+                            .SetCloseButton(_showCloseButton));
+    }
+
+    private async Task DisplayDialogWithActions()
+    {
+        var result = await DialogService.ShowAsync<SampleDialogContent>("Dialog title",
+                                null,
+                                config => config.SetModal(_isModal)
+                                    .SetCloseButton(_showCloseButton)
+                                    .AddAction("Retry", null, false, null, (dialog, result) => { _ = ToastService.ShowAsync("Trying again...", intend: ToastIntend.Info); })
+                                    .AddAction("No", false, false)
+                                    .AddAction("Yes", true, true));
+
+        if (result == null)
+            _ = ToastService.ShowAsync("Dialog closed!", intend: ToastIntend.Info);
+        else if (result == true)
+            _ = ToastService.ShowAsync("You selected Yes", intend: ToastIntend.Success);
+        if (result == false)
+            _ = ToastService.ShowAsync("You selected No", intend: ToastIntend.Warning);
     }
 }

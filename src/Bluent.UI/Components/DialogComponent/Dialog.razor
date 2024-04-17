@@ -3,12 +3,7 @@
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
      @onanimationend="AnimationEndedHandler">
-     <div class="title">
-         @Title
-     </div>
-    <div class="content">
-        <CascadingValue Value="this" IsFixed>
-            @ChildContent
-        </CascadingValue>
-    </div>
+     <CascadingValue Value="this" IsFixed>
+         @ChildContent
+     </CascadingValue>
 </div>

@@ -9,15 +9,13 @@ namespace Bluent.UI.Components.DialogComponent;
 
 internal class DialogContext
 {
-    public DialogContext(string title, RenderFragment content, DialogConfiguration config)
+    public DialogContext(RenderFragment content, DialogConfiguration config)
     {
-        Title = title;
         Content = content;
         Config = config;
         ResultTCS = new TaskCompletionSource<dynamic?>();
     }
 
-    public string Title { get; }
     public RenderFragment Content { get; }
     public DialogConfiguration Config { get; }
     internal TaskCompletionSource<dynamic?> ResultTCS { get; }

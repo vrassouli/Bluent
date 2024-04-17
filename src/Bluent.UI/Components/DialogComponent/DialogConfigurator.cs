@@ -1,0 +1,48 @@
+﻿using Bluent.UI.Components.DialogComponent;
+
+namespace Bluent.UI.Components
+{
+    public class DialogConfigurator
+    {
+        private bool _modal = true;
+        private bool _showCloseButton = true;
+        private List<DialogAction> _actions = new();
+
+        public DialogConfigurator SetModal(bool isModal = true)
+        {
+            _modal = isModal;
+
+            return this;
+        }
+
+        public DialogConfigurator SetCloseButton(bool show = true)
+        {
+            _showCloseButton = show;
+
+            return this;
+        }
+
+        public DialogConfigurator AddAction(string text, object? result = null, bool primary = false, string? formToSumbit = null, Action<Dialog, object?>? callback = null)
+        {
+            _actions.Add(new DialogAction(text, result, primary, formToSumbit, callback));
+
+            return this;
+        }
+
+        internal DialogConfiguration DialogConfiguration
+        {
+            get
+            {
+                return new DialogConfiguration(_modal);
+            }
+        }
+
+        internal DialogContentConfiguration ContentConfiguration
+        {
+            get
+            {
+                return new DialogContentConfiguration(_showCloseButton, _actions);
+            }
+        }
+    }
+}
