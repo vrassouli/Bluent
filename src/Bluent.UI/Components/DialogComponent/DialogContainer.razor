@@ -1,0 +1,13 @@
+﻿@if(_contexts.Any(x => x.Config.Modal))
+{
+    <Overlay OnClick="OverlayClickHandler" />
+}
+@foreach (var context in _contexts)
+{
+    <Dialog @ref=context.DialogReference
+           @key=context
+           Title="@context.Title"
+           OnClose="(result)=>{ OnDialogClose(result, context); }">
+        @context.Content
+    </Dialog>
+}

@@ -1,24 +1,23 @@
-﻿using Humanizer;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
-public partial class Drawer
+public partial class Dialog
 {
     private bool _hiding;
     private object? _result;
-
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
-    [Parameter] public DrawerPosition Position { get; set; } = DrawerPosition.End;
+    [Parameter] public string Title { get; set; } = default!;
     [Parameter] public EventCallback<dynamic?> OnClose { get; set; }
-    [Parameter] public string? Title { get; set; }
-    [Parameter] public bool Dismissable { get; set; } = true;
 
     public override IEnumerable<string> GetClasses()
     {
-        yield return "bui-drawer";
-        yield return Position.ToString().Kebaberize();
-
+        yield return "bui-dialog";
         if (_hiding)
             yield return "hide";
     }
@@ -28,11 +27,6 @@ public partial class Drawer
         _hiding = true;
         _result = result;
         StateHasChanged();
-    }
-
-    private void OnDismiss()
-    {
-        Close(null);
     }
 
     private void AnimationEndedHandler()

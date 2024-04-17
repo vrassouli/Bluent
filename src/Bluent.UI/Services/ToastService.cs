@@ -51,15 +51,6 @@ internal class ToastService : IToastService
             { nameof(DefaultToastContent.DismissTitle), dismissTitle },
         };
         return GetContentFragment<DefaultToastContent>(parameters);
-        //return builder =>
-        //{
-        //    builder.OpenComponent<DefaultToastContent>(0);
-        //    builder.AddAttribute(1, nameof(DefaultToastContent.Title), title);
-        //    builder.AddAttribute(2, nameof(DefaultToastContent.Message), message);
-        //    builder.AddAttribute(3, nameof(DefaultToastContent.Intend), intend);
-        //    builder.AddAttribute(3, nameof(DefaultToastContent.DismissTitle), dismissTitle);
-        //    builder.CloseComponent();
-        //};
     }
 
     private RenderFragment GetContentFragment<TContent>(IEnumerable<KeyValuePair<string, object?>> parameters) where TContent : ComponentBase

@@ -1,0 +1,23 @@
+﻿@page "/components/dialogs"
+@using Bluent.UI.Demo.Pages.Components.DialogComponents
+@using Bluent.UI.Services.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Dialogs</h1>
+
+        <h3>Dialogs</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Show" OnClick="DisplayDefaultDialog" />
+        </section>
+    </div>
+</div>
+
+@code {
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+
+    private void DisplayDefaultDialog()
+    {
+        DialogService.ShowAsync<SampleDialogContent>("Dialog title");
+    }
+}

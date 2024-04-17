@@ -1,7 +1,7 @@
 ﻿<div class="title">
     <i class="icon-ic_fluent_diversity_20_filled color-success-1 me-2"></i>
     <div class="text">A custom toast</div>
-    <Link Text="Close" Class="dismiss" OnClick="()=>Toast?.Hide(null)" />
+    <Link Text="Close" Class="dismiss" OnClick="()=>Toast?.Close(null)" />
 </div>
 <div class="message">
     You have created a custom toast!
@@ -11,8 +11,8 @@
             Appearance="ButtonAppearance.Primary"
             Icon="icon-ic_fluent_checkmark_20_regular"
             ActiveIcon="icon-ic_fluent_checkmark_20_filled"
-            OnClick="()=>Toast?.Hide(true)" />
-    <Link Text="Cancel" OnClick="()=>Toast?.Hide(false)" />
+            OnClick="()=>Toast?.Close(true)" />
+    <Link Text="Cancel" OnClick="()=>Toast?.Close(false)" />
 </div>
 @code {
     [CascadingParameter] public Toast? Toast { get; set; }

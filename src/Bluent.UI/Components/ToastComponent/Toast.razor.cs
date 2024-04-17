@@ -7,13 +7,13 @@ public partial class Toast
 {
     private int? _duration;
     private bool _hiding;
-    private object? _hideResult;
+    private object? _result;
     private Timer? _timer;
 
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
     [Parameter] public int? Duration { get; set; } = 2500;
     [Parameter] public ToastPlacement Placement { get; set; } = ToastPlacement.BottomEnd;
-    [Parameter] public EventCallback<dynamic?> OnHide { get; set; }
+    [Parameter] public EventCallback<dynamic?> OnClose { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -33,10 +33,10 @@ public partial class Toast
         base.OnParametersSet();
     }
 
-    public void Hide(dynamic? result)
+    public void Close(dynamic? result = null)
     {
         _hiding = true;
-        _hideResult = result;
+        _result = result;
         StateHasChanged();
     }
 
@@ -44,7 +44,7 @@ public partial class Toast
     {
         if (_hiding)
         {
-            InvokeAsync(() => OnHide.InvokeAsync(_hideResult));
+            InvokeAsync(() => OnClose.InvokeAsync(_result));
         }
     }
 
@@ -59,7 +59,7 @@ public partial class Toast
 
     private void OnTimerTick(object? state)
     {
-        Hide(null);
+        Close(null);
     }
 
     private void DisposeTimer()

@@ -47,7 +47,7 @@ public partial class DrawerContainer : IDisposable
     {
         if (LastModal?.DrawerReference != null)
         {
-            LastModal.DrawerReference.Hide(null);
+            LastModal.DrawerReference.Close(null);
         }
     }
 }

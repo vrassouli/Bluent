@@ -8,7 +8,7 @@
                    @key=context
                    Duration="context.Config.Duration"
                    Placement="context.Config.Placement"
-                   OnHide="(result)=>{ OnToastHide(result, context); }">
+                   OnClose="(result)=>{ OnToastClose(result, context); }">
                 @context.Content
             </Toast>
         }

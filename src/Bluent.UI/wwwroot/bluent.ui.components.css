@@ -827,6 +827,51 @@
   right: 0px;
 }
 
+.bui-dialog {
+  box-shadow: var(--shadow64);
+  inset: 0px;
+  padding: 24px;
+  margin: auto;
+  overflow: unset;
+  border: 1px solid var(--colorTransparentStroke);
+  border-radius: var(--borderRadiusXLarge);
+  display: block;
+  user-select: unset;
+  visibility: unset;
+  position: fixed;
+  height: fit-content;
+  max-width: 600px;
+  max-height: 100vh;
+  box-sizing: border-box;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
+  animation-name: fade-in, scale-in-center;
+}
+.bui-dialog.hide {
+  animation-name: fade-out, scale-out-center;
+}
+.bui-dialog > .title {
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase500);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase500);
+  margin: 0 0 8px 0;
+}
+.bui-dialog > .content {
+  padding: var(--strokeWidthThick);
+  margin: calc(var(--strokeWidthThick) * -1);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  overflow-y: auto;
+  min-height: 32px;
+  box-sizing: border-box;
+}
+
 .bui-drawer {
   position: fixed;
   width: 320px;

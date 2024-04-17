@@ -1,7 +1,7 @@
 ﻿@foreach (var drawer in _contexts.Where(x => !x.Config.Modal))
 {
     <Drawer @ref=drawer.DrawerReference
-            OnHide="(result)=>{ OnDrawerHide(result, drawer);}"
+            OnClose="(result)=>{ OnDrawerHide(result, drawer);}"
             Title="@drawer.Config.Title"
             Dismissable="@drawer.Config.Dismissable"
             Position="drawer.Config.Position">
@@ -13,7 +13,7 @@
 {
     <Overlay OnClick="OverlayClickHandler" />
     <Drawer @ref=LastModal.DrawerReference
-            OnHide="(result)=>{ OnDrawerHide(result, LastModal);}"
+            OnClose="(result)=>{ OnDrawerHide(result, LastModal);}"
             Title="@LastModal.Config.Title"
             Dismissable="@LastModal.Config.Dismissable"
             Position="LastModal.Config.Position">

@@ -35,7 +35,7 @@ public partial class ToastContainer : IDisposable
         StateHasChanged();
     }
 
-    private void OnToastHide(dynamic? result, ToastContext context)
+    private void OnToastClose(dynamic? result, ToastContext context)
     {
         context.ResultTCS.SetResult(result);
         _contexts.Remove(context);

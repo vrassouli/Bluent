@@ -13,10 +13,11 @@ public static class ServiceCollectionExtensions
         services.AddLocalization();
 
         services.AddSingleton<IBluentTheme, BluentTheme>();
-        services.AddSingleton<ITooltipService, TooltipService>();
-        services.AddSingleton<IPopoverService, PopoverService>();
+        services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<IDrawerService, DrawerService>();
+        services.AddSingleton<IPopoverService, PopoverService>();
         services.AddSingleton<IToastService, ToastService>();
+        services.AddSingleton<ITooltipService, TooltipService>();
 
         return services;
     }
