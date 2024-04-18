@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Extensions;
-using Bluent.UI.Services.Abstractions;
+﻿using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;

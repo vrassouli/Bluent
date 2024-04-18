@@ -1,4 +1,4 @@
-﻿namespace Bluent.UI.Components;
+﻿using Bluent.UI.Components;
 
 public class DialogConfiguration
 {

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Bluent.UI.Components;
+﻿namespace Bluent.UI.Components;
 
 public partial class Switch
 {

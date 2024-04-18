@@ -2,7 +2,6 @@
 using Bluent.UI.Interops;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace Bluent.UI.Components;

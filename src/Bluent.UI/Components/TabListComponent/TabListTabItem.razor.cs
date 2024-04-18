@@ -1,6 +1,5 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Components;
-using System.Diagnostics;
 
 namespace Bluent.UI.Components.TabListComponent;
 
