@@ -99,14 +99,14 @@
 
             &:hover:not(.selected) {
                 &::before {
-                    background-color: var(--colorBrandBackground2Hover);
+                    background-color: var(--colorNeutralStroke1Hover);
                     animation-name: scale-in-center;
                 }
             }
 
             &.selected {
                 &::before {
-                    background-color: var(--colorCompoundBrandStrokeHover);
+                    background-color: var(--colorCompoundBrandStroke);
                 }
             }
         }

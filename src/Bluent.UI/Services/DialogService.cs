@@ -19,16 +19,6 @@ internal class DialogService : IDialogService
         return context.ResultTCS.Task;
     }
 
-    //public Task<dynamic?> ShowAsync<TContentComponent>(string title,
-    //                                                   IDictionary<string, object?>? parameters = null,
-    //                                                   bool showCloseButton = true,
-    //                                                   DialogConfiguration? config = null) where TContentComponent : ComponentBase
-    //{
-    //    var content = GetContentFragment<TContentComponent>(title, parameters, showCloseButton);
-
-    //    return ShowAsync(content, config);
-    //}
-
     public Task<dynamic?> ShowAsync<TContentComponent>(string title,
                                                        IDictionary<string, object?>? parameters = null,
                                                        Action<DialogConfigurator>? configBuilder = null)
@@ -39,8 +29,8 @@ internal class DialogService : IDialogService
 
         var content = GetContentFragment<TContentComponent>(title,
                                                             parameters,
-                                                            configurator.ContentConfiguration.ShowCloseButton,
-                                                            configurator.ContentConfiguration.Actions);
+                                                            configurator.ShowCloseButton,
+                                                            configurator.Actions);
 
         return ShowAsync(content, configurator.DialogConfiguration);
     }

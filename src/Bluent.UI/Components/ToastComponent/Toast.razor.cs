@@ -47,6 +47,16 @@ public partial class Toast
         }
     }
 
+    private void PointerEnterHandle()
+    {
+        DisposeTimer();
+    }
+
+    private void PointerLeaveHandler()
+    {
+        SetTimer();
+    }
+
     private void SetTimer()
     {
         DisposeTimer();

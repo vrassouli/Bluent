@@ -68,16 +68,16 @@
                                 null,
                                 config => config.SetModal(_isModal)
                                     .SetCloseButton(_showCloseButton)
-                                    .AddAction("Retry", null, false, null, (dialog, result) => { _ = ToastService.ShowAsync("Trying again...", intend: ToastIntend.Info); })
+                                    .AddAction("Retry", null, false, null, (dialog, result) => { _ = ToastService.ShowAsync("Trying again...", c => c.SetIntend(ToastIntend.Info)); })
                                     .AddAction("No", false, false)
                                     .AddAction("Yes", true, true));
 
         if (result == null)
-            _ = ToastService.ShowAsync("Dialog closed!", intend: ToastIntend.Info);
+            _ = ToastService.ShowAsync("Dialog closed!", c => c.SetIntend(ToastIntend.Info));
         else if (result == true)
-            _ = ToastService.ShowAsync("You selected Yes", intend: ToastIntend.Success);
+            _ = ToastService.ShowAsync("You selected Yes", c => c.SetIntend(ToastIntend.Success));
         if (result == false)
-            _ = ToastService.ShowAsync("You selected No", intend: ToastIntend.Warning);
+            _ = ToastService.ShowAsync("You selected No", c => c.SetIntend(ToastIntend.Warning));
     }
 
     private void DisplaySizedDialog(DialogSize size)

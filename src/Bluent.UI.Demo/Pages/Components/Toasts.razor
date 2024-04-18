@@ -69,16 +69,20 @@
 
     private void MakeDefaultToast()
     {
-        ToastService.ShowAsync(_title, _message, _intend, _dismiss, new ToastConfiguration(duration: _duration, placement: _placement));
+        ToastService.ShowAsync(_title, c => c.SetMessage(_message)
+                                            .SetIntend(_intend)
+                                            .SetDismissTitle(_dismiss)
+                                            .SetDuration(_duration)
+                                            .SetPlace(_placement));
     }
 
     private async Task MakeCustomToast()
     {
-        var result = await ToastService.ShowAsync<CustomToastComponent>(new ToastConfiguration(duration: 5000, placement: _placement));
+        var result = await ToastService.ShowAsync<CustomToastComponent>(new ToastConfiguration(10000));
 
         if (result == true)
         {
-            _ = ToastService.ShowAsync("Confirmed", "You confirmed the action!", ToastIntend.Success, config: new ToastConfiguration(placement: ToastPlacement.TopCenter));
+            _ = ToastService.ShowAsync("Confirmed", config: c => c.SetMessage("You confirmed the action!").SetIntend(ToastIntend.Success).SetPlace(_placement));
         }
     }
 }

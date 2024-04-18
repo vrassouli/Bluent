@@ -2,7 +2,9 @@
 @inherits BluentComponentBase
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
-     @onanimationend="AnimationEndedHandler">
+     @onanimationend="AnimationEndedHandler"
+     @onpointerenter="PointerEnterHandle"
+     @onpointerleave="PointerLeaveHandler">
     <div class="content">
         <CascadingValue Value="this" IsFixed>
             @ChildContent

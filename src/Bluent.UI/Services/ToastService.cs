@@ -19,11 +19,14 @@ internal class ToastService : IToastService
         return context.ResultTCS.Task;
     }
 
-    public Task<dynamic?> ShowAsync(string title, string? message = null, ToastIntend intend = ToastIntend.None, string? dismissTitle = null, ToastConfiguration? config = null)
+    public Task<dynamic?> ShowAsync(string title, Action<ToastConfigurator>? config = null)
     {
-        var content = GetContentFragment(title, message, intend, dismissTitle);
+        ToastConfigurator configurator = new ToastConfigurator();
+        config?.Invoke(configurator);
 
-        return ShowAsync(content, config);
+        var content = GetContentFragment(title, configurator.Message, configurator.Intend, configurator.DismissTitle);
+
+        return ShowAsync(content, configurator.Configuration);
     }
 
     public Task<dynamic?> ShowAsync<TContent>(ToastConfiguration? config = null, IEnumerable<KeyValuePair<string, object?>>? parameters = null) where TContent : ComponentBase

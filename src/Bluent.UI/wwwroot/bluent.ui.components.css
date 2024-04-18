@@ -1258,11 +1258,11 @@
   animation-timing-function: var(--curveDecelerateMax);
 }
 .bui-list.single > .listitem:hover:not(.selected)::before {
-  background-color: var(--colorBrandBackground2Hover);
+  background-color: var(--colorNeutralStroke1Hover);
   animation-name: scale-in-center;
 }
 .bui-list.single > .listitem.selected::before {
-  background-color: var(--colorCompoundBrandStrokeHover);
+  background-color: var(--colorCompoundBrandStroke);
 }
 .bui-list.multiple > .listitem > .selector {
   opacity: 0;
