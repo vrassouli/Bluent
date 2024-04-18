@@ -1,0 +1,42 @@
+﻿@page "/components/spinners"
+<PageTitle>Spinners</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Spinners</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Spinner />
+        </section>
+
+        <h3>Appearance</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div style="padding: 20px;">
+                <Spinner Label="Primary Spinner" />
+            </div>
+            <div style="padding: 20px; background-color: var(--colorBrandBackgroundStatic)">
+                <Spinner Label="Inverted Spinner" Appearance="SpinnerAppearance.Inverted" />
+            </div>
+        </section>
+
+        <h3>Label Possition</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div style="padding: 20px;">
+                <Spinner Label="Before" LabelPosition="SpinnerLabelPosition.Before" />
+            </div>
+            <div style="padding: 20px;">
+                <Spinner Label="After" LabelPosition="SpinnerLabelPosition.After" />
+            </div>
+            <div style="padding: 20px;">
+                <Spinner Label="Above" LabelPosition="SpinnerLabelPosition.Above" />
+            </div>
+            <div style="padding: 20px;">
+                <Spinner Label="Below (Default)" LabelPosition="SpinnerLabelPosition.Below" />
+            </div>
+        </section>
+    </div>
+</div>
+
+@code {
+}

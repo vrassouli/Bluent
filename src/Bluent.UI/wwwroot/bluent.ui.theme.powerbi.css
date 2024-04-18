@@ -1062,6 +1062,14 @@
     transform: scale(0.5);
   }
 }
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .bg-1 {
   background-color: var(--colorNeutralBackground1) !important;
 }

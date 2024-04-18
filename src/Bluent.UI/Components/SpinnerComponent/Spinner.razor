@@ -1,0 +1,12 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <span class="spinner">
+        <span class="tail"></span>
+    </span>
+    @if(!string.IsNullOrEmpty(Label))
+    {
+        <label>@Label</label>
+    }
+</div>
