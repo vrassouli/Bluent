@@ -5,25 +5,25 @@ namespace Bluent.UI.Components;
 public class DialogConfigurator
 {
     private bool _modal = true;
-    private DialogSize _size;
+    private DialogSize _size = DialogSize.Medium;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
-    public DialogConfigurator SetModal(bool isModal = true)
+    public DialogConfigurator SetModal(bool isModal)
     {
         _modal = isModal;
 
         return this;
     }
 
-    public DialogConfigurator SetSize(DialogSize size = DialogSize.Medium)
+    public DialogConfigurator SetSize(DialogSize size)
     {
         _size = size;
 
         return this;
     }
 
-    public DialogConfigurator SetCloseButton(bool show = true)
+    public DialogConfigurator SetCloseButton(bool show)
     {
         _showCloseButton = show;
 
@@ -37,7 +37,7 @@ public class DialogConfigurator
         return this;
     }
 
-    internal DialogConfiguration DialogConfiguration => new DialogConfiguration(_modal, _size);
+    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size);
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }

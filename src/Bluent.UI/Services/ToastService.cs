@@ -40,12 +40,12 @@ internal class ToastService : IToastService
     {
         var parameters = new Dictionary<string, object?>
         {
-            { nameof(DefaultToastContent.Title), title },
-            { nameof(DefaultToastContent.Message), message },
-            { nameof(DefaultToastContent.Intend), intend },
-            { nameof(DefaultToastContent.DismissTitle), dismissTitle },
+            { nameof(ToastDefaultContent.Title), title },
+            { nameof(ToastDefaultContent.Message), message },
+            { nameof(ToastDefaultContent.Intend), intend },
+            { nameof(ToastDefaultContent.DismissTitle), dismissTitle },
         };
-        return GetContentFragment<DefaultToastContent>(parameters);
+        return GetContentFragment<ToastDefaultContent>(parameters);
     }
 
     private RenderFragment GetContentFragment<TContent>(IEnumerable<KeyValuePair<string, object?>> parameters) where TContent : ComponentBase

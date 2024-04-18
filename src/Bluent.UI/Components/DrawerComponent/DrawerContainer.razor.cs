@@ -17,7 +17,7 @@ public partial class DrawerContainer : IDisposable
     {
         if (DrawerService is DrawerService drawerService)
         {
-            drawerService.OpenDrawer += OnOpenDrawer;
+            drawerService.ShowDrawer += OnOpenDrawer;
         }
 
         base.OnInitialized();
@@ -27,11 +27,11 @@ public partial class DrawerContainer : IDisposable
     {
         if (DrawerService is DrawerService drawerService)
         {
-            drawerService.OpenDrawer -= OnOpenDrawer;
+            drawerService.ShowDrawer -= OnOpenDrawer;
         }
     }
 
-    private void OnOpenDrawer(dynamic? sender, OpenDrawerEventArgs e)
+    private void OnOpenDrawer(dynamic? sender, ShowDrawerEventArgs e)
     {
         _contexts.Add(e.Context);
         StateHasChanged();

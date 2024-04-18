@@ -2,10 +2,8 @@
 {
     <Drawer @ref=drawer.DrawerReference
             OnClose="(result)=>{ OnDrawerHide(result, drawer);}"
-            Title="@drawer.Config.Title"
-            Dismissable="@drawer.Config.Dismissable"
             Position="drawer.Config.Position">
-        @drawer.Config.Content
+        @drawer.Content
     </Drawer>
 }
 
@@ -14,9 +12,7 @@
     <Overlay OnClick="OverlayClickHandler" />
     <Drawer @ref=LastModal.DrawerReference
             OnClose="(result)=>{ OnDrawerHide(result, LastModal);}"
-            Title="@LastModal.Config.Title"
-            Dismissable="@LastModal.Config.Dismissable"
             Position="LastModal.Config.Position">
-        @LastModal.Config.Content
+        @LastModal.Content
     </Drawer>
 }

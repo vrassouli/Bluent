@@ -3,24 +3,7 @@
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
      @onanimationend="AnimationEndedHandler">
-    @if (!string.IsNullOrEmpty(Title) || Dismissable)
-    {
-        <div class="header">
-            <h2 class="title">@Title</h2>
-            @if (Dismissable)
-            {
-                <Button Appearance="ButtonAppearance.Transparent"
-                        Icon="icon-ic_fluent_dismiss_20_regular"
-                        ActiveIcon="icon-ic_fluent_dismiss_20_filled"
-                        Size="ButtonSize.Large" 
-                        Class="fs-4"
-                        OnClick="OnDismiss"/>
-            }
-        </div>
-    }
-    <div class="content">
-        <CascadingValue Value="this" IsFixed>
-            @ChildContent
-        </CascadingValue>
-    </div>
+    <CascadingValue Value="this" IsFixed>
+        @ChildContent
+    </CascadingValue>
 </div>

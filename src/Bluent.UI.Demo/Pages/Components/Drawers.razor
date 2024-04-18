@@ -30,42 +30,21 @@
 
     [Inject] private IDrawerService DrawerService { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
-    RenderFragment SampleContentFragment => builder =>
-            {
-                builder.OpenComponent<SampleContent>(0);
-                builder.CloseComponent();
-            };
 
     private async Task OpenDrawerModalSwitch()
     {
-        var config = new DrawerConfiguration(
-            SampleContentFragment,
-            "Modal switch",
-            true,
-            DrawerPosition.End,
-            _modal
-        );
-
-        var result = await DrawerService.OpenAsync(config);
+        var result = await DrawerService.ShowAsync<SampleContent>("Modal switch", null, c => c.SetModal(_modal));
         if (result is null)
             _ = ToastService.ShowAsync("Dismissed", c => c.SetIntend(ToastIntend.Info));
-        else if(result == true)
+        else if (result == true)
             _ = ToastService.ShowAsync("Continue clicked", c => c.SetIntend(ToastIntend.Success));
-        else if(result == false)
+        else if (result == false)
             _ = ToastService.ShowAsync("Cancel clicked", c => c.SetIntend(ToastIntend.Warning));
     }
 
     private async Task OpenDrawerFromStart()
     {
-        var config = new DrawerConfiguration(
-            SampleContentFragment,
-            "Start",
-            true,
-            DrawerPosition.Start,
-            true
-        );
-
-        var result = await DrawerService.OpenAsync(config);
+        var result = await DrawerService.ShowAsync<SampleContent>("Start");
         if (result is null)
             _ = ToastService.ShowAsync("Dismissed", c => c.SetIntend(ToastIntend.Info));
         else if (result == true)
@@ -76,15 +55,7 @@
 
     private async Task OpenDrawerFromEnd()
     {
-        var config = new DrawerConfiguration(
-            SampleContentFragment,
-            "End",
-            true,
-            DrawerPosition.End,
-            true
-        );
-
-        var result = await DrawerService.OpenAsync(config);
+        var result = await DrawerService.ShowAsync<SampleContent>("End", null, c => c.SetPosition(DrawerPosition.End));
         if (result is null)
             _ = ToastService.ShowAsync("Dismissed", c => c.SetIntend(ToastIntend.Info));
         else if (result == true)
@@ -95,15 +66,7 @@
 
     private async Task OpenDrawerFromTop()
     {
-        var config = new DrawerConfiguration(
-            SampleContentFragment,
-            "Top",
-            true,
-            DrawerPosition.Top,
-            true
-        );
-
-        var result = await DrawerService.OpenAsync(config);
+        var result = await DrawerService.ShowAsync<SampleContent>("Top", null, c => c.SetPosition(DrawerPosition.Top));
         if (result is null)
             _ = ToastService.ShowAsync("Dismissed", c => c.SetIntend(ToastIntend.Info));
         else if (result == true)
@@ -114,15 +77,7 @@
 
     private async Task OpenDrawerFromBottom()
     {
-        var config = new DrawerConfiguration(
-            SampleContentFragment,
-            "Bottom",
-            true,
-            DrawerPosition.Bottom,
-            true
-        );
-
-        var result = await DrawerService.OpenAsync(config);
+        var result = await DrawerService.ShowAsync<SampleContent>("Botom", null, c => c.SetPosition(DrawerPosition.Bottom));
         if (result is null)
             _ = ToastService.ShowAsync("Dismissed", c => c.SetIntend(ToastIntend.Info));
         else if (result == true)

@@ -32,7 +32,7 @@ internal class DialogService : IDialogService
                                                             configurator.ShowCloseButton,
                                                             configurator.Actions);
 
-        return ShowAsync(content, configurator.DialogConfiguration);
+        return ShowAsync(content, configurator.Configuration);
     }
 
     public Task<dynamic?> ShowAsync<TContentComponent>(IDictionary<string, object?>? parameters = null,
@@ -60,12 +60,12 @@ internal class DialogService : IDialogService
     {
         return builder =>
         {
-            builder.OpenComponent<DefaultDialogContent>(0);
-            builder.AddAttribute(1, nameof(DefaultDialogContent.Title), title);
-            builder.AddAttribute(2, nameof(DefaultDialogContent.ShowCloseButton), showCloseButton);
-            builder.AddAttribute(3, nameof(DefaultDialogContent.ContentComponentType), typeof(TContentComponent));
-            builder.AddAttribute(4, nameof(DefaultDialogContent.ContentParameters), parameters);
-            builder.AddAttribute(4, nameof(DefaultDialogContent.Actions), actions);
+            builder.OpenComponent<DialogDefaultContent>(0);
+            builder.AddAttribute(1, nameof(DialogDefaultContent.Title), title);
+            builder.AddAttribute(2, nameof(DialogDefaultContent.ShowCloseButton), showCloseButton);
+            builder.AddAttribute(3, nameof(DialogDefaultContent.ContentComponentType), typeof(TContentComponent));
+            builder.AddAttribute(4, nameof(DialogDefaultContent.ContentParameters), parameters);
+            builder.AddAttribute(4, nameof(DialogDefaultContent.Actions), actions);
             builder.CloseComponent();
         };
     }

@@ -2,10 +2,10 @@
 
 namespace Bluent.UI.Services.EventArguments;
 
-internal class OpenDrawerEventArgs : EventArgs
+internal class ShowDrawerEventArgs : EventArgs
 {
 
-    public OpenDrawerEventArgs(DrawerContext context)
+    public ShowDrawerEventArgs(DrawerContext context)
     {
         Context = context;
     }
