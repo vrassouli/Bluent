@@ -1,0 +1,141 @@
+﻿@page "/components/lists"
+<PageTitle>Lists</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Lists</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList>
+                <ListItem Text="My files" Icon="icon-ic_fluent_folder_20_regular" ActiveIcon="icon-ic_fluent_folder_20_filled"></ListItem>
+                <ListItem Text="Recent" Icon="icon-ic_fluent_history_20_regular" ActiveIcon="icon-ic_fluent_history_20_filled"></ListItem>
+                <ListItem Text="Shared" Icon="icon-ic_fluent_people_20_regular" ActiveIcon="icon-ic_fluent_people_20_filled"></ListItem>
+                <ListItem Text="Recycle bin" Icon="icon-ic_fluent_bin_recycle_20_regular" ActiveIcon="icon-ic_fluent_bin_recycle_20_filled"></ListItem>
+            </ItemsList>
+        </section>
+
+        <h3>Multiselect</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList SelectionMode="SelectionMode.Multiple" SelectedItemsChanged="SelectedItemsChanged">
+                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular" ActiveIcon="icon-ic_fluent_book_20_filled"></ListItem>
+                <ListItem Text="Computers" Icon="icon-ic_fluent_desktop_20_regular" ActiveIcon="icon-ic_fluent_desktop_20_filled"></ListItem>
+                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" ActiveIcon="icon-ic_fluent_vehicle_car_20_filled"></ListItem>
+                <ListItem Text="Animals" Icon="icon-ic_fluent_animal_dog_20_regular" ActiveIcon="icon-ic_fluent_animal_dog_20_filled"></ListItem>
+            </ItemsList>
+
+            <Card Class="mt-3">
+                <CardContent>
+                    Selected Items: @(_selectedItems ?? "No selection")
+                </CardContent>
+            </Card>
+        </section>
+
+        <h3>No selection</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList SelectionMode="SelectionMode.None">
+                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular" ActiveIcon="icon-ic_fluent_book_20_filled"></ListItem>
+                <ListItem Text="Computers" Icon="icon-ic_fluent_desktop_20_regular" ActiveIcon="icon-ic_fluent_desktop_20_filled"></ListItem>
+                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" ActiveIcon="icon-ic_fluent_vehicle_car_20_filled"></ListItem>
+                <ListItem Text="Animals" Icon="icon-ic_fluent_animal_dog_20_regular" ActiveIcon="icon-ic_fluent_animal_dog_20_filled"></ListItem>
+            </ItemsList>
+        </section>
+
+        <h3>No icon</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList>
+                <ListItem Text="Books"></ListItem>
+                <ListItem Text="Computers"></ListItem>
+                <ListItem Text="Cars"></ListItem>
+                <ListItem Text="Animals"></ListItem>
+            </ItemsList>
+        </section>
+
+        <h3>Mixed icon</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList>
+                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular" ActiveIcon="icon-ic_fluent_book_20_filled"></ListItem>
+                <ListItem Text="Computers"></ListItem>
+                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" ActiveIcon="icon-ic_fluent_vehicle_car_20_filled"></ListItem>
+                <ListItem Text="Animals"></ListItem>
+            </ItemsList>
+        </section>
+
+        <h3>Navigation</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList>
+                <ListItem Text="Github" href="https://github.com" target="_blank"></ListItem>
+                <ListItem Text="Microsoft" href="https://microsoft.com" target="_blank"></ListItem>
+                <ListItem Text="Google" href="https://google.com" target="_blank"></ListItem>
+                <ListItem Text="Apple" href="https://apple.com" target="_blank"></ListItem>
+            </ItemsList>
+        </section>
+
+        <h3>Custom content</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ItemsList>
+                <ListItem>
+                    <div class="content">
+                        <div class="d-flex gap-3 justify-content-center">
+                            <div class="align-content-center bg-brand-1 d-flex justify-content-center rounded-circle" style="width: 40px; height: 40px;line-height: 40px;font-weight: var(--fontWeightSemibold); color: var(--colorNeutralForegroundInverted);">
+                                MM
+                            </div>
+                            <div>
+                                <div style="font-weight: var(--fontWeightBold);">Meeting notes</div>
+                                <div class="fst-italic">Max Mustermann</div>
+                            </div>
+                        </div>
+                    </div>
+                </ListItem>
+                <ListItem>
+                    <div class="content">
+                        <div class="d-flex gap-3 justify-content-center">
+                            <div class="align-content-center bg-brand-1 d-flex justify-content-center rounded-circle" style="width: 40px; height: 40px;line-height: 40px;font-weight: var(--fontWeightSemibold); color: var(--colorNeutralForegroundInverted);">
+                                JD
+                            </div>
+                            <div>
+                                <div style="font-weight: var(--fontWeightBold);">Purchase order</div>
+                                <div class="fst-italic">Jane Doe</div>
+                            </div>
+                        </div>
+                    </div>
+                </ListItem>
+                <ListItem>
+                    <div class="content">
+                        <div class="d-flex gap-3 justify-content-center">
+                            <div class="align-content-center bg-brand-1 d-flex justify-content-center rounded-circle" style="width: 40px; height: 40px;line-height: 40px;font-weight: var(--fontWeightSemibold); color: var(--colorNeutralForegroundInverted);">
+                                EM
+                            </div>
+                            <div>
+                                <div style="font-weight: var(--fontWeightBold);">Thursday presentation</div>
+                                <div class="fst-italic">Erika Mustermann</div>
+                            </div>
+                        </div>
+                    </div>
+                </ListItem>
+                <ListItem>
+                    <div class="content">
+                        <div class="d-flex gap-3 justify-content-center">
+                            <div class="align-content-center bg-brand-1 d-flex justify-content-center rounded-circle" style="width: 40px; height: 40px;line-height: 40px;font-weight: var(--fontWeightSemibold); color: var(--colorNeutralForegroundInverted);">
+                                JD
+                            </div>
+                            <div>
+                                <div style="font-weight: var(--fontWeightBold);">Training recording</div>
+                                <div class="fst-italic">John Doe</div>
+                            </div>
+                        </div>
+                    </div>
+                </ListItem>
+            </ItemsList>
+        </section>
+    </div>
+</div>
+
+@code {
+    string? _selectedItems;
+
+    private void SelectedItemsChanged(IEnumerable<ListItem> items)
+    {
+        _selectedItems = string.Join(", ", items.Select(x => x.Text));
+    }
+}

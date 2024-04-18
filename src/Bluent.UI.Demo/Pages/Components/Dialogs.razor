@@ -27,6 +27,14 @@
         <section class="p-7 rounded-5 shadow-3">
             <Button Text="Show dialog with actions" OnClick="DisplayDialogWithActions" />
         </section>
+
+        <h3>Sizes</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Small dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.Small); }" />
+            <Button Text="Medium dialog (default)" OnClick="()=>{ DisplaySizedDialog(DialogSize.Medium); }" />
+            <Button Text="Large dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.Large); }" />
+            <Button Text="Full-width dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.FullWidth); }" />
+        </section>
     </div>
 </div>
 
@@ -70,5 +78,10 @@
             _ = ToastService.ShowAsync("You selected Yes", intend: ToastIntend.Success);
         if (result == false)
             _ = ToastService.ShowAsync("You selected No", intend: ToastIntend.Warning);
+    }
+
+    private void DisplaySizedDialog(DialogSize size)
+    {
+        DialogService.ShowAsync<SampleDialogContent>("Dialog title", null, config => config.SetSize(size));
     }
 }

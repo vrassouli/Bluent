@@ -1,0 +1,47 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+<li @attributes=GetAdditionalAttributes() id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
+    @if (List.SelectionMode == SelectionMode.Multiple)
+    {
+        <div class="selector">
+            <Checkbox @bind-Value="Selected" />
+        </div>
+    }
+    @if (ChildContent != null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        __builder.OpenElement(0, GetItemTag());
+        __builder.AddAttribute(1, "class", "content");
+        if (IsLink)
+        {
+            __builder.AddAttribute(2, "href", Href);
+            __builder.AddAttribute(3, "target", Target);
+        }
+        __builder.OpenRegion(4);
+
+        @if (!string.IsNullOrEmpty(Icon) || List.ShouldRenderIcon())
+        {
+            @if (!string.IsNullOrEmpty(ActiveIcon))
+            {
+                <i class="active-icon @ActiveIcon"></i>
+            }
+            <i class="icon @Icon"></i>
+        }
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <div class="text">
+                @if (!string.IsNullOrEmpty(Text))
+                {
+                    <div>@Text</div>
+                }
+            </div>
+        }
+
+        __builder.CloseRegion();
+        __builder.CloseElement();
+    }
+</li>

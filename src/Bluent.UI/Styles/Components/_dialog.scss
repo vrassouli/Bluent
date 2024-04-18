@@ -67,4 +67,16 @@
             gap: 8px;
         }
     }
+
+    &.small{
+        width: 300px;
+    }
+
+    &.large{
+        width: 900px;
+    }
+
+    &.full-width{
+        width: unset;
+    }
 }

@@ -137,7 +137,7 @@
 @keyframes scale-in-center {
   0% {
     pointer-events: none;
-    transform: scale(0);
+    transform: scale(0.5);
   }
   100% {
     pointer-events: auto;
@@ -151,7 +151,7 @@
   }
   100% {
     pointer-events: auto;
-    transform: scale(0);
+    transform: scale(0.5);
   }
 }
 .bg-1 {

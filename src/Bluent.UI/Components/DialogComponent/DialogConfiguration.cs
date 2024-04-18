@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bluent.UI.Components;
+﻿namespace Bluent.UI.Components;
 
 public class DialogConfiguration
 {
-    public DialogConfiguration(bool modal = true)
+    public DialogConfiguration(bool modal = true, DialogSize size = DialogSize.Medium)
     {
         Modal = modal;
+        Size = size;
     }
 
     public bool Modal { get; }
+    public DialogSize Size { get; }
 }

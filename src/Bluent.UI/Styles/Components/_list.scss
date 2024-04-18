@@ -1,0 +1,135 @@
+﻿.bui-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    transition: height var(--durationNormal) var(--curveEasyEaseMax);
+
+    > .listitem {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        > .content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            text-decoration: none;
+            padding: 8px;
+            gap: 8px;
+            color: var(--colorNeutralForeground2);
+            background-color: transparent;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            user-select: none;
+            border-radius: var(--borderRadiusXLarge);
+            transition: background-color var(--durationFast) linear;
+            cursor: pointer;
+
+            > .icon, .active-icon {
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                line-height: 20px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            > .active-icon {
+                display: none;
+                color: var(--colorNeutralForeground2BrandSelected);
+            }
+
+            &:hover {
+                background-color: var(--colorNeutralBackground5);
+
+                > .active-icon {
+                    display: inline;
+
+                    & + .icon {
+                        display: none;
+                    }
+                }
+
+                &:active {
+                    background-color: var(--colorNeutralBackground3Pressed);
+                }
+            }
+        }
+
+        &.selected {
+            > .content {
+                font-weight: var(--fontWeightSemibold);
+
+                > .active-icon {
+                    display: inline;
+
+                    & + .icon {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &.none {
+    }
+
+    &.single {
+        > .listitem {
+            > .content {
+                margin-inline-start: 16px;
+            }
+
+            &::before {
+                top: 8px;
+                bottom: 8px;
+                content: "";
+                position: absolute;
+                width: 3px;
+                border-radius: var(--borderRadiusSmall);
+                animation-fill-mode: both;
+                animation-duration: var(--durationSlow);
+                animation-timing-function: var(--curveDecelerateMax);
+            }
+
+            &:hover:not(.selected) {
+                &::before {
+                    background-color: var(--colorBrandBackground2Hover);
+                    animation-name: scale-in-center;
+                }
+            }
+
+            &.selected {
+                &::before {
+                    background-color: var(--colorCompoundBrandStrokeHover);
+                }
+            }
+        }
+    }
+
+    &.multiple {
+        > .listitem {
+            > .selector {
+                opacity: 0;
+                transition: opacity var(--durationNormal) var(--curveEasyEaseMax);
+            }
+
+            &:hover {
+                > .selector {
+                    opacity: 1;
+                }
+            }
+
+            &.selected {
+                > .selector {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
