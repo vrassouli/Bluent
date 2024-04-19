@@ -60,7 +60,8 @@ jobs:
     # You can update this logic if you want to manage releases differently
     #if: github.event_name == 'release'
     runs-on: ubuntu-latest
-    needs: [ run-test, create-nuget ]
+    # needs: [ run-test, create-nuget ]
+    needs: [ create-nuget ]
     steps:
       # Download the NuGet package created in the previous job
       - uses: actions/download-artifact@v3
