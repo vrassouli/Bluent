@@ -26,7 +26,7 @@ export class Theme {
         if (href && href.includes('bluent.ui.theme')) {
             var splits = href.split('/');
             var fileName = splits[splits.length - 1];
-            href = href.replace(fileName, `bluent.ui.theme.${theme}.css`);
+            href = href.replace(fileName, `bluent.ui.theme.${theme}.min.css`);
         }
 
         link.href = href;
