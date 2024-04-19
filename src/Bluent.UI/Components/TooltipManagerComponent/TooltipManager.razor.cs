@@ -39,7 +39,7 @@ public partial class TooltipManager : IPopoverEventHandler, IAsyncDisposable
     protected override void OnInitialized()
     {
         if (Service == null)
-            throw new InvalidOperationException($"Required '{nameof(IPopoverService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUI)}' extension method.");
+            throw new InvalidOperationException($"Required '{nameof(IPopoverService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUIAsScoped)}' extension method.");
 
         _interop = new PopoverInterop(this, JsRuntime);
 

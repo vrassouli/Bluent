@@ -27,7 +27,7 @@ public partial class Popover : IDisposable
             throw new InvalidOperationException($"'{nameof(Popover)}' component requires '{nameof(Surface)}' content property.");
 
         if (PopoverService == null)
-            throw new InvalidOperationException($"Required '{nameof(ITooltipService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUI)}' extension method.");
+            throw new InvalidOperationException($"Required '{nameof(ITooltipService)}' service is not found. You should register '{nameof(Bluent)}' services using 'services.{nameof(ServiceCollectionExtensions.AddBluentUIAsScoped)}' extension method.");
 
         base.OnInitialized();
     }
