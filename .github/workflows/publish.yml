@@ -79,10 +79,4 @@ jobs:
       # If you retry a failed workflow, already published packages will be skipped without error.
       - name: Publish NuGet package
         run: |
-          dotnet nuget push Bluent.UI --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          # foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include AutoBPM.Bpmn.${{github.ref_name}}.nupkg)) {
-          #     dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          # }
-          # foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include AutoBPM.Engines.${{github.ref_name}}.nupkg)) {
-          #     dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          # }
+          dotnet nuget push Bluent.UI.${{ env.Version }}.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
