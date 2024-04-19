@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -6,6 +6,20 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <PackageId>Bluent.UI</PackageId>
+        <Authors>Vahid Rassouli</Authors>
+        <Description>'Bluent.UI' is a Blazor component library for building apps with Fluent UI look and feel.</Description>
+        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageTags>Blazor, Fluent UI, Web Assembly, WASM, UI Library</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="docs\readme.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+    
     <ItemGroup>
         <Compile Remove="Interops\Abstractions\ITooltipInteropService.cs" />
         <Compile Remove="Interops\TooltipInteropService.cs" />
@@ -14,7 +28,6 @@
     <ItemGroup>
         <Content Remove="compilerconfig.json" />
     </ItemGroup>
-
 
     <ItemGroup>
         <SupportedPlatform Include="browser" />
