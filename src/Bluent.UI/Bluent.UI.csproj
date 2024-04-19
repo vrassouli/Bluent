@@ -1,58 +1,58 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Interops\Abstractions\ITooltipInteropService.cs" />
-    <Compile Remove="Interops\TooltipInteropService.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="Interops\Abstractions\ITooltipInteropService.cs" />
+        <Compile Remove="Interops\TooltipInteropService.cs" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="compilerconfig.json" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Remove="compilerconfig.json" />
+    </ItemGroup>
 
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Humanizer.Core" Version="2.14.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.3" />
-    <PackageReference Include="System.Text.Json" Version="8.0.0" />
-  </ItemGroup>
-	
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="xcopy &quot;$(SolutionDir)src\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
-		<Exec Command="xcopy &quot;$(SolutionDir)src\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
-	</Target>
+    <ItemGroup>
+        <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.3" />
+        <PackageReference Include="System.Text.Json" Version="8.0.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-    <None Include="compilerconfig.json" />
-  </ItemGroup>
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
+        <Exec Command="xcopy &quot;$(SolutionDir)src\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+        <Exec Command="xcopy &quot;$(SolutionDir)src\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+    </Target>
 
-  <ItemGroup>
-    <Folder Include="Styles\mixins\" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="compilerconfig.json" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Components\CalendarComponent\Resources\Calendar.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Calendar.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Styles\mixins\" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Components\CalendarComponent\Resources\Calendar.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Calendar.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Components\CalendarComponent\Resources\Calendar.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Calendar.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Components\CalendarComponent\Resources\Calendar.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Calendar.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 
 </Project>
