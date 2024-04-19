@@ -15,7 +15,7 @@ env:
   DOTNET_NOLOGO: true
   NuGetDirectory: ${{ github.workspace}}/nuget
   env_var: ${{ vars.ENV_CONTEXT_VAR }}
-  Version: ${{ vars.VERSION_MAJOR }}.${{ vars.VERSION_MINOR }}.${{ github.run_id }}
+  Version: ${{ vars.VERSION_MAJOR }}.${{ vars.VERSION_MINOR }}.${{ github.run_number }}
 
 defaults:
   run:
