@@ -172,6 +172,8 @@ public class TabList : Overflow
             builder.AddAttribute(3, nameof(TabListTabItem.ActiveIcon), tab.ActiveIcon);
             builder.AddAttribute(4, nameof(TabListTabItem.ChildContent), tab.ChildContent);
             builder.AddAttribute(5, nameof(TabListTabItem.Orientation), tab.Orientation);
+            builder.AddAttribute(5, nameof(TabListTabItem.Data), tab.Data);
+            builder.AddAttribute(5, nameof(TabListTabItem.OnClick), tab.OnClick);
             builder.AddAttribute(6, nameof(TabListTabItem.Tooltip), tab.Tooltip);
             builder.AddAttribute(7, nameof(TabListTabItem.Class), tab.Class);
             builder.AddAttribute(8, nameof(TabListTabItem.Style), tab.Style);
@@ -191,7 +193,8 @@ public class TabList : Overflow
             builder.AddAttribute(2, nameof(MenuItem.Title), tab.MenuLabel ?? tab.Text);
             builder.AddAttribute(3, nameof(MenuItem.Icon), tab.Icon);
             builder.AddAttribute(4, nameof(MenuItem.ActiveIcon), tab.ActiveIcon);
-            builder.AddAttribute(5, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => { SelectTab(Items.IndexOf(tab)); }));
+            builder.AddAttribute(5, nameof(MenuItem.Data), tab.Data);
+            builder.AddAttribute(5, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => { SelectTab(Items.IndexOf(tab)); tab.OnClick.InvokeAsync(); }));
 
             builder.CloseComponent();
         };

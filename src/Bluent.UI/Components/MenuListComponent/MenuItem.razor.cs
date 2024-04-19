@@ -13,6 +13,7 @@ public partial class MenuItem
     [Parameter] public string? Icon { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public bool Checked { get; set; }
+    [Parameter] public object? Data { get; set; }
     [CascadingParameter] public MenuList MenuList { get; set; } = default!;
     [CascadingParameter] public Popover? Popover { get; set; }
     [Inject] IPopoverService PopoverService { get; set; } = default!;
