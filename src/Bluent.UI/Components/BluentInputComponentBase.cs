@@ -14,7 +14,7 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>, IBlu
     [Parameter] public string? Style { get; set; }
 
     [DisallowNull] public ElementReference? Element { get; protected set; }
-    
+
     protected bool IsDisabled => AdditionalAttributes?.ContainsKey("disabled") == true &&
         AdditionalAttributes["disabled"] != null &&
         AdditionalAttributes["disabled"] is bool b &&
@@ -67,7 +67,10 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>, IBlu
             return id;
 
         var memberName = ValueExpression?.GetMemberName();
-        Id = memberName;
+        
+        if (!string.IsNullOrEmpty(memberName))
+            Id = memberName;
+
         return memberName;
     }
 
