@@ -1,4 +1,0 @@
-﻿@foreach (var popover in _popovers.Where(x => x.Visible || x.KeepSurface))
-{
-    <PopoverSurface Config="popover" @key=popover.Settings.TriggerId />
-}

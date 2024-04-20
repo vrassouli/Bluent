@@ -74,7 +74,7 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDi
             TriggerEvents = ["mouseenter", "focus"],
             HideEvents = ["mouseleave", "blure"],
         };
-        TooltipService.SetTrigger(new PopoverConfiguration(setting, GetTooltipFragment(), DisplayTooltipArrow, TooltipAppearance, false));
+        TooltipService.SetTrigger(GetTooltipFragment(), new PopoverConfiguration(setting, DisplayTooltipArrow, TooltipAppearance, false));
     }
 
     private void RemoveTooltip()

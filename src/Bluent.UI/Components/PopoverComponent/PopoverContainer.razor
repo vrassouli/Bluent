@@ -1,0 +1,7 @@
+﻿@using Bluent.UI.Services.Abstractions
+@inherits PopoverContainerBase<IPopoverService>
+
+@foreach (var context in Contexts.Where(x => x.Config.Visible || x.Config.KeepSurface))
+{
+    <PopoverSurface Context="context" @key=context.Config.Settings.TriggerId @ref=context.SurfaceReference />
+}

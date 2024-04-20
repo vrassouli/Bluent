@@ -1,4 +1,0 @@
-﻿@foreach (var visiblePopover in _popovers.Where(x => x.Visible))
-{
-    <TooltipSurface Config="visiblePopover" @key=visiblePopover.Settings.TriggerId />
-}

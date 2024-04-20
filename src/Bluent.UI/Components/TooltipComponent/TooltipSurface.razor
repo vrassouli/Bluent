@@ -1,0 +1,24 @@
+﻿@using Bluent.UI.Components.PopoverComponent
+@using Bluent.UI.Services
+@using Bluent.UI.Services.Abstractions
+@using Humanizer
+@inherits PopoverSurface
+
+<div id="@Context.Config.SurfaceId" class="bui-popover-surface @(Context.Config.Appearance.ToString().Kebaberize()) @(Context.Config.Settings.Placement.ToString().Kebaberize())">
+    @Context.Content
+    @if (Context.Config.DisplayArrow)
+    {
+        <div class="arrow"></div>
+    }
+</div>
+@code {
+    [Inject] private ITooltipService Service { get; set; } = default!;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+            Service.Show(Context.Config.Settings.TriggerId);
+
+        base.OnAfterRender(firstRender);
+    }
+}
