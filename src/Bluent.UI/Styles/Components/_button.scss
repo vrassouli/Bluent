@@ -24,7 +24,10 @@
     transition-timing-function: var(--curveEasyEase);
     cursor: pointer;
 
-    > .icon {
+    > .icon, > .active-icon {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
     }
 
     > .active-icon {
@@ -172,7 +175,7 @@
             background-color: var(--colorSubtleBackgroundHover);
             border-color: transparent;
 
-            > .icon, >.active-icon {
+            > .icon, > .active-icon {
                 color: var(--colorNeutralForeground2BrandHover);
             }
 
@@ -246,7 +249,13 @@
         &.icon {
             max-width: 24px;
             min-width: 24px;
-            padding: 1px;
+            padding: 3px;
+        }
+
+        > .icon, > .active-icon {
+            font-size: 16px;
+            height: 16px;
+            width: 16px;
         }
     }
 
@@ -260,7 +269,13 @@
         &.icon {
             max-width: 40px;
             min-width: 40px;
-            padding: 7px;
+            padding: 8px;
+        }
+
+        > .icon, > .active-icon {
+            font-size: 22px;
+            height: 22px;
+            width: 22px;
         }
     }
 }
