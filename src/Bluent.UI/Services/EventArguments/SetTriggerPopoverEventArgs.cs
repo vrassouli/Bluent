@@ -1,12 +1,13 @@
 ﻿using Bluent.UI.Components;
+using Bluent.UI.Components.PopoverComponent;
 
 namespace Bluent.UI.Services.EventArguments;
 
 internal class SetTriggerPopoverEventArgs : EventArgs
 {
-    public SetTriggerPopoverEventArgs(PopoverConfiguration config)
+    public SetTriggerPopoverEventArgs(PopoverContext context)
     {
-        Config = config;
+        Context = context;
     }
-    public PopoverConfiguration Config { get; }
+    public PopoverContext Context { get; }
 }

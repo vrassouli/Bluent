@@ -1,0 +1,8 @@
+﻿@using Bluent.UI.Components.PopoverComponent
+@using Bluent.UI.Services.Abstractions
+@inherits PopoverContainerBase<ITooltipService>
+
+@foreach (var context in Contexts.Where(x => x.Config.Visible))
+{
+    <TooltipSurface Context="context" @key=context.Config.Settings.TriggerId @ref=context.SurfaceReference />
+}

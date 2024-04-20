@@ -1,17 +1,19 @@
 ﻿using Bluent.UI.Components;
 using Bluent.UI.Services.EventArguments;
+using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Services.Abstractions;
 
-internal interface IPopoverService
+public interface IPopoverService
 {
-    event EventHandler<SetTriggerPopoverEventArgs>? OnSetTrigger;
-    event EventHandler<DestroyPopoverEventArgs>? OnDestroy;
-    event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowSurface;
-    event EventHandler<HidePopoverSurfaceEventArgs>? OnHideSurface;
+    //event EventHandler<SetTriggerPopoverEventArgs>? OnSetTrigger;
+    //event EventHandler<DestroyPopoverEventArgs>? OnDestroy;
+    //event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowSurface;
+    //event EventHandler<HidePopoverSurfaceEventArgs>? OnHideSurface;
 
     void Destroy(string triggerId);
     void Close(string triggerId);
-    void SetTrigger(PopoverConfiguration config);
+    void SetTrigger(RenderFragment content, PopoverConfiguration config);
     void Show(string triggerId);
+    void RefreshSurface(string triggerId);
 }

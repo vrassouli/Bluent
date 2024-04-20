@@ -44,7 +44,7 @@ public partial class Popover : IDisposable
             HideEvents = HideEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
         };
 
-        PopoverService.SetTrigger(new PopoverConfiguration(_settings, GetSurfaceFragment(), DisplayArrow, Appearance, KeepSurface));
+        PopoverService.SetTrigger(GetSurfaceFragment(), new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface));
 
         _triggerAlreadySet = true;
     }
@@ -73,6 +73,12 @@ public partial class Popover : IDisposable
     {
         if (_settings is not null)
             PopoverService.Close(_settings.TriggerId);
+    }
+
+    public void RefreshSurface()
+    {
+        if (_settings is not null)
+            PopoverService.RefreshSurface(_settings.TriggerId);
     }
 
     public void Dispose()

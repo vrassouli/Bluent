@@ -1,0 +1,27 @@
+﻿@using Bluent.UI.Services
+@using Bluent.UI.Services.Abstractions
+@using Humanizer
+<div id="@Context.Config.SurfaceId" class="bui-popover-surface hidden @(Context.Config.Appearance.ToString().Kebaberize()) @(Context.Config.Settings.Placement.ToString().Kebaberize())">
+    @Context.Content
+    @if (Context.Config.DisplayArrow)
+    {
+        <div class="arrow"></div>
+    }
+</div>
+@code {
+    [Parameter, EditorRequired] public PopoverContext Context { get; set; } = default!;
+    [Inject] private IPopoverService Service { get; set; } = default!;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && !Context.Config.KeepSurface)
+            Service.Show(Context.Config.Settings.TriggerId);
+
+        base.OnAfterRender(firstRender);
+    }
+
+    internal void Refresh()
+    {
+        StateHasChanged();
+    }
+}
