@@ -13,7 +13,7 @@ public partial class Popover : IDisposable
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
     [Parameter] public Placement Placement { get; set; } = Placement.Top;
     [Parameter] public bool DisplayArrow { get; set; } = true;
-    [Parameter] public bool KeepSurface { get; set; } 
+    [Parameter] public bool KeepSurface { get; set; }
     [Parameter] public string? TriggerEvents { get; set; } = "click";
     [Parameter] public string? HideEvents { get; set; }
     [Parameter] public PopoverAppearance Appearance { get; set; } = PopoverAppearance.Default;
@@ -35,7 +35,7 @@ public partial class Popover : IDisposable
 
     public void SetTrigger(IBluentComponent triggerComponent)
     {
-        if(_triggerAlreadySet)
+        if (_triggerAlreadySet)
             return;
 
         _settings = new PopoverSettings(triggerComponent.Id, Placement)
@@ -49,9 +49,18 @@ public partial class Popover : IDisposable
         _triggerAlreadySet = true;
     }
 
+    public void Show()
+    {
+        if (_settings is null)
+            throw new InvalidOperationException("Popover trigger is not set.");
+
+        PopoverService.Show(_settings.TriggerId);
+    }
+
     private RenderFragment GetSurfaceFragment()
     {
-        return builder => {
+        return builder =>
+        {
             builder.OpenComponent<CascadingValue<Popover>>(0);
             builder.AddComponentParameter(1, "IsFixed", true);
             builder.AddComponentParameter(2, "Value", this);
@@ -60,10 +69,10 @@ public partial class Popover : IDisposable
         };
     }
 
-    public void Hide()
+    public void Close()
     {
-        if (_settings != null)
-            PopoverService.Hide(_settings.TriggerId);
+        if (_settings is not null)
+            PopoverService.Close(_settings.TriggerId);
     }
 
     public void Dispose()

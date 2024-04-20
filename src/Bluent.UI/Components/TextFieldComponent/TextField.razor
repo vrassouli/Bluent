@@ -13,8 +13,7 @@
            @ref=Element
            id="@GetInputId()"
            name="@NameAttributeValue"
-           value="@CurrentValueAsString"
-           @onchange="(args)=>{ CurrentValueAsString = args.Value?.ToString(); }" />
+           @bind-value="CurrentValueAsString" @bind-value:event="@BindValueEvent" />
 
     @if (EndAddon != null)
     {

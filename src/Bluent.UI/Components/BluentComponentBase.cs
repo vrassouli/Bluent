@@ -1,11 +1,12 @@
-﻿using Bluent.UI.Services.Abstractions;
+﻿using Bluent.UI.Common.Utilities;
+using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
 
 public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDisposable
 {
-    private Guid? _id;
+    private string? _id;
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public string? Style { get; set; }
@@ -31,10 +32,12 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDi
             if (!string.IsNullOrEmpty(providedId))
                 return providedId;
 
-            _id ??= Guid.NewGuid();
+            _id ??= Identifier.NewId();
 
-            return $"_{_id}".Replace('-', '_');
+            return _id;
         }
+
+        protected set { _id = value; }
     }
 
     private string? GetUserProvidedId()

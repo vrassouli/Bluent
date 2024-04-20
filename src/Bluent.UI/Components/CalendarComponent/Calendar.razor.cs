@@ -109,7 +109,7 @@ public partial class Calendar<TValue>
 
         if (Popover != null)
         {
-            Popover.Hide();
+            Popover.Close();
         }
     }
 

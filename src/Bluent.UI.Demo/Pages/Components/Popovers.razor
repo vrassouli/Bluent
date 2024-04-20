@@ -84,8 +84,48 @@
             </Popover>
         </section>
 
+        <h3>Manual show</h3>
+        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
+            <pre>
+                Type 'show' to display popover
+            </pre>
+            <Popover @ref=_manualPopover TriggerEvents="@(null)" Placement="Placement.Bottom">
+                <Trigger>
+                    <TextField @ref="_cmdTextField" Value="@_showCommand" ValueChanged="OnShowCommandChanged" ValueExpression="()=>_showCommand" BindValueEvent="oninput" />
+                </Trigger>
+                <Surface>
+                    <div>
+                        You commanded to show the popover surface
+                    </div>
+                </Surface>
+            </Popover>
+        </section>
+
     </div>
 </div>
 
 @code {
+    private string _showCommand = default!;
+    private Popover? _manualPopover;
+    private TextField? _cmdTextField;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && _manualPopover != null && _cmdTextField != null)
+        {
+            _manualPopover.SetTrigger(_cmdTextField);
+        }
+
+        base.OnAfterRender(firstRender);
+    }
+
+    private void OnShowCommandChanged(string cmd)
+    {
+        _showCommand = cmd;
+
+        if (string.Compare(_showCommand, "show", true) == 0)
+            _manualPopover?.Show();
+        else
+            _manualPopover?.Close();
+    }
 }

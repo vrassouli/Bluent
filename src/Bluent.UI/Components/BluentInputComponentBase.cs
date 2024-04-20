@@ -1,13 +1,14 @@
-﻿using Bluent.UI.Extensions;
+﻿using Bluent.UI.Common.Utilities;
+using Bluent.UI.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Bluent.UI.Components;
 
-public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>
+public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>, IBluentComponent
 {
-    private Guid? _id;
+    private string? _id;
 
     [Parameter] public string? Class { get; set; }
     [Parameter] public string? Style { get; set; }
@@ -33,10 +34,12 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>
             if (!string.IsNullOrEmpty(providedId))
                 return providedId;
 
-            _id ??= Guid.NewGuid();
+            _id ??= Identifier.NewId();
 
-            return $"_{_id}".Replace('-', '_');
+            return _id;
         }
+
+        protected set { _id = value; }
     }
 
     public string GetComponentClass() => $"{string.Join(' ', GetClasses())} {Class} {CssClass}";
@@ -64,6 +67,7 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>
             return id;
 
         var memberName = ValueExpression?.GetMemberName();
+        Id = memberName;
         return memberName;
     }
 

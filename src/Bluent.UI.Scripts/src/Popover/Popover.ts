@@ -33,10 +33,17 @@ export class Popover {
         }
     }
 
-    public showSurface(settings: PopoverSettings) {
+    public async showSurface(settings: PopoverSettings) {
         const surface = <HTMLElement>this.getSurface(settings);
+        if (!surface)
+            await this.renderSurface(settings);
+
         const trigger = this.getTrigger(settings);
         const arrowElement = this.getArrow(settings);
+
+        if (!surface || !trigger)
+            return;
+
         surface.classList.remove('hidden');
 
         computePosition(trigger, surface, {
@@ -76,8 +83,8 @@ export class Popover {
         });
     }
 
-    private renderSurface(settings: PopoverSettings) {
-        this._dotNetRef.invokeMethodAsync('RenderSurface', settings);
+    private async renderSurface(settings: PopoverSettings) {
+        await this._dotNetRef.invokeMethodAsync('RenderSurface', settings);
     }
 
     private onDocumentClicked(settings: PopoverSettings, args: PointerEvent) {

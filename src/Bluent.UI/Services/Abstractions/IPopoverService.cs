@@ -11,7 +11,7 @@ internal interface IPopoverService
     event EventHandler<HidePopoverSurfaceEventArgs>? OnHideSurface;
 
     void Destroy(string triggerId);
-    void Hide(string triggerId);
+    void Close(string triggerId);
     void SetTrigger(PopoverConfiguration config);
     void Show(string triggerId);
 }
