@@ -3,6 +3,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.default.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-default-light.css",
       "Styles/Themes/theme-default-dark.css",
       "Styles/Themes/styles.css"
@@ -12,6 +13,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.excel.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-excel-light.css",
       "Styles/Themes/theme-excel-dark.css",
       "Styles/Themes/styles.css"
@@ -21,6 +23,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.office.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-office-light.css",
       "Styles/Themes/theme-office-dark.css",
       "Styles/Themes/styles.css"
@@ -30,6 +33,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.outlook.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-outlook-light.css",
       "Styles/Themes/theme-outlook-dark.css",
       "Styles/Themes/styles.css"
@@ -39,6 +43,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.powerapps.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-powerapps-light.css",
       "Styles/Themes/theme-powerapps-dark.css",
       "Styles/Themes/styles.css"
@@ -48,6 +53,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.powerbi.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-powerbi-light.css",
       "Styles/Themes/theme-powerbi-dark.css",
       "Styles/Themes/styles.css"
@@ -57,6 +63,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.powerpoint.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-powerpoint-light.css",
       "Styles/Themes/theme-powerpoint-dark.css",
       "Styles/Themes/styles.css"
@@ -66,6 +73,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.stream.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-stream-light.css",
       "Styles/Themes/theme-stream-dark.css",
       "Styles/Themes/styles.css"
@@ -75,6 +83,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.teams.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-teams-light.css",
       "Styles/Themes/theme-teams-dark.css",
       "Styles/Themes/styles.css"
@@ -84,6 +93,7 @@
     "outputFileName": "wwwroot/bluent.ui.theme.word.css",
     "inputFiles": [
       "Styles/Themes/icons.css",
+      "Styles/Themes/reboot.css",
       "Styles/Themes/theme-word-light.css",
       "Styles/Themes/theme-word-dark.css",
       "Styles/Themes/styles.css"

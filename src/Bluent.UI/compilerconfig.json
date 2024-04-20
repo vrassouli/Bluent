@@ -90,5 +90,9 @@
   {
     "outputFile": "Styles/Themes/icons.css",
     "inputFile": "Styles/Themes/icons.scss"
+  },
+  {
+    "outputFile": "Styles/Themes/reboot.css",
+    "inputFile": "Styles/Themes/reboot.scss"
   }
 ]
