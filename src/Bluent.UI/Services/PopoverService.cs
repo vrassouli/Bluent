@@ -26,7 +26,7 @@ internal class PopoverService : IPopoverService
         OnDestroy?.Invoke(this, new DestroyPopoverEventArgs(triggerId));
     }
 
-    public void Hide(string triggerId)
+    public void Close(string triggerId)
     {
         OnHideSurface?.Invoke(this, new HidePopoverSurfaceEventArgs(triggerId));
     }

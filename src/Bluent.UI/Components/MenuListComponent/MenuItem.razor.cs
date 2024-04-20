@@ -54,7 +54,7 @@ public partial class MenuItem
 
         if (Popover != null)
         {
-            Popover.Hide();
+            Popover.Close();
         }
     }
 
