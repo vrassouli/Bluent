@@ -9,10 +9,12 @@ public record PopoverSettings
     {
         
     }
-    public PopoverSettings(string triggerId, Placement placement)
+    public PopoverSettings(string triggerId, Placement placement, int offset, int padding)
     {
         TriggerId = triggerId;
         Placement = placement;
+        Offset = offset;
+        Padding = padding;
     }
 
     public string TriggerId { get; set; } = default!;
@@ -23,4 +25,7 @@ public record PopoverSettings
 
     [JsonConverter(typeof(JsonKebaberizedStringEnumConverter<Placement>))] 
     public Placement Placement { get; set; }
+
+    public int Offset { get; set; } = 6;
+    public int Padding { get; set; } = 5;
 }

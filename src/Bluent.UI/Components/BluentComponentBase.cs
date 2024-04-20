@@ -70,7 +70,7 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent, IDi
         if (TooltipContent == null && string.IsNullOrEmpty(Tooltip))
             return;
 
-        var setting = new PopoverSettings(Id, TooltipPlacement) { 
+        var setting = new PopoverSettings(Id, TooltipPlacement, 6, 5) { 
             TriggerEvents = ["mouseenter", "focus"],
             HideEvents = ["mouseleave", "blure"],
         };

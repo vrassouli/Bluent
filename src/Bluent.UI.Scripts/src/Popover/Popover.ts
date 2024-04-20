@@ -50,8 +50,8 @@ export class Popover {
             placement: settings.placement,
             middleware: [
                 flip(),
-                shift({ padding: 5 }),
-                offset(settings.offsetOptions),
+                shift({ padding: settings.padding }),
+                offset(settings.offset),
                 arrow({ element: arrowElement }),],
         }).then(({ x, y, placement, middlewareData }) => {
             Object.assign(surface.style, {
@@ -76,7 +76,7 @@ export class Popover {
                     [staticSide]: '-4px',
                 });
             }
-            //surface.classList.add(staticSide)
+
             if (!surface.classList.contains('show'))
                 surface.classList.add('show');
             document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });

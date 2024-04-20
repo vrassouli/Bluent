@@ -12,6 +12,8 @@ public partial class Popover : IDisposable
     [Parameter, EditorRequired] public RenderFragment Trigger { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
     [Parameter] public Placement Placement { get; set; } = Placement.Top;
+    [Parameter] public int Offset { get; set; } = 6;
+    [Parameter] public int Padding { get; set; } = 5;
     [Parameter] public bool DisplayArrow { get; set; } = true;
     [Parameter] public bool KeepSurface { get; set; }
     [Parameter] public string? TriggerEvents { get; set; } = "click";
@@ -38,7 +40,7 @@ public partial class Popover : IDisposable
         if (_triggerAlreadySet)
             return;
 
-        _settings = new PopoverSettings(triggerComponent.Id, Placement)
+        _settings = new PopoverSettings(triggerComponent.Id, Placement, Offset, Padding)
         {
             TriggerEvents = TriggerEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
             HideEvents = HideEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),

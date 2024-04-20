@@ -1,9 +1,10 @@
-import { OffsetOptions, Placement } from "@floating-ui/dom";
+import { OffsetOptions, Padding, Placement } from "@floating-ui/dom";
 
 export type PopoverSettings = {
     triggerId: string;
     placement: Placement;
-    offsetOptions: OffsetOptions;
+    offset: OffsetOptions;
+    padding: Padding;
     triggerEvents: string[];
     hideEvents: string[];
 };
