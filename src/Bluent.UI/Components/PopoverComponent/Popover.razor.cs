@@ -6,6 +6,7 @@ namespace Bluent.UI.Components;
 
 public partial class Popover : IDisposable
 {
+    private bool _triggerAlreadySet = false;
     private PopoverSettings? _settings;
 
     [Parameter, EditorRequired] public RenderFragment Trigger { get; set; } = default!;
@@ -34,6 +35,9 @@ public partial class Popover : IDisposable
 
     public void SetTrigger(IBluentComponent triggerComponent)
     {
+        if(_triggerAlreadySet)
+            return;
+
         _settings = new PopoverSettings(triggerComponent.Id, Placement)
         {
             TriggerEvents = TriggerEvents?.Split(new char[] { ',', ' ', ';' }, StringSplitOptions.TrimEntries),
@@ -41,6 +45,8 @@ public partial class Popover : IDisposable
         };
 
         PopoverService.SetTrigger(new PopoverConfiguration(_settings, GetSurfaceFragment(), DisplayArrow, Appearance, KeepSurface));
+
+        _triggerAlreadySet = true;
     }
 
     private RenderFragment GetSurfaceFragment()
