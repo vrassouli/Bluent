@@ -3,6 +3,10 @@
 @import "../../node_modules/bootstrap/scss/mixins/_utilities.scss";
 @import "../../node_modules/bootstrap/scss/_functions.scss";
 @import "../../node_modules/bootstrap/scss/_variables.scss";
+@import "../../node_modules/bootstrap/scss/_variables-dark.scss";
+@import "../../node_modules/bootstrap/scss/_maps.scss";
+@import "../../node_modules/bootstrap/scss/mixins/_container.scss";
+@import "../../node_modules/bootstrap/scss/mixins/_grid.scss";
 
 @import "styles/_animations.scss";
 @import "styles/_backgrounds.scss";
@@ -28,3 +32,5 @@
         }
     }
 }
+@import "../../node_modules/bootstrap/scss/_containers.scss";
+@import "../../node_modules/bootstrap/scss/_grid.scss";
