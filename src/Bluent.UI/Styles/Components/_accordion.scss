@@ -29,10 +29,11 @@
                 align-items: center;
                 display: flex;
                 padding-inline-end: var(--spacingHorizontalS);
-                >i{
-                transition-property: transform;
-                transition-duration: var(--durationSlower);
-                transition-timing-function: var(--curveDecelerateMid);
+
+                > i {
+                    transition-property: transform;
+                    transition-duration: var(--durationSlower);
+                    transition-timing-function: var(--curveDecelerateMid);
                 }
             }
 
@@ -55,13 +56,27 @@
             > .header {
                 > .expander {
                     > i {
-                        transform: rotate(90deg);
+                        transform: rotate(90deg) !important;
                     }
                 }
             }
 
             > .panel {
                 display: block;
+            }
+        }
+    }
+}
+
+.rtl, [dir="rtl"] {
+    .bui-accordion {
+        > .accordion-panel {
+            > .header {
+                > .expander {
+                    > i {
+                        transform: rotate(180deg);
+                    }
+                }
             }
         }
     }
