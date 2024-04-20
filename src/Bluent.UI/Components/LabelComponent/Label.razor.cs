@@ -8,7 +8,7 @@ namespace Bluent.UI.Components;
 public partial class Label
 {
     [Parameter] public string? Text { get; set; }
-    [Parameter] public Expression<Func<object>>? For { get; set; }
+    [Parameter] public Expression<Func<object>>? ForExpression { get; set; }
     [Parameter] public string? Required { get; set; }
     [Parameter] public RenderFragment? Info { get; set; }
     [Parameter] public LabelSize Size { get; set; } = LabelSize.Medium;
@@ -26,10 +26,10 @@ public partial class Label
 
     private string? GetPropertyName()
     {
-        if (For == null)
+        if (ForExpression == null)
             return null;
 
-        return For.GetMemberName();
+        return ForExpression.GetMemberName();
     }
 
     private string? GetDisplayName()
@@ -37,9 +37,9 @@ public partial class Label
         if (!string.IsNullOrEmpty(Text))
             return Text;
 
-        if (For == null)
+        if (ForExpression == null)
             return null;
 
-        return For.GetDisplayName();
+        return ForExpression.GetDisplayName();
     }
 }
