@@ -14,7 +14,9 @@ public partial class Avatar
     [Parameter] public string? Name { get; set; }
     [Parameter] public string? ImageSource { get; set; }
     [Parameter] public string? Icon { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public AvatarSize Size { get; set; } = AvatarSize.Size32;
+    [CascadingParameter] public Popover? Popover { get; set; }
 
     private string? DisplayInitial
     {
@@ -36,5 +38,12 @@ public partial class Avatar
 
         if (Size != AvatarSize.Size32)
             yield return Size.ToString().Kebaberize();
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && Popover != null)
+            Popover.SetTrigger(this);
+
+        base.OnAfterRender(firstRender);
     }
 }
