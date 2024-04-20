@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Common.Utilities;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace Bluent.UI.Components;
 
@@ -12,16 +16,33 @@ public partial class ListItem
     [Parameter] public bool Selected { get; set; }
     [Parameter] public EventCallback<bool> SelectedChanged { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public NavLinkMatch Match { get; set; }
     [CascadingParameter] public ItemsList List { get; set; } = default!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
-    private bool IsLink => AdditionalAttributes?.ContainsKey("href") == true;
-    private string? Href => AdditionalAttributes?["href"]?.ToString();
-    private string? Target => AdditionalAttributes?["target"]?.ToString();
+    private bool IsLink => !string.IsNullOrEmpty(Href);
+    private bool IsSelected
+    {
+        get
+        {
+            if (!IsLink)
+                return Selected;
+
+            var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+            var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
+
+            return isActive;
+        }
+    }
 
     protected override void OnInitialized()
     {
         if (List is null)
             throw new InvalidOperationException($"'{nameof(ListItem)}' component should be nested inside a '{nameof(ItemsList)}' component.");
+
+        if (List.SelectionMode == SelectionMode.Multiple && IsLink)
+            throw new InvalidOperationException($"'{nameof(ListItem)}' component does not support '{nameof(SelectionMode.Multiple)}' selection mode, when rendered as link.");
 
         List.Add(this);
 
@@ -38,21 +59,24 @@ public partial class ListItem
     {
         yield return "listitem";
 
-        if (Selected)
+        if (IsSelected)
             yield return "selected";
     }
 
     private void ClickHandler()
     {
-        if (List.SelectionMode == SelectionMode.Single)
+        if (!IsLink)
         {
-            SetSelection(true);
-            List.OnItemSelectionChanged(this);
-        }
-        else if (List.SelectionMode == SelectionMode.Multiple)
-        {
-            SetSelection(!Selected);
-            List.OnItemSelectionChanged(this);
+            if (List.SelectionMode == SelectionMode.Single)
+            {
+                SetSelection(true);
+                List.OnItemSelectionChanged(this);
+            }
+            else if (List.SelectionMode == SelectionMode.Multiple)
+            {
+                SetSelection(!Selected);
+                List.OnItemSelectionChanged(this);
+            }
         }
 
         OnClick.InvokeAsync();
@@ -65,27 +89,6 @@ public partial class ListItem
 
         return "div";
     }
-
-    protected Dictionary<string, object>? GetAdditionalAttributes()
-    {
-        if (AdditionalAttributes == null || !IsLink)
-        {
-            return AdditionalAttributes;
-        }
-        else
-        {
-            var dic = new Dictionary<string, object>();
-            foreach (var item in AdditionalAttributes)
-            {
-                if (!item.Key.Equals("href", StringComparison.InvariantCultureIgnoreCase) &&
-                    !item.Key.Equals("target", StringComparison.InvariantCultureIgnoreCase))
-                    dic.Add(item.Key, item.Value);
-            }
-
-            return dic;
-        }
-    }
-
 
     internal void SetSelection(bool selected)
     {

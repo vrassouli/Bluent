@@ -1,28 +1,36 @@
 ﻿@inherits BluentComponentBase
 @namespace Bluent.UI.Components
 
-<li @attributes=GetAdditionalAttributes() id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
-    @if (List.SelectionMode == SelectionMode.Multiple)
+@{
+    __builder.OpenElement(0, GetItemTag());
+    __builder.AddMultipleAttributes(1, AdditionalAttributes);
+    __builder.AddAttribute(2, "id", Id);
+    __builder.AddAttribute(3, "class", GetComponentClass());
+    __builder.AddAttribute(4, "style", Style);
+    __builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+    if (IsLink)
     {
-        <div class="selector">
-            <Checkbox @bind-Value="Selected" />
-        </div>
+        __builder.AddAttribute(6, "href", Href);
     }
+    else
+    {
+        __builder.AddAttribute(7, "type", "button");
+    }
+    __builder.OpenRegion(8);
+}
+@if (List.SelectionMode == SelectionMode.Multiple)
+{
+    <div class="selector">
+        <Checkbox @bind-Value="Selected" />
+    </div>
+}
+<div class="content">
     @if (ChildContent != null)
     {
         @ChildContent
     }
     else
     {
-        __builder.OpenElement(0, GetItemTag());
-        __builder.AddAttribute(1, "class", "content");
-        if (IsLink)
-        {
-            __builder.AddAttribute(2, "href", Href);
-            __builder.AddAttribute(3, "target", Target);
-        }
-        __builder.OpenRegion(4);
-
         @if (!string.IsNullOrEmpty(Icon) || List.ShouldRenderIcon())
         {
             @if (!string.IsNullOrEmpty(ActiveIcon))
@@ -40,8 +48,9 @@
                 }
             </div>
         }
-
-        __builder.CloseRegion();
-        __builder.CloseElement();
     }
-</li>
+</div>
+@{
+    __builder.CloseRegion();
+    __builder.CloseElement();
+}
