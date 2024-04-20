@@ -29,6 +29,10 @@
         border-radius: inherit;
     }
 
+    &.active {
+        cursor: pointer;
+    }
+
     &.size16 {
         width: 16px;
         height: 16px;

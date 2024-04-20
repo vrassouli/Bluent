@@ -1,7 +1,7 @@
 ﻿@inherits BluentComponentBase
 @namespace Bluent.UI.Components
 
-<span @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
     @if (!string.IsNullOrEmpty(DisplayInitial))
     {
         <span class="initials">@DisplayInitial</span>
@@ -14,4 +14,4 @@
     {
         <img class="image" src="@ImageSource" onerror='this.style.display = "none"' />
     }
-</span>
+</div>

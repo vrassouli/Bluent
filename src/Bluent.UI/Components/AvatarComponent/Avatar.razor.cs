@@ -38,7 +38,11 @@ public partial class Avatar
 
         if (Size != AvatarSize.Size32)
             yield return Size.ToString().Kebaberize();
+
+        if (Popover != null || OnClick.HasDelegate)
+            yield return "active";
     }
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender && Popover != null)
