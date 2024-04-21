@@ -51,7 +51,7 @@
                     font-size: var(--bui-breadcrumb-icon-size);
                     height: var(--bui-breadcrumb-icon-size);
                     width: var(--bui-breadcrumb-icon-size);
-                    margin-right: var(--spacingHorizontalXS);
+                    margin-inline-end: var(--spacingHorizontalXS);
                 }
 
                 > .active-icon {
@@ -136,5 +136,17 @@
         --bui-breadcrumb-text-font-size: var(--fontSizeBase400);
         --bui-breadcrumb-icon-line-height: var(--lineHeightBase500);
         --bui-breadcrumb-icon-size: 22px;
+    }
+}
+
+.rtl, [dir="rtl"] {
+    .bui-breadcrumb {
+        > .list {
+            > .seperator {
+                > .icon {
+                    transform: rotate(180deg);
+                }
+            }
+        }
     }
 }
