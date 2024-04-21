@@ -124,7 +124,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-in-right;
+    animation-name: fade-in, slide-in-right;
 }
 
 @keyframes slide-out-right {
@@ -143,7 +143,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-out-right;
+    animation-name: fade-out,slide-out-right;
 }
 
 @keyframes slide-in-left {
@@ -162,7 +162,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-in-left;
+    animation-name: fade-in, slide-in-left;
 }
 
 @keyframes slide-out-left {
@@ -181,7 +181,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-out-left;
+    animation-name: fade-out, slide-out-left;
 }
 
 @keyframes slide-in-top {
@@ -200,7 +200,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-in-top;
+    animation-name: fade-in, slide-in-top;
 }
 
 @keyframes slide-out-top {
@@ -219,7 +219,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-out-top;
+    animation-name: fade-out, slide-out-top;
 }
 
 @keyframes slide-in-bottom {
@@ -238,7 +238,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-in-bottom;
+    animation-name: fade-in, slide-in-bottom;
 }
 
 @keyframes slide-out-bottom {
@@ -257,7 +257,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: slide-out-bottom;
+    animation-name: fade-out, slide-out-bottom;
 }
 
 @keyframes scale-in-center {
@@ -276,7 +276,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: scale-in-center;
+    animation-name: fade-in, scale-in-center;
 }
 
 @keyframes scale-out-center {
@@ -295,7 +295,7 @@
     animation-fill-mode: both;
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
-    animation-name: scale-out-center;
+    animation-name: fade-out, scale-out-center;
 }
 
 @keyframes rotate {
