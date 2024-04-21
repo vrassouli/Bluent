@@ -315,13 +315,23 @@
     animation-name: rotate;
 }
 
-@keyframes marquee {
+@keyframes marquee-ltr {
     0% {
         left: -33%;
     }
 
     100% {
         left: 100%;
+    }
+}
+
+@keyframes marquee-rtl {
+    0% {
+        right: -33%;
+    }
+
+    100% {
+        right: 100%;
     }
 }
 
@@ -392,16 +402,6 @@
 }
 */
 .rtl, [dir="rtl"] {
-    @keyframes marquee {
-        0% {
-            right: -33%;
-        }
-
-        100% {
-            right: 100%;
-        }
-    }
-
     .anim-slide-start {
         animation-name: slide-right;
     }

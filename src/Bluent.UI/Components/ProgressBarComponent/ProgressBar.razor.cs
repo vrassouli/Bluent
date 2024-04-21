@@ -21,6 +21,7 @@ public partial class ProgressBar
     [Parameter] public string? Icon { get; set; }
 
     [Parameter] public ProgressBarColor Color { get; set; } = ProgressBarColor.Brand;
+    [Parameter] public ProgressBarSize Size { get; set; } = ProgressBarSize.Small;
     [Parameter] public bool Indeterminate { get; set; }
 
     public override IEnumerable<string> GetClasses()
@@ -32,6 +33,9 @@ public partial class ProgressBar
 
         if (Color != ProgressBarColor.Brand)
             yield return Color.ToString().Kebaberize();
+
+        if (Size != ProgressBarSize.Small)
+            yield return Size.ToString().Kebaberize();
     }
 
     private string? GetBarStyles()
