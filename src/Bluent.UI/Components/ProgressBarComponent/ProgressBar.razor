@@ -1,0 +1,18 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="progress">
+        <div class="bar" style="@GetBarStyles()"></div>
+    </div>
+    @if (!string.IsNullOrEmpty(Message))
+    {
+        <div class="message-bar">
+            @if(!string.IsNullOrEmpty(Icon))
+            {
+                <Icon Content="@Icon" Class="icon me-2" />
+            }
+            <div class="message">@Message</div>
+        </div>
+    }
+</div>

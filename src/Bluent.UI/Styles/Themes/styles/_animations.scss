@@ -315,6 +315,23 @@
     animation-name: rotate;
 }
 
+@keyframes marquee {
+    0% {
+        left: -33%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.anim-marquee {
+    animation-fill-mode: both;
+    animation-duration: var(--durationFast);
+    animation-timing-function: var(--curveEasyEase);
+    animation-name: marquee;
+}
+
 .rtl, [dir="rtl"] {
     .anim-slide-start {
         animation-name: slide-right;

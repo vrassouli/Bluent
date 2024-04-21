@@ -1,0 +1,87 @@
+﻿.bui-progress-bar {
+    display: block;
+
+    > .progress {
+        height: 2px;
+        background-color: var(--colorNeutralBackground6);
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        border-radius: var(--borderRadiusMedium);
+
+        > .bar {
+            background-color: var(--colorCompoundBrandBackground);
+            transition-timing-function: ease;
+            transition-duration: 0.3s;
+            transition-property: width;
+            border-radius: inherit;
+            height: 100%;
+        }
+    }
+
+    > .message-bar {
+        display: flex;
+        align-items: center;
+        margin-top: var(--spacingVerticalXXS);
+        color: var(--colorNeutralForeground3);
+        font-family: var(--fontFamilyBase);
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: var(--lineHeightBase200);
+    }
+
+    &.success {
+        > .progress {
+            > .bar {
+                background-color: var(--colorPaletteGreenBackground3);
+            }
+        }
+
+        > .message-bar {
+            > .icon {
+                color: var(--colorPaletteGreenForeground1);
+            }
+        }
+    }
+
+    &.warning {
+        > .progress {
+            > .bar {
+                background-color: var(--colorPaletteDarkOrangeBackground3);
+            }
+        }
+
+        > .message-bar {
+            > .icon {
+                color: var(--colorPaletteDarkOrangeForeground1);
+            }
+        }
+    }
+
+    &.error {
+        > .progress {
+            > .bar {
+                background-color: var(--colorPaletteRedBackground3);
+            }
+        }
+
+        > .message-bar {
+            color: var(--colorPaletteRedForeground1);
+        }
+    }
+
+    &.indeterminate {
+        > .progress {
+            > .bar {
+                background-color: var(--colorCompoundBrandBackground);
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                animation-duration: 3s;
+                animation-name: marquee;
+                background-image: linear-gradient(to right, var(--colorNeutralBackground6) 0%, var(--colorTransparentBackground) 50%, var(--colorNeutralBackground6) 100%);
+                max-width: 33%;
+                position: relative;
+            }
+        }
+    }
+}

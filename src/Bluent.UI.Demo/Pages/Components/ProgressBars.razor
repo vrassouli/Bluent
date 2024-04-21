@@ -1,0 +1,36 @@
+﻿@page "/components/progress-bars"
+<PageTitle>Progress Bars</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Progress Bars</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ProgressBar Value="50" Message="Default ProgressBar" />
+        </section>
+
+        <h3>Color</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ProgressBar Class="mb-10" Value="20" Message="Brand (Default)" />
+            <ProgressBar Class="mb-10" Value="40" Message="Error" Color="ProgressBarColor.Error" Icon="icon-ic_fluent_error_circle_20_filled" />
+            <ProgressBar Class="mb-10" Value="60" Message="Warning" Color="ProgressBarColor.Warning" Icon="icon-ic_fluent_warning_20_filled" />
+            <ProgressBar Class="mb-10" Value="80" Message="Success" Color="ProgressBarColor.Success" Icon="icon-ic_fluent_checkmark_circle_20_filled" />
+        </section>
+
+        <h3>Indeterminate</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ProgressBar Class="mb-10" Indeterminate />
+        </section>
+
+    </div>
+</div>
+
+@code {
+    string? _selectedItems;
+
+    private void SelectedItemsChanged(IEnumerable<ListItem> items)
+    {
+        _selectedItems = string.Join(", ", items.Select(x => x.Text));
+    }
+}
