@@ -77,10 +77,28 @@
                 animation-iteration-count: infinite;
                 animation-timing-function: linear;
                 animation-duration: 3s;
-                animation-name: marquee;
+                animation-name: marquee-ltr;
                 background-image: linear-gradient(to right, var(--colorNeutralBackground6) 0%, var(--colorTransparentBackground) 50%, var(--colorNeutralBackground6) 100%);
                 max-width: 33%;
                 position: relative;
+            }
+        }
+    }
+
+    &.large {
+        > .progress {
+            height: 4px;
+        }
+    }
+}
+
+.rtl, [dir="rtl"] {
+    .bui-progress-bar {
+        &.indeterminate {
+            > .progress {
+                > .bar {
+                    animation-name: marquee-rtl;
+                }
             }
         }
     }
