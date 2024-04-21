@@ -138,3 +138,15 @@
         --bui-breadcrumb-icon-size: 22px;
     }
 }
+
+.rtl, [dir="rtl"] {
+    .bui-breadcrumb {
+        > .list {
+            > .seperator {
+                > .icon {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+}
