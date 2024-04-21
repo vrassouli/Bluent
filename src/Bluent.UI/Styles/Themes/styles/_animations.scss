@@ -325,18 +325,18 @@
     }
 
     .anim-slide-in-end {
-        animation-name: slide-in-left;
+        animation-name: fade-in, slide-in-left;
     }
 
     .anim-slide-out-end {
-        animation-name: slide-out-left;
+        animation-name: fade-out, slide-out-left;
     }
 
     .anim-slide-in-start {
-        animation-name: slide-in-right;
+        animation-name: fade-in, slide-in-right;
     }
 
     .anim-slide-out-start {
-        animation-name: slide-out-right;
+        animation-name: fade-out, slide-out-right;
     }
 }
