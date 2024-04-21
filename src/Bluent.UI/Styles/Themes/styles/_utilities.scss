@@ -397,6 +397,59 @@ $utilities: map-merge(
                 6: var(--shadow64Brand),
             )
         ),
+        // Animations
+        // Durations
+        "anim-duration": (
+            property: animation-duration,
+            class: anim,
+            values: (
+                ultra-fast: var(--durationUltraFast),
+                faster: var(--durationFaster),
+                fast: var(--durationFast),
+                normal: var(--durationNormal),
+                gentle: var(--durationGentle),
+                slow: var(--durationSlow),
+                slower: var(--durationSlower),
+                ultra-slow: var(--durationUltraSlow),
+            )
+        ),
+        // Timing
+        "anim-time": (
+            property: animation-timing-function,
+            class: anim,
+            values: (
+                acc-max: var(--curveAccelerateMax),
+                acc-mid: var(--curveAccelerateMid),
+                acc-min: var(--curveAccelerateMin),
+                dec-max: var(--curveDecelerateMax),
+                dec-mid: var(--curveDecelerateMid),
+                dec-min: var(--curveDecelerateMin),
+                ease-max: var(--curveEasyEaseMax),
+                ease: var(--curveEasyEase),
+                linear: var(--curveLinear),
+            )
+        ),
+        // Direction
+        "anim-direction": (
+            property: animation-direction,
+            class: anim,
+            values: (
+                reverse: reverse,
+                alternate: alternate,
+                alternate-reverse: alternate-reverse
+            )
+        ),
+        // fill-mode
+        "anim-fill": (
+            property: animation-fill-mode,
+            class: anim-fill,
+            values: (
+                none: none,
+                forwards: forwards,
+                backwards: backwards, 
+                both: both
+            )
+        ),
     ), 
     $utilities
 );
