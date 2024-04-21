@@ -351,9 +351,46 @@
     animation-duration: var(--durationFast);
     animation-timing-function: var(--curveEasyEase);
     animation-name: hide-scroll;
-    animation-direction: alternate;
 }
 
+/*@keyframes collapse {
+    0% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+}
+
+.anim-collapse {
+    animation-fill-mode: both;
+    animation-duration: var(--durationFast);
+    animation-timing-function: var(--curveEasyEase);
+    animation-name: collapse;
+}
+
+@keyframes expand {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+
+    100% {
+        overflow: auto;
+        opacity: 1;
+    }
+}
+
+.anim-expand {
+    animation-fill-mode: both;
+    animation-duration: var(--durationFast);
+    animation-timing-function: var(--curveEasyEase);
+    animation-name: expand;
+}
+*/
 .rtl, [dir="rtl"] {
     @keyframes marquee {
         0% {

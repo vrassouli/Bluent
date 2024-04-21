@@ -8,8 +8,8 @@ namespace Bluent.UI.Components;
 
 public partial class ListItem
 {
-    private bool _isActive;
-
+    //private bool _isActive;
+    private string? _href;
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public object? Data { get; set; }
     [Parameter] public string? Text { get; set; }
@@ -21,22 +21,22 @@ public partial class ListItem
     [Parameter] public string? Href { get; set; }
     [Parameter] public NavLinkMatch Match { get; set; }
     [CascadingParameter] public ItemsList List { get; set; } = default!;
+    [CascadingParameter] public AccordionPanel? AccordionPanel { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
-    private bool IsSelected
-    {
-        get
-        {
-            if (!IsLink)
-                return Selected;
+    //private bool IsSelected
+    //{
+    //    get
+    //    {
+    //        if (!IsLink)
+    //            return Selected;
 
-            var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
-            _isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
+    //        _isActive = IsLinkActive();
 
-            return _isActive;
-        }
-    }
+    //        return _isActive;
+    //    }
+    //}
 
     protected override void OnInitialized()
     {
@@ -53,6 +53,17 @@ public partial class ListItem
         base.OnInitialized();
     }
 
+    protected override void OnParametersSet()
+    {
+        if (_href != Href)
+        {
+            _href = Href;
+            CheckLinkActiveState();
+        }
+
+        base.OnParametersSet();
+    }
+
     public override void Dispose()
     {
         NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
@@ -60,21 +71,11 @@ public partial class ListItem
         base.Dispose();
     }
 
-    private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
-    {
-        var wasActive = _isActive;
-        var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
-        var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
-
-        if (wasActive != isActive)
-            StateHasChanged();
-    }
-
     public override IEnumerable<string> GetClasses()
     {
         yield return "listitem";
 
-        if (IsSelected)
+        if (Selected)
             yield return "selected";
     }
 
@@ -112,7 +113,39 @@ public partial class ListItem
             Selected = selected;
             SelectedChanged.InvokeAsync(Selected);
 
+            if (selected)
+                AccordionPanel?.Expand();
+
             StateHasChanged();
         }
+    }
+
+    private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        CheckLinkActiveState();
+        //var wasActive = Selected;
+        //var isActive = IsLinkActive();
+
+        //if (wasActive != isActive)
+        //{
+        //    SetSelection(isActive);
+
+        //    //StateHasChanged();
+
+        //    //if (isActive)
+        //    //    AccordionPanel?.Expand();
+        //}
+    }
+
+    private void CheckLinkActiveState()
+    {
+        if (!IsLink)
+            return;
+
+        var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+        var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
+
+        if (isActive != Selected)
+            SetSelection(isActive);
     }
 }

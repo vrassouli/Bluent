@@ -6,13 +6,15 @@
         <div class="expander">
             <i class="icon-ic_fluent_chevron_right_20_regular"></i>
         </div>
-        @if(!string.IsNullOrEmpty(HeaderIcon))
+        @if (!string.IsNullOrEmpty(HeaderIcon))
         {
             <i class="icon @HeaderIcon"></i>
         }
         <div class="title">@Header</div>
     </div>
     <div class="panel">
-        @ChildContent
+        <CascadingValue Value="this" IsFixed>
+            @ChildContent
+        </CascadingValue>
     </div>
 </div>

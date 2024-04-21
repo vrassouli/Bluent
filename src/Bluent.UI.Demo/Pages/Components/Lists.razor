@@ -68,8 +68,9 @@
                 <ListItem Text="Microsoft" Href="https://microsoft.com" target="_blank"></ListItem>
                 <ListItem Text="Google" Href="https://google.com" target="_blank"></ListItem>
                 <ListItem Text="Apple" Href="https://apple.com" target="_blank"></ListItem>
-                <ListItem Text="Bluent Lists" Href="/components/lists"></ListItem>
-                <ListItem Text="Bluent Buttons" Href="/components/buttons"></ListItem>
+                <ListItem Text="Bluent Lists" Href="/components/lists" Match="NavLinkMatch.All"></ListItem>
+                <ListItem Text="Bluent Lists 1" Href="/components/lists?id=item1" Match="NavLinkMatch.All"></ListItem>
+                <ListItem Text="Bluent Lists 2" Href="/components/lists?id=item2" Match="NavLinkMatch.All"></ListItem>
             </ItemsList>
         </section>
 
@@ -121,6 +122,27 @@
                     </div>
                 </ListItem>
             </ItemsList>
+        </section>
+
+        <h3>Accordion Integration</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Accordion>
+                <AccordionPanel Header="Category 1">
+                    <ItemsList>
+                        <ListItem Text="Github" Href="https://github.com" target="_blank"></ListItem>
+                        <ListItem Text="Microsoft" Href="https://microsoft.com" target="_blank"></ListItem>
+                        <ListItem Text="Google" Href="https://google.com" target="_blank"></ListItem>
+                        <ListItem Text="Apple" Href="https://apple.com" target="_blank"></ListItem>
+                    </ItemsList>
+                </AccordionPanel>
+                <AccordionPanel Header="Category 2">
+                    <ItemsList>
+                        <ListItem Text="Bluent Lists" Href="/components/lists" Match="NavLinkMatch.All"></ListItem>
+                        <ListItem Text="Bluent Lists 1" Href="/components/lists?id=item1" Match="NavLinkMatch.All"></ListItem>
+                        <ListItem Text="Bluent Lists 2" Href="/components/lists?id=item2" Match="NavLinkMatch.All"></ListItem>
+                    </ItemsList>
+                </AccordionPanel>
+            </Accordion>
         </section>
     </div>
 </div>
