@@ -107,6 +107,17 @@
                 }
             }
         }
+
+        > .seperator {
+            display: flex;
+
+            > .icon {
+                line-height: var(--bui-breadcrumb-icon-line-height);
+                font-size: var(--bui-breadcrumb-icon-size);
+                height: var(--bui-breadcrumb-icon-size);
+                width: var(--bui-breadcrumb-icon-size);
+            }
+        }
     }
 
     &.small {
