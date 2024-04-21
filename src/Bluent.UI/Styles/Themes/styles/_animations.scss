@@ -315,6 +315,23 @@
     animation-name: rotate;
 }
 
+@keyframes marquee {
+    0% {
+        left: -33%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.anim-marquee {
+    animation-fill-mode: both;
+    animation-duration: var(--durationFast);
+    animation-timing-function: var(--curveEasyEase);
+    animation-name: marquee;
+}
+
 .rtl, [dir="rtl"] {
     .anim-slide-start {
         animation-name: slide-right;
@@ -325,18 +342,18 @@
     }
 
     .anim-slide-in-end {
-        animation-name: slide-in-left;
+        animation-name: fade-in, slide-in-left;
     }
 
     .anim-slide-out-end {
-        animation-name: slide-out-left;
+        animation-name: fade-out, slide-out-left;
     }
 
     .anim-slide-in-start {
-        animation-name: slide-in-right;
+        animation-name: fade-in, slide-in-right;
     }
 
     .anim-slide-out-start {
-        animation-name: slide-out-right;
+        animation-name: fade-out, slide-out-right;
     }
 }

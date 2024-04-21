@@ -27,18 +27,14 @@
     transition-timing-function: var(--curveEasyEase);
     cursor: pointer;
 
-    > .active-icon {
-        display: none;
-    }
-
-    &.icon {
-        align-items: center;
-        display: inline-flex;
-        justify-content: center;
+    > .icon, > .active-icon {
         font-size: 20px;
         height: 20px;
         width: 20px;
-        color: var(--colorNeutralForeground2);
+    }
+
+    > .active-icon {
+        display: none;
     }
 
     &:hover {
