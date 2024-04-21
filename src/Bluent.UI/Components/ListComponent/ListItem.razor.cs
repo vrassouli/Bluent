@@ -8,6 +8,8 @@ namespace Bluent.UI.Components;
 
 public partial class ListItem
 {
+    private bool _isActive;
+
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public object? Data { get; set; }
     [Parameter] public string? Text { get; set; }
@@ -30,9 +32,9 @@ public partial class ListItem
                 return Selected;
 
             var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
-            var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
+            _isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
 
-            return isActive;
+            return _isActive;
         }
     }
 
@@ -44,6 +46,8 @@ public partial class ListItem
         if (List.SelectionMode == SelectionMode.Multiple && IsLink)
             throw new InvalidOperationException($"'{nameof(ListItem)}' component does not support '{nameof(SelectionMode.Multiple)}' selection mode, when rendered as link.");
 
+        NavigationManager.LocationChanged += NavigationManager_LocationChanged;
+
         List.Add(this);
 
         base.OnInitialized();
@@ -51,8 +55,19 @@ public partial class ListItem
 
     public override void Dispose()
     {
+        NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
         List.Remove(this);
         base.Dispose();
+    }
+
+    private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        var wasActive = _isActive;
+        var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+        var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
+
+        if (wasActive != isActive)
+            StateHasChanged();
     }
 
     public override IEnumerable<string> GetClasses()
