@@ -333,6 +333,16 @@
 }
 
 .rtl, [dir="rtl"] {
+    @keyframes marquee {
+        0% {
+            right: -33%;
+        }
+
+        100% {
+            right: 100%;
+        }
+    }
+
     .anim-slide-start {
         animation-name: slide-right;
     }
