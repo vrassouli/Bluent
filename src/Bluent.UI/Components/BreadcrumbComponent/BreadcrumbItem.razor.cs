@@ -10,11 +10,13 @@ public partial class BreadcrumbItem
     [Parameter] public string? Icon { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
 
+    private bool IsCurrent => string.IsNullOrEmpty(Href);
+
     public override IEnumerable<string> GetClasses()
     {
         yield return "item";
 
-        if (string.IsNullOrEmpty(Href))
+        if (IsCurrent)
             yield return "current";
     }
 }
