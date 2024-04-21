@@ -332,6 +332,28 @@
     animation-name: marquee;
 }
 
+@keyframes hide-scroll {
+    0% {
+        overflow: hidden;
+    }
+
+    99% {
+        overflow: hidden;
+    }
+
+    100% {
+        overflow: auto;
+    }
+}
+
+.anim-hide-scroll {
+    animation-fill-mode: both;
+    animation-duration: var(--durationFast);
+    animation-timing-function: var(--curveEasyEase);
+    animation-name: hide-scroll;
+    animation-direction: alternate;
+}
+
 .rtl, [dir="rtl"] {
     @keyframes marquee {
         0% {

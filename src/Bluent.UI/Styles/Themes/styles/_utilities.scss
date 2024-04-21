@@ -7,6 +7,7 @@ $border-radius: map-merge(to-index-map($border-radius-map), (5: 10px, circle: 50
 $spaces: to-index-map($spacings-map);
 $margins: map-merge($spaces, (auto: auto));
 $utilities: () !default;
+$enable-important-utilities: false;
 
 $utilities: map-merge( 
     (
