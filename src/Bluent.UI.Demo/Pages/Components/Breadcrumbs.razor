@@ -1,0 +1,47 @@
+﻿@page "/components/breadcrumbs"
+<PageTitle>Breadcrumbs</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Breadcrumbs</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Breadcrumb>
+                <BreadcrumbItem Title="Item 1" Href="/components/breadcrumbs?#item1" Icon="icon-ic_fluent_add_circle_20_regular" ActiveIcon="icon-ic_fluent_add_circle_20_filled" />
+                <BreadcrumbItem Title="Item 2" Href="/components/breadcrumbs?#item2" Icon="icon-ic_fluent_arrow_sync_circle_20_regular" ActiveIcon="icon-ic_fluent_arrow_sync_circle_20_filled" />
+                <BreadcrumbItem Title="Item 3" Href="/components/breadcrumbs?#item3" />
+                <BreadcrumbItem Title="Item 4" />
+            </Breadcrumb>
+        </section>
+
+        <h3>Size</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <h4>Small</h4>
+            <Breadcrumb Size="BreadcrumbSize.Small">
+                <BreadcrumbItem Title="Item 1" Href="/components/breadcrumbs?#item1" Icon="icon-ic_fluent_add_circle_20_regular" ActiveIcon="icon-ic_fluent_add_circle_20_filled" />
+                <BreadcrumbItem Title="Item 2" Href="/components/breadcrumbs?#item2" Icon="icon-ic_fluent_arrow_sync_circle_20_regular" ActiveIcon="icon-ic_fluent_arrow_sync_circle_20_filled" />
+                <BreadcrumbItem Title="Item 3" Href="/components/breadcrumbs?#item3" />
+                <BreadcrumbItem Title="Item 4" />
+            </Breadcrumb>
+            <h4>Medium (default)</h4>
+            <Breadcrumb Size="BreadcrumbSize.Medium">
+                <BreadcrumbItem Title="Item 1" Href="/components/breadcrumbs?#item1" Icon="icon-ic_fluent_add_circle_20_regular" ActiveIcon="icon-ic_fluent_add_circle_20_filled" />
+                <BreadcrumbItem Title="Item 2" Href="/components/breadcrumbs?#item2" Icon="icon-ic_fluent_arrow_sync_circle_20_regular" ActiveIcon="icon-ic_fluent_arrow_sync_circle_20_filled" />
+                <BreadcrumbItem Title="Item 3" Href="/components/breadcrumbs?#item3" />
+                <BreadcrumbItem Title="Item 4" />
+            </Breadcrumb>
+            <h4>Large</h4>
+            <Breadcrumb Size="BreadcrumbSize.Large">
+                <BreadcrumbItem Title="Item 1" Href="/components/breadcrumbs?#item1" Icon="icon-ic_fluent_add_circle_20_regular" ActiveIcon="icon-ic_fluent_add_circle_20_filled" />
+                <BreadcrumbItem Title="Item 2" Href="/components/breadcrumbs?#item2" Icon="icon-ic_fluent_arrow_sync_circle_20_regular" ActiveIcon="icon-ic_fluent_arrow_sync_circle_20_filled" />
+                <BreadcrumbItem Title="Item 3" Href="/components/breadcrumbs?#item3" />
+                <BreadcrumbItem Title="Item 4" />
+            </Breadcrumb>
+        </section>
+
+    </div>
+</div>
+
+@code {
+}

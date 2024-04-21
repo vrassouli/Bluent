@@ -1,0 +1,18 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+
+<li @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <a href="@Href" target="@Target">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            @if(!string.IsNullOrEmpty(ActiveIcon))
+            {
+                <Icon Class="active-icon" Content="@ActiveIcon" />
+            }
+            <Icon Class="icon" Content="@Icon"/>
+        }
+        <div class="title">
+            @Title
+        </div>
+    </a>
+</li>
