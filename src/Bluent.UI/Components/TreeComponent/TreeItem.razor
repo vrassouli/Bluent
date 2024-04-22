@@ -1,0 +1,35 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+<li @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
+    @onclick="ClickHandler" @onclick:stopPropagation="true">
+    <div class="layout">
+        <div class="expander">
+            @if (HasSubItems)
+            {
+                <i class="icon icon-ic_fluent_chevron_right_20_regular"></i>
+            }
+        </div>
+
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            @if (!string.IsNullOrEmpty(ExpandedIcon))
+            {
+                <Icon Content="@ExpandedIcon" Class="expanded-icon" />
+            }
+            <Icon Content="@Icon" Class="icon" />
+        }
+
+        <div class="title">
+            @Title
+        </div>
+    </div>
+    @if (ChildContent != null)
+    {
+        <CascadingValue Value="this" IsFixed>
+            <ul class="item-group">
+                @ChildContent
+            </ul>
+        </CascadingValue>
+    }
+</li>
