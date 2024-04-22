@@ -68,7 +68,9 @@ public partial class Toast
 
     private void OnTimerTick(object? state)
     {
-        Close(null);
+        InvokeAsync(() => {
+            Close(null);
+        });        
     }
 
     private void DisposeTimer()
