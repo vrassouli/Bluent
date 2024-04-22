@@ -130,4 +130,18 @@
         background-color: var(--colorTransparentBackground);
         cursor: not-allowed;
     }
+
+    > select {
+        background-color: var(--colorNeutralBackground1);
+
+        > option {
+            cursor: pointer;
+            line-height: var(--lineHeightBase300);
+            font-weight: var(--fontWeightRegular);
+            font-size: var(--fontSizeBase300);
+            font-family: var(--fontFamilyBase);
+            color: var(--colorNeutralForeground1);
+            background-color: var(--colorNeutralBackground1);
+        }
+    }
 }

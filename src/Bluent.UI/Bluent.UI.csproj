@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -35,9 +36,9 @@
 
     <ItemGroup>
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.3" />
-        <PackageReference Include="System.Text.Json" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
+        <PackageReference Include="System.Text.Json" Version="8.0.3" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
