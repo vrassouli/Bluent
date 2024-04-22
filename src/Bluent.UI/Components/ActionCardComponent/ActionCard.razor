@@ -1,0 +1,55 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+@{
+    __builder.OpenElement(0, GetTag());
+    __builder.AddMultipleAttributes(1, AdditionalAttributes);
+    if(IsLink)
+        __builder.AddAttribute(2, "href", Href);
+
+    __builder.AddAttribute(3, "id", Id);
+    __builder.AddAttribute(4, "class", GetComponentClass());
+    __builder.AddAttribute(5, "style", Style);
+    __builder.OpenRegion(6);
+}
+
+    <div class="header" @onclick="HeaderClickHandler">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <Icon Class="icon" Content="@Icon" />
+        }
+        <div class="titles">
+            <div class="title">@Title</div>
+            @if (!string.IsNullOrEmpty(Description))
+            {
+                <div class="description">@Description</div>
+            }
+        </div>
+        @if (HeaderContent != null)
+        {
+            <div class="content" @onclick:stopPropagation="true">
+                @HeaderContent
+            </div>
+        }
+        @if (IsExpandable)
+        {
+            <Icon Class="icon expand-icon" Content="icon-ic_fluent_chevron_down_20_regular" />
+        }
+        @if (IsLink)
+        {
+            <Icon Class="icon nav-icon" Content="icon-ic_fluent_chevron_right_20_regular" />
+        }
+    </div>
+    @if (ChildContent != null)
+    {
+        <div class="panel">
+            <div class="panel-inner">
+                @ChildContent
+            </div>
+        </div>
+    }
+
+@{
+    __builder.CloseRegion();
+    __builder.CloseElement();
+}
