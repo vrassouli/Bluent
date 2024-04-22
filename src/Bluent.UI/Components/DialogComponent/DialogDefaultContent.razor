@@ -44,7 +44,9 @@
 
     private void OnActionClick(DialogAction action)
     {
-        if (action.Callback != null && Dialog != null)
+        if (!string.IsNullOrEmpty(action.FormToSumbit))
+            return;
+        else if (action.Callback != null && Dialog != null)
             action.Callback(Dialog, action.Result);
         else if (Dialog != null)
             Dialog.Close(action.Result);
