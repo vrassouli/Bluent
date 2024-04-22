@@ -23,7 +23,7 @@
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
         // Loop over each utility property
-        @each $key, $utility in $utilities {
+        @each $key, $utility in $important-utilities {
             // The utility can be disabled with `false`, thus check if the utility is a map first
             // Only proceed if responsive media queries are enabled or if it's the base media query
             @if type-of($utility) == "map" and (map-get($utility, responsive) or $infix == "") {
@@ -32,5 +32,24 @@
         }
     }
 }
+
+$enable-important-utilities: false;
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+    // Generate media query if needed
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        // Loop over each utility property
+        @each $key, $utility in $non-important-utilities {
+            // The utility can be disabled with `false`, thus check if the utility is a map first
+            // Only proceed if responsive media queries are enabled or if it's the base media query
+            @if type-of($utility) == "map" and (map-get($utility, responsive) or $infix == "") {
+                @include generate-utility($utility, $infix);
+            }
+        }
+    }
+}
+
 @import "../../node_modules/bootstrap/scss/_containers.scss";
 @import "../../node_modules/bootstrap/scss/_grid.scss";

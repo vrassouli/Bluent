@@ -6,10 +6,10 @@
 $border-radius: map-merge(to-index-map($border-radius-map), (5: 10px, circle: 50%, pill: 50rem, circular: 10000px));
 $spaces: to-index-map($spacings-map);
 $margins: map-merge($spaces, (auto: auto));
-$utilities: () !default;
-$enable-important-utilities: false;
+$important-utilities: () !default;
+$non-important-utilities: () !default;
 
-$utilities: map-merge( 
+$important-utilities: map-merge( 
     (
         // Padding utilities
         "padding": (
@@ -220,19 +220,6 @@ $utilities: map-merge(
             property: column-gap,
             class: column-gap,
             values: $spaces
-        ),
-        // Overflow
-        "overflow": (
-            property: overflow,
-            values: auto hidden visible scroll,
-        ),
-        "overflow-x": (
-            property: overflow-x,
-            values: auto hidden visible scroll,
-        ),
-        "overflow-y": (
-            property: overflow-y,
-            values: auto hidden visible scroll,
         ),
         // Text
         "font-size": (
@@ -452,5 +439,23 @@ $utilities: map-merge(
             )
         ),
     ), 
-    $utilities
+    $important-utilities
+);
+$non-important-utilities: map-merge( 
+    (
+        // Overflow
+        "overflow": (
+            property: overflow,
+            values: auto hidden visible scroll,
+        ),
+        "overflow-x": (
+            property: overflow-x,
+            values: auto hidden visible scroll,
+        ),
+        "overflow-y": (
+            property: overflow-y,
+            values: auto hidden visible scroll,
+        )
+    ), 
+    $non-important-utilities
 );

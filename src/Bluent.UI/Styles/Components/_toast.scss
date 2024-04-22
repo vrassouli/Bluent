@@ -99,6 +99,7 @@
     animation-duration: var(--durationGentle);
     animation-timing-function: var(--curveEasyEase);
     animation-fill-mode: both;
+    min-width: 200px;
 
     > .content {
         padding: 12px;
