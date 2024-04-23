@@ -14,20 +14,21 @@ public partial class Avatar
     [Parameter] public string? Name { get; set; }
     [Parameter] public string? ImageSource { get; set; }
     [Parameter] public string? Icon { get; set; }
+    [Parameter] public string? InitialsSeperator { get; set; }
+    [Parameter] public bool AutoColor { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public AvatarSize Size { get; set; } = AvatarSize.Size32;
     [Parameter] public ColorPalette? Color { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
 
-    private string? DisplayInitial
+    private string? DisplayInitials
     {
         get
         {
-            if (!string.IsNullOrEmpty(Initials))
-                return Initials;
+            var initials = GetInitials();
 
-            if (!string.IsNullOrEmpty(Name))
-                return string.Concat(Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => x[0]));
+            if (!string.IsNullOrEmpty(initials))
+                return GetDisplayInitials(initials);
 
             return null;
         }
@@ -45,6 +46,8 @@ public partial class Avatar
 
         if (Color != null)
             yield return $"color-{Color.ToString().Camelize()}";
+        else if (AutoColor)
+            yield return $"color-{GetAutomaticColor().ToString().Camelize()}";
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -53,5 +56,40 @@ public partial class Avatar
             Popover.SetTrigger(this);
 
         base.OnAfterRender(firstRender);
+    }
+
+    private string? GetInitials()
+    {
+        if (!string.IsNullOrEmpty(Initials))
+            return Initials;
+
+        if (!string.IsNullOrEmpty(Name))
+            return string.Concat(Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => x[0]));
+
+        return null;
+    }
+
+    private string GetDisplayInitials(string initials)
+    {
+        if (InitialsSeperator == null)
+            return initials;
+
+        return string.Join(InitialsSeperator, initials.ToArray());
+    }
+
+    private ColorPalette GetAutomaticColor()
+    {
+        var initials = GetInitials();
+        if (initials != null)
+        {
+            var number = Encoding.Unicode.GetBytes(initials).Sum(b => b);
+            var nColors = Enum.GetValues<ColorPalette>().Count();
+
+            var color = (int)(number % nColors);
+
+            return (ColorPalette)color;
+        }
+
+        return ColorPalette.Brand;
     }
 }

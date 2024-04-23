@@ -2,9 +2,9 @@
 @namespace Bluent.UI.Components
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
-    @if (!string.IsNullOrEmpty(DisplayInitial))
+    @if (!string.IsNullOrEmpty(DisplayInitials))
     {
-        <span class="initials">@DisplayInitial</span>
+        <span class="initials">@DisplayInitials</span>
     }
     @if (!string.IsNullOrEmpty(Icon))
     {
