@@ -2,9 +2,9 @@
 @namespace Bluent.UI.Components
 
 <li @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
-     @onclick:stopPropagation="true"
-     @onmouseenter:stopPropagation="true"
-     @onmouseleave:stopPropagation="true">
+    @onclick:stopPropagation="true"
+    @onmouseenter:stopPropagation="true"
+    @onmouseleave:stopPropagation="true">
     <div class="layout" @onclick="ItemClickHandler" @onmouseenter="MouseEnterHandler" @onmouseleave="MouseLeaveHandler">
         <div class="expander" @onclick:stopPropagation="true">
             @if (HasSubItems)
@@ -16,9 +16,14 @@
         @if (Tree.CheckboxMode != TreeCheckboxMode.None)
         {
             <div class="check-wrapper" @onclick:stopPropagation="true">
-                @if (_mouseEntered || IsChecked != false)
+                @if (_mouseEntered || IsChecked != false || DisableCheckBox)
                 {
-                    <Checkbox TValue=bool? Value="IsChecked" ValueChanged="CheckboxCheckedHandler" ValueExpression="()=>IsChecked" Circular="Tree.CircularCheckboxes" />
+                    <Checkbox TValue=bool?
+                              Value="IsChecked"
+                              ValueChanged="CheckboxCheckedHandler"
+                              ValueExpression="()=>IsChecked"
+                              Circular="Tree.CircularCheckboxes"
+                              disabled="@DisableCheckBox" />
                 }
             </div>
         }
