@@ -12,7 +12,6 @@
     color: var(--colorNeutralForeground1);
     font-family: var(--fontFamilyBase);
     text-decoration: none;
-    cursor: default;
 
     > .header {
         display: flex;
@@ -37,6 +36,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            user-select: none;
 
             > .title {
                 color: var(--colorNeutralForeground1);
