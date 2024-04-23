@@ -6,9 +6,13 @@ public partial class Tree
 {
     private List<TreeItem> _items = new();
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public TreeCheckboxMode CheckboxMode { get; set; } = TreeCheckboxMode.None;
+    [Parameter] public bool CircularCheckboxes { get; set; }
+    [Parameter] public bool ToggleSubItemsOnClick { get; set; } = true;
+    [Parameter] public bool ToggleCheckStateOnClick { get; set; }
     [Parameter] public EventCallback<TreeItem> OnClick { get; set; }
 
-    //internal bool ChildrenHaveSubItems => _items.Any(i => i.HaveSubItems);
+    public IReadOnlyList<TreeItem> Items => _items;
 
     public override IEnumerable<string> GetClasses()
     {

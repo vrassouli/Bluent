@@ -2,14 +2,26 @@
 @namespace Bluent.UI.Components
 
 <li @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
-    @onclick="ClickHandler" @onclick:stopPropagation="true">
-    <div class="layout">
-        <div class="expander">
+     @onclick:stopPropagation="true"
+     @onmouseenter:stopPropagation="true"
+     @onmouseleave:stopPropagation="true">
+    <div class="layout" @onclick="ItemClickHandler" @onmouseenter="MouseEnterHandler" @onmouseleave="MouseLeaveHandler">
+        <div class="expander" @onclick:stopPropagation="true">
             @if (HasSubItems)
             {
-                <i class="icon icon-ic_fluent_chevron_right_20_regular"></i>
+                <i @onclick="ExpanderClickHandler" class="icon icon-ic_fluent_chevron_right_20_regular"></i>
             }
         </div>
+
+        @if (Tree.CheckboxMode != TreeCheckboxMode.None)
+        {
+            <div class="check-wrapper" @onclick:stopPropagation="true">
+                @if (_mouseEntered || IsChecked != false)
+                {
+                    <Checkbox TValue=bool? Value="IsChecked" ValueChanged="CheckboxCheckedHandler" ValueExpression="()=>IsChecked" Circular="Tree.CircularCheckboxes" />
+                }
+            </div>
+        }
 
         @if (!string.IsNullOrEmpty(Icon))
         {
