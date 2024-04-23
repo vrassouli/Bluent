@@ -40,6 +40,9 @@
                     color: var(--colorNeutralForeground3);
                     flex: 0 0 auto;
                     padding: var(--spacingVerticalXS) 0;
+                    transition-property: transform;
+                    transition-duration: var(--durationSlower);
+                    transition-timing-function: var(--curveDecelerateMid);
 
                     > .icon {
                         line-height: 0;
@@ -81,7 +84,7 @@
             &.expanded {
                 > .layout {
                     > .expander {
-                        transform: rotate(90deg);
+                        transform: rotate(90deg) !important;
                     }
 
                     > .expanded-icon {
@@ -96,6 +99,21 @@
                 > .item-group {
                     display: block;
                 }
+            }
+        }
+    }
+}
+
+.rtl, [dir="rtl"] {
+    .bui-tree {
+        .item-group {
+            > .item {
+                > .layout {
+                    > .expander {
+                        transform: rotate(180deg);
+                    }
+                }
+
             }
         }
     }
