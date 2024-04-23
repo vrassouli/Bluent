@@ -11,6 +11,6 @@ public interface IDialogService
     Task<dynamic?> ShowAsync<TContentComponent>(string title,
                                                 IDictionary<string, object?>? parameters = null,
                                                 Action<DialogConfigurator>? builder = null) where TContentComponent : ComponentBase;
-    Task<MessageBoxResult> ShowMessageBox(string title, string message);
-    Task<MessageBoxResult> ShowMessageBox(string title, string message, MessageBoxButton buttons, MessageBoxButton? primaryButton = null);
+    Task<MessageBoxResult> ShowMessageBoxAsync(string title, string message);
+    Task<MessageBoxResult> ShowMessageBoxAsync(string title, string message, MessageBoxButton buttons, MessageBoxButton? primaryButton = null);
 }

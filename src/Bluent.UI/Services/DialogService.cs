@@ -52,12 +52,12 @@ internal class DialogService : IDialogService
         return ShowAsync(content, config);
     }
 
-    public Task<MessageBoxResult> ShowMessageBox(string title, string message)
+    public Task<MessageBoxResult> ShowMessageBoxAsync(string title, string message)
     {
-        return ShowMessageBox(title, message, MessageBoxButton.Ok);
+        return ShowMessageBoxAsync(title, message, MessageBoxButton.Ok);
     }
 
-    public async Task<MessageBoxResult> ShowMessageBox(string title, string message, MessageBoxButton buttons, MessageBoxButton? primaryButton = null)
+    public async Task<MessageBoxResult> ShowMessageBoxAsync(string title, string message, MessageBoxButton buttons, MessageBoxButton? primaryButton = null)
     {
         var content = GetContentFragment<MessageBoxDefaultContent>(title,
             new Dictionary<string, object?>

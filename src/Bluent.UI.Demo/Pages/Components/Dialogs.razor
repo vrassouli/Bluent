@@ -95,12 +95,12 @@
 
     private async Task OnDefaultMessageBox()
     {
-        await DialogService.ShowMessageBox("Message title", "This is a message box with default 'Ok' button.");
+        await DialogService.ShowMessageBoxAsync("Message title", "This is a message box with default 'Ok' button.");
     }
 
     private async Task OnMessageBoxWithAction(MessageBoxButton buttons, MessageBoxButton? defaultButton = null)
     {
-        var result = await DialogService.ShowMessageBox("Message title",
+        var result = await DialogService.ShowMessageBoxAsync("Message title",
             "This is a message box with some action.",
             buttons,
             defaultButton);
