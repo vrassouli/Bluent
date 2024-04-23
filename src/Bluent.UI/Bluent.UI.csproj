@@ -60,12 +60,21 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Calendar.resx</DependentUpon>
         </Compile>
+        <Compile Update="Components\DialogComponent\Resources\MessageBox.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>MessageBox.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
         <EmbeddedResource Update="Components\CalendarComponent\Resources\Calendar.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Calendar.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Components\DialogComponent\Resources\MessageBox.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>MessageBox.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
 

@@ -35,6 +35,14 @@
             <Button Text="Large dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.Large); }" />
             <Button Text="Full-width dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.FullWidth); }" />
         </section>
+
+        <h3>Message boxes</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Default" OnClick="OnDefaultMessageBox" />
+            <Button Text="Yes/No" OnClick="()=>OnMessageBoxWithAction(MessageBoxButton.Yes | MessageBoxButton.No)" />
+            <Button Text="Yes/Cancel/Abord" OnClick="()=>OnMessageBoxWithAction(MessageBoxButton.Yes | MessageBoxButton.Cancel | MessageBoxButton.Abort)" />
+            <Button Text="Yes/Cancel/Abord with Abort as Primary" OnClick="()=>OnMessageBoxWithAction(MessageBoxButton.Yes | MessageBoxButton.Cancel | MessageBoxButton.Abort, MessageBoxButton.Abort)" />
+        </section>
     </div>
 </div>
 
@@ -83,5 +91,20 @@
     private void DisplaySizedDialog(DialogSize size)
     {
         DialogService.ShowAsync<SampleDialogContent>("Dialog title", null, config => config.SetSize(size));
+    }
+
+    private async Task OnDefaultMessageBox()
+    {
+        await DialogService.ShowMessageBox("Message title", "This is a message box with default 'Ok' button.");
+    }
+
+    private async Task OnMessageBoxWithAction(MessageBoxButton buttons, MessageBoxButton? defaultButton = null)
+    {
+        var result = await DialogService.ShowMessageBox("Message title",
+            "This is a message box with some action.",
+            buttons,
+            defaultButton);
+
+        _ = ToastService.ShowAsync("Message box closed.", c => c.SetMessage($"You have selected '{result}' button."));
     }
 }
