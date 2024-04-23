@@ -11,11 +11,13 @@ public partial class TreeItem
 {
     private List<TreeItem> _items = new();
     private bool _mouseEntered;
+    private bool? _isChecked;
 
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Icon { get; set; } = default!;
     [Parameter] public string? ExpandedIcon { get; set; } = default!;
     [Parameter] public bool Expanded { get; set; } = default!;
+    [Parameter] public bool DisableCheckBox { get; set; }
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; } = default!;
     [Parameter] public bool? IsChecked { get; set; } = false;
     [Parameter] public EventCallback<bool?> IsCheckedChanged { get; set; } = default!;
@@ -26,20 +28,6 @@ public partial class TreeItem
     public IReadOnlyList<TreeItem> Items => _items;
 
     internal bool HasSubItems => _items.Any();
-    //private bool ShouldRenderExpander
-    //{
-    //    get
-    //    {
-    //        if (HaveSubItems)
-    //            return true;
-    //        else if (ParentItem != null)
-    //            return ParentItem.ChildrenHaveSubItems;
-    //        else
-    //            return Tree.ChildrenHaveSubItems;
-    //    }
-    //}
-
-    //private bool ChildrenHaveSubItems => _items.Any(i => i.HaveSubItems);
 
     protected override void OnInitialized()
     {
@@ -52,6 +40,17 @@ public partial class TreeItem
             Tree.Add(this);
 
         base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if(_isChecked != IsChecked)
+        {
+            _isChecked = IsChecked;
+            CheckboxCheckedHandler(_isChecked);
+        }
+
+        base.OnParametersSet();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -83,13 +82,11 @@ public partial class TreeItem
     private void Add(TreeItem item)
     {
         _items.Add(item);
-        //StateHasChanged();
     }
 
     private void Remove(TreeItem item)
     {
         _items.Remove(item);
-        //StateHasChanged();
     }
 
     private void ItemClickHandler()
@@ -166,8 +163,11 @@ public partial class TreeItem
 
     private void SetCheckState(bool? value)
     {
-        IsChecked = value;
-        IsCheckedChanged.InvokeAsync(IsChecked);
-        StateHasChanged();
+        if (!DisableCheckBox)
+        {
+            _isChecked = IsChecked = value;
+            IsCheckedChanged.InvokeAsync(IsChecked);
+            StateHasChanged();
+        }
     }
 }

@@ -317,8 +317,48 @@
                 <TreeItem Title="Item 4" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
             </Tree>
         </section>
+
+        <h3>Items without check box</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Tree CheckboxMode="TreeCheckboxMode.Cascade">
+                <TreeItem Title="Item 1" DisableCheckBox="true" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                    <TreeItem Title="Item 1.1" />
+                    <TreeItem Title="Item 1.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                        <TreeItem Title="Item 1.2.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 1.2.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                    </TreeItem>
+                    <TreeItem Title="Item 1.3" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                </TreeItem>
+                <TreeItem Title="Item 2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                    <TreeItem Title="Item 2.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                        <TreeItem Title="Item 2.1.1" @bind-IsChecked=_checked_2_1_1 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 2.1.2" @bind-IsChecked=_checked_2_1_2 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                    </TreeItem>
+                    <TreeItem Title="Item 2.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                        <TreeItem Title="Item 2.2.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 2.2.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                    </TreeItem>
+                    <TreeItem Title="Item 2.3" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                        <TreeItem Title="Item 2.3.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 2.3.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                    </TreeItem>
+                </TreeItem>
+                <TreeItem Title="Item 3" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                    <TreeItem Title="Item 3.1" @bind-IsChecked=_checked_3_1 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                        <TreeItem Title="Item 3.1.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 3.1.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                    </TreeItem>
+                    <TreeItem Title="Item 3.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                    <TreeItem Title="Item 3.3" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                </TreeItem>
+                <TreeItem Title="Item 4" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+            </Tree>
+        </section>
     </div>
 </div>
 
 @code {
+    bool? _checked_2_1_1 = true;
+    bool? _checked_2_1_2 = true;
+    bool? _checked_3_1 = true;
 }
