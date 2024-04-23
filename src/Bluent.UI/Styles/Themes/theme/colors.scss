@@ -1,0 +1,29 @@
+@use "sass:map";
+@import "shared/statusSharedColorNames.scss";
+@import "shared/personaSharedColorNames.scss";
+
+@mixin colors {
+    @each $colorName in $statusSharedColorNames {
+        .color-#{$colorName} {
+            background-color: var(--colorPalette#{capitalize($colorName)}Background2) !important;
+            color: var(--colorPalette#{capitalize($colorName)}Foreground2) !important;
+        }
+    }
+
+    @each $colorName in $personaSharedColorNames {
+        .color-#{$colorName} {
+            background-color: var(--colorPalette#{capitalize($colorName)}Background2) !important;
+            color: var(--colorPalette#{capitalize($colorName)}Foreground2) !important;
+        }
+    }
+
+    .color-neutral {
+        background-color: var(--colorNeutralBackground2) !important;
+        color: var(--colorNeutralForeground2) !important;
+    }
+
+    .color-brand {
+        background-color: var(--colorBrandBackground2) !important;
+        color: var(--colorBrandForeground2) !important;
+    }
+}

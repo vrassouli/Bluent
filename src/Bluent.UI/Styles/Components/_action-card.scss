@@ -12,6 +12,7 @@
     color: var(--colorNeutralForeground1);
     font-family: var(--fontFamilyBase);
     text-decoration: none;
+    cursor: default;
 
     > .header {
         display: flex;
@@ -105,6 +106,14 @@
         > .header {
             > .nav-icon {
                 transform: rotate(180deg);
+            }
+        }
+
+        &.expanded {
+            > .header {
+                > .expand-icon {
+                    transform: rotate(180deg);
+                }
             }
         }
     }

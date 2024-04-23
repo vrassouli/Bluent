@@ -1,0 +1,102 @@
+﻿.bui-tree {
+    --tree-item-level: 1;
+    --tree-item-group-indent: var(--spacingHorizontalXXL);
+    --tree-item-line-height: var(--lineHeightBase300);
+    --tree-item-font-size: var(--fontSizeBase300);
+    --tree-item-min-height: 32px;
+
+    .item-group {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--spacingVerticalXXS);
+
+        > .item {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background-color: var(--colorSubtleBackground);
+            color: var(--colorNeutralForeground2);
+
+            > .layout {
+                line-height: var(--tree-item-line-height);
+                font-size: var(--tree-item-font-size);
+                min-height: var(--tree-item-min-height);
+                font-weight: var(--fontWeightRegular);
+                display: flex;
+                align-items: center;
+                font-family: var(--fontFamilyBase);
+
+                > .expander {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 24px;
+                    box-sizing: border-box;
+                    color: var(--colorNeutralForeground3);
+                    flex: 0 0 auto;
+                    padding: var(--spacingVerticalXS) 0;
+
+                    > .icon {
+                        line-height: 0;
+                    }
+                }
+
+                > .check-wrapper {
+                    width: 32px;
+                    height: 32px;
+                }
+
+                > .icon, > .expanded-icon {
+                    font-size: 20px;
+                    height: 20px;
+                    width: 20px;
+                    margin-inline-end: var(--spacingHorizontalXS);
+                }
+
+                > .expanded-icon {
+                    display: none;
+                }
+
+                &:hover {
+                    color: var(--colorNeutralForeground2Hover);
+                    background-color: var(--colorSubtleBackgroundHover);
+
+                    &:active {
+                        color: var(--colorNeutralForeground2Pressed);
+                        background-color: var(--colorSubtleBackgroundPressed);
+                    }
+                }
+            }
+
+            > .item-group {
+                padding-inline-start: var(--tree-item-group-indent);
+                display: none;
+            }
+
+            &.expanded {
+                > .layout {
+                    > .expander {
+                        transform: rotate(90deg);
+                    }
+
+                    > .expanded-icon {
+                        display: block;
+
+                        & + .icon {
+                            display: none;
+                        }
+                    }
+                }
+
+                > .item-group {
+                    display: block;
+                }
+            }
+        }
+    }
+}
