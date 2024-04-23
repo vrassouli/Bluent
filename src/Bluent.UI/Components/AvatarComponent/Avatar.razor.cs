@@ -16,18 +16,19 @@ public partial class Avatar
     [Parameter] public string? Icon { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public AvatarSize Size { get; set; } = AvatarSize.Size32;
+    [Parameter] public ColorPalette? Color { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
 
     private string? DisplayInitial
     {
         get
         {
-            if(!string.IsNullOrEmpty(Initials))
+            if (!string.IsNullOrEmpty(Initials))
                 return Initials;
 
-            if(!string.IsNullOrEmpty(Name)) 
+            if (!string.IsNullOrEmpty(Name))
                 return string.Concat(Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => x[0]));
-            
+
             return null;
         }
     }
@@ -41,6 +42,9 @@ public partial class Avatar
 
         if (Popover != null || OnClick.HasDelegate)
             yield return "active";
+
+        if (Color != null)
+            yield return $"color-{Color.ToString().Camelize()}";
     }
 
     protected override void OnAfterRender(bool firstRender)

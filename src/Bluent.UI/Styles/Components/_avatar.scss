@@ -9,10 +9,12 @@
     font-size: var(--fontSizeBase300);
     width: 32px;
     height: 32px;
-
-    > .initials, > .image, > .icon {
         background-color: var(--colorNeutralBackground6);
         color: var(--colorNeutralForeground3);
+
+    > .initials, > .image, > .icon {
+        background-color: inherit;
+        color: inherit;
         position: absolute;
         box-sizing: border-box;
         top: 0px;

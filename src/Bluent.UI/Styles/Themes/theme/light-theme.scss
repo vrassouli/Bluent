@@ -8,6 +8,7 @@
 @import "vertical-spacings.scss";
 @import "durations.scss";
 @import "curves.scss";
+@import "colors.scss";
 @import "light/brand-palette.scss";
 @import "light/color-palette.scss";
 @import "light/status-color-palette.scss";
@@ -24,6 +25,7 @@
     @include vertical-spacings;
     @include durations;
     @include curves;
+    @include colors;
 
     @include brand-palette($brand);
     @include color-palette;
