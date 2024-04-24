@@ -15,11 +15,13 @@
 
         @if (Tree.CheckboxMode != TreeCheckboxMode.None)
         {
+            var checkState = GetCheckState();
+
             <div class="check-wrapper" @onclick:stopPropagation="true">
-                @if (_mouseEntered || IsChecked != false || DisableCheckBox)
+                @if (_mouseEntered || checkState != false || DisableCheckBox)
                 {
                     <Checkbox TValue=bool?
-                              Value="IsChecked"
+                              Value="checkState"
                               ValueChanged="CheckboxCheckedHandler"
                               ValueExpression="()=>IsChecked"
                               Circular="Tree.CircularCheckboxes"

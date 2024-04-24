@@ -11,7 +11,6 @@ public partial class TreeItem
 {
     private List<TreeItem> _items = new();
     private bool _mouseEntered;
-    private bool? _isChecked;
 
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Icon { get; set; } = default!;
@@ -44,11 +43,6 @@ public partial class TreeItem
 
     protected override async Task OnParametersSetAsync()
     {
-        if (_isChecked != IsChecked)
-        {
-            _isChecked = IsChecked;
-            await CheckboxCheckedHandler(_isChecked);
-        }
         await base.OnParametersSetAsync();
     }
 
@@ -81,11 +75,13 @@ public partial class TreeItem
     private void Add(TreeItem item)
     {
         _items.Add(item);
+        StateHasChanged();
     }
 
     private void Remove(TreeItem item)
     {
         _items.Remove(item);
+        StateHasChanged();
     }
 
     private async Task ItemClickHandler()
@@ -109,6 +105,7 @@ public partial class TreeItem
     }
 
     private void MouseEnterHandler() => _mouseEntered = true;
+
     private void MouseLeaveHandler() => _mouseEntered = false;
 
     private async Task CheckboxCheckedHandler(bool? value)
@@ -151,6 +148,39 @@ public partial class TreeItem
         ParentItem?.CascadeUpCheckState();
     }
 
+    private bool? GetCheckState()
+    {
+        if (IsChecked == true)
+            return true;
+
+        var mode = Tree.CheckboxMode;
+        if (mode == TreeCheckboxMode.Independent)
+            return IsChecked;
+
+        if (_items.Any() && (mode == TreeCheckboxMode.Cascade || mode == TreeCheckboxMode.CascadeUp))
+        {
+            var allChecked = _items.All(i => i.GetCheckState() == true);
+            if (allChecked)
+                return true;
+
+            var allUnchecked = _items.All(i => i.GetCheckState() == false);
+            if (allUnchecked)
+                return false;
+
+            return null;
+        }
+        if (ParentItem != null && (mode == TreeCheckboxMode.Cascade || mode == TreeCheckboxMode.CascadeDown))
+        {
+            if (ParentItem.IsChecked == true)
+                return true;
+
+            if (ParentItem.IsChecked == false)
+                return false;
+        }
+
+        return false;
+    }
+
     private async Task CascadeDownCheckState(bool isChecked)
     {
         foreach (var item in _items)
@@ -164,7 +194,6 @@ public partial class TreeItem
     {
         if (!DisableCheckBox)
         {
-            _isChecked = IsChecked = value;
             await IsCheckedChanged.InvokeAsync(IsChecked);
             StateHasChanged();
         }
