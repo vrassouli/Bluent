@@ -13,6 +13,7 @@ public partial class ActionCard
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public bool IsExpanded { get; set; }
     [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public string? Icon { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
@@ -20,7 +21,7 @@ public partial class ActionCard
 
     private bool IsExpandable => ChildContent != null;
     private bool IsLink => !string.IsNullOrEmpty(Href);
-    private bool IsActive => ChildContent != null || IsLink;
+    private bool IsActive => ChildContent != null || IsLink || OnClick.HasDelegate;
 
     protected override void OnParametersSet()
     {
@@ -43,6 +44,8 @@ public partial class ActionCard
             IsExpanded = !IsExpanded;
             IsExpandedChanged.InvokeAsync();
         }
+
+        OnClick.InvokeAsync();
     }
 
     private string GetTag()
