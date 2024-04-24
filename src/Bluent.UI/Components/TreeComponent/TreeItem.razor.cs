@@ -192,7 +192,7 @@ public partial class TreeItem
 
     private async Task SetCheckState(bool? value)
     {
-        if (!DisableCheckBox)
+        if (!DisableCheckBox && IsChecked != value)
         {
             IsChecked = value;
             await IsCheckedChanged.InvokeAsync(IsChecked);
