@@ -7,8 +7,9 @@ public partial class AccordionPanel
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter, EditorRequired] public string Header { get; set; } = default!;
     [Parameter] public string HeaderIcon { get; set; } = default!;
-    [Parameter] public AccordionPanelState State { get; set; } = AccordionPanelState.Collapsed;
-    [Parameter] public EventCallback<AccordionPanelState> StateChanged { get; set; }
+    [Parameter] public bool DeferredLoading { get; set; } = default!;
+    [Parameter] public bool Expanded { get; set; }
+    [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
     [CascadingParameter] public Accordion Accordion { get; set; } = default!;
 
     protected override void OnInitialized()
@@ -32,40 +33,40 @@ public partial class AccordionPanel
     {
         yield return "accordion-panel";
 
-        if (State == AccordionPanelState.Expanded)
+        if (Expanded)
             yield return "expanded";
     }
 
     public void Toggle()
     {
-        if (State == AccordionPanelState.Collapsed)
-            Expand();
-        else
+        if (Expanded)
             Collapse();
+        else
+            Expand();
     }
 
     public void Collapse()
     {
-        if (State == AccordionPanelState.Collapsed)
+        if (!Expanded)
             return;
 
         Accordion.OnPanelCollapsing(this);
 
-        State = AccordionPanelState.Collapsed;
-        InvokeAsync(() => StateChanged.InvokeAsync(State));
+        Expanded = false;
+        InvokeAsync(() => ExpandedChanged.InvokeAsync(Expanded));
 
         StateHasChanged();
     }
 
     public void Expand()
     {
-        if (State == AccordionPanelState.Expanded)
+        if (Expanded)
             return;
         
         Accordion.OnPanelExpanding(this);
 
-        State = AccordionPanelState.Expanded;
-        InvokeAsync(() => StateChanged.InvokeAsync(State));
+        Expanded = true;
+        InvokeAsync(() => ExpandedChanged.InvokeAsync(Expanded));
     
         StateHasChanged();
     }

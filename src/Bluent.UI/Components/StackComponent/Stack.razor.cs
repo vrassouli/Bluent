@@ -14,6 +14,8 @@ public partial class Stack
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Parameter] public StackAlignment HorizontalAlignment { get; set; } = StackAlignment.Start;
     [Parameter] public StackAlignment VerticalAlignment { get; set; } = StackAlignment.Start;
+    [Parameter] public bool Fill { get; set; }
+    [Parameter] public StackOverflow Overflow { get; set; } = StackOverflow.Default;
 
     public override IEnumerable<string> GetClasses()
     {
@@ -23,14 +25,20 @@ public partial class Stack
         if (Orientation == Orientation.Horizontal)
         {
             yield return "flex-row";
-            yield return $"justify-content-{HorizontalAlignment}".ToString().Kebaberize();
-            yield return $"align-items-{VerticalAlignment}".ToString().Kebaberize();
+            yield return $"justify-content-{HorizontalAlignment.ToString().ToLowerInvariant()}";
+            yield return $"align-items-{VerticalAlignment.ToString().ToLowerInvariant()}";
         }
         else
         {
             yield return "flex-column";
-            yield return $"justify-content-{VerticalAlignment}".ToString().Kebaberize();
-            yield return $"align-items-{HorizontalAlignment}".ToString().Kebaberize();
+            yield return $"justify-content-{VerticalAlignment.ToString().ToLowerInvariant()}";
+            yield return $"align-items-{HorizontalAlignment.ToString().ToLowerInvariant()}";
         }
+
+        if (Fill)
+            yield return "flex-fill";
+
+        if (Overflow != StackOverflow.Default)
+            yield return $"overflow-{Overflow.ToString().ToLowerInvariant()}";
     }
 }

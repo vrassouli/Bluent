@@ -12,9 +12,12 @@
         }
         <div class="title">@Header</div>
     </div>
-    <div class="panel">
-        <CascadingValue Value="this" IsFixed>
-            @ChildContent
-        </CascadingValue>
-    </div>
+    @if (!DeferredLoading || Expanded)
+    {
+        <div class="panel">
+            <CascadingValue Value="this" IsFixed>
+                @ChildContent
+            </CascadingValue>
+        </div>
+    }
 </div>

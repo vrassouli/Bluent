@@ -74,6 +74,59 @@
             </ActionCard>
         </section>
 
+        <h3>Expandable (Deferred Loading)</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+                        Title="Regional format"
+                        Description="Windows and some apps format dates and times based on your regional format"
+                        DeferredLoading>
+                <HeaderContent>
+                    <SelectField @bind-Value="_selectedCulture" Style="width: 100px">
+                        @foreach (var culture in _cultures)
+                        {
+                            <option value="@culture.Name">@culture.DisplayName</option>
+                        }
+                    </SelectField>
+                </HeaderContent>
+                <ChildContent>
+                    <table class="m-5 " cellpadding="5px">
+                        <tr>
+                            <td class="caption1Stronger">Regional Format:</td>
+                            <td class="caption1">@SelectedCulture.Name</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">Calendar:</td>
+                            <td class="caption1">@SelectedCulture.Calendar.GetType().Name</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">First day of week:</td>
+                            <td class="caption1">@SelectedCulture.DateTimeFormat.FirstDayOfWeek</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">Short date:</td>
+                            <td class="caption1">@DateTime.Today.ToString(SelectedCulture.DateTimeFormat.ShortDatePattern)</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">Long date:</td>
+                            <td class="caption1">@DateTime.Today.ToString(SelectedCulture.DateTimeFormat.LongDatePattern)</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">Short time:</td>
+                            <td class="caption1">@DateTime.Now.ToString(SelectedCulture.DateTimeFormat.ShortTimePattern)</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">Long time:</td>
+                            <td class="caption1">@DateTime.Now.ToString(SelectedCulture.DateTimeFormat.LongTimePattern)</td>
+                        </tr>
+                        <tr>
+                            <td class="caption1Stronger">Standard digits:</td>
+                            <td class="caption1">@((1234567890).ToString(SelectedCulture))</td>
+                        </tr>
+                    </table>
+                </ChildContent>
+            </ActionCard>
+        </section>
+
         <h3>Link</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
