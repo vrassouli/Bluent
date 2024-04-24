@@ -59,13 +59,13 @@
 
 @each $sharedColorName in $personaSharedColorNames {
     $colorPaletteMap: map.get($persona-shared-colors-map, $sharedColorName);
-    .bg-#{$sharedColorName} {
+    .bg-#{$sharedColorName}-2 {
         background-color: var(--colorPalette#{capitalize($sharedColorName)}Background2) !important;
     }
-    .color-#{$sharedColorName} {
+    .color-#{$sharedColorName}-2 {
         color: var(--colorPalette#{capitalize($sharedColorName)}Foreground2) !important;
     }
-    .border-#{$sharedColorName} {
+    .border-#{$sharedColorName}-2 {
         border-color: var(--colorPalette#{capitalize($sharedColorName)}BorderActive) !important;
     }
 }
