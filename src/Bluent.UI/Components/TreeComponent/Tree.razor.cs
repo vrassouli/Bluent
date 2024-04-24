@@ -14,6 +14,14 @@ public partial class Tree
 
     public IReadOnlyList<TreeItem> Items => _items;
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            StateHasChanged();
+
+        base.OnAfterRender(firstRender);
+    }
+
     public override IEnumerable<string> GetClasses()
     {
         yield return "bui-tree";
