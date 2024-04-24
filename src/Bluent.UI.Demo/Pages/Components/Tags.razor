@@ -1,0 +1,33 @@
+﻿@page "/components/tags"
+@using Bluent.UI.Services.Abstractions
+<PageTitle>Tags</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Tags</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Tag Title="Tag 1" />
+        </section>
+
+        <h3>Icon</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Tag Title="Tag 1" Icon="icon-ic_fluent_cursor_click_20_regular" />
+        </section>
+
+        <h3>Dismissable</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Tag Title="Tag 1" Dismissable OnDismiss="@(() => _ = Toast.ShowAsync("Dismiss clicked!"))" />
+        </section>
+
+        <h3>Intractive</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Tag Title="Tag 1" Icon="icon-ic_fluent_cursor_click_20_regular" Dismissable OnDismiss="@(() => _ = Toast.ShowAsync("Dismiss clicked!"))" OnClick="@(() => _ = Toast.ShowAsync("Tag clicked!"))" />
+        </section>
+    </div>
+</div>
+
+@code {
+    [Inject] private IToastService Toast { get; set; } = default!;
+}
