@@ -194,6 +194,7 @@ public partial class TreeItem
     {
         if (!DisableCheckBox)
         {
+            IsChecked = value;
             await IsCheckedChanged.InvokeAsync(IsChecked);
             StateHasChanged();
         }
