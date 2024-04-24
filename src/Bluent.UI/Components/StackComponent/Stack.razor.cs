@@ -24,15 +24,20 @@ public partial class Stack
 
         if (Orientation == Orientation.Horizontal)
         {
-            yield return "flex-row";
-            yield return $"justify-content-{HorizontalAlignment.ToString().ToLowerInvariant()}";
-            yield return $"align-items-{VerticalAlignment.ToString().ToLowerInvariant()}";
+            //yield return "flex-row";
+            if (HorizontalAlignment != StackAlignment.Stretch)
+                yield return $"justify-content-{HorizontalAlignment.ToString().ToLowerInvariant()}";
+
+            if (VerticalAlignment != StackAlignment.Stretch)
+                yield return $"align-items-{VerticalAlignment.ToString().ToLowerInvariant()}";
         }
         else
         {
             yield return "flex-column";
-            yield return $"justify-content-{VerticalAlignment.ToString().ToLowerInvariant()}";
-            yield return $"align-items-{HorizontalAlignment.ToString().ToLowerInvariant()}";
+            if (VerticalAlignment != StackAlignment.Stretch)
+                yield return $"justify-content-{VerticalAlignment.ToString().ToLowerInvariant()}";
+            if (HorizontalAlignment != StackAlignment.Stretch)
+                yield return $"align-items-{HorizontalAlignment.ToString().ToLowerInvariant()}";
         }
 
         if (Fill)
