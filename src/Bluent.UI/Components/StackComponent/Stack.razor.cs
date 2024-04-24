@@ -12,8 +12,8 @@ public partial class Stack
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
-    [Parameter] public StackAlignment HorizontalAlignment { get; set; } = StackAlignment.Start;
-    [Parameter] public StackAlignment VerticalAlignment { get; set; } = StackAlignment.Start;
+    [Parameter] public StackAlignment HorizontalAlignment { get; set; } = StackAlignment.Stretch;
+    [Parameter] public StackAlignment VerticalAlignment { get; set; } = StackAlignment.Stretch;
     [Parameter] public bool Fill { get; set; }
     [Parameter] public StackOverflow Overflow { get; set; } = StackOverflow.Default;
 
