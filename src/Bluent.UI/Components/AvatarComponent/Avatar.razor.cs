@@ -45,9 +45,16 @@ public partial class Avatar
             yield return "active";
 
         if (Color != null)
-            yield return $"color-{Color.ToString().Camelize()}";
+        {
+            yield return $"color-{Color.ToString().Camelize()}-2";
+            yield return $"color-bg-{Color.ToString().Camelize()}-2";
+        }
         else if (AutoColor)
-            yield return $"color-{GetAutomaticColor().ToString().Camelize()}";
+        {
+            var color = GetAutomaticColor();
+            yield return $"color-{color.ToString().Camelize()}-2";
+            yield return $"color-bg-{color.ToString().Camelize()}-2";
+        }
     }
 
     protected override void OnAfterRender(bool firstRender)
