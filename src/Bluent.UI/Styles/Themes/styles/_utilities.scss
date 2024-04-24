@@ -1,8 +1,10 @@
 ﻿@import "../theme/maps/spacings.scss";
 @import "../theme/maps/font-sizes.scss";
 @import "../theme/maps/border-radius.scss";
+@import "../theme/maps/stroke-widths.scss";
 @import "../../functions/maps.scss";
 
+$border-widths: to-index-map($stroke-widths-map);
 $border-radius: map-merge(to-index-map($border-radius-map), (5: 10px, circle: 50%, pill: 50rem, circular: 10000px));
 $spaces: to-index-map($spacings-map);
 $margins: map-merge($spaces, (auto: auto));
@@ -266,6 +268,76 @@ $important-utilities: map-merge(
             values: (break: break-word),
             rtl: false
         ),
+        // Borders
+        "border": (
+            property: border,
+            values: (
+                null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                0: 0,
+            )
+        ),
+        "border-top": (
+            property: border-top,
+            values: (
+                null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                0: 0,
+            )
+        ),
+        "border-end": (
+            property: border-inline-end,
+            class: border-end,
+            values: (
+                null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                0: 0,
+            )
+        ),
+        "border-bottom": (
+            property: border-bottom,
+            values: (
+                null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                0: 0,
+            )
+        ),
+        "border-start": (
+            property: border-inline-start,
+            class: border-start,
+            values: (
+                null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                0: 0,
+            )
+        ),
+/*
+        "border-color": (
+            property: border-color,
+            class: border,
+            local-vars: (
+                "border-opacity": 1
+            ),
+            values: $utilities-border-colors
+        ),
+        "subtle-border-color": (
+            property: border-color,
+            class: border,
+            values: $utilities-border-subtle
+        ),
+*/
+        "border-width": (
+            property: border-width,
+            class: border,
+            values: $border-widths
+        ),
+        "border-opacity": (
+            css-var: true,
+            class: border-opacity,
+            values: (
+            10: .1,
+            25: .25,
+            50: .5,
+            75: .75,
+            100: 1
+            )
+        ),
+
         // Border - Rounded
         "rounded": (
             property: border-radius,
