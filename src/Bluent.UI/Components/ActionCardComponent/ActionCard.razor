@@ -40,7 +40,7 @@
             <Icon Class="icon nav-icon" Content="icon-ic_fluent_chevron_right_20_regular" />
         }
     </div>
-    @if (ChildContent != null)
+    @if (ChildContent != null && (!DeferredLoading || IsExpanded))
     {
         <div class="panel">
             <div class="panel-inner">

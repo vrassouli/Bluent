@@ -32,6 +32,6 @@ public partial class Accordion
     internal void OnPanelExpanding(AccordionPanel panel)
     {
         if (!Multiple)
-            _panels.FirstOrDefault(x => x.State == AccordionPanelState.Expanded)?.Collapse();
+            _panels.FirstOrDefault(x => x.Expanded)?.Collapse();
     }
 }

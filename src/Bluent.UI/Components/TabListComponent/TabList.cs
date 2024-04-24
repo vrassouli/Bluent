@@ -63,13 +63,21 @@ public class TabList : Overflow
             builder.OpenElement(8, "div");
             builder.AddAttribute(9, "class", "panels");
 
+            var index = 0;
             foreach (var tabItem in _tabs.Where(tab => tab.ChildContent != null))
             {
-                builder.OpenElement(10, "div");
-                builder.SetKey(tabItem);
-                builder.AddAttribute(11, "class", $"tab-panel {(SelectedTab == tabItem ? "selected" : "")}");
-                builder.AddContent(12, tabItem.ChildContent);
-                builder.CloseElement();
+                var isSelected = SelectedTab == tabItem;
+
+                if (!tabItem.DeferredLoading || isSelected)
+                {
+                    builder.OpenElement(10 + index, "div");
+                    builder.SetKey(tabItem);
+                    builder.AddAttribute(11 + index, "class", $"tab-panel {(isSelected ? "selected" : "")}");
+                    builder.AddContent(12 + index, tabItem.ChildContent);
+                    builder.CloseElement();
+                }
+
+                index++;
             }
 
             builder.CloseElement();
@@ -173,6 +181,7 @@ public class TabList : Overflow
             builder.AddAttribute(4, nameof(TabListTabItem.ChildContent), tab.ChildContent);
             builder.AddAttribute(5, nameof(TabListTabItem.Orientation), tab.Orientation);
             builder.AddAttribute(5, nameof(TabListTabItem.Data), tab.Data);
+            builder.AddAttribute(5, nameof(TabListTabItem.DeferredLoading), tab.DeferredLoading);
             builder.AddAttribute(5, nameof(TabListTabItem.OnClick), tab.OnClick);
             builder.AddAttribute(6, nameof(TabListTabItem.Tooltip), tab.Tooltip);
             builder.AddAttribute(7, nameof(TabListTabItem.Class), tab.Class);
