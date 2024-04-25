@@ -8,10 +8,10 @@
     --tag-dismiss-size: 32px;
     --tag-dismiss-font-size: 20px;
     height: var(--tag-height);
-    border-radius: var(--borderRadiusMedium);
     display: inline-flex;
     align-items: center;
     width: fit-content;
+    border-radius: var(--borderRadiusMedium);
 
     > .content {
         padding: 0 var(--tag-space);
@@ -24,7 +24,6 @@
         display: inline-flex;
         align-items: center;
         border: var(--strokeWidthThin) solid var(--colorTransparentStroke);
-        border-radius: var(--borderRadiusMedium);
 
         > .icon {
             width: var(--tag-icon-size);
@@ -44,6 +43,16 @@
             font-size: var(--fontSizeBase300);
             white-space: nowrap;
             font-family: var(--fontFamilyBase);
+        }
+
+        &:first-child {
+            border-top-left-radius: var(--borderRadiusMedium);
+            border-bottom-left-radius: var(--borderRadiusMedium);
+        }
+
+        &:last-child {
+            border-top-right-radius: var(--borderRadiusMedium);
+            border-bottom-right-radius: var(--borderRadiusMedium);
         }
     }
 
@@ -68,10 +77,10 @@
         justify-content: center;
         color: var(--colorNeutralForeground2);
         background-color: var(--colorNeutralBackground3);
-        border-top-right-radius: var(--borderRadiusMedium);
-        border-bottom-right-radius: var(--borderRadiusMedium);
         border: 0;
         border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+        border-top-right-radius: var(--borderRadiusMedium);
+        border-bottom-right-radius: var(--borderRadiusMedium);
 
         > .icon {
             line-height: 0;
@@ -89,9 +98,27 @@
             }
         }
     }
+}
+.rtl, [dir="rtl"] {
+    .bui-tag {
+        > .content {
+            border-radius:0;
+            &:first-child {
+                border-top-right-radius: var(--borderRadiusMedium);
+                border-bottom-right-radius: var(--borderRadiusMedium);
+            }
 
-    > .dismiss ~ .content {
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0;
+            &:last-child {
+                border-top-left-radius: var(--borderRadiusMedium);
+                border-bottom-left-radius: var(--borderRadiusMedium);
+            }
+        }
+
+        > .dismiss {
+            border-top-right-radius: initial;
+            border-bottom-right-radius: initial;
+            border-top-left-radius: var(--borderRadiusMedium);
+            border-bottom-left-radius: var(--borderRadiusMedium);
+        }
     }
 }
