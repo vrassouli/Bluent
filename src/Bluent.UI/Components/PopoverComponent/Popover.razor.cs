@@ -77,10 +77,15 @@ public partial class Popover : IDisposable
             PopoverService.Close(_settings.TriggerId);
     }
 
-    public void RefreshSurface()
+    public void RefreshSurface(bool updatePosition = false)
     {
         if (_settings is not null)
+        {
             PopoverService.RefreshSurface(_settings.TriggerId);
+
+            if (updatePosition)
+                PopoverService.Show(_settings.TriggerId);
+        }
     }
 
     public void Dispose()

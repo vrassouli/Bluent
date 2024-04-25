@@ -1,8 +1,8 @@
 ﻿namespace Bluent.UI.Services.EventArguments;
 
-internal class HideRefreshSurfaceEventArgs : EventArgs
+internal class RefreshPopoverSurfaceEventArgs : EventArgs
 {
-    public HideRefreshSurfaceEventArgs(string triggerId)
+    public RefreshPopoverSurfaceEventArgs(string triggerId)
     {
         TriggerId = triggerId;
     }

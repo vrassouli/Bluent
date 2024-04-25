@@ -12,7 +12,7 @@ internal class PopoverService : IPopoverService
     public event EventHandler<ShowPopoverSurfaceEventArgs>? OnShowSurface;
     public event EventHandler<DestroyPopoverEventArgs>? OnDestroy;
     public event EventHandler<HidePopoverSurfaceEventArgs>? OnHideSurface;
-    public event EventHandler<HideRefreshSurfaceEventArgs>? OnRefreshSurface;
+    public event EventHandler<RefreshPopoverSurfaceEventArgs>? OnRefreshSurface;
 
     public void SetTrigger(RenderFragment content, PopoverConfiguration config)
     {
@@ -37,6 +37,6 @@ internal class PopoverService : IPopoverService
 
     public void RefreshSurface(string triggerId)
     {
-        OnRefreshSurface?.Invoke(this, new HideRefreshSurfaceEventArgs(triggerId));
+        OnRefreshSurface?.Invoke(this, new RefreshPopoverSurfaceEventArgs(triggerId));
     }
 }
