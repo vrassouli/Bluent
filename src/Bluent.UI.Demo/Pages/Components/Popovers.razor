@@ -123,12 +123,14 @@
     {
         _popoverCommand = cmd;
 
-        if (string.Compare(_popoverCommand, "show", true) == 0)
+        if (string.Compare(_popoverCommand, "show", true) == 0){
             _manualPopover?.Show();
+            _manualPopover?.RefreshSurface(true);
+        }
         else if (string.Compare(_popoverCommand, "close", true) == 0)
             _manualPopover?.Close();
         else
-            _manualPopover?.RefreshSurface();
+            _manualPopover?.RefreshSurface(true);
 
     }
 }
