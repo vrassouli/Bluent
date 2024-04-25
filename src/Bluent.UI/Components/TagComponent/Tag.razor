@@ -1,0 +1,33 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @if (OnClick.HasDelegate)
+    {
+        <button class="content" @onclick="OnClick">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <span class="icon">
+                    <Icon Content="@Icon" />
+                </span>
+            }
+            <div class="title">@Title</div>
+        </button>
+    }
+    else
+    {
+        <div class="content">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <Icon Content="@Icon" Class="icon" />
+            }
+            <div class="title">@Title</div>
+        </div>
+    }
+    @if (Dismissable)
+    {
+        <button class="dismiss" @onclick=OnDismiss>
+            <i class="icon icon-ic_fluent_dismiss_20_regular" />
+        </button>
+    }
+</div>
