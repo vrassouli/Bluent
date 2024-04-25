@@ -31,14 +31,21 @@ namespace Bluent.UI.Interops
 
         public async ValueTask DisposeAsync()
         {
-            if (_popoverReference != null)
-                await _popoverReference.DisposeAsync();
+            try
+            {
+                if (_popoverReference != null)
+                    await _popoverReference.DisposeAsync();
 
-            if (_module != null)
-                await _module.DisposeAsync();
+                if (_module != null)
+                    await _module.DisposeAsync();
 
-            if (_handlerReference != null)
-                _handlerReference.Dispose();
+                if (_handlerReference != null)
+                    _handlerReference.Dispose();
+            }
+            catch (Exception)
+            {
+                // swallow!
+            }
         }
 
         public async void SetPopover(PopoverSettings settings)

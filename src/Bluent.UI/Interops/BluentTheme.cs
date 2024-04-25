@@ -13,8 +13,15 @@ internal class BluentTheme : IBluentTheme, IAsyncDisposable
     }
     public async ValueTask DisposeAsync()
     {
-        if (_module != null)
-            await _module.DisposeAsync();
+        try
+        {
+            if (_module != null)
+                await _module.DisposeAsync();
+        }
+        catch (Exception)
+        {
+            // swallow
+        }
     }
 
     public async Task<string> GetDirectionAsync()
