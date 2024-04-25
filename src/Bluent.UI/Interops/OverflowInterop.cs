@@ -15,12 +15,18 @@ internal class OverflowInterop : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (_overflowReference != null)
-            await _overflowReference.DisposeAsync();
+        try
+        {
+            if (_overflowReference != null)
+                await _overflowReference.DisposeAsync();
 
-        if (_module != null)
-            await _module.DisposeAsync();
-
+            if (_module != null)
+                await _module.DisposeAsync();
+        }
+        catch (Exception)
+        {
+            // swallow
+        }
     }
 
     public async void Init(string id)
