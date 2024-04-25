@@ -1,0 +1,41 @@
+﻿@inherits BluentComponentBase
+@namespace Bluent.UI.Components
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="content">
+        <ol class="steps">
+            @foreach (var step in _steps)
+            {
+                var index = _steps.IndexOf(step);
+
+                <li class="@((index < CurrentStep) ? "visited" : "") @((index == CurrentStep) ? "current" : "") @(NavigateOnStepClick ? "active" : "")" @onclick="()=>StepClickHandler(index)">
+                    <div class="layout">
+                        <div class="icon">@(index + 1)</div>
+                        @if (DisplayStepTitles)
+                        {
+                            <div class="title @(StepTitleClass)">
+                                <div>@step.Title</div>
+                            </div>
+                        }
+                    </div>
+                </li>
+            }
+        </ol>
+        <div class="panels">
+            <CascadingValue Value="this" IsFixed>
+                @ChildContent
+            </CascadingValue>
+        </div>
+    </div>
+    @if (DisplayNavigationButtons)
+    {
+        <div class="nav">
+            <Button Text="@(IsLastStep ? LabelDone : LabelNext)" Appearance="ButtonAppearance.Primary" OnClick="NextHandler" type="@((IsLastStep && SubmitWhenDown) ? "submit" : "button")" />
+            <Button Text="@LabelPrevious" OnClick="PreviousHandler" disabled="@IsFirstStep" />
+            @if (CanCancel)
+            {
+                <Button Text="@LabelCancel" OnClick="CancelHandler" />
+            }
+        </div>
+    }
+</div>
