@@ -28,6 +28,7 @@
 
                 > .layout {
                     display: flex;
+                    align-self: start;
                     align-items: center;
                     gap: var(--wizard-spacing);
 
