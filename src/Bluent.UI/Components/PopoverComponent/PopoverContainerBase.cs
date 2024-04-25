@@ -118,7 +118,7 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
         StateHasChanged();
     }
 
-    private void PopoverOnRefreshSurface(object? sender, HideRefreshSurfaceEventArgs args)
+    private void PopoverOnRefreshSurface(object? sender, RefreshPopoverSurfaceEventArgs args)
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
         if (context?.SurfaceReference != null)
