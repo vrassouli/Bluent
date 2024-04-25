@@ -6,6 +6,7 @@ namespace Bluent.UI.Components;
 public partial class Wizard
 {
     private List<WizardStep> _steps = new();
+    private string _transitionDirection = "forward";
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -80,6 +81,11 @@ public partial class Wizard
 
     private void SetCurrentStep(int index)
     {
+        if (index > CurrentStep)
+            _transitionDirection = "forward";
+        else
+            _transitionDirection = "backward";
+
         CurrentStep = index;
         CurrentStepChanged.InvokeAsync(CurrentStep);
     }

@@ -113,9 +113,25 @@
                     animation-duration: var(--durationFast);
                     animation-timing-function: var(--curveEasyEase);
                     animation-name: hide-scroll;
+                }
+            }
 
-                    > .content {
-                        animation-name: slide-in-right, fade-in;
+            &.forward {
+                > .step {
+                    &.current {
+                        > .content {
+                            animation-name: slide-in-right, fade-in;
+                        }
+                    }
+                }
+            }
+
+            &.backward {
+                > .step {
+                    &.current {
+                        > .content {
+                            animation-name: slide-in-left, fade-in;
+                        }
                     }
                 }
             }
@@ -158,6 +174,34 @@
                             border-inline-start: unset;
                             height: calc(100% - var(--wizard-icon-size));
                             border-top: 1px solid var(--colorNeutralStroke1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.rtl, [dir="rtl"] {
+    .bui-wizard {
+        > .content {
+            > .panels {
+                &.forward {
+                    > .step {
+                        &.current {
+                            > .content {
+                                animation-name: slide-in-left, fade-in;
+                            }
+                        }
+                    }
+                }
+
+                &.backward {
+                    > .step {
+                        &.current {
+                            > .content {
+                                animation-name: slide-in-right, fade-in;
+                            }
                         }
                     }
                 }
