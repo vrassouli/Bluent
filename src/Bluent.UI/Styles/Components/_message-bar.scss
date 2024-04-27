@@ -1,5 +1,4 @@
 ﻿.bui-message-bar {
-    white-space: nowrap;
     display: grid;
     grid-template: "icon body secondaryActions actions" 1fr / auto 1fr auto auto;
     padding: 0 var(--spacingHorizontalM);
