@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Components.IconComponent;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
@@ -57,4 +58,7 @@ public class Icon : BluentComponentBase
             builder.CloseElement();
         }
     }
+
+    public static SvgGenerator FromContent(string content) =>
+        new SvgGenerator().Content(content);
 }
