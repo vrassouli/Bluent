@@ -1,7 +1,7 @@
 ﻿.bui-message-bar {
     display: grid;
     grid-template: "icon body secondaryActions actions" 1fr / auto 1fr auto auto;
-    padding: 0 var(--spacingHorizontalM);
+    padding: var(--spacingVerticalMNudge) var(--spacingHorizontalM);
     border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
     border-radius: var(--borderRadiusMedium);
     align-items: center;
@@ -39,7 +39,6 @@
     }
 
     &.multiline {
-        padding: var(--spacingVerticalMNudge) var(--spacingHorizontalM);
         grid-template-areas:
             "icon body actions" "secondaryActions secondaryActions secondaryActions";
         grid-template-columns: auto 1fr auto;

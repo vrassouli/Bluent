@@ -8,7 +8,6 @@ namespace Bluent.UI.Components;
 
 public partial class ListItem
 {
-    //private bool _isActive;
     private string? _href;
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public object? Data { get; set; }
@@ -25,18 +24,6 @@ public partial class ListItem
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
-    //private bool IsSelected
-    //{
-    //    get
-    //    {
-    //        if (!IsLink)
-    //            return Selected;
-
-    //        _isActive = IsLinkActive();
-
-    //        return _isActive;
-    //    }
-    //}
 
     protected override void OnInitialized()
     {
@@ -123,18 +110,6 @@ public partial class ListItem
     private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
         CheckLinkActiveState();
-        //var wasActive = Selected;
-        //var isActive = IsLinkActive();
-
-        //if (wasActive != isActive)
-        //{
-        //    SetSelection(isActive);
-
-        //    //StateHasChanged();
-
-        //    //if (isActive)
-        //    //    AccordionPanel?.Expand();
-        //}
     }
 
     private void CheckLinkActiveState()

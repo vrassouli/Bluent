@@ -181,6 +181,8 @@ public class TabList : Overflow
             builder.AddAttribute(4, nameof(TabListTabItem.ChildContent), tab.ChildContent);
             builder.AddAttribute(5, nameof(TabListTabItem.Orientation), tab.Orientation);
             builder.AddAttribute(5, nameof(TabListTabItem.Data), tab.Data);
+            builder.AddAttribute(5, nameof(TabListTabItem.Href), tab.Href);
+            builder.AddAttribute(5, nameof(TabListTabItem.Match), tab.Match);
             builder.AddAttribute(5, nameof(TabListTabItem.DeferredLoading), tab.DeferredLoading);
             builder.AddAttribute(5, nameof(TabListTabItem.OnClick), tab.OnClick);
             builder.AddAttribute(6, nameof(TabListTabItem.Tooltip), tab.Tooltip);

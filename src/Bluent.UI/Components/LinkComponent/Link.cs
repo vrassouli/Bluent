@@ -7,11 +7,9 @@ namespace Bluent.UI.Components;
 public class Link : BluentComponentBase
 {
     [Parameter, EditorRequired] public string Text { get; set; } = default!;
+    [Parameter] public string? Href { get; set; }
     [Parameter] public LinkAppearance Appearance { get; set; } = LinkAppearance.Default;
     [Parameter] public EventCallback OnClick { get; set; }
-
-    private string? Href => AdditionalAttributes?.ContainsKey("href") == true ?
-        AdditionalAttributes["href"]?.ToString() : null;
 
     public override IEnumerable<string> GetClasses()
     {
@@ -24,15 +22,17 @@ public class Link : BluentComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, GetLinkTag());
-        if (string.IsNullOrEmpty(Href))
+        if (string.IsNullOrEmpty(Href) || IsDisabled)
             builder.AddAttribute(1, "type", "button");
+        else
+            builder.AddAttribute(2, "href", Href);
 
-        builder.AddMultipleAttributes(2, GetAdditionalAttributes());
-        builder.AddAttribute(3, "id", Id);
-        builder.AddAttribute(4, "class", GetComponentClass());
-        builder.AddAttribute(5, "style", Style);
-        builder.AddAttribute(6, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-        builder.AddContent(7, Text);
+        builder.AddMultipleAttributes(3, GetAdditionalAttributes());
+        builder.AddAttribute(4, "id", Id);
+        builder.AddAttribute(5, "class", GetComponentClass());
+        builder.AddAttribute(6, "style", Style);
+        builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+        builder.AddContent(8, Text);
         builder.CloseElement();
     }
 
