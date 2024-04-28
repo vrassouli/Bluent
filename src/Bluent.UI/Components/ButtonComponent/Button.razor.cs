@@ -15,8 +15,8 @@ public partial class Button
     [Parameter] public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
-    [CascadingParameter] public Popover? Popover { get; set; }
     [Parameter] public string? Href { get; set; }
+    [CascadingParameter] public Popover? Popover { get; set; }
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
 

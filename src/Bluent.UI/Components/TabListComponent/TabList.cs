@@ -205,6 +205,7 @@ public class TabList : Overflow
             builder.AddAttribute(3, nameof(MenuItem.Icon), tab.Icon);
             builder.AddAttribute(4, nameof(MenuItem.ActiveIcon), tab.ActiveIcon);
             builder.AddAttribute(5, nameof(MenuItem.Data), tab.Data);
+            builder.AddAttribute(5, nameof(MenuItem.Href), tab.Href);
             builder.AddAttribute(5, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => { SelectTab(Items.IndexOf(tab)); tab.OnClick.InvokeAsync(); }));
 
             builder.CloseComponent();

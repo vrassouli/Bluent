@@ -4,6 +4,9 @@
 @if (ChildContent == null)
 {
     __builder.OpenElement(0, GetItemTag());
+    if (IsLink && !IsDisabled)
+        __builder.AddAttribute(1, "href", Href);
+
     __builder.AddMultipleAttributes(2, AdditionalAttributes);
     __builder.AddAttribute(3, "id", Id);
     __builder.AddAttribute(4, "class", GetComponentClass());
