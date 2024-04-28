@@ -16,7 +16,10 @@ public partial class MenuItem
     [Parameter] public object? Data { get; set; }
     [CascadingParameter] public MenuList MenuList { get; set; } = default!;
     [CascadingParameter] public Popover? Popover { get; set; }
+    [Parameter] public string? Href { get; set; }
     [Inject] IPopoverService PopoverService { get; set; } = default!;
+
+    private bool IsLink => !string.IsNullOrEmpty(Href);
 
     protected override void OnInitialized()
     {
@@ -60,7 +63,7 @@ public partial class MenuItem
 
     private string GetItemTag()
     {
-        if (AdditionalAttributes?.ContainsKey("href") == true)
+        if (IsLink)
             return "a";
 
         return "div";
