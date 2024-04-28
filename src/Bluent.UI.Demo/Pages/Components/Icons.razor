@@ -14,10 +14,13 @@
             </div>
             <Icon Content="@_iconClass" Class="fs-6" />
 
+            <h4>Svg</h4>
+            <textarea class="w-100" rows="5" @bind=_wordSvg />
+            <Icon Content="@_wordSvg" Class="fs-6" Style="width: 24px;" />
+
             <h4>Svg content</h4>
-            <textarea class="w-100" rows="5" @bind=_wordSvgContent>
-            </textarea>
-            <Icon Content="@_wordSvgContent" Class="fs-6" Style="width: 24px;" />
+            <textarea class="w-100" rows="5" @bind=_outlookSvgContent />
+            <Icon Content="@Icon.FromContent(_outlookSvgContent).Viewbox(24).Size(54)" Class="fs-6" />
 
             <h4>Image path</h4>
             <Icon Content="/assets/icons/powerpoint.svg" Class="fs-6" Style="width: 24px;" />
