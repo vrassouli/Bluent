@@ -4,12 +4,14 @@
     __builder.OpenElement(0, GetItemTag());
     if (!IsLink)
         __builder.AddAttribute(1, "type", "button");
-    __builder.AddMultipleAttributes(2, AdditionalAttributes);
-    __builder.AddAttribute(3, "id", Id);
-    __builder.AddAttribute(4, "class", GetComponentClass());
-    __builder.AddAttribute(5, "style", Style);
-    __builder.AddAttribute(6, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    __builder.OpenRegion(7);
+    else
+        __builder.AddAttribute(2, "href", Href);
+    __builder.AddMultipleAttributes(3, AdditionalAttributes);
+    __builder.AddAttribute(4, "id", Id);
+    __builder.AddAttribute(5, "class", GetComponentClass());
+    __builder.AddAttribute(6, "style", Style);
+    __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+    __builder.OpenRegion(8);
 }
 
 @if (!string.IsNullOrEmpty(Icon))

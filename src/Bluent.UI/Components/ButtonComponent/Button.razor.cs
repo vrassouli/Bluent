@@ -16,6 +16,9 @@ public partial class Button
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
     [CascadingParameter] public Popover? Popover { get; set; }
+    [Parameter] public string? Href { get; set; }
+
+    private bool IsLink => !string.IsNullOrEmpty(Href);
 
     public override IEnumerable<string> GetClasses()
     {
@@ -50,7 +53,7 @@ public partial class Button
 
     private string GetButtonTag()
     {
-        if (AdditionalAttributes?.ContainsKey("href") == true)
+        if (IsLink)
             return "a";
 
         return "button";
