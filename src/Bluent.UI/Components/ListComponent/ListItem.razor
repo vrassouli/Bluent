@@ -35,9 +35,9 @@
         {
             @if (!string.IsNullOrEmpty(ActiveIcon))
             {
-                <i class="active-icon @ActiveIcon"></i>
+                <Icon Content="@ActiveIcon" Class="active-icon" />
             }
-            <i class="icon @Icon"></i>
+            <Icon Content="@Icon" Class="icon" />
         }
         @if (!string.IsNullOrEmpty(Text))
         {

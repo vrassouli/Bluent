@@ -77,11 +77,11 @@ public class SvgGenerator
 
     private string Generate()
     {
-        var w = _elementWidth ?? 36;
-        var h = _elementHeight ?? 36;
+        var w = _elementWidth ?? 24;
+        var h = _elementHeight ?? 24;
 
-        var vbw = _viewboxWidth ?? 36;
-        var vbh = _viewboxHeight ?? 36;
+        var vbw = _viewboxWidth ?? 24;
+        var vbh = _viewboxHeight ?? 24;
 
         return $"<svg viewbox=\"0 0 {vbw} {vbh}\" width=\"{w}\" height=\"{h}\">{_content}</svg>";
     }
