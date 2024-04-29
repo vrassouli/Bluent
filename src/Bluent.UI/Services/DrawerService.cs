@@ -58,11 +58,11 @@ internal class DrawerService : IDrawerService
     {
         return builder =>
         {
-            builder.OpenComponent<DrawerDefaultContent>(0);
-            builder.AddAttribute(1, nameof(DrawerDefaultContent.Title), title);
-            builder.AddAttribute(2, nameof(DrawerDefaultContent.ShowCloseButton), showCloseButton);
-            builder.AddAttribute(3, nameof(DrawerDefaultContent.ContentComponentType), typeof(TContentComponent));
-            builder.AddAttribute(4, nameof(DrawerDefaultContent.ContentParameters), parameters);
+            builder.OpenComponent<DrawerContent>(0);
+            builder.AddAttribute(1, nameof(DrawerContent.Title), title);
+            builder.AddAttribute(2, nameof(DrawerContent.ShowDismissButton), showCloseButton);
+            builder.AddAttribute(3, nameof(DrawerContent.ContentComponentType), typeof(TContentComponent));
+            builder.AddAttribute(4, nameof(DrawerContent.ContentParameters), parameters);
             builder.CloseComponent();
         };
     }

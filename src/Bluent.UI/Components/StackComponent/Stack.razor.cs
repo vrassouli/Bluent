@@ -15,6 +15,7 @@ public partial class Stack
     [Parameter] public StackAlignment HorizontalAlignment { get; set; } = StackAlignment.Stretch;
     [Parameter] public StackAlignment VerticalAlignment { get; set; } = StackAlignment.Stretch;
     [Parameter] public bool Fill { get; set; }
+    [Parameter] public bool Wrap { get; set; }
     [Parameter] public StackOverflow Overflow { get; set; } = StackOverflow.Default;
 
     public override IEnumerable<string> GetClasses()
@@ -42,6 +43,9 @@ public partial class Stack
 
         if (Fill)
             yield return "flex-fill";
+
+        if (Wrap)
+            yield return "flex-wrap";
 
         if (Overflow != StackOverflow.Default)
             yield return $"overflow-{Overflow.ToString().ToLowerInvariant()}";
