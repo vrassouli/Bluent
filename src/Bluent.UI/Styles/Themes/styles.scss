@@ -8,6 +8,13 @@
 @import "../../node_modules/bootstrap/scss/mixins/_container.scss";
 @import "../../node_modules/bootstrap/scss/mixins/_grid.scss";
 
+/*--- Overrides ---*/
+@mixin make-col-offset($size, $columns: $grid-columns) {
+    $num: divide($size, $columns);
+    margin-inline-start: if($num == 0, 0, percentage($num));
+}
+/**** Overrides ****/
+
 @import "styles/_animations.scss";
 @import "styles/_backgrounds.scss";
 @import "styles/_colors.scss";
