@@ -116,3 +116,30 @@
         }
     }
 }
+
+.bui-toolbar-button-group {
+    display: flex;
+
+    > .dropdown-button {
+        min-width: 0;
+        border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+
+.rtl, [dir="rtl"] {
+
+    .bui-toolbar-button-group {
+        display: flex;
+
+        > .dropdown-button {
+            min-width: 0;
+            border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+            border-top-left-radius: var(--borderRadiusMedium);
+            border-bottom-left-radius: var(--borderRadiusMedium);
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+}

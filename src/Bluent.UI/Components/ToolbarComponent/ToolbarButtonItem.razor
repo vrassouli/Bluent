@@ -1,17 +1,76 @@
 ﻿@using Bluent.UI.Components.OverflowComponent
 @inherits BluentComponentBase
 
-<button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
-    @if (!string.IsNullOrEmpty(Icon))
-    {
-        @if (!string.IsNullOrEmpty(ActiveIcon))
+@if (Dropdown == null)
+{
+
+    <button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
+        @if (!string.IsNullOrEmpty(Icon))
         {
-            <Icon Content="@ActiveIcon" Class="active-icon" />
+            @if (!string.IsNullOrEmpty(ActiveIcon))
+            {
+                <Icon Content="@ActiveIcon" Class="active-icon" />
+            }
+            <Icon Content="@Icon" Class="icon" />
         }
-        <Icon Content="@Icon" Class="icon" />
-    }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span>@Text</span>
-    }
-</button>
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <span>@Text</span>
+        }
+    </button>
+
+}
+else if (Dropdown != null && !OnClick.HasDelegate)
+{
+    <Popover @ref=_popover Placement="Placement.BottomStart" DisplayArrow="false">
+        <Trigger>
+            <button @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="OnClick">
+                @if (!string.IsNullOrEmpty(Icon))
+                {
+                    @if (!string.IsNullOrEmpty(ActiveIcon))
+                    {
+                        <Icon Content="@ActiveIcon" Class="active-icon" />
+                    }
+                    <Icon Content="@Icon" Class="icon" />
+                }
+                @if (!string.IsNullOrEmpty(Text))
+                {
+                    <span>@Text</span>
+                }
+                <Icon Content="icon-ic_fluent_chevron_down_20_filled" Class="dropdown-icon" />
+            </button>
+        </Trigger>
+        <Surface>
+            @Dropdown
+        </Surface>
+    </Popover>
+}
+else if (Dropdown != null && OnClick.HasDelegate)
+{
+    <div class="bui-toolbar-button-group">
+        <button @attributes=AdditionalAttributes class="@GetComponentClass()" style="@Style" @onclick="OnClick">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                @if (!string.IsNullOrEmpty(ActiveIcon))
+                {
+                    <Icon Content="@ActiveIcon" Class="active-icon" />
+                }
+                <Icon Content="@Icon" Class="icon" />
+            }
+            @if (!string.IsNullOrEmpty(Text))
+            {
+                <span>@Text</span>
+            }
+        </button>
+        <Popover @ref=_popover Placement="Placement.BottomEnd" DisplayArrow="false">
+            <Trigger>
+                <button class="@GetComponentClass() dropdown-button" id="@Id" disabled="@IsDisabled">
+                    <Icon Content="icon-ic_fluent_chevron_down_20_filled" Class="dropdown-icon" />
+                </button>
+            </Trigger>
+            <Surface>
+                @Dropdown
+            </Surface>
+        </Popover>
+    </div>
+}
