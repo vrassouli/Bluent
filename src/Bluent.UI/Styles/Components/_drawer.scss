@@ -122,8 +122,8 @@
     @media (min-width: #{$value}) {
         .drawer-#{$name} {
             position: initial;
-            width: initial !important;
-            height: initial !important;
+            width: 100% !important;
+            height: 100% !important;
             background-color: inherit;
             color: inherit;
             box-shadow: inherit;
