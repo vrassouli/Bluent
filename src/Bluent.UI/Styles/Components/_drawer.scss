@@ -1,6 +1,10 @@
-﻿.bui-drawer {
+﻿@import "../../node_modules/bootstrap/scss/_functions.scss";
+@import "../../node_modules/bootstrap/scss/_variables.scss";
+
+.bui-drawer {
     position: fixed;
     width: 320px;
+    max-width: 100vw;
     background-color: var(--colorNeutralBackground1);
     color: var(--colorNeutralForeground1);
     border-inline-start: var(--strokeWidthThin) solid var(--colorTransparentStroke);
@@ -12,13 +16,17 @@
     animation-timing-function: var(--curveEasyEase);
     animation-fill-mode: both;
 
+    &.hide {
+        display: none;
+    }
+
     &.end {
         right: 0;
         top: 0;
         height: 100vh;
         animation-name: fade-in, slide-in-right;
 
-        &.hide {
+        &.hiding {
             animation-name: fade-out, slide-out-right;
         }
     }
@@ -29,7 +37,7 @@
         height: 100vh;
         animation-name: fade-in, slide-in-left;
 
-        &.hide {
+        &.hiding {
             animation-name: fade-out, slide-out-left;
         }
     }
@@ -40,7 +48,7 @@
         width: 100vw;
         animation-name: fade-in, slide-in-top;
 
-        &.hide {
+        &.hiding {
             animation-name: fade-out, slide-out-top;
         }
     }
@@ -51,7 +59,7 @@
         width: 100vw;
         animation-name: fade-in, slide-in-bottom;
 
-        &.hide {
+        &.hiding {
             animation-name: fade-out, slide-out-bottom;
         }
     }
@@ -72,6 +80,18 @@
             line-height: var(--lineHeightBase500);
         }
     }
+
+    &.medium {
+        width: 600px;
+    }
+
+    &.large {
+        width: 950px;
+    }
+
+    &.full {
+        width: 100vw;
+    }
 }
 
 .rtl, [dir=rtl] {
@@ -81,7 +101,7 @@
             right: unset;
             animation-name: fade-in, slide-in-left;
 
-            &.hide {
+            &.hiding {
                 animation-name: fade-out, slide-out-left;
             }
         }
@@ -91,8 +111,29 @@
             right: 0;
             animation-name: fade-in, slide-in-right;
 
-            &.hide {
+            &.hiding {
                 animation-name: fade-out, slide-out-right;
+            }
+        }
+    }
+}
+
+@each $name, $value in $grid-breakpoints {
+    @media (min-width: #{$value}) {
+        .drawer-#{$name} {
+            position: initial;
+            width: initial !important;
+            height: initial !important;
+            background-color: inherit;
+            color: inherit;
+            box-shadow: inherit;
+
+            > .header {
+                display: none;
+            }
+
+            &.hide {
+                display: block;
             }
         }
     }
