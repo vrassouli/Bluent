@@ -42,8 +42,8 @@
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
-        <Exec Command="xcopy &quot;$(SolutionDir)src\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
-        <Exec Command="xcopy &quot;$(SolutionDir)src\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
     </Target>
 
     <ItemGroup>
