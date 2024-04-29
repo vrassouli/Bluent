@@ -15,6 +15,14 @@
 @import "styles/_typography.scss";
 @import "styles/_utilities.scss";
 
+.rtl {
+    direction: rtl;
+}
+
+.ltr {
+    direction: ltr;
+}
+
 // Loop over each breakpoint
 @each $breakpoint in map-keys($grid-breakpoints) {
 
