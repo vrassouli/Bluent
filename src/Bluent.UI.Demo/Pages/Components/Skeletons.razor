@@ -1,0 +1,28 @@
+﻿@page "/components/skeletons"
+<PageTitle>Skeleton</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Skeleton</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Skeleton />
+        </section>
+
+        <h3>Circle</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Skeleton Shape="SkeletonShape.Circle" />
+        </section>
+
+        <h3>Size</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Skeleton Class="mb-3" Style="width: 50%" />
+            <Skeleton Class="mb-3" Style="height: 40px; width: 50%" />
+            <Skeleton Class="mb-3" Shape="SkeletonShape.Circle" Style="height: 40px; width: 40px;" />
+        </section>
+    </div>
+</div>
+
+@code {
+}
