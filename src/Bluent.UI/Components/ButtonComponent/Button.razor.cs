@@ -18,8 +18,9 @@ public partial class Button
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
     [Parameter] public string? Href { get; set; }
-    [Parameter] public bool ShowDropdownIndicator { get; set; } = true;
+    [Parameter] public bool ShowDropdownIndicator { get; set; }
     [Parameter] public RenderFragment? Dropdown { get; set; }
+    [Parameter] public Placement DropdownPlacement { get; set; } = Placement.Bottom;
     [CascadingParameter] public Popover? ParentPopover { get; set; }
     [CascadingParameter] public Overflow? Overflow { get; set; } = default!;
 
