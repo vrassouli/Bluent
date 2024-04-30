@@ -11,7 +11,11 @@
         }
         <Popover Placement="@(Orientation == Orientation.Horizontal ? Placement.BottomEnd : Placement.RightStart)" KeepSurface>
             <Trigger>
-                <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" Class="overflow-button align-self-center" />
+                <Button Icon="icon-ic_fluent_more_horizontal_20_regular"
+                        ActiveIcon="icon-ic_fluent_more_horizontal_20_filled"
+                        ShowDropdownIndicator="false"
+                        Appearance="ButtonAppearance.Transparent"
+                        Class="overflow-button align-self-center" />
             </Trigger>
             <Surface>
                 <MenuList Class="overflow-menu">

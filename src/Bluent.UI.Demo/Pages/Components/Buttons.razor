@@ -120,26 +120,52 @@
     </div>
 
     <div>
+        <h5>Dropdown button</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center">
+            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Checked />
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled" disabled>
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Checked />
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+        </div>
+    </div>
+
+    <div>
         <h5>Split button</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
-            <SplitButton Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
-                <DropdownContent>
+            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                    OnClick="()=>{}">
+                <Dropdown>
                     <MenuList>
                         <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Checked />
                         <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
                         <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
                     </MenuList>
-                </DropdownContent>
-            </SplitButton>
-            <SplitButton Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled" disabled>
-                <DropdownContent>
+                </Dropdown>
+            </Button>
+            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                    OnClick="()=>{}" disabled>
+                <Dropdown>
                     <MenuList>
                         <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Checked />
                         <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" />
                         <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" />
                     </MenuList>
-                </DropdownContent>
-            </SplitButton>
+                </Dropdown>
+            </Button>
         </div>
     </div>
 </div>

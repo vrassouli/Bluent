@@ -78,6 +78,7 @@ public class Toolbar : Overflow
             builder.AddAttribute(2, nameof(MenuItem.Icon), button.Icon);
             builder.AddAttribute(3, nameof(MenuItem.ActiveIcon), button.ActiveIcon);
             builder.AddAttribute(4, nameof(MenuItem.OnClick), button.OnClick);
+            builder.AddAttribute(4, nameof(MenuItem.ChildContent), button.Dropdown);
 
             builder.CloseComponent();
         };
@@ -101,14 +102,15 @@ public class Toolbar : Overflow
     private RenderFragment RenderToolbarButton(ToolbarButton button)
     {
         return builder => {
-            builder.OpenComponent<ToolbarButtonItem>(0);
+            builder.OpenComponent<Button>(0);
 
-            builder.AddAttribute(1, nameof(ToolbarButtonItem.Text), button.Text);
-            builder.AddAttribute(2, nameof(ToolbarButtonItem.Icon), button.Icon);
-            builder.AddAttribute(2, nameof(ToolbarButtonItem.ActiveIcon), button.ActiveIcon);
-            builder.AddAttribute(3, nameof(ToolbarButtonItem.Appearance), button.Appearance);
-            builder.AddAttribute(3, nameof(ToolbarButtonItem.Tooltip), button.Tooltip);
-            builder.AddAttribute(4, nameof(ToolbarButtonItem.OnClick), button.OnClick);
+            builder.AddAttribute(1, nameof(Button.Text), button.Text);
+            builder.AddAttribute(2, nameof(Button.Icon), button.Icon);
+            builder.AddAttribute(2, nameof(Button.ActiveIcon), button.ActiveIcon);
+            builder.AddAttribute(3, nameof(Button.Appearance), Enum.Parse<ButtonAppearance>(button.Appearance.ToString()));
+            builder.AddAttribute(3, nameof(Button.Tooltip), button.Tooltip);
+            builder.AddAttribute(3, nameof(Button.Dropdown), button.Dropdown);
+            builder.AddAttribute(4, nameof(Button.OnClick), button.OnClick);
             builder.AddMultipleAttributes(5, button.AdditionalAttributes);
 
             builder.CloseComponent();

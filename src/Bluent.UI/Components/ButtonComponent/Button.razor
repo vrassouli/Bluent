@@ -1,7 +1,8 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentComponentBase
 
-@{
+@if (!IsDropdownButton && !IsSplitButton)
+{
     __builder.OpenElement(0, GetButtonTag());
     if (IsLink && !IsDisabled)
         __builder.AddAttribute(1, "href", Href);
@@ -13,29 +14,84 @@
     __builder.AddAttribute(6, "style", Style);
     __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
     __builder.OpenRegion(8);
-}
-@if (!string.IsNullOrEmpty(Icon))
-{
-    @if (!string.IsNullOrEmpty(ActiveIcon))
+
+    @if (!string.IsNullOrEmpty(Icon))
     {
-        <Icon Content="@ActiveIcon" Class="active-icon" />
+        @if (!string.IsNullOrEmpty(ActiveIcon))
+        {
+            <Icon Content="@ActiveIcon" Class="active-icon" />
+        }
+        <Icon Content="@Icon" Class="icon" />
     }
-    <Icon Content="@Icon" Class="icon" />
-}
-@if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
-{
-    <div class="text">
-        @if (!string.IsNullOrEmpty(Text))
-        {
-            <div>@Text</div>
-        }
-        @if (!string.IsNullOrEmpty(SecondaryText))
-        {
-            <div class="secondary-text">@SecondaryText</div>
-        }
-    </div>
-}
-@{
+    @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
+    {
+        <div class="text">
+            @if (!string.IsNullOrEmpty(Text))
+            {
+                <div>@Text</div>
+            }
+            @if (!string.IsNullOrEmpty(SecondaryText))
+            {
+                <div class="secondary-text">@SecondaryText</div>
+            }
+        </div>
+    }
+    @if (ParentPopover != null && ShowDropdownIndicator)
+    {
+        <Icon Content="@($"icon-ic_fluent_{GetDropdownIcon()}_20_filled")" Class="dropdown-active-icon" />
+        <Icon Content="@($"icon-ic_fluent_{GetDropdownIcon()}_20_regular")" Class="dropdown-icon" />
+    }
+
     __builder.CloseRegion();
     __builder.CloseElement();
+}
+else if (IsDropdownButton)
+{
+    <Popover Placement="Placement.BottomStart" DisplayArrow="false">
+        <Trigger>
+            <Button Text="@Text"
+                    SecondaryText="@SecondaryText"
+                    Icon="@Icon"
+                    ActiveIcon="@ActiveIcon"
+                    Toggled="@Toggled"
+                    ToggledChanged="@ToggledChanged"
+                    Shape="@Shape"
+                    Appearance="@Appearance"
+                    Size="@Size"
+                    Href="@Href"
+                    ShowDropdownIndicator="@ShowDropdownIndicator"
+                    AdditionalAttributes="@AdditionalAttributes" />
+        </Trigger>
+        <Surface>
+            @Dropdown
+        </Surface>
+    </Popover>
+}
+else if (IsSplitButton)
+{
+    <ButtonGroup>
+        <Button Text="@Text"
+                SecondaryText="@SecondaryText"
+                Icon="@Icon"
+                ActiveIcon="@ActiveIcon"
+                Toggled="@Toggled"
+                ToggledChanged="@ToggledChanged"
+                Shape="@Shape"
+                Appearance="@Appearance"
+                Size="@Size"
+                Href="@Href"
+                OnClick="@OnClick"
+                AdditionalAttributes="@AdditionalAttributes" />
+        <Popover Placement="Placement.BottomEnd" DisplayArrow="false">
+            <Trigger>
+                <Button Shape="@Shape"
+                        Appearance="@Appearance"
+                        Size="@Size"
+                        disabled="@IsDisabled" />
+            </Trigger>
+            <Surface>
+                @Dropdown
+            </Surface>
+        </Popover>
+    </ButtonGroup>
 }
