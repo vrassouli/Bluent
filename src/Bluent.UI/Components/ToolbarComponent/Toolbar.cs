@@ -77,6 +77,7 @@ public class Toolbar : Overflow
             builder.AddAttribute(1, nameof(MenuItem.Title), button.MenuLabel ?? button.Text);
             builder.AddAttribute(2, nameof(MenuItem.Icon), button.Icon);
             builder.AddAttribute(3, nameof(MenuItem.ActiveIcon), button.ActiveIcon);
+            builder.AddAttribute(3, nameof(MenuItem.Href), button.Href);
             builder.AddAttribute(4, nameof(MenuItem.OnClick), button.OnClick);
             builder.AddAttribute(4, nameof(MenuItem.ChildContent), button.Dropdown);
 
@@ -107,6 +108,7 @@ public class Toolbar : Overflow
             builder.AddAttribute(1, nameof(Button.Text), button.Text);
             builder.AddAttribute(2, nameof(Button.Icon), button.Icon);
             builder.AddAttribute(2, nameof(Button.ActiveIcon), button.ActiveIcon);
+            builder.AddAttribute(2, nameof(Button.Href), button.Href);
             builder.AddAttribute(3, nameof(Button.Appearance), Enum.Parse<ButtonAppearance>(button.Appearance.ToString()));
             builder.AddAttribute(3, nameof(Button.Tooltip), button.Tooltip);
             builder.AddAttribute(3, nameof(Button.Dropdown), button.Dropdown);

@@ -47,7 +47,7 @@
 }
 else if (IsDropdownButton)
 {
-    <Popover Placement="Placement.BottomStart" DisplayArrow="false">
+    <Popover Placement="@DropdownPlacement" DisplayArrow="false">
         <Trigger>
             <Button Text="@Text"
                     SecondaryText="@SecondaryText"
@@ -60,7 +60,9 @@ else if (IsDropdownButton)
                     Size="@Size"
                     Href="@Href"
                     ShowDropdownIndicator="@ShowDropdownIndicator"
-                    AdditionalAttributes="@AdditionalAttributes" />
+                    Class="@Class"
+                    Style="@Style"
+                    AdditionalAttributes="@AdditionalAttributes"/>
         </Trigger>
         <Surface>
             @Dropdown
@@ -81,12 +83,15 @@ else if (IsSplitButton)
                 Size="@Size"
                 Href="@Href"
                 OnClick="@OnClick"
-                AdditionalAttributes="@AdditionalAttributes" />
-        <Popover Placement="Placement.BottomEnd" DisplayArrow="false">
+                Class="@Class"
+                Style="@Style"
+                AdditionalAttributes="@AdditionalAttributes"/>
+        <Popover Placement="@DropdownPlacement" DisplayArrow="false">
             <Trigger>
                 <Button Shape="@Shape"
                         Appearance="@Appearance"
                         Size="@Size"
+                        ShowDropdownIndicator="true"
                         disabled="@IsDisabled" />
             </Trigger>
             <Surface>

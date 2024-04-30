@@ -9,6 +9,7 @@ public class ToolbarButton : OverflowItemComponentBase
     [Parameter] public string Icon {  get; set; } = default!;
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
+    [Parameter] public string? Href { get; set; }
     [Parameter] public RenderFragment? Dropdown{ get; set; }
     [Parameter] public ToolbarButtonAppearance Appearance { get; set; } = ToolbarButtonAppearance.Default;
 }
