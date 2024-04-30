@@ -5,6 +5,8 @@ namespace Bluent.UI.Components;
 
 public partial class Button
 {
+    //private Popover? _dropdownPopover;
+
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? SecondaryText { get; set; }
     [Parameter] public string? Icon { get; set; }
@@ -16,15 +18,23 @@ public partial class Button
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
     [Parameter] public string? Href { get; set; }
-    [CascadingParameter] public Popover? Popover { get; set; }
+    [Parameter] public bool ShowDropdownIndicator { get; set; } = true;
+    [Parameter] public RenderFragment? Dropdown { get; set; }
+    [CascadingParameter] public Popover? ParentPopover { get; set; }
+    [CascadingParameter] public Overflow? Overflow { get; set; } = default!;
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
+    private bool IsDropdownButton => Dropdown != null && !OnClick.HasDelegate;
+    private bool IsSplitButton => Dropdown != null && OnClick.HasDelegate;
 
     public override IEnumerable<string> GetClasses()
     {
-        yield return "bui-button";
+        if (Overflow is Toolbar)
+            yield return "bui-toolbar-button";
+        else
+            yield return "bui-button";
 
-        if (string.IsNullOrEmpty(Text) && !string.IsNullOrEmpty(Icon))
+        if (string.IsNullOrEmpty(Text))
             yield return "icon";
 
         if (!string.IsNullOrEmpty(SecondaryText))
@@ -45,9 +55,11 @@ public partial class Button
 
     protected override void OnAfterRender(bool firstRender)
     {
-        if(firstRender && Popover != null)
-            Popover.SetTrigger(this);
-
+        if (firstRender)
+        {
+            ParentPopover?.SetTrigger(this);
+            //_dropdownPopover?.SetTrigger(this);
+        }
         base.OnAfterRender(firstRender);
     }
 
@@ -57,6 +69,20 @@ public partial class Button
             return "a";
 
         return "button";
+    }
+
+    private string GetDropdownIcon()
+    {
+        if (ParentPopover is null)
+            throw new InvalidOperationException("Dropdown button needs to be nested in a Popover");
+
+        return ParentPopover.Placement switch
+        {
+            (Placement.Top or Placement.TopStart or Placement.TopEnd) => "caret_up",
+            (Placement.Right or Placement.RightStart or Placement.RightEnd) => "caret_right",
+            (Placement.Left or Placement.LeftStart or Placement.LeftEnd) => "caret_left",
+            _ => "caret_down"
+        } ;
     }
 
     private void ClickHandler()
