@@ -112,6 +112,8 @@ public class Toolbar : Overflow
             builder.AddAttribute(3, nameof(Button.Appearance), Enum.Parse<ButtonAppearance>(button.Appearance.ToString()));
             builder.AddAttribute(3, nameof(Button.Tooltip), button.Tooltip);
             builder.AddAttribute(3, nameof(Button.Dropdown), button.Dropdown);
+            builder.AddAttribute(3, nameof(Button.ShowDropdownIndicator), button.ShowDropdownIndicator);
+            builder.AddAttribute(3, nameof(Button.DropdownPlacement), button.DropdownPlacement);
             builder.AddAttribute(4, nameof(Button.OnClick), button.OnClick);
             builder.AddMultipleAttributes(5, button.AdditionalAttributes);
 
