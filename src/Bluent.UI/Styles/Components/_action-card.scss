@@ -1,9 +1,8 @@
 ﻿.bui-action-card {
     --bui-card-border-radius: var(--borderRadiusMedium);
-    --bui-card-size: 20px;
+    --bui-action-card-size: 20px;
     box-shadow: var(--shadow4);
     border-radius: var(--bui-card-border-radius);
-    max-width: 100%;
     position: relative;
     box-sizing: border-box;
     display: flex;
@@ -15,9 +14,9 @@
 
     > .header {
         display: flex;
-        gap: var(--bui-card-size);
+        gap: var(--bui-action-card-size);
         align-items: center;
-        padding: var(--bui-card-size);
+        padding: var(--bui-action-card-size);
         border-radius: var(--bui-card-border-radius);
 
         > .icon {
