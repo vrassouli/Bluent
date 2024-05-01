@@ -25,10 +25,10 @@
                 <div class="description">@Description</div>
             }
         </div>
-        @if (HeaderContent != null)
+        @if (HeaderAction != null)
         {
             <div class="content" @onclick:stopPropagation="true">
-                @HeaderContent
+                @HeaderAction
             </div>
         }
         @if (IsExpandable)
