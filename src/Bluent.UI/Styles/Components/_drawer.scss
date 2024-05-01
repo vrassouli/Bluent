@@ -39,7 +39,7 @@
     }
 
     &.hide {
-        display: flex;
+        display: none;
     }
 
     &.end {
@@ -138,7 +138,7 @@
             }
 
             &.hide {
-                display: block;
+                display: flex;
             }
         }
     }
