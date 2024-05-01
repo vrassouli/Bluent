@@ -16,6 +16,7 @@ public partial class Stack
     [Parameter] public StackAlignment VerticalAlignment { get; set; } = StackAlignment.Stretch;
     [Parameter] public bool Fill { get; set; }
     [Parameter] public bool Wrap { get; set; }
+    [Parameter] public bool Reverse { get; set; }
     [Parameter] public StackOverflow Overflow { get; set; } = StackOverflow.Default;
 
     public override IEnumerable<string> GetClasses()
@@ -25,6 +26,8 @@ public partial class Stack
 
         if (Orientation == Orientation.Horizontal)
         {
+            if (Reverse)
+                yield return "flex-row-reverse";
             //yield return "flex-row";
             if (HorizontalAlignment != StackAlignment.Stretch)
                 yield return $"justify-content-{HorizontalAlignment.ToString().ToLowerInvariant()}";
@@ -34,7 +37,11 @@ public partial class Stack
         }
         else
         {
-            yield return "flex-column";
+            if (Reverse)
+                yield return "flex-column-reverse";
+            else
+                yield return "flex-column";
+
             if (VerticalAlignment != StackAlignment.Stretch)
                 yield return $"justify-content-{VerticalAlignment.ToString().ToLowerInvariant()}";
             if (HorizontalAlignment != StackAlignment.Stretch)
