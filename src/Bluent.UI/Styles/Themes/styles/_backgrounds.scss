@@ -23,9 +23,17 @@
 }
 
 .bg-brand-1-hover {
+    background-color: var(--colorBrandBackgroundHover) !important;
+}
+
+.bg-brand-1-hovered {
     &:hover {
         background-color: var(--colorBrandBackgroundHover) !important;
     }
+}
+
+.bg-brand-1-press {
+    background-color: var(--colorBrandBackgroundPressed) !important;
 }
 
 .bg-brand-1-pressed {
@@ -41,9 +49,17 @@
 }
 
 .bg-brand-2-hover {
+    background-color: var(--colorBrandBackground2Hover) !important;
+}
+
+.bg-brand-2-hovered {
     &:hover {
         background-color: var(--colorBrandBackground2Hover) !important;
     }
+}
+
+.bg-brand-2-press {
+    background-color: var(--colorBrandBackground2Pressed) !important;
 }
 
 .bg-brand-2-pressed {
