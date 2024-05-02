@@ -123,4 +123,40 @@
             }
         }
     }
+
+    &[disabled] {
+        color: var(--colorNeutralForegroundDisabled);
+        background-color: inherit;
+        cursor: not-allowed;
+
+        &:hover {
+            color: var(--colorNeutralForegroundDisabled);
+            background-color: inherit;
+
+            > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
+                color: var(--colorNeutralForegroundDisabled);
+            }
+
+            > .active-icon {
+                display: none;
+
+                + .icon {
+                    display: inline;
+                }
+            }
+
+            > .dropdown-active-icon {
+                display: none;
+
+                + .dropdown-icon {
+                    display: inline;
+                }
+            }
+
+            &:active {
+                color: var(--colorNeutralForegroundDisabled);
+                background-color: inherit;
+            }
+        }
+    }
 }
