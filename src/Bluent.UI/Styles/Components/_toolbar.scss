@@ -3,7 +3,7 @@
     box-sizing: border-box;
 
     &.horizontal {
-        padding: 4px 8px;
+        padding: var(--spacingHorizontalXS) var(--spacingHorizontalS);
         height: max-content;
 
         > .bui-overflow {
@@ -17,7 +17,7 @@
     }
 
     &.vertical {
-        padding: 8px 4px;
+        padding: var(--spacingHorizontalS) var(--spacingHorizontalXS);
         width: max-content;
 
         > .bui-overflow {
