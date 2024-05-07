@@ -231,6 +231,10 @@
             border-color: var(--colorNeutralStrokeDisabled);
             background-color: var(--colorNeutralBackgroundDisabled);
 
+            > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
+                color: var(--colorNeutralForegroundDisabled);
+            }
+
             > .active-icon {
                 display: none;
 

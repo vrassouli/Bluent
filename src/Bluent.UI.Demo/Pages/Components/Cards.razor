@@ -79,6 +79,7 @@
                 </Card>
             </section>
         </section>
+
         <h3>Size</h3>
         <p>
             Size options are mainly to provide variety, and consistency when using cards for different usages. It
@@ -299,7 +300,7 @@
         </section>
         <h3>Selectable Indicator</h3>
         <p>
-            By default, selectable cards do not include any element to represent its selection state. For example, checkboxes can be composed together as an additional element by using the <code >CardFloatingAction</code> component.
+            By default, selectable cards do not include any element to represent its selection state. For example, checkboxes can be composed together as an additional element by using the <code>CardFloatingAction</code> component.
         </p>
         <section class="p-7 rounded-5 shadow-3">
             <section class="d-flex gap-7 flex-column flex-md-row">
@@ -350,6 +351,42 @@
                     <CardFloatingAction>
                         <Checkbox @bind-Value="_selected2" />
                     </CardFloatingAction>
+                </Card>
+            </section>
+        </section>
+
+        <h3>Action Cards</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <section>
+                <Card Class="w-100">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                    <ActionCardGroup>
+                        <ActionCard Title="More application from this developer"
+                                    Description="To see other apps developed by this developer, click here!"
+                                    Href="/components/cards?#more-apps" />
+                        <ActionCard Title="More application from this developer"
+                                    Description="To see other apps developed by this developer, click here!">
+                            <div class="p-3">
+                                A list of other apps...
+                            </div>
+                        </ActionCard>
+                    </ActionCardGroup>
                 </Card>
             </section>
         </section>

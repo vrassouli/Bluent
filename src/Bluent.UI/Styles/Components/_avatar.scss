@@ -9,8 +9,9 @@
     font-size: var(--fontSizeBase300);
     width: 32px;
     height: 32px;
-        background-color: var(--colorNeutralBackground6);
-        color: var(--colorNeutralForeground3);
+    background-color: var(--colorNeutralBackground6);
+    color: var(--colorNeutralForeground3);
+    overflow: hidden;
 
     > .initials, > .image, > .icon {
         background-color: inherit;
@@ -33,6 +34,10 @@
 
     &.active {
         cursor: pointer;
+    }
+
+    &.square {
+        border-radius: var(--borderRadiusMedium);
     }
 
     &.size16 {

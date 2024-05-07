@@ -95,11 +95,13 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
 
     private void PopoverOnShowSurface(object? sender, ShowPopoverSurfaceEventArgs args)
     {
+        //Console.WriteLine($"PopoverOnShowSurface ({GetType()})");
+
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
         if (context != null)
             _interop?.ShowSurface(context.Config.Settings);
-        else
-            Console.WriteLine($"config not found for triggerId: {args.TriggerId}");
+        //else
+        //    Console.WriteLine($"Config not found for triggerId: {args.TriggerId} ({GetType()})");
     }
 
     private void PopoverOnHideSurface(object? sender, HidePopoverSurfaceEventArgs args)

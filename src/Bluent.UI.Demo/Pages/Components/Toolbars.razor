@@ -34,6 +34,9 @@
                 <ToolbarButton Text="Save" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" OnClick="@(()=>{SetMessage("Save"); })" />
                 <ToolbarButton Text="Save All" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" OnClick="@(()=>{SetMessage("Save All"); })" />
                 <ToolbarDivider />
+                <ToolbarButton Text="Undo" Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" disabled OnClick="@(()=>{SetMessage("Undo"); })" />
+                <ToolbarButton Text="Redo" Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" disabled OnClick="@(()=>{SetMessage("Redo"); })" />
+                <ToolbarDivider />
                 <ToolbarButton MenuLabel="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
                 <ToolbarButton MenuLabel="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
                 <ToolbarButton MenuLabel="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Paste"); })" Tooltip="Paste" />

@@ -1,10 +1,6 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
@@ -18,6 +14,7 @@ public partial class Avatar
     [Parameter] public bool AutoColor { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public AvatarSize Size { get; set; } = AvatarSize.Size32;
+    [Parameter] public AvatarShape Shape { get; set; } = AvatarShape.Circle;
     [Parameter] public ColorPalette? Color { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
 
@@ -40,6 +37,9 @@ public partial class Avatar
 
         if (Size != AvatarSize.Size32)
             yield return Size.ToString().Kebaberize();
+
+        if (Shape != AvatarShape.Circle)
+            yield return Shape.ToString().Kebaberize();
 
         if (Popover != null || OnClick.HasDelegate)
             yield return "active";

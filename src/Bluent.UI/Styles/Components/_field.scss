@@ -28,6 +28,7 @@
         flex-grow: 1;
         min-width: 0px;
         border-style: none;
+        border-radius: var(--borderRadiusMedium);
         color: var(--colorNeutralForeground1);
         background-color: transparent;
         outline-style: none;
@@ -35,6 +36,7 @@
         font-size: inherit;
         font-weight: inherit;
         line-height: inherit;
+        width: 100%;
 
         &:disabled {
             color: var(--colorNeutralForegroundDisabled);
