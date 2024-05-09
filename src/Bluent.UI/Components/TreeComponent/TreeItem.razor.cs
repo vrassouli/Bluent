@@ -24,6 +24,7 @@ public partial class TreeItem
     [Parameter] public string? Href { get; set; }
     [Parameter] public string? Target { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? ItemTemplate { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;

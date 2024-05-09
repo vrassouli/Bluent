@@ -38,15 +38,22 @@
             }
             <Icon Content="@Icon" Class="icon" />
         }
-        @if (string.IsNullOrEmpty(Href))
+
+        @if (ItemTemplate != null)
         {
-            <div class="title">
+            <div class="item-content">
+                @ItemTemplate
+            </div>
+        }
+        else if (string.IsNullOrEmpty(Href))
+        {
+            <div class="item-content">
                 @Title
             </div>
         }
         else
         {
-            <a class="title" href="@Href" target="@Target">
+            <a class="item-content" href="@Href" target="@Target">
                 @Title
             </a>
         }
