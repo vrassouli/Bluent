@@ -5,45 +5,6 @@
     cursor: pointer;
     vertical-align: middle;
 
-    &.indeterminate {
-        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStroke);
-        --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1);
-        --bui-checkbox-indicator-backgroundColor: unset;
-        color: var(--colorNeutralForeground1);
-
-        &:hover {
-            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStrokeHover);
-            --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1Hover);
-            --bui-checkbox-indicator-backgroundColor: unset;
-        }
-    }
-
-    &.checked {
-        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-        --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-        --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-        color: var(--colorNeutralForeground1);
-
-        &:hover {
-            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackgroundHover);
-            --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-            --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackgroundHover);
-        }
-    }
-
-    &.unchecked {
-        --bui-checkbox-indicator-borderColor: unset;
-        --bui-checkbox-indicator-color: unset;
-        --bui-checkbox-indicator-backgroundColor: unset;
-    }
-
-    &.disabled {
-        --bui-checkbox-indicator-borderColor: var(--colorNeutralStrokeDisabled) !important;
-        --bui-checkbox-indicator-color: var(--colorNeutralForegroundDisabled) !important;
-        --bui-checkbox-indicator-backgroundColor: unset !important;
-        cursor: default;
-    }
-
     > input {
         box-sizing: border-box;
         cursor: inherit;
@@ -55,6 +16,26 @@
         left: 0;
         width: calc(16px + 2* var(--spacingHorizontalS));
         order: 1;
+
+        &:checked {
+            + .indicator {
+                --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
+                --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
+                --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
+                color: var(--colorNeutralForeground1);
+
+                > .checked-state {
+                    display: block !important;
+                }
+
+                + label {
+                    --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
+                    --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
+                    --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
+                    color: var(--colorNeutralForeground1);
+                }
+            }
+        }
     }
 
     > .indicator {
@@ -78,6 +59,10 @@
         height: 16px;
         width: 16px;
         order: 1;
+
+        > .indeterminate-state, .checked-state {
+            display: none;
+        }
     }
 
     > label {
@@ -134,7 +119,59 @@
             border-radius: var(--borderRadiusCircular);
         }
     }
+
+    &.indeterminate {
+        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStroke);
+        --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1);
+        --bui-checkbox-indicator-backgroundColor: unset;
+        color: var(--colorNeutralForeground1);
+
+        &:hover {
+            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStrokeHover);
+            --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1Hover);
+            --bui-checkbox-indicator-backgroundColor: unset;
+        }
+
+        > .indicator {
+            > .indeterminate-state {
+                display: block !important;
+            }
+        }
+    }
+
+    &.checked {
+        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
+        --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
+        --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
+        color: var(--colorNeutralForeground1);
+
+        &:hover {
+            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackgroundHover);
+            --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
+            --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackgroundHover);
+        }
+
+        > .indicator {
+            > .checked-state {
+                display: block !important;
+            }
+        }
+    }
+
+    &.unchecked {
+        --bui-checkbox-indicator-borderColor: unset;
+        --bui-checkbox-indicator-color: unset;
+        --bui-checkbox-indicator-backgroundColor: unset;
+    }
+
+    &.disabled {
+        --bui-checkbox-indicator-borderColor: var(--colorNeutralStrokeDisabled) !important;
+        --bui-checkbox-indicator-color: var(--colorNeutralForegroundDisabled) !important;
+        --bui-checkbox-indicator-backgroundColor: unset !important;
+        cursor: default;
+    }
 }
+
 .rtl, [dir=rtl] {
     .bui-checkbox {
         > input {
