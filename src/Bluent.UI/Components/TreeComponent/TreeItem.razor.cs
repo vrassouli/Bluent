@@ -21,6 +21,8 @@ public partial class TreeItem
     [Parameter] public bool? IsChecked { get; set; } = false;
     [Parameter] public EventCallback<bool?> IsCheckedChanged { get; set; } = default!;
     [Parameter] public object? Data { get; set; } = default!;
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public string? Target { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
