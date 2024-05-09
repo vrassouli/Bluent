@@ -75,13 +75,13 @@
                     }
                 }
 
-                .title {
+                .item-content {
                     flex: 1;
                     color: inherit;
                     text-decoration: none;
                 }
 
-                a.title {
+                a.item-content {
                     &:hover {
                         text-decoration: underline;
                     }

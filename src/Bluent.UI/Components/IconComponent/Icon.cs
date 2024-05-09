@@ -15,7 +15,7 @@ public class Icon : BluentComponentBase
 
     bool IsSvg => Content?.StartsWith("<svg", StringComparison.InvariantCultureIgnoreCase) == true;
     bool IsPath => Content?.Contains("/") == true;
-    bool IsCssClass => !IsSvg;
+    bool IsCssClass => !IsSvg && !IsPath;
 
     public override IEnumerable<string> GetClasses()
     {
