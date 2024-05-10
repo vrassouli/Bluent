@@ -1,0 +1,47 @@
+﻿@namespace Bluent.UI.Components
+@using Humanizer
+@using Microsoft.AspNetCore.Components.Forms
+@inherits BluentComponentBase
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="input-wrapper">
+        <InputFile @ref="_filePicker" OnChange="HandleFileChanged" multiple="@Multiple"></InputFile>
+    </div>
+    <div class="content">
+        @if (Multiple || !_files.Any())
+        {
+            <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance" OnClick="HandleOnClick" type="button" />
+        }
+        @if (ShowFileInfo && _files.Any())
+        {
+            <div class="files">
+                @foreach (var file in _files)
+                {
+                    <Card Orientation="CardOrientation.Horizontal">
+                        <CardPreview>
+                                <Icon Content="@GetIcon(Path.GetExtension(file.File.Name))" Class="w-100" />
+                        </CardPreview>
+                        <CardHeader>
+                            <Header>
+                                @file.File.Name
+                            </Header>
+                            <Description>
+                                @file.File.Size.Bytes().Humanize()
+                            </Description>
+                            <Action>
+                                @if (AllowRemove)
+                                {
+                                    <Button Icon="icon-ic_fluent_delete_20_regular"
+                                            ActiveIcon="icon-ic_fluent_delete_20_filled"
+                                            Appearance="ButtonAppearance.Transparent"
+                                            OnClick="()=>HandleFileRemove(file)" />
+                                }
+                            </Action>
+                        </CardHeader>
+
+                    </Card>
+                }
+            </div>
+        }
+    </div>
+</div>
