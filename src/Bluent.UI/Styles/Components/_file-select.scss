@@ -1,0 +1,23 @@
+﻿.bui-file-select {
+    > .input-wrapper {
+        > input[type=file] {
+            display: none;
+        }
+    }
+
+    > .content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacingVerticalMNudge);
+
+        >.bui-button{
+            align-self: start;
+        }
+
+        > .files {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacingVerticalSNudge);
+        }
+    }
+}
