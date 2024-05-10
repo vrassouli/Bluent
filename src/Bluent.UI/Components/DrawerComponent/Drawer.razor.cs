@@ -7,7 +7,7 @@ public partial class Drawer
 {
     private bool _hiding;
     private object? _result;
-    private bool _hide;
+    private bool _hidden;
 
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
     [Parameter] public DrawerPosition Position { get; set; } = DrawerPosition.End;
@@ -18,7 +18,7 @@ public partial class Drawer
     protected override void OnInitialized()
     {
         if (Breakpoint != null)
-            _hide = true;
+            _hidden = true;
 
         base.OnInitialized();
     }
@@ -38,21 +38,24 @@ public partial class Drawer
         if (_hiding)
             yield return "hiding";
 
-        if (_hide)
+        if (_hidden)
             yield return "hide";
     }
 
     public void Close(dynamic? result = null)
     {
-        _hiding = true;
-        _result = result;
-        StateHasChanged();
+        if (!_hidden && !_hiding)
+        {
+            _hiding = true;
+            _result = result;
+            StateHasChanged();
+        }
     }
 
     public void Open()
     {
         _hiding = false;
-        _hide = false;
+        _hidden = false;
     }
 
     private void AnimationEndedHandler()
@@ -60,7 +63,7 @@ public partial class Drawer
         if (_hiding)
         {
             InvokeAsync(() => OnClose.InvokeAsync(_result));
-            _hide = true;
+            _hidden = true;
             _hiding = false;
         }
     }
