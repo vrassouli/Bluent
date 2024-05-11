@@ -10,6 +10,7 @@ $spaces: to-index-map($spacings-map);
 $margins: map-merge($spaces, (auto: auto));
 $important-utilities: () !default;
 $non-important-utilities: () !default;
+$rtl-utilities: () !default;
 
 $important-utilities: map-merge( 
     (
@@ -530,4 +531,19 @@ $non-important-utilities: map-merge(
         )
     ), 
     $non-important-utilities
+);
+$rtl-utilities: map-merge( 
+    (
+        "text-align": (
+            responsive: true,
+            property: text-align,
+            class: text,
+            values: (
+                start: right,
+                end: left,
+                center: center,
+            )
+        ),
+    ), 
+    $rtl-utilities
 );
