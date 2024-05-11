@@ -106,8 +106,8 @@ public partial class FileSelect
             ".mpeg" or
             ".mp4" => $"/_content/Bluent.UI/assets/file-types/video.svg",
 
-            ".xsl" or
-            ".xslx" => $"/_content/Bluent.UI/assets/file-types/xlsx.svg",
+            ".xls" or
+            ".xlsx" => $"/_content/Bluent.UI/assets/file-types/xlsx.svg",
 
             ".xml" => $"/_content/Bluent.UI/assets/file-types/xml.svg",
 
