@@ -50,8 +50,16 @@ namespace Bluent.UI.Interops
 
         public async void SetPopover(PopoverSettings settings)
         {
-            var module = await GetModuleAsync();
-            await module.InvokeVoidAsync("setPopover", settings);
+            try
+            {
+                var module = await GetModuleAsync();
+                await module.InvokeVoidAsync("setPopover", settings);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                // swallow!
+            }
         }
 
         public async void ShowSurface(PopoverSettings settings)
