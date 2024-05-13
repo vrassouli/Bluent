@@ -83,7 +83,7 @@ public partial class Button
             (Placement.Right or Placement.RightStart or Placement.RightEnd) => "caret_right",
             (Placement.Left or Placement.LeftStart or Placement.LeftEnd) => "caret_left",
             _ => "caret_down"
-        } ;
+        };
     }
 
     private void ClickHandler()
@@ -93,9 +93,7 @@ public partial class Button
             Toggled = !Toggled.Value;
             InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));
         }
-        else
-        {
-            InvokeAsync(OnClick.InvokeAsync);
-        }
+
+        InvokeAsync(OnClick.InvokeAsync);
     }
 }
