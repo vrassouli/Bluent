@@ -28,7 +28,7 @@
             transition: background-color var(--durationFast) linear;
             cursor: pointer;
 
-            > .icon, .active-icon {
+            > .icon, >.active-icon {
                 width: 20px;
                 height: 20px;
                 display: flex;
