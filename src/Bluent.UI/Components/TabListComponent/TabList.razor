@@ -1,0 +1,29 @@
+﻿@inherits Overflow
+@namespace Bluent.UI.Components
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="header">
+        @{
+            base.BuildRenderTree(__builder);
+        }
+    </div>
+    @if (_tabItems.Any())
+    {
+        var index = 0;
+        <div class="panels">
+            @foreach (var tabItem in _tabItems.Where(tab => tab.ChildContent != null))
+            {
+                var isSelected = SelectedTab == tabItem;
+
+                if (!tabItem.DeferredLoading || isSelected)
+                {
+                    <div class="tab-panel @(isSelected ? "selected" : "")">
+                        @tabItem.ChildContent
+                    </div>
+                }
+
+                index++;
+            }
+        </div>
+    }
+</div>

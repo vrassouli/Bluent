@@ -4,6 +4,9 @@ export class Overflow {
     private _isHorizontal: boolean;
     private _overflowButtonWidth: number;
     private _overflowButtonHeight: number;
+    private _mutaionObserver: MutationObserver;
+    private _overflowSurface: HTMLElement;
+    _checkingOverflow: any;
 
     constructor() {
     }
@@ -13,28 +16,41 @@ export class Overflow {
 
         if (this._element) {
             let overflowButton = <HTMLElement>this._element.querySelector(':scope > .overflow-button');
+            this._overflowSurface = <HTMLElement>document.querySelector(`#${overflowButton.id}_surface>.overflow-menu`);
             this._overflowMenu = document.querySelector(`#${overflowButton.id}_surface>.overflow-menu`);
             this._isHorizontal = this._element.classList.contains('horizontal');
             this.getOverflowButtonDimention(overflowButton);
 
-            new ResizeObserver(this.onSizeChanged.bind(this)).observe(this._element);
+            new ResizeObserver(this.onSizeChanged.bind(this))
+                .observe(this._element);
+            this._mutaionObserver = new MutationObserver(this.onSurfaceContentChanged.bind(this));
         }
 
         this.checkOverflow();
     }
 
     public checkOverflow() {
-        let children = Array.from(this._element.children)
-            .filter(child => !child.classList.contains('overflow-button'));
-        let overflowMenuChildren = Array.from(this._overflowMenu.children);
+        try {
+            this.disconnectMutionObserver();
 
-        this.clearOverflowingItems(children);
-        this.clearOverflowingItems(overflowMenuChildren);
+            let children = Array.from(this._element.children)
+                .filter(child => !child.classList.contains('overflow-button'));
+            let overflowMenuChildren = Array.from(this._overflowMenu.children);
 
-        let firstOverflow = this.getFirstOverflowIndex(children);
+            this.clearOverflowingItems(children);
+            this.clearOverflowingItems(overflowMenuChildren);
 
-        this.setOverflowingItems(firstOverflow, children);
-        this.setOverflowingItems(firstOverflow, overflowMenuChildren);
+            let firstOverflow = this.getFirstOverflowIndex(children);
+
+            this.setOverflowingItems(firstOverflow, children);
+            this.setOverflowingItems(firstOverflow, overflowMenuChildren);
+        }
+        catch {
+
+        }
+        finally {
+            this.connectMutationObserver();
+        }
     }
 
     private getOverflowButtonDimention(btn: HTMLElement) {
@@ -105,6 +121,21 @@ export class Overflow {
 
     private onSizeChanged() {
         this.checkOverflow();
+    }
+
+    private onSurfaceContentChanged() {
+        //console.log('content changed.');
+        this.checkOverflow();
+    }
+
+    private disconnectMutionObserver() {
+        if (this._mutaionObserver) {
+            this._mutaionObserver.disconnect();
+        }
+    }
+
+    private connectMutationObserver() {
+        this._mutaionObserver.observe(this._overflowSurface, { attributes: true, childList: true, subtree: true });
     }
 
     public static create(): Overflow {

@@ -13,7 +13,6 @@ public partial class MenuItem
     [Parameter] public string? Icon { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public bool Checked { get; set; }
-    [Parameter] public bool Disabled { get; set; }
     [Parameter] public object? Data { get; set; }
     [CascadingParameter] public MenuList MenuList { get; set; } = default!;
     [CascadingParameter] public Popover? Popover { get; set; }
@@ -50,7 +49,7 @@ public partial class MenuItem
     public override IEnumerable<string> GetClasses()
     {
         yield return "menu-item";
-        if (Disabled)
+        if (IsDisabled)
             yield return "disabled";
     }
 
@@ -66,7 +65,7 @@ public partial class MenuItem
 
     private string GetItemTag()
     {
-        if (IsLink && !Disabled)
+        if (IsLink && !IsDisabled)
             return "a";
 
         return "div";
