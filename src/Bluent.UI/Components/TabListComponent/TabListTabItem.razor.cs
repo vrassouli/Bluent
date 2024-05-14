@@ -19,19 +19,19 @@ public partial class TabListTabItem
     [Parameter] public object? Data { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
-    [CascadingParameter] public Overflow TabListOverflow { get; set; } = default!;
+    [CascadingParameter] public Overflow TabList { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
 
     protected override void OnInitialized()
     {
-        if (TabListOverflow is not TabList tabList)
+        if (TabList is not TabList tabList)
             throw new InvalidOperationException($"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
 
         tabList.Add(this);
 
-        if (tabList.Orientation == Orientation.Horizontal)
+        if (TabList.Orientation == Orientation.Horizontal)
             TooltipPlacement = Placement.Bottom;
         else
             TooltipPlacement = Placement.Right;
@@ -39,6 +39,15 @@ public partial class TabListTabItem
         NavigationManager.LocationChanged += NavigationManager_LocationChanged;
 
         base.OnInitialized();
+    }
+
+    public override void Dispose()
+    {
+        NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
+        if (TabList is TabList tabList)
+            tabList.Remove(this);
+
+        base.Dispose();
     }
 
     protected override void OnParametersSet()
@@ -52,22 +61,13 @@ public partial class TabListTabItem
         base.OnParametersSet();
     }
 
-    public override void Dispose()
-    {
-        NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
-        if (TabListOverflow is TabList tabList)
-            tabList.Remove(this);
-
-        base.Dispose();
-    }
-
     public override IEnumerable<string> GetClasses()
     {
         yield return "tab-item";
         if (Orientation != Orientation.Horizontal)
             yield return Orientation.ToString().Kebaberize();
 
-        if (TabListOverflow is TabList tabList)
+        if (TabList is TabList tabList)
         {
             if (tabList.InSelected(this))
                 yield return "selected";
@@ -76,7 +76,7 @@ public partial class TabListTabItem
 
     private void ClickHandler()
     {
-        if (TabListOverflow is TabList tabList)
+        if (TabList is TabList tabList)
         {
             tabList.SelectTab(this);
         }
@@ -110,7 +110,7 @@ public partial class TabListTabItem
         var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
         var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
 
-        if (isActive && TabListOverflow is TabList tabList)
+        if (isActive && TabList is TabList tabList)
         {
             tabList.SelectTab(this);
         }

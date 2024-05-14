@@ -9,7 +9,7 @@
         <section class="p-7 rounded-5 shadow-3">
             <Label Text="Toolbar width (px):" Class="me-4" />
             <NumericField @bind-Value="_horizontalToolbarWidth" />
-
+            <Checkbox @bind-Value="_disabledItems" Label="Disabled Items"/>
             <Toolbar Class="my-4 shadow-2" Style="@HorizontalToolbarWidth">
                 <ToolbarButton MenuLabel="Backward" Icon="icon-ic_fluent_arrow_circle_left_20_regular" ActiveIcon="icon-ic_fluent_arrow_circle_left_20_filled" OnClick="@(()=>{SetMessage("Backward"); })">
                     <Dropdown>
@@ -34,8 +34,8 @@
                 <ToolbarButton Text="Save" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" OnClick="@(()=>{SetMessage("Save"); })" />
                 <ToolbarButton Text="Save All" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" OnClick="@(()=>{SetMessage("Save All"); })" />
                 <ToolbarDivider />
-                <ToolbarButton Text="Undo" Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" disabled OnClick="@(()=>{SetMessage("Undo"); })" />
-                <ToolbarButton Text="Redo" Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" disabled OnClick="@(()=>{SetMessage("Redo"); })" />
+                <ToolbarButton Text="Undo" Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" disabled="@_disabledItems" OnClick="@(()=>{SetMessage("Undo"); })" />
+                <ToolbarButton Text="Redo" Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" disabled="@_disabledItems" OnClick="@(()=>{SetMessage("Redo"); })" />
                 <ToolbarDivider />
                 <ToolbarButton MenuLabel="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
                 <ToolbarButton MenuLabel="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
@@ -73,6 +73,7 @@
 </div>
 
 @code {
+    bool _disabledItems = true;
     int? _horizontalToolbarWidth;
     int? _verticalToolbarHeight;
     string? _message;

@@ -1,26 +1,42 @@
 ﻿using Bluent.UI.Components.OverflowComponent;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
-public abstract class OverflowItemComponentBase : BluentComponentBase, IOverflowItem
+public abstract class OverflowItemComponentBase : BluentComponentBase/*, IOverflowItem*/
 {
+    [CascadingParameter] public OverflowRenderContext? RenderContext { get; set; }
     [CascadingParameter] public Overflow Overflow { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-        if (Overflow is null)
-            throw new InvalidOperationException($"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.Overflow)}' component.");
-
-        Overflow.Add(this);
-
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        Overflow.Remove(this);
+        if (RenderContext != null)
+        {
+            if (RenderContext.RenderOverflowMenuItem)
+            {
+                RenderOverflowMenuItem(builder);
+            }
+            else
+            {
+                RenderOverflowItem(builder);
+            }
+        }
 
-        base.Dispose();
+        base.BuildRenderTree(builder);
     }
+
+    protected override void OnParametersSet()
+    {
+        //Console.WriteLine("OnParameterSet: " + GetType());
+        base.OnParametersSet();
+    }
+
+    protected abstract void RenderOverflowMenuItem(RenderTreeBuilder builder);
+    protected abstract void RenderOverflowItem(RenderTreeBuilder builder);
 }

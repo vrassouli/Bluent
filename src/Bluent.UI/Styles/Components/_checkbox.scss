@@ -22,7 +22,7 @@
                 --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
                 --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
                 --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-                color: var(--colorNeutralForeground1);
+                color: var(--colorNeutralForegroundInverted);
 
                 > .checked-state {
                     display: block !important;
@@ -143,7 +143,7 @@
         --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
         --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
         --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-        color: var(--colorNeutralForeground1);
+        color: var(--colorNeutralForegroundInverted);
 
         &:hover {
             --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackgroundHover);

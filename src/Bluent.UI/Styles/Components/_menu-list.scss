@@ -7,7 +7,7 @@
     min-width: 128px;
     max-width: 300px;
 
-    > .menu-item {
+    .menu-item {
         border-radius: var(--borderRadiusMedium);
         position: relative;
         color: var(--colorNeutralForeground2);
@@ -90,13 +90,53 @@
                 color: var(--colorNeutralForeground2Pressed);
             }
         }
+
+        &.disabled {
+            color: var(--colorNeutralForegroundDisabled);
+
+            &:hover {
+                cursor: not-allowed;
+                background-color: var(--colorNeutralBackground1);
+                color: var(--colorNeutralForegroundDisabled);
+
+                > .icon, .active-icon {
+                    color: var(--colorNeutralForegroundDisabled);
+                }
+
+                > .active-icon {
+                    display: none;
+
+                    & + .icon {
+                        display: inline-flex;
+                    }
+                }
+
+                &:active {
+                    background-color: var(--colorNeutralBackground1);
+                    color: var(--colorNeutralForegroundDisabled);
+                }
+            }
+        }
     }
 
-    > .menu-divider {
+    .menu-divider {
         width: auto;
         margin: 4px 0;
         border-bottom-color: var(--colorNeutralStroke2);
         border-bottom-width: var(--strokeWidthThin);
         border-bottom-style: solid;
+    }
+
+    .item-group {
+        > .title {
+            height: 32px;
+            padding: 0 12px;
+            color: var(--colorNeutralForeground3);
+            align-items: center;
+            font-size: var(--fontSizeBase200);
+            font-weight: var(--fontWeightSemibold);
+            display: flex;
+            cursor: default;
+        }
     }
 }

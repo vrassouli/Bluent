@@ -49,6 +49,8 @@ public partial class MenuItem
     public override IEnumerable<string> GetClasses()
     {
         yield return "menu-item";
+        if (IsDisabled)
+            yield return "disabled";
     }
 
     private void ClickHandler()
@@ -63,7 +65,7 @@ public partial class MenuItem
 
     private string GetItemTag()
     {
-        if (IsLink)
+        if (IsLink && !IsDisabled)
             return "a";
 
         return "div";
