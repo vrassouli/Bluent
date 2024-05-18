@@ -154,7 +154,9 @@
     }
 
     &.no-resize {
-        resize: none;
+        > textarea {
+            resize: none;
+        }
     }
 }
 
