@@ -21,7 +21,7 @@
     line-height: var(--fui-text-field-line-height);
     min-height: var(--fui-text-field-min-height);
 
-    > input, select {
+    > input, select, textarea {
         padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);
         align-self: stretch;
         box-sizing: border-box;
@@ -58,7 +58,7 @@
         align-items: center;
         justify-content: center;
 
-        + input, + select {
+        + input, + select, +teaxtarea {
             padding-inline-start: 0;
         }
     }
@@ -151,6 +151,10 @@
         &.invalid {
             border-color: var(--colorPaletteRedBorder2);
         }
+    }
+
+    &.no-resize{
+        resize: none;
     }
 }
 .validation-message {

@@ -102,12 +102,21 @@
             <Switch @bind-Value="_disabledOnSwitch" Label="Switch is disabled and On" UncheckedLabel="Switch is disabled and Off" disabled />
         </section>
 
+        <h3>Textarea field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label ForExpression="()=>_textareaField" Class="d-block mb-1" />
+            <TextField @bind-Value="_textareaField" Rows="3" />
+        </section>
+
     </div>
 </div>
 
 @code {
     [Display(Name = "Example text field")]
     private string? _textField;
+
+    [Display(Name = "Example teaxtarea field")]
+    private string? _textareaField;
 
     [Display(Name = "Disabled text field")]
     private string? _disabledTextField;

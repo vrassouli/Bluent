@@ -9,11 +9,25 @@
         </div>
     }
 
-    <input @attributes=GetInputAdditionalAttributes()
-           @ref=Element
-           id="@GetInputId()"
-           name="@NameAttributeValue"
-           @bind-value="CurrentValueAsString" @bind-value:event="@BindValueEvent" />
+    @if (Rows == null)
+    {
+        <input @attributes=GetInputAdditionalAttributes()
+               @ref=Element
+               id="@GetInputId()"
+               name="@NameAttributeValue"
+               @bind-value="CurrentValueAsString" 
+               @bind-value:event="@BindValueEvent" />
+    }
+    else
+    {
+        <textarea @attributes=GetInputAdditionalAttributes()
+                  @ref=Element
+                  id="@GetInputId()"
+                  name="@NameAttributeValue"
+                  rows="@Rows"
+                  @bind-value="CurrentValueAsString"
+                  @bind-value:event="@BindValueEvent"></textarea>
+    }
 
     @if (EndAddon != null)
     {
