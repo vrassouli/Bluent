@@ -79,6 +79,9 @@
                     flex: 1;
                     color: inherit;
                     text-decoration: none;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
 
                 a.item-content {
