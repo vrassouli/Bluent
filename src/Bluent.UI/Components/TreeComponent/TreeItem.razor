@@ -47,13 +47,13 @@
         }
         else if (string.IsNullOrEmpty(Href))
         {
-            <div class="item-content">
+            <div class="item-content" @onclick="OnClick">
                 @Title
             </div>
         }
         else
         {
-            <a class="item-content" href="@Href" target="@Target">
+            <a class="item-content" href="@Href" @onclick="OnClick" target="@Target">
                 @Title
             </a>
         }

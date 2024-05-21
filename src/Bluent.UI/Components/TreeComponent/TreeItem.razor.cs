@@ -20,6 +20,7 @@ public partial class TreeItem
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; } = default!;
     [Parameter] public bool? IsChecked { get; set; } = false;
     [Parameter] public EventCallback<bool?> IsCheckedChanged { get; set; } = default!;
+    [Parameter] public EventCallback OnClick { get; set; } = default!;
     [Parameter] public object? Data { get; set; } = default!;
     [Parameter] public string? Href { get; set; }
     [Parameter] public string? Target { get; set; }
