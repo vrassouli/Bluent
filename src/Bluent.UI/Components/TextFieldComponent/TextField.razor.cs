@@ -7,6 +7,16 @@ public partial class TextField
 {
     [Parameter] public int? Rows { get; set; }
     [Parameter] public bool ResizeTextarea { get; set; }
+    [Parameter] public bool GainFocus { get; set; }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && GainFocus && Element != null)
+        {
+            InvokeAsync(() => Element.Value.FocusAsync());
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
 
     public override IEnumerable<string> GetClasses()
     {
