@@ -11,6 +11,7 @@ public partial class WizardStep
 {
     [Parameter] public string? Title { get; set; } = default!;
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
+    [Parameter] public bool DeferredLoading { get; set; }
     [CascadingParameter] public Wizard Wizard { get; set; } = default!;
 
     protected override void OnInitialized()
