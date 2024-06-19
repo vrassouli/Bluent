@@ -20,6 +20,8 @@ public partial class Wizard
     [Parameter] public string LabelDone { get; set; } = "Done";
     [Parameter] public bool SubmitWhenDown { get; set; }
     [Parameter] public bool CanCancel { get; set; }
+    [Parameter] public bool AllowNext { get; set; } = true;
+    [Parameter] public bool AllowPrevious { get; set; } = true;
     [Parameter] public int CurrentStep { get; set; }
     [Parameter] public EventCallback<int> CurrentStepChanged { get; set; }
     [Parameter] public EventCallback OnNext { get; set; }
@@ -28,6 +30,8 @@ public partial class Wizard
 
     private bool IsLastStep => CurrentStep >= _steps.Count - 1;
     private bool IsFirstStep => CurrentStep <= 0;
+    private bool CanGoNext => AllowNext;
+    private bool CanGoPrev => !IsFirstStep && AllowPrevious;
 
     public override IEnumerable<string> GetClasses()
     {
