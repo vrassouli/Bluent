@@ -62,7 +62,8 @@ public partial class Wizard
     {
         SetCurrentStep(Math.Min(_steps.Count - 1, CurrentStep + 1));
 
-        OnNext.InvokeAsync();
+        if (!(IsLastStep && SubmitWhenDown))
+            OnNext.InvokeAsync();
     }
 
     private void PreviousHandler()
@@ -92,7 +93,10 @@ public partial class Wizard
         else
             _transitionDirection = null;
 
-        CurrentStep = index;
-        CurrentStepChanged.InvokeAsync(CurrentStep);
+        if (CurrentStep != index)
+        {
+            CurrentStep = index;
+            CurrentStepChanged.InvokeAsync(CurrentStep);
+        }
     }
 }
