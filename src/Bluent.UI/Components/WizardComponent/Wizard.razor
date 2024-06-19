@@ -30,8 +30,11 @@
     @if (DisplayNavigationButtons)
     {
         <div class="nav">
-            <Button Text="@(IsLastStep ? LabelDone : LabelNext)" Appearance="ButtonAppearance.Primary" OnClick="NextHandler" type="@((IsLastStep && SubmitWhenDown) ? "submit" : "button")" />
-            <Button Text="@LabelPrevious" OnClick="PreviousHandler" disabled="@IsFirstStep" />
+            <Button Text="@(IsLastStep ? LabelDone : LabelNext)" Appearance="ButtonAppearance.Primary" OnClick="NextHandler" 
+                disabled="@CanGoNext"
+                type="@((IsLastStep && SubmitWhenDown) ? "submit" : "button")" />
+            <Button Text="@LabelPrevious" OnClick="PreviousHandler" 
+                disabled="@CanGoPrev" />
             @if (CanCancel)
             {
                 <Button Text="@LabelCancel" OnClick="CancelHandler" />
