@@ -60,17 +60,17 @@ public partial class Wizard
 
     private void NextHandler()
     {
-        SetCurrentStep(Math.Min(_steps.Count - 1, CurrentStep + 1));
-
-        if (!(IsLastStep && SubmitWhenDown))
+        if (!IsLastStep || (IsLastStep && !SubmitWhenDown))
             OnNext.InvokeAsync();
+
+        SetCurrentStep(Math.Min(_steps.Count - 1, CurrentStep + 1));
     }
 
     private void PreviousHandler()
     {
-        SetCurrentStep(CurrentStep = Math.Max(0, CurrentStep - 1));
-
         OnPrevious.InvokeAsync();
+
+        SetCurrentStep(CurrentStep = Math.Max(0, CurrentStep - 1));
     }
 
     private void StepClickHandler(int index)
