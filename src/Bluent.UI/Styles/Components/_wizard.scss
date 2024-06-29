@@ -72,21 +72,29 @@
                     cursor: pointer;
                 }
 
-                &:not(:first-child) {
+                &::before {
+                    content: "";
+                    flex: 1;
+                    border-inline-start: 1px solid var(--colorNeutralStroke1);
+                    width: calc(100% - var(--wizard-icon-size));
+                }
+
+                &::after {
+                    content: "";
+                    flex: 1;
+                    border-inline-start: 1px solid var(--colorNeutralStroke1);
+                    width: calc(100% - var(--wizard-icon-size));
+                }
+
+                &:first-child {
                     &::before {
-                        content: "";
-                        flex: 1;
-                        border-inline-start: 1px solid var(--colorNeutralStroke1);
-                        width: calc(100% - var(--wizard-icon-size));
+                        border-color: transparent;
                     }
                 }
 
-                &:not(:last-child) {
+                &:last-child {
                     &::after {
-                        content: "";
-                        flex: 1;
-                        border-inline-start: 1px solid var(--colorNeutralStroke1);
-                        width: calc(100% - var(--wizard-icon-size));
+                        border-color: transparent;
                     }
                 }
             }
@@ -160,21 +168,29 @@
                         flex-direction: column;
                     }
 
-                    &:not(:first-child) {
+                    &::before {
+                        width: unset;
+                        border-inline-start: unset;
+                        height: calc(100% - var(--wizard-icon-size));
+                        border-top: 1px solid var(--colorNeutralStroke1);
+                    }
+
+                    &::after {
+                        width: unset;
+                        border-inline-start: unset;
+                        height: calc(100% - var(--wizard-icon-size));
+                        border-top: 1px solid var(--colorNeutralStroke1);
+                    }
+
+                    &:first-child {
                         &::before {
-                            width: unset;
-                            border-inline-start: unset;
-                            height: calc(100% - var(--wizard-icon-size));
-                            border-top: 1px solid var(--colorNeutralStroke1);
+                            border-color: transparent;
                         }
                     }
 
-                    &:not(:last-child) {
+                    &:last-child {
                         &::after {
-                            width: unset;
-                            border-inline-start: unset;
-                            height: calc(100% - var(--wizard-icon-size));
-                            border-top: 1px solid var(--colorNeutralStroke1);
+                            border-color: transparent;
                         }
                     }
                 }
