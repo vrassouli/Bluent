@@ -70,7 +70,7 @@ public partial class Wizard
     {
         OnPrevious.InvokeAsync();
 
-        SetCurrentStep(CurrentStep = Math.Max(0, CurrentStep - 1));
+        SetCurrentStep(Math.Max(0, CurrentStep - 1));
     }
 
     private void StepClickHandler(int index)
