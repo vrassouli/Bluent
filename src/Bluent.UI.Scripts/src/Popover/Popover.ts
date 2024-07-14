@@ -92,7 +92,7 @@ export class Popover {
         var surface = this.getSurface(settings);
 
         if (trigger && surface) {
-            if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target)) {
+            if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target) || args.defaultPrevented) {
                 document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
             }
             else {
