@@ -2,7 +2,7 @@
 @namespace Bluent.UI.Components
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    <CascadingValue Value="_dragData" IsFixed>
+    <CascadingValue Value="DndContext" IsFixed>
         <CascadingValue Value="this" IsFixed>
             <ul class="item-group">
                 @ChildContent

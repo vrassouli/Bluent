@@ -24,11 +24,51 @@ public partial class TreeItem
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? ItemTemplate { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
-    [CascadingParameter] public TreeDndContext DragData { get; set; } = default!;
+    [CascadingParameter] public DndContext DndContext { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;
 
     internal bool HasSubItems => _items.Any();
+    private bool CanDrop
+    {
+        get
+        {
+            if (DndContext?.Dragging != null)
+            {
+                if (DndContext.Dragging is TreeItem draggingTreeItem)
+                {
+                    if (!Tree.CanDrag(draggingTreeItem))
+                        return false;
+
+                    if (Tree.CanDrop != null && !Tree.CanDrop(draggingTreeItem, this))
+                        return false;
+
+                    if (Items.Contains(draggingTreeItem) || draggingTreeItem.Contains(this) || draggingTreeItem == this)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    private bool Contains(TreeItem subItem)
+    {
+        if (Items.Contains(subItem))
+            return true;
+
+        foreach (var item in Items)
+        {
+            if (item.Contains(subItem))
+                return true;
+        }
+
+        return false;
+    }
 
     protected override void OnInitialized()
     {
@@ -88,7 +128,7 @@ public partial class TreeItem
 
     private void OnDragStarted()
     {
-        DragData.DraggedItem = this;
+        DndContext.Dragging = this;
         _isDragging = true;
     }
 
@@ -99,19 +139,19 @@ public partial class TreeItem
 
     private async Task OnDropAsync()
     {
-        if (DragData.DraggedItem != null && DragData.DraggedItem != this)
+        if (DndContext.Dragging != null && DndContext.Dragging != this)
         {
-            DragData.DropedItem = this;
+            DndContext.DropTarget = this;
 
             await Tree.OnItemDropedAsync();
-        
+
             _canDrop = false;
         }
     }
 
     private void OnDragOver()
     {
-        _canDrop = (DragData.DraggedItem != null && DragData.DraggedItem != this);
+        _canDrop = (DndContext.Dragging != null && DndContext.Dragging != this);
     }
 
     private void OnDragLeave()

@@ -4,6 +4,7 @@ namespace Bluent.UI.Components;
 
 public partial class Tree
 {
+    private DndContext _dndContext = new();
     private List<TreeItem> _items = new();
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public TreeCheckboxMode CheckboxMode { get; set; } = TreeCheckboxMode.None;
@@ -12,10 +13,13 @@ public partial class Tree
     [Parameter] public bool ToggleSubItemsOnClick { get; set; } = true;
     [Parameter] public bool ToggleCheckStateOnClick { get; set; }
     [Parameter] public EventCallback<TreeItem> OnClick { get; set; }
-    [Parameter] public EventCallback<TreeDndContext> OnItemDrag { get; set; }
+    [Parameter] public EventCallback<DndContext> OnItemDrop { get; set; }
+    [Parameter] public Func<TreeItem, TreeItem, bool>? CanDrop { get; set; }
+    [Parameter] public Func<TreeItem, bool> CanDrag { get; set; } = _ => true;
+    [CascadingParameter] public DndContext? SharedContext { get; set; }
 
     public IReadOnlyList<TreeItem> Items => _items;
-    private TreeDndContext _dragData = new();
+    private DndContext DndContext => SharedContext ?? _dndContext;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -49,9 +53,9 @@ public partial class Tree
 
     internal async Task OnItemDropedAsync()
     {
-        await OnItemDrag.InvokeAsync(_dragData);
+        await OnItemDrop.InvokeAsync(DndContext);
 
-        _dragData.DraggedItem = null;
-        _dragData.DropedItem = null;
+        DndContext.Dragging = null;
+        DndContext.DropTarget = null;
     }
 }
