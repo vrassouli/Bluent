@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
@@ -11,6 +6,8 @@ public partial class TreeItem
 {
     private List<TreeItem> _items = new();
     private bool _mouseEntered;
+    private bool _canDrop;
+    private bool _isDragging;
 
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Icon { get; set; } = default!;
@@ -27,6 +24,7 @@ public partial class TreeItem
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? ItemTemplate { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
+    [CascadingParameter] public TreeDndContext DragData { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;
 
@@ -86,6 +84,52 @@ public partial class TreeItem
     {
         _items.Remove(item);
         StateHasChanged();
+    }
+
+    private void OnDragStarted()
+    {
+        DragData.DraggedItem = this;
+        _isDragging = true;
+    }
+
+    private void OnDragEnded()
+    {
+        _isDragging = false;
+    }
+
+    private async Task OnDropAsync()
+    {
+        if (DragData.DraggedItem != null && DragData.DraggedItem != this)
+        {
+            DragData.DropedItem = this;
+
+            await Tree.OnItemDropedAsync();
+        
+            _canDrop = false;
+        }
+    }
+
+    private void OnDragOver()
+    {
+        _canDrop = (DragData.DraggedItem != null && DragData.DraggedItem != this);
+    }
+
+    private void OnDragLeave()
+    {
+        _canDrop = false;
+    }
+
+    private string? GetLayourClasses()
+    {
+        var classes = new List<string>();
+
+        if (_canDrop)
+            classes.Add("drop-target");
+
+        if (_isDragging)
+            classes.Add("dragging");
+
+        return string.Join(' ', classes);
     }
 
     private async Task ItemClickHandler()

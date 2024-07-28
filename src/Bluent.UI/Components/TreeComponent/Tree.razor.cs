@@ -8,11 +8,14 @@ public partial class Tree
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public TreeCheckboxMode CheckboxMode { get; set; } = TreeCheckboxMode.None;
     [Parameter] public bool CircularCheckboxes { get; set; }
+    [Parameter] public bool Draggable { get; set; }
     [Parameter] public bool ToggleSubItemsOnClick { get; set; } = true;
     [Parameter] public bool ToggleCheckStateOnClick { get; set; }
     [Parameter] public EventCallback<TreeItem> OnClick { get; set; }
+    [Parameter] public EventCallback<TreeDndContext> OnItemDrag { get; set; }
 
     public IReadOnlyList<TreeItem> Items => _items;
+    private TreeDndContext _dragData = new();
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -42,5 +45,13 @@ public partial class Tree
     internal void OnItemClick(TreeItem item)
     {
         OnClick.InvokeAsync(item);
+    }
+
+    internal async Task OnItemDropedAsync()
+    {
+        await OnItemDrag.InvokeAsync(_dragData);
+
+        _dragData.DraggedItem = null;
+        _dragData.DropedItem = null;
     }
 }

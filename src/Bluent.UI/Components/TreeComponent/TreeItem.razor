@@ -5,7 +5,17 @@
     @onclick:stopPropagation="true"
     @onmouseenter:stopPropagation="true"
     @onmouseleave:stopPropagation="true">
-    <div class="layout" @onclick="ItemClickHandler" @onmouseenter="MouseEnterHandler" @onmouseleave="MouseLeaveHandler">
+    <div class="layout @GetLayourClasses()"
+         draggable="@Tree.Draggable.ToString().ToLower()"
+         @ondragover="OnDragOver"
+         @ondragover:preventDefault="true"
+         @ondragleave="OnDragLeave"
+         @ondragstart="OnDragStarted"
+         @ondragend="OnDragEnded"
+         @ondrop="OnDropAsync"
+         @onclick="ItemClickHandler" 
+         @onmouseenter="MouseEnterHandler" 
+         @onmouseleave="MouseLeaveHandler">
         <div class="expander" @onclick:stopPropagation="true">
             @if (HasSubItems)
             {

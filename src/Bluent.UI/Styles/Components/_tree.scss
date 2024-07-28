@@ -75,6 +75,16 @@
                     }
                 }
 
+                &.drop-target {
+                    color: var(--colorNeutralForeground2Pressed) !important;
+                    background-color: var(--colorSubtleBackgroundPressed) !important;
+                }
+
+                &.dragging {
+                    color: var(--colorNeutralForegroundDisabled) !important;
+                    background-color: var(--colorSubtleBackgroundHover) !important;
+                }
+
                 .item-content {
                     flex: 1;
                     color: inherit;
