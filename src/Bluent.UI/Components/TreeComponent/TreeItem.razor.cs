@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
@@ -11,6 +6,8 @@ public partial class TreeItem
 {
     private List<TreeItem> _items = new();
     private bool _mouseEntered;
+    private bool _canDrop;
+    private bool _isDragging;
 
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Icon { get; set; } = default!;
@@ -27,10 +24,51 @@ public partial class TreeItem
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? ItemTemplate { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
+    [CascadingParameter] public DndContext DndContext { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;
 
     internal bool HasSubItems => _items.Any();
+    private bool CanDrop
+    {
+        get
+        {
+            if (DndContext?.Dragging != null)
+            {
+                if (DndContext.Dragging is TreeItem draggingTreeItem)
+                {
+                    if (!Tree.CanDrag(draggingTreeItem))
+                        return false;
+
+                    if (Tree.CanDrop != null && !Tree.CanDrop(draggingTreeItem, this))
+                        return false;
+
+                    if (Items.Contains(draggingTreeItem) || draggingTreeItem.Contains(this) || draggingTreeItem == this)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    private bool Contains(TreeItem subItem)
+    {
+        if (Items.Contains(subItem))
+            return true;
+
+        foreach (var item in Items)
+        {
+            if (item.Contains(subItem))
+                return true;
+        }
+
+        return false;
+    }
 
     protected override void OnInitialized()
     {
@@ -86,6 +124,52 @@ public partial class TreeItem
     {
         _items.Remove(item);
         StateHasChanged();
+    }
+
+    private void OnDragStarted()
+    {
+        DndContext.Dragging = this;
+        _isDragging = true;
+    }
+
+    private void OnDragEnded()
+    {
+        _isDragging = false;
+    }
+
+    private async Task OnDropAsync()
+    {
+        if (DndContext.Dragging != null && DndContext.Dragging != this)
+        {
+            DndContext.DropTarget = this;
+
+            await Tree.OnItemDropedAsync();
+
+            _canDrop = false;
+        }
+    }
+
+    private void OnDragOver()
+    {
+        _canDrop = (DndContext.Dragging != null && DndContext.Dragging != this);
+    }
+
+    private void OnDragLeave()
+    {
+        _canDrop = false;
+    }
+
+    private string? GetLayourClasses()
+    {
+        var classes = new List<string>();
+
+        if (_canDrop)
+            classes.Add("drop-target");
+
+        if (_isDragging)
+            classes.Add("dragging");
+
+        return string.Join(' ', classes);
     }
 
     private async Task ItemClickHandler()
