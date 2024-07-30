@@ -26,6 +26,21 @@ public partial class FileSelect
         yield return "bui-file-select";
     }
 
+    public void Remove(SelectedFile file)
+    {
+        if (_files.Contains(file))
+        {
+            _files.Remove(file);
+            InvokeAsync(() => OnChange.InvokeAsync(_files));
+        }
+    }
+
+    public void Clear()
+    {
+        _files.Clear();
+        InvokeAsync(() => OnChange.InvokeAsync(_files));
+    }
+
     private async Task HandleOnClick()
     {
         if (_filePicker is null)
@@ -50,10 +65,10 @@ public partial class FileSelect
         InvokeAsync(() => OnChange.InvokeAsync(_files));
     }
 
+
     private void HandleFileRemove(SelectedFile file)
     {
-        _files.Remove(file);
-        InvokeAsync(() => OnChange.InvokeAsync(_files));
+        Remove(file);
     }
 
     public static string GetIcon(string fileExtension)
