@@ -68,6 +68,9 @@
             font-weight: var(--fontWeightSemibold);
             font-size: var(--fontSizeBase300);
             font-family: var(--fontFamilyBase);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         > .description {
@@ -153,6 +156,7 @@
         > .card-header {
             flex-grow: 1;
             flex-shrink: 0;
+            flex: 1;
         }
 
         > .card-preview {
