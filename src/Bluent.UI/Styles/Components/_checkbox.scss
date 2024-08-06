@@ -68,7 +68,7 @@
     > label {
         cursor: inherit;
         color: inherit;
-        margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);
+        /*margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);*/
         margin-top: calc((16px - var(--lineHeightBase300)) / 2);
         align-self: center;
         padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
