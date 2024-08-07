@@ -8,7 +8,7 @@
         <InputFile @ref="_filePicker" OnChange="HandleFileChanged" multiple="@Multiple"></InputFile>
     </div>
     <div class="content">
-        @if (Multiple || !_files.Any())
+        @if (Multiple || !_files.Any() || !ShowFileInfo)
         {
             <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance" OnClick="HandleOnClick" type="button" />
         }
