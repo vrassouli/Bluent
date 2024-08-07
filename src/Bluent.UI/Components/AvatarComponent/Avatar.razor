@@ -12,6 +12,6 @@
     }
     @if (!string.IsNullOrEmpty(ImageSource))
     {
-        <img class="image" src="@ImageSource" onerror='this.style.display = "none"' />
+        <img @key=ImageSource class="image" src="@ImageSource" onerror='this.style.display = "none"' />
     }
 </div>
