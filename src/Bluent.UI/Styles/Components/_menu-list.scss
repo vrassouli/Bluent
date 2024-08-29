@@ -140,3 +140,13 @@
         }
     }
 }
+
+.rtl, [dir="rtl"] {
+    .bui-menu-list {
+        .menu-item {
+            > .sub-menu-icon {
+                transform: rotate(180deg); 
+            }
+        }
+    }
+}
