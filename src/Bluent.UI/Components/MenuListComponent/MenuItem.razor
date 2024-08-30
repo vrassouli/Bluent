@@ -44,17 +44,24 @@ else
     <Popover @ref=_subMenuPopover TriggerEvents="mouseenter, focus" DisplayArrow="false" Placement="Placement.RightStart">
         <Trigger>
             <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
-                @if (Checked)
+                @if (MenuList.ShouldRenderCheckmarkBox)
                 {
-                    <i class="checked icon-ic_fluent_checkmark_20_regular"></i>
+                    @if (Checked)
+                    {
+                        <i class="checked icon-ic_fluent_checkmark_20_regular"></i>
+                    }
+                    else
+                    {
+                        <i class="checked"></i>
+                    }
                 }
-                @if (!string.IsNullOrEmpty(Icon))
+                @if (MenuList.ShouldRenderIconBox)
                 {
                     @if (!string.IsNullOrEmpty(ActiveIcon))
                     {
-                        <i class="active-icon @ActiveIcon"></i>
+                        <Icon Content="@ActiveIcon" Class="active-icon" />
                     }
-                    <i class="icon @Icon"></i>
+                    <Icon Content="@Icon" Class="icon" />
                 }
                 <div class="title">@Title</div>
                 <div class="sub-menu-icon ">
