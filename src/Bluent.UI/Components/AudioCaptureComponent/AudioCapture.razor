@@ -1,0 +1,18 @@
+﻿@namespace Bluent.UI.Components
+@using Humanizer
+@using Microsoft.AspNetCore.Components.Forms
+@inherits BluentComponentBase
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <Button Text="@Text"
+            Icon="@Icon"
+            ActiveIcon="@ActiveIcon"
+            Appearance="@Appearance"
+            OnClick="HandleOnClickAsync"
+            Toggled="_recording"
+            disabled="@(!_isSupported)"
+            type="button" />
+    <div class="play-list pt-2">
+
+    </div>
+</div>
