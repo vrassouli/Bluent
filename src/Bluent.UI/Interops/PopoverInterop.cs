@@ -2,81 +2,79 @@
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
-namespace Bluent.UI.Interops
+namespace Bluent.UI.Interops;
+
+internal class PopoverInterop : IAsyncDisposable
 {
-    internal class PopoverInterop : IAsyncDisposable
+    private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
+    private readonly IPopoverEventHandler _handler;
+    private IJSObjectReference? _module;
+    private IJSObjectReference? _popoverReference;
+    private DotNetObjectReference<IPopoverEventHandler>? _handlerReference;
+
+    private DotNetObjectReference<IPopoverEventHandler> HandlerReference
     {
-        private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
-        private readonly IPopoverEventHandler _handler;
-        private IJSObjectReference? _module;
-        private IJSObjectReference? _popoverReference;
-        private DotNetObjectReference<IPopoverEventHandler>? _handlerReference;
-
-        private DotNetObjectReference<IPopoverEventHandler> HandlerReference
+        get
         {
-            get
-            {
-                if (_handlerReference == null)
-                    _handlerReference = DotNetObjectReference.Create(_handler);
+            if (_handlerReference == null)
+                _handlerReference = DotNetObjectReference.Create(_handler);
 
-                return _handlerReference;
-            }
+            return _handlerReference;
         }
+    }
 
-        public PopoverInterop(IPopoverEventHandler handler, IJSRuntime jsRuntime)
+    public PopoverInterop(IPopoverEventHandler handler, IJSRuntime jsRuntime)
+    {
+        _handler = handler;
+        _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI/bluent.ui.js").AsTask());
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
         {
-            _handler = handler;
-            _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI/bluent.ui.js").AsTask());
-        }
+            if (_popoverReference != null)
+                await _popoverReference.DisposeAsync();
 
-        public async ValueTask DisposeAsync()
+            if (_module != null)
+                await _module.DisposeAsync();
+
+            if (_handlerReference != null)
+                _handlerReference.Dispose();
+        }
+        catch (Exception)
         {
-            try
-            {
-                if (_popoverReference != null)
-                    await _popoverReference.DisposeAsync();
-
-                if (_module != null)
-                    await _module.DisposeAsync();
-
-                if (_handlerReference != null)
-                    _handlerReference.Dispose();
-            }
-            catch (Exception)
-            {
-                // swallow!
-            }
+            // swallow!
         }
+    }
 
-        public async void SetPopover(PopoverSettings settings)
-        {
-            try
-            {
-                var module = await GetModuleAsync();
-                await module.InvokeVoidAsync("setPopover", settings);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                // swallow!
-            }
-        }
-
-        public async void ShowSurface(PopoverSettings settings)
+    public async void SetPopover(PopoverSettings settings)
+    {
+        try
         {
             var module = await GetModuleAsync();
-            await module.InvokeVoidAsync("showSurface", settings);
+            await module.InvokeVoidAsync("setPopover", settings);
         }
-
-        private async Task<IJSObjectReference> GetModuleAsync()
+        catch
         {
-            if (_module == null)
-                _module = await _moduleTask.Value;
-
-            if (_popoverReference == null)
-                _popoverReference = await _module.InvokeAsync<IJSObjectReference>("Popover.create", HandlerReference);
-
-            return _popoverReference;
+            // swallow!
         }
+    }
+
+    public async void ShowSurface(PopoverSettings settings)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("showSurface", settings);
+    }
+
+    private async Task<IJSObjectReference> GetModuleAsync()
+    {
+        if (_module == null)
+            _module = await _moduleTask.Value;
+
+        if (_popoverReference == null)
+            _popoverReference = await _module.InvokeAsync<IJSObjectReference>("Popover.create", HandlerReference);
+
+        return _popoverReference;
     }
 }
