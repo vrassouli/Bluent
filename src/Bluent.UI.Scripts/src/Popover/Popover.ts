@@ -37,9 +37,11 @@ export class Popover {
     }
 
     public async showSurface(settings: PopoverSettings) {
-        const surface = <HTMLElement>this.getSurface(settings);
-        if (!surface)
+        let surface = <HTMLElement>this.getSurface(settings);
+        if (!surface) {
             await this.renderSurface(settings);
+            surface = <HTMLElement>this.getSurface(settings);
+        }
 
         surface.classList.remove('hidden');
 
