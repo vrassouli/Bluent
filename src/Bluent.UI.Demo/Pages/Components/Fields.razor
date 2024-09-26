@@ -58,6 +58,19 @@
             </TextField>
         </section>
 
+        <h3>Masked field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label ForExpression="()=>_maskPattern" Class="d-block mb-1" />
+            <TextField @bind-Value="_maskPattern" Size="FieldSize.Small" />
+
+            <Label ForExpression="()=>_maskedField" Class="d-block mb-1" />
+            <MaskedField @bind-Value="_maskedField" Mask="@_maskPattern" Size="FieldSize.Small" autocomplete="off" />
+
+            <pre>
+                Typed value: @_maskedField
+            </pre>
+        </section>
+
         <h3>Date field</h3>
         <section class="p-7 rounded-5 shadow-3">
             <Label for="smallDateField" Text="Small date field" Class="d-block mb-1" />
@@ -144,6 +157,11 @@
     private bool _switch;
     private bool _disabledOffSwitch;
     private bool _disabledOnSwitch = true;
+
+    [Display(Name = "Masked field")]
+    private string? _maskedField;
+    [Display(Name = "Regular expression")]
+    private string _maskPattern = @"^09\d{2}-\d{3}-\d{4}$";
 
     private List<string> _colors = ["Red", "Green", "Blue"];
 }

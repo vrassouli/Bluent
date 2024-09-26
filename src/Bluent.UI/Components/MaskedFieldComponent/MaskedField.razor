@@ -1,0 +1,29 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentFieldComponentBase<string>
+
+<div class="@GetComponentClass()" style="@Style">
+    @if (StartAddon != null)
+    {
+        <div class="start-addon">
+            @StartAddon
+        </div>
+    }
+
+    <input @attributes=GetInputAdditionalAttributes()
+           @ref=Element
+           id="@GetInputId()"
+           type="text"
+           name="@NameAttributeValue"
+           value="@UserInput"
+           @oninput="@OnUserInputChanged"
+           @onkeyup="@OnKeyUp"
+           @oninput:preventDefault="true"
+           @oninput:stopPropagation="true" />
+
+    @if (EndAddon != null)
+    {
+        <div class="end-addon">
+            @EndAddon
+        </div>
+    }
+</div>
