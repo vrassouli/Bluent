@@ -24,6 +24,7 @@ public abstract class RegexToken
     }
 
     public virtual char? Sample => Value[0];
+    
     public virtual List<LexPath> Paths
     {
         get
@@ -132,6 +133,55 @@ public sealed class GroupToken : RegexToken
     }
 
     protected override RegexToken CreateNewInstance() => new GroupToken(Value, null, Tokens);
+
+    public override List<LexPath> Paths
+    {
+        get
+        {
+            var subPaths = RegexLexer.GeneratePath(Tokens);
+            var instance = CreateNewInstance();
+            var paths = new List<LexPath>();
+
+            if (Quantifier != null)
+            {
+                if (Quantifier is OptionalQuantifier)
+                {
+                    paths.Add([null]);
+                    paths.AddRange(subPaths);
+                }
+                else if (Quantifier is ZeroOrMoreQuantifier)
+                {
+                    //paths.Add([null]);
+                    //paths.AddRange(subPaths);
+                    //var path = new LexPath();
+                    //path.AddRange(subPaths);
+                    //paths.AddRange([..subPaths, ..subPaths]);
+                }
+                else if (Quantifier is OneOrMoreQuantifier)
+                {
+                    //paths.AddRange(subPaths);
+                }
+                else if (Quantifier is RangeQuantifier range)
+                {
+                    //for (var i = range.Min; i <= (range.Max ?? range.Min); i++)
+                    //{
+                    //    var path = new LexPath();
+
+                    //    for (var j = 0; j < i; j++)
+                    //        path.Add(instance);
+
+                    //    paths.Add(path);
+                    //}
+                }
+            }
+            else
+            {
+                return subPaths;
+            }
+
+            return paths;
+        }
+    }
 }
 
 public abstract class CharacterClassToken : RegexToken

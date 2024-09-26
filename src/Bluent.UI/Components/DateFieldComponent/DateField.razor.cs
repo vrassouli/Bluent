@@ -65,6 +65,7 @@ public partial class DateField<TValue>
         _parsingErrorMessage = string.IsNullOrEmpty(ParsingErrorMessage)
             ? $"The {{0}} field must be a {formatDescription}."
             : ParsingErrorMessage;
+        base.OnParametersSet();
     }
 
     private void OnDatePicked(TValue? value)

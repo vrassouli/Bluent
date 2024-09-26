@@ -75,7 +75,8 @@ public class RegexLexer
 
         return GeneratePath(tokens);
     }
-    private static List<LexPath> GeneratePath(IEnumerable<RegexToken> tokens, int index = 0)
+
+    internal static List<LexPath> GeneratePath(IEnumerable<RegexToken> tokens, int index = 0)
     {
         var paths = new List<LexPath>();
 

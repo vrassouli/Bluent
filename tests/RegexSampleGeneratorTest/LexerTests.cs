@@ -51,6 +51,34 @@ public class LexerTests
     }
 
     [Test]
+    public void OptionalGroup_ReturnsTwoPaths()
+    {
+        var pattern = "^(\\d\\.)?\\a$";
+        var tokens = RegexLexer.Lex(pattern);
+
+        Assert.AreEqual(tokens.Count(), 4);
+
+        var paths = RegexLexer.ToPaths(pattern);
+        Assert.AreEqual(paths.Count(), 2);
+        Assert.AreEqual(paths[0].Count(), 3);
+        Assert.AreEqual(paths[1].Count(), 5);
+    }
+
+    //[Test]
+    //public void ZeroOrMoreGroup_ReturnsTwoPaths()
+    //{
+    //    var pattern = "^(\\d\\.?)*\\a$";
+    //    var tokens = RegexLexer.Lex(pattern);
+
+    //    Assert.AreEqual(tokens.Count(), 4);
+
+    //    var paths = RegexLexer.ToPaths(pattern);
+    //    Assert.AreEqual(paths.Count(), 2);
+    //    Assert.AreEqual(paths[0].Count(), 3);
+    //    Assert.AreEqual(paths[1].Count(), 5);
+    //}
+
+    [Test]
     public void BeginingAndEndToken_IgnoredInSamples()
     {
         var pattern = "^\\d$";

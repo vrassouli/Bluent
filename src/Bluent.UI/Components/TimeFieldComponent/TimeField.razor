@@ -1,0 +1,12 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentFieldComponentBase<TValue>
+@typeparam TValue
+
+<MaskedField Mask="@GetMask()"
+             AdditionalAttributes="AdditionalAttributes"
+             StartAddon="StartAddon"
+             EndAddon="EndAddon"
+             Size="Size"
+             Class="@Class"
+             Style="@Style"
+             @bind-Value="CurrentValueAsString" />
