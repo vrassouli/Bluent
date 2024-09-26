@@ -29,6 +29,14 @@ public class RegexLexer
                     token = GetScappedCharacterClassToken(pattern, pos);
                     break;
 
+                case '^': // Beginning
+                    token = GetBeginningToken(pattern, pos);
+                    break;
+
+                case '$': // End
+                    token = GetEndToken(pattern, pos);
+                    break;
+
                 case '|': // skip alternation
                     break;
 
@@ -59,6 +67,48 @@ public class RegexLexer
         }
 
         return tokens;
+    }
+
+    public static List<LexPath> ToPaths(string pattern)
+    {
+        var tokens = Lex(pattern);
+
+        return GeneratePath(tokens);
+    }
+    private static List<LexPath> GeneratePath(IEnumerable<RegexToken> tokens, int index = 0)
+    {
+        var paths = new List<LexPath>();
+
+        if (index >= tokens.Count())
+            return paths;
+
+        var token = tokens.ElementAt(index);
+
+        foreach (var path in token.Paths)
+        {
+            var nextPathes = GeneratePath(tokens, index + 1);
+
+            if (nextPathes.Any())
+            {
+                foreach (var nextPath in nextPathes)
+                {
+                    var generatedPath = new LexPath();
+                    generatedPath.AddRange(path.Where(x => x != null));
+                    generatedPath.AddRange(nextPath);
+
+                    paths.Add(generatedPath);
+                }
+            }
+            else
+            {
+                var generatedPath = new LexPath();
+                generatedPath.AddRange(path.Where(x => x != null));
+
+                paths.Add(generatedPath);
+            }
+        }
+
+        return paths;
     }
 
     private static bool IsAlternated(string pattern, int pos)
@@ -130,6 +180,24 @@ public class RegexLexer
             's' => new WhitespaceCharacterClassToken(quantifier),
             _ => new ScapedCharacterClassToken($"\\{nextChar}", quantifier)
         };
+    }
+
+    private static BeginningToken GetBeginningToken(string pattern, int position)
+    {
+        var quantifier = GetQuantifier(pattern, position + 1);
+        if (quantifier != null)
+            throw new RegularExpressionSyntaxErrorException(position + 1, $"Invalid reqular expression. Nothing to repeat at {position + 1}");
+
+        return new BeginningToken();
+    }
+
+    private static EndToken GetEndToken(string pattern, int position)
+    {
+        var quantifier = GetQuantifier(pattern, position + 1);
+        if (quantifier != null)
+            throw new RegularExpressionSyntaxErrorException(position + 1, $"Invalid reqular expression. Nothing to repeat at {position + 1}");
+
+        return new EndToken();
     }
 
     private static string GetGroupValue(string pattern, int groupStart)

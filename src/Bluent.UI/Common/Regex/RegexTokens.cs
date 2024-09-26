@@ -1,4 +1,5 @@
-﻿namespace Bluent.UI.Common.Regex;
+﻿
+namespace Bluent.UI.Common.Regex;
 
 public abstract class RegexToken
 {
@@ -22,16 +23,100 @@ public abstract class RegexToken
         Alternates.Add(token);
     }
 
-    public virtual char Sample => Value[0];
+    public virtual char? Sample => Value[0];
+    public virtual List<LexPath> Paths
+    {
+        get
+        {
+            var instance = CreateNewInstance();
+            var paths = new List<LexPath>();
+
+            if (Quantifier != null)
+            {
+                if (Quantifier is OptionalQuantifier)
+                {
+                    paths.Add([null]);
+                    paths.Add([instance]);
+                }
+                else if (Quantifier is ZeroOrMoreQuantifier)
+                {
+                    paths.Add([null]);
+                    paths.Add([instance]);
+                    paths.Add([instance, instance]);
+                }
+                else if (Quantifier is OneOrMoreQuantifier)
+                {
+                    paths.Add([instance]);
+                    paths.Add([instance, instance]);
+                }
+                else if (Quantifier is RangeQuantifier range)
+                {
+                    for (var i = range.Min; i <= (range.Max ?? range.Min); i++)
+                    {
+                        var path = new LexPath();
+
+                        for (var j = 0; j < i; j++)
+                            path.Add(instance);
+
+                        paths.Add(path);
+                    }
+                }
+            }
+            else
+            {
+                paths.Add([instance]);
+            }
+
+            return paths;
+        }
+    }
+
+    protected abstract RegexToken CreateNewInstance();
 }
 
-public sealed class LiteralToken : RegexToken
+public interface ILiteralToken
 {
-    public LiteralToken(char value, Quantifier? quantifier) : base(value.ToString(), quantifier)
+    char LiteralCharacter { get; }
+}
+
+public sealed class BeginningToken : RegexToken
+{
+    public BeginningToken() : base("^", null)
     {
 
     }
+
+    protected override RegexToken CreateNewInstance() => new BeginningToken();
+    public override char? Sample => null;
 }
+
+public sealed class EndToken : RegexToken
+{
+    public EndToken() : base("$", null)
+    {
+
+    }
+
+    protected override RegexToken CreateNewInstance() => new EndToken();
+    public override char? Sample => null;
+}
+
+public sealed class LiteralToken : RegexToken, ILiteralToken
+{
+    public LiteralToken(char value, Quantifier? quantifier) : this(value.ToString(), quantifier)
+    {
+
+    }
+    public LiteralToken(string value, Quantifier? quantifier) : base(value, quantifier)
+    {
+
+    }
+
+    public char LiteralCharacter => Value[0];
+
+    protected override RegexToken CreateNewInstance() => new LiteralToken(Value, null);
+}
+
 public sealed class GroupToken : RegexToken
 {
     public GroupToken(string value, Quantifier? quantifier, IEnumerable<RegexToken> tokens) : base(value, quantifier)
@@ -45,7 +130,10 @@ public sealed class GroupToken : RegexToken
     {
         return $"({Value})";
     }
+
+    protected override RegexToken CreateNewInstance() => new GroupToken(Value, null, Tokens);
 }
+
 public abstract class CharacterClassToken : RegexToken
 {
     public CharacterClassToken(string value, Quantifier? quantifier) : base(value, quantifier)
@@ -63,6 +151,7 @@ public sealed class RangeCharacterClassToken : CharacterClassToken
     {
         return $"[{Value}]";
     }
+    protected override RegexToken CreateNewInstance() => new RangeCharacterClassToken(Value, null);
 }
 
 public sealed class WildcardCharacterClassToken : CharacterClassToken
@@ -70,15 +159,20 @@ public sealed class WildcardCharacterClassToken : CharacterClassToken
     public WildcardCharacterClassToken(Quantifier? quantifier) : base(".", quantifier)
     {
     }
+    protected override RegexToken CreateNewInstance() => new WildcardCharacterClassToken(null);
 }
 
-public sealed class ScapedCharacterClassToken : CharacterClassToken
+public sealed class ScapedCharacterClassToken : CharacterClassToken, ILiteralToken
 {
     public ScapedCharacterClassToken(string value, Quantifier? quantifier) : base(value, quantifier)
     {
     }
 
-    public override char Sample => Value[1];
+    public override char? Sample => Value[1];
+
+    public char LiteralCharacter => Value[1];
+
+    protected override RegexToken CreateNewInstance() => new ScapedCharacterClassToken(Value, null);
 }
 
 public sealed class DigitCharacterClassToken : CharacterClassToken
@@ -87,7 +181,8 @@ public sealed class DigitCharacterClassToken : CharacterClassToken
     {
     }
 
-    public override char Sample => '1';
+    public override char? Sample => '1';
+    protected override RegexToken CreateNewInstance() => new DigitCharacterClassToken(null);
 }
 
 public sealed class NotDigitCharacterClassToken : CharacterClassToken
@@ -96,7 +191,8 @@ public sealed class NotDigitCharacterClassToken : CharacterClassToken
     {
     }
 
-    public override char Sample => 'a';
+    public override char? Sample => 'a';
+    protected override RegexToken CreateNewInstance() => new NotDigitCharacterClassToken(null);
 }
 
 public sealed class WordCharacterClassToken : CharacterClassToken
@@ -105,7 +201,8 @@ public sealed class WordCharacterClassToken : CharacterClassToken
     {
     }
 
-    public override char Sample => 'w';
+    public override char? Sample => 'w';
+    protected override RegexToken CreateNewInstance() => new WordCharacterClassToken(null);
 }
 
 public sealed class NotWordCharacterClassToken : CharacterClassToken
@@ -114,16 +211,21 @@ public sealed class NotWordCharacterClassToken : CharacterClassToken
     {
     }
 
-    public override char Sample => ',';
+    public override char? Sample => ',';
+    protected override RegexToken CreateNewInstance() => new NotWordCharacterClassToken(null);
 }
 
-public sealed class WhitespaceCharacterClassToken : CharacterClassToken
+public sealed class WhitespaceCharacterClassToken : CharacterClassToken, ILiteralToken
 {
     public WhitespaceCharacterClassToken(Quantifier? quantifier) : base("\\s", quantifier)
     {
     }
 
-    public override char Sample => ' ';
+    public override char? Sample => ' ';
+
+    public char LiteralCharacter => ' ';
+
+    protected override RegexToken CreateNewInstance() => new WhitespaceCharacterClassToken(null);
 }
 
 public sealed class NotWhitespaceCharacterClassToken : CharacterClassToken
@@ -132,5 +234,6 @@ public sealed class NotWhitespaceCharacterClassToken : CharacterClassToken
     {
     }
 
-    public override char Sample => 'a';
+    public override char? Sample => 'a';
+    protected override RegexToken CreateNewInstance() => new NotWhitespaceCharacterClassToken(null);
 }

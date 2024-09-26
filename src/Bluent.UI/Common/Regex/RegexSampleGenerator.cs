@@ -2,7 +2,7 @@
 
 public class RegexSampleGenerator
 {
-    public static IEnumerable<string?> Generate(IEnumerable<RegexToken> tokens)
+    public static IEnumerable<string> Generate(IEnumerable<RegexToken> tokens)
     {
         List<IEnumerable<string?>> tokenSamples = new List<IEnumerable<string?>>();
         for (int i = 0; i < tokens.Count(); i++)
@@ -17,8 +17,8 @@ public class RegexSampleGenerator
 
     private static IEnumerable<string> MixSamples(List<IEnumerable<string?>> tokenSamples, int index = 0, string? current = null)
     {
-        if (index >= tokenSamples.Count() && !string.IsNullOrEmpty(current))
-            yield return current;
+        if (index >= tokenSamples.Count())
+            yield return current ?? string.Empty;
         else
         {
             var samples = tokenSamples.ElementAt(index);
@@ -35,7 +35,7 @@ public class RegexSampleGenerator
     {
         var ch = token.Sample;
 
-        if (token.Quantifier != null)
+        if (ch != null && token.Quantifier != null)
         {
             if (token.Quantifier is OptionalQuantifier)
             {
@@ -45,7 +45,7 @@ public class RegexSampleGenerator
             else if (token.Quantifier is RangeQuantifier range)
             {
                 for (var i = range.Min; i <= (range.Max ?? range.Min); i++)
-                    yield return new string(ch, i);
+                    yield return new string(ch.Value, i);
             }
             else if (token.Quantifier is ZeroOrMoreQuantifier)
             {
