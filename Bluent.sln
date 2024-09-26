@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bluent.UI", "src\Bluent.UI\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69D866AC-8961-4961-9629-436E578826D1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7B4FCE49-13F0-46C7-9D07-646796B82B52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegexSampleGeneratorTest", "tests\RegexSampleGeneratorTest\RegexSampleGeneratorTest.csproj", "{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{DD4AFD1C-DA23-4956-97A3-ADFCD8E56710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4AFD1C-DA23-4956-97A3-ADFCD8E56710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4AFD1C-DA23-4956-97A3-ADFCD8E56710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{177419E4-D049-43DA-987C-3BF39B0B3301} = {C80130C6-5557-40EB-AE1A-BB56A3851B12}
 		{DD4AFD1C-DA23-4956-97A3-ADFCD8E56710} = {C80130C6-5557-40EB-AE1A-BB56A3851B12}
+		{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87} = {7B4FCE49-13F0-46C7-9D07-646796B82B52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC38CD96-1310-46A8-9A5D-36F9AF85D67B}
