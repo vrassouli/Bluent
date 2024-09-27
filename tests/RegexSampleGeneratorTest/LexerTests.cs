@@ -65,6 +65,20 @@ public class LexerTests
     }
 
     //[Test]
+    //public void OptionalGroup_TimeSpanFormat_ReturnsTwoPaths()
+    //{
+    //    var pattern = @"^(\d{1,3}\.)?\d{1,2}:\d{1,2}:\d{1,2}$";
+    //    var tokens = RegexLexer.Lex(pattern);
+
+    //    Assert.AreEqual(tokens.Count(), 8);
+
+    //    var paths = RegexLexer.ToPaths(pattern);
+    //    Assert.AreEqual(paths.Count(), 2);
+    //    Assert.AreEqual(paths[0].Count(), 3);
+    //    Assert.AreEqual(paths[1].Count(), 5);
+    //}
+
+    //[Test]
     //public void ZeroOrMoreGroup_ReturnsTwoPaths()
     //{
     //    var pattern = "^(\\d\\.?)*\\a$";
