@@ -1,8 +1,15 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<TValue>
 @typeparam TValue
-
-<div class="@GetComponentClass()" style="@Style">
+<MaskedField Mask="@GetMask()"
+             AdditionalAttributes="AdditionalAttributes"
+             StartAddon="StartAddon"
+             EndAddon="GetEndAddon()"
+             Size="Size"
+             Class="@Class"
+             Style="@Style"
+             @bind-Value="CurrentValueAsString" />
+@* <div class="@GetComponentClass()" style="@Style">
     @if (StartAddon != null)
     {
         <div class="start-addon">
@@ -50,3 +57,4 @@
         </div>
     }
 </div>
+ *@

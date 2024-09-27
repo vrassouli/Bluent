@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Bluent.UI.Extensions;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
@@ -9,6 +10,17 @@ public abstract class BluentFieldComponentBase<TValue> : BluentInputComponentBas
     [Parameter] public RenderFragment EndAddon { get; set; } = default!;
     [Parameter] public FieldSize Size { get; set; } = FieldSize.Medium;
     [Parameter] public string BindValueEvent { get; set; } = "onchange";
+
+    protected override void OnParametersSet()
+    {
+        if (DisplayName is null && ValueExpression != null)
+        {
+            var display = ValueExpression.GetDisplayName();
+            DisplayName = display;
+        }
+
+        base.OnParametersSet();
+    }
 
     public override IEnumerable<string> GetClasses()
     {

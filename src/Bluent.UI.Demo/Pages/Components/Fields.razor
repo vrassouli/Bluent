@@ -58,10 +58,45 @@
             </TextField>
         </section>
 
+        <h3>Masked field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label ForExpression="()=>_maskPattern" Class="d-block mb-1" />
+            <TextField @bind-Value="_maskPattern" Size="FieldSize.Small" />
+
+            <Label ForExpression="()=>_maskedField" Class="d-block mb-1" />
+            <MaskedField @bind-Value="_maskedField" Mask="@_maskPattern" autocomplete="off" />
+
+            <pre>
+                Typed value: @_maskedField
+            </pre>
+        </section>
+
+        <h3>Time field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="this">
+                <Label ForExpression="()=>_timeOnly" Class="d-block mb-1" />
+                <TimeField @bind-Value="_timeOnly" Size="FieldSize.Small" autocomplete="off" />
+                <TimeField @bind-Value="_timeOnly" Seconds Size="FieldSize.Small" autocomplete="off" />
+                <ValidationMessage For="() => _timeOnly" />
+            </EditForm>
+            <pre>
+                Time: @_timeOnly
+            </pre>
+            <EditForm Model="this">
+                <Label ForExpression="()=>_timeSpan" Class="d-block mb-1" />
+                <TimeField @bind-Value="_timeSpan" Size="FieldSize.Small" autocomplete="off" />
+                <TimeField @bind-Value="_timeSpan" Seconds Size="FieldSize.Small" autocomplete="off" />
+                <ValidationMessage For="() => _timeSpan" />
+            </EditForm>
+            <pre>
+                Time: @_timeSpan
+            </pre>
+        </section>
+
         <h3>Date field</h3>
         <section class="p-7 rounded-5 shadow-3">
             <Label for="smallDateField" Text="Small date field" Class="d-block mb-1" />
-            <DateField @bind-Value="_dateField" id="smallDateField" Size="FieldSize.Small" BindValueEvent="oninput" />
+            <DateField @bind-Value="_dateField" id="smallDateField" Size="FieldSize.Small" BindValueEvent="oninput" autocomplete="off" />
 
             <Label ForExpression="()=>_dateField" Class="d-block mb-1 mt-4" />
             <DateField @bind-Value="_dateField" Size="FieldSize.Medium" />
@@ -71,6 +106,9 @@
 
             <Label for="disabledDateField" Text="Disabled date field" Class="d-block mb-1 mt-4" />
             <DateField @bind-Value="_dateField" id="disabledDateField" Size="FieldSize.Medium" disabled />
+            <pre>
+                Date: @_dateField
+            </pre>
         </section>
 
         <h3>Numeric field</h3>
@@ -92,7 +130,7 @@
 
         <h3>Checkbox</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_checkBox" Label="Checkbox"/>
+            <Checkbox @bind-Value="_checkBox" Label="Checkbox" />
         </section>
 
         <h3>Switch</h3>
@@ -144,6 +182,17 @@
     private bool _switch;
     private bool _disabledOffSwitch;
     private bool _disabledOnSwitch = true;
+
+    [Display(Name = "Masked field")]
+    private string? _maskedField;
+    [Display(Name = "Regular expression")]
+    private string _maskPattern = @"^09\d{2}-\d{3}-\d{4}$";
+
+    [Display(Name = "Time only")]
+    private TimeOnly? _timeOnly = TimeOnly.FromDateTime(DateTime.Now);
+
+    [Display(Name = "Time span")]
+    private TimeSpan _timeSpan = TimeSpan.FromTicks(DateTime.Now.Ticks);
 
     private List<string> _colors = ["Red", "Green", "Blue"];
 }
