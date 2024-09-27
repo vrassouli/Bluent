@@ -35,10 +35,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.9" />
+        <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.8" />
         <PackageReference Include="System.Text.Json" Version="8.0.4" />
     </ItemGroup>
 
@@ -56,26 +56,35 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Components\CalendarComponent\Resources\Calendar.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Calendar.resx</DependentUpon>
+        <Compile Update="Components\DateFieldComponent\Resources\DateField.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>DateField.resx</DependentUpon>
         </Compile>
         <Compile Update="Components\DialogComponent\Resources\MessageBox.Designer.cs">
           <DesignTime>True</DesignTime>
           <AutoGen>True</AutoGen>
           <DependentUpon>MessageBox.resx</DependentUpon>
         </Compile>
+        <Compile Update="Components\TimeFieldComponent\Resources\TimeField.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>TimeField.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Update="Components\CalendarComponent\Resources\Calendar.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Calendar.Designer.cs</LastGenOutput>
+        <EmbeddedResource Update="Components\DateFieldComponent\Resources\DateField.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>DateField.Designer.cs</LastGenOutput>
         </EmbeddedResource>
         <EmbeddedResource Update="Components\DialogComponent\Resources\MessageBox.resx">
           <Generator>ResXFileCodeGenerator</Generator>
           <LastGenOutput>MessageBox.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Components\TimeFieldComponent\Resources\TimeField.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>TimeField.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
 

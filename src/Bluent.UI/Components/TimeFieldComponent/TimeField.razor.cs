@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -9,6 +10,14 @@ namespace Bluent.UI.Components;
 public partial class TimeField<TValue>
 {
     private string _parsingErrorMessage = default!;
+
+    /// <summary>
+    /// Gets or sets the error message used when displaying an a parsing error.
+    /// </summary>
+    [Parameter] public string ParsingErrorMessage { get; set; } = string.Empty;
+    [Parameter] public bool Seconds { get; set; }
+    [Parameter] public CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
+    [Inject] private IStringLocalizer<TimeFieldComponent.Resources.TimeField> Localizer { get; set; } = default!;
 
     public TimeField()
     {
@@ -21,18 +30,11 @@ public partial class TimeField<TValue>
         }
     }
 
-    /// <summary>
-    /// Gets or sets the error message used when displaying an a parsing error.
-    /// </summary>
-    [Parameter] public string ParsingErrorMessage { get; set; } = string.Empty;
-    [Parameter] public bool Seconds { get; set; }
-    [Parameter] public CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
-
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _parsingErrorMessage = string.IsNullOrEmpty(ParsingErrorMessage)
-            ? $"The {{0}} is not a valid time."
+            ? Localizer["ParsingErrorMessage"]
             : ParsingErrorMessage;
 
         base.OnParametersSet();

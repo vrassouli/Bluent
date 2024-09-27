@@ -39,19 +39,6 @@ public partial class MaskedField
     {
         validationErrorMessage = default;
 
-        //if (value is null)
-        //{
-        //    result = default!;
-        //    return true;
-        //}
-
-        //if (!IsValid(value))
-        //{
-        //    result = value;
-        //    validationErrorMessage = "Invalid input.";
-        //    return false;
-        //}
-
         result = value;
         return true;
     }
@@ -69,7 +56,9 @@ public partial class MaskedField
         {
             AppendLiterals();
 
-            CurrentValueAsString = UserInput;
+            if (CurrentValueAsString != UserInput)
+                CurrentValueAsString = UserInput;
+
             _lastValidInput = UserInput;
         }
     }

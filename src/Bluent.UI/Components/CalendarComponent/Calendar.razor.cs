@@ -22,7 +22,6 @@ public partial class Calendar<TValue>
     [Parameter] public DateTime? Max { get; set; }
     [Parameter] public DateTime? Min { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
-    [Inject] private IStringLocalizer<CalendarComponent.Resources.Calendar> Localizer { get; set; } = default!;
 
     private int DaysInMonth => Culture.Calendar.GetDaysInMonth(Culture.Calendar.GetYear(_viewDate), Culture.Calendar.GetMonth(_viewDate));
     private DateTime MonthStart => _viewDate.GetMonthStart(Culture);

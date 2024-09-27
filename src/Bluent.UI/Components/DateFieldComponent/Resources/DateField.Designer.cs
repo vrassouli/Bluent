@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Bluent.UI.Components.CalendarComponent.Resources {
+namespace Bluent.UI.Components.DateFieldComponent.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Bluent.UI.Components.CalendarComponent.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Calendar {
+    internal class DateField {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Calendar() {
+        internal DateField() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Bluent.UI.Components.CalendarComponent.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Bluent.UI.Components.CalendarComponent.Resources.Calendar", typeof(Calendar).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Bluent.UI.Components.DateFieldComponent.Resources.DateField", typeof(DateField).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,42 @@ namespace Bluent.UI.Components.CalendarComponent.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string date {
+            get {
+                return ResourceManager.GetString("date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} field must be a {1}..
+        /// </summary>
+        internal static string ParsingErrorMessage {
+            get {
+                return ResourceManager.GetString("ParsingErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string year {
+            get {
+                return ResourceManager.GetString("year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string year_and_month {
+            get {
+                return ResourceManager.GetString("year and month", resourceCulture);
             }
         }
     }

@@ -14,7 +14,7 @@ public class LexerTests
     {
         var pattern = @"a{2";
         Exception ex = Assert.Throws<RegularExpressionSyntaxErrorException>(() => RegexLexer.Lex(pattern));
-        Assert.AreEqual(ex.Message, "Syntax error at 1. Range is not closed.");
+        Assert.That(ex.Message == "Syntax error at 1. Range is not closed.");
     }
 
     [Test]
@@ -22,7 +22,7 @@ public class LexerTests
     {
         var pattern = @"a{2{3";
         Exception ex = Assert.Throws<RegularExpressionSyntaxErrorException>(() => RegexLexer.Lex(pattern));
-        Assert.AreEqual(ex.Message, "Syntax error at 3. Unexpected '{' before appearing '}' for opened '{' at 1.");
+        Assert.That(ex.Message == "Syntax error at 3. Unexpected '{' before appearing '}' for opened '{' at 1.");
     }
 
     [Test]
@@ -30,7 +30,7 @@ public class LexerTests
     {
         var pattern = @"a|(b";
         Exception ex = Assert.Throws<RegularExpressionSyntaxErrorException>(() => RegexLexer.Lex(pattern));
-        Assert.AreEqual(ex.Message, "Syntax error at 2. Group is not closed");
+        Assert.That(ex.Message == "Syntax error at 2. Group is not closed");
     }
 
     [Test]
@@ -38,7 +38,7 @@ public class LexerTests
     {
         var pattern = @"a|(b|(c)";
         Exception ex = Assert.Throws<RegularExpressionSyntaxErrorException>(() => RegexLexer.Lex(pattern));
-        Assert.AreEqual(ex.Message, "Syntax error at 2. Group is not closed");
+        Assert.That(ex.Message == "Syntax error at 2. Group is not closed");
     }
 
     [Test]
@@ -47,7 +47,7 @@ public class LexerTests
         var pattern = "";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 0);
+        Assert.That(tokens.Count() == 0);
     }
 
     [Test]
@@ -56,12 +56,12 @@ public class LexerTests
         var pattern = "^(\\d\\.)?\\a$";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 4);
+        Assert.That(tokens.Count() == 4);
 
         var paths = RegexLexer.ToPaths(pattern);
-        Assert.AreEqual(paths.Count(), 2);
-        Assert.AreEqual(paths[0].Count(), 3);
-        Assert.AreEqual(paths[1].Count(), 5);
+        Assert.That(paths.Count() == 2);
+        Assert.That(paths[0].Count() == 3);
+        Assert.That(paths[1].Count() == 5);
     }
 
     //[Test]
@@ -70,7 +70,7 @@ public class LexerTests
     //    var pattern = @"^(\d{1,3}\.)?\d{1,2}:\d{1,2}:\d{1,2}$";
     //    var tokens = RegexLexer.Lex(pattern);
 
-    //    Assert.AreEqual(tokens.Count(), 8);
+    //    Assert.That(tokens.Count() == 8);
 
     //    var paths = RegexLexer.ToPaths(pattern);
     //    Assert.AreEqual(paths.Count(), 2);
@@ -84,7 +84,7 @@ public class LexerTests
     //    var pattern = "^(\\d\\.?)*\\a$";
     //    var tokens = RegexLexer.Lex(pattern);
 
-    //    Assert.AreEqual(tokens.Count(), 4);
+    //    Assert.That(tokens.Count() == 4);
 
     //    var paths = RegexLexer.ToPaths(pattern);
     //    Assert.AreEqual(paths.Count(), 2);
@@ -97,11 +97,11 @@ public class LexerTests
     {
         var pattern = "^\\d$";
         var tokens = RegexLexer.Lex(pattern);
-        Assert.AreEqual(tokens.Count(), 3);
+        Assert.That(tokens.Count() == 3);
 
         var paths = RegexLexer.ToPaths(pattern);
-        Assert.AreEqual(paths.Count(), 1);
-        Assert.AreEqual(paths[0].GetSample(), "1");
+        Assert.That(paths.Count() == 1);
+        Assert.That(paths[0].GetSample() == "1");
     }
 
     [Test]
@@ -109,12 +109,12 @@ public class LexerTests
     {
         var pattern = "^09\\d{2,3}$";
         var tokens = RegexLexer.Lex(pattern);
-        Assert.AreEqual(tokens.Count(), 5);
+        Assert.That(tokens.Count() == 5);
 
         var paths = RegexLexer.ToPaths(pattern);
-        Assert.AreEqual(paths.Count(), 2);
-        Assert.AreEqual(paths[0].GetSample(), "0911");
-        Assert.AreEqual(paths[1].GetSample(), "09111");
+        Assert.That(paths.Count() == 2);
+        Assert.That(paths[0].GetSample() == "0911");
+        Assert.That(paths[1].GetSample() == "09111");
     }
 
     [Test]
@@ -123,16 +123,16 @@ public class LexerTests
         var pattern = "a";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 1);
+        Assert.That(tokens.Count() == 1);
 
         var token = tokens.ElementAt(0);
         var paths = token.Paths;
-    
-        Assert.AreEqual(paths.Count(), 1);
+
+        Assert.That(paths.Count() == 1);
         // Path 1
-        Assert.AreEqual(paths[0].Count(), 1);
-        Assert.NotNull(paths[0][0]);
-        Assert.AreEqual(paths[0].GetSample(), "a");
+        Assert.That(paths[0].Count() == 1);
+        Assert.That(paths[0][0] != null);
+        Assert.That(paths[0].GetSample() == "a");
     }
 
     [Test]
@@ -141,22 +141,22 @@ public class LexerTests
         var pattern = "a?";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 1);
+        Assert.That(tokens.Count() == 1);
 
         var token = tokens.ElementAt(0);
         var paths = token.Paths;
-    
-        Assert.AreEqual(paths.Count(), 2);
+
+        Assert.That(paths.Count() == 2);
 
         // Path 1
-        Assert.AreEqual(paths[0].Count(), 1);
-        Assert.IsNull(paths[0][0]);
-        Assert.AreEqual(paths[0].GetSample(), "");
+        Assert.That(paths[0].Count() == 1);
+        Assert.That(paths[0][0] == null);
+        Assert.That(paths[0].GetSample() == "");
 
         // Path 2
-        Assert.AreEqual(paths[1].Count(), 1);
-        Assert.NotNull(paths[1][0]);
-        Assert.AreEqual(paths[1].GetSample(), "a");
+        Assert.That(paths[1].Count() == 1);
+        Assert.That(paths[1][0] != null);
+        Assert.That(paths[1].GetSample() == "a");
     }
 
     [Test]
@@ -165,26 +165,26 @@ public class LexerTests
         var pattern = "a*";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 1);
+        Assert.That(tokens.Count() == 1);
 
         var token = tokens.ElementAt(0);
         var paths = token.Paths;
-    
-        Assert.AreEqual(paths.Count(), 3);
+
+        Assert.That(paths.Count() == 3);
         // Path 1
-        Assert.AreEqual(paths[0].Count(), 1);
-        Assert.IsNull(paths[0][0]);
-        Assert.AreEqual(paths[0].GetSample(), "");
+        Assert.That(paths[0].Count() == 1);
+        Assert.That(paths[0][0] == null);
+        Assert.That(paths[0].GetSample() == "");
 
         // Path 2
-        Assert.AreEqual(paths[1].Count(), 1);
-        Assert.NotNull(paths[1][0]);
-        Assert.AreEqual(paths[1].GetSample(), "a");
+        Assert.That(paths[1].Count() == 1);
+        Assert.That(paths[1][0] != null);
+        Assert.That(paths[1].GetSample() == "a");
 
         // Path 3
-        Assert.AreEqual(paths[2].Count(), 2);
-        Assert.NotNull(paths[2][0]);
-        Assert.AreEqual(paths[2].GetSample(), "aa");
+        Assert.That(paths[2].Count() == 2);
+        Assert.That(paths[2][0] != null);
+        Assert.That(paths[2].GetSample() == "aa");
     }
 
     [Test]
@@ -193,22 +193,22 @@ public class LexerTests
         var pattern = "a+";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 1);
+        Assert.That(tokens.Count() == 1);
 
         var token = tokens.ElementAt(0);
         var paths = token.Paths;
-    
-        Assert.AreEqual(paths.Count(), 2);
+
+        Assert.That(paths.Count() == 2);
 
         // Path 1
-        Assert.AreEqual(paths[0].Count(), 1);
-        Assert.NotNull(paths[0][0]);
-        Assert.AreEqual(paths[0].GetSample(), "a");
+        Assert.That(paths[0].Count() == 1);
+        Assert.That(paths[0][0] != null);
+        Assert.That(paths[0].GetSample() == "a");
 
         // Path 2
-        Assert.AreEqual(paths[0].Count(), 1);
-        Assert.NotNull(paths[1][0]);
-        Assert.AreEqual(paths[1].GetSample(), "aa");
+        Assert.That(paths[0].Count() == 1);
+        Assert.That(paths[1][0] != null);
+        Assert.That(paths[1].GetSample() == "aa");
     }
 
     [Test]
@@ -217,27 +217,27 @@ public class LexerTests
         var pattern = "a{2,4}";
         var tokens = RegexLexer.Lex(pattern);
 
-        Assert.AreEqual(tokens.Count(), 1);
+        Assert.That(tokens.Count() == 1);
 
         var token = tokens.ElementAt(0);
         var paths = token.Paths;
-    
-        Assert.AreEqual(paths.Count(), 3);
+
+        Assert.That(paths.Count() == 3);
 
         // Path 1
-        Assert.AreEqual(paths[0].Count(), 2);
-        Assert.IsTrue(paths[0].All(x => x != null));
-        Assert.AreEqual(paths[0].GetSample(), "aa");
+        Assert.That(paths[0].Count() == 2);
+        Assert.That(paths[0].All(x => x != null));
+        Assert.That(paths[0].GetSample() == "aa");
 
         // Path 2
-        Assert.AreEqual(paths[1].Count(), 3);
-        Assert.IsTrue(paths[1].All(x => x != null));
-        Assert.AreEqual(paths[1].GetSample(), "aaa");
+        Assert.That(paths[1].Count() == 3);
+        Assert.That(paths[1].All(x => x != null));
+        Assert.That(paths[1].GetSample() == "aaa");
 
         // Path 3
-        Assert.AreEqual(paths[2].Count(), 4);
-        Assert.IsTrue(paths[2].All(x => x != null));
-        Assert.AreEqual(paths[2].GetSample(), "aaaa");
+        Assert.That(paths[2].Count() == 4);
+        Assert.That(paths[2].All(x => x != null));
+        Assert.That(paths[2].GetSample() == "aaaa");
     }
 
     [Test]
@@ -247,8 +247,8 @@ public class LexerTests
 
         var paths = RegexLexer.ToPaths(pattern);
 
-        Assert.AreEqual(paths.Count(), 1);
-        Assert.AreEqual(paths[0].Count(), 1);
+        Assert.That(paths.Count() ==     1);
+        Assert.That(paths[0].Count() == 1);
     }
 
     [Test]
@@ -258,8 +258,8 @@ public class LexerTests
 
         var paths = RegexLexer.ToPaths(pattern);
 
-        Assert.AreEqual(paths.Count(), 1);
-        Assert.AreEqual(paths[0].Count(), 2);
+        Assert.That(paths.Count() == 1);
+        Assert.That(paths[0].Count() == 2);
     }
 
     [Test]
@@ -269,9 +269,9 @@ public class LexerTests
 
         var paths = RegexLexer.ToPaths(pattern);
 
-        Assert.AreEqual(paths.Count(), 2);
-        Assert.AreEqual(paths[0].Count(), 1);
-        Assert.AreEqual(paths[1].Count(), 2);
+        Assert.That(paths.Count() == 2);
+        Assert.That(paths[0].Count() == 1);
+        Assert.That(paths[1].Count() == 2);
     }
 
     [Test]
@@ -281,13 +281,13 @@ public class LexerTests
 
         var paths = RegexLexer.ToPaths(pattern);
 
-        Assert.AreEqual(paths.Count(), 6);
-        Assert.AreEqual(paths[0].Count(), 2);
-        Assert.AreEqual(paths[1].Count(), 3);
-        Assert.AreEqual(paths[2].Count(), 4);
-        Assert.AreEqual(paths[3].Count(), 3);
-        Assert.AreEqual(paths[4].Count(), 4);
-        Assert.AreEqual(paths[5].Count(), 5);
+        Assert.That(paths.Count() == 6);
+        Assert.That(paths[0].Count() == 2);
+        Assert.That(paths[1].Count() ==  3);
+        Assert.That(paths[2].Count() ==  4);
+        Assert.That(paths[3].Count() ==  3);
+        Assert.That(paths[4].Count() == 4);
+        Assert.That(paths[5].Count() == 5);
     }
 
     //[Test]
@@ -296,7 +296,7 @@ public class LexerTests
     //    var pattern = "\\d{1,3}\\.\\d{1,3}";
     //    var tokens = RegexLexer.Lex(pattern);
 
-    //    Assert.AreEqual(tokens.Count(), 0);
+    //    Assert.That(tokens.Count() == 0);
     //}
 
     //[Test]
@@ -306,6 +306,6 @@ public class LexerTests
     //    var tokens = RegexLexer.Lex(pattern);
     //    var samples = RegexSampleGenerator.Generate(tokens);
 
-    //    Assert.AreEqual(tokens.Count(), 0);
+    //    Assert.That(tokens.Count() == 0);
     //}
 }
