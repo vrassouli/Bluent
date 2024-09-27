@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Bluent.UI.Components.DateFieldComponent.Internal;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 
 namespace Bluent.UI.Components;
 
@@ -17,6 +18,7 @@ public partial class DateField<TValue>
     private const string TimeFormat = "HH:mm:ss";                       // Compatible with HTML 'time' inputs
 
     private string _format = default!;
+    private string _formatDescription = default!;
     private string _parsingErrorMessage = default!;
 
     [Parameter] public CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
@@ -25,6 +27,7 @@ public partial class DateField<TValue>
     [Parameter] public DateTime? Max { get; set; }
     [Parameter] public DateTime? Min { get; set; }
     [Parameter] public bool DisplayCalendar { get; set; } = true;
+    [Inject] private IStringLocalizer<DateFieldComponent.Resources.DateField> Localizer { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the error message used when displaying an a parsing error.
@@ -56,16 +59,16 @@ public partial class DateField<TValue>
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        (_format, var formatDescription) = Mode switch
+        (_format, _formatDescription) = Mode switch
         {
-            CalendarMode.DaySelect => (DateFormat, "date"),
-            CalendarMode.MonthSelect => (MonthFormat, "year and month"),
-            CalendarMode.YearSelect => (MonthFormat, "year"),
+            CalendarMode.DaySelect => (DateFormat, Localizer["date"]),
+            CalendarMode.MonthSelect => (MonthFormat, Localizer["year and month"]),
+            CalendarMode.YearSelect => (MonthFormat, Localizer["year"]),
             _ => throw new InvalidOperationException($"Unsupported {nameof(InputDateType)} '{Mode}'.")
         };
 
         _parsingErrorMessage = string.IsNullOrEmpty(ParsingErrorMessage)
-            ? $"The {{0}} field must be a {formatDescription}."
+            ? Localizer["ParsingErrorMessage"]
             : ParsingErrorMessage;
         base.OnParametersSet();
     }
@@ -107,7 +110,7 @@ public partial class DateField<TValue>
         }
         else
         {
-            validationErrorMessage = string.Format(Culture, _parsingErrorMessage, DisplayName ?? FieldIdentifier.FieldName);
+            validationErrorMessage = string.Format(Culture, _parsingErrorMessage, DisplayName ?? FieldIdentifier.FieldName, _formatDescription);
             return false;
         }
     }

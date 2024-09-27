@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bi bi-caret-right-fill" xml:space="preserve">
-    <value>bi bi-caret-left-fill</value>
+  <data name="date" xml:space="preserve">
+    <value>تاریخ</value>
   </data>
-  <data name="bi bi-chevron-left" xml:space="preserve">
-    <value>bi bi-chevron-right</value>
+  <data name="year and month" xml:space="preserve">
+    <value>سال و ماه</value>
   </data>
-  <data name="bi bi-chevron-right" xml:space="preserve">
-    <value>bi bi-chevron-left</value>
+  <data name="year" xml:space="preserve">
+    <value>سال</value>
   </data>
-  <data name="Clear" xml:space="preserve">
-    <value>پاک کن</value>
-  </data>
-  <data name="Next month" xml:space="preserve">
-    <value>ماه بعد</value>
-  </data>
-  <data name="Previous month" xml:space="preserve">
-    <value>ماه قبل</value>
-  </data>
-  <data name="Today" xml:space="preserve">
-    <value>امروز</value>
+  <data name="The {0} field must be a {1}." xml:space="preserve">
+    <value>مقدار وارد شده برای {0} باید {1} باشد.</value>
   </data>
 </root>
