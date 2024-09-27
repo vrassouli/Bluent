@@ -67,6 +67,6 @@ public partial class TimeField<TValue>
         if (Seconds)
             return @"^(\d{1,3}\.)?\d{1,2}:\d{1,2}:\d{1,2}$";
 
-        return @"^(\d{1,3}\.)?\d\d:\d\d$";
+        return @"^(\d{1,3}\.)?\d{1,2}:\d{1,2}$";
     }
 }
