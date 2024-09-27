@@ -11,6 +11,7 @@ public partial class MaskedField
     private string? _mask;
     private List<LexPath> _LexPaths = new();
     private string? _lastValidInput;
+    private string? _value;
     [Parameter, EditorRequired] public string Mask { get; set; } = default!;
 
     private string? UserInput { get; set; }
@@ -20,10 +21,15 @@ public partial class MaskedField
         if (_mask != Mask)
         {
             _mask = Mask;
-            UserInput = null;
             GenerateMaskSamples();
-            AppendLiterals();
-            CurrentValueAsString = UserInput;
+
+            SetUserInput(null);
+        }
+
+        if (_value != Value)
+        {
+            _value = Value;
+            SetUserInput(Value);
         }
 
         base.OnParametersSet();
@@ -52,7 +58,12 @@ public partial class MaskedField
 
     private void OnUserInputChanged(ChangeEventArgs args)
     {
-        UserInput = args.Value?.ToString();
+        SetUserInput(args.Value?.ToString());
+    }
+
+    private void SetUserInput(string? value)
+    {
+        UserInput = value?.ToString();
 
         if (IsValid())
         {
