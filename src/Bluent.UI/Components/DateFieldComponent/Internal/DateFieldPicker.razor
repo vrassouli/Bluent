@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@typeparam TValue
+
+<Popover>
+    <Trigger>
+        <Button Icon="icon-ic_fluent_calendar_20_regular"
+                ActiveIcon="icon-ic_fluent_calendar_20_filled"
+                Appearance="ButtonAppearance.Subtle"
+                Size="ButtonSize"
+                disabled="@IsDisabled" />
+    </Trigger>
+    <Surface>
+        <Calendar TValue=TValue
+                  SelectedDate=Value
+                  SelectedDateChanged="OnDatePicked"
+                  Culture=Culture
+                  Mode="Mode"
+                  Min="Min"
+                  Max="Max">
+        </Calendar>
+    </Surface>
+</Popover>
+
+@code {
+    [Parameter, EditorRequired] public ButtonSize ButtonSize { get; set; }
+    [Parameter, EditorRequired] public bool IsDisabled { get; set; }
+    [Parameter, EditorRequired] public CultureInfo Culture { get; set; } = default!;
+    [Parameter, EditorRequired] public TValue? Value { get; set; }
+    [Parameter, EditorRequired] public EventCallback<TValue> OnDatePicked { get; set; }
+    [Parameter, EditorRequired] public CalendarMode Mode { get; set; }
+    [Parameter, EditorRequired] public DateTime? Min { get; set; }
+    [Parameter, EditorRequired] public DateTime? Max { get; set; }
+}

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics;
 using System.Globalization;
+using Bluent.UI.Components.DateFieldComponent.Internal;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Components;
 
@@ -96,6 +98,7 @@ public partial class DateField<TValue>
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        //Console.WriteLine($"Parsing {value} to {typeof(TValue)}");
         if (BindConverter.TryConvertTo(value, Culture, out result))
         {
             Debug.Assert(result != null);
@@ -107,5 +110,37 @@ public partial class DateField<TValue>
             validationErrorMessage = string.Format(Culture, _parsingErrorMessage, DisplayName ?? FieldIdentifier.FieldName);
             return false;
         }
+    }
+
+    private string GetMask()
+    {
+        var mask = $"^\\d{{4}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}$";
+
+        return mask;
+    }
+
+    private RenderFragment GetEndAddon()
+    {
+        if (EndAddon != null)
+            return EndAddon;
+        
+        if (!DisplayCalendar)
+            return builder => { };
+
+        return builder =>
+        {
+            builder.OpenComponent<DateFieldPicker<TValue>>(0);
+
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.ButtonSize), GetButtonSize());
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.IsDisabled), IsDisabled);
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.Culture), Culture);
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.Value), Value);
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.Mode), Mode);
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.Min), Min);
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.Max), Max);
+            builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.OnDatePicked), EventCallback.Factory.Create<TValue>(this, OnDatePicked));
+
+            builder.CloseComponent();
+        };
     }
 }

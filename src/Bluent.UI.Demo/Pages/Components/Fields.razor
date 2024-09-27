@@ -96,7 +96,7 @@
         <h3>Date field</h3>
         <section class="p-7 rounded-5 shadow-3">
             <Label for="smallDateField" Text="Small date field" Class="d-block mb-1" />
-            <DateField @bind-Value="_dateField" id="smallDateField" Size="FieldSize.Small" BindValueEvent="oninput" />
+            <DateField @bind-Value="_dateField" id="smallDateField" Size="FieldSize.Small" BindValueEvent="oninput" autocomplete="off" />
 
             <Label ForExpression="()=>_dateField" Class="d-block mb-1 mt-4" />
             <DateField @bind-Value="_dateField" Size="FieldSize.Medium" />
@@ -106,6 +106,9 @@
 
             <Label for="disabledDateField" Text="Disabled date field" Class="d-block mb-1 mt-4" />
             <DateField @bind-Value="_dateField" id="disabledDateField" Size="FieldSize.Medium" disabled />
+            <pre>
+                Date: @_dateField
+            </pre>
         </section>
 
         <h3>Numeric field</h3>
