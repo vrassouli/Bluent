@@ -126,7 +126,7 @@
   <data name="year" xml:space="preserve">
     <value>سال</value>
   </data>
-  <data name="The {0} field must be a {1}." xml:space="preserve">
+  <data name="ParsingErrorMessage" xml:space="preserve">
     <value>مقدار وارد شده برای {0} باید {1} باشد.</value>
   </data>
 </root>
