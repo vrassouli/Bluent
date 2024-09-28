@@ -60,10 +60,20 @@ public partial class TimeField<TValue>
         }
         else if (value is TimeSpan timeSpan)
         {
-            if (Seconds)
-                return timeSpan.ToString(@"d\.h\:m\:s");
+            if (timeSpan.Days >= 1)
+            {
+                if (Seconds)
+                    return timeSpan.ToString(@"d\.h\:m\:s");
 
-            return timeSpan.ToString(@"d\.h\:m");
+                return timeSpan.ToString(@"d\.h\:m");
+            }
+            else
+            {
+                if (Seconds)
+                    return timeSpan.ToString(@"h\:m\:s");
+
+                return timeSpan.ToString(@"h\:m");
+            }
         }
 
         return null;
