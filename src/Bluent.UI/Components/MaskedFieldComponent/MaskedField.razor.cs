@@ -20,10 +20,12 @@ public partial class MaskedField
     {
         if (_mask != Mask)
         {
+            if (_mask != null) // Don't set if this is the first-time
+                SetUserInput(null);
+
             _mask = Mask;
             GenerateMaskSamples();
 
-            SetUserInput(null);
         }
 
         if (_value != Value)
