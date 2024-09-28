@@ -96,12 +96,12 @@ public partial class DateField<TValue>
         };
     }
 
-    protected override string FormatValueAsString(TValue? value)
+    protected override string? FormatValueAsString(TValue? value)
         => value switch
         {
             DateTime dateTimeValue => BindConverter.FormatValue(dateTimeValue, _format, Culture),
             DateOnly dateOnlyValue => BindConverter.FormatValue(dateOnlyValue, _format, Culture),
-            _ => string.Empty, // Handles null for Nullable<DateTime>, etc.
+            _ => null, // Handles null for Nullable<DateTime>, etc.
         };
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)

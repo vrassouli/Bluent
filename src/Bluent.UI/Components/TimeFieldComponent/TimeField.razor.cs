@@ -46,7 +46,8 @@ public partial class TimeField<TValue>
 
     protected override string? FormatValueAsString(TValue? value)
     {
-        //var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        if (value is null)
+            return null;
 
         if (value is TimeOnly timeOnly)
         {
