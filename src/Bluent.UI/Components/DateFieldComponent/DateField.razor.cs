@@ -70,6 +70,11 @@ public partial class DateField<TValue>
         _parsingErrorMessage = string.IsNullOrEmpty(ParsingErrorMessage)
             ? Localizer["ParsingErrorMessage"]
             : ParsingErrorMessage;
+
+        var currentValueAsString = FormatValueAsString(Value);
+        if (currentValueAsString != CurrentValueAsString)
+            CurrentValueAsString = currentValueAsString;
+
         base.OnParametersSet();
     }
 

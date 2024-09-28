@@ -37,8 +37,37 @@ public partial class TimeField<TValue>
             ? Localizer["ParsingErrorMessage"]
             : ParsingErrorMessage;
 
+        var currentValueAsString = FormatValueAsString(Value);
+        if (currentValueAsString != CurrentValueAsString)
+            CurrentValueAsString = currentValueAsString;
+
         base.OnParametersSet();
     }
+
+    protected override string? FormatValueAsString(TValue? value)
+    {
+        //var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+
+        if (value is TimeOnly timeOnly)
+        {
+            var dt = new DateTime(timeOnly.Ticks);
+
+            if (Seconds)
+                return dt.ToString("H:m:s");
+
+            return dt.ToString("H:m");
+        }
+        else if (value is TimeSpan timeSpan)
+        {
+            if (Seconds)
+                return timeSpan.ToString(@"d\.h\:m\:s");
+
+            return timeSpan.ToString(@"d\.h\:m");
+        }
+
+        return null;
+    }
+
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (BindConverter.TryConvertTo(value, Culture, out result))
@@ -67,8 +96,8 @@ public partial class TimeField<TValue>
         }
 
         if (Seconds)
-            return @"^(\d{1,3}\.)?\d{1,2}:\d{1,2}:\d{1,2}$";
+            return @"^(\d{1,10}\.)?\d{1,2}:\d{1,2}:\d{1,2}$";
 
-        return @"^(\d{1,3}\.)?\d{1,2}:\d{1,2}$";
+        return @"^(\d{1,10}\.)?\d{1,2}:\d{1,2}$";
     }
 }
