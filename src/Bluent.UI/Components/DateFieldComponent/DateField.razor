@@ -1,14 +1,19 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<TValue>
 @typeparam TValue
+
 <MaskedField Mask="@GetMask()"
-             AdditionalAttributes="AdditionalAttributes"
              StartAddon="StartAddon"
              EndAddon="GetEndAddon()"
              Size="Size"
              Class="@Class"
              Style="@Style"
-             @bind-Value="CurrentValueAsString" />
+             @bind-Value="CurrentValueAsString"
+             @attributes=GetInputAdditionalAttributes()
+             id="@GetInputId()"
+             dir="ltr"
+             autocomplete="off"
+             name="@NameAttributeValue" />
 @* <div class="@GetComponentClass()" style="@Style">
     @if (StartAddon != null)
     {
@@ -20,11 +25,7 @@
     <input @attributes=GetInputAdditionalAttributes()
            @ref=Element
            @key=_key
-           id="@GetInputId()"
-           dir="ltr"
            type="text"
-           autocomplete="off"
-           name="@NameAttributeValue"
            @bind-value="@CurrentValueAsString" @bind-value:event="@BindValueEvent" />
 
     @if (DisplayCalendar)
