@@ -51,7 +51,7 @@
 
         @if (ItemTemplate != null)
         {
-            <div class="item-content">
+            <div class="item-content" @onclick="OnClick">
                 @ItemTemplate
             </div>
         }
