@@ -57,7 +57,7 @@
                         var isToday = date == DateTime.Today;
                         var isSelected = Culture.Calendar.Equals(SelectedDate, date);
                         var isOutOfRange = (Max != null && date > Max) || (Min != null && date < Min);
-                        var customClass = DateClass?.Invoke(date);
+                        var customClass = DateClass?.Invoke(DateOnly.FromDateTime(date));
 
                         <td class="day-cell @(isFromPrev ? "prev" : "") @(isFromNext ? "next" : "") @(isToday ? "today" : "") @(isSelected ? "selected" : "") @(isOutOfRange ? "disabled" : "") @customClass" disabled="@isOutOfRange" @onclick="async ()=> await OnSelectDate(date)">
                             <button disabled="@isOutOfRange">@Culture.Calendar.GetDayOfMonth(date)</button>

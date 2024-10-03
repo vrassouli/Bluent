@@ -18,7 +18,7 @@ public partial class Calendar<TValue>
     [Parameter] public EventCallback<TValue> SelectedDateChanged { get; set; }
     [Parameter] public CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
     [Parameter] public CalendarMode Mode { get; set; } = CalendarMode.DaySelect;
-    [Parameter] public Func<DateTime, string>? DateClass { get; set; }
+    [Parameter] public Func<DateOnly, string>? DateClass { get; set; }
     [Parameter] public DateTime? Max { get; set; }
     [Parameter] public DateTime? Min { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
