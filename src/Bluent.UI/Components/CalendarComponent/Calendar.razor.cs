@@ -30,9 +30,11 @@ public partial class Calendar<TValue>
         {
             if (_viewDate != value)
             {
+                var prevViewDate = _viewDate;
                 _viewDate = value;
 
-                OnViewDateChanged();
+                if (prevViewDate.GetMonthStart() != _viewDate.GetMonthStart())
+                    OnMonthChanged();
             }
         }
     }
@@ -239,7 +241,7 @@ public partial class Calendar<TValue>
         await OnSelectDate(ViewDate);
     }
 
-    private void OnViewDateChanged()
+    private void OnMonthChanged()
     {
         var date = DateOnly.FromDateTime(ViewDate);
 
