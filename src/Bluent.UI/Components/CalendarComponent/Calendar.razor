@@ -14,7 +14,7 @@
 
         <div class="header">
             <button class="title" @onclick="OnSelectMonth">
-                @Culture.DateTimeFormat.MonthNames[Culture.Calendar.GetMonth(_viewDate) - 1] @Culture.Calendar.GetYear(_viewDate)
+                @Culture.DateTimeFormat.MonthNames[Culture.Calendar.GetMonth(ViewDate) - 1] @Culture.Calendar.GetYear(ViewDate)
             </button>
             <div class="nav">
                 <button type="button" @onclick="OnPreviousMonth">
@@ -71,7 +71,7 @@
     {
         <div class="header">
             <button class="title" @onclick="OnSelectYear">
-                @Culture.Calendar.GetYear(_viewDate)
+                @Culture.Calendar.GetYear(ViewDate)
             </button>
             <div class="nav">
                 <button type="button" @onclick="OnPreviousYear">
@@ -86,14 +86,14 @@
                 </button>
             </div>
         </div>
-        <div class="grid" @key=Culture.Calendar.GetYear(_viewDate)>
+        <div class="grid" @key=Culture.Calendar.GetYear(ViewDate)>
             @for (var row = 0; row < 3; row++)
             {
                 <div class="row">
                     @for (var col = 0; col < 4; col++)
                     {
                         var name = Culture.DateTimeFormat.AbbreviatedMonthNames[row * 4 + col];
-                        var monthStart = Culture.Calendar.ToDateTime(Culture.Calendar.GetYear(_viewDate), row * 4 + col + 1, 1, 0, 0, 0, 0);
+                        var monthStart = Culture.Calendar.ToDateTime(Culture.Calendar.GetYear(ViewDate), row * 4 + col + 1, 1, 0, 0, 0, 0);
 
                         <button @onclick="()=>OnMonthSelected(monthStart)">
                             @(name.Substring(0, Math.Min(3, name.Length)))
@@ -105,7 +105,7 @@
     }
     else if (_viewMode == CalendarMode.YearSelect)
     {
-        var range = $"{Culture.Calendar.GetYear(_viewDate)} - {Culture.Calendar.GetYear(_viewDate) + 12}";
+        var range = $"{Culture.Calendar.GetYear(ViewDate)} - {Culture.Calendar.GetYear(ViewDate) + 12}";
         <div class="header">
             <button class="title" @onclick="OnSelectMonth">
                 @range
@@ -129,10 +129,10 @@
                 <div class="row">
                     @for (var col = 0; col < 4; col++)
                     {
-                        var yearStart = Culture.Calendar.ToDateTime(Culture.Calendar.GetYear(_viewDate) + row * 4 + col, 1, 1, 0, 0, 0, 0);
+                        var yearStart = Culture.Calendar.ToDateTime(Culture.Calendar.GetYear(ViewDate) + row * 4 + col, 1, 1, 0, 0, 0, 0);
 
                         <button @onclick="()=>OnYearSelected(yearStart)">
-                            @(Culture.Calendar.GetYear(_viewDate) + row * 4 + col)
+                            @(Culture.Calendar.GetYear(ViewDate) + row * 4 + col)
                         </button>
                     }
                 </div>
