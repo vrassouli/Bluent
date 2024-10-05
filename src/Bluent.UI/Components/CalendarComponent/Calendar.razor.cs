@@ -1,7 +1,6 @@
 ﻿using Bluent.UI.Extensions;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System.Globalization;
 
 namespace Bluent.UI.Components;
@@ -11,11 +10,12 @@ public partial class Calendar<TValue>
     private CalendarMode _viewMode = CalendarMode.DaySelect;
     private CalendarMode _mode = CalendarMode.DaySelect;
     private TValue _selectedDate = default!;
-    private DateTime _viewDate;
     private string _transitionClass = "up";
+    private DateTime _viewDate = DateTime.Today;
 
     [Parameter] public TValue SelectedDate { get; set; } = default!;
     [Parameter] public EventCallback<TValue> SelectedDateChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly> MonthChanged { get; set; }
     [Parameter] public CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
     [Parameter] public CalendarMode Mode { get; set; } = CalendarMode.DaySelect;
     [Parameter] public Func<DateOnly, string>? DateClass { get; set; }
@@ -23,9 +23,23 @@ public partial class Calendar<TValue>
     [Parameter] public DateTime? Min { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
 
-    private int DaysInMonth => Culture.Calendar.GetDaysInMonth(Culture.Calendar.GetYear(_viewDate), Culture.Calendar.GetMonth(_viewDate));
-    private DateTime MonthStart => _viewDate.GetMonthStart(Culture);
-    private DateTime MonthEnd => _viewDate.GetMonthEnd(Culture);
+    private DateTime ViewDate
+    {
+        get => _viewDate;
+        set
+        {
+            if (_viewDate != value)
+            {
+                _viewDate = value;
+
+                OnViewDateChanged();
+            }
+        }
+    }
+
+    private int DaysInMonth => Culture.Calendar.GetDaysInMonth(Culture.Calendar.GetYear(ViewDate), Culture.Calendar.GetMonth(ViewDate));
+    private DateTime MonthStart => ViewDate.GetMonthStart(Culture);
+    private DateTime MonthEnd => ViewDate.GetMonthEnd(Culture);
     private int FirstDayOffset => ((int)MonthStart.DayOfWeek - (int)Culture.DateTimeFormat.FirstDayOfWeek + 7) % 7;
     private bool IsNullable => Nullable.GetUnderlyingType(typeof(TValue)) != null;
 
@@ -38,8 +52,6 @@ public partial class Calendar<TValue>
         {
             throw new InvalidOperationException($"Unsupported {GetType()} type param '{type}'.");
         }
-
-        _viewDate = DateTime.Today;
     }
 
     public override IEnumerable<string> GetClasses()
@@ -62,7 +74,7 @@ public partial class Calendar<TValue>
 
             if (SelectedDate != null)
             {
-                _viewDate = Culture.Calendar.ToDateTime<TValue>(SelectedDate) ?? DateTime.Today;
+                ViewDate = Culture.Calendar.ToDateTime<TValue>(SelectedDate) ?? DateTime.Today;
             }
         }
 
@@ -114,7 +126,7 @@ public partial class Calendar<TValue>
 
     private void OnGoToToday()
     {
-        _viewDate = DateTime.Today;
+        ViewDate = DateTime.Today;
     }
 
     private async Task OnClearSelection()
@@ -124,37 +136,37 @@ public partial class Calendar<TValue>
 
     private void OnPreviousMonth()
     {
-        _viewDate = MonthStart.AddMonths(-1, Culture);
+        ViewDate = MonthStart.AddMonths(-1, Culture);
         _transitionClass = "down";
     }
 
     private void OnNextMonth()
     {
-        _viewDate = MonthStart.AddMonths(1, Culture);
+        ViewDate = MonthStart.AddMonths(1, Culture);
         _transitionClass = "up";
     }
 
     private void OnPreviousYear()
     {
-        _viewDate = MonthStart.AddYears(-1, Culture);
+        ViewDate = MonthStart.AddYears(-1, Culture);
         _transitionClass = "down";
     }
 
     private void OnNextYear()
     {
-        _viewDate = MonthStart.AddYears(1, Culture);
+        ViewDate = MonthStart.AddYears(1, Culture);
         _transitionClass = "up";
     }
 
     private void OnPreviousYearRange()
     {
-        _viewDate = MonthStart.AddYears(-13, Culture);
+        ViewDate = MonthStart.AddYears(-13, Culture);
         _transitionClass = "down";
     }
 
     private void OnNextYearRange()
     {
-        _viewDate = MonthStart.AddYears(13, Culture);
+        ViewDate = MonthStart.AddYears(13, Culture);
         _transitionClass = "up";
     }
 
@@ -162,11 +174,11 @@ public partial class Calendar<TValue>
     {
         if (int.TryParse(args.Value?.ToString(), out var year))
         {
-            _viewDate = _viewDate.SetYear(year, Culture);
+            ViewDate = ViewDate.SetYear(year, Culture);
 
             if (Mode == CalendarMode.MonthSelect)
             {
-                await OnSelectDate(_viewDate);
+                await OnSelectDate(ViewDate);
             }
         }
     }
@@ -175,22 +187,22 @@ public partial class Calendar<TValue>
     {
         if (int.TryParse(args.Value?.ToString(), out var year))
         {
-            _viewDate = _viewDate.SetMonth(year, Culture);
+            ViewDate = ViewDate.SetMonth(year, Culture);
 
             if (Mode == CalendarMode.MonthSelect)
             {
-                await OnSelectDate(_viewDate);
+                await OnSelectDate(ViewDate);
             }
         }
     }
 
     private async void OnMonthSelected(DateTime monthStart)
     {
-        _viewDate = monthStart;
+        ViewDate = monthStart;
 
         if (Mode == CalendarMode.MonthSelect)
         {
-            await OnSelectDate(_viewDate);
+            await OnSelectDate(ViewDate);
         }
         else if (_viewMode == CalendarMode.MonthSelect)
         {
@@ -199,11 +211,11 @@ public partial class Calendar<TValue>
     }
     private async void OnYearSelected(DateTime yearStart)
     {
-        _viewDate = yearStart;
+        ViewDate = yearStart;
 
         if (Mode == CalendarMode.YearSelect)
         {
-            await OnSelectDate(_viewDate);
+            await OnSelectDate(ViewDate);
         }
         else if (_viewMode == CalendarMode.YearSelect)
         {
@@ -224,6 +236,13 @@ public partial class Calendar<TValue>
     private async Task OnSelectDayAsync()
     {
         _viewMode = CalendarMode.DaySelect;
-        await OnSelectDate(_viewDate);
+        await OnSelectDate(ViewDate);
+    }
+
+    private void OnViewDateChanged()
+    {
+        var date = DateOnly.FromDateTime(ViewDate);
+
+        InvokeAsync(() => MonthChanged.InvokeAsync(date));
     }
 }
