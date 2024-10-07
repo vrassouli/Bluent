@@ -1,0 +1,34 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+@typeparam TItem
+
+<CascadingValue Value="this" IsFixed>
+    @Columns
+</CascadingValue>
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="header">
+        <div class="rowgroups">
+            <div class="rowgroup">
+                <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => x.Freezed)" />
+            </div>
+            <div class="rowgroup">
+                <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => !x.Freezed)" />
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="rowgroups">
+            <div class="rowgroup">
+                <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize ItemsProvider="ItemsProvider" ItemSize="32">
+                    <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => x.Freezed)" Item="context" />
+                </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+            </div>
+            <div class="rowgroup">
+                <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize ItemsProvider="ItemsProvider" ItemSize="32">
+                    <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => !x.Freezed)" Item="context" />
+                </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+            </div>
+        </div>
+    </div>
+</div>

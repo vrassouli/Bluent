@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7B4FCE49-13F0-46C7-9D07-646796B82B52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegexSampleGeneratorTest", "tests\RegexSampleGeneratorTest\RegexSampleGeneratorTest.csproj", "{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegexSampleGeneratorTest", "tests\RegexSampleGeneratorTest\RegexSampleGeneratorTest.csproj", "{1EE51597-2F04-4BD1-91CE-DCF5DAA2AA87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
