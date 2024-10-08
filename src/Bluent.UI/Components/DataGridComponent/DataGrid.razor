@@ -1,0 +1,40 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+@typeparam TItem
+
+<CascadingValue Value="this" IsFixed>
+    @Columns
+</CascadingValue>
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div class="header">
+        <div class="rowgroups">
+            @if (_columns.Any(x => x.Freezed))
+            {
+                <div class="rowgroup freezed">
+                    <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => x.Freezed)" />
+                </div>
+            }
+            <div class="rowgroup main">
+                <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => !x.Freezed)" />
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="rowgroups">
+            @if (_columns.Any(x => x.Freezed))
+            {
+                <div class="rowgroup freezed">
+                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize ItemsProvider="ItemsProvider" ItemSize="RowSize">
+                        <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => x.Freezed)" Item="context" />
+                    </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+                </div>
+            }
+            <div class="rowgroup main">
+                <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize ItemsProvider="ItemsProvider" ItemSize="RowSize">
+                    <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => !x.Freezed)" Item="context" />
+                </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+            </div>
+        </div>
+    </div>
+</div>
