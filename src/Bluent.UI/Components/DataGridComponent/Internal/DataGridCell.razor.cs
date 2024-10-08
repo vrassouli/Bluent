@@ -13,8 +13,9 @@ public partial class DataGridCell<TItem> where TItem : class
         {
             return builder =>
             {
-                builder.OpenElement(0, "span");
-                builder.AddContent(1, Column.GetHeader());
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "class", GetContentClass());
+                builder.AddContent(2, Column.GetHeader());
                 builder.CloseElement();
             };
         }
@@ -24,8 +25,9 @@ public partial class DataGridCell<TItem> where TItem : class
 
         return builder =>
         {
-            builder.OpenElement(0, "span");
-            builder.AddContent(1, Column.GetData(Item));
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", GetContentClass());
+            builder.AddContent(2, Column.GetData(Item));
             builder.CloseElement();
         };
     }
