@@ -15,7 +15,7 @@ public class DataGridColumn<TItem> : ComponentBase, IDisposable
     [Parameter] public Func<TItem, IEnumerable<string>>? CellClasses { get; set; }
     [Parameter] public RenderFragment<TItem>? ChildContent { get; set; }
     [Parameter] public string? Format { get; set; }
-    [Parameter] public double? Width { get; set; }
+    [Parameter] public double Width { get; set; } = 150;
     [Parameter] public bool Wrap { get; set; }
     [Parameter] public bool Freezed { get; set; }
 
@@ -76,8 +76,8 @@ public class DataGridColumn<TItem> : ComponentBase, IDisposable
     {
         yield return "cell";
 
-        if (Width is null)
-            yield return "flex-fill";
+        //if (Width is null)
+        //    yield return "flex-fill";
 
         if (item is not null && CellClasses is not null)
             foreach (var cellClass in CellClasses(item))
