@@ -13,6 +13,7 @@ public class DataGridColumn<TItem> : ComponentBase, IDisposable
     [Parameter] public string? Header { get; set; }
     [Parameter] public Expression<Func<TItem, object?>>? Field { get; set; }
     [Parameter] public Func<TItem, IEnumerable<string>>? CellClasses { get; set; }
+    [Parameter] public RenderFragment<TItem>? ChildContent { get; set; }
     [Parameter] public string? Format { get; set; }
     [Parameter] public double? Width { get; set; }
     [Parameter] public bool Wrap { get; set; }

@@ -7,12 +7,27 @@ public partial class DataGridCell<TItem> where TItem : class
     [Parameter, EditorRequired] public DataGridColumn<TItem> Column { get; set; } = default!;
     [Parameter] public TItem? Item { get; set; }
 
-    private string? GetContent()
+    private RenderFragment? GetContent()
     {
-        if(Item is null)
-            return Column.GetHeader();
+        if (Item is null)
+        {
+            return builder =>
+            {
+                builder.OpenElement(0, "span");
+                builder.AddContent(1, Column.GetHeader());
+                builder.CloseElement();
+            };
+        }
 
-        return Column.GetData(Item)?.ToString();
+        if (Column.ChildContent != null)
+            return Column.ChildContent.Invoke(Item);
+
+        return builder =>
+        {
+            builder.OpenElement(0, "span");
+            builder.AddContent(1, Column.GetData(Item));
+            builder.CloseElement();
+        };
     }
 
     private string GetStyle() => Column.GetStyle();

@@ -41,8 +41,8 @@ public class DataGridSampleModel
         return Enumerable.Range(0, count).Select(x => new DataGridSampleModel($"Name {x}",
                                                                               $"Last name {x}",
                                                                               DateOnly.FromDateTime(DateTime.Today.AddDays(-1 * x)),
-                                                                              x + new Random().Next(0, 50),
-                                                                              x + new Random().Next(0, 70),
+                                                                              x,
+                                                                              x,
                                                                               $"Nationality {x}"));
     }
 }

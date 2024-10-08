@@ -10,14 +10,15 @@
         > .rowgroup {
             .data-row {
                 display: flex;
-                border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
                 min-height: 32px;
 
                 > .cell {
                     display: flex;
+                    cursor: default;
                     flex-shrink: 0;
-                    padding: 0px var(--spacingHorizontalS);
                     align-items: center;
+                    padding: 0px var(--spacingHorizontalS);
+                    border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
 
                     > .content {
                     }
@@ -25,11 +26,11 @@
             }
         }
 
-        > .rowgroup:nth-child(1) {
+        > .rowgroup.freezed {
             overflow: hidden;
         }
 
-        > .rowgroup:nth-child(2) {
+        > .rowgroup.main {
             flex: 1;
             overflow: auto;
         }
@@ -39,7 +40,7 @@
         overflow: hidden;
 
         > .rowgroups {
-            margin-inline-end: 15px;
+            font-weight: var(--fontWeightSemibold);
 
             > .rowgroup {
                 overflow: hidden;
@@ -66,8 +67,10 @@
                 height: 100%;
 
                 > .data-row:hover {
-                    color: var(--colorNeutralForeground1Hover);
-                    background-color: var(--colorSubtleBackgroundHover);
+                    > .cell {
+                        color: var(--colorNeutralForeground1Hover);
+                        background-color: var(--colorSubtleBackgroundHover);
+                    }
                 }
             }
         }
