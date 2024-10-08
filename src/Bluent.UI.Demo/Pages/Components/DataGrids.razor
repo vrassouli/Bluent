@@ -38,7 +38,7 @@
             <DataGrid ItemsProvider="LoadData" Style="height: 250px;">
                 <Columns>
                     <DataGridColumn TItem="DataGridSampleModel" Field="x => x.FirstName" Header="Full name" Width="150" Freezed>
-                        <div>@context.FirstName @context.LastName</div>
+                        <span>@context.FirstName @context.LastName</span>
                     </DataGridColumn>
                     <DataGridColumn TItem="DataGridSampleModel" Field="x => x.Birthdate" Header="Age" Width="110">
                         @{
