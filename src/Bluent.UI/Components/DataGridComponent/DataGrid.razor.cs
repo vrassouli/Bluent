@@ -11,6 +11,8 @@ public partial class DataGrid<TItem> : IDataGridEventHandler, IAsyncDisposable
 {
     private readonly List<DataGridColumn<TItem>> _columns = new();
     private DataGridInterop? _interop;
+    private Virtualize<TItem>? _freezedVirtulizer;
+    private Virtualize<TItem>? _mainVirtulizer;
 
     [Parameter] public ItemsProviderDelegate<TItem>? ItemsProvider { get; set; }
     [Parameter] public RenderFragment? Columns { get; set; }
@@ -57,6 +59,15 @@ public partial class DataGrid<TItem> : IDataGridEventHandler, IAsyncDisposable
 
         //if (Appearance != CardAppearance.Filled)
         //    yield return Appearance.ToString().Kebaberize();
+    }
+
+    public async Task RefreshAsync()
+    {
+        if (_freezedVirtulizer != null)
+            await _freezedVirtulizer.RefreshDataAsync();
+
+        if (_mainVirtulizer != null)
+            await _mainVirtulizer.RefreshDataAsync();
     }
 
     internal void AddColumn(DataGridColumn<TItem> column)
