@@ -13,6 +13,7 @@ public class DataGridColumn<TItem> : ComponentBase, IDisposable
     [Parameter] public string? Header { get; set; }
     [Parameter] public Expression<Func<TItem, object?>>? Field { get; set; }
     [Parameter] public Func<TItem, IEnumerable<string>>? CellClasses { get; set; }
+    [Parameter] public Func<IEnumerable<string>>? HeaderClasses { get; set; }
     [Parameter] public RenderFragment<TItem>? ChildContent { get; set; }
     [Parameter] public string? Format { get; set; }
     [Parameter] public double Width { get; set; } = 150;
@@ -81,6 +82,9 @@ public class DataGridColumn<TItem> : ComponentBase, IDisposable
 
         if (item is not null && CellClasses is not null)
             foreach (var cellClass in CellClasses(item))
+                yield return cellClass;
+        else if (item is null && HeaderClasses is not null)
+            foreach (var cellClass in HeaderClasses())
                 yield return cellClass;
     }
 }
