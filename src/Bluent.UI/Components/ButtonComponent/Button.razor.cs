@@ -24,6 +24,7 @@ public partial class Button
     [CascadingParameter] public Popover? ParentPopover { get; set; }
     [CascadingParameter] public Overflow? Overflow { get; set; } = default!;
 
+    private Popover? _popover;
     private bool IsLink => !string.IsNullOrEmpty(Href);
     private bool IsDropdownButton => Dropdown != null && !OnClick.HasDelegate;
     private bool IsSplitButton => Dropdown != null && OnClick.HasDelegate;
@@ -95,5 +96,11 @@ public partial class Button
         }
 
         InvokeAsync(OnClick.InvokeAsync);
+    }
+
+    public void RefreshPopoverSurface()
+    {
+        if (_popover != null)
+            _popover.RefreshSurface();
     }
 }

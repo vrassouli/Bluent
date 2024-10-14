@@ -47,7 +47,7 @@
 }
 else if (IsDropdownButton)
 {
-    <Popover Placement="@DropdownPlacement" DisplayArrow="false">
+    <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
         <Trigger>
             <Button Text="@Text"
                     SecondaryText="@SecondaryText"
@@ -86,7 +86,7 @@ else if (IsSplitButton)
                 Class="@Class"
                 Style="@Style"
                 AdditionalAttributes="@AdditionalAttributes"/>
-        <Popover Placement="@DropdownPlacement" DisplayArrow="false">
+        <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
             <Trigger>
                 <Button Shape="@Shape"
                         Appearance="@Appearance"
