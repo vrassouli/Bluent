@@ -2,6 +2,8 @@
     position: absolute;
     display: flex;
     padding: 20px;
+    max-width: 100%;
+    overflow: hidden;
 
     &.top-start {
         top: 0;
@@ -106,8 +108,8 @@
     animation-timing-function: var(--curveEasyEase);
     animation-fill-mode: both;
     min-width: 200px;
-    max-width: 380px;
-
+    max-width: min(100%, 380px);
+    
     > .content {
         padding: 12px;
         border-radius: var(--borderRadiusMedium);
