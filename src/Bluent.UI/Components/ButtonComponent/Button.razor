@@ -19,20 +19,20 @@
     {
         @if (!string.IsNullOrEmpty(ActiveIcon))
         {
-            <Icon Content="@ActiveIcon" Class="active-icon" />
+            <Icon Content="@ActiveIcon" Class="@($"active-icon {ActiveIconClass}")" />
         }
-        <Icon Content="@Icon" Class="icon" />
+        <Icon Content="@Icon" Class="@($"icon {ActiveIconClass}")" />
     }
     @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
     {
         <div class="text">
             @if (!string.IsNullOrEmpty(Text))
             {
-                <div>@Text</div>
+                <div class="@TextClass">@Text</div>
             }
             @if (!string.IsNullOrEmpty(SecondaryText))
             {
-                <div class="secondary-text">@SecondaryText</div>
+                <div class="secondary-text @SecondaryTextClass">@SecondaryText</div>
             }
         </div>
     }
@@ -50,9 +50,13 @@ else if (IsDropdownButton)
     <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
         <Trigger>
             <Button Text="@Text"
+                    TextClass="@TextClass"
                     SecondaryText="@SecondaryText"
+                    SecondaryTextClass="@SecondaryTextClass"
                     Icon="@Icon"
+                    IconClass="@IconClass"
                     ActiveIcon="@ActiveIcon"
+                    ActiveIconClass="@ActiveIconClass"
                     Toggled="@Toggled"
                     ToggledChanged="@ToggledChanged"
                     Shape="@Shape"
@@ -62,7 +66,7 @@ else if (IsDropdownButton)
                     ShowDropdownIndicator="@ShowDropdownIndicator"
                     Class="@Class"
                     Style="@Style"
-                    AdditionalAttributes="@AdditionalAttributes"/>
+                    AdditionalAttributes="@AdditionalAttributes" />
         </Trigger>
         <Surface>
             @Dropdown
@@ -73,9 +77,13 @@ else if (IsSplitButton)
 {
     <ButtonGroup>
         <Button Text="@Text"
+                TextClass="@TextClass"
                 SecondaryText="@SecondaryText"
+                SecondaryTextClass="@SecondaryTextClass"
                 Icon="@Icon"
+                IconClass="@IconClass"
                 ActiveIcon="@ActiveIcon"
+                ActiveIconClass="@ActiveIconClass"
                 Toggled="@Toggled"
                 ToggledChanged="@ToggledChanged"
                 Shape="@Shape"
@@ -85,7 +93,7 @@ else if (IsSplitButton)
                 OnClick="@OnClick"
                 Class="@Class"
                 Style="@Style"
-                AdditionalAttributes="@AdditionalAttributes"/>
+                AdditionalAttributes="@AdditionalAttributes" />
         <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
             <Trigger>
                 <Button Shape="@Shape"
