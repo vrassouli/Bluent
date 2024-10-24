@@ -10,7 +10,6 @@ public partial class Button
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? TextClass { get; set; }
     [Parameter] public string? SecondaryText { get; set; }
-    [Parameter] public string? SecondaryTextClass { get; set; }
     [Parameter] public string? Icon { get; set; }
     [Parameter] public string? IconClass { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
