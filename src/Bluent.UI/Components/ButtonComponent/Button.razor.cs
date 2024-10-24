@@ -8,9 +8,13 @@ public partial class Button
     //private Popover? _dropdownPopover;
 
     [Parameter] public string? Text { get; set; }
+    [Parameter] public string? TextClass { get; set; }
     [Parameter] public string? SecondaryText { get; set; }
+    [Parameter] public string? SecondaryTextClass { get; set; }
     [Parameter] public string? Icon { get; set; }
+    [Parameter] public string? IconClass { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
+    [Parameter] public string? ActiveIconClass { get; set; }
     [Parameter] public bool? Toggled { get; set; } = null;
     [Parameter] public EventCallback<bool> ToggledChanged { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
@@ -20,6 +24,7 @@ public partial class Button
     [Parameter] public string? Href { get; set; }
     [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public bool ShowDropdownIndicator { get; set; }
+    [Parameter] public bool Compact { get; set; }
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.Bottom;
     [CascadingParameter] public Popover? ParentPopover { get; set; }
     [CascadingParameter] public Overflow? Overflow { get; set; } = default!;
@@ -38,6 +43,9 @@ public partial class Button
 
         if (string.IsNullOrEmpty(Text))
             yield return "icon";
+
+        if (Compact)
+            yield return "compact";
 
         if (!string.IsNullOrEmpty(SecondaryText))
             yield return "compound";

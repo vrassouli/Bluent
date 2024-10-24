@@ -14,7 +14,6 @@
     font-family: var(--fontFamilyBase);
     outline-style: none;
     padding: 5px var(--spacingHorizontalM);
-    min-width: 96px;
     border-radius: var(--borderRadiusMedium);
     font-size: var(--fontSizeBase300);
     font-weight: var(--fontWeightSemibold);
@@ -23,6 +22,10 @@
     transition-property: background, border, color;
     transition-timing-function: var(--curveEasyEase);
     cursor: pointer;
+
+    &:not(.compact) {
+        min-width: 96px;
+    }
 
     > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
         font-size: 20px;
