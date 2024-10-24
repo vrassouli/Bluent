@@ -25,14 +25,14 @@
     }
     @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
     {
-        <div class="text">
+        <div class="text @TextClass">
             @if (!string.IsNullOrEmpty(Text))
             {
-                <div class="@TextClass">@Text</div>
+                <div>@Text</div>
             }
             @if (!string.IsNullOrEmpty(SecondaryText))
             {
-                <div class="secondary-text @SecondaryTextClass">@SecondaryText</div>
+                <div class="secondary-text">@SecondaryText</div>
             }
         </div>
     }
@@ -52,7 +52,6 @@ else if (IsDropdownButton)
             <Button Text="@Text"
                     TextClass="@TextClass"
                     SecondaryText="@SecondaryText"
-                    SecondaryTextClass="@SecondaryTextClass"
                     Icon="@Icon"
                     IconClass="@IconClass"
                     ActiveIcon="@ActiveIcon"
@@ -79,7 +78,6 @@ else if (IsSplitButton)
         <Button Text="@Text"
                 TextClass="@TextClass"
                 SecondaryText="@SecondaryText"
-                SecondaryTextClass="@SecondaryTextClass"
                 Icon="@Icon"
                 IconClass="@IconClass"
                 ActiveIcon="@ActiveIcon"

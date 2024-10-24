@@ -265,9 +265,12 @@
     &.small {
         font-size: var(--fontSizeBase200);
         padding: 3px var(--spacingHorizontalS);
-        min-width: 64px;
         line-height: var(--lineHeightBase200);
         font-weight: var(--fontWeightRegular);
+
+        &:not(.compact) {
+            min-width: 64px;
+        }
 
         &.icon {
             max-width: 24px;
@@ -286,8 +289,11 @@
         font-weight: var(--fontWeightSemibold);
         font-size: var(--fontSizeBase400);
         padding: 8px var(--spacingHorizontalL);
-        min-width: 96px;
         line-height: var(--lineHeightBase400);
+
+        &:not(.compact) {
+            min-width: 96px;
+        }
 
         &.icon {
             max-width: 40px;
