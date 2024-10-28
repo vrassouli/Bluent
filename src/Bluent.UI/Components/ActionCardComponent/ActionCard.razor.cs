@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Components;
 
@@ -15,6 +10,7 @@ public partial class ActionCard
     [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public string? Icon { get; set; }
+    [Parameter] public RenderFragment? IconContent { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Description { get; set; }
