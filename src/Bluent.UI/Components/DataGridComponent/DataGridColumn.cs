@@ -63,12 +63,10 @@ public class DataGridColumn<TItem> : ComponentBase, IDisposable
 
     internal string GetStyle()
     {
-        Dictionary<string, string> styles = new();
-
-        if (Width != null)
+        Dictionary<string, string> styles = new()
         {
-            styles.Add("width", $"{Width}px");
-        }
+            { "width", $"{Width}px" }
+        };
 
         return string.Join(';', styles.Select(x => $"{x.Key}:{x.Value}"));
     }
