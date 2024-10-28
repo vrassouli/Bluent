@@ -14,6 +14,7 @@ public partial class ActionCard
     [Parameter] public string? Href { get; set; }
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Description { get; set; }
+    [Parameter] public RenderFragment? DescriptionContent { get; set; }
     [Parameter] public bool DeferredLoading { get; set; }
 
     private bool IsExpandable => ChildContent != null;
