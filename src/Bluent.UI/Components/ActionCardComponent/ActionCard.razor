@@ -18,6 +18,12 @@
     {
         <Icon Class="icon" Content="@Icon" />
     }
+    else if (IconContent != null)
+    {
+        <div class="icon">
+            @IconContent
+        </div>
+    }
     <div class="titles">
         <div class="title">@Title</div>
         @if (!string.IsNullOrEmpty(Description))
