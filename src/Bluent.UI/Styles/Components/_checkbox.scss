@@ -103,6 +103,8 @@
     &.label-before {
         > input {
             order: 2;
+            left: unset;
+            right: 0;
         }
 
         > .indicator {
