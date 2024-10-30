@@ -105,6 +105,22 @@
         font-family: var(--fontFamilyBase);
         cursor: inherit;
     }
+
+    &.label-before {
+        > input {
+            order: 2;
+            left: unset;
+            right: 0;
+        }
+
+        > .indicator {
+            order: 2;
+        }
+
+        > label {
+            order: 1;
+        }
+    }
 }
 
 .rtl, [dir=rtl] {
