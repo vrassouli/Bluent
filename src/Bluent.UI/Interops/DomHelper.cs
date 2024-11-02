@@ -6,7 +6,7 @@ public class DomHelper : IAsyncDisposable
 {
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     private IJSObjectReference? _module;
-    private IJSObjectReference? _popoverReference;
+    private IJSObjectReference? _moduleReference;
 
     public DomHelper(IJSRuntime jsRuntime)
     {
@@ -17,8 +17,8 @@ public class DomHelper : IAsyncDisposable
     {
         try
         {
-            if (_popoverReference != null)
-                await _popoverReference.DisposeAsync();
+            if (_moduleReference != null)
+                await _moduleReference.DisposeAsync();
 
             if (_module != null)
                 await _module.DisposeAsync();
@@ -35,10 +35,11 @@ public class DomHelper : IAsyncDisposable
         await module.InvokeVoidAsync("invokeClickEvent", selector);
     }
 
-    public async void DownloadAsync(string fileName, Stream stream)
+    public async Task DownloadAsync(string fileName, Stream stream)
     {
         var module = await GetModuleAsync();
-        await module.InvokeVoidAsync("downloadFileFromStream", fileName, stream);
+        using var streamRef = new DotNetStreamReference(stream);
+        await module.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }
 
     private async Task<IJSObjectReference> GetModuleAsync()
@@ -46,9 +47,9 @@ public class DomHelper : IAsyncDisposable
         if (_module == null)
             _module = await _moduleTask.Value;
 
-        if (_popoverReference == null)
-            _popoverReference = await _module.InvokeAsync<IJSObjectReference>("DomHelper.create");
+        if (_moduleReference == null)
+            _moduleReference = await _module.InvokeAsync<IJSObjectReference>("DomHelper.create");
 
-        return _popoverReference;
+        return _moduleReference;
     }
 }
