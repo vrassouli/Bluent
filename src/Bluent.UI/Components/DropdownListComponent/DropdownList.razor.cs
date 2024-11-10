@@ -20,10 +20,13 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
     [Parameter] public string EmptyDisplayText { get; set; } = "Select...";
+    [Parameter] public float ItemSize { get; set; } = 50;
     [Parameter, EditorRequired] public Func<TItem, TValue?> ItemValue { get; set; } = _ => default;
     [Parameter, EditorRequired] public Func<TValue, string> DisplayText { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment<TItem> ItemContent { get; set; } = default!;
     [Parameter, EditorRequired] public FilteredItemsProviderDelegate<TItem> ItemsProvider { get; set; } = default!;
+    [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; } 
+    [Parameter] public RenderFragment? EmptyContent { get; set; } 
 
     protected override void OnAfterRender(bool firstRender)
     {

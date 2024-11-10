@@ -51,12 +51,12 @@
             }
             <div class="flex-fill overflow-auto">
                 <ItemsList Class="h-100" SelectionMode="SelectionMode.Single">
-                    <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider">
+                    <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider" ItemSize="ItemSize" Placeholder="Placeholder" EmptyContent="EmptyContent">
                         <ItemContent>
                             <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnSelectedItemChanged(context, selected)">
                                 @ItemContent.Invoke(context)
                             </ListItem>
-                        </ItemContent>
+                        </ItemContent>                        
                     </Virtualize>
                 </ItemsList>
             </div>
