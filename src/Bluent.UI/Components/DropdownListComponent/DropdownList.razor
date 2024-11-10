@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @inherits BluentComponentBase
 @typeparam TItem
+@typeparam TValue
 
 <Popover @ref="_popover" DisplayArrow="false" Placement="DropdownPlacement">
     <Trigger>
@@ -9,7 +10,7 @@
             <div class="select">
                 <div>@GetDisplayText()</div>
             </div>
-            @if (!HideClear && SelectedItem != null)
+            @if (!HideClear && Value  != null)
             {
                 <Button Appearance="ButtonAppearance.Transparent"
                         Size="ButtonSize.Small"
@@ -50,12 +51,12 @@
             }
             <div class="flex-fill overflow-auto">
                 <ItemsList Class="h-100" SelectionMode="SelectionMode.Single">
-                    <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider">
+                    <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider" ItemSize="ItemSize" Placeholder="Placeholder" EmptyContent="EmptyContent">
                         <ItemContent>
                             <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnSelectedItemChanged(context, selected)">
                                 @ItemContent.Invoke(context)
                             </ListItem>
-                        </ItemContent>
+                        </ItemContent>                        
                     </Virtualize>
                 </ItemsList>
             </div>

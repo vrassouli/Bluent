@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.Linq.Expressions;
 
 namespace Bluent.UI.Components;
 
 
-public partial class DropdownList<TItem>
+public partial class DropdownList<TItem, TValue>
     where TItem : class
 {
     private Popover? _popover;
@@ -16,12 +17,16 @@ public partial class DropdownList<TItem>
     [Parameter] public bool HideFilter { get; set; } = false;
     [Parameter] public bool HideClear { get; set; } = false;
     [Parameter] public string? FilterPlaceholder { get; set; } = "Filter";
-    [Parameter] public TItem? SelectedItem { get; set; }
-    [Parameter] public EventCallback<TItem?> SelectedItemChanged { get; set; }
+    [Parameter] public TValue? Value { get; set; }
+    [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
     [Parameter] public string EmptyDisplayText { get; set; } = "Select...";
-    [Parameter, EditorRequired] public Func<TItem, string> DisplayText { get; set; } = default!;
+    [Parameter] public float ItemSize { get; set; } = 50;
+    [Parameter, EditorRequired] public Func<TItem, TValue?> ItemValue { get; set; } = _ => default;
+    [Parameter, EditorRequired] public Func<TValue, string> DisplayText { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment<TItem> ItemContent { get; set; } = default!;
     [Parameter, EditorRequired] public FilteredItemsProviderDelegate<TItem> ItemsProvider { get; set; } = default!;
+    [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; } 
+    [Parameter] public RenderFragment? EmptyContent { get; set; } 
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -43,8 +48,13 @@ public partial class DropdownList<TItem>
 
     private bool IsSelected(TItem item)
     {
-        return item == SelectedItem;
+        if (Value is null)
+            return false;
+
+        return Value.Equals(GetItemValue(item));
     }
+
+    private TValue? GetItemValue(TItem item) => ItemValue(item);
 
     private async Task OnSelectedItemChanged(TItem item, bool selected)
     {
@@ -56,8 +66,16 @@ public partial class DropdownList<TItem>
 
     private async Task OnSelectionChanged(TItem? selection)
     {
-        SelectedItem = selection;
-        await SelectedItemChanged.InvokeAsync(SelectedItem);
+        if (selection == null)
+        {
+            Value = default;
+        }
+        else
+        {
+            Value = GetItemValue(selection);
+        }
+
+        await ValueChanged.InvokeAsync(Value);
     }
 
     private async Task OnFilterChanged(string? filter)
@@ -82,8 +100,8 @@ public partial class DropdownList<TItem>
 
     private string GetDisplayText()
     {
-        if (SelectedItem != null)
-            return DisplayText(SelectedItem);
+        if (Value != null)
+            return DisplayText(Value);
 
         return EmptyDisplayText;
     }
