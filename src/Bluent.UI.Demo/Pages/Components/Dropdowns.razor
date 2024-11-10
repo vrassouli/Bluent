@@ -1,0 +1,44 @@
+﻿@page "/components/dropdowns"
+@using Bluent.UI.Demo.Pages.Components.ViewModels
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Dropdown Lists</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <DropdownList TItem="DataGridSampleModel"
+                          ItemsProvider="LoadData"
+                          @bind-SelectedItem="_selectedItem"
+                          DisplayText="@(item => $"{item.FirstName} {item.LastName}")">
+                <ItemContent>
+                    <div>@context.FirstName @context.LastName</div>
+                </ItemContent>
+            </DropdownList>
+
+            <pre>
+                Selected item: @_selectedItem?.FirstName @_selectedItem?.LastName
+            </pre>
+        </section>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<DataGridSampleModel> _dataSource = DataGridSampleModel.LoadSample(1000).ToList();
+    private DataGridSampleModel? _selectedItem;
+
+    private ValueTask<ItemsProviderResult<DataGridSampleModel>> LoadData(FilteredItemsProviderRequest request)
+    {
+        var query = _dataSource
+            .Where(x => request.Filter == null || (x.FirstName + " " + x.LastName).Contains(request.Filter))
+            .AsQueryable();
+
+        var data = query
+            .Skip(request.StartIndex)
+            .Take(request.Count);
+
+        var result = new ItemsProviderResult<DataGridSampleModel>(data, query.Count());
+
+        return ValueTask.FromResult(result);
+    }
+}

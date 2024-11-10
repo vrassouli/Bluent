@@ -9,7 +9,7 @@ public partial class TreeItem
     private bool _canDrop;
     private bool _isDragging;
 
-    [Parameter, EditorRequired] public string Title { get; set; } = default!;
+    [Parameter] public string Title { get; set; } = default!;
     [Parameter] public string? Icon { get; set; } = default!;
     [Parameter] public string? ExpandedIcon { get; set; } = default!;
     [Parameter] public bool Expanded { get; set; } = default!;
