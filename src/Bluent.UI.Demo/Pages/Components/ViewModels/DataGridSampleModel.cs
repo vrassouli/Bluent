@@ -4,6 +4,9 @@ namespace Bluent.UI.Demo.Pages.Components.ViewModels;
 
 public class DataGridSampleModel
 {
+    [Display(Name = "Id")]
+    public int Id { get; set; }
+
     [Display(Name = "Name")]
     public string FirstName { get; set; }
 
@@ -21,14 +24,15 @@ public class DataGridSampleModel
         
     public string Nationality { get; set; }
 
-    public DataGridSampleModel(string firstName, string lastName, DateOnly birthdate, int weight, int height, string nationality)
+    public DataGridSampleModel(int id)
     {
-        FirstName = firstName;
-        LastName = lastName;
-        Birthdate = birthdate;
-        Weight = weight;
-        Height = height;
-        Nationality = nationality;
+        Id = id;
+        FirstName = $"Name {id}";
+        LastName = $"Last name {id}";
+        Birthdate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1 * id));
+        Weight = id;
+        Height = id;
+        Nationality = $"Nationality {id}";
     }
 
     public override string ToString()
@@ -38,11 +42,6 @@ public class DataGridSampleModel
 
     public static IEnumerable<DataGridSampleModel> LoadSample(int count)
     {
-        return Enumerable.Range(0, count).Select(x => new DataGridSampleModel($"Name {x}",
-                                                                              $"Last name {x}",
-                                                                              DateOnly.FromDateTime(DateTime.Today.AddDays(-1 * x)),
-                                                                              x,
-                                                                              x,
-                                                                              $"Nationality {x}"));
+        return Enumerable.Range(0, count).Select(x => new DataGridSampleModel(x));
     }
 }
