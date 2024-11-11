@@ -42,6 +42,24 @@ public class DomHelper : IAsyncDisposable
         await module.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }
 
+    public async Task RequestFullscreen(string selector)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("requestFullscreen", selector);
+    }
+
+    public async Task ExitFullscreen()
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("exitFullscreen");
+    }
+
+    public async Task EvalVoidAsync(string script)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("eval", script);
+    }
+
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)
