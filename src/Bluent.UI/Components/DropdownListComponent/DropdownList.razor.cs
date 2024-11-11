@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System.Linq.Expressions;
+using Microsoft.Extensions.Localization;
 
 namespace Bluent.UI.Components;
 
@@ -17,10 +17,10 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public int MaxHeight { get; set; } = 180;
     [Parameter] public bool HideFilter { get; set; } = false;
     [Parameter] public bool HideClear { get; set; } = false;
-    [Parameter] public string? FilterPlaceholder { get; set; } = "Filter";
+    [Parameter] public string? FilterPlaceholder { get; set; }
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
-    [Parameter] public string EmptyDisplayText { get; set; } = "Select...";
+    [Parameter] public string EmptyDisplayText { get; set; } = default!;
     [Parameter] public float ItemSize { get; set; } = 50;
     [Parameter, EditorRequired] public Func<TItem, TValue?> ItemValue { get; set; } = _ => default;
     [Parameter, EditorRequired] public Func<TItem?, string> ItemText { get; set; } = default!;
@@ -28,6 +28,18 @@ public partial class DropdownList<TItem, TValue>
     [Parameter, EditorRequired] public FilteredItemsProviderDelegate<TItem> ItemsProvider { get; set; } = default!;
     [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; }
     [Parameter] public RenderFragment? EmptyContent { get; set; }
+    [Inject] private IStringLocalizer<DropdownListComponent.Resources.DropdownList> Localizer { get; set; } = default!;
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrEmpty(EmptyDisplayText))
+            EmptyDisplayText = Localizer["Select..."];
+
+        if (string.IsNullOrEmpty(FilterPlaceholder))
+            FilterPlaceholder = Localizer["Search"];
+
+        base.OnParametersSet();
+    }
 
     protected override void OnAfterRender(bool firstRender)
     {
