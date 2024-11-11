@@ -24,18 +24,17 @@ export class DomHelper {
         URL.revokeObjectURL(url);
     }
 
-    public requestFullscreen(selector: string) {
+    public async requestFullscreen(selector: string) {
         var el = document.querySelector(selector);
-        if (el)
-            el.requestFullscreen();
+        await el.requestFullscreen();
     }
 
     public exitFullscreen() {
         document.exitFullscreen();
     }
 
-    public eval(script: string) {
-        eval(script);
+    public eval(script: string): any {
+        return eval(script);
     }
 
     public static create(): DomHelper {
