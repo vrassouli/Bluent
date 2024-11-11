@@ -11,6 +11,7 @@ public partial class DropdownList<TItem, TValue>
     private Popover? _popover;
     private Virtualize<TItem>? _virtualizer;
     private string? _filter;
+    private TItem? _selectedItem;
 
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.BottomStart;
     [Parameter] public int MaxHeight { get; set; } = 180;
@@ -22,11 +23,11 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public string EmptyDisplayText { get; set; } = "Select...";
     [Parameter] public float ItemSize { get; set; } = 50;
     [Parameter, EditorRequired] public Func<TItem, TValue?> ItemValue { get; set; } = _ => default;
-    [Parameter, EditorRequired] public Func<TValue, string> DisplayText { get; set; } = default!;
+    [Parameter, EditorRequired] public Func<TItem?, string> ItemText { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment<TItem> ItemContent { get; set; } = default!;
     [Parameter, EditorRequired] public FilteredItemsProviderDelegate<TItem> ItemsProvider { get; set; } = default!;
-    [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; } 
-    [Parameter] public RenderFragment? EmptyContent { get; set; } 
+    [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; }
+    [Parameter] public RenderFragment? EmptyContent { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -66,6 +67,8 @@ public partial class DropdownList<TItem, TValue>
 
     private async Task OnSelectionChanged(TItem? selection)
     {
+        _selectedItem = selection;
+
         if (selection == null)
         {
             Value = default;
@@ -76,6 +79,8 @@ public partial class DropdownList<TItem, TValue>
         }
 
         await ValueChanged.InvokeAsync(Value);
+
+        _popover?.Close();
     }
 
     private async Task OnFilterChanged(string? filter)
@@ -100,9 +105,8 @@ public partial class DropdownList<TItem, TValue>
 
     private string GetDisplayText()
     {
-        if (Value != null)
-            return DisplayText(Value);
+        var displayText = ItemText(_selectedItem);
 
-        return EmptyDisplayText;
+        return displayText ?? EmptyDisplayText;
     }
 }
