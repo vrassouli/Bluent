@@ -10,9 +10,9 @@
             <DropdownList TItem="DataGridSampleModel"
                           TValue="int?"
                           ItemValue="item => item.Id"
+                          ItemText="item => item?.FirstName"
                           ItemsProvider="LoadData"
-                          @bind-Value="_selectedItemId"
-                          DisplayText="@(itemId => _dataSource.FirstOrDefault(x => x.Id == itemId)?.FirstName)">
+                          @bind-Value="_selectedItemId">
                 <ItemContent>
                     <div>@context.FirstName @context.LastName</div>
                 </ItemContent>
