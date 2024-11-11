@@ -66,6 +66,11 @@
           <AutoGen>True</AutoGen>
           <DependentUpon>MessageBox.resx</DependentUpon>
         </Compile>
+        <Compile Update="Components\DropdownListComponent\Resources\DropdownList.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>DropdownList.resx</DependentUpon>
+        </Compile>
         <Compile Update="Components\TimeFieldComponent\Resources\TimeField.Designer.cs">
           <DesignTime>True</DesignTime>
           <AutoGen>True</AutoGen>
@@ -81,6 +86,10 @@
         <EmbeddedResource Update="Components\DialogComponent\Resources\MessageBox.resx">
           <Generator>ResXFileCodeGenerator</Generator>
           <LastGenOutput>MessageBox.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Components\DropdownListComponent\Resources\DropdownList.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>DropdownList.Designer.cs</LastGenOutput>
         </EmbeddedResource>
         <EmbeddedResource Update="Components\TimeFieldComponent\Resources\TimeField.resx">
           <Generator>ResXFileCodeGenerator</Generator>
