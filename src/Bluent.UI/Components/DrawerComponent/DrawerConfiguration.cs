@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace Bluent.UI.Components;
+﻿namespace Bluent.UI.Components;
 
 public class DrawerConfiguration
 {

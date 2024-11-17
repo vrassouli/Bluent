@@ -1,8 +1,6 @@
-﻿using Bluent.UI.Components.OverflowComponent;
-using Bluent.UI.Components.TabListComponent;
+﻿using Bluent.UI.Components.TabListComponent;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 

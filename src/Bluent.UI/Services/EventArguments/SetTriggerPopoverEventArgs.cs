@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Components;
-using Bluent.UI.Components.PopoverComponent;
+﻿using Bluent.UI.Components.PopoverComponent;
 
 namespace Bluent.UI.Services.EventArguments;
 

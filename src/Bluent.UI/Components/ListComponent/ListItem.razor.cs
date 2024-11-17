@@ -1,8 +1,6 @@
 ﻿using Bluent.UI.Common.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using System.Diagnostics;
-using System.Globalization;
 
 namespace Bluent.UI.Components;
 
