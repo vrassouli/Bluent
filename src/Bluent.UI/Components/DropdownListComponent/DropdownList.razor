@@ -8,7 +8,14 @@
                 DropdownPlacement="DropdownPlacement"
                 DisplayText="@GetDisplayText()"
                 ClearSelection="OnClearSelection"
-                AdditionalAttributes="AdditionalAttributes">
+                AdditionalAttributes="AdditionalAttributes"
+                Class="@Class"
+                Style="@Style"
+                Tooltip="@Tooltip"
+                TooltipContent="TooltipContent!"
+                TooltipPlacement="TooltipPlacement"
+                TooltipAppearance="TooltipAppearance"
+                DisplayTooltipArrow="DisplayTooltipArrow">
     <Dropdown>
         <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: @(MaxHeight)px;">
             @if (!HideFilter)
