@@ -12,6 +12,7 @@
                           ItemValue="item => item.Id"
                           ItemText="item => item?.FirstName"
                           ItemsProvider="LoadData"
+                          Class="w-100"
                           @bind-Value="_selectedItemId">
                 <ItemContent>
                     <div>@context.FirstName @context.LastName</div>
