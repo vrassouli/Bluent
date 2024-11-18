@@ -8,7 +8,7 @@ namespace Bluent.UI.Components;
 public partial class DropdownList<TItem, TValue>
     where TItem : class
 {
-    private Popover? _popover;
+    private DropdownSelect? _dropdown;
     private Virtualize<TItem>? _virtualizer;
     private string? _filter;
     private TItem? _selectedItem;
@@ -39,21 +39,6 @@ public partial class DropdownList<TItem, TValue>
             FilterPlaceholder = Localizer["Search"];
 
         base.OnParametersSet();
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender && _popover != null)
-        {
-            _popover.SetTrigger(this);
-        }
-
-        base.OnAfterRender(firstRender);
-    }
-
-    public override IEnumerable<string> GetClasses()
-    {
-        yield return "bui-dropdown-list";
     }
 
     private ValueTask<ItemsProviderResult<TItem>> ListItemsProvider(ItemsProviderRequest request)
@@ -92,7 +77,7 @@ public partial class DropdownList<TItem, TValue>
 
         await ValueChanged.InvokeAsync(Value);
 
-        _popover?.Close();
+        _dropdown?.Close();
     }
 
     private async Task OnFilterChanged(string? filter)
@@ -101,7 +86,7 @@ public partial class DropdownList<TItem, TValue>
         if (_virtualizer != null)
         {
             await _virtualizer.RefreshDataAsync();
-            _popover?.RefreshSurface();
+            _dropdown?.Refresh();
         }
     }
 

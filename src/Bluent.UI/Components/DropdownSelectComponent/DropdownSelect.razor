@@ -1,0 +1,25 @@
+﻿@namespace Bluent.UI.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@inherits BluentComponentBase
+
+<Popover @ref="_popover" DisplayArrow="false" Placement="DropdownPlacement">
+    <Trigger>
+        <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+            <div class="select">
+                <div>@DisplayText</div>
+            </div>
+            @if (!HideClear)
+            {
+                <Button Appearance="ButtonAppearance.Transparent"
+                        Size="ButtonSize.Small"
+                        Icon="icon-ic_fluent_dismiss_20_regular"
+                        ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                        OnClick="ClearSelection" />
+            }
+            <Icon Content="icon-ic_fluent_chevron_down_20_regular" />
+        </div>
+    </Trigger>
+    <Surface>
+        @Dropdown
+    </Surface>
+</Popover>
