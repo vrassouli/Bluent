@@ -109,6 +109,12 @@
             <pre>
                 Date: @_dateField
             </pre>
+
+            <Label for="monthField" Text="Month field" Class="d-block mb-1 mt-4" />
+            <DateField @bind-Value="_monthField" id="monthField" Size="FieldSize.Medium" Mode="CalendarMode.MonthSelect" />
+            <pre>
+                Date: @_monthField
+            </pre>
         </section>
 
         <h3>Numeric field</h3>
@@ -171,6 +177,9 @@
 
     [Display(Name = "Date field")]
     private DateTime? _dateField = DateTime.Now;
+   
+    [Display(Name = "Month field")]
+    private DateTime? _monthField = DateTime.Now;
 
     [Display(Name = "Numeric field")]
     private float? _numericFloat;

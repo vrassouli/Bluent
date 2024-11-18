@@ -105,7 +105,11 @@ public partial class DateField<TValue>
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        //Console.WriteLine($"Parsing {value} to {typeof(TValue)}");
+        if (Mode == CalendarMode.MonthSelect)
+            value = $"{value}{Culture.DateTimeFormat.DateSeparator}01";
+        else if (Mode == CalendarMode.YearSelect)
+            value = $"{value}{Culture.DateTimeFormat.DateSeparator}01{Culture.DateTimeFormat.DateSeparator}01";
+
         if (BindConverter.TryConvertTo(value, Culture, out result))
         {
             Debug.Assert(result != null);
@@ -121,7 +125,14 @@ public partial class DateField<TValue>
 
     private string GetMask()
     {
-        var mask = $"^\\d{{4}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}$";
+        string mask;
+
+        if (Mode == CalendarMode.YearSelect)
+            mask = $"^\\d{{4}}$";
+        else if (Mode == CalendarMode.MonthSelect)
+            mask = $"^\\d{{4}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}$";
+        else
+            mask = $"^\\d{{4}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}{Culture.DateTimeFormat.DateSeparator}\\d{{2}}$";
 
         return mask;
     }
