@@ -7,7 +7,8 @@
 <DropdownSelect @ref="_dropdown" HideClear="@(HideClear || Value == null)"
                 DropdownPlacement="DropdownPlacement"
                 DisplayText="@GetDisplayText()"
-                ClearSelection="OnClearSelection">
+                ClearSelection="OnClearSelection"
+                AdditionalAttributes="AdditionalAttributes">
     <Dropdown>
         <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: @(MaxHeight)px;">
             @if (!HideFilter)
