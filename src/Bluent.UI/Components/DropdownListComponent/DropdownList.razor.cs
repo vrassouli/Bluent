@@ -8,10 +8,11 @@ namespace Bluent.UI.Components;
 public partial class DropdownList<TItem, TValue>
     where TItem : class
 {
-    private DropdownSelect? _dropdown;
+    private DropdownSelect<TValue>? _dropdown;
     private Virtualize<TItem>? _virtualizer;
     private string? _filter;
-    private TItem? _selectedItem;
+    private List<TItem> _selectedItems = new();
+
 
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.BottomStart;
     [Parameter] public int MaxHeight { get; set; } = 180;
@@ -20,6 +21,8 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public string? FilterPlaceholder { get; set; }
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+    [Parameter] public IEnumerable<TValue> Values { get; set; } = Enumerable.Empty<TValue>();
+    [Parameter] public EventCallback<IEnumerable<TValue>> ValuesChanged { get; set; }
     [Parameter] public string EmptyDisplayText { get; set; } = default!;
     [Parameter] public float ItemSize { get; set; } = 50;
     [Parameter, EditorRequired] public Func<TItem, TValue?> ItemValue { get; set; } = _ => default;
@@ -29,6 +32,9 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; }
     [Parameter] public RenderFragment? EmptyContent { get; set; }
     [Inject] private IStringLocalizer<DropdownListComponent.Resources.DropdownList> Localizer { get; set; } = default!;
+
+    private IEnumerable<DropdownOption<TValue>> SelectedOptions => _selectedItems.Select(item => new DropdownOption<TValue>(ItemText(item), ItemValue(item)));
+    private bool IsMultiSelect => ValuesChanged.HasDelegate;
 
     protected override void OnParametersSet()
     {
@@ -46,39 +52,80 @@ public partial class DropdownList<TItem, TValue>
 
     private bool IsSelected(TItem item)
     {
-        if (Value is null)
-            return false;
+        return _selectedItems.Any(i => ItemValue(i)?.Equals(ItemValue(item)) ?? false);
+        //if (Value is null)
+        //    return false;
 
-        return Value.Equals(GetItemValue(item));
+        //return Value.Equals(GetItemValue(item));
     }
 
-    private TValue? GetItemValue(TItem item) => ItemValue(item);
-
-    private async Task OnSelectedItemChanged(TItem item, bool selected)
+    private async Task OnItemSelectionChanged(TItem item, bool selected)
     {
         if (selected && !IsSelected(item))
-            await OnSelectionChanged(item);
+            await AddToSelections(item);
         else if (!selected && IsSelected(item))
-            await OnSelectionChanged(null);
+            await RemoveFromSelections([item]);
+
+        if (!IsMultiSelect)
+            _dropdown?.Close();
     }
 
-    private async Task OnSelectionChanged(TItem? selection)
+    private async Task AddToSelections(TItem item)
     {
-        _selectedItem = selection;
-
-        if (selection == null)
-        {
-            Value = default;
-        }
-        else
-        {
-            Value = GetItemValue(selection);
-        }
-
-        await ValueChanged.InvokeAsync(Value);
-
-        _dropdown?.Close();
+        _selectedItems.Add(item);
+        await InvokeChangeEvents();
     }
+
+    private async Task RemoveFromSelections(IEnumerable<TItem> items)
+    {
+        foreach (var item in items)
+            _selectedItems.Remove(item);
+
+        await InvokeChangeEvents();
+    }
+
+    private async Task InvokeChangeEvents()
+    {
+        if (ValueChanged.HasDelegate)
+        {
+            var lastItem = _selectedItems.LastOrDefault();
+            if (lastItem != null)
+            {
+                var lastItemValue = ItemValue(lastItem);
+                await ValueChanged.InvokeAsync(lastItemValue);
+            }
+            else
+            {
+                await ValueChanged.InvokeAsync(default(TValue));
+            }
+        }
+
+        if (ValuesChanged.HasDelegate)
+        {
+            var values = _selectedItems.Select(x => ItemValue(x))
+                .Where(value => value != null);
+
+            await ValuesChanged.InvokeAsync(values!);
+        }
+    }
+
+    //private async Task OnSelectionChanged(TItem? selection)
+    //{
+    //    _selectedItem = selection;
+
+    //    if (selection == null)
+    //    {
+    //        Value = default;
+    //    }
+    //    else
+    //    {
+    //        Value = GetItemValue(selection);
+    //    }
+
+    //    await ValueChanged.InvokeAsync(Value);
+
+    //    _dropdown?.Close();
+    //}
 
     private async Task OnFilterChanged(string? filter)
     {
@@ -95,15 +142,10 @@ public partial class DropdownList<TItem, TValue>
         await OnFilterChanged(null);
     }
 
-    private async Task OnClearSelection()
+    private async Task OnClearSelection(TValue? value)
     {
-        await OnSelectionChanged(null);
-    }
+        var items = _selectedItems.Where(x => ItemValue(x)?.Equals(value) == true).ToList();
 
-    private string GetDisplayText()
-    {
-        var displayText = ItemText(_selectedItem);
-
-        return displayText ?? EmptyDisplayText;
+        await RemoveFromSelections(items);
     }
 }

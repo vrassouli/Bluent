@@ -69,6 +69,11 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>DropdownList.resx</DependentUpon>
         </Compile>
+        <Compile Update="Components\DropdownSelectComponent\Resources\DropdownSelect.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>DropdownSelect.resx</DependentUpon>
+        </Compile>
         <Compile Update="Components\TimeFieldComponent\Resources\TimeField.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
@@ -88,6 +93,10 @@
         <EmbeddedResource Update="Components\DropdownListComponent\Resources\DropdownList.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>DropdownList.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Components\DropdownSelectComponent\Resources\DropdownSelect.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>DropdownSelect.Designer.cs</LastGenOutput>
         </EmbeddedResource>
         <EmbeddedResource Update="Components\TimeFieldComponent\Resources\TimeField.resx">
             <Generator>ResXFileCodeGenerator</Generator>

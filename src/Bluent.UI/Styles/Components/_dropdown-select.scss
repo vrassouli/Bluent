@@ -26,6 +26,9 @@
     > .select {
         box-sizing: border-box;
         flex-grow: 1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--fui-text-field-padding-x);
         min-width: 0px;
         border-style: none;
         border-radius: var(--borderRadiusMedium);
@@ -43,6 +46,10 @@
             color: var(--colorNeutralForegroundDisabled);
             background-color: var(--colorTransparentBackground);
             cursor: not-allowed;
+        }
+
+        > .bui-tag {
+            --tag-height: 26px;
         }
     }
 
