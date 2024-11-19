@@ -1,20 +1,39 @@
 ﻿@namespace Bluent.UI.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @inherits BluentComponentBase
+@typeparam TValue
 
 <Popover @ref="_popover" DisplayArrow="false" Placement="DropdownPlacement">
     <Trigger>
         <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-            <div class="select">
-                <div>@DisplayText</div>
-            </div>
-            @if (!HideClear)
+            @if (!Options.Any())
             {
-                <Button Appearance="ButtonAppearance.Transparent"
-                        Size="ButtonSize.Small"
-                        Icon="icon-ic_fluent_dismiss_20_regular"
-                        ActiveIcon="icon-ic_fluent_dismiss_20_filled"
-                        OnClick="ClearSelection" />
+                <div class="select">
+                    <div>@EmptyMessage</div>
+                </div>
+            }
+            else if (Options.Count() == 1)
+            {
+                <div class="select">
+                    <div>@Options.ElementAt(0).Text</div>
+                </div>
+                @if (CanClear)
+                {
+                    <Button Appearance="ButtonAppearance.Transparent"
+                            Size="ButtonSize.Small"
+                            Icon="icon-ic_fluent_dismiss_20_regular"
+                            ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                            OnClick="() => OnClearOption(Options.ElementAt(0).Value)" />
+                }
+            }
+            else
+            {
+                <div class="select">
+                    @foreach (var item in Options)
+                    {
+                        <Tag Title="@item.Text" />
+                    }
+                </div>
             }
             <Icon Content="icon-ic_fluent_chevron_down_20_regular" />
         </div>

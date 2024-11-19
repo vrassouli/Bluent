@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 
 namespace Bluent.UI.Components;
 
-public partial class DropdownSelect
+public partial class DropdownSelect<TValue>
 {
     private Popover? _popover;
 
-    [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.BottomStart;
-    [Parameter] public bool HideClear { get; set; } = false;
-    [Parameter] public string? DisplayText { get; set; }
-    [Parameter] public EventCallback ClearSelection { get; set; }
+    [Parameter] public bool CanClear { get; set; } = true;
+    [Parameter] public string EmptyMessage { get; set; } = default!;
+    [Parameter, EditorRequired] public RenderFragment? Dropdown { get; set; }
+    [Parameter, EditorRequired] public IEnumerable<DropdownOption<TValue>> Options { get; set; } = Enumerable.Empty<DropdownOption<TValue>>();
+    [Parameter] public EventCallback<TValue?> ClearOption { get; set; }
+    [Inject] private IStringLocalizer<DropdownSelectComponent.Resources.DropdownSelect> Localizer { get; set; } = default!;
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrEmpty(EmptyMessage))
+            EmptyMessage = Localizer["Select..."];
+
+        base.OnParametersSet();
+    }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -40,5 +46,10 @@ public partial class DropdownSelect
     public void Refresh()
     {
         _popover?.RefreshSurface();
+    }
+
+    private Task OnClearOption(TValue? value)
+    {
+        return ClearOption.InvokeAsync(value);
     }
 }

@@ -4,10 +4,11 @@
 @typeparam TItem
 @typeparam TValue
 
-<DropdownSelect @ref="_dropdown" HideClear="@(HideClear || Value == null)"
+<DropdownSelect @ref="_dropdown"
+                TValue="TValue"
+                Options="SelectedOptions"
+                ClearOption="OnClearSelection"
                 DropdownPlacement="DropdownPlacement"
-                DisplayText="@GetDisplayText()"
-                ClearSelection="OnClearSelection"
                 AdditionalAttributes="AdditionalAttributes"
                 Class="@Class"
                 Style="@Style"
@@ -45,10 +46,10 @@
                 </TextField>
             }
             <div class="flex-fill overflow-auto">
-                <ItemsList Class="h-100" SelectionMode="SelectionMode.Single">
+                <ItemsList Class="h-100" SelectionMode="@(IsMultiSelect ? SelectionMode.Multiple : SelectionMode.Single)">
                     <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider" ItemSize="ItemSize" Placeholder="Placeholder" EmptyContent="EmptyContent">
                         <ItemContent>
-                            <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnSelectedItemChanged(context, selected)">
+                            <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnItemSelectionChanged(context, selected)">
                                 @ItemContent.Invoke(context)
                             </ListItem>
                         </ItemContent>
@@ -59,64 +60,3 @@
 
     </Dropdown>
 </DropdownSelect>
-
-@* 
-<Popover @ref="_popover" DisplayArrow="false" Placement="DropdownPlacement">
-    <Trigger>
-        <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-            <div class="select">
-                <div>@GetDisplayText()</div>
-            </div>
-            @if (!HideClear && Value  != null)
-            {
-                <Button Appearance="ButtonAppearance.Transparent"
-                        Size="ButtonSize.Small"
-                        Icon="icon-ic_fluent_dismiss_20_regular"
-                        ActiveIcon="icon-ic_fluent_dismiss_20_filled"
-                        OnClick="OnClearSelection" />
-            }
-            <Icon Content="icon-ic_fluent_chevron_down_20_regular" />
-        </div>
-    </Trigger>
-    <Surface>
-        <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: @(MaxHeight)px;">
-            @if (!HideFilter)
-            {
-                <TextField Value="@_filter"
-                           ValueChanged="OnFilterChanged"
-                           ValueExpression="() => _filter"
-                           BindValueEvent="oninput"
-                           GainFocus
-                           autocomplete="off"
-                           placeholder="@FilterPlaceholder">
-                    <StartAddon>
-                        <Icon Content="icon-ic_fluent_filter_20_regular" />
-                    </StartAddon>
-                    <EndAddon>
-                        @if (!string.IsNullOrEmpty(_filter))
-                        {
-                            <div @onclick:preventDefault="true">
-                                <Button Appearance="ButtonAppearance.Transparent"
-                                        Size="ButtonSize.Small"
-                                        Icon="icon-ic_fluent_dismiss_20_regular"
-                                        ActiveIcon="icon-ic_fluent_dismiss_20_filled"
-                                        OnClick="OnClearFilter" />
-                            </div>
-                        }
-                    </EndAddon>
-                </TextField>
-            }
-            <div class="flex-fill overflow-auto">
-                <ItemsList Class="h-100" SelectionMode="SelectionMode.Single">
-                    <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider" ItemSize="ItemSize" Placeholder="Placeholder" EmptyContent="EmptyContent">
-                        <ItemContent>
-                            <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnSelectedItemChanged(context, selected)">
-                                @ItemContent.Invoke(context)
-                            </ListItem>
-                        </ItemContent>                        
-                    </Virtualize>
-                </ItemsList>
-            </div>
-        </div>
-    </Surface>
-</Popover> *@
