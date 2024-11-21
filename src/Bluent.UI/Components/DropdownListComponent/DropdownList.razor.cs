@@ -37,7 +37,9 @@ public partial class DropdownList<TItem, TValue>
     {
         get
         {
-            if (!_selectedItems.Any() && Value is not null)
+            var defaultValue = default(TValue);
+
+            if (!_selectedItems.Any() && Value is not null && !Value.Equals(defaultValue))
             {
                 return [new DropdownOption<TValue>(ItemText(null), Value)];
             }
