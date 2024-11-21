@@ -10,7 +10,7 @@
             <DropdownList TItem="DataGridSampleModel"
                           TValue="int?"
                           ItemValue="item => item.Id"
-                          ItemText="item => item?.FirstName"
+                          ItemText="@(item => item?.FirstName ?? "Name 1")"
                           ItemsProvider="LoadData"
                           Class="w-100"
                           @bind-Value="_selectedItemId">
@@ -47,7 +47,7 @@
 
 @code {
     private IEnumerable<DataGridSampleModel> _dataSource = DataGridSampleModel.LoadSample(1000).ToList();
-    private int? _selectedItemId;
+    private int? _selectedItemId = 1;
     private IEnumerable<int> _selectedItemIds = Enumerable.Empty<int>();
 
     private ValueTask<ItemsProviderResult<DataGridSampleModel>> LoadData(FilteredItemsProviderRequest request)

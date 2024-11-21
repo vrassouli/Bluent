@@ -33,7 +33,19 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
     [Inject] private IStringLocalizer<DropdownListComponent.Resources.DropdownList> Localizer { get; set; } = default!;
 
-    private IEnumerable<DropdownOption<TValue>> SelectedOptions => _selectedItems.Select(item => new DropdownOption<TValue>(ItemText(item), ItemValue(item)));
+    private IEnumerable<DropdownOption<TValue>> SelectedOptions
+    {
+        get
+        {
+            if (!_selectedItems.Any() && Value is not null)
+            {
+                return [new DropdownOption<TValue>(ItemText(null), Value)];
+            }
+
+            return _selectedItems.Select(item => new DropdownOption<TValue>(ItemText(item), ItemValue(item)));
+        }
+    }
+
     private bool IsMultiSelect => ValuesChanged.HasDelegate;
 
     protected override void OnParametersSet()
