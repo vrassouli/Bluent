@@ -21,6 +21,8 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public string? FilterPlaceholder { get; set; }
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+    [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
+    [Parameter] public EventCallback<IEnumerable<TItem>> SelectedItemsChanged { get; set; }
     [Parameter] public IEnumerable<TValue> Values { get; set; } = Enumerable.Empty<TValue>();
     [Parameter] public EventCallback<IEnumerable<TValue>> ValuesChanged { get; set; }
     [Parameter] public string EmptyDisplayText { get; set; } = default!;
@@ -37,7 +39,9 @@ public partial class DropdownList<TItem, TValue>
     {
         get
         {
-            if (!_selectedItems.Any() && Value is not null)
+            var defaultValue = default(TValue);
+
+            if (!_selectedItems.Any() && Value is not null && !Value.Equals(defaultValue))
             {
                 return [new DropdownOption<TValue>(ItemText(null), Value)];
             }
@@ -119,25 +123,10 @@ public partial class DropdownList<TItem, TValue>
 
             await ValuesChanged.InvokeAsync(values!);
         }
+
+        await SelectedItemChanged.InvokeAsync(_selectedItems.LastOrDefault());
+        await SelectedItemsChanged.InvokeAsync(_selectedItems);
     }
-
-    //private async Task OnSelectionChanged(TItem? selection)
-    //{
-    //    _selectedItem = selection;
-
-    //    if (selection == null)
-    //    {
-    //        Value = default;
-    //    }
-    //    else
-    //    {
-    //        Value = GetItemValue(selection);
-    //    }
-
-    //    await ValueChanged.InvokeAsync(Value);
-
-    //    _dropdown?.Close();
-    //}
 
     private async Task OnFilterChanged(string? filter)
     {
