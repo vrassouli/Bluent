@@ -6,6 +6,9 @@ public class DataGridSampleModel
 {
     [Display(Name = "Id")]
     public int Id { get; set; }
+    
+    [Display(Name = "Id2")]
+    public Guid Id2 { get; set; }
 
     [Display(Name = "Name")]
     public string FirstName { get; set; }
@@ -27,6 +30,7 @@ public class DataGridSampleModel
     public DataGridSampleModel(int id)
     {
         Id = id;
+        Id2 = Guid.NewGuid();
         FirstName = $"Name {id}";
         LastName = $"Last name {id}";
         Birthdate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1 * id));
