@@ -45,7 +45,7 @@
     {
         <Icon Class="icon expand-icon" Content="icon-ic_fluent_chevron_down_20_regular" />
     }
-    @if (IsLink)
+    @if (IsLink || OnClick.HasDelegate)
     {
         <Icon Class="icon nav-icon" Content="icon-ic_fluent_chevron_right_20_regular" />
     }
