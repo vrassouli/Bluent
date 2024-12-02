@@ -19,7 +19,7 @@ public partial class ActionCard
 
     private bool IsExpandable => ChildContent != null;
     private bool IsLink => !string.IsNullOrEmpty(Href);
-    private bool IsActive => ChildContent != null || IsLink || OnClick.HasDelegate;
+    private bool IsActive => IsExpandable || IsLink || OnClick.HasDelegate;
 
     protected override void OnParametersSet()
     {
