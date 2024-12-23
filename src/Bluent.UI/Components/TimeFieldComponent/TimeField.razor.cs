@@ -10,6 +10,7 @@ namespace Bluent.UI.Components;
 public partial class TimeField<TValue>
 {
     private string _parsingErrorMessage = default!;
+    private string? _lastValidInput;
 
     /// <summary>
     /// Gets or sets the error message used when displaying an a parsing error.
@@ -46,6 +47,9 @@ public partial class TimeField<TValue>
 
     protected override string? FormatValueAsString(TValue? value)
     {
+        if(!string.IsNullOrEmpty(_lastValidInput))
+            return _lastValidInput;
+
         if (value is null)
             return null;
 
@@ -83,6 +87,9 @@ public partial class TimeField<TValue>
     {
         if (BindConverter.TryConvertTo(value, Culture, out result))
         {
+            _lastValidInput = value;
+            Console.WriteLine($"Converted '{value}' to '{result}'.");
+
             Debug.Assert(result != null);
             validationErrorMessage = null;
             return true;
