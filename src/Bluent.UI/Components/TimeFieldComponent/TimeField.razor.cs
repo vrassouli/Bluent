@@ -88,7 +88,6 @@ public partial class TimeField<TValue>
         if (BindConverter.TryConvertTo(value, Culture, out result))
         {
             _lastValidInput = value;
-            Console.WriteLine($"Converted '{value}' to '{result}'.");
 
             Debug.Assert(result != null);
             validationErrorMessage = null;
