@@ -10,7 +10,7 @@
     <div class="content">
         @if (Multiple || !_files.Any() || !ShowFileInfo)
         {
-            <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance" OnClick="HandleOnClick" type="button" />
+            <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance" OnClick="HandleOnClick" type="button" disabled="@Disabled" />
         }
         @if (ShowFileInfo && _files.Any())
         {

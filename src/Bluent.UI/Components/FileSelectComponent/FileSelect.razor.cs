@@ -16,6 +16,7 @@ public partial class FileSelect
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public bool ShowFileInfo { get; set; } = true;
     [Parameter] public bool AllowRemove { get; set; } = true;
+    [Parameter] public bool Disabled { get; set; } 
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public EventCallback<IEnumerable<SelectedFile>> OnChange { get; set; }
     [Parameter] public bool Multiple { get; set; }
