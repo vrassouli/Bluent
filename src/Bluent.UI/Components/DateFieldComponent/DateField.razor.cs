@@ -80,6 +80,7 @@ public partial class DateField<TValue>
 
     private void OnDatePicked(TValue? value)
     {
+        _lastValidInput = FormatValue(value);
         var str = FormatValueAsString(value);
 
         base.CurrentValueAsString = str;
@@ -101,6 +102,11 @@ public partial class DateField<TValue>
         if(!string.IsNullOrEmpty(_lastValidInput))
             return _lastValidInput;
 
+        return FormatValue(value);
+    }
+
+    protected string? FormatValue(TValue? value)
+    {
         return value switch
         {
             DateTime dateTimeValue => BindConverter.FormatValue(dateTimeValue, _format, Culture),
