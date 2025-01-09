@@ -8,9 +8,11 @@ public partial class AccordionPanel
     [Parameter] public RenderFragment? HeaderAction { get; set; }
     [Parameter, EditorRequired] public string Header { get; set; } = default!;
     [Parameter] public string HeaderIcon { get; set; } = default!;
-    [Parameter] public string PanelClasses { get; set; } = default!;
-    [Parameter] public bool DeferredLoading { get; set; } = default!;
+    [Parameter] public string? PanelClasses { get; set; }
+    [Parameter] public bool DeferredLoading { get; set; }
     [Parameter] public bool Expanded { get; set; }
+    [Parameter] public string? ExpandedClasses { get; set; }
+    [Parameter] public string? CollapsedClasses { get; set; }
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
     [CascadingParameter] public Accordion Accordion { get; set; } = default!;
 
@@ -37,6 +39,11 @@ public partial class AccordionPanel
 
         if (Expanded)
             yield return "expanded";
+
+        if (Expanded && !string.IsNullOrEmpty(ExpandedClasses))
+            yield return ExpandedClasses;
+        else if (!Expanded && !string.IsNullOrEmpty(CollapsedClasses))
+            yield return CollapsedClasses;
     }
 
     public void Toggle()
