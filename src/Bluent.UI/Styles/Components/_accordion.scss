@@ -45,6 +45,10 @@
                 display: flex;
                 padding-inline-end: var(--spacingHorizontalS);
             }
+
+            >.title{
+                flex: 1;
+            }
         }
 
         > .panel {

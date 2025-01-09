@@ -5,8 +5,10 @@ namespace Bluent.UI.Components;
 public partial class AccordionPanel
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? HeaderAction { get; set; }
     [Parameter, EditorRequired] public string Header { get; set; } = default!;
     [Parameter] public string HeaderIcon { get; set; } = default!;
+    [Parameter] public string PanelClasses { get; set; } = default!;
     [Parameter] public bool DeferredLoading { get; set; } = default!;
     [Parameter] public bool Expanded { get; set; }
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
