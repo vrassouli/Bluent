@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
 
-internal class MediaQuery : ComponentBase
+public class MediaQuery : ComponentBase
 {
     [Inject] public IDomHelper DomHelper { get; set; } = null!;
     [Parameter] public EventCallback<Breakpoints> OnChange { get; set; }
