@@ -37,6 +37,11 @@ export class DomHelper {
         return eval(script);
     }
 
+    public matchMedia(query: string): boolean {
+        return window.matchMedia(query).matches;
+    }
+
+
     public static create(): DomHelper {
         return new DomHelper();
     }

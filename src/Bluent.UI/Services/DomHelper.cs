@@ -1,8 +1,9 @@
-﻿using Microsoft.JSInterop;
+﻿using Bluent.UI.Services.Abstractions;
+using Microsoft.JSInterop;
 
-namespace Bluent.UI.Interops;
+namespace Bluent.UI.Services;
 
-public class DomHelper : IAsyncDisposable
+internal class DomHelper : IDomHelper, IAsyncDisposable
 {
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     private IJSObjectReference? _module;
@@ -58,6 +59,13 @@ public class DomHelper : IAsyncDisposable
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("eval", script);
+    }
+
+    public async ValueTask<bool> MatchMediaAsync(string mediaQuery)
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<bool>("matchMedia", mediaQuery);
     }
 
     private async Task<IJSObjectReference> GetModuleAsync()
