@@ -3,6 +3,7 @@ using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Services;
 using Bluent.UI.Services.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Bluent.UI.Extensions;
 
@@ -10,7 +11,7 @@ public static class ServiceCollectionExtensions
 {
     #region Scoped Service
 
-    public static IServiceCollection AddBluentUIAsScoped(this IServiceCollection services)
+    public static IServiceCollection AddBluentUI(this IServiceCollection services)
     {
         services.AddLocalization();
 
