@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Components.Web.Virtualization
+@namespace Bluent.UI.Components
+@typeparam TItem
+@inherits ItemsList
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <CascadingValue Value="this" IsFixed>
+        <Virtualize Items="Items"
+                    ItemsProvider="ItemsProvider"
+                    ItemSize="ItemsSize"
+                    Placeholder="PlaceHolder"
+                    EmptyContent="EmptyContent">
+            <ItemContent>
+                <ListItem Data="context" @key=ItemKey?.Invoke(context)>
+                    @ItemTemplate?.Invoke(context)
+                </ListItem>
+            </ItemContent>
+        </Virtualize>
+    </CascadingValue>
+</div> 
