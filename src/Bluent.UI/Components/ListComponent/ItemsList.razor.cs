@@ -28,7 +28,12 @@ public partial class ItemsList
         _items.Remove(listItem);
     }
 
-    internal void OnItemSelectionChanged(ListItem listItem)
+    internal bool ShouldRenderIcon()
+    {
+        return _items.Any(x => !string.IsNullOrEmpty(x.Icon));
+    }
+
+    internal virtual void OnItemSelectionChanged(ListItem listItem)
     {
         if (listItem.Selected && SelectionMode == SelectionMode.Single)
         {
@@ -41,8 +46,8 @@ public partial class ItemsList
         SelectedItemsChanged.InvokeAsync(_items.Where(x => x.Selected));
     }
 
-    internal bool ShouldRenderIcon()
+    internal virtual bool IsSelected(ListItem listItem)
     {
-        return _items.Any(x => !string.IsNullOrEmpty(x.Icon));
+        return false;
     }
 }
