@@ -8,7 +8,7 @@ To get started, add it to your project from nuget:
 
 Then add it to your services:
 
-`services.AddBluentUIAsScoped();`
+`services.AddBluentUI();`
 
 Add `<Containers />` component to the end of your Layout file.
 And make sure the following CSS files are linked to your index.html:
