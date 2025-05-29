@@ -6,6 +6,9 @@ namespace Bluent.UI.Components;
 public partial class DataList<TItem>
     where TItem : class
 {
+    private Virtualize<TItem>? _virtualizer;
+    private ICollection<TItem>? _items;
+
     [Parameter] public ICollection<TItem>? Items { get; set; }
     [Parameter] public ItemsProviderDelegate<TItem>? ItemsProvider { get; set; }
     [Parameter] public float ItemsSize { get; set; } = 36;
@@ -15,6 +18,18 @@ public partial class DataList<TItem>
     [Parameter] public Func<TItem, object> ItemKey { get; set; } = item => item;
     [Parameter] public List<TItem> SelectedData { get; set; } = new List<TItem>();
     [Parameter] public EventCallback<List<TItem>> SelectedDataChanged { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (_items != Items)
+        {
+            _items = Items;
+
+            await RefreshDataAsync();
+        }
+
+        await base.OnParametersSetAsync();
+    }
 
     internal override void OnItemSelectionChanged(ListItem listItem)
     {
@@ -48,5 +63,11 @@ public partial class DataList<TItem>
             return isSelected;
         }
         return base.IsSelected(listItem);
+    }
+
+    public async Task RefreshDataAsync()
+    {
+        if (_virtualizer != null)
+            await _virtualizer.RefreshDataAsync();
     }
 }

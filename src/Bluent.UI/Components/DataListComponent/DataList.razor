@@ -5,7 +5,7 @@
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <CascadingValue Value="this" IsFixed>
-        <Virtualize Items="Items"
+        <Virtualize @ref=_virtualizer Items="Items"
                     ItemsProvider="ItemsProvider"
                     ItemSize="ItemsSize"
                     Placeholder="PlaceHolder"
