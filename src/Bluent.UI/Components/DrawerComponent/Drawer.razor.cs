@@ -56,6 +56,7 @@ public partial class Drawer
     {
         _hiding = false;
         _hidden = false;
+        StateHasChanged();
     }
 
     private void AnimationEndedHandler()
