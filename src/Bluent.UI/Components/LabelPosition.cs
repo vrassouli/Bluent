@@ -1,6 +1,6 @@
 ﻿namespace Bluent.UI.Components;
 
-public enum CheckboxLabelPosition
+public enum LabelPosition
 {
     After,
     Before

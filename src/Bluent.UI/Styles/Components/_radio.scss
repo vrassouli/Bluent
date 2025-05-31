@@ -1,0 +1,109 @@
+﻿.bui-radio-group {
+
+    .bui-radio-box {
+        color: var(--colorNeutralForeground3);
+        position: relative;
+        display: inline-flex;
+        cursor: pointer;
+        vertical-align: middle;
+
+        > input {
+            box-sizing: border-box;
+            cursor: inherit;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(16px + 2* var(--spacingHorizontalS));
+            order: 1;
+
+            &:checked {
+                + .indicator {
+                    border-color: var(--colorCompoundBrandStroke);
+                    color: var(--colorCompoundBrandForeground1);
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: var(--borderRadiusCircular);
+                        transform: scale(0.625);
+                        background-color: currentcolor;
+                    }
+
+                    + label {
+                        color: var(--colorNeutralForeground1);
+                    }
+                }
+            }
+
+            &:disabled {
+                + .indicator {
+                    border-color: var(--colorNeutralStrokeDisabled);
+                    color: var(--colorNeutralForegroundDisabled);
+
+                    + label {
+                        color: var(--colorNeutralForegroundDisabled);
+                        cursor: default;
+                    }
+                }
+            }
+        }
+
+        > .indicator {
+            border-color: var(--colorNeutralStrokeAccessible);
+            border: var(--strokeWidthThin) solid;
+            border-radius: var(--borderRadiusCircular);
+            margin: var(--spacingVerticalS) var(--spacingHorizontalS);
+            background-color: var(--bui-checkbox-indicator-backgroundColor);
+            position: relative;
+            width: 16px;
+            height: 16px;
+            font-size: 12px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            fill: currentcolor;
+            pointer-events: none;
+        }
+
+        > label {
+            cursor: inherit;
+            color: inherit;
+            /*margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);*/
+            margin-top: calc((16px - var(--lineHeightBase300)) / 2);
+            align-self: center;
+            padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
+            font-size: var(--fontSizeBase300);
+            font-family: var(--fontFamilyBase);
+            order: 2;
+
+            > .required {
+                padding-inline-start: var(--spacingHorizontalXS);
+                color: var(--colorPaletteRedForeground3);
+            }
+        }
+
+        &.label-before {
+            > input {
+                order: 2;
+                left: unset;
+                right: 0;
+            }
+
+            > .indicator {
+                order: 2;
+            }
+
+            > label {
+                order: 1;
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@ public partial class Switch
     {
         yield return "bui-switch";
 
-        if (LabelPosition != CheckboxLabelPosition.After)
+        if (LabelPosition != LabelPosition.After)
             yield return "label-before";
     }
 
