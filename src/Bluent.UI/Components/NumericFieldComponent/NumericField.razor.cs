@@ -10,6 +10,7 @@ public partial class NumericField<TValue>
     /// Gets or sets the error message used when displaying an a parsing error.
     /// </summary>
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
+    [Parameter] public bool GainFocus { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -17,6 +18,14 @@ public partial class NumericField<TValue>
             yield return c;
 
         yield return "bui-numeric-field";
+    }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && GainFocus && Element != null)
+        {
+            InvokeAsync(() => Element.Value.FocusAsync());
+        }
+        return base.OnAfterRenderAsync(firstRender);
     }
 
     private static string GetStepAttributeValue()
