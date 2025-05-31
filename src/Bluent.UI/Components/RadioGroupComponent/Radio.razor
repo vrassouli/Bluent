@@ -1,0 +1,12 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentComponentBase
+@typeparam TValue
+
+<div class="@GetComponentClass()" style="@Style">
+    <input @attributes=GetInputAdditionalAttributes() type="radio" checked="@IsChecked" id="@Id" @onchange="HandleOnChange" />
+    <div class="indicator"></div>
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label for="@Id">@Label</label>
+    }
+</div>

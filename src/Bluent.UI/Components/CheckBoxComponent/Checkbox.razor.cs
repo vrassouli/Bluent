@@ -13,7 +13,7 @@ public partial class Checkbox<TValue>
     [Parameter] public string? Required { get; set; }
     [Parameter] public bool Circular { get; set; }
     [Parameter] public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
-    [Parameter] public CheckboxLabelPosition LabelPosition { get; set; } = CheckboxLabelPosition.After;
+    [Parameter] public LabelPosition LabelPosition { get; set; } = LabelPosition.After;
 
     private bool? ValueAsBool
     {
@@ -49,7 +49,7 @@ public partial class Checkbox<TValue>
         if (Size != CheckboxSize.Medium)
             yield return Size.ToString().Kebaberize();
 
-        if (LabelPosition != CheckboxLabelPosition.After)
+        if (LabelPosition != LabelPosition.After)
             yield return "label-before";
 
         if (ValueAsBool == null)

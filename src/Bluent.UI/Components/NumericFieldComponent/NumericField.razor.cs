@@ -10,6 +10,8 @@ public partial class NumericField<TValue>
     /// Gets or sets the error message used when displaying an a parsing error.
     /// </summary>
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
+    [Parameter] public bool GainFocus { get; set; }
+    [Parameter] public bool TrimTrailingZeros { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -17,6 +19,14 @@ public partial class NumericField<TValue>
             yield return c;
 
         yield return "bui-numeric-field";
+    }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && GainFocus && Element != null)
+        {
+            InvokeAsync(() => Element.Value.FocusAsync());
+        }
+        return base.OnAfterRenderAsync(firstRender);
     }
 
     private static string GetStepAttributeValue()
@@ -54,6 +64,7 @@ public partial class NumericField<TValue>
         }
     }
 
+
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
     /// </summary>
@@ -61,32 +72,26 @@ public partial class NumericField<TValue>
     /// <returns>A string representation of the value.</returns>
     protected override string? FormatValueAsString(TValue? value)
     {
+        string? valueString = null;
         // Avoiding a cast to IFormattable to avoid boxing.
-        switch (value)
+        valueString = value switch
         {
-            case null:
-                return null;
+            null => null,
+            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}")
+        };
 
-            case int @int:
-                return BindConverter.FormatValue(@int, CultureInfo.InvariantCulture);
-
-            case long @long:
-                return BindConverter.FormatValue(@long, CultureInfo.InvariantCulture);
-
-            case short @short:
-                return BindConverter.FormatValue(@short, CultureInfo.InvariantCulture);
-
-            case float @float:
-                return BindConverter.FormatValue(@float, CultureInfo.InvariantCulture);
-
-            case double @double:
-                return BindConverter.FormatValue(@double, CultureInfo.InvariantCulture);
-
-            case decimal @decimal:
-                return BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture);
-
-            default:
-                throw new InvalidOperationException($"Unsupported type {value.GetType()}");
+        if (TrimTrailingZeros && valueString != null)
+        {
+            // Trim trailing zeroes and decimal point if necessary
+            valueString = valueString.TrimEnd('0').TrimEnd('.');
         }
+
+        return valueString;
     }
 }

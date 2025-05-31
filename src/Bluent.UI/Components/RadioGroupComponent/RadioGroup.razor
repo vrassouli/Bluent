@@ -1,0 +1,17 @@
+﻿@namespace Bluent.UI.Components
+@inherits BluentInputComponentBase<TValue?>
+@typeparam TValue
+
+<div class="@GetComponentClass()" style="@Style">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label>
+            @Label
+        </label>
+    }
+    <div class="items-list">
+        <CascadingValue Value="this" IsFixed>
+            @ChildContent
+        </CascadingValue>
+    </div>
+</div>

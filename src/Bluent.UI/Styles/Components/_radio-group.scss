@@ -1,0 +1,11 @@
+﻿.bui-radio-group {
+    > .items-list {
+        display: flex;
+    }
+
+    &.vertical {
+        > .items-list {
+            flex-direction: column;
+        }
+    }
+}
