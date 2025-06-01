@@ -1,0 +1,25 @@
+{
+  "name": "bluent.ui.charts.scripts",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11",
+    "vite-plugin-top-level-await": "^1.4.4",
+    "vite-plugin-wasm": "^3.4.1",
+    "vite-plugin-singlefile": "^2.1.0",
+    "@originjs/vite-plugin-commonjs": "^1.0.3"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.9"
+  }
+}

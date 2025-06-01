@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFrameworks>net9.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>Bluent.UI.Charts</PackageId>
+        <Authors>Vahid Rassouli</Authors>
+        <Description>'Bluent.UI.Charts' is a Blazor component library for adding Charts from chart.js to your app.</Description>
+        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
+        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Charts.Scripts\dist\bluent.ui.charts.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+    </Target>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Bluent.UI\Bluent.UI.csproj" />
+    </ItemGroup>
+
+</Project>
