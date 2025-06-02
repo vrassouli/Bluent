@@ -1,13 +1,13 @@
-﻿using Bluent.UI.Charts.Interops.Abstractions;
+﻿using Bluent.UI.Charts.ChartJs;
+using Bluent.UI.Charts.Interops.Abstractions;
 using Microsoft.JSInterop;
-using System.Reflection;
-using System.Reflection.Metadata;
 
 namespace Bluent.UI.Charts.Interops;
 
 internal class ChartJsInterop : IAsyncDisposable
 {
     private readonly IChartJsHost _host;
+    private readonly ChartConfig _config;
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     private IJSObjectReference? _module;
     private IJSObjectReference? _reference;
@@ -24,9 +24,10 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public ChartJsInterop(IChartJsHost host, IJSRuntime jsRuntime)
+    public ChartJsInterop(IChartJsHost host, IJSRuntime jsRuntime, ChartConfig config)
     {
         _host = host;
+        _config = config;
         _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI.Charts/bluent.ui.charts.js").AsTask());
     }
 
@@ -34,6 +35,8 @@ internal class ChartJsInterop : IAsyncDisposable
     {
         try
         {
+            await DestroyAsync();
+
             if (_reference != null)
                 await _reference.DisposeAsync();
 
@@ -61,13 +64,26 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
+    public async Task DestroyAsync()
+    {
+        try
+        {
+            var module = await GetModuleAsync();
+            await module.InvokeVoidAsync("destroy");
+        }
+        catch
+        {
+            // swallow!
+        }
+    }
+
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)
             _module = await _moduleTask.Value;
 
         if (_reference == null)
-            _reference = await _module.InvokeAsync<IJSObjectReference>("ChartJs.create", HostReference, _host.Id);
+            _reference = await _module.InvokeAsync<IJSObjectReference>("ChartJs.create", HostReference, _host.Id, _config);
 
         return _reference;
     }

@@ -1,4 +1,8 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentComponentBase
 
+<CascadingValue Value="this" IsFixed>
+    @ChildContent
+</CascadingValue>
+
 <canvas @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"></canvas>

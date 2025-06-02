@@ -1,0 +1,27 @@
+﻿@page "/components/charts/bar"
+@using Bluent.UI.Charts.ChartJs
+<div class="p-5 py-md-10 px-md-12 anim-slide-in-end anim-fade-in">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Bar chart</h1>
+
+        <h3>Border Radius</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <BarChart Labels="_labels">
+                <Legend Position="bottom" />
+                <Dataset Data="@([1, 3, 10, 4])" Label="Hello Bar Charts!"></Dataset>
+                <Dataset Data="@([5, 6, 10, 4])" Label="Hello Bar Charts!!!"></Dataset>
+            </BarChart>
+        </section>
+
+
+    </div>
+</div>
+
+@code {
+    string[] _labels = ["Item 1", "Item 2", "Item 3", "Item 4"];
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}
