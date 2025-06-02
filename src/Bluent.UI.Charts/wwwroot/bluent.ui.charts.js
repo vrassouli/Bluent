@@ -9107,21 +9107,29 @@ const Oh = [
 ];
 gt.register(...Oh);
 class _o {
-  constructor(t, e, s) {
+  constructor(t, e) {
     //private _dotNetRef: any;
     M(this, "_id");
     M(this, "_chart");
-    this._id = e, this._chart = this.init(s);
+    this._id = e;
   }
   init(t) {
     var e = document.getElementById(this._id);
-    return new gt(e, t);
+    this._chart = new gt(e, t);
+  }
+  update(t) {
   }
   destroy() {
-    this._chart.destroy();
+    var t;
+    (t = this._chart) == null || t.destroy();
   }
-  static create(t, e, s) {
-    return console.log(s), new _o(t, e, s);
+  // private static log(message: string, obj?: any) {
+  //     console.log(message);
+  //     if (obj)
+  //         console.log(obj);
+  // }
+  static create(t, e) {
+    return new _o(t, e);
   }
 }
 export {

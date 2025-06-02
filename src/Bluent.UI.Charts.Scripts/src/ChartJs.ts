@@ -3,60 +3,34 @@ import { Chart, ChartConfiguration } from "chart.js/auto";
 export class ChartJs {
     //private _dotNetRef: any;
     private _id: string;
-    private _chart: Chart;
+    private _chart?: Chart;
 
-    constructor(dotNetRef: any, id: string, config: ChartConfiguration) {
+    constructor(dotNetRef: any, id: string) {
         //this._dotNetRef = dotNetRef;
         this._id = id;
-
-        this._chart = this.init(config);
-
     }
 
-    private init(config: ChartConfiguration): Chart {
-        var ctx = <HTMLCanvasElement>document.getElementById(this._id);
-        return new Chart(ctx, config);
-        // return new Chart(ctx, {
-        //     type: 'bar',
-        //     data: {
-        //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        //         datasets: [{
-        //             label: '# of Votes',
-        //             data: [12, 19, 3, 5, 2, 3],
+    public init(config: ChartConfiguration) {
+        //ChartJs.log('creating chart:', config);
 
-        //             borderColor: '#36A2EB',
-        //             backgroundColor: '#36A2EB80',
-        //             borderWidth: 2,
-        //             borderRadius: Number.MAX_VALUE,
-        //             borderSkipped: false,
-        //         }]
-        //     },
-        //     options: {
-        //         responsive: true,
-        //         plugins: {
-        //             legend: {
-        //                 position: 'top',
-        //             },
-        //             title: {
-        //                 display: true,
-        //                 text: 'Chart.js Bar Chart'
-        //             }
-        //         },
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
+        var ctx = <HTMLCanvasElement>document.getElementById(this._id);
+        this._chart = new Chart(ctx, config);
+    }
+
+    public update(config: ChartConfiguration) {
     }
 
     public destroy() {
-        this._chart.destroy();
+        this._chart?.destroy();
     }
 
-    public static create(dotNetRef: any, id: string, config: ChartConfiguration): ChartJs {
-        console.log(config);
-        return new ChartJs(dotNetRef, id, config);
+    // private static log(message: string, obj?: any) {
+    //     console.log(message);
+    //     if (obj)
+    //         console.log(obj);
+    // }
+
+    public static create(dotNetRef: any, id: string): ChartJs {
+        return new ChartJs(dotNetRef, id);
     }
 }

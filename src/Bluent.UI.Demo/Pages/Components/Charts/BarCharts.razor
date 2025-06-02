@@ -1,16 +1,137 @@
-﻿@page "/components/charts/bar"
+﻿@page "/components/charts"
 @using Bluent.UI.Charts.ChartJs
 <div class="p-5 py-md-10 px-md-12 anim-slide-in-end anim-fade-in">
     <div class="w-100 w-md-50 m-auto">
-        <h1>Bar chart</h1>
+        <h1>Charts</h1>
 
-        <h3>Border Radius</h3>
+        <h3>Bar</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <BarChart Labels="_labels">
-                <Legend Position="bottom" />
-                <Dataset Data="@([1, 3, 10, 4])" Label="Hello Bar Charts!"></Dataset>
-                <Dataset Data="@([5, 6, 10, 4])" Label="Hello Bar Charts!!!"></Dataset>
+            <BarChart>
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset Data="_series1" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+                <Dataset Data="_series2" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
             </BarChart>
+        </section>
+
+        <h3>Line</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset Data="_series1" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+                <Dataset Data="_series2" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
+            </LineChart>
+        </section>
+
+        <h3>Smooth</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset Data="_series1"
+                         Label="My Data"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </LineChart>
+        </section>
+
+        <h3>Area</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </LineChart>
+        </section>
+
+        <h3>Scales</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <XScale Display="false" />
+                <YScale Text="Value" />
+                <Dataset Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </LineChart>
+        </section>
+
+        <h3>No Legend</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Position="Position.Left" Display="false" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <XScale Text="Month" />
+                <YScale Text="Value" />
+                <Dataset Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </LineChart>
+        </section>
+
+        <h3>No Tooltip</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Position="Position.Left"/>
+                <Tooltip Enabled=false/>
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <XScale Text="Month" />
+                <YScale Text="Value" />
+                <Dataset Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </LineChart>
+        </section>
+
+        <h3>Comapct</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <LineChart>
+                <Legend Display="false" />
+                <XScale Text="Month" Display="false" />
+                <YScale Text="Value" Display="false" />
+                <Dataset Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </LineChart>
         </section>
 
 
@@ -19,7 +140,22 @@
 
 @code {
     string[] _labels = ["Item 1", "Item 2", "Item 3", "Item 4"];
-
+    Dictionary<string, object> _series1 = new Dictionary<string, object>
+    {
+        {"Jan", 10.001},
+        {"Feb", 20},
+        {"Mar", -18},
+        {"Apr", 23},
+        {"May", 23},
+    };
+    Dictionary<string, object> _series2 = new Dictionary<string, object>
+    {
+        {"Jan", -1},
+        {"Feb", -2},
+        {"Mar", -5},
+        {"Apr", -8},
+        {"Jun", -9},
+    };
     protected override void OnInitialized()
     {
         base.OnInitialized();

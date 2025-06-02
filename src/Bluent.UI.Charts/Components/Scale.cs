@@ -4,17 +4,23 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Charts.Components;
 
-public class Legend : ComponentBase, IDisposable
+public abstract class Scale : ComponentBase, IDisposable
 {
-    private ChartPlugin _plugin = default!;
+    private ChartScale _scale = default!;
+    private readonly string _key;
 
     [CascadingParameter] public Chart Chart { get; set; } = default!;
-    [Parameter] public Position Position { get; set; } = Position.Bottom;
     [Parameter] public bool Display { get; set; } = true;
+    [Parameter] public string? Text { get; set; }
+
+    protected Scale(string key)
+    {
+        _key = key;
+    }
 
     public void Dispose()
     {
-        Chart.Remove(_plugin);
+        Chart.Remove(_scale);
     }
 
     protected override void OnInitialized()
@@ -22,14 +28,14 @@ public class Legend : ComponentBase, IDisposable
         if (Chart is null)
             throw new InvalidOperationException($"{nameof(Dataset)} should be nested in a Chart component.");
 
-        _plugin = ToPlugin();
-        Chart.Add(_plugin);
+        _scale = ToPlugin();
+        Chart.Add(_scale);
 
         base.OnInitialized();
     }
 
-    private ChartPlugin ToPlugin()
+    private ChartScale ToPlugin()
     {
-        return new ChartLegendPlugin(Position, Display);
+        return new ChartScale(_key, Display, Text);
     }
 }

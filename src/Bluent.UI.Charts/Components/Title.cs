@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Charts.Components;
 
-public class Legend : ComponentBase, IDisposable
+public class Title : ComponentBase, IDisposable
 {
     private ChartPlugin _plugin = default!;
 
     [CascadingParameter] public Chart Chart { get; set; } = default!;
-    [Parameter] public Position Position { get; set; } = Position.Bottom;
     [Parameter] public bool Display { get; set; } = true;
+    [Parameter, EditorRequired] public string Text { get; set; } = default!;
 
     public void Dispose()
     {
@@ -30,6 +30,6 @@ public class Legend : ComponentBase, IDisposable
 
     private ChartPlugin ToPlugin()
     {
-        return new ChartLegendPlugin(Position, Display);
+        return new ChartTitlePlugin(Display, Text);
     }
 }

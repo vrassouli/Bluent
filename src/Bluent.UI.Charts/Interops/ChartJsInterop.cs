@@ -1,13 +1,13 @@
 ﻿using Bluent.UI.Charts.ChartJs;
 using Bluent.UI.Charts.Interops.Abstractions;
 using Microsoft.JSInterop;
+using System.Text.Json;
 
 namespace Bluent.UI.Charts.Interops;
 
 internal class ChartJsInterop : IAsyncDisposable
 {
     private readonly IChartJsHost _host;
-    private readonly ChartConfig _config;
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     private IJSObjectReference? _module;
     private IJSObjectReference? _reference;
@@ -24,10 +24,9 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public ChartJsInterop(IChartJsHost host, IJSRuntime jsRuntime, ChartConfig config)
+    public ChartJsInterop(IChartJsHost host, IJSRuntime jsRuntime)
     {
         _host = host;
-        _config = config;
         _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI.Charts/bluent.ui.charts.js").AsTask());
     }
 
@@ -52,11 +51,17 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public async Task Initialize()
+    public async Task InitializeAsync(ChartConfig config)
     {
+#if DEBUG
+        var ser = JsonSerializer.Serialize(config);
+        Console.WriteLine(ser);
+#endif
+
         try
         {
             var module = await GetModuleAsync();
+            await module.InvokeVoidAsync("init", config);
         }
         catch
         {
@@ -77,13 +82,19 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
+    public async Task UpdateAsync(ChartConfig config)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("update", config);
+    }
+
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)
             _module = await _moduleTask.Value;
 
         if (_reference == null)
-            _reference = await _module.InvokeAsync<IJSObjectReference>("ChartJs.create", HostReference, _host.Id, _config);
+            _reference = await _module.InvokeAsync<IJSObjectReference>("ChartJs.create", HostReference, _host.Id);
 
         return _reference;
     }
