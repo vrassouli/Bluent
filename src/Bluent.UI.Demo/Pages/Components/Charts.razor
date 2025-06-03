@@ -1,0 +1,229 @@
+﻿@page "/components/charts"
+@using Bluent.UI.Charts.ChartJs
+<div class="p-5 py-md-10 px-md-12 anim-slide-in-end anim-fade-in">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Charts</h1>
+        <h3>Bar</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Dataset ChartType="ChartType.Bar" Data="_series1" Label="My Data"></Dataset>
+                <Dataset ChartType="ChartType.Bar" Data="_series2" Label="My Data!!"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Line</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset ChartType="ChartType.Line" Data="_series1" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+                <Dataset ChartType="ChartType.Line" Data="_series2" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Pie</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="w-50">
+                <Chart TDataSource="List<double>" Labels="@(["Item 1", "Item 2", "Item 3"])">
+                    <Dataset ChartType="ChartType.Pie" Data="_series3" Label="My Data"></Dataset>
+                </Chart>
+            </div>
+        </section>
+
+        <h3>Doughnut</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="w-50">
+                <Chart TDataSource="List<double>" Labels="@(["Item 1", "Item 2", "Item 3"])">
+                    <Dataset ChartType="ChartType.Doughnut" Data="_series3" Label="My Data"></Dataset>
+                </Chart>
+            </div>
+        </section>
+
+        <h3>PolarArea</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="List<double>" Labels="@(["Item 1", "Item 2", "Item 3"])">
+                <Dataset ChartType="ChartType.PolarArea" Data="_series3" Label="My Data"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Radar</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="List<double>" Labels="@(["Item 1", "Item 2", "Item 3"])">
+                <Dataset ChartType="ChartType.Radar" Data="_series3" Label="My Data"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Scatter</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="List<ScatterData<int, double>>">
+                <Title Text="Scatter data" />
+                <Dataset ChartType="ChartType.Scatter" Data="_series4" Label="My Data"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Mixed</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset ChartType="ChartType.Line" Data="_series1" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+                <Dataset ChartType="ChartType.Bar" Data="_series2" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Smooth</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_series1"
+                         Label="My Data"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Area</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Scales</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <XScale Display="false" />
+                <YScale Text="Value" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>No Legend</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" Display="false" />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <XScale Text="Month" />
+                <YScale Text="Value" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>No Tooltip</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Position="Position.Left" />
+                <Tooltip Enabled=false />
+                <Title Text="The title" />
+                <Subtitle Text="A subtitle" />
+                <XScale Text="Month" />
+                <YScale Text="Value" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+        <h3>Comapct</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Chart TDataSource="Dictionary<string, double>">
+                <Legend Display="false" />
+                <XScale Text="Month" Display="false" />
+                <YScale Text="Value" Display="false" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_series1"
+                         Label="My Data"
+                         FillTarget="FillTarget.Start"
+                         Smooth
+                         BorderRadius="5"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Orange"
+                         BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+            </Chart>
+        </section>
+
+
+    </div>
+</div>
+
+@code {
+    string[] _labels = ["Item 1", "Item 2", "Item 3", "Item 4"];
+    Dictionary<string, double> _series1 = new()
+    {
+        {"Jan", 10.001},
+        {"Feb", 20},
+        {"Mar", -18},
+        {"Apr", 23},
+        {"May", 23},
+    };
+    Dictionary<string, double> _series2 = new()
+    {
+        {"Jan", -1},
+        {"Feb", -2},
+        {"Mar", -5},
+        {"Apr", -8},
+        {"Jun", -9},
+    };
+    List<double> _series3 = new()
+    {
+        10.00,
+        23,
+        3,
+    };
+    List<ScatterData<int, double>> _series4 = new()
+    {
+        (3, 10.00),
+        (5, 7.5),
+        (10, 3),
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}

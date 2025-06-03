@@ -1,6 +1,7 @@
-﻿namespace Bluent.UI.Interops.Abstractions;
+﻿using Bluent.UI.Components;
 
-internal interface IDataGridEventHandler
+namespace Bluent.UI.Interops.Abstractions;
+
+internal interface IDataGridEventHandler : IBluentComponent
 {
-    public string Id { get; }
 }

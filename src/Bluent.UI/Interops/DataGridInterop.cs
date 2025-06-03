@@ -8,7 +8,7 @@ internal class DataGridInterop :  IAsyncDisposable
     private readonly IDataGridEventHandler _handler;
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     private IJSObjectReference? _module;
-    private IJSObjectReference? _datagridReference;
+    private IJSObjectReference? _reference;
     private DotNetObjectReference<IDataGridEventHandler>? _handlerReference;
 
     private DotNetObjectReference<IDataGridEventHandler> HandlerReference
@@ -32,8 +32,8 @@ internal class DataGridInterop :  IAsyncDisposable
     {
         try
         {
-            if (_datagridReference != null)
-                await _datagridReference.DisposeAsync();
+            if (_reference != null)
+                await _reference.DisposeAsync();
 
             if (_module != null)
                 await _module.DisposeAsync();
@@ -65,9 +65,9 @@ internal class DataGridInterop :  IAsyncDisposable
         if (_module == null)
             _module = await _moduleTask.Value;
 
-        if (_datagridReference == null)
-            _datagridReference = await _module.InvokeAsync<IJSObjectReference>("DataGrid.create", HandlerReference, _handler.Id);
+        if (_reference == null)
+            _reference = await _module.InvokeAsync<IJSObjectReference>("DataGrid.create", HandlerReference, _handler.Id);
 
-        return _datagridReference;
+        return _reference;
     }
 }
