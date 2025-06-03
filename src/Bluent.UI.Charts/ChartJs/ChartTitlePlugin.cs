@@ -16,16 +16,3 @@ public class ChartTitlePlugin : ChartPlugin
         Text = text;
     }
 }
-
-public class ChartTooltipPlugin : ChartPlugin
-{
-    [JsonIgnore]
-    public override string Key => "tooltip";
-
-    public bool Enabled { get; private set; }
-
-    public ChartTooltipPlugin(bool enabled)
-    {
-        Enabled = enabled;
-    }
-}

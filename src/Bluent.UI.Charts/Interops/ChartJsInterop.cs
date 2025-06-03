@@ -1,6 +1,7 @@
 ﻿using Bluent.UI.Charts.ChartJs;
 using Bluent.UI.Charts.Interops.Abstractions;
 using Microsoft.JSInterop;
+using System.Data.Common;
 using System.Text.Json;
 
 namespace Bluent.UI.Charts.Interops;
@@ -51,7 +52,7 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public async Task InitializeAsync(ChartConfig config)
+    public async Task InitializeAsync<TDataSource>(ChartConfig<TDataSource> config)
     {
 #if DEBUG
         var ser = JsonSerializer.Serialize(config);
@@ -82,7 +83,7 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public async Task UpdateAsync(ChartConfig config)
+    public async Task UpdateAsync<TDataSource>(ChartConfig<TDataSource> config)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("update", config);

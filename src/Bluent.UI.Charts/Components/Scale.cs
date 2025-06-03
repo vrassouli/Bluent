@@ -9,7 +9,7 @@ public abstract class Scale : ComponentBase, IDisposable
     private ChartScale _scale = default!;
     private readonly string _key;
 
-    [CascadingParameter] public Chart Chart { get; set; } = default!;
+    [CascadingParameter] public ChartJs Chart { get; set; } = default!;
     [Parameter] public bool Display { get; set; } = true;
     [Parameter] public string? Text { get; set; }
 
@@ -26,7 +26,7 @@ public abstract class Scale : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Chart is null)
-            throw new InvalidOperationException($"{nameof(Dataset)} should be nested in a Chart component.");
+            throw new InvalidOperationException($"Scale should be nested in a Chart component.");
 
         _scale = ToPlugin();
         Chart.Add(_scale);

@@ -1,11 +1,18 @@
-﻿namespace Bluent.UI.Charts.ChartJs;
+﻿using System.Data.Common;
+using System.Text.Json.Serialization;
 
-internal class ChartData
+namespace Bluent.UI.Charts.ChartJs;
+
+internal class ChartData<TDataSource>
 {
-    public IEnumerable<ChartDataset> Datasets { get; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IEnumerable<string>? Labels { get; }
 
-    public ChartData(IEnumerable<ChartDataset> datasets)
+    public IEnumerable<ChartDataset<TDataSource>> Datasets { get; }
+
+    public ChartData(IEnumerable<ChartDataset<TDataSource>> datasets, IEnumerable<string>? labels)
     {
         Datasets = datasets;
+        Labels = labels;
     }
 }

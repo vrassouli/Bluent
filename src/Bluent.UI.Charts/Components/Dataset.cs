@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Charts.Components;
 
-public class Dataset : ComponentBase, IDisposable
+public class Dataset<TDataSource> : ComponentBase, IDisposable
 {
-    [CascadingParameter] public Chart Chart { get; set; } = default!;
-    [Parameter] public Dictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
+    [CascadingParameter] public Chart<TDataSource> Chart { get; set; } = default!;
+    [Parameter, EditorRequired] public TDataSource Data { get; set; } = default!;
+    [Parameter] public ChartType ChartType { get; set; } = ChartType.Bar;
+
     [Parameter] public string? Label { get; set; }
     [Parameter] public string? BorderColor { get; set; }
     [Parameter] public string? BackgroundColor { get; set; }
@@ -25,14 +27,14 @@ public class Dataset : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Chart is null)
-            throw new InvalidOperationException($"{nameof(Dataset)} should be nested in a Chart component.");
+            throw new InvalidOperationException($"{nameof(Dataset<TDataSource>)} should be nested in a Chart component.");
 
         Chart.Add(this);
 
         base.OnInitialized();
     }
 
-    internal ChartJs.ChartDataset ToDataset()
+    internal ChartDataset<TDataSource> ToDataset()
     {
         AreaFill? fill = null;
 
@@ -41,7 +43,7 @@ public class Dataset : ComponentBase, IDisposable
             fill = new AreaFill(FillTarget.Value);
         }
 
-        return new ChartJs.ChartDataset(Data)
+        return new ChartDataset<TDataSource>(ChartType, Data)
         {
             Label = Label,
             BackgroundColor = BackgroundColor,

@@ -1,14 +1,16 @@
-﻿namespace Bluent.UI.Charts.ChartJs;
+﻿using System.Data.Common;
+using System.Text.Json.Serialization;
 
-internal class ChartConfig
+namespace Bluent.UI.Charts.ChartJs;
+
+internal class ChartConfig<TDataSource>
 {
-    public string Type { get; }
-    public ChartData Data { get; }
+    public ChartData<TDataSource> Data { get; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ChartOptions? Options { get; }
 
-    public ChartConfig(string type, ChartData data, ChartOptions? options)
+    public ChartConfig(ChartData<TDataSource> data, ChartOptions? options)
     {
-        Type = type;
         Data = data;
         Options = options;
     }

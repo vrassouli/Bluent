@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Charts.Components;
 
-public class Legend : ComponentBase, IDisposable
+public class Tooltip : ComponentBase, IDisposable
 {
     private ChartPlugin _plugin = default!;
 
     [CascadingParameter] public ChartJs Chart { get; set; } = default!;
-    [Parameter] public Position Position { get; set; } = Position.Bottom;
-    [Parameter] public bool Display { get; set; } = true;
+    [Parameter] public bool Enabled { get; set; } = true;
 
     public void Dispose()
     {
@@ -20,7 +19,7 @@ public class Legend : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Chart is null)
-            throw new InvalidOperationException($"{nameof(ChartJs)} should be nested in a Chart component.");
+            throw new InvalidOperationException($"Tooltip should be nested in a Chart component.");
 
         _plugin = ToPlugin();
         Chart.Add(_plugin);
@@ -30,6 +29,6 @@ public class Legend : ComponentBase, IDisposable
 
     private ChartPlugin ToPlugin()
     {
-        return new ChartLegendPlugin(Position, Display);
+        return new ChartTooltipPlugin(Enabled);
     }
 }
