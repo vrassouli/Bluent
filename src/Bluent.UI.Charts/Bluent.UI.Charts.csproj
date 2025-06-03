@@ -14,7 +14,6 @@
         <Description>'Bluent.UI.Charts' is a Blazor component library for adding Charts from chart.js to your app.</Description>
         <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
     </PropertyGroup>
 
