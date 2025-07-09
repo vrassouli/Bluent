@@ -1,5 +1,23 @@
+declare global {
+    interface Navigator {
+        standalone?: boolean;
+    }
+}
+
+interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+}
+
 export class DomHelper {
+    private deferredPrompt: BeforeInstallPromptEvent | null = null;
+
     constructor() {
+        window.addEventListener('beforeinstallprompt', (e: Event) => {
+            // Prevent automatic prompt
+            e.preventDefault();
+            this.deferredPrompt = e as BeforeInstallPromptEvent;
+        });
     }
 
     public invokeClickEvent(sourceSelector: string) {
@@ -41,6 +59,24 @@ export class DomHelper {
         return window.matchMedia(query).matches;
     }
 
+    public isPwaInstalled(): boolean {
+        return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
+    public async installPwa(): Promise<boolean> {
+        if (!this.deferredPrompt) {
+            //console.warn('Install prompt not available yet');
+            return false;
+        }
+
+        this.deferredPrompt.prompt();
+
+        const result = await this.deferredPrompt.userChoice;
+        //console.log(`User response: ${result.outcome}`);
+
+        this.deferredPrompt = null; // Only usable once
+        return result.outcome === 'accepted';
+    }
 
     public static create(): DomHelper {
         return new DomHelper();

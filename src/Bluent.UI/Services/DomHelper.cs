@@ -68,6 +68,20 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
         return await module.InvokeAsync<bool>("matchMedia", mediaQuery);
     }
 
+    public async ValueTask<bool> IsPwaInstalledAsync()
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<bool>("isPwaInstalled");
+    }
+
+    public async ValueTask<bool> InstallPwa()
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<bool>("installPwa");
+    }
+
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)
