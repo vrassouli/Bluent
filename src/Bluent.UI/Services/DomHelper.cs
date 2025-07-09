@@ -75,11 +75,25 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
         return await module.InvokeAsync<bool>("isPwaInstalled");
     }
 
-    public async ValueTask<bool> InstallPwa()
+    public async ValueTask<bool> InstallPwaAsync()
     {
         var module = await GetModuleAsync();
 
         return await module.InvokeAsync<bool>("installPwa");
+    }
+
+    public async ValueTask<bool> CanInstallPwaAsync()
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<bool>("canInstallPwa");
+    }
+
+    public async ValueTask<string> GetBrowserInfoAsync()
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<string>("getBrowserInfo");
     }
 
     private async Task<IJSObjectReference> GetModuleAsync()
