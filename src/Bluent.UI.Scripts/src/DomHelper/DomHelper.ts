@@ -78,6 +78,36 @@ export class DomHelper {
         return result.outcome === 'accepted';
     }
 
+    public canInstallPwa(): boolean {
+        const ua = window.navigator.userAgent;
+        const isIos = /iphone|ipad|ipod/i.test(ua);
+        const isStandalone = this.isPwaInstalled();
+
+        const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+        const isIosSafari = isIos && isSafari;
+
+        // iOS Safari: manual install
+        if (isIosSafari && !isStandalone) return true;
+
+        // Chrome/Edge/Opera/Brave/etc. on Android/desktop: install via prompt
+        const supportsBeforeInstallPrompt = 'onbeforeinstallprompt' in window;
+
+        return supportsBeforeInstallPrompt && !isStandalone;
+    }
+
+    public getBrowserInfo(): string {
+        const ua = navigator.userAgent;
+
+        if (/CriOS/i.test(ua)) return 'Chrome iOS';
+        if (/EdgiOS/i.test(ua)) return 'Edge iOS';
+        if (/FxiOS/i.test(ua)) return 'Firefox iOS';
+        if (/Chrome/i.test(ua)) return 'Chrome';
+        if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
+        if (/Firefox/i.test(ua)) return 'Firefox';
+        if (/Edg/i.test(ua)) return 'Edge';
+        return 'Unknown';
+    }
+
     public static create(): DomHelper {
         return new DomHelper();
     }
