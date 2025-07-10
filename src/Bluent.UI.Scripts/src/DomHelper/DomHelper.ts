@@ -2,20 +2,16 @@ declare global {
     interface Navigator {
         standalone?: boolean;
     }
+
+    interface Window {
+        deferredInstallPrompt?: BeforeInstallPromptEvent;
+    }
 }
 
 interface BeforeInstallPromptEvent extends Event {
     prompt: () => Promise<void>;
     userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
 }
-
-var _deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
-
-window.addEventListener('beforeinstallprompt', (e: Event) => {
-    // Prevent automatic prompt
-    e.preventDefault();
-    _deferredInstallPrompt = e as BeforeInstallPromptEvent;
-});
 
 export class DomHelper {
 
@@ -62,21 +58,21 @@ export class DomHelper {
     }
 
     public isPwaInstalled(): boolean {
-        return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) || window.deferredInstallPrompt == null;
     }
 
     public async installPwa(): Promise<boolean> {
-        if (!_deferredInstallPrompt) {
+        if (!window.deferredInstallPrompt) {
             //console.warn('Install prompt not available yet');
             return false;
         }
 
-        _deferredInstallPrompt.prompt();
+        window.deferredInstallPrompt.prompt();
 
-        const result = await _deferredInstallPrompt.userChoice;
+        const result = await window.deferredInstallPrompt.userChoice;
         //console.log(`User response: ${result.outcome}`);
 
-        _deferredInstallPrompt = null; // Only usable once
+        window.deferredInstallPrompt = null; // Only usable once
         return result.outcome === 'accepted';
     }
 
