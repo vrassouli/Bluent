@@ -9,15 +9,17 @@ interface BeforeInstallPromptEvent extends Event {
     userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
 }
 
+var _deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
+
+window.addEventListener('beforeinstallprompt', (e: Event) => {
+    // Prevent automatic prompt
+    e.preventDefault();
+    _deferredInstallPrompt = e as BeforeInstallPromptEvent;
+});
+
 export class DomHelper {
-    private deferredPrompt: BeforeInstallPromptEvent | null = null;
 
     constructor() {
-        window.addEventListener('beforeinstallprompt', (e: Event) => {
-            // Prevent automatic prompt
-            e.preventDefault();
-            this.deferredPrompt = e as BeforeInstallPromptEvent;
-        });
     }
 
     public invokeClickEvent(sourceSelector: string) {
@@ -64,17 +66,17 @@ export class DomHelper {
     }
 
     public async installPwa(): Promise<boolean> {
-        if (!this.deferredPrompt) {
+        if (!_deferredInstallPrompt) {
             //console.warn('Install prompt not available yet');
             return false;
         }
 
-        this.deferredPrompt.prompt();
+        _deferredInstallPrompt.prompt();
 
-        const result = await this.deferredPrompt.userChoice;
+        const result = await _deferredInstallPrompt.userChoice;
         //console.log(`User response: ${result.outcome}`);
 
-        this.deferredPrompt = null; // Only usable once
+        _deferredInstallPrompt = null; // Only usable once
         return result.outcome === 'accepted';
     }
 
