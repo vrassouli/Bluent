@@ -108,6 +108,24 @@ export class DomHelper {
         return 'Unknown';
     }
 
+    public isMobile(): boolean {
+        return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent);
+    }
+
+    public getOsInfo(): string {
+        const platform = navigator.platform.toLowerCase();
+        const userAgent = navigator.userAgent.toLowerCase();
+
+        if (/android/.test(userAgent)) return 'Android';
+        if (/iphone|ipad|ipod/.test(userAgent)) return 'iOS';
+        if (/win/.test(platform)) return 'Windows';
+        if (/mac/.test(platform)) return 'macOS';
+        if (/linux/.test(platform)) return 'Linux';
+        if (/cros/.test(userAgent)) return 'Chrome OS';
+
+        return 'Unknown';
+    }
+
     public static create(): DomHelper {
         return new DomHelper();
     }

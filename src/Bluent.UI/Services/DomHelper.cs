@@ -96,6 +96,20 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
         return await module.InvokeAsync<string>("getBrowserInfo");
     }
 
+    public async ValueTask<bool> IsMobileAsync()
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<bool>("isMobile");
+    }
+
+    public async ValueTask<string> GetOsInfoAsync()
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<string>("getOsInfo");
+    }
+
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)
