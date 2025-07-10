@@ -58,7 +58,7 @@ export class DomHelper {
     }
 
     public isPwaInstalled(): boolean {
-        return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) || window.deferredInstallPrompt == null;
     }
 
     public async installPwa(): Promise<boolean> {
