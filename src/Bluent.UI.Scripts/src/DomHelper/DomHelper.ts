@@ -90,7 +90,7 @@ export class DomHelper {
         // Chrome/Edge/Opera/Brave/etc. on Android/desktop: install via prompt
         const supportsBeforeInstallPrompt = 'onbeforeinstallprompt' in window;
 
-        return supportsBeforeInstallPrompt && !isStandalone;
+        return supportsBeforeInstallPrompt && !isStandalone && window.deferredInstallPrompt != null;
     }
 
     public getBrowserInfo(): string {
