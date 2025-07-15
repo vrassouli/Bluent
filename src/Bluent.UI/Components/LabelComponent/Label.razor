@@ -14,8 +14,8 @@
             </Surface>
         </Popover>
     }
-    @if (!string.IsNullOrEmpty(Required))
+    @if (IsRequired)
     {
-        <span class="required">@Required</span>
+        <span class="required">@RequiredSymbol</span>
     }
 </label>

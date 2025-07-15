@@ -18,4 +18,9 @@ public static class MemberInfoExtensions
 
         return member.Name;
     }
+    public static bool IsRequired (this MemberInfo member)
+    {
+        var requiredAttr = member.GetCustomAttribute<RequiredAttribute>();
+        return requiredAttr != null;
+    }
 }
