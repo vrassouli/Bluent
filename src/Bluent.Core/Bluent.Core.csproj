@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>Bluent.UI.Charts</PackageId>
+        <PackageId>Bluent.UI.Core</PackageId>
         <Authors>Vahid Rassouli</Authors>
-        <Description>'Bluent.UI.Charts' is a Blazor component library for adding Charts from chart.js to your app.</Description>
+        <Description>'Bluent.UI.Core' is a Blazor component library providing base functionality for Bluent UI Components.</Description>
         <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
