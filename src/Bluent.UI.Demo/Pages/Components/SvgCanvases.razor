@@ -1,0 +1,48 @@
+﻿@page "/components/svg-canvases"
+@using Bluent.UI.Diagrams.Tools
+
+<Toolbar>
+    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" />
+    <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleTool)" />
+</Toolbar>
+
+<Stack Orientation="Orientation.Horizontal" Class="flex-fill">
+    <Stack Orientation="Orientation.Vertical" Class="gap-1" HorizontalAlignment="StackAlignment.Start">
+        <Stack Class="gap-2" HorizontalAlignment="StackAlignment.Center">
+            <input type="color" id="head" name="head" @bind-value="FillColor" />
+            <label for="head">Fill</label>
+        </Stack>
+        <Stack Class="gap-2" HorizontalAlignment="StackAlignment.Center">
+            <input type="color" id="head" name="head" @bind-value="StrokeColor" />
+            <label for="head">Stroke</label>
+        </Stack>
+        <Button Icon="icon-ic_fluent_line_thickness_20_regular" ActiveIcon="icon-ic_fluent_line_thickness_20_filled">
+            <Dropdown>
+                <MenuList>
+                    <MenuItem Title="0" OnClick="() => SetStrokeWidth(0)" Checked="_strokeWidth == 0"/>
+                    <MenuItem Title="1" OnClick="() => SetStrokeWidth(1)" Checked="_strokeWidth == 1"/>
+                    <MenuItem Title="2" OnClick="() => SetStrokeWidth(2)" Checked="_strokeWidth == 2"/>
+                    <MenuItem Title="3" OnClick="() => SetStrokeWidth(3)" Checked="_strokeWidth == 3"/>
+                    <MenuItem Title="4" OnClick="() => SetStrokeWidth(4)" Checked="_strokeWidth == 4"/>
+                    <MenuItem Title="5" OnClick="() => SetStrokeWidth(5)" Checked="_strokeWidth == 5"/>
+                </MenuList>
+            </Dropdown>
+        </Button>
+    </Stack>
+
+    <SvgCanvas Tool="_tool" width="100%">
+        <Elements>
+            <defs>
+                <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="8" height="8">
+                    <path fill="none" stroke="#aaa" stroke-width="0.5" d="M 0 0 h 8 M 0 0 h 0 M 0 0 v 8 M 0 0 v 0"></path>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
+        </Elements>
+
+        <ChildContent>
+        </ChildContent>
+    </SvgCanvas>
+</Stack>
