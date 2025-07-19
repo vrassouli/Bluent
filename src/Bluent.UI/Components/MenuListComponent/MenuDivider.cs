@@ -2,7 +2,7 @@
 
 namespace Bluent.UI.Components;
 
-public class MenuDivider : BluentComponentBase
+public class MenuDivider : BluentUiComponentBase
 {
     public override IEnumerable<string> GetClasses()
     {

@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+﻿using Bluent.Core;
 
 namespace Bluent.UI.Interops.Abstractions;
 

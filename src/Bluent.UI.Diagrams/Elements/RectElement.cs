@@ -1,7 +1,5 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Microsoft.AspNetCore.Components;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements;
 

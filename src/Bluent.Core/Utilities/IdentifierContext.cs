@@ -1,4 +1,4 @@
-namespace Bluent.UI.Common.Utilities;
+namespace Bluent.Core.Utilities;
 
 // Inspiration: https://dvoituron.com/2020/01/22/UnitTest-DateTime/
 public sealed class IdentifierContext : IDisposable

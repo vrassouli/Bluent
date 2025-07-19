@@ -27,8 +27,4 @@
         <Folder Include="wwwroot\" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Bluent.Core\Bluent.Core.csproj" />
-    </ItemGroup>
-
 </Project>

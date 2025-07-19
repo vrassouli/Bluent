@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
-public class Icon : BluentComponentBase
+public class Icon : BluentUiComponentBase
 {
     [Parameter] public string? Content { get; set; }
 

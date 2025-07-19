@@ -1,7 +1,6 @@
 ﻿using Bluent.UI.Charts.ChartJs;
 using Bluent.UI.Charts.Interops.Abstractions;
 using Microsoft.JSInterop;
-using System.Data.Common;
 using System.Text.Json;
 
 namespace Bluent.UI.Charts.Interops;

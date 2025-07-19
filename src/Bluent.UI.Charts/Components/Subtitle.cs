@@ -1,5 +1,4 @@
 ﻿using Bluent.UI.Charts.ChartJs;
-using Bluent.UI.Components;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Charts.Components;

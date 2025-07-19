@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Charts.Json;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
 namespace Bluent.UI.Charts.ChartJs;

@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-
-namespace Bluent.UI.Charts.ChartJs
+﻿namespace Bluent.UI.Charts.ChartJs
 {
     public static class DefaultColors
     {

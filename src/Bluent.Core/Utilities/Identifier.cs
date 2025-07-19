@@ -1,4 +1,4 @@
-﻿namespace Bluent.UI.Common.Utilities;
+﻿namespace Bluent.Core.Utilities;
 
 public static class Identifier
 {
