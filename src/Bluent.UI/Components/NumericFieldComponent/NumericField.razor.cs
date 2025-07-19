@@ -6,12 +6,14 @@ namespace Bluent.UI.Components;
 
 public partial class NumericField<TValue>
 {
+    private string? _rawStringValue;
     /// <summary>
     /// Gets or sets the error message used when displaying an a parsing error.
     /// </summary>
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
     [Parameter] public bool GainFocus { get; set; }
-    [Parameter] public bool TrimTrailingZeros { get; set; }
+    [Parameter] public string? Format { get; set; }
+    //[Parameter] public bool TrimTrailingZeros { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -52,6 +54,8 @@ public partial class NumericField<TValue>
     /// <inheritdoc />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        _rawStringValue = value;
+
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
         {
             validationErrorMessage = null;
@@ -73,24 +77,38 @@ public partial class NumericField<TValue>
     protected override string? FormatValueAsString(TValue? value)
     {
         string? valueString = null;
-        // Avoiding a cast to IFormattable to avoid boxing.
+
         valueString = value switch
         {
             null => null,
-            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            int v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            long v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            short v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            float v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            double v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            decimal v => v.ToString(Format, CultureInfo.CurrentUICulture),
             _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}")
         };
 
-        if (TrimTrailingZeros && valueString != null)
-        {
-            // Trim trailing zeroes and decimal point if necessary
-            valueString = valueString.TrimEnd('0').TrimEnd('.');
-        }
+
+        //// Avoiding a cast to IFormattable to avoid boxing.
+        //valueString = value switch
+        //{
+        //    null => null,
+        //    int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+        //    long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+        //    short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+        //    float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+        //    double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+        //    decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+        //    _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}")
+        //};
+
+        //if (TrimTrailingZeros && valueString != null)
+        //{
+        //    // Trim trailing zeroes and decimal point if necessary
+        //    valueString = valueString.TrimEnd('0').TrimEnd('.');
+        //}
 
         return valueString;
     }
