@@ -47,6 +47,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Bluent.Core\Bluent.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Compile Update="Components\DateFieldComponent\Resources\DateField.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>

@@ -1,8 +1,7 @@
-﻿using Bluent.UI.Charts.ChartJs;
+﻿using Bluent.Core;
+using Bluent.UI.Charts.ChartJs;
 using Bluent.UI.Charts.Interops;
 using Bluent.UI.Charts.Interops.Abstractions;
-using Bluent.UI.Components;
-using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;

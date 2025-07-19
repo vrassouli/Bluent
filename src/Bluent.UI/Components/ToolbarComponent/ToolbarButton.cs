@@ -7,12 +7,13 @@ public class ToolbarButton : OverflowItemComponentBase
 {
     [Parameter] public string Text { get; set; } = default!;
     [Parameter] public string? MenuLabel { get; set; }
-    [Parameter] public string Icon {  get; set; } = default!;
+    [Parameter] public string Icon { get; set; } = default!;
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public bool ShowDropdownIndicator { get; set; }
+    [Parameter] public bool? Toggled { get; set; }
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.Bottom;
     [Parameter] public ToolbarButtonAppearance Appearance { get; set; } = ToolbarButtonAppearance.Default;
 
@@ -32,6 +33,7 @@ public class ToolbarButton : OverflowItemComponentBase
         builder.AddAttribute(10, nameof(Tooltip), Tooltip);
         builder.AddAttribute(11, nameof(Class), Class);
         builder.AddAttribute(12, nameof(Style), Style);
+        builder.AddAttribute(13, nameof(Toggled), Toggled);
         builder.AddMultipleAttributes(13, AdditionalAttributes);
 
         builder.CloseComponent();

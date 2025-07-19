@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
-public abstract class OverflowItemComponentBase : BluentComponentBase/*, IOverflowItem*/
+public abstract class OverflowItemComponentBase : BluentUiComponentBase/*, IOverflowItem*/
 {
     [CascadingParameter] public OverflowRenderContext? RenderContext { get; set; }
     [CascadingParameter] public Overflow Overflow { get; set; } = default!;

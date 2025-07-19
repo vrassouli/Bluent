@@ -12,11 +12,19 @@
 
         <h3>Multiple</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <FileSelect Text="Choose a file" Icon="icon-ic_fluent_attach_20_regular" ActiveIcon="icon-ic_fluent_attach_20_filled" Multiple />
+            <FileSelect Text="Choose a file" Icon="icon-ic_fluent_attach_20_regular" ActiveIcon="icon-ic_fluent_attach_20_filled" Multiple/>
+        </section>
+
+        <h3>File type</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Accepted File Types: " Class="d-block mb-1 mb-4" />
+            <TextField @bind-Value="_acceptedFileTypes" Class="mb-4"/>
+            <FileSelect Text="Choose a file" Icon="icon-ic_fluent_attach_20_regular" ActiveIcon="icon-ic_fluent_attach_20_filled" Accept="@_acceptedFileTypes" />
         </section>
 
     </div>
 </div>
 
 @code {
+    string? _acceptedFileTypes = ".xls,.xlsx";
 }

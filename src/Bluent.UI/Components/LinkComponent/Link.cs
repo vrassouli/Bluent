@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
-public class Link : BluentComponentBase
+public class Link : BluentUiComponentBase
 {
     [Parameter, EditorRequired] public string Text { get; set; } = default!;
     [Parameter] public string? Href { get; set; }

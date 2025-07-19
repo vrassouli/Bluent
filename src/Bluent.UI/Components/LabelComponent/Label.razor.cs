@@ -9,9 +9,22 @@ public partial class Label
 {
     [Parameter] public string? Text { get; set; }
     [Parameter] public Expression<Func<object>>? ForExpression { get; set; }
-    [Parameter] public string? Required { get; set; }
+    [Parameter] public string RequiredSymbol { get; set; } = "*";
     [Parameter] public RenderFragment? Info { get; set; }
     [Parameter] public LabelSize Size { get; set; } = LabelSize.Medium;
+    [Parameter] public LabelRequiredState Required { get; set; } = LabelRequiredState.Auto;
+
+    private bool IsRequired => Required switch
+    {
+        LabelRequiredState.Required => true,
+        LabelRequiredState.NotRequired => false,
+        _ => IsExpressionRequired()
+    };
+
+    private bool IsExpressionRequired()
+    {
+        return ForExpression?.IsRequired() ?? false;
+    }
 
     public override IEnumerable<string> GetClasses()
     {

@@ -14,6 +14,7 @@ public partial class FileSelect
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? Icon { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
+    [Parameter] public string? Accept { get; set; }
     [Parameter] public bool ShowFileInfo { get; set; } = true;
     [Parameter] public bool AllowRemove { get; set; } = true;
     [Parameter] public bool Disabled { get; set; } 

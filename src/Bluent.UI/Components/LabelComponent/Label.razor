@@ -1,5 +1,5 @@
 ﻿@namespace Bluent.UI.Components
-@inherits BluentComponentBase
+@inherits BluentUiComponentBase
 
 <label for="@GetPropertyName()" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     @GetDisplayName()
@@ -14,8 +14,8 @@
             </Surface>
         </Popover>
     }
-    @if (!string.IsNullOrEmpty(Required))
+    @if (IsRequired)
     {
-        <span class="required">@Required</span>
+        <span class="required">@RequiredSymbol</span>
     }
 </label>

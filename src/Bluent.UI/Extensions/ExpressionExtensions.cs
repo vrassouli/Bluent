@@ -24,4 +24,10 @@ internal static class ExpressionExtensions
 
         return member?.GetDisplayName();
     }
+    public static bool IsRequired<T>(this Expression<T> expression)
+    {
+        var member = expression.GetMemberInfo();
+
+        return member?.IsRequired() ?? false;
+    }
 }

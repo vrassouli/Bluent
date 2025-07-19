@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Bluent.UI.Charts.ChartJs;
+﻿namespace Bluent.UI.Charts.ChartJs;
 
 internal class AreaFill
 {

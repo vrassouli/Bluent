@@ -11,7 +11,8 @@ public partial class NumericField<TValue>
     /// </summary>
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
     [Parameter] public bool GainFocus { get; set; }
-    [Parameter] public bool TrimTrailingZeros { get; set; }
+    [Parameter] public string? Format { get; set; }
+    //[Parameter] public bool TrimTrailingZeros { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -73,24 +74,38 @@ public partial class NumericField<TValue>
     protected override string? FormatValueAsString(TValue? value)
     {
         string? valueString = null;
-        // Avoiding a cast to IFormattable to avoid boxing.
+
         valueString = value switch
         {
             null => null,
-            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            int v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            long v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            short v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            float v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            double v => v.ToString(Format, CultureInfo.CurrentUICulture),
+            decimal v => v.ToString(Format, CultureInfo.CurrentUICulture),
             _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}")
         };
 
-        if (TrimTrailingZeros && valueString != null)
-        {
-            // Trim trailing zeroes and decimal point if necessary
-            valueString = valueString.TrimEnd('0').TrimEnd('.');
-        }
+
+        //// Avoiding a cast to IFormattable to avoid boxing.
+        //valueString = value switch
+        //{
+        //    null => null,
+        //    int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+        //    long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+        //    short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+        //    float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+        //    double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+        //    decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+        //    _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}")
+        //};
+
+        //if (TrimTrailingZeros && valueString != null)
+        //{
+        //    // Trim trailing zeroes and decimal point if necessary
+        //    valueString = valueString.TrimEnd('0').TrimEnd('.');
+        //}
 
         return valueString;
     }

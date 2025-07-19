@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Common.Utilities;
+﻿using Bluent.Core;
+using Bluent.Core.Utilities;
 using Bluent.UI.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -23,7 +24,7 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>, IBlu
     /// <summary>
     /// Gets the <see cref="FieldIdentifier"/> for the bound value.
     /// </summary>
-    public FieldIdentifier Field => base.FieldIdentifier;
+    public FieldIdentifier Field => FieldIdentifier;
 
     public string Id
     {

@@ -37,6 +37,20 @@
         display: none;
     }
 
+    &.toggled {
+        background-color: var(--colorNeutralBackground1Selected);
+        color: var(--colorNeutralForeground1Selected);
+        border-color: var(--colorNeutralStroke1);
+
+        > .active-icon {
+            display: inline;
+
+            & + .icon {
+                display: none;
+            }
+        }
+    }
+
     &:hover {
         color: var(--colorNeutralForeground2Hover);
         background-color: var(--colorSubtleBackgroundHover);
@@ -79,6 +93,12 @@
             color: var(--colorNeutralForegroundOnBrand);
         }
 
+        &.toggled {
+            background-color: var(--colorBrandBackgroundSelected);
+            color: var(--colorNeutralForegroundOnBrand);
+            border-color: transparent;
+        }
+
         &:hover {
             color: var(--colorNeutralForegroundOnBrand);
             background-color: var(--colorBrandBackgroundHover);
@@ -103,6 +123,11 @@
 
         > .icon {
             color: var(--colorNeutralForeground2BrandSelected);
+        }
+
+        &.toggled {
+            color: var(--colorNeutralForeground2Selected);
+            background-color: var(--colorSubtleBackgroundSelected);
         }
 
         &:hover {

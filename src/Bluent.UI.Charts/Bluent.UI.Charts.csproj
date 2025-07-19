@@ -17,12 +17,8 @@
         <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
     </PropertyGroup>
 
-
     <ItemGroup>
         <SupportedPlatform Include="browser" />
-    </ItemGroup>
-
-    <ItemGroup>
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
@@ -34,7 +30,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Bluent.UI\Bluent.UI.csproj" />
+      <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Bluent.Core\Bluent.Core.csproj" />
     </ItemGroup>
 
 </Project>

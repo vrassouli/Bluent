@@ -1,11 +1,11 @@
 ﻿@namespace Bluent.UI.Components
 @using Humanizer
 @using Microsoft.AspNetCore.Components.Forms
-@inherits BluentComponentBase
+@inherits BluentUiComponentBase
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <div class="input-wrapper">
-        <InputFile @ref="_filePicker" OnChange="HandleFileChanged" multiple="@Multiple"></InputFile>
+        <InputFile @ref="_filePicker" OnChange="HandleFileChanged" multiple="@Multiple" accept="@Accept"></InputFile>
     </div>
     <div class="content">
         @if (Multiple || !_files.Any() || !ShowFileInfo)

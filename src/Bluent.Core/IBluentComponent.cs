@@ -1,4 +1,4 @@
-﻿namespace Bluent.UI.Components;
+﻿namespace Bluent.Core;
 
 public interface IBluentComponent
 {
