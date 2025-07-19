@@ -6,7 +6,6 @@ namespace Bluent.UI.Components;
 
 public partial class NumericField<TValue>
 {
-    private string? _rawStringValue;
     /// <summary>
     /// Gets or sets the error message used when displaying an a parsing error.
     /// </summary>
@@ -54,8 +53,6 @@ public partial class NumericField<TValue>
     /// <inheritdoc />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        _rawStringValue = value;
-
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
         {
             validationErrorMessage = null;
