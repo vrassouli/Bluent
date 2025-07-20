@@ -48,6 +48,6 @@ public partial class ItemsList
 
     internal virtual bool IsSelected(ListItem listItem)
     {
-        return false;
+        return listItem.Selected;
     }
 }

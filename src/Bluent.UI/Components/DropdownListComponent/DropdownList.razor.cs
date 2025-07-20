@@ -88,6 +88,9 @@ public partial class DropdownList<TItem, TValue>
 
     private async Task AddToSelections(TItem item)
     {
+        if (!IsMultiSelect)
+            _selectedItems.Clear();
+
         _selectedItems.Add(item);
         await InvokeChangeEvents();
     }
