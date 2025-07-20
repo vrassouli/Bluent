@@ -34,7 +34,12 @@ public partial class ListItem
         NavigationManager.LocationChanged += NavigationManager_LocationChanged;
 
         List.Add(this);
-        Selected = List.IsSelected(this);
+
+        // initially selected?
+        if (Selected)
+            List.OnItemSelectionChanged(this);
+
+        //Selected = List.IsSelected(this);
 
         base.OnInitialized();
     }
