@@ -7,14 +7,15 @@ public class Rect : ComponentBase, IDisposable
 {
     private RectElement _element = default!;
     [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
-    [Parameter] public string? X { get; set; }
-    [Parameter] public string? Y { get; set; }
-    [Parameter, EditorRequired] public string Width { get; set; } = "0";
-    [Parameter, EditorRequired] public string Height { get; set; } = "0";
-    [Parameter] public string? Rx { get; set; }
-    [Parameter] public string? Ry { get; set; }
-    [Parameter] public string? PathLength { get; set; }
+    [Parameter] public double? X { get; set; }
+    [Parameter] public double? Y { get; set; }
+    [Parameter, EditorRequired] public double Width { get; set; } 
+    [Parameter, EditorRequired] public double Height { get; set; } 
+    [Parameter] public double? Rx { get; set; }
+    [Parameter] public double? Ry { get; set; }
+    [Parameter] public double? StrokeWidth { get; set; }
     [Parameter] public string? Fill { get; set; }
+    [Parameter] public string? Stroke { get; set; }
 
     public void Dispose()
     {
@@ -26,9 +27,10 @@ public class Rect : ComponentBase, IDisposable
         if (Canvas is null)
             throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(SvgCanvas)} component.");
 
-        _element = new RectElement(X, Y, Width, Height, Rx, Ry, PathLength)
+        _element = new RectElement(X, Y, Width, Height, Rx, Ry, StrokeWidth)
         {
-            Fill = Fill
+            Fill = Fill,
+            Stroke = Stroke,
         };
         Canvas.AddElement(_element);
 

@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Diagrams.Components;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -9,10 +8,11 @@ internal abstract class SvgElementBase : ISvgElement
 {
     public string? Fill { get; set; }
     public string? Stroke { get; set; }
-
+    public abstract Boundary Boundary{ get; }
+    
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public abstract RenderFragment Render(ElementState state);
+    public abstract RenderFragment Render();
 
     protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
     {

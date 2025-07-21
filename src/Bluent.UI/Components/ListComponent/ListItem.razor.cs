@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Common.Utilities;
+﻿using Bluent.Core;
+using Bluent.UI.Common.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 

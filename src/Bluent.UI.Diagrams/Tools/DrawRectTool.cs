@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Tools;
 
-public class DrawRectTool : ISvgDrawingTool
+public class DrawRectTool : SvgDrawingToolBase
 {
-    private SvgCanvas? _canvas;
     private long? _pointerId;
     private double? _x;
     private double? _y;
@@ -14,30 +13,9 @@ public class DrawRectTool : ISvgDrawingTool
     private double _height;
     private RectElement? _element;
 
-    public string Cursor => "crosshair";
+    public override string Cursor => "crosshair";
 
-    public string? Fill { get; set; }
-    public string? Stroke { get; set; }
-    public string? StrokeWidth { get; set; }
-
-    public void Register(SvgCanvas svgCanvas)
-    {
-        _canvas = svgCanvas;
-        _canvas.PointerDown += OnPointerDown;
-        _canvas.PointerUp += OnPointerUp;
-        _canvas.PointerCancel += OnPointerCancel;
-        _canvas.PointerMove += OnPointerMove;
-    }
-
-    public void Unregister()
-    {
-        if (_canvas is not null)
-        {
-            _canvas.PointerDown -= OnPointerDown;
-        }
-    }
-
-    private void OnPointerDown(object? sender, PointerEventArgs e)
+    protected override void OnPointerDown(PointerEventArgs e)
     {
         if (_pointerId is not null)
             return;
@@ -47,15 +25,19 @@ public class DrawRectTool : ISvgDrawingTool
         _x = e.OffsetX;
         _y = e.OffsetY;
 
-        _element = new RectElement(_x.ToString(), _y.ToString(), _width.ToString(), _height.ToString());
+        _element = new RectElement(_x, _y, _width, _height);
         _element.Fill = Fill;
         _element.Stroke = Stroke;
         _element.StrokeWidth = StrokeWidth;
-        _canvas?.AddElement(_element);
+        
+        Canvas?.AddElement(_element);
     }
 
-    private void OnPointerUp(object? sender, PointerEventArgs e)
+    protected override void OnPointerUp(PointerEventArgs e)
     {
+        if (_pointerId is not null)
+            NotifyOperationCompleted();
+
         _pointerId = null;
         _element = null;
         _x = null;
@@ -64,18 +46,18 @@ public class DrawRectTool : ISvgDrawingTool
         _height = 0;
     }
 
-    private void OnPointerCancel(object? sender, PointerEventArgs e)
+    protected override void OnPointerCancel(PointerEventArgs e)
     {
         _pointerId = null;
 
         if (_element is not null)
         {
-            _canvas?.RemoveElement(_element);
+            Canvas?.RemoveElement(_element);
             _element = null;
         }
     }
 
-    private void OnPointerMove(object? sender, PointerEventArgs e)
+    protected override void OnPointerMove(PointerEventArgs e)
     {
         if (_pointerId is null)
             return;
@@ -88,13 +70,13 @@ public class DrawRectTool : ISvgDrawingTool
             // As rect does not support negative width and height
             // we have to shift the rect in x or y axis
             if (_width < 0)
-                _element.X = ((_x ?? 0) + _width).ToString();
+                _element.X = ((_x ?? 0) + _width);
             
             if (_height < 0)
-                _element.Y = ((_y ?? 0) + _height).ToString();
+                _element.Y = ((_y ?? 0) + _height);
 
-            _element.Width = Math.Abs(_width).ToString();
-            _element.Height = Math.Abs(_height).ToString();
+            _element.Width = Math.Abs(_width);
+            _element.Height = Math.Abs(_height);
         }
     }
 }

@@ -38,13 +38,14 @@ public partial class SvgCanvases
         {
             _strokeWidth = value;
             if (_tool is ISvgDrawingTool drawingTool)
-                drawingTool.StrokeWidth = _strokeWidth.ToString();
+                drawingTool.StrokeWidth = _strokeWidth;
         }
     }
 
     private void SetStrokeWidth(int width) => StrokeWidth = width;
 
     private void DeselectTool() => _tool = null;
-    private void SelectRectTool() => _tool = new DrawRectTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth.ToString() };
-    private void SelectCircleTool() => _tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth.ToString() };
+    private void SelectRectTool() => _tool = new DrawRectTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectCircleTool() => _tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void ToolOperationCompleted() => _tool = null;
 }

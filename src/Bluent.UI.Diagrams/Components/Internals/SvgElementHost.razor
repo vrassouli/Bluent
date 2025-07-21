@@ -1,3 +1,16 @@
-﻿<g @onpointerdown="HandlePointerDown" @onpointerup="HandlePointerUp">
-    @Element.Render(State)
+﻿<g @onpointerdown="HandlePointerDown"
+   @onpointerdown:stopPropagation="true"
+   @onpointerup="HandlePointerUp"
+   @onpointerup:stopPropagation="PointerCaptured"
+   @onpointerleave="HandlePointerLeave"
+   @onpointerleave:stopPropagation="PointerCaptured"
+   @onpointerout="HandlePointerOut"
+   @onpointerout:stopPropagation="PointerCaptured"
+   @onpointerover:stopPropagation="PointerCaptured">
+    @Element.Render()
+
+    @if (Selected)
+    {
+        <SvgElementSelection Element="Element" Padding="SelectionPadding" />
+    }
 </g>

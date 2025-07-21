@@ -1,19 +1,18 @@
-﻿using Bluent.UI.Diagrams.Components;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements;
 
 internal class RectElement : SvgElementBase
 {
-    private string? _x;
-    private string? _y;
-    private string _width;
-    private string _height;
-    private string? _rx;
-    private string? _ry;
-    private string? _strokeWidth;
+    private double? _x;
+    private double? _y;
+    private double _width;
+    private double _height;
+    private double? _rx;
+    private double? _ry;
+    private double? _strokeWidth;
 
-    public RectElement(string? x, string? y, string width, string height, string? rx, string? ry, string? strokeWidth)
+    public RectElement(double? x, double? y, double width, double height, double? rx, double? ry, double? strokeWidth)
     {
         _x = x;
         _y = y;
@@ -23,7 +22,7 @@ internal class RectElement : SvgElementBase
         _ry = ry;
         _strokeWidth = strokeWidth;
     }
-    public RectElement(string? x, string? y, string width, string height)
+    public RectElement(double? x, double? y, double width, double height)
     {
         _x = x;
         _y = y;
@@ -31,7 +30,7 @@ internal class RectElement : SvgElementBase
         _height = height;
     }
 
-    public string? X
+    public double? X
     {
         get => _x;
         set
@@ -44,7 +43,7 @@ internal class RectElement : SvgElementBase
         }
     }
 
-    public string? Y
+    public double? Y
     {
         get => _y;
         set
@@ -56,7 +55,7 @@ internal class RectElement : SvgElementBase
             }
         }
     }
-    public string Width
+    public double Width
     {
         get => _width;
         set
@@ -68,7 +67,7 @@ internal class RectElement : SvgElementBase
             }
         }
     }
-    public string Height
+    public double Height
     {
         get => _height;
         set
@@ -80,7 +79,7 @@ internal class RectElement : SvgElementBase
             }
         }
     }
-    public string? Rx
+    public double? Rx
     {
         get => _rx;
         set
@@ -92,7 +91,7 @@ internal class RectElement : SvgElementBase
             }
         }
     }
-    public string? Ry
+    public double? Ry
     {
         get => _ry;
         set
@@ -104,7 +103,7 @@ internal class RectElement : SvgElementBase
             }
         }
     }
-    public string? StrokeWidth
+    public double? StrokeWidth
     {
         get => _strokeWidth;
         set
@@ -117,14 +116,15 @@ internal class RectElement : SvgElementBase
         }
     }
 
-    public override RenderFragment Render(ElementState state)
+    public override Boundary Boundary => new Boundary(X ?? 0, Y ?? 0, Width, Height);
+
+    public override RenderFragment Render()
     {
         return builder =>
         {
             int seq = 0;
 
             builder.OpenElement(seq++, "rect");
-
 
             builder.AddAttribute(seq++, "x", X);
             builder.AddAttribute(seq++, "y", Y);
@@ -134,7 +134,7 @@ internal class RectElement : SvgElementBase
             builder.AddAttribute(seq++, "ry", Ry);
             builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
             builder.AddAttribute(seq++, "fill", Fill);
-            builder.AddAttribute(seq++, "stroke", state == ElementState.Selected ? "orange" : Stroke);
+            builder.AddAttribute(seq++, "stroke", Stroke);
 
             builder.CloseElement();
         };

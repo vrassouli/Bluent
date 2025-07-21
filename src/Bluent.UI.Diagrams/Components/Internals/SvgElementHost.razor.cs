@@ -10,8 +10,19 @@ public partial class SvgElementHost : ComponentBase
     private long? _selectionPointerId;
 
     [Parameter, EditorRequired] public ISvgElement Element { get; set; } = default!;
-    [Parameter] public ElementState State { get; set; } = ElementState.Ideal;
-    [Parameter] public EventCallback<ElementState> StateChanged { get; set; }
+    [Parameter, EditorRequired] public bool Selected { get; set; } = default!;
+    [Parameter] public double SelectionPadding { get; set; } = 5;
+    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+
+    private bool PointerCaptured => _selectionPointerId != null;
+
+    protected override void OnInitialized()
+    {
+        if (Canvas is null)
+            throw new InvalidOperationException($"{nameof(SvgElementHost)} should be nested inside an {nameof(SvgCanvas)} component.");
+
+        base.OnInitialized();
+    }
 
     protected override void OnParametersSet()
     {
@@ -42,26 +53,16 @@ public partial class SvgElementHost : ComponentBase
         _selectionPointerId = e.PointerId;
     }
 
-    private async Task HandlePointerUp(PointerEventArgs e)
+    private void HandlePointerUp(PointerEventArgs e)
     {
         if (e.PointerId == _selectionPointerId)
         {
-            await SetState(ElementState.Selected);
             _selectionPointerId = null;
+
+            Canvas.OnElementClicked(Element);
         }
     }
 
-    private async Task SetState(ElementState state)
-    {
-        State = state;
-        await StateChanged.InvokeAsync(State);
-    }
-
-    //protected override void BuildRenderTree(RenderTreeBuilder builder)
-    //{
-    //    if (Element != null)
-    //        builder.AddContent(0, Element.Render());
-
-    //    base.BuildRenderTree(builder);
-    //}
+    private void HandlePointerLeave() => _selectionPointerId = null;
+    private void HandlePointerOut() => _selectionPointerId = null;
 }

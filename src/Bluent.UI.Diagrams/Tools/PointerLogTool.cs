@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Diagrams.Components;
+﻿#if DEBUG
+using Bluent.UI.Diagrams.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Tools;
@@ -6,6 +7,8 @@ namespace Bluent.UI.Diagrams.Tools;
 public class PointerLogTool : ISvgTool
 {
     private SvgCanvas? _canvas;
+
+    public event EventHandler? Completed;
 
     public string Cursor => "crosshair";
 
@@ -67,3 +70,4 @@ public class PointerLogTool : ISvgTool
     }
 
 }
+#endif

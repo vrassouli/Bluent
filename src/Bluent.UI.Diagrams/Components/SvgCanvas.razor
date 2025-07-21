@@ -3,26 +3,26 @@
 
 <CascadingValue Value="this" IsFixed>
     @ChildContent
-</CascadingValue>
 
-<svg @attributes=AdditionalAttributes
-     id="@Id"
-     class="@GetComponentClass()"
-     style="@Style"
-     cursor="@Cursor"
-     @onpointerdown="HandlePointerDown"
-     @onpointerup="HandlePointerUp"
-     @onpointermove="HandlePointerMove"
-     @onpointercancel="HandlePointerCancel"
-     @onpointerenter="HandlePointerEnter"
-     @onpointerout="HandlePointerOut"
-     @onpointerleave="HandlePointerLeave"
-     @onpointerover="HandlePointerOver">
-    @Elements
-    <g>
-        @foreach (var el in _elements)
-        {
-            <SvgElementHost @key=el Element="el" />
-        }
-    </g>
-</svg>
+    <svg @attributes=AdditionalAttributes
+         id="@Id"
+         class="@GetComponentClass()"
+         style="@Style"
+         cursor="@Cursor"
+         @onpointerdown="HandlePointerDown"
+         @onpointerup="HandlePointerUp"
+         @onpointermove="HandlePointerMove"
+         @onpointercancel="HandlePointerCancel"
+         @onpointerenter="HandlePointerEnter"
+         @onpointerout="HandlePointerOut"
+         @onpointerleave="HandlePointerLeave"
+         @onpointerover="HandlePointerOver">
+        @Elements
+        <g>
+            @foreach (var el in _elements)
+            {
+                <SvgElementHost @key=el Element="el" Selected="IsSelected(el)" />
+            }
+        </g>
+    </svg>
+</CascadingValue>

@@ -21,22 +21,25 @@
         <Button Icon="icon-ic_fluent_line_thickness_20_regular" ActiveIcon="icon-ic_fluent_line_thickness_20_filled">
             <Dropdown>
                 <MenuList>
-                    <MenuItem Title="0" OnClick="() => SetStrokeWidth(0)" Checked="_strokeWidth == 0"/>
-                    <MenuItem Title="1" OnClick="() => SetStrokeWidth(1)" Checked="_strokeWidth == 1"/>
-                    <MenuItem Title="2" OnClick="() => SetStrokeWidth(2)" Checked="_strokeWidth == 2"/>
-                    <MenuItem Title="3" OnClick="() => SetStrokeWidth(3)" Checked="_strokeWidth == 3"/>
-                    <MenuItem Title="4" OnClick="() => SetStrokeWidth(4)" Checked="_strokeWidth == 4"/>
-                    <MenuItem Title="5" OnClick="() => SetStrokeWidth(5)" Checked="_strokeWidth == 5"/>
+                    <MenuItem Title="0" OnClick="() => SetStrokeWidth(0)" Checked="_strokeWidth == 0" />
+                    <MenuItem Title="1" OnClick="() => SetStrokeWidth(1)" Checked="_strokeWidth == 1" />
+                    <MenuItem Title="2" OnClick="() => SetStrokeWidth(2)" Checked="_strokeWidth == 2" />
+                    <MenuItem Title="3" OnClick="() => SetStrokeWidth(3)" Checked="_strokeWidth == 3" />
+                    <MenuItem Title="4" OnClick="() => SetStrokeWidth(4)" Checked="_strokeWidth == 4" />
+                    <MenuItem Title="5" OnClick="() => SetStrokeWidth(5)" Checked="_strokeWidth == 5" />
                 </MenuList>
             </Dropdown>
         </Button>
     </Stack>
 
-    <SvgCanvas Tool="_tool" width="100%">
+    <SvgCanvas Tool="_tool"
+               Selection="Core.SelectionMode.Multiple"
+               OnToolOperationCompleted="ToolOperationCompleted"
+               width="100%">
         <Elements>
             <defs>
-                <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="8" height="8">
-                    <path fill="none" stroke="#aaa" stroke-width="0.5" d="M 0 0 h 8 M 0 0 h 0 M 0 0 v 8 M 0 0 v 0"></path>
+                <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
+                    <path fill="none" stroke="#aaa" stroke-width="0.5" d="M 0 0 h 10 M 0 0 h 0 M 0 0 v 10 M 0 0 v 0"></path>
                 </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>

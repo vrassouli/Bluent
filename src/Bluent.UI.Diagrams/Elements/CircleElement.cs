@@ -1,23 +1,22 @@
-﻿using Bluent.UI.Diagrams.Components;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements;
 
 internal class CircleElement : SvgElementBase
 {
-    private string _cx;
-    private string _cy;
-    private string _r;
-    private string? _strokeWidth;
+    private double _cx;
+    private double _cy;
+    private double _r;
+    private double? _strokeWidth;
 
-    public CircleElement(string cx, string cy, string r)
+    public CircleElement(double cx, double cy, double r)
     {
         _cx = cx;
         _cy = cy;
         _r = r;
     }
 
-    public string CX
+    public double CX
     {
         get => _cx;
         set
@@ -30,7 +29,7 @@ internal class CircleElement : SvgElementBase
         }
     }
 
-    public string CY
+    public double CY
     {
         get => _cy;
         set
@@ -42,7 +41,7 @@ internal class CircleElement : SvgElementBase
             }
         }
     }
-    public string R
+    public double R
     {
         get => _r;
         set
@@ -54,7 +53,7 @@ internal class CircleElement : SvgElementBase
             }
         }
     }
-    public string? StrokeWidth
+    public double? StrokeWidth
     {
         get => _strokeWidth;
         set
@@ -67,14 +66,16 @@ internal class CircleElement : SvgElementBase
         }
     }
 
-    public override RenderFragment Render(ElementState state)
+    public override Boundary Boundary => new Boundary(CX - R, CY - R, R * 2, R * 2);
+
+    public override RenderFragment Render()
     {
         return builder =>
         {
             int seq = 0;
 
             builder.OpenElement(seq++, "circle");
-         
+
             builder.AddAttribute(seq++, "cx", CX);
             builder.AddAttribute(seq++, "cy", CY);
             builder.AddAttribute(seq++, "r", R);
