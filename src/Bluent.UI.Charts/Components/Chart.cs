@@ -38,8 +38,6 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
     private ChartJsInterop _interop = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Parameter] public IEnumerable<string>? Labels { get; set; }
-    //[Parameter] public IEnumerable<string>? XLabels { get; set; }
-    //[Parameter] public IEnumerable<string>? YLabels { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     protected List<Dataset<TDataSource>> DatasetsList { get; } = new();
@@ -77,8 +75,8 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
         }
         else
         {
-            await _interop.DestroyAsync();
-            await _interop.InitializeAsync(BuildConfig());
+            //await _interop.DestroyAsync();
+            await _interop.UpdateAsync(BuildConfig());
         }
 
         await base.OnAfterRenderAsync(firstRender);

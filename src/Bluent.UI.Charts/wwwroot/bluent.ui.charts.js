@@ -9118,6 +9118,9 @@ class _o {
     this._chart = new gt(e, t);
   }
   update(t) {
+    this._chart && (this._chart.data.datasets.forEach((e, s) => {
+      t.data.datasets.length > s && (e.data = t.data.datasets[s].data);
+    }), this._chart.update());
   }
   destroy() {
     var t;

@@ -18,6 +18,14 @@ export class ChartJs {
     }
 
     public update(config: ChartConfiguration) {
+        if (this._chart) {
+            this._chart.data.datasets.forEach((dataset, index) => {
+                if (config.data.datasets.length > index) {
+                    dataset.data = config.data.datasets[index].data;
+                }
+            });
+            this._chart.update();
+        }
     }
 
     public destroy() {
