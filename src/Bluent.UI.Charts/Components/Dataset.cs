@@ -8,7 +8,6 @@ public class Dataset<TDataSource> : ComponentBase, IDisposable
     [CascadingParameter] public Chart<TDataSource> Chart { get; set; } = default!;
     [Parameter, EditorRequired] public TDataSource Data { get; set; } = default!;
     [Parameter] public ChartType ChartType { get; set; } = ChartType.Bar;
-
     [Parameter] public string? Label { get; set; }
     [Parameter] public string? BorderColor { get; set; }
     [Parameter] public string? BackgroundColor { get; set; }

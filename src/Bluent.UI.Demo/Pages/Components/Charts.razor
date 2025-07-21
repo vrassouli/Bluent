@@ -9,6 +9,8 @@
                 <Dataset ChartType="ChartType.Bar" Data="_series1" Label="My Data"></Dataset>
                 <Dataset ChartType="ChartType.Bar" Data="_series2" Label="My Data!!"></Dataset>
             </Chart>
+
+            <Button Text="Update data" OnClick="UpdateData" />
         </section>
 
         <h3>Line</h3>
@@ -225,5 +227,19 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
+    }
+
+    private void UpdateData()
+    {
+        var rnd = new Random();
+
+        _series1 = new()
+        {
+            {"Jan", rnd.NextDouble()*10},
+            {"Feb", rnd.NextDouble()*10},
+            {"Mar", rnd.NextDouble()*10},
+            {"Apr", rnd.NextDouble()*10},
+            {"May", rnd.NextDouble()*10},
+        };
     }
 }
