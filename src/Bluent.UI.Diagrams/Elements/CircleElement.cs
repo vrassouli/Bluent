@@ -18,7 +18,7 @@ internal class CircleElement : SvgElementBase
 
     public double CX
     {
-        get => _cx;
+        get => _cx + Drag.Dx;
         set
         {
             if (_cx != value)
@@ -31,7 +31,7 @@ internal class CircleElement : SvgElementBase
 
     public double CY
     {
-        get => _cy;
+        get => _cy + Drag.Dy;
         set
         {
             if (_cy != value)
@@ -86,5 +86,14 @@ internal class CircleElement : SvgElementBase
 
             builder.CloseElement();
         };
+    }
+
+    public override void ApplyDrag()
+    {
+        _cx += Drag.Dx;
+        _cy += Drag.Dy;
+        NotifyPropertyChanged();
+
+        base.ApplyDrag();
     }
 }

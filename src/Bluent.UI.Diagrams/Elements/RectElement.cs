@@ -32,7 +32,7 @@ internal class RectElement : SvgElementBase
 
     public double? X
     {
-        get => _x;
+        get => _x + Drag.Dx;
         set
         {
             if (_x != value)
@@ -42,10 +42,9 @@ internal class RectElement : SvgElementBase
             }
         }
     }
-
     public double? Y
     {
-        get => _y;
+        get => _y + Drag.Dy;
         set
         {
             if (_y != value)
@@ -115,6 +114,7 @@ internal class RectElement : SvgElementBase
             }
         }
     }
+    public string? StrokeDashArray { get; set; }
 
     public override Boundary Boundary => new Boundary(X ?? 0, Y ?? 0, Width, Height);
 
@@ -135,8 +135,18 @@ internal class RectElement : SvgElementBase
             builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
             builder.AddAttribute(seq++, "fill", Fill);
             builder.AddAttribute(seq++, "stroke", Stroke);
+            builder.AddAttribute(seq++, "stroke-dasharray", StrokeDashArray);
 
             builder.CloseElement();
         };
+    }
+
+    public override void ApplyDrag()
+    {
+        _x += Drag.Dx;
+        _y += Drag.Dy;
+        NotifyPropertyChanged();
+
+        base.ApplyDrag();
     }
 }

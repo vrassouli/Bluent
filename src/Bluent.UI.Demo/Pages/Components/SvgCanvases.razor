@@ -3,6 +3,7 @@
 
 <Toolbar>
     <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" />
+    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_circle_hint_cursor_20_regular" : "icon-ic_fluent_circle_hint_cursor_20_filled")" OnClick="SelectAreaSelectTool" Toggled="@(_tool is AreaSelectTool)" />
     <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectTool)" />
     <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleTool)" />
@@ -35,17 +36,16 @@
     <SvgCanvas Tool="_tool"
                Selection="Core.SelectionMode.Multiple"
                OnToolOperationCompleted="ToolOperationCompleted"
+               AllowDrag
                width="100%">
-        <Elements>
+
+        <ChildContent>
             <defs>
                 <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
                     <path fill="none" stroke="#aaa" stroke-width="0.5" d="M 0 0 h 10 M 0 0 h 0 M 0 0 v 10 M 0 0 v 0"></path>
                 </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
-        </Elements>
-
-        <ChildContent>
         </ChildContent>
     </SvgCanvas>
 </Stack>

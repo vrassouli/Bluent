@@ -2,7 +2,6 @@
 @using Bluent.UI.Diagrams.Components.Internals
 
 <CascadingValue Value="this" IsFixed>
-    @ChildContent
 
     <svg @attributes=AdditionalAttributes
          id="@Id"
@@ -16,8 +15,10 @@
          @onpointerenter="HandlePointerEnter"
          @onpointerout="HandlePointerOut"
          @onpointerleave="HandlePointerLeave"
-         @onpointerover="HandlePointerOver">
-        @Elements
+         @onpointerover="HandlePointerOver"
+         @onmousewheel="HandleMouseWheel">
+        @ChildContent
+        @* @Elements *@
         <g>
             @foreach (var el in _elements)
             {

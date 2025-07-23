@@ -1,4 +1,5 @@
-﻿<g>
+﻿<g @onpointerdown="HandlePointerDown"
+   @onpointerdown:stopPropagation="true">
     <rect x="@Boundary.X"
           y="@Boundary.Y"
           width="@Boundary.Width"
@@ -6,5 +7,6 @@
           stroke-width="2"
           stroke-dasharray="4 3"
           stroke="#36a2eb"
-          fill="none"/>
+          fill="transparent"
+          cursor="@GetCursor()"/>
 </g>

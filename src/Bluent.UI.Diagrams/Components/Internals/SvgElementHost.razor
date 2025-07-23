@@ -1,12 +1,5 @@
 ﻿<g @onpointerdown="HandlePointerDown"
-   @onpointerdown:stopPropagation="true"
-   @onpointerup="HandlePointerUp"
-   @onpointerup:stopPropagation="PointerCaptured"
-   @onpointerleave="HandlePointerLeave"
-   @onpointerleave:stopPropagation="PointerCaptured"
-   @onpointerout="HandlePointerOut"
-   @onpointerout:stopPropagation="PointerCaptured"
-   @onpointerover:stopPropagation="PointerCaptured">
+   @onpointerdown:stopPropagation="true">
     @Element.Render()
 
     @if (Selected)

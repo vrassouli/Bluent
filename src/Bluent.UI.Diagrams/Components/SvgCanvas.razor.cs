@@ -1,4 +1,4 @@
-﻿#define LOG_POINTER_EVENTS
+﻿//#define LOG_POINTER_EVENTS
 //#define LOG_POINTER_EVENT_DETAILS
 
 using Bluent.Core;
@@ -11,16 +11,22 @@ namespace Bluent.UI.Diagrams.Components;
 
 public partial class SvgCanvas
 {
+    private bool _shouldRender = true;
+    private bool _allowDrag;
+    private Distance2D _pan = new();
     private ISvgTool? _tool;
     private List<ISvgElement> _elements = new();
     private List<ISvgElement> _selectedElements = new();
-    private bool _shouldRender = true;
+    private List<ISvgTool> _internalTools = new();
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public RenderFragment? Elements { get; set; }
     [Parameter] public ISvgTool? Tool { get; set; }
     [Parameter] public SelectionMode Selection { get; set; } = SelectionMode.None;
-    [Parameter] public EventCallback OnToolOperationCompleted { get; set; } 
+    [Parameter] public EventCallback OnToolOperationCompleted { get; set; }
+    [Parameter] public bool AllowDrag { get; set; }
+
+    public IEnumerable<ISvgElement> SelectedElements => _selectedElements;
+    public IEnumerable<ISvgElement> Elements => _elements;
 
     private string Cursor => Tool?.Cursor ?? "auto";
 
@@ -32,6 +38,7 @@ public partial class SvgCanvas
     public event EventHandler<PointerEventArgs>? PointerOut;
     public event EventHandler<PointerEventArgs>? PointerOver;
     public event EventHandler<PointerEventArgs>? PointerUp;
+    public event EventHandler<WheelEventArgs>? MouseWheel;
 
     protected override void OnParametersSet()
     {
@@ -52,12 +59,17 @@ public partial class SvgCanvas
             }
         }
 
-        base.OnParametersSet();
-    }
+        if (_allowDrag != AllowDrag)
+        {
+            _allowDrag = AllowDrag;
 
-    private void ToolOperationCompleted(object? sender, EventArgs e)
-    {
-        InvokeAsync(OnToolOperationCompleted.InvokeAsync);
+            if (_allowDrag)
+                ActivateDragTool();
+            else
+                DeactivateDragTool();
+        }
+
+        base.OnParametersSet();
     }
 
     protected override bool ShouldRender()
@@ -78,9 +90,9 @@ public partial class SvgCanvas
         StateHasChanged();
     }
 
-    internal void OnElementClicked(ISvgElement element)
+    internal void OnElementClicked(ISvgElement element, bool ctrlKey, bool altKey, bool shiftKey)
     {
-        SelectElement(element);
+        ToggleElementSelection(element, ctrlKey);
 
         StateHasChanged();
     }
@@ -91,6 +103,30 @@ public partial class SvgCanvas
         _selectedElements.Remove(element);
 
         StateHasChanged();
+    }
+
+    internal void ToggleElementSelection(ISvgElement element, bool addToSelections)
+    {
+        if (IsSelected(element))
+            DeselectElement(element);
+        else
+            SelectElement(element, addToSelections);
+    }
+
+    internal void DeselectElement(ISvgElement element)
+    {
+        _selectedElements.Remove(element);
+    }
+
+    internal void SelectElement(ISvgElement element, bool addToSelections)
+    {
+        if (Selection == SelectionMode.None)
+            return;
+
+        if (Selection == SelectionMode.Single || !addToSelections)
+            _selectedElements.Clear();
+
+        _selectedElements.Add(element);
     }
 
     #region Event Handlers
@@ -119,7 +155,6 @@ public partial class SvgCanvas
         LogEvent("SvgCanvas.PointerDown", args);
 #endif
     }
-
 
     private void HandlePointerEnter(PointerEventArgs args)
     {
@@ -181,6 +216,16 @@ public partial class SvgCanvas
 #endif
     }
 
+    private void HandleMouseWheel(WheelEventArgs args)
+    {
+        _shouldRender = false;
+        MouseWheel?.Invoke(this, args);
+
+#if DEBUG && LOG_POINTER_EVENTS
+        LogEvent("SvgCanvas.MouseWheel", args);
+#endif
+    }
+
 #if DEBUG
 
     private static void LogEvent(string eventName, PointerEventArgs args)
@@ -200,21 +245,28 @@ public partial class SvgCanvas
 #endif
     }
 
+    private static void LogEvent(string eventName, WheelEventArgs args)
+    {
+        Console.WriteLine($"{eventName}:");
+#if LOG_POINTER_EVENT_DETAILS
+        Console.WriteLine($"{eventName}:");
+        Console.WriteLine($"DeltaX: {args.DeltaX}");
+        Console.WriteLine($"DeltaY: {args.DeltaY}");
+        Console.WriteLine($"DeltaMode: {args.DeltaMode}");
+        Console.WriteLine($"ClientX: {args.ClientX}");
+        Console.WriteLine($"ClientY: {args.ClientY}");
+        Console.WriteLine($"OffsetX: {args.OffsetX}");
+        Console.WriteLine($"OffsetY: {args.OffsetY}");
+        Console.WriteLine($"Shift: {args.ShiftKey}, Control: {args.CtrlKey}, Alt: {args.AltKey}");
+#else
+        Console.WriteLine($"{eventName}");
+#endif
+    }
+
 #endif
 
     #endregion
 
-    private void SelectElement(ISvgElement element)
-    {
-        if (Selection == SelectionMode.None)
-            return;
-
-        if (Selection == SelectionMode.Single)
-            _selectedElements.Clear();
-
-        _selectedElements.Add(element);
-    }
-    
     private bool ClearSelection()
     {
         if (_selectedElements.Any())
@@ -229,5 +281,23 @@ public partial class SvgCanvas
     private bool IsSelected(ISvgElement element)
     {
         return _selectedElements.Contains(element);
+    }
+
+    private void ActivateDragTool()
+    {
+        var tool = new DragTool();
+        tool.Register(this);
+
+        _internalTools.Add(tool);
+    }
+
+    private void DeactivateDragTool()
+    {
+        _internalTools.RemoveAll(t => t.GetType() == typeof(DragTool));
+    }
+
+    private void ToolOperationCompleted(object? sender, EventArgs e)
+    {
+        InvokeAsync(OnToolOperationCompleted.InvokeAsync);
     }
 }
