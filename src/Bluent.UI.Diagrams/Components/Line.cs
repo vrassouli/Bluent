@@ -3,16 +3,14 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Components;
 
-public class Rect : ComponentBase, IDisposable
+public class Line : ComponentBase, IDisposable
 {
-    private RectElement _element = default!;
+    private LineElement _element = default!;
     [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
-    [Parameter] public double? X { get; set; }
-    [Parameter] public double? Y { get; set; }
-    [Parameter, EditorRequired] public double Width { get; set; } 
-    [Parameter, EditorRequired] public double Height { get; set; } 
-    [Parameter] public double? Rx { get; set; }
-    [Parameter] public double? Ry { get; set; }
+    [Parameter, EditorRequired] public double X1 { get; set; }
+    [Parameter, EditorRequired] public double X2 { get; set; }
+    [Parameter, EditorRequired] public double Y1 { get; set; } 
+    [Parameter, EditorRequired] public double Y2 { get; set; } 
     [Parameter] public double? StrokeWidth { get; set; }
     [Parameter] public string? Fill { get; set; }
     [Parameter] public string? Stroke { get; set; }
@@ -25,9 +23,9 @@ public class Rect : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(Line)} should be nested inside a {nameof(SvgCanvas)} component.");
 
-        _element = new RectElement(X, Y, Width, Height, Rx, Ry)
+        _element = new LineElement(X1, Y1, X2, Y2)
         {
             Fill = Fill,
             Stroke = Stroke,

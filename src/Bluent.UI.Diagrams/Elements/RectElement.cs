@@ -12,7 +12,7 @@ internal class RectElement : SvgElementBase
     private double? _ry;
     private double? _strokeWidth;
 
-    public RectElement(double? x, double? y, double width, double height, double? rx, double? ry, double? strokeWidth)
+    public RectElement(double? x, double? y, double width, double height, double? rx, double? ry)
     {
         _x = x;
         _y = y;
@@ -20,7 +20,6 @@ internal class RectElement : SvgElementBase
         _height = height;
         _rx = rx;
         _ry = ry;
-        _strokeWidth = strokeWidth;
     }
     public RectElement(double? x, double? y, double width, double height)
     {

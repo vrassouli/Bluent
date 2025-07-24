@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Tools;
 
-internal class DragTool : ISvgTool
+public class PanTool : ISvgTool
 {
+    private SvgCanvas? _canvas;
     private long? _pointerId;
     private ScreenPoint? _startPoint;
-    private SvgCanvas? _canvas;
 
-    public string Cursor => "default";
+    public string Cursor => "move";
 
     public event EventHandler? Completed;
 
@@ -27,18 +27,17 @@ internal class DragTool : ISvgTool
 
     public void Unregister()
     {
-        if (_canvas is null)
-            return;
-
-        _canvas.PointerMove -= OnPointerMove;
-        _canvas.PointerUp -= OnPointerUp;
-        _canvas.PointerLeave -= OnPointerLeave;
-        _canvas.PointerCancel -= OnPointerCancel;
+        if (_canvas != null)
+        {
+            _canvas.PointerMove -= OnPointerMove;
+            _canvas.PointerLeave -= OnPointerLeave;
+            _canvas.PointerCancel -= OnPointerCancel;
+        }
     }
 
     private void OnPointerMove(object? sender, PointerEventArgs e)
     {
-        if (e.Buttons == 1 && _canvas != null && _canvas.SelectedElements.Any())
+        if (e.Buttons == 1 && _canvas is not null && !_canvas.SelectedElements.Any())
         {
             if (_pointerId is null)
                 _pointerId = e.PointerId;
@@ -50,46 +49,31 @@ internal class DragTool : ISvgTool
                 _startPoint = e.ToClientPoint();
 
             var delta = e.ToClientPoint() - _startPoint;
-
-            foreach (var el in _canvas.SelectedElements)
-            {
-                var drag = new Distance2D(el.AllowHorizontalDrag ? delta.Dx : 0, el.AllowVerticalDrag ? delta.Dy : 0);
-
-                el.SetDrag(drag);
-            }
+            _canvas.Pan(delta.Dx, delta.Dy);
         }
     }
 
     private void OnPointerUp(object? sender, PointerEventArgs e)
     {
-        if (e.PointerId == _pointerId)
-        {
-            if (_canvas != null)
-            {
-                foreach (var el in _canvas.SelectedElements)
-                {
-                    el.ApplyDrag();
-                }
-            }
-            Reset();
-        }
+        Reset();
     }
 
     private void OnPointerLeave(object? sender, PointerEventArgs e)
     {
-        if (e.PointerId == _pointerId)
-            Reset();
+        Reset();
     }
 
     private void OnPointerCancel(object? sender, PointerEventArgs e)
     {
-        if (e.PointerId == _pointerId)
-            Reset();
+        Reset();
     }
 
     private void Reset()
     {
+        _canvas?.ApplyPan();
+
         _pointerId = null;
         _startPoint = null;
+
     }
 }

@@ -8,7 +8,7 @@ namespace Bluent.UI.Diagrams.Tools;
 public class AreaSelectTool : ISvgTool
 {
     private long? _pointerId;
-    private Point? _startPoint;
+    private DiagramPoint? _startPoint;
     private RectElement? _element;
     private SvgCanvas? _canvas;
 
@@ -49,7 +49,7 @@ public class AreaSelectTool : ISvgTool
 
             if (_element is null)
             {
-                _startPoint = e.ToOffsetPoint();
+                _startPoint = _canvas.ScreenToDiagram(e.ToOffsetPoint());
 
                 _element = new RectElement(e.OffsetX, e.OffsetY, 0, 0);
                 _element.Fill = "#0095ff55";

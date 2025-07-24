@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Tools;
@@ -7,8 +8,7 @@ namespace Bluent.UI.Diagrams.Tools;
 public class DrawCircleTool : SvgDrawingToolBase
 {
     private long? _pointerId;
-    private double _cx;
-    private double _cy;
+    private DiagramPoint _center = new();
     private double _r;
     private CircleElement? _element;
 
@@ -16,20 +16,18 @@ public class DrawCircleTool : SvgDrawingToolBase
 
     protected override void OnPointerDown(PointerEventArgs e)
     {
-        if (_pointerId is not null)
+        if (_pointerId is not null || Canvas is null)
             return;
 
         _pointerId = e.PointerId;
+        _center = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        _cx = e.OffsetX;
-        _cy = e.OffsetY;
-
-        _element = new CircleElement(_cx, _cy, _r);
+        _element = new CircleElement(_center.X, _center.Y, _r);
         _element.Fill = Fill;
         _element.Stroke = Stroke;
         _element.StrokeWidth = StrokeWidth;
 
-        Canvas?.AddElement(_element);
+        Canvas.AddElement(_element);
     }
 
     protected override void OnPointerUp(PointerEventArgs e)
@@ -39,8 +37,7 @@ public class DrawCircleTool : SvgDrawingToolBase
 
         _pointerId = null;
         _element = null;
-        _cx = 0;
-        _cy = 0;
+        _center = new();
         _r = 0;
     }
 
@@ -57,10 +54,10 @@ public class DrawCircleTool : SvgDrawingToolBase
 
     protected override void OnPointerMove(PointerEventArgs e)
     {
-        if (_pointerId is null)
+        if (_pointerId is null || Canvas is null)
             return;
 
-        _r = e.OffsetX - _cx;
+        _r = Canvas.ScreenToDiagram(e.ToOffsetPoint()).X - _center.X;
 
         if (_element is not null)
         {

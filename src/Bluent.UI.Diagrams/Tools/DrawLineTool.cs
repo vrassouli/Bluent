@@ -1,16 +1,19 @@
 ﻿using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bluent.UI.Diagrams.Tools;
 
-public class DrawRectTool : SvgDrawingToolBase
+public class DrawLineTool : SvgDrawingToolBase
 {
     private long? _pointerId;
     private DiagramPoint? _startPoint;
-    private double _width;
-    private double _height;
-    private RectElement? _element;
+    private LineElement? _element;
 
     public override string Cursor => "crosshair";
 
@@ -20,14 +23,13 @@ public class DrawRectTool : SvgDrawingToolBase
             return;
 
         _pointerId = e.PointerId;
-
         _startPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        _element = new RectElement(_startPoint.X, _startPoint.Y, _width, _height);
+        _element = new LineElement(_startPoint.X, _startPoint.Y, _startPoint.X, _startPoint.Y);
         _element.Fill = Fill;
         _element.Stroke = Stroke;
         _element.StrokeWidth = StrokeWidth;
-        
+
         Canvas?.AddElement(_element);
     }
 
@@ -39,8 +41,6 @@ public class DrawRectTool : SvgDrawingToolBase
         _pointerId = null;
         _element = null;
         _startPoint = null;
-        _width = 0;
-        _height = 0;
     }
 
     protected override void OnPointerCancel(PointerEventArgs e)
@@ -60,21 +60,34 @@ public class DrawRectTool : SvgDrawingToolBase
             return;
 
         var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        _width = endPoint.X - (_startPoint?.X ?? 0);
-        _height = endPoint.Y - (_startPoint?.Y ?? 0);
 
         if (_element is not null)
         {
-            // As rect does not support negative width and height
-            // we have to shift the rect in x or y axis
-            if (_width < 0)
-                _element.X = ((_startPoint?.X ?? 0) + _width);
-            
-            if (_height < 0)
-                _element.Y = ((_startPoint?.Y ?? 0) + _height);
-
-            _element.Width = Math.Abs(_width);
-            _element.Height = Math.Abs(_height);
+            _element.X2 = endPoint.X;
+            _element.Y2 = endPoint.Y;
         }
+
+        //_width = e.OffsetX - (_startPoint?.X ?? 0);
+        //_height = e.OffsetY - (_startPoint?.Y ?? 0);
+
+        //if (_element is not null)
+        //{
+        //    // As rect does not support negative width and height
+        //    // we have to shift the rect in x or y axis
+        //    if (_width < 0)
+        //    {
+        //        _element.X1 = ((_startPoint?.X ?? 0) + _width);
+        //        _element.X2 = ((_startPoint?.X ?? 0) + _width);
+        //    }
+
+        //    if (_height < 0)
+        //    {
+        //        _element.Y1 = ((_startPoint?.Y ?? 0) + _height);
+        //        _element.Y2 = ((_startPoint?.Y ?? 0) + _height);
+        //    }
+
+        //    _element.Width = Math.Abs(_width);
+        //    _element.Height = Math.Abs(_height);
+        //}
     }
 }

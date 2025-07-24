@@ -3,16 +3,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Components;
 
-public class Rect : ComponentBase, IDisposable
+public class Circle : ComponentBase, IDisposable
 {
-    private RectElement _element = default!;
+    private CircleElement _element = default!;
     [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
-    [Parameter] public double? X { get; set; }
-    [Parameter] public double? Y { get; set; }
-    [Parameter, EditorRequired] public double Width { get; set; } 
-    [Parameter, EditorRequired] public double Height { get; set; } 
-    [Parameter] public double? Rx { get; set; }
-    [Parameter] public double? Ry { get; set; }
+    [Parameter, EditorRequired] public double Cx { get; set; }
+    [Parameter, EditorRequired] public double Cy { get; set; }
+    [Parameter, EditorRequired] public double R { get; set; } 
     [Parameter] public double? StrokeWidth { get; set; }
     [Parameter] public string? Fill { get; set; }
     [Parameter] public string? Stroke { get; set; }
@@ -25,9 +22,9 @@ public class Rect : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(Circle)} should be nested inside a {nameof(SvgCanvas)} component.");
 
-        _element = new RectElement(X, Y, Width, Height, Rx, Ry)
+        _element = new CircleElement(Cx, Cy, R)
         {
             Fill = Fill,
             Stroke = Stroke,

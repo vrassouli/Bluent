@@ -11,9 +11,14 @@ namespace Bluent.UI.Diagrams.Components;
 
 public partial class SvgCanvas
 {
+    private const double ZoomStep = 0.1;
+
     private bool _shouldRender = true;
     private bool _allowDrag;
+    private bool _allowScale;
+    private double _scale = 1;
     private Distance2D _pan = new();
+    private Distance2D _activePan = new();
     private ISvgTool? _tool;
     private List<ISvgElement> _elements = new();
     private List<ISvgElement> _selectedElements = new();
@@ -24,6 +29,7 @@ public partial class SvgCanvas
     [Parameter] public SelectionMode Selection { get; set; } = SelectionMode.None;
     [Parameter] public EventCallback OnToolOperationCompleted { get; set; }
     [Parameter] public bool AllowDrag { get; set; }
+    [Parameter] public bool AllowScale { get; set; }
 
     public IEnumerable<ISvgElement> SelectedElements => _selectedElements;
     public IEnumerable<ISvgElement> Elements => _elements;
@@ -67,6 +73,16 @@ public partial class SvgCanvas
                 ActivateDragTool();
             else
                 DeactivateDragTool();
+        }
+
+        if (_allowScale != AllowScale)
+        {
+            _allowScale = AllowScale;
+
+            if (_allowScale)
+                ActivateScaleTool();
+            else
+                DeactivateScaleTool();
         }
 
         base.OnParametersSet();
@@ -127,6 +143,87 @@ public partial class SvgCanvas
             _selectedElements.Clear();
 
         _selectedElements.Add(element);
+    }
+
+    internal void Pan(double x, double y)
+    {
+        _activePan.Dx = x;
+        _activePan.Dy = y;
+
+        StateHasChanged();
+    }
+
+    internal void ApplyPan()
+    {
+        SetPan(_pan.Dx + _activePan.Dx, _pan.Dy + _activePan.Dy);
+
+        StateHasChanged();
+    }
+
+    internal void SetPan(double x, double y)
+    {
+        _pan.Dx = x;
+        _pan.Dy = y;
+
+        _activePan = new();
+    }
+
+    internal void ZoomIn(DiagramPoint point)
+    {
+        // Get current screen position of the diagram point before zoom
+        var screenBefore = DiagramToScreen(point);
+
+        // Zoom in
+        _scale += ZoomStep;
+
+        // After zoom, that diagram point would appear at a different screen position
+        var screenAfter = DiagramToScreen(point);
+
+        // Calculate how much it moved due to zoom
+        var dx = screenAfter.X - screenBefore.X;
+        var dy = screenAfter.Y - screenBefore.Y;
+
+        // Offset pan to keep the point visually fixed
+        SetPan(_pan.Dx - dx, _pan.Dy - dy);
+
+        StateHasChanged();
+    }
+
+    internal void ZoomOut(DiagramPoint point)
+    {
+        // Get current screen position of the diagram point before zoom
+        var screenBefore = DiagramToScreen(point);
+
+        // Zoom out
+        _scale = Math.Max(_scale - ZoomStep, ZoomStep);
+
+        // After zoom, that diagram point would appear at a different screen position
+        var screenAfter = DiagramToScreen(point);
+
+        // Calculate how much it moved due to zoom
+        var dx = screenAfter.X - screenBefore.X;
+        var dy = screenAfter.Y - screenBefore.Y;
+
+        // Offset pan to keep the point visually fixed
+        SetPan(_pan.Dx - dx, _pan.Dy - dy);
+
+        StateHasChanged();
+    }
+
+    internal DiagramPoint ScreenToDiagram(ScreenPoint point)
+    {
+        var x = (point.X - _pan.Dx) / _scale;
+        var y = (point.Y - _pan.Dy) / _scale;
+
+        return new DiagramPoint(x, y);
+    }
+
+    internal ScreenPoint DiagramToScreen(DiagramPoint point)
+    {
+        var x = point.X * _scale + _pan.Dx;
+        var y = point.Y * _scale + _pan.Dy;
+
+        return new ScreenPoint(x, y);
     }
 
     #region Event Handlers
@@ -291,9 +388,21 @@ public partial class SvgCanvas
         _internalTools.Add(tool);
     }
 
-    private void DeactivateDragTool()
+    private void DeactivateDragTool() => DeactivateTool<DragTool>();
+
+    private void ActivateScaleTool()
     {
-        _internalTools.RemoveAll(t => t.GetType() == typeof(DragTool));
+        var tool = new ScaleTool();
+        tool.Register(this);
+
+        _internalTools.Add(tool);
+    }
+
+    private void DeactivateScaleTool() => DeactivateTool<ScaleTool>();
+
+    private void DeactivateTool<T>()
+    {
+        _internalTools.RemoveAll(t => t.GetType() == typeof(T));
     }
 
     private void ToolOperationCompleted(object? sender, EventArgs e)

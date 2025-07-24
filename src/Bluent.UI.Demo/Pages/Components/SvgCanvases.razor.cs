@@ -45,7 +45,9 @@ public partial class SvgCanvases
     private void SetStrokeWidth(int width) => StrokeWidth = width;
 
     private void DeselectTool() => _tool = null;
-    private void SelectAreaSelectTool() => _tool = new AreaSelectTool() {  };
+    private void SelectAreaSelectTool() => _tool = new AreaSelectTool();
+    private void SelectPanTool() => _tool = new PanTool();
+    private void SelectLineTool() => _tool = new DrawLineTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     private void SelectRectTool() => _tool = new DrawRectTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     private void SelectCircleTool() => _tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     private void ToolOperationCompleted() => _tool = null;
