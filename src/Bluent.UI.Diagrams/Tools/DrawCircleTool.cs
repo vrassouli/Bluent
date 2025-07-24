@@ -3,6 +3,7 @@ using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using System.Xml.Linq;
 
 namespace Bluent.UI.Diagrams.Tools;
 
@@ -50,8 +51,10 @@ public class DrawCircleTool : SvgDrawingToolBase
             NotifyOperationCompleted();
 
         if (Canvas != null && _element != null)
+        {
+            Canvas.RemoveElement(_element);
             Canvas.ExecuteCommand(new AddElementCommand(Canvas, _element));
-
+        }
         Reset();
     }
 

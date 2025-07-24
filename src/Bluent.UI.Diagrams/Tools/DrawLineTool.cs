@@ -54,7 +54,10 @@ public class DrawLineTool : SvgDrawingToolBase
             NotifyOperationCompleted();
 
         if (Canvas != null && _element != null)
+        {
+            Canvas.RemoveElement(_element);
             Canvas.ExecuteCommand(new AddElementCommand(Canvas, _element));
+        }
 
         Reset();
     }

@@ -11,8 +11,6 @@ internal class AddElementCommand : ICommand
 
     public AddElementCommand(DrawingCanvas canvas, IDrawingElement element)
     {
-        canvas.RemoveElement(element);
-
         _canvas = canvas;
         _element = element;
     }

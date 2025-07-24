@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Diagrams.Components;
+﻿using Bluent.UI.Diagrams.Commands;
+using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
@@ -8,8 +9,9 @@ namespace Bluent.UI.Diagrams.Tools;
 internal class DragTool : ISvgTool
 {
     private long? _pointerId;
-    private ScreenPoint? _startPoint;
+    private DiagramPoint? _startPoint;
     private DrawingCanvas? _canvas;
+    private Distance2D? _delta;
 
     public string Cursor => "default";
 
@@ -47,13 +49,13 @@ internal class DragTool : ISvgTool
                 return;
 
             if (_startPoint is null)
-                _startPoint = e.ToClientPoint();
+                _startPoint = _canvas.ScreenToDiagram(e.ToClientPoint());
 
-            var delta = e.ToClientPoint() - _startPoint;
+            _delta = _canvas.ScreenToDiagram(e.ToClientPoint()) - _startPoint;
 
             foreach (var el in _canvas.SelectedElements)
             {
-                var drag = new Distance2D(el.AllowHorizontalDrag ? delta.Dx : 0, el.AllowVerticalDrag ? delta.Dy : 0);
+                var drag = new Distance2D(el.AllowHorizontalDrag ? _delta.Dx : 0, el.AllowVerticalDrag ? _delta.Dy : 0);
 
                 el.SetDrag(drag);
             }
@@ -68,7 +70,13 @@ internal class DragTool : ISvgTool
             {
                 foreach (var el in _canvas.SelectedElements)
                 {
-                    el.ApplyDrag();
+                    el.CancelDrag();
+                }
+
+                if (_delta != null)
+                {
+                    var command = new DragElementsCommand(_canvas.SelectedElements.ToList(), _delta);
+                    _canvas.ExecuteCommand(command);
                 }
             }
             Reset();
@@ -91,5 +99,6 @@ internal class DragTool : ISvgTool
     {
         _pointerId = null;
         _startPoint = null;
+        _delta = null;
     }
 }
