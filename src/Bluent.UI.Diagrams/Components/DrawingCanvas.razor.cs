@@ -31,6 +31,7 @@ public partial class DrawingCanvas
     [Parameter] public EventCallback OnToolOperationCompleted { get; set; }
     [Parameter] public bool AllowDrag { get; set; }
     [Parameter] public bool AllowScale { get; set; }
+    [Parameter] public int SnapSize { get; set; }
 
     public IEnumerable<IDrawingElement> SelectedElements => _selectedElements;
     public IEnumerable<IDrawingElement> Elements => _elements;
@@ -216,7 +217,7 @@ public partial class DrawingCanvas
         var x = (point.X - _pan.Dx) / _scale;
         var y = (point.Y - _pan.Dy) / _scale;
 
-        return new DiagramPoint(x, y);
+        return SnapToGrid(new DiagramPoint(x, y));
     }
 
     internal ScreenPoint DiagramToScreen(DiagramPoint point)
@@ -225,6 +226,14 @@ public partial class DrawingCanvas
         var y = point.Y * _scale + _pan.Dy;
 
         return new ScreenPoint(x, y);
+    }
+    
+    internal DiagramPoint SnapToGrid(DiagramPoint point)
+    {
+        if (SnapSize <= 0)
+            return point;
+
+        return new DiagramPoint(Math.Round((double)point.X / SnapSize) * SnapSize, Math.Round((double)point.Y / SnapSize) * SnapSize);
     }
 
     public void ExecuteCommand(ICommand cmd)

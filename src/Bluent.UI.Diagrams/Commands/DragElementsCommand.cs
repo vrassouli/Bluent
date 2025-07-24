@@ -1,5 +1,4 @@
 ﻿using Bluent.Core;
-using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
 
 namespace Bluent.UI.Diagrams.Commands;

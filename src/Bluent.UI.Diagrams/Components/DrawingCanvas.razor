@@ -18,10 +18,11 @@
          @onpointerover="HandlePointerOver"
          @onmousewheel="HandleMouseWheel">
         @ChildContent
-        @* @Elements *@
-        <g>
+
+        @*         <g>
             <CursorLocation></CursorLocation>
         </g>
+ *@
         <g transform="translate(@(_pan.Dx + _activePan.Dx), @(_pan.Dy + _activePan.Dy)) scale(@_scale)">
             @foreach (var el in _elements)
             {
