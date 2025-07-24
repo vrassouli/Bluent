@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Components.Internals;
 
-public partial class SvgElementHost : ComponentBase
+public partial class ElementHost : ComponentBase
 {
     private IDrawingElement? _element;
 
@@ -16,7 +16,7 @@ public partial class SvgElementHost : ComponentBase
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(SvgElementHost)} should be nested inside an {nameof(DrawingCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(ElementHost)} should be nested inside an {nameof(DrawingCanvas)} component.");
 
         base.OnInitialized();
     }

@@ -1,15 +1,14 @@
 ﻿using Bluent.UI.Diagrams.Elements;
-using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Components.Internals;
 
-public partial class SvgElementSelection : IDisposable
+public partial class ElementSelection : IDisposable
 {
-    //private long? _pointerId;
-    //private Point? _startPoint;
-
+    [Parameter] public double StrokeWidth { get; set; } = 2;
+    [Parameter] public string StrokeDashArray { get; set; } = "4 3";
+    [Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [Parameter, EditorRequired] public double Padding { get; set; } = 5;
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
@@ -33,7 +32,7 @@ public partial class SvgElementSelection : IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(SvgElementSelection)} should not be used directly.");
+            throw new InvalidOperationException($"{nameof(ElementSelection)} should not be used directly.");
 
         //Canvas.PointerMove += Canvas_PointerMove;
         //Canvas.PointerUp += Canvas_PointerUp;
