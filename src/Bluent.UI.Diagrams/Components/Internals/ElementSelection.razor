@@ -8,5 +8,28 @@
           stroke-dasharray="@StrokeDashArray"
           stroke="@Stroke"
           fill="transparent"
-          cursor="@GetCursor()"/>
+          cursor="@GetCursor()" />
+    @if (Canvas.SelectedElements.Count() == 1)
+    {
+        @if (Element.AllowHorizontalResize)
+        {
+            <ResizeHandle X="@Boundary.X" Y="@Boundary.Cy" Anchor="ResizeAnchor.Left" />
+            <ResizeHandle X="@Boundary.Right" Y="@Boundary.Cy" Anchor="ResizeAnchor.Right" />
+        }
+
+        @if (Element.AllowVerticalResize)
+        {
+            <ResizeHandle X="@Boundary.Cx" Y="@Boundary.Y" Anchor="ResizeAnchor.Top" />
+            <ResizeHandle X="@Boundary.Cx" Y="@Boundary.Bottom" Anchor="ResizeAnchor.Bottom" />
+        }
+
+        @if (Element.AllowHorizontalResize && Element.AllowVerticalResize)
+        {
+            <ResizeHandle X="@Boundary.X" Y="@Boundary.Y" Anchor="ResizeAnchor.Top | ResizeAnchor.Left" />
+            <ResizeHandle X="@Boundary.Right" Y="@Boundary.Y" Anchor="ResizeAnchor.Top | ResizeAnchor.Right" />
+            <ResizeHandle X="@Boundary.X" Y="@Boundary.Bottom" Anchor="ResizeAnchor.Bottom | ResizeAnchor.Left" />
+            <ResizeHandle X="@Boundary.Right" Y="@Boundary.Bottom" Anchor="ResizeAnchor.Bottom | ResizeAnchor.Right" />
+        }
+
+    }
 </g>

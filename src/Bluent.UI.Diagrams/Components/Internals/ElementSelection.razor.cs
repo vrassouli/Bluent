@@ -1,4 +1,6 @@
-﻿using Bluent.UI.Diagrams.Elements;
+﻿using Bluent.UI.Diagrams.Commands;
+using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -6,11 +8,16 @@ namespace Bluent.UI.Diagrams.Components.Internals;
 
 public partial class ElementSelection : IDisposable
 {
+    private long? _pointerId;
+    private DiagramPoint? _startPoint;
+    private Distance2D? _delta;
+
     [Parameter] public double StrokeWidth { get; set; } = 2;
     [Parameter] public string StrokeDashArray { get; set; } = "4 3";
     [Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [Parameter, EditorRequired] public double Padding { get; set; } = 5;
+    [Parameter] public bool AllowDrag { get; set; }
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     private Boundary Boundary => new Boundary(Element.Boundary.X - Padding,
@@ -20,10 +27,7 @@ public partial class ElementSelection : IDisposable
 
     private string? GetCursor()
     {
-        /*if (_pointerId is not null)
-            return "grabbing";
-        else */
-        if (Element.AllowVerticalDrag || Element.AllowHorizontalDrag)
+        if (AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
             return "grab";
 
         return null;
@@ -34,62 +38,95 @@ public partial class ElementSelection : IDisposable
         if (Canvas is null)
             throw new InvalidOperationException($"{nameof(ElementSelection)} should not be used directly.");
 
-        //Canvas.PointerMove += Canvas_PointerMove;
-        //Canvas.PointerUp += Canvas_PointerUp;
-        //Canvas.PointerOut += Canvas_PointerOut;
-        //Canvas.PointerCancel += Canvas_PointerCancel;
+        Canvas.PointerMove += OnPointerMove;
+        Canvas.PointerUp += OnPointerUp;
+        Canvas.PointerLeave += OnPointerLeave;
+        Canvas.PointerCancel += OnPointerCancel;
 
         base.OnInitialized();
     }
 
     public void Dispose()
     {
-        //Canvas.PointerMove -= Canvas_PointerMove;
-        //Canvas.PointerUp -= Canvas_PointerUp;
-        //Canvas.PointerOut -= Canvas_PointerOut;
-        //Canvas.PointerCancel -= Canvas_PointerCancel;
+        Canvas.PointerMove -= OnPointerMove;
+        Canvas.PointerUp -= OnPointerUp;
+        Canvas.PointerLeave -= OnPointerLeave;
+        Canvas.PointerCancel -= OnPointerCancel;
     }
 
     private void HandlePointerDown(PointerEventArgs e)
     {
-        if (/*_pointerId is null &&*/ e.CtrlKey)
+        if (e.CtrlKey)
             Canvas.OnElementClicked(Element, e.CtrlKey, e.AltKey, e.ShiftKey);
-        //if (_pointerId is not null)
-        //    return;
-
-        //_pointerId = e.PointerId;
-        //_startPoint = e.ToClientPoint();
+        else if (_pointerId is null)
+            _pointerId = e.PointerId;
     }
 
-    //private void Canvas_PointerMove(object? sender, PointerEventArgs e)
-    //{
-    //    if (_pointerId is null || _startPoint is null)
-    //        return;
+    private void OnPointerMove(object? sender, PointerEventArgs e)
+    {
+        if (_pointerId == e.PointerId && Canvas.SelectedElements.Any())
+        {
+            if (_startPoint is null)
+                _startPoint = Canvas.ScreenToDiagram(e.ToClientPoint());
 
-    //    var currentPoint = e.ToClientPoint();
-    //    var delta = currentPoint - _startPoint;
-    //    var drag = new Distance2D(Element.AllowHorizontalDrag ? delta.Dx : 0, Element.AllowVerticalDrag ? delta.Dy : 0);
+            _delta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _startPoint;
 
-    //    Element.SetDrag(drag);
-    //}
+            foreach (var el in Canvas.SelectedElements)
+            {
+                var drag = new Distance2D(el.AllowHorizontalDrag ? _delta.Dx : 0, el.AllowVerticalDrag ? _delta.Dy : 0);
 
-    //private void Canvas_PointerUp(object? sender, PointerEventArgs e)
-    //{
-    //    if (_pointerId is not null)
-    //        Element.ApplyDrag();
+                el.SetDrag(drag);
+            }
+        }
+    }
 
-    //    _pointerId = null;
-    //}
+    private void OnPointerUp(object? sender, PointerEventArgs e)
+    {
+        if (e.PointerId == _pointerId)
+        {
+            if (Canvas != null)
+            {
+                foreach (var el in Canvas.SelectedElements)
+                {
+                    el.CancelDrag();
+                }
 
-    //private void Canvas_PointerCancel(object? sender, PointerEventArgs e)
-    //{
-    //    _pointerId = null;
-    //    Element.CancelDrag();
-    //}
+                if (_delta != null)
+                {
+                    var command = new DragElementsCommand(Canvas.SelectedElements.ToList(), _delta);
+                    Canvas.ExecuteCommand(command);
+                }
+            }
+            Reset();
+        }
+    }
 
-    //private void Canvas_PointerOut(object? sender, PointerEventArgs e)
-    //{
-    //    _pointerId = null;
-    //    Element.CancelDrag();
-    //}
+    private void OnPointerLeave(object? sender, PointerEventArgs e)
+    {
+        if (e.PointerId == _pointerId)
+            Cancel();
+    }
+
+    private void OnPointerCancel(object? sender, PointerEventArgs e)
+    {
+        if (e.PointerId == _pointerId)
+            Cancel();
+    }
+
+    private void Cancel()
+    {
+        foreach (var el in Canvas.SelectedElements)
+        {
+            el.CancelDrag();
+        }
+
+        Reset();
+    }
+
+    private void Reset()
+    {
+        _pointerId = null;
+        _startPoint = null;
+        _delta = null;
+    }
 }

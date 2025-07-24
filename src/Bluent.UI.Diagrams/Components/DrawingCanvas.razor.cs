@@ -14,7 +14,7 @@ public partial class DrawingCanvas
     private const double ZoomStep = 0.1;
 
     private bool _shouldRender = true;
-    private bool _allowDrag;
+    //private bool _allowDrag;
     private bool _allowScale;
     private double _scale = 1;
     private Distance2D _pan = new();
@@ -67,15 +67,15 @@ public partial class DrawingCanvas
             }
         }
 
-        if (_allowDrag != AllowDrag)
-        {
-            _allowDrag = AllowDrag;
+        //if (_allowDrag != AllowDrag)
+        //{
+        //    _allowDrag = AllowDrag;
 
-            if (_allowDrag)
-                ActivateDragTool();
-            else
-                DeactivateDragTool();
-        }
+        //    if (_allowDrag)
+        //        ActivateDragTool();
+        //    else
+        //        DeactivateDragTool();
+        //}
 
         if (_allowScale != AllowScale)
         {
@@ -398,15 +398,15 @@ public partial class DrawingCanvas
         return _selectedElements.Contains(element);
     }
 
-    private void ActivateDragTool()
-    {
-        var tool = new DragTool();
-        tool.Register(this);
+    //private void ActivateDragTool()
+    //{
+    //    var tool = new DragTool();
+    //    tool.Register(this);
 
-        _internalTools.Add(tool);
-    }
+    //    _internalTools.Add(tool);
+    //}
 
-    private void DeactivateDragTool() => DeactivateTool<DragTool>();
+    //private void DeactivateDragTool() => DeactivateTool<DragTool>();
 
     private void ActivateScaleTool()
     {

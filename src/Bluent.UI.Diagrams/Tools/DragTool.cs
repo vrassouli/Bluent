@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Diagrams.Commands;
+﻿/*
+using Bluent.UI.Diagrams.Commands;
 using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
@@ -102,3 +103,4 @@ internal class DragTool : ISvgTool
         _delta = null;
     }
 }
+*/

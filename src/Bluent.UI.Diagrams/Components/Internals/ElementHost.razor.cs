@@ -10,7 +10,8 @@ public partial class ElementHost : ComponentBase
 
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [Parameter, EditorRequired] public bool Selected { get; set; } = default!;
-    [Parameter] public double SelectionPadding { get; set; } = 5;
+    [Parameter] public double SelectionPadding { get; set; } = 7;
+    [Parameter] public bool AllowDrag { get; set; }
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     protected override void OnInitialized()
