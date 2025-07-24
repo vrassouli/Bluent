@@ -10,9 +10,9 @@ public partial class SvgElementSelection : IDisposable
     //private long? _pointerId;
     //private Point? _startPoint;
 
-    [Parameter, EditorRequired] public ISvgElement Element { get; set; } = default!;
+    [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [Parameter, EditorRequired] public double Padding { get; set; } = 5;
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     private Boundary Boundary => new Boundary(Element.Boundary.X - Padding,
                                               Element.Boundary.Y - Padding,

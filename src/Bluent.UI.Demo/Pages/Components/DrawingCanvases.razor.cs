@@ -1,14 +1,18 @@
-﻿using Bluent.UI.Diagrams.Tools;
+﻿using Bluent.Core;
+using Bluent.UI.Diagrams.Tools;
 
 namespace Bluent.UI.Demo.Pages.Components;
 
-public partial class SvgCanvases
+public partial class DrawingCanvases
 {
     private ISvgTool? _tool;
+    private bool _canUndo;
+    private bool _canRedo;
 
     private string _fillColor = "#e66465";
     private string _strokeColor = "#f6b73c";
     private int _strokeWidth = 1;
+    private CommandManager _commandManager;
 
     public string FillColor
     {
@@ -40,6 +44,33 @@ public partial class SvgCanvases
             if (_tool is ISvgDrawingTool drawingTool)
                 drawingTool.StrokeWidth = _strokeWidth;
         }
+    }
+
+    public DrawingCanvases()
+    {
+        _commandManager = new();
+        _commandManager.CommandExecuted += OnCommandExecuted;
+    }
+
+    private void OnCommandExecuted(object? sender, EventArgs e)
+    {
+        if(_canUndo != _commandManager.CanUndo || _canRedo != _commandManager.CanRedo)
+        {
+            _canUndo = _commandManager.CanUndo;
+            _canRedo = _commandManager.CanRedo;
+
+            StateHasChanged();
+        }
+    }
+
+    private void Undo()
+    {
+        _commandManager.Undo();
+    }
+
+    private void Redo()
+    {
+        _commandManager.Redo();
     }
 
     private void SetStrokeWidth(int width) => StrokeWidth = width;

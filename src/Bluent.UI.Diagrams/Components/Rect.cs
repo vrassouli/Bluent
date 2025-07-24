@@ -6,7 +6,7 @@ namespace Bluent.UI.Diagrams.Components;
 public class Rect : ComponentBase, IDisposable
 {
     private RectElement _element = default!;
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
     [Parameter] public double? X { get; set; }
     [Parameter] public double? Y { get; set; }
     [Parameter, EditorRequired] public double Width { get; set; } 
@@ -25,7 +25,7 @@ public class Rect : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(DrawingCanvas)} component.");
 
         _element = new RectElement(X, Y, Width, Height, Rx, Ry)
         {

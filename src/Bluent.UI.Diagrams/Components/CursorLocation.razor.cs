@@ -9,12 +9,12 @@ public partial class CursorLocation : IDisposable
 {
     private DiagramPoint? _point;
 
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(CursorLocation)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(CursorLocation)} should be nested inside a {nameof(DrawingCanvas)} component.");
 
         Canvas.PointerMove += OnPointerMove;
         Canvas.PointerOut += OnPointerOut;

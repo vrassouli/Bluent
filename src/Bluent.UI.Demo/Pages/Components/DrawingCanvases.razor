@@ -1,13 +1,16 @@
-﻿@page "/components/svg-canvases"
+﻿@page "/components/drawing-canvases"
 @using Bluent.UI.Diagrams.Tools
 
 <Toolbar>
     <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" />
     <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="icon-ic_fluent_circle_hint_cursor_20_filled" OnClick="SelectAreaSelectTool" Toggled="@(_tool is AreaSelectTool)" />
     <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" OnClick="Undo" disabled="@(!_canUndo)" />
+    <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" OnClick="Redo" disabled="@(!_canRedo)" />
+    <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_drag_20_regular" ActiveIcon="icon-ic_fluent_drag_20_filled" OnClick="SelectPanTool" Toggled="@(_tool is PanTool)" />
     <ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(_tool is DrawRectTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(_tool is DrawLineTool)" />
     <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectTool)" />
     <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleTool)" />
 </Toolbar>
@@ -36,12 +39,13 @@
         </Button>
     </Stack>
 
-    <SvgCanvas Tool="_tool"
-               Selection="Core.SelectionMode.Multiple"
-               OnToolOperationCompleted="ToolOperationCompleted"
-               AllowDrag
-               AllowScale
-               width="100%">
+    <DrawingCanvas Tool="_tool"
+                   Selection="Core.SelectionMode.Multiple"
+                   OnToolOperationCompleted="ToolOperationCompleted"
+                   CommandManager="_commandManager"
+                   AllowDrag
+                   AllowScale
+                   width="100%">
 
         <ChildContent>
             <defs>
@@ -50,11 +54,11 @@
                 </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
-            
+
             <Line X1="-10" Y1="0" X2="10" Y2="0" Stroke="blue" Fill="orange" StrokeWidth="1" />
             <Line X1="0" Y1="-10" X2="0" Y2="10" Stroke="blue" Fill="orange" StrokeWidth="1" />
-             <Rect X="10" Y="10" Width="90" Height="90" Stroke="blue" Fill="orange" StrokeWidth="3"/>
-@*            <Circle Cx="300" Cy="100" R="50" Stroke="blue" Fill="orange" StrokeWidth="3"/>
+            <Rect X="10" Y="10" Width="90" Height="90" Stroke="blue" Fill="orange" StrokeWidth="3" />
+            @*            <Circle Cx="300" Cy="100" R="50" Stroke="blue" Fill="orange" StrokeWidth="3"/>
  *@        </ChildContent>
-    </SvgCanvas>
+    </DrawingCanvas>
 </Stack>

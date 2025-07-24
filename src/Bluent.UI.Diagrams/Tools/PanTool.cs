@@ -7,7 +7,7 @@ namespace Bluent.UI.Diagrams.Tools;
 
 public class PanTool : ISvgTool
 {
-    private SvgCanvas? _canvas;
+    private DrawingCanvas? _canvas;
     private long? _pointerId;
     private ScreenPoint? _startPoint;
 
@@ -15,7 +15,7 @@ public class PanTool : ISvgTool
 
     public event EventHandler? Completed;
 
-    public void Register(SvgCanvas svgCanvas)
+    public void Register(DrawingCanvas svgCanvas)
     {
         _canvas = svgCanvas;
 

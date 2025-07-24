@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Components;
 
-public partial class SvgCanvas
+public partial class DrawingCanvas
 {
     private const double ZoomStep = 0.1;
 
@@ -20,10 +20,11 @@ public partial class SvgCanvas
     private Distance2D _pan = new();
     private Distance2D _activePan = new();
     private ISvgTool? _tool;
-    private List<ISvgElement> _elements = new();
-    private List<ISvgElement> _selectedElements = new();
+    private List<IDrawingElement> _elements = new();
+    private List<IDrawingElement> _selectedElements = new();
     private List<ISvgTool> _internalTools = new();
 
+    [Parameter] public CommandManager? CommandManager { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public ISvgTool? Tool { get; set; }
     [Parameter] public SelectionMode Selection { get; set; } = SelectionMode.None;
@@ -31,8 +32,8 @@ public partial class SvgCanvas
     [Parameter] public bool AllowDrag { get; set; }
     [Parameter] public bool AllowScale { get; set; }
 
-    public IEnumerable<ISvgElement> SelectedElements => _selectedElements;
-    public IEnumerable<ISvgElement> Elements => _elements;
+    public IEnumerable<IDrawingElement> SelectedElements => _selectedElements;
+    public IEnumerable<IDrawingElement> Elements => _elements;
 
     private string Cursor => Tool?.Cursor ?? "auto";
 
@@ -100,20 +101,20 @@ public partial class SvgCanvas
         return base.ShouldRender();
     }
 
-    internal void AddElement(ISvgElement element)
+    internal void AddElement(IDrawingElement element)
     {
         _elements.Add(element);
         StateHasChanged();
     }
 
-    internal void OnElementClicked(ISvgElement element, bool ctrlKey, bool altKey, bool shiftKey)
+    internal void OnElementClicked(IDrawingElement element, bool ctrlKey, bool altKey, bool shiftKey)
     {
         ToggleElementSelection(element, ctrlKey);
 
         StateHasChanged();
     }
 
-    internal void RemoveElement(ISvgElement element)
+    internal void RemoveElement(IDrawingElement element)
     {
         _elements.Remove(element);
         _selectedElements.Remove(element);
@@ -121,7 +122,7 @@ public partial class SvgCanvas
         StateHasChanged();
     }
 
-    internal void ToggleElementSelection(ISvgElement element, bool addToSelections)
+    internal void ToggleElementSelection(IDrawingElement element, bool addToSelections)
     {
         if (IsSelected(element))
             DeselectElement(element);
@@ -129,12 +130,12 @@ public partial class SvgCanvas
             SelectElement(element, addToSelections);
     }
 
-    internal void DeselectElement(ISvgElement element)
+    internal void DeselectElement(IDrawingElement element)
     {
         _selectedElements.Remove(element);
     }
 
-    internal void SelectElement(ISvgElement element, bool addToSelections)
+    internal void SelectElement(IDrawingElement element, bool addToSelections)
     {
         if (Selection == SelectionMode.None)
             return;
@@ -224,6 +225,14 @@ public partial class SvgCanvas
         var y = point.Y * _scale + _pan.Dy;
 
         return new ScreenPoint(x, y);
+    }
+
+    public void ExecuteCommand(ICommand cmd)
+    {
+        if (CommandManager != null)
+            CommandManager.Do(cmd);
+        else
+            cmd.Do();
     }
 
     #region Event Handlers
@@ -375,7 +384,7 @@ public partial class SvgCanvas
         return false;
     }
 
-    private bool IsSelected(ISvgElement element)
+    private bool IsSelected(IDrawingElement element)
     {
         return _selectedElements.Contains(element);
     }

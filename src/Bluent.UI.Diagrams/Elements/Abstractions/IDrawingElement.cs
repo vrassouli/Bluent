@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements;
 
-public interface ISvgElement : INotifyPropertyChanged
+public interface IDrawingElement : INotifyPropertyChanged
 {
     bool AllowVerticalDrag { get; }
     bool AllowHorizontalResize { get; }

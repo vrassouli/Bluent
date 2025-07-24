@@ -7,13 +7,13 @@ namespace Bluent.UI.Diagrams.Tools;
 public class ScaleTool : ISvgTool
 {
     private const double ScaleStep = 0.1;
-    private SvgCanvas? _canvas;
+    private DrawingCanvas? _canvas;
 
     public string Cursor => "auto";
 
     public event EventHandler? Completed;
 
-    public void Register(SvgCanvas svgCanvas)
+    public void Register(DrawingCanvas svgCanvas)
     {
         _canvas = svgCanvas;
 

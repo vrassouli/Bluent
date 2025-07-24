@@ -6,7 +6,7 @@ namespace Bluent.UI.Diagrams.Components;
 public class Circle : ComponentBase, IDisposable
 {
     private CircleElement _element = default!;
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
     [Parameter, EditorRequired] public double Cx { get; set; }
     [Parameter, EditorRequired] public double Cy { get; set; }
     [Parameter, EditorRequired] public double R { get; set; } 
@@ -22,7 +22,7 @@ public class Circle : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(Circle)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(Circle)} should be nested inside a {nameof(DrawingCanvas)} component.");
 
         _element = new CircleElement(Cx, Cy, R)
         {

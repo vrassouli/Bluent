@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Diagrams.Components;
+﻿using Bluent.UI.Diagrams.Commands;
+using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
@@ -30,28 +31,6 @@ public class DrawCircleTool : SvgDrawingToolBase
         Canvas.AddElement(_element);
     }
 
-    protected override void OnPointerUp(PointerEventArgs e)
-    {
-        if (_pointerId is not null)
-            NotifyOperationCompleted();
-
-        _pointerId = null;
-        _element = null;
-        _center = new();
-        _r = 0;
-    }
-
-    protected override void OnPointerCancel(PointerEventArgs e)
-    {
-        _pointerId = null;
-
-        if (_element is not null)
-        {
-            Canvas?.RemoveElement(_element);
-            _element = null;
-        }
-    }
-
     protected override void OnPointerMove(PointerEventArgs e)
     {
         if (_pointerId is null || Canvas is null)
@@ -63,5 +42,42 @@ public class DrawCircleTool : SvgDrawingToolBase
         {
             _element.R = Math.Abs(_r);
         }
+    }
+
+    protected override void OnPointerUp(PointerEventArgs e)
+    {
+        if (_pointerId is not null)
+            NotifyOperationCompleted();
+
+        if (Canvas != null && _element != null)
+            Canvas.ExecuteCommand(new AddElementCommand(Canvas, _element));
+
+        Reset();
+    }
+
+    protected override void OnPointerCancel(PointerEventArgs e)
+    {
+        Cancel();
+    }
+
+    protected override void OnPointerLeave(PointerEventArgs e)
+    {
+        Cancel();
+    }
+
+    private void Cancel()
+    {
+        if (_element is not null)
+            Canvas?.RemoveElement(_element);
+
+        Reset();
+    }
+
+    private void Reset()
+    {
+        _pointerId = null;
+        _element = null;
+        _center = new();
+        _r = 0;
     }
 }

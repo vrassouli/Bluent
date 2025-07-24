@@ -5,7 +5,7 @@ namespace Bluent.UI.Diagrams.Tools;
 
 public abstract class SvgDrawingToolBase : ISvgDrawingTool
 {
-    protected SvgCanvas? Canvas { get; private set; }
+    protected DrawingCanvas? Canvas { get; private set; }
     public string? Fill { get; set; }
     public string? Stroke { get; set; }
     public double? StrokeWidth { get; set; }
@@ -14,13 +14,14 @@ public abstract class SvgDrawingToolBase : ISvgDrawingTool
 
     public abstract string Cursor { get; }
 
-    public void Register(SvgCanvas svgCanvas)
+    public void Register(DrawingCanvas svgCanvas)
     {
         Canvas = svgCanvas;
         Canvas.PointerDown += OnPointerDown;
         Canvas.PointerUp += OnPointerUp;
         Canvas.PointerCancel += OnPointerCancel;
         Canvas.PointerMove += OnPointerMove;
+        Canvas.PointerLeave += OnPointerLeave;
     }
 
     public void Unregister()
@@ -28,6 +29,10 @@ public abstract class SvgDrawingToolBase : ISvgDrawingTool
         if (Canvas is not null)
         {
             Canvas.PointerDown -= OnPointerDown;
+            Canvas.PointerUp -= OnPointerUp;
+            Canvas.PointerCancel -= OnPointerCancel;
+            Canvas.PointerMove -= OnPointerMove;
+            Canvas.PointerLeave -= OnPointerLeave;
         }
     }
 
@@ -51,6 +56,11 @@ public abstract class SvgDrawingToolBase : ISvgDrawingTool
         OnPointerMove(e);
     }
 
+    private void OnPointerLeave(object? sender, PointerEventArgs e)
+    {
+        OnPointerLeave(e);
+    }
+
     protected virtual void OnPointerDown(PointerEventArgs e)
     {
     }
@@ -64,6 +74,10 @@ public abstract class SvgDrawingToolBase : ISvgDrawingTool
     }
 
     protected virtual void OnPointerMove(PointerEventArgs e)
+    {
+    }
+
+    protected virtual void OnPointerLeave(PointerEventArgs e)
     {
     }
 

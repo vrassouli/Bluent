@@ -6,17 +6,17 @@ namespace Bluent.UI.Diagrams.Components.Internals;
 
 public partial class SvgElementHost : ComponentBase
 {
-    private ISvgElement? _element;
+    private IDrawingElement? _element;
 
-    [Parameter, EditorRequired] public ISvgElement Element { get; set; } = default!;
+    [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [Parameter, EditorRequired] public bool Selected { get; set; } = default!;
     [Parameter] public double SelectionPadding { get; set; } = 5;
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(SvgElementHost)} should be nested inside an {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(SvgElementHost)} should be nested inside an {nameof(DrawingCanvas)} component.");
 
         base.OnInitialized();
     }

@@ -6,7 +6,7 @@ namespace Bluent.UI.Diagrams.Components;
 public class Line : ComponentBase, IDisposable
 {
     private LineElement _element = default!;
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
     [Parameter, EditorRequired] public double X1 { get; set; }
     [Parameter, EditorRequired] public double X2 { get; set; }
     [Parameter, EditorRequired] public double Y1 { get; set; } 
@@ -23,7 +23,7 @@ public class Line : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(Line)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(Line)} should be nested inside a {nameof(DrawingCanvas)} component.");
 
         _element = new LineElement(X1, Y1, X2, Y2)
         {

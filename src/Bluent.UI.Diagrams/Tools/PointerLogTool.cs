@@ -6,13 +6,13 @@ namespace Bluent.UI.Diagrams.Tools;
 
 public class PointerLogTool : ISvgTool
 {
-    private SvgCanvas? _canvas;
+    private DrawingCanvas? _canvas;
 
     public event EventHandler? Completed;
 
     public string Cursor => "crosshair";
 
-    public void Register(SvgCanvas svgCanvas)
+    public void Register(DrawingCanvas svgCanvas)
     {
         _canvas = svgCanvas;
 

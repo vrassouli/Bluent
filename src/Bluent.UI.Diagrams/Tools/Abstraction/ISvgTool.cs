@@ -6,6 +6,6 @@ public interface ISvgTool
 {
     event EventHandler? Completed;
     string Cursor { get; }
-    void Register(SvgCanvas svgCanvas);
+    void Register(DrawingCanvas svgCanvas);
     void Unregister();
 }

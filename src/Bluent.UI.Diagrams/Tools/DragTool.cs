@@ -9,13 +9,13 @@ internal class DragTool : ISvgTool
 {
     private long? _pointerId;
     private ScreenPoint? _startPoint;
-    private SvgCanvas? _canvas;
+    private DrawingCanvas? _canvas;
 
     public string Cursor => "default";
 
     public event EventHandler? Completed;
 
-    public void Register(SvgCanvas svgCanvas)
+    public void Register(DrawingCanvas svgCanvas)
     {
         _canvas = svgCanvas;
 
