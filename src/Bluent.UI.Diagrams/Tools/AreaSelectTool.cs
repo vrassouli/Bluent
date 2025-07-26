@@ -2,6 +2,7 @@
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using System.Net;
 
 namespace Bluent.UI.Diagrams.Tools;
 
@@ -51,7 +52,7 @@ public class AreaSelectTool : ISvgTool
             {
                 _startPoint = _canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-                _element = new RectElement(e.OffsetX, e.OffsetY, 0, 0);
+                _element = new RectElement(_startPoint.X, _startPoint.Y, 0, 0);
                 _element.Fill = "#0095ff55";
                 _element.Stroke = "#0095ff";
                 _element.StrokeWidth = 2;
@@ -63,8 +64,9 @@ public class AreaSelectTool : ISvgTool
             {
                 var x = _element.X;
                 var y = _element.Y;
-                var width = e.OffsetX - (_startPoint?.X ?? 0);
-                var height = e.OffsetY - (_startPoint?.Y ?? 0);
+                var endPoint = _canvas.ScreenToDiagram(e.ToOffsetPoint());
+                var width = endPoint.X - (_startPoint?.X ?? 0);
+                var height = endPoint.Y - (_startPoint?.Y ?? 0);
 
                 if (width < 0)
                     x = (_startPoint?.X ?? 0) + width;

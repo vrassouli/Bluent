@@ -1,5 +1,4 @@
-﻿<g @onpointerdown="HandlePointerDown"
-   @onpointerdown:stopPropagation="true">
+﻿<g>
     <rect x="@Boundary.X"
           y="@Boundary.Y"
           width="@Boundary.Width"
@@ -7,29 +6,12 @@
           stroke-width="@StrokeWidth"
           stroke-dasharray="@StrokeDashArray"
           stroke="@Stroke"
-          fill="transparent"
-          cursor="@GetCursor()" />
+          fill="none" />
     @if (Canvas.SelectedElements.Count() == 1)
     {
-        @if (Element.AllowHorizontalResize)
+        foreach (var anchor in Element.ResizeAnchors)
         {
-            <ResizeHandle X="@Boundary.X" Y="@Boundary.Cy" Anchor="ResizeAnchor.Left" />
-            <ResizeHandle X="@Boundary.Right" Y="@Boundary.Cy" Anchor="ResizeAnchor.Right" />
+            <ResizeHandle Boundary="@Boundary" Anchor="anchor" PointerDown="e => HandleResizeHandlePointerDown(e, anchor)" />
         }
-
-        @if (Element.AllowVerticalResize)
-        {
-            <ResizeHandle X="@Boundary.Cx" Y="@Boundary.Y" Anchor="ResizeAnchor.Top" />
-            <ResizeHandle X="@Boundary.Cx" Y="@Boundary.Bottom" Anchor="ResizeAnchor.Bottom" />
-        }
-
-        @if (Element.AllowHorizontalResize && Element.AllowVerticalResize)
-        {
-            <ResizeHandle X="@Boundary.X" Y="@Boundary.Y" Anchor="ResizeAnchor.Top | ResizeAnchor.Left" />
-            <ResizeHandle X="@Boundary.Right" Y="@Boundary.Y" Anchor="ResizeAnchor.Top | ResizeAnchor.Right" />
-            <ResizeHandle X="@Boundary.X" Y="@Boundary.Bottom" Anchor="ResizeAnchor.Bottom | ResizeAnchor.Left" />
-            <ResizeHandle X="@Boundary.Right" Y="@Boundary.Bottom" Anchor="ResizeAnchor.Bottom | ResizeAnchor.Right" />
-        }
-
     }
 </g>

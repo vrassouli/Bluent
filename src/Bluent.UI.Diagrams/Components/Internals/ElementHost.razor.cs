@@ -14,6 +14,14 @@ public partial class ElementHost : ComponentBase
     [Parameter] public bool AllowDrag { get; set; }
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
+    private string? GetCursor()
+    {
+        if (Selected && AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
+            return "grab";
+
+        return null;
+    }
+
     protected override void OnInitialized()
     {
         if (Canvas is null)
@@ -45,6 +53,6 @@ public partial class ElementHost : ComponentBase
 
     private void HandlePointerDown(PointerEventArgs e)
     {
-        Canvas.OnElementClicked(Element, e.CtrlKey, e.AltKey, e.ShiftKey);
+        Canvas.SelectElement(Element, e.CtrlKey);
     }
 }

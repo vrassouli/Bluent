@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Diagrams.Components.Internals;
+using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements;
 
@@ -43,7 +44,7 @@ internal class CircleElement : SvgElementBase
     }
     public double R
     {
-        get => _r;
+        get => _r - DeltaLeft + DeltaRight - DeltaTop + DeltaBottom;
         set
         {
             if (_r != value)
@@ -88,6 +89,21 @@ internal class CircleElement : SvgElementBase
         };
     }
 
+    protected override IEnumerable<ResizeAnchor> GetResizeAnchors()
+    {
+        if (AllowHorizontalResize)
+        {
+            yield return ResizeAnchor.Left;
+            yield return ResizeAnchor.Right;
+        }
+
+        if (AllowVerticalResize)
+        {
+            yield return ResizeAnchor.Top;
+            yield return ResizeAnchor.Bottom;
+        }
+    }
+
     public override void ApplyDrag()
     {
         _cx += Drag.Dx;
@@ -95,5 +111,17 @@ internal class CircleElement : SvgElementBase
         NotifyPropertyChanged();
 
         base.ApplyDrag();
+    }
+
+    public override void ApplyResize()
+    {
+        _r = _r - DeltaLeft + DeltaRight - DeltaTop + DeltaBottom;
+        //_width = _width - DeltaLeft + DeltaRight;
+        //_y = _y + DeltaTop;
+        //_height = _height - DeltaTop + DeltaBottom;
+
+        NotifyPropertyChanged();
+
+        base.ApplyResize();
     }
 }

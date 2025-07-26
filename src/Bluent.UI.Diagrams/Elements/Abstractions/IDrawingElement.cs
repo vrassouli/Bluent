@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Diagrams.Components.Internals;
+using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements;
@@ -12,9 +13,15 @@ public interface IDrawingElement : INotifyPropertyChanged
     string? Fill { get; set; }
     string? Stroke { get; set; }
     bool AllowHorizontalDrag { get; }
-
+    IEnumerable<ResizeAnchor> ResizeAnchors { get; }
     RenderFragment Render();
     void SetDrag(Distance2D drag);
     void ApplyDrag();
     void CancelDrag();
+    void ResizeLeft(double dx);
+    void CancelResize();
+    void ApplyResize();
+    void ResizeRight(double dx);
+    void ResizeTop(double dy);
+    void ResizeBottom(double dy);
 }

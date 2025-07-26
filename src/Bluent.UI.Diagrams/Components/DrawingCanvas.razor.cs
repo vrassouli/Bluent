@@ -14,7 +14,7 @@ public partial class DrawingCanvas
     private const double ZoomStep = 0.1;
 
     private bool _shouldRender = true;
-    //private bool _allowDrag;
+    private bool _allowPan;
     private bool _allowScale;
     private double _scale = 1;
     private Distance2D _pan = new();
@@ -30,6 +30,7 @@ public partial class DrawingCanvas
     [Parameter] public SelectionMode Selection { get; set; } = SelectionMode.None;
     [Parameter] public EventCallback OnToolOperationCompleted { get; set; }
     [Parameter] public bool AllowDrag { get; set; }
+    [Parameter] public bool AllowPan { get; set; }
     [Parameter] public bool AllowScale { get; set; }
     [Parameter] public int SnapSize { get; set; }
 
@@ -77,6 +78,16 @@ public partial class DrawingCanvas
         //        DeactivateDragTool();
         //}
 
+        if (_allowPan != AllowPan)
+        {
+            _allowPan = AllowPan;
+
+            if (_allowPan)
+                ActivatePanTool();
+            else
+                DeactivatePanTool();
+        }
+
         if (_allowScale != AllowScale)
         {
             _allowScale = AllowScale;
@@ -108,12 +119,12 @@ public partial class DrawingCanvas
         StateHasChanged();
     }
 
-    internal void OnElementClicked(IDrawingElement element, bool ctrlKey, bool altKey, bool shiftKey)
-    {
-        ToggleElementSelection(element, ctrlKey);
+    //internal void OnElementClicked(IDrawingElement element, bool ctrlKey, bool altKey, bool shiftKey)
+    //{
+    //    ToggleElementSelection(element, ctrlKey);
 
-        StateHasChanged();
-    }
+    //    StateHasChanged();
+    //}
 
     internal void RemoveElement(IDrawingElement element)
     {
@@ -138,6 +149,9 @@ public partial class DrawingCanvas
 
     internal void SelectElement(IDrawingElement element, bool addToSelections)
     {
+        if (IsSelected(element))
+            return;
+
         if (Selection == SelectionMode.None)
             return;
 
@@ -145,6 +159,17 @@ public partial class DrawingCanvas
             _selectedElements.Clear();
 
         _selectedElements.Add(element);
+
+        StateHasChanged();
+    }
+
+    internal void ClearSelection()
+    {
+        if (_selectedElements.Any())
+        {
+            _selectedElements.Clear();
+            StateHasChanged();
+        }
     }
 
     internal void Pan(double x, double y)
@@ -252,22 +277,17 @@ public partial class DrawingCanvas
         PointerCancel?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerCancel", args);
+        LogEvent("Canvas.PointerCancel", args);
 #endif
     }
 
     private void HandlePointerDown(PointerEventArgs args)
     {
-        if (!ClearSelection())
-        {
-            // if no selection is cleared, there is no need to re-render.
-            _shouldRender = false;
-        }
-
+        _shouldRender = false;
         PointerDown?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerDown", args);
+        LogEvent("Canvas.PointerDown", args);
 #endif
     }
 
@@ -277,7 +297,7 @@ public partial class DrawingCanvas
         PointerEnter?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerEnter", args);
+        LogEvent("Canvas.PointerEnter", args);
 #endif
     }
 
@@ -287,7 +307,7 @@ public partial class DrawingCanvas
         PointerLeave?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerLeave", args);
+        LogEvent("Canvas.PointerLeave", args);
 #endif
     }
 
@@ -297,7 +317,7 @@ public partial class DrawingCanvas
         PointerMove?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        //LogEvent("SvgCanvas.PointerMove", args);
+        //LogEvent("Canvas.PointerMove", args);
 #endif
     }
 
@@ -307,7 +327,7 @@ public partial class DrawingCanvas
         PointerOut?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerOut", args);
+        LogEvent("Canvas.PointerOut", args);
 #endif
     }
 
@@ -317,17 +337,22 @@ public partial class DrawingCanvas
         PointerOver?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerOver", args);
+        LogEvent("Canvas.PointerOver", args);
 #endif
     }
 
     private void HandlePointerUp(PointerEventArgs args)
     {
+        //if (!ClearSelection())
+        //{
+        //    // if no selection is cleared, there is no need to re-render.
+        //    _shouldRender = false;
+        //}
         _shouldRender = false;
         PointerUp?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.PointerUp", args);
+        LogEvent("Canvas.PointerUp", args);
 #endif
     }
 
@@ -337,7 +362,7 @@ public partial class DrawingCanvas
         MouseWheel?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
-        LogEvent("SvgCanvas.MouseWheel", args);
+        LogEvent("Canvas.MouseWheel", args);
 #endif
     }
 
@@ -382,17 +407,6 @@ public partial class DrawingCanvas
 
     #endregion
 
-    private bool ClearSelection()
-    {
-        if (_selectedElements.Any())
-        {
-            _selectedElements.Clear();
-            return true;
-        }
-
-        return false;
-    }
-
     private bool IsSelected(IDrawingElement element)
     {
         return _selectedElements.Contains(element);
@@ -417,6 +431,16 @@ public partial class DrawingCanvas
     }
 
     private void DeactivateScaleTool() => DeactivateTool<ScaleTool>();
+
+    private void ActivatePanTool()
+    {
+        var tool = new DragTool();
+        tool.Register(this);
+
+        _internalTools.Add(tool);
+    }
+
+    private void DeactivatePanTool() => DeactivateTool<DragTool>();
 
     private void DeactivateTool<T>()
     {

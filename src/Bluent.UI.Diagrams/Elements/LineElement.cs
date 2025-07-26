@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Diagrams.Components.Internals;
+using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements;
 
@@ -20,7 +21,7 @@ internal class LineElement : SvgElementBase
 
     public double X1
     {
-        get => _x1 + Drag.Dx;
+        get => _x1 + Drag.Dx + DeltaLeft;
         set
         {
             if (_x1 != value)
@@ -33,7 +34,7 @@ internal class LineElement : SvgElementBase
 
     public double Y1
     {
-        get => _y1 + Drag.Dy;
+        get => _y1 + Drag.Dy + DeltaTop;
         set
         {
             if (_y1 != value)
@@ -45,7 +46,7 @@ internal class LineElement : SvgElementBase
     }
     public double X2
     {
-        get => _x2 + Drag.Dx;
+        get => _x2 + Drag.Dx + DeltaRight;
         set
         {
             if (_x2 != value)
@@ -57,7 +58,7 @@ internal class LineElement : SvgElementBase
     }
     public double Y2
     {
-        get => _y2 + Drag.Dy;
+        get => _y2 + Drag.Dy + DeltaBottom;
         set
         {
             if (_y2 != value)
@@ -106,6 +107,29 @@ internal class LineElement : SvgElementBase
         };
     }
 
+    protected override IEnumerable<ResizeAnchor> GetResizeAnchors()
+    {
+        if (AllowHorizontalResize)
+        {
+            yield return ResizeAnchor.Left;
+            yield return ResizeAnchor.Right;
+        }
+
+        if (AllowVerticalResize)
+        {
+            yield return ResizeAnchor.Top;
+            yield return ResizeAnchor.Bottom;
+        }
+
+        if (AllowVerticalResize && AllowHorizontalResize)
+        {
+            yield return ResizeAnchor.Left | ResizeAnchor.Top;
+            yield return ResizeAnchor.Left | ResizeAnchor.Bottom;
+            yield return ResizeAnchor.Right | ResizeAnchor.Top;
+            yield return ResizeAnchor.Right | ResizeAnchor.Bottom;
+        }
+    }
+
     public override void ApplyDrag()
     {
         _x1 += Drag.Dx;
@@ -116,4 +140,17 @@ internal class LineElement : SvgElementBase
 
         base.ApplyDrag();
     }
+
+    public override void ApplyResize()
+    {
+        _x1 = _x1 + DeltaLeft;
+        _y1 = _y1 + DeltaTop;
+        _x2 = _x2 + DeltaRight;
+        _y2 = _y2 + DeltaBottom;
+
+        NotifyPropertyChanged();
+
+        base.ApplyResize();
+    }
+
 }

@@ -8,6 +8,7 @@ namespace Bluent.UI.Diagrams.Components.Internals;
 
 public partial class ElementSelection : IDisposable
 {
+    private ResizeAnchor? _resizeAnchor;
     private long? _pointerId;
     private DiagramPoint? _startPoint;
     private Distance2D? _delta;
@@ -17,7 +18,6 @@ public partial class ElementSelection : IDisposable
     [Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [Parameter, EditorRequired] public double Padding { get; set; } = 5;
-    [Parameter] public bool AllowDrag { get; set; }
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     private Boundary Boundary => new Boundary(Element.Boundary.X - Padding,
@@ -25,13 +25,22 @@ public partial class ElementSelection : IDisposable
                                               Element.Boundary.Width + Padding * 2,
                                               Element.Boundary.Height + Padding * 2);
 
-    private string? GetCursor()
+    private void HandleResizeHandlePointerDown(PointerEventArgs e, ResizeAnchor anchor)
     {
-        if (AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
-            return "grab";
-
-        return null;
+        if (_pointerId is null)
+        {
+            _resizeAnchor = anchor;
+            _pointerId = e.PointerId;
+        }
     }
+
+    //private string? GetCursor()
+    //{
+    //    if (AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
+    //        return "grab";
+
+    //    return null;
+    //}
 
     protected override void OnInitialized()
     {
@@ -54,29 +63,23 @@ public partial class ElementSelection : IDisposable
         Canvas.PointerCancel -= OnPointerCancel;
     }
 
-    private void HandlePointerDown(PointerEventArgs e)
-    {
-        if (e.CtrlKey)
-            Canvas.OnElementClicked(Element, e.CtrlKey, e.AltKey, e.ShiftKey);
-        else if (_pointerId is null)
-            _pointerId = e.PointerId;
-    }
-
     private void OnPointerMove(object? sender, PointerEventArgs e)
     {
-        if (_pointerId == e.PointerId && Canvas.SelectedElements.Any())
+        if (_pointerId == e.PointerId && _resizeAnchor != null)
         {
             if (_startPoint is null)
                 _startPoint = Canvas.ScreenToDiagram(e.ToClientPoint());
 
             _delta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _startPoint;
 
-            foreach (var el in Canvas.SelectedElements)
-            {
-                var drag = new Distance2D(el.AllowHorizontalDrag ? _delta.Dx : 0, el.AllowVerticalDrag ? _delta.Dy : 0);
-
-                el.SetDrag(drag);
-            }
+            if ((_resizeAnchor.Value & ResizeAnchor.Left) == ResizeAnchor.Left)
+                Element.ResizeLeft(_delta.Dx);
+            if ((_resizeAnchor.Value & ResizeAnchor.Right) == ResizeAnchor.Right)
+                Element.ResizeRight(_delta.Dx);
+            if ((_resizeAnchor.Value & ResizeAnchor.Top) == ResizeAnchor.Top)
+                Element.ResizeTop(_delta.Dy);
+            if ((_resizeAnchor.Value & ResizeAnchor.Bottom) == ResizeAnchor.Bottom)
+                Element.ResizeBottom(_delta.Dy);
         }
     }
 
@@ -84,16 +87,13 @@ public partial class ElementSelection : IDisposable
     {
         if (e.PointerId == _pointerId)
         {
-            if (Canvas != null)
+            if (_resizeAnchor != null)
             {
-                foreach (var el in Canvas.SelectedElements)
-                {
-                    el.CancelDrag();
-                }
+                Element.CancelResize();
 
-                if (_delta != null)
+                if (_delta != null && _resizeAnchor != null)
                 {
-                    var command = new DragElementsCommand(Canvas.SelectedElements.ToList(), _delta);
+                    var command = new ResizeElementCommand(Element, _resizeAnchor.Value, _delta);
                     Canvas.ExecuteCommand(command);
                 }
             }
@@ -115,17 +115,13 @@ public partial class ElementSelection : IDisposable
 
     private void Cancel()
     {
-        foreach (var el in Canvas.SelectedElements)
-        {
-            el.CancelDrag();
-        }
-
         Reset();
     }
 
     private void Reset()
     {
         _pointerId = null;
+        _resizeAnchor = null;
         _startPoint = null;
         _delta = null;
     }

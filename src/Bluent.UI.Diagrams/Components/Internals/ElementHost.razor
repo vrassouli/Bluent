@@ -1,9 +1,9 @@
 ﻿<g @onpointerdown="HandlePointerDown"
-   @onpointerdown:stopPropagation="true">
+   cursor="@GetCursor()">
     @Element.Render()
 
     @if (Selected)
     {
-        <ElementSelection Element="Element" Padding="SelectionPadding" AllowDrag="AllowDrag" />
+        <ElementSelection Element="Element" Padding="SelectionPadding" />
     }
 </g>
