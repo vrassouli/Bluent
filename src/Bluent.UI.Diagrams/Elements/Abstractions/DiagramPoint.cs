@@ -11,4 +11,9 @@ public record DiagramPoint(double X, double Y)
     {
         return new Distance2D(a.X - b.X, a.Y - b.Y);
     }
+
+    public override string ToString()
+    {
+        return $"({X}, {Y})";
+    }
 }

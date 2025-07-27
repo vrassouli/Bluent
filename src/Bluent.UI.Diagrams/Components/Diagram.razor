@@ -1,20 +1,26 @@
 ﻿@using Bluent.UI.Diagrams.Tools
 @inherits BluentComponentBase
 
-<SvgCanvas @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
-           Tool="new DrawRectTool()">
+<DrawingCanvas @attributes=AdditionalAttributes
+               id="@Id"
+               class="@GetComponentClass()"
+               style="@Style"
+               SnapSize="@(SnapToGrid ? GridSize : 0)"
+               Tool="new DrawRectTool()">
 
-    <Elements>
-        <Rect Width="100" Height="100" Fill="red" />
-    </Elements>
+    <defs>
+        <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="@GridSize" height="@GridSize">
+            @if (GridPattern is null)
+            {
+                <path fill="none" stroke="#aaa" stroke-width="0.5" d="M 0 0 h @GridSize M 0 0 h 0 M 0 0 v @GridSize M 0 0 v 0"></path>
+            }
+            else
+            {
+                @GridPattern
+            }
+        </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
 
-</SvgCanvas>
 
-@* <svg @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    <rect width="100%" height="100%" fill="red" />
-
-    <circle cx="150" cy="100" r="80" fill="green" />
-
-    <text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text>
-</svg>
- *@
+</DrawingCanvas>

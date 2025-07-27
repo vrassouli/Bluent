@@ -38,6 +38,7 @@ public partial class DrawingCanvas
     public IEnumerable<IDrawingElement> Elements => _elements;
 
     private string Cursor => Tool?.Cursor ?? "auto";
+    public double Scale => _scale;
 
     public event EventHandler<PointerEventArgs>? PointerCancel;
     public event EventHandler<PointerEventArgs>? PointerDown;
@@ -99,6 +100,16 @@ public partial class DrawingCanvas
         }
 
         base.OnParametersSet();
+    }
+
+    public override IEnumerable<string> GetClasses()
+    {
+        yield return "bui-drawing-canvas";
+    }
+    string _log = "";
+    internal void Log(string log)
+    {
+        _log += log + "<br/>";
     }
 
     protected override bool ShouldRender()
@@ -197,32 +208,23 @@ public partial class DrawingCanvas
 
     internal void ZoomIn(DiagramPoint point)
     {
-        // Get current screen position of the diagram point before zoom
-        var screenBefore = DiagramToScreen(point);
-
-        // Zoom in
-        _scale += ZoomStep;
-
-        // After zoom, that diagram point would appear at a different screen position
-        var screenAfter = DiagramToScreen(point);
-
-        // Calculate how much it moved due to zoom
-        var dx = screenAfter.X - screenBefore.X;
-        var dy = screenAfter.Y - screenBefore.Y;
-
-        // Offset pan to keep the point visually fixed
-        SetPan(_pan.Dx - dx, _pan.Dy - dy);
-
-        StateHasChanged();
+        SetScale(_scale + ZoomStep, point);
     }
 
     internal void ZoomOut(DiagramPoint point)
     {
+        SetScale(_scale - ZoomStep, point);
+    }
+
+    internal void SetScale(double scale, DiagramPoint point)
+    {
+        var s = Math.Max(scale, ZoomStep);
+
         // Get current screen position of the diagram point before zoom
         var screenBefore = DiagramToScreen(point);
 
         // Zoom out
-        _scale = Math.Max(_scale - ZoomStep, ZoomStep);
+        _scale = s;
 
         // After zoom, that diagram point would appear at a different screen position
         var screenAfter = DiagramToScreen(point);
@@ -252,7 +254,7 @@ public partial class DrawingCanvas
 
         return new ScreenPoint(x, y);
     }
-    
+
     internal DiagramPoint SnapToGrid(DiagramPoint point)
     {
         if (SnapSize <= 0)
@@ -267,6 +269,16 @@ public partial class DrawingCanvas
             CommandManager.Do(cmd);
         else
             cmd.Do();
+    }
+
+    public void ResetScale()
+    {
+        SetScale(1, new DiagramPoint());
+    }
+
+    public void ResetPan()
+    {
+        _pan = new();
     }
 
     #region Event Handlers
