@@ -241,10 +241,20 @@ public partial class DrawingCanvas
 
     internal DiagramPoint ScreenToDiagram(ScreenPoint point)
     {
+        return ScreenToDiagram(point, SnapSize);
+    }
+
+    internal DiagramPoint ScreenToDiagram(ScreenPoint point, int? snapSize = null)
+    {
         var x = (point.X - _pan.Dx) / _scale;
         var y = (point.Y - _pan.Dy) / _scale;
 
-        return SnapToGrid(new DiagramPoint(x, y));
+        var newPoint = new DiagramPoint(x, y);
+
+        if (snapSize is null)
+            return newPoint;
+
+        return SnapToGrid(newPoint, snapSize.Value);
     }
 
     internal ScreenPoint DiagramToScreen(DiagramPoint point)
@@ -257,10 +267,15 @@ public partial class DrawingCanvas
 
     internal DiagramPoint SnapToGrid(DiagramPoint point)
     {
-        if (SnapSize <= 0)
+        return SnapToGrid(point, SnapSize);
+    }
+
+    private DiagramPoint SnapToGrid(DiagramPoint point, int snapSize)
+    {
+        if (snapSize <= 0)
             return point;
 
-        return new DiagramPoint(Math.Round((double)point.X / SnapSize) * SnapSize, Math.Round((double)point.Y / SnapSize) * SnapSize);
+        return new DiagramPoint(Math.Round((double)point.X / snapSize) * snapSize, Math.Round((double)point.Y / snapSize) * snapSize);
     }
 
     public void ExecuteCommand(ICommand cmd)

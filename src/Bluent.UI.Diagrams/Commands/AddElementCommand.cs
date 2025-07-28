@@ -4,7 +4,7 @@ using Bluent.UI.Diagrams.Elements;
 
 namespace Bluent.UI.Diagrams.Commands;
 
-internal class AddElementCommand : ICommand
+public class AddElementCommand : ICommand
 {
     private readonly DrawingCanvas _canvas;
     private readonly IDrawingElement _element;

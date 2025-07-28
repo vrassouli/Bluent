@@ -2,15 +2,18 @@
 @using Bluent.UI.Diagrams.Tools
 
 <Toolbar>
-    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" />
-    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="icon-ic_fluent_circle_hint_cursor_20_filled" OnClick="SelectAreaSelectTool" Toggled="@(_tool is AreaSelectTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(Tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(Tool is null)" />
+    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="icon-ic_fluent_circle_hint_cursor_20_filled" OnClick="SelectAreaSelectTool" Toggled="@(Tool is AreaSelectTool)" />
     <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" OnClick="Undo" disabled="@(!_canUndo)" />
     <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" OnClick="Redo" disabled="@(!_canRedo)" />
     <ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(_tool is DrawLineTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(Tool is DrawLineTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(Tool is DrawRectTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(Tool is DrawCircleTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_diamond_20_regular" ActiveIcon="icon-ic_fluent_diamond_20_filled" OnClick="SelectDiamondTool" Toggled="@(Tool is DrawDiamondTool)" />
+    <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_ink_stroke_20_regular" ActiveIcon="icon-ic_fluent_ink_stroke_20_filled" OnClick="SelectInkToShapeTool" Toggled="@(Tool is InkToShapeTool)" />
 </Toolbar>
 
 <Stack Orientation="Orientation.Horizontal" Class="flex-fill">
@@ -37,7 +40,8 @@
         </Button>
     </Stack>
 
-    <DrawingCanvas Tool="_tool"
+    <DrawingCanvas @ref=_canvas
+                   Tool="Tool"
                    Selection="Core.SelectionMode.Multiple"
                    OnToolOperationCompleted="ToolOperationCompleted"
                    CommandManager="_commandManager"

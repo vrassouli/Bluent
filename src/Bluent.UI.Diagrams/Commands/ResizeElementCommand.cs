@@ -1,11 +1,10 @@
 ﻿using Bluent.Core;
 using Bluent.UI.Diagrams.Components.Internals;
 using Bluent.UI.Diagrams.Elements;
-using System.Xml.Linq;
 
 namespace Bluent.UI.Diagrams.Commands;
 
-internal class ResizeElementCommand : ICommand
+public class ResizeElementCommand : ICommand
 {
     private IDrawingElement _element;
     private ResizeAnchor _resizeAnchor;

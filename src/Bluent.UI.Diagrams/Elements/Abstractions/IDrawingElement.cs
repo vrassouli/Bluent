@@ -12,6 +12,8 @@ public interface IDrawingElement : INotifyPropertyChanged
     Boundary Boundary { get; }
     string? Fill { get; set; }
     string? Stroke { get; set; }
+    double? StrokeWidth { get; set; }
+    string? StrokeDashArray { get; set; }
     bool AllowHorizontalDrag { get; }
     IEnumerable<ResizeAnchor> ResizeAnchors { get; }
     RenderFragment Render();

@@ -3,7 +3,7 @@ using Bluent.UI.Diagrams.Elements;
 
 namespace Bluent.UI.Diagrams.Commands;
 
-internal class DragElementsCommand : ICommand
+public class DragElementsCommand : ICommand
 {
     private readonly List<IDrawingElement> _elements;
     private readonly Distance2D _drag;

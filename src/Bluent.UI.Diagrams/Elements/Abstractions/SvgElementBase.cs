@@ -1,12 +1,11 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements;
 
-internal abstract class SvgElementBase : IDrawingElement
+public abstract class SvgElementBase : IDrawingElement
 {
     private Distance2D _drag = new();
     private double _deltaLeft;
@@ -76,6 +75,8 @@ internal abstract class SvgElementBase : IDrawingElement
     }
     public string? Fill { get; set; }
     public string? Stroke { get; set; }
+    public double? StrokeWidth { get; set; }
+    public string? StrokeDashArray { get; set; }
     public abstract Boundary Boundary { get; }
     public virtual bool AllowHorizontalDrag { get; } = true;
     public virtual bool AllowVerticalDrag { get; } = true;

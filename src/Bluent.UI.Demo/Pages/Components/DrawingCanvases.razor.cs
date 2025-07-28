@@ -1,11 +1,14 @@
 ﻿using Bluent.Core;
+using Bluent.UI.Diagrams.Commands;
+using Bluent.UI.Diagrams.Components;
+using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Tools;
+using Bluent.UI.Diagrams.Tools.Utilities;
 
 namespace Bluent.UI.Demo.Pages.Components;
 
 public partial class DrawingCanvases
 {
-    private ISvgTool? _tool;
     private bool _canUndo;
     private bool _canRedo;
 
@@ -13,6 +16,8 @@ public partial class DrawingCanvases
     private string _strokeColor = "#f6b73c";
     private int _strokeWidth = 1;
     private CommandManager _commandManager;
+    private ISvgTool? _tool;
+    private DrawingCanvas? _canvas;
 
     public string FillColor
     {
@@ -20,7 +25,7 @@ public partial class DrawingCanvases
         set
         {
             _fillColor = value;
-            if (_tool is ISvgDrawingTool drawingTool)
+            if (Tool is ISvgDrawingTool drawingTool)
                 drawingTool.Fill = _fillColor;
         }
     }
@@ -30,7 +35,7 @@ public partial class DrawingCanvases
         set
         {
             _strokeColor = value;
-            if (_tool is ISvgDrawingTool drawingTool)
+            if (Tool is ISvgDrawingTool drawingTool)
                 drawingTool.Stroke = _strokeColor;
         }
     }
@@ -41,8 +46,23 @@ public partial class DrawingCanvases
         set
         {
             _strokeWidth = value;
-            if (_tool is ISvgDrawingTool drawingTool)
+            if (Tool is ISvgDrawingTool drawingTool)
                 drawingTool.StrokeWidth = _strokeWidth;
+        }
+    }
+    private ISvgTool? Tool
+    {
+        get => _tool;
+        set
+        {
+            if (_tool != value)
+            {
+                UnbindToolEvents();
+
+                _tool = value;
+
+                BindToolEvents();
+            }
         }
     }
 
@@ -75,13 +95,62 @@ public partial class DrawingCanvases
 
     private void SetStrokeWidth(int width) => StrokeWidth = width;
 
-    private void DeselectTool() => _tool = null;
-    private void SelectAreaSelectTool() => _tool = new AreaSelectTool();
-    private void SelectLineTool() => _tool = new DrawLineTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
-    private void SelectRectTool() => _tool = new DrawRectTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
-    private void SelectCircleTool() => _tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void DeselectTool() => Tool = null;
+    private void SelectAreaSelectTool() => Tool = new AreaSelectTool();
+    private void SelectLineTool() => Tool = new DrawLineTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectRectTool() => Tool = new DrawRectTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectCircleTool() => Tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectDiamondTool() => Tool = new DrawDiamondTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectInkToShapeTool() => Tool = new InkToShapeTool() { };
     private void ToolOperationCompleted()
     {
-            _tool = null;
+        if (Tool is not InkToShapeTool)
+            Tool = null;
+    }
+
+    private void UnbindToolEvents()
+    {
+        if (_tool is InkToShapeTool inkToShapeTool)
+            inkToShapeTool.OnShapeDetected -= OnShapeDetected;
+    }
+
+    private void BindToolEvents()
+    {
+        if (_tool is InkToShapeTool inkToShapeTool)
+            inkToShapeTool.OnShapeDetected += OnShapeDetected;
+    }
+
+    private void OnShapeDetected(object? sender, ShapeDetectionResult e)
+    {
+        if (_canvas is null)
+            return;
+
+        IDrawingElement? element = null;
+
+        if (e.Shape == CommonShapes.Circle)
+        {
+            var r = DiagramPoint.GetDistance(e.StartPoint, e.CenterPoint);
+            element = new CircleElement(e.CenterPoint.X, e.CenterPoint.Y, r);
+        }
+        else if (e.Shape == CommonShapes.Rectangle)
+        {
+            var width = Math.Abs((e.CenterPoint - e.StartPoint).Dx * 2);
+            var height = Math.Abs((e.CenterPoint - e.StartPoint).Dy * 2);
+            element = new RectElement(e.StartPoint.X, e.StartPoint.Y, width, height);
+        }
+        else if (e.Shape == CommonShapes.Diamond)
+        {
+            var width = Math.Abs((e.CenterPoint - e.StartPoint).Dx * 2);
+            var height = Math.Abs((e.CenterPoint - e.StartPoint).Dy * 2);
+            element = new DiamondElement(e.StartPoint.X, e.StartPoint.Y, width, height);
+        }
+
+        if (element is not null)
+        {
+            element.Stroke = StrokeColor;
+            element.StrokeWidth = StrokeWidth;
+            element.Fill = FillColor;
+            _canvas.ExecuteCommand(new AddElementCommand(_canvas, element));
+        }
     }
 }

@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements;
 
-internal class LineElement : SvgElementBase
+public class LineElement : SvgElementBase
 {
     private double _x1;
     private double _x2;
     private double _y1;
     private double _y2;
-    private double? _strokeWidth;
 
     public LineElement(double x1, double y1, double x2, double y2)
     {
@@ -68,18 +67,6 @@ internal class LineElement : SvgElementBase
             }
         }
     }
-    public double? StrokeWidth
-    {
-        get => _strokeWidth;
-        set
-        {
-            if (StrokeWidth != value)
-            {
-                _strokeWidth = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
 
     public override Boundary Boundary => new Boundary(Math.Min(X1, X2),
                                                       Math.Min(Y1, Y2),
@@ -98,10 +85,11 @@ internal class LineElement : SvgElementBase
             builder.AddAttribute(seq++, "x2", X2);
             builder.AddAttribute(seq++, "y1", Y1);
             builder.AddAttribute(seq++, "y2", Y2);
-            builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
 
             builder.AddAttribute(seq++, "fill", Fill);
             builder.AddAttribute(seq++, "stroke", Stroke);
+            builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
+            builder.AddAttribute(seq++, "stroke-dasharray", StrokeDashArray);
 
             builder.CloseElement();
         };

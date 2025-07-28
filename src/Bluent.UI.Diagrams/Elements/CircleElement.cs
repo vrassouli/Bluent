@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements;
 
-internal class CircleElement : SvgElementBase
+public class CircleElement : SvgElementBase
 {
     private double _cx;
     private double _cy;
     private double _r;
-    private double? _strokeWidth;
 
     public CircleElement(double cx, double cy, double r)
     {
@@ -54,18 +53,6 @@ internal class CircleElement : SvgElementBase
             }
         }
     }
-    public double? StrokeWidth
-    {
-        get => _strokeWidth;
-        set
-        {
-            if (StrokeWidth != value)
-            {
-                _strokeWidth = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
 
     public override Boundary Boundary => new Boundary(CX - R, CY - R, R * 2, R * 2);
 
@@ -80,10 +67,11 @@ internal class CircleElement : SvgElementBase
             builder.AddAttribute(seq++, "cx", CX);
             builder.AddAttribute(seq++, "cy", CY);
             builder.AddAttribute(seq++, "r", R);
-            builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
 
             builder.AddAttribute(seq++, "fill", Fill);
             builder.AddAttribute(seq++, "stroke", Stroke);
+            builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
+            builder.AddAttribute(seq++, "stroke-dasharray", StrokeDashArray);
 
             builder.CloseElement();
         };
