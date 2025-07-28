@@ -5,7 +5,14 @@ using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public abstract class DiagramNode : IDrawingElement
+public interface IDiagramElement : IDrawingElement;
+public interface IDiagramElementContainer
+{
+    void AddElement(IDiagramElement element);
+    void RemoveElement(IDiagramElement element);
+}
+
+public abstract class DiagramNode : IDiagramElement
 {
     private Distance2D _drag = new();
     private double _x;
@@ -20,6 +27,7 @@ public abstract class DiagramNode : IDrawingElement
     private double? _strokeWidth;
     private string? _strokeDashArray;
     private string? _fill;
+    private string? _text;
 
     public bool AllowHorizontalDrag => true;
 
@@ -75,6 +83,19 @@ public abstract class DiagramNode : IDrawingElement
             if (_height != value)
             {
                 _height = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+
+    public string? Text
+    {
+        get => _text;
+        set
+        {
+            if (_text != value)
+            {
+                _text = value;
                 NotifyPropertyChanged();
             }
         }
@@ -276,9 +297,20 @@ public abstract class DiagramNode : IDrawingElement
             yield return ResizeAnchor.Right | ResizeAnchor.Bottom;
         }
     }
-    
+
     protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+}
+
+public abstract class DiagramContainerNode : DiagramNode, IDiagramElementContainer
+{
+    private List<IDiagramElement> _elements = new();
+
+    public IReadOnlyList<IDiagramElement> Elements => _elements;
+
+    public void AddElement(IDiagramElement element) => _elements.Add(element);
+
+    public void RemoveElement(IDiagramElement element) => _elements.Remove(element);
 }

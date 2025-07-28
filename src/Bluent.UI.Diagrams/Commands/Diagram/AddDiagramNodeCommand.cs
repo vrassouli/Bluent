@@ -1,22 +1,26 @@
-﻿using Bluent.UI.Diagrams.Commands.Basic;
-using Bluent.UI.Diagrams.Components;
+﻿using Bluent.Core;
 using Bluent.UI.Diagrams.Elements.Diagram;
 
 namespace Bluent.UI.Diagrams.Commands.Diagram;
 
-internal class AddDiagramNodeCommand : AddElementCommand
+internal class AddDiagramNodeCommand : ICommand
 {
-    public AddDiagramNodeCommand(DrawingCanvas canvas, DiagramNode element) : base(canvas, element)
+    private readonly IDiagramElementContainer _container;
+    private readonly IDiagramElement _element;
+
+    public AddDiagramNodeCommand(IDiagramElementContainer container, IDiagramElement element) 
     {
+        _container = container;
+        _element = element;
     }
 
-    public override void Do()
+    public void Do()
     {
-        base.Do();
+        _container.AddElement(_element);
     }
 
-    public override void Undo()
+    public void Undo()
     {
-        base.Undo();
+        _container.RemoveElement(_element);
     }
 }

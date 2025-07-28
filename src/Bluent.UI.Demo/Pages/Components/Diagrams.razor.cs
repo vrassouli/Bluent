@@ -66,7 +66,7 @@ public partial class Diagrams
     private void SelectAreaSelectTool() => Tool = new DiagramAreaSelectTool();
     //private void SelectLineTool() => Tool = new DrawLineTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     private void SelectRectTool() => Tool = new DrawRectangleNodeTool() { };
-    //private void SelectCircleTool() => Tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectCircleTool() => Tool = new DrawCircleNodeTool() { };
     //private void SelectDiamondTool() => Tool = new DrawDiamondTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     //private void SelectInkToShapeTool() => Tool = new InkToShapeTool() { };
     private void ToolOperationCompleted()

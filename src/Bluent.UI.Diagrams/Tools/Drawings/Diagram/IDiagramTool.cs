@@ -2,4 +2,5 @@
 
 public interface IDiagramTool : ITool
 {
+    void Register(Components.Diagram diagram);
 }
