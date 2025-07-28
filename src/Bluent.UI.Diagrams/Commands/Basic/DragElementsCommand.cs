@@ -1,7 +1,7 @@
 ﻿using Bluent.Core;
 using Bluent.UI.Diagrams.Elements;
 
-namespace Bluent.UI.Diagrams.Commands;
+namespace Bluent.UI.Diagrams.Commands.Basic;
 
 public class DragElementsCommand : ICommand
 {

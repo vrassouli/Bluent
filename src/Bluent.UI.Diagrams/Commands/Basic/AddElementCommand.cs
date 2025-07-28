@@ -2,12 +2,14 @@
 using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
 
-namespace Bluent.UI.Diagrams.Commands;
+namespace Bluent.UI.Diagrams.Commands.Basic;
 
 public class AddElementCommand : ICommand
 {
     private readonly DrawingCanvas _canvas;
     private readonly IDrawingElement _element;
+
+    protected IDrawingElement Element => Element;
 
     public AddElementCommand(DrawingCanvas canvas, IDrawingElement element)
     {
@@ -15,12 +17,12 @@ public class AddElementCommand : ICommand
         _element = element;
     }
 
-    public void Do()
+    public virtual void Do()
     {
         _canvas.AddElement(_element);
     }
 
-    public void Undo()
+    public virtual void Undo()
     {
         _canvas.RemoveElement(_element);
     }

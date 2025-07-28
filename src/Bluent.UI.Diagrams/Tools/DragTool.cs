@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Diagrams.Commands;
+﻿using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;

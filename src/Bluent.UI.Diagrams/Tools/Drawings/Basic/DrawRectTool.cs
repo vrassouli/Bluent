@@ -1,15 +1,18 @@
-﻿using Bluent.UI.Diagrams.Commands;
+﻿using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Basic;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace Bluent.UI.Diagrams.Tools;
+namespace Bluent.UI.Diagrams.Tools.Drawings.Basic;
 
-public class DrawDiamondTool : SvgDrawingToolBase
+public class DrawRectTool : ElementDrawingToolBase
 {
     private long? _pointerId;
-    private DiagramPoint _center = new();
-    private DiamondElement? _element;
+    private DiagramPoint? _startPoint;
+    private double _width;
+    private double _height;
+    private RectElement? _element;
 
     public override string Cursor => "crosshair";
 
@@ -19,14 +22,15 @@ public class DrawDiamondTool : SvgDrawingToolBase
             return;
 
         _pointerId = e.PointerId;
-        _center = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        _element = new DiamondElement(_center.X, _center.Y);
+        _startPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+
+        _element = new RectElement(_startPoint.X, _startPoint.Y, _width, _height);
         _element.Fill = Fill;
         _element.Stroke = Stroke;
         _element.StrokeWidth = StrokeWidth;
-
-        Canvas.AddElement(_element);
+        
+        Canvas?.AddElement(_element);
     }
 
     protected override void OnPointerMove(PointerEventArgs e)
@@ -34,12 +38,22 @@ public class DrawDiamondTool : SvgDrawingToolBase
         if (_pointerId is null || Canvas is null)
             return;
 
-        var current = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+        var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+        _width = endPoint.X - (_startPoint?.X ?? 0);
+        _height = endPoint.Y - (_startPoint?.Y ?? 0);
 
         if (_element is not null)
         {
-            _element.Width = Math.Abs(current.X - _center.X);
-            _element.Height = Math.Abs(current.Y - _center.Y);
+            // As rect does not support negative width and height
+            // we have to shift the rect in x or y axis
+            if (_width < 0)
+                _element.X = (_startPoint?.X ?? 0) + _width;
+            
+            if (_height < 0)
+                _element.Y = (_startPoint?.Y ?? 0) + _height;
+
+            _element.Width = Math.Abs(_width);
+            _element.Height = Math.Abs(_height);
         }
     }
 
@@ -53,6 +67,7 @@ public class DrawDiamondTool : SvgDrawingToolBase
             Canvas.RemoveElement(_element);
             Canvas.ExecuteCommand(new AddElementCommand(Canvas, _element));
         }
+
         Reset();
     }
 
@@ -78,6 +93,8 @@ public class DrawDiamondTool : SvgDrawingToolBase
     {
         _pointerId = null;
         _element = null;
-        _center = new();
+        _startPoint = null;
+        _width = 0;
+        _height = 0;
     }
 }

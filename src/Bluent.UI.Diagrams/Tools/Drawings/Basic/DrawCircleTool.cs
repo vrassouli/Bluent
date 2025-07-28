@@ -1,20 +1,17 @@
-﻿using Bluent.UI.Diagrams.Commands;
+﻿using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Basic;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Bluent.UI.Diagrams.Tools;
+namespace Bluent.UI.Diagrams.Tools.Drawings.Basic;
 
-public class DrawLineTool : SvgDrawingToolBase
+public class DrawCircleTool : ElementDrawingToolBase
 {
     private long? _pointerId;
-    private DiagramPoint? _startPoint;
-    private LineElement? _element;
+    private DiagramPoint _center = new();
+    private double _r;
+    private CircleElement? _element;
 
     public override string Cursor => "crosshair";
 
@@ -24,14 +21,14 @@ public class DrawLineTool : SvgDrawingToolBase
             return;
 
         _pointerId = e.PointerId;
-        _startPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+        _center = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        _element = new LineElement(_startPoint.X, _startPoint.Y, _startPoint.X, _startPoint.Y);
+        _element = new CircleElement(_center.X, _center.Y, _r);
         _element.Fill = Fill;
         _element.Stroke = Stroke;
         _element.StrokeWidth = StrokeWidth;
 
-        Canvas?.AddElement(_element);
+        Canvas.AddElement(_element);
     }
 
     protected override void OnPointerMove(PointerEventArgs e)
@@ -39,12 +36,11 @@ public class DrawLineTool : SvgDrawingToolBase
         if (_pointerId is null || Canvas is null)
             return;
 
-        var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+        _r = Canvas.ScreenToDiagram(e.ToOffsetPoint()).X - _center.X;
 
         if (_element is not null)
         {
-            _element.X2 = endPoint.X;
-            _element.Y2 = endPoint.Y;
+            _element.R = Math.Abs(_r);
         }
     }
 
@@ -58,7 +54,6 @@ public class DrawLineTool : SvgDrawingToolBase
             Canvas.RemoveElement(_element);
             Canvas.ExecuteCommand(new AddElementCommand(Canvas, _element));
         }
-
         Reset();
     }
 
@@ -84,6 +79,7 @@ public class DrawLineTool : SvgDrawingToolBase
     {
         _pointerId = null;
         _element = null;
-        _startPoint = null;
+        _center = new();
+        _r = 0;
     }
 }

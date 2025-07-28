@@ -2,7 +2,7 @@
 
 namespace Bluent.UI.Diagrams.Tools;
 
-public interface ISvgTool
+public interface ITool
 {
     event EventHandler? Completed;
     string Cursor { get; }

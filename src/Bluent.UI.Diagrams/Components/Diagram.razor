@@ -1,12 +1,17 @@
-﻿@using Bluent.UI.Diagrams.Tools
+﻿@using Bluent.UI.Diagrams.Tools.Drawings.Basic
+@using Bluent.UI.Diagrams.Tools.Drawings.Diagram
 @inherits BluentComponentBase
 
 <DrawingCanvas @attributes=AdditionalAttributes
                id="@Id"
                class="@GetComponentClass()"
                style="@Style"
-               SnapSize="@(SnapToGrid ? GridSize : 0)"
-               Tool="new DrawRectTool()">
+               SnapSize="@SnapSize"
+               Tool="Tool"
+               Selection="Selection"
+               AllowDrag="AllowDrag"
+               AllowPan="AllowPan"
+               AllowScale="AllowScale">
 
     <defs>
         <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="@GridSize" height="@GridSize">

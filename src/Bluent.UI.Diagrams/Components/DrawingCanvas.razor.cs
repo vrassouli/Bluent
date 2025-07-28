@@ -19,14 +19,14 @@ public partial class DrawingCanvas
     private double _scale = 1;
     private Distance2D _pan = new();
     private Distance2D _activePan = new();
-    private ISvgTool? _tool;
+    private ITool? _tool;
     private List<IDrawingElement> _elements = new();
     private List<IDrawingElement> _selectedElements = new();
-    private List<ISvgTool> _internalTools = new();
+    private List<ITool> _internalTools = new();
 
     [Parameter] public CommandManager? CommandManager { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public ISvgTool? Tool { get; set; }
+    [Parameter] public ITool? Tool { get; set; }
     [Parameter] public SelectionMode Selection { get; set; } = SelectionMode.None;
     [Parameter] public EventCallback OnToolOperationCompleted { get; set; }
     [Parameter] public bool AllowDrag { get; set; }

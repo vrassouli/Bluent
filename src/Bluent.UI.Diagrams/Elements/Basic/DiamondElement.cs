@@ -1,54 +1,35 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.Diagrams.Elements;
+namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class RectElement : SvgElementBase
+public class DiamondElement : DrawingElementBase
 {
-    private double? _x;
-    private double? _y;
+    private double _cx;
+    private double _cy;
     private double _width;
     private double _height;
-    private double? _rx;
-    private double? _ry;
 
-    public RectElement(double? x, double? y, double width, double height, double? rx, double? ry)
+    public double Cx
     {
-        _x = x;
-        _y = y;
-        _width = width;
-        _height = height;
-        _rx = rx;
-        _ry = ry;
-    }
-    public RectElement(double? x, double? y, double width, double height)
-    {
-        _x = x;
-        _y = y;
-        _width = width;
-        _height = height;
-    }
-
-    public double? X
-    {
-        get => _x + Drag.Dx + DeltaLeft;
+        get => _cx + Drag.Dx;
         set
         {
-            if (_x != value)
+            if (_cx != value)
             {
-                _x = value;
+                _cx = value;
                 NotifyPropertyChanged();
             }
         }
     }
-    public double? Y
+    public double Cy
     {
-        get => _y + Drag.Dy + DeltaTop;
+        get => _cy + Drag.Dy;
         set
         {
-            if (_y != value)
+            if (_cy != value)
             {
-                _y = value;
+                _cy = value;
                 NotifyPropertyChanged();
             }
         }
@@ -58,7 +39,7 @@ public class RectElement : SvgElementBase
         get => _width - DeltaLeft + DeltaRight;
         set
         {
-            if (Width != value)
+            if (_width != value)
             {
                 _width = value;
                 NotifyPropertyChanged();
@@ -70,39 +51,28 @@ public class RectElement : SvgElementBase
         get => _height - DeltaTop + DeltaBottom;
         set
         {
-            if (Height != value)
+            if (_height != value)
             {
                 _height = value;
                 NotifyPropertyChanged();
             }
         }
     }
-    public double? Rx
+
+    public DiamondElement(double cx, double cy)
+        : this(cx, cy, 0, 0)
     {
-        get => _rx;
-        set
-        {
-            if (Rx != value)
-            {
-                _rx = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
-    public double? Ry
-    {
-        get => _ry;
-        set
-        {
-            if (_ry != value)
-            {
-                _ry = value;
-                NotifyPropertyChanged();
-            }
-        }
     }
 
-    public override Boundary Boundary => new Boundary(X ?? 0, Y ?? 0, Width, Height);
+    public DiamondElement(double cx, double cy, double width, double height)
+    {
+        _cx = cx;
+        _cy = cy;
+        _width = width;
+        _height = height;
+    }
+
+    public override Boundary Boundary => new Boundary(Cx - Width/2, Cy - Height/2, Width, Height);
 
     public override RenderFragment Render()
     {
@@ -110,14 +80,9 @@ public class RectElement : SvgElementBase
         {
             int seq = 0;
 
-            builder.OpenElement(seq++, "rect");
+            builder.OpenElement(seq++, "path");
 
-            builder.AddAttribute(seq++, "x", X);
-            builder.AddAttribute(seq++, "y", Y);
-            builder.AddAttribute(seq++, "width", Width);
-            builder.AddAttribute(seq++, "height", Height);
-            builder.AddAttribute(seq++, "rx", Rx);
-            builder.AddAttribute(seq++, "ry", Ry);
+            builder.AddAttribute(seq++, "d", GetPathData());
 
             builder.AddAttribute(seq++, "fill", Fill);
             builder.AddAttribute(seq++, "stroke", Stroke);
@@ -136,13 +101,13 @@ public class RectElement : SvgElementBase
             yield return ResizeAnchor.Right;
         }
 
-        if(AllowVerticalResize)
+        if (AllowVerticalResize)
         {
             yield return ResizeAnchor.Top;
             yield return ResizeAnchor.Bottom;
         }
 
-        if(AllowVerticalResize && AllowHorizontalResize)
+        if (AllowVerticalResize && AllowHorizontalResize)
         {
             yield return ResizeAnchor.Left | ResizeAnchor.Top;
             yield return ResizeAnchor.Left | ResizeAnchor.Bottom;
@@ -151,10 +116,15 @@ public class RectElement : SvgElementBase
         }
     }
 
+    private string GetPathData()
+    {
+        return $"M{Cx - Width / 2} {Cy} l{Width / 2} {-Height / 2} l{Width / 2} {Height / 2} l{-Width / 2} {Height / 2} l{-Width / 2} {-Height / 2} Z";
+    }
+
     public override void ApplyDrag()
     {
-        _x += Drag.Dx;
-        _y += Drag.Dy;
+        _cx += Drag.Dx;
+        _cy += Drag.Dy;
         NotifyPropertyChanged();
 
         base.ApplyDrag();
@@ -162,9 +132,7 @@ public class RectElement : SvgElementBase
 
     public override void ApplyResize()
     {
-        _x = _x + DeltaLeft;
         _width = _width - DeltaLeft + DeltaRight;
-        _y = _y + DeltaTop;
         _height = _height - DeltaTop + DeltaBottom;
 
         NotifyPropertyChanged();

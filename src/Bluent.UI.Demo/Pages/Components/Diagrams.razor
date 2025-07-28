@@ -1,17 +1,20 @@
 ﻿@page "/components/diagrams"
+@using Bluent.UI.Diagrams.Tools.Drawings.Diagram
 
 <Toolbar>
-    Toolbar...
-    @*     <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" />
-    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="icon-ic_fluent_circle_hint_cursor_20_filled" OnClick="SelectAreaSelectTool" Toggled="@(_tool is AreaSelectTool)" />
-    <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" />
+
+    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="icon-ic_fluent_circle_hint_cursor_20_filled" OnClick="SelectAreaSelectTool" Toggled="@(_tool is DiagramAreaSelectTool)" />
+    @*    <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" OnClick="Undo" disabled="@(!_canUndo)" />
     <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" OnClick="Redo" disabled="@(!_canRedo)" />
     <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(_tool is DrawLineTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleTool)" />
- *@</Toolbar>
+ *@    
+    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectangleNodeTool)" />
+    @* <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleTool)" /> *@
+
+</Toolbar>
 
 <Stack Orientation="Orientation.Horizontal" Class="flex-fill">
     <Stack Orientation="Orientation.Vertical" Class="gap-1" HorizontalAlignment="StackAlignment.Start">
@@ -19,13 +22,16 @@
     </Stack>
 
     <Diagram Class="flex-fill"
-             GridSize="20"
-             SnapToGrid>
+             GridSize="10"
+             Tool="Tool"
+             AllowDrag
+             AllowPan
+             AllowScale>
         <GridPattern>
             <circle cx="0" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-            <circle cx="0" cy="20" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-            <circle cx="20" cy="20" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-            <circle cx="20" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+            <circle cx="0" cy="10" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+            <circle cx="10" cy="10" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+            <circle cx="10" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
         </GridPattern>
     </Diagram>
 </Stack>

@@ -1,78 +1,77 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.Diagrams.Elements;
+namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class DiamondElement : SvgElementBase
+public class LineElement : DrawingElementBase
 {
-    private double _cx;
-    private double _cy;
-    private double _width;
-    private double _height;
+    private double _x1;
+    private double _x2;
+    private double _y1;
+    private double _y2;
 
-    public double Cx
+    public LineElement(double x1, double y1, double x2, double y2)
     {
-        get => _cx + Drag.Dx;
-        set
-        {
-            if (_cx != value)
-            {
-                _cx = value;
-                NotifyPropertyChanged();
-            }
-        }
+        _x1 = x1;
+        _y1 = y1;
+        _x2 = x2;
+        _y2 = y2;
     }
-    public double Cy
+
+    public double X1
     {
-        get => _cy + Drag.Dy;
+        get => _x1 + Drag.Dx + DeltaLeft;
         set
         {
-            if (_cy != value)
+            if (_x1 != value)
             {
-                _cy = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
-    public double Width
-    {
-        get => _width - DeltaLeft + DeltaRight;
-        set
-        {
-            if (_width != value)
-            {
-                _width = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
-    public double Height
-    {
-        get => _height - DeltaTop + DeltaBottom;
-        set
-        {
-            if (_height != value)
-            {
-                _height = value;
+                _x1 = value;
                 NotifyPropertyChanged();
             }
         }
     }
 
-    public DiamondElement(double cx, double cy)
-        : this(cx, cy, 0, 0)
+    public double Y1
     {
+        get => _y1 + Drag.Dy + DeltaTop;
+        set
+        {
+            if (_y1 != value)
+            {
+                _y1 = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+    public double X2
+    {
+        get => _x2 + Drag.Dx + DeltaRight;
+        set
+        {
+            if (_x2 != value)
+            {
+                _x2 = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+    public double Y2
+    {
+        get => _y2 + Drag.Dy + DeltaBottom;
+        set
+        {
+            if (_y2 != value)
+            {
+                _y2 = value;
+                NotifyPropertyChanged();
+            }
+        }
     }
 
-    public DiamondElement(double cx, double cy, double width, double height)
-    {
-        _cx = cx;
-        _cy = cy;
-        _width = width;
-        _height = height;
-    }
-
-    public override Boundary Boundary => new Boundary(Cx - Width/2, Cy - Height/2, Width, Height);
+    public override Boundary Boundary => new Boundary(Math.Min(X1, X2),
+                                                      Math.Min(Y1, Y2),
+                                                      Math.Max(X1, X2) - Math.Min(X1, X2),
+                                                      Math.Max(Y1, Y2) - Math.Min(Y1, Y2));
 
     public override RenderFragment Render()
     {
@@ -80,9 +79,12 @@ public class DiamondElement : SvgElementBase
         {
             int seq = 0;
 
-            builder.OpenElement(seq++, "path");
+            builder.OpenElement(seq++, "line");
 
-            builder.AddAttribute(seq++, "d", GetPathData());
+            builder.AddAttribute(seq++, "x1", X1);
+            builder.AddAttribute(seq++, "x2", X2);
+            builder.AddAttribute(seq++, "y1", Y1);
+            builder.AddAttribute(seq++, "y2", Y2);
 
             builder.AddAttribute(seq++, "fill", Fill);
             builder.AddAttribute(seq++, "stroke", Stroke);
@@ -116,15 +118,12 @@ public class DiamondElement : SvgElementBase
         }
     }
 
-    private string GetPathData()
-    {
-        return $"M{Cx - Width / 2} {Cy} l{Width / 2} {-Height / 2} l{Width / 2} {Height / 2} l{-Width / 2} {Height / 2} l{-Width / 2} {-Height / 2} Z";
-    }
-
     public override void ApplyDrag()
     {
-        _cx += Drag.Dx;
-        _cy += Drag.Dy;
+        _x1 += Drag.Dx;
+        _x2 += Drag.Dx;
+        _y1 += Drag.Dy;
+        _y2 += Drag.Dy;
         NotifyPropertyChanged();
 
         base.ApplyDrag();
@@ -132,11 +131,14 @@ public class DiamondElement : SvgElementBase
 
     public override void ApplyResize()
     {
-        _width = _width - DeltaLeft + DeltaRight;
-        _height = _height - DeltaTop + DeltaBottom;
+        _x1 = _x1 + DeltaLeft;
+        _y1 = _y1 + DeltaTop;
+        _x2 = _x2 + DeltaRight;
+        _y2 = _y2 + DeltaBottom;
 
         NotifyPropertyChanged();
 
         base.ApplyResize();
     }
+
 }

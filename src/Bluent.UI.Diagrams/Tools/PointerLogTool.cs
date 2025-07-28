@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Tools;
 
-public class PointerLogTool : ISvgTool
+public class PointerLogTool : ITool
 {
     private DrawingCanvas? _canvas;
 

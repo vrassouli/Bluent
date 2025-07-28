@@ -1,9 +1,9 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.Diagrams.Elements;
+namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class CircleElement : SvgElementBase
+public class CircleElement : DrawingElementBase
 {
     private double _cx;
     private double _cy;

@@ -1,6 +1,6 @@
-﻿namespace Bluent.UI.Diagrams.Tools;
+﻿namespace Bluent.UI.Diagrams.Tools.Drawings;
 
-public interface ISvgDrawingTool : ISvgTool
+public interface IElementDrawingTool : ITool
 {
     string? Fill { get; set; }
     string? Stroke { get; set; }

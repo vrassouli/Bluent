@@ -1,9 +1,9 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace Bluent.UI.Diagrams.Tools;
+namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
-public abstract class PointerToolBase : ISvgTool
+public abstract class DiagramPointerToolBase : IDiagramTool
 {
     private List<PointerEventArgs> _pointers = new();
 

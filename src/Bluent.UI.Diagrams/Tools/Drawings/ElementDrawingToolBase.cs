@@ -1,9 +1,10 @@
 ﻿using Bluent.UI.Diagrams.Components;
+using Bluent.UI.Diagrams.Tools.Drawings;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Tools;
 
-public abstract class SvgDrawingToolBase : ISvgDrawingTool
+public abstract class ElementDrawingToolBase : IElementDrawingTool
 {
     protected DrawingCanvas? Canvas { get; private set; }
     public string? Fill { get; set; }

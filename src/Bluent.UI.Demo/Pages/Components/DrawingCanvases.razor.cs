@@ -1,8 +1,11 @@
 ﻿using Bluent.Core;
-using Bluent.UI.Diagrams.Commands;
+using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Basic;
 using Bluent.UI.Diagrams.Tools;
+using Bluent.UI.Diagrams.Tools.Drawings;
+using Bluent.UI.Diagrams.Tools.Drawings.Basic;
 using Bluent.UI.Diagrams.Tools.Utilities;
 
 namespace Bluent.UI.Demo.Pages.Components;
@@ -16,7 +19,7 @@ public partial class DrawingCanvases
     private string _strokeColor = "#f6b73c";
     private int _strokeWidth = 1;
     private CommandManager _commandManager;
-    private ISvgTool? _tool;
+    private ITool? _tool;
     private DrawingCanvas? _canvas;
 
     public string FillColor
@@ -25,7 +28,7 @@ public partial class DrawingCanvases
         set
         {
             _fillColor = value;
-            if (Tool is ISvgDrawingTool drawingTool)
+            if (Tool is IElementDrawingTool drawingTool)
                 drawingTool.Fill = _fillColor;
         }
     }
@@ -35,7 +38,7 @@ public partial class DrawingCanvases
         set
         {
             _strokeColor = value;
-            if (Tool is ISvgDrawingTool drawingTool)
+            if (Tool is IElementDrawingTool drawingTool)
                 drawingTool.Stroke = _strokeColor;
         }
     }
@@ -46,11 +49,11 @@ public partial class DrawingCanvases
         set
         {
             _strokeWidth = value;
-            if (Tool is ISvgDrawingTool drawingTool)
+            if (Tool is IElementDrawingTool drawingTool)
                 drawingTool.StrokeWidth = _strokeWidth;
         }
     }
-    private ISvgTool? Tool
+    private ITool? Tool
     {
         get => _tool;
         set

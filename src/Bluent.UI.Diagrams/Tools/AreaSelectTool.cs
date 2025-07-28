@@ -1,12 +1,12 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Basic;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
-using System.Net;
 
 namespace Bluent.UI.Diagrams.Tools;
 
-public class AreaSelectTool : ISvgTool
+public class AreaSelectTool : ITool
 {
     private long? _pointerId;
     private DiagramPoint? _startPoint;

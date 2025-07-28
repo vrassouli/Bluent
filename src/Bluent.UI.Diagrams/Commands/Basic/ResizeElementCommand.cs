@@ -2,7 +2,7 @@
 using Bluent.UI.Diagrams.Components.Internals;
 using Bluent.UI.Diagrams.Elements;
 
-namespace Bluent.UI.Diagrams.Commands;
+namespace Bluent.UI.Diagrams.Commands.Basic;
 
 public class ResizeElementCommand : ICommand
 {

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements;
 
-public abstract class SvgElementBase : IDrawingElement
+public abstract class DrawingElementBase : IDrawingElement
 {
     private Distance2D _drag = new();
     private double _deltaLeft;

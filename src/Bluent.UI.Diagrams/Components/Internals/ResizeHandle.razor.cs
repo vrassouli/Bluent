@@ -6,8 +6,6 @@ namespace Bluent.UI.Diagrams.Components.Internals;
 
 public partial class ResizeHandle : IDisposable
 {
-    private long? _pointerId;
-
     [Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter] public double StrokeWidth { get; set; } = 1;
     [Parameter] public string Fill { get; set; } = "#61bffb";

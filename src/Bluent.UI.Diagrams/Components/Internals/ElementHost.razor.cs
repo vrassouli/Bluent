@@ -53,6 +53,7 @@ public partial class ElementHost : ComponentBase
 
     private void HandlePointerDown(PointerEventArgs e)
     {
-        Canvas.SelectElement(Element, e.CtrlKey);
+        if (Canvas.Tool is null)
+            Canvas.SelectElement(Element, e.CtrlKey);
     }
 }

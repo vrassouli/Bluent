@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.Diagrams.Elements;
+namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class PathElement : SvgElementBase
+public class PathElement : DrawingElementBase
 {
     private List<DiagramPoint> _points = new();
 

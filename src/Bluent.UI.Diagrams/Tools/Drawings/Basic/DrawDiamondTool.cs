@@ -1,18 +1,16 @@
-﻿using Bluent.UI.Diagrams.Commands;
-using Bluent.UI.Diagrams.Components;
+﻿using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Basic;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
-using System.Xml.Linq;
 
-namespace Bluent.UI.Diagrams.Tools;
+namespace Bluent.UI.Diagrams.Tools.Drawings.Basic;
 
-public class DrawCircleTool : SvgDrawingToolBase
+public class DrawDiamondTool : ElementDrawingToolBase
 {
     private long? _pointerId;
     private DiagramPoint _center = new();
-    private double _r;
-    private CircleElement? _element;
+    private DiamondElement? _element;
 
     public override string Cursor => "crosshair";
 
@@ -24,7 +22,7 @@ public class DrawCircleTool : SvgDrawingToolBase
         _pointerId = e.PointerId;
         _center = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        _element = new CircleElement(_center.X, _center.Y, _r);
+        _element = new DiamondElement(_center.X, _center.Y);
         _element.Fill = Fill;
         _element.Stroke = Stroke;
         _element.StrokeWidth = StrokeWidth;
@@ -37,11 +35,12 @@ public class DrawCircleTool : SvgDrawingToolBase
         if (_pointerId is null || Canvas is null)
             return;
 
-        _r = Canvas.ScreenToDiagram(e.ToOffsetPoint()).X - _center.X;
+        var current = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
         if (_element is not null)
         {
-            _element.R = Math.Abs(_r);
+            _element.Width = Math.Abs(current.X - _center.X);
+            _element.Height = Math.Abs(current.Y - _center.Y);
         }
     }
 
@@ -81,6 +80,5 @@ public class DrawCircleTool : SvgDrawingToolBase
         _pointerId = null;
         _element = null;
         _center = new();
-        _r = 0;
     }
 }

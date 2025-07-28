@@ -1,5 +1,6 @@
 ﻿@page "/components/drawing-canvases"
 @using Bluent.UI.Diagrams.Tools
+@using Bluent.UI.Diagrams.Tools.Drawings.Basic
 
 <Toolbar>
     <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(Tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(Tool is null)" />
