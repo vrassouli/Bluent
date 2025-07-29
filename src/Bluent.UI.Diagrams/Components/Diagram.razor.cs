@@ -1,4 +1,5 @@
 ﻿using Bluent.Core;
+using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 using Microsoft.AspNetCore.Components;
@@ -18,6 +19,7 @@ public partial class Diagram : IDiagramElementContainer
     [Parameter] public bool AllowDrag { get; set; }
     [Parameter] public bool AllowPan { get; set; }
     [Parameter] public bool AllowScale { get; set; }
+    [Parameter] public CommandManager? CommandManager { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -40,5 +42,28 @@ public partial class Diagram : IDiagramElementContainer
     public void RemoveElement(IDiagramElement element)
     {
         _canvas?.RemoveElement(element);
+    }
+
+    internal IEnumerable<IDrawingElement> GetElementsAt(DiagramPoint point)
+    {
+        if (_canvas is not null)
+        {
+            foreach (var el in _canvas.Elements)
+            {
+                if (el.Boundary.Contains(point))
+                    yield return el;
+            }
+        }
+    }
+
+    internal IEnumerable<IDiagramElementContainer> GetContainersAt(DiagramPoint point)
+    {
+        var elements = GetElementsAt(point);
+
+        foreach (var el in elements)
+            if (el is IDiagramElementContainer container)
+                yield return container;
+
+        yield return this;
     }
 }

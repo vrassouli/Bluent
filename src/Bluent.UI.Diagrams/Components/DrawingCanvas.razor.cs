@@ -3,6 +3,7 @@
 
 using Bluent.Core;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Extensions;
 using Bluent.UI.Diagrams.Tools;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -33,6 +34,7 @@ public partial class DrawingCanvas
     [Parameter] public bool AllowPan { get; set; }
     [Parameter] public bool AllowScale { get; set; }
     [Parameter] public int SnapSize { get; set; }
+    [Parameter] public double SelectionPadding { get; set; } = 7;
 
     public IEnumerable<IDrawingElement> SelectedElements => _selectedElements;
     public IEnumerable<IDrawingElement> Elements => _elements;
@@ -129,13 +131,6 @@ public partial class DrawingCanvas
         _elements.Add(element);
         StateHasChanged();
     }
-
-    //internal void OnElementClicked(IDrawingElement element, bool ctrlKey, bool altKey, bool shiftKey)
-    //{
-    //    ToggleElementSelection(element, ctrlKey);
-
-    //    StateHasChanged();
-    //}
 
     internal void RemoveElement(IDrawingElement element)
     {
@@ -270,6 +265,11 @@ public partial class DrawingCanvas
         return SnapToGrid(point, SnapSize);
     }
 
+    internal bool IsSelected(IDrawingElement element)
+    {
+        return _selectedElements.Contains(element);
+    }
+
     private DiagramPoint SnapToGrid(DiagramPoint point, int snapSize)
     {
         if (snapSize <= 0)
@@ -310,6 +310,8 @@ public partial class DrawingCanvas
 
     private void HandlePointerDown(PointerEventArgs args)
     {
+        //var selectionUpdated = UpdateSelection(ScreenToDiagram(args.ToOffsetPoint()));
+
         _shouldRender = false;
         PointerDown?.Invoke(this, args);
 
@@ -434,11 +436,6 @@ public partial class DrawingCanvas
 
     #endregion
 
-    private bool IsSelected(IDrawingElement element)
-    {
-        return _selectedElements.Contains(element);
-    }
-
     //private void ActivateDragTool()
     //{
     //    var tool = new DragTool();
@@ -478,4 +475,11 @@ public partial class DrawingCanvas
     {
         InvokeAsync(OnToolOperationCompleted.InvokeAsync);
     }
+
+    //private bool UpdateSelection(DiagramPoint point)
+    //{
+    //    var hasSelection = SelectedElements.Any();
+
+        
+    //}
 }

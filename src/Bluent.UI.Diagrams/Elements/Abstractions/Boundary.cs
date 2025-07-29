@@ -13,6 +13,17 @@ public record Boundary(double X, double Y, double Width, double Height)
         return false;
     }
 
+    public bool Contains(DiagramPoint point)
+    {
+        if (point.X >= X &&
+            point.X <= Right &&
+            point.Y >= Y &&
+            point.Y <= Bottom)
+            return true;
+
+        return false;
+    }
+
     public double Cx => X + Width / 2;
     public double Cy => Y + Height / 2;
     public double Right => X + Width;

@@ -24,7 +24,11 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     protected override void OnTargetPointerMove(PointerEventArgs e)
     {
         var startPoint = Canvas.ScreenToDiagram(Pointers.First().ToOffsetPoint());
-        var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+
+        var containers = Diagram.GetContainersAt(startPoint);
+        var container = containers.FirstOrDefault();
+        if (container is null)
+            return;
 
         if (_node is null)
         {
@@ -36,10 +40,11 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
                 Text = Text
             };
 
-            var cmd = new AddDiagramNodeCommand(Diagram, _node);
+            var cmd = new AddDiagramNodeCommand(container, _node);
             Canvas.ExecuteCommand(cmd);
         }
 
+        var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
         var size = endPoint - startPoint;
         if (size.Dx < 0)
             _node.X = startPoint.X + size.Dx;

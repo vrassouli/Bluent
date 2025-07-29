@@ -17,13 +17,12 @@ public partial class ElementSelection : IDisposable
     [Parameter] public string StrokeDashArray { get; set; } = "4 3";
     [Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
-    [Parameter, EditorRequired] public double Padding { get; set; } = 5;
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
-    private Boundary Boundary => new Boundary(Element.Boundary.X - Padding,
-                                              Element.Boundary.Y - Padding,
-                                              Element.Boundary.Width + Padding * 2,
-                                              Element.Boundary.Height + Padding * 2);
+    private Boundary Boundary => new Boundary(Element.Boundary.X - Canvas.SelectionPadding,
+                                              Element.Boundary.Y - Canvas.SelectionPadding,
+                                              Element.Boundary.Width + Canvas.SelectionPadding * 2,
+                                              Element.Boundary.Height + Canvas.SelectionPadding * 2);
 
     private void HandleResizeHandlePointerDown(PointerEventArgs e, ResizeAnchor anchor)
     {

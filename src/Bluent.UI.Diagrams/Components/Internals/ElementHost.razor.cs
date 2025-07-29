@@ -9,14 +9,14 @@ public partial class ElementHost : ComponentBase
     private IDrawingElement? _element;
 
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
-    [Parameter, EditorRequired] public bool Selected { get; set; } = default!;
-    [Parameter] public double SelectionPadding { get; set; } = 7;
-    [Parameter] public bool AllowDrag { get; set; }
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
+    private bool Selected => Canvas.IsSelected(Element);
+
+    private bool CanSelect => !Selected && Canvas.Tool is null;
 
     private string? GetCursor()
     {
-        if (Selected && AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
+        if (Selected && Canvas.AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
             return "grab";
 
         return null;
@@ -51,9 +51,9 @@ public partial class ElementHost : ComponentBase
         StateHasChanged();
     }
 
-    private void HandlePointerDown(PointerEventArgs e)
-    {
-        if (Canvas.Tool is null)
-            Canvas.SelectElement(Element, e.CtrlKey);
-    }
+    //private void HandlePointerDown(PointerEventArgs e)
+    //{
+    //    if (CanSelect)
+    //        Canvas.SelectElement(Element, e.CtrlKey);
+    //}
 }

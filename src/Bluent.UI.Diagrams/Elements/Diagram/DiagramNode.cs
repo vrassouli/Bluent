@@ -215,7 +215,7 @@ public abstract class DiagramNode : IDiagramElement
         }
     }
 
-    public void ApplyDrag()
+    public virtual void ApplyDrag()
     {
         _x += Drag.Dx;
         _y += Drag.Dy;
@@ -224,7 +224,7 @@ public abstract class DiagramNode : IDiagramElement
         NotifyPropertyChanged();
     }
 
-    public void ApplyResize()
+    public virtual void ApplyResize()
     {
         _x = _x + DeltaLeft;
         _width = _width - DeltaLeft + DeltaRight;
@@ -235,12 +235,12 @@ public abstract class DiagramNode : IDiagramElement
         NotifyPropertyChanged();
     }
 
-    public void CancelDrag()
+    public virtual void CancelDrag()
     {
         _drag = new();
     }
 
-    public void CancelResize()
+    public virtual void CancelResize()
     {
         _deltaLeft = 0;
         _deltaTop = 0;
@@ -250,27 +250,27 @@ public abstract class DiagramNode : IDiagramElement
 
     public abstract RenderFragment Render();
 
-    public void ResizeBottom(double dy)
+    public virtual void ResizeBottom(double dy)
     {
         DeltaBottom = dy;
     }
 
-    public void ResizeLeft(double dx)
+    public virtual void ResizeLeft(double dx)
     {
         DeltaLeft = dx;
     }
 
-    public void ResizeRight(double dx)
+    public virtual void ResizeRight(double dx)
     {
         DeltaRight = dx;
     }
 
-    public void ResizeTop(double dy)
+    public virtual void ResizeTop(double dy)
     {
         DeltaTop = dy;
     }
 
-    public void SetDrag(Distance2D drag)
+    public virtual void SetDrag(Distance2D drag)
     {
         Drag = drag;
     }
@@ -310,7 +310,54 @@ public abstract class DiagramContainerNode : DiagramNode, IDiagramElementContain
 
     public IReadOnlyList<IDiagramElement> Elements => _elements;
 
-    public void AddElement(IDiagramElement element) => _elements.Add(element);
+    public void AddElement(IDiagramElement element)
+    {
+        element.PropertyChanged += ChildElementPropertyChanged;
 
-    public void RemoveElement(IDiagramElement element) => _elements.Remove(element);
+        _elements.Add(element);
+        NotifyPropertyChanged(nameof(Elements));
+    }
+
+    public void RemoveElement(IDiagramElement element)
+    {
+        element.PropertyChanged -= ChildElementPropertyChanged;
+       
+        _elements.Remove(element);
+        NotifyPropertyChanged(nameof(Elements));
+    }
+
+    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        NotifyPropertyChanged(nameof(Elements));
+    }
+
+    public override void SetDrag(Distance2D drag)
+    {
+        foreach (var el in Elements)
+        {
+            el.SetDrag(drag);
+        }
+
+        base.SetDrag(drag);
+    }
+
+    public override void CancelDrag()
+    {
+        foreach (var el in Elements)
+        {
+            el.CancelDrag();
+        }
+
+        base.CancelDrag();
+    }
+
+    public override void ApplyDrag()
+    {
+        foreach (var el in Elements)
+        {
+            el.ApplyDrag();
+        }
+
+        base.ApplyDrag();
+    }
 }
