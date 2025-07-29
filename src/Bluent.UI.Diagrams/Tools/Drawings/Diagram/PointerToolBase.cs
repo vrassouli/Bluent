@@ -9,7 +9,8 @@ public abstract class DiagramPointerToolBase : IDiagramTool
 
     protected IReadOnlyList<PointerEventArgs> Pointers => _pointers;
     protected DrawingCanvas Canvas { get; private set; } = default!;
-    protected Components.Diagram Diagram { get; private set; } = default!;
+
+    public Components.Diagram Diagram => (Canvas as Components.Diagram) ?? throw new ArgumentNullException("The tool should be added and registered on a Diagram component");
 
     public virtual string Cursor => "auto";
     public event EventHandler? Completed;
@@ -19,11 +20,6 @@ public abstract class DiagramPointerToolBase : IDiagramTool
         Canvas = svgCanvas;
 
         RegisterEvents();
-    }
-
-    public void Register(Components.Diagram diagram)
-    {
-        Diagram = diagram;
     }
 
     public void Unregister()

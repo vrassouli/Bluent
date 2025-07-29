@@ -16,11 +16,11 @@ internal class AddDiagramNodeCommand : ICommand
 
     public void Do()
     {
-        _container.AddElement(_element);
+        _container.AddDiagramElement(_element);
     }
 
     public void Undo()
     {
-        _container.RemoveElement(_element);
+        _container.RemoveDiagramElement(_element);
     }
 }

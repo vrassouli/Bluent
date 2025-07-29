@@ -3,6 +3,7 @@
 
 using Bluent.Core;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
 using Bluent.UI.Diagrams.Tools;
 using Microsoft.AspNetCore.Components;
@@ -126,6 +127,35 @@ public partial class DrawingCanvas
         return base.ShouldRender();
     }
 
+    protected virtual IEnumerable<IDrawingElement> GetElementsAt(DiagramPoint point)
+    {
+        foreach (var el in Elements)
+        {            
+            if (el.Boundary.Contains(point))
+                yield return el;
+        }
+    }
+
+    protected virtual void ActivatePanTool()
+    {
+        var tool = new DragTool();
+        tool.Register(this);
+
+        ActivateTool(tool);
+    }
+
+    protected virtual void DeactivatePanTool() => DeactivateTool<DragTool>();
+
+    protected void ActivateTool(ITool tool)
+    {
+        _internalTools.Add(tool);
+    }
+
+    protected void DeactivateTool<T>()
+    {
+        _internalTools.RemoveAll(t => t.GetType() == typeof(T));
+    }
+
     internal void AddElement(IDrawingElement element)
     {
         _elements.Add(element);
@@ -167,15 +197,6 @@ public partial class DrawingCanvas
         _selectedElements.Add(element);
 
         StateHasChanged();
-    }
-
-    internal void ClearSelection()
-    {
-        if (_selectedElements.Any())
-        {
-            _selectedElements.Clear();
-            StateHasChanged();
-        }
     }
 
     internal void Pan(double x, double y)
@@ -310,9 +331,9 @@ public partial class DrawingCanvas
 
     private void HandlePointerDown(PointerEventArgs args)
     {
-        //var selectionUpdated = UpdateSelection(ScreenToDiagram(args.ToOffsetPoint()));
-
         _shouldRender = false;
+        UpdateSelection(ScreenToDiagram(args.ToOffsetPoint()), args.CtrlKey);
+
         PointerDown?.Invoke(this, args);
 
 #if DEBUG && LOG_POINTER_EVENTS
@@ -451,35 +472,42 @@ public partial class DrawingCanvas
         var tool = new ScaleTool();
         tool.Register(this);
 
-        _internalTools.Add(tool);
+        ActivateTool(tool);
     }
 
     private void DeactivateScaleTool() => DeactivateTool<ScaleTool>();
 
-    private void ActivatePanTool()
-    {
-        var tool = new DragTool();
-        tool.Register(this);
-
-        _internalTools.Add(tool);
-    }
-
-    private void DeactivatePanTool() => DeactivateTool<DragTool>();
-
-    private void DeactivateTool<T>()
-    {
-        _internalTools.RemoveAll(t => t.GetType() == typeof(T));
-    }
 
     private void ToolOperationCompleted(object? sender, EventArgs e)
     {
         InvokeAsync(OnToolOperationCompleted.InvokeAsync);
     }
 
-    //private bool UpdateSelection(DiagramPoint point)
-    //{
-    //    var hasSelection = SelectedElements.Any();
+    private void ClearSelection()
+    {
+        if (_selectedElements.Any())
+        {
+            _selectedElements.Clear();
+            StateHasChanged();
+        }
+    }
 
-        
-    //}
+    private void UpdateSelection(DiagramPoint point, bool addToSelections)
+    {
+        if (Tool is not null)
+        {
+            ClearSelection();
+            return;
+        }
+
+        var hasSelection = SelectedElements.Any();
+
+        var elements = GetElementsAt(point);
+
+        var topMostElement = elements.FirstOrDefault();
+        if (topMostElement is null)
+            ClearSelection();
+        else
+            SelectElement(topMostElement, addToSelections);
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Bluent.UI.Diagrams.Elements;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Components.Internals;
 
@@ -11,8 +10,6 @@ public partial class ElementHost : ComponentBase
     [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
     private bool Selected => Canvas.IsSelected(Element);
-
-    private bool CanSelect => !Selected && Canvas.Tool is null;
 
     private string? GetCursor()
     {
@@ -51,9 +48,4 @@ public partial class ElementHost : ComponentBase
         StateHasChanged();
     }
 
-    //private void HandlePointerDown(PointerEventArgs e)
-    //{
-    //    if (CanSelect)
-    //        Canvas.SelectElement(Element, e.CtrlKey);
-    //}
 }

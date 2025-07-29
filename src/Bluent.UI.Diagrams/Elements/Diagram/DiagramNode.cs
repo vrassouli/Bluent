@@ -8,8 +8,24 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 public interface IDiagramElement : IDrawingElement;
 public interface IDiagramElementContainer
 {
-    void AddElement(IDiagramElement element);
-    void RemoveElement(IDiagramElement element);
+    public IEnumerable<IDrawingElement> Elements { get; }
+    void AddDiagramElement(IDiagramElement element);
+    void RemoveDiagramElement(IDiagramElement element);
+    public IEnumerable<IDiagramElement> GetDiagramElementsAt(DiagramPoint point)
+    {
+        foreach (var el in Elements)
+        {
+            if (el is IDiagramElementContainer container)
+            {
+                foreach (var child in container.GetDiagramElementsAt(point))
+                    yield return child;
+            }
+
+            if (el.Boundary.Contains(point))
+                if (el is IDiagramElement diagramEl)
+                    yield return diagramEl;
+        }
+    }
 }
 
 public abstract class DiagramNode : IDiagramElement
@@ -308,9 +324,9 @@ public abstract class DiagramContainerNode : DiagramNode, IDiagramElementContain
 {
     private List<IDiagramElement> _elements = new();
 
-    public IReadOnlyList<IDiagramElement> Elements => _elements;
+    public IEnumerable<IDrawingElement> Elements => _elements;
 
-    public void AddElement(IDiagramElement element)
+    public void AddDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
 
@@ -318,13 +334,14 @@ public abstract class DiagramContainerNode : DiagramNode, IDiagramElementContain
         NotifyPropertyChanged(nameof(Elements));
     }
 
-    public void RemoveElement(IDiagramElement element)
+    public void RemoveDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
        
         _elements.Remove(element);
         NotifyPropertyChanged(nameof(Elements));
     }
+
 
     private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

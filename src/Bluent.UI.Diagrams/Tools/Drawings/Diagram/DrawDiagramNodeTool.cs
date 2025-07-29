@@ -28,7 +28,12 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         var containers = Diagram.GetContainersAt(startPoint);
         var container = containers.FirstOrDefault();
         if (container is null)
+        {
+#if DEBUG
+            throw new InvalidOperationException("Could not find any container to add the Node.");
+#endif
             return;
+        }
 
         if (_node is null)
         {

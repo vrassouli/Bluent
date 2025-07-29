@@ -24,17 +24,21 @@
     </Stack>
 
     <Diagram Class="flex-fill"
-             GridSize="10"
              Tool="Tool"
              CommandManager="_commandManager"
+             Selection="Core.SelectionMode.Multiple"
              AllowDrag
              AllowPan
              AllowScale>
-        <GridPattern>
-            <circle cx="0" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-            <circle cx="0" cy="10" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-            <circle cx="10" cy="10" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-            <circle cx="10" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
-        </GridPattern>
+        <defs>
+            <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
+                <circle cx="0" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+                <circle cx="0" cy="10" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+                <circle cx="10" cy="10" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+                <circle cx="10" cy="0" r="0.5" stroke-width="0.5" stroke="none" fill="var(--colorNeutralStrokeAccessible)"></circle>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
+
     </Diagram>
 </Stack>
