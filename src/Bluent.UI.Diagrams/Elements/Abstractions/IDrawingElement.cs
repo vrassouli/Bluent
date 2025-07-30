@@ -11,11 +11,14 @@ public interface IDrawingElement : INotifyPropertyChanged
     bool AllowHorizontalResize { get; }
     bool AllowVerticalResize { get; }
     Boundary Boundary { get; }
+    bool IsSelected { get; set; }
     string? Fill { get; set; }
     IEnumerable<ResizeAnchor> ResizeAnchors { get; }
     string? Stroke { get; set; }
     double? StrokeWidth { get; set; }
     string? StrokeDashArray { get; set; }
+    void PointerMovingOutside();
+    void PointerMovingInside(DiagramPoint offsetPoint, bool direct);
     void ApplyDrag();
     void ApplyResize();
     void CancelDrag();

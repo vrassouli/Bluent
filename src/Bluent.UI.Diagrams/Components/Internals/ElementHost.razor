@@ -1,8 +1,8 @@
 ﻿<g cursor="@GetCursor()">
     @Element.Render()
 
-    @if (Selected)
+    @if (Element.IsSelected)
     {
-        <ElementSelection Element="Element"/>
+        <ElementSelection Element="Element" />
     }
 </g>

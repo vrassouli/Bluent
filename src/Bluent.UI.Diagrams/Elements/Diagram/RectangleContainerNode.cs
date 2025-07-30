@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class RectangleContainerNode : DiagramContainerNode
+public class RectangleContainerNode : DiagramNodeBase
 {
     const int MaxHeaderHeight = 30;
     private double _raduis;
@@ -22,7 +22,7 @@ public class RectangleContainerNode : DiagramContainerNode
         }
     }
 
-    public RectangleContainerNode()
+    public RectangleContainerNode() : base (true, true)
     {
         Fill = "var(--colorNeutralBackground1)";
         Stroke = "var(--colorNeutralStroke1)";
@@ -37,39 +37,24 @@ public class RectangleContainerNode : DiagramContainerNode
 
             builder.OpenElement(0, "g");
 
-            builder.OpenRegion(1);
-            RenderRect(builder);
-            builder.CloseRegion();
+            RenderRect(1, builder);
+            RenderHeaderLine(2, builder);
+            RenderHeaderText(3, builder);
+            RenderChildElements(4, builder);
 
-            builder.OpenRegion(2);
-            RenderHeaderLine(builder);
-            builder.CloseRegion();
-
-            builder.OpenRegion(3);
-            RenderHeaderText(builder);
-            builder.CloseRegion();
-
-            var sequence = 4;
-            foreach (var childElement in Elements)
-            {
-                builder.OpenRegion(sequence++);
-                builder.OpenComponent<ElementHost>(sequence++);
-                builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
-                builder.CloseComponent();
-                builder.CloseRegion();
-            }
 
             builder.CloseElement(); // close <g>
         };
     }
 
-    private void RenderHeaderText(RenderTreeBuilder builder)
+    private void RenderHeaderText(int regionSeq, RenderTreeBuilder builder)
     {
         var headerHeight = Math.Min(MaxHeaderHeight, Height);
        
         var seq = 0;
         if (!string.IsNullOrEmpty(Text))
         {
+        builder.OpenRegion(regionSeq);
             builder.OpenElement(seq++, "text");
 
             builder.AddAttribute(seq++, "x", X + Width / 2);
@@ -82,14 +67,16 @@ public class RectangleContainerNode : DiagramContainerNode
             builder.AddContent(seq++, Text);
 
             builder.CloseElement();
+        builder.CloseRegion();
         }
     }
 
-    private void RenderHeaderLine(RenderTreeBuilder builder)
+    private void RenderHeaderLine(int regionSeq, RenderTreeBuilder builder)
     {
         var headerHeight = Math.Min(MaxHeaderHeight, Height);
 
         var seq = 0;
+        builder.OpenRegion(regionSeq);
         builder.OpenElement(seq++, "line");
 
         builder.AddAttribute(seq++, "x1", X);
@@ -100,11 +87,14 @@ public class RectangleContainerNode : DiagramContainerNode
         builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
 
         builder.CloseElement(); // close <line>
+        builder.CloseRegion();
     }
 
-    private void RenderRect(RenderTreeBuilder builder)
+    private void RenderRect(int regionSeq, RenderTreeBuilder builder)
     {
         var seq = 0;
+
+        builder.OpenRegion(regionSeq);
         builder.OpenElement(seq++, "rect");
         builder.AddAttribute(seq++, "fill", Fill);
         builder.AddAttribute(seq++, "stroke", Stroke);
@@ -120,5 +110,7 @@ public class RectangleContainerNode : DiagramContainerNode
         builder.AddAttribute(seq++, "ry", Raduis);
 
         builder.CloseElement(); // close <rect>
+ 
+        builder.CloseRegion();
     }
 }

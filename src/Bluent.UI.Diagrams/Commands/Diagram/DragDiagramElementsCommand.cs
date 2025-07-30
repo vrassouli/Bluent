@@ -7,10 +7,10 @@ namespace Bluent.UI.Diagrams.Commands.Diagram;
 internal class DragDiagramElementsCommand : ICommand
 {
     private readonly Components.Diagram _diagram;
-    private readonly List<IDrawingElement> _elements;
+    private readonly List<IDiagramElement> _elements;
     private readonly Distance2D _drag;
 
-    public DragDiagramElementsCommand(Components.Diagram diagram, List<IDrawingElement> elements, Distance2D drag)
+    public DragDiagramElementsCommand(Components.Diagram diagram, List<IDiagramElement> elements, Distance2D drag)
     {
         _diagram = diagram;
         _elements = elements;
@@ -50,11 +50,11 @@ internal class DragDiagramElementsCommand : ICommand
         }
     }
 
-    private IDiagramElementContainer? FindParent(IDrawingElement el)
+    private IDiagramElementContainer? FindParent(IDiagramElement el)
     {
         var containers = _diagram.GetContainersAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy));
 
-        return containers.FirstOrDefault(x => !object.Equals(el, x));
+        return containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el));
     }
 
     private void SwitchParent(IDiagramElement element,

@@ -37,7 +37,7 @@ public partial class DrawingCanvas
     [Parameter] public int SnapSize { get; set; }
     [Parameter] public double SelectionPadding { get; set; } = 7;
 
-    public IEnumerable<IDrawingElement> SelectedElements => _selectedElements;
+    public virtual IEnumerable<IDrawingElement> SelectedElements => Elements.Where(x => x.IsSelected);
     public IEnumerable<IDrawingElement> Elements => _elements;
 
     private string Cursor => Tool?.Cursor ?? "auto";
@@ -109,11 +109,6 @@ public partial class DrawingCanvas
     {
         yield return "bui-drawing-canvas";
     }
-    string _log = "";
-    internal void Log(string log)
-    {
-        _log += log + "<br/>";
-    }
 
     protected override bool ShouldRender()
     {
@@ -127,10 +122,11 @@ public partial class DrawingCanvas
         return base.ShouldRender();
     }
 
-    protected virtual IEnumerable<IDrawingElement> GetElementsAt(DiagramPoint point)
+    internal virtual IEnumerable<IDrawingElement> GetElementsAt(DiagramPoint point)
     {
-        foreach (var el in Elements)
-        {            
+        // Check selected elements first
+        foreach (var el in Elements.OrderBy(x => !x.IsSelected))
+        {
             if (el.Boundary.Contains(point))
                 yield return el;
         }
@@ -180,7 +176,8 @@ public partial class DrawingCanvas
 
     internal void DeselectElement(IDrawingElement element)
     {
-        _selectedElements.Remove(element);
+        element.IsSelected = false;
+        //_selectedElements.Remove(element);
     }
 
     internal void SelectElement(IDrawingElement element, bool addToSelections)
@@ -192,11 +189,26 @@ public partial class DrawingCanvas
             return;
 
         if (Selection == SelectionMode.Single || !addToSelections)
-            _selectedElements.Clear();
+            ClearSelection();
+        //_selectedElements.Clear();
 
-        _selectedElements.Add(element);
+        element.IsSelected = true;
+        //_selectedElements.Add(element);
 
         StateHasChanged();
+    }
+
+    internal void ClearSelection()
+    {
+        foreach (var el in SelectedElements)
+        {
+            DeselectElement(el);
+        }
+    }
+
+    internal bool IsSelected(IDrawingElement element)
+    {
+        return SelectedElements.Contains(element);
     }
 
     internal void Pan(double x, double y)
@@ -284,11 +296,6 @@ public partial class DrawingCanvas
     internal DiagramPoint SnapToGrid(DiagramPoint point)
     {
         return SnapToGrid(point, SnapSize);
-    }
-
-    internal bool IsSelected(IDrawingElement element)
-    {
-        return _selectedElements.Contains(element);
     }
 
     private DiagramPoint SnapToGrid(DiagramPoint point, int snapSize)
@@ -477,19 +484,9 @@ public partial class DrawingCanvas
 
     private void DeactivateScaleTool() => DeactivateTool<ScaleTool>();
 
-
     private void ToolOperationCompleted(object? sender, EventArgs e)
     {
         InvokeAsync(OnToolOperationCompleted.InvokeAsync);
-    }
-
-    private void ClearSelection()
-    {
-        if (_selectedElements.Any())
-        {
-            _selectedElements.Clear();
-            StateHasChanged();
-        }
     }
 
     private void UpdateSelection(DiagramPoint point, bool addToSelections)
@@ -500,8 +497,6 @@ public partial class DrawingCanvas
             return;
         }
 
-        var hasSelection = SelectedElements.Any();
-
         var elements = GetElementsAt(point);
 
         var topMostElement = elements.FirstOrDefault();
@@ -510,4 +505,5 @@ public partial class DrawingCanvas
         else
             SelectElement(topMostElement, addToSelections);
     }
+
 }

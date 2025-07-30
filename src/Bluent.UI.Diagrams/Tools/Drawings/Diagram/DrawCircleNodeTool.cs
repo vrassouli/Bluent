@@ -8,3 +8,10 @@ public class DrawCircleNodeTool : DrawDiagramNodeTool<CircleNode>
     {
     }
 }
+
+public class DrawBoundaryCircleNodeTool : DrawDiagramNodeTool<BoundaryCircleNode>
+{
+    public DrawBoundaryCircleNodeTool() : base("Boundary")
+    {
+    }
+}

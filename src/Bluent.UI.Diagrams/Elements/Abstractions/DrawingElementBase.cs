@@ -12,6 +12,7 @@ public abstract class DrawingElementBase : IDrawingElement
     private double _deltaRight;
     private double _deltaBottom;
     private double _deltaTop;
+    private bool _isSelected;
 
     protected Distance2D Drag
     {
@@ -73,6 +74,18 @@ public abstract class DrawingElementBase : IDrawingElement
             }
         }
     }
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            if (_isSelected != value)
+            {
+                _isSelected = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
     public string? Fill { get; set; }
     public string? Stroke { get; set; }
     public double? StrokeWidth { get; set; }
@@ -87,13 +100,22 @@ public abstract class DrawingElementBase : IDrawingElement
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public virtual void PointerMovingOutside()
+    {
+
+    }
+
+    public virtual void PointerMovingInside(DiagramPoint offset, bool direct)
+    {
+
+    }
     public virtual void ApplyDrag()
     {
         Drag = new();
     }
 
     public abstract RenderFragment Render();
-    
+
     protected virtual IEnumerable<ResizeAnchor> GetResizeAnchors()
     {
         return Enumerable.Empty<ResizeAnchor>();

@@ -40,7 +40,7 @@ internal class DragTool : SinglePointerToolBase
                 foreach (var el in Canvas.SelectedElements)
                     el.CancelDrag();
 
-                var command = GetDragCommand(Canvas.SelectedElements.ToList(), _dragDelta);
+                var command = new DragElementsCommand(Canvas.SelectedElements.ToList(), _dragDelta);
                 Canvas.ExecuteCommand(command);
             }
         }
@@ -73,10 +73,5 @@ internal class DragTool : SinglePointerToolBase
 
             el.SetDrag(drag);
         }
-    }
-
-    protected virtual ICommand GetDragCommand(List<IDrawingElement> elements, Distance2D drag)
-    {
-        return new DragElementsCommand(elements, drag);
     }
 }

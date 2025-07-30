@@ -68,6 +68,7 @@ public partial class Diagrams
     private void SelectRectTool() => Tool = new DrawRectangleNodeTool() { };
     private void SelectRectContainerTool() => Tool = new DrawRectangleContainerNodeTool() { };
     private void SelectCircleTool() => Tool = new DrawCircleNodeTool() { };
+    private void SelectBoundaryCircleTool() => Tool = new DrawBoundaryCircleNodeTool() { };
     //private void SelectDiamondTool() => Tool = new DrawDiamondTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     //private void SelectInkToShapeTool() => Tool = new InkToShapeTool() { };
     private void ToolOperationCompleted()

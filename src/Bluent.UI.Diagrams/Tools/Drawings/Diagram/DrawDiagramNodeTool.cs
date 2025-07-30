@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
 public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
-    where TNode : DiagramNode, new()
+    where TNode : DiagramNodeBase, new()
 {
     private TNode? _node;
 
@@ -26,14 +26,6 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         var startPoint = Canvas.ScreenToDiagram(Pointers.First().ToOffsetPoint());
 
         var containers = Diagram.GetContainersAt(startPoint);
-        var container = containers.FirstOrDefault();
-        if (container is null)
-        {
-#if DEBUG
-            throw new InvalidOperationException("Could not find any container to add the Node.");
-#endif
-            return;
-        }
 
         if (_node is null)
         {
@@ -44,6 +36,15 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
 
                 Text = Text
             };
+
+            var container = containers.FirstOrDefault(x => x.CanContain(_node));
+            if (container is null)
+            {
+#if DEBUG
+                throw new InvalidOperationException("Could not find any container to add the Node.");
+#endif
+                return;
+            }
 
             var cmd = new AddDiagramNodeCommand(container, _node);
             Canvas.ExecuteCommand(cmd);
