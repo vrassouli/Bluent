@@ -93,7 +93,8 @@ public interface IDiagramElementContainer
             return false;
         }
     }
-    public bool CanContain(IDiagramNode element);
+    public bool CanContain<T>() where T : IDiagramElement;
+    public bool CanContain(Type type);
 }
 
 public interface IDiagramBoundaryElementContainer

@@ -57,7 +57,7 @@ internal class DragDiagramElementsCommand : ICommand
     {
         var containers = _diagram.GetContainersAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy));
 
-        return containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el));
+        return containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el.GetType()));
     }
 
     private void SwitchParent(IDiagramNode element,

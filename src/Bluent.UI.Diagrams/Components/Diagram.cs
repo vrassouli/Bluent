@@ -81,9 +81,14 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
     protected override void DeactivateDeleteTool() => DeactivateTool<DiagramDeleteElementsTool>();
 
-    public bool CanContain(IDiagramNode element)
+    public bool CanContain<T>() where T : IDiagramElement
     {
-        if (element is  IDiagramBoundaryNode)
+        return CanContain(typeof(T));
+    }
+
+    public bool CanContain(Type type)
+    {
+        if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
             return false;
 
         return true;

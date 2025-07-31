@@ -346,6 +346,21 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
 
         return _allowChildElements;
     }
+    
+    public bool CanContain<T>() where T : IDiagramElement
+    {
+        return CanContain(typeof(T));
+    }
+
+    public bool CanContain(Type type)
+    {
+        if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
+        {
+            return _allowBoundaryElements;
+        }
+
+        return _allowChildElements;
+    }
 
     public virtual void ApplyDrag()
     {

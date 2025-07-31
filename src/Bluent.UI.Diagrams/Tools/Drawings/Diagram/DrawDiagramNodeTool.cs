@@ -8,6 +8,7 @@ namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     where TNode : DiagramNodeBase, new()
 {
+    private const string DefaultCursor = "crosshair";
     private TNode? _node;
 
     public string Text { get; }
@@ -15,19 +16,42 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     public DrawDiagramNodeTool(string text)
     {
         Text = text;
-        Cursor = "crosshair";
+        Cursor = DefaultCursor;
     }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e) { }
+
+    protected override void OnPointerMove(PointerEventArgs e)
+    {
+        var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+
+        var containers = Diagram.GetContainersAt(point);
+        var container = containers.FirstOrDefault(x => x.CanContain<TNode>());
+        if (container is null)
+            Cursor = "not-allowed";
+        else
+            Cursor = DefaultCursor;
+
+        base.OnPointerMove(e);
+    }
 
     protected override void OnTargetPointerMove(PointerEventArgs e)
     {
         var startPoint = Canvas.ScreenToDiagram(Pointers.First().ToOffsetPoint());
 
         var containers = Diagram.GetContainersAt(startPoint);
+        var container = containers.FirstOrDefault(x => x.CanContain<TNode>());
+        if (container is null)
+        {
+#if DEBUG
+            //throw new InvalidOperationException("Could not find any container to add the Node.");
+#endif
+            return;
+        }
 
         if (_node is null)
         {
+
             _node = new TNode
             {
                 X = startPoint.X,
@@ -35,17 +59,6 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
 
                 Text = Text
             };
-
-            var container = containers.FirstOrDefault(x => x.CanContain(_node));
-            if (container is null)
-            {
-#if DEBUG
-                //throw new InvalidOperationException("Could not find any container to add the Node.");
-#endif
-                //Cursor = "";
-                return;
-            }
-
             var cmd = new AddDiagramElementCommand(container, _node);
             Canvas.ExecuteCommand(cmd);
         }
@@ -57,10 +70,10 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         var dragX = 0d;
         var dragY = 0d;
         if (width < 0)
-            dragX = startPoint.X + width;
+            dragX = _node.X + width;
 
         if (height < 0)
-            dragY = startPoint.Y + height;
+            dragY = _node.Y + height;
 
         var deltaW = Math.Abs(width) - _node.Width;
         var deltaH = Math.Abs(height) - _node.Height;

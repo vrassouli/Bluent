@@ -10,6 +10,7 @@ using Bluent.UI.Diagrams.Extensions;
 using Bluent.UI.Diagrams.Tools;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Components;
 
@@ -64,16 +65,14 @@ public partial class DrawingCanvas
         {
             if (_tool is not null)
             {
-                _tool.Completed -= ToolOperationCompleted;
-                _tool.Unregister();
+                UnregisterTool();
             }
 
             _tool = Tool;
 
             if (_tool is not null)
             {
-                _tool.Register(this);
-                _tool.Completed += ToolOperationCompleted;
+                RegisterTool();
             }
         }
 
@@ -156,7 +155,7 @@ public partial class DrawingCanvas
     }
 
     protected virtual void DeactivatePanTool() => DeactivateTool<DragTool>();
-    
+
     protected virtual void ActivateDeleteTool()
     {
         var tool = new DeleteElementsTool();
@@ -166,6 +165,35 @@ public partial class DrawingCanvas
     }
 
     protected virtual void DeactivateDeleteTool() => DeactivateTool<DeleteElementsTool>();
+
+    protected virtual void RegisterTool()
+    {
+        if (_tool is not null)
+        {
+            _tool.Register(this);
+            _tool.PropertyChanged += ToolPropertyChanged;
+            _tool.Completed += ToolOperationCompleted;
+        }
+    }
+
+    protected virtual void UnregisterTool()
+    {
+        if (_tool is not null)
+        {
+            _tool.Completed -= ToolOperationCompleted;
+            _tool.PropertyChanged -= ToolPropertyChanged;
+            _tool.Unregister();
+        }
+    }
+
+    protected virtual void ToolPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(Tool.Cursor))
+        {
+            // re-render to update cursor
+            StateHasChanged();
+        }
+    }
 
     protected void ActivateTool(ITool tool)
     {
