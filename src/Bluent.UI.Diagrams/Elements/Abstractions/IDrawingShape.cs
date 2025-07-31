@@ -1,0 +1,14 @@
+﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
+
+namespace Bluent.UI.Diagrams.Elements;
+
+public interface IDrawingShape : INotifyPropertyChanged
+{
+    Boundary Boundary { get; }
+    bool IsSelected { get; set; }
+    string? Stroke { get; set; }
+    double? StrokeWidth { get; set; }
+    string? StrokeDashArray { get; set; }
+    RenderFragment Render();
+}
