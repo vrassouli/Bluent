@@ -1,0 +1,98 @@
+﻿using Bluent.UI.Diagrams.Components.Internals;
+using Microsoft.AspNetCore.Components.Rendering;
+using System.ComponentModel;
+
+namespace Bluent.UI.Diagrams.Elements.Diagram;
+
+public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementContainer
+{
+    private List<IDiagramNode> _elements = new();
+    public IEnumerable<IDiagramNode> DiagramElements => _elements;
+
+    public void AddDiagramElement(IDiagramNode element)
+    {
+        element.PropertyChanged += ChildElementPropertyChanged;
+
+        _elements.Add(element);
+
+        NotifyPropertyChanged(nameof(DiagramElements));
+    }
+
+    public void RemoveDiagramElement(IDiagramNode element)
+    {
+        element.PropertyChanged -= ChildElementPropertyChanged;
+
+        _elements.Remove(element);
+        NotifyPropertyChanged(nameof(DiagramElements));
+
+        element.IsSelected = false;
+    }
+
+    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        NotifyPropertyChanged(nameof(DiagramElements));
+    }
+
+    public bool CanContain<T>() where T : IDiagramElement
+    {
+        return CanContain(typeof(T));
+    }
+
+    public bool CanContain(Type type)
+    {
+        if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public override void ApplyDrag()
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.ApplyDrag();
+        }
+
+        base.ApplyDrag();
+    }
+
+    public override void CancelDrag()
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.CancelDrag();
+        }
+
+        base.CancelDrag();
+    }
+
+    public override void SetDrag(Distance2D drag)
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.SetDrag(drag);
+        }
+
+
+        base.SetDrag(drag);
+    }
+
+    protected void RenderChildElements(int regionSeq, RenderTreeBuilder builder)
+    {
+        var sequence = 0;
+        builder.OpenRegion(regionSeq);
+
+        foreach (var childElement in DiagramElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        {
+            builder.OpenRegion(sequence++);
+            builder.OpenComponent<ElementHost>(sequence++);
+            builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
+            builder.CloseComponent();
+            builder.CloseRegion();
+        }
+
+        builder.CloseRegion();
+    }
+}

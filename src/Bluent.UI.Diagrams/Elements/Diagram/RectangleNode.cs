@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class RectangleNode : DiagramBoundaryContainerNodeBase
+public class RectangleNode : DiagramBoundaryContainerBase
 {
     private double _raduis;
 

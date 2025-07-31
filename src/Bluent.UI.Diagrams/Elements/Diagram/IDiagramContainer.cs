@@ -5,7 +5,7 @@ public interface IDiagramElementContainer : IDiagramContainer
     IEnumerable<IDiagramNode> DiagramElements { get; }
 }
 
-public interface IDiagramBoundaryElementContainer : IDiagramContainer
+public interface IDiagramBoundaryContainer : IDiagramContainer
 {
     IEnumerable<IDiagramBoundaryNode> BoundaryElements { get; }
 }
@@ -30,7 +30,7 @@ public interface IDiagramContainer
                         yield return diagramEl;
             }
         }
-        if (this is IDiagramBoundaryElementContainer boundaryElementContainer)
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
         {
             foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
             {
@@ -60,7 +60,7 @@ public interface IDiagramContainer
                             yield return child;
                 }
             }
-            if (this is IDiagramBoundaryElementContainer boundaryElementContainer)
+            if (this is IDiagramBoundaryContainer boundaryElementContainer)
             {
                 foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
                 {
@@ -90,7 +90,7 @@ public interface IDiagramContainer
                             return true;
                 }
             }
-            if (this is IDiagramBoundaryElementContainer boundaryElementContainer)
+            if (this is IDiagramBoundaryContainer boundaryElementContainer)
             {
                 foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
                 {
