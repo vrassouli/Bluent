@@ -53,7 +53,7 @@ internal class DragDiagramElementsCommand : ICommand
         }
     }
 
-    private IDiagramElementContainer? FindParent(IDiagramNode el)
+    private IDiagramContainer? FindParent(IDiagramNode el)
     {
         var containers = _diagram.GetContainersAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy));
 
@@ -61,8 +61,8 @@ internal class DragDiagramElementsCommand : ICommand
     }
 
     private void SwitchParent(IDiagramNode element,
-                              IDiagramElementContainer prevParent,
-                              IDiagramElementContainer newParent)
+                              IDiagramContainer prevParent,
+                              IDiagramContainer newParent)
     {
         if (prevParent == newParent)
             return;

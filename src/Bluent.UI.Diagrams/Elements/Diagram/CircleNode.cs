@@ -4,7 +4,7 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public class CircleNode : DiagramNodeBase
 {
-    public CircleNode() : base (false, false)
+    public CircleNode()
     {
         Fill = "var(--colorNeutralBackground1)";
         Stroke = "var(--colorNeutralStroke1)";

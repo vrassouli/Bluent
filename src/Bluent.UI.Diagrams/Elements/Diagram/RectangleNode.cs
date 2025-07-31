@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class RectangleNode : DiagramNodeBase
+public class RectangleNode : DiagramBoundaryContainerNodeBase
 {
     private double _raduis;
 
@@ -20,7 +20,7 @@ public class RectangleNode : DiagramNodeBase
         }
     }
 
-    public RectangleNode() : base(false, true)
+    public RectangleNode()
     {
         Fill = "var(--colorNeutralBackground1)";
         Stroke = "var(--colorNeutralStroke1)";

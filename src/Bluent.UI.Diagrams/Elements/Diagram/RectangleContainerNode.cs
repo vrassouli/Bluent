@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class RectangleContainerNode : DiagramNodeBase
+public class RectangleContainerNode : DiagramContainerNodeBase
 {
     const int MaxHeaderHeight = 30;
     private double _raduis;
@@ -22,7 +22,7 @@ public class RectangleContainerNode : DiagramNodeBase
         }
     }
 
-    public RectangleContainerNode() : base (true, true)
+    public RectangleContainerNode()
     {
         Fill = "var(--colorNeutralBackground1)";
         Stroke = "var(--colorNeutralStroke1)";

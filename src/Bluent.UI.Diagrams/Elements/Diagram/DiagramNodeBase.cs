@@ -3,24 +3,305 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, IDiagramBoundaryElementContainer
+public abstract class DiagramContainerNodeBase : DiagramNodeBase, IDiagramElementContainer
 {
-    protected DiagramNodeBase(bool allowChildElements, bool allowBoundaryElements)
+    private List<IDiagramNode> _elements = new();
+    public IEnumerable<IDiagramNode> DiagramElements => _elements;
+
+    public void AddDiagramElement(IDiagramNode element)
     {
-        _allowChildElements = allowChildElements;
-        _allowBoundaryElements = allowBoundaryElements;
+        element.PropertyChanged += ChildElementPropertyChanged;
+
+        //if (element is IDiagramBoundaryNode boundaryElement)
+        //{
+        //    StickToBoundary(boundaryElement);
+        //    _boundaryElements.Add(boundaryElement);
+        //}
+        //else
+        _elements.Add(element);
+
+        NotifyPropertyChanged(nameof(DiagramElements));
     }
 
+    public void RemoveDiagramElement(IDiagramNode element)
+    {
+        element.PropertyChanged -= ChildElementPropertyChanged;
+
+        //if (element is IDiagramBoundaryNode boundaryElement)
+        //{
+        //    _boundaryElements.Remove(boundaryElement);
+        //    NotifyPropertyChanged(nameof(BoundaryElements));
+        //}
+        //else
+        //{
+        _elements.Remove(element);
+        NotifyPropertyChanged(nameof(DiagramElements));
+        //}
+
+        element.IsSelected = false;
+    }
+
+    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        //if (sender is IDiagramBoundaryNode boundaryElement &&
+        //    (e.PropertyName == nameof(X) ||
+        //    e.PropertyName == nameof(Y) ||
+        //    e.PropertyName == nameof(Width) ||
+        //    e.PropertyName == nameof(Height)))
+        //{
+        //    StickToBoundary(boundaryElement);
+        //}
+
+        NotifyPropertyChanged(nameof(DiagramElements));
+    }
+
+    public bool CanContain<T>() where T : IDiagramElement
+    {
+        return CanContain(typeof(T));
+    }
+
+    public bool CanContain(Type type)
+    {
+        if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public override void ApplyDrag()
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.ApplyDrag();
+        }
+
+        base.ApplyDrag();
+    }
+
+    public override void CancelDrag()
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.CancelDrag();
+        }
+
+        base.CancelDrag();
+    }
+
+    public override void SetDrag(Distance2D drag)
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.SetDrag(drag);
+        }
+
+
+        base.SetDrag(drag);
+    }
+
+    protected void RenderChildElements(int regionSeq, RenderTreeBuilder builder)
+    {
+        var sequence = 0;
+        builder.OpenRegion(regionSeq);
+
+        foreach (var childElement in DiagramElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+        {
+            builder.OpenRegion(sequence++);
+            builder.OpenComponent<ElementHost>(sequence++);
+            builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
+            builder.CloseComponent();
+            builder.CloseRegion();
+        }
+
+        //foreach (var childElement in BoundaryElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+        //{
+        //    builder.OpenRegion(sequence++);
+        //    builder.OpenComponent<ElementHost>(sequence++);
+        //    builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
+        //    builder.CloseComponent();
+        //    builder.CloseRegion();
+        //}
+
+        builder.CloseRegion();
+    }
+}
+
+public abstract class DiagramBoundaryContainerNodeBase : DiagramNodeBase, IDiagramBoundaryElementContainer
+{
+    private List<IDiagramBoundaryNode> _boundaryElements = new();
+    public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
+
+    public void AddDiagramElement(IDiagramNode element)
+    {
+        if (element is not IDiagramBoundaryNode boundaryElement)
+            return;
+
+        boundaryElement.PropertyChanged += ChildElementPropertyChanged;
+        StickToBoundary(boundaryElement);
+        _boundaryElements.Add(boundaryElement);
+        NotifyPropertyChanged(nameof(BoundaryElements));
+    }
+
+    public void RemoveDiagramElement(IDiagramNode element)
+    {
+        if (element is not IDiagramBoundaryNode boundaryElement)
+            return;
+
+        boundaryElement.PropertyChanged -= ChildElementPropertyChanged;
+        _boundaryElements.Remove(boundaryElement);
+        NotifyPropertyChanged(nameof(BoundaryElements));
+
+        boundaryElement.IsSelected = false;
+    }
+
+    public bool CanContain<T>() where T : IDiagramElement
+    {
+        return CanContain(typeof(T));
+    }
+
+    public bool CanContain(Type type)
+    {
+        if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (sender is IDiagramBoundaryNode boundaryElement &&
+            (e.PropertyName == nameof(X) ||
+            e.PropertyName == nameof(Y) ||
+            e.PropertyName == nameof(Width) ||
+            e.PropertyName == nameof(Height)))
+        {
+            StickToBoundary(boundaryElement);
+        }
+
+        NotifyPropertyChanged(nameof(BoundaryElements));
+    }
+
+    public override void ApplyDrag()
+    {
+        foreach (var el in BoundaryElements)
+        {
+            el.ApplyDrag();
+        }
+
+        base.ApplyDrag();
+    }
+
+    public override void CancelDrag()
+    {
+        foreach (var el in BoundaryElements)
+        {
+            el.CancelDrag();
+        }
+
+        base.CancelDrag();
+    }
+
+    public override void SetDrag(Distance2D drag)
+    {
+        foreach (var el in BoundaryElements)
+        {
+            el.SetDrag(drag);
+        }
+
+
+        base.SetDrag(drag);
+    }
+
+    protected void RenderChildElements(int regionSeq, RenderTreeBuilder builder)
+    {
+        var sequence = 0;
+        builder.OpenRegion(regionSeq);
+
+        //foreach (var childElement in DiagramElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+        //{
+        //    builder.OpenRegion(sequence++);
+        //    builder.OpenComponent<ElementHost>(sequence++);
+        //    builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
+        //    builder.CloseComponent();
+        //    builder.CloseRegion();
+        //}
+
+        foreach (var childElement in BoundaryElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+        {
+            builder.OpenRegion(sequence++);
+            builder.OpenComponent<ElementHost>(sequence++);
+            builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
+            builder.CloseComponent();
+            builder.CloseRegion();
+        }
+
+        builder.CloseRegion();
+    }
+
+    private void StickToBoundary(IDiagramBoundaryNode element)
+    {
+        var left = Math.Abs(element.Boundary.Cx - Boundary.X);
+        var top = Math.Abs(element.Boundary.Cy - Boundary.Y);
+        var right = Math.Abs(element.Boundary.Cx - Boundary.Right);
+        var bottom = Math.Abs(element.Boundary.Cy - Boundary.Bottom);
+
+        Edges hEdge = left < right ? Edges.Left : Edges.Right;
+        Edges vEdge = top < bottom ? Edges.Top : Edges.Bottom;
+
+        Edges edge = (hEdge, vEdge) switch
+        {
+            (Edges.Left, Edges.Top) => left < top ? Edges.Left : Edges.Top,
+            (Edges.Left, Edges.Bottom) => left < bottom ? Edges.Left : Edges.Bottom,
+
+            (Edges.Right, Edges.Top) => right < top ? Edges.Right : Edges.Top,
+            (Edges.Right, Edges.Bottom) => right < top ? Edges.Right : Edges.Bottom,
+
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        double cx = edge switch
+        {
+            Edges.Left => Boundary.X,
+            Edges.Right => Boundary.Right,
+
+            Edges.Top or Edges.Bottom => element.Boundary.Cx < Boundary.X ? Boundary.X : (element.Boundary.Cx > Boundary.Right ? Boundary.Right : element.Boundary.Cx),
+
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        double cy = edge switch
+        {
+            Edges.Left or Edges.Right => element.Boundary.Cy < Boundary.Y ? Boundary.Y : (element.Boundary.Cy > Boundary.Bottom ? Boundary.Bottom : element.Boundary.Cy),
+
+            Edges.Top => Boundary.Y,
+            Edges.Bottom => Boundary.Bottom,
+
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        element.SetCenter(cx, cy);
+    }
+}
+
+//public abstract class DiagramCompositContainerNodeBase : DiagramNodeBase, IDiagramElementContainer, IDiagramBoundaryElementContainer
+//{
+//}
+
+public abstract class DiagramNodeBase : IDiagramNode
+{
     #region Private fields
+
     private const double Epsilon = 0.01;
 
     private bool _pointerDirectlyOnNode = false;
-    private bool _pointerIndirectlyOnNode = false;
-    private List<IDiagramNode> _elements = new();
-    private List<IDiagramBoundaryNode> _boundaryElements = new();
     private List<IDiagramConnector> _incomingConnectors = new();
     private List<IDiagramConnector> _outgoingConnectors = new();
 
@@ -39,15 +320,13 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
     private string? _fill;
     private string? _text;
     private bool _isSelected;
-    private readonly bool _allowChildElements;
-    private readonly bool _allowBoundaryElements;
+    //private readonly bool _allowChildElements;
+    //private readonly bool _allowBoundaryElements;
 
     #endregion
 
     #region Properties
 
-    public IEnumerable<IDiagramNode> DiagramElements => _elements;
-    public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
     public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors;
     public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
 
@@ -143,8 +422,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
         {
             if (_pointerDirectlyOnNode)
                 return HighlightFill;
-            if (_pointerIndirectlyOnNode)
-                return IndirectHighlightFill;
+            //if (_pointerIndirectlyOnNode)
+            //    return IndirectHighlightFill;
 
             return _fill;
         }
@@ -164,8 +443,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
         {
             if (_pointerDirectlyOnNode)
                 return HighlightStroke;
-            if (_pointerIndirectlyOnNode)
-                return IndirectHighlightStroke;
+            //if (_pointerIndirectlyOnNode)
+            //    return IndirectHighlightStroke;
 
             return _stroke;
         }
@@ -284,8 +563,6 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
             _pointerDirectlyOnNode = false;
             NotifyPropertyChanged();
         }
-
-
     }
 
     public virtual void PointerMovingInside(DiagramPoint point, bool direct)
@@ -293,85 +570,59 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
         if (direct && !_pointerDirectlyOnNode)
         {
             _pointerDirectlyOnNode = true;
-            _pointerIndirectlyOnNode = false;
+            //_pointerIndirectlyOnNode = false;
             NotifyPropertyChanged();
         }
-        else if (_allowChildElements && _allowBoundaryElements && !direct && !_pointerIndirectlyOnNode)
-        {
-            _pointerDirectlyOnNode = false;
-            _pointerIndirectlyOnNode = true;
-            NotifyPropertyChanged();
-        }
+        //else if (_allowChildElements && _allowBoundaryElements && !direct && !_pointerIndirectlyOnNode)
+        //{
+        //    _pointerDirectlyOnNode = false;
+        //    _pointerIndirectlyOnNode = true;
+        //    NotifyPropertyChanged();
+        //}
     }
 
-    public void AddDiagramElement(IDiagramNode element)
-    {
-        element.PropertyChanged += ChildElementPropertyChanged;
 
-        if (element is IDiagramBoundaryNode boundaryElement)
-        {
-            StickToBoundary(boundaryElement);
-            _boundaryElements.Add(boundaryElement);
-        }
-        else
-            _elements.Add(element);
+    //public IEnumerable<IDiagramElement> GetDiagramElementsAt(DiagramPoint point)
+    //{
+    //    // Check selected elements first
+    //    foreach (var el in DiagramElements.OrderBy(x => !x.IsSelected))
+    //    {
+    //        if (el is IDiagramElementContainer container)
+    //        {
+    //            foreach (var child in container.GetDiagramElementsAt(point))
+    //                yield return child;
+    //        }
 
-        NotifyPropertyChanged(nameof(DiagramElements));
-    }
+    //        if (el.Boundary.Contains(point))
+    //            if (el is IDiagramNode diagramEl)
+    //                yield return diagramEl;
+    //    }
 
-    public void RemoveDiagramElement(IDiagramNode element)
-    {
-        element.PropertyChanged -= ChildElementPropertyChanged;
+    //    foreach (var el in BoundaryElements.OrderBy(x => !x.IsSelected))
+    //    {
+    //        if (el is IDiagramElementContainer container)
+    //        {
+    //            foreach (var child in container.GetDiagramElementsAt(point))
+    //                yield return child;
+    //        }
 
-        if (element is IDiagramBoundaryNode boundaryElement)
-        {
-            _boundaryElements.Remove(boundaryElement);
-            NotifyPropertyChanged(nameof(BoundaryElements));
-        }
-        else
-        {
-            _elements.Remove(element);
-            NotifyPropertyChanged(nameof(DiagramElements));
-        }
+    //        if (el.Boundary.Contains(point))
+    //            if (el is IDiagramNode diagramEl)
+    //                yield return diagramEl;
+    //    }
+    //}
 
-        element.IsSelected = false;
-    }
-
-    public virtual bool CanContain(IDiagramNode element)
-    {
-        if (element is IDiagramBoundaryNode)
-        {
-            return _allowBoundaryElements;
-        }
-
-        return _allowChildElements;
-    }
-    
-    public bool CanContain<T>() where T : IDiagramElement
-    {
-        return CanContain(typeof(T));
-    }
-
-    public bool CanContain(Type type)
-    {
-        if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
-        {
-            return _allowBoundaryElements;
-        }
-
-        return _allowChildElements;
-    }
 
     public virtual void ApplyDrag()
     {
-        foreach (var el in DiagramElements)
-        {
-            el.ApplyDrag();
-        }
-        foreach (var el in BoundaryElements)
-        {
-            el.ApplyDrag();
-        }
+        //foreach (var el in DiagramElements)
+        //{
+        //    el.ApplyDrag();
+        //}
+        //foreach (var el in BoundaryElements)
+        //{
+        //    el.ApplyDrag();
+        //}
 
         _x += Drag.Dx;
         _y += Drag.Dy;
@@ -383,27 +634,27 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
 
     public virtual void CancelDrag()
     {
-        foreach (var el in DiagramElements)
-        {
-            el.CancelDrag();
-        }
-        foreach (var el in BoundaryElements)
-        {
-            el.CancelDrag();
-        }
+        //foreach (var el in DiagramElements)
+        //{
+        //    el.CancelDrag();
+        //}
+        //foreach (var el in BoundaryElements)
+        //{
+        //    el.CancelDrag();
+        //}
         _drag = new();
     }
 
     public virtual void SetDrag(Distance2D drag)
     {
-        foreach (var el in DiagramElements)
-        {
-            el.SetDrag(drag);
-        }
-        foreach (var el in BoundaryElements)
-        {
-            el.SetDrag(drag);
-        }
+        //foreach (var el in DiagramElements)
+        //{
+        //    el.SetDrag(drag);
+        //}
+        //foreach (var el in BoundaryElements)
+        //{
+        //    el.SetDrag(drag);
+        //}
 
         Drag = drag;
     }
@@ -484,87 +735,5 @@ public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, 
         return $"{Text} ({this.GetType().Name})";
     }
 
-    protected void RenderChildElements(int regionSeq, RenderTreeBuilder builder)
-    {
-        var sequence = 0;
-        builder.OpenRegion(regionSeq);
 
-        foreach (var childElement in DiagramElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
-        {
-            builder.OpenRegion(sequence++);
-            builder.OpenComponent<ElementHost>(sequence++);
-            builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
-            builder.CloseComponent();
-            builder.CloseRegion();
-        }
-
-        foreach (var childElement in BoundaryElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
-        {
-            builder.OpenRegion(sequence++);
-            builder.OpenComponent<ElementHost>(sequence++);
-            builder.AddAttribute(sequence++, nameof(ElementHost.Element), childElement);
-            builder.CloseComponent();
-            builder.CloseRegion();
-        }
-
-        builder.CloseRegion();
-    }
-
-    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (sender is IDiagramBoundaryNode boundaryElement &&
-            (e.PropertyName == nameof(X) ||
-            e.PropertyName == nameof(Y) ||
-            e.PropertyName == nameof(Width) ||
-            e.PropertyName == nameof(Height)))
-        {
-            StickToBoundary(boundaryElement);
-        }
-
-        NotifyPropertyChanged(nameof(DiagramElements));
-    }
-
-    private void StickToBoundary(IDiagramBoundaryNode element)
-    {
-        var left = Math.Abs(element.Boundary.Cx - Boundary.X);
-        var top = Math.Abs(element.Boundary.Cy - Boundary.Y);
-        var right = Math.Abs(element.Boundary.Cx - Boundary.Right);
-        var bottom = Math.Abs(element.Boundary.Cy - Boundary.Bottom);
-
-        Edges hEdge = left < right ? Edges.Left : Edges.Right;
-        Edges vEdge = top < bottom ? Edges.Top : Edges.Bottom;
-
-        Edges edge = (hEdge, vEdge) switch
-        {
-            (Edges.Left, Edges.Top) => left < top ? Edges.Left : Edges.Top,
-            (Edges.Left, Edges.Bottom) => left < bottom ? Edges.Left : Edges.Bottom,
-
-            (Edges.Right, Edges.Top) => right < top ? Edges.Right : Edges.Top,
-            (Edges.Right, Edges.Bottom) => right < top ? Edges.Right : Edges.Bottom,
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        double cx = edge switch
-        {
-            Edges.Left => Boundary.X,
-            Edges.Right => Boundary.Right,
-
-            Edges.Top or Edges.Bottom => element.Boundary.Cx < Boundary.X ? Boundary.X : (element.Boundary.Cx > Boundary.Right ? Boundary.Right : element.Boundary.Cx),
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        double cy = edge switch
-        {
-            Edges.Left or Edges.Right => element.Boundary.Cy < Boundary.Y ? Boundary.Y : (element.Boundary.Cy > Boundary.Bottom ? Boundary.Bottom : element.Boundary.Cy),
-
-            Edges.Top => Boundary.Y,
-            Edges.Bottom => Boundary.Bottom,
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        element.SetCenter(cx, cy);
-    }
 }
