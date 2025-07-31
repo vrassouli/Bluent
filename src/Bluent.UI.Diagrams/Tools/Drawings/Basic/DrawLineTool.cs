@@ -12,7 +12,10 @@ public class DrawLineTool : ElementDrawingToolBase
     private DiagramPoint? _startPoint;
     private LineElement? _element;
 
-    public override string Cursor => "crosshair";
+    public DrawLineTool()
+    {
+        Cursor = "crosshair";
+    }
 
     protected override void OnPointerDown(PointerEventArgs e)
     {

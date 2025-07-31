@@ -1,6 +1,4 @@
-﻿using Bluent.Core;
-using Bluent.UI.Diagrams.Commands.Basic;
-using Bluent.UI.Diagrams.Commands.Diagram;
+﻿using Bluent.UI.Diagrams.Commands.Diagram;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
@@ -15,7 +13,10 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
     private ScreenPoint? _panStart;
     private Dictionary<long, DiagramPoint> _startPoints = new();
 
-    public override string Cursor => "move";
+    public DiagramDragTool()
+    {
+        Cursor = "move";
+    }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e)
     {

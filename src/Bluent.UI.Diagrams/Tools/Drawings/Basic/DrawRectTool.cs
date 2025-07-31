@@ -14,7 +14,10 @@ public class DrawRectTool : ElementDrawingToolBase
     private double _height;
     private RectElement? _element;
 
-    public override string Cursor => "crosshair";
+    public DrawRectTool()
+    {
+        Cursor = "crosshair";
+    }
 
     protected override void OnPointerDown(PointerEventArgs e)
     {

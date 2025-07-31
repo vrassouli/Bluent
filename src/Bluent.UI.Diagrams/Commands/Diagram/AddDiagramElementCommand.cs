@@ -3,12 +3,12 @@ using Bluent.UI.Diagrams.Elements.Diagram;
 
 namespace Bluent.UI.Diagrams.Commands.Diagram;
 
-internal class AddDiagramNodeCommand : ICommand
+internal class AddDiagramElementCommand : ICommand
 {
     private readonly IDiagramElementContainer _container;
     private readonly IDiagramElement _element;
 
-    public AddDiagramNodeCommand(IDiagramElementContainer container, IDiagramElement element) 
+    public AddDiagramElementCommand(IDiagramElementContainer container, IDiagramElement element) 
     {
         _container = container;
         _element = element;

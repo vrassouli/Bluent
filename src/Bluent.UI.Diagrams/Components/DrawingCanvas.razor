@@ -5,6 +5,7 @@
 <CascadingValue Value="this" IsFixed>
 
     <svg @attributes=AdditionalAttributes
+         tabindex="0"
          id="@Id"
          class="@GetComponentClass()"
          style="@Style"
@@ -17,7 +18,9 @@
          @onpointerout="HandlePointerOut"
          @onpointerleave="HandlePointerLeave"
          @onpointerover="HandlePointerOver"
-         @onmousewheel="HandleMouseWheel">
+         @onmousewheel="HandleMouseWheel"
+         @onkeydown="HandleKeyDown"
+         @onkeyup="HandleKeyUp">
         @ChildContent
 
         @* <CanvasGround /> *@

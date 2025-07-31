@@ -3,6 +3,8 @@ using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Basic;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Tools;
 
@@ -12,10 +14,23 @@ public class AreaSelectTool : ITool
     private DiagramPoint? _startPoint;
     private RectElement? _element;
     private DrawingCanvas? _canvas;
+    private string _cursor = "auto";
 
-    public string Cursor => "default";
+    public string Cursor
+    {
+        get => _cursor;
+        set
+        {
+            if (_cursor != value)
+            {
+                _cursor = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
 
     public event EventHandler? Completed;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public void Register(DrawingCanvas svgCanvas)
     {
@@ -130,5 +145,9 @@ public class AreaSelectTool : ITool
             _canvas.RemoveElement(_element);
             _element = null;
         }
+    }
+    protected void NotifyPropertyChanged([CallerMemberName] string? memberName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
     }
 }

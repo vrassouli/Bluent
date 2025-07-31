@@ -1,5 +1,4 @@
-﻿using Bluent.Core;
-using Bluent.UI.Diagrams.Commands.Basic;
+﻿using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,7 +12,10 @@ internal class DragTool : SinglePointerToolBase
     private ScreenPoint? _panStart;
     private Dictionary<long, DiagramPoint> _startPoints = new();
 
-    public override string Cursor => "move";
+    public DragTool()
+    {
+        Cursor = "move";
+    }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e)
     {

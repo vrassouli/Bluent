@@ -20,6 +20,22 @@ public interface IDiagramElementContainer
                 if (el is IDiagramElement diagramEl)
                     yield return diagramEl;
         }
+
+        if (this is IDiagramBoundaryElementContainer boundaryElementContainer)
+        {
+            foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
+            {
+                if (el is IDiagramElementContainer container)
+                {
+                    foreach (var child in container.GetDiagramElementsAt(point))
+                        yield return child;
+                }
+
+                if (el.Boundary.Contains(point))
+                    if (el is IDiagramElement diagramEl)
+                        yield return diagramEl;
+            }
+        }
     }
     public IEnumerable<IDrawingElement> SelectedElements
     {
@@ -33,6 +49,18 @@ public interface IDiagramElementContainer
                 if (el is IDiagramElementContainer container)
                     foreach (var child in container.SelectedElements)
                         yield return child;
+            }
+            if (this is IDiagramBoundaryElementContainer boundaryElementContainer)
+            {
+                foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
+                {
+                    if (el.IsSelected)
+                        yield return el;
+
+                    if (el is IDiagramElementContainer container)
+                        foreach (var child in container.SelectedElements)
+                            yield return child;
+                }
             }
         }
     }
@@ -48,6 +76,18 @@ public interface IDiagramElementContainer
                 if (el is IDiagramElementContainer container)
                     if (container.HasSelection)
                         return true;
+            }
+            if (this is IDiagramBoundaryElementContainer boundaryElementContainer)
+            {
+                foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
+                {
+                    if (el.IsSelected)
+                        return true;
+
+                    if (el is IDiagramElementContainer container)
+                        if (container.HasSelection)
+                            return true;
+                }
             }
 
             return false;

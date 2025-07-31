@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
+using Bluent.UI.Diagrams.Tools;
 using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
 namespace Bluent.UI.Diagrams.Components;
@@ -24,7 +25,6 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
     }
 
     public IEnumerable<IDiagramElement> DiagramElements => Elements.OfType<IDiagramElement>();
-
 
     protected override void OnParametersSet()
     {
@@ -70,6 +70,16 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
     }
 
     protected override void DeactivatePanTool() => DeactivateTool<DiagramDragTool>();
+
+    protected override void ActivateDeleteTool()
+    {
+        var tool = new DiagramDeleteElementsTool();
+        tool.Register(this);
+
+        ActivateTool(tool);
+    }
+
+    protected override void DeactivateDeleteTool() => DeactivateTool<DiagramDeleteElementsTool>();
 
     public bool CanContain(IDiagramElement element)
     {

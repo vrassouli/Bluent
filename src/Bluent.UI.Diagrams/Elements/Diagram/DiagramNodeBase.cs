@@ -14,6 +14,9 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         _allowBoundaryElements = allowBoundaryElements;
     }
 
+    #region Private fields
+    private const double Epsilon = 0.01;
+
     private bool _pointerDirectlyOnNode = false;
     private bool _pointerIndirectlyOnNode = false;
     private List<IDiagramElement> _elements = new();
@@ -37,6 +40,10 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
     private readonly bool _allowChildElements;
     private readonly bool _allowBoundaryElements;
 
+    #endregion
+
+    #region Properties
+
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
     public IEnumerable<IDiagramBoundaryElement> BoundaryElements => _boundaryElements;
 
@@ -55,7 +62,7 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         get => _x + Drag.Dx + DeltaLeft;
         set
         {
-            if (_x != value)
+            if (Math.Abs(_x - value) > Epsilon)
             {
                 _x = value;
                 NotifyPropertyChanged();
@@ -67,7 +74,7 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         get => _y + Drag.Dy + DeltaTop;
         set
         {
-            if (_y != value)
+            if (Math.Abs(_y - value) > Epsilon)
             {
                 _y = value;
                 NotifyPropertyChanged();
@@ -77,9 +84,9 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
     public double Width
     {
         get => _width - DeltaLeft + DeltaRight;
-        set
+        private set
         {
-            if (_width != value)
+            if (Math.Abs(_width - value) > Epsilon)
             {
                 _width = value;
                 NotifyPropertyChanged();
@@ -89,9 +96,9 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
     public double Height
     {
         get => _height - DeltaTop + DeltaBottom;
-        set
+        private set
         {
-            if (_height != value)
+            if (Math.Abs(_height - value) > Epsilon)
             {
                 _height = value;
                 NotifyPropertyChanged();
@@ -261,6 +268,10 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         }
     }
 
+    #endregion
+
+    public abstract RenderFragment Render();
+
     public virtual void PointerMovingOutside()
     {
         if (_pointerDirectlyOnNode)
@@ -308,11 +319,17 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         element.PropertyChanged -= ChildElementPropertyChanged;
 
         if (element is IDiagramBoundaryElement boundaryElement)
+        {
             _boundaryElements.Remove(boundaryElement);
+            NotifyPropertyChanged(nameof(BoundaryElements));
+        }
         else
+        {
             _elements.Remove(element);
+            NotifyPropertyChanged(nameof(DiagramElements));
+        }
 
-        NotifyPropertyChanged(nameof(DiagramElements));
+        element.IsSelected = false;
     }
 
     public virtual bool CanContain(IDiagramElement element)
@@ -331,12 +348,44 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         {
             el.ApplyDrag();
         }
+        foreach (var el in BoundaryElements)
+        {
+            el.ApplyDrag();
+        }
 
         _x += Drag.Dx;
         _y += Drag.Dy;
 
         CancelDrag();
-        NotifyPropertyChanged();
+        NotifyPropertyChanged(nameof(X));
+        NotifyPropertyChanged(nameof(Y));
+    }
+
+    public virtual void CancelDrag()
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.CancelDrag();
+        }
+        foreach (var el in BoundaryElements)
+        {
+            el.CancelDrag();
+        }
+        _drag = new();
+    }
+
+    public virtual void SetDrag(Distance2D drag)
+    {
+        foreach (var el in DiagramElements)
+        {
+            el.SetDrag(drag);
+        }
+        foreach (var el in BoundaryElements)
+        {
+            el.SetDrag(drag);
+        }
+
+        Drag = drag;
     }
 
     public virtual void ApplyResize()
@@ -347,16 +396,10 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         _height = _height - DeltaTop + DeltaBottom;
 
         CancelResize();
-        NotifyPropertyChanged();
-    }
-
-    public virtual void CancelDrag()
-    {
-        foreach (var el in DiagramElements)
-        {
-            el.CancelDrag();
-        }
-        _drag = new();
+        NotifyPropertyChanged(nameof(X));
+        NotifyPropertyChanged(nameof(Y));
+        NotifyPropertyChanged(nameof(Width));
+        NotifyPropertyChanged(nameof(Height));
     }
 
     public virtual void CancelResize()
@@ -366,8 +409,6 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         _deltaRight = 0;
         _deltaBottom = 0;
     }
-
-    public abstract RenderFragment Render();
 
     public virtual void ResizeBottom(double dy)
     {
@@ -389,20 +430,12 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         DeltaTop = dy;
     }
 
-    public virtual void SetDrag(Distance2D drag)
-    {
-        foreach (var el in DiagramElements)
-        {
-            el.SetDrag(drag);
-        }
-
-        Drag = drag;
-    }
-
     public void SetCenter(double cx, double cy)
     {
-        X = cx - Width / 2;
-        Y = cy - Height / 2;
+        _x = cx - Width / 2;
+        _y = cy - Height / 2;
+
+        NotifyPropertyChanged();
     }
 
     protected virtual IEnumerable<ResizeAnchor> GetResizeAnchors()
@@ -466,6 +499,15 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
 
     private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        if (sender is IDiagramBoundaryElement boundaryElement &&
+            (e.PropertyName == nameof(X) ||
+            e.PropertyName == nameof(Y) ||
+            e.PropertyName == nameof(Width) ||
+            e.PropertyName == nameof(Height)))
+        {
+            StickToBoundary(boundaryElement);
+        }
+
         NotifyPropertyChanged(nameof(DiagramElements));
     }
 
@@ -495,26 +537,21 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
             Edges.Left => Boundary.X,
             Edges.Right => Boundary.Right,
 
-            Edges.Top or Edges.Bottom => element.Boundary.Cx,
+            Edges.Top or Edges.Bottom => element.Boundary.Cx < Boundary.X ? Boundary.X : (element.Boundary.Cx > Boundary.Right ? Boundary.Right : element.Boundary.Cx),
 
             _ => throw new ArgumentOutOfRangeException()
         };
 
         double cy = edge switch
         {
-            Edges.Left or Edges.Right => element.Boundary.Cy,
+            Edges.Left or Edges.Right => element.Boundary.Cy < Boundary.Y ? Boundary.Y : (element.Boundary.Cy > Boundary.Bottom ? Boundary.Bottom : element.Boundary.Cy),
 
-            Edges.Top  => Boundary.Y,
-            Edges.Bottom  => Boundary.Bottom,
+            Edges.Top => Boundary.Y,
+            Edges.Bottom => Boundary.Bottom,
 
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        //element.SetCenter(cx, cy);
+        element.SetCenter(cx, cy);
     }
-}
-
-internal enum Edges
-{
-    Left, Top, Right, Bottom
 }

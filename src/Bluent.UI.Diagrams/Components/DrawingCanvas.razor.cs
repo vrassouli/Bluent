@@ -1,5 +1,7 @@
 ﻿//#define LOG_POINTER_EVENTS
 //#define LOG_POINTER_EVENT_DETAILS
+//#define LOG_KEYBOARD_EVENTS
+//#define LOG_KEYBOARD_EVENT_DETAILS
 
 using Bluent.Core;
 using Bluent.UI.Diagrams.Elements;
@@ -18,12 +20,12 @@ public partial class DrawingCanvas
     private bool _shouldRender = true;
     private bool _allowPan;
     private bool _allowScale;
+    private bool _allowDelete;
     private double _scale = 1;
     private Distance2D _pan = new();
     private Distance2D _activePan = new();
     private ITool? _tool;
     private List<IDrawingElement> _elements = new();
-    private List<IDrawingElement> _selectedElements = new();
     private List<ITool> _internalTools = new();
 
     [Parameter] public CommandManager? CommandManager { get; set; }
@@ -34,6 +36,7 @@ public partial class DrawingCanvas
     [Parameter] public bool AllowDrag { get; set; }
     [Parameter] public bool AllowPan { get; set; }
     [Parameter] public bool AllowScale { get; set; }
+    [Parameter] public bool AllowDelete { get; set; }
     [Parameter] public int SnapSize { get; set; }
     [Parameter] public double SelectionPadding { get; set; } = 7;
 
@@ -52,6 +55,8 @@ public partial class DrawingCanvas
     public event EventHandler<PointerEventArgs>? PointerOver;
     public event EventHandler<PointerEventArgs>? PointerUp;
     public event EventHandler<WheelEventArgs>? MouseWheel;
+    public event EventHandler<KeyboardEventArgs>? KeyDown;
+    public event EventHandler<KeyboardEventArgs>? KeyUp;
 
     protected override void OnParametersSet()
     {
@@ -102,6 +107,16 @@ public partial class DrawingCanvas
                 DeactivateScaleTool();
         }
 
+        if (_allowDelete != AllowDelete)
+        {
+            _allowDelete = AllowDelete;
+
+            if (_allowDelete)
+                ActivateDeleteTool();
+            else
+                DeactivateDeleteTool();
+        }
+
         base.OnParametersSet();
     }
 
@@ -141,6 +156,16 @@ public partial class DrawingCanvas
     }
 
     protected virtual void DeactivatePanTool() => DeactivateTool<DragTool>();
+    
+    protected virtual void ActivateDeleteTool()
+    {
+        var tool = new DeleteElementsTool();
+        tool.Register(this);
+
+        ActivateTool(tool);
+    }
+
+    protected virtual void DeactivateDeleteTool() => DeactivateTool<DeleteElementsTool>();
 
     protected void ActivateTool(ITool tool)
     {
@@ -161,7 +186,7 @@ public partial class DrawingCanvas
     internal void RemoveElement(IDrawingElement element)
     {
         _elements.Remove(element);
-        _selectedElements.Remove(element);
+        element.IsSelected = false;
 
         StateHasChanged();
     }
@@ -423,11 +448,30 @@ public partial class DrawingCanvas
 #endif
     }
 
+    private void HandleKeyDown(KeyboardEventArgs args)
+    {
+        _shouldRender = false;
+        KeyDown?.Invoke(this, args);
+
+#if DEBUG && LOG_KEYBOARD_EVENTS
+        LogEvent("Canvas.KeyDown", args);
+#endif
+    }
+
+    private void HandleKeyUp(KeyboardEventArgs args)
+    {
+        _shouldRender = false;
+        KeyUp?.Invoke(this, args);
+
+#if DEBUG && LOG_KEYBOARD_EVENTS
+        LogEvent("Canvas.KeyUp", args);
+#endif
+    }
+
 #if DEBUG
 
     private static void LogEvent(string eventName, PointerEventArgs args)
     {
-        Console.WriteLine($"{eventName}:");
 #if LOG_POINTER_EVENT_DETAILS
         Console.WriteLine($"{eventName}:");
         Console.WriteLine($"PointerId: {args.PointerId}");
@@ -444,7 +488,6 @@ public partial class DrawingCanvas
 
     private static void LogEvent(string eventName, WheelEventArgs args)
     {
-        Console.WriteLine($"{eventName}:");
 #if LOG_POINTER_EVENT_DETAILS
         Console.WriteLine($"{eventName}:");
         Console.WriteLine($"DeltaX: {args.DeltaX}");
@@ -455,6 +498,18 @@ public partial class DrawingCanvas
         Console.WriteLine($"OffsetX: {args.OffsetX}");
         Console.WriteLine($"OffsetY: {args.OffsetY}");
         Console.WriteLine($"Shift: {args.ShiftKey}, Control: {args.CtrlKey}, Alt: {args.AltKey}");
+#else
+        Console.WriteLine($"{eventName}");
+#endif
+    }
+
+    private static void LogEvent(string eventName, KeyboardEventArgs args)
+    {
+#if LOG_KEYBOARD_EVENT_DETAILS
+        Console.WriteLine($"{eventName}:");
+        Console.WriteLine($"Code: {args.Code}");
+        Console.WriteLine($"Repeat: {args.Repeat}");
+        Console.WriteLine($"Key: {args.Key}");
 #else
         Console.WriteLine($"{eventName}");
 #endif
@@ -483,6 +538,7 @@ public partial class DrawingCanvas
     }
 
     private void DeactivateScaleTool() => DeactivateTool<ScaleTool>();
+
 
     private void ToolOperationCompleted(object? sender, EventArgs e)
     {

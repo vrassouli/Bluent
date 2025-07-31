@@ -7,9 +7,10 @@ public class ScaleTool : PointerToolBase
 {
     private double _startScale;
 
-    //private Dictionary<long, ScreenPoint> _endPoints = new();
-
-    public override string Cursor => "auto";
+    public ScaleTool()
+    {
+        Cursor = "auto";
+    }
 
     protected override void RegisterEvents()
     {

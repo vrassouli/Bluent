@@ -13,7 +13,10 @@ public class DrawCircleTool : ElementDrawingToolBase
     private double _r;
     private CircleElement? _element;
 
-    public override string Cursor => "crosshair";
+    public DrawCircleTool()
+    {
+        Cursor = "crosshair";
+    }
 
     protected override void OnPointerDown(PointerEventArgs e)
     {

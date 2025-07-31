@@ -1,19 +1,35 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Tools.Drawings;
 using Microsoft.AspNetCore.Components.Web;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Tools;
 
 public abstract class ElementDrawingToolBase : IElementDrawingTool
 {
+    private string _cursor = "auto";
+
     protected DrawingCanvas? Canvas { get; private set; }
     public string? Fill { get; set; }
     public string? Stroke { get; set; }
     public double? StrokeWidth { get; set; }
 
     public event EventHandler? Completed;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    public abstract string Cursor { get; }
+    public string Cursor
+    {
+        get => _cursor;
+        set
+        {
+            if (_cursor != value)
+            {
+                _cursor = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
 
     public void Register(DrawingCanvas svgCanvas)
     {
@@ -85,5 +101,10 @@ public abstract class ElementDrawingToolBase : IElementDrawingTool
     protected void NotifyOperationCompleted()
     {
         Completed?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void NotifyPropertyChanged([CallerMemberName] string? memberName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
     }
 }

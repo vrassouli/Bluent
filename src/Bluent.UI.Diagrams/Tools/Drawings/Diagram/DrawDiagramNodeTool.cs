@@ -10,13 +10,12 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
 {
     private TNode? _node;
 
-    public override string Cursor => "crosshair";
-
     public string Text { get; }
 
     public DrawDiagramNodeTool(string text)
     {
         Text = text;
+        Cursor = "crosshair";
     }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e) { }
@@ -41,25 +40,36 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
             if (container is null)
             {
 #if DEBUG
-                throw new InvalidOperationException("Could not find any container to add the Node.");
+                //throw new InvalidOperationException("Could not find any container to add the Node.");
 #endif
+                //Cursor = "";
                 return;
             }
 
-            var cmd = new AddDiagramNodeCommand(container, _node);
+            var cmd = new AddDiagramElementCommand(container, _node);
             Canvas.ExecuteCommand(cmd);
         }
 
         var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        var size = endPoint - startPoint;
-        if (size.Dx < 0)
-            _node.X = startPoint.X + size.Dx;
+        var width = endPoint.X - _node.X;
+        var height = endPoint.Y - _node.Y;
 
-        if (size.Dy < 0)
-            _node.Y = startPoint.Y + size.Dy;
+        var dragX = 0d;
+        var dragY = 0d;
+        if (width < 0)
+            dragX = startPoint.X + width;
 
-        _node.Width = Math.Abs(size.Dx);
-        _node.Height = Math.Abs(size.Dy);
+        if (height < 0)
+            dragY = startPoint.Y + height;
+
+        var deltaW = Math.Abs(width) - _node.Width;
+        var deltaH = Math.Abs(height) - _node.Height;
+
+        _node.SetDrag(new Elements.Distance2D(dragX, dragY));
+        _node.ResizeRight(deltaW);
+        _node.ResizeBottom(deltaH);
+        _node.ApplyDrag();
+        _node.ApplyResize();
     }
 
     protected override void OnTargetPointerUnavailable()

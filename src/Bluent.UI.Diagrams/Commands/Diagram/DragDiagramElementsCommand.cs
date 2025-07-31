@@ -39,14 +39,17 @@ internal class DragDiagramElementsCommand : ICommand
     {
         foreach (var el in _elements)
         {
-            var prevPosition = new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy);
+            var prevParent = FindParent(el);
 
             var drag = new Distance2D(el.AllowHorizontalDrag ? -_drag.Dx : 0, el.AllowVerticalDrag ? -_drag.Dy : 0);
 
             el.SetDrag(drag);
             el.ApplyDrag();
 
-            var newPosition = new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy);
+            var newParent = FindParent(el);
+
+            if (el is IDiagramElement diagramEl && prevParent is not null && newParent is not null)
+                SwitchParent(diagramEl, prevParent, newParent);
         }
     }
 

@@ -12,7 +12,10 @@ public class DrawDiamondTool : ElementDrawingToolBase
     private DiagramPoint _center = new();
     private DiamondElement? _element;
 
-    public override string Cursor => "crosshair";
+    public DrawDiamondTool()
+    {
+        Cursor = "crosshair";
+    }
 
     protected override void OnPointerDown(PointerEventArgs e)
     {

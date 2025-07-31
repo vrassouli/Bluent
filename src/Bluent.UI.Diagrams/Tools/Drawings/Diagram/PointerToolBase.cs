@@ -1,19 +1,35 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
 public abstract class DiagramPointerToolBase : IDiagramTool
 {
     private List<PointerEventArgs> _pointers = new();
+    private string _cursor = "auto";
 
     protected IReadOnlyList<PointerEventArgs> Pointers => _pointers;
     protected DrawingCanvas Canvas { get; private set; } = default!;
 
     public Components.Diagram Diagram => (Canvas as Components.Diagram) ?? throw new ArgumentNullException("The tool should be added and registered on a Diagram component");
 
-    public virtual string Cursor => "auto";
+    public string Cursor
+    {
+        get => _cursor;
+        set
+        {
+            if (_cursor != value)
+            {
+                _cursor = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+
     public event EventHandler? Completed;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public void Register(DrawingCanvas svgCanvas)
     {
@@ -108,5 +124,10 @@ public abstract class DiagramPointerToolBase : IDiagramTool
     protected void NotifyCompleted()
     {
         Completed?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void NotifyPropertyChanged([CallerMemberName] string? memberName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
     }
 }

@@ -1,17 +1,33 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Tools;
 
 public abstract class PointerToolBase : ITool
 {
     private List<PointerEventArgs> _pointers = new();
+    private string _cursor = "auto";
 
     protected IReadOnlyList<PointerEventArgs> Pointers => _pointers;
     protected DrawingCanvas Canvas { get; private set; } = default!;
 
-    public virtual string Cursor => "auto";
+    public string Cursor
+    {
+        get => _cursor;
+        set
+        {
+            if (_cursor != value)
+            {
+                _cursor = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+
     public event EventHandler? Completed;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public void Register(DrawingCanvas svgCanvas)
     {
@@ -106,5 +122,10 @@ public abstract class PointerToolBase : ITool
     protected void NotifyCompleted()
     {
         Completed?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void NotifyPropertyChanged([CallerMemberName] string? memberName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
     }
 }
