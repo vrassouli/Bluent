@@ -1,4 +1,5 @@
-﻿<g>
+﻿@using Bluent.UI.Diagrams.Elements
+<g>
     <rect x="@Boundary.X"
           y="@Boundary.Y"
           width="@Boundary.Width"
@@ -7,9 +8,9 @@
           stroke-dasharray="@StrokeDashArray"
           stroke="@Stroke"
           fill="none" />
-    @if (Canvas.SelectedElements.Count() == 1)
+    @if (Canvas.SelectedElements.Count() == 1 && Element is IDrawingElement element)
     {
-        foreach (var anchor in Element.ResizeAnchors)
+        foreach (var anchor in element.ResizeAnchors)
         {
             <ResizeHandle Boundary="@Boundary" Anchor="anchor" PointerDown="e => HandleResizeHandlePointerDown(e, anchor)" />
         }

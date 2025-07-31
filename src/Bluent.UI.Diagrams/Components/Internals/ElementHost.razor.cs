@@ -7,10 +7,10 @@ namespace Bluent.UI.Diagrams.Components.Internals;
 
 public partial class ElementHost : ComponentBase, IDisposable
 {
-    private IDrawingElement? _element;
+    private IDrawingShape? _element;
     private bool _shouldRender = true;
 
-    [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
+    [Parameter, EditorRequired] public IDrawingShape Element { get; set; } = default!;
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
     //private bool Selected => Canvas.IsSelected(Element);
 
@@ -75,25 +75,31 @@ public partial class ElementHost : ComponentBase, IDisposable
     {
         //_shouldRender = false;
 
-        var offsetPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        var elements = Canvas.GetElementsAt(offsetPoint);
-        if (elements.Any(x => x == Element))
+        if (Element is IDrawingElement element)
         {
-            //Console.WriteLine($"[{Element}] Pointer on me");
-            var topMost = elements.FirstOrDefault();
+            var offsetPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+            var elements = Canvas.GetElementsAt(offsetPoint);
+            if (elements.Any(x => x == Element))
+            {
+                //Console.WriteLine($"[{Element}] Pointer on me");
+                var topMost = elements.FirstOrDefault();
 
-            var direct = topMost == Element;
-            Element.PointerMovingInside(offsetPoint, direct);
-        }
-        else
-        {
-            Element.PointerMovingOutside();
+                var direct = topMost == Element;
+                element.PointerMovingInside(offsetPoint, direct);
+            }
+            else
+            {
+                element.PointerMovingOutside();
+            }
         }
     }
 
     private string? GetCursor()
     {
-        if (Element.IsSelected && Canvas.AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
+        if (Element is IDrawingElement element &&
+            element.IsSelected &&
+            (element.AllowVerticalDrag || element.AllowHorizontalDrag) &&
+            Canvas.AllowDrag)
             return "grab";
 
         return null;

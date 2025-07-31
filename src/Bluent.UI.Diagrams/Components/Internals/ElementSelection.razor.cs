@@ -16,7 +16,7 @@ public partial class ElementSelection : IDisposable
     [Parameter] public double StrokeWidth { get; set; } = 2;
     [Parameter] public string StrokeDashArray { get; set; } = "4 3";
     [Parameter] public string Stroke { get; set; } = "#36a2eb";
-    [Parameter, EditorRequired] public IDrawingElement Element { get; set; } = default!;
+    [Parameter, EditorRequired] public IDrawingShape Element { get; set; } = default!;
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 
     private Boundary Boundary => new Boundary(Element.Boundary.X - Canvas.SelectionPadding,
@@ -64,7 +64,7 @@ public partial class ElementSelection : IDisposable
 
     private void OnPointerMove(object? sender, PointerEventArgs e)
     {
-        if (_pointerId == e.PointerId && _resizeAnchor != null)
+        if (Element is IDrawingElement element && _pointerId == e.PointerId && _resizeAnchor != null)
         {
             if (_startPoint is null)
                 _startPoint = Canvas.ScreenToDiagram(e.ToClientPoint());
@@ -72,27 +72,27 @@ public partial class ElementSelection : IDisposable
             _delta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _startPoint;
 
             if ((_resizeAnchor.Value & ResizeAnchor.Left) == ResizeAnchor.Left)
-                Element.ResizeLeft(_delta.Dx);
+                element.ResizeLeft(_delta.Dx);
             if ((_resizeAnchor.Value & ResizeAnchor.Right) == ResizeAnchor.Right)
-                Element.ResizeRight(_delta.Dx);
+                element.ResizeRight(_delta.Dx);
             if ((_resizeAnchor.Value & ResizeAnchor.Top) == ResizeAnchor.Top)
-                Element.ResizeTop(_delta.Dy);
+                element.ResizeTop(_delta.Dy);
             if ((_resizeAnchor.Value & ResizeAnchor.Bottom) == ResizeAnchor.Bottom)
-                Element.ResizeBottom(_delta.Dy);
+                element.ResizeBottom(_delta.Dy);
         }
     }
 
     private void OnPointerUp(object? sender, PointerEventArgs e)
     {
-        if (e.PointerId == _pointerId)
+        if (Element is IDrawingElement element && e.PointerId == _pointerId)
         {
             if (_resizeAnchor != null)
             {
-                Element.CancelResize();
+                element.CancelResize();
 
                 if (_delta != null && _resizeAnchor != null)
                 {
-                    var command = new ResizeElementCommand(Element, _resizeAnchor.Value, _delta);
+                    var command = new ResizeElementCommand(element, _resizeAnchor.Value, _delta);
                     Canvas.ExecuteCommand(command);
                 }
             }

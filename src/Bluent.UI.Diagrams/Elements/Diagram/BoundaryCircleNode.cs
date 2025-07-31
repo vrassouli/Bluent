@@ -2,7 +2,7 @@
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryElement
+public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode
 {
     public BoundaryCircleNode() : base(false, false)
     {
@@ -64,4 +64,6 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryElement
             }
         };
     }
+    
+
 }

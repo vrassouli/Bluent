@@ -6,9 +6,9 @@ namespace Bluent.UI.Diagrams.Commands.Diagram;
 internal class DeleteDiagramElementsCommand : ICommand
 {
     private readonly Components.Diagram _diagram;
-    private readonly List<IDiagramElement> _elements;
+    private readonly List<IDiagramNode> _elements;
 
-    public DeleteDiagramElementsCommand(Components.Diagram diagram, List<IDiagramElement> elements)
+    public DeleteDiagramElementsCommand(Components.Diagram diagram, List<IDiagramNode> elements)
     {
         _diagram = diagram;
         _elements = elements;
@@ -35,7 +35,7 @@ internal class DeleteDiagramElementsCommand : ICommand
         }
     }
 
-    private IDiagramElementContainer? FindParent(IDiagramElement element)
+    private IDiagramElementContainer? FindParent(IDiagramNode element)
     {
         var containers = _diagram.GetContainersAt(new Elements.DiagramPoint(element.Boundary.Cx, element.Boundary.Cy));
         var container = containers.FirstOrDefault(x => !object.Equals(element, x) && x.CanContain(element));

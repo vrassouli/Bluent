@@ -25,7 +25,7 @@ public partial class DrawingCanvas
     private Distance2D _pan = new();
     private Distance2D _activePan = new();
     private ITool? _tool;
-    private List<IDrawingElement> _elements = new();
+    private List<IDrawingShape> _elements = new();
     private List<ITool> _internalTools = new();
 
     [Parameter] public CommandManager? CommandManager { get; set; }
@@ -40,8 +40,8 @@ public partial class DrawingCanvas
     [Parameter] public int SnapSize { get; set; }
     [Parameter] public double SelectionPadding { get; set; } = 7;
 
-    public virtual IEnumerable<IDrawingElement> SelectedElements => Elements.Where(x => x.IsSelected);
-    public IEnumerable<IDrawingElement> Elements => _elements;
+    public virtual IEnumerable<IDrawingShape> SelectedElements => Elements.Where(x => x.IsSelected);
+    public IEnumerable<IDrawingShape> Elements => _elements;
 
     private string Cursor => Tool?.Cursor ?? "auto";
     public double Scale => _scale;
@@ -137,7 +137,7 @@ public partial class DrawingCanvas
         return base.ShouldRender();
     }
 
-    internal virtual IEnumerable<IDrawingElement> GetElementsAt(DiagramPoint point)
+    internal virtual IEnumerable<IDrawingShape> GetElementsAt(DiagramPoint point)
     {
         // Check selected elements first
         foreach (var el in Elements.OrderBy(x => !x.IsSelected))
@@ -177,13 +177,13 @@ public partial class DrawingCanvas
         _internalTools.RemoveAll(t => t.GetType() == typeof(T));
     }
 
-    internal void AddElement(IDrawingElement element)
+    internal void AddElement(IDrawingShape element)
     {
         _elements.Add(element);
         StateHasChanged();
     }
 
-    internal void RemoveElement(IDrawingElement element)
+    internal void RemoveElement(IDrawingShape element)
     {
         _elements.Remove(element);
         element.IsSelected = false;
@@ -199,13 +199,13 @@ public partial class DrawingCanvas
             SelectElement(element, addToSelections);
     }
 
-    internal void DeselectElement(IDrawingElement element)
+    internal void DeselectElement(IDrawingShape element)
     {
         element.IsSelected = false;
         //_selectedElements.Remove(element);
     }
 
-    internal void SelectElement(IDrawingElement element, bool addToSelections)
+    internal void SelectElement(IDrawingShape element, bool addToSelections)
     {
         if (IsSelected(element))
             return;
@@ -231,7 +231,7 @@ public partial class DrawingCanvas
         }
     }
 
-    internal bool IsSelected(IDrawingElement element)
+    internal bool IsSelected(IDrawingShape element)
     {
         return SelectedElements.Contains(element);
     }

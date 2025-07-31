@@ -13,12 +13,12 @@ public interface IDrawingElement: IDrawingShape
     void PointerMovingOutside();
     void PointerMovingInside(DiagramPoint offsetPoint, bool direct);
     void ApplyDrag();
-    void ApplyResize();
+    void SetDrag(Distance2D drag);
     void CancelDrag();
+    void ApplyResize();
     void CancelResize();
     void ResizeBottom(double dy);
     void ResizeLeft(double dx);
     void ResizeRight(double dx);
     void ResizeTop(double dy);
-    void SetDrag(Distance2D drag);
 }

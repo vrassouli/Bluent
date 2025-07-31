@@ -40,10 +40,11 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
         {
             if (_dragDelta != null)
             {
-                foreach (var el in Canvas.SelectedElements)
+                var elements = Canvas.SelectedElements.OfType<IDiagramNode>();
+                foreach (var el in elements)
                     el.CancelDrag();
 
-                var command = new DragDiagramElementsCommand(Diagram, Canvas.SelectedElements.OfType<IDiagramElement>().ToList(), _dragDelta);
+                var command = new DragDiagramElementsCommand(Diagram, elements.ToList(), _dragDelta);
                 Canvas.ExecuteCommand(command);
             }
         }
@@ -70,7 +71,8 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
             _dragStart = Canvas.ScreenToDiagram(e.ToClientPoint());
 
         _dragDelta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _dragStart;
-        foreach (var el in Canvas.SelectedElements)
+        var elements = Canvas.SelectedElements.OfType<IDiagramNode>();
+        foreach (var el in elements)
         {
             var drag = new Distance2D(el.AllowHorizontalDrag ? _dragDelta.Dx : 0, el.AllowVerticalDrag ? _dragDelta.Dy : 0);
 

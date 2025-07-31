@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContainer, IDiagramBoundaryElementContainer
+public abstract class DiagramNodeBase : IDiagramNode, IDiagramElementContainer, IDiagramBoundaryElementContainer
 {
     protected DiagramNodeBase(bool allowChildElements, bool allowBoundaryElements)
     {
@@ -19,8 +19,10 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
 
     private bool _pointerDirectlyOnNode = false;
     private bool _pointerIndirectlyOnNode = false;
-    private List<IDiagramElement> _elements = new();
-    private List<IDiagramBoundaryElement> _boundaryElements = new();
+    private List<IDiagramNode> _elements = new();
+    private List<IDiagramBoundaryNode> _boundaryElements = new();
+    private List<IDiagramConnector> _incomingConnectors = new();
+    private List<IDiagramConnector> _outgoingConnectors = new();
 
     private Distance2D _drag = new();
     private double _x;
@@ -44,8 +46,10 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
 
     #region Properties
 
-    public IEnumerable<IDiagramElement> DiagramElements => _elements;
-    public IEnumerable<IDiagramBoundaryElement> BoundaryElements => _boundaryElements;
+    public IEnumerable<IDiagramNode> DiagramElements => _elements;
+    public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
+    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors;
+    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
 
     public bool AllowHorizontalDrag => true;
 
@@ -268,6 +272,7 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         }
     }
 
+
     #endregion
 
     public abstract RenderFragment Render();
@@ -299,13 +304,13 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         }
     }
 
-    public void AddDiagramElement(IDiagramElement element)
+    public void AddDiagramElement(IDiagramNode element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
 
-        if (element is IDiagramBoundaryElement boundaryElement)
+        if (element is IDiagramBoundaryNode boundaryElement)
         {
-            StickToBoundary(element);
+            StickToBoundary(boundaryElement);
             _boundaryElements.Add(boundaryElement);
         }
         else
@@ -314,11 +319,11 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         NotifyPropertyChanged(nameof(DiagramElements));
     }
 
-    public void RemoveDiagramElement(IDiagramElement element)
+    public void RemoveDiagramElement(IDiagramNode element)
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
 
-        if (element is IDiagramBoundaryElement boundaryElement)
+        if (element is IDiagramBoundaryNode boundaryElement)
         {
             _boundaryElements.Remove(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryElements));
@@ -332,9 +337,9 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         element.IsSelected = false;
     }
 
-    public virtual bool CanContain(IDiagramElement element)
+    public virtual bool CanContain(IDiagramNode element)
     {
-        if (element is IDiagramBoundaryElement)
+        if (element is IDiagramBoundaryNode)
         {
             return _allowBoundaryElements;
         }
@@ -430,13 +435,6 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         DeltaTop = dy;
     }
 
-    public void SetCenter(double cx, double cy)
-    {
-        _x = cx - Width / 2;
-        _y = cy - Height / 2;
-
-        NotifyPropertyChanged();
-    }
 
     protected virtual IEnumerable<ResizeAnchor> GetResizeAnchors()
     {
@@ -499,7 +497,7 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
 
     private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (sender is IDiagramBoundaryElement boundaryElement &&
+        if (sender is IDiagramBoundaryNode boundaryElement &&
             (e.PropertyName == nameof(X) ||
             e.PropertyName == nameof(Y) ||
             e.PropertyName == nameof(Width) ||
@@ -511,7 +509,7 @@ public abstract class DiagramNodeBase : IDiagramElement, IDiagramElementContaine
         NotifyPropertyChanged(nameof(DiagramElements));
     }
 
-    private void StickToBoundary(IDiagramElement element)
+    private void StickToBoundary(IDiagramBoundaryNode element)
     {
         var left = Math.Abs(element.Boundary.Cx - Boundary.X);
         var top = Math.Abs(element.Boundary.Cy - Boundary.Y);

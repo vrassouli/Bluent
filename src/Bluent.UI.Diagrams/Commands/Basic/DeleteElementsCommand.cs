@@ -7,9 +7,9 @@ namespace Bluent.UI.Diagrams.Commands.Basic;
 internal class DeleteElementsCommand : ICommand
 {
     private readonly DrawingCanvas _canvas;
-    private readonly List<IDrawingElement> _elements;
+    private readonly List<IDrawingShape> _elements;
 
-    public DeleteElementsCommand(DrawingCanvas canvas, List<IDrawingElement> elements)
+    public DeleteElementsCommand(DrawingCanvas canvas, List<IDrawingShape> elements)
     {
         _canvas = canvas;
         _elements = elements;

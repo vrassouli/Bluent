@@ -2,9 +2,9 @@
 
 public interface IDiagramElementContainer
 {
-    public IEnumerable<IDiagramElement> DiagramElements { get; }
-    void AddDiagramElement(IDiagramElement element);
-    void RemoveDiagramElement(IDiagramElement element);
+    public IEnumerable<IDiagramNode> DiagramElements { get; }
+    void AddDiagramElement(IDiagramNode element);
+    void RemoveDiagramElement(IDiagramNode element);
     public IEnumerable<IDiagramElement> GetDiagramElementsAt(DiagramPoint point)
     {
         // Check selected elements first
@@ -17,7 +17,7 @@ public interface IDiagramElementContainer
             }
 
             if (el.Boundary.Contains(point))
-                if (el is IDiagramElement diagramEl)
+                if (el is IDiagramNode diagramEl)
                     yield return diagramEl;
         }
 
@@ -32,12 +32,12 @@ public interface IDiagramElementContainer
                 }
 
                 if (el.Boundary.Contains(point))
-                    if (el is IDiagramElement diagramEl)
+                    if (el is IDiagramNode diagramEl)
                         yield return diagramEl;
             }
         }
     }
-    public IEnumerable<IDrawingElement> SelectedElements
+    public IEnumerable<IDiagramElement> SelectedElements
     {
         get
         {
@@ -93,11 +93,11 @@ public interface IDiagramElementContainer
             return false;
         }
     }
-    public bool CanContain(IDiagramElement element);
+    public bool CanContain(IDiagramNode element);
 }
 
-public interface IDiagramBoundaryElementContainer : IDiagramElementContainer
+public interface IDiagramBoundaryElementContainer
 {
-    public IEnumerable<IDiagramBoundaryElement> BoundaryElements { get; }
+    public IEnumerable<IDiagramBoundaryNode> BoundaryElements { get; }
 
 }

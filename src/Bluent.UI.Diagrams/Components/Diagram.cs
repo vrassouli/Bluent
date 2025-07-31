@@ -8,7 +8,7 @@ namespace Bluent.UI.Diagrams.Components;
 public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 {
 
-    public override IEnumerable<IDrawingElement> SelectedElements
+    public override IEnumerable<IDrawingShape> SelectedElements
     {
         get
         {
@@ -24,7 +24,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         }
     }
 
-    public IEnumerable<IDiagramElement> DiagramElements => Elements.OfType<IDiagramElement>();
+    public IEnumerable<IDiagramNode> DiagramElements => Elements.OfType<IDiagramNode>();
 
     protected override void OnParametersSet()
     {
@@ -34,17 +34,17 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         base.OnParametersSet();
     }
 
-    public void AddDiagramElement(IDiagramElement element)
+    public void AddDiagramElement(IDiagramNode element)
     {
         base.AddElement(element);
     }
 
-    public void RemoveDiagramElement(IDiagramElement element)
+    public void RemoveDiagramElement(IDiagramNode element)
     {
         base.RemoveElement(element);
     }
 
-    internal override IEnumerable<IDrawingElement> GetElementsAt(DiagramPoint point)
+    internal override IEnumerable<IDrawingShape> GetElementsAt(DiagramPoint point)
     {
         foreach (var item in (this as IDiagramElementContainer).GetDiagramElementsAt(point))
             yield return item;
@@ -81,9 +81,9 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
     protected override void DeactivateDeleteTool() => DeactivateTool<DiagramDeleteElementsTool>();
 
-    public bool CanContain(IDiagramElement element)
+    public bool CanContain(IDiagramNode element)
     {
-        if (element is  IDiagramBoundaryElement)
+        if (element is  IDiagramBoundaryNode)
             return false;
 
         return true;
