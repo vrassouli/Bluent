@@ -24,6 +24,8 @@ public record Boundary(double X, double Y, double Width, double Height)
         return false;
     }
 
+    public DiagramPoint Center => new DiagramPoint(Cx, Cy);
+
     public double Cx => X + Width / 2;
     public double Cy => Y + Height / 2;
     public double Right => X + Width;

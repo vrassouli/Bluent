@@ -2,7 +2,6 @@
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
-using System.Drawing;
 
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
@@ -21,18 +20,22 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e) { }
+    protected override void OnTargetPointerUp(PointerEventArgs e) { }
 
     protected override void OnPointerMove(PointerEventArgs e)
     {
-        var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
+        if (_node is null)
+        {
+            var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        var elements = Diagram.GetDiagramElementsAt(point);
-        var container = elements.FirstOrDefault() as IDiagramContainer;
+            var elements = Diagram.GetDiagramElementsAt(point);
+            var container = elements.FirstOrDefault() as IDiagramContainer;
 
-        if (container is null || !container.CanContain<TNode>())
-            Cursor = "not-allowed";
-        else
-            Cursor = DefaultCursor;
+            if (container is null || !container.CanContain<TNode>())
+                Cursor = "not-allowed";
+            else
+                Cursor = DefaultCursor;
+        }
 
         base.OnPointerMove(e);
     }

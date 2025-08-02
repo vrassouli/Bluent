@@ -2,11 +2,13 @@
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Tools;
 using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
+using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Components;
 
 public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 {
+    [Parameter] public RenderFragment? ConnectorMarkerEnd { get; set; }
 
     public override IEnumerable<IDrawingShape> SelectedElements
     {
@@ -24,7 +26,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         }
     }
 
-    public IEnumerable<IDiagramNode> DiagramElements => Elements.OfType<IDiagramNode>();
+    public IEnumerable<IDiagramElement> DiagramElements => Elements.OfType<IDiagramElement>();
 
     protected override void OnParametersSet()
     {
@@ -34,12 +36,12 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         base.OnParametersSet();
     }
 
-    public void AddDiagramElement(IDiagramNode element)
+    public void AddDiagramElement(IDiagramElement element)
     {
         base.AddElement(element);
     }
 
-    public void RemoveDiagramElement(IDiagramNode element)
+    public void RemoveDiagramElement(IDiagramElement element)
     {
         base.RemoveElement(element);
     }
@@ -100,4 +102,42 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
     }
 
     protected override void DeactivateDeleteTool() => DeactivateTool<DiagramDeleteElementsTool>();
+
+    protected override RenderFragment? GetDefinitions()
+    {
+        return builder =>
+        {
+            if (Defs != null)
+                builder.AddContent(0, Defs);
+
+            builder.OpenElement(1, "marker");
+            builder.AddAttribute(2, "id", "connector-marker-end");
+            builder.AddAttribute(3, "viewBox", "0 0 20 20");
+            builder.AddAttribute(4, "refX", "11");
+            builder.AddAttribute(5, "refY", "10");
+            builder.AddAttribute(6, "refY", "10");
+            builder.AddAttribute(7, "markerWidth", "10");
+            builder.AddAttribute(8, "markerHeight", "10");
+            builder.AddAttribute(9, "orient", "auto");
+            if (ConnectorMarkerEnd != null)
+            {
+                builder.AddContent(10, ConnectorMarkerEnd);
+            }
+            else
+            {
+                builder.OpenElement(11, "path");
+
+                builder.AddAttribute(12, "d", "M 1 5 L 11 10 L 1 15 Z");
+                builder.AddAttribute(13, "stroke-linecap", "round");
+                builder.AddAttribute(14, "stroke-linejoin", "round");
+                builder.AddAttribute(15, "stroke", "var(--colorNeutralStroke1)");
+                builder.AddAttribute(16, "stroke-width", "1");
+                builder.AddAttribute(17, "fill", "var(--colorNeutralStroke1)");
+
+                builder.CloseElement();
+            }
+
+            builder.CloseElement(); // </marker>
+        };
+    }
 }

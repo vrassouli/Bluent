@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
@@ -13,8 +12,6 @@ public abstract class DiagramNodeBase : IDiagramNode
     private const double Epsilon = 0.01;
 
     private bool _pointerDirectlyOnNode = false;
-    private List<IDiagramConnector> _incomingConnectors = new();
-    private List<IDiagramConnector> _outgoingConnectors = new();
 
     private Distance2D _drag = new();
     private double _x;
@@ -36,8 +33,6 @@ public abstract class DiagramNodeBase : IDiagramNode
 
     #region Properties
 
-    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors;
-    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
 
     public bool AllowHorizontalDrag => true;
 
@@ -378,12 +373,12 @@ public abstract class DiagramNodeBase : IDiagramNode
         return $"{Text} ({this.GetType().Name})";
     }
 
-    protected void StickToBoundary(IDiagramBoundaryNode element)
+    protected DiagramPoint StickToBoundary(DiagramPoint point)
     {
-        var left = Math.Abs(element.Boundary.Cx - Boundary.X);
-        var right = Math.Abs(element.Boundary.Cx - Boundary.Right);
-        var top = Math.Abs(element.Boundary.Cy - Boundary.Y);
-        var bottom = Math.Abs(element.Boundary.Cy - Boundary.Bottom);
+        var left = Math.Abs(point.X - Boundary.X);
+        var right = Math.Abs(point.X - Boundary.Right);
+        var top = Math.Abs(point.Y - Boundary.Y);
+        var bottom = Math.Abs(point.Y - Boundary.Bottom);
 
         Edges hEdge = left < right ? Edges.Left : Edges.Right;
         Edges vEdge = top < bottom ? Edges.Top : Edges.Bottom;
@@ -394,7 +389,7 @@ public abstract class DiagramNodeBase : IDiagramNode
             (Edges.Left, Edges.Bottom) => left < bottom ? Edges.Left : Edges.Bottom,
 
             (Edges.Right, Edges.Top) => right < top ? Edges.Right : Edges.Top,
-            (Edges.Right, Edges.Bottom) => right < top ? Edges.Right : Edges.Bottom,
+            (Edges.Right, Edges.Bottom) => right < bottom ? Edges.Right : Edges.Bottom,
 
             _ => throw new ArgumentOutOfRangeException()
         };
@@ -404,14 +399,14 @@ public abstract class DiagramNodeBase : IDiagramNode
             Edges.Left => Boundary.X,
             Edges.Right => Boundary.Right,
 
-            Edges.Top or Edges.Bottom => element.Boundary.Cx < Boundary.X ? Boundary.X : (element.Boundary.Cx > Boundary.Right ? Boundary.Right : element.Boundary.Cx),
+            Edges.Top or Edges.Bottom => point.X < Boundary.X ? Boundary.X : (point.X > Boundary.Right ? Boundary.Right : point.X),
 
             _ => throw new ArgumentOutOfRangeException()
         };
 
         double cy = edge switch
         {
-            Edges.Left or Edges.Right => element.Boundary.Cy < Boundary.Y ? Boundary.Y : (element.Boundary.Cy > Boundary.Bottom ? Boundary.Bottom : element.Boundary.Cy),
+            Edges.Left or Edges.Right => point.Y < Boundary.Y ? Boundary.Y : (point.Y > Boundary.Bottom ? Boundary.Bottom : point.Y),
 
             Edges.Top => Boundary.Y,
             Edges.Bottom => Boundary.Bottom,
@@ -419,7 +414,7 @@ public abstract class DiagramNodeBase : IDiagramNode
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        element.SetCenter(cx, cy);
+        return new DiagramPoint(cx, cy);
     }
 
 }

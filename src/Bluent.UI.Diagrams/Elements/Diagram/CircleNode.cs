@@ -2,8 +2,14 @@
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class CircleNode : DiagramNodeBase
+public class CircleNode : DiagramNodeBase, IHasIncommingConnector, IHasOutgoingConnector
 {
+    private List<IDiagramConnector> _incomingConnectors = new();
+    private List<IDiagramConnector> _outgoingConnectors = new();
+
+    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors;
+    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
+
     public CircleNode()
     {
         Fill = "var(--colorNeutralBackground1)";
@@ -47,4 +53,77 @@ public class CircleNode : DiagramNodeBase
             }
         };
     }
+
+    public override void SetDrag(Distance2D drag)
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.DragStart(drag);
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.DragEnd(drag);
+        }
+        base.SetDrag(drag);
+    }
+
+    public override void CancelDrag()
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.CancelStartDrag();
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.CancelEndDrag();
+        }
+        base.CancelDrag();
+    }
+
+    public override void ApplyDrag()
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.ApplyStartDrag();
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.ApplyEndDrag();
+        }
+        base.ApplyDrag();
+    }
+
+    public void AddIncomingConnector(IDiagramConnector connector)
+    {
+        _incomingConnectors.Add(connector);
+
+        var point = StickToBoundary(connector.End);
+        connector.End = point;
+    }
+
+    public void RemoveIncomingConnector(IDiagramConnector connector)
+    {
+        _incomingConnectors.Remove(connector);
+    }
+    
+    public bool CanConnectIncoming<T>() where T: IDiagramConnector => CanConnectIncoming(typeof(T));
+    
+    public bool CanConnectIncoming(Type connectorType) => true;
+
+    public void AddOutgoingConnector(IDiagramConnector connector)
+    {
+        _outgoingConnectors.Add(connector);
+
+        var point = StickToBoundary(connector.Start);
+        connector.Start = point;
+    }
+
+    public void RemoveOutgoingConnector(IDiagramConnector connector)
+    {
+        _outgoingConnectors.Remove(connector);
+    }
+
+    public bool CanConnectOutgoing<T>() where T: IDiagramConnector => CanConnectOutgoing(typeof(T));
+    
+    public bool CanConnectOutgoing(Type connectorType) => true;
 }

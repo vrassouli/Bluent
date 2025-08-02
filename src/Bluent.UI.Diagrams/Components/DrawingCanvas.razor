@@ -21,6 +21,9 @@
          @onmousewheel="HandleMouseWheel"
          @onkeydown="HandleKeyDown"
          @onkeyup="HandleKeyUp">
+         <defs>
+             @GetDefinitions()
+         </defs>
         @ChildContent
 
         @* <CanvasGround /> *@

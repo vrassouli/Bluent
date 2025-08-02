@@ -6,10 +6,10 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementContainer
 {
-    private List<IDiagramNode> _elements = new();
-    public IEnumerable<IDiagramNode> DiagramElements => _elements;
+    private List<IDiagramElement> _elements = new();
+    public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
-    public void AddDiagramElement(IDiagramNode element)
+    public void AddDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
 
@@ -18,7 +18,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         NotifyPropertyChanged(nameof(DiagramElements));
     }
 
-    public void RemoveDiagramElement(IDiagramNode element)
+    public void RemoveDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
 
@@ -50,7 +50,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
 
     public override void ApplyDrag()
     {
-        foreach (var el in DiagramElements)
+        foreach (var el in DiagramElements.OfType<IDiagramNode>())
         {
             el.ApplyDrag();
         }
@@ -60,7 +60,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
 
     public override void CancelDrag()
     {
-        foreach (var el in DiagramElements)
+        foreach (var el in DiagramElements.OfType<IDiagramNode>())
         {
             el.CancelDrag();
         }
@@ -70,7 +70,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
 
     public override void SetDrag(Distance2D drag)
     {
-        foreach (var el in DiagramElements)
+        foreach (var el in DiagramElements.OfType<IDiagramNode>())
         {
             el.SetDrag(drag);
         }

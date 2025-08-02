@@ -2,7 +2,7 @@
 
 public interface IDiagramElementContainer : IDiagramContainer
 {
-    IEnumerable<IDiagramNode> DiagramElements { get; }
+    IEnumerable<IDiagramElement> DiagramElements { get; }
 }
 
 public interface IDiagramBoundaryContainer : IDiagramContainer
@@ -12,8 +12,8 @@ public interface IDiagramBoundaryContainer : IDiagramContainer
 
 public interface IDiagramContainer : IDiagramShape
 {
-    void AddDiagramElement(IDiagramNode element);
-    void RemoveDiagramElement(IDiagramNode element);
+    void AddDiagramElement(IDiagramElement element);
+    void RemoveDiagramElement(IDiagramElement element);
     IEnumerable<IDiagramShape> GetDiagramElementsAt(DiagramPoint point)
     {
         // Check selected elements first

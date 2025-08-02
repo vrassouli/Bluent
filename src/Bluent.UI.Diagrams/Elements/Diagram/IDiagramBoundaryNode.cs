@@ -2,9 +2,9 @@
 
 public interface IDiagramBoundaryNode : IDiagramNode
 {
-    void SetCenter(double cx, double cy)
+    void SetCenter(DiagramPoint point)
     {
-        X = cx - Width / 2;
-        Y = cy - Height / 2;
+        X = point.X - Width / 2;
+        Y = point.Y - Height / 2;
     }
 }

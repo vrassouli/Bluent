@@ -9,18 +9,20 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
     private List<IDiagramBoundaryNode> _boundaryElements = new();
     public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
 
-    public void AddDiagramElement(IDiagramNode element)
+    public void AddDiagramElement(IDiagramElement element)
     {
         if (element is not IDiagramBoundaryNode boundaryElement)
             return;
 
         boundaryElement.PropertyChanged += ChildElementPropertyChanged;
-        StickToBoundary(boundaryElement);
+        var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
+        boundaryElement.SetCenter(stickPoint);
+
         _boundaryElements.Add(boundaryElement);
         NotifyPropertyChanged(nameof(BoundaryElements));
     }
 
-    public void RemoveDiagramElement(IDiagramNode element)
+    public void RemoveDiagramElement(IDiagramElement element)
     {
         if (element is not IDiagramBoundaryNode boundaryElement)
             return;
@@ -55,7 +57,8 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
             e.PropertyName == nameof(Width) ||
             e.PropertyName == nameof(Height)))
         {
-            StickToBoundary(boundaryElement);
+            var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
+            boundaryElement.SetCenter(stickPoint);
         }
 
         NotifyPropertyChanged(nameof(BoundaryElements));

@@ -22,6 +22,8 @@ public abstract class DiagramSinglePointerToolBase : DiagramPointerToolBase
         if (_pointerId == e.PointerId)
         {
             _pointerId = null;
+
+            OnTargetPointerUp(e);
             OnTargetPointerUnavailable();
         }
 
@@ -49,7 +51,9 @@ public abstract class DiagramSinglePointerToolBase : DiagramPointerToolBase
 
     protected abstract void OnTargetPointerAvailable(PointerEventArgs e);
 
-    protected abstract void OnTargetPointerUnavailable();
-
     protected abstract void OnTargetPointerMove(PointerEventArgs e);
+
+    protected abstract void OnTargetPointerUp(PointerEventArgs e);
+
+    protected abstract void OnTargetPointerUnavailable();
 }

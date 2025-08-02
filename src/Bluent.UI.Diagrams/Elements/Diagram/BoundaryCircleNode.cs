@@ -2,8 +2,10 @@
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode
+public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOutgoingConnector
 {
+    private List<IDiagramConnector> _outgoingConnectors = new();
+
     public BoundaryCircleNode() 
     {
         Fill = "var(--colorNeutralBackground1)";
@@ -64,6 +66,54 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode
             }
         };
     }
-    
+
+    public override void SetDrag(Distance2D drag)
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.DragStart(drag);
+        }
+
+        base.SetDrag(drag);
+    }
+
+    public override void CancelDrag()
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.CancelStartDrag();
+        }
+
+        base.CancelDrag();
+    }
+
+    public override void ApplyDrag()
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.ApplyStartDrag();
+        }
+
+        base.ApplyDrag();
+    }
+
+    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
+
+    public void AddOutgoingConnector(IDiagramConnector connector)
+    {
+        _outgoingConnectors.Add(connector);
+
+        var point = StickToBoundary(connector.Start);
+        connector.Start = point;
+    }
+
+    public void RemoveOutgoingConnector(IDiagramConnector connector)
+    {
+        _outgoingConnectors.Remove(connector);
+    }
+
+    public bool CanConnectOutgoing<T>() where T : IDiagramConnector => CanConnectOutgoing(typeof(T));
+
+    public bool CanConnectOutgoing(Type connectorType) => true;
 
 }

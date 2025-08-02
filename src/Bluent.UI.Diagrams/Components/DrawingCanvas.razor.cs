@@ -31,6 +31,7 @@ public partial class DrawingCanvas
 
     [Parameter] public CommandManager? CommandManager { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? Defs { get; set; }
     [Parameter] public ITool? Tool { get; set; }
     [Parameter] public SelectionMode Selection { get; set; } = SelectionMode.None;
     [Parameter] public EventCallback OnToolOperationCompleted { get; set; }
@@ -193,6 +194,11 @@ public partial class DrawingCanvas
             // re-render to update cursor
             StateHasChanged();
         }
+    }
+
+    protected virtual RenderFragment? GetDefinitions()
+    {
+        return Defs;
     }
 
     protected void ActivateTool(ITool tool)

@@ -18,9 +18,8 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
         Cursor = "move";
     }
 
-    protected override void OnTargetPointerAvailable(PointerEventArgs e)
-    {
-    }
+    protected override void OnTargetPointerAvailable(PointerEventArgs e){}
+    protected override void OnTargetPointerUp(PointerEventArgs e) { }
 
     protected override void OnTargetPointerMove(PointerEventArgs e)
     {

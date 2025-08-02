@@ -6,18 +6,20 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramElementContainer, IDiagramBoundaryContainer
 {
-    private List<IDiagramNode> _elements = new();
+    private List<IDiagramElement> _elements = new();
     private List<IDiagramBoundaryNode> _boundaryElements = new();
     public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
-    public IEnumerable<IDiagramNode> DiagramElements => _elements;
+    public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
-    public void AddDiagramElement(IDiagramNode element)
+    public void AddDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
 
         if (element is IDiagramBoundaryNode boundaryElement)
         {
-            StickToBoundary(boundaryElement);
+            var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
+            boundaryElement.SetCenter(stickPoint);
+
             _boundaryElements.Add(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryElements));
         }
@@ -28,7 +30,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         }
     }
 
-    public void RemoveDiagramElement(IDiagramNode element)
+    public void RemoveDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
 
@@ -54,7 +56,8 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
             e.PropertyName == nameof(Width) ||
             e.PropertyName == nameof(Height)))
         {
-            StickToBoundary(boundaryElement);
+            var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
+            boundaryElement.SetCenter(stickPoint);
         }
 
         NotifyPropertyChanged(nameof(DiagramElements));
@@ -72,7 +75,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
 
     public override void ApplyDrag()
     {
-        foreach (var el in DiagramElements)
+        foreach (var el in DiagramElements.OfType<IDiagramNode>())
         {
             el.ApplyDrag();
         }
@@ -86,7 +89,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
 
     public override void CancelDrag()
     {
-        foreach (var el in DiagramElements)
+        foreach (var el in DiagramElements.OfType<IDiagramNode>())
         {
             el.CancelDrag();
         }
@@ -100,7 +103,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
 
     public override void SetDrag(Distance2D drag)
     {
-        foreach (var el in DiagramElements)
+        foreach (var el in DiagramElements.OfType<IDiagramNode>())
         {
             el.SetDrag(drag);
         }
