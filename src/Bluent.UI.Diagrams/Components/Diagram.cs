@@ -44,23 +44,6 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         base.RemoveElement(element);
     }
 
-    //public IEnumerable<IDiagramElement> GetDiagramElementsAt(DiagramPoint point)
-    //{
-    //    // Check selected elements first
-    //    foreach (var el in DiagramElements.OrderBy(x => !x.IsSelected))
-    //    {
-    //        if (el is IDiagramElementContainer container)
-    //        {
-    //            foreach (var child in container.GetDiagramElementsAt(point))
-    //                yield return child;
-    //        }
-
-    //        if (el.Boundary.Contains(point))
-    //            if (el is IDiagramNode diagramEl)
-    //                yield return diagramEl;
-    //    }
-    //}
-
     public bool CanContain<T>() where T : IDiagramElement
     {
         return CanContain(typeof(T));
@@ -76,19 +59,27 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
     internal override IEnumerable<IDrawingShape> GetElementsAt(DiagramPoint point)
     {
-        foreach (var item in (this as IDiagramElementContainer).GetDiagramElementsAt(point))
-            yield return item;
+        return (this as IDiagramElementContainer).GetDiagramElementsAt(point).OfType<IDrawingShape>();
     }
 
-    internal IEnumerable<IDiagramContainer> GetContainersAt(DiagramPoint point)
+    internal IEnumerable<IDiagramShape> GetDiagramElementsAt(DiagramPoint point)
     {
         var elements = GetElementsAt(point);
 
-        foreach (var el in elements.OfType<IDiagramContainer>())
+        foreach (var el in elements.OfType<IDiagramShape>())
             yield return el;
 
         yield return this;
     }
+    //internal IEnumerable<IDiagramContainer> GetContainersAt(DiagramPoint point)
+    //{
+    //    var elements = GetElementsAt(point);
+
+    //    foreach (var el in elements.OfType<IDiagramContainer>())
+    //        yield return el;
+
+    //    yield return this;
+    //}
 
     protected override void ActivatePanTool()
     {

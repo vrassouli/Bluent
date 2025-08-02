@@ -2,6 +2,7 @@
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using System.Drawing;
 
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
@@ -25,9 +26,10 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     {
         var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-        var containers = Diagram.GetContainersAt(point);
-        var container = containers.FirstOrDefault(x => x.CanContain<TNode>());
-        if (container is null)
+        var elements = Diagram.GetDiagramElementsAt(point);
+        var container = elements.FirstOrDefault() as IDiagramContainer;
+
+        if (container is null || !container.CanContain<TNode>())
             Cursor = "not-allowed";
         else
             Cursor = DefaultCursor;
@@ -37,20 +39,21 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
 
     protected override void OnTargetPointerMove(PointerEventArgs e)
     {
-        var startPoint = Canvas.ScreenToDiagram(Pointers.First().ToOffsetPoint());
-
-        var containers = Diagram.GetContainersAt(startPoint);
-        var container = containers.FirstOrDefault(x => x.CanContain<TNode>());
-        if (container is null)
-        {
-#if DEBUG
-            //throw new InvalidOperationException("Could not find any container to add the Node.");
-#endif
-            return;
-        }
 
         if (_node is null)
         {
+            var startPoint = Canvas.ScreenToDiagram(Pointers.First().ToOffsetPoint());
+
+            var elements = Diagram.GetDiagramElementsAt(startPoint);
+            var container = elements.FirstOrDefault() as IDiagramContainer;
+
+            if (container is null || !container.CanContain<TNode>())
+            {
+#if DEBUG
+                //throw new InvalidOperationException("Could not find any container to add the Node.");
+#endif
+                return;
+            }
 
             _node = new TNode
             {

@@ -10,11 +10,11 @@ public interface IDiagramBoundaryContainer : IDiagramContainer
     IEnumerable<IDiagramBoundaryNode> BoundaryElements { get; }
 }
 
-public interface IDiagramContainer
+public interface IDiagramContainer : IDiagramShape
 {
     void AddDiagramElement(IDiagramNode element);
     void RemoveDiagramElement(IDiagramNode element);
-    IEnumerable<IDiagramElement> GetDiagramElementsAt(DiagramPoint point)
+    IEnumerable<IDiagramShape> GetDiagramElementsAt(DiagramPoint point)
     {
         // Check selected elements first
         if (this is IDiagramElementContainer elementContainer)

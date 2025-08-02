@@ -1,4 +1,5 @@
 ﻿using Bluent.Core;
+using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
 
 namespace Bluent.UI.Diagrams.Commands.Diagram;
@@ -35,10 +36,10 @@ internal class DeleteDiagramElementsCommand : ICommand
         }
     }
 
-    private IDiagramContainer? FindParent(IDiagramNode element)
+    private IDiagramContainer? FindParent(IDiagramNode el)
     {
-        var containers = _diagram.GetContainersAt(new Elements.DiagramPoint(element.Boundary.Cx, element.Boundary.Cy));
-        var container = containers.FirstOrDefault(x => !object.Equals(element, x) && x.CanContain(element.GetType()));
+        var containers = _diagram.GetDiagramElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
+        var container = containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el.GetType()));
         return container;
     }
 }

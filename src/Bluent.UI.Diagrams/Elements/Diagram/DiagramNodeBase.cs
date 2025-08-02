@@ -381,8 +381,8 @@ public abstract class DiagramNodeBase : IDiagramNode
     protected void StickToBoundary(IDiagramBoundaryNode element)
     {
         var left = Math.Abs(element.Boundary.Cx - Boundary.X);
-        var top = Math.Abs(element.Boundary.Cy - Boundary.Y);
         var right = Math.Abs(element.Boundary.Cx - Boundary.Right);
+        var top = Math.Abs(element.Boundary.Cy - Boundary.Y);
         var bottom = Math.Abs(element.Boundary.Cy - Boundary.Bottom);
 
         Edges hEdge = left < right ? Edges.Left : Edges.Right;
