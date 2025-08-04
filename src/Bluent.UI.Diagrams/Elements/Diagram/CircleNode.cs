@@ -2,7 +2,7 @@
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class CircleNode : DiagramNodeBase, IHasIncommingConnector, IHasOutgoingConnector
+public class CircleNode : DiagramNodeBase, IHasIncomingConnector, IHasOutgoingConnector
 {
     private List<IDiagramConnector> _incomingConnectors = new();
     private List<IDiagramConnector> _outgoingConnectors = new();
@@ -91,6 +91,19 @@ public class CircleNode : DiagramNodeBase, IHasIncommingConnector, IHasOutgoingC
             incoming.ApplyEndDrag();
         }
         base.ApplyDrag();
+    }
+
+    public override void Clean()
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.Clean();
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.Clean();
+        }
+        base.Clean();
     }
 
     public void AddIncomingConnector(IDiagramConnector connector)

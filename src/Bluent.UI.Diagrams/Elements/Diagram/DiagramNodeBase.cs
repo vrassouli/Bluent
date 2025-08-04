@@ -340,6 +340,8 @@ public abstract class DiagramNodeBase : IDiagramNode
         DeltaTop = dy;
     }
 
+    public virtual void Clean() { }
+
     protected virtual IEnumerable<ResizeAnchor> GetResizeAnchors()
     {
         if (AllowHorizontalResize)
@@ -375,24 +377,7 @@ public abstract class DiagramNodeBase : IDiagramNode
 
     protected DiagramPoint StickToBoundary(DiagramPoint point)
     {
-        var left = Math.Abs(point.X - Boundary.X);
-        var right = Math.Abs(point.X - Boundary.Right);
-        var top = Math.Abs(point.Y - Boundary.Y);
-        var bottom = Math.Abs(point.Y - Boundary.Bottom);
-
-        Edges hEdge = left < right ? Edges.Left : Edges.Right;
-        Edges vEdge = top < bottom ? Edges.Top : Edges.Bottom;
-
-        Edges edge = (hEdge, vEdge) switch
-        {
-            (Edges.Left, Edges.Top) => left < top ? Edges.Left : Edges.Top,
-            (Edges.Left, Edges.Bottom) => left < bottom ? Edges.Left : Edges.Bottom,
-
-            (Edges.Right, Edges.Top) => right < top ? Edges.Right : Edges.Top,
-            (Edges.Right, Edges.Bottom) => right < bottom ? Edges.Right : Edges.Bottom,
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        Edges edge = Boundary.GetNearestEdge(point);
 
         double cx = edge switch
         {

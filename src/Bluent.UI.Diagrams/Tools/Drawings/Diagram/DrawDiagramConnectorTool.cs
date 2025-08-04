@@ -35,6 +35,8 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
         {
             var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
             _connector.End = endPoint;
+
+            ConnectorRouter.RouteConnector(_connector, gridSize: Diagram.SnapSize);
         }
 
         base.OnPointerMove(e);
@@ -65,12 +67,12 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             _sourceElement = sourceElement;
             _sourceElementContainer = pointingElementContainer;
 
-            _connector = new DiagramConnector(point);
+            _connector = new DiagramConnector(sourceElement, point);
             pointingElementContainer.AddDiagramElement(_connector);
             sourceElement.AddOutgoingConnector(_connector);
         }
 
-        if (pointingElement is not IHasIncommingConnector targetElement ||
+        if (pointingElement is not IHasIncomingConnector targetElement ||
             !targetElement.CanConnectIncoming(_connector.GetType()) ||
             _sourceElementContainer != pointingElementContainer)
             Cursor = "not-allowed";
@@ -80,7 +82,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
 
     protected override void OnTargetPointerUp(PointerEventArgs e)
     {
-        if(_connector is null) 
+        if (_sourceElement is null || _connector is null)
             return;
 
         var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
@@ -98,7 +100,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             .OfType<IDiagramContainer>()
             .FirstOrDefault(x => x != pointingElement && x.CanContain<DiagramConnector>());
 
-        if (pointingElement is not IHasIncommingConnector targetElement ||
+        if (pointingElement is not IHasIncomingConnector targetElement ||
             !targetElement.CanConnectIncoming<DiagramConnector>() ||
             pointingElementContainer != _sourceElementContainer)
         {
@@ -107,7 +109,9 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
         }
 
         Cursor = DefaultCursor;
+        _connector.TargetElement = targetElement;
         targetElement.AddIncomingConnector(_connector);
+        ConnectorRouter.RouteConnector(_connector, gridSize: Diagram.SnapSize);
     }
 
     protected override void OnTargetPointerUnavailable()
@@ -119,6 +123,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
     {
         if (_connector != null)
         {
+            _connector.Clean();
             _sourceElementContainer?.RemoveDiagramElement(_connector);
             _sourceElement?.RemoveOutgoingConnector(_connector);
         }
@@ -132,4 +137,5 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
         _sourceElement = null;
         _sourceElementContainer = null;
     }
+
 }

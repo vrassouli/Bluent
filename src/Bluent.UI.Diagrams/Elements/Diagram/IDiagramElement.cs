@@ -2,5 +2,5 @@
 
 public interface IDiagramElement : IDiagramShape, IDrawingShape
 {
-
+    void Clean();
 }

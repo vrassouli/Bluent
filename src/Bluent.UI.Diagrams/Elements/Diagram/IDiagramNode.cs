@@ -8,7 +8,7 @@ public interface IDiagramNode : IDrawingElement, IDiagramElement
     double Height { get; }
 }
 
-public interface IHasIncommingConnector
+public interface IHasIncomingConnector
 {
     IEnumerable<IDiagramConnector> IncomingConnectors { get; }
 

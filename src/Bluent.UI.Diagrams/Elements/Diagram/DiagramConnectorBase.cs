@@ -17,6 +17,8 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
     private string? _markerStart;
     private Distance2D _startDrag = new();
     private Distance2D _endDrag = new();
+    private IHasOutgoingConnector _sourceElement;
+    private IHasIncomingConnector? _targetElement;
 
     public DiagramPoint Start
     {
@@ -43,6 +45,30 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
             if (_end != value)
             {
                 _end = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+    public IHasOutgoingConnector SourceElement
+    {
+        get => _sourceElement;
+        set
+        {
+            if (_sourceElement != value)
+            {
+                _sourceElement = value;
+                NotifyPropertyChanged();
+            }
+        }
+    }
+    public IHasIncomingConnector? TargetElement
+    {
+        get => _targetElement;
+        set
+        {
+            if (_targetElement != value)
+            {
+                _targetElement = value;
                 NotifyPropertyChanged();
             }
         }
@@ -128,10 +154,12 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
         }
     }
 
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected DiagramConnectorBase(DiagramPoint start)
+    protected DiagramConnectorBase(IHasOutgoingConnector source, DiagramPoint start)
     {
+        _sourceElement = source;
         _start = start;
     }
 
@@ -146,6 +174,7 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
             builder.AddAttribute(seq++, "stroke", Stroke);
             builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
             builder.AddAttribute(seq++, "stroke-dasharray", StrokeDashArray);
+            builder.AddAttribute(seq++, "fill", "none");
             builder.AddAttribute(seq++, "marker-end", $"url(#{MarkerEnd})");
             builder.AddAttribute(seq++, "d", GetPathData());
 
@@ -195,5 +224,44 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
         var point = _end ?? _start;
         End = new DiagramPoint(point.X + _endDrag.Dx, point.Y + _endDrag.Dy);
         _endDrag = new();
+    }
+
+    public void AddWayPoint(DiagramPoint point)
+    {
+        _wayPoints.Add(point);
+
+        NotifyPropertyChanged(nameof(WayPoints));
+    }
+
+    public void SetWayPoints(IEnumerable<DiagramPoint> points)
+    {
+        ClearWayPoints();
+        _wayPoints.AddRange(points);
+
+        NotifyPropertyChanged(nameof(WayPoints));
+    }
+
+    public void RemoveWayPoint(DiagramPoint point)
+    {
+        _wayPoints.Remove(point);
+    }
+
+    public void ClearWayPoints()
+    {
+        _wayPoints.Clear();
+    }
+
+    public virtual void Clean()
+    {
+        if (SourceElement is not null)
+        {
+            SourceElement.RemoveOutgoingConnector(this);
+            SourceElement = null!;
+        }
+        if (TargetElement is not null)
+        {
+            TargetElement.RemoveIncomingConnector(this);
+            TargetElement = null;
+        }
     }
 }

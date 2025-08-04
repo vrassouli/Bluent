@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class RectangleNode : DiagramBoundaryContainerBase, IHasIncommingConnector, IHasOutgoingConnector
+public class RectangleNode : DiagramBoundaryContainerBase, IHasIncomingConnector, IHasOutgoingConnector
 {
     private double _raduis;
     private List<IDiagramConnector> _incomingConnectors = new();
@@ -80,6 +80,22 @@ public class RectangleNode : DiagramBoundaryContainerBase, IHasIncommingConnecto
             incoming.ApplyEndDrag();
         }
         base.ApplyDrag();
+    }
+
+    public override void Clean()
+    {
+        var incomings = IncomingConnectors.ToList();
+        var outgoings = OutgoingConnectors.ToList();
+
+        foreach (var incoming in incomings)
+        {
+            incoming.Clean();
+        }
+        foreach (var outgoing in outgoings)
+        {
+            outgoing.Clean();
+        }
+        base.Clean();
     }
 
     private void RenderText(int regionSeq, RenderTreeBuilder builder)

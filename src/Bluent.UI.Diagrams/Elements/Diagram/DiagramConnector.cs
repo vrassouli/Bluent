@@ -2,7 +2,7 @@
 
 internal class DiagramConnector : DiagramConnectorBase
 {
-    public DiagramConnector(DiagramPoint start) : base(start)
+    public DiagramConnector(IHasOutgoingConnector source, DiagramPoint start) : base(source, start)
     {
         Stroke = "var(--colorNeutralStroke1)";
         StrokeWidth = 2;
@@ -11,6 +11,16 @@ internal class DiagramConnector : DiagramConnectorBase
 
     protected override string GetPathData()
     {
-        return $"M{Start.X} {Start.Y} L{End.X} {End.Y}";
+        //return $"M{Start.X} {Start.Y} L{End.X} {End.Y}";
+        string data = $"M{Start.X} {Start.Y}";
+
+        foreach (var point in WayPoints)
+        {
+            data += $" L{point.X} {point.Y}";
+        }
+
+        data += $" L{End.X} {End.Y}";
+
+        return data;
     }
 }

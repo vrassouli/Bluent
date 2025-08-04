@@ -97,6 +97,16 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOut
         base.ApplyDrag();
     }
 
+    public override void Clean()
+    {
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.Clean();
+        }
+
+        base.Clean();
+    }
+
     public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
 
     public void AddOutgoingConnector(IDiagramConnector connector)
@@ -115,5 +125,4 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOut
     public bool CanConnectOutgoing<T>() where T : IDiagramConnector => CanConnectOutgoing(typeof(T));
 
     public bool CanConnectOutgoing(Type connectorType) => true;
-
 }
