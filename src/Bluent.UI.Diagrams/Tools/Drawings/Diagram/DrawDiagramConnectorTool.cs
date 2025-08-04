@@ -45,8 +45,8 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
     protected override void OnTargetPointerMove(PointerEventArgs e)
     {
         var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        var elementsAtPoint = Diagram.GetDiagramElementsAt(point).OfType<IDiagramElement>();
-        var pointingElement = elementsAtPoint.FirstOrDefault();
+        var nodesAtPoint = Diagram.GetDiagramElementsAt(point).OfType<IDiagramNode>();
+        var pointingElement = nodesAtPoint.FirstOrDefault();
 
         if (pointingElement is null)
             return;
@@ -86,8 +86,8 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             return;
 
         var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        var elementsAtPoint = Diagram.GetDiagramElementsAt(point).OfType<IDiagramElement>();
-        var pointingElement = elementsAtPoint.FirstOrDefault();
+        var nodesAtPoint = Diagram.GetDiagramElementsAt(point).OfType<IDiagramNode>();
+        var pointingElement = nodesAtPoint.FirstOrDefault();
 
         if (pointingElement is null)
         {

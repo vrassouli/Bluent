@@ -1,4 +1,6 @@
-﻿namespace Bluent.UI.Diagrams.Elements.Diagram;
+﻿using System.Drawing;
+
+namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public interface IDiagramElementContainer : IDiagramContainer
 {
@@ -25,7 +27,7 @@ public interface IDiagramContainer : IDiagramShape
                     foreach (var child in container.GetDiagramElementsAt(point))
                         yield return child;
 
-                if (el.Boundary.Contains(point))
+                if (el.HitTest(point))
                     if (el is IDiagramNode diagramEl)
                         yield return diagramEl;
             }
@@ -38,9 +40,26 @@ public interface IDiagramContainer : IDiagramShape
                     foreach (var child in container.GetDiagramElementsAt(point))
                         yield return child;
 
-                if (el.Boundary.Contains(point))
+                if (el.HitTest(point))
                     if (el is IDiagramNode diagramEl)
                         yield return diagramEl;
+            }
+        }
+
+        if (this is IHasOutgoingConnector hasOutgoingConnector)
+        {
+            foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
+            {
+                if (connector.HitTest(point))
+                    yield return connector;
+            }
+        }
+        if (this is IHasIncomingConnector hasIncomingConnector)
+        {
+            foreach (var connector in hasIncomingConnector.IncomingConnectors)
+            {
+                if (connector.HitTest(point))
+                    yield return connector;
             }
         }
     }
@@ -70,6 +89,23 @@ public interface IDiagramContainer : IDiagramShape
                     if (el is IDiagramContainer container)
                         foreach (var child in container.SelectedElements)
                             yield return child;
+                }
+            }
+            
+            if (this is IHasOutgoingConnector hasOutgoingConnector)
+            {
+                foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
+                {
+                    if (connector.IsSelected)
+                        yield return connector;
+                }
+            }
+            if (this is IHasIncomingConnector hasIncomingConnector)
+            {
+                foreach (var connector in hasIncomingConnector.IncomingConnectors)
+                {
+                    if (connector.IsSelected)
+                        yield return connector;
                 }
             }
         }

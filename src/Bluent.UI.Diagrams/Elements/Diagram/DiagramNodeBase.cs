@@ -260,6 +260,11 @@ public abstract class DiagramNodeBase : IDiagramNode
 
     public abstract RenderFragment Render();
 
+    public bool HitTest(DiagramPoint point)
+    {
+        return Boundary.Contains(point);
+    }
+
     public virtual void PointerMovingOutside()
     {
         if (_pointerDirectlyOnNode)
@@ -401,5 +406,4 @@ public abstract class DiagramNodeBase : IDiagramNode
 
         return new DiagramPoint(cx, cy);
     }
-
 }

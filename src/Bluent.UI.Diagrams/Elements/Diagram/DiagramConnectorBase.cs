@@ -251,6 +251,11 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
         _wayPoints.Clear();
     }
 
+    public bool HitTest(DiagramPoint point)
+    {
+        return Boundary.Contains(point);
+    }
+
     public virtual void Clean()
     {
         if (SourceElement is not null)
