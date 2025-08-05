@@ -1,9 +1,10 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
+using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class LineElement : DrawingElementBase
+public class LineElement : DrawingElementBase, IHasUpdatablePoints
 {
     private double _x1;
     private double _x2;
@@ -30,7 +31,6 @@ public class LineElement : DrawingElementBase
             }
         }
     }
-
     public double Y1
     {
         get => _y1 + Drag.Dy + DeltaTop;
@@ -72,6 +72,15 @@ public class LineElement : DrawingElementBase
                                                       Math.Min(Y1, Y2),
                                                       Math.Max(X1, X2) - Math.Min(X1, X2),
                                                       Math.Max(Y1, Y2) - Math.Min(Y1, Y2));
+
+    public IEnumerable<UpdatablePoint> UpdatablePoints
+    {
+        get
+        {
+            yield return new UpdatablePoint(new DiagramPoint(X1, Y1), "StartPoint");
+            yield return new UpdatablePoint(new DiagramPoint(X2, Y2), "EndPoint");
+        }
+    }
 
     public override RenderFragment Render()
     {
@@ -141,4 +150,32 @@ public class LineElement : DrawingElementBase
         base.ApplyResize();
     }
 
+    public void UpdatePoint(UpdatablePoint point, DiagramPoint update)
+    {
+        if (point.Data is string position)
+        {
+            switch (position)
+            {
+                case "StartPoint":
+                    {
+                        X1 = update.X;
+                        Y1 = update.Y;
+                    }
+                    break;
+
+                case "EndPoint":
+                    {
+                        X2 = update.X;
+                        Y2 = update.Y;
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown point position: {position}");
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("UpdatablePoint Data must be a string representing the position.");
+        }
+    }
 }

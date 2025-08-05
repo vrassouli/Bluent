@@ -40,7 +40,7 @@ public partial class DrawingCanvas
     [Parameter] public bool AllowScale { get; set; }
     [Parameter] public bool AllowDelete { get; set; }
     [Parameter] public int SnapSize { get; set; }
-    [Parameter] public double SelectionPadding { get; set; } = 7;
+    [Parameter] public double SelectionPadding { get; set; } = 0;
 
     public virtual IEnumerable<IDrawingShape> SelectedElements => Elements.Where(x => x.IsSelected);
     public IEnumerable<IDrawingShape> Elements => _elements;

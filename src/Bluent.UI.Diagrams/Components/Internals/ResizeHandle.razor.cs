@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Components.Internals;
 
-public partial class ResizeHandle : IDisposable
+public partial class ResizeHandle
 {
     [Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter] public double StrokeWidth { get; set; } = 1;
@@ -90,58 +90,11 @@ public partial class ResizeHandle : IDisposable
 
     protected override void OnInitialized()
     {
-        //if (Canvas is null)
-        //    throw new InvalidOperationException($"{nameof(ResizeHandle)} should be nested inside a {nameof(DrawingCanvas)} component.");
-
-        //Canvas.PointerMove += HandlePointerMove;
-        //Canvas.PointerUp += HandlePointerUp;
-        //Canvas.PointerCancel += HandlePointerCancel;
-        //Canvas.PointerLeave += HandlePointerLeave;
-
         base.OnInitialized();
-    }
-
-    public void Dispose()
-    {
-        //Canvas.PointerMove -= HandlePointerMove;
-        //Canvas.PointerUp -= HandlePointerUp;
-        //Canvas.PointerCancel -= HandlePointerCancel;
-        //Canvas.PointerLeave -= HandlePointerLeave;
     }
 
     private async Task HandlePointerDown(PointerEventArgs e)
     {
         await PointerDown.InvokeAsync(e);
     }
-
-    //private void HandlePointerMove(object? sender, PointerEventArgs e)
-    //{
-    //    if (_pointerId != e.PointerId)
-    //        return;
-    //}
-
-    //private void HandlePointerUp(object? sender, PointerEventArgs e)
-    //{
-    //    Reset();
-    //}
-
-    //private void HandlePointerLeave(object? sender, PointerEventArgs e)
-    //{
-    //    Cancel();
-    //}
-
-    //private void HandlePointerCancel(object? sender, PointerEventArgs e)
-    //{
-    //    Cancel();
-    //}
-
-    //private void Cancel()
-    //{
-    //    Reset();
-    //}
-
-    //private void Reset()
-    //{
-    //    _pointerId = null;
-    //}
 }

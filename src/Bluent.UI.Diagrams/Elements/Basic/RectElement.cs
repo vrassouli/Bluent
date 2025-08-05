@@ -1,9 +1,10 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
+using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class RectElement : DrawingElementBase
+public class RectElement : DrawingElementBase, IHasUpdatablePoints
 {
     private double? _x;
     private double? _y;
@@ -102,7 +103,23 @@ public class RectElement : DrawingElementBase
         }
     }
 
+    private double Left => X ?? 0;
+    private double Top => Y ?? 0;
+    private double Right => Left + Width;
+    private double Bottom => Top + Height;
+
     public override Boundary Boundary => new Boundary(X ?? 0, Y ?? 0, Width, Height);
+
+    public IEnumerable<UpdatablePoint> UpdatablePoints
+    {
+        get
+        {
+            yield return new UpdatablePoint(new DiagramPoint(Left, Top), "TopLeft");
+            yield return new UpdatablePoint(new DiagramPoint(Right, Top), "TopRight");
+            yield return new UpdatablePoint(new DiagramPoint(Left, Bottom), "BottomLeft");
+            yield return new UpdatablePoint(new DiagramPoint(Right, Bottom), "BottomRight");
+        }
+    }
 
     public override RenderFragment Render()
     {
@@ -136,13 +153,13 @@ public class RectElement : DrawingElementBase
             yield return ResizeAnchor.Right;
         }
 
-        if(AllowVerticalResize)
+        if (AllowVerticalResize)
         {
             yield return ResizeAnchor.Top;
             yield return ResizeAnchor.Bottom;
         }
 
-        if(AllowVerticalResize && AllowHorizontalResize)
+        if (AllowVerticalResize && AllowHorizontalResize)
         {
             yield return ResizeAnchor.Left | ResizeAnchor.Top;
             yield return ResizeAnchor.Left | ResizeAnchor.Bottom;
@@ -170,5 +187,89 @@ public class RectElement : DrawingElementBase
         NotifyPropertyChanged();
 
         base.ApplyResize();
+    }
+
+    public void UpdatePoint(UpdatablePoint point, DiagramPoint update)
+    {
+        if (point.Data is string position)
+        {
+            switch (position)
+            {
+                case "TopLeft":
+                    {
+                        var dx = update.X - Left;
+                        var dy = update.Y - Top;
+
+                        if (Width - dx > 0)
+                        {
+                            X = update.X;
+                            Width -= dx;
+                        }
+
+                        if (Height - dy > 0)
+                        {
+                            Y = update.Y;
+                            Height -= dy;
+                        }
+                    }
+                    break;
+                case "TopRight":
+                    {
+                        var dx = update.X - Right;
+                        var dy = update.Y - Top;
+
+                        if (Width + dx > 0)
+                        {
+                            Width += dx;
+                        }
+
+                        if (Height - dy > 0)
+                        {
+                            Y = update.Y;
+                            Height -= dy;
+                        }
+                    }
+                    break;
+                case "BottomLeft":
+                    {
+                        var dx = update.X - Left;
+                        var dy = update.Y - Bottom;
+
+                        if (Width - dx > 0)
+                        {
+                            X = update.X;
+                            Width -= dx;
+                        }
+
+                        if (Height + dy > 0)
+                        {
+                            Height += dy;
+                        }
+                    }
+                    break;
+                case "BottomRight":
+                    {
+                        var dx = update.X - Right;
+                        var dy = update.Y - Bottom;
+
+                        if (Width + dx > 0)
+                        {
+                            Width += dx;
+                        }
+
+                        if (Height + dy > 0)
+                        {
+                            Height += dy;
+                        }
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown point position: {position}");
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("UpdatablePoint Data must be a string representing the position.");
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Elements;
+using Bluent.UI.Diagrams.Elements.Abstractions;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -8,7 +9,8 @@ namespace Bluent.UI.Diagrams.Components.Internals;
 
 public partial class ElementSelection : IDisposable
 {
-    private ResizeAnchor? _resizeAnchor;
+    private UpdatablePoint? _point;
+
     private long? _pointerId;
     private DiagramPoint? _startPoint;
     private Distance2D? _delta;
@@ -24,22 +26,14 @@ public partial class ElementSelection : IDisposable
                                               Element.Boundary.Width + Canvas.SelectionPadding * 2,
                                               Element.Boundary.Height + Canvas.SelectionPadding * 2);
 
-    private void HandleResizeHandlePointerDown(PointerEventArgs e, ResizeAnchor anchor)
+    private void HandlePointUpdaterSelect(PointerEventArgs e, UpdatablePoint point)
     {
         if (_pointerId is null)
         {
-            _resizeAnchor = anchor;
+            _point = point;
             _pointerId = e.PointerId;
         }
     }
-
-    //private string? GetCursor()
-    //{
-    //    if (AllowDrag && (Element.AllowVerticalDrag || Element.AllowHorizontalDrag))
-    //        return "grab";
-
-    //    return null;
-    //}
 
     protected override void OnInitialized()
     {
@@ -64,37 +58,27 @@ public partial class ElementSelection : IDisposable
 
     private void OnPointerMove(object? sender, PointerEventArgs e)
     {
-        if (Element is IDrawingElement element && _pointerId == e.PointerId && _resizeAnchor != null)
+        if (Element is IHasUpdatablePoints element && _pointerId == e.PointerId && _point != null)
         {
             if (_startPoint is null)
                 _startPoint = Canvas.ScreenToDiagram(e.ToClientPoint());
 
             _delta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _startPoint;
-
-            if ((_resizeAnchor.Value & ResizeAnchor.Left) == ResizeAnchor.Left)
-                element.ResizeLeft(_delta.Dx);
-            if ((_resizeAnchor.Value & ResizeAnchor.Right) == ResizeAnchor.Right)
-                element.ResizeRight(_delta.Dx);
-            if ((_resizeAnchor.Value & ResizeAnchor.Top) == ResizeAnchor.Top)
-                element.ResizeTop(_delta.Dy);
-            if ((_resizeAnchor.Value & ResizeAnchor.Bottom) == ResizeAnchor.Bottom)
-                element.ResizeBottom(_delta.Dy);
+            element.UpdatePoint(_point, new DiagramPoint(_point.Point.X + _delta.Dx, _point.Point.Y + _delta.Dy));
         }
     }
 
     private void OnPointerUp(object? sender, PointerEventArgs e)
     {
-        if (Element is IDrawingElement element && e.PointerId == _pointerId)
+        if (Element is IHasUpdatablePoints element && e.PointerId == _pointerId)
         {
-            if (_resizeAnchor != null)
+            if (_point != null && _delta != null)
             {
-                element.CancelResize();
+                // Reset
+                element.UpdatePoint(_point, new DiagramPoint(_point.Point.X, _point.Point.Y));
 
-                if (_delta != null && _resizeAnchor != null)
-                {
-                    var command = new ResizeElementCommand(element, _resizeAnchor.Value, _delta);
-                    Canvas.ExecuteCommand(command);
-                }
+                var command = new PointUpdateCommand(element, _point, _delta);
+                Canvas.ExecuteCommand(command);
             }
             Reset();
         }
@@ -120,7 +104,7 @@ public partial class ElementSelection : IDisposable
     private void Reset()
     {
         _pointerId = null;
-        _resizeAnchor = null;
+        _point = null;
         _startPoint = null;
         _delta = null;
     }

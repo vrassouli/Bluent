@@ -1,4 +1,5 @@
 ﻿@using Bluent.UI.Diagrams.Elements
+@using Bluent.UI.Diagrams.Elements.Abstractions
 <g>
     <rect x="@Boundary.X"
           y="@Boundary.Y"
@@ -8,11 +9,18 @@
           stroke-dasharray="@StrokeDashArray"
           stroke="@Stroke"
           fill="none" />
-    @if (Canvas.SelectedElements.Count() == 1 && Element is IDrawingElement element)
+    @if (Canvas.SelectedElements.Count() == 1 && Element is IHasUpdatablePoints hasUpdatablePoints)
     {
+        foreach (var updatablePoint in hasUpdatablePoints.UpdatablePoints)
+        {
+            <PointUpdater UpdatablePoint="@updatablePoint" PointerDown="e => HandlePointUpdaterSelect(e, updatablePoint)" />
+        }
+        
+        @*
         foreach (var anchor in element.ResizeAnchors)
         {
             <ResizeHandle Boundary="@Boundary" Anchor="anchor" PointerDown="e => HandleResizeHandlePointerDown(e, anchor)" />
         }
+ *@    
     }
 </g>

@@ -1,9 +1,10 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
+using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
 
-public class CircleElement : DrawingElementBase
+public class CircleElement : DrawingElementBase, IHasUpdatablePoints
 {
     private double _cx;
     private double _cy;
@@ -55,6 +56,15 @@ public class CircleElement : DrawingElementBase
     }
 
     public override Boundary Boundary => new Boundary(CX - R, CY - R, R * 2, R * 2);
+
+    public IEnumerable<UpdatablePoint> UpdatablePoints
+    {
+        get
+        {
+            yield return new UpdatablePoint(new DiagramPoint(CX + R, CY), "Radius");
+        }
+    }
+
 
     public override RenderFragment Render()
     {
@@ -111,5 +121,28 @@ public class CircleElement : DrawingElementBase
         NotifyPropertyChanged();
 
         base.ApplyResize();
+    }
+
+    public void UpdatePoint(UpdatablePoint point, DiagramPoint update)
+    {
+        if (point.Data is string position)
+        {
+            switch (position)
+            {
+                case "Radius":
+                    {
+                        var r = update.X - CX;
+                        if (r > 0)
+                            R = r;
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown point position: {position}");
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("UpdatablePoint Data must be a string representing the position.");
+        }
     }
 }
