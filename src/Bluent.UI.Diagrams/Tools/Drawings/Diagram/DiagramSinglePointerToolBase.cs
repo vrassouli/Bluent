@@ -24,6 +24,7 @@ public abstract class DiagramSinglePointerToolBase : DiagramPointerToolBase
             _pointerId = null;
 
             OnTargetPointerUp(e);
+            NotifyCompleted();
             OnTargetPointerUnavailable();
         }
 

@@ -325,43 +325,9 @@ public partial class DrawingCanvas
         StateHasChanged();
     }
 
-    internal DiagramPoint ScreenToDiagram(ScreenPoint point)
-    {
-        return ScreenToDiagram(point, SnapSize);
-    }
-
-    internal DiagramPoint ScreenToDiagram(ScreenPoint point, int? snapSize = null)
-    {
-        var x = (point.X - _pan.Dx) / _scale;
-        var y = (point.Y - _pan.Dy) / _scale;
-
-        var newPoint = new DiagramPoint(x, y);
-
-        if (snapSize is null)
-            return newPoint;
-
-        return SnapToGrid(newPoint, snapSize.Value);
-    }
-
-    internal ScreenPoint DiagramToScreen(DiagramPoint point)
-    {
-        var x = point.X * _scale + _pan.Dx;
-        var y = point.Y * _scale + _pan.Dy;
-
-        return new ScreenPoint(x, y);
-    }
-
     internal DiagramPoint SnapToGrid(DiagramPoint point)
     {
         return SnapToGrid(point, SnapSize);
-    }
-
-    private DiagramPoint SnapToGrid(DiagramPoint point, int snapSize)
-    {
-        if (snapSize <= 0)
-            return point;
-
-        return new DiagramPoint(Math.Round((double)point.X / snapSize) * snapSize, Math.Round((double)point.Y / snapSize) * snapSize);
     }
 
     public void ExecuteCommand(ICommand cmd)
@@ -380,6 +346,32 @@ public partial class DrawingCanvas
     public void ResetPan()
     {
         _pan = new();
+    }
+
+    public DiagramPoint ScreenToDiagram(ScreenPoint point)
+    {
+        return ScreenToDiagram(point, SnapSize);
+    }
+
+    public DiagramPoint ScreenToDiagram(ScreenPoint point, int? snapSize = null)
+    {
+        var x = (point.X - _pan.Dx) / _scale;
+        var y = (point.Y - _pan.Dy) / _scale;
+
+        var newPoint = new DiagramPoint(x, y);
+
+        if (snapSize is null)
+            return newPoint;
+
+        return SnapToGrid(newPoint, snapSize.Value);
+    }
+
+    public ScreenPoint DiagramToScreen(DiagramPoint point)
+    {
+        var x = point.X * _scale + _pan.Dx;
+        var y = point.Y * _scale + _pan.Dy;
+
+        return new ScreenPoint(x, y);
     }
 
     #region Event Handlers
@@ -572,6 +564,13 @@ public partial class DrawingCanvas
 
     private void DeactivateScaleTool() => DeactivateTool<ScaleTool>();
 
+    private DiagramPoint SnapToGrid(DiagramPoint point, int snapSize)
+    {
+        if (snapSize <= 0)
+            return point;
+
+        return new DiagramPoint(Math.Round((double)point.X / snapSize) * snapSize, Math.Round((double)point.Y / snapSize) * snapSize);
+    }
 
     private void ToolOperationCompleted(object? sender, EventArgs e)
     {

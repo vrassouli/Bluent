@@ -3,35 +3,43 @@
 @using Bluent.UI.Diagrams.Elements.Diagram
 
 <CascadingValue Value="this" IsFixed>
-
-    <svg @attributes=AdditionalAttributes
+    <div @attributes=AdditionalAttributes
          tabindex="0"
          id="@Id"
          class="@GetComponentClass()"
-         style="@Style"
-         cursor="@Cursor"
-         @onpointerdown="HandlePointerDown"
-         @onpointerup="HandlePointerUp"
-         @onpointermove="HandlePointerMove"
-         @onpointercancel="HandlePointerCancel"
-         @onpointerenter="HandlePointerEnter"
-         @onpointerout="HandlePointerOut"
-         @onpointerleave="HandlePointerLeave"
-         @onpointerover="HandlePointerOver"
-         @onmousewheel="HandleMouseWheel"
-         @onkeydown="HandleKeyDown"
-         @onkeyup="HandleKeyUp">
-         <defs>
-             @GetDefinitions()
-         </defs>
-        @ChildContent
+         style="@Style">
+        <svg cursor="@Cursor"
+             @onpointerdown="HandlePointerDown"
+             @onpointerup="HandlePointerUp"
+             @onpointermove="HandlePointerMove"
+             @onpointercancel="HandlePointerCancel"
+             @onpointerenter="HandlePointerEnter"
+             @onpointerout="HandlePointerOut"
+             @onpointerleave="HandlePointerLeave"
+             @onpointerover="HandlePointerOver"
+             @onmousewheel="HandleMouseWheel"
+             @onkeydown="HandleKeyDown"
+             @onkeyup="HandleKeyUp">
+            <defs>
+                @GetDefinitions()
+            </defs>
+            @ChildContent
 
-        @* <CanvasGround /> *@
-        <g transform="translate(@(_pan.Dx + _activePan.Dx), @(_pan.Dy + _activePan.Dy)) scale(@_scale)">
-            @foreach (var el in Elements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+            @* <CanvasGround /> *@
+            <g transform="translate(@(_pan.Dx + _activePan.Dx), @(_pan.Dy + _activePan.Dy)) scale(@_scale)">
+                @foreach (var el in Elements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+                {
+                    <ElementHost @key=el Element="el" />
+                }
+            </g>
+        </svg>
+        <div class="selection-options">
+            @foreach (var selection in SelectedElements)
             {
-                <ElementHost @key=el Element="el" />
+                <div class="options" style="transform: translate(@(_pan.Dx + _activePan.Dx)px, @(_pan.Dy + _activePan.Dy)px) scale(@_scale)">
+                    @selection.RenderSelectionUptions()
+                </div>
             }
-        </g>
-    </svg>
+        </div>
+    </div>
 </CascadingValue>

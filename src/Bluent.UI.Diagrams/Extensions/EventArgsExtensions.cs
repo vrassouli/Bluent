@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Bluent.UI.Diagrams.Extensions;
 
-internal static class EventArgsExtensions
+public static class EventArgsExtensions
 {
     public static ScreenPoint ToClientPoint(this PointerEventArgs e)
     {

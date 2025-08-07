@@ -106,7 +106,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         }
     }
 
-    public string? Text
+    public virtual string? Text
     {
         get => _text;
         set
@@ -235,6 +235,11 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     #endregion
 
     public abstract RenderFragment Render();
+
+    public virtual RenderFragment? RenderSelectionUptions()
+    {
+        return null;
+    }
 
     public bool HitTest(DiagramPoint point)
     {

@@ -57,7 +57,21 @@ public abstract class DrawingElementBase : IDrawingElement
     }
 
     public abstract RenderFragment Render();
-   
+
+    public virtual RenderFragment? RenderSelectionUptions()
+    {
+        return builder =>
+        {
+            var seq = 0;
+            builder.OpenElement(seq++, "div");
+            builder.AddAttribute(seq++, "style", $"left: {Boundary.Right + 10}px; top: {Boundary.Y}px; padding: 5px;");
+            builder.OpenElement(seq++, "span");
+            builder.AddContent(seq++, "Options...");
+            builder.CloseElement();
+            builder.CloseElement();
+        };
+    }
+
     public virtual void ApplyDrag()
     {
         Drag = new();

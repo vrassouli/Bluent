@@ -3,7 +3,7 @@ using Bluent.UI.Diagrams.Elements.Diagram;
 
 namespace Bluent.UI.Diagrams.Commands.Diagram;
 
-internal class AddDiagramConnectorCommand : ICommand
+public class AddDiagramConnectorCommand : ICommand
 {
     private readonly IDiagramContainer _container;
     private readonly IHasOutgoingConnector _source;

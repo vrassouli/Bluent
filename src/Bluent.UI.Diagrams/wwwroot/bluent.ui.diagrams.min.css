@@ -1,1 +1,1 @@
-.bui-drawing-canvas{touch-action:none}
+.bui-drawing-canvas{touch-action:none;position:relative}.bui-drawing-canvas>svg{position:absolute;right:0;left:0;top:0;bottom:0;width:100%;height:100%}.bui-drawing-canvas>.selection-options{position:absolute;right:0;left:0;top:0;bottom:0;width:100%;height:100%;pointer-events:none}.bui-drawing-canvas>.selection-options>.options{position:absolute}.bui-drawing-canvas>.selection-options>.options>*{position:absolute;pointer-events:all}

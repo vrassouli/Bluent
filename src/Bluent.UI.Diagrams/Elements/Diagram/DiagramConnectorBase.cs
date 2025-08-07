@@ -215,6 +215,11 @@ internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatableP
         };
     }
 
+    public virtual RenderFragment? RenderSelectionUptions()
+    {
+        return null;
+    }
+
     protected abstract string GetPathData();
 
     protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
