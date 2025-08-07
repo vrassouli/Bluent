@@ -1,11 +1,13 @@
-﻿using Bluent.UI.Diagrams.Components.Internals;
+﻿using Bluent.Core.Utilities;
+using Bluent.UI.Diagrams.Elements.Abstractions;
+using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public abstract class DiagramNodeBase : IDiagramNode
+public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 {
     #region Private fields
 
@@ -18,21 +20,32 @@ public abstract class DiagramNodeBase : IDiagramNode
     private double _y;
     private double _width;
     private double _height;
-    private double _deltaLeft;
-    private double _deltaRight;
-    private double _deltaBottom;
-    private double _deltaTop;
     private string? _stroke;
     private double? _strokeWidth;
     private string? _strokeDashArray;
     private string? _fill;
     private string? _text;
     private bool _isSelected;
+    private List<IDiagramConnector>? _incomingConnectors;
+    private List<IDiagramConnector>? _outgoingConnectors;
+    private string? _id;
 
     #endregion
 
     #region Properties
 
+    public string Id
+    {
+        get
+        {
+            if (_id is null)
+                _id = Identifier.NewId();
+
+            return _id;
+        }
+
+        set => _id = value;
+    }
 
     public bool AllowHorizontalDrag => true;
 
@@ -46,7 +59,7 @@ public abstract class DiagramNodeBase : IDiagramNode
 
     public double X
     {
-        get => _x + Drag.Dx + DeltaLeft;
+        get => _x + Drag.Dx /*+ DeltaLeft*/;
         set
         {
             if (Math.Abs(_x - value) > Epsilon)
@@ -58,7 +71,7 @@ public abstract class DiagramNodeBase : IDiagramNode
     }
     public double Y
     {
-        get => _y + Drag.Dy + DeltaTop;
+        get => _y + Drag.Dy /*+ DeltaTop*/;
         set
         {
             if (Math.Abs(_y - value) > Epsilon)
@@ -70,8 +83,8 @@ public abstract class DiagramNodeBase : IDiagramNode
     }
     public double Width
     {
-        get => _width - DeltaLeft + DeltaRight;
-        private set
+        get => _width /*- DeltaLeft + DeltaRight*/;
+        set
         {
             if (Math.Abs(_width - value) > Epsilon)
             {
@@ -82,8 +95,8 @@ public abstract class DiagramNodeBase : IDiagramNode
     }
     public double Height
     {
-        get => _height - DeltaTop + DeltaBottom;
-        private set
+        get => _height /*- DeltaTop + DeltaBottom*/;
+        set
         {
             if (Math.Abs(_height - value) > Epsilon)
             {
@@ -105,8 +118,6 @@ public abstract class DiagramNodeBase : IDiagramNode
             }
         }
     }
-
-    public IEnumerable<ResizeAnchor> ResizeAnchors => GetResizeAnchors();
 
     public bool IsSelected
     {
@@ -186,11 +197,12 @@ public abstract class DiagramNodeBase : IDiagramNode
             }
         }
     }
+    public virtual double? SelectionStrokeWidth { get; set; } = 2;
+    public virtual string? SelectionStrokeDashArray { get; set; } = "4 3";
+    public virtual string? SelectionStroke { get; set; } = "#36a2eb";
 
     public string? HighlightStroke { get; set; } = "var(--colorNeutralStroke1Hover)";
     public string? HighlightFill { get; set; } = "var(--colorNeutralBackground1Hover)";
-    //public string? IndirectHighlightFill { get; set; } = "var(--colorNeutralBackground2)";
-    //public string? IndirectHighlightStroke { get; set; } = "var(--colorNeutralStroke2)";
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -206,55 +218,19 @@ public abstract class DiagramNodeBase : IDiagramNode
             }
         }
     }
-    protected double DeltaTop
-    {
-        get => _deltaTop;
-        set
-        {
-            if (_deltaTop != value)
-            {
-                _deltaTop = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
-    protected double DeltaBottom
-    {
-        get => _deltaBottom;
-        set
-        {
-            if (_deltaBottom != value)
-            {
-                _deltaBottom = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
-    protected double DeltaRight
-    {
-        get => _deltaRight;
-        set
-        {
-            if (_deltaRight != value)
-            {
-                _deltaRight = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
-    protected double DeltaLeft
-    {
-        get => _deltaLeft;
-        set
-        {
-            if (_deltaLeft != value)
-            {
-                _deltaLeft = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
 
+    public virtual IEnumerable<UpdatablePoint> UpdatablePoints
+    {
+        get
+        {
+            yield return new UpdatablePoint(new DiagramPoint(X, Y), "TopLeft") { Cursor = "nwse-resize" };
+            yield return new UpdatablePoint(new DiagramPoint(X + Width, Y), "TopRight") { Cursor = "nesw-resize" };
+            yield return new UpdatablePoint(new DiagramPoint(X, Y + Height), "BottomLeft") { Cursor = "nesw-resize" };
+            yield return new UpdatablePoint(new DiagramPoint(X + Width, Y + Height), "BottomRight") { Cursor = "nwse-resize" };
+        }
+    }
+    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors ?? Enumerable.Empty<IDiagramConnector>();
+    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors ?? Enumerable.Empty<IDiagramConnector>();
 
     #endregion
 
@@ -301,72 +277,22 @@ public abstract class DiagramNodeBase : IDiagramNode
     public virtual void SetDrag(Distance2D drag)
     {
         Drag = drag;
+
+        RerouteConnectors();
     }
 
-    public virtual void ApplyResize()
+    public virtual void Clean()
     {
-        _x = _x + DeltaLeft;
-        _width = _width - DeltaLeft + DeltaRight;
-        _y = _y + DeltaTop;
-        _height = _height - DeltaTop + DeltaBottom;
+        var incomings = IncomingConnectors.ToList();
+        var outgoings = OutgoingConnectors.ToList();
 
-        CancelResize();
-        NotifyPropertyChanged(nameof(X));
-        NotifyPropertyChanged(nameof(Y));
-        NotifyPropertyChanged(nameof(Width));
-        NotifyPropertyChanged(nameof(Height));
-    }
-
-    public virtual void CancelResize()
-    {
-        _deltaLeft = 0;
-        _deltaTop = 0;
-        _deltaRight = 0;
-        _deltaBottom = 0;
-    }
-
-    public virtual void ResizeBottom(double dy)
-    {
-        DeltaBottom = dy;
-    }
-
-    public virtual void ResizeLeft(double dx)
-    {
-        DeltaLeft = dx;
-    }
-
-    public virtual void ResizeRight(double dx)
-    {
-        DeltaRight = dx;
-    }
-
-    public virtual void ResizeTop(double dy)
-    {
-        DeltaTop = dy;
-    }
-
-    public virtual void Clean() { }
-
-    protected virtual IEnumerable<ResizeAnchor> GetResizeAnchors()
-    {
-        if (AllowHorizontalResize)
+        foreach (var incoming in incomings)
         {
-            yield return ResizeAnchor.Left;
-            yield return ResizeAnchor.Right;
+            incoming.Clean();
         }
-
-        if (AllowVerticalResize)
+        foreach (var outgoing in outgoings)
         {
-            yield return ResizeAnchor.Top;
-            yield return ResizeAnchor.Bottom;
-        }
-
-        if (AllowVerticalResize && AllowHorizontalResize)
-        {
-            yield return ResizeAnchor.Left | ResizeAnchor.Top;
-            yield return ResizeAnchor.Left | ResizeAnchor.Bottom;
-            yield return ResizeAnchor.Right | ResizeAnchor.Top;
-            yield return ResizeAnchor.Right | ResizeAnchor.Bottom;
+            outgoing.Clean();
         }
     }
 
@@ -380,7 +306,7 @@ public abstract class DiagramNodeBase : IDiagramNode
         return $"{Text} ({this.GetType().Name})";
     }
 
-    protected DiagramPoint StickToBoundary(DiagramPoint point)
+    public DiagramPoint StickToBoundary(DiagramPoint point)
     {
         Edges edge = Boundary.GetNearestEdge(point);
 
@@ -405,5 +331,168 @@ public abstract class DiagramNodeBase : IDiagramNode
         };
 
         return new DiagramPoint(cx, cy);
+    }
+
+    public virtual void UpdatePoint(UpdatablePoint point, DiagramPoint update)
+    {
+        if (point.Data is string position)
+        {
+            switch (position)
+            {
+                case "TopLeft":
+                    {
+                        var dx = update.X - X;
+                        var dy = update.Y - Y;
+
+                        if (Width - dx > 0)
+                        {
+                            X = update.X;
+                            Width -= dx;
+                        }
+
+                        if (Height - dy > 0)
+                        {
+                            Y = update.Y;
+                            Height -= dy;
+                        }
+                    }
+                    break;
+                case "TopRight":
+                    {
+                        var dx = update.X - (X + Width);
+                        var dy = update.Y - Y;
+
+                        if (Width + dx > 0)
+                        {
+                            Width += dx;
+                        }
+
+                        if (Height - dy > 0)
+                        {
+                            Y = update.Y;
+                            Height -= dy;
+                        }
+                    }
+                    break;
+                case "BottomLeft":
+                    {
+                        var dx = update.X - X;
+                        var dy = update.Y - (Y + Height);
+
+                        if (Width - dx > 0)
+                        {
+                            X = update.X;
+                            Width -= dx;
+                        }
+
+                        if (Height + dy > 0)
+                        {
+                            Height += dy;
+                        }
+                    }
+                    break;
+                case "BottomRight":
+                    {
+                        var dx = update.X - (X + Width);
+                        var dy = update.Y - (Y + Height);
+
+                        if (Width + dx > 0)
+                        {
+                            Width += dx;
+                        }
+
+                        if (Height + dy > 0)
+                        {
+                            Height += dy;
+                        }
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown point position: {position}");
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("UpdatablePoint Data must be a string representing the position.");
+        }
+    }
+
+    public virtual void AddIncomingConnector(IDiagramConnector connector)
+    {
+        if (_incomingConnectors is null)
+            _incomingConnectors = new List<IDiagramConnector>();
+        _incomingConnectors.Add(connector);
+
+        connector.PropertyChanged += ConnectorPropertyChanged;
+
+        StickEndPoint(connector);
+    }
+
+    public virtual void RemoveIncomingConnector(IDiagramConnector connector)
+    {
+        if (_incomingConnectors is not null)
+            _incomingConnectors.Remove(connector);
+        connector.PropertyChanged -= ConnectorPropertyChanged;
+    }
+
+    private void ConnectorPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == "Start" || e.PropertyName == "End")
+            RerouteConnectors();
+    }
+
+    public virtual bool CanConnectIncoming<T>() where T : IDiagramConnector => CanConnectIncoming(typeof(T));
+
+    public virtual bool CanConnectIncoming(Type connectorType) => true;
+
+    public virtual void AddOutgoingConnector(IDiagramConnector connector)
+    {
+        if (_outgoingConnectors is null)
+            _outgoingConnectors = new List<IDiagramConnector>();
+
+        _outgoingConnectors.Add(connector);
+
+        StickStartPoint(connector);
+    }
+
+    public virtual void RemoveOutgoingConnector(IDiagramConnector connector)
+    {
+        if (_outgoingConnectors is not null)
+            _outgoingConnectors.Remove(connector);
+    }
+
+    public virtual bool CanConnectOutgoing<T>() where T : IDiagramConnector => CanConnectOutgoing(typeof(T));
+
+    public virtual bool CanConnectOutgoing(Type connectorType) => true;
+
+    protected void RerouteConnectors()
+    {
+        if (this is IHasIncomingConnector hasIncomingConnectorElement)
+        {
+            foreach (var connector in hasIncomingConnectorElement.IncomingConnectors)
+            {
+                ConnectorRouter.RouteConnector(connector);
+            }
+        }
+
+        if (this is IHasOutgoingConnector hasOutgoingConnectorElement)
+        {
+            foreach (var connector in hasOutgoingConnectorElement.OutgoingConnectors)
+            {
+                ConnectorRouter.RouteConnector(connector);
+            }
+        }
+    }
+
+    private void StickStartPoint(IDiagramConnector connector)
+    {
+        var point = StickToBoundary(connector.Start);
+        connector.Start = point;
+    }
+
+    private void StickEndPoint(IDiagramConnector connector)
+    {
+        var point = StickToBoundary(connector.End);
+        connector.End = point;
     }
 }

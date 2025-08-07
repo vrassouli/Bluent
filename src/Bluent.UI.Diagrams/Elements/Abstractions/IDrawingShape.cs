@@ -10,5 +10,8 @@ public interface IDrawingShape : INotifyPropertyChanged
     string? Stroke { get; set; }
     double? StrokeWidth { get; set; }
     string? StrokeDashArray { get; set; }
+    string? SelectionStroke { get; set; }
+    double? SelectionStrokeWidth { get; set; }
+    string? SelectionStrokeDashArray { get; set; }
     RenderFragment Render();
 }

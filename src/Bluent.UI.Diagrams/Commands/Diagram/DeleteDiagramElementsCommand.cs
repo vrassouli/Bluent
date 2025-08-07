@@ -7,9 +7,11 @@ namespace Bluent.UI.Diagrams.Commands.Diagram;
 internal class DeleteDiagramElementsCommand : ICommand
 {
     private readonly Components.Diagram _diagram;
-    private readonly List<IDiagramNode> _elements;
+    private readonly List<IDiagramElement> _elements;
+    private IHasOutgoingConnector? _connectorSource;
+    private IHasIncomingConnector? _connectorTarget;
 
-    public DeleteDiagramElementsCommand(Components.Diagram diagram, List<IDiagramNode> elements)
+    public DeleteDiagramElementsCommand(Components.Diagram diagram, List<IDiagramElement> elements)
     {
         _diagram = diagram;
         _elements = elements;
@@ -20,6 +22,12 @@ internal class DeleteDiagramElementsCommand : ICommand
         {
             var container = FindParent(element);
 
+            if (element is IDiagramConnector connector)
+            {
+                _connectorSource = connector.SourceElement;
+                _connectorTarget = connector.TargetElement;
+            }
+
             if (container != null)
                 container.RemoveDiagramElement(element);
         }
@@ -29,6 +37,18 @@ internal class DeleteDiagramElementsCommand : ICommand
     {
         foreach (var element in _elements)
         {
+            if (element is IDiagramConnector connector)
+            {
+                if (_connectorSource != null && _connectorTarget != null)
+                {
+                    connector.SourceElement = _connectorSource;
+                    connector.TargetElement = _connectorTarget;
+
+                    _connectorSource.AddOutgoingConnector(connector);
+                    _connectorTarget.AddIncomingConnector(connector);
+                }
+            }
+
             var container = FindParent(element);
 
             if (container != null)
@@ -36,8 +56,13 @@ internal class DeleteDiagramElementsCommand : ICommand
         }
     }
 
-    private IDiagramContainer? FindParent(IDiagramNode el)
+    private IDiagramContainer? FindParent(IDiagramElement el)
     {
+        if (el is IDiagramConnector connector && connector.SourceElement is IDiagramElement sourceElement)
+        {
+            return FindParent(sourceElement);
+        }
+
         var containers = _diagram.GetDiagramElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
         var container = containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el.GetType()));
         return container;

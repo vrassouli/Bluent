@@ -6,6 +6,7 @@ public interface IDiagramNode : IDrawingElement, IDiagramElement
     double Y { get; set; }
     double Width { get; }
     double Height { get; }
+    DiagramPoint StickToBoundary(DiagramPoint point);
 }
 
 public interface IHasIncomingConnector

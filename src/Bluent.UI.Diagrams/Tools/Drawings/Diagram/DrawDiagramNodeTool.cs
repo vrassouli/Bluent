@@ -2,6 +2,7 @@
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using System.Xml.Linq;
 
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
@@ -52,9 +53,6 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
 
             if (container is null || !container.CanContain<TNode>())
             {
-#if DEBUG
-                //throw new InvalidOperationException("Could not find any container to add the Node.");
-#endif
                 return;
             }
 
@@ -73,22 +71,14 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         var width = endPoint.X - _node.X;
         var height = endPoint.Y - _node.Y;
 
-        var dragX = 0d;
-        var dragY = 0d;
         if (width < 0)
-            dragX = _node.X + width;
+            _node.X = _node.X + width;
 
         if (height < 0)
-            dragY = _node.Y + height;
+            _node.Y = _node.Y + height;
 
-        var deltaW = Math.Abs(width) - _node.Width;
-        var deltaH = Math.Abs(height) - _node.Height;
-
-        _node.SetDrag(new Elements.Distance2D(dragX, dragY));
-        _node.ResizeRight(deltaW);
-        _node.ResizeBottom(deltaH);
-        _node.ApplyDrag();
-        _node.ApplyResize();
+        _node.Width = Math.Abs(width);
+        _node.Height = Math.Abs(height);
     }
 
     protected override void OnTargetPointerUnavailable()

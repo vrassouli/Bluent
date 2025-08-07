@@ -26,6 +26,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         NotifyPropertyChanged(nameof(DiagramElements));
 
         element.IsSelected = false;
+        element.Clean();
     }
 
     private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)

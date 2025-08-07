@@ -4,8 +4,6 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOutgoingConnector
 {
-    private List<IDiagramConnector> _outgoingConnectors = new();
-
     public BoundaryCircleNode() 
     {
         Fill = "var(--colorNeutralBackground1)";
@@ -106,23 +104,4 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOut
 
         base.Clean();
     }
-
-    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
-
-    public void AddOutgoingConnector(IDiagramConnector connector)
-    {
-        _outgoingConnectors.Add(connector);
-
-        var point = StickToBoundary(connector.Start);
-        connector.Start = point;
-    }
-
-    public void RemoveOutgoingConnector(IDiagramConnector connector)
-    {
-        _outgoingConnectors.Remove(connector);
-    }
-
-    public bool CanConnectOutgoing<T>() where T : IDiagramConnector => CanConnectOutgoing(typeof(T));
-
-    public bool CanConnectOutgoing(Type connectorType) => true;
 }

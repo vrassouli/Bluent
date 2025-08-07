@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Diagrams.Elements;
+﻿using Bluent.UI.Diagrams.Components.Diagrams;
+using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Tools;
 using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
@@ -44,6 +45,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
     public void RemoveDiagramElement(IDiagramElement element)
     {
         base.RemoveElement(element);
+        element.Clean();
     }
 
     public bool CanContain<T>() where T : IDiagramElement
@@ -139,5 +141,67 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
             builder.CloseElement(); // </marker>
         };
+    }
+
+    public DiagramLayout GetLayout()
+    {
+        var layout = new DiagramLayout();
+        var layoutElements = GetLayoutElements(DiagramElements);
+
+        foreach (var element in DiagramElements)
+        {
+            if (element is IDiagramNode)
+            {
+                layout.Elements.Add(new NodeLayout()
+                {
+
+                });
+            }
+            else if (element is ConnectorLayout connectorLayout)
+            {
+                layout.Elements.Add(connectorLayout);
+            }
+        }
+        return layout;
+    }
+
+    private IEnumerable<ILayoutElement> GetLayoutElements(IEnumerable<IDiagramElement> elements)
+    {
+        foreach (var element in elements)
+        {
+            if (element is IDiagramNode node)
+            {
+                yield return new NodeLayout()
+                {
+                    Id = node.Id,
+                    X = node.X,
+                    Y = node.Y,
+                    Width = node.Width,
+                    Height = node.Height,
+                };
+
+                if (node is IDiagramElementContainer elementContainer)
+                {
+                    var children = GetLayoutElements(elementContainer.DiagramElements);
+                    foreach (var child in children)
+                        yield return child;
+                }
+
+                if (node is IDiagramBoundaryContainer boundaryContainer)
+                {
+                    var boundaryNodes = GetLayoutElements(boundaryContainer.BoundaryNodes);
+                    foreach (var boundaryNode in boundaryNodes)
+                        yield return boundaryNode;
+                }
+            }
+            else if (element is IDiagramConnector connector)
+            {
+                yield return new ConnectorLayout()
+                {
+                    Id = connector.Id,
+                    WayPoints = [connector.Start, .. connector.WayPoints, connector.End]
+                };
+            }
+        }
     }
 }

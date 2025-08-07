@@ -21,9 +21,6 @@ public class PathElement : DrawingElementBase
         }
     }
 
-    public override bool AllowHorizontalResize => false;
-    public override bool AllowVerticalResize => false;
-
     public override RenderFragment Render()
     {
         return builder =>
@@ -80,17 +77,5 @@ public class PathElement : DrawingElementBase
         //NotifyPropertyChanged();
 
         base.ApplyDrag();
-    }
-
-    public override void ApplyResize()
-    {
-        //_x1 = _x1 + DeltaLeft;
-        //_y1 = _y1 + DeltaTop;
-        //_x2 = _x2 + DeltaRight;
-        //_y2 = _y2 + DeltaBottom;
-
-        //NotifyPropertyChanged();
-
-        base.ApplyResize();
     }
 }

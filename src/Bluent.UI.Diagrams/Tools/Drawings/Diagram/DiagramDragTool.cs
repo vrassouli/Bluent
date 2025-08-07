@@ -76,22 +76,6 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
             var drag = new Distance2D(el.AllowHorizontalDrag ? _dragDelta.Dx : 0, el.AllowVerticalDrag ? _dragDelta.Dy : 0);
 
             el.SetDrag(drag);
-
-            if (el is IHasIncomingConnector hasIncomingConnectorElement)
-            {
-                foreach (var incoming in hasIncomingConnectorElement.IncomingConnectors)
-                {
-                    ConnectorRouter.RouteConnector(incoming, gridSize: Diagram.SnapSize);
-                }
-            }
-
-            if (el is IHasOutgoingConnector hasOutgoingConnectorElement)
-            {
-                foreach (var incoming in hasOutgoingConnectorElement.OutgoingConnectors)
-                {
-                    ConnectorRouter.RouteConnector(incoming, gridSize: Diagram.SnapSize);
-                }
-            }
         }
     }
 }

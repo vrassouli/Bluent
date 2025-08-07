@@ -6,6 +6,8 @@ public class UpdatablePoint
 
     public DiagramPoint Point { get; set; }
 
+    public string? Cursor { get; set; }
+
     public UpdatablePoint(DiagramPoint point, object? data = null)
     {
         Point = point;

@@ -15,9 +15,9 @@ public partial class ElementSelection : IDisposable
     private DiagramPoint? _startPoint;
     private Distance2D? _delta;
 
-    [Parameter] public double StrokeWidth { get; set; } = 2;
-    [Parameter] public string StrokeDashArray { get; set; } = "4 3";
-    [Parameter] public string Stroke { get; set; } = "#36a2eb";
+    //[Parameter] public double StrokeWidth { get; set; } = 2;
+    //[Parameter] public string StrokeDashArray { get; set; } = "4 3";
+    //[Parameter] public string Stroke { get; set; } = "#36a2eb";
     [Parameter, EditorRequired] public IDrawingShape Element { get; set; } = default!;
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
 

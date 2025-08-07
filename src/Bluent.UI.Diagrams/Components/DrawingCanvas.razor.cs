@@ -5,7 +5,6 @@
 
 using Bluent.Core;
 using Bluent.UI.Diagrams.Elements;
-using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
 using Bluent.UI.Diagrams.Tools;
 using Microsoft.AspNetCore.Components;

@@ -1,5 +1,4 @@
 ﻿using Bluent.UI.Diagrams.Elements.Abstractions;
-using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -14,7 +13,7 @@ public partial class PointUpdater
     [Parameter] public UpdatablePoint UpdatablePoint { get; set; } = default!;
     [Parameter] public EventCallback<PointerEventArgs> PointerDown { get; set; }
 
-    private string Cursor => "move";
+    private string Cursor => UpdatablePoint.Cursor ?? "move";
 
     private async Task HandlePointerDown(PointerEventArgs e)
     {

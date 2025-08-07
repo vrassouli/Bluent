@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Diagrams.Components.Internals;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;

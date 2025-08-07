@@ -8,7 +8,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
 {
     private List<IDiagramElement> _elements = new();
     private List<IDiagramBoundaryNode> _boundaryElements = new();
-    public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
+    public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
     public void AddDiagramElement(IDiagramElement element)
@@ -21,7 +21,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
             boundaryElement.SetCenter(stickPoint);
 
             _boundaryElements.Add(boundaryElement);
-            NotifyPropertyChanged(nameof(BoundaryElements));
+            NotifyPropertyChanged(nameof(BoundaryNodes));
         }
         else
         {
@@ -37,7 +37,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         if (element is IDiagramBoundaryNode boundaryElement)
         {
             _boundaryElements.Remove(boundaryElement);
-            NotifyPropertyChanged(nameof(BoundaryElements));
+            NotifyPropertyChanged(nameof(BoundaryNodes));
         }
         else
         {
@@ -46,6 +46,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         }
 
         element.IsSelected = false;
+        element.Clean();
     }
 
     private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -79,7 +80,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         {
             el.ApplyDrag();
         }
-        foreach (var el in BoundaryElements)
+        foreach (var el in BoundaryNodes)
         {
             el.ApplyDrag();
         }
@@ -93,7 +94,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         {
             el.CancelDrag();
         }
-        foreach (var el in BoundaryElements)
+        foreach (var el in BoundaryNodes)
         {
             el.CancelDrag();
         }
@@ -107,7 +108,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         {
             el.SetDrag(drag);
         }
-        foreach (var el in BoundaryElements)
+        foreach (var el in BoundaryNodes)
         {
             el.SetDrag(drag);
         }
@@ -129,7 +130,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
             builder.CloseRegion();
         }
 
-        foreach (var childElement in BoundaryElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        foreach (var childElement in BoundaryNodes.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
         {
             builder.OpenRegion(sequence++);
             builder.OpenComponent<ElementHost>(sequence++);

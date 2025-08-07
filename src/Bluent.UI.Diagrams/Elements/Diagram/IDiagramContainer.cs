@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Bluent.UI.Diagrams.Elements.Diagram;
+﻿namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public interface IDiagramElementContainer : IDiagramContainer
 {
@@ -9,7 +7,7 @@ public interface IDiagramElementContainer : IDiagramContainer
 
 public interface IDiagramBoundaryContainer : IDiagramContainer
 {
-    IEnumerable<IDiagramBoundaryNode> BoundaryElements { get; }
+    IEnumerable<IDiagramBoundaryNode> BoundaryNodes { get; }
 }
 
 public interface IDiagramContainer : IDiagramShape
@@ -23,45 +21,44 @@ public interface IDiagramContainer : IDiagramShape
         {
             foreach (var el in elementContainer.DiagramElements.OrderBy(x => !x.IsSelected))
             {
+                //Console.WriteLine($"{el}");
                 if (el is IDiagramContainer container)
                     foreach (var child in container.GetDiagramElementsAt(point))
                         yield return child;
 
-                if (el.HitTest(point))
-                    if (el is IDiagramNode diagramEl)
-                        yield return diagramEl;
+                if (el.HitTest(point) && el is IDiagramElement diagramEl)
+                    yield return diagramEl;
             }
         }
         if (this is IDiagramBoundaryContainer boundaryElementContainer)
         {
-            foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
+            foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
             {
                 if (el is IDiagramContainer container)
                     foreach (var child in container.GetDiagramElementsAt(point))
                         yield return child;
 
-                if (el.HitTest(point))
-                    if (el is IDiagramNode diagramEl)
+                if (el.HitTest(point) && el is IDiagramElement diagramEl)
                         yield return diagramEl;
             }
         }
 
-        if (this is IHasOutgoingConnector hasOutgoingConnector)
-        {
-            foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
-            {
-                if (connector.HitTest(point))
-                    yield return connector;
-            }
-        }
-        if (this is IHasIncomingConnector hasIncomingConnector)
-        {
-            foreach (var connector in hasIncomingConnector.IncomingConnectors)
-            {
-                if (connector.HitTest(point))
-                    yield return connector;
-            }
-        }
+        //if (this is IHasOutgoingConnector hasOutgoingConnector)
+        //{
+        //    foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
+        //    {
+        //        if (connector.HitTest(point))
+        //            yield return connector;
+        //    }
+        //}
+        //if (this is IHasIncomingConnector hasIncomingConnector)
+        //{
+        //    foreach (var connector in hasIncomingConnector.IncomingConnectors)
+        //    {
+        //        if (connector.HitTest(point))
+        //            yield return connector;
+        //    }
+        //}
     }
     IEnumerable<IDiagramElement> SelectedElements
     {
@@ -81,7 +78,7 @@ public interface IDiagramContainer : IDiagramShape
             }
             if (this is IDiagramBoundaryContainer boundaryElementContainer)
             {
-                foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
+                foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
                 {
                     if (el.IsSelected)
                         yield return el;
@@ -91,23 +88,23 @@ public interface IDiagramContainer : IDiagramShape
                             yield return child;
                 }
             }
-            
-            if (this is IHasOutgoingConnector hasOutgoingConnector)
-            {
-                foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
-                {
-                    if (connector.IsSelected)
-                        yield return connector;
-                }
-            }
-            if (this is IHasIncomingConnector hasIncomingConnector)
-            {
-                foreach (var connector in hasIncomingConnector.IncomingConnectors)
-                {
-                    if (connector.IsSelected)
-                        yield return connector;
-                }
-            }
+
+            //if (this is IHasOutgoingConnector hasOutgoingConnector)
+            //{
+            //    foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
+            //    {
+            //        if (connector.IsSelected)
+            //            yield return connector;
+            //    }
+            //}
+            //if (this is IHasIncomingConnector hasIncomingConnector)
+            //{
+            //    foreach (var connector in hasIncomingConnector.IncomingConnectors)
+            //    {
+            //        if (connector.IsSelected)
+            //            yield return connector;
+            //    }
+            //}
         }
     }
     bool HasSelection
@@ -128,7 +125,7 @@ public interface IDiagramContainer : IDiagramShape
             }
             if (this is IDiagramBoundaryContainer boundaryElementContainer)
             {
-                foreach (var el in boundaryElementContainer.BoundaryElements.OrderBy(x => !x.IsSelected))
+                foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
                 {
                     if (el.IsSelected)
                         return true;

@@ -1,10 +1,5 @@
 ﻿using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
@@ -15,7 +10,7 @@ internal static class ConnectorRouter
     public static void RouteConnector(IDiagramConnector connector,
                                       double stubLength = 20.0,
                                       double obstaclePadding = 10.0,
-                                      double gridSize = 10.0)
+                                      double gridSize = 0)
     {
         Boundary? sourceBoundary = null;
         Boundary? targetBoundary = null;

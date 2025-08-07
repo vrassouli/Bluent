@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Diagrams.Components.Internals;
-using Bluent.UI.Diagrams.Elements.Abstractions;
+﻿using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
@@ -21,7 +20,7 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
 
     public double X1
     {
-        get => _x1 + Drag.Dx + DeltaLeft;
+        get => _x1 + Drag.Dx;
         set
         {
             if (_x1 != value)
@@ -33,7 +32,7 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
     }
     public double Y1
     {
-        get => _y1 + Drag.Dy + DeltaTop;
+        get => _y1 + Drag.Dy;
         set
         {
             if (_y1 != value)
@@ -45,7 +44,7 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
     }
     public double X2
     {
-        get => _x2 + Drag.Dx + DeltaRight;
+        get => _x2 + Drag.Dx;
         set
         {
             if (_x2 != value)
@@ -57,7 +56,7 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
     }
     public double Y2
     {
-        get => _y2 + Drag.Dy + DeltaBottom;
+        get => _y2 + Drag.Dy;
         set
         {
             if (_y2 != value)
@@ -104,29 +103,6 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
         };
     }
 
-    protected override IEnumerable<ResizeAnchor> GetResizeAnchors()
-    {
-        if (AllowHorizontalResize)
-        {
-            yield return ResizeAnchor.Left;
-            yield return ResizeAnchor.Right;
-        }
-
-        if (AllowVerticalResize)
-        {
-            yield return ResizeAnchor.Top;
-            yield return ResizeAnchor.Bottom;
-        }
-
-        if (AllowVerticalResize && AllowHorizontalResize)
-        {
-            yield return ResizeAnchor.Left | ResizeAnchor.Top;
-            yield return ResizeAnchor.Left | ResizeAnchor.Bottom;
-            yield return ResizeAnchor.Right | ResizeAnchor.Top;
-            yield return ResizeAnchor.Right | ResizeAnchor.Bottom;
-        }
-    }
-
     public override void ApplyDrag()
     {
         _x1 += Drag.Dx;
@@ -136,18 +112,6 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
         NotifyPropertyChanged();
 
         base.ApplyDrag();
-    }
-
-    public override void ApplyResize()
-    {
-        _x1 = _x1 + DeltaLeft;
-        _y1 = _y1 + DeltaTop;
-        _x2 = _x2 + DeltaRight;
-        _y2 = _y2 + DeltaBottom;
-
-        NotifyPropertyChanged();
-
-        base.ApplyResize();
     }
 
     public void UpdatePoint(UpdatablePoint point, DiagramPoint update)

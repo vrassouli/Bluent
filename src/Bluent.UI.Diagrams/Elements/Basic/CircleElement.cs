@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Diagrams.Components.Internals;
-using Bluent.UI.Diagrams.Elements.Abstractions;
+﻿using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
@@ -44,7 +43,7 @@ public class CircleElement : DrawingElementBase, IHasUpdatablePoints
     }
     public double R
     {
-        get => _r - DeltaLeft + DeltaRight - DeltaTop + DeltaBottom;
+        get => _r;
         set
         {
             if (_r != value)
@@ -64,7 +63,6 @@ public class CircleElement : DrawingElementBase, IHasUpdatablePoints
             yield return new UpdatablePoint(new DiagramPoint(CX + R, CY), "Radius");
         }
     }
-
 
     public override RenderFragment Render()
     {
@@ -87,21 +85,6 @@ public class CircleElement : DrawingElementBase, IHasUpdatablePoints
         };
     }
 
-    protected override IEnumerable<ResizeAnchor> GetResizeAnchors()
-    {
-        if (AllowHorizontalResize)
-        {
-            yield return ResizeAnchor.Left;
-            yield return ResizeAnchor.Right;
-        }
-
-        if (AllowVerticalResize)
-        {
-            yield return ResizeAnchor.Top;
-            yield return ResizeAnchor.Bottom;
-        }
-    }
-
     public override void ApplyDrag()
     {
         _cx += Drag.Dx;
@@ -109,18 +92,6 @@ public class CircleElement : DrawingElementBase, IHasUpdatablePoints
         NotifyPropertyChanged();
 
         base.ApplyDrag();
-    }
-
-    public override void ApplyResize()
-    {
-        _r = _r - DeltaLeft + DeltaRight - DeltaTop + DeltaBottom;
-        //_width = _width - DeltaLeft + DeltaRight;
-        //_y = _y + DeltaTop;
-        //_height = _height - DeltaTop + DeltaBottom;
-
-        NotifyPropertyChanged();
-
-        base.ApplyResize();
     }
 
     public void UpdatePoint(UpdatablePoint point, DiagramPoint update)

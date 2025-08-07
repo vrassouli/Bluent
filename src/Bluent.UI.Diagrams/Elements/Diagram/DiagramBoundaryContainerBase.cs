@@ -7,7 +7,7 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBoundaryContainer
 {
     private List<IDiagramBoundaryNode> _boundaryElements = new();
-    public IEnumerable<IDiagramBoundaryNode> BoundaryElements => _boundaryElements;
+    public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
 
     public void AddDiagramElement(IDiagramElement element)
     {
@@ -19,7 +19,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
         boundaryElement.SetCenter(stickPoint);
 
         _boundaryElements.Add(boundaryElement);
-        NotifyPropertyChanged(nameof(BoundaryElements));
+        NotifyPropertyChanged(nameof(BoundaryNodes));
     }
 
     public void RemoveDiagramElement(IDiagramElement element)
@@ -29,9 +29,10 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
 
         boundaryElement.PropertyChanged -= ChildElementPropertyChanged;
         _boundaryElements.Remove(boundaryElement);
-        NotifyPropertyChanged(nameof(BoundaryElements));
+        NotifyPropertyChanged(nameof(BoundaryNodes));
 
         boundaryElement.IsSelected = false;
+        element.Clean();
     }
 
     public bool CanContain<T>() where T : IDiagramElement
@@ -61,12 +62,12 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
             boundaryElement.SetCenter(stickPoint);
         }
 
-        NotifyPropertyChanged(nameof(BoundaryElements));
+        NotifyPropertyChanged(nameof(BoundaryNodes));
     }
 
     public override void ApplyDrag()
     {
-        foreach (var el in BoundaryElements)
+        foreach (var el in BoundaryNodes)
         {
             el.ApplyDrag();
         }
@@ -76,7 +77,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
 
     public override void CancelDrag()
     {
-        foreach (var el in BoundaryElements)
+        foreach (var el in BoundaryNodes)
         {
             el.CancelDrag();
         }
@@ -86,7 +87,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
 
     public override void SetDrag(Distance2D drag)
     {
-        foreach (var el in BoundaryElements)
+        foreach (var el in BoundaryNodes)
         {
             el.SetDrag(drag);
         }
@@ -100,7 +101,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
         var sequence = 0;
         builder.OpenRegion(regionSeq);
 
-        foreach (var childElement in BoundaryElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        foreach (var childElement in BoundaryNodes.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
         {
             builder.OpenRegion(sequence++);
             builder.OpenComponent<ElementHost>(sequence++);

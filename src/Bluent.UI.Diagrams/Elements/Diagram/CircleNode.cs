@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public class CircleNode : DiagramNodeBase, IHasIncomingConnector, IHasOutgoingConnector
 {
-    private List<IDiagramConnector> _incomingConnectors = new();
-    private List<IDiagramConnector> _outgoingConnectors = new();
 
-    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors;
-    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
 
     public CircleNode()
     {
@@ -89,54 +86,9 @@ public class CircleNode : DiagramNodeBase, IHasIncomingConnector, IHasOutgoingCo
         foreach (var incoming in IncomingConnectors)
         {
             incoming.ApplyEndDrag();
+            //StickEndPoint(incoming);
         }
         base.ApplyDrag();
     }
 
-    public override void Clean()
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.Clean();
-        }
-        foreach (var incoming in IncomingConnectors)
-        {
-            incoming.Clean();
-        }
-        base.Clean();
-    }
-
-    public void AddIncomingConnector(IDiagramConnector connector)
-    {
-        _incomingConnectors.Add(connector);
-
-        var point = StickToBoundary(connector.End);
-        connector.End = point;
-    }
-
-    public void RemoveIncomingConnector(IDiagramConnector connector)
-    {
-        _incomingConnectors.Remove(connector);
-    }
-    
-    public bool CanConnectIncoming<T>() where T: IDiagramConnector => CanConnectIncoming(typeof(T));
-    
-    public bool CanConnectIncoming(Type connectorType) => true;
-
-    public void AddOutgoingConnector(IDiagramConnector connector)
-    {
-        _outgoingConnectors.Add(connector);
-
-        var point = StickToBoundary(connector.Start);
-        connector.Start = point;
-    }
-
-    public void RemoveOutgoingConnector(IDiagramConnector connector)
-    {
-        _outgoingConnectors.Remove(connector);
-    }
-
-    public bool CanConnectOutgoing<T>() where T: IDiagramConnector => CanConnectOutgoing(typeof(T));
-    
-    public bool CanConnectOutgoing(Type connectorType) => true;
 }

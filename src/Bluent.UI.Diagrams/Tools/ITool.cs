@@ -1,6 +1,5 @@
 ﻿using Bluent.UI.Diagrams.Components;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Tools;
 

@@ -1,5 +1,4 @@
-﻿using Bluent.UI.Diagrams.Components.Internals;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
 
@@ -36,7 +35,7 @@ public class DiamondElement : DrawingElementBase
     }
     public double Width
     {
-        get => _width - DeltaLeft + DeltaRight;
+        get => _width;
         set
         {
             if (_width != value)
@@ -48,7 +47,7 @@ public class DiamondElement : DrawingElementBase
     }
     public double Height
     {
-        get => _height - DeltaTop + DeltaBottom;
+        get => _height;
         set
         {
             if (_height != value)
@@ -92,30 +91,6 @@ public class DiamondElement : DrawingElementBase
             builder.CloseElement();
         };
     }
-
-    protected override IEnumerable<ResizeAnchor> GetResizeAnchors()
-    {
-        if (AllowHorizontalResize)
-        {
-            yield return ResizeAnchor.Left;
-            yield return ResizeAnchor.Right;
-        }
-
-        if (AllowVerticalResize)
-        {
-            yield return ResizeAnchor.Top;
-            yield return ResizeAnchor.Bottom;
-        }
-
-        if (AllowVerticalResize && AllowHorizontalResize)
-        {
-            yield return ResizeAnchor.Left | ResizeAnchor.Top;
-            yield return ResizeAnchor.Left | ResizeAnchor.Bottom;
-            yield return ResizeAnchor.Right | ResizeAnchor.Top;
-            yield return ResizeAnchor.Right | ResizeAnchor.Bottom;
-        }
-    }
-
     private string GetPathData()
     {
         return $"M{Cx - Width / 2} {Cy} l{Width / 2} {-Height / 2} l{Width / 2} {Height / 2} l{-Width / 2} {Height / 2} l{-Width / 2} {-Height / 2} Z";
@@ -128,15 +103,5 @@ public class DiamondElement : DrawingElementBase
         NotifyPropertyChanged();
 
         base.ApplyDrag();
-    }
-
-    public override void ApplyResize()
-    {
-        _width = _width - DeltaLeft + DeltaRight;
-        _height = _height - DeltaTop + DeltaBottom;
-
-        NotifyPropertyChanged();
-
-        base.ApplyResize();
     }
 }

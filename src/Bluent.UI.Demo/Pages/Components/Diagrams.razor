@@ -8,9 +8,6 @@
     <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" OnClick="Undo" disabled="@(!_canUndo)" />
     <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" OnClick="Redo" disabled="@(!_canRedo)" />
-    @*<ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(_tool is DrawLineTool)" />
- *@    
     <ToolbarButton Tooltip="Rectangle" Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectangleNodeTool)" />
     <ToolbarButton Tooltip="Circle" Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleNodeTool)" />
     <ToolbarDivider />

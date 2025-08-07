@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.Core.Utilities;
+using Bluent.UI.Diagrams.Elements.Abstractions;
+using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-internal abstract class DiagramConnectorBase : IDiagramConnector
+internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoints
 {
     private List<DiagramPoint> _wayPoints = new();
     private DiagramPoint _start;
@@ -19,6 +21,21 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
     private Distance2D _endDrag = new();
     private IHasOutgoingConnector _sourceElement;
     private IHasIncomingConnector? _targetElement;
+    private string? _id;
+
+
+    public string Id
+    {
+        get
+        {
+            if (_id is null)
+                _id = Identifier.NewId();
+
+            return _id;
+        }
+
+        set => _id = value;
+    }
 
     public DiagramPoint Start
     {
@@ -127,6 +144,9 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
             }
         }
     }
+    public virtual double? SelectionStrokeWidth { get; set; }
+    public virtual string? SelectionStrokeDashArray { get; set; }
+    public virtual string? SelectionStroke { get; set; }
 
     public string? MarkerEnd
     {
@@ -154,6 +174,19 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
         }
     }
 
+    public IEnumerable<UpdatablePoint> UpdatablePoints
+    {
+        get
+        {
+            yield return new UpdatablePoint(new DiagramPoint(Start.X, Start.Y), "Start");
+            //for (var index = 0; index < WayPoints.Count(); index++)
+            //{
+            //    var point = WayPoints.ElementAt(index);
+            //    yield return new UpdatablePoint(new DiagramPoint(point.X, point.Y), index);
+            //}
+            yield return new UpdatablePoint(new DiagramPoint(End.X, End.Y), "End");
+        }
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -253,7 +286,19 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
 
     public bool HitTest(DiagramPoint point)
     {
-        return Boundary.Contains(point);
+        const double tolerance = 3.0;
+
+        var points = new List<DiagramPoint> { Start };
+        points.AddRange(WayPoints);
+        points.Add(End);
+
+        for (int i = 0; i < points.Count - 1; i++)
+        {
+            if (DistanceToSegment(point, points[i], points[i + 1]) <= tolerance)
+                return true;
+        }
+
+        return false;
     }
 
     public virtual void Clean()
@@ -268,5 +313,87 @@ internal abstract class DiagramConnectorBase : IDiagramConnector
             TargetElement.RemoveIncomingConnector(this);
             TargetElement = null;
         }
+    }
+
+    public void UpdatePoint(UpdatablePoint point, DiagramPoint update)
+    {
+        if (point.Data is string position)
+        {
+            switch (position)
+            {
+                case "Start":
+                    {
+                        Start = update;
+                        if (SourceElement is IDiagramNode node)
+                        {
+                            var newStart = node.StickToBoundary(update);
+                            if (newStart != Start)
+                            {
+                                Start = newStart;
+                            }
+                        }
+                    }
+                    break;
+                case "End":
+                    {
+                        End = update;
+                        if (TargetElement is IDiagramNode node)
+                        {
+                            var newEnd = node.StickToBoundary(update);
+                            if (newEnd != End)
+                            {
+                                End = newEnd;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown point position: {position}");
+            }
+        }
+        else if (point.Data is int index)
+        {
+            if (index >= 0 && _wayPoints.Count > index)
+            {
+                _wayPoints[index] = update;
+                NotifyPropertyChanged(nameof(WayPoints));
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("UpdatablePoint Data must be a string representing the position.");
+        }
+    }
+
+    private double DistanceToSegment(DiagramPoint p, DiagramPoint a, DiagramPoint b)
+    {
+        double dx = b.X - a.X;
+        double dy = b.Y - a.Y;
+
+        if (dx == 0 && dy == 0)
+        {
+            // a and b are the same point
+            return Distance(p, a);
+        }
+
+        double t = ((p.X - a.X) * dx + (p.Y - a.Y) * dy) / (dx * dx + dy * dy);
+        t = Math.Max(0, Math.Min(1, t)); // clamp t to [0,1]
+
+        double closestX = a.X + t * dx;
+        double closestY = a.Y + t * dy;
+
+        return Distance(p.X, p.Y, closestX, closestY);
+    }
+
+    private double Distance(DiagramPoint p1, DiagramPoint p2)
+    {
+        return Distance(p1.X, p1.Y, p2.X, p2.Y);
+    }
+
+    private double Distance(double x1, double y1, double x2, double y2)
+    {
+        double dx = x1 - x2;
+        double dy = y1 - y2;
+        return Math.Sqrt(dx * dx + dy * dy);
     }
 }

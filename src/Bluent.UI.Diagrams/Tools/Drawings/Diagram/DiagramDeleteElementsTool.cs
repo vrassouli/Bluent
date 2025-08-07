@@ -11,7 +11,7 @@ internal class DiagramDeleteElementsTool : DiagramKeyboardToolBase
     {
         if (e.Key == "Delete")
         {
-            var cmd = new DeleteDiagramElementsCommand(Diagram, Diagram.SelectedElements.OfType<IDiagramNode>().ToList());
+            var cmd = new DeleteDiagramElementsCommand(Diagram, Diagram.SelectedElements.OfType<IDiagramElement>().ToList());
 
             Canvas.ExecuteCommand(cmd);
         }

@@ -1,4 +1,5 @@
-﻿using Bluent.UI.Diagrams.Elements;
+﻿using Bluent.UI.Diagrams.Commands.Diagram;
+using Bluent.UI.Diagrams.Elements;
 using Bluent.UI.Diagrams.Elements.Diagram;
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components.Web;
@@ -68,7 +69,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             _sourceElementContainer = pointingElementContainer;
 
             _connector = new DiagramConnector(sourceElement, point);
-            pointingElementContainer.AddDiagramElement(_connector);
+            _sourceElementContainer.AddDiagramElement(_connector);
             sourceElement.AddOutgoingConnector(_connector);
         }
 
@@ -112,6 +113,15 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
         _connector.TargetElement = targetElement;
         targetElement.AddIncomingConnector(_connector);
         ConnectorRouter.RouteConnector(_connector, gridSize: Diagram.SnapSize);
+
+        // Delete! Get ready for AddConnectorCommand
+        if (_sourceElementContainer is not null)
+        {
+            _sourceElementContainer.RemoveDiagramElement(_connector);
+
+            var cmd = new AddDiagramConnectorCommand(_sourceElementContainer, _sourceElement, targetElement, _connector);
+            Diagram.ExecuteCommand(cmd);
+        }
     }
 
     protected override void OnTargetPointerUnavailable()

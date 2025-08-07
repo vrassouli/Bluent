@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bluent.UI.Diagrams.Elements.Abstractions;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
@@ -22,8 +23,15 @@ public class RectangleNode : DiagramBoundaryContainerBase, IHasIncomingConnector
         }
     }
 
-    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors;
-    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors;
+    public override IEnumerable<UpdatablePoint> UpdatablePoints
+    {
+        get
+        {
+            yield return new UpdatablePoint(new DiagramPoint(X + Raduis, Y + Raduis), "Radius");
+            foreach (var item in base.UpdatablePoints)
+                yield return item;
+        }
+    }
 
     public RectangleNode()
     {
@@ -82,22 +90,6 @@ public class RectangleNode : DiagramBoundaryContainerBase, IHasIncomingConnector
         base.ApplyDrag();
     }
 
-    public override void Clean()
-    {
-        var incomings = IncomingConnectors.ToList();
-        var outgoings = OutgoingConnectors.ToList();
-
-        foreach (var incoming in incomings)
-        {
-            incoming.Clean();
-        }
-        foreach (var outgoing in outgoings)
-        {
-            outgoing.Clean();
-        }
-        base.Clean();
-    }
-
     private void RenderText(int regionSeq, RenderTreeBuilder builder)
     {
         int seq = 0;
@@ -145,37 +137,26 @@ public class RectangleNode : DiagramBoundaryContainerBase, IHasIncomingConnector
         builder.CloseRegion();
     }
 
-    public void AddIncomingConnector(IDiagramConnector connector)
+    public override void UpdatePoint(UpdatablePoint point, DiagramPoint update)
     {
-        _incomingConnectors.Add(connector);
+        if (point.Data is string position)
+        {
+            switch (position)
+            {
+                case "Radius":
+                    {
+                        var dx = update.X - (X + Raduis);
+                        var dy = update.Y - (Y + Raduis);
 
-        var point = StickToBoundary(connector.End);
-        connector.End = point;
+                        var delta = Math.Min(dx, dy);
+                        if (Raduis + delta > 0)
+                        {
+                            Raduis += delta;
+                        }
+                    }
+                    return;
+            }
+        }
+        base.UpdatePoint(point, update);
     }
-
-    public void RemoveIncomingConnector(IDiagramConnector connector)
-    {
-        _incomingConnectors.Remove(connector);
-    }
-
-    public bool CanConnectIncoming<T>() where T : IDiagramConnector => CanConnectIncoming(typeof(T));
-
-    public bool CanConnectIncoming(Type connectorType) => true;
-
-    public void AddOutgoingConnector(IDiagramConnector connector)
-    {
-        _outgoingConnectors.Add(connector);
-
-        var point = StickToBoundary(connector.Start);
-        connector.Start = point;
-    }
-
-    public void RemoveOutgoingConnector(IDiagramConnector connector)
-    {
-        _outgoingConnectors.Remove(connector);
-    }
-
-    public bool CanConnectOutgoing<T>() where T : IDiagramConnector => CanConnectOutgoing(typeof(T));
-
-    public bool CanConnectOutgoing(Type connectorType) => true;
 }
