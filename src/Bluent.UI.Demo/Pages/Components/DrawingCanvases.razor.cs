@@ -1,4 +1,5 @@
 ﻿using Bluent.Core;
+using Bluent.UI.Demo.Pages.Components.DrawingCanvasComponents;
 using Bluent.UI.Diagrams.Commands.Basic;
 using Bluent.UI.Diagrams.Components;
 using Bluent.UI.Diagrams.Elements;
@@ -7,6 +8,7 @@ using Bluent.UI.Diagrams.Tools;
 using Bluent.UI.Diagrams.Tools.Drawings;
 using Bluent.UI.Diagrams.Tools.Drawings.Basic;
 using Bluent.UI.Diagrams.Tools.Utilities;
+using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Demo.Pages.Components;
 
@@ -101,7 +103,8 @@ public partial class DrawingCanvases
     private void DeselectTool() => Tool = null;
     private void SelectAreaSelectTool() => Tool = new AreaSelectTool();
     private void SelectLineTool() => Tool = new DrawLineTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
-    private void SelectRectTool() => Tool = new DrawRectTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+    private void SelectRectTool() => Tool = new DrawRectTool<RectSelectionOptions>() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
+
     private void SelectCircleTool() => Tool = new DrawCircleTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     private void SelectDiamondTool() => Tool = new DrawDiamondTool() { Fill = FillColor, Stroke = StrokeColor, StrokeWidth = StrokeWidth };
     private void SelectInkToShapeTool() => Tool = new InkToShapeTool() { };

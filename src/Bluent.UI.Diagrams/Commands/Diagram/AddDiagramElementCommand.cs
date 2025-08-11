@@ -14,13 +14,15 @@ public class AddDiagramElementCommand : ICommand
         _element = element;
     }
 
-    public void Do()
+    public IDiagramNode Element => _element;
+
+    public virtual void Do()
     {
-        _container.AddDiagramElement(_element);
+        _container.AddDiagramElement(Element);
     }
 
-    public void Undo()
+    public virtual void Undo()
     {
-        _container.RemoveDiagramElement(_element);
+        _container.RemoveDiagramElement(Element);
     }
 }

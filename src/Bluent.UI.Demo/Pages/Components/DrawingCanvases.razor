@@ -1,4 +1,5 @@
 ﻿@page "/components/drawing-canvases"
+@using Bluent.UI.Demo.Pages.Components.DrawingCanvasComponents
 @using Bluent.UI.Diagrams.Tools
 @using Bluent.UI.Diagrams.Tools.Drawings.Basic
 
@@ -10,7 +11,7 @@
     <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" OnClick="Redo" disabled="@(!_canRedo)" />
     <ToolbarDivider />
     <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(Tool is DrawLineTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(Tool is DrawRectTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(Tool is DrawRectTool<RectSelectionOptions>)" />
     <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(Tool is DrawCircleTool)" />
     <ToolbarButton Icon="icon-ic_fluent_diamond_20_regular" ActiveIcon="icon-ic_fluent_diamond_20_filled" OnClick="SelectDiamondTool" Toggled="@(Tool is DrawDiamondTool)" />
     <ToolbarDivider />

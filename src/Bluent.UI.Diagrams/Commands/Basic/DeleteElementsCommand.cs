@@ -4,7 +4,7 @@ using Bluent.UI.Diagrams.Elements;
 
 namespace Bluent.UI.Diagrams.Commands.Basic;
 
-internal class DeleteElementsCommand : ICommand
+public class DeleteElementsCommand : ICommand
 {
     private readonly DrawingCanvas _canvas;
     private readonly List<IDrawingShape> _elements;

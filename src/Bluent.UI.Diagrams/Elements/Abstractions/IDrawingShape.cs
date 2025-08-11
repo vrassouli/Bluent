@@ -13,6 +13,6 @@ public interface IDrawingShape : INotifyPropertyChanged
     string? SelectionStroke { get; set; }
     double? SelectionStrokeWidth { get; set; }
     string? SelectionStrokeDashArray { get; set; }
+    RenderFragment? SelectionOptions { get; set; }
     RenderFragment Render();
-    RenderFragment? RenderSelectionUptions();
 }

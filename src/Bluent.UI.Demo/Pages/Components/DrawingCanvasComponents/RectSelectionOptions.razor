@@ -1,0 +1,19 @@
+﻿@implements ISelectionOptionsComponent
+
+@using Bluent.UI.Diagrams.Commands.Basic
+@using Bluent.UI.Diagrams.Elements
+<Button Text="Delete" Icon="icon-ic_fluent_delete_20_regular" ActiveIcon="icon-ic_fluent_delete_20_filled" OnClick="DeleteElement" />
+
+@code {
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
+    [CascadingParameter] public IDrawingShape Shape { get; set; } = default!;
+
+    private void DeleteElement()
+    {
+        if (Canvas is not null && Shape is not null)
+        {
+            var cmd = new DeleteElementsCommand(Canvas, [Shape]);
+            Canvas.ExecuteCommand(cmd);
+        }
+    }
+}

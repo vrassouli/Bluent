@@ -147,6 +147,7 @@ internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatableP
     public virtual double? SelectionStrokeWidth { get; set; }
     public virtual string? SelectionStrokeDashArray { get; set; }
     public virtual string? SelectionStroke { get; set; }
+    public RenderFragment? SelectionOptions { get; set; }
 
     public string? MarkerEnd
     {
@@ -213,11 +214,6 @@ internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatableP
 
             builder.CloseElement();
         };
-    }
-
-    public virtual RenderFragment? RenderSelectionUptions()
-    {
-        return null;
     }
 
     protected abstract string GetPathData();

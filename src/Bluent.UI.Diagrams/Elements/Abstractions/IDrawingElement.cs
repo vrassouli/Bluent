@@ -10,10 +10,4 @@ public interface IDrawingElement: IDrawingShape
     void ApplyDrag();
     void SetDrag(Distance2D drag);
     void CancelDrag();
-    //void ApplyResize();
-    //void CancelResize();
-    //void ResizeBottom(double dy);
-    //void ResizeLeft(double dx);
-    //void ResizeRight(double dx);
-    //void ResizeTop(double dy);
 }

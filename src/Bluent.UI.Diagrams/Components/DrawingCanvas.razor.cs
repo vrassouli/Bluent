@@ -40,6 +40,7 @@ public partial class DrawingCanvas
     [Parameter] public bool AllowDelete { get; set; }
     [Parameter] public int SnapSize { get; set; }
     [Parameter] public double SelectionPadding { get; set; } = 0;
+    [Parameter] public EventCallback<IEnumerable<IDrawingShape>> OnSelectionChanged { get; set; }
 
     public virtual IEnumerable<IDrawingShape> SelectedElements => Elements.Where(x => x.IsSelected);
     public IEnumerable<IDrawingShape> Elements => _elements;
@@ -232,38 +233,6 @@ public partial class DrawingCanvas
             SelectElement(element, addToSelections);
     }
 
-    internal void DeselectElement(IDrawingShape element)
-    {
-        element.IsSelected = false;
-        //_selectedElements.Remove(element);
-    }
-
-    internal void SelectElement(IDrawingShape element, bool addToSelections)
-    {
-        if (IsSelected(element))
-            return;
-
-        if (Selection == SelectionMode.None)
-            return;
-
-        if (Selection == SelectionMode.Single || !addToSelections)
-            ClearSelection();
-        //_selectedElements.Clear();
-
-        element.IsSelected = true;
-        //_selectedElements.Add(element);
-
-        StateHasChanged();
-    }
-
-    internal void ClearSelection()
-    {
-        foreach (var el in SelectedElements)
-        {
-            DeselectElement(el);
-        }
-    }
-
     internal bool IsSelected(IDrawingShape element)
     {
         return SelectedElements.Contains(element);
@@ -336,6 +305,38 @@ public partial class DrawingCanvas
             CommandManager.Do(cmd);
         else
             cmd.Do();
+    }
+
+    public void DeselectElement(IDrawingShape element)
+    {
+        element.IsSelected = false;
+        //_selectedElements.Remove(element);
+    }
+
+    public void SelectElement(IDrawingShape element, bool addToSelections)
+    {
+        if (IsSelected(element))
+            return;
+
+        if (Selection == SelectionMode.None)
+            return;
+
+        if (Selection == SelectionMode.Single || !addToSelections)
+            ClearSelection();
+        //_selectedElements.Clear();
+
+        element.IsSelected = true;
+        //_selectedElements.Add(element);
+
+        StateHasChanged();
+    }
+
+    public void ClearSelection()
+    {
+        foreach (var el in SelectedElements)
+        {
+            DeselectElement(el);
+        }
     }
 
     public void ResetScale()

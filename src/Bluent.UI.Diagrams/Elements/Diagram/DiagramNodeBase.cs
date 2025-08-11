@@ -47,17 +47,17 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         set => _id = value;
     }
 
-    public bool AllowHorizontalDrag => true;
+    public bool AllowHorizontalDrag { get; protected set; } = true;
 
-    public bool AllowVerticalDrag => true;
+    public bool AllowVerticalDrag { get; protected set; } = true;
 
-    public bool AllowHorizontalResize => true;
+    public bool AllowHorizontalResize { get; protected set; } = true;
 
-    public bool AllowVerticalResize => true;
+    public bool AllowVerticalResize { get; protected set; } = true;
 
     public Boundary Boundary => new Boundary(X, Y, Width, Height);
 
-    public double X
+    public virtual double X
     {
         get => _x + Drag.Dx /*+ DeltaLeft*/;
         set
@@ -69,7 +69,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
-    public double Y
+    public virtual double Y
     {
         get => _y + Drag.Dy /*+ DeltaTop*/;
         set
@@ -81,7 +81,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
-    public double Width
+    public virtual double Width
     {
         get => _width /*- DeltaLeft + DeltaRight*/;
         set
@@ -93,7 +93,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
-    public double Height
+    public virtual double Height
     {
         get => _height /*- DeltaTop + DeltaBottom*/;
         set
@@ -200,6 +200,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     public virtual double? SelectionStrokeWidth { get; set; } = 2;
     public virtual string? SelectionStrokeDashArray { get; set; } = "4 3";
     public virtual string? SelectionStroke { get; set; } = "#36a2eb";
+    public RenderFragment? SelectionOptions { get; set; }
 
     public string? HighlightStroke { get; set; } = "var(--colorNeutralStroke1Hover)";
     public string? HighlightFill { get; set; } = "var(--colorNeutralBackground1Hover)";
@@ -235,11 +236,6 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     #endregion
 
     public abstract RenderFragment Render();
-
-    public virtual RenderFragment? RenderSelectionUptions()
-    {
-        return null;
-    }
 
     public bool HitTest(DiagramPoint point)
     {
@@ -344,6 +340,27 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             switch (position)
             {
+                case "Left":
+                    {
+                        var dx = update.X - X;
+
+                        if (Width - dx > 0)
+                        {
+                            X = update.X;
+                            Width -= dx;
+                        }
+                    }
+                    break;
+                case "Right":
+                    {
+                        var dx = update.X - (X + Width);
+
+                        if (Width + dx > 0)
+                        {
+                            Width += dx;
+                        }
+                    }
+                    break;
                 case "TopLeft":
                     {
                         var dx = update.X - X;

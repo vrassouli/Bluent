@@ -9,7 +9,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
     private List<IDiagramElement> _elements = new();
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
-    public void AddDiagramElement(IDiagramElement element)
+    public virtual void AddDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
 
@@ -18,7 +18,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         NotifyPropertyChanged(nameof(DiagramElements));
     }
 
-    public void RemoveDiagramElement(IDiagramElement element)
+    public virtual void RemoveDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
 
