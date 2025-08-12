@@ -10,6 +10,7 @@ namespace Bluent.UI.Diagrams.Components;
 public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 {
     [Parameter] public RenderFragment? ConnectorMarkerEnd { get; set; }
+    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
     public override IEnumerable<IDrawingShape> SelectedElements
     {
@@ -37,12 +38,12 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         base.OnParametersSet();
     }
 
-    public void AddDiagramElement(IDiagramElement element)
+    public virtual void AddDiagramElement(IDiagramElement element)
     {
         base.AddElement(element);
     }
 
-    public void RemoveDiagramElement(IDiagramElement element)
+    public virtual void RemoveDiagramElement(IDiagramElement element)
     {
         base.RemoveElement(element);
         element.Clean();
@@ -143,65 +144,56 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         };
     }
 
-    public DiagramLayout GetLayout()
-    {
-        var layout = new DiagramLayout();
-        var layoutElements = GetLayoutElements(DiagramElements);
+    //public DiagramLayout GetLayout()
+    //{
+    //    var layout = new DiagramLayout();
+    //    var layoutElements = GetLayoutElements(DiagramElements);
 
-        foreach (var element in DiagramElements)
-        {
-            if (element is IDiagramNode)
-            {
-                layout.Elements.Add(new NodeLayout()
-                {
+    //    foreach (var element in layoutElements)
+    //    {
+    //        layout.Elements.Add(element);
+    //    }
 
-                });
-            }
-            else if (element is ConnectorLayout connectorLayout)
-            {
-                layout.Elements.Add(connectorLayout);
-            }
-        }
-        return layout;
-    }
+    //    return layout;
+    //}
 
-    private IEnumerable<ILayoutElement> GetLayoutElements(IEnumerable<IDiagramElement> elements)
-    {
-        foreach (var element in elements)
-        {
-            if (element is IDiagramNode node)
-            {
-                yield return new NodeLayout()
-                {
-                    Id = node.Id,
-                    X = node.X,
-                    Y = node.Y,
-                    Width = node.Width,
-                    Height = node.Height,
-                };
+    //private IEnumerable<LayoutElement> GetLayoutElements(IEnumerable<IDiagramElement> elements)
+    //{
+    //    foreach (var element in elements)
+    //    {
+    //        if (element is IDiagramNode node)
+    //        {
+    //            yield return new NodeLayout()
+    //            {
+    //                Id = node.Id,
+    //                X = node.X,
+    //                Y = node.Y,
+    //                Width = node.Width,
+    //                Height = node.Height,
+    //            };
 
-                if (node is IDiagramElementContainer elementContainer)
-                {
-                    var children = GetLayoutElements(elementContainer.DiagramElements);
-                    foreach (var child in children)
-                        yield return child;
-                }
+    //            if (node is IDiagramElementContainer elementContainer)
+    //            {
+    //                var children = GetLayoutElements(elementContainer.DiagramElements);
+    //                foreach (var child in children)
+    //                    yield return child;
+    //            }
 
-                if (node is IDiagramBoundaryContainer boundaryContainer)
-                {
-                    var boundaryNodes = GetLayoutElements(boundaryContainer.BoundaryNodes);
-                    foreach (var boundaryNode in boundaryNodes)
-                        yield return boundaryNode;
-                }
-            }
-            else if (element is IDiagramConnector connector)
-            {
-                yield return new ConnectorLayout()
-                {
-                    Id = connector.Id,
-                    WayPoints = [connector.Start, .. connector.WayPoints, connector.End]
-                };
-            }
-        }
-    }
+    //            if (node is IDiagramBoundaryContainer boundaryContainer)
+    //            {
+    //                var boundaryNodes = GetLayoutElements(boundaryContainer.BoundaryNodes);
+    //                foreach (var boundaryNode in boundaryNodes)
+    //                    yield return boundaryNode;
+    //            }
+    //        }
+    //        else if (element is IDiagramConnector connector)
+    //        {
+    //            yield return new ConnectorLayout()
+    //            {
+    //                Id = connector.Id,
+    //                WayPoints = [connector.Start, .. connector.WayPoints, connector.End]
+    //            };
+    //        }
+    //    }
+    //}
 }

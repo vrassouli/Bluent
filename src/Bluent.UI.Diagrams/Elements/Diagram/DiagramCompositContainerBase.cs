@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
@@ -8,6 +9,9 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
 {
     private List<IDiagramElement> _elements = new();
     private List<IDiagramBoundaryNode> _boundaryElements = new();
+
+    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
     public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
@@ -22,11 +26,13 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
 
             _boundaryElements.Add(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryNodes));
+            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, boundaryElement));
         }
         else
         {
             _elements.Add(element);
             NotifyPropertyChanged(nameof(DiagramElements));
+            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
         }
     }
 
@@ -38,11 +44,13 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         {
             _boundaryElements.Remove(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryNodes));
+            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, boundaryElement));
         }
         else
         {
             _elements.Remove(element);
             NotifyPropertyChanged(nameof(DiagramElements));
+            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
         }
 
         element.IsSelected = false;

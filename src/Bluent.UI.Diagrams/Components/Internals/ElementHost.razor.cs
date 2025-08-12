@@ -2,6 +2,7 @@
 using Bluent.UI.Diagrams.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Components.Internals;
 
@@ -66,7 +67,7 @@ public partial class ElementHost : ComponentBase, IDisposable
         return base.ShouldRender();
     }
 
-    private void OnElementPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         StateHasChanged();
     }

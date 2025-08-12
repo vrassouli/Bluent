@@ -4,6 +4,7 @@ using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
@@ -28,24 +29,31 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     private bool _isSelected;
     private List<IDiagramConnector>? _incomingConnectors;
     private List<IDiagramConnector>? _outgoingConnectors;
-    private string? _id;
+    //private string? _id;
 
     #endregion
 
     #region Properties
 
-    public string Id
-    {
-        get
-        {
-            if (_id is null)
-                _id = Identifier.NewId();
+    //public string Id
+    //{
+    //    get
+    //    {
+    //        if (_id is null)
+    //            _id = Identifier.NewId();
 
-            return _id;
-        }
+    //        return _id;
+    //    }
 
-        set => _id = value;
-    }
+    //    set
+    //    {
+    //        if (_id != value)
+    //        {
+    //            _id = value;
+    //            NotifyPropertyChanged();
+    //        }
+    //    }
+    //}
 
     public bool AllowHorizontalDrag { get; protected set; } = true;
 
@@ -65,6 +73,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             if (Math.Abs(_x - value) > Epsilon)
             {
                 _x = value;
+
                 NotifyPropertyChanged();
             }
         }
@@ -266,8 +275,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         _y += Drag.Dy;
 
         CancelDrag();
-        NotifyPropertyChanged(nameof(X));
-        NotifyPropertyChanged(nameof(Y));
+        NotifyPropertyChanged();
     }
 
     public virtual void CancelDrag()

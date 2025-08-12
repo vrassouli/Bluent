@@ -10,7 +10,7 @@ public interface IDiagramBoundaryContainer : IDiagramContainer
     IEnumerable<IDiagramBoundaryNode> BoundaryNodes { get; }
 }
 
-public interface IDiagramContainer : IDiagramShape
+public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
 {
     void AddDiagramElement(IDiagramElement element);
     void RemoveDiagramElement(IDiagramElement element);

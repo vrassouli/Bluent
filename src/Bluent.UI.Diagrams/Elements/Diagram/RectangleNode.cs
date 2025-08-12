@@ -7,8 +7,6 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 public class RectangleNode : DiagramBoundaryContainerBase, IHasIncomingConnector, IHasOutgoingConnector
 {
     private double _raduis;
-    private List<IDiagramConnector> _incomingConnectors = new();
-    private List<IDiagramConnector> _outgoingConnectors = new();
 
     public double Raduis
     {

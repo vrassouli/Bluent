@@ -48,6 +48,7 @@ public class RectElement : DrawingElementBase, IHasUpdatablePoints
         {
             if (_y != value)
             {
+                var old = _y;
                 _y = value;
                 NotifyPropertyChanged();
             }
@@ -60,6 +61,7 @@ public class RectElement : DrawingElementBase, IHasUpdatablePoints
         {
             if (Width != value)
             {
+                var old = _width;
                 _width = value;
                 NotifyPropertyChanged();
             }
@@ -72,6 +74,7 @@ public class RectElement : DrawingElementBase, IHasUpdatablePoints
         {
             if (Height != value)
             {
+                var old = _height;
                 _height = value;
                 NotifyPropertyChanged();
             }
@@ -84,6 +87,7 @@ public class RectElement : DrawingElementBase, IHasUpdatablePoints
         {
             if (Rx != value)
             {
+                var old = _rx;
                 _rx = value;
                 NotifyPropertyChanged();
             }
@@ -96,6 +100,7 @@ public class RectElement : DrawingElementBase, IHasUpdatablePoints
         {
             if (_ry != value)
             {
+                var old = _ry;
                 _ry = value;
                 NotifyPropertyChanged();
             }
@@ -148,6 +153,7 @@ public class RectElement : DrawingElementBase, IHasUpdatablePoints
     {
         _x += Drag.Dx;
         _y += Drag.Dy;
+
         NotifyPropertyChanged();
 
         base.ApplyDrag();

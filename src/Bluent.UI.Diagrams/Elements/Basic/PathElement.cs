@@ -65,7 +65,7 @@ public class PathElement : DrawingElementBase
     public void AddPoint(DiagramPoint point)
     {
         _points.Add(point);
-        NotifyPropertyChanged();
+        NotifyPropertyChanged(nameof(Points));
     }
 
     public override void ApplyDrag()

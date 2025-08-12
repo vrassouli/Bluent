@@ -309,10 +309,8 @@ public partial class DrawingCanvas
 
     public void DeselectElement(IDrawingShape element)
     {
-        element.IsSelected = false;
-        //_selectedElements.Remove(element);
+        DeselectElement(element, true);
     }
-
     public void SelectElement(IDrawingShape element, bool addToSelections)
     {
         if (IsSelected(element))
@@ -322,13 +320,12 @@ public partial class DrawingCanvas
             return;
 
         if (Selection == SelectionMode.Single || !addToSelections)
-            ClearSelection();
-        //_selectedElements.Clear();
+            ClearSelection(false);
 
         element.IsSelected = true;
-        //_selectedElements.Add(element);
 
         StateHasChanged();
+        InvokeAsync(() => OnSelectionChanged.InvokeAsync(SelectedElements));
     }
 
     public void ClearSelection()
@@ -338,6 +335,22 @@ public partial class DrawingCanvas
             DeselectElement(el);
         }
     }
+
+    private void ClearSelection(bool notifySelectionChanged)
+    {
+        foreach (var el in SelectedElements)
+        {
+            DeselectElement(el, notifySelectionChanged);
+        }
+    }
+
+    private void DeselectElement(IDrawingShape element, bool notifySelectionChanged)
+    {
+        element.IsSelected = false;
+        if (notifySelectionChanged)
+            InvokeAsync(() => OnSelectionChanged.InvokeAsync(SelectedElements));
+    }
+
 
     public void ResetScale()
     {

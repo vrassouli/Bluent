@@ -16,6 +16,7 @@ public abstract class DrawingElementBase : IDrawingElement
         {
             if (_drag != value)
             {
+                var old = _drag;
                 _drag = value;
                 NotifyPropertyChanged();
             }
@@ -46,6 +47,7 @@ public abstract class DrawingElementBase : IDrawingElement
     public RenderFragment? SelectionOptions { get; set; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
 
     public virtual void PointerMovingOutside()
     {

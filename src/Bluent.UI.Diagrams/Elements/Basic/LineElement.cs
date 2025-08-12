@@ -109,6 +109,7 @@ public class LineElement : DrawingElementBase, IHasUpdatablePoints
         _x2 += Drag.Dx;
         _y1 += Drag.Dy;
         _y2 += Drag.Dy;
+
         NotifyPropertyChanged();
 
         base.ApplyDrag();

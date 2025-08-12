@@ -2,7 +2,7 @@
 
 public interface IDiagramElement : IDiagramShape, IDrawingShape
 {
-    string Id { get; set; }
+    //string Id { get; set; }
     bool HitTest(DiagramPoint point);
     void Clean();
 }

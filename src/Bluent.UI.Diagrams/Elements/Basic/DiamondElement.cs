@@ -100,6 +100,7 @@ public class DiamondElement : DrawingElementBase
     {
         _cx += Drag.Dx;
         _cy += Drag.Dy;
+
         NotifyPropertyChanged();
 
         base.ApplyDrag();

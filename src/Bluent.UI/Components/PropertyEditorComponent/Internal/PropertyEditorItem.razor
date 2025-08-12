@@ -1,0 +1,17 @@
+﻿@using Bluent.UI.Extensions
+@{
+    var propertyType = GetUnderlyingType();
+}
+<div class="d-flex align-items-center">
+    <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="width: 120px;" for="@Property.Name" />
+
+    
+    @if (propertyType == typeof(string))
+    {
+        <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+    }
+    else if (propertyType == typeof(bool))
+    {
+        <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+    }
+</div>

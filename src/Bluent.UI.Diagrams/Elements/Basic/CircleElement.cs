@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
+using System.Security.Cryptography;
 
 namespace Bluent.UI.Diagrams.Elements.Basic;
 
@@ -89,6 +90,7 @@ public class CircleElement : DrawingElementBase, IHasUpdatablePoints
     {
         _cx += Drag.Dx;
         _cy += Drag.Dy;
+
         NotifyPropertyChanged();
 
         base.ApplyDrag();

@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
@@ -7,6 +8,9 @@ namespace Bluent.UI.Diagrams.Elements.Diagram;
 public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBoundaryContainer
 {
     private List<IDiagramBoundaryNode> _boundaryElements = new();
+
+    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
     public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
 
     public void AddDiagramElement(IDiagramElement element)
@@ -19,7 +23,9 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
         boundaryElement.SetCenter(stickPoint);
 
         _boundaryElements.Add(boundaryElement);
+
         NotifyPropertyChanged(nameof(BoundaryNodes));
+        //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, boundaryElement));
     }
 
     public void RemoveDiagramElement(IDiagramElement element)
@@ -29,7 +35,9 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
 
         boundaryElement.PropertyChanged -= ChildElementPropertyChanged;
         _boundaryElements.Remove(boundaryElement);
+
         NotifyPropertyChanged(nameof(BoundaryNodes));
+        //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, boundaryElement));
 
         boundaryElement.IsSelected = false;
         element.Clean();

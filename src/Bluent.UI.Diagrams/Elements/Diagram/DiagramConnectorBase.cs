@@ -21,21 +21,28 @@ internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatableP
     private Distance2D _endDrag = new();
     private IHasOutgoingConnector _sourceElement;
     private IHasIncomingConnector? _targetElement;
-    private string? _id;
+    //private string? _id;
 
 
-    public string Id
-    {
-        get
-        {
-            if (_id is null)
-                _id = Identifier.NewId();
+    //public string Id
+    //{
+    //    get
+    //    {
+    //        if (_id is null)
+    //            _id = Identifier.NewId();
 
-            return _id;
-        }
+    //        return _id;
+    //    }
 
-        set => _id = value;
-    }
+    //    set
+    //    {
+    //        if (_id != value)
+    //        {
+    //            _id = value;
+    //            NotifyPropertyChanged();
+    //        }
+    //    }
+    //}
 
     public DiagramPoint Start
     {

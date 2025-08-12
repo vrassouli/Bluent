@@ -1,28 +1,37 @@
 ﻿using Bluent.UI.Diagrams.Elements;
+using System.Xml.Serialization;
 
 namespace Bluent.UI.Diagrams.Components.Diagrams;
 
 public class DiagramLayout
 {
-    public List<ILayoutElement> Elements { get; set; } = default!;
+    [XmlArray("Elements")]
+    [XmlArrayItem("Element")]
+    public List<LayoutElement> Elements { get; set; } = new();
 }
 
-public interface ILayoutElement
+[XmlInclude(typeof(NodeLayout))]
+[XmlInclude(typeof(ConnectorLayout))]
+public abstract class LayoutElement
 {
-    string Id { get; set; }
-}
-
-public class NodeLayout : ILayoutElement
-{
+    [XmlElement]
     public string Id { get; set; } = default!;
+}
+
+public class NodeLayout : LayoutElement
+{
+    [XmlElement]
     public double X { get; set; } = default!;
+    [XmlElement]
     public double Y { get; set; } = default!;
+    [XmlElement]
     public double Width { get; set; } = default!;
+    [XmlElement]
     public double Height { get; set; } = default!;
 }
 
-public class ConnectorLayout : ILayoutElement
+public class ConnectorLayout : LayoutElement
 {
-    public string Id { get; set; } = default!;
+    [XmlElement]
     public List<DiagramPoint> WayPoints { get; set; } = default!;
 }
