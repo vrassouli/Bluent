@@ -8,7 +8,9 @@ public partial class PropertyEditor
     private object? _object = null;
     private PropertyEditorContext? _context;
 
+    [Parameter] public int LabelWidth { get; set; } = 120;
     [Parameter] public object? Object { get; set; }
+    [Parameter] public bool Categorize { get; set; } = true;
     [Parameter] public EventCallback PropertyUpdated { get; set; }
 
     protected override void OnParametersSet()

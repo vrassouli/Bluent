@@ -1,17 +1,28 @@
 ﻿@using Bluent.UI.Extensions
 @{
-    var propertyType = GetUnderlyingType();
+    var propertyType = Property.PropertyType.GetUnderlyingType();
 }
-<div class="d-flex align-items-center">
-    <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="width: 120px;" for="@Property.Name" />
 
-    
-    @if (propertyType == typeof(string))
-    {
-        <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
-    }
-    else if (propertyType == typeof(bool))
-    {
-        <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
-    }
-</div>
+@if (HasTypeRegistery(propertyType))
+{
+    <RegisteredPropertyTypeEditor Object="Object" Property="Property" LabelWidth="LabelWidth" ValueUpdated="ValueUpdated" />
+}
+else
+{
+    <div class="d-flex align-items-center">
+        <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate shrink-0" for="@Property.Name" />
+
+        @if (propertyType == typeof(string))
+        {
+            <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+        }
+        else if (propertyType == typeof(int))
+        {
+            <IntPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+        }
+        else if (propertyType == typeof(bool))
+        {
+            <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+        }
+    </div>
+}

@@ -1,0 +1,20 @@
+﻿@using Bluent.UI.Extensions
+
+<div class="d-flex align-items-center">
+    <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate shrink-0" for="@Property.Name" />
+
+    <Button Text="@GetDropdownTitle()" ShowDropdownIndicator Class="flex-fill">
+        <Dropdown>
+            <MenuList>
+                @foreach (var type in GetPossibleTypes())
+                {
+                    <MenuItem Title="@type.GetDisplayName()" OnClick="() => CreateInstance(type)" Checked="GetCurrentType() == type" />
+                }
+            </MenuList>
+        </Dropdown>
+    </Button>
+</div>
+@if (GetPropertyValue() is not null)
+{
+    <PropertyEditor Categorize="false" Object="GetPropertyValue()" PropertyUpdated="ValueUpdated" />
+}

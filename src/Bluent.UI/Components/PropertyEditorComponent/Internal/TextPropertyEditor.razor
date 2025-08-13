@@ -1,5 +1,5 @@
 ﻿@using System.Reflection
-<Bluent.UI.Components.TextField Value="@Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" id="@Property.Name" />
+<Bluent.UI.Components.TextField Value="@Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" Class="flex-fill" id="@Property.Name" />
 
 @code {
     [Parameter] public PropertyInfo Property { get; set; } = null!;

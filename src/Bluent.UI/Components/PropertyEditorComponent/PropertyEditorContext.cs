@@ -9,6 +9,7 @@ internal class PropertyEditorContext
     private List<PropertyEditorCategory> _categories = new();
 
     public IEnumerable<PropertyEditorCategory> Categories => _categories.OrderBy(x => x.Name != DefaultCategory).ThenBy(x => x.Name);
+    public IEnumerable<PropertyInfo> Properties => _categories.SelectMany(x => x.Properties).OrderBy(x => x.Name);
 
     public PropertyEditorContext(object targetObject)
     {
