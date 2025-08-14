@@ -75,6 +75,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
                 _x = value;
 
                 NotifyPropertyChanged();
+                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
@@ -87,6 +88,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             {
                 _y = value;
                 NotifyPropertyChanged();
+                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
@@ -99,6 +101,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             {
                 _width = value;
                 NotifyPropertyChanged();
+                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
@@ -111,6 +114,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             {
                 _height = value;
                 NotifyPropertyChanged();
+                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
@@ -313,6 +317,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         }
 
         RerouteConnectors();
+        NotifyPropertyChanged();
     }
 
     public virtual void Clean()

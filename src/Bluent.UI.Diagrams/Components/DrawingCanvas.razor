@@ -38,13 +38,8 @@
             {
                 var selection = SelectedElements.First();
 
-                <div @key="selection" class="options" style="transform: translate(@(_pan.Dx + _activePan.Dx)px, @(_pan.Dy + _activePan.Dy)px) scale(@_scale)">
-                    <div style="left: @(selection.Boundary.Right + 10)px; top: @(selection.Boundary.Y)px; padding: 5px;">
-                        <CascadingValue Value="selection" IsFixed>
-                            @selection.SelectionOptions
-                        </CascadingValue>
-                    </div>
-                </div>
+                <SelectionOptionsContainer @key="selection" Shape="selection" Pan="_pan + _activePan" Scale="_scale" />
+
             }
         </div>
     </div>
