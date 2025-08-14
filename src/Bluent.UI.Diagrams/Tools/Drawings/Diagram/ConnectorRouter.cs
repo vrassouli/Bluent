@@ -24,7 +24,42 @@ internal static class ConnectorRouter
             return;
 
         if (targetBoundary is null)
-            targetBoundary = new Boundary(connector.End.X - 1, connector.End.Y, 2, 2);
+        {
+            // Create a temp boundary
+            // align it a way that connector end marker look appropriate
+            const int size = 2;
+            var dx = connector.End.X - connector.Start.X;
+            var dy = connector.End.Y - connector.Start.Y;
+
+            var endEdge = Edges.Left;
+            if (Math.Abs(dx) > Math.Abs(dy))
+            {
+                // left or right
+                if (dx < 0)
+                    endEdge = Edges.Right;
+                else
+                    endEdge = Edges.Left;
+            }
+            else
+            {
+                // top or bottom
+                if (dy < 0)
+                    endEdge = Edges.Bottom;
+                else
+                    endEdge = Edges.Top;
+            }
+
+            targetBoundary = endEdge switch
+            {
+                Edges.Left => new Boundary(connector.End.X, connector.End.Y - size / 2, size, size),
+
+                Edges.Top => new Boundary(connector.End.X - size / 2, connector.End.Y, size, size),
+
+                Edges.Right => new Boundary(connector.End.X - size, connector.End.Y - size / 2, size, size),
+
+                _ => new Boundary(connector.End.X - size / 2, connector.End.Y - size, size, size)
+            };
+        }
 
         var sourceEdge = sourceBoundary.GetNearestEdge(connector.Start);
         var targetEdge = targetBoundary.GetNearestEdge(connector.End);

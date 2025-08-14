@@ -274,6 +274,15 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         _x += Drag.Dx;
         _y += Drag.Dy;
 
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.ApplyStartDrag();
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.ApplyEndDrag();
+        }
+
         CancelDrag();
         NotifyPropertyChanged();
     }
@@ -281,11 +290,27 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     public virtual void CancelDrag()
     {
         _drag = new();
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.CancelStartDrag();
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.CancelEndDrag();
+        }
     }
 
     public virtual void SetDrag(Distance2D drag)
     {
         Drag = drag;
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            outgoing.DragStart(drag);
+        }
+        foreach (var incoming in IncomingConnectors)
+        {
+            incoming.DragEnd(drag);
+        }
 
         RerouteConnectors();
     }

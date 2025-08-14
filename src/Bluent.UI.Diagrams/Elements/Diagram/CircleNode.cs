@@ -50,45 +50,4 @@ public class CircleNode : DiagramNodeBase, IHasIncomingConnector, IHasOutgoingCo
             }
         };
     }
-
-    public override void SetDrag(Distance2D drag)
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.DragStart(drag);
-        }
-        foreach (var incoming in IncomingConnectors)
-        {
-            incoming.DragEnd(drag);
-        }
-        base.SetDrag(drag);
-    }
-
-    public override void CancelDrag()
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.CancelStartDrag();
-        }
-        foreach (var incoming in IncomingConnectors)
-        {
-            incoming.CancelEndDrag();
-        }
-        base.CancelDrag();
-    }
-
-    public override void ApplyDrag()
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.ApplyStartDrag();
-        }
-        foreach (var incoming in IncomingConnectors)
-        {
-            incoming.ApplyEndDrag();
-            //StickEndPoint(incoming);
-        }
-        base.ApplyDrag();
-    }
-
 }

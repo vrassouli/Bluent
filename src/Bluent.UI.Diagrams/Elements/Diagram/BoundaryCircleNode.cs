@@ -65,35 +65,6 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOut
         };
     }
 
-    public override void SetDrag(Distance2D drag)
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.DragStart(drag);
-        }
-
-        base.SetDrag(drag);
-    }
-
-    public override void CancelDrag()
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.CancelStartDrag();
-        }
-
-        base.CancelDrag();
-    }
-
-    public override void ApplyDrag()
-    {
-        foreach (var outgoing in OutgoingConnectors)
-        {
-            outgoing.ApplyStartDrag();
-        }
-
-        base.ApplyDrag();
-    }
 
     public override void Clean()
     {
