@@ -8,17 +8,4 @@ internal class DiagramConnector : DiagramConnectorBase
         StrokeWidth = 2;
     }
 
-    protected override string GetPathData()
-    {
-        string data = $"M{Start.X} {Start.Y}";
-
-        foreach (var point in WayPoints)
-        {
-            data += $" L{point.X} {point.Y}";
-        }
-
-        data += $" L{End.X} {End.Y}";
-
-        return data;
-    }
 }

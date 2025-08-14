@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoints
+public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoints
 {
     private List<DiagramPoint> _wayPoints = new();
     private DiagramPoint _start;
@@ -21,28 +21,6 @@ internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatableP
     private Distance2D _endDrag = new();
     private IHasOutgoingConnector _sourceElement;
     private IHasIncomingConnector? _targetElement;
-    //private string? _id;
-
-
-    //public string Id
-    //{
-    //    get
-    //    {
-    //        if (_id is null)
-    //            _id = Identifier.NewId();
-
-    //        return _id;
-    //    }
-
-    //    set
-    //    {
-    //        if (_id != value)
-    //        {
-    //            _id = value;
-    //            NotifyPropertyChanged();
-    //        }
-    //    }
-    //}
 
     public DiagramPoint Start
     {
@@ -223,7 +201,20 @@ internal abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatableP
         };
     }
 
-    protected abstract string GetPathData();
+    protected virtual string GetPathData()
+    {
+        string data = $"M{Start.X} {Start.Y}";
+
+        foreach (var point in WayPoints)
+        {
+            data += $" L{point.X} {point.Y}";
+        }
+
+        data += $" L{End.X} {End.Y}";
+
+        return data;
+
+    }
 
     protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
     {
