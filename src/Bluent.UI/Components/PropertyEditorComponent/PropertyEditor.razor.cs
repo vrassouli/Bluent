@@ -28,6 +28,14 @@ public partial class PropertyEditor
         base.OnParametersSet();
     }
 
+    public override IEnumerable<string> GetClasses()
+    {
+        foreach (var c in base.GetClasses())
+            yield return c;
+
+        yield return "bui-property-editor";
+    }
+
     //private IEnumerable<PropertyInfo> GetProperties()
     //{
     //    if (Object is null)

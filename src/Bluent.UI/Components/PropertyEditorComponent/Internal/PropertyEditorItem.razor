@@ -10,7 +10,7 @@
 else
 {
     <div class="d-flex align-items-center">
-        <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate shrink-0" for="@Property.Name" />
+        <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate flex-shrink-0" for="@Property.Name" />
 
         @if (propertyType == typeof(string))
         {

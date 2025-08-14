@@ -10,27 +10,29 @@
     }
     else if (_context != null)
     {
-        if (Categorize)
+        if (Categorize && _context.Categories.Any())
         {
-            <Bluent.UI.Components.Accordion HeaderAction="AccordionHeaderAction.Toggle" Multiple>
+            <div class="property-editor-content">
+                <Bluent.UI.Components.Accordion HeaderAction="AccordionHeaderAction.Toggle" Multiple>
 
-                @foreach (var category in _context.Categories)
-                {
-                    <Bluent.UI.Components.AccordionPanel Header="@category.Name">
-                        <div class="d-flex flex-column gap-2">
-                            @foreach (var property in category.Properties)
-                            {
-                                <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth" ValueUpdated="PropertyUpdated" />
-                            }
-                        </div>
-                    </Bluent.UI.Components.AccordionPanel>
-                }
+                    @foreach (var category in _context.Categories)
+                    {
+                        <Bluent.UI.Components.AccordionPanel Header="@category.Name">
+                            <div class="d-flex flex-column gap-2">
+                                @foreach (var property in category.Properties)
+                                {
+                                    <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth" ValueUpdated="PropertyUpdated" />
+                                }
+                            </div>
+                        </Bluent.UI.Components.AccordionPanel>
+                    }
 
-            </Bluent.UI.Components.Accordion>
+                </Bluent.UI.Components.Accordion>
+            </div>
         }
-        else
+        else if (_context.Properties.Any())
         {
-            <div class="d-flex flex-column gap-2">
+            <div class="property-editor-content d-flex flex-column gap-2">
                 @foreach (var property in _context.Properties)
                 {
                     <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth" ValueUpdated="PropertyUpdated" />
