@@ -1,6 +1,7 @@
 name: Deploy Blazor WASM to GitHub Pages
 
 on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
   push:
     branches:
       - main
