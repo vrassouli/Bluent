@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - '**/*'
+      - 'src/Bluent.UI.Demo/Bluent.UI.Demo.csproj'
 
 jobs:
   build:
