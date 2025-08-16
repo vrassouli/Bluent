@@ -30,4 +30,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: out/wwwroot/*
-          github_token: ${{ secrets.PAGES_TOKEN }}
+          github_token: ${{ secrets.PAT }}
