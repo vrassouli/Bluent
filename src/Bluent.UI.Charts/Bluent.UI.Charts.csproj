@@ -18,6 +18,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Content Remove="bundleconfig.json;compilerconfig.json" />
+        <None Include="bundleconfig.json;compilerconfig.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
         <SupportedPlatform Include="browser" />
     </ItemGroup>
 

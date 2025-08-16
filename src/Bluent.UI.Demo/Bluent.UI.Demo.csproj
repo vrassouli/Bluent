@@ -8,6 +8,14 @@
         <LangVersion>latest</LangVersion>
         <NeutralLanguage>en</NeutralLanguage>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <Content Remove="bundleconfig.json;compilerconfig.json" />
+        <None Include="bundleconfig.json;compilerconfig.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
