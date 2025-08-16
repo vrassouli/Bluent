@@ -527,11 +527,12 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 
     protected void RerouteConnectors()
     {
+        var router = GetConnectorRouter();
         if (this is IHasIncomingConnector hasIncomingConnectorElement)
         {
             foreach (var connector in hasIncomingConnectorElement.IncomingConnectors)
             {
-                ConnectorRouter.RouteConnector(connector);
+                router.RouteConnector(connector);
             }
         }
 
@@ -539,10 +540,12 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             foreach (var connector in hasOutgoingConnectorElement.OutgoingConnectors)
             {
-                ConnectorRouter.RouteConnector(connector);
+                router.RouteConnector(connector);
             }
         }
     }
+
+    protected virtual ConnectorRouter GetConnectorRouter() => new ConnectorRouter();
 
     private void StickStartPoint(IDiagramConnector connector)
     {

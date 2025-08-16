@@ -42,7 +42,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             var endPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
             _connector.End = endPoint;
 
-            ConnectorRouter.RouteConnector(_connector, gridSize: Diagram.SnapSize);
+            new ConnectorRouter().RouteConnector(_connector, gridSize: Diagram.SnapSize);
         }
 
         base.OnPointerMove(e);
@@ -111,7 +111,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             Cursor = DefaultCursor;
             _connector.TargetElement = targetElement;
             targetElement.AddIncomingConnector(_connector);
-            ConnectorRouter.RouteConnector(_connector, gridSize: Diagram.SnapSize);
+            new ConnectorRouter().RouteConnector(_connector, gridSize: Diagram.SnapSize);
 
             // Delete! Get ready for AddConnectorCommand
             if (_sourceElementContainer is not null)

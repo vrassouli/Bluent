@@ -3,11 +3,11 @@ using Bluent.UI.Diagrams.Elements.Diagram;
 
 namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 
-internal static class ConnectorRouter
+public class ConnectorRouter
 {
     #region Public API
 
-    public static void RouteConnector(IDiagramConnector connector,
+    public virtual void RouteConnector(IDiagramConnector connector,
                                       double stubLength = 20.0,
                                       double obstaclePadding = 10.0,
                                       double gridSize = 0)
@@ -61,19 +61,19 @@ internal static class ConnectorRouter
             };
         }
 
-        var sourceEdge = sourceBoundary.GetNearestEdge(connector.Start);
-        var targetEdge = targetBoundary.GetNearestEdge(connector.End);
+        var sourceEdge = GetNearestEdge(sourceBoundary, connector.Start);
+        var targetEdge = GetNearestEdge(targetBoundary, connector.End);
 
-        List<DiagramPoint> points = ConnectorRouter.GetRoute(sourceBoundary,
-                                                             sourceEdge,
-                                                             connector.Start,
-                                                             targetBoundary,
-                                                             targetEdge,
-                                                             connector.End,
-                                                             [sourceBoundary, targetBoundary],
-                                                             stubLength,
-                                                             obstaclePadding,
-                                                             gridSize);
+        List<DiagramPoint> points = GetRoute(sourceBoundary,
+                                             sourceEdge,
+                                             connector.Start,
+                                             targetBoundary,
+                                             targetEdge,
+                                             connector.End,
+                                             [sourceBoundary, targetBoundary],
+                                             stubLength,
+                                             obstaclePadding,
+                                             gridSize);
 
         connector.SetWayPoints(points.GetRange(1, points.Count - 2));
     }
@@ -93,7 +93,7 @@ internal static class ConnectorRouter
     /// <param name="obstaclePadding">The clearance margin around obstacles.</param>
     /// <param name="gridSize">The resolution of the pathfinding grid. Smaller is more precise but slower.</param>
     /// <returns>A list of DiagramPoint objects that define the connector's path.</returns>
-    public static List<DiagramPoint> GetRoute(
+    public List<DiagramPoint> GetRoute(
         Boundary sourceBoundary, Edges sourceEdge, DiagramPoint? start,
         Boundary targetBoundary, Edges targetEdge, DiagramPoint? end,
         IEnumerable<Boundary>? obstacles = null,
@@ -112,6 +112,15 @@ internal static class ConnectorRouter
 
         // Otherwise, use the A* router for obstacle avoidance.
         return GetAStarRoute(startPoint, sourceEdge, endPoint, targetEdge, sourceBoundary, targetBoundary, obstacles, obstaclePadding, gridSize, stubLength);
+    }
+
+    #endregion
+
+    #region Protected Virtual API
+
+    protected virtual Edges GetNearestEdge(Boundary boundary, DiagramPoint point)
+    {
+        return boundary.GetNearestEdge(point);
     }
 
     #endregion

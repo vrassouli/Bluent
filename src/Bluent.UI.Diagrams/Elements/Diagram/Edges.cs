@@ -1,6 +1,6 @@
 ﻿namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-internal enum Edges
+public enum Edges
 {
     Left, Top, Right, Bottom
 }

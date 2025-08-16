@@ -32,7 +32,7 @@ public record Boundary(double X, double Y, double Width, double Height)
         return false;
     }
 
-    internal Edges GetNearestEdge(DiagramPoint point)
+    public Edges GetNearestEdge(DiagramPoint point)
     {
         var left = Math.Abs(point.X - X);
         var right = Math.Abs(point.X - Right);
