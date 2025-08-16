@@ -3,6 +3,8 @@
 
 Bluent.UI is a Fluent UI styled component library for Blazor!
 
+Click [here](https://vrassouli.github.io/Bluent/) to see demo.
+
 It contains lots of components, like Buttons, Input field, Drop downs, Dialog, Popover, Tooltip, Cards, and lots more.\
 To get started, add it to your project from nuget:
 
