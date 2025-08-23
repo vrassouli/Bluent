@@ -1,4 +1,6 @@
-﻿namespace Bluent.UI.Diagrams.Elements.Diagram;
+﻿using System.Xml.Linq;
+
+namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public interface IDiagramElementContainer : IDiagramContainer
 {
@@ -39,7 +41,7 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                         yield return child;
 
                 if (el.HitTest(point) && el is IDiagramElement diagramEl)
-                        yield return diagramEl;
+                    yield return diagramEl;
             }
         }
 
@@ -88,23 +90,57 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                             yield return child;
                 }
             }
+        }
+    }
+    bool Contains(IDiagramElement element)
+    {
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            foreach (var el in elementContainer.DiagramElements)
+            {
+                if (el.Equals(element))
+                    return true;
 
-            //if (this is IHasOutgoingConnector hasOutgoingConnector)
-            //{
-            //    foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
-            //    {
-            //        if (connector.IsSelected)
-            //            yield return connector;
-            //    }
-            //}
-            //if (this is IHasIncomingConnector hasIncomingConnector)
-            //{
-            //    foreach (var connector in hasIncomingConnector.IncomingConnectors)
-            //    {
-            //        if (connector.IsSelected)
-            //            yield return connector;
-            //    }
-            //}
+                if (el is IDiagramContainer container && container.Contains(element))
+                    return true;
+            }
+        }
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
+            {
+                if (el.IsSelected)
+                    return true;
+
+                if (el is IDiagramContainer container && container.Contains(element))
+                    return true;
+            }
+        }
+        return false;
+    }
+    void Clear()
+    {
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            var elements = elementContainer.DiagramElements.ToList();
+            foreach (var el in elements)
+            {
+                if (el is IDiagramContainer container)
+                    container.Clear();
+
+                RemoveDiagramElement(el);
+            }
+        }
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            var elements = boundaryElementContainer.BoundaryNodes.ToList();
+            foreach (var el in elements)
+            {
+                if (el is IDiagramContainer container)
+                    container.Clear();
+
+                RemoveDiagramElement(el);
+            }
         }
     }
     bool HasSelection

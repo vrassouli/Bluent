@@ -60,11 +60,13 @@ internal class DeleteDiagramElementsCommand : ICommand
     {
         if (el is IDiagramConnector connector && connector.SourceElement is IDiagramElement sourceElement)
         {
-            return FindParent(sourceElement);
+            var parentFromSource = FindParent(sourceElement);
+            if (parentFromSource?.Contains(el) == true)
+                return parentFromSource;
         }
 
         var containers = _diagram.GetDiagramElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
-        var container = containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el.GetType()));
+        var container = containers.FirstOrDefault(x => !object.Equals(el, x) && x.Contains(el));
         return container;
     }
 }

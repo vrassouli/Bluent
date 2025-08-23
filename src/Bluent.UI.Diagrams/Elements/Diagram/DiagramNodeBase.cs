@@ -29,31 +29,10 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     private bool _isSelected;
     private List<IDiagramConnector>? _incomingConnectors;
     private List<IDiagramConnector>? _outgoingConnectors;
-    //private string? _id;
 
     #endregion
 
     #region Properties
-
-    //public string Id
-    //{
-    //    get
-    //    {
-    //        if (_id is null)
-    //            _id = Identifier.NewId();
-
-    //        return _id;
-    //    }
-
-    //    set
-    //    {
-    //        if (_id != value)
-    //        {
-    //            _id = value;
-    //            NotifyPropertyChanged();
-    //        }
-    //    }
-    //}
 
     public bool AllowHorizontalDrag { get; protected set; } = true;
 
@@ -67,54 +46,55 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 
     public virtual double X
     {
-        get => _x + Drag.Dx /*+ DeltaLeft*/;
+        get => _x + Drag.Dx;
         set
         {
             if (Math.Abs(_x - value) > Epsilon)
             {
+                SetX(value);
+
                 _x = value;
 
                 NotifyPropertyChanged();
-                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
+
     public virtual double Y
     {
-        get => _y + Drag.Dy /*+ DeltaTop*/;
+        get => _y + Drag.Dy;
         set
         {
             if (Math.Abs(_y - value) > Epsilon)
             {
-                _y = value;
+                SetY(value);
                 NotifyPropertyChanged();
-                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
+
     public virtual double Width
     {
-        get => _width /*- DeltaLeft + DeltaRight*/;
+        get => _width;
         set
         {
             if (Math.Abs(_width - value) > Epsilon)
             {
-                _width = value;
+                SetWidth(value);
                 NotifyPropertyChanged();
-                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
+
     public virtual double Height
     {
-        get => _height /*- DeltaTop + DeltaBottom*/;
+        get => _height;
         set
         {
             if (Math.Abs(_height - value) > Epsilon)
             {
-                _height = value;
+                SetHeight(value);
                 NotifyPropertyChanged();
-                //NotifyPropertyChanged(nameof(Boundary));
             }
         }
     }
@@ -131,7 +111,6 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
-
     public bool IsSelected
     {
         get => _isSelected;
@@ -558,4 +537,160 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         var point = StickToBoundary(connector.End);
         connector.End = point;
     }
+
+    private void SetX(double value)
+    {
+        /*
+         * Note: After X gets update, to stick the node at the same position, Width will get updated to.
+         * Example: if X gets a (-10) delta, Width will get (+10) delta.
+         * 
+         * By updating Width, the connectors at the Right edge, will be updated, 
+         * however, becouse the Right edge is sticked at it's place, the connector will be miss-placed.
+         * To prevent it, we should update connectors at Right edge too, so after getting updated when the Width updates, they get placed at correct position.
+         */
+
+        var delta = value - _x;
+
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Left)
+            {
+                outgoing.DragStart(new Distance2D(delta, 0));
+                outgoing.ApplyStartDrag();
+            }
+            else if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Right)
+            {
+                outgoing.DragStart(new Distance2D(delta, 0));
+                outgoing.ApplyStartDrag();
+            }
+        }
+
+        foreach (var incomming in IncomingConnectors)
+        {
+            if (Boundary.GetNearestEdge(incomming.End) == Edges.Left)
+            {
+                incomming.DragEnd(new Distance2D(delta, 0));
+                incomming.ApplyEndDrag();
+            }
+            else if (Boundary.GetNearestEdge(incomming.End) == Edges.Right)
+            {
+                incomming.DragEnd(new Distance2D(delta, 0));
+                incomming.ApplyEndDrag();
+            }
+        }
+        
+        _x = value;
+        
+        RerouteConnectors();
+    }
+
+    private void SetY(double value)
+    {
+        /*
+         * Note: After Y gets update, to stick the node at the same position, Height will get updated to.
+         * Example: if Y gets a (-10) delta, Height will get (+10) delta.
+         * 
+         * By updating Height, the connectors at the Bottom edge, will be updated, 
+         * however, becouse the Bottom edge is sticked at it's place, the connector will be miss-placed.
+         * To prevent it, we should update connectors at Bottom edge too, so after getting updated when the Height updates, they get placed at correct position.
+         */
+
+        var delta = value - _y;
+
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Top)
+            {
+                outgoing.DragStart(new Distance2D(0, delta));
+                outgoing.ApplyStartDrag();
+            }
+            if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Bottom)
+            {
+                outgoing.DragStart(new Distance2D(0, delta));
+                outgoing.ApplyStartDrag();
+            }
+        }
+
+        foreach (var incomming in IncomingConnectors)
+        {
+            if (Boundary.GetNearestEdge(incomming.End) == Edges.Top)
+            {
+                incomming.DragEnd(new Distance2D(0, delta));
+                incomming.ApplyEndDrag();
+            }
+            if (Boundary.GetNearestEdge(incomming.End) == Edges.Bottom)
+            {
+                incomming.DragEnd(new Distance2D(0, delta));
+                incomming.ApplyEndDrag();
+            }
+        }
+
+        _y = value;
+
+        RerouteConnectors();
+    }
+
+    private void SetWidth(double value)
+    {
+        var delta = value - _width;
+
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Right)
+            {
+                outgoing.DragStart(new Distance2D(delta, 0));
+                outgoing.ApplyStartDrag();
+            }
+        }
+
+        foreach (var incomming in IncomingConnectors)
+        {
+            if (Boundary.GetNearestEdge(incomming.End) == Edges.Right)
+            {
+                incomming.DragEnd(new Distance2D(delta, 0));
+                incomming.ApplyEndDrag();
+            }
+        }
+
+        _width = value;
+
+        RerouteConnectors();
+    }
+
+    private void SetHeight(double value)
+    {
+        var delta = value - _height;
+
+        foreach (var outgoing in OutgoingConnectors)
+        {
+            if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Bottom)
+            {
+                outgoing.DragStart(new Distance2D(0, delta));
+                outgoing.ApplyStartDrag();
+            }
+        }
+
+        foreach (var incomming in IncomingConnectors)
+        {
+            if (Boundary.GetNearestEdge(incomming.End) == Edges.Bottom)
+            {
+                incomming.DragEnd(new Distance2D(0, delta));
+                incomming.ApplyEndDrag();
+            }
+        }
+
+        _height = value;
+
+        RerouteConnectors();
+    }
+
+    //private void OnSizeChanged()
+    //{
+    //    foreach (var outgoing in OutgoingConnectors)
+    //        StickStartPoint(outgoing);
+
+    //    foreach (var incomming in IncomingConnectors)
+    //        StickEndPoint(incomming);
+    //}
+
 }

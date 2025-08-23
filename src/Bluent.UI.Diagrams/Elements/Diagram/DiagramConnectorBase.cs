@@ -195,6 +195,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             builder.AddAttribute(seq++, "stroke-dasharray", StrokeDashArray);
             builder.AddAttribute(seq++, "fill", "none");
             builder.AddAttribute(seq++, "marker-end", $"url(#{MarkerEnd})");
+            builder.AddAttribute(seq++, "marker-start", $"url(#{MarkerStart})");
             builder.AddAttribute(seq++, "d", GetPathData());
 
             builder.CloseElement();

@@ -200,6 +200,16 @@ public partial class DrawingCanvas
     {
         return Defs;
     }
+    
+    protected virtual void Clear()
+    {
+        var elements = Elements.ToList();
+
+        foreach (var el in elements)
+        {
+            RemoveElement(el);
+        }
+    }
 
     protected void ActivateTool(ITool tool)
     {

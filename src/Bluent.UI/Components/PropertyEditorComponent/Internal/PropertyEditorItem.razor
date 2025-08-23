@@ -12,7 +12,11 @@ else
     <div class="d-flex align-items-center">
         <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate flex-shrink-0" for="@Property.Name" />
 
-        @if (propertyType == typeof(string))
+        @if (!IsEditable())
+        {
+            <div>@Property.GetValue(Object)?.ToString()</div>
+        }
+        else if (propertyType == typeof(string))
         {
             <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
         }
@@ -23,6 +27,10 @@ else
         else if (propertyType == typeof(bool))
         {
             <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+        }
+        else if (propertyType.IsEnum)
+        {
+            <EnumPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
         }
     </div>
 }

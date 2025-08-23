@@ -1,5 +1,6 @@
 ﻿using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace Bluent.UI.Components.PropertyEditorComponent.Internal;
@@ -17,5 +18,15 @@ public partial class PropertyEditorItem
     private bool HasTypeRegistery(Type propertyType)
     {
         return TypeRegistery.GetPossibleTypes(propertyType).Any();
+    }
+
+    private bool IsEditable()
+    {
+        var editableAttribute = Property.GetCustomAttribute<EditableAttribute>();
+
+        if (editableAttribute is null)
+            return true;
+
+        return editableAttribute.AllowEdit;
     }
 }
