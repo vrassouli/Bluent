@@ -30,7 +30,10 @@
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
-        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Charts.Scripts\dist\bluent.ui.charts.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+        <Copy
+                SourceFiles="..\Bluent.UI.Charts.Scripts\dist\bluent.ui.charts.js"
+                DestinationFolder="$(ProjectDir)wwwroot\"
+                SkipUnchangedFiles="true" />
     </Target>
 
     <ItemGroup>

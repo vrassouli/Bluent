@@ -42,9 +42,18 @@
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
-        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
-        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js"
+              DestinationFolder="$(ProjectDir)wwwroot\"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js.map"
+              DestinationFolder="$(ProjectDir)wwwroot\"
+              SkipUnchangedFiles="true" />
     </Target>
+
+<!--    <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">-->
+<!--        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />-->
+<!--        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />-->
+<!--    </Target>-->
 
     <ItemGroup>
         <SupportedPlatform Include="browser" />
