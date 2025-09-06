@@ -19,7 +19,7 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json;compilerconfig.json" />
-        <None Include="bundleconfig.json;compilerconfig.json">
+        <None Include="bundleconfig.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
@@ -50,17 +50,8 @@
               SkipUnchangedFiles="true" />
     </Target>
 
-<!--    <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">-->
-<!--        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />-->
-<!--        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />-->
-<!--    </Target>-->
-
     <ItemGroup>
         <SupportedPlatform Include="browser" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="compilerconfig.json" />
     </ItemGroup>
 
     <ItemGroup>
