@@ -9,6 +9,7 @@
       "Styles/Themes/styles.css"
     ]
   },
+  
   {
     "outputFileName": "wwwroot/bluent.ui.theme.excel.css",
     "inputFiles": [
