@@ -1,0 +1,66 @@
+﻿@page "/components/drawing-canvases"
+@using Bluent.UI.Demo.Pages.Components.DrawingCanvasComponents
+@using Bluent.UI.Diagrams.Tools
+@using Bluent.UI.Diagrams.Tools.Drawings.Basic
+
+<Toolbar>
+    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(Tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(Tool is null)" />
+    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" ActiveIcon="icon-ic_fluent_circle_hint_cursor_20_filled" OnClick="SelectAreaSelectTool" Toggled="@(Tool is AreaSelectTool)" />
+    <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" OnClick="Undo" disabled="@(!_canUndo)" />
+    <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" OnClick="Redo" disabled="@(!_canRedo)" />
+    <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" ActiveIcon="icon-ic_fluent_line_20_filled" OnClick="SelectLineTool" Toggled="@(Tool is DrawLineTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" ActiveIcon="icon-ic_fluent_rectangle_landscape_20_filled" OnClick="SelectRectTool" Toggled="@(Tool is DrawRectTool<RectSelectionOptions>)" />
+    <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" ActiveIcon="icon-ic_fluent_circle_20_filled" OnClick="SelectCircleTool" Toggled="@(Tool is DrawCircleTool)" />
+    <ToolbarButton Icon="icon-ic_fluent_diamond_20_regular" ActiveIcon="icon-ic_fluent_diamond_20_filled" OnClick="SelectDiamondTool" Toggled="@(Tool is DrawDiamondTool)" />
+    <ToolbarDivider />
+    <ToolbarButton Icon="icon-ic_fluent_ink_stroke_20_regular" ActiveIcon="icon-ic_fluent_ink_stroke_20_filled" OnClick="SelectInkToShapeTool" Toggled="@(Tool is InkToShapeTool)" />
+</Toolbar>
+
+<Stack Orientation="Orientation.Horizontal" Class="flex-fill">
+    <Stack Orientation="Orientation.Vertical" Class="gap-1" HorizontalAlignment="StackAlignment.Start">
+        <Stack Class="gap-2" HorizontalAlignment="StackAlignment.Center">
+            <input type="color" id="head" name="head" @bind-value="FillColor" />
+            <label for="head">Fill</label>
+        </Stack>
+        <Stack Class="gap-2" HorizontalAlignment="StackAlignment.Center">
+            <input type="color" id="head" name="head" @bind-value="StrokeColor" />
+            <label for="head">Stroke</label>
+        </Stack>
+        <Button Icon="icon-ic_fluent_line_thickness_20_regular" ActiveIcon="icon-ic_fluent_line_thickness_20_filled">
+            <Dropdown>
+                <MenuList>
+                    <MenuItem Title="0" OnClick="() => SetStrokeWidth(0)" Checked="_strokeWidth == 0" />
+                    <MenuItem Title="1" OnClick="() => SetStrokeWidth(1)" Checked="_strokeWidth == 1" />
+                    <MenuItem Title="2" OnClick="() => SetStrokeWidth(2)" Checked="_strokeWidth == 2" />
+                    <MenuItem Title="3" OnClick="() => SetStrokeWidth(3)" Checked="_strokeWidth == 3" />
+                    <MenuItem Title="4" OnClick="() => SetStrokeWidth(4)" Checked="_strokeWidth == 4" />
+                    <MenuItem Title="5" OnClick="() => SetStrokeWidth(5)" Checked="_strokeWidth == 5" />
+                </MenuList>
+            </Dropdown>
+        </Button>
+    </Stack>
+
+    <DrawingCanvas @ref=_canvas
+                   Tool="Tool"
+                   Selection="Core.SelectionMode.Multiple"
+                   OnToolOperationCompleted="ToolOperationCompleted"
+                   CommandManager="_commandManager"
+                   SnapSize="10"
+                   AllowDrag
+                   AllowPan
+                   AllowScale
+                   Class="flex-fill">
+
+        <ChildContent>
+            <defs>
+                <pattern id="grid-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
+                    <path fill="none" stroke="#aaa" stroke-width="0.5" d="M 0 0 h 10 M 0 0 h 0 M 0 0 v 10 M 0 0 v 0"></path>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
+
+        </ChildContent>
+    </DrawingCanvas>
+</Stack>

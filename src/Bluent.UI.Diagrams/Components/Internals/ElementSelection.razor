@@ -1,0 +1,19 @@
+﻿@using Bluent.UI.Diagrams.Elements
+@using Bluent.UI.Diagrams.Elements.Abstractions
+<g>
+    <rect x="@Boundary.X"
+          y="@Boundary.Y"
+          width="@Boundary.Width"
+          height="@Boundary.Height"
+          stroke-width="@Element.SelectionStrokeWidth"
+          stroke-dasharray="@Element.SelectionStrokeDashArray"
+          stroke="@Element.SelectionStroke"
+          fill="none" />
+    @if (Canvas.SelectedElements.Count() == 1 && Element is IHasUpdatablePoints hasUpdatablePoints)
+    {
+        foreach (var updatablePoint in hasUpdatablePoints.UpdatablePoints)
+        {
+            <PointUpdater UpdatablePoint="@updatablePoint" PointerDown="e => HandlePointUpdaterSelect(e, updatablePoint)" />
+        }   
+    }
+</g>

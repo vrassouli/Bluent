@@ -1,0 +1,25 @@
+﻿@using System.Reflection
+<Bluent.UI.Components.TextField Value="@Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" Class="flex-fill" id="@Property.Name" />
+
+@code {
+    [Parameter] public PropertyInfo Property { get; set; } = null!;
+    [Parameter] public object Object { get; set; } = null!;
+    [Parameter] public EventCallback ValueUpdated { get; set; }
+
+    private string? Value => Property.GetValue(Object)?.ToString();
+
+    private async Task OnValueChanged(string? newValue)
+    {
+        if (newValue is null)
+        {
+            Property.SetValue(Object, null);
+        }
+        else
+        {
+            var convertedValue = Convert.ChangeType(newValue, Property.PropertyType);
+            Property.SetValue(Object, convertedValue);
+        }
+
+        await ValueUpdated.InvokeAsync();
+    }
+}

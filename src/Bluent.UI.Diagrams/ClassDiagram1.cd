@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bluent.UI.Diagrams.Commands.Basic.AddElementCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAABIAAAAgAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Basic\AddElementCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Commands.Basic.DeleteElementsCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAABIAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Basic\DeleteElementsCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Commands.Basic.DragElementsCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAIABAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Basic\DragElementsCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Commands.Basic.ResizeElementCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABAAABAAAAAAAAAAACQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Basic\ResizeElementCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Commands.Diagram.AddDiagramElementCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAABAAAAAAAACAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Diagram\AddDiagramElementCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Commands.Diagram.DeleteDiagramElementsCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABAAABAAAAAAAAAAACEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Diagram\DeleteDiagramElementsCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Commands.Diagram.DragDiagramElementsCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABAIABAAAAAAAAAAACEAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Diagram\DragDiagramElementsCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Internals.ElementHost" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAARCAAAEAAAgoAAEAAAAAAAAAACAAQAAAAAAA=</HashCode>
+      <FileName>Components\Internals\ElementHost.razor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Internals.ElementSelection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACAgAAAQCAABACAAgoAgAEAAQgBQAAACAAEAAAABAA=</HashCode>
+      <FileName>Components\Internals\ElementSelection.razor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Internals.ResizeHandle" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAASAAgACAAAAAAAAAAAgACAIACAAAAAQAZAA=</HashCode>
+      <FileName>Components\Internals\ResizeHandle.razor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Circle" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABCAAQACAAAIAAAAAAAgACAAACAAAAAAAAQA=</HashCode>
+      <FileName>Components\Circle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.CursorLocation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACEAAAAAAgIAAAAAAAAAAAAACAAAAAAAAAQ=</HashCode>
+      <FileName>Components\CursorLocation.razor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Diagram" Collapsed="true">
+    <Position X="3.5" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABIAAAAAAAAAAAAAAAQAACAgAAAAAAAACgAAUBAQ=</HashCode>
+      <FileName>Components\Diagram.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.DrawingCanvas" Collapsed="true">
+    <Position X="3.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FLAgBZKkDQVJm0ghAgsQkUAAeQgLAEK8ROBEgowQQiY=</HashCode>
+      <FileName>Components\DrawingCanvas.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Line" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAACAAAIDAAAAAIgBCAAACAAAAAAAAAA=</HashCode>
+      <FileName>Components\Line.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Components.Rect" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABBCAAAACAAAIAAEAAAAgACAAACAAAAAAAYAA=</HashCode>
+      <FileName>Components\Rect.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.DrawingElementBase" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QDAIAAAAAdIgEIiAAAAABASAgAoASMIAABAAAoAQBAo=</HashCode>
+      <FileName>Elements\Abstractions\DrawingElementBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Basic.CircleElement" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAIAQAAAADAAAgABBQg=</HashCode>
+      <FileName>Elements\Basic\CircleElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Basic.DiamondElement" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABACAQAAAAAAAAEAAABIAAABAABAAAgABBAg=</HashCode>
+      <FileName>Elements\Basic\DiamondElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Basic.LineElement" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAAAAADAAAAAIIBAAAAABAAAgAABAg=</HashCode>
+      <FileName>Elements\Basic\LineElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Basic.PathElement" Collapsed="true">
+    <Position X="16.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAQgACAgAAAAAAAAAAAAABAABAAAgAABAg=</HashCode>
+      <FileName>Elements\Basic\PathElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Basic.RectElement" Collapsed="true">
+    <Position X="18.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJBCSAAAAAAAAAAEAAABIAAAAAADAAAgAAZAg=</HashCode>
+      <FileName>Elements\Basic\RectElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.BoundaryCircleNode" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\BoundaryCircleNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.CircleNode" Collapsed="true">
+    <Position X="9.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\CircleNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.DiagramBoundaryContainerBase" Collapsed="true">
+    <Position X="0.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEAAAAgAAAAACAAAACAAAAAAAAAAAADAAAAhAg=</HashCode>
+      <FileName>Elements\Diagram\DiagramBoundaryContainerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.DiagramCompositContainerBase" Collapsed="true">
+    <Position X="3" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEABAAgAAAAACAAAACAAAAAAAAAAAADAAAEhAg=</HashCode>
+      <FileName>Elements\Diagram\DiagramCompositContainerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.DiagramContainerBase" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEABAAgAAAAAAAAAACAAAAAAAAAAAADAAAEBAg=</HashCode>
+      <FileName>Elements\Diagram\DiagramContainerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.DiagramNodeBase" Collapsed="true">
+    <Position X="5.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QDAIAICIJdagEIiEAAQIBEaAgBoQSMIIBBoACoAQZAs=</HashCode>
+      <FileName>Elements\Diagram\DiagramNodeBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.RectangleContainerNode" Collapsed="true">
+    <Position X="3" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAACCAAAAAAAAABAACAAAAAAABAAAAAAAAE=</HashCode>
+      <FileName>Elements\Diagram\RectangleContainerNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Elements.Diagram.RectangleNode" Collapsed="true">
+    <Position X="0.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAAAACAAAAAAAAAAAACAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\RectangleNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Extensions.EventArgsExtensions" Collapsed="true">
+    <Position X="24.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\EventArgsExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Basic.DrawCircleTool" Collapsed="true">
+    <Position X="9" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAARAAIBAAAAgAAgAEAAAAAAAAAACAEAAEAAAA=</HashCode>
+      <FileName>Tools\Drawings\Basic\DrawCircleTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Basic.DrawDiamondTool" Collapsed="true">
+    <Position X="11.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAARAAIBAAAAgAAgAEAAAAAAAAAAAAEAAEAAAA=</HashCode>
+      <FileName>Tools\Drawings\Basic\DrawDiamondTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Basic.DrawLineTool" Collapsed="true">
+    <Position X="13.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAARAAIBAAAAgAAgAEAAAABAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Basic\DrawLineTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Basic.DrawRectTool" Collapsed="true">
+    <Position X="6.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAARACIBAAAAgAAgAEAABABAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Basic\DrawRectTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DiagramAreaSelectTool" Collapsed="true">
+    <Position X="0.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DiagramAreaSelectTool.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DiagramDragTool" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAIAAgAAAAAEAAAAAiABAAAABAAAAIAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DiagramDragTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DiagramKeyboardToolBase" Collapsed="true">
+    <Position X="13.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAYCAAAIAAAIAAAAAgAIBAAAgAAAgAAAAEAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DiagramKeyboardToolBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DiagramSinglePointerToolBase" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAQAAAAAIAAAAAgAEgAAAACAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DiagramSinglePointerToolBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DrawCircleNodeTool" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DrawCircleNodeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DrawBoundaryCircleNodeTool" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DrawCircleNodeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DrawDiagramNodeTool&lt;TNode&gt;" Collapsed="true">
+    <Position X="6.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIARAAAAAAAAAAAgAEAAAAACAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DrawDiagramNodeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DrawRectangleContainerNodeTool" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DrawRectangleContainerNodeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DrawRectangleNodeTool" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DrawRectangleNodeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.DiagramPointerToolBase" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAAAYAIEIIAEgLAAABAgCgDABAAgAAEAQAQEAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\PointerToolBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.DiagramDeleteElementsTool" Collapsed="true">
+    <Position X="13.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\DiagramDeleteElementsTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.ElementDrawingToolBase" Collapsed="true">
+    <Position X="10" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAAAQAIAIKAAgIAAAEAgAgBCAAAAAAEAAAIEAA=</HashCode>
+      <FileName>Tools\Drawings\ElementDrawingToolBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.AreaSelectTool" Collapsed="true">
+    <Position X="0.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAABQAABIIAAgAAgAEAgAABEAAAAAAEAAAAEAA=</HashCode>
+      <FileName>Tools\AreaSelectTool.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.DeleteElementsTool" Collapsed="true">
+    <Position X="13.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\DeleteElementsTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.DragTool" Collapsed="true">
+    <Position X="3" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAIAAgAAAAAEAAAAAiABAAAABAAAAIAAAAA=</HashCode>
+      <FileName>Tools\DragTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.InkToShapeTool" Collapsed="true">
+    <Position X="5.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAABAAAAAAAAAAEAAAgACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\InkToShapeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.KeyboardToolBase" Collapsed="true">
+    <Position X="13.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQCAAAIAAAIAAAAAgAIBAAAgAAAgAAAAEAA=</HashCode>
+      <FileName>Tools\KeyboardToolBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.PointerToolBase" Collapsed="true">
+    <Position X="3" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAAAQAIEIIAEgLAAABAgCgDABAAgAAEAQAQEAA=</HashCode>
+      <FileName>Tools\PointerToolBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.ScaleTool" Collapsed="true">
+    <Position X="0.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAACAAgAAAAAAAAACAAAAAEAAAAAQAAA=</HashCode>
+      <FileName>Tools\ScaleTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.SinglePointerToolBase" Collapsed="true">
+    <Position X="4" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAQAAAAAIAAAAAgAEgAAAACAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Tools\SinglePointerToolBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bluent.UI.Diagrams.Tools.Utilities.ShapeDetector" Collapsed="true">
+    <Position X="26.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAABABBIAIAAAggAAAAAgAAQAAAAAAAAAAAAgAEA=</HashCode>
+      <FileName>Tools\Utilities\ShapeDetector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Bluent.UI.Diagrams.Elements.IDrawingElement" Collapsed="true">
+    <Position X="8.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAcAgAACAAAAABACAgAAACEAAAAAAAoAQAAo=</HashCode>
+      <FileName>Elements\Abstractions\IDrawingElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.IDrawingShape" Collapsed="true">
+    <Position X="9.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEACAAAAAAAAAAAgAQAAAABAAAAAABAA=</HashCode>
+      <FileName>Elements\Abstractions\IDrawingShape.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramElementContainer" Collapsed="true">
+    <Position X="13.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramContainer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramBoundaryContainer" Collapsed="true">
+    <Position X="15.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramContainer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramContainer" Collapsed="true">
+    <Position X="14.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAACAAAAAAAAAgAAAAAAQAAAAAAAAAAAAACAAAABAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramContainer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramElement" Collapsed="true">
+    <Position X="10.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramNode" Collapsed="true">
+    <Position X="7.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAABAIAAAAAYAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramBoundaryNode" Collapsed="true">
+    <Position X="7.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Elements.Diagram.IDiagramConnector">
+    <Position X="10.75" Y="15.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\IDiagramNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Tools.Drawings.Diagram.IDiagramTool" Collapsed="true">
+    <Position X="12.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\Diagram\IDiagramTool.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Tools.ITool" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAIAAAAAAAAAAAABAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Tools\ITool.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Bluent.UI.Diagrams.Tools.Drawings.IElementDrawingTool" Collapsed="true">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAgACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Drawings\IElementDrawingTool.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Bluent.UI.Diagrams.Components.Internals.ResizeAnchor" Collapsed="true">
+    <Position X="24.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>Components\Internals\ResizeAnchor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Bluent.UI.Diagrams.Elements.Diagram.Edges" Collapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>Elements\Diagram\Edges.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Bluent.UI.Diagrams.Tools.Utilities.CommonShapes" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAggAgAAAAAAAAABABA=</HashCode>
+      <FileName>Tools\Utilities\CommonShapes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

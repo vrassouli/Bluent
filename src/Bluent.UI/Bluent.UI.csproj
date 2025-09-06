@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net9.0</TargetFrameworks>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>latest</LangVersion>
@@ -16,6 +16,14 @@
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Content Remove="bundleconfig.json;compilerconfig.json" />
+        <None Include="bundleconfig.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
         <None Include="docs\readme.md" Pack="true" PackagePath="\" />
@@ -34,16 +42,16 @@
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
-        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
-        <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy &quot;..\Bluent.UI.Scripts\dist\bluent.ui.js.map&quot; &quot;$(ProjectDir)wwwroot\&quot; /s /e /i /y" />
+        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js"
+              DestinationFolder="$(ProjectDir)wwwroot\"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js.map"
+              DestinationFolder="$(ProjectDir)wwwroot\"
+              SkipUnchangedFiles="true" />
     </Target>
 
     <ItemGroup>
         <SupportedPlatform Include="browser" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="compilerconfig.json" />
     </ItemGroup>
 
     <ItemGroup>

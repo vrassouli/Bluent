@@ -1,0 +1,18 @@
+﻿@using System.Reflection
+<Bluent.UI.Components.Checkbox TValue="bool?" Value="Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" id="@Property.Name" />
+
+@code {
+    [Parameter] public PropertyInfo Property { get; set; } = null!;
+    [Parameter] public object Object { get; set; } = null!;
+    [Parameter] public EventCallback ValueUpdated { get; set; }
+
+    private bool? Value => Property.GetValue(Object) as bool?;
+
+    private async Task OnValueChanged(bool? newValue)
+    {
+        var convertedValue = Convert.ChangeType(newValue, Property.PropertyType);
+        Property.SetValue(Object, convertedValue);
+
+        await ValueUpdated.InvokeAsync();
+    }
+}

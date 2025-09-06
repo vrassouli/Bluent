@@ -1,0 +1,46 @@
+﻿@inherits BluentComponentBase
+@using Bluent.UI.Diagrams.Components.Internals
+@using Bluent.UI.Diagrams.Elements.Diagram
+
+<CascadingValue Value="this" IsFixed>
+    <div @attributes=AdditionalAttributes
+         id="@Id"
+         class="@GetComponentClass()"
+         style="@Style">
+        <svg cursor="@Cursor"
+             tabindex="0"
+             @onpointerdown="HandlePointerDown"
+             @onpointerup="HandlePointerUp"
+             @onpointermove="HandlePointerMove"
+             @onpointercancel="HandlePointerCancel"
+             @onpointerenter="HandlePointerEnter"
+             @onpointerout="HandlePointerOut"
+             @onpointerleave="HandlePointerLeave"
+             @onpointerover="HandlePointerOver"
+             @onmousewheel="HandleMouseWheel"
+             @onkeydown="HandleKeyDown"
+             @onkeyup="HandleKeyUp">
+            <defs>
+                @GetDefinitions()
+            </defs>
+            @ChildContent
+
+            @* <CanvasGround /> *@
+            <g transform="translate(@(_pan.Dx + _activePan.Dx), @(_pan.Dy + _activePan.Dy)) scale(@_scale)">
+                @foreach (var el in Elements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramElementContainer)?.HasSelection ?? false))
+                {
+                    <ElementHost @key=el Element="el" />
+                }
+            </g>
+        </svg>
+        <div class="selection-options">
+            @if (SelectedElements.Count() == 1)
+            {
+                var selection = SelectedElements.First();
+
+                <SelectionOptionsContainer @key="selection" Shape="selection" Pan="_pan + _activePan" Scale="_scale" />
+
+            }
+        </div>
+    </div>
+</CascadingValue>

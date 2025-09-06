@@ -1,0 +1,33 @@
+name: Deploy Blazor WASM to GitHub Pages
+
+on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Bluent.UI.Demo/Bluent.UI.Demo.csproj'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0'
+
+      - name: Publish Blazor app
+        run: |
+          dotnet publish -c Release -o out
+          # cp -r out/wwwroot/* ./docs/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: out/wwwroot/
+          github_token: ${{ secrets.PAT }}

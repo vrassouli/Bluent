@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Bluent.Core;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;

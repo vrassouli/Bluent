@@ -1,0 +1,180 @@
+﻿using System.Xml.Linq;
+
+namespace Bluent.UI.Diagrams.Elements.Diagram;
+
+public interface IDiagramElementContainer : IDiagramContainer
+{
+    IEnumerable<IDiagramElement> DiagramElements { get; }
+}
+
+public interface IDiagramBoundaryContainer : IDiagramContainer
+{
+    IEnumerable<IDiagramBoundaryNode> BoundaryNodes { get; }
+}
+
+public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
+{
+    void AddDiagramElement(IDiagramElement element);
+    void RemoveDiagramElement(IDiagramElement element);
+    IEnumerable<IDiagramShape> GetDiagramElementsAt(DiagramPoint point)
+    {
+        // Check selected elements first
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            foreach (var el in elementContainer.DiagramElements.OrderBy(x => !x.IsSelected))
+            {
+                //Console.WriteLine($"{el}");
+                if (el is IDiagramContainer container)
+                    foreach (var child in container.GetDiagramElementsAt(point))
+                        yield return child;
+
+                if (el.HitTest(point) && el is IDiagramElement diagramEl)
+                    yield return diagramEl;
+            }
+        }
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
+            {
+                if (el is IDiagramContainer container)
+                    foreach (var child in container.GetDiagramElementsAt(point))
+                        yield return child;
+
+                if (el.HitTest(point) && el is IDiagramElement diagramEl)
+                    yield return diagramEl;
+            }
+        }
+
+        //if (this is IHasOutgoingConnector hasOutgoingConnector)
+        //{
+        //    foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
+        //    {
+        //        if (connector.HitTest(point))
+        //            yield return connector;
+        //    }
+        //}
+        //if (this is IHasIncomingConnector hasIncomingConnector)
+        //{
+        //    foreach (var connector in hasIncomingConnector.IncomingConnectors)
+        //    {
+        //        if (connector.HitTest(point))
+        //            yield return connector;
+        //    }
+        //}
+    }
+    IEnumerable<IDiagramElement> SelectedElements
+    {
+        get
+        {
+            if (this is IDiagramElementContainer elementContainer)
+            {
+                foreach (var el in elementContainer.DiagramElements)
+                {
+                    if (el.IsSelected)
+                        yield return el;
+
+                    if (el is IDiagramContainer container)
+                        foreach (var child in container.SelectedElements)
+                            yield return child;
+                }
+            }
+            if (this is IDiagramBoundaryContainer boundaryElementContainer)
+            {
+                foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
+                {
+                    if (el.IsSelected)
+                        yield return el;
+
+                    if (el is IDiagramContainer container)
+                        foreach (var child in container.SelectedElements)
+                            yield return child;
+                }
+            }
+        }
+    }
+    bool Contains(IDiagramElement element)
+    {
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            foreach (var el in elementContainer.DiagramElements)
+            {
+                if (el.Equals(element))
+                    return true;
+
+                if (el is IDiagramContainer container && container.Contains(element))
+                    return true;
+            }
+        }
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
+            {
+                if (el.IsSelected)
+                    return true;
+
+                if (el is IDiagramContainer container && container.Contains(element))
+                    return true;
+            }
+        }
+        return false;
+    }
+    void Clear()
+    {
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            var elements = elementContainer.DiagramElements.ToList();
+            foreach (var el in elements)
+            {
+                if (el is IDiagramContainer container)
+                    container.Clear();
+
+                RemoveDiagramElement(el);
+            }
+        }
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            var elements = boundaryElementContainer.BoundaryNodes.ToList();
+            foreach (var el in elements)
+            {
+                if (el is IDiagramContainer container)
+                    container.Clear();
+
+                RemoveDiagramElement(el);
+            }
+        }
+    }
+    bool HasSelection
+    {
+        get
+        {
+            if (this is IDiagramElementContainer elementContainer)
+            {
+                foreach (var el in elementContainer.DiagramElements)
+                {
+                    if (el.IsSelected)
+                        return true;
+
+                    if (el is IDiagramContainer container)
+                        if (container.HasSelection)
+                            return true;
+                }
+            }
+            if (this is IDiagramBoundaryContainer boundaryElementContainer)
+            {
+                foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
+                {
+                    if (el.IsSelected)
+                        return true;
+
+                    if (el is IDiagramContainer container)
+                        if (container.HasSelection)
+                            return true;
+                }
+            }
+
+            return false;
+        }
+    }
+    bool CanContain<T>() where T : IDiagramElement;
+    bool CanContain(Type type);
+}

@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Diagrams.Elements;
+﻿using Bluent.UI.Diagrams.Elements.Basic;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Diagrams.Components;
@@ -6,15 +6,16 @@ namespace Bluent.UI.Diagrams.Components;
 public class Rect : ComponentBase, IDisposable
 {
     private RectElement _element = default!;
-    [CascadingParameter] public SvgCanvas Canvas { get; set; } = default!;
-    [Parameter] public string? X { get; set; }
-    [Parameter] public string? Y { get; set; }
-    [Parameter, EditorRequired] public string Width { get; set; } = "0";
-    [Parameter, EditorRequired] public string Height { get; set; } = "0";
-    [Parameter] public string? Rx { get; set; }
-    [Parameter] public string? Ry { get; set; }
-    [Parameter] public string? PathLength { get; set; }
+    [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;
+    [Parameter] public double? X { get; set; }
+    [Parameter] public double? Y { get; set; }
+    [Parameter, EditorRequired] public double Width { get; set; } 
+    [Parameter, EditorRequired] public double Height { get; set; } 
+    [Parameter] public double? Rx { get; set; }
+    [Parameter] public double? Ry { get; set; }
+    [Parameter] public double? StrokeWidth { get; set; }
     [Parameter] public string? Fill { get; set; }
+    [Parameter] public string? Stroke { get; set; }
 
     public void Dispose()
     {
@@ -24,11 +25,13 @@ public class Rect : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         if (Canvas is null)
-            throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(SvgCanvas)} component.");
+            throw new InvalidOperationException($"{nameof(Rect)} should be nested inside a {nameof(DrawingCanvas)} component.");
 
-        _element = new RectElement(X, Y, Width, Height, Rx, Ry, PathLength)
+        _element = new RectElement(X, Y, Width, Height, Rx, Ry)
         {
-            Fill = Fill
+            Fill = Fill,
+            Stroke = Stroke,
+            StrokeWidth = StrokeWidth,
         };
         Canvas.AddElement(_element);
 
