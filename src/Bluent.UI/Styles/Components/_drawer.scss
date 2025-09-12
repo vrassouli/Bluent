@@ -2,144 +2,160 @@
 @import "../../node_modules/bootstrap/scss/_variables.scss";
 
 .bui-drawer {
-    position: fixed;
-    width: 320px;
-    max-width: 100vw;
-    background-color: var(--colorNeutralBackground1);
-    color: var(--colorNeutralForeground1);
-    border-inline-start: var(--strokeWidthThin) solid var(--colorTransparentStroke);
-    box-shadow: var(--shadow64);
-    overflow: auto;
+  position: fixed;
+  width: 320px;
+  max-width: 100vw;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  border-inline-start: var(--strokeWidthThin) solid var(--colorTransparentStroke);
+  box-shadow: var(--shadow64);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
+
+  > .header {
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS) var(--spacingHorizontalXXL);
     display: flex;
-    flex-direction: column;
-    animation-duration: var(--durationGentle);
-    animation-timing-function: var(--curveEasyEase);
-    animation-fill-mode: both;
+    flex-direction: row;
+    gap: var(--spacingHorizontalS);
+    align-items: center;
+    box-sizing: border-box;
 
-    > .header {
-        padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS) var(--spacingHorizontalXXL);
-        display: flex;
-        flex-direction: row;
-        gap: var(--spacingHorizontalS);
-        align-items: center;
-        box-sizing: border-box;
-
-        > .title {
-            flex: 1;
-            font-family: var(--fontFamilyBase);
-            font-size: var(--fontSizeBase500);
-            font-weight: var(--fontWeightSemibold);
-            line-height: var(--lineHeightBase500);
-        }
+    > .title {
+      flex: 1;
+      font-family: var(--fontFamilyBase);
+      font-size: var(--fontSizeBase500);
+      font-weight: var(--fontWeightSemibold);
+      line-height: var(--lineHeightBase500);
     }
+  }
 
-    > .content {
-        flex: 1;
-        overflow: auto;
+  > .content {
+    flex: 1;
+    overflow: auto;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  &.end {
+    right: 0;
+    top: 0;
+    height: 100vh;
+    animation-name: fade-in, slide-in-right;
+
+    &.hiding {
+      animation-name: fade-out, slide-out-right;
     }
+  }
 
-    &.hide {
-        display: none;
+  &.start {
+    left: 0;
+    top: 0;
+    height: 100vh;
+    animation-name: fade-in, slide-in-left;
+
+    &.hiding {
+      animation-name: fade-out, slide-out-left;
     }
+  }
 
-    &.end {
-        right: 0;
-        top: 0;
-        height: 100vh;
-        animation-name: fade-in, slide-in-right;
+  &.top {
+    left: 0;
+    top: 0;
+    width: 100vw;
+    animation-name: fade-in, slide-in-top;
 
-        &.hiding {
-            animation-name: fade-out, slide-out-right;
-        }
+    &.hiding {
+      animation-name: fade-out, slide-out-top;
     }
+  }
 
-    &.start {
-        left: 0;
-        top: 0;
-        height: 100vh;
-        animation-name: fade-in, slide-in-left;
+  &.bottom {
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    animation-name: fade-in, slide-in-bottom;
 
-        &.hiding {
-            animation-name: fade-out, slide-out-left;
-        }
+    &.hiding {
+      animation-name: fade-out, slide-out-bottom;
     }
+  }
 
-    &.top {
-        left: 0;
-        top: 0;
-        width: 100vw;
-        animation-name: fade-in, slide-in-top;
-
-        &.hiding {
-            animation-name: fade-out, slide-out-top;
-        }
-    }
-
-    &.bottom {
-        left: 0;
-        bottom: 0;
-        width: 100vw;
-        animation-name: fade-in, slide-in-bottom;
-
-        &.hiding {
-            animation-name: fade-out, slide-out-bottom;
-        }
-    }
-
+  &.start, &.end {
     &.medium {
-        width: 600px;
+      width: 600px;
     }
 
     &.large {
-        width: 950px;
+      width: 950px;
     }
 
     &.full {
-        width: 100vw;
+      width: 100vw;
     }
+  }
+  
+  &.top, &.bottom {
+    &.medium {
+      height: 35vh;
+    }
+
+    &.large {
+      width: 70vh;
+    }
+
+    &.full {
+      width: 100vw;
+    }
+  }
 }
 
 .rtl, [dir=rtl] {
-    .bui-drawer {
-        &.end {
-            left: 0;
-            right: unset;
-            animation-name: fade-in, slide-in-left;
+  .bui-drawer {
+    &.end {
+      left: 0;
+      right: unset;
+      animation-name: fade-in, slide-in-left;
 
-            &.hiding {
-                animation-name: fade-out, slide-out-left;
-            }
-        }
-
-        &.start {
-            left: unset;
-            right: 0;
-            animation-name: fade-in, slide-in-right;
-
-            &.hiding {
-                animation-name: fade-out, slide-out-right;
-            }
-        }
+      &.hiding {
+        animation-name: fade-out, slide-out-left;
+      }
     }
+
+    &.start {
+      left: unset;
+      right: 0;
+      animation-name: fade-in, slide-in-right;
+
+      &.hiding {
+        animation-name: fade-out, slide-out-right;
+      }
+    }
+  }
 }
 
 @each $name, $value in $grid-breakpoints {
-    @media (min-width: #{$value}) {
-        .drawer-#{$name} {
-            position: initial;
-            width: 100% !important;
-            height: 100% !important;
-            background-color: inherit;
-            color: inherit;
-            box-shadow: inherit;
+  @media (min-width: #{$value}) {
+    .drawer-#{$name} {
+      position: initial;
+      width: 100% !important;
+      height: 100% !important;
+      background-color: inherit;
+      color: inherit;
+      box-shadow: inherit;
 
-            > .header {
-                display: none;
-            }
+      > .header {
+        display: none;
+      }
 
-            &.hide {
-                display: flex;
-            }
-        }
+      &.hide {
+        display: flex;
+      }
     }
+  }
 }
