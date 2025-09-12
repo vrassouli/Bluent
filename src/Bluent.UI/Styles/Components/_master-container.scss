@@ -1,0 +1,15 @@
+.master-container {
+  overflow: auto;
+  display: flex;
+
+  > .master {
+    overflow: auto;
+    width: 100%;
+  }
+
+  > .detail {
+    flex: 1;
+    overflow: auto;
+    height: 0;
+  }
+}

@@ -2040,6 +2040,20 @@
   opacity: 1;
 }
 
+.master-container {
+  overflow: auto;
+  display: flex;
+}
+.master-container > .master {
+  overflow: auto;
+  width: 100%;
+}
+.master-container > .detail {
+  flex: 1;
+  overflow: auto;
+  height: 0;
+}
+
 .bui-menu-list {
   display: flex;
   flex-direction: column;
