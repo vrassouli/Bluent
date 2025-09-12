@@ -1,0 +1,19 @@
+@using Bluent.Core
+@using Bluent.UI.Components
+@namespace Bluent.UI.Components
+
+@inherits BluentComponentBase
+<div class="@GetComponentClass() ">
+    <div class="master anim-hide-scroll" style="max-width: @(MasterWidth ?? (int)Breakpoint)px;">
+        @MasterPanel
+    </div>
+
+    <div class="detail h-@(Breakpoint.ToString().ToLower())-100 anim-hide-scroll">
+        <Drawer @ref=_detailsDrawer Breakpoint="Breakpoint" Size="DrawerSize.Full" OnClose="HandleDrawerClosed">
+            <DrawerContent Title="@DrawerHeader">
+                @DetailPanel
+            </DrawerContent>
+        </Drawer>
+    </div>
+</div>
+<MediaQuery OnChange="BreakpointChanged" />

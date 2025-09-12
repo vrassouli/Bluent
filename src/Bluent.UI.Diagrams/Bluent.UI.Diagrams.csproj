@@ -17,7 +17,7 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json;compilerconfig.json" />
-        <None Include="bundleconfig.json;compilerconfig.json">
+        <None Include="bundleconfig.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
@@ -32,6 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.7" />
     </ItemGroup>
 
@@ -39,10 +40,6 @@
         <Folder Include="Components\Diagrams\" />
         <Folder Include="Tools\Drawings\Basic\Abstraction\" />
         <Folder Include="wwwroot\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="compilerconfig.json" />
     </ItemGroup>
 
     <ItemGroup>
