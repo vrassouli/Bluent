@@ -1488,13 +1488,22 @@
 .bui-drawer.bottom.hiding {
   animation-name: fade-out, slide-out-bottom;
 }
-.bui-drawer.medium {
+.bui-drawer.start.medium, .bui-drawer.end.medium {
   width: 600px;
 }
-.bui-drawer.large {
+.bui-drawer.start.large, .bui-drawer.end.large {
   width: 950px;
 }
-.bui-drawer.full {
+.bui-drawer.start.full, .bui-drawer.end.full {
+  width: 100vw;
+}
+.bui-drawer.top.medium, .bui-drawer.bottom.medium {
+  height: 35vh;
+}
+.bui-drawer.top.large, .bui-drawer.bottom.large {
+  width: 70vh;
+}
+.bui-drawer.top.full, .bui-drawer.bottom.full {
   width: 100vw;
 }
 
