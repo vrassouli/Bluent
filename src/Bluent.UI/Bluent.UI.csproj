@@ -35,7 +35,6 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
-        <PackageReference Include="BuildBundlerMinifier2022.Core" Version="6.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.7" />
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.7" />

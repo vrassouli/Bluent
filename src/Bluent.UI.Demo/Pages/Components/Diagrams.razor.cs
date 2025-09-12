@@ -17,7 +17,7 @@ public partial class Diagrams
 
     private CommandManager _commandManager;
     private IDiagramTool? _tool;
-    private DrawingCanvas? _canvas;
+    // private DrawingCanvas? _canvas;
 
     private IDiagramTool? Tool
     {
@@ -89,10 +89,10 @@ public partial class Diagrams
 
     private void OnShapeDetected(object? sender, ShapeDetectionResult e)
     {
-        if (_canvas is null)
-            return;
+        // if (_canvas is null)
+        //     return;
 
-        IDrawingElement? element = null;
+        //IDrawingElement? element = null;
 
         //if (e.Shape == CommonShapes.Circle)
         //{
