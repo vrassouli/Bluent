@@ -1,4 +1,5 @@
 ﻿@namespace Bluent.UI.Components
+@using Humanizer
 @inherits BluentUiComponentBase
 
 @if (!IsDropdownButton && !IsSplitButton)
@@ -40,6 +41,13 @@
     {
         <Icon Content="@($"icon-ic_fluent_{GetDropdownIcon()}_20_filled")" Class="dropdown-active-icon" />
         <Icon Content="@($"icon-ic_fluent_{GetDropdownIcon()}_20_regular")" Class="dropdown-icon" />
+    }
+
+    if (Badge != null)
+    {
+        <div class="badge-wrapper @(BadgeVerticalPosition.ToString().ToLower()) @(BadgeHorizontalPosition.ToString().ToLower())">
+            @Badge
+        </div>
     }
 
     __builder.CloseRegion();

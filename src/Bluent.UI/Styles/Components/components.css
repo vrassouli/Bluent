@@ -301,6 +301,129 @@
   font-size: var(--fontSizeBase600);
 }
 
+.bui-badge {
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase200);
+  height: 20px;
+  min-width: 20px;
+  padding: 0 calc(var(--spacingHorizontalXS) + var(--spacingHorizontalXXS));
+  border-radius: var(--borderRadiusCircular);
+  border-color: var(--colorTransparentStroke);
+  border-width: var(--strokeWidthThin);
+  border-style: solid;
+  /* Color */
+}
+.bui-badge.brand {
+  background-color: var(--colorBrandBackground);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-badge.danger {
+  background-color: var(--colorPaletteRedBackground3);
+}
+.bui-badge.important {
+  background-color: var(--colorNeutralForeground1);
+  color: var(--colorNeutralBackground1);
+}
+.bui-badge.informative {
+  background-color: var(--colorNeutralBackground5);
+  color: var(--colorNeutralForeground3);
+}
+.bui-badge.sever {
+  background-color: var(--colorPaletteDarkOrangeBackground3);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-badge.subtle {
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+}
+.bui-badge.success {
+  background-color: var(--colorPaletteGreenBackground3);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-badge.warning {
+  background-color: var(--colorPaletteYellowBackground3);
+  color: var(--colorNeutralForeground1Static);
+}
+.bui-badge {
+  /* Appearance */
+}
+.bui-badge.ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--colorBrandForeground1);
+}
+.bui-badge.outlined {
+  background-color: transparent;
+  border-color: currentColor;
+  color: var(--colorBrandForeground1);
+}
+.bui-badge.tint {
+  background-color: var(--colorBrandBackground2);
+  border-color: var(--colorBrandStroke2);
+  color: var(--colorBrandForeground2);
+}
+.bui-badge {
+  /* Size */
+}
+.bui-badge.tiny {
+  min-width: unset;
+  line-height: 4px;
+  font-size: 4px;
+  height: 6px;
+  width: 6px;
+  font-weight: var(--fontWeightSemibold);
+  padding: unset;
+}
+.bui-badge.extra-small {
+  min-width: unset;
+  line-height: 6px;
+  font-size: 6px;
+  height: 10px;
+  width: 10px;
+  font-weight: var(--fontWeightSemibold);
+  padding: unset;
+}
+.bui-badge.small {
+  min-width: 16px;
+  line-height: var(--lineHeightBase100);
+  font-size: var(--fontSizeBase100);
+  height: 16px;
+  font-weight: var(--fontWeightSemibold);
+  padding: 0 calc(var(--spacingHorizontalXXS) + var(--spacingHorizontalXXS));
+}
+.bui-badge.large {
+  min-width: 24px;
+  line-height: var(--lineHeightBase100);
+  font-size: var(--fontSizeBase100);
+  height: 24px;
+  font-weight: var(--fontWeightSemibold);
+  padding: 0 calc(var(--spacingHorizontalXS) + var(--spacingHorizontalXXS));
+}
+.bui-badge.extra-large {
+  min-width: 32px;
+  line-height: var(--lineHeightBase100);
+  font-size: var(--fontSizeBase100);
+  height: 32px;
+  font-weight: var(--fontWeightSemibold);
+  padding: 0 calc(var(--spacingHorizontalSNudge) + var(--spacingHorizontalXXS));
+}
+.bui-badge {
+  /* Shape */
+}
+.bui-badge.square {
+  border-radius: var(--borderRadiusNone);
+}
+.bui-badge.rounded {
+  border-radius: var(--borderRadiusMedium);
+}
+
 .bui-breadcrumb {
   --bui-breadcrumb-item-height: 32px;
   --bui-breadcrumb-item-padding: var(--spacingHorizontalSNudge);
@@ -449,6 +572,7 @@
   transition-property: background, border, color;
   transition-timing-function: var(--curveEasyEase);
   cursor: pointer;
+  position: relative;
 }
 .bui-button:not(.compact) {
   min-width: 96px;
@@ -460,6 +584,25 @@
 }
 .bui-button > .active-icon, .bui-button > .dropdown-active-icon {
   display: none;
+}
+.bui-button.badged {
+  overflow: visible;
+}
+.bui-button.badged > .badge-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.bui-button.badged > .badge-wrapper.top {
+  top: 0;
+}
+.bui-button.badged > .badge-wrapper.bottom {
+  top: 100%;
+}
+.bui-button.badged > .badge-wrapper.start {
+  left: 0;
+}
+.bui-button.badged > .badge-wrapper.end {
+  left: 100%;
 }
 .bui-button.icon {
   max-width: 32px;
