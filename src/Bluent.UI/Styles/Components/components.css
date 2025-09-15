@@ -548,6 +548,13 @@
   transform: rotate(180deg);
 }
 
+.rtl .bui-button.badged > .badge-wrapper.start, [dir=rtl] .bui-button.badged > .badge-wrapper.start {
+  left: 100%;
+}
+.rtl .bui-button.badged > .badge-wrapper.end, [dir=rtl] .bui-button.badged > .badge-wrapper.end {
+  right: 100%;
+}
+
 .bui-button {
   align-items: center;
   box-sizing: border-box;
@@ -1644,10 +1651,10 @@
   height: 35vh;
 }
 .bui-drawer.top.large, .bui-drawer.bottom.large {
-  width: 70vh;
+  height: 70vh;
 }
 .bui-drawer.top.full, .bui-drawer.bottom.full {
-  width: 100vw;
+  height: 100vw;
 }
 
 .rtl .bui-drawer.end, [dir=rtl] .bui-drawer.end {

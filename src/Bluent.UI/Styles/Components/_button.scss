@@ -1,4 +1,21 @@
-﻿.bui-button {
+﻿.rtl, [dir=rtl]{
+  .bui-button{
+    &.badged {
+
+      > .badge-wrapper {
+
+        &.start {
+          left: 100%;
+        }
+
+        &.end {
+          right: 100%;
+        }
+      }
+    }
+  }
+}
+.bui-button {
   align-items: center;
   box-sizing: border-box;
   display: inline-flex;
