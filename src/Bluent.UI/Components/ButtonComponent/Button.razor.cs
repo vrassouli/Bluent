@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Bluent.UI.Enums;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
@@ -21,6 +22,9 @@ public partial class Button
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
     [Parameter] public string? Href { get; set; }
+    [Parameter] public RenderFragment? Badge { get; set; }
+    [Parameter] public HorizontalSides BadgeHorizontalPosition { get; set; } = HorizontalSides.Start;
+    [Parameter] public VerticalSides BadgeVerticalPosition { get; set; } = VerticalSides.Top;
     [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public bool ShowDropdownIndicator { get; set; }
     [Parameter] public bool Compact { get; set; }
@@ -40,6 +44,9 @@ public partial class Button
         else
             yield return "bui-button";
 
+        if(Badge is not null)
+            yield return "badged";
+        
         if (string.IsNullOrEmpty(Text))
             yield return "icon";
 

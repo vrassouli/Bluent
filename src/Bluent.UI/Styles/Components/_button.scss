@@ -1,310 +1,336 @@
 ﻿.bui-button {
-    align-items: center;
-    box-sizing: border-box;
-    display: inline-flex;
-    gap: var(--spacingHorizontalSNudge);
-    justify-content: center;
-    text-decoration-line: none;
-    vertical-align: middle;
-    margin: 0px;
-    overflow: hidden;
-    background-color: var(--colorNeutralBackground1);
-    color: var(--colorNeutralForeground1);
-    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-    font-family: var(--fontFamilyBase);
-    outline-style: none;
-    padding: 5px var(--spacingHorizontalM);
-    border-radius: var(--borderRadiusMedium);
-    font-size: var(--fontSizeBase300);
-    font-weight: var(--fontWeightSemibold);
-    line-height: var(--lineHeightBase300);
-    transition-duration: var(--durationFaster);
-    transition-property: background, border, color;
-    transition-timing-function: var(--curveEasyEase);
-    cursor: pointer;
+  align-items: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: var(--spacingHorizontalSNudge);
+  justify-content: center;
+  text-decoration-line: none;
+  vertical-align: middle;
+  margin: 0px;
+  overflow: hidden;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  font-family: var(--fontFamilyBase);
+  outline-style: none;
+  padding: 5px var(--spacingHorizontalM);
+  border-radius: var(--borderRadiusMedium);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase300);
+  transition-duration: var(--durationFaster);
+  transition-property: background, border, color;
+  transition-timing-function: var(--curveEasyEase);
+  cursor: pointer;
+  position: relative;
 
-    &:not(.compact) {
-        min-width: 96px;
+  &:not(.compact) {
+    min-width: 96px;
+  }
+
+  > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+
+  > .active-icon, > .dropdown-active-icon {
+    display: none;
+  }
+
+  &.badged {
+    overflow: visible;
+
+    > .badge-wrapper {
+      position: absolute;
+      transform: translate(-50%, -50%);
+
+      &.top {
+        top: 0;
+      }
+
+      &.bottom {
+        top: 100%;
+      }
+
+      &.start {
+        left: 0;
+      }
+
+      &.end {
+        left: 100%;
+      }
     }
+  }
 
-    > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
-        font-size: 20px;
-        height: 20px;
-        width: 20px;
+  &.icon {
+    max-width: 32px;
+    min-width: 32px;
+    padding: 5px;
+  }
+
+  &.compound {
+    height: auto;
+    padding-top: 14px;
+    padding-bottom: var(--spacingHorizontalL);
+
+    > .text {
+      flex-direction: column;
+      display: flex;
+      text-align: start;
+
+      > .secondary-text {
+        color: var(--colorNeutralForeground2);
+        line-height: 100%;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+      }
     }
+  }
 
-    > .active-icon, > .dropdown-active-icon {
+  &.toggled {
+    background-color: var(--colorNeutralBackground1Selected);
+    color: var(--colorNeutralForeground1Selected);
+    border-color: var(--colorNeutralStroke1);
+
+    > .active-icon {
+      display: inline;
+
+      & + .icon {
         display: none;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: var(--colorNeutralBackground1Hover);
+    border-color: var(--colorNeutralStroke1Hover);
+    color: var(--colorNeutralForeground1Hover);
+
+    > .active-icon {
+      display: inline;
+
+      & + .icon {
+        display: none;
+      }
     }
 
-    &.icon {
-        max-width: 32px;
-        min-width: 32px;
-        padding: 5px;
+    > .dropdown-active-icon {
+      display: inline;
+
+      & + .dropdown-icon {
+        display: none;
+      }
     }
 
-    &.compound {
-        height: auto;
-        padding-top: 14px;
-        padding-bottom: var(--spacingHorizontalL);
-
-        > .text {
-            flex-direction: column;
-            display: flex;
-            text-align: start;
-
-            > .secondary-text {
-                color: var(--colorNeutralForeground2);
-                line-height: 100%;
-                font-size: var(--fontSizeBase200);
-                font-weight: var(--fontWeightRegular);
-            }
-        }
+    &:active {
+      background-color: var(--colorNeutralBackground1Pressed);
+      border-color: var(--colorNeutralStroke1Pressed);
+      color: var(--colorNeutralForeground1Pressed);
+      outline-style: none;
     }
+  }
+
+  &:focus {
+    border-color: var(--colorStrokeFocus2);
+    border-radius: var(--borderRadiusMedium);
+    border-width: 1px;
+    outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
+    box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
+    z-index: 1;
+  }
+
+  &.circular {
+    border-radius: var(--borderRadiusCircular);
+  }
+
+  &.square {
+    border-radius: var(--borderRadiusNone);
+  }
+
+  &.primary {
+    background-color: var(--colorBrandBackground);
+    color: var(--colorNeutralForegroundOnBrand);
+    border-color: transparent;
 
     &.toggled {
-        background-color: var(--colorNeutralBackground1Selected);
-        color: var(--colorNeutralForeground1Selected);
-        border-color: var(--colorNeutralStroke1);
-
-        > .active-icon {
-            display: inline;
-
-            & + .icon {
-                display: none;
-            }
-        }
+      background-color: var(--colorBrandBackgroundSelected);
+      color: var(--colorNeutralForegroundOnBrand);
+      border-color: transparent;
     }
 
     &:hover {
-        background-color: var(--colorNeutralBackground1Hover);
-        border-color: var(--colorNeutralStroke1Hover);
-        color: var(--colorNeutralForeground1Hover);
+      background-color: var(--colorBrandBackgroundHover);
 
-        > .active-icon {
-            display: inline;
-
-            & + .icon {
-                display: none;
-            }
-        }
-
-        > .dropdown-active-icon {
-            display: inline;
-
-            & + .dropdown-icon {
-                display: none;
-            }
-        }
-
-        &:active {
-            background-color: var(--colorNeutralBackground1Pressed);
-            border-color: var(--colorNeutralStroke1Pressed);
-            color: var(--colorNeutralForeground1Pressed);
-            outline-style: none;
-        }
+      &:active {
+        background-color: var(--colorBrandBackgroundPressed);
+        color: var(--colorNeutralForegroundOnBrand);
+      }
     }
 
     &:focus {
-        border-color: var(--colorStrokeFocus2);
-        border-radius: var(--borderRadiusMedium);
-        border-width: 1px;
-        outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
-        box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
-        z-index: 1;
+      box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
+    }
+  }
+
+  &.outline {
+    background-color: var(--colorTransparentBackground);
+
+    &.toggled {
+      background-color: var(--colorTransparentBackgroundSelected);
+      color: var(--colorNeutralForeground1Selected);
+      border-color: var(--colorNeutralStroke1);
+      border-width: var(--strokeWidthThicker);
     }
 
-    &.circular {
-        border-radius: var(--borderRadiusCircular);
+    &:hover {
+      background-color: var(--colorTransparentBackgroundHover);
+      border-color: var(--colorNeutralStroke1Hover);
+      color: var(--colorNeutralForeground1Hover);
+
+      &:active {
+        background-color: var(--colorTransparentBackgroundPressed);
+        border-color: var(--colorNeutralStroke1Pressed);
+        color: var(--colorNeutralForeground1Pressed);
+        outline-style: none;
+      }
+    }
+  }
+
+  &.subtle {
+    color: var(--colorNeutralForeground2);
+    background-color: var(--colorSubtleBackground);
+    border-color: transparent;
+
+    &.toggled {
+      color: var(--colorNeutralForeground2Selected);
+      background-color: var(--colorSubtleBackgroundSelected);
     }
 
-    &.square {
-        border-radius: var(--borderRadiusNone);
-    }
+    &:hover {
+      color: var(--colorNeutralForeground2Hover);
+      background-color: var(--colorSubtleBackgroundHover);
+      border-color: transparent;
 
-    &.primary {
-        background-color: var(--colorBrandBackground);
-        color: var(--colorNeutralForegroundOnBrand);
+      > .icon, > .active-icon {
+        color: var(--colorNeutralForeground2BrandHover);
+      }
+
+      &:active {
+        color: var(--colorNeutralForeground2Pressed);
+        background-color: var(--colorSubtleBackgroundPressed);
         border-color: transparent;
 
-        &.toggled {
-            background-color: var(--colorBrandBackgroundSelected);
-            color: var(--colorNeutralForegroundOnBrand);
-            border-color: transparent;
+        > .icon {
+          color: var(--colorNeutralForeground2BrandPressed);
         }
+      }
+    }
+  }
 
-        &:hover {
-            background-color: var(--colorBrandBackgroundHover);
+  &.transparent {
+    color: var(--colorNeutralForeground2);
+    background-color: var(--colorTransparentBackground);
+    border-color: transparent;
 
-            &:active {
-                background-color: var(--colorBrandBackgroundPressed);
-                color: var(--colorNeutralForegroundOnBrand);
-            }
-        }
-
-        &:focus {
-            box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
-        }
+    &.toggled {
+      color: var(--colorNeutralForeground2BrandSelected);
+      background-color: var(--colorTransparentBackgroundSelected);
     }
 
-    &.outline {
-        background-color: var(--colorTransparentBackground);
+    &:hover {
+      color: var(--colorNeutralForeground2BrandHover);
+      background-color: var(--colorTransparentBackgroundHover);
 
-        &.toggled {
-            background-color: var(--colorTransparentBackgroundSelected);
-            color: var(--colorNeutralForeground1Selected);
-            border-color: var(--colorNeutralStroke1);
-            border-width: var(--strokeWidthThicker);
-        }
-
-        &:hover {
-            background-color: var(--colorTransparentBackgroundHover);
-            border-color: var(--colorNeutralStroke1Hover);
-            color: var(--colorNeutralForeground1Hover);
-
-            &:active {
-                background-color: var(--colorTransparentBackgroundPressed);
-                border-color: var(--colorNeutralStroke1Pressed);
-                color: var(--colorNeutralForeground1Pressed);
-                outline-style: none;
-            }
-        }
+      &:active {
+        color: var(--colorNeutralForeground2BrandPressed);
+        background-color: var(--colorTransparentBackgroundPressed);
+      }
     }
+  }
 
-    &.subtle {
-        color: var(--colorNeutralForeground2);
-        background-color: var(--colorSubtleBackground);
-        border-color: transparent;
+  &[disabled] {
+    color: var(--colorNeutralForegroundDisabled);
+    border-color: var(--colorNeutralStrokeDisabled);
+    background-color: var(--colorNeutralBackgroundDisabled);
+    cursor: not-allowed;
 
-        &.toggled {
-            color: var(--colorNeutralForeground2Selected);
-            background-color: var(--colorSubtleBackgroundSelected);
+    &:hover {
+      color: var(--colorNeutralForegroundDisabled);
+      border-color: var(--colorNeutralStrokeDisabled);
+      background-color: var(--colorNeutralBackgroundDisabled);
+
+      > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
+        color: var(--colorNeutralForegroundDisabled);
+      }
+
+      > .active-icon {
+        display: none;
+
+        + .icon {
+          display: inline;
         }
+      }
 
-        &:hover {
-            color: var(--colorNeutralForeground2Hover);
-            background-color: var(--colorSubtleBackgroundHover);
-            border-color: transparent;
+      > .dropdown-active-icon {
+        display: none;
 
-            > .icon, > .active-icon {
-                color: var(--colorNeutralForeground2BrandHover);
-            }
-
-            &:active {
-                color: var(--colorNeutralForeground2Pressed);
-                background-color: var(--colorSubtleBackgroundPressed);
-                border-color: transparent;
-
-                > .icon {
-                    color: var(--colorNeutralForeground2BrandPressed);
-                }
-            }
+        + .dropdown-icon {
+          display: inline;
         }
-    }
+      }
 
-    &.transparent {
-        color: var(--colorNeutralForeground2);
-        background-color: var(--colorTransparentBackground);
-        border-color: transparent;
-
-        &.toggled {
-            color: var(--colorNeutralForeground2BrandSelected);
-            background-color: var(--colorTransparentBackgroundSelected);
-        }
-
-        &:hover {
-            color: var(--colorNeutralForeground2BrandHover);
-            background-color: var(--colorTransparentBackgroundHover);
-
-            &:active {
-                color: var(--colorNeutralForeground2BrandPressed);
-                background-color: var(--colorTransparentBackgroundPressed);
-            }
-        }
-    }
-
-    &[disabled] {
+      &:active {
         color: var(--colorNeutralForegroundDisabled);
         border-color: var(--colorNeutralStrokeDisabled);
         background-color: var(--colorNeutralBackgroundDisabled);
-        cursor: not-allowed;
+      }
+    }
+  }
 
-        &:hover {
-            color: var(--colorNeutralForegroundDisabled);
-            border-color: var(--colorNeutralStrokeDisabled);
-            background-color: var(--colorNeutralBackgroundDisabled);
+  &.small {
+    font-size: var(--fontSizeBase200);
+    padding: 3px var(--spacingHorizontalS);
+    line-height: var(--lineHeightBase200);
+    font-weight: var(--fontWeightRegular);
 
-            > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
-                color: var(--colorNeutralForegroundDisabled);
-            }
-
-            > .active-icon {
-                display: none;
-
-                + .icon {
-                    display: inline;
-                }
-            }
-
-            > .dropdown-active-icon {
-                display: none;
-
-                + .dropdown-icon {
-                    display: inline;
-                }
-            }
-
-            &:active {
-                color: var(--colorNeutralForegroundDisabled);
-                border-color: var(--colorNeutralStrokeDisabled);
-                background-color: var(--colorNeutralBackgroundDisabled);
-            }
-        }
+    &:not(.compact) {
+      min-width: 64px;
     }
 
-    &.small {
-        font-size: var(--fontSizeBase200);
-        padding: 3px var(--spacingHorizontalS);
-        line-height: var(--lineHeightBase200);
-        font-weight: var(--fontWeightRegular);
-
-        &:not(.compact) {
-            min-width: 64px;
-        }
-
-        &.icon {
-            max-width: 24px;
-            min-width: 24px;
-            padding: 3px;
-        }
-
-        > .icon, > .active-icon {
-            font-size: 16px;
-            height: 16px;
-            width: 16px;
-        }
+    &.icon {
+      max-width: 24px;
+      min-width: 24px;
+      padding: 3px;
     }
 
-    &.large {
-        font-weight: var(--fontWeightSemibold);
-        font-size: var(--fontSizeBase400);
-        padding: 8px var(--spacingHorizontalL);
-        line-height: var(--lineHeightBase400);
-
-        &:not(.compact) {
-            min-width: 96px;
-        }
-
-        &.icon {
-            max-width: 40px;
-            min-width: 40px;
-            padding: 8px;
-        }
-
-        > .icon, > .active-icon {
-            font-size: 22px;
-            height: 22px;
-            width: 22px;
-        }
+    > .icon, > .active-icon {
+      font-size: 16px;
+      height: 16px;
+      width: 16px;
     }
+  }
+
+  &.large {
+    font-weight: var(--fontWeightSemibold);
+    font-size: var(--fontSizeBase400);
+    padding: 8px var(--spacingHorizontalL);
+    line-height: var(--lineHeightBase400);
+
+    &:not(.compact) {
+      min-width: 96px;
+    }
+
+    &.icon {
+      max-width: 40px;
+      min-width: 40px;
+      padding: 8px;
+    }
+
+    > .icon, > .active-icon {
+      font-size: 22px;
+      height: 22px;
+      width: 22px;
+    }
+  }
 }
