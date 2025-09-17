@@ -1,0 +1,91 @@
+@namespace Bluent.UI.Components
+@inherits BluentUiComponentBase
+
+<nav @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <ButtonGroup>
+        @if (ShowFirstPage)
+        {
+            <Button Href="@GetLink(1)" OnClick="() => GoTo(1)" Text="@FirstPageText"
+                    Class="flex-shrink-0"
+                    Icon="@FirstButtonIcon"
+                    IconClass="@FirstButtonIconClass"
+                    ActiveIcon="@FirstButtonActiveIcon"
+                    ActiveIconClass="@FirstButtonActiveIconClass"
+                    Shape="ButtonShape"
+                    disabled="@(Page == 1)"></Button>
+        }
+
+        @if (ShowPreviousPage)
+        {
+            <Button Href="@GetLink(Math.Max(1, Page - 1))" OnClick="() => GoTo(Math.Max(1, Page - 1))"
+                    Text="@PreviousPageText"
+                    Class="flex-shrink-0"
+                    Icon="@PreviousButtonIcon"
+                    IconClass="@PreviousButtonIconClass"
+                    ActiveIcon="@PreviousButtonActiveIcon"
+                    ActiveIconClass="@PreviousButtonActiveIconClass"
+                    Shape="ButtonShape"
+                    disabled="@(Page == 1)"></Button>
+        }
+    </ButtonGroup>
+
+    <ButtonGroup>
+        @for (int i = Page - RequiredPreviousButtons; i < Page; i++)
+        {
+            var page = i;
+
+            <Button @key="page" Href="@GetLink(page)" OnClick="() => GoTo(page)"
+                    Class="flex-shrink-0"
+                    Text="@(page.ToString())"
+                    Toggled="@(page == Page)"
+                    Appearance="ButtonAppearance.Default"
+                    Shape="ButtonShape" Compact="true"></Button>
+        }
+
+        <Button @key="Page" Href="@GetLink(Page)" OnClick="() => GoTo(Page)"
+                Class="flex-shrink-0"
+                Text="@Page.ToString()"
+                Toggled="true"
+                Appearance="ButtonAppearance.Primary"
+                Shape="ButtonShape" Compact="true"></Button>
+
+        @for (int i = Page + 1; i <= Math.Min(Page + RequiredNextButtons, PageCount); i++)
+        {
+            var page = i;
+
+            <Button @key="page" Href="@GetLink(page)" OnClick="() => GoTo(page)"
+                    Class="flex-shrink-0"
+                    Text="@(page.ToString())"
+                    Toggled="@(page == Page)"
+                    Appearance="ButtonAppearance.Default"
+                    Shape="ButtonShape" Compact="true"></Button>
+        }
+    </ButtonGroup>
+
+    <ButtonGroup>
+        @if (ShowNextPage)
+        {
+            <Button Href="@GetLink(Math.Min(PageCount, Page + 1))" OnClick="() => GoTo(Math.Min(PageCount, Page + 1))"
+                    Text="@NextPageText"
+                    Class="flex-shrink-0"
+                    Icon="@NextButtonIcon"
+                    IconClass="@NextButtonIconClass"
+                    ActiveIcon="@NextButtonActiveIcon"
+                    ActiveIconClass="@NextButtonActiveIconClass"
+                    Shape="ButtonShape"
+                    disabled="@(Page == PageCount)"></Button>
+        }
+
+        @if (ShowLastPage)
+        {
+            <Button Href="@GetLink(PageCount)" OnClick="() => GoTo(PageCount)" Text="@LastPageText"
+                    Class="flex-shrink-0"
+                    Icon="@LastButtonIcon"
+                    IconClass="@LastButtonIconClass"
+                    ActiveIcon="@LastButtonActiveIcon"
+                    ActiveIconClass="@LastButtonActiveIconClass"
+                    Shape="ButtonShape"
+                    disabled="@(Page == PageCount)"></Button>
+        }
+    </ButtonGroup>
+</nav>
