@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "NgFqX2WO",
+  "version": "J7SeOjZf",
   "assets": [
     {
       "hash": "sha256-AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=",
@@ -150,24 +150,24 @@ self.assetsManifest = {
       "url": "_framework/Blazored.LocalStorage.12n6dz54qr.wasm"
     },
     {
-      "hash": "sha256-gdWR62oooTuCxo+CzUkCdQQEYYPL51ddu6m7lO1yFcM=",
-      "url": "_framework/Bluent.Core.7yz67aafzv.wasm"
+      "hash": "sha256-XYT+Q/A36JL7JmKYNgXomwPQqqe25qXJVAeF619E0zM=",
+      "url": "_framework/Bluent.Core.7n6w6vzzdm.wasm"
     },
     {
-      "hash": "sha256-obAXoWqbq0HZZ/GI4eKUmrVW1ZEtejzatSv9AZEwRsY=",
-      "url": "_framework/Bluent.UI.Charts.z7w9s22lhx.wasm"
+      "hash": "sha256-VhsqS/YNBu1ZbhXf6oyiVw508Zl9N3Ei8fndyD0234g=",
+      "url": "_framework/Bluent.UI.2hzzh3ibp2.wasm"
     },
     {
-      "hash": "sha256-6SYs2nf3hY9Ssq40Ut8XBYp3AKP5k1B1WoD0SJJG75U=",
-      "url": "_framework/Bluent.UI.Demo.ld82009o9l.wasm"
+      "hash": "sha256-EPKMf2Ve0wb/ufNmu0/OaDUD/KrGs+SzSCGfByZHCyk=",
+      "url": "_framework/Bluent.UI.Charts.chk5nkh36v.wasm"
     },
     {
-      "hash": "sha256-/xugOa2d3VJE2QjNEMwOjapRN0UDe24JDmAuIkS16dc=",
-      "url": "_framework/Bluent.UI.Diagrams.rtxbotv0tn.wasm"
+      "hash": "sha256-bX1CmhpkTLWYkUdD8Q/Rwcyxr+GtPRjctPX+MUjgwZI=",
+      "url": "_framework/Bluent.UI.Demo.njtgxaqjbe.wasm"
     },
     {
-      "hash": "sha256-UMnG3yohyoo/nb9+W4imSx4yAb3vFshRTdeHdnHL640=",
-      "url": "_framework/Bluent.UI.spff8lxl3w.wasm"
+      "hash": "sha256-hOJtKkLqMtRD511YDrRq72CduyQuAG9RtK9HxA3mWCw=",
+      "url": "_framework/Bluent.UI.Diagrams.gxd4n79hp8.wasm"
     },
     {
       "hash": "sha256-4NbSboZzzP9nikRtXapUZNzOyITt7ht9TNqCIQHr5OE=",
@@ -454,7 +454,7 @@ self.assetsManifest = {
       "url": "_framework/System.m0fu6d0eya.wasm"
     },
     {
-      "hash": "sha256-iIzMuR9UxC8d3anW2fStYaI45Egub6hlXfpWgLLNMZ0=",
+      "hash": "sha256-IjUGa5WGZx0rdjNE6V3Os7oDCt4GfnX+QZ35PtyLGl8=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -478,8 +478,8 @@ self.assetsManifest = {
       "url": "_framework/dotnet.runtime.st3wwc8rqy.js"
     },
     {
-      "hash": "sha256-TWMjRyw+bMQRRXRAZsr6Hoz71NSWc400pL4UwPAx/yA=",
-      "url": "_framework/fa-IR/Bluent.UI.resources.p153zxoa1u.wasm"
+      "hash": "sha256-DPS/LVIIw4vQ+ZOvan7ZYI7nkO258GASO2HkPMi3RyU=",
+      "url": "_framework/fa-IR/Bluent.UI.resources.8nndbiah87.wasm"
     },
     {
       "hash": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
