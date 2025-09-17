@@ -1489,6 +1489,18 @@
   background-color: var(--colorSubtleBackgroundHover);
 }
 
+.bui-data-pager {
+  display: flex;
+  gap: 0.5rem;
+}
+.bui-data-pager > ul {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .bui-dialog {
   overflow: auto;
   box-shadow: var(--shadow64);
