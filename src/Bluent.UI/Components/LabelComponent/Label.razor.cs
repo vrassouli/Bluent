@@ -8,7 +8,7 @@ namespace Bluent.UI.Components;
 public partial class Label
 {
     [Parameter] public string? Text { get; set; }
-    [Parameter] public Expression<Func<object>>? ForExpression { get; set; }
+    [Parameter] public Expression<Func<object?>>? ForExpression { get; set; }
     [Parameter] public string RequiredSymbol { get; set; } = "*";
     [Parameter] public RenderFragment? Info { get; set; }
     [Parameter] public LabelSize Size { get; set; } = LabelSize.Medium;
