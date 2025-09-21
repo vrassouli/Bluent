@@ -9,6 +9,30 @@
         <NeutralLanguage>en</NeutralLanguage>
     </PropertyGroup>
 
+    <!-- 1) Stop the SDK from auto-including the variant files -->
+    <ItemGroup>
+        <Content Remove="wwwroot\index.Debug.html" />
+        <Content Remove="wwwroot\index.Release.html" />
+    </ItemGroup>
+
+    <!-- 2) In Debug, copy index.Debug.html as wwwroot/index.html -->
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <Content Include="wwwroot\index.Debug.html">
+            <TargetPath>wwwroot\index.html</TargetPath>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+
+    <!-- 3) In Release, copy index.Release.html as wwwroot/index.html -->
+    <ItemGroup Condition="'$(Configuration)'=='Release'">
+        <Content Include="wwwroot\index.Release.html">
+            <TargetPath>wwwroot\index.html</TargetPath>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+    
     <ItemGroup>
         <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.7" />
