@@ -80,9 +80,9 @@
   border-radius: var(--bui-card-border-radius);
 }
 .bui-action-card > .header > .icon {
-  font-size: 24px;
-  height: 24px;
-  width: 24px;
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
 }
 .bui-action-card > .header .expand-icon {
   transition-property: transform;
