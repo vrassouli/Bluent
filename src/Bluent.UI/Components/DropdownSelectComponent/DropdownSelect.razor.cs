@@ -47,9 +47,4 @@ public partial class DropdownSelect<TValue>
     {
         _popover?.RefreshSurface();
     }
-
-    private Task OnClearOption(TValue? value)
-    {
-        return ClearOption.InvokeAsync(value);
-    }
 }

@@ -179,11 +179,21 @@ public partial class DropdownList<TItem, TValue>
     private async Task OnFilterChanged(string? filter)
     {
         _filter = filter;
+        await ReloadAsync();
+    }
+
+    private async Task ReloadAsync()
+    {
         if (_virtualizer != null)
         {
             await _virtualizer.RefreshDataAsync();
-            _dropdown?.Refresh();
+            Refresh();
         }
+    }
+
+    private void Refresh()
+    {
+        _dropdown?.Refresh();
     }
 
     private async Task OnClearFilter()
@@ -196,5 +206,6 @@ public partial class DropdownList<TItem, TValue>
         var items = _selectedItems.Where(x => ItemValue(x)?.Equals(value) == true).ToList();
 
         await RemoveFromSelections(items);
+        Refresh();
     }
 }
