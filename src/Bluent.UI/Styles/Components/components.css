@@ -672,7 +672,6 @@
   border-width: 1px;
   outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
   box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
-  z-index: 1;
 }
 .bui-button.circular {
   border-radius: var(--borderRadiusCircular);
@@ -1788,6 +1787,7 @@
   --fui-text-field-padding-x: var(--spacingHorizontalM);
   --fui-text-field-min-height: 32px;
   display: inline-flex;
+  overflow: hidden;
   align-items: center;
   flex-wrap: nowrap;
   padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);
@@ -1809,7 +1809,8 @@
 }
 .bui-dropdown-select > .select {
   box-sizing: border-box;
-  flex-grow: 1;
+  flex: 1;
+  overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   gap: var(--fui-text-field-padding-x);
@@ -1825,6 +1826,12 @@
   line-height: inherit;
   width: 100%;
   background-color: var(--colorNeutralBackground1);
+  margin: 2px 0;
+}
+.bui-dropdown-select > .select > .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .bui-dropdown-select > .select:disabled {
   color: var(--colorNeutralForegroundDisabled);
@@ -1833,6 +1840,7 @@
 }
 .bui-dropdown-select > .select > .bui-tag {
   --tag-height: 26px;
+  --tag-dismiss-size: 26px;
 }
 .bui-dropdown-select:after {
   box-sizing: border-box;

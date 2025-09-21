@@ -9,13 +9,13 @@
             @if (!Options.Any())
             {
                 <div class="select">
-                    <div>@EmptyMessage</div>
+                    <div class="text">@EmptyMessage</div>
                 </div>
             }
             else if (Options.Count() == 1)
             {
                 <div class="select">
-                    <div>@Options.ElementAt(0).Text</div>
+                    <div class="text">@Options.ElementAt(0).Text</div>
                 </div>
                 @if (CanClear)
                 {
@@ -23,15 +23,15 @@
                             Size="ButtonSize.Small"
                             Icon="icon-ic_fluent_dismiss_20_regular"
                             ActiveIcon="icon-ic_fluent_dismiss_20_filled"
-                            OnClick="() => OnClearOption(Options.ElementAt(0).Value)" />
+                            OnClick="() => ClearOption.InvokeAsync(Options.ElementAt(0).Value)" />
                 }
             }
             else
             {
-                <div class="select">
+                <div class="select" @onclick:stopPropagation="true">
                     @foreach (var item in Options)
                     {
-                        <Tag Title="@item.Text" />
+                        <Tag Title="@item.Text" Dismissable OnDismiss="() => ClearOption.InvokeAsync(item.Value)" />
                     }
                 </div>
             }

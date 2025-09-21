@@ -50,7 +50,7 @@
                 <ItemsList Class="h-100" SelectionMode="@(IsMultiSelect ? SelectionMode.Multiple : SelectionMode.Single)">
                     <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider" ItemSize="ItemSize" Placeholder="Placeholder" EmptyContent="EmptyContent">
                         <ItemContent>
-                            <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnItemSelectionChanged(context, selected)">
+                            <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected) => OnItemSelectionChanged(context, selected)">
                                 @ItemContentTemplate.Invoke(context)
                             </ListItem>
                         </ItemContent>
