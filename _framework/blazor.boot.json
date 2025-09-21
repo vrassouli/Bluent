@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Bluent.UI.Demo",
   "resources": {
-    "hash": "sha256-k4Wjg1JvchCVXs/lDvnBtdkvTUKOJmWEJHnlA7D+6nE=",
+    "hash": "sha256-2Gg1fj+DdRyosXwbbDjRWUp033gHG1PkOslSbnnoDB8=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "Humanizer.oqup3v7t3k.wasm": "Humanizer.wasm",
@@ -75,12 +75,12 @@
       "System.Xml.XDocument.7lwqr4899m.wasm": "System.Xml.XDocument.wasm",
       "System.m0fu6d0eya.wasm": "System.wasm",
       "System.Private.CoreLib.o0sovttbq8.wasm": "System.Private.CoreLib.wasm",
-      "Bluent.Core.mqu61jpxwb.wasm": "Bluent.Core.wasm",
-      "Bluent.UI.Charts.zl9ifyyv8p.wasm": "Bluent.UI.Charts.wasm",
-      "Bluent.UI.Diagrams.lh85xoaslc.wasm": "Bluent.UI.Diagrams.wasm",
-      "Bluent.UI.4i3ygg0inh.wasm": "Bluent.UI.wasm",
-      "Bluent.UI.Demo.i22qh9fbg7.wasm": "Bluent.UI.Demo.wasm",
-      "Bluent.UI.resources.gs8pal2fvx.wasm": "Bluent.UI.resources.wasm",
+      "Bluent.Core.7fhnznhvnf.wasm": "Bluent.Core.wasm",
+      "Bluent.UI.Charts.p7xgnl1t3l.wasm": "Bluent.UI.Charts.wasm",
+      "Bluent.UI.Diagrams.31desr464j.wasm": "Bluent.UI.Diagrams.wasm",
+      "Bluent.UI.smje1oyeyu.wasm": "Bluent.UI.wasm",
+      "Bluent.UI.Demo.ta5nfiwfk3.wasm": "Bluent.UI.Demo.wasm",
+      "Bluent.UI.resources.n35wmd97u7.wasm": "Bluent.UI.resources.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.9ih887ebfz.js": "dotnet.native.js",
       "dotnet.native.21mns4qp4i.wasm": "dotnet.native.wasm",
@@ -178,15 +178,15 @@
       "System.Xml.ReaderWriter.bhdd2h44g4.wasm": "sha256-f+s2LOglbzt4y/VPOYFNUZjAqTMgjyhtpxIRijzEyL8=",
       "System.Xml.XDocument.7lwqr4899m.wasm": "sha256-e3L7s5yS/QYP10aPEIzvCa+38xNs3qtSsbLAJgQ4nfw=",
       "System.m0fu6d0eya.wasm": "sha256-hkGLo/MuT/FJ0Xf4XUL0D2VA4dZV532GHNB1JicxLko=",
-      "Bluent.Core.mqu61jpxwb.wasm": "sha256-4oF8M26xl/HDOyN/9z9+vTxeZ1cTsw4nNNzFGpvW3CA=",
-      "Bluent.UI.Charts.zl9ifyyv8p.wasm": "sha256-Jxjd8rL9Md8PdyST7JEUpgtUeW8xOD2AqNp8AW3GANQ=",
-      "Bluent.UI.Diagrams.lh85xoaslc.wasm": "sha256-x4Q0Ro66nuvhRRP1W1bTuhgMzsaZjIK4BK8KuYm5a8s=",
-      "Bluent.UI.4i3ygg0inh.wasm": "sha256-xOmHyvvNMYuNXobFkl77DwQiKa0t24ElKgicc4UXyEA=",
-      "Bluent.UI.Demo.i22qh9fbg7.wasm": "sha256-Bk5v76HmwnTtK86ktscDjUiqIctmWjqz04M3YYPCe8k="
+      "Bluent.Core.7fhnznhvnf.wasm": "sha256-80bD2QxQjIVOeUgJkkpLMCjdFrsu51LM6k514ozLvLI=",
+      "Bluent.UI.Charts.p7xgnl1t3l.wasm": "sha256-27iD6uMp68uYRmE6elRU4dFbS9cRc+SkR8O0mK47GMw=",
+      "Bluent.UI.Diagrams.31desr464j.wasm": "sha256-d+Goq8doMA117q5BiBe4mpHgZ7OaDGfj7ngqX57Yrio=",
+      "Bluent.UI.smje1oyeyu.wasm": "sha256-HAT773DUsNWynsfMIb3GKq9fTdfsrurKxvs48k9J3Ro=",
+      "Bluent.UI.Demo.ta5nfiwfk3.wasm": "sha256-lTF44SO2vz5geTrDuNlOn4tRuGY984+nuaJOs76FrS4="
     },
     "satelliteResources": {
       "fa-IR": {
-        "Bluent.UI.resources.gs8pal2fvx.wasm": "sha256-wJbYWLKXNZVdX9hdyNoumvNOFpElSeP9SlgIqiqzkq0="
+        "Bluent.UI.resources.n35wmd97u7.wasm": "sha256-01sqmpovrUk+Nugzefp9lubR4kWPZgf5/G4TzCSfSoY="
       }
     }
   },
