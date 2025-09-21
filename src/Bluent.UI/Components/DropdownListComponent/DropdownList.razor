@@ -51,7 +51,7 @@
                     <Virtualize @ref=_virtualizer ItemsProvider="ListItemsProvider" ItemSize="ItemSize" Placeholder="Placeholder" EmptyContent="EmptyContent">
                         <ItemContent>
                             <ListItem @key=context Selected="IsSelected(context)" SelectedChanged="(selected)=>OnItemSelectionChanged(context, selected)">
-                                @ItemContent.Invoke(context)
+                                @ItemContentTemplate.Invoke(context)
                             </ListItem>
                         </ItemContent>
                     </Virtualize>

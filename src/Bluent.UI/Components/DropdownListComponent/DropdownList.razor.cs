@@ -35,6 +35,18 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
     [Inject] private IStringLocalizer<DropdownListComponent.Resources.DropdownList> Localizer { get; set; } = default!;
 
+    private RenderFragment<TItem> ItemContentTemplate => ItemContent ?? GetDefaultItemTemplate();
+
+    private RenderFragment<TItem> GetDefaultItemTemplate()
+    {
+        return item => builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.AddContent(1, ItemText(item));
+            builder.CloseElement();
+        };
+    }
+
     private IEnumerable<DropdownOption<TValue>> SelectedOptions
     {
         get
