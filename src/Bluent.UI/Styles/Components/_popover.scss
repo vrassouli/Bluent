@@ -3,6 +3,7 @@
 }
 
 .bui-popover-surface {
+    z-index: var(--zIndexPopover);
     width: max-content;
     position: absolute;
     top: 0;

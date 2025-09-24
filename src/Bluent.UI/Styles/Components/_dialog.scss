@@ -1,4 +1,5 @@
 ﻿.bui-dialog {
+    z-index: var(--zIndexDialog);
     overflow: auto;
     box-shadow: var(--shadow64);
     inset: 0px;

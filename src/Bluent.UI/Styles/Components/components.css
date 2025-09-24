@@ -1,3 +1,12 @@
+:root {
+  --zIndexOverlay: 1000;
+  --zIndexDrawer: 1100;
+  --zIndexDialog: 1100;
+  --zIndexPopover: 1100;
+  --zIndexTooltip: 1100;
+  --zIndexToast: 1100;
+}
+
 .bui-accordion > .accordion-panel > .header {
   margin: 0;
   background-color: var(--colorTransparentBackground);
@@ -1501,6 +1510,7 @@
 }
 
 .bui-dialog {
+  z-index: var(--zIndexDialog);
   overflow: auto;
   box-shadow: var(--shadow64);
   inset: 0px;
@@ -1578,6 +1588,7 @@
 
 .bui-drawer {
   position: fixed;
+  z-index: var(--zIndexDrawer);
   width: 320px;
   max-width: 100vw;
   background-color: var(--colorNeutralBackground1);
@@ -2451,6 +2462,7 @@
 }
 
 .bui-overlay {
+  z-index: var(--zIndexOverlay);
   inset: 0px;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
@@ -2465,6 +2477,7 @@
 }
 
 .bui-popover-surface {
+  z-index: var(--zIndexPopover);
   width: max-content;
   position: absolute;
   top: 0;
@@ -3358,6 +3371,7 @@
 }
 
 .bui-toast-stack {
+  z-index: var(--zIndexToast);
   position: absolute;
   display: flex;
   padding: 20px;
@@ -3742,7 +3756,7 @@
   box-sizing: border-box;
 }
 .bui-tooltip {
-  /*display: none;*/
+  z-index: var(--zIndexTooltip);
   width: max-content;
   position: absolute;
   top: 0;

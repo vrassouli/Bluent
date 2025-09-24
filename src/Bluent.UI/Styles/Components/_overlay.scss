@@ -1,9 +1,10 @@
 ﻿.bui-overlay {
-    inset: 0px;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.4);
-    animation: fade-in;
-    animation-duration: var(--durationGentle);
-    animation-timing-function: var(--curveEasyEase);
-    animation-fill-mode: both;
+  z-index: var(--zIndexOverlay);
+  inset: 0px;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fade-in;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
 }

@@ -1,4 +1,13 @@
-﻿@import "_accordion.scss";
+﻿:root {
+  --zIndexOverlay: 1000;
+  --zIndexDrawer: 1100;
+  --zIndexDialog: 1100;
+  --zIndexPopover: 1100;
+  --zIndexTooltip: 1100;
+  --zIndexToast: 1100;
+}
+
+@import "_accordion.scss";
 @import "_action-card.scss";
 @import "_action-card-group.scss";
 @import "_avatar.scss";
