@@ -1,49 +1,49 @@
 ﻿.bui-tooltip {
-    /*display: none;*/
-    width: max-content;
+  z-index: var(--zIndexTooltip);
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+  box-shadow: var(--shadow16);
+  border-radius: var(--borderRadiusMedium);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase200);
+  transition-property: all;
+  transition-duration: var(--durationSlower);
+  transition-timing-function: var(--curveDecelerateMid);
+  opacity: 0;
+
+  &.right, &.right-start, &right-end {
+    transform: translateX(-10px);
+  }
+
+  &.left, &.left-start, &.left-end {
+    transform: translateX(10px);
+  }
+
+  &.top, &.top-start, &.top-end {
+    transform: translateY(10px);
+  }
+
+  &.bottom, &.bottom-start, &.bottom-end {
+    transform: translateY(-10px);
+  }
+
+  &.show {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  > .arrow {
     position: absolute;
-    top: 0;
-    left: 0;
     background-color: var(--colorNeutralBackground1);
-    color: var(--colorNeutralForeground1);
-    padding: var(--spacingVerticalS) var(--spacingHorizontalS);
-    box-shadow: var(--shadow16);
-    border-radius: var(--borderRadiusMedium);
-    font-family: var(--fontFamilyBase);
-    font-size: var(--fontSizeBase200);
-    font-weight: var(--fontWeightSemibold);
-    line-height: var(--lineHeightBase200);
-    transition-property: all;
-    transition-duration: var(--durationSlower);
-    transition-timing-function: var(--curveDecelerateMid);
-    opacity: 0;
-
-    &.right, &.right-start, &right-end {
-        transform: translateX(-10px);
-    }
-
-    &.left, &.left-start, &.left-end {
-        transform: translateX(10px);
-    }
-
-    &.top, &.top-start, &.top-end {
-        transform: translateY(10px);
-    }
-
-    &.bottom, &.bottom-start, &.bottom-end {
-        transform: translateY(-10px);
-    }
-
-    &.show {
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-
-    > .arrow {
-        position: absolute;
-        background-color: var(--colorNeutralBackground1);
-        width: 8px;
-        height: 8px;
-        transform: rotate(45deg);
-    }
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+  }
 }
