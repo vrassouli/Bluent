@@ -15,9 +15,7 @@ public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable
     [Inject] private ITooltipService TooltipService { get; set; } = default!;
 
     protected bool IsDisabled => AdditionalAttributes?.ContainsKey("disabled") == true &&
-        AdditionalAttributes["disabled"] != null &&
-        AdditionalAttributes["disabled"] is bool b &&
-        b != false;
+                                 AdditionalAttributes["disabled"] is true;
 
     protected override void OnAfterRender(bool firstRender)
     {
