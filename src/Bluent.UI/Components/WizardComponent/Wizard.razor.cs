@@ -52,6 +52,11 @@ public partial class Wizard
         _steps.Remove(step);
         StateHasChanged();
     }
+    
+    internal void Update()
+    {
+        StateHasChanged();
+    }
 
     internal bool IsCurrent(WizardStep step)
     {
@@ -99,4 +104,5 @@ public partial class Wizard
             CurrentStepChanged.InvokeAsync(CurrentStep);
         }
     }
+
 }

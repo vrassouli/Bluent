@@ -4,6 +4,7 @@ namespace Bluent.UI.Components;
 
 public partial class WizardStep
 {
+    private string? _title;
     [Parameter] public string? Title { get; set; } = default!;
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
     [Parameter] public bool DeferredLoading { get; set; }
@@ -19,6 +20,16 @@ public partial class WizardStep
         Wizard.Add(this);
 
         base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (_title != Title)
+        {
+            _title = Title;
+            Wizard.Update();
+        }
+        base.OnParametersSet();
     }
 
     public override void Dispose()
