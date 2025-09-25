@@ -35,23 +35,19 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.7" />
-        <PackageReference Include="System.Text.Json" Version="9.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.9" />
+        <PackageReference Include="System.Text.Json" Version="9.0.9" />
     </ItemGroup>
     <Target Name="BundleMinify" BeforeTargets="BeforeBuild">
         <Exec Command="dotnet tool restore" />
         <Exec Command="dotnet bundle" />
     </Target>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
-        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js"
-              DestinationFolder="$(ProjectDir)wwwroot\"
-              SkipUnchangedFiles="true" />
-        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js.map"
-              DestinationFolder="$(ProjectDir)wwwroot\"
-              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js" DestinationFolder="$(ProjectDir)wwwroot\" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.js.map" DestinationFolder="$(ProjectDir)wwwroot\" SkipUnchangedFiles="true" />
     </Target>
 
     <ItemGroup>
