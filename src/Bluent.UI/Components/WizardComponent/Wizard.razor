@@ -8,7 +8,8 @@
             {
                 var index = _steps.IndexOf(step);
 
-                <li class="@((index < CurrentStep) ? "visited" : "") @((index == CurrentStep) ? "current" : "") @(NavigateOnStepClick ? "active" : "")" @onclick="()=>StepClickHandler(index)">
+                <li class="@((index < CurrentStep) ? "visited" : "") @((index == CurrentStep) ? "current" : "") @(NavigateOnStepClick ? "active" : "")"
+                    @onclick="()=>StepClickHandler(index)">
                     <div class="layout">
                         <div class="icon">@(index + 1)</div>
                         @if (DisplayStepTitles)
@@ -30,14 +31,16 @@
     @if (DisplayNavigationButtons)
     {
         <div class="nav">
-            <Button Text="@(IsLastStep ? LabelDone : LabelNext)" Appearance="ButtonAppearance.Primary" OnClick="NextHandler" 
-                disabled="@(!CanGoNext)"
-                type="@((IsLastStep && SubmitWhenDown) ? "submit" : "button")" />
-            <Button Text="@LabelPrevious" OnClick="PreviousHandler" 
-                disabled="@(!CanGoPrev)" />
+            <Button Text="@(IsLastStep ? LabelDone : LabelNext)"
+                    Appearance="ButtonAppearance.Primary"
+                    OnClick="NextHandler"
+                    disabled="@(!CanGoNext)"
+                    type="@((IsLastStep && SubmitWhenDone) ? "submit" : "button")"/>
+            <Button Text="@LabelPrevious" OnClick="PreviousHandler"
+                    disabled="@(!CanGoPrev)"/>
             @if (CanCancel)
             {
-                <Button Text="@LabelCancel" OnClick="CancelHandler" />
+                <Button Text="@LabelCancel" OnClick="CancelHandler"/>
             }
         </div>
     }

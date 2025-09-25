@@ -18,7 +18,7 @@ public partial class Wizard
     [Parameter] public string LabelPrevious { get; set; } = "Previous";
     [Parameter] public string LabelCancel { get; set; } = "Cancel";
     [Parameter] public string LabelDone { get; set; } = "Done";
-    [Parameter] public bool SubmitWhenDown { get; set; }
+    [Parameter] public bool SubmitWhenDone { get; set; }
     [Parameter] public bool CanCancel { get; set; }
     [Parameter] public bool AllowNext { get; set; } = true;
     [Parameter] public bool AllowPrevious { get; set; } = true;
@@ -65,7 +65,7 @@ public partial class Wizard
 
     private void NextHandler()
     {
-        if (!IsLastStep || (IsLastStep && !SubmitWhenDown))
+        if (!IsLastStep || (IsLastStep && !SubmitWhenDone))
             OnNext.InvokeAsync();
 
         SetCurrentStep(Math.Min(_steps.Count - 1, CurrentStep + 1));
