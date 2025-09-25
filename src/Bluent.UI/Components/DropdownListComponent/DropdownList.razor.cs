@@ -156,10 +156,12 @@ public partial class DropdownList<TItem, TValue>
             if (lastItem != null)
             {
                 var lastItemValue = ItemValue(lastItem);
+                _value = Value = lastItemValue; // prevent OnValueChanged, when Value is set from inside the component
                 await ValueChanged.InvokeAsync(lastItemValue);
             }
             else
             {
+                _value = Value = default; // prevent OnValueChanged, when Value is set from inside the component
                 await ValueChanged.InvokeAsync(default(TValue));
             }
         }
