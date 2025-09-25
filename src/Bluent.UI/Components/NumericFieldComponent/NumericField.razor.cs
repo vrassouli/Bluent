@@ -14,7 +14,7 @@ public partial class NumericField<TValue>
     [Parameter] public string? Format { get; set; }
     //[Parameter] public bool TrimTrailingZeros { get; set; }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         foreach (var c in base.GetClasses())
             yield return c;

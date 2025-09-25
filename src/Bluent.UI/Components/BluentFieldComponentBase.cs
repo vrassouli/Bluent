@@ -22,7 +22,7 @@ public abstract class BluentFieldComponentBase<TValue> : BluentInputComponentBas
         base.OnParametersSet();
     }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         yield return "bui-field";
 

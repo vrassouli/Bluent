@@ -48,7 +48,7 @@ public partial class DateField<TValue>
         }
     }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         foreach (var c in base.GetClasses())
             yield return c;

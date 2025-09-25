@@ -26,7 +26,7 @@ public partial class RadioGroup<TValue>
         base.OnParametersSet();
     }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         yield return "bui-radio-group";
 
