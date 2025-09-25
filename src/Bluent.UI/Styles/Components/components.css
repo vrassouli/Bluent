@@ -2033,7 +2033,7 @@
   background-color: var(--colorTransparentBackground);
   cursor: not-allowed;
 }
-.bui-field.modified.invalid {
+.bui-field.invalid {
   border-color: var(--colorPaletteRedBorder2);
 }
 .bui-field.no-resize > textarea {
