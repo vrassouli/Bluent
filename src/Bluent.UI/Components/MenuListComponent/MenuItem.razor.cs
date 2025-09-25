@@ -55,6 +55,9 @@ public partial class MenuItem
 
     private void ClickHandler()
     {
+        if (IsDisabled)
+            return;
+        
         InvokeAsync(OnClick.InvokeAsync);
 
         if (Popover != null)
