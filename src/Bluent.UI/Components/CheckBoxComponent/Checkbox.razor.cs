@@ -42,7 +42,7 @@ public partial class Checkbox<TValue>
 
     }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         yield return "bui-checkbox";
 

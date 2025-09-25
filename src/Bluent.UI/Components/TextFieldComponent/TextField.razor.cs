@@ -18,7 +18,7 @@ public partial class TextField
         return base.OnAfterRenderAsync(firstRender);
     }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         foreach (var c in base.GetClasses())
             yield return c;

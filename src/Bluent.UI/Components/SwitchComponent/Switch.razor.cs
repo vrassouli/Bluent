@@ -2,7 +2,7 @@
 
 public partial class Switch
 {
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         yield return "bui-switch";
 

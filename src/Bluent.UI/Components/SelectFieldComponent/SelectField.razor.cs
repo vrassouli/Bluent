@@ -16,7 +16,7 @@ public partial class SelectField<TValue>
         _isMultipleSelect = typeof(TValue).IsArray;
     }
 
-    public override IEnumerable<string> GetClasses()
+    protected override IEnumerable<string> GetClasses()
     {
         foreach (var c in base.GetClasses())
             yield return c;
