@@ -1140,25 +1140,23 @@
   --bui-card-header-gap: 12px;
   flex-shrink: 0;
   grid-auto-columns: min-content 1fr min-content;
-  display: grid;
+  display: flex;
   align-items: center;
   color: var(--colorNeutralForeground1);
 }
 .bui-card > .card-header > .image {
-  grid-row-start: span 2;
-  grid-column-start: 1;
   margin-inline-end: var(--bui-card-header-gap);
   display: inline-flex;
   color: var(--colorNeutralForeground1);
 }
-.bui-card > .card-header > .header {
-  grid-row-start: 1;
-  grid-column-start: 2;
+.bui-card > .card-header > .header-text {
   display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+}
+.bui-card > .card-header > .header-text > .header {
   color: var(--colorNeutralForeground1);
-  text-overflow: clip;
-  overflow: visible;
-  white-space: normal;
   text-align: start;
   display: inline;
   line-height: var(--lineHeightBase300);
@@ -1169,9 +1167,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.bui-card > .card-header > .description {
-  grid-row-start: 2;
-  grid-column-start: 2;
+.bui-card > .card-header > .header-text > .description {
   display: flex;
   color: var(--colorNeutralForeground3);
   text-overflow: clip;
@@ -1184,8 +1180,6 @@
   font-family: var(--fontFamilyBase);
 }
 .bui-card > .card-header > .action {
-  grid-column-start: 3;
-  grid-row-start: span 2;
   margin-inline-start: var(--bui-card-header-gap);
 }
 .bui-card > .card-preview {
@@ -1294,6 +1288,15 @@
   border-color: var(--colorNeutralStroke1Selected);
 }
 
+/* Show when hovering row (desktop with mouse) */
+@media (hover: hover) and (pointer: fine) {
+  .bui-card > .card-header.contextual-action > .action {
+    display: none;
+  }
+  .bui-card > .card-header.contextual-action:hover > .action {
+    display: inline-flex;
+  }
+}
 .bui-checkbox {
   color: var(--colorNeutralForeground3);
   position: relative;
