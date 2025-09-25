@@ -233,9 +233,14 @@
         > .action {
           display: none;
         }
-
-        &:hover > .action {
-          display: inline-flex;
+      }
+    }
+    &:hover {
+      >.card-header {
+        &.contextual-action {
+          > .action {
+            display: inline-flex;
+          }
         }
       }
     }

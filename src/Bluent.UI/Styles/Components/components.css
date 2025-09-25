@@ -1293,7 +1293,7 @@
   .bui-card > .card-header.contextual-action > .action {
     display: none;
   }
-  .bui-card > .card-header.contextual-action:hover > .action {
+  .bui-card:hover > .card-header.contextual-action > .action {
     display: inline-flex;
   }
 }
