@@ -16,14 +16,14 @@ public partial class DropdownList<TItem, TValue>
 
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.BottomStart;
     [Parameter] public int MaxHeight { get; set; } = 180;
-    [Parameter] public bool HideFilter { get; set; } = false;
-    [Parameter] public bool HideClear { get; set; } = false;
+    [Parameter] public bool HideFilter { get; set; }
+    [Parameter] public bool HideClear { get; set; }
     [Parameter] public string? FilterPlaceholder { get; set; }
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
     [Parameter] public EventCallback<IEnumerable<TItem>> SelectedItemsChanged { get; set; }
-    [Parameter] public IEnumerable<TValue> Values { get; set; } = Enumerable.Empty<TValue>();
+    [Parameter] public IEnumerable<TValue> Values { get; set; } = [];
     [Parameter] public EventCallback<IEnumerable<TValue>> ValuesChanged { get; set; }
     [Parameter] public string EmptyDisplayText { get; set; } = default!;
     [Parameter] public float ItemSize { get; set; } = 50;
@@ -31,7 +31,7 @@ public partial class DropdownList<TItem, TValue>
     [Parameter, EditorRequired] public Func<TItem?, string> ItemText { get; set; } = default!;
     [Parameter] public RenderFragment<TItem>? ItemContent { get; set; }
     [Parameter, EditorRequired] public FilteredItemsProviderDelegate<TItem> ItemsProvider { get; set; } = default!;
-    [Parameter, EditorRequired] public Func<TValue, TItem> ItemProvider { get; set; } = default!;
+    [Parameter, EditorRequired] public Func<TValue, TItem>? ItemProvider { get; set; }
     [Parameter] public RenderFragment<PlaceholderContext>? Placeholder { get; set; }
     [Parameter] public RenderFragment? EmptyContent { get; set; }
     [Inject] private IStringLocalizer<DropdownListComponent.Resources.DropdownList> Localizer { get; set; } = default!;
@@ -99,8 +99,9 @@ public partial class DropdownList<TItem, TValue>
             await ClearSelection();
         else
         {
-            var item = ItemProvider.Invoke(Value);
-            await AddToSelections(item);
+            var item = ItemProvider?.Invoke(Value);
+            if (item != null)
+                await AddToSelections(item);
         }
     }
 
@@ -129,8 +130,11 @@ public partial class DropdownList<TItem, TValue>
         if (!IsMultiSelect)
             _selectedItems.Clear();
 
-        _selectedItems.Add(item);
-        await InvokeChangeEvents();
+        if (!IsSelected(item))
+        {
+            _selectedItems.Add(item);
+            await InvokeChangeEvents();
+        }
     }
 
     private async Task RemoveFromSelections(IEnumerable<TItem> items)
