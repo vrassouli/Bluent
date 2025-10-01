@@ -21,7 +21,7 @@ public partial class DropdownList<TItem, TValue>
     [Parameter] public string? FilterPlaceholder { get; set; }
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
-    [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
+    [Parameter] public EventCallback<TItem?> SelectedItemChanged { get; set; }
     [Parameter] public EventCallback<IEnumerable<TItem>> SelectedItemsChanged { get; set; }
     [Parameter] public IEnumerable<TValue> Values { get; set; } = [];
     [Parameter] public EventCallback<IEnumerable<TValue>> ValuesChanged { get; set; }
