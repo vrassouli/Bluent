@@ -87,8 +87,18 @@
                 <ValidationMessage For="() => _timeOnly" />
             </EditForm>
             <pre>
-                Time: @_timeOnly
+                TimeOnly: @_timeOnly
             </pre>
+            
+            <EditForm Model="this">
+                <Label ForExpression="()=>_dateField" Class="d-block mb-1" />
+                <TimeField @bind-Value="_dateField" Size="FieldSize.Small" autocomplete="off" />
+                <ValidationMessage For="() => _dateField" />
+            </EditForm>
+            <pre>
+                DateTime: @_dateField
+            </pre>
+            
             <EditForm Model="this">
                 <Label ForExpression="()=>_timeSpan" Class="d-block mb-1" />
                 <TimeField @bind-Value="_timeSpan" Size="FieldSize.Small" autocomplete="off" />
@@ -96,7 +106,7 @@
                 <ValidationMessage For="() => _timeSpan" />
             </EditForm>
             <pre>
-                Time: @_timeSpan
+                TimeSpan: @_timeSpan
             </pre>
         </section>
 
