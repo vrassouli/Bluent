@@ -25,7 +25,8 @@ public partial class TimeField<TValue>
         var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 
         if (type != typeof(TimeSpan) &&
-            type != typeof(TimeOnly))
+            type != typeof(TimeOnly) &&
+            type != typeof(DateTime))
         {
             throw new InvalidOperationException($"Unsupported {GetType()} type param '{type}'.");
         }
@@ -62,7 +63,16 @@ public partial class TimeField<TValue>
 
             return dt.ToString("H:m");
         }
-        else if (value is TimeSpan timeSpan)
+
+        if (value is DateTime dateTime)
+        {
+            if (Seconds)
+                return dateTime.ToString("H:m:s");
+
+            return dateTime.ToString("H:m");
+        }
+        
+        if (value is TimeSpan timeSpan)
         {
             if (timeSpan.Days >= 1)
             {
@@ -71,13 +81,11 @@ public partial class TimeField<TValue>
 
                 return timeSpan.ToString(@"d\.h\:m");
             }
-            else
-            {
-                if (Seconds)
-                    return timeSpan.ToString(@"h\:m\:s");
 
-                return timeSpan.ToString(@"h\:m");
-            }
+            if (Seconds)
+                return timeSpan.ToString(@"h\:m\:s");
+
+            return timeSpan.ToString(@"h\:m");
         }
 
         return null;
@@ -104,7 +112,7 @@ public partial class TimeField<TValue>
     {
         var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 
-        if (type == typeof(TimeOnly))
+        if (type == typeof(TimeOnly) || type == typeof(DateTime))
         {
             if (Seconds)
                 return @"^\d{1,2}:\d{1,2}:\d{1,2}$";

@@ -14,6 +14,17 @@
                 @_agreeGroup
             </pre>
         </section>
+        
+        <h3>Enum</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <RadioGroup @bind-Value="_agreeAnswer" Label="Do you agree?">
+                <Radio Value="@Agree.Yes" Label="Yes"/>
+                <Radio Value="@Agree.No" Label="No" />
+            </RadioGroup>
+            <pre>
+                @_agreeAnswer
+            </pre>
+        </section>
 
         <h3>Vertical</h3>
         <section class="p-7 rounded-5 shadow-3">
@@ -53,6 +64,13 @@
 </div>
 
 @code{
+    Agree _agreeAnswer = Agree.No;
     string _agreeGroup = "";
     string _fruitGroup = "";
+
+    private enum Agree
+    {
+        Yes,
+        No
+    }
 }
