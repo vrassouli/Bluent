@@ -181,10 +181,19 @@
             <TextField @bind-Value="_textareaField" Rows="3" />
         </section>
 
+        <h3>OTP Field</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <OtpField @bind-Value="_otpToken" />
+            <pre>OTP: @_otpToken</pre>
+        </section>
+
     </div>
 </div>
 
 @code {
+    [Display(Name = "Example text field")]
+    private string? _otpToken;
+
     [Display(Name = "Example text field")]
     private string? _textField;
 
