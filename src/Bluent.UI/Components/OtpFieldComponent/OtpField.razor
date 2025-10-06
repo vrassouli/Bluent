@@ -60,6 +60,14 @@
             hidden.dispatchEvent(new Event(evt, { bubbles: true }));
         };
 
+        const isRtl = () => {
+            if (host.closest('[dir="rtl"]')) return true;
+            const dirAttr = host.getAttribute('dir') || document.documentElement.getAttribute('dir') || document.dir;
+            if (dirAttr && dirAttr.toLowerCase() === 'rtl') return true;
+            try { if (getComputedStyle(host).direction === 'rtl') return true; } catch {}
+            return false;
+        };
+        
         function distributeFrom(startIdx, s) {
             let p = 0;
             for (let i = startIdx; i < cells.length && p < s.length; i++, p++) cells[i].value = s[p];
@@ -150,7 +158,8 @@
             const t = e.target;
             if (t instanceof HTMLInputElement) t.select();
         }
-
+        
+        
         cells.forEach(inp => {
             inp.addEventListener('input', onInput);
             inp.addEventListener('keydown', onKeyDown);
