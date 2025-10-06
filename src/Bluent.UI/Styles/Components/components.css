@@ -2438,12 +2438,13 @@
 .bui-otp-field {
   border: 0;
   background-color: transparent;
+  direction: ltr;
 }
 .bui-otp-field > .otp {
   display: flex;
   gap: 0.5rem;
-  justify-content: start;
   flex-wrap: nowrap;
+  justify-content: center;
 }
 .bui-otp-field > .otp > .otp-cell {
   --fui-text-field-line-height: var(--lineHeightBase300);

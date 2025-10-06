@@ -1,12 +1,13 @@
 .bui-otp-field {
   border: 0;
   background-color: transparent;
+  direction: ltr;
 
   > .otp {
     display: flex;
     gap: .5rem;
-    justify-content: start;
     flex-wrap: nowrap;
+    justify-content: center;
 
     > .otp-cell {
       --fui-text-field-line-height: var(--lineHeightBase300);
@@ -32,7 +33,7 @@
       width: 3ch;
       height: 3rem;
       font-size: 1.5rem;
-      
+
       > .otp-cell-input {
         padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);
         align-self: stretch;
