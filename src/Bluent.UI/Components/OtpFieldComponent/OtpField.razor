@@ -6,7 +6,7 @@
          class="otp @Class"
          data-otp
          data-otp-id="@($"otp{GetInputId()}")"
-         data-otp-hidden="@GetInputId()"
+         data-otp-hidden="hidden@(GetInputId())"
          data-otp-length="@Length"
          data-otp-blazor-event="@BindValueEvent"
          role="group"
@@ -28,7 +28,7 @@
     </div>
     <input type="hidden"
            @ref=Element
-           id="@GetInputId()"
+           id="hidden@(GetInputId())"
            name="@NameAttributeValue"
            @bind-value="CurrentValueAsString" 
            @bind-value:event="@BindValueEvent"/>
