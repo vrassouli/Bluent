@@ -1,13 +1,13 @@
 {
   "mainAssemblyName": "Bluent.UI.Demo",
   "resources": {
-    "hash": "sha256-rxRn7esulClbGGHF0in7E52WR2Kyat5Tlhi1IQySbuU=",
+    "hash": "sha256-fYZHSboYiwyWaWHUwdpA2Y2Srz+N7I+vGbCoFfI2rwU=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "Humanizer.oqup3v7t3k.wasm": "Humanizer.wasm",
-      "Microsoft.AspNetCore.Components.ovic5b85fu.wasm": "Microsoft.AspNetCore.Components.wasm",
-      "Microsoft.AspNetCore.Components.Forms.loy3vowy6x.wasm": "Microsoft.AspNetCore.Components.Forms.wasm",
-      "Microsoft.AspNetCore.Components.Web.s7813jhlp2.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
+      "Microsoft.AspNetCore.Components.6ajq4dftyy.wasm": "Microsoft.AspNetCore.Components.wasm",
+      "Microsoft.AspNetCore.Components.Forms.p3pqyz9my9.wasm": "Microsoft.AspNetCore.Components.Forms.wasm",
+      "Microsoft.AspNetCore.Components.Web.qbpplyrzy5.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.xos43cv7si.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
       "Microsoft.AspNetCore.WebUtilities.7ytoc97u5g.wasm": "Microsoft.AspNetCore.WebUtilities.wasm",
       "Microsoft.Extensions.Configuration.cyz6aj3end.wasm": "Microsoft.Extensions.Configuration.wasm",
@@ -45,7 +45,7 @@
       "System.IO.Pipelines.mslxeuynkl.wasm": "System.IO.Pipelines.wasm",
       "System.Linq.Expressions.5v1q6lkwhy.wasm": "System.Linq.Expressions.wasm",
       "System.Linq.Queryable.xgw5ew1sbr.wasm": "System.Linq.Queryable.wasm",
-      "System.Linq.d8xuiggnpa.wasm": "System.Linq.wasm",
+      "System.Linq.qf5bxhgu7i.wasm": "System.Linq.wasm",
       "System.Memory.6vh06ia9tj.wasm": "System.Memory.wasm",
       "System.Net.Http.p8r955qetx.wasm": "System.Net.Http.wasm",
       "System.Net.Primitives.0h7y3g6nqf.wasm": "System.Net.Primitives.wasm",
@@ -74,13 +74,14 @@
       "System.Xml.ReaderWriter.bhdd2h44g4.wasm": "System.Xml.ReaderWriter.wasm",
       "System.Xml.XDocument.7lwqr4899m.wasm": "System.Xml.XDocument.wasm",
       "System.m0fu6d0eya.wasm": "System.wasm",
-      "System.Private.CoreLib.o0sovttbq8.wasm": "System.Private.CoreLib.wasm",
-      "Bluent.Core.a2j98ddn8t.wasm": "Bluent.Core.wasm",
-      "Bluent.UI.Charts.yn1so8yxry.wasm": "Bluent.UI.Charts.wasm",
-      "Bluent.UI.Diagrams.yzog9pmflt.wasm": "Bluent.UI.Diagrams.wasm",
-      "Bluent.UI.wn59x5ok0m.wasm": "Bluent.UI.wasm",
-      "Bluent.UI.Demo.gvc7v526ui.wasm": "Bluent.UI.Demo.wasm",
-      "Bluent.UI.resources.rz1gj0ytnt.wasm": "Bluent.UI.resources.wasm",
+      "System.Private.CoreLib.scnlzurw4o.wasm": "System.Private.CoreLib.wasm",
+      "Bluent.Core.91k9lrdjlm.wasm": "Bluent.Core.wasm",
+      "Bluent.UI.Charts.vxha1xwjmu.wasm": "Bluent.UI.Charts.wasm",
+      "Bluent.UI.Demo.Pages.wug7e382tj.wasm": "Bluent.UI.Demo.Pages.wasm",
+      "Bluent.UI.Diagrams.r9vhinrazo.wasm": "Bluent.UI.Diagrams.wasm",
+      "Bluent.UI.2x1cmkqi17.wasm": "Bluent.UI.wasm",
+      "Bluent.UI.Demo.mxxz49nzds.wasm": "Bluent.UI.Demo.wasm",
+      "Bluent.UI.resources.ilq5h5485t.wasm": "Bluent.UI.resources.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.9ih887ebfz.js": "dotnet.native.js",
       "dotnet.native.21mns4qp4i.wasm": "dotnet.native.wasm",
@@ -105,14 +106,14 @@
     },
     "coreAssembly": {
       "System.Runtime.InteropServices.JavaScript.f7txb1es0b.wasm": "sha256-5X6FWiZE4NSx4s9iNjfVim2lWQpcbVIsorx1vB6lyno=",
-      "System.Private.CoreLib.o0sovttbq8.wasm": "sha256-2EacaRRzs6lZF1MOpQvr+9+bTHhXFqMrpmQ/Csu7MHE="
+      "System.Private.CoreLib.scnlzurw4o.wasm": "sha256-hKs99O9ZJSi7yzYFsDkJVo4Zh50av+D/2povKOtOsnQ="
     },
     "assembly": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
       "Humanizer.oqup3v7t3k.wasm": "sha256-4NbSboZzzP9nikRtXapUZNzOyITt7ht9TNqCIQHr5OE=",
-      "Microsoft.AspNetCore.Components.ovic5b85fu.wasm": "sha256-lNtEdd0dbME99p+WtncUZxkfDAa05wpsDqooRtIGBYQ=",
-      "Microsoft.AspNetCore.Components.Forms.loy3vowy6x.wasm": "sha256-q87StXVhXZTXgn7L+xetrNfpw5eZe3wgyiuR24OoxZs=",
-      "Microsoft.AspNetCore.Components.Web.s7813jhlp2.wasm": "sha256-2D40jmNyr3VHIAx5/J+LDBltm4LtnOSIehnWOQuMQdM=",
+      "Microsoft.AspNetCore.Components.6ajq4dftyy.wasm": "sha256-Huw8EV2IcNQxa52bf+BP9q4gCGZYc62Yn06v2qWhXok=",
+      "Microsoft.AspNetCore.Components.Forms.p3pqyz9my9.wasm": "sha256-ld+F3xSm6s96bwAD7ZgnWZf9hecCfvF4Uz9P7UT8uPM=",
+      "Microsoft.AspNetCore.Components.Web.qbpplyrzy5.wasm": "sha256-drm1z8TS4yItQg3biR5SbEIIuHQv5oNJ39fWH2RVZLE=",
       "Microsoft.AspNetCore.Components.WebAssembly.xos43cv7si.wasm": "sha256-Qa06ZEZYNy5H3IcJKiit0xORvL00i0J6oaInh6FvuJs=",
       "Microsoft.AspNetCore.WebUtilities.7ytoc97u5g.wasm": "sha256-YRJxA1ObR4rnLF0A8OuwcgnrPAAya1ZZyxLI9OJFY1E=",
       "Microsoft.Extensions.Configuration.cyz6aj3end.wasm": "sha256-fN4AyqImDQ+h3H7tFeF4ZSkjIHJ7qWgbKL217x6P53s=",
@@ -150,7 +151,7 @@
       "System.IO.Pipelines.mslxeuynkl.wasm": "sha256-ltKNH6AL0soduarPfzy6T90WE3rPgr3GhVxWtFvIglk=",
       "System.Linq.Expressions.5v1q6lkwhy.wasm": "sha256-D/r15BN2oXzeYXJjhtqk0wOy0oPJ2/rpkhDZrYUFoBA=",
       "System.Linq.Queryable.xgw5ew1sbr.wasm": "sha256-X27LavQdxirD/YjmMcavP29eCnZB3dOF6H2G0hkvWng=",
-      "System.Linq.d8xuiggnpa.wasm": "sha256-Q6qop5F+4+PLpoNMuvThH/5vO9f6iwbJqgUXJI4CwvU=",
+      "System.Linq.qf5bxhgu7i.wasm": "sha256-RhVmWcbY1YwPEo3GfJMzM1cH+W37esSRqveCo66ixCg=",
       "System.Memory.6vh06ia9tj.wasm": "sha256-cogZ93o17jQq3v9gfbCiEi3NkOEbeJgaWUnNTLgMIfA=",
       "System.Net.Http.p8r955qetx.wasm": "sha256-15RTHLUfFd/qayIDH03nKYlf/plExVAS6I39rmX0L5U=",
       "System.Net.Primitives.0h7y3g6nqf.wasm": "sha256-rGIYM/g7mFHB4tUKXxzKAMTdeOGYJ8NmnYQ66r9vFwE=",
@@ -178,15 +179,16 @@
       "System.Xml.ReaderWriter.bhdd2h44g4.wasm": "sha256-f+s2LOglbzt4y/VPOYFNUZjAqTMgjyhtpxIRijzEyL8=",
       "System.Xml.XDocument.7lwqr4899m.wasm": "sha256-e3L7s5yS/QYP10aPEIzvCa+38xNs3qtSsbLAJgQ4nfw=",
       "System.m0fu6d0eya.wasm": "sha256-hkGLo/MuT/FJ0Xf4XUL0D2VA4dZV532GHNB1JicxLko=",
-      "Bluent.Core.a2j98ddn8t.wasm": "sha256-wrRV6i4fCkEpizC+6+EtjL9wWY/B4S58ZylAK/wmuq0=",
-      "Bluent.UI.Charts.yn1so8yxry.wasm": "sha256-bo+pSnEUUzFc0eRTk8Rloe2EH6HGzSJ9g6CLMthH5n8=",
-      "Bluent.UI.Diagrams.yzog9pmflt.wasm": "sha256-clAJkatf5snXyOAONhOVpLBT2li1FEy6jvx6ajyPA3g=",
-      "Bluent.UI.wn59x5ok0m.wasm": "sha256-7PnX/E++Rs50Ys0l7ldDnuKLhUHEMPJXMRdR5tMNrWY=",
-      "Bluent.UI.Demo.gvc7v526ui.wasm": "sha256-7I9Oa976Io8JNTauu0h/24zOSt7+4uun7UeG1zh30Ag="
+      "Bluent.Core.91k9lrdjlm.wasm": "sha256-UyFwkcMAc3efsioU2H5s7E23XlURObn44Xb8VwwMmqs=",
+      "Bluent.UI.Charts.vxha1xwjmu.wasm": "sha256-rQFhbL6LNkjzDkz/2u251XSoS2iR/axVQoQFBdD6BB4=",
+      "Bluent.UI.Demo.Pages.wug7e382tj.wasm": "sha256-6PQ1ecmOofaox/ViSgT/NoDdiClIbuiihcxjyUFkzuE=",
+      "Bluent.UI.Diagrams.r9vhinrazo.wasm": "sha256-j/bWdIpYZ45V69pxXghdpmzq/eRDTi77yDGQGV+odsU=",
+      "Bluent.UI.2x1cmkqi17.wasm": "sha256-tlrG+IJ7MCJ3ivOSOgiG924ucD57VM2L37CnZOSJ1g8=",
+      "Bluent.UI.Demo.mxxz49nzds.wasm": "sha256-dvE1MRlquVuGWmb96LcZZTZGlXnu9sfZmwqh94yKts8="
     },
     "satelliteResources": {
       "fa-IR": {
-        "Bluent.UI.resources.rz1gj0ytnt.wasm": "sha256-6T4lSpHJnC3+wqUECdKJNPi/6T12uwx3oAQ0MsRg320="
+        "Bluent.UI.resources.ilq5h5485t.wasm": "sha256-5jpUDicxYLMW1GYALnAQzdAU1QNsTd+lFERFqzqXGR8="
       }
     }
   },
