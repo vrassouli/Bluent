@@ -12,6 +12,7 @@ public partial class OtpField : IAsyncDisposable
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Parameter] public int Length { get; set; } = 4;
     [Parameter] public bool Password { get; set; }
+    [Parameter] public bool AutoSubmit { get; set; }
     private string[] Digits =>
         (CurrentValue ?? string.Empty).Where(char.IsDigit)
         .Take(Math.Max(1, Length))

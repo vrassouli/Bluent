@@ -9,6 +9,7 @@
          data-otp-hidden="hidden@(Id)"
          data-otp-length="@Length"
          data-otp-blazor-event="@BindValueEvent"
+         data-otp-auto-submit="@AutoSubmit.ToString().ToLower()"
          role="group"
          aria-label="Verification code">
         @for (var i = 0; i < Math.Max(1, Length); i++)
