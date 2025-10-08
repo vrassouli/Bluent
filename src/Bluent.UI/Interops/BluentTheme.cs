@@ -30,15 +30,15 @@ internal class BluentTheme : IBluentTheme, IAsyncDisposable
         return await module.InvokeAsync<string>("Theme.getDir");
     }
 
-    public async void SetDirection(string dir)
+    public async Task SetDirectionAsync(string dir)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("Theme.setDir", dir);
     }
 
-    public void SetLtrDirection() => SetDirection("ltr");
+    public Task SetLtrDirectionAsync() => SetDirectionAsync("ltr");
 
-    public void SetRtlDirection() => SetDirection("rtl");
+    public Task SetRtlDirectionAsync() => SetDirectionAsync("rtl");
 
 
     public async Task<string> GetThemeModeAsync()
@@ -47,25 +47,24 @@ internal class BluentTheme : IBluentTheme, IAsyncDisposable
         return await module.InvokeAsync<string>("Theme.getThemeMode");
     }
 
-    public async void SetThemeMode(string mode)
+    public async Task SetThemeModeAsync(string mode)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("Theme.setThemeMode", mode);
     }
 
-    public void SetDarkThemeMode() => SetThemeMode("dark");
+    public Task SetDarkThemeModeAsync() => SetThemeModeAsync("dark");
 
-    public void SetLightThemeMode() => SetThemeMode("light");
+    public Task SetLightThemeModeAsync() => SetThemeModeAsync("light");
 
     private async Task<IJSObjectReference> GetModuleAsync()
     {
-        if (_module == null)
-            _module = await _moduleTask.Value;
+        _module ??= await _moduleTask.Value;
 
         return _module;
     }
 
-    public async void SetTheme(string theme)
+    public async Task SetThemeAsync(string theme)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("Theme.setTheme", theme);

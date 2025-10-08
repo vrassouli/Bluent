@@ -29,7 +29,8 @@ internal class AudioCaptureInterop : IAsyncDisposable
         _handler = handler;
         _id = id;
         _format = format;
-        _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI/bluent.ui.js").AsTask());
+        _moduleTask = new(() =>
+            jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI/bluent.ui.js").AsTask());
     }
 
     public async ValueTask DisposeAsync()
@@ -82,7 +83,8 @@ internal class AudioCaptureInterop : IAsyncDisposable
             _module = await _moduleTask.Value;
 
         if (_audioCaptureReference == null)
-            _audioCaptureReference = await _module.InvokeAsync<IJSObjectReference>("AudioCapture.create", HandlerReference, _id, _format);
+            _audioCaptureReference =
+                await _module.InvokeAsync<IJSObjectReference>("AudioCapture.create", HandlerReference, _id, _format);
 
         return _audioCaptureReference;
     }
