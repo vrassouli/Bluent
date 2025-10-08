@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Bluent.UI.Charts\Bluent.UI.Charts.csproj" />
+        <ProjectReference Include="..\Bluent.UI.Diagrams\Bluent.UI.Diagrams.csproj" />
+        <ProjectReference Include="..\Bluent.UI\Bluent.UI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Layout\EmptyLayout.razor" />
+      <AdditionalFiles Include="Layout\Header.razor" />
+      <AdditionalFiles Include="Layout\MainLayout.razor" />
+      <AdditionalFiles Include="Layout\NavMenu.razor" />
+      <AdditionalFiles Include="Layout\Side.razor" />
+      <AdditionalFiles Include="Pages\Components\Accordions.razor" />
+      <AdditionalFiles Include="Pages\Components\ActionCards.razor" />
+      <AdditionalFiles Include="Pages\Components\AudioCaptures.razor" />
+      <AdditionalFiles Include="Pages\Components\Avatars.razor" />
+      <AdditionalFiles Include="Pages\Components\Badges.razor" />
+      <AdditionalFiles Include="Pages\Components\Breadcrumbs.razor" />
+      <AdditionalFiles Include="Pages\Components\Buttons.razor" />
+      <AdditionalFiles Include="Pages\Components\Calendars.razor" />
+      <AdditionalFiles Include="Pages\Components\Cards.razor" />
+      <AdditionalFiles Include="Pages\Components\Charts.razor" />
+      <AdditionalFiles Include="Pages\Components\Checkboxes.razor" />
+      <AdditionalFiles Include="Pages\Components\DataGrids.razor" />
+      <AdditionalFiles Include="Pages\Components\DataPagers.razor" />
+      <AdditionalFiles Include="Pages\Components\Diagrams.razor" />
+      <AdditionalFiles Include="Pages\Components\DialogComponents\SampleDialogContent.razor" />
+      <AdditionalFiles Include="Pages\Components\Dialogs.razor" />
+      <AdditionalFiles Include="Pages\Components\DrawerComponents\SampleContent.razor" />
+      <AdditionalFiles Include="Pages\Components\Drawers.razor" />
+      <AdditionalFiles Include="Pages\Components\DrawingCanvasComponents\RectSelectionOptions.razor" />
+      <AdditionalFiles Include="Pages\Components\DrawingCanvases.razor" />
+      <AdditionalFiles Include="Pages\Components\Dropdowns.razor" />
+      <AdditionalFiles Include="Pages\Components\Fields.razor" />
+      <AdditionalFiles Include="Pages\Components\FileSelects.razor" />
+      <AdditionalFiles Include="Pages\Components\Icons.razor" />
+      <AdditionalFiles Include="Pages\Components\Labels.razor" />
+      <AdditionalFiles Include="Pages\Components\Links.razor" />
+      <AdditionalFiles Include="Pages\Components\Lists.razor" />
+      <AdditionalFiles Include="Pages\Components\Menus.razor" />
+      <AdditionalFiles Include="Pages\Components\MessageBars.razor" />
+      <AdditionalFiles Include="Pages\Components\PopoverComponents\ContentSwitch.razor" />
+      <AdditionalFiles Include="Pages\Components\Popovers.razor" />
+      <AdditionalFiles Include="Pages\Components\ProgressBars.razor" />
+      <AdditionalFiles Include="Pages\Components\Radios.razor" />
+      <AdditionalFiles Include="Pages\Components\Skeletons.razor" />
+      <AdditionalFiles Include="Pages\Components\Spinners.razor" />
+      <AdditionalFiles Include="Pages\Components\Stacks.razor" />
+      <AdditionalFiles Include="Pages\Components\SubComponents\TreeViewItemRenderer.razor" />
+      <AdditionalFiles Include="Pages\Components\TabLists.razor" />
+      <AdditionalFiles Include="Pages\Components\Tags.razor" />
+      <AdditionalFiles Include="Pages\Components\Toasts.razor" />
+      <AdditionalFiles Include="Pages\Components\ToastsComponents\CustomToastComponent.razor" />
+      <AdditionalFiles Include="Pages\Components\Toolbars.razor" />
+      <AdditionalFiles Include="Pages\Components\Tooltips.razor" />
+      <AdditionalFiles Include="Pages\Components\Trees.razor" />
+      <AdditionalFiles Include="Pages\Components\Wizards.razor" />
+      <AdditionalFiles Include="Pages\css-classes\Radius.razor" />
+      <AdditionalFiles Include="Pages\Home.razor" />
+      <AdditionalFiles Include="Pages\Test.razor" />
+    </ItemGroup>
+
+</Project>

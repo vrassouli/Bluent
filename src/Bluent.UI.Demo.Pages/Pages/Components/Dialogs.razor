@@ -1,0 +1,111 @@
+﻿@page "/components/dialogs"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Demo.Pages.Pages.Components.DialogComponents
+@using Bluent.UI.Services.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Dialogs</h1>
+
+        <h3>Dialogs</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Show default dialog" OnClick="DisplayDefaultDialog" />
+        </section>
+
+        <h3>Custom Dialog</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Show custom dialog" OnClick="DisplayCustomDialog" />
+        </section>
+
+        <h3>Options</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_isModal" Label="Modal dialog" Class="d-flex" />
+            <Checkbox @bind-Value="_showCloseButton" Label="Show close button" Class="d-flex" />
+            <Button Text="Show default dialog" OnClick="DisplayOptionalDialog" />
+        </section>
+
+        <h3>Actions</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Show dialog with actions" OnClick="DisplayDialogWithActions" />
+        </section>
+
+        <h3>Sizes</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Small dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.Small); }" />
+            <Button Text="Medium dialog (default)" OnClick="()=>{ DisplaySizedDialog(DialogSize.Medium); }" />
+            <Button Text="Large dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.Large); }" />
+            <Button Text="Full-width dialog" OnClick="()=>{ DisplaySizedDialog(DialogSize.FullWidth); }" />
+        </section>
+
+        <h3>Message boxes</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Default" OnClick="OnDefaultMessageBox" />
+            <Button Text="Yes/No" OnClick="()=>OnMessageBoxWithAction(MessageBoxButton.Yes | MessageBoxButton.No)" />
+            <Button Text="Yes/Cancel/Abord" OnClick="()=>OnMessageBoxWithAction(MessageBoxButton.Yes | MessageBoxButton.Cancel | MessageBoxButton.Abort)" />
+            <Button Text="Yes/Cancel/Abord with Abort as Primary" OnClick="()=>OnMessageBoxWithAction(MessageBoxButton.Yes | MessageBoxButton.Cancel | MessageBoxButton.Abort, MessageBoxButton.Abort)" />
+        </section>
+    </div>
+</div>
+
+@code {
+    private bool _isModal = true;
+    private bool _showCloseButton = true;
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
+
+    private void DisplayDefaultDialog()
+    {
+        DialogService.ShowAsync<SampleDialogContent>("Dialog title");
+    }
+
+    private void DisplayCustomDialog()
+    {
+        DialogService.ShowAsync<SampleDialogContent>();
+    }
+
+    private void DisplayOptionalDialog()
+    {
+        DialogService.ShowAsync<SampleDialogContent>("Dialog title",
+            null,
+            config => config.SetModal(_isModal)
+                            .SetCloseButton(_showCloseButton));
+    }
+
+    private async Task DisplayDialogWithActions()
+    {
+        var result = await DialogService.ShowAsync<SampleDialogContent>("Dialog title",
+                                null,
+                                config => config.SetModal(_isModal)
+                                    .SetCloseButton(_showCloseButton)
+                                    .AddAction("Retry", null, false, null, (dialog, result) => { _ = ToastService.ShowAsync("Trying again...", c => c.SetIntend(ToastIntend.Info)); })
+                                    .AddAction("No", false, false)
+                                    .AddAction("Yes", true, true));
+
+        if (result == null)
+            _ = ToastService.ShowAsync("Dialog closed!", c => c.SetIntend(ToastIntend.Info));
+        else if (result == true)
+            _ = ToastService.ShowAsync("You selected Yes", c => c.SetIntend(ToastIntend.Success));
+        if (result == false)
+            _ = ToastService.ShowAsync("You selected No", c => c.SetIntend(ToastIntend.Warning));
+    }
+
+    private void DisplaySizedDialog(DialogSize size)
+    {
+        DialogService.ShowAsync<SampleDialogContent>("Dialog title", null, config => config.SetSize(size));
+    }
+
+    private async Task OnDefaultMessageBox()
+    {
+        await DialogService.ShowMessageBoxAsync("Message title", "This is a message box with default 'Ok' button.");
+    }
+
+    private async Task OnMessageBoxWithAction(MessageBoxButton buttons, MessageBoxButton? defaultButton = null)
+    {
+        var result = await DialogService.ShowMessageBoxAsync("Message title",
+            "This is a message box with some action.",
+            buttons,
+            defaultButton);
+
+        _ = ToastService.ShowAsync("Message box closed.", c => c.SetMessage($"You have selected '{result}' button."));
+    }
+}

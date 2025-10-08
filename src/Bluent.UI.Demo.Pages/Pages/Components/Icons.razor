@@ -1,0 +1,30 @@
+﻿@page "/components/icons"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Icons</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Icons</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <h4>Icon class</h4>
+            <div class="mb-3">
+                <Label Text="Css Class name" />
+                <TextField @bind-Value="@_iconClass" Class="w-100" />
+            </div>
+            <Icon Content="@_iconClass" Class="fs-6" />
+
+            <h4>Svg</h4>
+            <textarea class="w-100" rows="5" @bind=_wordSvg />
+            <Icon Content="@_wordSvg" Class="fs-6" Style="width: 24px;" />
+
+            <h4>Svg content</h4>
+            <textarea class="w-100" rows="5" @bind=_outlookSvgContent />
+            <Icon Content="@Icon.FromContent(_outlookSvgContent).Viewbox(24).Size(54)" Class="fs-6" />
+
+            <h4>Image path</h4>
+            <Icon Content="/assets/icons/powerpoint.svg" Class="fs-6" Style="width: 24px;" />
+        </section>
+    </div>
+</div>

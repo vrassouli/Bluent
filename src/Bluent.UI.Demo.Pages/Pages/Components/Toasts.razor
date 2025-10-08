@@ -1,0 +1,90 @@
+﻿@page "/components/toasts"
+@namespace Bluent.UI.Demo.Pages.Components
+
+@using Bluent.UI.Demo.Pages.Pages.Components.ToastsComponents
+@using Bluent.UI.Services.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Toast</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Make toast" OnClick="MakeDefaultToast" />
+        </section>
+
+        <h3>Options</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="mb-2">
+                <Label Text="Title" Class="d-flex" />
+                <TextField @bind-Value="_title" />
+            </div>
+            <div class="mb-2">
+                <Label Text="Message" Class="d-flex" />
+                <TextField @bind-Value="_message" />
+            </div>
+            <div class="mb-2">
+                <Label Text="Dismiss" Class="d-flex" />
+                <TextField @bind-Value="_dismiss" />
+            </div>
+            <div class="mb-2">
+                <Label Text="Duration" Class="d-flex" />
+                <NumericField @bind-Value="_duration" />
+            </div>
+            <div class="mb-2">
+                <Label Text="Placement" Class="d-flex" />
+                <SelectField @bind-Value="_placement">
+                    @foreach (var placement in Enum.GetValues<ToastPlacement>())
+                    {
+                        <option value="@placement">@placement.ToString()</option>
+                    }
+                </SelectField>
+            </div>
+            <div class="mb-2">
+                <Label Text="Intend" Class="d-flex" />
+                <SelectField @bind-Value="_intend">
+                    @foreach (var intend in Enum.GetValues<ToastIntend>())
+                    {
+                        <option value="@intend">@intend.ToString()</option>
+                    }
+                </SelectField>
+            </div>
+            <Button Text="Make toast" OnClick="MakeDefaultToast" />
+        </section>
+
+        <h3>Custom</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Make custom toast" OnClick="MakeCustomToast" />
+        </section>
+    </div>
+</div>
+
+@code {
+    private string _title = "Title";
+    private string _message = "Message for toast goes here...";
+    private string? _dismiss;
+    private int? _duration = 2500;
+    private ToastPlacement _placement = ToastPlacement.BottomEnd;
+    private ToastIntend _intend = ToastIntend.Success;
+
+    [Inject] private IToastService ToastService { get; set; } = default!;
+
+    private void MakeDefaultToast()
+    {
+        ToastService.ShowAsync(_title, c => c.SetMessage(_message)
+                                            .SetIntend(_intend)
+                                            .SetDismissTitle(_dismiss)
+                                            .SetDuration(_duration)
+                                            .SetPlace(_placement));
+    }
+
+    private async Task MakeCustomToast()
+    {
+        var result = await ToastService.ShowAsync<CustomToastComponent>(new ToastConfiguration(10000));
+
+        if (result == true)
+        {
+            _ = ToastService.ShowAsync("Confirmed", config: c => c.SetMessage("You confirmed the action!").SetIntend(ToastIntend.Success).SetPlace(_placement));
+        }
+    }
+}

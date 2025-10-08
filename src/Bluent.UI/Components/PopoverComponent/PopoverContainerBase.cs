@@ -12,7 +12,7 @@ namespace Bluent.UI.Components.PopoverComponent;
 public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEventHandler, IAsyncDisposable
     where TPopoverService : IPopoverService
 {
-    protected List<PopoverContext> Contexts { get; } = new();
+    protected List<PopoverContext> Contexts { get; } = [];
     private PopoverInterop? _interop;
 
     [Inject] private TPopoverService Service { get; set; } = default!;
@@ -22,7 +22,7 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     public void RenderSurface(PopoverSettings settings)
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == settings.TriggerId);
-        if (context != null && !context.Config.Visible)
+        if (context is { Config.Visible: false })
         {
             context.Config.Visible = true;
 
@@ -33,10 +33,10 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     [JSInvokable]
     public void HideSurface(PopoverSettings settings)
     {
-        var contextx = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == settings.TriggerId);
-        if (contextx != null && contextx.Config.Visible)
+        var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == settings.TriggerId);
+        if (context is { Config.Visible: true })
         {
-            contextx.Config.Visible = false;
+            context.Config.Visible = false;
 
             StateHasChanged();
         }

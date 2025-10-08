@@ -1,0 +1,45 @@
+﻿@page "/components/audio-captures"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Audio capture</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Audio capture</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <AudioCapture Format="audio/ogg; codecs=opus"
+                          NotSupported="OnNotSupported"
+                          NotAvailable="OnNotAvailable"
+                          CaptureStarted="OnCaptureStarted"
+                          CaptureEnded="OnCaptureEnded" />
+            <div>
+                @_message
+            </div>
+        </section>
+    </div>
+</div>
+
+@code {
+    string? _message;
+
+    private void OnNotSupported()
+    {
+        _message = "Audio capture is not supported by your browser.";
+    }
+
+    private void OnNotAvailable()
+    {
+        _message = "Audio capture is not available right now.";
+    }
+
+    private void OnCaptureStarted()
+    {
+        _message = "Recording...";
+    }
+
+    private void OnCaptureEnded()
+    {
+        _message = null;
+    }
+}

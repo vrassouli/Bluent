@@ -4,6 +4,8 @@ export class OtpField {
     private cells: HTMLInputElement[] = [];
     private length: number = 4;
     private initialized = false;
+    private autoSubmit = false; // when true, submit enclosing form once all digits are entered
+    private autoSubmitTriggered = false; // guard against duplicate submits
 
     /** Keep bound handlers so we could support a future dispose() */
     private onInputHandler = (e: Event) => this.onInput(e);
@@ -27,6 +29,8 @@ export class OtpField {
 
         this.host = host;
         this.length = Math.max(1, parseInt(host.getAttribute('data-otp-length') || '4', 10));
+    const autoAttr = host.getAttribute('data-otp-auto-submit');
+    this.autoSubmit = (autoAttr || '').toLowerCase() === 'true';
 
         const hiddenId = host.getAttribute('data-otp-hidden');
         this.hiddenInput = hiddenId ? document.getElementById(hiddenId) as HTMLInputElement | null : null;
@@ -66,12 +70,35 @@ export class OtpField {
 
     private setHidden(): void {
         if (!this.hiddenInput) return;
-        this.hiddenInput.value = this.joinValue();
+        const joined = this.joinValue();
+        this.hiddenInput.value = joined;
         const host = this.host;
         if (!host) return;
         const raw = host.getAttribute('data-otp-blazor-event') || 'onchange';
         const evtName = raw.startsWith('on') ? raw.slice(2) : raw; // oninput -> input
         this.hiddenInput.dispatchEvent(new Event(evtName, { bubbles: true }));
+
+        // Auto submit logic (works for plain HTML forms & Blazor EditForm)
+        if (this.autoSubmit) {
+            if (joined.length === this.length) {
+                if (!this.autoSubmitTriggered) {
+                    this.autoSubmitTriggered = true; // set early to avoid double triggers
+                    const form = this.hiddenInput.form || host.closest('form');
+                    if (form) {
+                        // Defer to allow any pending model binding events to process first
+                        setTimeout(() => {
+                            try {
+                                // Prefer requestSubmit to fire submit event / validation
+                                (form as any).requestSubmit ? (form as any).requestSubmit() : form.submit();
+                            } catch { /* swallow */ }
+                        }, 0);
+                    }
+                }
+            } else {
+                // Reset guard if user edits back to incomplete state
+                this.autoSubmitTriggered = false;
+            }
+        }
     }
 
     /** Replicates distributeFrom logic from script */
