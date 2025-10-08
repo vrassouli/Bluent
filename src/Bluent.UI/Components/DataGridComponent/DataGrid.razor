@@ -25,13 +25,13 @@
             @if (_columns.Any(x => x.Freezed))
             {
                 <div class="rowgroup freezed">
-                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="_freezedVirtulizer" ItemsProvider="ItemsProvider" ItemSize="RowSize">
+                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="_freezedVirtualizer" ItemsProvider="ItemsProvider" ItemSize="RowSize">
                         <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => x.Freezed)" Item="context" />
                     </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
                 </div>
             }
             <div class="rowgroup main">
-                <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="_mainVirtulizer" ItemsProvider="ItemsProvider" ItemSize="RowSize">
+                <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="_mainVirtualizer" ItemsProvider="ItemsProvider" ItemSize="RowSize">
                     <Bluent.UI.Components.DataGridComponent.Internal.DataGridRow Columns="_columns.Where(x => !x.Freezed)" Item="context" />
                 </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
             </div>

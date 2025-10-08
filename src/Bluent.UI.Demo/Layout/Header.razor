@@ -40,8 +40,8 @@
     private bool _isDarkTheme;
     private bool _isRtl;
 
-    private List<ThemeColorModel> _colors = new List<ThemeColorModel>
-    {
+    private readonly List<ThemeColorModel> _colors =
+    [
         new ThemeColorModel("Default", "#0F6CBD"),
         new ThemeColorModel("Excel", "#107C41"),
         new ThemeColorModel("Office", "#d83b01"),
@@ -51,8 +51,8 @@
         new ThemeColorModel("PowerPoint", "#C43E1C"),
         new ThemeColorModel("Stream", "#BC1948"),
         new ThemeColorModel("Teams", "#5B5FC7"),
-        new ThemeColorModel("Word", "#185ABD"),
-    };
+        new ThemeColorModel("Word", "#185ABD")
+    ];
 
     [Inject] private IBluentTheme Theme { get; set; } = default!;
     [Inject] private ILocalStorageService LocalStorage { get; set; } = default!;
@@ -65,7 +65,7 @@
             if (value != _isDarkTheme)
             {
                 _isDarkTheme = value;
-                UpdateTheme();
+                _ = UpdateTheme();
             }
         }
     }
@@ -78,7 +78,7 @@
             if (value != _isRtl)
             {
                 _isRtl = value;
-                UpdateDirection();
+                _ = UpdateDirection();
             }
         }
     }
@@ -94,17 +94,17 @@
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    private async void UpdateTheme()
+    private async Task UpdateTheme()
     {
         var theme = IsDarkTheme ? DarkTheme : LightTheme;
-        Theme.SetThemeMode(theme);
+        await Theme.SetThemeModeAsync(theme);
         await LocalStorage.SetItemAsStringAsync("ThemeMode", theme);
     }
 
-    private async void UpdateDirection()
+    private async Task UpdateDirection()
     {
         var dir = IsRtl ? RtlDirection : LtrDirection;
-        Theme.SetDirection(dir);
+        await Theme.SetDirectionAsync(dir);
         await LocalStorage.SetItemAsStringAsync("ThemeDir", dir);
     }
 
@@ -115,14 +115,14 @@
         var themeName = await LocalStorage.GetItemAsStringAsync("ThemeName");
 
         IsDarkTheme = (themeMode == DarkTheme);
-        IsRtl = string.Compare(themeDir, RtlDirection, true) == 0;
+        IsRtl = String.Compare(themeDir, RtlDirection, StringComparison.OrdinalIgnoreCase) == 0;
         if (!string.IsNullOrEmpty(themeName))
             await SetTheme(themeName);
     }
 
     private async Task SetTheme(string themeName)
     {
-        Theme.SetTheme(themeName.ToLower());
+        await Theme.SetThemeAsync(themeName.ToLower());
         await LocalStorage.SetItemAsStringAsync("ThemeName", themeName.ToLower());
     }
 

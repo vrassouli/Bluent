@@ -2,11 +2,11 @@
 @inherits BluentFieldComponentBase<string?>
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    <div id="@($"otp{GetInputId()}")"
+    <div id="@($"otp{Id}")"
          class="otp @Class"
          data-otp
-         data-otp-id="@($"otp{GetInputId()}")"
-         data-otp-hidden="hidden@(GetInputId())"
+         data-otp-id="@($"otp{Id}")"
+         data-otp-hidden="hidden@(Id)"
          data-otp-length="@Length"
          data-otp-blazor-event="@BindValueEvent"
          role="group"
@@ -28,147 +28,8 @@
     </div>
     <input type="hidden"
            @ref=Element
-           id="hidden@(GetInputId())"
+           id="hidden@(Id)"
            name="@NameAttributeValue"
            @bind-value="CurrentValueAsString" 
            @bind-value:event="@BindValueEvent"/>
 </div>
-
-
-<script data-otp-for="@($"otp{GetInputId()}")">
-    (function () {
-        const script = document.currentScript;
-        const hostId = script && script.getAttribute('data-otp-for');
-        const host = hostId ? document.getElementById(hostId) : null;
-        if (!host || host.__otpInited) return;
-        host.__otpInited = true;
-
-        const hiddenId = host.getAttribute('data-otp-hidden');
-        const hidden = hiddenId ? document.getElementById(hiddenId) : null;
-        const len = Math.max(1, parseInt(host.getAttribute('data-otp-length') || '4', 10));
-        const cells = Array.from(host.querySelectorAll('.otp-cell-input'));
-        const onlyDigits = (s) => (s || '').replace(/\D+/g, '');
-        const focusIdx = (i) => { if (i >= 0 && i < cells.length) cells[i].focus(); };
-        const joinValue = () => cells.map(i => i.value).join('');
-        const setHidden = () => {
-            if (!hidden) return;
-            hidden.value = joinValue();
-
-            // Figure out which event Blazor is listening to
-            const raw = host.getAttribute('data-otp-blazor-event') || 'onchange';
-            const evt = raw.startsWith('on') ? raw.slice(2) : raw;  // "oninput" -> "input"
-            hidden.dispatchEvent(new Event(evt, { bubbles: true }));
-        };
-
-        const isRtl = () => {
-            if (host.closest('[dir="rtl"]')) return true;
-            const dirAttr = host.getAttribute('dir') || document.documentElement.getAttribute('dir') || document.dir;
-            if (dirAttr && dirAttr.toLowerCase() === 'rtl') return true;
-            try { if (getComputedStyle(host).direction === 'rtl') return true; } catch {}
-            return false;
-        };
-        
-        function distributeFrom(startIdx, s) {
-            let p = 0;
-            for (let i = startIdx; i < cells.length && p < s.length; i++, p++) cells[i].value = s[p];
-            for (let i = 0; i < startIdx && p < s.length; i++, p++) cells[i].value = s[p];
-            const firstEmpty = cells.findIndex(inp => inp.value === '');
-            focusIdx(firstEmpty === -1 ? cells.length - 1 : firstEmpty);
-            setHidden();
-        }
-
-        function onInput(e) {
-            const t = e.target;
-            if (!(t instanceof HTMLInputElement)) return;
-            const idx = parseInt(t.getAttribute('data-idx'), 10);
-            let v = onlyDigits(t.value);
-            if (v.length === 0) {
-                t.value = '';
-                setHidden();
-                return;
-            }
-            if (v.length > 1) {
-                distributeFrom(idx, v.slice(0, len));
-            } else {
-                t.value = v;
-                if (v && idx < cells.length - 1) focusIdx(idx + 1);   // <-- auto-advance works now
-                setHidden();
-            }
-        }
-
-        function onKeyDown(e) {
-            const t = e.target;
-            if (!(t instanceof HTMLInputElement)) return;
-            const idx = parseInt(t.getAttribute('data-idx'), 10);
-
-            // Allow common command shortcuts
-            if ((e.metaKey || e.ctrlKey) && (e.key === 'v' || e.key === 'V' || e.key === 'a' || e.key === 'c' || e.key === 'x')) {
-                return;
-            }
-
-            switch (e.key) {
-                case 'Backspace':
-                    if (t.value === '') {
-                        if (idx > 0) {
-                            const prev = cells[idx - 1];
-                            prev.value = '';
-                            prev.focus();
-                            e.preventDefault();
-                        }
-                    } else {
-                        t.value = '';
-                    }
-                    setHidden();
-                    break;
-
-                case 'Delete':
-                    t.value = '';
-                    setHidden();
-                    break;
-
-                case 'ArrowLeft':
-                    if (idx > 0) { focusIdx(idx - 1); e.preventDefault(); }
-                    break;
-
-                case 'ArrowRight':
-                    if (idx < cells.length - 1) { focusIdx(idx + 1); e.preventDefault(); }
-                    break;
-
-                default:
-                    if (e.key.length === 1 && !/\d/.test(e.key) && !e.metaKey && !e.ctrlKey && !e.altKey) {
-                        e.preventDefault();
-                    }
-                    break;
-            }
-        }
-
-        function onPaste(e) {
-            const t = e.target;
-            if (!(t instanceof HTMLInputElement)) return;
-            const idx = parseInt(t.getAttribute('data-idx'), 10);
-            const text = (e.clipboardData || window.clipboardData).getData('text') || '';
-            const digits = onlyDigits(text);
-            if (!digits) return;
-            e.preventDefault();
-            distributeFrom(idx, digits.slice(0, len));
-            setHidden();
-        }
-
-        function onFocus(e) {
-            const t = e.target;
-            if (t instanceof HTMLInputElement) t.select();
-        }
-        
-        
-        cells.forEach(inp => {
-            inp.addEventListener('input', onInput);
-            inp.addEventListener('keydown', onKeyDown);
-            inp.addEventListener('paste', onPaste);
-            inp.addEventListener('focus', onFocus);
-        });
-
-        setHidden();
-    })();
-    //# sourceURL=/components/InputOtp.js
-
-</script>
