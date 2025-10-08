@@ -1,0 +1,44 @@
+﻿@page "/components/calendars"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Interops.Abstractions
+@using System.ComponentModel.DataAnnotations
+@using System.Globalization
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Calendar</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Calendar @bind-SelectedDate="_nullableDateTime" />
+        </section>
+
+        <h3>Culture</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div>
+                <Label ForExpression="()=>_culture" Class="d-block" />
+                <TextField @bind-Value="_culture">
+                    <StartAddon>
+                        <i class="icon-ic_fluent_local_language_20_regular"></i>
+                    </StartAddon>
+                </TextField>
+            </div>
+            <Calendar @bind-SelectedDate="_nullableDateTime" Culture="Culture" />
+        </section>
+
+        <h3>Min/Max</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Calendar @bind-SelectedDate="_nullableDateTime" Min="DateTime.Today.AddDays(-6)" Max="DateTime.Today.AddDays(6)" />
+        </section>
+
+    </div>
+</div>
+
+@code {
+    private DateTime? _nullableDateTime;
+
+    [Display(Name = "Culture")]
+    private string? _culture = "fa-IR";
+
+    private CultureInfo Culture => new CultureInfo(string.IsNullOrEmpty(_culture) ? "en-US" : _culture);
+}

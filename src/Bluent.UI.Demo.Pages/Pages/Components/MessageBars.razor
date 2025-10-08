@@ -1,0 +1,126 @@
+﻿@page "/components/message-bars"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Message Bars</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Message Bars</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <MessageBar>
+                <div>
+                    <strong>Message Bars</strong>
+                    Message providing information to the user with actionable insights.
+                </div>
+            </MessageBar>
+        </section>
+
+        <h3>Dismissable</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <MessageBar Dismissable>
+                <div>
+                    <strong>Message Bars</strong>
+                    Message providing information to the user with actionable insights.
+                </div>
+            </MessageBar>
+        </section>
+
+        <h3>Actions</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <MessageBar Dismissable>
+                <ChildContent>
+                    <div>
+                        <strong>Message Bars</strong>
+                        Message providing information to the user with actionable insights.
+                    </div>
+                </ChildContent>
+                <Actions>
+                    <Button Text="Action 1" Size="ButtonSize.Small" />
+                    <Button Text="Action 2" Size="ButtonSize.Small" />
+                </Actions>
+            </MessageBar>
+        </section>
+
+        <h3>Multiline</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <MessageBar Dismissable Multiline>
+                <ChildContent>
+                    <div>
+                        <strong>Message Bars</strong>
+                        Message providing information to the user with actionable insights.
+                    </div>
+                </ChildContent>
+                <Actions>
+                    <Button Text="Action 1" Size="ButtonSize.Small" />
+                    <Button Text="Action 2" Size="ButtonSize.Small" />
+                </Actions>
+            </MessageBar>
+        </section>
+
+        <h3>Types</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <h4>Default</h4>
+            <MessageBar Dismissable Multiline>
+                <ChildContent>
+                    <div>
+                        <strong>Message Bars</strong>
+                        Message providing information to the user with actionable insights.
+                    </div>
+                </ChildContent>
+                <Actions>
+                    <Button Text="Action 1" Size="ButtonSize.Small" />
+                    <Button Text="Action 2" Size="ButtonSize.Small" />
+                </Actions>
+            </MessageBar>
+            <h4>Warning</h4>
+            <MessageBar Dismissable Multiline Type="MessageBarType.Warning">
+                <ChildContent>
+                    <div>
+                        <strong>Message Bars</strong>
+                        Message providing information to the user with actionable insights.
+                    </div>
+                </ChildContent>
+                <Actions>
+                    <Button Text="Action 1" Size="ButtonSize.Small" />
+                    <Button Text="Action 2" Size="ButtonSize.Small" />
+                </Actions>
+            </MessageBar>
+            <h4>Danger</h4>
+            <MessageBar Dismissable Multiline Type="MessageBarType.Danger">
+                <ChildContent>
+                    <div>
+                        <strong>Message Bars</strong>
+                        Message providing information to the user with actionable insights.
+                    </div>
+                </ChildContent>
+                <Actions>
+                    <Button Text="Action 1" Size="ButtonSize.Small" />
+                    <Button Text="Action 2" Size="ButtonSize.Small" />
+                </Actions>
+            </MessageBar>
+            <h4>Success</h4>
+            <MessageBar Dismissable Multiline Type="MessageBarType.Success">
+                <ChildContent>
+                    <div>
+                        <strong>Message Bars</strong>
+                        Message providing information to the user with actionable insights.
+                    </div>
+                </ChildContent>
+                <Actions>
+                    <Button Text="Action 1" Size="ButtonSize.Small" />
+                    <Button Text="Action 2" Size="ButtonSize.Small" />
+                </Actions>
+            </MessageBar>
+        </section>
+    </div>
+</div>
+
+@code {
+    string? _selectedItems;
+
+    private void SelectedItemsChanged(IEnumerable<ListItem> items)
+    {
+        _selectedItems = string.Join(", ", items.Select(x => x.Text));
+    }
+}

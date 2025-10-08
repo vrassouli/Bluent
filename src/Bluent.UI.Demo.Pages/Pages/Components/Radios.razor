@@ -1,0 +1,77 @@
+﻿@page "/components/radios"
+@namespace Bluent.UI.Demo.Pages.Components
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Radio</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <RadioGroup @bind-Value="_agreeGroup" Label="Do you agree?">
+                <Radio Value="@("Yes")" Label="Yes"/>
+                <Radio Value="@("No")" Label="No" />
+            </RadioGroup>
+            <pre>
+                @_agreeGroup
+            </pre>
+        </section>
+        
+        <h3>Enum</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <RadioGroup @bind-Value="_agreeAnswer" Label="Do you agree?">
+                <Radio Value="@Agree.Yes" Label="Yes"/>
+                <Radio Value="@Agree.No" Label="No" />
+            </RadioGroup>
+            <pre>
+                @_agreeAnswer
+            </pre>
+        </section>
+
+        <h3>Vertical</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <RadioGroup @bind-Value="_fruitGroup" Label="Favorite Fruit" Orientation="Orientation.Vertical">
+                <Radio Value="@("Apple")" Label="Apple" />
+                <Radio Value="@("Pear")" Label="Pear" />
+                <Radio Value="@("Banana")" Label="Banana" />
+                <Radio Value="@("Orange")" Label="Orange" />
+            </RadioGroup>
+            <pre>
+                @_fruitGroup
+            </pre>
+        </section>
+
+        <h3>Label Position</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <RadioGroup @bind-Value="_agreeGroup" Label="Do you agree?" ItemsLabelPosition="LabelPosition.Before">
+                <Radio Value="@("Yes")" Label="Yes"/>
+                <Radio Value="@("No")" Label="No" />
+            </RadioGroup>
+
+            <RadioGroup @bind-Value="_agreeGroup" Orientation="Orientation.Vertical" ItemsLabelPosition="LabelPosition.Before">
+                <Radio Value="@("Yes")" Label="Yes"/>
+                <Radio Value="@("No")" Label="No" />
+            </RadioGroup>
+        </section>
+
+        <h3>Disabled</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <RadioGroup @bind-Value="_agreeGroup" Orientation="Orientation.Vertical">
+                <Radio Value="@("Yes")" Label="Yes" disabled/>
+                <Radio Value="@("No")" Label="No" />
+            </RadioGroup>
+        </section>
+
+    </div>
+</div>
+
+@code{
+    Agree _agreeAnswer = Agree.No;
+    string _agreeGroup = "";
+    string _fruitGroup = "";
+
+    private enum Agree
+    {
+        Yes,
+        No
+    }
+}

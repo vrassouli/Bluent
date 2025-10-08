@@ -1,0 +1,111 @@
+﻿@page "/components/wizards"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Wizards</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Wizards</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <div class="mb-3">
+                <SelectField @bind-Value="_orientation">
+                    @foreach (var item in Enum.GetValues<Orientation>())
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </SelectField>
+            </div>
+            <Wizard Orientation="_orientation" Style="height: 300px">
+                <WizardStep Title="Step 1">
+                    <h5 class="mt-0">Step 1 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                        <p>
+                            Duis finibus malesuada eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra mauris in nunc finibus hendrerit. Vivamus lacus arcu, ultrices nec tempus id, malesuada eget risus. Vestibulum mattis tellus orci, sed sodales augue imperdiet quis. Nam pellentesque odio augue, quis ultrices libero gravida eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Sed quis tristique nulla. Donec pretium, sem interdum tristique sollicitudin, nulla eros condimentum lacus, eu vulputate sem est eu dui. Phasellus velit magna, egestas nec quam ac, maximus sagittis orci. Aenean tristique elementum nulla, eu suscipit nunc porttitor at. Integer iaculis tortor eu ultrices tincidunt. Suspendisse viverra tincidunt metus, eget ultricies magna dapibus vel. Donec eleifend, tellus at volutpat eleifend, felis orci tristique odio, a gravida odio mauris et sapien.
+                        </p>
+                    </div>
+                </WizardStep>
+                <WizardStep Title="Step 2">
+                    <h5 class="mt-0">Step 2 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                    </div>
+                </WizardStep>
+                <WizardStep Title="Step 3">
+                    <h5 class="mt-0">Step 3 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                        <p>
+                            Duis finibus malesuada eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra mauris in nunc finibus hendrerit. Vivamus lacus arcu, ultrices nec tempus id, malesuada eget risus. Vestibulum mattis tellus orci, sed sodales augue imperdiet quis. Nam pellentesque odio augue, quis ultrices libero gravida eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Sed quis tristique nulla. Donec pretium, sem interdum tristique sollicitudin, nulla eros condimentum lacus, eu vulputate sem est eu dui. Phasellus velit magna, egestas nec quam ac, maximus sagittis orci. Aenean tristique elementum nulla, eu suscipit nunc porttitor at. Integer iaculis tortor eu ultrices tincidunt. Suspendisse viverra tincidunt metus, eget ultricies magna dapibus vel. Donec eleifend, tellus at volutpat eleifend, felis orci tristique odio, a gravida odio mauris et sapien.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                    </div>
+                </WizardStep>
+                <WizardStep Title="Step 4">
+                    <h5 class="mt-0">Step 4 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                        <p>
+                            Duis finibus malesuada eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra mauris in nunc finibus hendrerit. Vivamus lacus arcu, ultrices nec tempus id, malesuada eget risus. Vestibulum mattis tellus orci, sed sodales augue imperdiet quis. Nam pellentesque odio augue, quis ultrices libero gravida eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Sed quis tristique nulla. Donec pretium, sem interdum tristique sollicitudin, nulla eros condimentum lacus, eu vulputate sem est eu dui. Phasellus velit magna, egestas nec quam ac, maximus sagittis orci. Aenean tristique elementum nulla, eu suscipit nunc porttitor at. Integer iaculis tortor eu ultrices tincidunt. Suspendisse viverra tincidunt metus, eget ultricies magna dapibus vel. Donec eleifend, tellus at volutpat eleifend, felis orci tristique odio, a gravida odio mauris et sapien.
+                        </p>
+                    </div>
+                </WizardStep>
+            </Wizard>
+        </section>
+
+        <h3>Cancel</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Wizard CanCancel Style="height: 300px">
+                <WizardStep Title="Step 1">
+                    <h5 class="mt-0">Step 1 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                        <p>
+                            Duis finibus malesuada eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra mauris in nunc finibus hendrerit. Vivamus lacus arcu, ultrices nec tempus id, malesuada eget risus. Vestibulum mattis tellus orci, sed sodales augue imperdiet quis. Nam pellentesque odio augue, quis ultrices libero gravida eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Sed quis tristique nulla. Donec pretium, sem interdum tristique sollicitudin, nulla eros condimentum lacus, eu vulputate sem est eu dui. Phasellus velit magna, egestas nec quam ac, maximus sagittis orci. Aenean tristique elementum nulla, eu suscipit nunc porttitor at. Integer iaculis tortor eu ultrices tincidunt. Suspendisse viverra tincidunt metus, eget ultricies magna dapibus vel. Donec eleifend, tellus at volutpat eleifend, felis orci tristique odio, a gravida odio mauris et sapien.
+                        </p>
+                    </div>
+                </WizardStep>
+                <WizardStep Title="Step 2">
+                    <h5 class="mt-0">Step 2 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                    </div>
+                </WizardStep>
+                <WizardStep Title="Step 3">
+                    <h5 class="mt-0">Step 3 content</h5>
+                    <div id="lipsum">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                        <p>
+                            Duis finibus malesuada eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra mauris in nunc finibus hendrerit. Vivamus lacus arcu, ultrices nec tempus id, malesuada eget risus. Vestibulum mattis tellus orci, sed sodales augue imperdiet quis. Nam pellentesque odio augue, quis ultrices libero gravida eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Sed quis tristique nulla. Donec pretium, sem interdum tristique sollicitudin, nulla eros condimentum lacus, eu vulputate sem est eu dui. Phasellus velit magna, egestas nec quam ac, maximus sagittis orci. Aenean tristique elementum nulla, eu suscipit nunc porttitor at. Integer iaculis tortor eu ultrices tincidunt. Suspendisse viverra tincidunt metus, eget ultricies magna dapibus vel. Donec eleifend, tellus at volutpat eleifend, felis orci tristique odio, a gravida odio mauris et sapien.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue turpis, feugiat vel fermentum eu, placerat id purus. Ut eleifend eros ut condimentum fermentum. Nullam in nisi non lectus pretium finibus a a lorem. Donec eu lobortis justo. Aenean vestibulum neque quam. Nullam sed libero orci. Aliquam orci neque, tempus in neque ultricies, accumsan malesuada massa. Morbi non eros sed augue venenatis facilisis.
+                        </p>
+                    </div>
+                </WizardStep>
+            </Wizard>
+        </section>
+    </div>
+</div>
+
+
+@code {
+    private Orientation _orientation = Orientation.Horizontal;
+}

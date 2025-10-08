@@ -1,0 +1,85 @@
+@page "/components/badges"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Enums
+
+<div class="p-5 py-md-10 px-md-12">
+<div class="w-100 w-md-50 m-auto">
+    <h1>Badge</h1>
+
+    <h3>Default</h3>
+    <section class="p-7 rounded-5 shadow-3">
+        <Badge></Badge>
+    </section>
+    
+    <h3>Appearance</h3>
+    <section class="p-7 rounded-5 shadow-3">
+        <div class="d-flex gap-5">
+            @foreach (var appearance in Enum.GetValues<BadgeAppearance>())
+            {
+                <div>
+                    <div>@appearance</div>
+                    <div><Badge Appearance="appearance" Text="+99"></Badge></div>
+                </div>
+            }
+        </div>
+    </section>
+    
+    <h3>Size</h3>
+    <section class="p-7 rounded-5 shadow-3">
+        <div class="d-flex gap-5">
+            @foreach (var size in Enum.GetValues<BadgeSize>())
+            {
+                <div>
+                    <div>@size</div>
+                    <div><Badge Size="size"></Badge></div>
+                </div>
+            }
+        </div>
+    </section>
+    
+    <h3>Shape</h3>
+    <section class="p-7 rounded-5 shadow-3">
+        <div class="d-flex gap-5">
+            @foreach (var shape in Enum.GetValues<BadgeShape>())
+            {
+                <div>
+                    <div>@shape</div>
+                    <div><Badge Shape="shape"></Badge></div>
+                </div>
+            }
+        </div>
+    </section>
+    
+    <h3>Color</h3>
+    <section class="p-7 rounded-5 shadow-3">
+        <div class="d-flex gap-5">
+            @foreach (var color in Enum.GetValues<BadgeColor>())
+            {
+                <div>
+                    <div>@color</div>
+                    <div><Badge Color="color"></Badge></div>
+                </div>
+            }
+        </div>
+    </section>
+    
+    <h3>Button Integration</h3>
+    <section class="p-7 rounded-5 shadow-3">
+        <div class="d-flex gap-5">
+            @foreach (var h in Enum.GetValues<HorizontalSides>())
+            {
+                @foreach (var v in Enum.GetValues<VerticalSides>())
+                {
+                    <Button Icon="icon-ic_fluent_alert_20_regular" 
+                            BadgeHorizontalPosition="h"
+                            BadgeVerticalPosition="v">
+                        <Badge>
+                            <Badge Text="+9"></Badge>
+                        </Badge>
+                    </Button>
+                }
+            }
+        </div>
+    </section>
+</div>
+</div>

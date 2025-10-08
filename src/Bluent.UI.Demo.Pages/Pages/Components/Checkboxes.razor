@@ -1,0 +1,82 @@
+﻿@page "/components/checkboxes"
+@namespace Bluent.UI.Demo.Pages.Components
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Checkbox</h1>
+        <p>Checkboxes give people a way to select one or more items from a group, or switch between two mutually exclusive options (checked or unchecked).</p>
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+                <Checkbox @bind-Value="_checked" Label="Checkbox" />
+                <pre>
+                    @(_checked ? "Checked" : "Not checked")
+                </pre>
+        </section>
+
+        <h3>Indeterminate</h3>
+        <section class="p-7 rounded-5 shadow-3">
+                <Checkbox @bind-Value="_nullableChecked" Label="Indeterminate checkbox" />
+                @if (_nullableChecked == null)
+                {
+                    <pre>Indeterminate</pre>
+                }
+                else if (_nullableChecked == true)
+                {
+                    <pre>Checked</pre>
+                }
+                else 
+                {
+                    <pre>Not checked</pre>
+                }
+        </section>
+
+        <h3>Disabled</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_uncheckedState" Label="Not checked" disabled />
+            <Checkbox @bind-Value="_checkedState" Label="Checked" disabled />
+            <Checkbox @bind-Value="_indeterminateState" Label="Indeterminate checkbox" disabled />
+        </section>
+
+        <h3>Large</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_uncheckedStateLarge" Label="Not checked" Size="CheckboxSize.Large" />
+            <Checkbox @bind-Value="_checkedStateLarge" Label="Checked" Size="CheckboxSize.Large" />
+            <Checkbox @bind-Value="_indeterminateStateLarge" Label="Indeterminate checkbox" Size="CheckboxSize.Large" />
+        </section>
+
+        <h3>Label before</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_labelBefore" Label="Not checked" LabelPosition="LabelPosition.Before" />
+        </section>
+
+        <h3>Label wrapping</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_labelWrapping" Label="Here is an example of a checkbox with a long label and it starts to wrap to a second line" Style="max-width: 400px" />
+        </section>
+
+        <h3>Required</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_required" Label="Required" Required="*" />
+        </section>
+
+        <h3>Circular</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Checkbox @bind-Value="_circular" Label="Circular" Circular />
+        </section>
+    </div>
+</div>
+
+@code {
+    bool _checked;
+    bool? _nullableChecked;
+    bool _uncheckedState;
+    bool _checkedState = true;
+    bool? _indeterminateState;
+    bool _uncheckedStateLarge;
+    bool _checkedStateLarge = true;
+    bool? _indeterminateStateLarge;
+    bool _labelBefore;
+    bool _labelWrapping;
+    bool _required;
+    bool? _circular;
+}

@@ -1,0 +1,138 @@
+﻿@page "/components/tooltips"
+@namespace Bluent.UI.Demo.Pages.Components
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Tooltip</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Button with tooltip" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
+                <TooltipContent>
+                    This is a tooltip!
+                </TooltipContent>
+            </Button>
+        </section>
+
+         <h3>Placement</h3>
+        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
+            <div>
+                <Button Text="Top" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.Top">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>Top</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="TopStart" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.TopStart">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>TopStart</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="TopEnd" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.TopEnd">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>TopEnd</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+            </div>
+            <div>
+                <Button Text="Bottom" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.Bottom">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>Bottom</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="BottomStart" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.BottomStart">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>BottomStart</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="BottomEnd" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.BottomEnd">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>BottomEnd</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+            </div>
+            <div>
+                <Button Text="Right" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.Right">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>Right</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="RightStart" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.RightStart">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>RightStart</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="RightEnd" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.RightEnd">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>RightEnd</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+            </div>
+            <div>
+                <Button Text="Left" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.Left">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>Left</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="LeftStart" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.LeftStart">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>LeftStart</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+                <Button Text="LeftEnd" Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
+                        TooltipPlacement="Placement.LeftEnd">
+                    <TooltipContent>
+                        <div class="d-flex align-items-center">
+                            <i class="icon-ic_fluent_info_20_filled" style="font-size: large"></i> Tooltip placement = <strong>LeftEnd</strong>
+                        </div>
+                    </TooltipContent>
+                </Button>
+            </div>
+        </section>
+        
+        <h3>Arrows</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Button with tooltip" DisplayTooltipArrow Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
+                <TooltipContent>
+                    This is a tooltip!
+                </TooltipContent>
+            </Button>
+        </section>
+
+    </div>
+</div>
+
+@code {
+}

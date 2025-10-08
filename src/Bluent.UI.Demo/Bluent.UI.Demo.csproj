@@ -34,19 +34,72 @@
     </ItemGroup>
     
     <ItemGroup>
-        <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.9" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.9" PrivateAssets="all" />
     </ItemGroup>
-
+    
     <ItemGroup>
-        <ProjectReference Include="..\Bluent.UI.Charts\Bluent.UI.Charts.csproj" />
-        <ProjectReference Include="..\Bluent.UI.Diagrams\Bluent.UI.Diagrams.csproj" />
-        <ProjectReference Include="..\Bluent.UI\Bluent.UI.csproj" />
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
     </ItemGroup>
 
     <ItemGroup>
-        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+      <_ContentIncludedByDefault Remove="Layout\EmptyLayout.razor" />
+      <_ContentIncludedByDefault Remove="Layout\Header.razor" />
+      <_ContentIncludedByDefault Remove="Layout\MainLayout.razor" />
+      <_ContentIncludedByDefault Remove="Layout\NavMenu.razor" />
+      <_ContentIncludedByDefault Remove="Layout\Side.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Accordions.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\ActionCards.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\AudioCaptures.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Avatars.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Badges.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Breadcrumbs.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Buttons.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Calendars.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Cards.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Charts.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Checkboxes.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\DataGrids.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\DataPagers.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Diagrams.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\DialogComponents\SampleDialogContent.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Dialogs.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\DrawerComponents\SampleContent.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Drawers.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\DrawingCanvasComponents\RectSelectionOptions.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\DrawingCanvases.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Dropdowns.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Fields.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\FileSelects.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Icons.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Labels.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Links.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Lists.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Menus.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\MessageBars.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\PopoverComponents\ContentSwitch.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Popovers.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\ProgressBars.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Radios.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Skeletons.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Spinners.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Stacks.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\SubComponents\TreeViewItemRenderer.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\TabLists.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Tags.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Toasts.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\ToastsComponents\CustomToastComponent.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Toolbars.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Tooltips.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Trees.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\Wizards.razor" />
+      <_ContentIncludedByDefault Remove="Pages\css-classes\Radius.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Home.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Test.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Bluent.UI.Demo.Pages\Bluent.UI.Demo.Pages.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,26 @@
+@page "/components/data-pagers"
+@namespace Bluent.UI.Demo.Pages.Components
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Data Pagers</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <DataPager PageCount="200" @bind-Page="@_page" ShowFirstPage ShowLastPage ShowNextPage ShowPreviousPage/>
+        </section>
+        
+        <h3>Links</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <DataPager PageCount="200" Page="@(Page ?? 1)" PageQueryParameter="page" ShowFirstPage ShowLastPage ShowNextPage ShowPreviousPage/>
+        </section>
+    </div>
+</div>
+
+@code{
+
+    private int _page = 1;
+    [Parameter, SupplyParameterFromQuery(Name = "page")] public int? Page { get; set; }
+
+
+}

@@ -1,0 +1,426 @@
+﻿@page "/components/cards"
+@namespace Bluent.UI.Demo.Pages.Components
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Card</h1>
+        <p>A card is a container that holds information and actions related to a single concept or object, like a document or a contact.</p>
+        <p>Cards can give information prominence and create predictable patterns. While they're very flexible, it's important to use them consistently for particular use cases across experiences.</p>
+        <Card Class="mb-5">
+            <CardHeader>
+                <Image>
+                    <img src="assets/avatars/avatar_elvia.svg" />
+                </Image>
+                <Header>
+                    <b>Elvia Atkins</b> mentioned you
+                </Header>
+                <Description>
+                    5h ago · About us - Overview
+                </Description>
+            </CardHeader>
+            <CardPreview>
+                <ChildContent>
+                    <img src="assets/card-preview/doc_template.png" class="w-100" />
+                </ChildContent>
+                <Logo>
+                    <img src="assets/file-types/docx.png" />
+                </Logo>
+            </CardPreview>
+            <CardFooter>
+                <Button Text="Reply" Icon="icon-ic_fluent_arrow_reply_20_regular" ActiveIcon="icon-ic_fluent_arrow_reply_20_filled" />
+                <Button Text="Share" Icon="icon-ic_fluent_share_20_regular" ActiveIcon="icon-ic_fluent_share_20_filled" />
+            </CardFooter>
+        </Card>
+
+        <h2>Stories</h2>
+        <h3>Orientation</h3>
+        <p>Cards can have a different anatomy and be displayed either vertically (by default) or horizontally.</p>
+        <section class="p-7 rounded-5 shadow-3">
+            <section>
+                <h4>'vertical' (Default)</h4>
+                <p>With image as part of header</p>
+                <Card Class="w-100 w-md-50">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                </Card>
+            </section>
+            <section>
+                <h4>'horizontal'</h4>
+                <p>With image as part of preview</p>
+                <Card Class="w-100 w-md-50" Orientation="CardOrientation.Horizontal">
+                    <CardPreview>
+                        <img src="assets/logos/app_logo.svg" class="w-100" />
+                    </CardPreview>
+                    <CardHeader>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                </Card>
+            </section>
+        </section>
+        
+        <h3>Contextual actions</h3>
+        <p>Action menu gets visible, only if user points on it.</p>
+        <section class="p-7 rounded-5 shadow-3">
+            <section>
+                <Card Class="w-100 w-md-50">
+                    <CardHeader ContextualAction>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                </Card>
+            </section>
+        </section>
+
+        <h3>Size</h3>
+        <p>
+            Size options are mainly to provide variety, and consistency when using cards for different usages. It
+            relates to padding and border-radius and not so much the actual dimensions of the card.
+        </p>
+        <section class="p-7 rounded-5 shadow-3">
+            <section>
+                <h4>'small'</h4>
+                <Card Class="w-100 w-md-75" Size="CardSize.Small">
+                    <header class="d-flex gap-2">
+                        <img src="assets/logos/logo1.svg" class="rounded-2" style="width: 32px;" />
+                        <img src="assets/logos/logo2.svg" class="rounded-2" style="width: 32px;" />
+                    </header>
+                    <CardHeader>
+                        <Header>
+                            Alert in Teams when a new document is uploaded in channel
+                        </Header>
+                        <Description>
+                            By Microsoft
+                        </Description>
+                    </CardHeader>
+                    <footer class="d-flex justify-content-between">
+                        <span>Automated</span>
+                        <span>3290</span>
+                    </footer>
+                </Card>
+            </section>
+            <section>
+                <h4>'medium' (Default)</h4>
+                <Card Class="w-100 w-md-75">
+                    <header class="d-flex gap-2">
+                        <img src="assets/logos/logo1.svg" class="rounded-2" style="width: 32px;" />
+                        <img src="assets/logos/logo2.svg" class="rounded-2" style="width: 32px;" />
+                    </header>
+                    <CardHeader>
+                        <Header>
+                            Alert in Teams when a new document is uploaded in channel
+                        </Header>
+                        <Description>
+                            By Microsoft
+                        </Description>
+                    </CardHeader>
+                    <footer class="d-flex justify-content-between">
+                        <span>Automated</span>
+                        <span>3290</span>
+                    </footer>
+                </Card>
+            </section>
+            <section>
+                <h4>'large'</h4>
+                <Card Class="w-100 w-md-75" Size="CardSize.Large">
+                    <header class="d-flex gap-2">
+                        <img src="assets/logos/logo1.svg" class="rounded-2" style="width: 32px;" />
+                        <img src="assets/logos/logo2.svg" class="rounded-2" style="width: 32px;" />
+                    </header>
+                    <CardHeader>
+                        <Header>
+                            Alert in Teams when a new document is uploaded in channel
+                        </Header>
+                        <Description>
+                            By Microsoft
+                        </Description>
+                    </CardHeader>
+                    <footer class="d-flex justify-content-between">
+                        <span>Automated</span>
+                        <span>3290</span>
+                    </footer>
+                </Card>
+            </section>
+        </section>
+        <h3>Appearance</h3>
+        <p>
+            Cards can have different styles depending on the situation and where it is placed.
+        </p>
+        <section class="p-7 rounded-5 shadow-3">
+            <section>
+                <h4>Filled (Default)</h4>
+                <p>This is the default style to use for cards. Use this style variant for most of your card designs.</p>
+                <Card Class="w-100 w-md-75" OnClick="()=>{}">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                </Card>
+            </section>
+            <section>
+                <h4>Filled Alternative</h4>
+                <p>Use if your card is being displayed on a lighter gray or white surface. This ensures that you have adequate contrast between the card surface and the background of the application.</p>
+                <Card Class="w-100 w-md-75" OnClick="()=>{}" Appearance="CardAppearance.FilledAlternative">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                </Card>
+            </section>
+            <section>
+                <h4>Outline</h4>
+                <p>Use when you don't want a filled background color but a discernable outline (border) on the card.</p>
+                <Card Class="w-100 w-md-75" OnClick="()=>{}" Appearance="CardAppearance.Outline">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                </Card>
+            </section>
+            <section>
+                <h4>Subtle</h4>
+                <p>This variant doesn't have a background or border for the card container. However, it does include interaction states that display a visible footprint when interacting with the card item.</p>
+                <Card Class="w-100 w-md-75" OnClick="()=>{}" Appearance="CardAppearance.Subtle">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                </Card>
+            </section>
+        </section>
+        <h3>Selectable</h3>
+        <p>
+            Cards can be selectable and clicking the card surface can toggle its state to selected.
+        </p>
+        <section class="p-7 rounded-5 shadow-3">
+            <section class="d-flex gap-7 flex-column flex-md-row">
+                <Card SelectedChanged="()=>{}">
+                    <CardPreview>
+                        <ChildContent>
+                            <img src="assets/card-preview/office1.png" class="w-100" />
+                        </ChildContent>
+                        <Logo>
+                            <img src="assets/logos/logo3.svg" />
+                        </Logo>
+                    </CardPreview>
+                    <CardHeader>
+                        <Header>
+                            iOS App Prototype
+                        </Header>
+                        <Description>
+                            You created 53m ago
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                </Card>
+                <Card SelectedChanged="()=>{}">
+                    <CardPreview>
+                        <ChildContent>
+                            <img src="assets/card-preview/office1.png" class="w-100" />
+                        </ChildContent>
+                        <Logo>
+                            <img src="assets/logos/logo3.svg" />
+                        </Logo>
+                    </CardPreview>
+                    <CardHeader>
+                        <Header>
+                            iOS App Prototype
+                        </Header>
+                        <Description>
+                            You created 53m ago
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                </Card>
+            </section>
+        </section>
+        <h3>Selectable Indicator</h3>
+        <p>
+            By default, selectable cards do not include any element to represent its selection state. For example, checkboxes can be composed together as an additional element by using the <code>CardFloatingAction</code> component.
+        </p>
+        <section class="p-7 rounded-5 shadow-3">
+            <section class="d-flex gap-7 flex-column flex-md-row">
+                <Card @bind-Selected=_selected1>
+                    <CardPreview>
+                        <ChildContent>
+                            <img src="assets/card-preview/office1.png" class="w-100" />
+                        </ChildContent>
+                        <Logo>
+                            <img src="assets/logos/logo3.svg" />
+                        </Logo>
+                    </CardPreview>
+                    <CardHeader>
+                        <Header>
+                            iOS App Prototype
+                        </Header>
+                        <Description>
+                            You created 53m ago
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardFloatingAction>
+                        <Checkbox @bind-Value="_selected1" />
+                    </CardFloatingAction>
+                </Card>
+                <Card @bind-Selected=_selected2>
+                    <CardPreview>
+                        <ChildContent>
+                            <img src="assets/card-preview/office1.png" class="w-100" />
+                        </ChildContent>
+                        <Logo>
+                            <img src="assets/logos/logo3.svg" />
+                        </Logo>
+                    </CardPreview>
+                    <CardHeader>
+                        <Header>
+                            iOS App Prototype
+                        </Header>
+                        <Description>
+                            You created 53m ago
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardFloatingAction>
+                        <Checkbox @bind-Value="_selected2" />
+                    </CardFloatingAction>
+                </Card>
+            </section>
+        </section>
+
+        <h3>Action Cards</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <section>
+                <Card Class="w-100">
+                    <CardHeader>
+                        <Image>
+                            <img src="assets/logos/app_logo.svg" style="max-width: 44px;" />
+                        </Image>
+                        <Header>
+                            App Name
+                        </Header>
+                        <Description>
+                            Developer
+                        </Description>
+                        <Action>
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                        </Action>
+                    </CardHeader>
+                    <CardContent>
+                        Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.
+                    </CardContent>
+                    <ActionCardGroup>
+                        <ActionCard Title="More application from this developer"
+                                    Description="To see other apps developed by this developer, click here!"
+                                    Href="/components/cards?#more-apps" />
+                        <ActionCard Title="More application from this developer"
+                                    Description="To see other apps developed by this developer, click here!">
+                            <div class="p-3">
+                                A list of other apps...
+                            </div>
+                        </ActionCard>
+                    </ActionCardGroup>
+                </Card>
+            </section>
+        </section>
+    </div>
+</div>
+
+@code {
+    bool _selected1;
+    bool _selected2;
+}
