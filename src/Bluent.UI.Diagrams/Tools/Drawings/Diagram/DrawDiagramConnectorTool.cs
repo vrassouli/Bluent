@@ -11,10 +11,10 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
     private const string DefaultCursor = "crosshair";
     private IHasOutgoingConnector? _sourceElement;
     private IDiagramContainer? _sourceElementContainer;
-    private DiagramConnector? _connector;
+    private DiagramConnectorBase? _connector;
 
     /// <summary>
-    /// Indicateds that the source and target elements should be at the same container
+    /// Indicates that the source and target elements should be at the same container
     /// </summary>
     public bool SameContainers { get; set; } = true;
 
@@ -73,7 +73,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             _sourceElement = sourceElement;
             _sourceElementContainer = pointingElementContainer;
 
-            _connector = new DiagramConnector(sourceElement, point);
+            _connector = BuildConnector(sourceElement, point);
             _sourceElementContainer.AddDiagramElement(_connector);
             sourceElement.AddOutgoingConnector(_connector);
         }
@@ -152,5 +152,9 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
         _sourceElementContainer = null;
             Cursor = DefaultCursor;
     }
-
+    
+    protected virtual DiagramConnectorBase BuildConnector(IHasOutgoingConnector sourceElement, DiagramPoint start)
+    {
+        return new DiagramConnector(sourceElement, start);
+    }
 }

@@ -28,7 +28,7 @@
                 margin: 0px;
                 box-sizing: border-box;
                 min-width: unset;
-                color: var(--colorNeutralForeground2);
+                color: inherit;
                 background-color: var(--colorSubtleBackground);
                 font-weight: var(--fontWeightRegular);
                 font-family: var(--fontFamilyBase);
@@ -116,6 +116,10 @@
                 font-size: var(--bui-breadcrumb-icon-size);
                 height: var(--bui-breadcrumb-icon-size);
                 width: var(--bui-breadcrumb-icon-size);
+            }
+          
+            &:last-child {
+              display: none;
             }
         }
     }

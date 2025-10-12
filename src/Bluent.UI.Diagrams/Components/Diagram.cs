@@ -105,7 +105,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
     protected override void DeactivateDeleteTool() => DeactivateTool<DiagramDeleteElementsTool>();
 
-    protected override RenderFragment? GetDefinitions()
+    protected override RenderFragment? GetSvgDefinitions()
     {
         return builder =>
         {

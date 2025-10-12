@@ -37,7 +37,7 @@ internal class OptFieldInterop : IAsyncDisposable
             var module = await GetModuleAsync();
             await module.InvokeVoidAsync("init", id);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             // swallow!
         }

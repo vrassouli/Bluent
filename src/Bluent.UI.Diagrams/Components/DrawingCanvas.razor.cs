@@ -196,7 +196,7 @@ public partial class DrawingCanvas
         }
     }
 
-    protected virtual RenderFragment? GetDefinitions()
+    protected virtual RenderFragment? GetSvgDefinitions()
     {
         return Defs;
     }
