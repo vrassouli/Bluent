@@ -51,14 +51,14 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
     protected override void OnTargetPointerMove(PointerEventArgs e)
     {
         var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        var nodesAtPoint = Diagram.GetDiagramElementsAt(point).OfType<IDiagramNode>();
+        var nodesAtPoint = Diagram.GetElementsAt(point).OfType<IDiagramNode>();
         var pointingElement = nodesAtPoint.FirstOrDefault();
 
         if (pointingElement is null)
             return;
 
         var pointingElementContainer = Diagram
-            .GetDiagramElementsAt(new DiagramPoint(pointingElement.Boundary.Cx, pointingElement.Boundary.Cy))
+            .GetElementsAt(new DiagramPoint(pointingElement.Boundary.Cx, pointingElement.Boundary.Cy))
             .OfType<IDiagramContainer>()
             .FirstOrDefault(x => x != pointingElement && x.CanContain<DiagramConnector>());
 
@@ -92,7 +92,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
             return;
 
         var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-        var nodesAtPoint = Diagram.GetDiagramElementsAt(point).OfType<IDiagramNode>();
+        var nodesAtPoint = Diagram.GetElementsAt(point).OfType<IDiagramNode>();
         var pointingElement = nodesAtPoint.FirstOrDefault();
 
         if (pointingElement is null)
@@ -102,7 +102,7 @@ public class DrawDiagramConnectorTool : DiagramSinglePointerToolBase
         }
 
         var pointingElementContainer = Diagram
-            .GetDiagramElementsAt(new DiagramPoint(pointingElement.Boundary.Cx, pointingElement.Boundary.Cy))
+            .GetElementsAt(new DiagramPoint(pointingElement.Boundary.Cx, pointingElement.Boundary.Cy))
             .OfType<IDiagramContainer>()
             .FirstOrDefault(x => x != pointingElement && x.CanContain<DiagramConnector>());
 

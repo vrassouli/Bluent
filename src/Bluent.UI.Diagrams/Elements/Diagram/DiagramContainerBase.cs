@@ -87,12 +87,12 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         base.SetDrag(drag);
     }
 
-    protected void RenderChildElements(int regionSeq, RenderTreeBuilder builder)
+    protected virtual void RenderChildElements(int regionSeq, RenderTreeBuilder builder)
     {
         var sequence = 0;
         builder.OpenRegion(regionSeq);
 
-        foreach (var childElement in DiagramElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        foreach (var childElement in (this as IDiagramElementContainer).GetRenderOrder())
         {
             builder.OpenRegion(sequence++);
             builder.OpenComponent<ElementHost>(sequence++);

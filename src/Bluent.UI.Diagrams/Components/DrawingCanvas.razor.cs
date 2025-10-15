@@ -15,7 +15,7 @@ namespace Bluent.UI.Diagrams.Components;
 
 public partial class DrawingCanvas
 {
-    private const double ZoomStep = 0.1;
+    private const double _zoomStep = 0.1;
 
     private bool _shouldRender = true;
     private bool _allowPan;
@@ -39,7 +39,7 @@ public partial class DrawingCanvas
     [Parameter] public bool AllowScale { get; set; }
     [Parameter] public bool AllowDelete { get; set; }
     [Parameter] public int SnapSize { get; set; }
-    [Parameter] public double SelectionPadding { get; set; } = 0;
+    [Parameter] public double SelectionPadding { get; set; }
     [Parameter] public EventCallback<IEnumerable<IDrawingShape>> OnSelectionChanged { get; set; }
 
     public virtual IEnumerable<IDrawingShape> SelectedElements => Elements.Where(x => x.IsSelected);
@@ -137,7 +137,7 @@ public partial class DrawingCanvas
         return base.ShouldRender();
     }
 
-    internal virtual IEnumerable<IDrawingShape> GetElementsAt(DiagramPoint point)
+    internal virtual IEnumerable<IDrawingShape> GetShapesAt(DiagramPoint point)
     {
         // Check selected elements first
         foreach (var el in Elements.OrderBy(x => !x.IsSelected))
@@ -235,13 +235,13 @@ public partial class DrawingCanvas
         StateHasChanged();
     }
 
-    internal void ToggleElementSelection(IDrawingElement element, bool addToSelections)
-    {
-        if (IsSelected(element))
-            DeselectElement(element);
-        else
-            SelectElement(element, addToSelections);
-    }
+    // internal void ToggleElementSelection(IDrawingElement element, bool addToSelections)
+    // {
+    //     if (IsSelected(element))
+    //         DeselectElement(element);
+    //     else
+    //         SelectElement(element, addToSelections);
+    // }
 
     internal bool IsSelected(IDrawingShape element)
     {
@@ -273,17 +273,17 @@ public partial class DrawingCanvas
 
     internal void ZoomIn(DiagramPoint point)
     {
-        SetScale(_scale + ZoomStep, point);
+        SetScale(_scale + _zoomStep, point);
     }
 
     internal void ZoomOut(DiagramPoint point)
     {
-        SetScale(_scale - ZoomStep, point);
+        SetScale(_scale - _zoomStep, point);
     }
 
     internal void SetScale(double scale, DiagramPoint point)
     {
-        var s = Math.Max(scale, ZoomStep);
+        var s = Math.Max(scale, _zoomStep);
 
         // Get current screen position of the diagram point before zoom
         var screenBefore = DiagramToScreen(point);
@@ -304,10 +304,10 @@ public partial class DrawingCanvas
         StateHasChanged();
     }
 
-    internal DiagramPoint SnapToGrid(DiagramPoint point)
-    {
-        return SnapToGrid(point, SnapSize);
-    }
+    // internal DiagramPoint SnapToGrid(DiagramPoint point)
+    // {
+    //     return SnapToGrid(point, SnapSize);
+    // }
 
     public void ExecuteCommand(ICommand cmd)
     {
@@ -321,6 +321,7 @@ public partial class DrawingCanvas
     {
         DeselectElement(element, true);
     }
+    
     public void SelectElement(IDrawingShape element, bool addToSelections)
     {
         if (IsSelected(element))
@@ -609,9 +610,12 @@ public partial class DrawingCanvas
             return;
         }
 
-        var elements = GetElementsAt(point);
+        var elements = GetShapesAt(point);
 
         var topMostElement = elements.FirstOrDefault();
+        
+        Console.WriteLine($"Top most: {(topMostElement is null ? "none" : topMostElement.GetType())}");
+        
         if (topMostElement is null)
             ClearSelection();
         else

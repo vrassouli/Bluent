@@ -38,9 +38,9 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 
     public bool AllowVerticalDrag { get; protected set; } = true;
 
-    public bool AllowHorizontalResize { get; protected set; } = true;
-
-    public bool AllowVerticalResize { get; protected set; } = true;
+    // public bool AllowHorizontalResize { get; protected set; } = true;
+    //
+    // public bool AllowVerticalResize { get; protected set; } = true;
 
     public Boundary Boundary => new Boundary(X, Y, Width, Height);
 
@@ -127,7 +127,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     {
         get
         {
-            if (_pointerDirectlyOnNode)
+            if (_pointerDirectlyOnNode && HighlightFill != null)
                 return HighlightFill;
             //if (_pointerIndirectlyOnNode)
             //    return IndirectHighlightFill;
@@ -148,7 +148,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     {
         get
         {
-            if (_pointerDirectlyOnNode)
+            if (_pointerDirectlyOnNode && HighlightStroke != null)
                 return HighlightStroke;
             //if (_pointerIndirectlyOnNode)
             //    return IndirectHighlightStroke;
@@ -167,7 +167,14 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     }
     public virtual double? StrokeWidth
     {
-        get => _strokeWidth;
+        get
+        {
+            
+            if (_pointerDirectlyOnNode && HighlightStrokeWidth != null)
+                return HighlightStrokeWidth;
+            
+            return _strokeWidth;
+        }
         set
         {
             if (_strokeWidth != value)
@@ -177,6 +184,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public virtual string? StrokeDashArray
     {
         get => _strokeDashArray;
@@ -194,7 +202,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     public virtual string? SelectionStroke { get; set; } = "#36a2eb";
     public RenderFragment? SelectionOptions { get; set; }
 
-    public string? HighlightStroke { get; set; } = "var(--colorNeutralStroke1Hover)";
+    public double? HighlightStrokeWidth { get; set; } = 2.5;
+    public string? HighlightStroke { get; set; } = "var(--colorNeutralForeground2BrandHover)";
     public string? HighlightFill { get; set; } = "var(--colorNeutralBackground1Hover)";
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -245,11 +254,17 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 
     public virtual void PointerMovingInside(DiagramPoint point, bool direct)
     {
-        if (direct && !_pointerDirectlyOnNode)
+        if (_pointerDirectlyOnNode != direct)
         {
-            _pointerDirectlyOnNode = true;
+            _pointerDirectlyOnNode = direct;
             NotifyPropertyChanged();
         }
+
+        // if (direct && !_pointerDirectlyOnNode)
+        // {
+        //     _pointerDirectlyOnNode = true;
+        //     NotifyPropertyChanged();
+        // }
     }
 
     public virtual void ApplyDrag()
