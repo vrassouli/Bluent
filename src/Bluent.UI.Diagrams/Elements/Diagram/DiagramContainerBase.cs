@@ -36,7 +36,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         element.Clean();
     }
 
-    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    protected virtual void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         NotifyPropertyChanged(nameof(DiagramElements));
     }

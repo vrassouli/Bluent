@@ -8,9 +8,9 @@ public class ConnectorRouter
     #region Public API
 
     public virtual void RouteConnector(IDiagramConnector connector,
-                                      double stubLength = 20.0,
-                                      double obstaclePadding = 10.0,
-                                      double gridSize = 0)
+        double stubLength = 20.0,
+        double obstaclePadding = 10.0,
+        double gridSize = 0)
     {
         Boundary? sourceBoundary = null;
         Boundary? targetBoundary = null;
@@ -65,15 +65,15 @@ public class ConnectorRouter
         var targetEdge = GetNearestEdge(targetBoundary, connector.End);
 
         List<DiagramPoint> points = GetRoute(sourceBoundary,
-                                             sourceEdge,
-                                             connector.Start,
-                                             targetBoundary,
-                                             targetEdge,
-                                             connector.End,
-                                             [sourceBoundary, targetBoundary],
-                                             stubLength,
-                                             obstaclePadding,
-                                             gridSize);
+            sourceEdge,
+            connector.Start,
+            targetBoundary,
+            targetEdge,
+            connector.End,
+            [sourceBoundary, targetBoundary],
+            stubLength,
+            obstaclePadding,
+            gridSize);
 
         connector.SetWayPoints(points.GetRange(1, points.Count - 2));
     }
@@ -96,7 +96,7 @@ public class ConnectorRouter
     public List<DiagramPoint> GetRoute(
         Boundary sourceBoundary, Edges sourceEdge, DiagramPoint? start,
         Boundary targetBoundary, Edges targetEdge, DiagramPoint? end,
-        IEnumerable<Boundary>? obstacles = null,
+        Boundary[]? obstacles = null,
         double stubLength = 20.0,
         double obstaclePadding = 10.0,
         double gridSize = 10.0)
@@ -111,7 +111,8 @@ public class ConnectorRouter
         }
 
         // Otherwise, use the A* router for obstacle avoidance.
-        return GetAStarRoute(startPoint, sourceEdge, endPoint, targetEdge, sourceBoundary, targetBoundary, obstacles, obstaclePadding, gridSize, stubLength);
+        return GetAStarRoute(startPoint, sourceEdge, endPoint, targetEdge, sourceBoundary, targetBoundary, obstacles,
+            obstaclePadding, gridSize, stubLength);
     }
 
     #endregion
@@ -158,6 +159,7 @@ public class ConnectorRouter
         {
             points.Add(new DiagramPoint(p2.X, p1.Y));
         }
+
         return points;
     }
 
@@ -190,7 +192,7 @@ public class ConnectorRouter
         DiagramPoint startPoint, Edges sourceEdge,
         DiagramPoint endPoint, Edges targetEdge,
         Boundary sourceBoundary, Boundary targetBoundary,
-        IEnumerable<Boundary> obstacles, double padding, double gridSize, double stubLength)
+        Boundary[] obstacles, double padding, double gridSize, double stubLength)
     {
         // Define the start and end points of the stubs. The A* will route between these.
         var stubStartPoint = GetStubEndPoint(startPoint, sourceEdge, stubLength);
@@ -204,21 +206,25 @@ public class ConnectorRouter
         double maxY = allBounds.Max(b => b.Bottom) + padding * 2 + stubLength;
 
         var gridOrigin = new DiagramPoint(minX, minY);
-        int gridWidth = (int)Math.Ceiling((maxX - minX) / gridSize);
-        int gridHeight = (int)Math.Ceiling((maxY - minY) / gridSize);
+        int gridWidth = gridSize <= 0 ? 0 : (int)Math.Ceiling((maxX - minX) / gridSize);
+        int gridHeight = gridSize <= 0 ? 0 : (int)Math.Ceiling((maxY - minY) / gridSize);
 
-        if (gridWidth <= 0 || gridHeight <= 0) return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength); // Fallback
+        if (gridWidth <= 0 || gridHeight <= 0)
+            return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength); // Fallback
 
         // 2. Create the grid and mark obstacles
         var grid = new PathNode[gridWidth, gridHeight];
-        var paddedObstacles = obstacles.Select(o => new Boundary(o.X - padding, o.Y - padding, o.Width + padding * 2, o.Height + padding * 2)).ToList();
+        var paddedObstacles = obstacles.Select(o =>
+            new Boundary(o.X - padding, o.Y - padding, o.Width + padding * 2, o.Height + padding * 2)).ToList();
 
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                var worldPoint = new DiagramPoint(minX + x * gridSize + gridSize / 2, minY + y * gridSize + gridSize / 2);
-                var nodeBoundary = new Boundary(worldPoint.X - gridSize / 2, worldPoint.Y - gridSize / 2, gridSize, gridSize);
+                var worldPoint =
+                    new DiagramPoint(minX + x * gridSize + gridSize / 2, minY + y * gridSize + gridSize / 2);
+                var nodeBoundary = new Boundary(worldPoint.X - gridSize / 2, worldPoint.Y - gridSize / 2, gridSize,
+                    gridSize);
                 bool isWalkable = !paddedObstacles.Any(o => o.Intersects(nodeBoundary));
                 grid[x, y] = new PathNode(x, y, isWalkable);
             }
@@ -228,7 +234,8 @@ public class ConnectorRouter
         var startNode = GetNodeFromWorldPoint(stubStartPoint, gridOrigin, gridSize, gridWidth, gridHeight);
         var endNode = GetNodeFromWorldPoint(stubEndPoint, gridOrigin, gridSize, gridWidth, gridHeight);
 
-        if (startNode == null || endNode == null) return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength); // Fallback
+        if (startNode == null || endNode == null)
+            return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength); // Fallback
 
         // Ensure start/end nodes are walkable
         grid[startNode.X, startNode.Y].IsWalkable = true;
@@ -263,7 +270,8 @@ public class ConnectorRouter
                 if (newGCost < neighbor.GCost || !openList.Contains(neighbor))
                 {
                     neighbor.GCost = newGCost;
-                    neighbor.HCost = Math.Abs(neighbor.X - endNode.X) + Math.Abs(neighbor.Y - endNode.Y); // Manhattan distance
+                    neighbor.HCost =
+                        Math.Abs(neighbor.X - endNode.X) + Math.Abs(neighbor.Y - endNode.Y); // Manhattan distance
                     neighbor.Parent = currentNode;
 
                     if (!openList.Contains(neighbor))
@@ -278,11 +286,13 @@ public class ConnectorRouter
         return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength);
     }
 
-    private static PathNode? GetNodeFromWorldPoint(DiagramPoint point, DiagramPoint origin, double gridSize, int width, int height)
+    private static PathNode? GetNodeFromWorldPoint(DiagramPoint point, DiagramPoint origin, double gridSize, int width,
+        int height)
     {
-        int x = (int)Math.Round((point.X - origin.X) / gridSize);
-        int y = (int)Math.Round((point.Y - origin.Y) / gridSize);
-        if (x >= 0 && x < width && y >= 0 && y < height) return new PathNode(x, y, true);
+        int x = gridSize <= 0 ? 0 :(int)Math.Round((point.X - origin.X) / gridSize);
+        int y = gridSize <= 0 ? 0 :(int)Math.Round((point.Y - origin.Y) / gridSize);
+        if (x >= 0 && x < width && y >= 0 && y < height) 
+            return new PathNode(x, y, true);
         return null;
     }
 
@@ -309,6 +319,7 @@ public class ConnectorRouter
             path.Add(new DiagramPoint(origin.X + current.X * gridSize, origin.Y + current.Y * gridSize));
             current = current.Parent;
         }
+
         path.Reverse();
         return path;
     }
@@ -359,6 +370,7 @@ public class ConnectorRouter
                 simplified.Add(p_curr);
             }
         }
+
         simplified.Add(path.Last());
         return simplified;
     }
