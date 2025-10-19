@@ -611,10 +611,7 @@ public partial class DrawingCanvas
         }
 
         var elements = GetShapesAt(point);
-
         var topMostElement = elements.FirstOrDefault();
-        
-        Console.WriteLine($"Top most: {(topMostElement is null ? "none" : topMostElement.GetType())}");
         
         if (topMostElement is null)
             ClearSelection();
