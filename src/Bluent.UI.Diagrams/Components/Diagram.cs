@@ -48,12 +48,12 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         element.Clean();
     }
 
-    public bool CanContain<T>() where T : IDiagramElement
+    public virtual bool CanContain<T>() where T : IDiagramElement
     {
         return CanContain(typeof(T));
     }
 
-    public bool CanContain(Type type)
+    public virtual bool CanContain(Type type)
     {
         if (type.IsAssignableTo(typeof(IDiagramBoundaryNode)))
             return false;
@@ -61,14 +61,14 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         return true;
     }
 
-    internal override IEnumerable<IDrawingShape> GetElementsAt(DiagramPoint point)
+    internal override IEnumerable<IDrawingShape> GetShapesAt(DiagramPoint point)
     {
         return (this as IDiagramElementContainer).GetDiagramElementsAt(point).OfType<IDrawingShape>();
     }
 
-    internal IEnumerable<IDiagramShape> GetDiagramElementsAt(DiagramPoint point)
+    public IEnumerable<IDiagramShape> GetElementsAt(DiagramPoint point)
     {
-        var elements = GetElementsAt(point);
+        var elements = GetShapesAt(point);
 
         foreach (var el in elements.OfType<IDiagramShape>())
             yield return el;
@@ -105,7 +105,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
     protected override void DeactivateDeleteTool() => DeactivateTool<DiagramDeleteElementsTool>();
 
-    protected override RenderFragment? GetDefinitions()
+    protected override RenderFragment? GetSvgDefinitions()
     {
         return builder =>
         {

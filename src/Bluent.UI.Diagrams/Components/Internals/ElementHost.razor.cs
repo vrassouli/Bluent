@@ -74,12 +74,10 @@ public partial class ElementHost : ComponentBase, IDisposable
 
     private void OnPointerMove(object? sender, PointerEventArgs e)
     {
-        //_shouldRender = false;
-
         if (Element is IDrawingElement element)
         {
             var offsetPoint = Canvas.ScreenToDiagram(e.ToOffsetPoint());
-            var elements = Canvas.GetElementsAt(offsetPoint);
+            var elements = Canvas.GetShapesAt(offsetPoint).ToArray();
             if (elements.Any(x => x == Element))
             {
                 //Console.WriteLine($"[{Element}] Pointer on me");

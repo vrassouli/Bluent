@@ -29,7 +29,7 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         {
             var point = Canvas.ScreenToDiagram(e.ToOffsetPoint());
 
-            var elements = Diagram.GetDiagramElementsAt(point);
+            var elements = Diagram.GetElementsAt(point);
             var container = elements.FirstOrDefault() as IDiagramContainer;
 
             if (container is null || !container.CanContain<TNode>())
@@ -48,7 +48,7 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         {
             var startPoint = Canvas.ScreenToDiagram(Pointers.First().ToOffsetPoint());
 
-            var elements = Diagram.GetDiagramElementsAt(startPoint);
+            var elements = Diagram.GetElementsAt(startPoint);
             var container = elements.FirstOrDefault() as IDiagramContainer;
 
             if (container is null || !container.CanContain<TNode>())
@@ -72,10 +72,10 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
         var height = endPoint.Y - _node.Y;
 
         if (width < 0)
-            _node.X = _node.X + width;
+            _node.X += width;
 
         if (height < 0)
-            _node.Y = _node.Y + height;
+            _node.Y += height;
 
         _node.Width = Math.Abs(width);
         _node.Height = Math.Abs(height);

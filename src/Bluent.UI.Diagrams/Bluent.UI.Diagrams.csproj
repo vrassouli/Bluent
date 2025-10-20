@@ -37,7 +37,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Components\Diagrams\" />
         <Folder Include="Tools\Drawings\Basic\Abstraction\" />
         <Folder Include="wwwroot\" />
     </ItemGroup>

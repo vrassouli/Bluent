@@ -24,7 +24,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
 
     public DiagramPoint Start
     {
-        get => new DiagramPoint(_start.X + _startDrag.Dx, _start.Y + _startDrag.Dy);
+        get => new(_start.X + _startDrag.Dx, _start.Y + _startDrag.Dy);
         set
         {
             if (_start != value)
@@ -51,7 +51,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
-    public IHasOutgoingConnector SourceElement
+    public virtual IHasOutgoingConnector SourceElement
     {
         get => _sourceElement;
         set
@@ -63,7 +63,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
-    public IHasIncomingConnector? TargetElement
+    public virtual IHasIncomingConnector? TargetElement
     {
         get => _targetElement;
         set
@@ -78,7 +78,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
 
     public IEnumerable<DiagramPoint> WayPoints => _wayPoints;
 
-    public Boundary Boundary => new Boundary(Start.X, Start.Y, End.X - Start.X, End.Y - Start.Y);
+    public Boundary Boundary => new(Start.X, Start.Y, End.X - Start.X, End.Y - Start.Y);
 
     public bool IsSelected
     {
@@ -186,17 +186,17 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
     {
         return builder =>
         {
-            var seq = 0;
+            var seq = -1;
 
-            builder.OpenElement(seq++, "path");
+            builder.OpenElement(++seq, "path");
 
-            builder.AddAttribute(seq++, "stroke", Stroke);
-            builder.AddAttribute(seq++, "stroke-width", StrokeWidth);
-            builder.AddAttribute(seq++, "stroke-dasharray", StrokeDashArray);
-            builder.AddAttribute(seq++, "fill", "none");
-            builder.AddAttribute(seq++, "marker-end", $"url(#{MarkerEnd})");
-            builder.AddAttribute(seq++, "marker-start", $"url(#{MarkerStart})");
-            builder.AddAttribute(seq++, "d", GetPathData());
+            builder.AddAttribute(++seq, "stroke", Stroke);
+            builder.AddAttribute(++seq, "stroke-width", StrokeWidth);
+            builder.AddAttribute(++seq, "stroke-dasharray", StrokeDashArray);
+            builder.AddAttribute(++seq, "fill", "none");
+            builder.AddAttribute(++seq, "marker-end", $"url(#{MarkerEnd})");
+            builder.AddAttribute(++seq, "marker-start", $"url(#{MarkerStart})");
+            builder.AddAttribute(++seq, "d", GetPathData());
 
             builder.CloseElement();
         };

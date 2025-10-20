@@ -1,67 +1,64 @@
-﻿using System.Xml.Linq;
-
-namespace Bluent.UI.Diagrams.Elements.Diagram;
+﻿namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public interface IDiagramElementContainer : IDiagramContainer
 {
     IEnumerable<IDiagramElement> DiagramElements { get; }
+    
+    IOrderedEnumerable<IDiagramElement> GetRenderOrder()
+    {
+        return DiagramElements.OrderBy(x => x.IsSelected)
+            .ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false);
+    }
 }
 
 public interface IDiagramBoundaryContainer : IDiagramContainer
 {
     IEnumerable<IDiagramBoundaryNode> BoundaryNodes { get; }
+    
+    IOrderedEnumerable<IDiagramElement> GetRenderOrder()
+    {
+        return BoundaryNodes.OrderBy(x => x.IsSelected);
+    }
 }
 
-public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
+public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*/
 {
     void AddDiagramElement(IDiagramElement element);
     void RemoveDiagramElement(IDiagramElement element);
+
     IEnumerable<IDiagramShape> GetDiagramElementsAt(DiagramPoint point)
     {
-        // Check selected elements first
         if (this is IDiagramElementContainer elementContainer)
         {
-            foreach (var el in elementContainer.DiagramElements.OrderBy(x => !x.IsSelected))
+            // Check selected elements first
+            foreach (var el in elementContainer.GetRenderOrder().Reverse())
             {
-                //Console.WriteLine($"{el}");
                 if (el is IDiagramContainer container)
                     foreach (var child in container.GetDiagramElementsAt(point))
                         yield return child;
 
-                if (el.HitTest(point) && el is IDiagramElement diagramEl)
+                if (el.HitTest(point) && el is { } diagramEl)
+                {
                     yield return diagramEl;
+                }
             }
         }
+
         if (this is IDiagramBoundaryContainer boundaryElementContainer)
         {
-            foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
+            // Check selected elements first
+            foreach (var el in boundaryElementContainer.GetRenderOrder().Reverse())
             {
                 if (el is IDiagramContainer container)
                     foreach (var child in container.GetDiagramElementsAt(point))
                         yield return child;
 
-                if (el.HitTest(point) && el is IDiagramElement diagramEl)
+                if (el.HitTest(point) && el is { } diagramEl)
                     yield return diagramEl;
             }
         }
-
-        //if (this is IHasOutgoingConnector hasOutgoingConnector)
-        //{
-        //    foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
-        //    {
-        //        if (connector.HitTest(point))
-        //            yield return connector;
-        //    }
-        //}
-        //if (this is IHasIncomingConnector hasIncomingConnector)
-        //{
-        //    foreach (var connector in hasIncomingConnector.IncomingConnectors)
-        //    {
-        //        if (connector.HitTest(point))
-        //            yield return connector;
-        //    }
-        //}
     }
+
     IEnumerable<IDiagramElement> SelectedElements
     {
         get
@@ -78,6 +75,7 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                             yield return child;
                 }
             }
+
             if (this is IDiagramBoundaryContainer boundaryElementContainer)
             {
                 foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
@@ -85,13 +83,15 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                     if (el.IsSelected)
                         yield return el;
 
-                    if (el is IDiagramContainer container)
-                        foreach (var child in container.SelectedElements)
-                            yield return child;
+                    // if (el is IDiagramContainer container)
+                    //     foreach (var child in container.SelectedElements)
+                    //         yield return child;
                 }
             }
         }
     }
+
+    
     bool Contains(IDiagramElement element)
     {
         if (this is IDiagramElementContainer elementContainer)
@@ -105,6 +105,7 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                     return true;
             }
         }
+
         if (this is IDiagramBoundaryContainer boundaryElementContainer)
         {
             foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
@@ -112,12 +113,14 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                 if (el.IsSelected)
                     return true;
 
-                if (el is IDiagramContainer container && container.Contains(element))
-                    return true;
+                // if (el is IDiagramContainer container && container.Contains(element))
+                //     return true;
             }
         }
+
         return false;
     }
+
     void Clear()
     {
         if (this is IDiagramElementContainer elementContainer)
@@ -131,18 +134,20 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                 RemoveDiagramElement(el);
             }
         }
+
         if (this is IDiagramBoundaryContainer boundaryElementContainer)
         {
             var elements = boundaryElementContainer.BoundaryNodes.ToList();
             foreach (var el in elements)
             {
-                if (el is IDiagramContainer container)
-                    container.Clear();
+                // if (el is IDiagramContainer container)
+                //     container.Clear();
 
                 RemoveDiagramElement(el);
             }
         }
     }
+
     bool HasSelection
     {
         get
@@ -154,11 +159,11 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                     if (el.IsSelected)
                         return true;
 
-                    if (el is IDiagramContainer container)
-                        if (container.HasSelection)
-                            return true;
+                    if (el is IDiagramContainer { HasSelection: true }) 
+                        return true;
                 }
             }
+
             if (this is IDiagramBoundaryContainer boundaryElementContainer)
             {
                 foreach (var el in boundaryElementContainer.BoundaryNodes.OrderBy(x => !x.IsSelected))
@@ -166,15 +171,16 @@ public interface IDiagramContainer : IDiagramShape/*, INotifyCollectionChanged*/
                     if (el.IsSelected)
                         return true;
 
-                    if (el is IDiagramContainer container)
-                        if (container.HasSelection)
-                            return true;
+                    // if (el is IDiagramContainer container)
+                    //     if (container.HasSelection)
+                    //         return true;
                 }
             }
 
             return false;
         }
     }
+
     bool CanContain<T>() where T : IDiagramElement;
     bool CanContain(Type type);
 }

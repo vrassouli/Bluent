@@ -65,7 +65,7 @@ internal class DeleteDiagramElementsCommand : ICommand
                 return parentFromSource;
         }
 
-        var containers = _diagram.GetDiagramElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
+        var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
         var container = containers.FirstOrDefault(x => !object.Equals(el, x) && x.Contains(el));
         return container;
     }

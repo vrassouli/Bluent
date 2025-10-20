@@ -38,9 +38,9 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 
     public bool AllowVerticalDrag { get; protected set; } = true;
 
-    public bool AllowHorizontalResize { get; protected set; } = true;
-
-    public bool AllowVerticalResize { get; protected set; } = true;
+    // public bool AllowHorizontalResize { get; protected set; } = true;
+    //
+    // public bool AllowVerticalResize { get; protected set; } = true;
 
     public Boundary Boundary => new Boundary(X, Y, Width, Height);
 
@@ -111,6 +111,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public bool IsSelected
     {
         get => _isSelected;
@@ -123,11 +124,12 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public virtual string? Fill
     {
         get
         {
-            if (_pointerDirectlyOnNode)
+            if (_pointerDirectlyOnNode && HighlightFill != null)
                 return HighlightFill;
             //if (_pointerIndirectlyOnNode)
             //    return IndirectHighlightFill;
@@ -144,11 +146,12 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public virtual string? Stroke
     {
         get
         {
-            if (_pointerDirectlyOnNode)
+            if (_pointerDirectlyOnNode && HighlightStroke != null)
                 return HighlightStroke;
             //if (_pointerIndirectlyOnNode)
             //    return IndirectHighlightStroke;
@@ -165,9 +168,16 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public virtual double? StrokeWidth
     {
-        get => _strokeWidth;
+        get
+        {
+            if (_pointerDirectlyOnNode && HighlightStrokeWidth != null)
+                return HighlightStrokeWidth;
+
+            return _strokeWidth;
+        }
         set
         {
             if (_strokeWidth != value)
@@ -177,6 +187,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public virtual string? StrokeDashArray
     {
         get => _strokeDashArray;
@@ -189,12 +200,14 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             }
         }
     }
+
     public virtual double? SelectionStrokeWidth { get; set; } = 2;
     public virtual string? SelectionStrokeDashArray { get; set; } = "4 3";
     public virtual string? SelectionStroke { get; set; } = "#36a2eb";
     public RenderFragment? SelectionOptions { get; set; }
 
-    public string? HighlightStroke { get; set; } = "var(--colorNeutralStroke1Hover)";
+    public double? HighlightStrokeWidth { get; set; } = 2.5;
+    public string? HighlightStroke { get; set; } = "var(--colorNeutralForeground2BrandHover)";
     public string? HighlightFill { get; set; } = "var(--colorNeutralBackground1Hover)";
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -216,14 +229,18 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     {
         get
         {
-            yield return new UpdatablePoint(new DiagramPoint(X, Y), "TopLeft") { Cursor = "nwse-resize" };
-            yield return new UpdatablePoint(new DiagramPoint(X + Width, Y), "TopRight") { Cursor = "nesw-resize" };
-            yield return new UpdatablePoint(new DiagramPoint(X, Y + Height), "BottomLeft") { Cursor = "nesw-resize" };
-            yield return new UpdatablePoint(new DiagramPoint(X + Width, Y + Height), "BottomRight") { Cursor = "nwse-resize" };
+            yield return UpdatablePoint.CreateTopLeft(Boundary);
+            yield return UpdatablePoint.CreateTopRight(Boundary);
+            yield return UpdatablePoint.CreateBottomLeft(Boundary);
+            yield return UpdatablePoint.CreateBottomRight(Boundary);
         }
     }
-    public IEnumerable<IDiagramConnector> IncomingConnectors => _incomingConnectors ?? Enumerable.Empty<IDiagramConnector>();
-    public IEnumerable<IDiagramConnector> OutgoingConnectors => _outgoingConnectors ?? Enumerable.Empty<IDiagramConnector>();
+
+    public IEnumerable<IDiagramConnector> IncomingConnectors =>
+        _incomingConnectors ?? Enumerable.Empty<IDiagramConnector>();
+
+    public IEnumerable<IDiagramConnector> OutgoingConnectors =>
+        _outgoingConnectors ?? Enumerable.Empty<IDiagramConnector>();
 
     #endregion
 
@@ -245,11 +262,17 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 
     public virtual void PointerMovingInside(DiagramPoint point, bool direct)
     {
-        if (direct && !_pointerDirectlyOnNode)
+        if (_pointerDirectlyOnNode != direct)
         {
-            _pointerDirectlyOnNode = true;
+            _pointerDirectlyOnNode = direct;
             NotifyPropertyChanged();
         }
+
+        // if (direct && !_pointerDirectlyOnNode)
+        // {
+        //     _pointerDirectlyOnNode = true;
+        //     NotifyPropertyChanged();
+        // }
     }
 
     public virtual void ApplyDrag()
@@ -261,6 +284,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             outgoing.ApplyStartDrag();
         }
+
         foreach (var incoming in IncomingConnectors)
         {
             incoming.ApplyEndDrag();
@@ -277,6 +301,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             outgoing.CancelStartDrag();
         }
+
         foreach (var incoming in IncomingConnectors)
         {
             incoming.CancelEndDrag();
@@ -290,6 +315,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             outgoing.DragStart(drag);
         }
+
         foreach (var incoming in IncomingConnectors)
         {
             incoming.DragEnd(drag);
@@ -308,6 +334,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             incoming.Clean();
         }
+
         foreach (var outgoing in outgoings)
         {
             outgoing.Clean();
@@ -333,14 +360,18 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             Edges.Left => Boundary.X,
             Edges.Right => Boundary.Right,
 
-            Edges.Top or Edges.Bottom => point.X < Boundary.X ? Boundary.X : (point.X > Boundary.Right ? Boundary.Right : point.X),
+            Edges.Top or Edges.Bottom => point.X < Boundary.X
+                ? Boundary.X
+                : (point.X > Boundary.Right ? Boundary.Right : point.X),
 
             _ => throw new ArgumentOutOfRangeException()
         };
 
         double cy = edge switch
         {
-            Edges.Left or Edges.Right => point.Y < Boundary.Y ? Boundary.Y : (point.Y > Boundary.Bottom ? Boundary.Bottom : point.Y),
+            Edges.Left or Edges.Right => point.Y < Boundary.Y
+                ? Boundary.Y
+                : (point.Y > Boundary.Bottom ? Boundary.Bottom : point.Y),
 
             Edges.Top => Boundary.Y,
             Edges.Bottom => Boundary.Bottom,
@@ -358,93 +389,114 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             switch (position)
             {
                 case "Left":
-                    {
-                        var dx = update.X - X;
+                {
+                    var dx = update.X - X;
 
-                        if (Width - dx > 0)
-                        {
-                            X = update.X;
-                            Width -= dx;
-                        }
+                    if (Width - dx > 0)
+                    {
+                        X = update.X;
+                        Width -= dx;
                     }
+                }
                     break;
                 case "Right":
-                    {
-                        var dx = update.X - (X + Width);
+                {
+                    var dx = update.X - (X + Width);
 
-                        if (Width + dx > 0)
-                        {
-                            Width += dx;
-                        }
+                    if (Width + dx > 0)
+                    {
+                        Width += dx;
                     }
+                }
+                    break;
+                case "Top":
+                {
+                    var dy = update.Y - Y;
+                    
+                    if (Height - dy > 0)
+                    {
+                        Y = update.Y;
+                        Height -= dy;
+                    }
+                }
+                    break;
+                case "Bottom":
+                {
+                    var dy = update.Y - (Y + Height);
+                    
+                    if (Height + dy > 0)
+                    {
+                        Height += dy;
+                    }
+                }
                     break;
                 case "TopLeft":
+                {
+                    var dx = update.X - X;
+                    var dy = update.Y - Y;
+
+                    if (Width - dx > 0)
                     {
-                        var dx = update.X - X;
-                        var dy = update.Y - Y;
-
-                        if (Width - dx > 0)
-                        {
-                            X = update.X;
-                            Width -= dx;
-                        }
-
-                        if (Height - dy > 0)
-                        {
-                            Y = update.Y;
-                            Height -= dy;
-                        }
+                        X = update.X;
+                        Width -= dx;
                     }
+
+                    if (Height - dy > 0)
+                    {
+                        Y = update.Y;
+                        Height -= dy;
+                    }
+                }
                     break;
                 case "TopRight":
+                {
+                    var dx = update.X - (X + Width);
+                    var dy = update.Y - Y;
+
+                    if (Width + dx > 0)
                     {
-                        var dx = update.X - (X + Width);
-                        var dy = update.Y - Y;
-
-                        if (Width + dx > 0)
-                        {
-                            Width += dx;
-                        }
-
-                        if (Height - dy > 0)
-                        {
-                            Y = update.Y;
-                            Height -= dy;
-                        }
+                        Width += dx;
                     }
+
+                    if (Height - dy > 0)
+                    {
+                        Y = update.Y;
+                        Height -= dy;
+                    }
+                }
                     break;
                 case "BottomLeft":
+                {
+                    var dx = update.X - X;
+                    var dy = update.Y - (Y + Height);
+
+                    if (Width - dx > 0)
                     {
-                        var dx = update.X - X;
-                        var dy = update.Y - (Y + Height);
-
-                        if (Width - dx > 0)
-                        {
-                            X = update.X;
-                            Width -= dx;
-                        }
-
-                        if (Height + dy > 0)
-                        {
-                            Height += dy;
-                        }
+                        X = update.X;
+                        Width -= dx;
                     }
+
+                    if (Height + dy > 0)
+                    {
+                        Height += dy;
+                    }
+                }
                     break;
                 case "BottomRight":
+                {
+                    var dx = update.X - (X + Width);
+                    var dy = update.Y - (Y + Height);
+
+                    if (Width + dx > 0)
                     {
-                        var dx = update.X - (X + Width);
-                        var dy = update.Y - (Y + Height);
-
-                        if (Width + dx > 0)
-                        {
-                            Width += dx;
-                        }
-
-                        if (Height + dy > 0)
-                        {
-                            Height += dy;
-                        }
+                        Width += dx;
                     }
+
+                    if (Height + dy > 0)
+                    {
+                        Height += dy;
+                    }
+                }
                     break;
                 default:
                     throw new InvalidOperationException($"Unknown point position: {position}");
@@ -543,8 +595,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         /*
          * Note: After X gets update, to stick the node at the same position, Width will get updated to.
          * Example: if X gets a (-10) delta, Width will get (+10) delta.
-         * 
-         * By updating Width, the connectors at the Right edge, will be updated, 
+         *
+         * By updating Width, the connectors at the Right edge, will be updated,
          * however, becouse the Right edge is sticked at it's place, the connector will be miss-placed.
          * To prevent it, we should update connectors at Right edge too, so after getting updated when the Width updates, they get placed at correct position.
          */
@@ -578,9 +630,9 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
                 incomming.ApplyEndDrag();
             }
         }
-        
+
         _x = value;
-        
+
         RerouteConnectors();
     }
 
@@ -589,8 +641,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         /*
          * Note: After Y gets update, to stick the node at the same position, Height will get updated to.
          * Example: if Y gets a (-10) delta, Height will get (+10) delta.
-         * 
-         * By updating Height, the connectors at the Bottom edge, will be updated, 
+         *
+         * By updating Height, the connectors at the Bottom edge, will be updated,
          * however, becouse the Bottom edge is sticked at it's place, the connector will be miss-placed.
          * To prevent it, we should update connectors at Bottom edge too, so after getting updated when the Height updates, they get placed at correct position.
          */
@@ -604,6 +656,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
                 outgoing.DragStart(new Distance2D(0, delta));
                 outgoing.ApplyStartDrag();
             }
+
             if (Boundary.GetNearestEdge(outgoing.Start) == Edges.Bottom)
             {
                 outgoing.DragStart(new Distance2D(0, delta));
@@ -618,6 +671,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
                 incomming.DragEnd(new Distance2D(0, delta));
                 incomming.ApplyEndDrag();
             }
+
             if (Boundary.GetNearestEdge(incomming.End) == Edges.Bottom)
             {
                 incomming.DragEnd(new Distance2D(0, delta));
@@ -692,5 +746,4 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     //    foreach (var incomming in IncomingConnectors)
     //        StickEndPoint(incomming);
     //}
-
 }

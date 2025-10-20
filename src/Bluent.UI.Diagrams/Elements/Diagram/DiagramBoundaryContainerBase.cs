@@ -109,7 +109,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
         var sequence = 0;
         builder.OpenRegion(regionSeq);
 
-        foreach (var childElement in BoundaryNodes.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        foreach (var childElement in (this as IDiagramBoundaryContainer).GetRenderOrder())
         {
             builder.OpenRegion(sequence++);
             builder.OpenComponent<ElementHost>(sequence++);
