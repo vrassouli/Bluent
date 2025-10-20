@@ -1,4 +1,13 @@
+@keyframes badge-pulse-shadow {
+  from {
+    box-shadow: 0 0 15px 2px var(--badge-bg-color);
+  }
+  to {
+    box-shadow: 0 0 15px -2px var(--badge-bg-color);
+  }
+}
 .bui-badge {
+  --badge-bg-color: var(--colorBrandBackground);
   display: inline-flex;
   box-sizing: border-box;
   align-items: center;
@@ -15,45 +24,54 @@
   border-color: var(--colorTransparentStroke);
   border-width: var(--strokeWidthThin);
   border-style: solid;
+  background-color: var(--badge-bg-color);
 
   /* Color */
   &.brand {
-    background-color: var(--colorBrandBackground);
+    --badge-bg-color: var(--colorBrandBackground);
     color: var(--colorNeutralForegroundOnBrand);
   }
   
   &.danger {
-    background-color: var(--colorPaletteRedBackground3)
+    --badge-bg-color: var(--colorPaletteRedBackground3);
   }
 
   &.important {
-    background-color: var(--colorNeutralForeground1);
+    --badge-bg-color: var(--colorNeutralForeground1);
     color: var(--colorNeutralBackground1);
   }
 
   &.informative {
-    background-color: var(--colorNeutralBackground5);
+    --badge-bg-color: var(--colorNeutralBackground5);
     color: var(--colorNeutralForeground3);
   }
 
   &.sever {
-    background-color: var(--colorPaletteDarkOrangeBackground3);
+    --badge-bg-color: var(--colorPaletteDarkOrangeBackground3);
     color: var(--colorNeutralForegroundOnBrand);
   }
   
   &.subtle {
-    background-color: var(--colorNeutralBackground1);
+    --badge-bg-color: var(--colorNeutralBackground1);
     color: var(--colorNeutralForeground1);
   }
   
   &.success {
-    background-color: var(--colorPaletteGreenBackground3);
+    --badge-bg-color: var(--colorPaletteGreenBackground3);
     color: var(--colorNeutralForegroundOnBrand);
   }
   
   &.warning {
-    background-color: var(--colorPaletteYellowBackground3);
+    --badge-bg-color: var(--colorPaletteYellowBackground3);
     color: var(--colorNeutralForeground1Static);
+  }
+  
+  &.drop-shadow {
+    box-shadow: 0 0 15px 2px var(--badge-bg-color);
+    
+    &.animated{
+      animation: badge-pulse-shadow 1.5s ease-in-out infinite alternate;
+    }
   }
 
   /* Appearance */

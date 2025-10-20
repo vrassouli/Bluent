@@ -310,7 +310,16 @@
   font-size: var(--fontSizeBase600);
 }
 
+@keyframes badge-pulse-shadow {
+  from {
+    box-shadow: 0 0 15px 2px var(--badge-bg-color);
+  }
+  to {
+    box-shadow: 0 0 15px -2px var(--badge-bg-color);
+  }
+}
 .bui-badge {
+  --badge-bg-color: var(--colorBrandBackground);
   display: inline-flex;
   box-sizing: border-box;
   align-items: center;
@@ -327,38 +336,45 @@
   border-color: var(--colorTransparentStroke);
   border-width: var(--strokeWidthThin);
   border-style: solid;
+  background-color: var(--badge-bg-color);
   /* Color */
 }
 .bui-badge.brand {
-  background-color: var(--colorBrandBackground);
+  --badge-bg-color: var(--colorBrandBackground);
   color: var(--colorNeutralForegroundOnBrand);
 }
 .bui-badge.danger {
-  background-color: var(--colorPaletteRedBackground3);
+  --badge-bg-color: var(--colorPaletteRedBackground3);
 }
 .bui-badge.important {
-  background-color: var(--colorNeutralForeground1);
+  --badge-bg-color: var(--colorNeutralForeground1);
   color: var(--colorNeutralBackground1);
 }
 .bui-badge.informative {
-  background-color: var(--colorNeutralBackground5);
+  --badge-bg-color: var(--colorNeutralBackground5);
   color: var(--colorNeutralForeground3);
 }
 .bui-badge.sever {
-  background-color: var(--colorPaletteDarkOrangeBackground3);
+  --badge-bg-color: var(--colorPaletteDarkOrangeBackground3);
   color: var(--colorNeutralForegroundOnBrand);
 }
 .bui-badge.subtle {
-  background-color: var(--colorNeutralBackground1);
+  --badge-bg-color: var(--colorNeutralBackground1);
   color: var(--colorNeutralForeground1);
 }
 .bui-badge.success {
-  background-color: var(--colorPaletteGreenBackground3);
+  --badge-bg-color: var(--colorPaletteGreenBackground3);
   color: var(--colorNeutralForegroundOnBrand);
 }
 .bui-badge.warning {
-  background-color: var(--colorPaletteYellowBackground3);
+  --badge-bg-color: var(--colorPaletteYellowBackground3);
   color: var(--colorNeutralForeground1Static);
+}
+.bui-badge.drop-shadow {
+  box-shadow: 0 0 15px 2px var(--badge-bg-color);
+}
+.bui-badge.drop-shadow.animated {
+  animation: badge-pulse-shadow 1.5s ease-in-out infinite alternate;
 }
 .bui-badge {
   /* Appearance */
