@@ -75,6 +75,12 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
         yield return this;
     }
+
+    public IDiagramElementContainer? GetElementContainer(IDiagramElement element)
+    {
+        return (this as IDiagramContainer).FindElementContainer(element);
+    }
+    
     //internal IEnumerable<IDiagramContainer> GetContainersAt(DiagramPoint point)
     //{
     //    var elements = GetElementsAt(point);

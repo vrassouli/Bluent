@@ -58,7 +58,7 @@ internal class DeleteDiagramElementsCommand : ICommand
 
     private IDiagramContainer? FindParent(IDiagramElement el)
     {
-        if (el is IDiagramConnector connector && connector.SourceElement is IDiagramElement sourceElement)
+        if (el is IDiagramConnector { SourceElement: IDiagramElement sourceElement })
         {
             var parentFromSource = FindParent(sourceElement);
             if (parentFromSource?.Contains(el) == true)
@@ -66,7 +66,7 @@ internal class DeleteDiagramElementsCommand : ICommand
         }
 
         var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
-        var container = containers.FirstOrDefault(x => !object.Equals(el, x) && x.Contains(el));
+        var container = containers.FirstOrDefault(x => !Equals(el, x) && x.Contains(el));
         return container;
     }
 }

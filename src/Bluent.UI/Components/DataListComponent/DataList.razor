@@ -5,13 +5,14 @@
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <CascadingValue Value="this" IsFixed>
-        <Virtualize @ref=_virtualizer Items="Items"
+        <Virtualize @ref=_virtualizer 
+                    Items="Items"
                     ItemsProvider="ItemsProvider"
                     ItemSize="ItemsSize"
                     Placeholder="PlaceHolder"
                     EmptyContent="EmptyContent">
             <ItemContent>
-                <ListItem Data="context" @key=ItemKey?.Invoke(context)>
+                <ListItem Data="context" @key=ItemKey?.Invoke(context) Selected="IsSelected(context)">
                     @ItemTemplate?.Invoke(context)
                 </ListItem>
             </ItemContent>
