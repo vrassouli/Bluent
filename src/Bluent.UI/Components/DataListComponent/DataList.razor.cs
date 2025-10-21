@@ -59,10 +59,7 @@ public partial class DataList<TItem>
     {
         if (listItem.Data is TItem data)
         {
-            var key = ItemKey.Invoke(data);
-            var isSelected = SelectedData.Any(x => ItemKey.Invoke(x).Equals(key));
-
-            return isSelected;
+            return IsSelected(data);
         }
 
         return base.IsSelected(listItem);

@@ -145,7 +145,8 @@
 
         <h3>Data List</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <DataList ItemsProvider="LoadData"
+            <DataList TItem="DataGridSampleModel"
+                      Items="_dataSource"
                       @bind-SelectedData=_selectedDataListItems
                       SelectionMode="SelectionMode.Multiple"
                       Style="height: 200px;"
@@ -182,7 +183,7 @@
 @code {
     string? _selectedItems;
     List<DataGridSampleModel> _selectedDataListItems = new();
-    private IEnumerable<DataGridSampleModel> _dataSource = DataGridSampleModel.LoadSample(1000);
+    private List<DataGridSampleModel> _dataSource = DataGridSampleModel.LoadSample(1000).ToList();
 
     private void SelectedItemsChanged(IEnumerable<ListItem> items)
     {
