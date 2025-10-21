@@ -4,8 +4,8 @@ public interface IDiagramNode : IDrawingElement, IDiagramElement
 {
     double X { get; set; }
     double Y { get; set; }
-    double Width { get; }
-    double Height { get; }
+    double Width { get; set; }
+    double Height { get; set; }
     DiagramPoint StickToBoundary(DiagramPoint point);
 }
 

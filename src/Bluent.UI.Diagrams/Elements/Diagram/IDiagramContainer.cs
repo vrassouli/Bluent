@@ -90,7 +90,6 @@ public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*
             }
         }
     }
-
     
     bool Contains(IDiagramElement element)
     {
@@ -121,6 +120,66 @@ public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*
         return false;
     }
 
+    IDiagramContainer? FindContainer(IDiagramElement element)
+    {
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            foreach (var el in elementContainer.DiagramElements)
+            {
+                if (el.Equals(element))
+                    return elementContainer;
+
+                if (el is IDiagramContainer container)
+                {
+                    var result = container.FindContainer(element);
+                    if (result is not null)
+                        return result;
+                }
+            }
+        }
+        
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            foreach (var el in boundaryElementContainer.BoundaryNodes)
+            {
+                if (el.Equals(element))
+                    return boundaryElementContainer;
+            }
+        }
+
+        return null;
+    }
+
+    IDiagramElementContainer? FindElementContainer(IDiagramElement element)
+    {
+        if (this is IDiagramElementContainer elementContainer)
+        {
+            foreach (var el in elementContainer.DiagramElements)
+            {
+                if (el.Equals(element))
+                    return elementContainer;
+
+                if (el is IDiagramContainer container)
+                {
+                    var result = container.FindElementContainer(element);
+                    if (result is not null)
+                        return result;
+                }
+            }
+        }
+        
+        if (this is IDiagramBoundaryContainer boundaryElementContainer)
+        {
+            foreach (var el in boundaryElementContainer.BoundaryNodes)
+            {
+                if (el.Equals(element) && boundaryElementContainer is IDiagramElement boundaryElement)
+                    return FindElementContainer(boundaryElement);
+            }
+        }
+
+        return null;
+    }
+    
     void Clear()
     {
         if (this is IDiagramElementContainer elementContainer)
