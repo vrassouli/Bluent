@@ -28,4 +28,5 @@ public record PopoverSettings
 
     public int Offset { get; set; } = 6;
     public int Padding { get; set; } = 5;
+    public bool SameWidth { get; set; }
 }

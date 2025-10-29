@@ -1,10 +1,8 @@
-﻿using Bluent.Core.Utilities;
-using Bluent.UI.Diagrams.Elements.Abstractions;
+﻿using Bluent.UI.Diagrams.Elements.Abstractions;
 using Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
@@ -180,7 +178,9 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         }
         set
         {
-            if (_strokeWidth != value)
+            if (_strokeWidth is null || 
+                value is null || 
+                Math.Abs(_strokeWidth.Value - value.Value) > Epsilon)
             {
                 _strokeWidth = value;
                 NotifyPropertyChanged();
@@ -684,7 +684,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         RerouteConnectors();
     }
 
-    private void SetWidth(double value)
+    protected virtual void SetWidth(double value)
     {
         var delta = value - _width;
 
@@ -711,7 +711,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         RerouteConnectors();
     }
 
-    private void SetHeight(double value)
+    protected virtual void SetHeight(double value)
     {
         var delta = value - _height;
 

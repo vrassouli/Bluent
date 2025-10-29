@@ -1,5 +1,4 @@
-﻿using Bluent.Core.Utilities;
-using Bluent.UI.Diagrams.Elements.Abstractions;
+﻿using Bluent.UI.Diagrams.Elements.Abstractions;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

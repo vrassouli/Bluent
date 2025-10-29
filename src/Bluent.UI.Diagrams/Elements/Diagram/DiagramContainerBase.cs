@@ -1,16 +1,13 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
 public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementContainer
 {
-    private List<IDiagramElement> _elements = new();
-
-    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
-
+    private readonly List<IDiagramElement> _elements = new();
+    
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
     public virtual void AddDiagramElement(IDiagramElement element)
@@ -20,7 +17,6 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         _elements.Add(element);
 
         NotifyPropertyChanged(nameof(DiagramElements));
-        //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
     }
 
     public virtual void RemoveDiagramElement(IDiagramElement element)
@@ -30,7 +26,6 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         _elements.Remove(element);
 
         NotifyPropertyChanged(nameof(DiagramElements));
-        //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
 
         element.IsSelected = false;
         element.Clean();
