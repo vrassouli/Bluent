@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public class RectangleContainerNode : DiagramCompositContainerBase, IHasIncomingConnector, IHasOutgoingConnector
+public class RectangleContainerNode : DiagramCompositeContainerBase, IHasIncomingConnector, IHasOutgoingConnector
 {
     const int MaxHeaderHeight = 30;
     private double _raduis;

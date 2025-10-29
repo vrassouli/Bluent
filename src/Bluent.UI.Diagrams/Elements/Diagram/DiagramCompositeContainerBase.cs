@@ -1,25 +1,26 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
 
-public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramElementContainer, IDiagramBoundaryContainer
+public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramElementContainer, IDiagramBoundaryContainer
 {
-    private List<IDiagramElement> _elements = new();
-    private List<IDiagramBoundaryNode> _boundaryElements = new();
+    private readonly List<IDiagramElement> _elements = new();
+    private readonly List<IDiagramBoundaryNode> _boundaryElements = new();
 
     //public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
     public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
+    public virtual bool CanAttach(IDiagramBoundaryNode boundaryNode) => true;
+
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
-    public void AddDiagramElement(IDiagramElement element)
+    public virtual void AddDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
 
-        if (element is IDiagramBoundaryNode boundaryElement)
+        if (element is IDiagramBoundaryNode boundaryElement && CanAttach(boundaryElement))
         {
             var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
             boundaryElement.SetCenter(stickPoint);
@@ -36,7 +37,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         }
     }
 
-    public void RemoveDiagramElement(IDiagramElement element)
+    public virtual void RemoveDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
 
@@ -57,7 +58,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         element.Clean();
     }
 
-    private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    protected virtual void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (sender is IDiagramBoundaryNode boundaryElement &&
             (e.PropertyName == nameof(X) ||
@@ -129,7 +130,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
         var sequence = 0;
         builder.OpenRegion(regionSeq);
 
-        foreach (var childElement in DiagramElements.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        foreach (var childElement in (this as IDiagramElementContainer).GetRenderOrder())
         {
             builder.OpenRegion(sequence++);
             builder.OpenComponent<ElementHost>(sequence++);
@@ -138,7 +139,7 @@ public abstract class DiagramCompositContainerBase : DiagramNodeBase, IDiagramEl
             builder.CloseRegion();
         }
 
-        foreach (var childElement in BoundaryNodes.OrderBy(x => x.IsSelected).ThenBy(x => (x as IDiagramContainer)?.HasSelection ?? false))
+        foreach (var childElement in (this as IDiagramBoundaryContainer).GetRenderOrder())
         {
             builder.OpenRegion(sequence++);
             builder.OpenComponent<ElementHost>(sequence++);

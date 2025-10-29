@@ -7,4 +7,5 @@ export type PopoverSettings = {
     padding: Padding;
     triggerEvents: string[];
     hideEvents: string[];
+    sameWidth: boolean;
 };

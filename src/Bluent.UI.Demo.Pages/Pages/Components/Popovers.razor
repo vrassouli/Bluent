@@ -105,7 +105,7 @@
 </div>
 
 @code {
-    private string _popoverCommand = default!;
+    private string? _popoverCommand;
     private Popover? _manualPopover;
     private TextField? _cmdTextField;
 
@@ -119,18 +119,18 @@
         base.OnAfterRender(firstRender);
     }
 
-    private void OnShowCommandChanged(string cmd)
+    private void OnShowCommandChanged(string? cmd)
     {
         _popoverCommand = cmd;
 
-        if (string.Compare(_popoverCommand, "show", true) == 0){
+        if (String.Compare(_popoverCommand, "show", StringComparison.OrdinalIgnoreCase) == 0){
             _manualPopover?.Show();
             _manualPopover?.RefreshSurface(true);
         }
-        else if (string.Compare(_popoverCommand, "close", true) == 0)
+        else if (String.Compare(_popoverCommand, "close", StringComparison.OrdinalIgnoreCase) == 0)
             _manualPopover?.Close();
         else
-            _manualPopover?.RefreshSurface(true);
+            _manualPopover?.RefreshSurface(false);
 
     }
 }

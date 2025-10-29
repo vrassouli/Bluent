@@ -14,6 +14,7 @@ public interface IDiagramElementContainer : IDiagramContainer
 public interface IDiagramBoundaryContainer : IDiagramContainer
 {
     IEnumerable<IDiagramBoundaryNode> BoundaryNodes { get; }
+    bool CanAttach(IDiagramBoundaryNode boundaryNode);
     
     IOrderedEnumerable<IDiagramElement> GetRenderOrder()
     {

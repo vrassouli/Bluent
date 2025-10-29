@@ -19,6 +19,7 @@ public partial class Popover : IDisposable
     [Parameter] public bool KeepSurface { get; set; }
     [Parameter] public string? TriggerEvents { get; set; } = "click";
     [Parameter] public string? HideEvents { get; set; }
+    [Parameter] public bool SameWidth { get; set; }
     [Parameter] public PopoverAppearance Appearance { get; set; } = PopoverAppearance.Default;
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
@@ -45,6 +46,7 @@ public partial class Popover : IDisposable
         {
             TriggerEvents = TriggerEvents?.Split([',', ' ', ';'], StringSplitOptions.TrimEntries),
             HideEvents = HideEvents?.Split([',', ' ', ';'], StringSplitOptions.TrimEntries),
+            SameWidth = SameWidth
         };
 
         PopoverService.SetTrigger(GetSurfaceFragment(), new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface));

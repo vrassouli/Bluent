@@ -38,11 +38,19 @@ export class Popover {
 
     public async showSurface(settings: PopoverSettings) {
         let surface = <HTMLElement>this.getSurface(settings);
+
         if (!surface) {
             await this.renderSurface(settings);
             surface = <HTMLElement>this.getSurface(settings);
         }
 
+        if (settings.sameWidth){
+            const trigger = this.getTrigger(settings);
+            
+            if (trigger && surface) {
+                surface.style.width = `${trigger.getBoundingClientRect().width}px`;
+            }
+        }
         surface.classList.remove('hidden');
 
         this.updatePosition(settings);

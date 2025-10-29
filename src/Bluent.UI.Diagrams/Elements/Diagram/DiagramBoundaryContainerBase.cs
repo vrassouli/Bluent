@@ -1,6 +1,5 @@
 ﻿using Bluent.UI.Diagrams.Components.Internals;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace Bluent.UI.Diagrams.Elements.Diagram;
@@ -12,10 +11,11 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
     //public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
     public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
+    public virtual bool CanAttach(IDiagramBoundaryNode boundaryNode) => true;
 
     public void AddDiagramElement(IDiagramElement element)
     {
-        if (element is not IDiagramBoundaryNode boundaryElement)
+        if (element is not IDiagramBoundaryNode boundaryElement || !CanAttach(boundaryElement))
             return;
 
         boundaryElement.PropertyChanged += ChildElementPropertyChanged;
