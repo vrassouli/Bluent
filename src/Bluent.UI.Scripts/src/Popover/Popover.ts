@@ -66,12 +66,6 @@ export class Popover {
         document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
     }
 
-    private setSurfaceWidth(trigger: Element, surface: HTMLElement) {
-        if (trigger && surface) {
-            surface.style.width = `${trigger.getBoundingClientRect().width}px`;
-        }
-    }
-
     private updatePosition(settings: PopoverSettings) {
         const surface = <HTMLElement>this.getSurface(settings);
         const trigger = this.getTrigger(settings);
@@ -179,6 +173,11 @@ export class Popover {
     private doHideSurface(settings: PopoverSettings, surface: HTMLElement) {
         surface?.classList.add('hidden');
         this._dotNetRef.invokeMethodAsync('HideSurface', settings);
+
+        if (this._triggerResizeObserver) {
+            this._triggerResizeObserver.disconnect();
+            this._triggerResizeObserver = null;
+        }
     }
 
     private getTrigger(settings: PopoverSettings) {
@@ -195,6 +194,12 @@ export class Popover {
 
     private getSurafeSelector(settings: PopoverSettings): string {
         return `#${settings.triggerId}_surface`;
+    }
+
+    private setSurfaceWidth(trigger: Element, surface: HTMLElement) {
+        if (trigger && surface) {
+            surface.style.width = `${trigger.getBoundingClientRect().width}px`;
+        }
     }
 
     static create(dotNetRef: any): Popover {
