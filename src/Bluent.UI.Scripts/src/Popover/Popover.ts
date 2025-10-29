@@ -3,7 +3,8 @@ import { PopoverSettings } from './PopoverSettings';
 export class Popover {
     private _dotNetRef: any;
     private _scrollEventHandler: any;
-    private _resizeObserver: ResizeObserver;
+    private _triggerResizeObserver: ResizeObserver;
+    private _surfaceResizeObserver: ResizeObserver;
 
     constructor(dotNetRef: any) {
         this._dotNetRef = dotNetRef;
@@ -44,12 +45,17 @@ export class Popover {
             surface = <HTMLElement>this.getSurface(settings);
         }
 
-        if (settings.sameWidth){
+        if (settings.sameWidth) {
             const trigger = this.getTrigger(settings);
-            
-            if (trigger && surface) {
-                surface.style.width = `${trigger.getBoundingClientRect().width}px`;
+
+            if (!this._triggerResizeObserver) {
+                this._triggerResizeObserver = new ResizeObserver(() => {
+                    this.setSurfaceWidth(trigger, surface);
+                });
+
+                this._triggerResizeObserver.observe(trigger);
             }
+            this.setSurfaceWidth(trigger, surface);
         }
         surface.classList.remove('hidden');
 
@@ -58,6 +64,12 @@ export class Popover {
         if (!surface.classList.contains('show'))
             surface.classList.add('show');
         document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+    }
+
+    private setSurfaceWidth(trigger: Element, surface: HTMLElement) {
+        if (trigger && surface) {
+            surface.style.width = `${trigger.getBoundingClientRect().width}px`;
+        }
     }
 
     private updatePosition(settings: PopoverSettings) {
@@ -109,8 +121,8 @@ export class Popover {
             // this._scrollEventHandler = this.onDocumentScroll.bind(this, settings);
             // window.addEventListener('scroll', this.onDocumentScroll.bind(this, settings));
 
-            this._resizeObserver = new ResizeObserver(() => { this.updatePosition(settings); });
-            this._resizeObserver.observe(surface);
+            this._surfaceResizeObserver = new ResizeObserver(() => { this.updatePosition(settings); });
+            this._surfaceResizeObserver.observe(surface);
 
             new MutationObserver((mutationList, observer) => {
                 mutationList.forEach(item => {
@@ -118,7 +130,7 @@ export class Popover {
                         if (removedNode == surface) {
                             // window.removeEventListener('scroll', this._scrollEventHandler);
 
-                            this._resizeObserver.disconnect();
+                            this._surfaceResizeObserver.disconnect();
                             observer.disconnect();
                         }
                     });
