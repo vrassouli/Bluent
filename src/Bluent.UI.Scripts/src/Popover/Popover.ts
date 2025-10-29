@@ -1,10 +1,11 @@
-import { flip, shift, offset, arrow, computePosition } from '@floating-ui/dom';
+import { flip, shift, offset, arrow, computePosition, autoUpdate } from '@floating-ui/dom';
 import { PopoverSettings } from './PopoverSettings';
 export class Popover {
     private _dotNetRef: any;
     private _scrollEventHandler: any;
     private _triggerResizeObserver: ResizeObserver;
     private _surfaceResizeObserver: ResizeObserver;
+    private _cleanupAutoUpdate: (() => void) | null;
 
     constructor(dotNetRef: any) {
         this._dotNetRef = dotNetRef;
@@ -64,6 +65,16 @@ export class Popover {
         if (!surface.classList.contains('show'))
             surface.classList.add('show');
         document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+
+        // Register automatic updates on scroll/resize/mutations for correct positioning
+        const trigger = this.getTrigger(settings) as HTMLElement;
+        if (trigger && surface) {
+            // Ensure previous auto-update (if any) is cleared before adding a new one
+            if (this._cleanupAutoUpdate) {
+                this._cleanupAutoUpdate();
+            }
+            this._cleanupAutoUpdate = autoUpdate(trigger, surface, () => this.updatePosition(settings));
+        }
     }
 
     private updatePosition(settings: PopoverSettings) {
@@ -112,9 +123,6 @@ export class Popover {
 
         const surface = <HTMLElement>this.getSurface(settings);
         if (surface) {
-            // this._scrollEventHandler = this.onDocumentScroll.bind(this, settings);
-            // window.addEventListener('scroll', this.onDocumentScroll.bind(this, settings));
-
             this._surfaceResizeObserver = new ResizeObserver(() => { this.updatePosition(settings); });
             this._surfaceResizeObserver.observe(surface);
 
@@ -166,8 +174,6 @@ export class Popover {
         else {
             this.doHideSurface(settings, surface);
         }
-
-        //document.removeEventListener('scroll', this._scrollEventHandler);
     }
 
     private doHideSurface(settings: PopoverSettings, surface: HTMLElement) {
@@ -177,6 +183,12 @@ export class Popover {
         if (this._triggerResizeObserver) {
             this._triggerResizeObserver.disconnect();
             this._triggerResizeObserver = null;
+        }
+
+        // De-register auto update/scroll listeners when surface is hidden
+        if (this._cleanupAutoUpdate) {
+            this._cleanupAutoUpdate();
+            this._cleanupAutoUpdate = null;
         }
     }
 
