@@ -16,7 +16,8 @@
            step="@GetStepAttributeValue()"
            type="text"
            name="@NameAttributeValue"
-           @bind-value="@CurrentValueAsString" @bind-value:event="@BindValueEvent" />
+           @bind-value="@UserValue" 
+           @bind-value:event="@BindValueEvent" />
 
     @if (EndAddon != null)
     {

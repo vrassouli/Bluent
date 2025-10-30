@@ -6,13 +6,30 @@ namespace Bluent.UI.Components;
 
 public partial class NumericField<TValue>
 {
+    private string? _userValue;
+
     /// <summary>
     /// Gets or sets the error message used when displaying an a parsing error.
     /// </summary>
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
     [Parameter] public bool GainFocus { get; set; }
     [Parameter] public string? Format { get; set; }
-    //[Parameter] public bool TrimTrailingZeros { get; set; }
+
+    private string? UserValue
+    {
+        get
+        {
+            if (_userValue is null)
+                return CurrentValueAsString;
+            
+            return _userValue;
+        }
+        set
+        {
+            _userValue = value;
+            CurrentValueAsString = value;
+        }
+    }
 
     protected override IEnumerable<string> GetClasses()
     {
