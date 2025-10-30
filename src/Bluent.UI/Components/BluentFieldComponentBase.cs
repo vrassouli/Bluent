@@ -6,8 +6,8 @@ namespace Bluent.UI.Components;
 
 public abstract class BluentFieldComponentBase<TValue> : BluentInputComponentBase<TValue>
 {
-    [Parameter] public RenderFragment StartAddon { get; set; } = default!;
-    [Parameter] public RenderFragment EndAddon { get; set; } = default!;
+    [Parameter] public RenderFragment? StartAddon { get; set; } 
+    [Parameter] public RenderFragment? EndAddon { get; set; }
     [Parameter] public FieldSize Size { get; set; } = FieldSize.Medium;
     [Parameter] public string BindValueEvent { get; set; } = "onchange";
 
