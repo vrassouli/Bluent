@@ -12,14 +12,15 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "typescript": "^5.7.3",
-    "vite": "^6.0.11",
-    "vite-plugin-top-level-await": "^1.4.4",
-    "vite-plugin-wasm": "^3.4.1",
-    "vite-plugin-singlefile": "^2.1.0",
-    "@originjs/vite-plugin-commonjs": "^1.0.3"
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vite-plugin-singlefile": "^2.3.0",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.5.0"
   },
   "dependencies": {
-    "chart.js": "^4.4.9"
+    "chart.js": "^4.5.1",
+    "svg-gauge": "^1.0.7"
   }
 }

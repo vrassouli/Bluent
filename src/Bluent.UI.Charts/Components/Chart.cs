@@ -51,19 +51,19 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        var seq = 0;
+        var seq = -1;
 
-        builder.OpenComponent<CascadingValue<Chart<TDataSource>>>(seq++);
-        builder.AddComponentParameter(seq++, nameof(CascadingValue<Chart<TDataSource>>.Value), this);
-        builder.AddComponentParameter(seq++, nameof(CascadingValue<Chart<TDataSource>>.IsFixed), true);
-        builder.AddComponentParameter(seq++, nameof(CascadingValue<Chart<TDataSource>>.ChildContent), ChildContent);
+        builder.OpenComponent<CascadingValue<Chart<TDataSource>>>(++seq);
+        builder.AddComponentParameter(++seq, nameof(CascadingValue<Chart<TDataSource>>.Value), this);
+        builder.AddComponentParameter(++seq, nameof(CascadingValue<Chart<TDataSource>>.IsFixed), true);
+        builder.AddComponentParameter(++seq, nameof(CascadingValue<Chart<TDataSource>>.ChildContent), ChildContent);
         builder.CloseComponent();
 
-        builder.OpenElement(seq++, "canvas");
-        builder.AddMultipleAttributes(seq++, AdditionalAttributes);
-        builder.AddAttribute(seq++, "id", Id);
-        builder.AddAttribute(seq++, "class", GetComponentClass());
-        builder.AddAttribute(seq++, "style", Style);
+        builder.OpenElement(++seq, "canvas");
+        builder.AddMultipleAttributes(++seq, AdditionalAttributes);
+        builder.AddAttribute(++seq, "id", Id);
+        builder.AddAttribute(++seq, "class", GetComponentClass());
+        builder.AddAttribute(++seq, "style", Style);
         builder.CloseElement();
     }
 
