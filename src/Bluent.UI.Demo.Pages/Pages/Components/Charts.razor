@@ -3,6 +3,17 @@
 @using Bluent.UI.Charts.ChartJs
 <div class="p-5 py-md-10 px-md-12 anim-slide-in-end anim-fade-in">
     <div class="w-100 w-md-50 m-auto">
+
+        <h3>Gauge</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Gauge FormatValue="@(value => Task.FromResult($"{value} %"))"
+                   Colors="@(new Dictionary<double, string>(){ {50, "red"}, {100, "green"} })"
+                   StartAngle="180"
+                   EndAngle="0"
+                   Value="64"
+                   Style="width: 200px"/>
+        </section>
+        
         <h1>Charts</h1>
         <h3>Bar</h3>
         <section class="p-7 rounded-5 shadow-3">
@@ -189,6 +200,7 @@
                          BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
             </Chart>
         </section>
+
 
 
     </div>

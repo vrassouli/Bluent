@@ -153,6 +153,7 @@
             </EditForm>
         </section>
 
+        <h3>Minimum and Maximum</h3>
         <section class="p-7 rounded-5 shadow-3">
             <EditForm Model="this">
                 <Label ForExpression="()=>_decimalFormat" Class="d-block mb-1 mt-4"/>
@@ -161,6 +162,8 @@
                 <Label ForExpression="()=>_numericDecimal" Class="d-block mb-1 mt-4"/>
                 <NumericField @bind-Value="_numericDecimal" BindValueEvent="oninput" 
                               Format="@_decimalFormat"
+                              Min="10.5m" 
+                              Max="20.5m"
                               ParsingErrorMessage="Please enter a valid decimal value."/>
                 <ValidationMessage For="() => _numericDecimal"/>
 
