@@ -2486,7 +2486,7 @@
   font-weight: var(--fontWeightRegular);
   line-height: var(--fui-text-field-line-height);
   min-height: var(--fui-text-field-min-height);
-  width: 3ch;
+  width: 3rem;
   height: 3rem;
   font-size: 1.5rem;
 }
