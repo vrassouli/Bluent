@@ -152,6 +152,19 @@
 
             </EditForm>
         </section>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="this">
+                <Label ForExpression="()=>_byteFormat" Class="d-block mb-1 mt-4"/>
+                <TextField @bind-Value="_byteFormat"/>
+
+                <Label ForExpression="()=>_numericByte" Class="d-block mb-1 mt-4"/>
+                <NumericField @bind-Value="_numericByte" Format="@_byteFormat"/>
+                <ValidationMessage For="() => _numericByte"/>
+
+                <pre>Value: @_numericFloat</pre>
+
+            </EditForm>
+        </section>
 
         <h3>Minimum and Maximum</h3>
         <section class="p-7 rounded-5 shadow-3">
@@ -168,6 +181,31 @@
                 <ValidationMessage For="() => _numericDecimal"/>
 
                 <pre>Value: @_numericDecimal.ToString(_decimalFormat)</pre>
+
+            </EditForm>
+        </section>
+        
+        <h3>Converter</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="this">
+                
+                <div class="d-flex gap-5 align-items-center">
+                    <NumericField TValue="decimal" 
+                                  Value="_kilograms" 
+                                  ValueExpression="() => _kilograms" 
+                                  ValueChanged="KiloChanged"
+                                  BindValueEvent="oninput"
+                                  Min="0"
+                                  Format="G29"/>
+                    <Icon Content="icon-ic_fluent_arrow_swap_20_regular" Class="fs-7"/>
+                    <NumericField TValue="int" 
+                                  Value="_grams" 
+                                  ValueExpression="() => _grams" 
+                                  ValueChanged="GramChanged"
+                                  BindValueEvent="oninput"
+                                  Min="0" 
+                                  Format="N0"/>
+                </div>
 
             </EditForm>
         </section>
@@ -236,9 +274,13 @@
     [Display(Name = "Month field")] private DateTime? _monthField = DateTime.Now;
 
     [Display(Name = "Float field")] private float _numericFloat;
+    [Display(Name = "Byte field")] private byte _numericByte;
     [Display(Name = "Decimal field")] private Decimal _numericDecimal = 12.50m;
+    [Display(Name = "Kilo grams")] private Decimal _kilograms = 0m;
+    [Display(Name = "Grams")] private int _grams = 0;
 
     [Display(Name = "Float format")] private string? _floatFormat = "n3";
+    [Display(Name = "Byte format")] private string? _byteFormat = "n3";
     [Display(Name = "Decimal format")] private string? _decimalFormat = "G29";
 
     [Display(Name = "Select field")] private string _selectField = "Green";
@@ -257,4 +299,16 @@
     [Display(Name = "Time span")] private TimeSpan _timeSpan = TimeSpan.FromTicks(DateTime.Now.Ticks);
 
     private List<string> _colors = ["Red", "Green", "Blue"];
+
+    private void KiloChanged(decimal value)
+    {
+        _kilograms = value;
+        _grams = (int)(_kilograms * 1000);
+    }
+    
+    private void GramChanged(int value)
+    {
+        _grams = value;
+        _kilograms = (decimal)_grams / 1000;
+    }
 }
