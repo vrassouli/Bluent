@@ -10,7 +10,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
 {
     #region Private fields
 
-    private const double Epsilon = 0.01;
+    private const double _epsilon = 0.01;
 
     private bool _pointerDirectlyOnNode = false;
 
@@ -47,7 +47,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         get => _x + Drag.Dx;
         set
         {
-            if (Math.Abs(_x - value) > Epsilon)
+            if (Math.Abs(_x - value) > _epsilon)
             {
                 SetX(value);
 
@@ -63,7 +63,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         get => _y + Drag.Dy;
         set
         {
-            if (Math.Abs(_y - value) > Epsilon)
+            if (Math.Abs(_y - value) > _epsilon)
             {
                 SetY(value);
                 NotifyPropertyChanged();
@@ -76,7 +76,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         get => _width;
         set
         {
-            if (Math.Abs(_width - value) > Epsilon)
+            if (Math.Abs(_width - value) > _epsilon)
             {
                 SetWidth(value);
                 NotifyPropertyChanged();
@@ -89,7 +89,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         get => _height;
         set
         {
-            if (Math.Abs(_height - value) > Epsilon)
+            if (Math.Abs(_height - value) > _epsilon)
             {
                 SetHeight(value);
                 NotifyPropertyChanged();
@@ -180,7 +180,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             if (_strokeWidth is null || 
                 value is null || 
-                Math.Abs(_strokeWidth.Value - value.Value) > Epsilon)
+                Math.Abs(_strokeWidth.Value - value.Value) > _epsilon)
             {
                 _strokeWidth = value;
                 NotifyPropertyChanged();

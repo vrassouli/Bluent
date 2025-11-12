@@ -16,7 +16,9 @@
            type="text"
            name="@NameAttributeValue"
            @bind-value="@UserValue" 
-           @bind-value:event="@BindValueEvent" />
+           @bind-value:event="@BindValueEvent" 
+           @onfocus="HandleFocus"
+           @onblur="HandleBlur"/>
 
     @if (EndAddon != null)
     {
