@@ -27,13 +27,11 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
 
             _boundaryElements.Add(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryNodes));
-            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, boundaryElement));
         }
         else
         {
             _elements.Add(element);
             NotifyPropertyChanged(nameof(DiagramElements));
-            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
         }
     }
 
@@ -41,17 +39,15 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
     {
         element.PropertyChanged -= ChildElementPropertyChanged;
 
-        if (element is IDiagramBoundaryNode boundaryElement)
+        if (element is IDiagramBoundaryNode boundaryElement && _boundaryElements.Contains(boundaryElement))
         {
             _boundaryElements.Remove(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryNodes));
-            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, boundaryElement));
         }
         else
         {
             _elements.Remove(element);
             NotifyPropertyChanged(nameof(DiagramElements));
-            //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
         }
 
         element.IsSelected = false;
@@ -61,6 +57,7 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
     protected virtual void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (sender is IDiagramBoundaryNode boundaryElement &&
+            CanAttach(boundaryElement) &&
             (e.PropertyName == nameof(X) ||
             e.PropertyName == nameof(Y) ||
             e.PropertyName == nameof(Width) ||
@@ -78,7 +75,7 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
         return CanContain(typeof(T));
     }
 
-    public bool CanContain(Type type)
+    public virtual bool CanContain(Type type)
     {
         return true;
     }

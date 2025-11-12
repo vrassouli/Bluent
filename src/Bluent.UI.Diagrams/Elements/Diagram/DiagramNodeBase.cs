@@ -598,7 +598,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
          *
          * By updating Width, the connectors at the Right edge, will be updated,
          * however, becouse the Right edge is sticked at it's place, the connector will be miss-placed.
-         * To prevent it, we should update connectors at Right edge too, so after getting updated when the Width updates, they get placed at correct position.
+         * To prevent it, we should update connectors at Right edge too, so after getting updated when the Width updates,
+         * they get placed at correct position.
          */
 
         var delta = value - _x;
@@ -644,7 +645,8 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
          *
          * By updating Height, the connectors at the Bottom edge, will be updated,
          * however, becouse the Bottom edge is sticked at it's place, the connector will be miss-placed.
-         * To prevent it, we should update connectors at Bottom edge too, so after getting updated when the Height updates, they get placed at correct position.
+         * To prevent it, we should update connectors at Bottom edge too, so after getting updated when the Height updates,
+         * they get placed at correct position.
          */
 
         var delta = value - _y;
