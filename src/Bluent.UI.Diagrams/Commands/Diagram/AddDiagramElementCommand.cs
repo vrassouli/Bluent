@@ -6,15 +6,14 @@ namespace Bluent.UI.Diagrams.Commands.Diagram;
 public class AddDiagramElementCommand : ICommand
 {
     private readonly IDiagramContainer _container;
-    private readonly IDiagramNode _element;
 
     public AddDiagramElementCommand(IDiagramContainer container, IDiagramNode element) 
     {
         _container = container;
-        _element = element;
+        Element = element;
     }
 
-    public IDiagramNode Element => _element;
+    protected IDiagramNode Element { get; }
 
     public virtual void Do()
     {

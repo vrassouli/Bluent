@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
@@ -33,7 +33,7 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" />
     </ItemGroup>
 
     <ItemGroup>

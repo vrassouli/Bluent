@@ -39,11 +39,11 @@ internal class DragTool : SinglePointerToolBase
         {
             if (_dragDelta != null)
             {
-                var elements = Canvas.SelectedElements.OfType<IDrawingElement>();
+                var elements = Canvas.SelectedElements.OfType<IDrawingElement>().ToList();
                 foreach (var el in elements)
                     el.CancelDrag();
 
-                var command = new DragElementsCommand(elements.ToList(), _dragDelta);
+                var command = new DragElementsCommand(elements, _dragDelta);
                 Canvas.ExecuteCommand(command);
             }
         }
@@ -57,17 +57,15 @@ internal class DragTool : SinglePointerToolBase
 
     private void Pan(PointerEventArgs e)
     {
-        if (_panStart is null)
-            _panStart = e.ToClientPoint();
+        _panStart ??= e.ToClientPoint();
 
         var delta = e.ToClientPoint() - _panStart;
-        Canvas?.Pan(delta.Dx, delta.Dy);
+        Canvas.Pan(delta.Dx, delta.Dy);
     }
 
     private void Drag(PointerEventArgs e)
     {
-        if (_dragStart is null)
-            _dragStart = Canvas.ScreenToDiagram(e.ToClientPoint());
+        _dragStart ??= Canvas.ScreenToDiagram(e.ToClientPoint());
 
         _dragDelta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _dragStart;
 

@@ -21,7 +21,7 @@ internal class DragDiagramElementsCommand : ICommand
     {
         foreach (var el in _elements)
         {
-            var prevParent = FindParent(el);
+            var prevParent = _diagram.GetElementContainer(el);
 
             var drag = new Distance2D(el.AllowHorizontalDrag ? _drag.Dx : 0, el.AllowVerticalDrag ? _drag.Dy : 0);
 
@@ -30,8 +30,8 @@ internal class DragDiagramElementsCommand : ICommand
 
             var newParent = FindParent(el);
 
-            if (el is IDiagramNode diagramEl && prevParent is not null && newParent is not null)
-                SwitchParent(diagramEl, prevParent, newParent);
+            if (prevParent is not null && newParent is not null)
+                SwitchParent(el, prevParent, newParent);
         }
     }
 
@@ -39,7 +39,7 @@ internal class DragDiagramElementsCommand : ICommand
     {
         foreach (var el in _elements)
         {
-            var prevParent = FindParent(el);
+            var prevParent = _diagram.GetElementContainer(el);
 
             var drag = new Distance2D(el.AllowHorizontalDrag ? -_drag.Dx : 0, el.AllowVerticalDrag ? -_drag.Dy : 0);
 
@@ -48,16 +48,18 @@ internal class DragDiagramElementsCommand : ICommand
 
             var newParent = FindParent(el);
 
-            if (el is IDiagramNode diagramEl && prevParent is not null && newParent is not null)
-                SwitchParent(diagramEl, prevParent, newParent);
+            if (prevParent is not null && newParent is not null)
+                SwitchParent(el, prevParent, newParent);
         }
     }
 
     private IDiagramContainer? FindParent(IDiagramNode el)
     {
-        var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy)).OfType<IDiagramContainer>();
+        var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy))
+            .OfType<IDiagramContainer>()
+            .Where(x => x.CanContain(el.GetType()));
 
-        return containers.FirstOrDefault(x => !object.Equals(el, x) && x.CanContain(el.GetType()));
+        return containers.FirstOrDefault(x => !Equals(el, x));
     }
 
     private void SwitchParent(IDiagramNode element,

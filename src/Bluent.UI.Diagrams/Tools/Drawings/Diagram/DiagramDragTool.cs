@@ -11,7 +11,6 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
     private DiagramPoint? _dragStart;
     private Distance2D? _dragDelta;
     private ScreenPoint? _panStart;
-    private Dictionary<long, DiagramPoint> _startPoints = new();
 
     public DiagramDragTool()
     {
@@ -39,16 +38,14 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
         {
             if (_dragDelta != null)
             {
-                var elements = Canvas.SelectedElements.OfType<IDiagramNode>();
+                var elements = Canvas.SelectedElements.OfType<IDiagramNode>().ToList();
                 foreach (var el in elements)
                     el.CancelDrag();
 
-                var command = new DragDiagramElementsCommand(Diagram, elements.ToList(), _dragDelta);
+                var command = new DragDiagramElementsCommand(Diagram, elements, _dragDelta);
                 Canvas.ExecuteCommand(command);
             }
         }
-
-        _startPoints.Clear();
 
         _panStart = null;
         _dragStart = null;
@@ -57,17 +54,15 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
 
     private void Pan(PointerEventArgs e)
     {
-        if (_panStart is null)
-            _panStart = e.ToClientPoint();
+        _panStart ??= e.ToClientPoint();
 
         var delta = e.ToClientPoint() - _panStart;
-        Canvas?.Pan(delta.Dx, delta.Dy);
+        Canvas.Pan(delta.Dx, delta.Dy);
     }
 
     private void Drag(PointerEventArgs e)
     {
-        if (_dragStart is null)
-            _dragStart = Canvas.ScreenToDiagram(e.ToClientPoint());
+        _dragStart ??= Canvas.ScreenToDiagram(e.ToClientPoint());
 
         _dragDelta = Canvas.ScreenToDiagram(e.ToClientPoint()) - _dragStart;
         var elements = Canvas.SelectedElements.OfType<IDiagramNode>();
