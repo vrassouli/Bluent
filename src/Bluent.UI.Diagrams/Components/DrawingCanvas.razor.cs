@@ -338,7 +338,7 @@ public partial class DrawingCanvas
         StateHasChanged();
         InvokeAsync(() => OnSelectionChanged.InvokeAsync(SelectedElements));
     }
-
+    
     public void ClearSelection()
     {
         foreach (var el in SelectedElements)
