@@ -23,16 +23,20 @@ public class DeleteDiagramElementsCommand : ICommand
         {
             if (element is IHasIncomingConnector hasIncomingConnector)
             {
-                var command = new DeleteDiagramElementsCommand(_diagram,
-                    hasIncomingConnector.IncomingConnectors.OfType<IDiagramElement>().ToList());
-                _innerCommands.Add(command);
+                foreach (var connector in hasIncomingConnector.IncomingConnectors)
+                {
+                    var command = new DeleteDiagramElementsCommand(_diagram, [connector]);
+                    _innerCommands.Add(command);
+                }
             }
 
             if (element is IHasOutgoingConnector hasOutgoingConnector)
             {
-                var command = new DeleteDiagramElementsCommand(_diagram,
-                    hasOutgoingConnector.OutgoingConnectors.OfType<IDiagramElement>().ToList());
-                _innerCommands.Add(command);
+                foreach (var connector in hasOutgoingConnector.OutgoingConnectors)
+                {
+                    var command = new DeleteDiagramElementsCommand(_diagram, [connector]);
+                    _innerCommands.Add(command);
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ internal class DragDiagramElementsCommand : ICommand
     private readonly Components.Diagram _diagram;
     private readonly List<IDiagramNode> _elements;
     private readonly Distance2D _drag;
+    private List<ICommand> _innerCommands = [];
 
     public DragDiagramElementsCommand(Components.Diagram diagram, List<IDiagramNode> elements, Distance2D drag)
     {
@@ -21,41 +22,63 @@ internal class DragDiagramElementsCommand : ICommand
     {
         foreach (var el in _elements)
         {
-            var prevParent = _diagram.GetElementContainer(el);
-
             var drag = new Distance2D(el.AllowHorizontalDrag ? _drag.Dx : 0, el.AllowVerticalDrag ? _drag.Dy : 0);
+            var newPosition = new DiagramPoint(el.Boundary.X + drag.Dx, el.Boundary.Y + drag.Dy);
+            
+            var prevParent = _diagram.GetElementContainer(el);
+            var nextParent = FindParent(el, newPosition);
 
             el.SetDrag(drag);
             el.ApplyDrag();
 
-            var newParent = FindParent(el);
+            if (nextParent is not null && nextParent != prevParent)
+            {
+                // delete from previous parent
+                var deleteCmd = new DeleteDiagramElementsCommand(_diagram, [el]);
+                deleteCmd.Do();
 
-            if (prevParent is not null && newParent is not null)
-                SwitchParent(el, prevParent, newParent);
+                // add to new parent at new position
+                var addCmd = new AddDiagramElementCommand(nextParent, el);
+                addCmd.Do();
+                
+                _innerCommands.AddRange([deleteCmd, addCmd]);
+            }
+
         }
     }
 
     public void Undo()
     {
+        // undo any inner command
+        foreach (var innerCommand in _innerCommands.AsEnumerable().Reverse())
+        {
+            innerCommand.Undo();
+        }
+        
+        // Clear inner commands
+        _innerCommands.Clear();
+        
         foreach (var el in _elements)
         {
-            var prevParent = _diagram.GetElementContainer(el);
-
             var drag = new Distance2D(el.AllowHorizontalDrag ? -_drag.Dx : 0, el.AllowVerticalDrag ? -_drag.Dy : 0);
 
             el.SetDrag(drag);
             el.ApplyDrag();
-
-            var newParent = FindParent(el);
-
-            if (prevParent is not null && newParent is not null)
-                SwitchParent(el, prevParent, newParent);
         }
     }
 
     private IDiagramContainer? FindParent(IDiagramNode el)
     {
         var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy))
+            .OfType<IDiagramContainer>()
+            .Where(x => x.CanContain(el.GetType()));
+
+        return containers.FirstOrDefault(x => !Equals(el, x));
+    }
+
+    private IDiagramContainer? FindParent(IDiagramNode el, DiagramPoint position)
+    {
+        var containers = _diagram.GetElementsAt(position)
             .OfType<IDiagramContainer>()
             .Where(x => x.CanContain(el.GetType()));
 
@@ -71,5 +94,7 @@ internal class DragDiagramElementsCommand : ICommand
 
         prevParent.RemoveDiagramElement(element);
         newParent.AddDiagramElement(element);
+        
+        
     }
 }
