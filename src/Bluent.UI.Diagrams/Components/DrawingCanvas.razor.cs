@@ -15,7 +15,7 @@ namespace Bluent.UI.Diagrams.Components;
 
 public partial class DrawingCanvas
 {
-    private const double _zoomStep = 0.1;
+    private const double _zoomStep = 0.02;
 
     private bool _shouldRender = true;
     private bool _allowPan;
@@ -338,7 +338,7 @@ public partial class DrawingCanvas
         StateHasChanged();
         InvokeAsync(() => OnSelectionChanged.InvokeAsync(SelectedElements));
     }
-
+    
     public void ClearSelection()
     {
         foreach (var el in SelectedElements)
