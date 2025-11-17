@@ -32,6 +32,8 @@ public partial class NumericField<TValue>
     [Parameter] public TValue? Min { get; set; }
     [Parameter] public TValue? Max { get; set; }
     [Parameter] public TValue? Step { get; set; }
+    [Parameter] public EventCallback OnBlur { get; set; }
+    [Parameter] public EventCallback OnFocus { get; set; }
 
     private string? UserValue
     {
@@ -258,10 +260,18 @@ public partial class NumericField<TValue>
         return valueString;
     }
     
-    private void HandleFocus() => _focused = true;
-    private void HandleBlur()
+    private async Task HandleFocus()
+    {
+        _focused = true;
+        
+        await OnFocus.InvokeAsync();
+    }
+
+    private async Task HandleBlur()
     {
         _focused = false;
         _userValue = null;
+        
+        await OnBlur.InvokeAsync();
     }
 }
