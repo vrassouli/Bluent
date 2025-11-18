@@ -64,8 +64,7 @@ public class BoundaryCircleNode : DiagramNodeBase, IDiagramBoundaryNode, IHasOut
             }
         };
     }
-
-
+    
     public override void Clean()
     {
         foreach (var outgoing in OutgoingConnectors)

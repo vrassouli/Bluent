@@ -23,22 +23,20 @@ internal class DragDiagramElementsCommand : ICommand
         foreach (var el in _elements)
         {
             var drag = new Distance2D(el.AllowHorizontalDrag ? _drag.Dx : 0, el.AllowVerticalDrag ? _drag.Dy : 0);
-            var newPosition = new DiagramPoint(el.Boundary.X + drag.Dx, el.Boundary.Y + drag.Dy);
+            el.SetDrag(drag);
+            el.ApplyDrag();            
             
             var prevParent = _diagram.GetElementContainer(el);
-            var nextParent = FindParent(el, newPosition);
+            var newParent = FindParent(el, el.Boundary.Center);
 
-            el.SetDrag(drag);
-            el.ApplyDrag();
-
-            if (nextParent is not null && nextParent != prevParent)
+            if (newParent is not null && newParent != prevParent)
             {
                 // delete from previous parent
                 var deleteCmd = new DeleteDiagramElementsCommand(_diagram, [el]);
                 deleteCmd.Do();
 
                 // add to new parent at new position
-                var addCmd = new AddDiagramElementCommand(nextParent, el);
+                var addCmd = new AddDiagramElementCommand(newParent, el);
                 addCmd.Do();
                 
                 _innerCommands.AddRange([deleteCmd, addCmd]);
@@ -67,14 +65,14 @@ internal class DragDiagramElementsCommand : ICommand
         }
     }
 
-    private IDiagramContainer? FindParent(IDiagramNode el)
-    {
-        var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy))
-            .OfType<IDiagramContainer>()
-            .Where(x => x.CanContain(el.GetType()));
-
-        return containers.FirstOrDefault(x => !Equals(el, x));
-    }
+    // private IDiagramContainer? FindParent(IDiagramNode el)
+    // {
+    //     var containers = _diagram.GetElementsAt(new DiagramPoint(el.Boundary.Cx, el.Boundary.Cy))
+    //         .OfType<IDiagramContainer>()
+    //         .Where(x => x.CanContain(el.GetType()));
+    //
+    //     return containers.FirstOrDefault(x => !Equals(el, x));
+    // }
 
     private IDiagramContainer? FindParent(IDiagramNode el, DiagramPoint position)
     {
@@ -85,16 +83,16 @@ internal class DragDiagramElementsCommand : ICommand
         return containers.FirstOrDefault(x => !Equals(el, x));
     }
 
-    private void SwitchParent(IDiagramNode element,
-                              IDiagramContainer prevParent,
-                              IDiagramContainer newParent)
-    {
-        if (prevParent == newParent)
-            return;
-
-        prevParent.RemoveDiagramElement(element);
-        newParent.AddDiagramElement(element);
-        
-        
-    }
+    // private void SwitchParent(IDiagramNode element,
+    //                           IDiagramContainer prevParent,
+    //                           IDiagramContainer newParent)
+    // {
+    //     if (prevParent == newParent)
+    //         return;
+    //
+    //     prevParent.RemoveDiagramElement(element);
+    //     newParent.AddDiagramElement(element);
+    //     
+    //     
+    // }
 }

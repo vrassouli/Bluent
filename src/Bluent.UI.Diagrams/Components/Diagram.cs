@@ -9,8 +9,10 @@ namespace Bluent.UI.Diagrams.Components;
 public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 {
     [Parameter] public RenderFragment? ConnectorMarkerEnd { get; set; }
-    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
+    public event EventHandler<IDiagramElement>? DiagramElementAdded;
+    public event EventHandler<IDiagramElement>? DiagramElementRemoved;
+    
     public override IEnumerable<IDrawingShape> SelectedElements
     {
         get
@@ -40,11 +42,13 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
     public virtual void AddDiagramElement(IDiagramElement element)
     {
         base.AddElement(element);
+        DiagramElementAdded?.Invoke(this, element);
     }
 
     public virtual void RemoveDiagramElement(IDiagramElement element)
     {
         base.RemoveElement(element);
+        DiagramElementRemoved?.Invoke(this, element);
         element.Clean();
     }
 
@@ -76,7 +80,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
         yield return this;
     }
 
-    public IDiagramElementContainer? GetElementContainer(IDiagramElement element)
+    public IDiagramContainer? GetElementContainer(IDiagramElement element)
     {
         return (this as IDiagramContainer).FindElementContainer(element);
     }

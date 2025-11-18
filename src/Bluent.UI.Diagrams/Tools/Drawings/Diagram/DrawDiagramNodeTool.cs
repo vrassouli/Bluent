@@ -9,7 +9,7 @@ namespace Bluent.UI.Diagrams.Tools.Drawings.Diagram;
 public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     where TNode : DiagramNodeBase, new()
 {
-    private const string DefaultCursor = "crosshair";
+    private const string _defaultCursor = "crosshair";
     private TNode? _node;
 
     public string Text { get; }
@@ -17,7 +17,7 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
     public DrawDiagramNodeTool(string text)
     {
         Text = text;
-        Cursor = DefaultCursor;
+        Cursor = _defaultCursor;
     }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e) { }
@@ -35,7 +35,7 @@ public abstract class DrawDiagramNodeTool<TNode> : DiagramSinglePointerToolBase
             if (container is null || !container.CanContain<TNode>())
                 Cursor = "not-allowed";
             else
-                Cursor = DefaultCursor;
+                Cursor = _defaultCursor;
         }
 
         base.OnPointerMove(e);

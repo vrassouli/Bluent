@@ -291,7 +291,7 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         }
 
         CancelDrag();
-        NotifyPropertyChanged();
+        NotifyPropertyChanged(nameof(Drag));
     }
 
     public virtual void CancelDrag()
@@ -306,11 +306,12 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
         {
             incoming.CancelEndDrag();
         }
+        NotifyPropertyChanged();
     }
 
     public virtual void SetDrag(Distance2D drag)
     {
-        Drag = drag;
+        _drag = drag;
         foreach (var outgoing in OutgoingConnectors)
         {
             outgoing.DragStart(drag);
@@ -360,25 +361,21 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
             Edges.Left => Boundary.X,
             Edges.Right => Boundary.Right,
 
-            Edges.Top or Edges.Bottom => point.X < Boundary.X
-                ? Boundary.X
-                : (point.X > Boundary.Right ? Boundary.Right : point.X),
+            Edges.Top or Edges.Bottom => Math.Max(Boundary.X, Math.Min(Boundary.Right, point.X)),
 
             _ => throw new ArgumentOutOfRangeException()
         };
 
         double cy = edge switch
         {
-            Edges.Left or Edges.Right => point.Y < Boundary.Y
-                ? Boundary.Y
-                : (point.Y > Boundary.Bottom ? Boundary.Bottom : point.Y),
+            Edges.Left or Edges.Right => Math.Max(Boundary.Y, Math.Min(Boundary.Bottom, point.Y)),
 
             Edges.Top => Boundary.Y,
             Edges.Bottom => Boundary.Bottom,
 
             _ => throw new ArgumentOutOfRangeException()
         };
-
+        
         return new DiagramPoint(cx, cy);
     }
 

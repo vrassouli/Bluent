@@ -4,6 +4,9 @@ public interface IDiagramElementContainer : IDiagramContainer
 {
     IEnumerable<IDiagramElement> DiagramElements { get; }
     
+    event EventHandler<IDiagramElement>? DiagramElementAdded;
+    event EventHandler<IDiagramElement>? DiagramElementRemoved;
+    
     IOrderedEnumerable<IDiagramElement> GetRenderOrder()
     {
         return DiagramElements.OrderBy(x => x.IsSelected)
@@ -14,6 +17,10 @@ public interface IDiagramElementContainer : IDiagramContainer
 public interface IDiagramBoundaryContainer : IDiagramContainer
 {
     IEnumerable<IDiagramBoundaryNode> BoundaryNodes { get; }
+    
+    event EventHandler<IDiagramBoundaryNode>? BoundaryNodeAdded;
+    event EventHandler<IDiagramBoundaryNode>? BoundaryNodeRemoved;
+    
     bool CanAttach(IDiagramBoundaryNode boundaryNode);
     
     IOrderedEnumerable<IDiagramElement> GetRenderOrder()
@@ -151,7 +158,7 @@ public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*
         return null;
     }
 
-    IDiagramElementContainer? FindElementContainer(IDiagramElement element)
+    IDiagramContainer? FindElementContainer(IDiagramElement element)
     {
         if (this is IDiagramElementContainer elementContainer)
         {
@@ -173,8 +180,17 @@ public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*
         {
             foreach (var el in boundaryElementContainer.BoundaryNodes)
             {
-                if (el.Equals(element) && boundaryElementContainer is IDiagramElement boundaryElement)
-                    return FindElementContainer(boundaryElement);
+                if (el.Equals(element))
+                    return boundaryElementContainer;
+                
+                if (el is IDiagramContainer container)
+                {
+                    var result = container.FindElementContainer(element);
+                    if (result is not null)
+                        return result;
+                }
+                // if (el.Equals(element) && boundaryElementContainer is IDiagramElement boundaryElement)
+                //     return FindElementContainer(boundaryElement);
             }
         }
 

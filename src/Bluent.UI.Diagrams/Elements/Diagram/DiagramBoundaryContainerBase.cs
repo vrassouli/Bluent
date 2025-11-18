@@ -8,8 +8,9 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
 {
     private List<IDiagramBoundaryNode> _boundaryElements = new();
 
-    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
-
+    public event EventHandler<IDiagramBoundaryNode>? BoundaryNodeAdded;
+    public event EventHandler<IDiagramBoundaryNode>? BoundaryNodeRemoved;
+    
     public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
     public virtual bool CanAttach(IDiagramBoundaryNode boundaryNode) => true;
 
@@ -25,7 +26,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
         _boundaryElements.Add(boundaryElement);
 
         NotifyPropertyChanged(nameof(BoundaryNodes));
-        //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, boundaryElement));
+        BoundaryNodeAdded?.Invoke(this, boundaryElement);
     }
 
     public void RemoveDiagramElement(IDiagramElement element)
@@ -37,7 +38,7 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
         _boundaryElements.Remove(boundaryElement);
 
         NotifyPropertyChanged(nameof(BoundaryNodes));
-        //CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, boundaryElement));
+        BoundaryNodeRemoved?.Invoke(this, boundaryElement);
 
         boundaryElement.IsSelected = false;
         element.Clean();
@@ -61,10 +62,11 @@ public abstract class DiagramBoundaryContainerBase : DiagramNodeBase, IDiagramBo
     private void ChildElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (sender is IDiagramBoundaryNode boundaryElement &&
-            (e.PropertyName == nameof(X) ||
-            e.PropertyName == nameof(Y) ||
-            e.PropertyName == nameof(Width) ||
-            e.PropertyName == nameof(Height)))
+            (e.PropertyName == nameof(Drag) ||
+             e.PropertyName == nameof(X) ||
+             e.PropertyName == nameof(Y) ||
+             e.PropertyName == nameof(Width) ||
+             e.PropertyName == nameof(Height)))
         {
             var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
             boundaryElement.SetCenter(stickPoint);

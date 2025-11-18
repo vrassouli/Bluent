@@ -1,5 +1,4 @@
-﻿
-using Bluent.UI.Diagrams.Elements.Diagram;
+﻿using Bluent.UI.Diagrams.Elements.Diagram;
 
 namespace Bluent.UI.Diagrams.Elements;
 
@@ -23,6 +22,7 @@ public record Boundary(double X, double Y, double Width, double Height)
 
     public bool Contains(DiagramPoint point)
     {
+
         if (point.X >= X &&
             point.X <= Right &&
             point.Y >= Y &&
@@ -54,7 +54,6 @@ public record Boundary(double X, double Y, double Width, double Height)
         };
 
         return edge;
-
     }
 
     public DiagramPoint Center => new DiagramPoint(Cx, Cy);
