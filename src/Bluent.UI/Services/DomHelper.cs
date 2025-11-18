@@ -1,4 +1,5 @@
 ﻿using Bluent.UI.Services.Abstractions;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Bluent.UI.Services;
@@ -30,10 +31,16 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
         }
     }
 
-    public async void InvokeClickEvent(string selector)
+    public async Task InvokeClickEvent(string selector)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("invokeClickEvent", selector);
+    }
+
+    public async Task InvokeClickEvent(ElementReference element)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("invokeClickEvent", element);
     }
 
     public async Task DownloadAsync(string fileName, Stream stream)

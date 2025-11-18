@@ -1,6 +1,6 @@
 ﻿.bui-toast-stack {
     z-index: var(--zIndexToast);
-    position: absolute;
+    position: fixed;
     display: flex;
     padding: 20px;
     max-width: 100%;
