@@ -18,8 +18,15 @@ export class DomHelper {
     constructor() {
     }
 
-    public invokeClickEvent(sourceSelector: string) {
-        var source = <HTMLElement>document.querySelector(sourceSelector);
+    public invokeClickEvent(selectorOrElement: string|HTMLElement) {
+        // if `selectorOrElement` is an element, use it directly
+        if (selectorOrElement instanceof HTMLElement) {
+            selectorOrElement.click();
+            return;
+        }
+
+        // otherwise, treat it as a selector
+        var source = <HTMLElement>document.querySelector(selectorOrElement);
 
         if (source) {
             source.click();

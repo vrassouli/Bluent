@@ -10,7 +10,10 @@
     <div class="content">
         @if (Multiple || !_files.Any() || !ShowFileInfo)
         {
-            <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance" OnClick="HandleOnClick" type="button" disabled="@Disabled" />
+            <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance" 
+                    OnClick="HandleOnClick" 
+                    type="button" 
+                    disabled="@Disabled" />
         }
         @if (ShowFileInfo && _files.Any())
         {
@@ -19,7 +22,7 @@
                 {
                     <Card Orientation="CardOrientation.Horizontal">
                         <CardPreview>
-                            <Icon Content="@GetIcon(Path.GetExtension(file.File.Name))" Style="width: 50px margin: 7px;" />
+                            <Icon Content="@GetIcon(Path.GetExtension(file.File.Name))" Style="width: 50px; margin: 7px;" />
                         </CardPreview>
                         <CardHeader>
                             <Header>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System.Reflection.Metadata;
+using Bluent.UI.Services.Abstractions;
 
 namespace Bluent.UI.Components;
 
@@ -22,6 +23,7 @@ public partial class FileSelect
     [Parameter] public EventCallback<IEnumerable<SelectedFile>> OnChange { get; set; }
     [Parameter] public bool Multiple { get; set; }
     [Inject] private IJSRuntime Js { get; set; } = default!;
+    [Inject] private IDomHelper DomHelper { get; set; } = default!;
 
     public override IEnumerable<string> GetClasses()
     {
@@ -45,10 +47,10 @@ public partial class FileSelect
 
     private async Task HandleOnClick()
     {
-        if (_filePicker is null)
+        if (_filePicker?.Element is null)
             return;
 
-        await Js.InvokeVoidAsync("HTMLElement.prototype.click.call", _filePicker.Element);
+        await DomHelper.InvokeClickEvent(_filePicker.Element.Value);
     }
 
     private void HandleFileChanged(InputFileChangeEventArgs args)
