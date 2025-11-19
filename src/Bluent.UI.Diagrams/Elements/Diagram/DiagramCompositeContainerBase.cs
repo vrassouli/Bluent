@@ -9,9 +9,13 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
     private readonly List<IDiagramElement> _elements = new();
     private readonly List<IDiagramBoundaryNode> _boundaryElements = new();
 
-    //public event NotifyCollectionChangedEventHandler? CollectionChanged;
-
+    public event EventHandler<IDiagramBoundaryNode>? BoundaryNodeAdded;
+    public event EventHandler<IDiagramBoundaryNode>? BoundaryNodeRemoved;
+    public event EventHandler<IDiagramElement>? DiagramElementAdded;
+    public event EventHandler<IDiagramElement>? DiagramElementRemoved;
+    
     public IEnumerable<IDiagramBoundaryNode> BoundaryNodes => _boundaryElements;
+    
     public virtual bool CanAttach(IDiagramBoundaryNode boundaryNode) => true;
 
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
@@ -19,7 +23,7 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
     public virtual void AddDiagramElement(IDiagramElement element)
     {
         element.PropertyChanged += ChildElementPropertyChanged;
-
+        
         if (element is IDiagramBoundaryNode boundaryElement && CanAttach(boundaryElement))
         {
             var stickPoint = StickToBoundary(boundaryElement.Boundary.Center);
@@ -27,11 +31,13 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
 
             _boundaryElements.Add(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryNodes));
+            BoundaryNodeAdded?.Invoke(this, boundaryElement);
         }
         else
         {
             _elements.Add(element);
             NotifyPropertyChanged(nameof(DiagramElements));
+            DiagramElementAdded?.Invoke(this, element);
         }
     }
 
@@ -43,11 +49,13 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
         {
             _boundaryElements.Remove(boundaryElement);
             NotifyPropertyChanged(nameof(BoundaryNodes));
+            BoundaryNodeRemoved?.Invoke(this, boundaryElement);
         }
         else
         {
             _elements.Remove(element);
             NotifyPropertyChanged(nameof(DiagramElements));
+            DiagramElementRemoved?.Invoke(this, element);
         }
 
         element.IsSelected = false;
@@ -58,7 +66,8 @@ public abstract class DiagramCompositeContainerBase : DiagramNodeBase, IDiagramE
     {
         if (sender is IDiagramBoundaryNode boundaryElement &&
             CanAttach(boundaryElement) &&
-            (e.PropertyName == nameof(X) ||
+            (e.PropertyName == nameof(Drag) ||
+            e.PropertyName == nameof(X) ||
             e.PropertyName == nameof(Y) ||
             e.PropertyName == nameof(Width) ||
             e.PropertyName == nameof(Height)))

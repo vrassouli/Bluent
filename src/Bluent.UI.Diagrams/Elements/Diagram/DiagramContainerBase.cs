@@ -8,6 +8,8 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
 {
     private readonly List<IDiagramElement> _elements = new();
     
+    public event EventHandler<IDiagramElement>? DiagramElementAdded;
+    public event EventHandler<IDiagramElement>? DiagramElementRemoved;
     public IEnumerable<IDiagramElement> DiagramElements => _elements;
 
     public virtual void AddDiagramElement(IDiagramElement element)
@@ -17,6 +19,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         _elements.Add(element);
 
         NotifyPropertyChanged(nameof(DiagramElements));
+        DiagramElementAdded?.Invoke(this, element);
     }
 
     public virtual void RemoveDiagramElement(IDiagramElement element)
@@ -26,6 +29,7 @@ public abstract class DiagramContainerBase : DiagramNodeBase, IDiagramElementCon
         _elements.Remove(element);
 
         NotifyPropertyChanged(nameof(DiagramElements));
+        DiagramElementRemoved?.Invoke(this, element);
 
         element.IsSelected = false;
         element.Clean();

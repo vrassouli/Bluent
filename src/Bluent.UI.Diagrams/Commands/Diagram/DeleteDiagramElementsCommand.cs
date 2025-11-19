@@ -12,7 +12,7 @@ public class DeleteDiagramElementsCommand : ICommand
     private IHasIncomingConnector? _connectorTarget;
     
     private readonly List<ICommand> _innerCommands = [];
-    private IDiagramElementContainer? _container;
+    private IDiagramContainer? _container;
 
     public DeleteDiagramElementsCommand(Components.Diagram diagram, List<IDiagramElement> elements)
     {

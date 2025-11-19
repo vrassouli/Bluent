@@ -11,10 +11,11 @@ internal class DiagramDragTool : DiagramSinglePointerToolBase
     private DiagramPoint? _dragStart;
     private Distance2D? _dragDelta;
     private ScreenPoint? _panStart;
+    private const string _defaultCursor = "move";
 
     public DiagramDragTool()
     {
-        Cursor = "move";
+        Cursor = _defaultCursor;
     }
 
     protected override void OnTargetPointerAvailable(PointerEventArgs e) { }
