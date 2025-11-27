@@ -1,0 +1,21 @@
+@page "/components/sliders"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Sliders</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Slider</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Slider @bind-Value="_intValue"/>
+            <pre>
+                Value: @_intValue
+            </pre>
+        </section>
+    </div>
+</div>
+
+@code {
+    private int _intValue = 30;
+}

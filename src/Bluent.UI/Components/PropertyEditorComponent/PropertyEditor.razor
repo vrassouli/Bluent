@@ -1,43 +1,49 @@
-﻿@inherits Bluent.Core.BluentComponentBase
+﻿@using Bluent.UI.Components.PropertyEditorComponent.Internal
+
+@inherits Bluent.Core.BluentComponentBase
 @namespace Bluent.UI.Components
 
-@using Bluent.UI.Components.PropertyEditorComponent.Internal
-
-<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    @if (Object is null)
-    {
-        <Bluent.UI.Components.MessageBar>Nothing is selected.</Bluent.UI.Components.MessageBar>
-    }
-    else if (_context != null)
-    {
-        if (Categorize && _context.Categories.Any())
+<CascadingValue Value="EditorRootObject" Name="EditorRootObject" IsFixed>
+    <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+        @if (Object is null)
         {
-            <div class="property-editor-content">
-                <Bluent.UI.Components.Accordion HeaderAction="AccordionHeaderAction.Toggle" Multiple>
-
-                    @foreach (var category in _context.Categories)
-                    {
-                        <Bluent.UI.Components.AccordionPanel Header="@category.Name">
-                            <div class="d-flex flex-column gap-2">
-                                @foreach (var property in category.Properties)
-                                {
-                                    <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth" ValueUpdated="PropertyUpdated" />
-                                }
-                            </div>
-                        </Bluent.UI.Components.AccordionPanel>
-                    }
-
-                </Bluent.UI.Components.Accordion>
-            </div>
+            <Bluent.UI.Components.MessageBar>Nothing is selected.</Bluent.UI.Components.MessageBar>
         }
-        else if (_context.Properties.Any())
+        else if (_context != null)
         {
-            <div class="property-editor-content d-flex flex-column gap-2">
-                @foreach (var property in _context.Properties)
-                {
-                    <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth" ValueUpdated="PropertyUpdated" />
-                }
-            </div>
+            if (Categorize && _context.Categories.Any())
+            {
+                <div class="property-editor-content">
+                    <Bluent.UI.Components.Accordion HeaderAction="AccordionHeaderAction.Toggle" Multiple>
+
+                        @foreach (var category in _context.Categories)
+                        {
+                            <Bluent.UI.Components.AccordionPanel Header="@category.Name">
+                                <div class="row-group">
+                                    @foreach (var property in category.Properties)
+                                    {
+                                        <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth"
+                                                            ValueUpdated="PropertyUpdated"/>
+                                    }
+                                </div>
+                            </Bluent.UI.Components.AccordionPanel>
+                        }
+
+                    </Bluent.UI.Components.Accordion>
+                </div>
+            }
+            else if (_context.Properties.Any())
+            {
+                <div class="property-editor-content">
+                    <div class="row-group">
+                        @foreach (var property in _context.Properties)
+                        {
+                            <PropertyEditorItem Property="property" Object="Object" LabelWidth="LabelWidth"
+                                                ValueUpdated="PropertyUpdated"/>
+                        }
+                    </div>
+                </div>
+            }
         }
-    }
-</div>
+    </div>
+</CascadingValue>

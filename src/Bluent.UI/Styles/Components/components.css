@@ -2713,6 +2713,30 @@
 .bui-property-editor > .property-editor-content {
   padding: var(--spacingVerticalM) var(--spacingHorizontalM);
 }
+.bui-property-editor > .property-editor-content .row-group {
+  display: flex;
+  flex-direction: column;
+}
+.bui-property-editor > .property-editor-content .row-group > .editor-row {
+  display: flex;
+  align-items: center;
+  padding: var(--spacingVerticalSNudge) var(--spacingHorizontalNone);
+}
+.bui-property-editor > .property-editor-content .row-group > .editor-row:not(:last-child) {
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+}
+.bui-property-editor > .property-editor-content label {
+  font-weight: var(--fontWeightBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0 !important;
+}
+.bui-property-editor .bui-property-editor {
+  background-color: var(--colorNeutralBackground2) !important;
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1) !important;
+  border-radius: var(--bs-border-radius) !important;
+}
 
 .bui-radio-group .bui-radio-box {
   color: var(--colorNeutralForeground3);
@@ -2838,6 +2862,44 @@
 .bui-skeleton.circle {
   width: 1rem;
   border-radius: var(--borderRadiusCircular);
+}
+
+.bui-slider {
+  --bui-slider-direction: 90deg;
+  --bui-slider-progress-color: var(--colorCompoundBrandBackground);
+  --bui-slider-rail-color: var(--colorNeutralStrokeAccessible);
+  --bui-slider-thumb-color: var(--colorCompoundBrandBackground);
+  height: var(--thumb-size);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.bui-slider > .rail {
+  flex: 1;
+  height: 4px;
+  background-image: linear-gradient(var(--bui-slider-direction), var(--bui-slider-progress-color) 0%, var(--bui-slider-progress-color) var(--progress), var(--bui-slider-rail-color) var(--progress));
+}
+.bui-slider > .thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  position: absolute;
+  left: var(--progress);
+  transform: translateX(-50%);
+  background-color: var(--bui-slider-thumb-color);
+  box-shadow: 0 0 0 calc(var(--thumb-size) * 0.2) var(--colorNeutralBackground1) inset;
+  pointer-events: none;
+  border-radius: var(--borderRadiusCircular);
+}
+.bui-slider > .thumb:before {
+  box-sizing: border-box;
+  bottom: 0px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  position: absolute;
+  content: "";
+  border-radius: var(--borderRadiusCircular);
+  border: calc(var(--thumb-size) * 0.05) solid var(--colorNeutralStroke1);
 }
 
 @keyframes tail-rotate {

@@ -9,6 +9,7 @@ public partial class PropertyEditor
     private PropertyEditorContext? _context;
 
     [Parameter] public int LabelWidth { get; set; } = 120;
+    [Parameter] public object? EditorRootObject { get; set; }
     [Parameter] public object? Object { get; set; }
     [Parameter] public bool Categorize { get; set; } = true;
     [Parameter] public EventCallback PropertyUpdated { get; set; }
@@ -36,13 +37,4 @@ public partial class PropertyEditor
         yield return "bui-property-editor";
     }
 
-    //private IEnumerable<PropertyInfo> GetProperties()
-    //{
-    //    if (Object is null)
-    //        return Enumerable.Empty<PropertyInfo>();
-
-    //    return Object.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-    //            .Where(p => p.CanRead && p.CanWrite);
-
-    //}
 }

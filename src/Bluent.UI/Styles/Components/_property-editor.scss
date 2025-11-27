@@ -1,5 +1,36 @@
 ﻿.bui-property-editor {
-    > .property-editor-content {
-        padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+  > .property-editor-content {
+    padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+
+    .row-group {
+      //d-flex flex-column gap-2
+      display: flex;
+      flex-direction: column;
+
+      > .editor-row {
+        display: flex;
+        align-items: center;
+        padding: var(--spacingVerticalSNudge) var(--spacingHorizontalNone);
+        
+        &:not(:last-child) {
+          border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+        }
+      }
     }
+
+
+    label {
+      font-weight: var(--fontWeightBold);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex-shrink: 0 !important;
+    }
+  }
+
+  .bui-property-editor{
+    background-color: var(--colorNeutralBackground2) !important;
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1) !important;
+    border-radius: var(--bs-border-radius) !important;
+  }
 }

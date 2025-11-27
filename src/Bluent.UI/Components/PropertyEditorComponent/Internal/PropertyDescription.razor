@@ -1,0 +1,16 @@
+@using System.ComponentModel
+@using System.Reflection
+
+@if (!string.IsNullOrEmpty(Description))
+{
+    <Icon Content="icon-ic_fluent_question_circle_20_regular"
+          Class="fs-4 color-brand-1" 
+          Style="line-height: var(--lineHeightBase200);" 
+          Tooltip="@Description"/>
+}
+
+@code {
+    [Parameter] public PropertyInfo Property { get; set; } = default!;
+    
+    private string? Description => Property?.GetCustomAttribute<DescriptionAttribute>()?.Description;
+}

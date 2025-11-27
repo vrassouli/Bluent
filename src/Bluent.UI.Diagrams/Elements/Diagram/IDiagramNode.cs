@@ -21,6 +21,7 @@ public interface IHasIncomingConnector : IDiagramElement
 
 public interface IHasOutgoingConnector : IDiagramElement
 {
+    
     IEnumerable<IDiagramConnector> OutgoingConnectors { get; }
     void AddOutgoingConnector(IDiagramConnector connector);
     void RemoveOutgoingConnector(IDiagramConnector connector);

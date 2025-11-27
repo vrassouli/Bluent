@@ -1,0 +1,24 @@
+@using Bluent.UI.Extensions
+@using Humanizer
+
+<div class="d-flex align-items-center mb-2 gap-2">
+    <Label Text="@Property.GetDisplayName().Humanize(LetterCasing.Sentence)"
+           Class="flex-fill"></Label>
+    
+    @if (Value is null)
+    {
+        <i>No value!</i>
+    }
+    else
+    {
+        <Button Text="Clear Value" 
+                Icon="icon-ic_fluent_delete_20_regular" 
+                Color="Color.Danger" 
+                Size="ButtonSize.Small" 
+                OnClick="ClearValue"/>
+    }
+</div>
+@if (Value is not null)
+{
+    <PropertyEditor Categorize="false" Object="Value" PropertyUpdated="ValueUpdated" Class="bg-neutral-2"/>
+}

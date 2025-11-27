@@ -33,6 +33,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
+
     public DiagramPoint End
     {
         get
@@ -50,6 +51,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
+
     public virtual IHasOutgoingConnector SourceElement
     {
         get => _sourceElement;
@@ -62,6 +64,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
+
     public virtual IHasIncomingConnector? TargetElement
     {
         get => _targetElement;
@@ -91,6 +94,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
+
     public string? Stroke
     {
         get => _stroke;
@@ -103,6 +107,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
+
     public double? StrokeWidth
     {
         get => _strokeWidth;
@@ -128,6 +133,7 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             }
         }
     }
+
     public virtual double? SelectionStrokeWidth { get; set; }
     public virtual string? SelectionStrokeDashArray { get; set; }
     public virtual string? SelectionStroke { get; set; }
@@ -213,7 +219,6 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
         data += $" L{End.X} {End.Y}";
 
         return data;
-
     }
 
     protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -302,16 +307,12 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
 
     public virtual void Clean()
     {
-        if (SourceElement is not null)
-        {
-            SourceElement.RemoveOutgoingConnector(this);
-            SourceElement = null!;
-        }
-        if (TargetElement is not null)
-        {
-            TargetElement.RemoveIncomingConnector(this);
-            TargetElement = null;
-        }
+        SourceElement?.RemoveOutgoingConnector(this);
+
+        TargetElement?.RemoveIncomingConnector(this);
+
+        TargetElement = null;
+        SourceElement = null!;
     }
 
     public void UpdatePoint(UpdatablePoint point, DiagramPoint update)
@@ -321,30 +322,30 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
             switch (position)
             {
                 case "Start":
+                {
+                    Start = update;
+                    if (SourceElement is IDiagramNode node)
                     {
-                        Start = update;
-                        if (SourceElement is IDiagramNode node)
+                        var newStart = node.StickToBoundary(update);
+                        if (newStart != Start)
                         {
-                            var newStart = node.StickToBoundary(update);
-                            if (newStart != Start)
-                            {
-                                Start = newStart;
-                            }
+                            Start = newStart;
                         }
                     }
+                }
                     break;
                 case "End":
+                {
+                    End = update;
+                    if (TargetElement is IDiagramNode node)
                     {
-                        End = update;
-                        if (TargetElement is IDiagramNode node)
+                        var newEnd = node.StickToBoundary(update);
+                        if (newEnd != End)
                         {
-                            var newEnd = node.StickToBoundary(update);
-                            if (newEnd != End)
-                            {
-                                End = newEnd;
-                            }
+                            End = newEnd;
                         }
                     }
+                }
                     break;
                 default:
                     throw new InvalidOperationException($"Unknown point position: {position}");

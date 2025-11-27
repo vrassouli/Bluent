@@ -1,36 +1,61 @@
 ﻿@using Bluent.UI.Extensions
-@{
-    var propertyType = Property.PropertyType.GetUnderlyingType();
-}
-
-@if (HasTypeRegistery(propertyType))
+@using Humanizer
+@if (HasTypeRegistry(PropertyType))
 {
-    <RegisteredPropertyTypeEditor Object="Object" Property="Property" LabelWidth="LabelWidth" ValueUpdated="ValueUpdated" />
+    <RegisteredPropertyTypeEditor Object="Object" 
+                                  Property="Property" 
+                                  LabelWidth="LabelWidth"
+                                  ValueUpdated="ValueUpdated"/>
+}
+else if (EditorProvider.GetEditorComponentType(Property) != null)
+{
+    <DynamicComponent Type="@EditorProvider.GetEditorComponentType(Property)"
+                      Parameters="GetDynamicEditorParameters()"/>
+}
+else if (IsComplexType)
+{
+    if (IsEnumerable)
+    {
+        <div class="editor-row">
+            <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" 
+                                        Style="@($"width: {LabelWidth}px;")"
+                                        for="@Property.Name"/>
+            <div>Enumerable</div>
+        </div>
+    }
+    else
+    {
+        <ComplexTypeEditor Object="Object" 
+                           Property="Property" 
+                           ValueUpdated="ValueUpdated"/>
+    }
 }
 else
 {
-    <div class="d-flex align-items-center">
-        <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate flex-shrink-0" for="@Property.Name" />
+    <div class="editor-row">
+        <Bluent.UI.Components.Label Text="@Property.GetDisplayName().Humanize(LetterCasing.Sentence)" 
+                                    Style="@($"width: {LabelWidth}px;")"
+                                    for="@Property.Name"/>
 
         @if (!IsEditable())
         {
             <div>@Property.GetValue(Object)?.ToString()</div>
         }
-        else if (propertyType == typeof(string))
+        else if (PropertyType == typeof(string))
         {
-            <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+            <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }
-        else if (propertyType == typeof(int))
+        else if (PropertyType == typeof(int))
         {
-            <IntPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+            <IntPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }
-        else if (propertyType == typeof(bool))
+        else if (PropertyType == typeof(bool))
         {
-            <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+            <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }
-        else if (propertyType.IsEnum)
+        else if (PropertyType.IsEnum)
         {
-            <EnumPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated" />
+            <EnumPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }
     </div>
 }
