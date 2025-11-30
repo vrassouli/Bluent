@@ -1,12 +1,12 @@
-﻿@using System.Reflection
-@using Bluent.UI.Extensions
-@* <Bluent.UI.Components.Checkbox TValue="bool?" Value="Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" id="@Property.Name" /> *@
+﻿@using Bluent.UI.Extensions
 
-<SelectField TValue="int?" Value="Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" id="@Property.Name">
+<SelectField TValue="int?" Value="Value" ValueExpression="() => Value" ValueChanged="OnValueChanged"
+             id="@Property.Name">
     @foreach (var enumValue in Enum.GetValues(Property.PropertyType.GetUnderlyingType()))
     {
         <option value="@((int)enumValue)" selected="@(Value == (int)enumValue)">
             @((enumValue as Enum)?.GetDisplayName())
-            </option>
+        </option>
     }
 </SelectField>
+<PropertyDescription Property="Property" />

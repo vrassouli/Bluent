@@ -1,0 +1,14 @@
+@namespace Bluent.UI.Components
+@inherits BluentUiComponentBase
+@typeparam TValue
+
+<div @attributes=AdditionalAttributes
+     id="@Id"
+     class="@GetComponentClass()"
+     style="@GetStyle()"
+     @onpointerdown="OnPointerDown">
+    
+    <div class="rail"></div>
+    <div class="thumb min-thumb"></div>
+    <div class="thumb max-thumb"></div>
+</div>

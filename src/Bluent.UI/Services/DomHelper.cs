@@ -1,4 +1,6 @@
-﻿using Bluent.UI.Services.Abstractions;
+﻿using Bluent.Core;
+using Bluent.UI.Interops.Abstractions;
+using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -9,6 +11,8 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     private IJSObjectReference? _module;
     private IJSObjectReference? _moduleReference;
+    private List<DotNetObjectReference<IPointerMoveEventHandler>> _pointerMoveReferences = new();
+    private List<DotNetObjectReference<IPointerUpEventHandler>> _pointerUpReferences = new();
 
     public DomHelper(IJSRuntime jsRuntime)
     {
@@ -21,13 +25,44 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
         {
             if (_moduleReference != null)
                 await _moduleReference.DisposeAsync();
+        }
+        catch (Exception)
+        {
+            // swallow!
+        }
 
+        try
+        {
             if (_module != null)
                 await _module.DisposeAsync();
         }
         catch (Exception)
         {
             // swallow!
+        }
+
+        foreach (var reference in _pointerMoveReferences)
+        {
+            try
+            {
+                reference.Dispose();
+            }
+            catch (Exception)
+            {
+                // swallow!
+            }
+        }
+
+        foreach (var reference in _pointerUpReferences)
+        {
+            try
+            {
+                reference.Dispose();
+            }
+            catch (Exception)
+            {
+                // swallow!
+            }
         }
     }
 
@@ -115,6 +150,49 @@ internal class DomHelper : IDomHelper, IAsyncDisposable
         var module = await GetModuleAsync();
 
         return await module.InvokeAsync<string>("getOsInfo");
+    }
+
+    public async ValueTask<DomRect?> GetBoundingClientRectAsync(string selector)
+    {
+        var module = await GetModuleAsync();
+
+        return await module.InvokeAsync<DomRect?>("getBoundingClientRect", selector);
+    }
+
+     public async Task RegisterPointerMoveHandler<THandler>(THandler handler)
+        where THandler : IPointerMoveEventHandler, IBluentComponent
+    {
+        var reference = DotNetObjectReference.Create<IPointerMoveEventHandler>(handler);
+        var module = await GetModuleAsync();
+
+        await module.InvokeVoidAsync("registerPointerMoveHandler", handler.Id, reference);
+        _pointerMoveReferences.Add(reference);
+    }
+
+    public async Task UnregisterPointerMoveHandler<THandler>(THandler handler)
+        where THandler : IPointerMoveEventHandler, IBluentComponent
+    {
+        var module = await GetModuleAsync();
+
+        await module.InvokeVoidAsync("unregisterPointerMoveHandler", handler.Id);
+    }
+
+    public async Task RegisterPointerUpHandler<THandler>(THandler handler)
+        where THandler : IPointerUpEventHandler, IBluentComponent
+    {
+        var reference = DotNetObjectReference.Create<IPointerUpEventHandler>(handler);
+        var module = await GetModuleAsync();
+
+        await module.InvokeVoidAsync("registerPointerUpHandler", handler.Id, reference);
+        _pointerUpReferences.Add(reference);
+    }
+
+    public async Task UnregisterPointerUpHandler<THandler>(THandler handler)
+        where THandler : IPointerUpEventHandler, IBluentComponent
+    {
+        var module = await GetModuleAsync();
+
+        await module.InvokeVoidAsync("unregisterPointerUpHandler", handler.Id);
     }
 
     private async Task<IJSObjectReference> GetModuleAsync()

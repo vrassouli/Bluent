@@ -1,5 +1,12 @@
 ﻿@using System.Reflection
-<Bluent.UI.Components.Checkbox TValue="bool?" Value="Value" ValueExpression="() => Value" ValueChanged="OnValueChanged" id="@Property.Name" />
+
+<Bluent.UI.Components.Checkbox TValue="bool?"
+                               Value="Value"
+                               ValueExpression="() => Value"
+                               ValueChanged="OnValueChanged" 
+                               id="@Property.Name"
+                               Class="flex-fill"/>
+<PropertyDescription Property="Property" />
 
 @code {
     [Parameter] public PropertyInfo Property { get; set; } = null!;

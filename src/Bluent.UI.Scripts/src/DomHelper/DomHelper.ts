@@ -14,11 +14,15 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export class DomHelper {
+    private _pointerMoveHandlers: Map<string, any> = new Map<string, any>();
+    private _pointerUpHandlers: Map<string, any> = new Map<string, any>();
+    private _pointerMoveListener: any;
+    private _pointerUpListener: any;
 
     constructor() {
     }
 
-    public invokeClickEvent(selectorOrElement: string|HTMLElement) {
+    public invokeClickEvent(selectorOrElement: string | HTMLElement) {
         // if `selectorOrElement` is an element, use it directly
         if (selectorOrElement instanceof HTMLElement) {
             selectorOrElement.click();
@@ -129,6 +133,102 @@ export class DomHelper {
         if (/cros/.test(userAgent)) return 'Chrome OS';
 
         return 'Unknown';
+    }
+
+    public getBoundingClientRect(selector: string): DOMRect | null {
+        const el = document.querySelector(selector);
+        if (el) {
+            return el.getBoundingClientRect();
+        }
+        return null;
+    }
+
+    public registerPointerMoveHandler(id: string, pointerMoveHandler: any) {
+        this._pointerMoveHandlers.set(id, pointerMoveHandler);
+
+        this.ensurePointerMoveListener();
+    }
+
+    public unregisterPointerMoveHandler(id: string) {
+        if (this._pointerMoveHandlers.delete(id))
+            this.ensurePointerMoveListener();
+    }
+
+    private ensurePointerMoveListener() {
+        if (this._pointerMoveHandlers.size > 0 && !this._pointerMoveListener) {
+            this._pointerMoveListener = this.triggerPointerMoveEvent.bind(this);
+            document.addEventListener('pointermove', this._pointerMoveListener);
+        }
+        else if (this._pointerMoveHandlers.size == 0 && this._pointerMoveListener) {
+            document.removeEventListener('pointermove', this._pointerMoveListener);
+            this._pointerMoveListener = null;
+        }
+    }
+
+    public triggerPointerMoveEvent(event: PointerEvent) {
+        this._pointerMoveHandlers.forEach(async handler => {
+            await handler.invokeMethodAsync('OnPointerMove', this.mapPointerEvent(event));
+        });
+    }
+
+    public registerPointerUpHandler(id: string, pointerUpHandler: any) {
+        this._pointerUpHandlers.set(id, pointerUpHandler);
+
+        this.ensurePointerUpListener();
+    }
+
+    public unregisterPointerUpHandler(id: string) {
+        if (this._pointerUpHandlers.delete(id))
+            this.ensurePointerUpListener();
+    }
+
+
+    private ensurePointerUpListener() {
+        if (this._pointerUpHandlers.size > 0 && !this._pointerUpListener) {
+            this._pointerUpListener = this.triggerPointerUpEvent.bind(this);
+            document.addEventListener('pointerup', this._pointerUpListener);
+        }
+        else if (this._pointerUpHandlers.size == 0 && this._pointerUpListener) {
+            document.removeEventListener('pointerup', this._pointerUpListener);
+            this._pointerUpListener = null;
+        }
+    }
+
+    public triggerPointerUpEvent(event: PointerEvent) {
+        this._pointerUpHandlers.forEach(async handler => {
+            await handler.invokeMethodAsync('OnPointerUp', this.mapPointerEvent(event));
+        });
+    }
+
+    mapPointerEvent(event: PointerEvent): any {
+        return {
+            PointerId: event.pointerId,
+            Width: event.width,
+            Height: event.height,
+            Pressure: event.pressure,
+            TiltX: event.tiltX,
+            TiltY: event.tiltY,
+            PointerType: event.pointerType,
+            IsPrimary: event.isPrimary,
+            Detail: event.detail,
+            ScreenX: event.screenX,
+            ScreenY: event.screenY,
+            ClientX: event.clientX,
+            ClientY: event.clientY,
+            OffsetX: event.offsetX,
+            OffsetY: event.offsetY,
+            PageX: event.pageX,
+            PageY: event.pageY,
+            MovementX: event.movementX,
+            MovementY: event.movementY,
+            Button: event.button,
+            Buttons: event.buttons,
+            AltKey: event.altKey,
+            CtrlKey: event.ctrlKey,
+            MetaKey: event.metaKey,
+            ShiftKey: event.shiftKey,
+            Type: event.type
+        };
     }
 
     public static create(): DomHelper {

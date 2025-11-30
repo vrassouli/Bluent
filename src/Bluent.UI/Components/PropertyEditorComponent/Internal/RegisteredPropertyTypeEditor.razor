@@ -1,7 +1,7 @@
 ﻿@using Bluent.UI.Extensions
 
-<div class="d-flex align-items-center">
-    <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")" Class="text-truncate flex-shrink-0" for="@Property.Name" />
+<div class="editor-row">
+    <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")"  for="@Property.Name" />
 
     <Button Text="@GetDropdownTitle()" ShowDropdownIndicator Class="flex-fill">
         <Dropdown>
@@ -16,5 +16,5 @@
 </div>
 @if (GetPropertyValue() is not null)
 {
-    <PropertyEditor Categorize="false" Object="GetPropertyValue()" PropertyUpdated="ValueUpdated" Class="bg-neutral-2" />
+    <PropertyEditor Categorize="false" Object="GetPropertyValue()" PropertyUpdated="ValueUpdated" />
 }

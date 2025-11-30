@@ -38,6 +38,24 @@ public class DeleteDiagramElementsCommand : ICommand
                     _innerCommands.Add(command);
                 }
             }
+
+            if (element is IDiagramBoundaryContainer boundaryContainer)
+            {
+                foreach (var node in boundaryContainer.BoundaryNodes)
+                {
+                    var command = new DeleteDiagramElementsCommand(_diagram, [node]);
+                    _innerCommands.Add(command);
+                }
+            }
+
+            if (element is IDiagramElementContainer elementContainer)
+            {
+                foreach (var node in elementContainer.DiagramElements)
+                {
+                    var command = new DeleteDiagramElementsCommand(_diagram, [node]);
+                    _innerCommands.Add(command);
+                }
+            }
         }
     }
     public void Do()

@@ -1,6 +1,6 @@
 ﻿namespace Bluent.UI.Services.Abstractions;
 
-public interface IPropertyEditorTypeRegistery
+public interface IPropertyEditorTypeRegistry
 {
     public IReadOnlyList<Type> GetPossibleTypes(Type baseType);
 }

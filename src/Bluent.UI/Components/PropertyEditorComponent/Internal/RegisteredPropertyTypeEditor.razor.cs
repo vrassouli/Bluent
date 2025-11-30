@@ -12,12 +12,12 @@ public partial class RegisteredPropertyTypeEditor
     [Parameter] public int LabelWidth { get; set; } = 120;
     [Parameter] public EventCallback ValueUpdated { get; set; }
 
-    [Inject] private IPropertyEditorTypeRegistery TypeRegistery { get; set; } = default!;
+    [Inject] private IPropertyEditorTypeRegistry TypeRegistry { get; set; } = default!;
 
     private object? GetPropertyValue() => Property?.GetValue(Object);
     private IReadOnlyList<Type> GetPossibleTypes()
     {
-        return TypeRegistery.GetPossibleTypes(Property.PropertyType);
+        return TypeRegistry.GetPossibleTypes(Property.PropertyType);
     }
 
     private void CreateInstance(Type type)

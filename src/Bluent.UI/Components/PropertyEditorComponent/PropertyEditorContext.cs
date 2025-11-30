@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Bluent.UI.Components.PropertyEditorComponent;
@@ -20,7 +21,7 @@ internal class PropertyEditorContext
     {
         var properties = targetObject.GetType()
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Where(p => p.CanRead && p.CanWrite);
+            .Where(p => p.CanRead && (p.CanWrite || p.PropertyType.IsAssignableTo(typeof(IList))));
 
         var browsableProperties = GetBrowsableProperties(properties);
 
