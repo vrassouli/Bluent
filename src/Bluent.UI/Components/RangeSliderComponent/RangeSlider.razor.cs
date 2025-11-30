@@ -1,3 +1,4 @@
+using System.Globalization;
 using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
@@ -11,8 +12,8 @@ public partial class RangeSlider<TValue> : IPointerMoveEventHandler, IPointerUpE
     private int _thumbSize = 20;
     private TValue? _max;
     private TValue? _min;
-    private readonly TValue? _minDefault = (TValue)(object)0;
-    private readonly TValue? _maxDefault = (TValue)(object)100;
+    private readonly TValue? _minDefault;
+    private readonly TValue? _maxDefault;
     private bool _maxHasValue;
     private bool _minHasValue;
     private long? _pointerId;
@@ -30,7 +31,79 @@ public partial class RangeSlider<TValue> : IPointerMoveEventHandler, IPointerUpE
     private TValue MinProgress => CalculateProgress(Value is null ? default : Value.Min);
     private TValue MaxProgress => CalculateProgress(Value is null ? default : Value.Max);
     private string RailSelector => $"#{Id}>.rail";
+    public RangeSlider()
+    {
+        #region parameters default depending on TValue
 
+        //sbyte
+        if (typeof(TValue) == typeof(sbyte) || typeof(TValue) == typeof(sbyte?))
+        {
+            _minDefault = (TValue)(object)(sbyte)0;
+            _maxDefault = (TValue)(object)(sbyte)100;
+        }
+        // byte
+        else if (typeof(TValue) == typeof(byte) || typeof(TValue) == typeof(byte?))
+        {
+            _minDefault = (TValue)(object)(byte)0;
+            _maxDefault = (TValue)(object)(byte)100;
+        }
+        // short
+        else if (typeof(TValue) == typeof(short) || typeof(TValue) == typeof(short?))
+        {
+            _minDefault = (TValue)(object)(short)0;
+            _maxDefault = (TValue)(object)(short)100;
+        }
+        // ushort
+        else if (typeof(TValue) == typeof(ushort) || typeof(TValue) == typeof(ushort?))
+        {
+            _minDefault = (TValue)(object)(ushort)0;
+            _maxDefault = (TValue)(object)(ushort)100;
+        }
+        // int
+        else if (typeof(TValue) == typeof(int) || typeof(TValue) == typeof(int?))
+        {
+            _minDefault = (TValue)(object)(int)0;
+            _maxDefault = (TValue)(object)(int)100;
+        }
+        // uint
+        else if (typeof(TValue) == typeof(uint) || typeof(TValue) == typeof(uint?))
+        {
+            _minDefault = (TValue)(object)(uint)0;
+            _maxDefault = (TValue)(object)(uint)100;
+        }
+        // long
+        else if (typeof(TValue) == typeof(long) || typeof(TValue) == typeof(long?))
+        {
+            _minDefault = (TValue)(object)(long)0;
+            _maxDefault = (TValue)(object)(long)100;
+        }
+        // ulong
+        else if (typeof(TValue) == typeof(ulong) || typeof(TValue) == typeof(ulong?))
+        {
+            _minDefault = (TValue)(object)(ulong)0;
+            _maxDefault = (TValue)(object)(ulong)100;
+        }
+        // float
+        else if (typeof(TValue) == typeof(float) || typeof(TValue) == typeof(float?))
+        {
+            _minDefault = (TValue)(object)(float)0;
+            _maxDefault = (TValue)(object)(float)100;
+        }
+        // double
+        else if (typeof(TValue) == typeof(double) || typeof(TValue) == typeof(double?))
+        {
+            _minDefault = (TValue)(object)(double)0;
+            _maxDefault = (TValue)(object)(double)100;
+        }
+        // decimal
+        else if (typeof(TValue) == typeof(decimal) || typeof(TValue) == typeof(decimal?))
+        {
+            _minDefault = (TValue)(object)(decimal)0;
+            _maxDefault = (TValue)(object)(decimal)100;
+        }
+
+        #endregion parameters default depending on T
+    }
     public override Task SetParametersAsync(ParameterView parameters)
     {
         // Check which parameters were set by the user
