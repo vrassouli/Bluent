@@ -13,10 +13,10 @@
     flex: 1;
     height: 4px;
     background-image: linear-gradient(var(--bui-slider-direction), 
-            var(--bui-slider-progress-color) 0%, var(--bui-slider-progress-color) var(--min-progress),
-            var(--bui-slider-rail-color) var(--min-progress),
-            var(--bui-slider-rail-color) var(--max-progress), 
-            var(--bui-slider-progress-color) var(--max-progress));
+            var(--bui-slider-rail-color) 0%, var(--bui-slider-rail-color) var(--min-progress),
+            var(--bui-slider-progress-color) var(--min-progress),
+            var(--bui-slider-progress-color) var(--max-progress), 
+            var(--bui-slider-rail-color) var(--max-progress));
   }
   
   >.thumb{
