@@ -24,6 +24,18 @@ export class ChartJs {
                     dataset.data = config.data.datasets[index].data;
                 }
             });
+            
+            // replace plugin options (built-in plugin options like title/subtitle)
+            if (config.options?.plugins) {
+                // replace only plugin-related options
+                this._chart.options.plugins = config.options.plugins as any;
+            }
+
+            // replace per-chart plugins array (if provided)
+            if (config.plugins) {
+                this._chart.config.plugins = config.plugins as any;
+            }
+
             this._chart.update();
         }
     }

@@ -5,7 +5,7 @@ namespace Bluent.UI.Charts.Components;
 
 public class Subtitle : ComponentBase, IDisposable
 {
-    private ChartPlugin _plugin = default!;
+    private ChartSubtitlePlugin _plugin = default!;
 
     [CascadingParameter] public ChartJs Chart { get; set; } = default!;
     [Parameter] public bool Display { get; set; } = true;
@@ -13,6 +13,7 @@ public class Subtitle : ComponentBase, IDisposable
 
     public void Dispose()
     {
+        
         Chart.Remove(_plugin);
     }
 
@@ -21,14 +22,17 @@ public class Subtitle : ComponentBase, IDisposable
         if (Chart is null)
             throw new InvalidOperationException($"Subtitle should be nested in a Chart component.");
 
-        _plugin = ToPlugin();
+        _plugin = new ChartSubtitlePlugin(Display, Text);
         Chart.Add(_plugin);
 
         base.OnInitialized();
     }
 
-    private ChartPlugin ToPlugin()
+    protected override void OnParametersSet()
     {
-        return new ChartSubtitlePlugin(Display, Text);
+        _plugin.Display = Display;
+        _plugin.Text = Text;
+        
+        base.OnParametersSet();
     }
 }

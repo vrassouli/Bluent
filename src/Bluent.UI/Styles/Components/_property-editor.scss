@@ -10,7 +10,7 @@
       > .editor-row {
         display: flex;
         align-items: center;
-        padding: var(--spacingVerticalSNudge) var(--spacingHorizontalNone);
+        padding: var(--spacingVerticalSNudge);
         
         &:not(:last-child) {
           border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);

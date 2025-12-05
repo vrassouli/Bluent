@@ -2722,7 +2722,7 @@
 .bui-property-editor > .property-editor-content .row-group > .editor-row {
   display: flex;
   align-items: center;
-  padding: var(--spacingVerticalSNudge) var(--spacingHorizontalNone);
+  padding: var(--spacingVerticalSNudge);
 }
 .bui-property-editor > .property-editor-content .row-group > .editor-row:not(:last-child) {
   border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
