@@ -27,10 +27,11 @@
 
         <h3>Line</h3>
         <section class="p-7 rounded-5 shadow-3">
+            <TextField @bind-Value="_lineSubTitle" />
             <Chart TDataSource="Dictionary<string, double>">
-                <Legend Position="Position.Left" />
-                <Title Text="The title" />
-                <Subtitle Text="A subtitle" />
+                <Legend Position="Position.Left"/>
+                <Title Text="The title"/>
+                <Subtitle Text="@_lineSubTitle"/>
                 <Dataset ChartType="ChartType.Line" Data="_series1" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
                 <Dataset ChartType="ChartType.Line" Data="_series2" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
             </Chart>
@@ -207,6 +208,8 @@
 </div>
 
 @code {
+    private string _lineSubTitle = "Sub title";
+    
     string[] _labels = ["Item 1", "Item 2", "Item 3", "Item 4"];
     Dictionary<string, double> _series1 = new()
     {

@@ -9209,7 +9209,7 @@ class bo {
   update(t) {
     this._chart && (this._chart.data.datasets.forEach((e, s) => {
       t.data.datasets.length > s && (e.data = t.data.datasets[s].data);
-    }), this._chart.update());
+    }), t.options?.plugins && (this._chart.options.plugins = t.options.plugins), t.plugins && (this._chart.config.plugins = t.plugins), this._chart.update());
   }
   destroy() {
     this._chart?.destroy();
