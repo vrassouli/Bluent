@@ -5,9 +5,9 @@ export class ScrollSync {
 
     private onScroll(source: Element, targets: Element[], options: SyncOptions) {
         targets.forEach(target => {
-            if (options.syncHorizontal)
+            if (options.syncHorizontal && target)
                 target.scrollLeft = source.scrollLeft;
-            if (options.syncVertical)
+            if (options.syncVertical && target)
                 target.scrollTop = source.scrollTop;
         });
     }
