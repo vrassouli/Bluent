@@ -1946,7 +1946,7 @@
   padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);
   align-self: stretch;
   box-sizing: border-box;
-  flex-grow: 1;
+  flex: 1;
   min-width: 0px;
   border-style: none;
   border-radius: var(--borderRadiusMedium);
@@ -1957,7 +1957,6 @@
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
-  width: 100%;
 }
 .bui-field > input:disabled, .bui-field > select:disabled, .bui-field > textarea:disabled {
   color: var(--colorNeutralForegroundDisabled);
