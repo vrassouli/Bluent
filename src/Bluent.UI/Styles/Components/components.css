@@ -612,6 +612,12 @@
 .bui-button:not(.compact) {
   min-width: 96px;
 }
+.bui-button > .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
 .bui-button > .icon, .bui-button > .active-icon, .bui-button > .dropdown-icon, .bui-button > .dropdown-active-icon {
   font-size: 20px;
   height: 20px;
