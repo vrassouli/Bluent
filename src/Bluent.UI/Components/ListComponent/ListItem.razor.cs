@@ -12,6 +12,8 @@ public partial class ListItem
     [Parameter] public object? Data { get; set; }
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? Icon { get; set; }
+    [Parameter] public bool? Draggable { get; set; }
+    [Parameter] public Func<object> DragData { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public bool Selected { get; set; }
     [Parameter] public EventCallback<bool> SelectedChanged { get; set; }
@@ -19,11 +21,18 @@ public partial class ListItem
     [Parameter] public string? Href { get; set; }
     [Parameter] public NavLinkMatch Match { get; set; }
     [CascadingParameter] public ItemsList List { get; set; } = default!;
-    [CascadingParameter] public AccordionPanel? AccordionPanel { get; set; } = default!;
+    [CascadingParameter] public AccordionPanel? AccordionPanel { get; set; }
+    [CascadingParameter] public DndContext? DndContext { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
+    private bool IsDraggable => Draggable ?? List.Draggable;
 
+    public ListItem()
+    {
+        DragData = () => Data ?? this;
+    }
+    
     protected override void OnInitialized()
     {
         if (List is null)
@@ -89,7 +98,16 @@ public partial class ListItem
 
         OnClick.InvokeAsync();
     }
+    private void DragStartHandler()
+    {
+        DndContext?.Dragging = DragData.Invoke();
+    }
 
+    private void DragEndHandler()
+    {
+        DndContext?.Dragging = null;
+    }
+    
     private string GetItemTag()
     {
         if (IsLink)
