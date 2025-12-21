@@ -14,6 +14,7 @@ public class ToolbarButton : OverflowItemComponentBase
     [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public bool ShowDropdownIndicator { get; set; }
     [Parameter] public bool? Toggled { get; set; }
+    [Parameter] public EventCallback<bool> ToggledChanged { get; set; }
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.Bottom;
     [Parameter] public ToolbarButtonAppearance Appearance { get; set; } = ToolbarButtonAppearance.Default;
 
@@ -34,7 +35,8 @@ public class ToolbarButton : OverflowItemComponentBase
         builder.AddAttribute(11, nameof(Class), Class);
         builder.AddAttribute(12, nameof(Style), Style);
         builder.AddAttribute(13, nameof(Toggled), Toggled);
-        builder.AddMultipleAttributes(13, AdditionalAttributes);
+        builder.AddAttribute(13, nameof(ToggledChanged), ToggledChanged);
+        builder.AddMultipleAttributes(14, AdditionalAttributes);
 
         builder.CloseComponent();
     }
@@ -49,6 +51,7 @@ public class ToolbarButton : OverflowItemComponentBase
         builder.AddAttribute(4, nameof(MenuItem.Href), Href);
         builder.AddAttribute(5, nameof(MenuItem.OnClick), OnClick);
         builder.AddAttribute(6, nameof(MenuItem.ChildContent), Dropdown);
+        builder.AddAttribute(6, nameof(MenuItem.Checked), Toggled);
         builder.AddAttribute(7, nameof(Class), Class);
         builder.AddAttribute(8, nameof(Style), Style);
         builder.AddMultipleAttributes(9, AdditionalAttributes);

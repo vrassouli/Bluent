@@ -35,9 +35,9 @@ public partial class TreeItem
     {
         get
         {
-            if (DndContext?.Dragging != null)
+            if (DndContext?.Data != null)
             {
-                if (DndContext.Dragging is TreeItem draggingTreeItem)
+                if (DndContext.Data is TreeItem draggingTreeItem)
                 {
                     if (!Tree.CanDrag(draggingTreeItem))
                         return false;
@@ -137,7 +137,7 @@ public partial class TreeItem
 
     private void OnDragStarted()
     {
-        DndContext?.Dragging = DragData.Invoke();
+        DndContext?.SetData(DragData.Invoke());
         _isDragging = true;
     }
 
@@ -148,9 +148,9 @@ public partial class TreeItem
 
     private async Task OnDropAsync()
     {
-        if (DndContext?.Dragging != null && DndContext.Dragging != DragData.Invoke())
+        if (DndContext?.Data != null && DndContext.Data != DragData.Invoke())
         {
-            DndContext.DropTarget = this;
+            DndContext.SeDropTarget(this);
 
             await Tree.OnItemDropedAsync();
 
@@ -160,7 +160,7 @@ public partial class TreeItem
 
     private void OnDragOver()
     {
-        _canDrop = (DndContext?.Dragging != null && DndContext.Dragging != DragData.Invoke());
+        _canDrop = (DndContext?.Data != null && DndContext.Data != DragData.Invoke());
     }
 
     private void OnDragLeave()

@@ -12,8 +12,8 @@ public partial class ListItem
     [Parameter] public object? Data { get; set; }
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? Icon { get; set; }
-    [Parameter] public bool? Draggable { get; set; }
-    [Parameter] public Func<object> DragData { get; set; }
+    // [Parameter] public bool? Draggable { get; set; }
+    // [Parameter] public Func<object> DragData { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public bool Selected { get; set; }
     [Parameter] public EventCallback<bool> SelectedChanged { get; set; }
@@ -26,11 +26,11 @@ public partial class ListItem
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     private bool IsLink => !string.IsNullOrEmpty(Href);
-    private bool IsDraggable => Draggable ?? List.Draggable;
+    // private bool IsDraggable => Draggable ?? List.Draggable;
 
     public ListItem()
     {
-        DragData = () => Data ?? this;
+        // DragData = () => Data ?? this;
     }
     
     protected override void OnInitialized()
@@ -98,14 +98,14 @@ public partial class ListItem
 
         OnClick.InvokeAsync();
     }
-    private void DragStartHandler()
-    {
-        DndContext?.Dragging = DragData.Invoke();
-    }
+    // private void DragStartHandler()
+    // {
+    //     DndContext?.Dragging = DragData.Invoke();
+    // }
 
     private void DragEndHandler()
     {
-        DndContext?.Dragging = null;
+        DndContext?.Clear();
     }
     
     private string GetItemTag()

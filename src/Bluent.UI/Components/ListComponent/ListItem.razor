@@ -9,9 +9,9 @@
     __builder.AddAttribute(3, "class", GetComponentClass());
     __builder.AddAttribute(4, "style", Style);
     __builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    __builder.AddAttribute(6, "draggable", IsDraggable.ToString().ToLower());
-    __builder.AddAttribute(7, "ondragstart", EventCallback.Factory.Create(this, DragStartHandler));
-    __builder.AddAttribute(8, "ondragend", EventCallback.Factory.Create(this, DragEndHandler));
+    //__builder.AddAttribute(6, "draggable", IsDraggable.ToString().ToLower());
+    // __builder.AddAttribute(7, "ondragstart", EventCallback.Factory.Create(this, DragStartHandler));
+    // __builder.AddAttribute(8, "ondragend", EventCallback.Factory.Create(this, DragEndHandler));
     
     if (IsLink)
     {
