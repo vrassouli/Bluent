@@ -8,4 +8,5 @@ public interface IPropertyEditor
     public PropertyInfo Property { get; set; }
     public object Object { get; set; }
     public EventCallback ValueUpdated { get; set; }
+    public int LabelWidth { get; set; }
 }
