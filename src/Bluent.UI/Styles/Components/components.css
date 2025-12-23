@@ -2728,6 +2728,7 @@
   display: flex;
   align-items: center;
   padding: var(--spacingVerticalSNudge);
+  gap: 0.2rem;
 }
 .bui-property-editor > .property-editor-content .row-group > .editor-row:not(:last-child) {
   border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);

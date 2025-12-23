@@ -11,6 +11,7 @@
         display: flex;
         align-items: center;
         padding: var(--spacingVerticalSNudge);
+        gap: 0.2rem;
         
         &:not(:last-child) {
           border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
