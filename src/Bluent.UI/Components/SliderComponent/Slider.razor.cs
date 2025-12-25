@@ -24,7 +24,9 @@ public partial class Slider<TValue> : IPointerMoveEventHandler, IPointerUpEventH
     [Parameter] public TValue? Min { get; set; }
     [Parameter] public TValue? Max { get; set; }
     [Parameter] public TValue? Value { get; set; }
+
     [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+
     // [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     // [Parameter] public SliderSize Size { get; set; } = SliderSize.Medium;
     [Parameter] public int? ThumbSize { get; set; }
@@ -107,7 +109,7 @@ public partial class Slider<TValue> : IPointerMoveEventHandler, IPointerUpEventH
 
         #endregion parameters default depending on T
     }
-    
+
     public override Task SetParametersAsync(ParameterView parameters)
     {
         // Check which parameters were set by the user
@@ -149,83 +151,94 @@ public partial class Slider<TValue> : IPointerMoveEventHandler, IPointerUpEventH
     private TValue CalculateProgress()
     {
         if (Value is null)
-            return (TValue)(object)0;
+            return _min ?? _minDefault ?? (TValue)(object)0;
 
         //sbyte
         if (typeof(TValue) == typeof(sbyte) || typeof(TValue) == typeof(sbyte?))
         {
-            var value = Convert.ToSByte(Value);
-            return (TValue)(object)(value * 100 / Convert.ToSByte(_max));
+            var shift = 0 - Convert.ToSByte(_min);
+            var value = Convert.ToSByte(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToSByte(_max) + shift));
         }
 
         // byte
         if (typeof(TValue) == typeof(byte) || typeof(TValue) == typeof(byte?))
         {
-            var value = Convert.ToByte(Value);
-            return (TValue)(object)(value * 100 / Convert.ToByte(_max));
+            var shift = 0 - Convert.ToByte(_min);
+            var value = Convert.ToByte(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToByte(_max) + shift));
         }
 
         // short
         if (typeof(TValue) == typeof(short) || typeof(TValue) == typeof(short?))
         {
-            var value = Convert.ToInt16(Value);
-            return (TValue)(object)(value * 100 / Convert.ToInt16(_max));
+            var shift = 0 - Convert.ToInt16(_min);
+            var value = Convert.ToInt16(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToInt16(_max) + shift));
         }
 
         // ushort
         if (typeof(TValue) == typeof(ushort) || typeof(TValue) == typeof(ushort?))
         {
-            var value = Convert.ToUInt16(Value);
-            return (TValue)(object)(value * 100 / Convert.ToUInt16(_max));
+            var shift = 0 - Convert.ToUInt16(_min);
+            var value = Convert.ToUInt16(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToUInt16(_max) + shift));
         }
 
         // int
         if (typeof(TValue) == typeof(int) || typeof(TValue) == typeof(int?))
         {
-            var value = Convert.ToInt32(Value);
-            return (TValue)(object)(value * 100 / Convert.ToInt32(_max));
+            var shift = 0 - Convert.ToInt32(_min);
+            var value = Convert.ToInt32(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToInt32(_max) + shift));
         }
 
         // uint
         if (typeof(TValue) == typeof(uint) || typeof(TValue) == typeof(uint?))
         {
-            var value = Convert.ToUInt32(Value);
-            return (TValue)(object)(value * 100 / Convert.ToUInt32(_max));
+            var shift = 0 - Convert.ToUInt32(_min);
+            var value = Convert.ToUInt32(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToUInt32(_max) + shift));
         }
 
         // long
         if (typeof(TValue) == typeof(long) || typeof(TValue) == typeof(long?))
         {
-            var value = Convert.ToInt64(Value);
-            return (TValue)(object)(value * 100 / Convert.ToInt64(_max));
+            var shift = 0 - Convert.ToInt64(_min);
+            var value = Convert.ToInt64(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToInt64(_max) + shift));
         }
 
         // ulong
         if (typeof(TValue) == typeof(ulong) || typeof(TValue) == typeof(ulong?))
         {
-            var value = Convert.ToUInt64(Value);
-            return (TValue)(object)(value * 100 / Convert.ToUInt64(_max));
+            var shift = 0 - Convert.ToUInt64(_min);
+            var value = Convert.ToUInt64(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToUInt64(_max) + shift));
         }
 
         // float
         if (typeof(TValue) == typeof(float) || typeof(TValue) == typeof(float?))
         {
-            var value = Convert.ToSingle(Value);
-            return (TValue)(object)(value * 100 / Convert.ToSingle(_max));
+            var shift = 0 - Convert.ToSingle(_min);
+            var value = Convert.ToSingle(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToSingle(_max) + shift));
         }
 
         // double
         if (typeof(TValue) == typeof(double) || typeof(TValue) == typeof(double?))
         {
-            var value = Convert.ToDouble(Value);
-            return (TValue)(object)(value * 100 / Convert.ToDouble(_max));
+            var shift = 0 - Convert.ToDouble(_min);
+            var value = Convert.ToDouble(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToDouble(_max) + shift));
         }
 
         // decimal
         if (typeof(TValue) == typeof(decimal) || typeof(TValue) == typeof(decimal?))
         {
-            var value = Convert.ToDecimal(Value);
-            return (TValue)(object)(value * 100 / Convert.ToDecimal(_max));
+            var shift = 0 - Convert.ToDecimal(_min);
+            var value = Convert.ToDecimal(Value) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToDecimal(_max) + shift));
         }
 
         return (TValue)(object)0;
@@ -245,7 +258,7 @@ public partial class Slider<TValue> : IPointerMoveEventHandler, IPointerUpEventH
     {
         if (args.PointerId != _pointerId)
             return;
-        
+
         await CalculateValueFromPoint(args.ScreenX, args.ScreenY);
     }
 
@@ -268,14 +281,15 @@ public partial class Slider<TValue> : IPointerMoveEventHandler, IPointerUpEventH
 
         // if (Orientation == Orientation.Horizontal)
         // {
-            var start = railRect.Left + _thumbSize / 2;
-            var size = railRect.Width - _thumbSize;
+        var start = railRect.Left + _thumbSize / 2;
+        var size = railRect.Width - _thumbSize;
 
-            var relativeX = screenX - start;
-            var percentage = relativeX / size;
-            percentage = Math.Min(1, Math.Max(0, percentage));
-            var newValue = Convert.ToDouble(_min) + percentage * (Convert.ToDouble(_max) - Convert.ToDouble(_min));
-            Value = (TValue)Convert.ChangeType(newValue, typeof(TValue));
+        var relativeX = screenX - start;
+        var percentage = relativeX / size;
+        percentage = Math.Min(1, Math.Max(0, percentage)); //10%
+
+        var newValue = Convert.ToDouble(_min) + percentage * (Convert.ToDouble(_max) - Convert.ToDouble(_min));
+        Value = (TValue)Convert.ChangeType(newValue, typeof(TValue));
         // }
         // else // Vertical
         // {

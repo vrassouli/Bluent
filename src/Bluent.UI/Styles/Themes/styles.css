@@ -2169,6 +2169,10 @@ body, .body1 {
   display: none !important;
 }
 
+.d-unset {
+  display: unset !important;
+}
+
 .flex-fill {
   flex: 1 1 auto !important;
 }
@@ -2535,6 +2539,66 @@ body, .body1 {
 
 .fs-9 {
   font-size: 68px !important;
+}
+
+.fw-regular {
+  font-weight: 400 !important;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
+}
+
+.fw-semi {
+  font-weight: 600 !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.lh-1 {
+  line-height: 1 !important;
+}
+
+.lh-100 {
+  line-height: 100 !important;
+}
+
+.lh-200 {
+  line-height: 200 !important;
+}
+
+.lh-300 {
+  line-height: 300 !important;
+}
+
+.lh-400 {
+  line-height: 400 !important;
+}
+
+.lh-500 {
+  line-height: 500 !important;
+}
+
+.lh-600 {
+  line-height: 600 !important;
+}
+
+.lh-700 {
+  line-height: 700 !important;
+}
+
+.lh-800 {
+  line-height: 800 !important;
+}
+
+.lh-900 {
+  line-height: 900 !important;
+}
+
+.lh-1000 {
+  line-height: 1000 !important;
 }
 
 .fst-italic {
@@ -3863,6 +3927,9 @@ body, .body1 {
   .d-sm-none {
     display: none !important;
   }
+  .d-sm-unset {
+    display: unset !important;
+  }
   .flex-sm-fill {
     flex: 1 1 auto !important;
   }
@@ -4872,6 +4939,9 @@ body, .body1 {
   }
   .d-md-none {
     display: none !important;
+  }
+  .d-md-unset {
+    display: unset !important;
   }
   .flex-md-fill {
     flex: 1 1 auto !important;
@@ -5883,6 +5953,9 @@ body, .body1 {
   .d-lg-none {
     display: none !important;
   }
+  .d-lg-unset {
+    display: unset !important;
+  }
   .flex-lg-fill {
     flex: 1 1 auto !important;
   }
@@ -6893,6 +6966,9 @@ body, .body1 {
   .d-xl-none {
     display: none !important;
   }
+  .d-xl-unset {
+    display: unset !important;
+  }
   .flex-xl-fill {
     flex: 1 1 auto !important;
   }
@@ -7902,6 +7978,9 @@ body, .body1 {
   }
   .d-xxl-none {
     display: none !important;
+  }
+  .d-xxl-unset {
+    display: unset !important;
   }
   .flex-xxl-fill {
     flex: 1 1 auto !important;
@@ -9497,3 +9576,5 @@ body, .body1 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/*# sourceMappingURL=styles.css.map */

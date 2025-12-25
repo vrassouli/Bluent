@@ -1,5 +1,7 @@
 ﻿@import "../theme/maps/spacings.scss";
 @import "../theme/maps/font-sizes.scss";
+@import "../theme/maps/font-weights.scss";
+@import "../theme/maps/line-heights.scss";
 @import "../theme/maps/border-radius.scss";
 @import "../theme/maps/stroke-widths.scss";
 @import "../../functions/maps.scss";
@@ -107,7 +109,7 @@ $important-utilities: map-merge(
                                 print: true,
                                 property: display,
                                 class: d,
-                                values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none
+                                values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none unset
                         ),
                   // Flex utilities
                         "flex": (
@@ -231,6 +233,33 @@ $important-utilities: map-merge(
                                 property: font-size,
                                 class: fs,
                                 values: to-index-map($font-sizes-map)
+                        ),
+                        "font-weight": (
+                                property: font-weight,
+                                class: fw,
+                                values: (
+                                        regular: 400,//$font-weights-map.fontWeightRegular,
+                                        medium: 500,//$font-weights-map.fontWeightMedium,
+                                        semi: 600,//$font-weights-map.fontWeightSemibold,
+                                        bold: 700//$font-weights-map.fontWeightBold,
+                                )
+                        ),
+                        "line-height": (
+                                property: line-height,
+                                class: lh,
+                                values: (
+                                        1: 1,
+                                        100: 100,//$line-heights-map.lineHeightBase100,
+                                        200: 200,//$line-heights-map.lineHeightBase200,
+                                        300: 300,//$line-heights-map.lineHeightBase300,
+                                        400: 400,//$line-heights-map.lineHeightBase400,
+                                        500: 500,//$line-heights-map.lineHeightBase500,
+                                        600: 600,//$line-heights-map.lineHeightBase600,
+                                        700: 700,//$line-heights-map.lineHeightHero700,
+                                        800: 800,//$line-heights-map.lineHeightHero800,
+                                        900: 900,//$line-heights-map.lineHeightHero900,
+                                        1000: 1000//$line-heights-map.lineHeightHero1000,
+                                )
                         ),
                         "font-style": (
                                 property: font-style,
