@@ -612,6 +612,12 @@
 .bui-button:not(.compact) {
   min-width: 96px;
 }
+.bui-button > .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
 .bui-button > .icon, .bui-button > .active-icon, .bui-button > .dropdown-icon, .bui-button > .dropdown-active-icon {
   font-size: 20px;
   height: 20px;
@@ -1946,7 +1952,7 @@
   padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);
   align-self: stretch;
   box-sizing: border-box;
-  flex-grow: 1;
+  flex: 1;
   min-width: 0px;
   border-style: none;
   border-radius: var(--borderRadiusMedium);
@@ -1957,7 +1963,6 @@
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
-  width: 100%;
 }
 .bui-field > input:disabled, .bui-field > select:disabled, .bui-field > textarea:disabled {
   color: var(--colorNeutralForegroundDisabled);
@@ -2723,6 +2728,7 @@
   display: flex;
   align-items: center;
   padding: var(--spacingVerticalSNudge);
+  gap: 0.2rem;
 }
 .bui-property-editor > .property-editor-content .row-group > .editor-row:not(:last-child) {
   border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);

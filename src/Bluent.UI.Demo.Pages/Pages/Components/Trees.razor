@@ -415,8 +415,8 @@
                 </TreeItem>
                 <TreeItem Title="Item 2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
                     <TreeItem Title="Item 2.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
-                        <TreeItem Title="Item 2.1.1" @bind-IsChecked=_checked_2_1_1 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
-                        <TreeItem Title="Item 2.1.2" @bind-IsChecked=_checked_2_1_2 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 2.1.1" @bind-IsChecked=_checked211 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
+                        <TreeItem Title="Item 2.1.2" @bind-IsChecked=_checked212 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
                     </TreeItem>
                     <TreeItem Title="Item 2.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
                         <TreeItem Title="Item 2.2.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
@@ -428,7 +428,7 @@
                     </TreeItem>
                 </TreeItem>
                 <TreeItem Title="Item 3" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
-                    <TreeItem Title="Item 3.1" @bind-IsChecked=_checked_3_1 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
+                    <TreeItem Title="Item 3.1" @bind-IsChecked=_checked31 Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular">
                         <TreeItem Title="Item 3.1.1" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
                         <TreeItem Title="Item 3.1.2" Icon="icon-ic_fluent_folder_20_regular" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" />
                     </TreeItem>
@@ -476,10 +476,10 @@
 
 @code {
     
-    bool? _checked_2_1_1 = true;
-    bool? _checked_2_1_2 = true;
-    bool? _checked_3_1 = true;
-    DndContext _sharedDnDContext = new();
+    bool? _checked211 = true;
+    bool? _checked212 = true;
+    bool? _checked31 = true;
+    readonly DndContext _sharedDnDContext = new();
     List<TreeItemViewModel> _myComputerDataSource = default!;
     List<TreeItemViewModel> _remoteComputerDataSource = default!;
 
@@ -490,33 +490,34 @@
 
     private void LoadDataSources()
     {
-        _myComputerDataSource = new List<TreeItemViewModel>
-        {
-            new TreeItemViewModel("Folder 1"),
-            new TreeItemViewModel("Folder 2")
+        _myComputerDataSource =
+        [
+            new("Folder 1"),
+            new("Folder 2")
             {
-                Children = new List<TreeItemViewModel>
-                {
-                    new TreeItemViewModel("Folder 2.1")
+                Children =
+                [
+                    new("Folder 2.1")
                     {
-                        Children = new List<TreeItemViewModel>
-                        {
-                            new TreeItemViewModel("File 2.1.1"),
-                            new TreeItemViewModel("File 2.1.2")
-                        }
+                        Children =
+                        [
+                            new("File 2.1.1"),
+                            new("File 2.1.2")
+                        ]
                     },
-                    new TreeItemViewModel("File 2.1"),
-                    new TreeItemViewModel("File 2.2"),
-                }
+
+                    new("File 2.1"),
+                    new("File 2.2")
+
+                ]
             },
-            new TreeItemViewModel("Folder 3"),
-            new TreeItemViewModel("Folder 4"),
-            new TreeItemViewModel("File 1"),
-        };
-        _remoteComputerDataSource = new List<TreeItemViewModel>
-        {
-            new TreeItemViewModel("Folder 1")
-        };
+
+            new("Folder 3"),
+            new("Folder 4"),
+            new("File 1")
+
+        ];
+        _remoteComputerDataSource = [new("Folder 1")];
     }
 
     private bool OnCanDrop(TreeItem dragging, TreeItem dropTarget)
@@ -534,11 +535,7 @@
 
     private void HandleTreeItemDrop(DndContext context)
     {
-        var dragging = context.Dragging as TreeItem;
-        var dropTarget = context.DropTarget as TreeItem;
-
-        if (dragging != null && dragging.Data is TreeItemViewModel draggingData &&
-            dropTarget != null && dropTarget.Data is TreeItemViewModel droppingData)
+        if (context is { Data: TreeItem { Data: TreeItemViewModel draggingData }, Target: TreeItem { Data: TreeItemViewModel droppingData } })
         {
             var sourceParent = FindItemParent(_myComputerDataSource, draggingData);
 
@@ -553,11 +550,7 @@
 
     private void HandleSharedItemDrop(DndContext context)
     {
-        var dragging = context.Dragging as TreeItem;
-        var dropTarget = context.DropTarget as TreeItem;
-
-        if (dragging != null && dragging.Data is TreeItemViewModel draggingData &&
-            dropTarget != null && dropTarget.Data is TreeItemViewModel droppingData)
+        if (context.Data is TreeItem { Data: TreeItemViewModel draggingData and { } droppingData })
         {
             List<TreeItemViewModel>? sourceList = null;
             List<TreeItemViewModel>? targetList = null;

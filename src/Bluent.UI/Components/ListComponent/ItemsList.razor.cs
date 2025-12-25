@@ -11,6 +11,7 @@ public partial class ItemsList
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public SelectionMode SelectionMode { get; set; } = SelectionMode.Single;
     [Parameter] public EventCallback<IEnumerable<ListItem>> SelectedItemsChanged { get; set; }
+    // [Parameter] public bool Draggable { get; set; }
 
     public override IEnumerable<string> GetClasses()
     {

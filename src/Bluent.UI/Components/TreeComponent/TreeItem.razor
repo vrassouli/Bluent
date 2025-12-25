@@ -5,8 +5,8 @@
     @onclick:stopPropagation="true"
     @onmouseenter:stopPropagation="true"
     @onmouseleave:stopPropagation="true">
-    <div class="layout @GetLayourClasses()"
-         draggable="@(Tree.Draggable.ToString().ToLower())"
+    <div class="layout @GetLayoutClasses()"
+         draggable="@(IsDraggable.ToString().ToLower())"
          @ondragover="OnDragOver"
          @ondragover:preventDefault="CanDrop"
          @ondragleave="OnDragLeave"

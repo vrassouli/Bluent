@@ -21,10 +21,12 @@ public partial class TreeItem
     [Parameter] public object? Data { get; set; } = default!;
     [Parameter] public string? Href { get; set; }
     [Parameter] public string? Target { get; set; }
+    [Parameter] public bool? Draggable { get; set; }
+    [Parameter] public Func<object> DragData { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? ItemTemplate { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
-    [CascadingParameter] public DndContext DndContext { get; set; } = default!;
+    [CascadingParameter] public DndContext? DndContext { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;
 
@@ -33,9 +35,9 @@ public partial class TreeItem
     {
         get
         {
-            if (DndContext?.Dragging != null)
+            if (DndContext?.Data != null)
             {
-                if (DndContext.Dragging is TreeItem draggingTreeItem)
+                if (DndContext.Data is TreeItem draggingTreeItem)
                 {
                     if (!Tree.CanDrag(draggingTreeItem))
                         return false;
@@ -56,6 +58,13 @@ public partial class TreeItem
         }
     }
 
+    private bool IsDraggable => Draggable ?? Tree.Draggable;
+
+    public TreeItem()
+    {
+        DragData = () => Data ?? this;
+    }
+    
     private bool Contains(TreeItem subItem)
     {
         if (Items.Contains(subItem))
@@ -128,7 +137,7 @@ public partial class TreeItem
 
     private void OnDragStarted()
     {
-        DndContext.Dragging = this;
+        DndContext?.SetData(DragData.Invoke());
         _isDragging = true;
     }
 
@@ -139,9 +148,9 @@ public partial class TreeItem
 
     private async Task OnDropAsync()
     {
-        if (DndContext.Dragging != null && DndContext.Dragging != this)
+        if (DndContext?.Data != null && DndContext.Data != DragData.Invoke())
         {
-            DndContext.DropTarget = this;
+            DndContext.SeDropTarget(this);
 
             await Tree.OnItemDropedAsync();
 
@@ -151,7 +160,7 @@ public partial class TreeItem
 
     private void OnDragOver()
     {
-        _canDrop = (DndContext.Dragging != null && DndContext.Dragging != this);
+        _canDrop = (DndContext?.Data != null && DndContext.Data != DragData.Invoke());
     }
 
     private void OnDragLeave()
@@ -159,7 +168,7 @@ public partial class TreeItem
         _canDrop = false;
     }
 
-    private string? GetLayourClasses()
+    private string GetLayoutClasses()
     {
         var classes = new List<string>();
 
@@ -178,7 +187,7 @@ public partial class TreeItem
             await ExpanderClickHandler();
 
         if (Tree.ToggleCheckStateOnClick)
-            await CheckboxCheckedHandler(IsChecked == true ? false : true);
+            await CheckboxCheckedHandler(IsChecked != true);
 
         Tree.OnItemClick(this);
     }

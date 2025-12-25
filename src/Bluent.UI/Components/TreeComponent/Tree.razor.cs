@@ -55,7 +55,6 @@ public partial class Tree
     {
         await OnItemDrop.InvokeAsync(DndContext);
 
-        DndContext.Dragging = null;
-        DndContext.DropTarget = null;
+        DndContext.Clear();
     }
 }

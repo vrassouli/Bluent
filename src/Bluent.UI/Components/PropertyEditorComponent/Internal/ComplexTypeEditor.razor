@@ -1,7 +1,7 @@
 @using Bluent.UI.Extensions
 @using Humanizer
 
-<div class="d-flex align-items-center mb-2 gap-2">
+<div class="d-flex align-items-center mb-2 py-2 gap-2">
     <Label Text="@Property.GetDisplayName().Humanize(LetterCasing.Sentence)"
            Class="flex-fill"></Label>
     
@@ -11,7 +11,7 @@
     }
     else
     {
-        <Button Text="Clear Value" 
+        <Button Text="Clear" 
                 Icon="icon-ic_fluent_delete_20_regular" 
                 Color="Color.Danger" 
                 Size="ButtonSize.Small" 

@@ -139,89 +139,99 @@ public partial class RangeSlider<TValue> : IPointerMoveEventHandler, IPointerUpE
             yield return c;
 
         yield return "bui-range-slider";
-        // yield return Size.ToString().ToLower();
     }
 
     private TValue CalculateProgress(TValue? v)
     {
         if (v is null)
-            return (TValue)(object)0;
+            return _min ?? _minDefault ?? (TValue)(object)0;
 
         //sbyte
         if (typeof(TValue) == typeof(sbyte) || typeof(TValue) == typeof(sbyte?))
         {
-            var value = Convert.ToSByte(v);
-            return (TValue)(object)(value * 100 / Convert.ToSByte(_max));
+            var shift = 0 - Convert.ToSByte(_min);
+            var value = Convert.ToSByte(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToSByte(_max) + shift));
         }
         
         // byte
         if (typeof(TValue) == typeof(byte) || typeof(TValue) == typeof(byte?))
         {
-            var value = Convert.ToByte(v);
-            return (TValue)(object)(value * 100 / Convert.ToByte(_max));
+            var shift = 0 - Convert.ToByte(_min);
+            var value = Convert.ToByte(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToByte(_max) + shift));
         }
         
         // short
         if (typeof(TValue) == typeof(short) || typeof(TValue) == typeof(short?))
         {
-            var value = Convert.ToInt16(v);
-            return (TValue)(object)(value * 100 / Convert.ToInt16(_max));
+            var shift = 0 - Convert.ToInt16(_min);
+            var value = Convert.ToInt16(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToInt16(_max) + shift));
         }
-        
+
         // ushort
         if (typeof(TValue) == typeof(ushort) || typeof(TValue) == typeof(ushort?))
         {
-            var value = Convert.ToUInt16(v);
-            return (TValue)(object)(value * 100 / Convert.ToUInt16(_max));
+            var shift = 0 - Convert.ToUInt16(_min);
+            var value = Convert.ToUInt16(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToUInt16(_max) + shift));
         }
-        
+
         // int
         if (typeof(TValue) == typeof(int) || typeof(TValue) == typeof(int?))
         {
-            var value = Convert.ToInt32(v);
-            return (TValue)(object)(value * 100 / Convert.ToInt32(_max));
+            var shift = 0 - Convert.ToInt32(_min);
+            var value = Convert.ToInt32(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToInt32(_max) + shift));
         }
-        
+
         // uint
         if (typeof(TValue) == typeof(uint) || typeof(TValue) == typeof(uint?))
         {
-            var value = Convert.ToUInt32(v);
-            return (TValue)(object)(value * 100 / Convert.ToUInt32(_max));
+            var shift = 0 - Convert.ToUInt32(_min);
+            var value = Convert.ToUInt32(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToUInt32(_max) + shift));
         }
-        
+
         // long
         if (typeof(TValue) == typeof(long) || typeof(TValue) == typeof(long?))
         {
-            var value = Convert.ToInt64(v);
-            return (TValue)(object)(value * 100 / Convert.ToInt64(_max));
+            var shift = 0 - Convert.ToInt64(_min);
+            var value = Convert.ToInt64(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToInt64(_max) + shift));
         }
-        
+
         // ulong
         if (typeof(TValue) == typeof(ulong) || typeof(TValue) == typeof(ulong?))
         {
-            var value = Convert.ToUInt64(v);
-            return (TValue)(object)(value * 100 / Convert.ToUInt64(_max));
+            var shift = 0 - Convert.ToUInt64(_min);
+            var value = Convert.ToUInt64(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToUInt64(_max) + shift));
         }
-        
+
         // float
         if (typeof(TValue) == typeof(float) || typeof(TValue) == typeof(float?))
         {
-            var value = Convert.ToSingle(v);
-            return (TValue)(object)(value * 100 / Convert.ToSingle(_max));
+            var shift = 0 - Convert.ToSingle(_min);
+            var value = Convert.ToSingle(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToSingle(_max) + shift));
         }
-        
+
         // double
         if (typeof(TValue) == typeof(double) || typeof(TValue) == typeof(double?))
         {
-            var value = Convert.ToDouble(v);
-            return (TValue)(object)(value * 100 / Convert.ToDouble(_max));
+            var shift = 0 - Convert.ToDouble(_min);
+            var value = Convert.ToDouble(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToDouble(_max) + shift));
         }
-        
+
         // decimal
         if (typeof(TValue) == typeof(decimal) || typeof(TValue) == typeof(decimal?))
         {
-            var value = Convert.ToDecimal(v);
-            return (TValue)(object)(value * 100 / Convert.ToDecimal(_max));
+            var shift = 0 - Convert.ToDecimal(_min);
+            var value = Convert.ToDecimal(v) + shift;
+            return (TValue)(object)(value * 100 / (Convert.ToDecimal(_max) + shift));
         }
 
         return (TValue)(object)0;

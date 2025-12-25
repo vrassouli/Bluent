@@ -17,30 +17,25 @@ public partial class PropertyEditorItem
 
     [Inject] private IPropertyEditorTypeRegistry TypeRegistry { get; set; } = default!;
     [Inject] private IPropertyEditorProvider EditorProvider { get; set; } = default!;
-
-    private object? GetPropertyValue()
-    {
-        var value = Property?.GetValue(Object);
-        return value;
-    }
+    
 
     private Type PropertyType => Property.PropertyType.GetUnderlyingType();
 
     private bool IsEnumerable => Property.PropertyType.IsAssignableTo(typeof(IEnumerable));
-    
+
     private bool IsComplexType
     {
         get
         {
             if (PropertyType == typeof(string))
                 return false;
-            
+
             if (PropertyType == typeof(int))
                 return false;
-            
+
             if (PropertyType == typeof(bool))
                 return false;
-            
+
             if (PropertyType.IsEnum)
                 return false;
 
@@ -70,9 +65,10 @@ public partial class PropertyEditorItem
     {
         return new Dictionary<string, object>
         {
-            { nameof (Property) , Property },
-            { nameof (Object) , Object },
-            { nameof (ValueUpdated) , EventCallback.Factory.Create(this, () =>  ValueUpdated.InvokeAsync()) }
+            { nameof(Property), Property },
+            { nameof(Object), Object },
+            { nameof(LabelWidth), LabelWidth },
+            { nameof(ValueUpdated), EventCallback.Factory.Create(this, () => ValueUpdated.InvokeAsync()) }
         };
     }
 }
