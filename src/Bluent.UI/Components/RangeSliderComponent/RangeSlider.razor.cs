@@ -22,14 +22,12 @@ public partial class RangeSlider<TValue> : IPointerMoveEventHandler, IPointerUpE
     [Parameter] public TValue? Max { get; set; }
     [Parameter] public ValueRange<TValue>? Value { get; set; }
     [Parameter] public EventCallback<ValueRange<TValue>?> ValueChanged { get; set; }
-    // [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
-    // [Parameter] public SliderSize Size { get; set; } = SliderSize.Medium;
     [Parameter] public int? ThumbSize { get; set; }
 
     [Inject] private IDomHelper Dom { get; set; } = default!;
 
-    private TValue MinProgress => CalculateProgress(Value is null ? default : Value.Min);
-    private TValue MaxProgress => CalculateProgress(Value is null ? default : Value.Max);
+    private TValue MinProgress => CalculateProgress(Value is null ? Min : Value.Min);
+    private TValue MaxProgress => CalculateProgress(Value is null ? Max : Value.Max);
     private string RailSelector => $"#{Id}>.rail";
     public RangeSlider()
     {
@@ -104,6 +102,7 @@ public partial class RangeSlider<TValue> : IPointerMoveEventHandler, IPointerUpE
 
         #endregion parameters default depending on T
     }
+    
     public override Task SetParametersAsync(ParameterView parameters)
     {
         // Check which parameters were set by the user
