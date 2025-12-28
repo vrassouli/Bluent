@@ -12,13 +12,15 @@
     [Parameter] public PropertyInfo Property { get; set; } = null!;
     [Parameter] public object Object { get; set; } = null!;
     [Parameter] public EventCallback ValueUpdated { get; set; }
+    [CascadingParameter] public PropertyEditor Editor { get; set; } = default!;
 
     private bool? Value => Property.GetValue(Object) as bool?;
 
     private async Task OnValueChanged(bool? newValue)
     {
         var convertedValue = Convert.ChangeType(newValue, Property.PropertyType);
-        Property.SetValue(Object, convertedValue);
+        //Property.SetValue(Object, convertedValue);
+        Editor.SetPropertyValue(Object, convertedValue, Property);
 
         await ValueUpdated.InvokeAsync();
     }

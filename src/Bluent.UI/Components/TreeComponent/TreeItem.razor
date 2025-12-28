@@ -7,15 +7,25 @@
     @onmouseleave:stopPropagation="true">
     <div class="layout @GetLayoutClasses()"
          draggable="@(IsDraggable.ToString().ToLower())"
-         @ondragover="OnDragOver"
          @ondragover:preventDefault="CanDrop"
+         @ondragenter="OnDragEnter"
          @ondragleave="OnDragLeave"
          @ondragstart="OnDragStarted"
          @ondragend="OnDragEnded"
          @ondrop="OnDropAsync"
-         @onclick="ItemClickHandler" 
-         @onmouseenter="MouseEnterHandler" 
+         @onclick="ItemClickHandler"
+         @onmouseenter="MouseEnterHandler"
          @onmouseleave="MouseLeaveHandler">
+        
+
+        @* <div class="order-drop before @(_dragOverBefore ? "over" : "")" *@
+        @*      @ondragover:preventDefault="CanDrop" *@
+        @*      @ondragenter="OnDragEnterBefore" *@
+        @*      @ondragleave="OnDragLeaveBefore"> *@
+        @*     <div class="indicator"></div> *@
+        @*     <div class="line"></div> *@
+        @* </div> *@
+        
         <div class="expander" @onclick:stopPropagation="true">
             @if (HasSubItems)
             {
@@ -33,9 +43,9 @@
                     <Checkbox TValue=bool?
                               Value="checkState"
                               ValueChanged="CheckboxCheckedHandler"
-                              ValueExpression="()=>IsChecked"
+                              ValueExpression="() => IsChecked"
                               Circular="Tree.CircularCheckboxes"
-                              disabled="@DisableCheckBox" />
+                              disabled="@DisableCheckBox"/>
                 }
             </div>
         }
@@ -44,9 +54,10 @@
         {
             @if (!string.IsNullOrEmpty(ExpandedIcon))
             {
-                <Icon Content="@ExpandedIcon" Class="expanded-icon" />
+                <Icon Content="@ExpandedIcon" Class="expanded-icon"/>
             }
-            <Icon Content="@Icon" Class="icon" />
+
+            <Icon Content="@Icon" Class="icon"/>
         }
 
         @if (ItemTemplate != null)
@@ -66,6 +77,18 @@
             <a class="item-content" href="@Href" @onclick="OnClick" target="@Target">
                 @Title
             </a>
+        }
+        @if (_dndStarted && Tree.Orderable && !IsDragging && IsSibling)
+        {
+            <div class="order-drop after @(_dragOverAfter ? "over" : "")"
+                 @ondrop="OnDropAfterAsync"
+                 @ondrop:stopPropagation="true"
+                 @ondragover:preventDefault="true"
+                 @ondragenter="OnDragEnterAfter"
+                 @ondragleave="OnDragLeaveAfter">
+                <div class="indicator"></div>
+                <div class="line"></div>
+            </div>
         }
     </div>
     @if (ChildContent != null)

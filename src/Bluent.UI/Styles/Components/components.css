@@ -4055,19 +4055,21 @@
   font-size: var(--tree-item-font-size);
   min-height: var(--tree-item-min-height);
   font-weight: var(--fontWeightRegular);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  grid-template-rows: auto 1fr auto;
   align-items: center;
   font-family: var(--fontFamilyBase);
 }
 .bui-tree .item-group > .item > .layout > .expander {
+  grid-row: 2;
+  grid-column: 1;
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   min-width: 24px;
   box-sizing: border-box;
   color: var(--colorNeutralForeground3);
-  flex: 0 0 auto;
   padding: var(--spacingVerticalXS) 0;
   transition-property: transform;
   transition-duration: var(--durationSlower);
@@ -4077,11 +4079,15 @@
   line-height: 0;
 }
 .bui-tree .item-group > .item > .layout > .check-wrapper {
+  grid-row: 2;
+  grid-column: 2;
   width: 32px;
   height: 32px;
   flex-shrink: 0;
 }
 .bui-tree .item-group > .item > .layout > .icon, .bui-tree .item-group > .item > .layout > .expanded-icon {
+  grid-row: 2;
+  grid-column: 3;
   font-size: 20px;
   height: 20px;
   width: 20px;
@@ -4089,6 +4095,40 @@
 }
 .bui-tree .item-group > .item > .layout > .expanded-icon {
   display: none;
+}
+.bui-tree .item-group > .item > .layout > .order-drop {
+  height: 7px;
+  display: flex;
+  padding: 1px;
+  align-items: center;
+  background-color: var(--colorNeutralBackground1);
+}
+.bui-tree .item-group > .item > .layout > .order-drop.before {
+  grid-row: 1;
+  grid-column: 1/-1;
+}
+.bui-tree .item-group > .item > .layout > .order-drop.after {
+  grid-row: 3;
+  grid-column: 1/-1;
+}
+.bui-tree .item-group > .item > .layout > .order-drop.over {
+  background-color: var(--colorCompoundBrandBackground) !important;
+}
+.bui-tree .item-group > .item > .layout > .order-drop.over > .indicator, .bui-tree .item-group > .item > .layout > .order-drop.over > .line {
+  background-color: var(--colorNeutralBackground1) !important;
+}
+.bui-tree .item-group > .item > .layout > .order-drop > .indicator {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: var(--colorCompoundBrandBackground);
+  pointer-events: none;
+}
+.bui-tree .item-group > .item > .layout > .order-drop > .line {
+  height: 1px;
+  width: 100%;
+  background-color: var(--colorCompoundBrandBackground);
+  pointer-events: none;
 }
 .bui-tree .item-group > .item > .layout:hover {
   color: var(--colorNeutralForeground2Hover);
@@ -4102,12 +4142,16 @@
   color: var(--colorNeutralForeground2Pressed) !important;
   background-color: var(--colorSubtleBackgroundPressed) !important;
 }
+.bui-tree .item-group > .item > .layout.drop-target > :not(.order-drop) {
+  pointer-events: none;
+}
 .bui-tree .item-group > .item > .layout.dragging {
   color: var(--colorNeutralForegroundDisabled) !important;
   background-color: var(--colorSubtleBackgroundHover) !important;
 }
 .bui-tree .item-group > .item > .layout .item-content {
-  flex: 1;
+  grid-row: 2;
+  grid-column: 4;
   color: inherit;
   text-decoration: none;
   /*                    overflow: hidden;

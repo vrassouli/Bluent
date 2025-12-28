@@ -11,6 +11,7 @@ public partial class RegisteredPropertyTypeEditor
     [Parameter] public object Object { get; set; } = null!;
     [Parameter] public int LabelWidth { get; set; } = 120;
     [Parameter] public EventCallback ValueUpdated { get; set; }
+    [CascadingParameter] public PropertyEditor Editor { get; set; } = default!;
 
     [Inject] private IPropertyEditorTypeRegistry TypeRegistry { get; set; } = default!;
 
@@ -24,7 +25,8 @@ public partial class RegisteredPropertyTypeEditor
     {
         var instance = Activator.CreateInstance(type);
 
-        Property.SetValue(Object, instance);
+        //Property.SetValue(Object, instance);
+        Editor.SetPropertyValue(Object, instance, Property);
     }
 
     private Type? GetCurrentType() => GetPropertyValue()?.GetType();

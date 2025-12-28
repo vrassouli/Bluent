@@ -2,12 +2,14 @@
 
 namespace Bluent.UI.Components;
 
-public partial class TreeItem
+public partial class TreeItem 
 {
     private List<TreeItem> _items = new();
     private bool _mouseEntered;
-    private bool _canDrop;
-    private bool _isDragging;
+    private bool _dragOver;
+    private bool _dragOverBefore;
+    private bool _dragOverAfter;
+    private bool _dndStarted;
 
     [Parameter] public string Title { get; set; } = default!;
     [Parameter] public string? Icon { get; set; } = default!;
@@ -21,7 +23,6 @@ public partial class TreeItem
     [Parameter] public object? Data { get; set; } = default!;
     [Parameter] public string? Href { get; set; }
     [Parameter] public string? Target { get; set; }
-    [Parameter] public bool? Draggable { get; set; }
     [Parameter] public Func<object> DragData { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? ItemTemplate { get; set; }
@@ -30,6 +31,7 @@ public partial class TreeItem
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;
 
+    private bool IsDragging =>DndContext?.Data == DragData.Invoke();
     internal bool HasSubItems => _items.Any();
     private bool CanDrop
     {
@@ -37,19 +39,16 @@ public partial class TreeItem
         {
             if (DndContext?.Data != null)
             {
-                if (DndContext.Data is TreeItem draggingTreeItem)
-                {
-                    if (!Tree.CanDrag(draggingTreeItem))
-                        return false;
+                if (!Tree.CanDrag(DndContext.Data))
+                    return false;
 
-                    if (Tree.CanDrop != null && !Tree.CanDrop(draggingTreeItem, this))
-                        return false;
+                if (Tree.CanDrop != null && !Tree.CanDrop(DndContext.Data, DragData.Invoke()))
+                    return false;
 
-                    if (Items.Contains(draggingTreeItem) || draggingTreeItem.Contains(this) || draggingTreeItem == this)
-                    {
-                        return false;
-                    }
-                }
+                // if (Items.Select(i => i.DragData).Contains(DndContext.Data) || 
+                //     //draggingTreeItem.Contains(this) || 
+                //     DndContext.Data == DragData.Invoke())
+                //     return false;
 
                 return true;
             }
@@ -57,8 +56,11 @@ public partial class TreeItem
             return false;
         }
     }
-
-    private bool IsDraggable => Draggable ?? Tree.Draggable;
+    private bool IsSibling => ParentItem != null && 
+                                  ParentItem.Items.Any(i => i.DragData.Invoke() == DndContext?.Data);
+    private bool IsDraggable => (Tree.Draggable && Tree.CanDrag(DragData.Invoke())) ||
+                                (Tree.Orderable && Tree.CanReorder(DragData.Invoke()));
+    private bool DraggedOver => _dragOver;
 
     public TreeItem()
     {
@@ -89,6 +91,9 @@ public partial class TreeItem
         else
             Tree.Add(this);
 
+        DndContext?.Started += OnDndStarted;
+        DndContext?.Ended += OnDndEnded;
+
         base.OnInitialized();
     }
 
@@ -111,6 +116,9 @@ public partial class TreeItem
             ParentItem.Remove(this);
         else
             Tree.Remove(this);
+
+        DndContext?.Started -= OnDndStarted;
+        DndContext?.Ended -= OnDndEnded;
 
         base.Dispose();
     }
@@ -138,44 +146,88 @@ public partial class TreeItem
     private void OnDragStarted()
     {
         DndContext?.SetData(DragData.Invoke());
-        _isDragging = true;
     }
 
     private void OnDragEnded()
     {
-        _isDragging = false;
+        DndContext?.Clear();
     }
 
     private async Task OnDropAsync()
     {
         if (DndContext?.Data != null && DndContext.Data != DragData.Invoke())
         {
-            DndContext.SeDropTarget(this);
+            DndContext.SeDropTarget(DragData.Invoke());
 
-            await Tree.OnItemDropedAsync();
+            await Tree.OnItemDroppedAsync();
 
-            _canDrop = false;
+            _dragOver = false;
         }
     }
 
-    private void OnDragOver()
+    private void OnDragEnter()
     {
-        _canDrop = (DndContext?.Data != null && DndContext.Data != DragData.Invoke());
+        _dragOver = true;
     }
 
     private void OnDragLeave()
     {
-        _canDrop = false;
+        _dragOver = false;
+    }
+    // private void OnDragEnterBefore()
+    // {
+    //     Console.WriteLine($"Drag Enter Before {Data}");
+    //     _dragOverBefore = true;
+    // }
+    //
+    // private void OnDragLeaveBefore()
+    // {
+    //     Console.WriteLine($"Drag Leave Before {Data}");
+    //     _dragOverBefore = false;
+    // }
+
+    private void OnDragEnterAfter()
+    {
+        _dragOverAfter = true;
     }
 
+    private void OnDragLeaveAfter()
+    {
+        _dragOverAfter = false;
+    }
+
+    private async Task OnDropAfterAsync()
+    {
+        if (DndContext?.Data != null && DndContext.Data != DragData.Invoke())
+        {
+            DndContext.SeDropTarget(DragData.Invoke());
+
+            await Tree.OnInsertAfterAsync();
+
+            _dragOver = false;
+        }
+    }
+
+    private void OnDndStarted(object? sender, EventArgs e)
+    {
+        _dndStarted = true;
+        StateHasChanged();
+    }
+
+    private void OnDndEnded(object? sender, EventArgs e)
+    {
+        _dndStarted = false;
+        StateHasChanged();
+    }
+    
     private string GetLayoutClasses()
     {
         var classes = new List<string>();
 
-        if (_canDrop)
+        if (DraggedOver)
             classes.Add("drop-target");
 
-        if (_isDragging)
+        if (IsDragging)
             classes.Add("dragging");
 
         return string.Join(' ', classes);

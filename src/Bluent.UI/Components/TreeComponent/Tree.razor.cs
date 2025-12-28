@@ -10,12 +10,15 @@ public partial class Tree
     [Parameter] public TreeCheckboxMode CheckboxMode { get; set; } = TreeCheckboxMode.None;
     [Parameter] public bool CircularCheckboxes { get; set; }
     [Parameter] public bool Draggable { get; set; }
+    [Parameter] public bool Orderable { get; set; }
     [Parameter] public bool ToggleSubItemsOnClick { get; set; } = true;
     [Parameter] public bool ToggleCheckStateOnClick { get; set; }
     [Parameter] public EventCallback<TreeItem> OnClick { get; set; }
     [Parameter] public EventCallback<DndContext> OnItemDrop { get; set; }
-    [Parameter] public Func<TreeItem, TreeItem, bool>? CanDrop { get; set; }
-    [Parameter] public Func<TreeItem, bool> CanDrag { get; set; } = _ => true;
+    [Parameter] public EventCallback<DndContext> OnInsertAfter { get; set; }
+    [Parameter] public Func<object, object, bool>? CanDrop { get; set; }
+    [Parameter] public Func<object, bool> CanDrag { get; set; } = _ => true;
+    [Parameter] public Func<object, bool> CanReorder { get; set; } = _ => true;
     [CascadingParameter] public DndContext? SharedContext { get; set; }
 
     public IReadOnlyList<TreeItem> Items => _items;
@@ -51,9 +54,16 @@ public partial class Tree
         OnClick.InvokeAsync(item);
     }
 
-    internal async Task OnItemDropedAsync()
+    internal async Task OnItemDroppedAsync()
     {
         await OnItemDrop.InvokeAsync(DndContext);
+
+        DndContext.Clear();
+    }
+
+    internal async Task OnInsertAfterAsync()
+    {
+        await OnInsertAfter.InvokeAsync(DndContext);
 
         DndContext.Clear();
     }

@@ -16,7 +16,7 @@
 
         <h3>Range</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <RangeSlider @bind-Value="_valueRange" Min="-80" Max="100"/>
+            <RangeSlider @bind-Value="_valueRange" Min="0" Max="@decimal.MaxValue"/>
             <pre>
                 Value: (@_valueRange.Min , @_valueRange.Max)
             </pre>
