@@ -2,13 +2,18 @@
 
 public static class TypeExtensions
 {
-    public static Type GetUnderlyingType(this Type type)
+    extension(Type type)
     {
-        // For Nullable<T> (value types)
-        if (Nullable.GetUnderlyingType(type) is Type underlyingType)
-            return underlyingType;
+        public Type GetUnderlyingType()
+        {
+            // For Nullable<T> (value types)
+            if (Nullable.GetUnderlyingType(type) is { } underlyingType)
+                return underlyingType;
 
-        // For reference types like string?, just return the type itself
-        return type;
+            // For reference types like string?, just return the type itself
+            return type;
+        }
+
+        public bool IsNullable() => Nullable.GetUnderlyingType(type) != null;
     }
 }

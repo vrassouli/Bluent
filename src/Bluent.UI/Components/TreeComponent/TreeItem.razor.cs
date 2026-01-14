@@ -26,13 +26,14 @@ public partial class TreeItem
     [Parameter] public Func<object> DragData { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? ItemTemplate { get; set; }
+    [Parameter] public bool Expandable { get; set; }
     [CascadingParameter] public Tree Tree { get; set; } = default!;
     [CascadingParameter] public DndContext? DndContext { get; set; } = default!;
     [CascadingParameter] public TreeItem? ParentItem { get; set; } = default!;
     public IReadOnlyList<TreeItem> Items => _items;
 
     private bool IsDragging =>DndContext?.Data == DragData.Invoke();
-    internal bool HasSubItems => _items.Any();
+    internal bool HasSubItems => _items.Any() || Expandable;
     private bool CanDrop
     {
         get

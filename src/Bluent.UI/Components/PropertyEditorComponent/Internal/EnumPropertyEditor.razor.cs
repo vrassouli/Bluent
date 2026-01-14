@@ -11,7 +11,17 @@ public partial class EnumPropertyEditor
     [Parameter] public EventCallback ValueUpdated { get; set; }
     [CascadingParameter] public PropertyEditor Editor { get; set; } = default!;
 
-    private int? Value => (int)Property.GetValue(Object, null)!;
+    private int? Value
+    {
+        get
+        {
+            var value = Property.GetValue(Object, null);
+            if (value is null)
+                return null;
+            
+            return Convert.ToInt32(value);
+        }
+    }
 
     private async Task OnValueChanged(int? newValue)
     {

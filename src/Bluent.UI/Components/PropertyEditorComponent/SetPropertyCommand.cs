@@ -1,9 +1,10 @@
+using System.Collections.ObjectModel;
 using System.Reflection;
 using Bluent.Core;
 
 namespace Bluent.UI.Components.PropertyEditorComponent;
 
-public class SetPropertyCommand : ICommand
+public sealed class SetPropertyCommand : ICommand
 {
     private readonly object _obj;
     private readonly PropertyInfo[] _properties;

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.ObjectModel;
+using System.Reflection;
 using Bluent.Core;
 using Bluent.UI.Components.PropertyEditorComponent;
 using Microsoft.AspNetCore.Components;
@@ -16,6 +17,7 @@ public partial class PropertyEditor
     [Parameter] public bool Categorize { get; set; } = true;
     [Parameter] public EventCallback PropertyUpdated { get; set; }
     [Parameter] public CommandManager? CommandManager { get; set; }
+  
 
     protected override void OnParametersSet()
     {
@@ -24,7 +26,7 @@ public partial class PropertyEditor
             _object = Object;
 
             if (_object != null)
-                _context = new PropertyEditorContext(_object);
+                _context = new PropertyEditorContext(_object.GetType());
             else
                 _context = null;
         }
@@ -47,6 +49,13 @@ public partial class PropertyEditor
         Do(cmd);
     }
 
+    public void AddToCollection<T>(ICollection<T> styles, T styleSet)
+    {
+        var cmd = new AddToCollectionCommand<T>(styles, styleSet);
+        
+        Do(cmd);
+    }
+
     public void Do(ICommand command)
     {
         if (CommandManager != null)
@@ -54,4 +63,5 @@ public partial class PropertyEditor
         else 
             command.Do();
     }
+
 }

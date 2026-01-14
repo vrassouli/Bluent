@@ -12,14 +12,14 @@ internal class PropertyEditorContext
     public IEnumerable<PropertyEditorCategory> Categories => _categories.OrderBy(x => x.Name != DefaultCategory).ThenBy(x => x.Name);
     public IEnumerable<PropertyInfo> Properties => _categories.SelectMany(x => x.Properties).OrderBy(x => x.Name);
 
-    public PropertyEditorContext(object targetObject)
+    public PropertyEditorContext(Type type)
     {
-        Initialize(targetObject);
+        Initialize(type);
     }
 
-    private void Initialize(object targetObject)
+    private void Initialize(Type type)
     {
-        var properties = targetObject.GetType()
+        var properties = type
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
             .Where(p => p.CanRead && (p.CanWrite || p.PropertyType.IsAssignableTo(typeof(IList))));
 
