@@ -1,0 +1,18 @@
+@namespace Bluent.UI.Components
+<TreeItem Title="@Item.Name"
+          Expandable="ShouldExpand"
+          Expanded="_expanded"
+          ExpandedChanged="OnExpandChanged"
+          Icon="@Icon"
+          ExpandedIcon="@ExpandedIcon"
+          OnClick="HandleClick">
+    @if (_items != null)
+    {
+        foreach (var hierarchyItem in _items.Where(x => !TreeBrowser.RootOnly || x is HierarchyRootItem))
+        {
+            <CascadingValue Value="this" IsFixed>
+                <HierarchyTreeItem Item="hierarchyItem"/>
+            </CascadingValue>
+        }
+    }
+</TreeItem>

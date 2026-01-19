@@ -1,0 +1,95 @@
+using Microsoft.AspNetCore.Components;
+
+namespace Bluent.UI.Components;
+
+public partial class HierarchyTreeItem : ComponentBase, IDisposable
+{
+    private bool _expanded;
+    private List<HierarchyItem>? _items;
+    private readonly List<HierarchyTreeItem> _subItems = new();
+    [Parameter, EditorRequired] public HierarchyItem Item { get; set; }
+    [CascadingParameter] public HierarchyTreeBrowser TreeBrowser { get; set; } = default!;
+    [CascadingParameter] public HierarchyTreeItem? ParentItem { get; set; }
+
+    private bool IsRootItem => Item is HierarchyRootItem;
+    private bool ShouldExpand => 
+        IsRootItem;
+    private string? Icon => IsRootItem ? TreeBrowser.RootItemIcon : TreeBrowser.ItemIcon;
+    private string? ExpandedIcon => IsRootItem ? TreeBrowser.RootItemExpandedIcon : TreeBrowser.ItemIcon;
+    public string? Path
+    {
+        get
+        {
+            if (IsRootItem)
+                return ParentItem is null ? Item.Name : $"{ParentItem.Path}/{Item.Name}";
+
+            return ParentItem?.Path;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        if (ParentItem != null)
+        {
+            ParentItem.AddItem(this);
+        }
+        else
+        {
+            TreeBrowser.AddItem(this);
+        }
+        base.OnInitialized();
+    }
+
+    public void Dispose()
+    {
+        if (ParentItem != null)
+        {
+            ParentItem.RemoveItem(this);
+        }
+        else
+        {
+            TreeBrowser.RemoveItem(this);
+        }
+    }
+
+    private void AddItem(HierarchyTreeItem item)
+    {
+        _subItems.Add(item);
+    }
+    
+    private void RemoveItem(HierarchyTreeItem item)
+    {
+        _subItems.Remove(item);
+    }
+    
+    private async Task OnExpandChanged(bool expanded)
+    {
+        _expanded = expanded;
+
+        if (expanded)
+        {
+            await LoadItemsAsync();
+        }
+    }
+
+    private async Task LoadItemsAsync()
+    {
+        _items = await TreeBrowser.GetHierarchyItems(Path);
+    }
+
+    private Task HandleClick()
+    {
+        return TreeBrowser.OnItemClicked(this);
+    }
+
+    internal async Task RefreshAsync()
+    {
+        if (!_expanded)
+            return;
+        
+        await LoadItemsAsync();
+        
+        foreach (var subItem in _subItems)
+            await subItem.RefreshAsync();
+    }
+}

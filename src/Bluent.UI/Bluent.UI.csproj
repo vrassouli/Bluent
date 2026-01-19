@@ -112,4 +112,10 @@
         </EmbeddedResource>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Components\HierarchyComponent\HierarchyItemBrowser.razor" />
+      <AdditionalFiles Include="Components\HierarchyComponent\HierarchyTreeBrowser.razor" />
+      <AdditionalFiles Include="Components\HierarchyComponent\HierarchyTreeItem.razor" />
+    </ItemGroup>
+
 </Project>

@@ -3,8 +3,13 @@ using System.Reflection;
 
 namespace Bluent.UI.Extensions;
 
-internal static class ExpressionExtensions
+public static class ExpressionExtensions
 {
+    public static PropertyInfo? GetPropertyInfo<T>(this Expression<T> expression)
+    {
+        return expression.GetMemberInfo() as PropertyInfo;
+    }
+
     public static string? GetMemberName<T>(this Expression<T> expression)
     {
         return expression.GetMemberInfo()?.Name;

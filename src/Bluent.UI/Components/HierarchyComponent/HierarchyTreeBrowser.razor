@@ -1,0 +1,15 @@
+@namespace Bluent.UI.Components
+@inherits Bluent.Core.BluentComponentBase
+<CascadingValue Value="this" IsFixed="true">
+    <Tree id="@Id"
+          Class="@GetComponentClass()"
+          Style="@Style">
+        @if (_items != null)
+        {
+            foreach (var hierarchyItem in _items.Where(x => !RootOnly || x is HierarchyRootItem))
+            {
+                <HierarchyTreeItem Item="hierarchyItem"/>
+            }
+        }
+    </Tree>
+</CascadingValue>

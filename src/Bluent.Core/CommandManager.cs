@@ -66,5 +66,7 @@ public class CommandManager
         _doneCommands.Clear();
         _redoCommands.Clear();
         _savePoint = null;
+
+        SavePointChanged?.Invoke(this, EventArgs.Empty);
     }
 }
