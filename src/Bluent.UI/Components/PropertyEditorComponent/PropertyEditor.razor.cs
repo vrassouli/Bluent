@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using System.Reflection;
 using Bluent.Core;
 using Bluent.UI.Components.PropertyEditorComponent;
+using Bluent.UI.Extensions;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
@@ -42,6 +44,13 @@ public partial class PropertyEditor
         yield return "bui-property-editor";
     }
 
+    public void SetPropertyValue<T>(Object obj, T? value, Expression<Func<T>> expression)
+    {
+        var prop = expression.GetPropertyInfo();
+        if (prop is not null)
+            SetPropertyValue(obj, value, prop);
+    }
+    
     public void SetPropertyValue(Object obj, object? value, params PropertyInfo[] properties)
     {
         var cmd = new SetPropertyCommand(obj, value, properties);
@@ -49,9 +58,16 @@ public partial class PropertyEditor
         Do(cmd);
     }
 
-    public void AddToCollection<T>(ICollection<T> styles, T styleSet)
+    public void AddToCollection<T>(ICollection<T> collection, T item)
     {
-        var cmd = new AddToCollectionCommand<T>(styles, styleSet);
+        var cmd = new AddToCollectionCommand<T>(collection, item);
+        
+        Do(cmd);
+    }
+
+    public void RemoveFromCollection<T>(ICollection<T> collection, T item)
+    {
+        var cmd = new RemoveFromCollectionCommand<T>(collection, item);
         
         Do(cmd);
     }
