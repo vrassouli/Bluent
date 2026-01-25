@@ -58,6 +58,21 @@ public partial class PropertyEditor
         Do(cmd);
     }
 
+    public SetPropertyCommand? GetSetPropertyValueCommand<T>(Object obj, T? value, Expression<Func<T>> expression)
+    {
+        var prop = expression.GetPropertyInfo();
+        if (prop is not null)
+            return GetSetPropertyValueCommand(obj, value, prop);
+        
+        return null;
+    }
+    
+    public SetPropertyCommand GetSetPropertyValueCommand(Object obj, object? value, params PropertyInfo[] properties)
+    {
+        var cmd = new SetPropertyCommand(obj, value, properties);
+        return cmd;
+    }
+
     public void AddToCollection<T>(ICollection<T> collection, T item)
     {
         var cmd = new AddToCollectionCommand<T>(collection, item);
@@ -65,11 +80,23 @@ public partial class PropertyEditor
         Do(cmd);
     }
 
+    public AddToCollectionCommand<T> GetAddToCollectionCommand<T>(ICollection<T> collection, T item)
+    {
+        var cmd = new AddToCollectionCommand<T>(collection, item);
+        return cmd;
+    }
+
     public void RemoveFromCollection<T>(ICollection<T> collection, T item)
     {
         var cmd = new RemoveFromCollectionCommand<T>(collection, item);
         
         Do(cmd);
+    }
+
+    public RemoveFromCollectionCommand<T> GetRemoveFromCollectionCommand<T>(ICollection<T> collection, T item)
+    {
+        var cmd = new RemoveFromCollectionCommand<T>(collection, item);
+        return cmd;
     }
 
     public void Do(ICommand command)
