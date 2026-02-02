@@ -1,0 +1,69 @@
+@using Bluent.UI.Extensions
+@using Humanizer
+<div class="editor-row">
+    <Bluent.UI.Components.Label Text="@Property.GetDisplayName()"
+                                Class="flex-fill"/>
+
+    @if (CanAdd)
+    {
+        <Button Text="Add"
+                Icon="icon-ic_fluent_add_20_regular"
+                ActiveIcon="icon-ic_fluent_add_20_regular"
+                ShowDropdownIndicator
+                Size="ButtonSize.Small">
+            <Dropdown>
+                <MenuList>
+                    @foreach (var type in ItemTypes)
+                    {
+                        <MenuItem Title="@type.Name.Humanize()"
+                                  OnClick="() => AddItem(type)"/>
+                    }
+                </MenuList>
+            </Dropdown>
+        </Button>
+    }
+</div>
+@if (Count <= 0)
+{
+    <div class="editor-row">
+        <i>No action is assigned.</i>
+    </div>
+}
+else
+{
+    @foreach (var item in Value)
+    {
+        <div class="row-group" @key="item">
+            <div class="editor-row">
+                <Bluent.UI.Components.Label Text="@item.GetType().Name.Humanize()" Class="flex-fill"/>
+
+                @if (Count > 1)
+                {
+                    <ButtonGroup>
+                        <Button Icon="icon-ic_fluent_arrow_up_20_regular"
+                                ActiveIcon="icon-ic_fluent_arrow_up_20_regular"
+                                Size="ButtonSize.Small"
+                                OnClick="() => GoUp(item)"
+                                disabled="@(!CanGoUp(item))"/>
+
+                        <Button Icon="icon-ic_fluent_arrow_down_20_regular"
+                                ActiveIcon="icon-ic_fluent_arrow_down_20_regular"
+                                Size="ButtonSize.Small"
+                                OnClick="() => GoDown(item)"
+                                disabled="@(!CanGoDown(item))"/>
+                    </ButtonGroup>
+                }
+                <Button Icon="icon-ic_fluent_delete_20_regular"
+                        ActiveIcon="icon-ic_fluent_delete_20_regular"
+                        Size="ButtonSize.Small"
+                        OnClick="() => RemoveItem(item)"/>
+            </div>
+
+            <PropertyEditor Categorize="false"
+                            Object="item"
+                            PropertyUpdated="ValueUpdated"
+                            Class="bg-neutral-3 border-0"
+                            CommandManager="Editor.CommandManager"/>
+        </div>
+    }
+}

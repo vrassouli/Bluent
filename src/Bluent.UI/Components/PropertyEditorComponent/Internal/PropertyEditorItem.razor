@@ -16,12 +16,9 @@ else if (IsComplexType)
 {
     if (IsEnumerable)
     {
-        <div class="editor-row">
-            <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" 
-                                        Style="@($"width: {LabelWidth}px;")"
-                                        for="@Property.Name"/>
-            <div>Enumerable</div>
-        </div>
+        <EnumerableEditor Object="Object"
+                          Property="Property"
+                          ValueUpdated="ValueUpdated"/>
     }
     else
     {

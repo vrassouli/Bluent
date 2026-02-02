@@ -2,12 +2,12 @@ using Bluent.Core;
 
 namespace Bluent.UI.Components.PropertyEditorComponent;
 
-public sealed class AddToCollectionCommand<T> : ICommand
+public sealed class AddToCollectionCommand : ICommand
 {
-    private readonly ICollection<T> _collection;
-    private readonly T _value;
+    private readonly object _collection;
+    private readonly object _value;
 
-    public AddToCollectionCommand(ICollection<T> collection, T value)
+    public AddToCollectionCommand(object collection, object value)
     {
         _collection = collection;
         _value = value;
@@ -15,11 +15,19 @@ public sealed class AddToCollectionCommand<T> : ICommand
     
     public void Do()
     {
-        _collection.Add(_value);
+        var addMethod = _collection.GetType().GetMethod("Add");
+        if (addMethod != null)
+        {
+            addMethod.Invoke(_collection, [_value]);
+        }
     }
 
     public void Undo()
     {
-        _collection.Remove(_value);
+        var removeMethod = _collection.GetType().GetMethod("Remove");
+        if (removeMethod != null)
+        {
+            removeMethod.Invoke(_collection, [_value]);
+        }
     }
 }

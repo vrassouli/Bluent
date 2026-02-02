@@ -9,7 +9,7 @@ public static class TypeExtensions
             // For Nullable<T> (value types)
             if (Nullable.GetUnderlyingType(type) is { } underlyingType)
                 return underlyingType;
-
+            
             // For reference types like string?, just return the type itself
             return type;
         }

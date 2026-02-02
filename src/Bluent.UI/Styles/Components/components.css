@@ -2742,9 +2742,9 @@
   flex-shrink: 0 !important;
 }
 .bui-property-editor .bui-property-editor {
-  background-color: var(--colorNeutralBackground2) !important;
-  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1) !important;
-  border-radius: var(--bs-border-radius) !important;
+  background-color: var(--colorNeutralBackground2);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  border-radius: var(--bs-border-radius);
 }
 
 .bui-radio-group .bui-radio-box {

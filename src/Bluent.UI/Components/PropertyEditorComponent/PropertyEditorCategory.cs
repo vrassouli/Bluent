@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
+using Bluent.UI.Extensions;
 
 namespace Bluent.UI.Components.PropertyEditorComponent;
 
 internal class PropertyEditorCategory
 {
     private List<PropertyInfo> _properties = new();
-    public IEnumerable<PropertyInfo> Properties => _properties;
+    public IEnumerable<PropertyInfo> Properties => _properties.OrderBy(x => x.GetDisplayName());
 
     public string Name { get; }
 
