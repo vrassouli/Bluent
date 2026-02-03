@@ -37,6 +37,7 @@
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.1" />
         <PackageReference Include="Humanizer.Core" Version="3.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.1" />
         <PackageReference Include="System.Text.Json" Version="10.0.1" />
@@ -109,6 +110,12 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>TimeField.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\HierarchyComponent\HierarchyItemBrowser.razor" />
+      <AdditionalFiles Include="Components\HierarchyComponent\HierarchyTreeBrowser.razor" />
+      <AdditionalFiles Include="Components\HierarchyComponent\HierarchyTreeItem.razor" />
     </ItemGroup>
 
 </Project>

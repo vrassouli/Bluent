@@ -119,6 +119,9 @@ public partial class RangeSlider<TValue> : IPointerMoveEventHandler, IPointerUpE
     {
         _min = _minHasValue ? Min : _minDefault;
         _max = _maxHasValue ? Max : _maxDefault;
+        
+        if (Convert.ToDecimal(_max) <= Convert.ToDecimal(_min))
+            throw new InvalidOperationException($"The '{nameof(Max)}' parameter must be greater than the '{nameof(Min)}' parameter.");
 
         if (ThumbSize != _thumbSize && ThumbSize.HasValue)
         {

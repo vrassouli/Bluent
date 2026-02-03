@@ -9,13 +9,18 @@ public partial class EnumPropertyEditor
     [Parameter] public PropertyInfo Property { get; set; } = null!;
     [Parameter] public object Object { get; set; } = null!;
     [Parameter] public EventCallback ValueUpdated { get; set; }
+    [CascadingParameter] public PropertyEditor Editor { get; set; } = default!;
 
-    private int? Value => (int)Property.GetValue(Object, null)!;
-
-    protected override void OnInitialized()
+    private int? Value
     {
-
-        base.OnInitialized();
+        get
+        {
+            var value = Property.GetValue(Object, null);
+            if (value is null)
+                return null;
+            
+            return Convert.ToInt32(value);
+        }
     }
 
     private async Task OnValueChanged(int? newValue)
@@ -24,13 +29,16 @@ public partial class EnumPropertyEditor
         {
             if (newValue is null)
             {
-                Property.SetValue(Object, null);
+                Editor.SetPropertyValue(Object, null, Property);
+
+                //Property.SetValue(Object, null);
             }
             else
             {
                 object convertedValue = Enum.ToObject(Property.PropertyType.GetUnderlyingType(), newValue);
 
-                Property.SetValue(Object, convertedValue, null);
+                //Property.SetValue(Object, convertedValue, null);
+                Editor.SetPropertyValue(Object, convertedValue, Property);
             }
 
             await ValueUpdated.InvokeAsync();

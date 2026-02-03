@@ -16,12 +16,9 @@ else if (IsComplexType)
 {
     if (IsEnumerable)
     {
-        <div class="editor-row">
-            <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" 
-                                        Style="@($"width: {LabelWidth}px;")"
-                                        for="@Property.Name"/>
-            <div>Enumerable</div>
-        </div>
+        <EnumerableEditor Object="Object"
+                          Property="Property"
+                          ValueUpdated="ValueUpdated"/>
     }
     else
     {
@@ -41,15 +38,19 @@ else
         {
             <div>@Property.GetValue(Object)?.ToString()</div>
         }
-        else if (PropertyType == typeof(string))
+        else if (PropertyType.GetUnderlyingType() == typeof(string))
         {
             <TextPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }
-        else if (PropertyType == typeof(int))
+        else if (PropertyType.GetUnderlyingType() == typeof(int))
         {
-            <IntPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
+            <NumericPropertyEditor TValue="int" Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }
-        else if (PropertyType == typeof(bool))
+        else if (PropertyType.GetUnderlyingType() == typeof(double))
+        {
+            <NumericPropertyEditor TValue="double" Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
+        }
+        else if (PropertyType.GetUnderlyingType() == typeof(bool))
         {
             <BoolPropertyEditor Property="Property" Object="Object" ValueUpdated="ValueUpdated"/>
         }

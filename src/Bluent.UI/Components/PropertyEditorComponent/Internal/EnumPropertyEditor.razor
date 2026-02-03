@@ -1,11 +1,15 @@
 ﻿@using Bluent.UI.Extensions
 
 <SelectField TValue="int?"
-             Value="Value" 
+             Value="Value"
              ValueExpression="() => Value"
              ValueChanged="OnValueChanged"
              Class="flex-fill"
              id="@Property.Name">
+    @if (Property.PropertyType.IsNullable())
+    {
+        <option value="">Select...</option>
+    }
     @foreach (var enumValue in Enum.GetValues(Property.PropertyType.GetUnderlyingType()))
     {
         <option value="@((int)enumValue)" selected="@(Value == (int)enumValue)">

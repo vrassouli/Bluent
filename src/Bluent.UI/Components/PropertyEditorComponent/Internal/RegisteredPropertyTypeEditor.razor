@@ -16,5 +16,9 @@
 </div>
 @if (GetPropertyValue() is not null)
 {
-    <PropertyEditor Categorize="false" Object="GetPropertyValue()" PropertyUpdated="ValueUpdated" LabelWidth="LabelWidth"/>
+    <PropertyEditor Categorize="false"
+                    Object="GetPropertyValue()"
+                    PropertyUpdated="ValueUpdated"
+                    LabelWidth="LabelWidth"
+                    CommandManager="Editor.CommandManager"/>
 }

@@ -4,6 +4,7 @@ using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Bluent.Core;
 using Bluent.UI.Extensions;
 
 namespace Bluent.UI.Components.PropertyEditorComponent.Internal;
@@ -23,25 +24,7 @@ public partial class PropertyEditorItem
 
     private bool IsEnumerable => Property.PropertyType.IsAssignableTo(typeof(IEnumerable));
 
-    private bool IsComplexType
-    {
-        get
-        {
-            if (PropertyType == typeof(string))
-                return false;
-
-            if (PropertyType == typeof(int))
-                return false;
-
-            if (PropertyType == typeof(bool))
-                return false;
-
-            if (PropertyType.IsEnum)
-                return false;
-
-            return true;
-        }
-    }
+    private bool IsComplexType => !IsSimpleType(PropertyType);
 
     private bool HasTypeRegistry(Type propertyType)
     {
@@ -70,5 +53,18 @@ public partial class PropertyEditorItem
             { nameof(LabelWidth), LabelWidth },
             { nameof(ValueUpdated), EventCallback.Factory.Create(this, () => ValueUpdated.InvokeAsync()) }
         };
+    }
+    
+    public bool IsSimpleType(Type t)
+    {
+        if (t.IsPrimitive) return true;
+        if (t.IsEnum) return true;
+        if (t == typeof(string)) return true;
+        if (t == typeof(decimal)) return true;
+        if (t == typeof(DateTime)) return true;
+        if (t == typeof(Guid)) return true;
+        if (t == typeof(TimeSpan)) return true;
+        if (t == typeof(System.Xml.XmlQualifiedName)) return true;
+        return false;
     }
 }

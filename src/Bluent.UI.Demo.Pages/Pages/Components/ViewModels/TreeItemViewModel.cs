@@ -10,4 +10,6 @@ public class TreeItemViewModel
         Title = title;
         Children = new List<TreeItemViewModel>();
     }
+    
+    override public string ToString() => Title;
 }

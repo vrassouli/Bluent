@@ -1,0 +1,153 @@
+@namespace Bluent.UI.Components
+@inherits Bluent.Core.BluentComponentBase
+
+<div @attributes="AdditionalAttributes"
+     id="@Id"
+     class="@GetComponentClass()"
+     style="@Style">
+    <div class="d-flex align-items-center gap-3">
+        <ButtonGroup>
+            <Button Tooltip="Back"
+                    Icon="icon-ic_fluent_arrow_left_20_regular"
+                    ActiveIcon="icon-ic_fluent_arrow_left_20_filled"
+                    Size="ButtonSize.Small"
+                    OnClick="OnGoBack"
+                    disabled="@(!CanGoBack)"/>
+            <Button Tooltip="Forward"
+                    Icon="icon-ic_fluent_arrow_right_20_regular"
+                    ActiveIcon="icon-ic_fluent_arrow_right_20_filled"
+                    Size="ButtonSize.Small"
+                    OnClick="OnGoForward"
+                    disabled="@(!CanGoForward)"/>
+            <Button Tooltip="Up"
+                    Icon="icon-ic_fluent_arrow_up_20_regular"
+                    ActiveIcon="icon-ic_fluent_arrow_up_20_filled"
+                    Size="ButtonSize.Small"
+                    OnClick="OnGoUp"
+                    disabled="@(!CanGoUp)"/>
+        </ButtonGroup>
+
+        <SelectField TValue="int"
+                     Value="_selectedSegmentIndex"
+                     ValueExpression="() => _selectedSegmentIndex"
+                     ValueChanged="SelectedSegmentChanged"
+                     Size="FieldSize.Small">
+            @foreach (var segment in PathSegments)
+            {
+                var index = PathSegments.IndexOf(segment);
+                <option value="@(index)" selected="@(index == PathSegments.Count - 1)">@segment</option>
+            }
+        </SelectField>
+
+        <div class="flex-fill"></div>
+
+        @if (OnCreateRootItem.HasDelegate)
+        {
+            <Button Text="@CreateButtonTitle"
+                    Icon="@RootItemIcon"
+                    ActiveIcon="icon-ic_fluent_add_20_filled"
+                    Size="ButtonSize.Small"
+                    OnClick="CreateNewRootItem"/>
+        }
+    </div>
+    <div class="d-flex flex-fill gap-3 overflow-auto border">
+        <div class="overflow-auto border-end flex-shrink-0" style="width: 180px;">
+            <HierarchyTreeBrowser @ref="_tree"
+                                  GetHierarchyItems="GetHierarchyItems"
+                                  RootItemIcon="@RootItemIcon"
+                                  RootItemExpandedIcon="@RootItemExpandedIcon"
+                                  ItemIcon="@ItemIcon"
+                                  RootOnly
+                                  OnPathSelected="OpenPathAsync">
+
+            </HierarchyTreeBrowser>
+        </div>
+        <div class="flex-fill d-flex overflow-auto ps-0 p-3">
+            @if (FilteredItems is null || !FilteredItems.Any())
+            {
+                <div class="p-5">
+                    @EmptyMessage
+                </div>
+            }
+            else
+            {
+                <ItemsList Class="flex-fill h-100 overflow-auto">
+                    @foreach (var item in FilteredItems)
+                    {
+                        <ListItem Selected="IsSelected(item)"
+                                  SelectedChanged="selected => ItemSelectionChanged(item, selected)">
+                            <div class="d-flex gap-3 align-items-center overflow-auto w-100"
+                                 @ondblclick="() => HandleItemDoubleClick(item)">
+                                <Icon Content="@GetIcon(item)" Class="fs-4"/>
+                                @if (_newItem == item)
+                                {
+                                    <TextField TValue="string?"
+                                               Value="@_newItem.Name"
+                                               ValueExpression="() => _newItem.Name"
+                                               ValueChanged="OnNewItemRenamed"
+                                               GainFocus
+                                               Class="flex-fill"/>
+                                }
+                                else if (_renameItem == item)
+                                {
+                                    <TextField TValue="string?"
+                                               Value="@_renameItem.Name"
+                                               ValueExpression="() => _renameItem.Name"
+                                               ValueChanged="OnItemRenamed"
+                                               GainFocus
+                                               Class="flex-fill"/>
+                                }
+                                else
+                                {
+                                    <div class="text-truncate flex-fill">@item.Name</div>
+
+                                    if (OnRenameItem.HasDelegate || OnDeleteItem.HasDelegate)
+                                    {
+                                        <ButtonGroup>
+                                            @if (OnRenameItem.HasDelegate)
+                                            {
+                                                <Button Icon="icon-ic_fluent_edit_20_regular"
+                                                        ActiveIcon="icon-ic_fluent_edit_20_filled"
+                                                        Size="ButtonSize.Small"
+                                                        OnClick="() => Rename(item)"/>
+                                            }
+
+                                            @if (OnDeleteItem.HasDelegate)
+                                            {
+                                                <Button Icon="icon-ic_fluent_delete_20_regular"
+                                                        ActiveIcon="icon-ic_fluent_delete_20_filled"
+                                                        Size="ButtonSize.Small"
+                                                        OnClick="() => Delete(item)"/>
+                                            }
+                                        </ButtonGroup>
+                                    }
+                                }
+                            </div>
+                        </ListItem>
+                    }
+                </ItemsList>
+            }
+        </div>
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+        <Label Text="@LabelTitle"/>
+
+        <TextField TValue="string?"
+                   Value="@SelectedItemName"
+                   ValueExpression="() => SelectedItemName"
+                   ValueChanged="OnItemNameChanged"
+                   BindValueEvent="oninput"
+                   Class="flex-fill"
+                   GainFocus/>
+
+        <Button Text="@SelectButtonTitle"
+                Appearance="ButtonAppearance.Primary"
+                OnClick="HandleSelectClick"
+                disabled="@(!CanSelect)"/>
+
+        @if (!HideCancel)
+        {
+            <Button Text="@CancelButtonTitle" OnClick="HandleCancelClick"/>
+        }
+    </div>
+</div>
