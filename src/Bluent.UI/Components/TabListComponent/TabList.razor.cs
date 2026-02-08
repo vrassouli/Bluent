@@ -6,23 +6,23 @@ namespace Bluent.UI.Components;
 
 public partial class TabList
 {
-    private bool _shouldCheckOverflow;
-    private List<TabListTabItem> _tabItems = new();
-    private List<Tab> _tabs = new();
+    //private bool _shouldCheckOverflow;
+    private readonly List<TabListTabItem> _tabItems = new();
+    private readonly List<Tab> _tabs = new();
 
     [Parameter] public TabListAppearance Appearance { get; set; } = TabListAppearance.Transparent;
     [Parameter] public TabListSize Size { get; set; } = TabListSize.Medium;
     [Parameter] public int SelectedIndex { get; set; } = 0;
     [Parameter] public EventCallback<int> SelectedIndexChanged { get; set; }
 
-    protected TabListTabItem? SelectedTab
+    private TabListTabItem? SelectedTab
     {
         get
         {
             if (SelectedIndex > -1 && SelectedIndex < _tabItems.Count)
                 return _tabItems[SelectedIndex];
 
-            return null;
+            return _tabItems.LastOrDefault();
         }
     }
 
@@ -43,11 +43,11 @@ public partial class TabList
         if (firstRender)
             StateHasChanged();
 
-        if (_shouldCheckOverflow)
-        {
-            //CheckOverflow();
-            _shouldCheckOverflow = false;
-        }
+        // if (_shouldCheckOverflow)
+        // {
+        //     CheckOverflow();
+        //     _shouldCheckOverflow = false;
+        // }
 
         base.OnAfterRender(firstRender);
     }
@@ -76,11 +76,12 @@ public partial class TabList
         StateHasChanged();
     }
 
-    internal bool InSelected(TabListTabItem tabItem)
+    internal bool IsSelected(TabListTabItem tabItem)
     {
         var index = _tabItems.IndexOf(tabItem);
+        var selectedTabIndex = SelectedTab is null ? -1 : _tabItems.IndexOf(SelectedTab);
 
-        return index == SelectedIndex;
+        return index == SelectedIndex || index == selectedTabIndex;
     }
 
     internal void SelectTab(TabListTabItem tabItem)
@@ -107,16 +108,21 @@ public partial class TabList
     {
         var currentIndex = SelectedIndex;
 
+        if (index >= _tabs.Count)
+            index = _tabs.Count - 1;
+        else if (index < 0)
+            index = 0;
+        
         SelectedIndex = index;
         SelectedIndexChanged.InvokeAsync(index);
 
         if (currentIndex > -1 && currentIndex < _tabItems.Count)
             _tabItems[currentIndex].OnStateChanged();
-
+        
         if (index > -1 && index < _tabItems.Count)
             _tabItems[index].OnStateChanged();
 
-        _shouldCheckOverflow = true;
+        //_shouldCheckOverflow = true;
         StateHasChanged();
     }
 }

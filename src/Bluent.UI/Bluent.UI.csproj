@@ -23,6 +23,10 @@
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
+        <Content Remove="package.json" />
+        <None Include="package.json" />
+        <Content Remove="package-lock.json" />
+        <None Include="package-lock.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -35,12 +39,12 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.2" />
         <PackageReference Include="Humanizer.Core" Version="3.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.1" />
-        <PackageReference Include="System.Text.Json" Version="10.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.2" />
+        <PackageReference Include="System.Text.Json" Version="10.0.2" />
     </ItemGroup>
     <Target Name="BundleMinify" BeforeTargets="BeforeBuild">
         <Exec Command="dotnet tool restore" />

@@ -19,6 +19,7 @@ public partial class TabListTabItem
     [Parameter] public object? Data { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
+    [Parameter] public RenderFragment? Actions { get; set; }
     [CascadingParameter] public Overflow TabList { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
@@ -69,7 +70,7 @@ public partial class TabListTabItem
 
         if (TabList is TabList tabList)
         {
-            if (tabList.InSelected(this))
+            if (tabList.IsSelected(this))
                 yield return "selected";
         }
     }

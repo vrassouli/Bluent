@@ -32,7 +32,6 @@ public abstract partial class Overflow
         else
         {
             _overflowPopover?.RefreshSurface();
-            //CheckOverflow();
         }
 
         base.OnAfterRender(firstRender);
@@ -42,19 +41,4 @@ public abstract partial class Overflow
     {
         _interop?.CheckOverflow();
     }
-
-    //internal void Add(IOverflowItem item)
-    //{
-    //    Items.Add(item);
-    //    StateHasChanged();
-    //}
-
-    //internal void Remove(IOverflowItem item)
-    //{
-    //    Items.Remove(item);
-    //    StateHasChanged();
-    //}
-
-    //protected abstract RenderFragment<IOverflowItem> RenderItem();
-    //protected abstract RenderFragment<IOverflowItem> RenderMenuItem();
 }

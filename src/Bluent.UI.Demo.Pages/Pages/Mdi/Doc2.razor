@@ -1,0 +1,45 @@
+@using Bluent.Core
+@using Bluent.UI.MDI.Services
+@implements Bluent.UI.MDI.Services.IMdiDocument
+
+@if (!_loaded)
+{
+    <Spinner Label="Loading..."/>
+}
+else
+{
+    <h4>Document 2</h4>
+}
+
+@code {
+    private bool _loaded;
+    public string Title => _loaded ? "Document 2" : "Waiting...";
+    public string Icon => "icon-ic_fluent_vehicle_car_profile_20_regular";
+    public bool HasChanges { get; }
+
+    [Parameter] public CommandManager CommandManager { get; set; } = default!;
+    [Inject] private IMdiService MdiService { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAsync();
+        await base.OnInitializedAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+#if DEBUG
+        Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
+#endif
+        base.OnAfterRender(firstRender);
+    }
+
+    private async Task LoadAsync()
+    {
+        // Simulate remote document loading...
+        await Task.Delay(1000);
+        _loaded = true;
+        MdiService.TabItemStateHasChanged();
+    }
+
+}
