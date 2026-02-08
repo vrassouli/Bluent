@@ -17,12 +17,14 @@ public class Tab : OverflowItemComponentBase
     [Parameter] public bool DeferredLoading { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
-    [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? Actions { get; set; }
 
     protected override void OnInitialized()
     {
         if (Overflow is not TabList tabList)
-            throw new InvalidOperationException($"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
+            throw new InvalidOperationException(
+                $"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
 
         tabList.Add(this);
 
@@ -39,22 +41,24 @@ public class Tab : OverflowItemComponentBase
 
     protected override void RenderOverflowItem(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<TabListTabItem>(0);
+        var seq = -1;
+        builder.OpenComponent<TabListTabItem>(++seq);
 
-        builder.AddAttribute(1, nameof(TabListTabItem.Text), Text);
-        builder.AddAttribute(2, nameof(TabListTabItem.Icon), Icon);
-        builder.AddAttribute(3, nameof(TabListTabItem.ActiveIcon), ActiveIcon);
-        builder.AddAttribute(4, nameof(TabListTabItem.ChildContent), ChildContent);
-        builder.AddAttribute(5, nameof(TabListTabItem.Orientation), Orientation);
-        builder.AddAttribute(6, nameof(TabListTabItem.Data), Data);
-        builder.AddAttribute(7, nameof(TabListTabItem.Href), Href);
-        builder.AddAttribute(8, nameof(TabListTabItem.Match), Match);
-        builder.AddAttribute(9, nameof(TabListTabItem.DeferredLoading), DeferredLoading);
-        builder.AddAttribute(10, nameof(TabListTabItem.OnClick), OnClick);
-        builder.AddAttribute(11, nameof(TabListTabItem.Tooltip), Tooltip);
-        builder.AddAttribute(12, nameof(TabListTabItem.Class), Class);
-        builder.AddAttribute(13, nameof(TabListTabItem.Style), Style);
-        builder.AddMultipleAttributes(14, AdditionalAttributes);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Text), Text);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Icon), Icon);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.ActiveIcon), ActiveIcon);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.ChildContent), ChildContent);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Actions), Actions);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Orientation), Orientation);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Data), Data);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Href), Href);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Match), Match);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.DeferredLoading), DeferredLoading);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.OnClick), OnClick);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Tooltip), Tooltip);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Class), Class);
+        builder.AddAttribute(++seq, nameof(TabListTabItem.Style), Style);
+        builder.AddMultipleAttributes(++seq, AdditionalAttributes);
 
         builder.CloseComponent();
     }
@@ -69,9 +73,11 @@ public class Tab : OverflowItemComponentBase
         builder.AddAttribute(4, nameof(MenuItem.ActiveIcon), ActiveIcon);
         builder.AddAttribute(5, nameof(MenuItem.Data), Data);
         builder.AddAttribute(6, nameof(MenuItem.Href), Href);
-        builder.AddAttribute(7, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () => {
+        builder.AddAttribute(7, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () =>
+        {
             (Overflow as TabList)?.SelectTab(this);
-            OnClick.InvokeAsync(); }));
+            OnClick.InvokeAsync();
+        }));
 
         builder.CloseComponent();
     }

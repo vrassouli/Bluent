@@ -1,0 +1,13 @@
+@using Bluent.UI.Components
+<TabList @bind-SelectedIndex="_selectedIndex">
+    <CascadingValue Value="this">
+        @foreach (var item in _openDocuments)
+        {
+            <MdiTab ComponentType="item.ComponentType"
+                    TabId="@item.Id"
+                    CommandManager="item.CommandManager"
+                    Parameters="item.Parameters"
+                    @key="item"/>
+        }
+    </CascadingValue>
+</TabList>

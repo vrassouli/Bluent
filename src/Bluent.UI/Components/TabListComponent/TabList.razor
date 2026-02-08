@@ -9,7 +9,6 @@
     </div>
     @if (_tabItems.Any())
     {
-        var index = 0;
         <div class="panels">
             @foreach (var tabItem in _tabItems.Where(tab => tab.ChildContent != null))
             {
@@ -21,8 +20,6 @@
                         @tabItem.ChildContent
                     </div>
                 }
-
-                index++;
             }
         </div>
     }

@@ -1,0 +1,18 @@
+@using Bluent.UI.Components
+@implements Bluent.UI.MDI.Services.IMdiTab
+
+<Tab Text="@Title"
+     Icon="@Icon">
+    <Actions>
+        <Button Icon="icon-ic_fluent_dismiss_20_regular"
+                ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                Size="ButtonSize.Small"
+                Appearance="ButtonAppearance.Subtle"
+                OnClick="CloseTab"/>
+    </Actions>
+    <ChildContent>
+        <DynamicComponent @ref="_componentRef"
+                          Type="ComponentType"
+                          Parameters="GetParameters()"/>
+    </ChildContent>
+</Tab>
