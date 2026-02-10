@@ -1,5 +1,7 @@
 @using Bluent.UI.Components
-<TabList @bind-SelectedIndex="_selectedIndex">
+<TabList SelectedIndex="_selectedIndex"
+         SelectedIndexChanged="OnSelectedIndexChanged"
+         OnTabAdded="OnTabAdded">
     <CascadingValue Value="this">
         @foreach (var item in _openDocuments)
         {

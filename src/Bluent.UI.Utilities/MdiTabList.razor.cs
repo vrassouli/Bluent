@@ -1,14 +1,17 @@
-using Bluent.UI.MDI.Services;
+using Bluent.UI.Utilities.Abstractions;
+using Bluent.UI.Utilities.Services;
+using Bluent.UI.Utilities.Services.Events;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.MDI;
+namespace Bluent.UI.Utilities;
 
 public partial class MdiTabList : IAsyncDisposable
 {
     private readonly List<OpenDocumentEventArgs> _openDocuments = new();
     private readonly List<IMdiTab> _tabs = new();
-    private int _selectedIndex;
+    private int _selectedIndex = -1;
 
+    [Parameter] public EventCallback<IMdiTab?> TabChanged { get; set; }
     [Inject] private IMdiService MdiService { get; set; } = default!;
 
     protected override void OnInitialized()
@@ -35,6 +38,14 @@ public partial class MdiTabList : IAsyncDisposable
         return ValueTask.CompletedTask;
     }
 
+//     protected override void OnAfterRender(bool firstRender)
+//     {
+// #if DEBUG
+//         Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
+// #endif
+//         base.OnAfterRender(firstRender);
+//     }
+
     private void OnOpenDocument(object? sender, OpenDocumentEventArgs e)
     {
         var currentIndex = _openDocuments.FindIndex(x => x.Id == e.Id);
@@ -42,7 +53,6 @@ public partial class MdiTabList : IAsyncDisposable
         if (currentIndex < 0)
         {
             _openDocuments.Add(e);
-            _selectedIndex = _openDocuments.Count - 1;
         }
         else
         {
@@ -78,4 +88,35 @@ public partial class MdiTabList : IAsyncDisposable
     {
         _openDocuments.RemoveAll(x => x.Id == tab.TabId);
     }
+
+    private Task OnTabAdded(int index)
+    {
+        _selectedIndex = index;
+    
+        return NotifyTabChanged();
+    }
+    
+    private Task OnSelectedIndexChanged(int index)
+    {
+#if DEBUG
+        Console.WriteLine($"OnSelectedIndexChanged: {index}");
+#endif
+        _selectedIndex = index;
+
+        return NotifyTabChanged();
+    }
+
+    private Task NotifyTabChanged()
+    {
+        if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
+        {
+            var selectedTab = _tabs[_selectedIndex];
+            return TabChanged.InvokeAsync(selectedTab);
+        }
+        else
+        {
+            return TabChanged.InvokeAsync(null);
+        }
+    }
+
 }

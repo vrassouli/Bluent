@@ -1,7 +1,7 @@
 using Bluent.Core;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.MDI.Services;
+namespace Bluent.UI.Utilities.Abstractions;
 
 public interface IMdiService
 {

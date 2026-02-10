@@ -1,8 +1,10 @@
 using Bluent.Core;
-using Bluent.UI.MDI.Services;
+using Bluent.UI.Components;
+using Bluent.UI.Utilities.Abstractions;
+using Bluent.UI.Utilities.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.MDI;
+namespace Bluent.UI.Utilities;
 
 public partial class MdiTab : IDisposable
 {
@@ -13,6 +15,8 @@ public partial class MdiTab : IDisposable
     [Parameter, EditorRequired] public Dictionary<string, object>? Parameters { get; set; }
     [Parameter, EditorRequired] public CommandManager? CommandManager { get; set; }
     [CascadingParameter] public MdiTabList Parent { get; set; } = default!;
+    [CascadingParameter] public Popover? Popover { get; set; }
+    
     [Inject] private IMdiService MdiService { get; set; } = default!;
     
     public IMdiDocument? Document => _componentRef?.Instance as IMdiDocument;
@@ -36,7 +40,12 @@ public partial class MdiTab : IDisposable
 
     protected override void OnInitialized()
     {
-        Parent.Add(this);
+        if (Popover is null)
+        {
+            // See Tab.cs from Bluent.UI
+            Parent.Add(this);
+        }
+
         var commandManager = GetCommandManager();
         commandManager.CommandExecuted += OnCommandExecuted;
         commandManager.SavePointChanged += OnSavePointChanged;
@@ -52,14 +61,14 @@ public partial class MdiTab : IDisposable
         commandManager.CommandExecuted -= OnCommandExecuted;
         commandManager.SavePointChanged -= OnSavePointChanged;
     }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-#if DEBUG
-        Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
-#endif
-        base.OnAfterRender(firstRender);
-    }
+//
+//     protected override void OnAfterRender(bool firstRender)
+//     {
+// #if DEBUG
+//         Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
+// #endif
+//         base.OnAfterRender(firstRender);
+//     }
 
     private void CloseTab()
     {
@@ -104,11 +113,10 @@ public partial class MdiTab : IDisposable
     private void OnCommandExecuted(object? sender, EventArgs e)
     {
         StateHasChanged();
-        //MdiService.TabItemStateHasChanged();
     }
 
     private void OnSavePointChanged(object? sender, EventArgs e)
     {
-        //MdiService.TabItemStateHasChanged();
+        StateHasChanged();
     }
 }

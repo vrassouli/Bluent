@@ -1,8 +1,10 @@
 using Bluent.Core;
 using Bluent.Core.Utilities;
+using Bluent.UI.Utilities.Abstractions;
+using Bluent.UI.Utilities.Services.Events;
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.MDI.Services;
+namespace Bluent.UI.Utilities.Services;
 
 internal class MdiService : IMdiService
 {
@@ -24,7 +26,7 @@ internal class MdiService : IMdiService
 
     public void TabItemStateHasChanged()
     {
-        OnTabItemStateChanged?.Invoke(this, EventArgs.Empty);
+        OnTabItemStateChanged?.Invoke(this, System.EventArgs.Empty);
     }
 
     public void CloseDocument(string id)

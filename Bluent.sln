@@ -31,9 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluent.UI.Demo.SSR", "src\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluent.UI.Demo.Pages", "src\Bluent.UI.Demo.Pages\Bluent.UI.Demo.Pages.csproj", "{19CB01BC-A140-4A21-B496-3BE0BC963805}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MDI", "MDI", "{4ECD1B18-5242-41B5-B386-83D758886A8E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{4ECD1B18-5242-41B5-B386-83D758886A8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluent.UI.MDI", "src\Bluent.UI.MDI\Bluent.UI.MDI.csproj", "{896C13B8-45B1-4EFC-BD5F-90B4D163B4AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluent.UI.Utilities", "src\Bluent.UI.Utilities\Bluent.UI.Utilities.csproj", "{896C13B8-45B1-4EFC-BD5F-90B4D163B4AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

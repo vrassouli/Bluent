@@ -1,0 +1,72 @@
+@using Bluent.Core
+@using Bluent.UI.Components
+@implements IDisposable
+
+<ToolbarButton Icon="icon-ic_fluent_save_20_regular"
+               ActiveIcon="icon-ic_fluent_save_20_filled"
+               Text="@Text"
+               Tooltip="@Tooltip"
+               OnClick="OnSave"
+               disabled="@(!CanExecute)"/>
+
+@code {
+    private CommandManager? _commandManager;
+
+    [Parameter, EditorRequired] public CommandManager CommandManager { get; set; }
+    [Parameter] public string? Text { get; set; }
+    [Parameter] public string? Tooltip { get; set; }
+    [Parameter] public EventCallback OnSave { get; set; }
+
+    private bool CanExecute => _commandManager?.HasChanges ?? false;
+
+    protected override void OnParametersSet()
+    {
+        InitializeCommandManager();
+
+        base.OnParametersSet();
+    }
+
+    private void InitializeCommandManager()
+    {
+        if (_commandManager != CommandManager)
+        {
+            UnsetEvents();
+            _commandManager = CommandManager;
+            SetEvents();
+        }
+    }
+
+    public void Dispose()
+    {
+        UnsetEvents();
+    }
+
+    private void SetEvents()
+    {
+        if (_commandManager is null)
+            return;
+
+        _commandManager.CommandExecuted += OnCommandExecuted;
+        _commandManager.SavePointChanged += OnSavePointChanged;
+    }
+
+    private void UnsetEvents()
+    {
+        if (_commandManager is null)
+            return;
+
+        _commandManager.CommandExecuted -= OnCommandExecuted;
+        _commandManager.SavePointChanged -= OnSavePointChanged;
+    }
+
+    private void OnCommandExecuted(object? sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    private void OnSavePointChanged(object? sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+}

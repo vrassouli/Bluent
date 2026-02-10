@@ -1,0 +1,22 @@
+@using Bluent.UI.Components
+@using Bluent.UI.Utilities.Abstractions
+
+@if (Document is not null)
+{
+    foreach (var item in Document.Items)
+    {
+        if (item is DocumentToolbarDivider)
+        {
+            <ToolbarDivider />
+        }
+        else if (item is DocumentToolbarCommand cmd)
+        {
+            <ToolbarButton Icon="@cmd.Icon"
+                           ActiveIcon="@cmd.ActiveIcon"
+                           Text="@cmd.Text"
+                           Tooltip="@cmd.Tooltip"
+                           OnClick="() => cmd.OnClick.Invoke()"
+                           disabled="@(!cmd.CanExecute.Invoke())"/>
+        }
+    }
+}

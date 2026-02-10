@@ -9,7 +9,7 @@ public partial class TabListTabItem
 {
     private string? _href;
     [Parameter] public string Text { get; set; } = default!;
-    [Parameter] public string? MenuLabel { get; set; } = default!;
+    [Parameter] public string? MenuLabel { get; set; }
     [Parameter] public string Icon { get; set; } = default!;
     [Parameter] public string ActiveIcon { get; set; } = default!;
     [Parameter] public bool DeferredLoading { get; set; }
@@ -18,7 +18,7 @@ public partial class TabListTabItem
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Parameter] public object? Data { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? Actions { get; set; }
     [CascadingParameter] public Overflow TabList { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
@@ -28,7 +28,7 @@ public partial class TabListTabItem
     protected override void OnInitialized()
     {
         if (TabList is not TabList tabList)
-            throw new InvalidOperationException($"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
+            throw new InvalidOperationException($"'{GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
 
         tabList.Add(this);
 

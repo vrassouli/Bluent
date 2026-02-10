@@ -1,0 +1,36 @@
+﻿
+@using Bluent.UI.Components
+@using Bluent.UI.Utilities.Abstractions
+@using Bluent.UI.Utilities.Services.Events
+@implements IDisposable
+
+@if (_isBusy)
+{
+    <div style="@Style">
+        <ProgressBar Indeterminate Size="ProgressBarSize.Large" />
+    </div>
+}
+
+@code {
+    private bool _isBusy;
+    [Parameter] public string Style { get; set; } = "position: absolute; left: 0; right: 0; top: 0;";
+    [Inject] IBusyIndicator Indicator { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        Indicator.StatusChanged += StatusChanged;
+
+        base.OnInitialized();
+    }
+
+    public void Dispose()
+    {
+        Indicator.StatusChanged -= StatusChanged;
+    }
+
+    private void StatusChanged(object? sender, BusyIndicatorStatusChangedEventArgs args)
+    {
+        _isBusy = args.IsBusy;
+        StateHasChanged();
+    }
+}

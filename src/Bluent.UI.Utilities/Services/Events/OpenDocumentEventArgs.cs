@@ -1,8 +1,8 @@
 using Bluent.Core;
 
-namespace Bluent.UI.MDI.Services;
+namespace Bluent.UI.Utilities.Services.Events;
 
-public class OpenDocumentEventArgs : EventArgs
+public class OpenDocumentEventArgs : System.EventArgs
 {
     public Type ComponentType { get; }
     public string Id { get; }

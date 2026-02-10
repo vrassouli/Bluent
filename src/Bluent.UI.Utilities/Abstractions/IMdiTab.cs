@@ -1,4 +1,4 @@
-namespace Bluent.UI.MDI.Services;
+namespace Bluent.UI.Utilities.Abstractions;
 
 public interface IMdiTab
 {

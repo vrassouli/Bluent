@@ -1,8 +1,3 @@
-@using Bluent.Core
-@using Bluent.UI.Components.PropertyEditorComponent
-@using Bluent.UI.MDI.Services
-@implements Bluent.UI.MDI.Services.IMdiDocument
-
 @if (!_loaded)
 {
     <Spinner Label="Loading..."/>
@@ -14,43 +9,4 @@ else
         <Button Text="Increase" OnClick="OnIncrease"/>
         <div>Counter: @Counter</div>
     </div>
-}
-
-@code {
-    private bool _loaded;
-
-    public string Title => _loaded ? "Document 1" : "Waiting...";
-    public string Icon => "icon-ic_fluent_tree_deciduous_20_regular";
-    public int Counter { get; set; }
-
-    [Parameter] public CommandManager CommandManager { get; set; } = default!;
-    [Inject] private IMdiService MdiService { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadAsync();
-        await base.OnInitializedAsync();
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-#if DEBUG
-        Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
-#endif
-        base.OnAfterRender(firstRender);
-    }
-
-    private async Task LoadAsync()
-    {
-        // Simulate remote document loading...
-        await Task.Delay(1000);
-        _loaded = true;
-        MdiService.TabItemStateHasChanged();
-    }
-
-    private void OnIncrease()
-    {
-        CommandManager.Do(new SetPropertyCommand(this, Counter+1, GetType().GetProperty(nameof(Counter))!));
-    }
-
 }

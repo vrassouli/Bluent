@@ -19,7 +19,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Bluent.UI.Charts\Bluent.UI.Charts.csproj" />
         <ProjectReference Include="..\Bluent.UI.Diagrams\Bluent.UI.Diagrams.csproj" />
-        <ProjectReference Include="..\Bluent.UI.MDI\Bluent.UI.MDI.csproj" />
+        <ProjectReference Include="..\Bluent.UI.Utilities\Bluent.UI.Utilities.csproj" />
         <ProjectReference Include="..\Bluent.UI\Bluent.UI.csproj" />
     </ItemGroup>
 
