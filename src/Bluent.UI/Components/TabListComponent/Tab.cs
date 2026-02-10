@@ -19,6 +19,9 @@ public class Tab : OverflowItemComponentBase
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? Actions { get; set; }
+    [CascadingParameter] public Popover? Popover { get; set; }
+    
+    private Guid _id = Guid.NewGuid();
 
     protected override void OnInitialized()
     {
@@ -26,7 +29,15 @@ public class Tab : OverflowItemComponentBase
             throw new InvalidOperationException(
                 $"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
 
-        tabList.Add(this);
+        if (Popover is null)
+        {
+            // Tab items get instantiated twice
+            // One as a real tab panel, and once as menu item for tab overflow
+            // so we should add this instance to tabs list, only when
+            // not being instantiated for overflow (Popover == null)
+            
+            tabList.Add(this);
+        }
 
         base.OnInitialized();
     }

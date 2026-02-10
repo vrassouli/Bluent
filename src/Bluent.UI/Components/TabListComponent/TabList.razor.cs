@@ -12,8 +12,9 @@ public partial class TabList
 
     [Parameter] public TabListAppearance Appearance { get; set; } = TabListAppearance.Transparent;
     [Parameter] public TabListSize Size { get; set; } = TabListSize.Medium;
-    [Parameter] public int SelectedIndex { get; set; } = 0;
+    [Parameter] public int SelectedIndex { get; set; } = -1;
     [Parameter] public EventCallback<int> SelectedIndexChanged { get; set; }
+    [Parameter] public EventCallback<int> OnTabAdded { get; set; }
 
     private TabListTabItem? SelectedTab
     {
@@ -54,14 +55,26 @@ public partial class TabList
 
     internal void Add(TabListTabItem tabItem)
     {
-        _tabItems.Add(tabItem);
-        StateHasChanged();
+        if (!_tabItems.Contains(tabItem))
+        {
+            _tabItems.Add(tabItem);
+            StateHasChanged();
+        }
     }
 
     internal void Add(Tab tab)
     {
-        _tabs.Add(tab);
-        StateHasChanged();
+        Console.WriteLine($"Adding tab: {tab.Text}");
+        
+        if (!_tabs.Contains(tab))
+        {
+            _tabs.Add(tab);
+
+            var index = _tabs.IndexOf(tab);
+            OnTabAdded.InvokeAsync(index);
+
+            StateHasChanged();
+        }
     }
 
     internal void Remove(TabListTabItem tabItem)
@@ -112,13 +125,13 @@ public partial class TabList
             index = _tabs.Count - 1;
         else if (index < 0)
             index = 0;
-        
+
         SelectedIndex = index;
         SelectedIndexChanged.InvokeAsync(index);
 
         if (currentIndex > -1 && currentIndex < _tabItems.Count)
             _tabItems[currentIndex].OnStateChanged();
-        
+
         if (index > -1 && index < _tabItems.Count)
             _tabItems[index].OnStateChanged();
 

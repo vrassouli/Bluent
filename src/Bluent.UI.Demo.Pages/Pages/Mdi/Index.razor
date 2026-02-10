@@ -1,5 +1,7 @@
 @page "/mdi"
-@using Bluent.UI.MDI
+@using Bluent.UI.Demo.Pages.Layout
+@using Bluent.UI.Utilities
+@layout EmptyLayout
 
 <Toolbar>
     <ToolbarButton Text="Doc 1" 
@@ -11,6 +13,13 @@
                    Icon="icon-ic_fluent_document_add_20_regular" 
                    ActiveIcon="icon-ic_fluent_document_add_20_filled"
                    OnClick="OpenNewDoc2"/>
+
+    <ToolbarDivider />
+    
+    <UndoToolbarButton CommandManager="_tab?.Document?.CommandManager" />
+    <RedoToolbarButton CommandManager="_tab?.Document?.CommandManager" />
+    <ToolbarDivider />
+    <MdiTabToolbarItem Document="_tab?.Document"/>
 </Toolbar>
 
-<MdiTabList />
+<MdiTabList TabChanged="OnTabChanged" />

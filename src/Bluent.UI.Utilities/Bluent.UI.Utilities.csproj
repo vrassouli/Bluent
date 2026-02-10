@@ -7,7 +7,7 @@
     </PropertyGroup>
     <PropertyGroup>
         
-        <PackageId>Bluent.UI.MDI</PackageId>
+        <PackageId>Bluent.UI.Utilities</PackageId>
         <Authors>Vahid Rassouli</Authors>
         <Description>'Bluent.UI.MDI' is a Blazor component library for adding Multiple Document Interface pattern to your project.</Description>
         <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>

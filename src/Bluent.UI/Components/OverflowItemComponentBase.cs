@@ -9,10 +9,6 @@ public abstract class OverflowItemComponentBase : BluentUiComponentBase/*, IOver
     [CascadingParameter] public OverflowRenderContext? RenderContext { get; set; }
     [CascadingParameter] public Overflow Overflow { get; set; } = default!;
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
@@ -29,12 +25,6 @@ public abstract class OverflowItemComponentBase : BluentUiComponentBase/*, IOver
         }
 
         base.BuildRenderTree(builder);
-    }
-
-    protected override void OnParametersSet()
-    {
-        //Console.WriteLine("OnParameterSet: " + GetType());
-        base.OnParametersSet();
     }
 
     protected abstract void RenderOverflowMenuItem(RenderTreeBuilder builder);

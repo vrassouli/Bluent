@@ -1,12 +1,9 @@
-﻿<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="new []{ typeof(Bluent.UI.Demo.Pages._Imports).Assembly }">
+﻿@using Bluent.UI.Demo.Pages.Pages
+<Router NotFoundPage="typeof(NotFound)" 
+        AppAssembly="@typeof(App).Assembly" 
+        AdditionalAssemblies="new []{ typeof(Bluent.UI.Demo.Pages._Imports).Assembly }">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector=".focus" />
     </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
 </Router>
