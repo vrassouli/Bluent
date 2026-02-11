@@ -16,6 +16,7 @@ public partial class DockContainer
     {
         DockService.PanelActivated += OnPanelActivated;
         DockService.PanelDeactivated += OnPanelDeactivated;
+        UpdateSplitPanel();
 
         base.OnInitialized();
     }
@@ -49,8 +50,8 @@ public partial class DockContainer
             SplitPanel.SetAllowResize(true);
         else
         {
-            SplitPanel.SetAllowResize(false);
             SplitPanel.ResetSize();
+            SplitPanel.SetAllowResize(false);
         }
     }
 }
