@@ -1,0 +1,43 @@
+@page "/components/dock-panels"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Dock Panels</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Dock Panels</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <DockBar DockName="Left" DisplayTitle Class="mb-3" />
+            <SplitPanelContainer Style="height: 300px;">
+                <Start>
+                    <DockContainer DockName="Left" />
+                </Start>
+                <Center>
+                    <div class="p-5 rounded-5 border h-100"></div>
+                </Center>
+                <End>
+                    <DockContainer DockName="Right" />
+                </End>
+            </SplitPanelContainer>
+            <DockBar DockName="Right" Class="mt-3" />
+        </section>
+    </div>
+</div>
+
+<DockPanel DockName="Left" Icon="icon-ic_fluent_tree_deciduous_20_regular" Title="Panel 1">
+    <div>Panel 1</div>
+</DockPanel>
+<DockPanel DockName="Left" Icon="icon-ic_fluent_food_carrot_20_regular" Title="Panel 2">
+    <div>Panel 2</div>
+</DockPanel>
+
+<DockPanel DockName="Right" Icon="icon-ic_fluent_vehicle_car_profile_ltr_20_regular" Title="Panel 3">
+    <div>Panel 3</div>
+</DockPanel>
+<DockPanel DockName="Right" Icon="icon-ic_fluent_food_apple_20_regular" Title="Panel 4">
+    <div>Panel 4</div>
+</DockPanel>
+<DockPanel DockName="Right" Icon="icon-ic_fluent_food_fish_20_regular" Title="Panel 5">
+    <div>Panel 5</div>
+</DockPanel>

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
 
-public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable
+public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable, IAsyncDisposable
 {
     [Parameter] public string? Tooltip { get; set; }
     [Parameter] public RenderFragment? TooltipContent { get; set; }
@@ -28,6 +28,11 @@ public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable
     public virtual void Dispose()
     {
         RemoveTooltip();
+    }
+
+    public virtual ValueTask DisposeAsync()
+    {
+        return ValueTask.CompletedTask;
     }
 
     private void RegisterTooltip()

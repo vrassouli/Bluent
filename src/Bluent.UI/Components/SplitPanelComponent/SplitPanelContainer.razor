@@ -1,0 +1,47 @@
+@using Bluent.UI.Components.SplitPanelComponent.Internal
+@inherits BluentUiComponentBase
+@namespace Bluent.UI.Components
+<CascadingValue Value="this" IsFixed>
+    <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+        @if (Top is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.Top">@Top</SplitPanel>
+            @if (CanResizeTop)
+            {
+                <PanelResizer SplitArea="SplitArea.Top"/>
+            }
+        }
+
+        @if (Start is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.Start">@Start</SplitPanel>
+            @if (CanResizeStart)
+            {
+                <PanelResizer SplitArea="SplitArea.Start"/>
+            }
+        }
+
+        @if (Center is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.Center">@Center</SplitPanel>
+        }
+
+        @if (End is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.End">@End</SplitPanel>
+            @if (CanResizeEnd)
+            {
+                <PanelResizer SplitArea="SplitArea.End"/>
+            }
+        }
+
+        @if (Bottom is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.Bottom">@Bottom</SplitPanel>
+            @if (CanResizeBottom)
+            {
+                <PanelResizer SplitArea="SplitArea.Bottom"/>
+            }
+        }
+    </div>
+</CascadingValue>
