@@ -1,12 +1,12 @@
 self.assetsManifest = {
-  "version": "yJ7Z4134",
+  "version": "7U5N2tQU",
   "assets": [
     {
       "hash": "sha256-AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=",
       "url": ".nojekyll"
     },
     {
-      "hash": "sha256-tMYpfzatIHfMby325IDIYBZAOgcT4pGP69H+Afhb5eU=",
+      "hash": "sha256-mPx8r5gdBy0GQSe5ZB8hLOMY5BPdvjoVys5vvvHYhwU=",
       "url": "Bluent.UI.Demo.styles.css"
     },
     {
@@ -14,8 +14,8 @@ self.assetsManifest = {
       "url": "_content/Bluent.UI.Charts/bluent.ui.charts.js"
     },
     {
-      "hash": "sha256-8wbxeQySdCArC23vy8BC1C46V6xq6nq/WDbRkthClE0=",
-      "url": "_content/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.reizrlx5ke.bundle.scp.css"
+      "hash": "sha256-XVlvhYO++QqDdAu7mnMDA58Z/dUhL46J7rTjhaBWvDs=",
+      "url": "_content/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.jwdpw1ppbe.bundle.scp.css"
     },
     {
       "hash": "sha256-CSf0PDYpqeps2tDGBNWfI+FJ+URBwrGH6Jq46ApVKGI=",
@@ -78,7 +78,7 @@ self.assetsManifest = {
       "url": "_content/Bluent.UI/assets/file-types/xml.svg"
     },
     {
-      "hash": "sha256-XprbtaH3LV7xdY2BitzF5hwG2XtaqGBj53/sCJhA+28=",
+      "hash": "sha256-ZNcW9pscV0Fm4h845avvTUASxYZbz90FqfmNcJCiD30=",
       "url": "_content/Bluent.UI/bluent.ui.components.min.css"
     },
     {
@@ -162,32 +162,32 @@ self.assetsManifest = {
       "url": "_framework/Blazored.LocalStorage.12n6dz54qr.wasm"
     },
     {
-      "hash": "sha256-Ii+u+Ymbjgi4+YFtu7YoTpXcS12LJow0i3BmCPM47mg=",
-      "url": "_framework/Bluent.Core.e4gt26c8re.wasm"
+      "hash": "sha256-8vknGDV5X8FEt8KoFbM7G7l7jkYYJMezPEODSm5Pwr4=",
+      "url": "_framework/Bluent.Core.m7u0lnrvkl.wasm"
     },
     {
-      "hash": "sha256-w/Yo52Z3gRbhvpEWkvE5b2ram1+o4gIitf64Zi5CkwU=",
-      "url": "_framework/Bluent.UI.Charts.l2apezl6wi.wasm"
+      "hash": "sha256-9PHKgCmjaQj9JI6L8ki3RfSmeBWa78mSeRMqhmIKQ6Y=",
+      "url": "_framework/Bluent.UI.Charts.wbei97xv8d.wasm"
     },
     {
-      "hash": "sha256-CO5myuSykhzZciIzTIoAaALmW93qgVRQDqXq/Ve5j9Q=",
-      "url": "_framework/Bluent.UI.Demo.4h94pcqcb2.wasm"
+      "hash": "sha256-UrgdZ2cRSZJXf6PuFKBt4w92XkwqxbGxTx7LInIPQ3A=",
+      "url": "_framework/Bluent.UI.Demo.Pages.ednsvdcj5z.wasm"
     },
     {
-      "hash": "sha256-dhBBH0zzcuPsO9vewWeyVkBe6j+nNmIhgco0BZ4Mo9k=",
-      "url": "_framework/Bluent.UI.Demo.Pages.iecjuvjpo3.wasm"
+      "hash": "sha256-crj+eE7rYUtYpAzyv2E80XFeJkTYk+FUkhov12ltSrk=",
+      "url": "_framework/Bluent.UI.Demo.uhney6ttzy.wasm"
     },
     {
-      "hash": "sha256-prpYpahMXxpqbyb1haLXDBlup+8H5k7ZQeXmhQ/zrJ8=",
-      "url": "_framework/Bluent.UI.Diagrams.2dd46eyzc2.wasm"
+      "hash": "sha256-haAqrr8Z/hpedksicZ8h/pJMvu4AH19sMJEbEJUN6f8=",
+      "url": "_framework/Bluent.UI.Diagrams.1dnh8igy4m.wasm"
     },
     {
-      "hash": "sha256-tTQ4uQhDYzwB4eUvzvUhUlAHjiIFU21QQUTkK+xjKHY=",
-      "url": "_framework/Bluent.UI.Utilities.d6tsigaylj.wasm"
+      "hash": "sha256-7u+wznrB25O0nfGarNJiE2HogxV8qLmj7JkRO/McecE=",
+      "url": "_framework/Bluent.UI.Utilities.6ze5pno9gj.wasm"
     },
     {
-      "hash": "sha256-XyT33cZPkbMWmIDRgClg1h9GgSaz/z1se+u2uOna7QI=",
-      "url": "_framework/Bluent.UI.vwopev34al.wasm"
+      "hash": "sha256-Fy8QOBb4GjimYSOGvFPkodkar36gmzyVw6hUDGr7ydY=",
+      "url": "_framework/Bluent.UI.dr147ehudb.wasm"
     },
     {
       "hash": "sha256-eO+17a6jZONrygYBO+kUYf4Q6O5SOH1Nc7LGq3socfY=",
@@ -534,7 +534,7 @@ self.assetsManifest = {
       "url": "_framework/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-GDU/wFXn2neX2ExjL1Vv+Kvn/dfWf9KBabAOpgvb0Ug=",
+      "hash": "sha256-hhoDWuY+usOwjZAt1tGOM4LtM/yY1STjd3d4Tsy8+3I=",
       "url": "_framework/dotnet.js"
     },
     {
@@ -550,8 +550,8 @@ self.assetsManifest = {
       "url": "_framework/dotnet.runtime.2tx45g8lli.js"
     },
     {
-      "hash": "sha256-mYo+CjyBfVglyRaJ2btwZQ5+pmrYPAY9+053AZTI5rk=",
-      "url": "_framework/fa-IR/Bluent.UI.resources.df31zspdlf.wasm"
+      "hash": "sha256-GSoiBeeUEOIA+OXpyJo30XRQtfL1nigCFj7vD+5nEWA=",
+      "url": "_framework/fa-IR/Bluent.UI.resources.drk40ubwqe.wasm"
     },
     {
       "hash": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
