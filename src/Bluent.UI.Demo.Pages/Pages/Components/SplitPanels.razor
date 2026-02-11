@@ -1,0 +1,33 @@
+@page "/components/split-panels"
+@namespace Bluent.UI.Demo.Pages.Components
+<PageTitle>Split Panels</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Split Panels</h1>
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <SplitPanelContainer Style="height: 300px;">
+                <Top>
+                    <div class="p-5 rounded-5 border h-100">Top</div>
+                </Top>
+                <Start>
+                    <div class="p-5 rounded-5 border h-100">Start</div>
+                </Start>
+                <Center>
+                    <div class="p-5 rounded-5 border h-100">Center</div>
+                </Center>
+                <End>
+                    <div class="p-5 rounded-5 border h-100">End</div>
+                </End>
+                <Bottom>
+                    <div class="p-5 rounded-5 border h-100">Bottom</div>
+                </Bottom>
+            </SplitPanelContainer>
+        </section>
+    </div>
+</div>
+
+@code {
+}

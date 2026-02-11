@@ -64,8 +64,6 @@ public partial class TabList
 
     internal void Add(Tab tab)
     {
-        Console.WriteLine($"Adding tab: {tab.Text}");
-        
         if (!_tabs.Contains(tab))
         {
             _tabs.Add(tab);

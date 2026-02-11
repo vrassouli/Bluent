@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddService<IPopoverService, PopoverService>(lifetime);
         services.AddService<IToastService, ToastService>(lifetime);
         services.AddService<ITooltipService, TooltipService>(lifetime);
+        services.AddService<IDockService, DockService>(lifetime);
 
         return services;
     }

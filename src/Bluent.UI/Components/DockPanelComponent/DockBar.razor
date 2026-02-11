@@ -1,0 +1,13 @@
+@inherits BluentUiComponentBase
+@namespace Bluent.UI.Components
+
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    @foreach (var panel in Panels)
+    {
+        <Button Icon="@panel.Icon" 
+                Text="@(DisplayTitle ? panel.Title : string.Empty)" 
+                Appearance="ButtonAppearance.Subtle" 
+                OnClick="() => TogglePanel(panel)"
+                Toggled="IsActive(panel)"/>
+    }
+</div>
