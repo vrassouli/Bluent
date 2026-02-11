@@ -16,10 +16,10 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
     private double _resizeDeltaX;
     private double _resizeDeltaY;
     private DomRect? _resizeTargetSize;
-    private bool _allowTopResize;
-    private bool _allowBottomResize;
-    private bool _allowStartResize;
-    private bool _allowEndResize;
+    private bool? _allowTopResize;
+    private bool? _allowBottomResize;
+    private bool? _allowStartResize;
+    private bool? _allowEndResize;
 
     [Parameter] public RenderFragment? Top { get; set; }
     [Parameter] public RenderFragment? Bottom { get; set; }
@@ -38,13 +38,13 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
     internal int? EndSize { get; private set; }
 
     private bool CanResizeTop => TopResizeMode == ResizeMode.Resizable ||
-                                 (TopResizeMode == ResizeMode.Auto && _allowTopResize);
+                                 (TopResizeMode == ResizeMode.Auto && _allowTopResize != false);
     private bool CanResizeBottom => BottomResizeMode == ResizeMode.Resizable ||
-                                    (BottomResizeMode == ResizeMode.Auto && _allowBottomResize);
+                                    (BottomResizeMode == ResizeMode.Auto && _allowBottomResize != false);
     private bool CanResizeStart => StartResizeMode == ResizeMode.Resizable ||
-                                   (StartResizeMode == ResizeMode.Auto && _allowStartResize);
+                                   (StartResizeMode == ResizeMode.Auto && _allowStartResize != false);
     private bool CanResizeEnd => EndResizeMode == ResizeMode.Resizable ||
-                                 (EndResizeMode == ResizeMode.Auto && _allowEndResize);
+                                 (EndResizeMode == ResizeMode.Auto && _allowEndResize != false);
 
     public override IEnumerable<string> GetClasses()
     {
@@ -142,14 +142,26 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
 
     public void ResetSize(SplitArea area)
     {
-        if (area == SplitArea.Top) 
+        if (area == SplitArea.Top)
+        {
             TopSize = null;
-        else if (area == SplitArea.Bottom) 
+            _allowTopResize = null;
+        }
+        else if (area == SplitArea.Bottom)
+        {
             BottomSize = null;
-        else if (area == SplitArea.Start) 
+            _allowBottomResize = null;
+        }
+        else if (area == SplitArea.Start)
+        {
             StartSize = null;
-        else if (area == SplitArea.End) 
+            _allowStartResize = null;
+        }
+        else if (area == SplitArea.End)
+        {
             EndSize = null;
+            _allowEndResize = null;
+        }
 
         StateHasChanged();
     }
