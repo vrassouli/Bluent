@@ -52,9 +52,10 @@ public partial class AudioCapture : IAudioCaptureEventHandler, IAsyncDisposable
         InvokeAsync(() => CaptureEnded.InvokeAsync(buffer));
     }
 
-    public async ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
         await _interop.DisposeAsync();
+        await base.DisposeAsync();
     }
 
     private async Task HandleOnClickAsync()

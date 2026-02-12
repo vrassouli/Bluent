@@ -4,6 +4,34 @@
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     @if (ActivePanel is not null)
     {
-        @ActivePanel.ChildContent
+        <div class="header">
+            <Icon Content="@ActivePanel.Icon"/>
+            <div class="title">@ActivePanel.Title</div>
+            <Button Tooltip="Move"
+                    Appearance="ButtonAppearance.Subtle"
+                    Icon="icon-ic_fluent_more_vertical_20_regular"
+                    ActiveIcon="icon-ic_fluent_more_vertical_20_filled"
+                    Size="ButtonSize.Small">
+                <Dropdown>
+                    <MenuList>
+                        @foreach (var name in DockNames)
+                        {
+                            <MenuItem Title="@name" 
+                                      Checked="@(name == DockName)"
+                                      OnClick="() => ChangeDock(name)"/>
+                        }
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Tooltip="Close"
+                    Appearance="ButtonAppearance.Subtle"
+                    Icon="icon-ic_fluent_dismiss_20_regular"
+                    ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                    Size="ButtonSize.Small"
+                    OnClick="Deactivate"/>
+        </div>
+        <div class="content">
+            @ActivePanel.ChildContent
+        </div>
     }
 </div>

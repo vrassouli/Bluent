@@ -62,15 +62,13 @@ public partial class Toast
         DisposeTimer();
         if (Duration != null)
         {
-            _timer = new Timer(OnTimerTick, null, Duration.Value, Timeout.Infinite);            
+            _timer = new Timer(OnTimerTick, null, Duration.Value, Timeout.Infinite);
         }
     }
 
     private void OnTimerTick(object? state)
     {
-        InvokeAsync(() => {
-            Close(null);
-        });        
+        InvokeAsync(() => { Close(null); });
     }
 
     private void DisposeTimer()
@@ -78,9 +76,10 @@ public partial class Toast
         _timer?.Dispose();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         DisposeTimer();
-        base.Dispose();
+
+        return base.DisposeAsync();
     }
 }

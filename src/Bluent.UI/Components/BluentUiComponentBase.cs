@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
 
-public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable, IAsyncDisposable
+public abstract class BluentUiComponentBase : BluentComponentBase, IAsyncDisposable
 {
     [Parameter] public string? Tooltip { get; set; }
     [Parameter] public RenderFragment? TooltipContent { get; set; }
@@ -25,13 +25,9 @@ public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable, 
         base.OnAfterRender(firstRender);
     }
 
-    public virtual void Dispose()
-    {
-        RemoveTooltip();
-    }
-
     public virtual ValueTask DisposeAsync()
     {
+        RemoveTooltip();
         return ValueTask.CompletedTask;
     }
 
@@ -42,14 +38,14 @@ public abstract class BluentUiComponentBase : BluentComponentBase, IDisposable, 
 
         var setting = new PopoverSettings(Id, TooltipPlacement, 6, 5) { 
             TriggerEvents = ["mouseenter", "focus"],
-            HideEvents = ["mouseleave", "blure"],
+            HideEvents = ["mouseleave", "blur"],
         };
         TooltipService.SetTrigger(GetTooltipFragment(), new PopoverConfiguration(setting, DisplayTooltipArrow, TooltipAppearance, false));
     }
 
     private void RemoveTooltip()
     {
-        if (TooltipContent != null || string.IsNullOrEmpty(Tooltip))
+        if (TooltipContent != null || !string.IsNullOrEmpty(Tooltip))
             TooltipService.Destroy(Id);
     }
 

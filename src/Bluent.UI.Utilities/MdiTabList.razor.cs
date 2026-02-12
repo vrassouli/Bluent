@@ -92,16 +92,28 @@ public partial class MdiTabList : IAsyncDisposable
     private Task OnTabAdded(int index)
     {
         _selectedIndex = index;
-    
+
         return NotifyTabChanged();
     }
-    
+
     private Task OnSelectedIndexChanged(int index)
     {
 #if DEBUG
         Console.WriteLine($"OnSelectedIndexChanged: {index}");
 #endif
+        if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
+        {
+            var selectedTab = _tabs[_selectedIndex];
+            selectedTab.Document?.OnDeactivated();
+        }
+
         _selectedIndex = index;
+
+        if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
+        {
+            var selectedTab = _tabs[_selectedIndex];
+            selectedTab.Document?.OnActivated();
+        }
 
         return NotifyTabChanged();
     }
@@ -118,5 +130,4 @@ public partial class MdiTabList : IAsyncDisposable
             return TabChanged.InvokeAsync(null);
         }
     }
-
 }

@@ -5,7 +5,8 @@
     @foreach (var panel in Panels)
     {
         <Button Icon="@panel.Icon" 
-                Text="@(DisplayTitle ? panel.Title : string.Empty)" 
+                Text="@(DisplayTitle ? panel.Title : null)" 
+                Tooltip="@(DisplayTitle ? null : panel.Title)"
                 Appearance="ButtonAppearance.Subtle" 
                 OnClick="() => TogglePanel(panel)"
                 Toggled="IsActive(panel)"/>

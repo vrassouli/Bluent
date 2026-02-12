@@ -32,11 +32,11 @@ public partial class WizardStep
         base.OnParametersSet();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         Wizard.Remove(this);
 
-        base.Dispose();
+        return base.DisposeAsync();
     }
 
     public override IEnumerable<string> GetClasses()

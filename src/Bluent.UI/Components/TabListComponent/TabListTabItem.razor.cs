@@ -42,13 +42,13 @@ public partial class TabListTabItem
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
         if (TabList is TabList tabList)
             tabList.Remove(this);
 
-        base.Dispose();
+        return base.DisposeAsync();
     }
 
     protected override void OnParametersSet()

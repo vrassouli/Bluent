@@ -42,12 +42,11 @@ public class Tab : OverflowItemComponentBase
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         if (Overflow is TabList tabList)
             tabList.Remove(this);
-
-        base.Dispose();
+        return base.DisposeAsync();
     }
 
     protected override void RenderOverflowItem(RenderTreeBuilder builder)

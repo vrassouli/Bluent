@@ -35,10 +35,12 @@ public partial class DataGrid<TItem> : IDataGridEventHandler, IAsyncDisposable
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    public async ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
         if (_interop != null)
             await _interop.DisposeAsync();
+
+        await base.DisposeAsync();
     }
 
     public override IEnumerable<string> GetClasses()

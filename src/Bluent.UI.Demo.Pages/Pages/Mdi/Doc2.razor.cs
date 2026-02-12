@@ -13,6 +13,7 @@ public partial class Doc2 : IMdiDocument, IDisposable
     public string Title => _loaded ? "Document 2" : "Waiting...";
     public string Icon => "icon-ic_fluent_vehicle_car_profile_20_regular";
     public List<DocumentToolbarItem> Items { get; }
+
     public int Counter { get; set; }
 
     [Parameter] public CommandManager CommandManager { get; set; } = default!;
@@ -89,6 +90,14 @@ public partial class Doc2 : IMdiDocument, IDisposable
         await Task.Delay(1000);
         _loaded = true;
         MdiService.TabItemStateHasChanged();
+    }
+
+    public void OnActivated()
+    {
+    }
+
+    public void OnDeactivated()
+    {
     }
 
 }

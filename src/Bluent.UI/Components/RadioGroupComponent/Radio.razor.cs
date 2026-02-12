@@ -28,21 +28,18 @@ public partial class Radio<TValue>
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         RadioGroup.OnValueChanged -= OnValueChanged;
-
-        base.Dispose();
+        return base.DisposeAsync();
     }
 
     public override IEnumerable<string> GetClasses()
     {
         yield return "bui-radio-box";
 
-
         if (RadioGroup.ItemsLabelPosition != LabelPosition.After)
             yield return "label-before";
-
     }
 
     private void HandleOnChange(ChangeEventArgs args)

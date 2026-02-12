@@ -111,7 +111,7 @@ public partial class TreeItem
         base.OnAfterRender(firstRender);
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         if (ParentItem != null)
             ParentItem.Remove(this);
@@ -120,9 +120,9 @@ public partial class TreeItem
 
         DndContext?.Started -= OnDndStarted;
         DndContext?.Ended -= OnDndEnded;
-
-        base.Dispose();
+        return base.DisposeAsync();
     }
+
 
     public override IEnumerable<string> GetClasses()
     {
