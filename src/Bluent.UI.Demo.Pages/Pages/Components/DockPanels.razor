@@ -8,18 +8,34 @@
 
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <DockBar DockName="Left" DisplayTitle Class="mb-3" />
-            <SplitPanelContainer Style="height: 300px;">
-                <Start>
-                    <DockContainer DockName="Left" />
-                </Start>
-                <Center>
-                    <div class="p-5 rounded-5 border h-100"></div>
-                </Center>
-                <End>
-                    <DockContainer DockName="Right" />
-                </End>
-            </SplitPanelContainer>
+            <DockBar DockName="Top" DisplayTitle Class="mb-3" />
+            <div class="d-flex flex-fill" style="height: 300px">
+                <div>
+                    <DockBar DockName="Left" 
+                             Orientation="Orientation.Vertical"
+                             DisplayTitle 
+                             Class="mb-3" />
+                </div>
+                <SplitPanelContainer Class="bg-3 bui-split-panel flex-fill overflow-hidden rounded-5">
+                    <Top>
+                        <DockContainer DockName="Top" />
+                    </Top>
+                    <Start>
+                        <DockContainer DockName="Left" />
+                    </Start>
+                    <Center>
+                        <div class="h-100 p-5">
+                            <div class="bg-1 p-5 rounded-5 border h-100">
+                            
+                            </div>                  
+                        </div>
+                    </Center>
+                    <End>
+                        <DockContainer DockName="Right" />
+                    </End>
+                </SplitPanelContainer>
+                
+            </div>
             <DockBar DockName="Right" Class="mt-3" />
         </section>
     </div>

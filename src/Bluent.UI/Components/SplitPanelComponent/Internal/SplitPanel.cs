@@ -17,6 +17,11 @@ public class SplitPanel : ComponentBase
         {
             return SplitArea switch
             {
+                SplitArea.Header => Container.HeaderSize is null ? null : $"height: {Container.HeaderSize}px",
+                SplitArea.Footer => Container.FooterSize is null ? null : $"height: {Container.FooterSize}px",
+                SplitArea.StartSide => Container.StartSideSize is null ? null : $"width: {Container.StartSideSize}px",
+                SplitArea.EndSide => Container.EndSideSize is null ? null : $"width: {Container.EndSideSize}px",
+                
                 SplitArea.Top => Container.TopSize is null ? null : $"height: {Container.TopSize}px",
                 SplitArea.Bottom => Container.BottomSize is null ? null : $"height: {Container.BottomSize}px",
                 SplitArea.Start => Container.StartSize is null ? null : $"width: {Container.StartSize}px",

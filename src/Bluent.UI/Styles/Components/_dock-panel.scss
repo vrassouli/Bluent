@@ -14,3 +14,12 @@
     }
   }
 }
+
+.bui-dock-bar{
+  display: flex;
+  align-items: center;
+  
+  &.vertical {
+    flex-direction: column;
+  }
+}

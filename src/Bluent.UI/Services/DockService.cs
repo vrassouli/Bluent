@@ -38,13 +38,19 @@ internal class DockService : IDockService
 
     public DockPanel? GetActivePanel(string dockName)
     {
+        if (!_dockPanels.ContainsKey(dockName))
+            _dockPanels[dockName] = [];
+        
         return _activePanels.GetValueOrDefault(dockName);
     }
 
-    public string[] GetDockNames() => _dockPanels.Keys.ToArray();
+    public string[] GetDockNames() => _dockPanels.Keys.OrderBy(x => x).ToArray();
     
     public List<DockPanel> GetRegisteredPanels(string dockName)
     {
+        if (!_dockPanels.ContainsKey(dockName))
+            _dockPanels[dockName] = [];
+        
         if (_dockPanels.TryGetValue(dockName, out var panels))
             return panels;
 
