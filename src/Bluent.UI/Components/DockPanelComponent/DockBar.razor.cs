@@ -22,14 +22,14 @@ public partial class DockBar
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         DockService.PanelActivated -= OnPanelActivated;
         DockService.PanelDeactivated -= OnPanelDeactivated;
         DockService.PanelRegistered -= OnDockPanelRegistered;
         DockService.PanelUnregistered -= OnDockPanelUnregistered;
 
-        base.Dispose();
+        return base.DisposeAsync();
     }
 
     private void OnPanelDeactivated(object? sender, EventArgs e)
@@ -57,7 +57,7 @@ public partial class DockBar
         if (ActivePanel == panel)
             DockService.DeactivatePanel(panel);
         else
-            DockService.ActivatePanel(panel, DockName);
+            DockService.ActivatePanel(panel);
     }
 
     private bool IsActive(DockPanel panel) => ActivePanel == panel;

@@ -26,11 +26,11 @@ public partial class AccordionPanel
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         Accordion.Remove(this);
 
-        base.Dispose();
+        return base.DisposeAsync();
     }
 
     public override IEnumerable<string> GetClasses()

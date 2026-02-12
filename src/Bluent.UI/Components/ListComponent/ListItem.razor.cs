@@ -65,11 +65,12 @@ public partial class ListItem
         base.OnParametersSet();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
         List.Remove(this);
-        base.Dispose();
+
+        return base.DisposeAsync();
     }
 
     public override IEnumerable<string> GetClasses()

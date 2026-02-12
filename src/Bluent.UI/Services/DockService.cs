@@ -13,8 +13,12 @@ internal class DockService : IDockService
     public event EventHandler? PanelRegistered;
     public event EventHandler? PanelUnregistered;
 
-    public void ActivatePanel(DockPanel activePanel, string dockName)
+    public void ActivatePanel(DockPanel activePanel)
     {
+        var dockName = FindPanelDockName(activePanel);
+        if (dockName == null)
+            return;
+        
         _activePanels[dockName] = activePanel;
         PanelActivated?.Invoke(this, EventArgs.Empty);
     }
@@ -37,6 +41,8 @@ internal class DockService : IDockService
         return _activePanels.GetValueOrDefault(dockName);
     }
 
+    public string[] GetDockNames() => _dockPanels.Keys.ToArray();
+    
     public List<DockPanel> GetRegisteredPanels(string dockName)
     {
         if (_dockPanels.TryGetValue(dockName, out var panels))
@@ -47,6 +53,7 @@ internal class DockService : IDockService
     
     public void RegisterPanel(DockPanel dockPanel, string dockName)
     {
+        UnregisterPanel(dockPanel);
         if (_dockPanels.TryGetValue(dockName, out var panels))
             panels.Add(dockPanel);
         else
@@ -61,5 +68,16 @@ internal class DockService : IDockService
             panels.Remove(dockPanel);
         
         PanelUnregistered?.Invoke(this, EventArgs.Empty);
+    }
+
+    private string? FindPanelDockName(DockPanel dockPanel)
+    {
+        foreach (var kv in _dockPanels)
+        {
+            if (kv.Value.Contains(dockPanel))
+                return kv.Key;
+        }
+        
+        return null;
     }
 }

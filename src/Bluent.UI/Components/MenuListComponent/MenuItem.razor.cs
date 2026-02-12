@@ -31,11 +31,11 @@ public partial class MenuItem
         base.OnInitialized();
     }
 
-    public override void Dispose()
+    public override ValueTask DisposeAsync()
     {
         MenuList.Remove(this);
-
-        base.Dispose();
+        
+        return base.DisposeAsync();
     }
 
     protected override void OnAfterRender(bool firstRender)
