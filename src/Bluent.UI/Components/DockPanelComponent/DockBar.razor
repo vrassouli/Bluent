@@ -9,6 +9,7 @@
                 Tooltip="@(DisplayTitle ? null : panel.Title)"
                 Appearance="ButtonAppearance.Subtle" 
                 OnClick="() => TogglePanel(panel)"
-                Toggled="IsActive(panel)"/>
+                Toggled="IsActive(panel)"
+                Rotated="@(Orientation == Orientation.Vertical)"/>
     }
 </div>

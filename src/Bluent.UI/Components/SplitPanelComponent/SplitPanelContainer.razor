@@ -3,6 +3,15 @@
 @namespace Bluent.UI.Components
 <CascadingValue Value="this" IsFixed>
     <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+        @if (Header is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.Header">@Header</SplitPanel>
+            @if (CanResizeHeader)
+            {
+                <PanelResizer SplitArea="SplitArea.Header"/>
+            }
+        }
+
         @if (Top is not null)
         {
             <SplitPanel SplitArea="SplitArea.Top">@Top</SplitPanel>
@@ -21,6 +30,15 @@
             }
         }
 
+        @if (StartSide is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.StartSide">@StartSide</SplitPanel>
+            @if (CanResizeStartSide)
+            {
+                <PanelResizer SplitArea="SplitArea.StartSide"/>
+            }
+        }
+
         @if (Center is not null)
         {
             <SplitPanel SplitArea="SplitArea.Center">@Center</SplitPanel>
@@ -35,12 +53,30 @@
             }
         }
 
+        @if (EndSide is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.EndSide">@EndSide</SplitPanel>
+            @if (CanResizeEndSide)
+            {
+                <PanelResizer SplitArea="SplitArea.EndSide"/>
+            }
+        }
+
         @if (Bottom is not null)
         {
             <SplitPanel SplitArea="SplitArea.Bottom">@Bottom</SplitPanel>
             @if (CanResizeBottom)
             {
                 <PanelResizer SplitArea="SplitArea.Bottom"/>
+            }
+        }
+
+        @if (Footer is not null)
+        {
+            <SplitPanel SplitArea="SplitArea.Footer">@Footer</SplitPanel>
+            @if (CanResizeFooter)
+            {
+                <PanelResizer SplitArea="SplitArea.Footer"/>
             }
         }
     </div>

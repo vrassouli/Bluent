@@ -1,5 +1,9 @@
-﻿.rtl, [dir=rtl]{
-  .bui-button{
+﻿.rtl, [dir=rtl] {
+  .bui-button {
+
+    &.rotated {
+      writing-mode: sideways-rl;
+    }
     &.badged {
 
       > .badge-wrapper {
@@ -15,6 +19,7 @@
     }
   }
 }
+
 .bui-button {
   align-items: center;
   box-sizing: border-box;
@@ -41,18 +46,26 @@
   cursor: pointer;
   position: relative;
 
-  &:not(.compact) {
+  &.vertical {
+    flex-direction: column;
+  }
+  
+  &.rotated {
+    writing-mode: sideways-lr;
+  }
+
+  &:not(.compact):not(.rotated):not(.icon) {
     min-width: 96px;
   }
 
-  >.text{
+  > .text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1;
-    
+
   }
-  
+
   > .icon, > .active-icon, > .dropdown-icon, > .dropdown-active-icon {
     font-size: 20px;
     height: 20px;

@@ -15,7 +15,9 @@ public partial class Button
     [Parameter] public string? IconClass { get; set; }
     [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public string? ActiveIconClass { get; set; }
-    [Parameter] public bool? Toggled { get; set; } = null;
+    [Parameter] public bool? Toggled { get; set; }
+    [Parameter] public bool Rotated { get; set; }
+    [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Parameter] public EventCallback<bool> ToggledChanged { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
@@ -43,6 +45,12 @@ public partial class Button
             yield return "bui-toolbar-button";
         else
             yield return "bui-button";
+        
+        if (Orientation == Orientation.Vertical)
+            yield return "vertical";
+        
+        if (Rotated)
+            yield return "rotated";
 
         if(Badge is not null)
             yield return "badged";

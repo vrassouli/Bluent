@@ -14,8 +14,10 @@ public class PanelResizer : ComponentBase
 
     private string GripIcon => SplitArea switch
     {
-        SplitArea.Top or SplitArea.Bottom => "icon-ic_fluent_more_horizontal_20_regular",
-        SplitArea.Start or SplitArea.End => "icon-ic_fluent_more_vertical_20_regular",
+        SplitArea.Top or SplitArea.Bottom or SplitArea.Header or SplitArea.Footer 
+            => "icon-ic_fluent_more_horizontal_20_regular",
+        SplitArea.Start or SplitArea.End or SplitArea.StartSide or SplitArea.EndSide 
+            => "icon-ic_fluent_more_vertical_20_regular",
         _ => string.Empty
     };
 

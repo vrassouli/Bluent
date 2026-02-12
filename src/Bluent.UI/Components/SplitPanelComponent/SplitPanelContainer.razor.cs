@@ -16,27 +16,51 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
     private double _resizeDeltaX;
     private double _resizeDeltaY;
     private DomRect? _resizeTargetSize;
+    private bool? _allowHeaderResize;
+    private bool? _allowFooterResize;
+    private bool? _allowStartSideResize;
+    private bool? _allowEndSideResize;
     private bool? _allowTopResize;
     private bool? _allowBottomResize;
     private bool? _allowStartResize;
     private bool? _allowEndResize;
 
+    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter] public RenderFragment? Footer { get; set; }
+    [Parameter] public RenderFragment? StartSide { get; set; }
+    [Parameter] public RenderFragment? EndSide { get; set; }
     [Parameter] public RenderFragment? Top { get; set; }
     [Parameter] public RenderFragment? Bottom { get; set; }
     [Parameter] public RenderFragment? Start { get; set; }
     [Parameter] public RenderFragment? End { get; set; }
     [Parameter] public RenderFragment? Center { get; set; }
+    [Parameter] public ResizeMode HeaderResizeMode { get; set; } = ResizeMode.Auto;
+    [Parameter] public ResizeMode FooterResizeMode { get; set; } = ResizeMode.Auto;
+    [Parameter] public ResizeMode StartSideResizeMode { get; set; } = ResizeMode.Auto;
+    [Parameter] public ResizeMode EndSideResizeMode { get; set; } = ResizeMode.Auto;
     [Parameter] public ResizeMode TopResizeMode { get; set; } = ResizeMode.Auto;
     [Parameter] public ResizeMode BottomResizeMode { get; set; } = ResizeMode.Auto;
     [Parameter] public ResizeMode StartResizeMode { get; set; } = ResizeMode.Auto;
     [Parameter] public ResizeMode EndResizeMode { get; set; } = ResizeMode.Auto;
     [Inject] private IDomHelper DomHelper { get; set; } = default!;
 
+    internal int? HeaderSize { get; private set; }
+    internal int? FooterSize { get; private set; }
+    internal int? StartSideSize { get; private set; }
+    internal int? EndSideSize { get; private set; }
     internal int? TopSize { get; private set; }
     internal int? BottomSize { get; private set; }
     internal int? StartSize { get; private set; }
     internal int? EndSize { get; private set; }
 
+    private bool CanResizeHeader => HeaderResizeMode == ResizeMode.Resizable ||
+                                 (HeaderResizeMode == ResizeMode.Auto && _allowHeaderResize != false);
+    private bool CanResizeFooter => FooterResizeMode == ResizeMode.Resizable ||
+                                 (FooterResizeMode == ResizeMode.Auto && _allowFooterResize != false);
+    private bool CanResizeStartSide => StartSideResizeMode == ResizeMode.Resizable ||
+                                 (StartSideResizeMode == ResizeMode.Auto && _allowStartSideResize != false);
+    private bool CanResizeEndSide => EndSideResizeMode == ResizeMode.Resizable ||
+                                 (EndSideResizeMode == ResizeMode.Auto && _allowEndSideResize != false);
     private bool CanResizeTop => TopResizeMode == ResizeMode.Resizable ||
                                  (TopResizeMode == ResizeMode.Auto && _allowTopResize != false);
     private bool CanResizeBottom => BottomResizeMode == ResizeMode.Resizable ||
@@ -95,13 +119,26 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
         if (_resizeTargetSize == null)
             return Task.CompletedTask;
 
-        if (_resizeArea == SplitArea.Top)
+        if (_resizeArea == SplitArea.Header)
+        {
+            HeaderSize = (int)(_resizeTargetSize.Height + _resizeDeltaY);
+        }
+        else if (_resizeArea == SplitArea.Top)
         {
             TopSize = (int)(_resizeTargetSize.Height + _resizeDeltaY);
         }
         else if (_resizeArea == SplitArea.Bottom)
         {
             BottomSize = (int)(_resizeTargetSize.Height - _resizeDeltaY);
+        }
+        else if (_resizeArea == SplitArea.Footer)
+        {
+            FooterSize = (int)(_resizeTargetSize.Height - _resizeDeltaY);
+        }
+        
+        else if (_resizeArea == SplitArea.StartSide)
+        {
+            StartSideSize = (int)(_resizeTargetSize.Width + _resizeDeltaX);
         }
         else if (_resizeArea == SplitArea.Start)
         {
@@ -110,6 +147,10 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
         else if (_resizeArea == SplitArea.End)
         {
             EndSize = (int)(_resizeTargetSize.Width - _resizeDeltaX);
+        }
+        else if (_resizeArea == SplitArea.EndSide)
+        {
+            EndSideSize = (int)(_resizeTargetSize.Width - _resizeDeltaX);
         }
 
         StateHasChanged();
@@ -142,7 +183,27 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
 
     public void ResetSize(SplitArea area)
     {
-        if (area == SplitArea.Top)
+        if (area == SplitArea.Header)
+        {
+            HeaderSize = null;
+            _allowHeaderResize = null;
+        }
+        else if (area == SplitArea.Footer)
+        {
+            FooterSize = null;
+            _allowFooterResize = null;
+        }
+        else if (area == SplitArea.StartSide)
+        {
+            StartSideSize = null;
+            _allowStartSideResize = null;
+        }
+        else if (area == SplitArea.EndSide)
+        {
+            EndSideSize = null;
+            _allowEndSideResize = null;
+        }
+        else if (area == SplitArea.Top)
         {
             TopSize = null;
             _allowTopResize = null;

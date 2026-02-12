@@ -7,6 +7,7 @@ public partial class DockBar
 {
     [Parameter, EditorRequired] public string DockName { get; set; }
     [Parameter] public bool DisplayTitle { get; set; }
+    [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
     [Inject] private IDockService DockService { get; set; } = default!;
 
     private List<DockPanel> Panels => DockService.GetRegisteredPanels(DockName);
@@ -30,6 +31,17 @@ public partial class DockBar
         DockService.PanelUnregistered -= OnDockPanelUnregistered;
 
         return base.DisposeAsync();
+    }
+
+    public override IEnumerable<string> GetClasses()
+    {
+        foreach (var c in base.GetClasses())
+            yield return c;
+
+        yield return "bui-dock-bar";
+        
+        if (Orientation == Orientation.Vertical)
+            yield return "vertical";
     }
 
     private void OnPanelDeactivated(object? sender, EventArgs e)
