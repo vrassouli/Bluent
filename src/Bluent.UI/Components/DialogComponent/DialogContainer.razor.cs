@@ -32,6 +32,7 @@ public partial class DialogContainer : IDisposable
         _contexts.Add(e.Context);
         StateHasChanged();
     }
+    
     private void OnDialogClose(dynamic? result, DialogContext context)
     {
         context.ResultTCS.SetResult(result);

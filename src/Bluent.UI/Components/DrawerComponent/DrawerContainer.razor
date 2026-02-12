@@ -1,7 +1,7 @@
 ﻿@foreach (var drawer in _contexts.Where(x => !x.Config.Modal))
 {
     <Drawer @ref=drawer.DrawerReference
-            OnClose="(result)=>{ OnDrawerHide(result, drawer);}"
+            OnClose="(result)=>{ OnDrawerHide(result, drawer); }"
             Position="drawer.Config.Position"
             Size="drawer.Config.Size">
         @drawer.Content
