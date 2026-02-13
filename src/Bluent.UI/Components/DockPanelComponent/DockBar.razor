@@ -7,6 +7,7 @@
         <Button Icon="@panel.Icon" 
                 Text="@(DisplayTitle ? panel.Title : null)" 
                 Tooltip="@(DisplayTitle ? null : panel.Title)"
+                TooltipPlacement="TooltipPlacement"
                 Appearance="ButtonAppearance.Subtle" 
                 OnClick="() => TogglePanel(panel)"
                 Toggled="IsActive(panel)"
