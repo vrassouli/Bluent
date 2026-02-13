@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Bluent.UI.Components.SplitPanelComponent.Internal;
 using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Services.Abstractions;
@@ -80,7 +81,7 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && RendererInfo.IsInteractive)
         {
             await DomHelper.RegisterPointerUpHandler(this);
             await DomHelper.RegisterPointerMoveHandler(this);
@@ -91,8 +92,11 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
 
     public override async ValueTask DisposeAsync()
     {
-        await DomHelper.UnregisterPointerUpHandler(this);
-        await DomHelper.UnregisterPointerMoveHandler(this);
+        if (RendererInfo.IsInteractive)
+        {
+            await DomHelper.UnregisterPointerUpHandler(this);
+            await DomHelper.UnregisterPointerMoveHandler(this);
+        }
 
         await base.DisposeAsync();
     }
