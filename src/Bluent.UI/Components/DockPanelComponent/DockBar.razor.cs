@@ -8,6 +8,7 @@ public partial class DockBar
     [Parameter, EditorRequired] public string DockName { get; set; }
     [Parameter] public bool DisplayTitle { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
+    [Parameter] public bool RotateItems { get; set; }
     [Inject] private IDockService DockService { get; set; } = default!;
 
     private List<DockPanel> Panels => DockService.GetRegisteredPanels(DockName);

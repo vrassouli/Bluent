@@ -10,6 +10,7 @@
                 Appearance="ButtonAppearance.Subtle" 
                 OnClick="() => TogglePanel(panel)"
                 Toggled="IsActive(panel)"
-                Rotated="@(Orientation == Orientation.Vertical)"/>
+                Orientation="Orientation"
+                Rotated="@RotateItems"/>
     }
 </div>
