@@ -92,8 +92,11 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
 
     public override async ValueTask DisposeAsync()
     {
-        await DomHelper.UnregisterPointerUpHandler(this);
-        await DomHelper.UnregisterPointerMoveHandler(this);
+        if (RendererInfo.IsInteractive)
+        {
+            await DomHelper.UnregisterPointerUpHandler(this);
+            await DomHelper.UnregisterPointerMoveHandler(this);
+        }
 
         await base.DisposeAsync();
     }
