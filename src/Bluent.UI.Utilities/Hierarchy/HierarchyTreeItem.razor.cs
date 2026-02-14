@@ -1,19 +1,20 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Bluent.UI.Components;
+namespace Bluent.UI.Utilities;
 
 public partial class HierarchyTreeItem : ComponentBase, IDisposable
 {
     private bool _expanded;
     private List<HierarchyItem>? _items;
     private readonly List<HierarchyTreeItem> _subItems = new();
+    private HierarchyRootItem? _newItem;
     [Parameter, EditorRequired] public HierarchyItem Item { get; set; }
+    [Parameter, EditorRequired] public bool Rename { get; set; }
     [CascadingParameter] public HierarchyTreeBrowser TreeBrowser { get; set; } = default!;
     [CascadingParameter] public HierarchyTreeItem? ParentItem { get; set; }
 
     private bool IsRootItem => Item is HierarchyRootItem;
-    private bool ShouldExpand => 
-        IsRootItem;
+    private bool ShouldExpand => IsRootItem;
     private string? Icon => IsRootItem ? TreeBrowser.RootItemIcon : TreeBrowser.ItemIcon;
     private string? ExpandedIcon => IsRootItem ? TreeBrowser.RootItemExpandedIcon : TreeBrowser.ItemIcon;
     public string? Path
@@ -26,6 +27,8 @@ public partial class HierarchyTreeItem : ComponentBase, IDisposable
             return ParentItem?.Path;
         }
     }
+
+    public bool IsSelected => TreeBrowser.IsSelected(this);
 
     protected override void OnInitialized()
     {
@@ -91,5 +94,61 @@ public partial class HierarchyTreeItem : ComponentBase, IDisposable
         
         foreach (var subItem in _subItems)
             await subItem.RefreshAsync();
+    }
+
+    internal void SetStateHasChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+    
+    internal void CreateNewRootItem()
+    {
+        if (_items is null)
+            _items = [];
+        
+        _newItem = new HierarchyRootItem("New Item");
+        _items.Add(_newItem);
+
+        _expanded = true;
+            
+        SetStateHasChanged();
+    }
+
+
+    private Task HandleItemRenamed(string name)
+    {
+        var oldPath = Path;
+        var oldName = Item.Name;
+        Item.Name = name;
+
+        if (ParentItem != null)
+            return ParentItem.ItemRenamed(Item, Path, oldPath, name, oldName);
+        
+        return TreeBrowser.ItemRenamed(Item, Path, oldPath, name, oldName);
+    }
+
+    private Task ItemRenamed(HierarchyItem item, string? path, string? oldPath, string name, string oldName)
+    {
+        if (_newItem == item)
+        {
+            _newItem = null;
+            return TreeBrowser.NotifyCreateRootItem(path);
+        }
+        else if (TreeBrowser.RenamingItem == item)
+        {
+            HierarchyPathSelection pathSelection;
+
+            if (TreeBrowser.RenamingItem is HierarchyRootItem rootItem)
+            {
+                pathSelection = new HierarchyPathSelection(oldPath);
+            }
+            else
+            {
+                pathSelection = new HierarchyItemSelection(oldPath, oldName);
+            }
+        
+            return TreeBrowser.NotifyRenameItem(pathSelection, name);
+        }
+        return Task.CompletedTask;
     }
 }
