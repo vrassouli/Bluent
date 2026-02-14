@@ -9,6 +9,9 @@ public class DockPanel : ComponentBase, IDisposable
     [Parameter, EditorRequired] public string Icon { get; set; }
     [Parameter, EditorRequired] public string Title { get; set; }
     [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; }
+    
+    [Parameter] public RenderFragment? HeaderContent { get; set; }
+    [Parameter] public RenderFragment? MoreActionsContent { get; set; }
     [Inject] private IDockService DockService { get; set; } = default!;
 
     protected override void OnInitialized()
