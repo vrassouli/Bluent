@@ -1,4 +1,6 @@
-@namespace Bluent.UI.Components
+@namespace Bluent.UI.Utilities
+@using Bluent.UI.Components
+@using Bluent.UI.Utilities
 @inherits Bluent.Core.BluentComponentBase
 <CascadingValue Value="this" IsFixed="true">
     <Tree id="@Id"
@@ -8,7 +10,7 @@
         {
             foreach (var hierarchyItem in _items.Where(x => !RootOnly || x is HierarchyRootItem))
             {
-                <HierarchyTreeItem Item="hierarchyItem"/>
+                <HierarchyTreeItem Item="hierarchyItem" Rename="@(_newItem == hierarchyItem || _renameItem == hierarchyItem)"/>
             }
         }
     </Tree>

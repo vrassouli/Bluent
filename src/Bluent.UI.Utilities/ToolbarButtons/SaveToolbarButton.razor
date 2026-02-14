@@ -1,22 +1,24 @@
 @using Bluent.Core
 @using Bluent.UI.Components
 @implements IDisposable
+@namespace Bluent.UI.Utilities
 
-<ToolbarButton Text="@Text"
+<ToolbarButton Icon="icon-ic_fluent_save_20_regular"
+               ActiveIcon="icon-ic_fluent_save_20_filled"
+               Text="@Text"
                Tooltip="@Tooltip"
-               Icon="icon-ic_fluent_arrow_redo_20_regular"
-               ActiveIcon="icon-ic_fluent_arrow_redo_20_filled"
-               OnClick="Execute"
+               OnClick="OnSave"
                disabled="@(!CanExecute)"/>
 
 @code {
     private CommandManager? _commandManager;
 
+    [Parameter, EditorRequired] public CommandManager CommandManager { get; set; }
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? Tooltip { get; set; }
-    [Parameter, EditorRequired] public CommandManager? CommandManager { get; set; }
+    [Parameter] public EventCallback OnSave { get; set; }
 
-    private bool CanExecute => _commandManager?.CanRedo ?? false;
+    private bool CanExecute => _commandManager?.HasChanges ?? false;
 
     protected override void OnParametersSet()
     {
@@ -46,6 +48,7 @@
             return;
 
         _commandManager.CommandExecuted += OnCommandExecuted;
+        _commandManager.SavePointChanged += OnSavePointChanged;
     }
 
     private void UnsetEvents()
@@ -54,6 +57,7 @@
             return;
 
         _commandManager.CommandExecuted -= OnCommandExecuted;
+        _commandManager.SavePointChanged -= OnSavePointChanged;
     }
 
     private void OnCommandExecuted(object? sender, EventArgs e)
@@ -61,8 +65,9 @@
         StateHasChanged();
     }
 
-    private void Execute()
+    private void OnSavePointChanged(object? sender, EventArgs e)
     {
-        _commandManager?.Redo();
+        StateHasChanged();
     }
+
 }

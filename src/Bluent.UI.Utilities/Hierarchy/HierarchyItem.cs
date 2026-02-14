@@ -1,4 +1,4 @@
-namespace Bluent.UI.Components;
+namespace Bluent.UI.Utilities;
 
 public class HierarchyItem
 {
