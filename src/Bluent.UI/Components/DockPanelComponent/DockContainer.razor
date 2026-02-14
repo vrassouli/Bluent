@@ -5,8 +5,20 @@
     @if (ActivePanel is not null)
     {
         <div class="header">
-            <Icon Content="@ActivePanel.Icon"/>
-            <div class="title">@ActivePanel.Title</div>
+            @if (ActivePanel.HeaderContent is not null)
+            {
+                @ActivePanel.HeaderContent
+            }
+            else
+            {
+                <Icon Content="@ActivePanel.Icon"/>
+                <div class="title">@ActivePanel.Title</div>
+            }
+            @if (ActivePanel.MoreActionsContent is not null)
+            {
+                @ActivePanel.MoreActionsContent
+            }
+            
             <Button Tooltip="Move"
                     Appearance="ButtonAppearance.Subtle"
                     Icon="icon-ic_fluent_more_vertical_20_regular"
@@ -16,7 +28,7 @@
                     <MenuList>
                         @foreach (var name in DockNames)
                         {
-                            <MenuItem Title="@name" 
+                            <MenuItem Title="@name"
                                       Checked="@(name == DockName)"
                                       OnClick="() => ChangeDock(name)"/>
                         }
