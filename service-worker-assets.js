@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "VDcmQUC7",
+  "version": "SR13WJKK",
   "assets": [
     {
       "hash": "sha256-AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=",
@@ -162,32 +162,32 @@ self.assetsManifest = {
       "url": "_framework/Blazored.LocalStorage.12n6dz54qr.wasm"
     },
     {
-      "hash": "sha256-dAoeQrKLUDrRtCTl6GUl7ytRPVXfBLNiuOL7HO6a5VA=",
-      "url": "_framework/Bluent.Core.ox9pjdffn0.wasm"
+      "hash": "sha256-WVcuuuTAn8+GtWKHYad4YT35ur7/NgtwlKRQZ4bsnik=",
+      "url": "_framework/Bluent.Core.novxi2j7lk.wasm"
     },
     {
-      "hash": "sha256-NhJz7xmb+dI6fLvyNJCoogO5uZo5kWzh12HQQm02a80=",
-      "url": "_framework/Bluent.UI.Charts.yxfa7bfx3m.wasm"
+      "hash": "sha256-nDEsWdxrNEa4EtnHaKTl924sleshVvGC5lGl532ejOk=",
+      "url": "_framework/Bluent.UI.83bxog4u7f.wasm"
     },
     {
-      "hash": "sha256-WMJ/x+mfSyssP7dEU/N3c7VAFVy3o4ph0oX+Yaer0Os=",
-      "url": "_framework/Bluent.UI.Demo.Pages.g2gks29zof.wasm"
+      "hash": "sha256-QB+DO9bXy5tx7nSg/s7yeMaCqDbZ4y4xH/GgLYvp/g4=",
+      "url": "_framework/Bluent.UI.Charts.0sh5mwewwj.wasm"
     },
     {
-      "hash": "sha256-cpJ3XXk5XkdtPIMIlMDKCypKTHoQhKE99PkftpjEQms=",
-      "url": "_framework/Bluent.UI.Demo.u5md5r7ob1.wasm"
+      "hash": "sha256-fR5LXd2V1xIxPPYDKFco0PpqMwq6mRyNQeA3qpWi9+M=",
+      "url": "_framework/Bluent.UI.Demo.91l4r8ki1g.wasm"
     },
     {
-      "hash": "sha256-vcQ7loLkXPQP8Td5aQfhe9dJyf7W/P/vpQcUixzHjGo=",
-      "url": "_framework/Bluent.UI.Diagrams.135kiz7dtv.wasm"
+      "hash": "sha256-gATwgwKssbeEiRIMkoLnYso8ZeARx30VODo3tH7LsGI=",
+      "url": "_framework/Bluent.UI.Demo.Pages.wo08298b6z.wasm"
     },
     {
-      "hash": "sha256-eS3vpvGflylLw9ogvotwq0w68YqCpZOS/vZ4KmxQXN0=",
-      "url": "_framework/Bluent.UI.Utilities.hakr6q677y.wasm"
+      "hash": "sha256-XgyPUIuZF9u+jn+jrpD/cdbxNYEpQ4peStlCvxnrQCs=",
+      "url": "_framework/Bluent.UI.Diagrams.ygsu028t8q.wasm"
     },
     {
-      "hash": "sha256-mtYtg3LJu2VUdPFC+68A0g//R7fSa783kt9QXmrbE9g=",
-      "url": "_framework/Bluent.UI.yu4ok52n5r.wasm"
+      "hash": "sha256-CF4RM7pNPJS3FtbqFInmC0Vu06VQK4PsEUneuq53Z4o=",
+      "url": "_framework/Bluent.UI.Utilities.k5zcp7v5sx.wasm"
     },
     {
       "hash": "sha256-eO+17a6jZONrygYBO+kUYf4Q6O5SOH1Nc7LGq3socfY=",
@@ -534,7 +534,7 @@ self.assetsManifest = {
       "url": "_framework/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-9mtziWVux1Vkhyvlk++OLPO4YjEeeJYQeQw7eabRIPE=",
+      "hash": "sha256-T6/6/mHPd6iho56WnnHkGDS55G2U5IwJWnovu7Y7m90=",
       "url": "_framework/dotnet.js"
     },
     {
@@ -550,8 +550,8 @@ self.assetsManifest = {
       "url": "_framework/dotnet.runtime.2tx45g8lli.js"
     },
     {
-      "hash": "sha256-JGOLq0fOO4mdv/80O8bpYS3KA6vDBCqOLUlqGOI1H+A=",
-      "url": "_framework/fa-IR/Bluent.UI.resources.o5p2x8lqhw.wasm"
+      "hash": "sha256-QfmF2w2FSQjGw/FUZdfZjlj7VkPxsiuKq+DafPlUPTA=",
+      "url": "_framework/fa-IR/Bluent.UI.resources.nuv6cly0u9.wasm"
     },
     {
       "hash": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
