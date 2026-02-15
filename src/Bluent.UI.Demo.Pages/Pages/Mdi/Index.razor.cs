@@ -23,6 +23,6 @@ public partial class Index : ComponentBase
     {
         _tab = tab;
         
-        Console.WriteLine("Selected Tab: " + tab?.Document?.Title);
+        Console.WriteLine("Tab Changed to: " + tab?.Document?.Title);
     }
 }
