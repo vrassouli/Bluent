@@ -1622,6 +1622,11 @@
   width: unset;
 }
 
+.bui-dock-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
 .bui-dock-container > .header {
   display: flex;
   flex-direction: row;
@@ -1634,6 +1639,10 @@
 }
 .bui-dock-container > .header > .title {
   flex: 1;
+}
+.bui-dock-container > .content {
+  flex: 1;
+  overflow: auto;
 }
 
 .bui-dock-bar {

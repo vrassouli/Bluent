@@ -1,4 +1,8 @@
 .bui-dock-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  
   > .header {
     display: flex;
     flex-direction: row;
@@ -12,6 +16,11 @@
     > .title {
       flex: 1;
     }
+  }
+  
+  >.content {
+    flex: 1;
+    overflow: auto;
   }
 }
 

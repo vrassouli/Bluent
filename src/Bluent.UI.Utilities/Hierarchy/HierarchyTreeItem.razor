@@ -8,19 +8,7 @@
           ExpandedIcon="@ExpandedIcon"
           OnClick="HandleClick">
     <ItemTemplate>
-        @if (Rename)
-        {
-            <TextField TValue="string?"
-                       Value="@Item.Name"
-                       ValueExpression="() => Item.Name"
-                       ValueChanged="HandleItemRenamed"
-                       GainFocus
-                       Class="flex-fill"/>
-        }
-        else
-        {
-            <div class="p-2 rounded-5 @(IsSelected ? "bg-3" : "")">@Item.Name</div>
-        }
+        <div class="p-2 rounded-5 @(IsSelected ? "bg-3" : "")">@Item.Name</div>
     </ItemTemplate>
     <ChildContent>
         @if (_items != null)
@@ -28,8 +16,7 @@
             foreach (var hierarchyItem in _items.Where(x => !TreeBrowser.RootOnly || x is HierarchyRootItem))
             {
                 <CascadingValue Value="this" IsFixed>
-                    <HierarchyTreeItem Item="hierarchyItem" 
-                                       Rename="@(_newItem == hierarchyItem || TreeBrowser.RenamingItem == hierarchyItem)" />
+                    <HierarchyTreeItem Item="hierarchyItem" />
                 </CascadingValue>
             }
         }

@@ -77,16 +77,6 @@ public partial class Index : ComponentBase
         return new ValueTask<List<HierarchyItem>>(list);
     }
 
-    private void OnNewFolder()
-    {
-        _tree?.CreateNewRootItem();
-    }
-
-    private void OnRename()
-    {
-        _tree?.Rename();
-    }
-
     private void OnCreateFolder(HierarchyPathSelection pathSelection)
     {
         if (pathSelection.Path is null)
