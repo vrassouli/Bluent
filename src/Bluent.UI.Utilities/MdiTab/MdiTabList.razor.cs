@@ -88,7 +88,7 @@ public partial class MdiTabList : IAsyncDisposable
 
             if (currentIndex >= _openDocuments.Count)
                 _selectedIndex = _openDocuments.Count - 1;
-            
+
             await NotifyTabChanged(true);
         }
     }
@@ -97,13 +97,13 @@ public partial class MdiTabList : IAsyncDisposable
     {
         InvokeAsync(() => NotifyTabChanged());
     }
-    
+
     private void OnTabAdded(int index)
     {
 #if DEBUG
         Console.WriteLine($"OnTabAdded: {index}");
 #endif
-        
+
         _selectedIndex = index;
     }
 
@@ -120,23 +120,21 @@ public partial class MdiTabList : IAsyncDisposable
     private async Task NotifyTabChanged(bool forceStateChanged = false)
     {
         IMdiTab? selectedTab = null;
-        
+
         if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
             selectedTab = _tabs[_selectedIndex];
 
         if (selectedTab == _selectedTab)
             return;
-        
+
         if (_selectedTab != null)
             _selectedTab.Document?.OnDeactivated();
 
         _selectedTab = selectedTab;
-        if (_selectedTab is not null)
-        {
-            await TabChanged.InvokeAsync(_selectedTab);
-            _selectedTab.Document?.OnActivated();
-        }
-        
+
+        await TabChanged.InvokeAsync(_selectedTab);
+        _selectedTab?.Document?.OnActivated();
+
         if (forceStateChanged)
             StateHasChanged();
     }
