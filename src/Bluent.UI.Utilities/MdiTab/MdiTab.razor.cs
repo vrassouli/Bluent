@@ -14,6 +14,7 @@ public partial class MdiTab : IDisposable
     [Parameter, EditorRequired] public string TabId { get; set; }
     [Parameter, EditorRequired] public Dictionary<string, object>? Parameters { get; set; }
     [Parameter, EditorRequired] public CommandManager? CommandManager { get; set; }
+    [Parameter] public string? Class { get; set; } = "h-100 overflow-auto";
     [CascadingParameter] public MdiTabList Parent { get; set; } = default!;
     [CascadingParameter] public Popover? Popover { get; set; }
     
