@@ -23,7 +23,11 @@ public partial class TabList
             if (SelectedIndex > -1 && SelectedIndex < _tabItems.Count)
                 return _tabItems[SelectedIndex];
 
-            return _tabItems.LastOrDefault();
+            // if (_tabItems.Count > 0)
+            //     SelectTab(_tabItems.Count - 1);
+
+            return null;
+            //return _tabItems.LastOrDefault();
         }
     }
 
@@ -124,6 +128,12 @@ public partial class TabList
         else if (index < 0)
             index = 0;
 
+        if (index == SelectedIndex)
+        {
+            StateHasChanged();
+            return;
+        }
+
         SelectedIndex = index;
         SelectedIndexChanged.InvokeAsync(index);
 
@@ -132,8 +142,5 @@ public partial class TabList
 
         if (index > -1 && index < _tabItems.Count)
             _tabItems[index].OnStateChanged();
-
-        //_shouldCheckOverflow = true;
-        StateHasChanged();
     }
 }

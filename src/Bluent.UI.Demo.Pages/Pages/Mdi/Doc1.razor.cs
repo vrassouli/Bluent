@@ -84,9 +84,15 @@ public partial class Doc1 : IMdiDocument, IDisposable
 
     public void OnActivated()
     {
+#if DEBUG
+        Console.WriteLine($"OnActivated: Doc1");
+#endif   
     }
 
     public void OnDeactivated()
     {
+#if DEBUG
+        Console.WriteLine($"OnDeactivated: Doc1");
+#endif  
     }
 }

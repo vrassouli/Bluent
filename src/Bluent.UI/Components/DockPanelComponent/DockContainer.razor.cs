@@ -17,6 +17,8 @@ public partial class DockContainer
     {
         DockService.PanelActivated += OnPanelActivated;
         DockService.PanelDeactivated += OnPanelDeactivated;
+        DockService.PanelRegistered += OnDockPanelRegistered;
+        DockService.PanelUnregistered += OnDockPanelUnregistered;
         DockService.PanelStateHasChanged += OnPanelStateHasChanged;
         UpdateSplitPanel();
 
@@ -36,30 +38,29 @@ public partial class DockContainer
     {
         DockService.PanelActivated -= OnPanelActivated;
         DockService.PanelDeactivated -= OnPanelDeactivated;
+        DockService.PanelRegistered -= OnDockPanelRegistered;
+        DockService.PanelUnregistered -= OnDockPanelUnregistered;
         DockService.PanelStateHasChanged -= OnPanelStateHasChanged;
 
         return base.DisposeAsync();
     }
 
-    private void OnPanelDeactivated(object? sender, DockPanelEventArgs e)
-    {
-        if (e.DockName == DockName)
-        {
-            UpdateSplitPanel();
-            StateHasChanged();
-        }
-    }
+    private void OnPanelDeactivated(object? sender, DockPanelUpdateEventArgs e)
+        => DockPanelUpdate(e);
+    
+    private void OnPanelActivated(object? sender, DockPanelUpdateEventArgs e)
+        => DockPanelUpdate(e);
 
-    private void OnPanelActivated(object? sender, DockPanelEventArgs e)
-    {
-        if (e.DockName == DockName)
-        {
-            UpdateSplitPanel();
-            StateHasChanged();
-        }
-    }
+    private void OnDockPanelUnregistered(object? sender, DockPanelUpdateEventArgs e)
+        => DockPanelUpdate(e);
+    
+    private void OnDockPanelRegistered(object? sender, DockPanelUpdateEventArgs e)      
+        => DockPanelUpdate(e);
 
-    private void OnPanelStateHasChanged(object? sender, DockPanelEventArgs e)
+    private void OnPanelStateHasChanged(object? sender, DockPanelUpdateEventArgs e)
+        => DockPanelUpdate(e);
+
+    private void DockPanelUpdate(DockPanelUpdateEventArgs e)
     {
         if (e.DockName == DockName)
         {

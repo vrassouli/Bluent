@@ -9,7 +9,10 @@ namespace Bluent.UI.Utilities;
 public partial class MdiTab : IDisposable
 {
     private CommandManager? _commandManager;
-    private DynamicComponent? _componentRef;
+
+    //private DynamicComponent? _componentRef;
+    private object? _instance;
+
     [Parameter, EditorRequired] public Type ComponentType { get; set; }
     [Parameter, EditorRequired] public string TabId { get; set; }
     [Parameter, EditorRequired] public Dictionary<string, object>? Parameters { get; set; }
@@ -17,10 +20,10 @@ public partial class MdiTab : IDisposable
     [Parameter] public string? Class { get; set; } = "h-100 overflow-auto";
     [CascadingParameter] public MdiTabList Parent { get; set; } = default!;
     [CascadingParameter] public Popover? Popover { get; set; }
-    
+
     [Inject] private IMdiService MdiService { get; set; } = default!;
-    
-    public IMdiDocument? Document => _componentRef?.Instance as IMdiDocument;
+
+    public IMdiDocument? Document => _instance as IMdiDocument;
 
     private string Title
     {
@@ -33,11 +36,12 @@ public partial class MdiTab : IDisposable
             {
                 title += "*";
             }
-            
+
             return title;
         }
     }
-    private string? Icon => (_componentRef?.Instance as IMdiDocument)?.Icon;
+
+    private string? Icon => (_instance as IMdiDocument)?.Icon;
 
     protected override void OnInitialized()
     {
@@ -50,10 +54,10 @@ public partial class MdiTab : IDisposable
         var commandManager = GetCommandManager();
         commandManager.CommandExecuted += OnCommandExecuted;
         commandManager.SavePointChanged += OnSavePointChanged;
-        
+
         base.OnInitialized();
     }
-    
+
     public void Dispose()
     {
         Parent.Remove(this);
@@ -62,18 +66,10 @@ public partial class MdiTab : IDisposable
         commandManager.CommandExecuted -= OnCommandExecuted;
         commandManager.SavePointChanged -= OnSavePointChanged;
     }
-//
-//     protected override void OnAfterRender(bool firstRender)
-//     {
-// #if DEBUG
-//         Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
-// #endif
-//         base.OnAfterRender(firstRender);
-//     }
 
-    private void CloseTab()
+    private async Task CloseTab()
     {
-        Parent.CloseTab(this);
+        await Parent.CloseTab(this);
     }
 
     private IDictionary<string, object>? GetParameters()
@@ -87,7 +83,7 @@ public partial class MdiTab : IDisposable
                 { nameof(CommandManager), commandManager }
             };
         }
-        
+
         Parameters[nameof(CommandManager)] = commandManager;
         return Parameters;
     }
@@ -97,20 +93,19 @@ public partial class MdiTab : IDisposable
         if (CommandManager is not null)
             return CommandManager;
 
-        if (Parameters is not null && 
+        if (Parameters is not null &&
             Parameters.TryGetValue(nameof(CommandManager), out var cmdMan) &&
             cmdMan is CommandManager commandManager)
         {
-            return  commandManager;
+            return commandManager;
         }
- 
+
         if (_commandManager is null)
             _commandManager = new CommandManager();
-        
+
         return _commandManager;
     }
-    
-    
+
     private void OnCommandExecuted(object? sender, EventArgs e)
     {
         StateHasChanged();
@@ -119,5 +114,12 @@ public partial class MdiTab : IDisposable
     private void OnSavePointChanged(object? sender, EventArgs e)
     {
         StateHasChanged();
+    }
+
+    private void OnComponentCaptured(object componentInstance)
+    {
+        _instance = componentInstance;
+
+        Parent.OnDocumentRendered(this);
     }
 }
