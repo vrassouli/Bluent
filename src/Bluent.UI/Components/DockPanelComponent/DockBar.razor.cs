@@ -40,29 +40,41 @@ public partial class DockBar
             yield return c;
 
         yield return "bui-dock-bar";
-        
+
         if (Orientation == Orientation.Vertical)
             yield return "vertical";
     }
 
-    private void OnPanelDeactivated(object? sender, EventArgs e)
+    private void OnPanelDeactivated(object? sender, DockPanelEventArgs e)
     {
-        StateHasChanged();
+        if (e.DockName == DockName)
+        {
+            StateHasChanged();
+        }
     }
 
-    private void OnPanelActivated(object? sender, EventArgs e)
+    private void OnPanelActivated(object? sender, DockPanelEventArgs e)
     {
-        StateHasChanged();
+        if (e.DockName == DockName)
+        {
+            StateHasChanged();
+        }
     }
 
-    private void OnDockPanelUnregistered(object? sender, EventArgs e)
+    private void OnDockPanelUnregistered(object? sender, DockPanelEventArgs e)
     {
-        StateHasChanged();
+        if (e.DockName == DockName)
+        {
+            StateHasChanged();
+        }
     }
 
-    private void OnDockPanelRegistered(object? sender, EventArgs e)
+    private void OnDockPanelRegistered(object? sender, DockPanelEventArgs e)
     {
-        StateHasChanged();
+        if (e.DockName == DockName)
+        {
+            StateHasChanged();
+        }
     }
 
     private void TogglePanel(DockPanel panel)
