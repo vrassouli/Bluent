@@ -20,8 +20,8 @@ public partial class HierarchyTreeBrowser
     [Parameter] public EventCallback<HierarchyPathSelection> OnPathSelected { get; set; }
     [Parameter] public EventCallback<HierarchyItemSelection> OnItemSelected { get; set; }
     [Parameter] public EventCallback OnItemDeselected { get; set; }
-    [Parameter] public EventCallback<HierarchyPathSelection> OnCreateRootItem { get; set; }
-    [Parameter] public EventCallback<(HierarchyPathSelection item, string name)> OnRenameItem { get; set; }
+    // [Parameter] public EventCallback<HierarchyPathSelection> OnCreateRootItem { get; set; }
+    // [Parameter] public EventCallback<(HierarchyPathSelection item, string name)> OnRenameItem { get; set; }
 
     [Parameter, EditorRequired]
     public ReadHierarchyItemsDelegate GetHierarchyItems { get; set; }
