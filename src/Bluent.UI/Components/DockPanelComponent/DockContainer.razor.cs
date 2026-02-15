@@ -17,6 +17,7 @@ public partial class DockContainer
     {
         DockService.PanelActivated += OnPanelActivated;
         DockService.PanelDeactivated += OnPanelDeactivated;
+        DockService.PanelStateHasChanged += OnPanelStateHasChanged;
         UpdateSplitPanel();
 
         base.OnInitialized();
