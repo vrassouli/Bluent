@@ -1,4 +1,16 @@
 @page "/components/dock-panels"
+
+@code {
+    private bool _toggled = true;
+    private DockPanel? _panel;
+
+    private void ToggleButton()
+    {
+        _toggled = !_toggled;
+        
+        _panel?.SetStateHasChanged();
+    }
+}
 @namespace Bluent.UI.Demo.Pages.Components
 <PageTitle>Dock Panels</PageTitle>
 
@@ -41,8 +53,17 @@
     </div>
 </div>
 
-<DockPanel DockName="Left" Icon="icon-ic_fluent_tree_deciduous_20_regular" Title="Panel 1">
-    <div>Panel 1</div>
+<DockPanel @ref="_panel" DockName="Left" Icon="icon-ic_fluent_tree_deciduous_20_regular" Title="Panel 1">
+    <MoreActionsContent>
+        <Button Text="Click" Size="ButtonSize.Small" Appearance="ButtonAppearance.Subtle"
+                disabled="@(!_toggled)"></Button>
+    </MoreActionsContent>
+    <ChildContent>
+        <div>Panel 1</div>
+        <div>
+            <Button Text="Toggle Toolbar Button" OnClick="ToggleButton"/>
+        </div>
+    </ChildContent>
 </DockPanel>
 <DockPanel DockName="Left" Icon="icon-ic_fluent_food_carrot_20_regular" Title="Panel 2">
     <div>Panel 2</div>
