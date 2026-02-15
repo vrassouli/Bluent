@@ -2,22 +2,22 @@ using Bluent.UI.Components;
 
 namespace Bluent.UI.Services.Abstractions;
 
-public class DockPanelEventArgs : EventArgs
+public class DockPanelUpdateEventArgs : EventArgs
 {
     public string DockName { get; }
 
-    public DockPanelEventArgs(string dockName)
+    public DockPanelUpdateEventArgs(string dockName)
     {
         DockName = dockName;
     }
 }
 public interface IDockService
 {
-    event EventHandler<DockPanelEventArgs>? PanelActivated;
-    event EventHandler<DockPanelEventArgs>? PanelDeactivated;
-    event EventHandler<DockPanelEventArgs>? PanelRegistered;
-    event EventHandler<DockPanelEventArgs>? PanelUnregistered;
-    event EventHandler<DockPanelEventArgs>? PanelStateHasChanged;
+    event EventHandler<DockPanelUpdateEventArgs>? PanelActivated;
+    event EventHandler<DockPanelUpdateEventArgs>? PanelDeactivated;
+    event EventHandler<DockPanelUpdateEventArgs>? PanelRegistered;
+    event EventHandler<DockPanelUpdateEventArgs>? PanelUnregistered;
+    event EventHandler<DockPanelUpdateEventArgs>? PanelStateHasChanged;
 
     void ActivatePanel(DockPanel activePanel);
     void DeactivatePanel(DockPanel activePanel);

@@ -10,6 +10,7 @@ public partial class MdiTabList : IAsyncDisposable
     private readonly List<OpenDocumentEventArgs> _openDocuments = new();
     private readonly List<IMdiTab> _tabs = new();
     private int _selectedIndex = -1;
+    private IMdiTab? _selectedTab;
 
     [Parameter] public EventCallback<IMdiTab?> TabChanged { get; set; }
     [Inject] private IMdiService MdiService { get; set; } = default!;
@@ -38,14 +39,6 @@ public partial class MdiTabList : IAsyncDisposable
         return ValueTask.CompletedTask;
     }
 
-//     protected override void OnAfterRender(bool firstRender)
-//     {
-// #if DEBUG
-//         Console.WriteLine($"OnAfterRender {(firstRender ? "(first render)" : "")} ({GetType().Name})");
-// #endif
-//         base.OnAfterRender(firstRender);
-//     }
-
     private void OnOpenDocument(object? sender, OpenDocumentEventArgs e)
     {
         var currentIndex = _openDocuments.FindIndex(x => x.Id == e.Id);
@@ -66,7 +59,7 @@ public partial class MdiTabList : IAsyncDisposable
     {
         var tab = _tabs.FirstOrDefault(x => x.TabId == e.Id);
         if (tab != null)
-            CloseTab(tab);
+            InvokeAsync(() => CloseTab(tab));
     }
 
     private void OnTabItemStateChanged(object? sender, EventArgs e)
@@ -84,16 +77,33 @@ public partial class MdiTabList : IAsyncDisposable
         _tabs.Remove(tab);
     }
 
-    public void CloseTab(IMdiTab tab)
+    public async Task CloseTab(IMdiTab tab)
     {
-        _openDocuments.RemoveAll(x => x.Id == tab.TabId);
+        var document = _openDocuments.FirstOrDefault(x => x.Id == tab.TabId);
+        if (document is not null)
+        {
+            var currentIndex = _openDocuments.IndexOf(document);
+            _openDocuments.Remove(document);
+
+            if (currentIndex >= _openDocuments.Count)
+                _selectedIndex = _openDocuments.Count - 1;
+            
+            await NotifyTabChanged(true);
+        }
     }
 
-    private Task OnTabAdded(int index)
+    internal void OnDocumentRendered(IMdiTab tab)
     {
+        InvokeAsync(() => NotifyTabChanged());
+    }
+    
+    private void OnTabAdded(int index)
+    {
+#if DEBUG
+        Console.WriteLine($"OnTabAdded: {index}");
+#endif
+        
         _selectedIndex = index;
-
-        return NotifyTabChanged();
     }
 
     private Task OnSelectedIndexChanged(int index)
@@ -101,33 +111,32 @@ public partial class MdiTabList : IAsyncDisposable
 #if DEBUG
         Console.WriteLine($"OnSelectedIndexChanged: {index}");
 #endif
-        if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
-        {
-            var selectedTab = _tabs[_selectedIndex];
-            selectedTab.Document?.OnDeactivated();
-        }
-
         _selectedIndex = index;
-
-        if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
-        {
-            var selectedTab = _tabs[_selectedIndex];
-            selectedTab.Document?.OnActivated();
-        }
 
         return NotifyTabChanged();
     }
 
-    private Task NotifyTabChanged()
+    private async Task NotifyTabChanged(bool forceStateChanged = false)
     {
+        IMdiTab? selectedTab = null;
+        
         if (_selectedIndex >= 0 && _selectedIndex < _tabs.Count)
+            selectedTab = _tabs[_selectedIndex];
+
+        if (selectedTab == _selectedTab)
+            return;
+        
+        if (_selectedTab != null)
+            _selectedTab.Document?.OnDeactivated();
+
+        _selectedTab = selectedTab;
+        if (_selectedTab is not null)
         {
-            var selectedTab = _tabs[_selectedIndex];
-            return TabChanged.InvokeAsync(selectedTab);
+            await TabChanged.InvokeAsync(_selectedTab);
+            _selectedTab.Document?.OnActivated();
         }
-        else
-        {
-            return TabChanged.InvokeAsync(null);
-        }
+        
+        if (forceStateChanged)
+            StateHasChanged();
     }
 }

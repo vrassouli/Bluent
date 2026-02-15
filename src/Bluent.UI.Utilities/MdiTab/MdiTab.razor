@@ -13,8 +13,8 @@
                 OnClick="CloseTab"/>
     </Actions>
     <ChildContent>
-        <DynamicComponent @ref="_componentRef"
-                          Type="ComponentType"
-                          Parameters="GetParameters()"/>
+        <BluentDynamicComponent Type="ComponentType"
+                                Parameters="GetParameters()"
+                                OnComponentCaptured="OnComponentCaptured"/>
     </ChildContent>
 </Tab>

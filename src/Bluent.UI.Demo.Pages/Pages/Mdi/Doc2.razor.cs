@@ -84,6 +84,7 @@ public partial class Doc2 : IMdiDocument, IDisposable
 #endif
         base.OnAfterRender(firstRender);
     }
+    
     private async Task LoadAsync()
     {
         // Simulate remote document loading...
@@ -94,10 +95,16 @@ public partial class Doc2 : IMdiDocument, IDisposable
 
     public void OnActivated()
     {
+#if DEBUG
+        Console.WriteLine($"OnActivated: Doc2");
+#endif   
     }
 
     public void OnDeactivated()
     {
+#if DEBUG
+        Console.WriteLine($"OnDeactivated: Doc2");
+#endif  
     }
 
 }

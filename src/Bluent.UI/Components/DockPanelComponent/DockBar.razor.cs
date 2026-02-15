@@ -45,7 +45,7 @@ public partial class DockBar
             yield return "vertical";
     }
 
-    private void OnPanelDeactivated(object? sender, DockPanelEventArgs e)
+    private void OnPanelDeactivated(object? sender, DockPanelUpdateEventArgs e)
     {
         if (e.DockName == DockName)
         {
@@ -53,7 +53,7 @@ public partial class DockBar
         }
     }
 
-    private void OnPanelActivated(object? sender, DockPanelEventArgs e)
+    private void OnPanelActivated(object? sender, DockPanelUpdateEventArgs e)
     {
         if (e.DockName == DockName)
         {
@@ -61,7 +61,7 @@ public partial class DockBar
         }
     }
 
-    private void OnDockPanelUnregistered(object? sender, DockPanelEventArgs e)
+    private void OnDockPanelUnregistered(object? sender, DockPanelUpdateEventArgs e)
     {
         if (e.DockName == DockName)
         {
@@ -69,7 +69,7 @@ public partial class DockBar
         }
     }
 
-    private void OnDockPanelRegistered(object? sender, DockPanelEventArgs e)
+    private void OnDockPanelRegistered(object? sender, DockPanelUpdateEventArgs e)
     {
         if (e.DockName == DockName)
         {
