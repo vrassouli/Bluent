@@ -10,7 +10,7 @@
         {
             foreach (var hierarchyItem in _items.Where(x => !RootOnly || x is HierarchyRootItem))
             {
-                <HierarchyTreeItem Item="hierarchyItem" Rename="@(_newItem == hierarchyItem || _renameItem == hierarchyItem)"/>
+                <HierarchyTreeItem Item="hierarchyItem"/>
             }
         }
     </Tree>

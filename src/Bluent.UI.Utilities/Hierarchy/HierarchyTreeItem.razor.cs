@@ -7,9 +7,9 @@ public partial class HierarchyTreeItem : ComponentBase, IDisposable
     private bool _expanded;
     private List<HierarchyItem>? _items;
     private readonly List<HierarchyTreeItem> _subItems = new();
-    private HierarchyRootItem? _newItem;
+    // private HierarchyRootItem? _newItem;
     [Parameter, EditorRequired] public HierarchyItem Item { get; set; }
-    [Parameter, EditorRequired] public bool Rename { get; set; }
+    // [Parameter, EditorRequired] public bool Rename { get; set; }
     [CascadingParameter] public HierarchyTreeBrowser TreeBrowser { get; set; } = default!;
     [CascadingParameter] public HierarchyTreeItem? ParentItem { get; set; }
 
@@ -100,55 +100,61 @@ public partial class HierarchyTreeItem : ComponentBase, IDisposable
     {
         InvokeAsync(StateHasChanged);
     }
-    
-    internal void CreateNewRootItem()
-    {
-        if (_items is null)
-            _items = [];
-        
-        _newItem = new HierarchyRootItem("New Item");
-        _items.Add(_newItem);
-
-        _expanded = true;
-            
-        SetStateHasChanged();
-    }
-
-
-    private Task HandleItemRenamed(string name)
-    {
-        var oldPath = Path;
-        var oldName = Item.Name;
-        Item.Name = name;
-
-        if (ParentItem != null)
-            return ParentItem.ItemRenamed(Item, Path, oldPath, name, oldName);
-        
-        return TreeBrowser.ItemRenamed(Item, Path, oldPath, name, oldName);
-    }
-
-    private Task ItemRenamed(HierarchyItem item, string? path, string? oldPath, string name, string oldName)
-    {
-        if (_newItem == item)
-        {
-            _newItem = null;
-            return TreeBrowser.NotifyCreateRootItem(path);
-        }
-        else if (TreeBrowser.RenamingItem == item)
-        {
-            HierarchyPathSelection pathSelection;
-
-            if (TreeBrowser.RenamingItem is HierarchyRootItem rootItem)
-            {
-                pathSelection = new HierarchyPathSelection(oldPath);
-            }
-            else
-            {
-                pathSelection = new HierarchyItemSelection(oldPath, oldName);
-            }
-        
-            return TreeBrowser.NotifyRenameItem(pathSelection, name);
-        }
-        return Task.CompletedTask;
-    }
+    //
+    // internal void CreateNewRootItem()
+    // {
+    //     if (_items is null)
+    //         _items = [];
+    //     
+    //     _newItem = new HierarchyRootItem("New Item");
+    //     _items.Add(_newItem);
+    //
+    //     _expanded = true;
+    //         
+    //     SetStateHasChanged();
+    // }
+    //
+    //
+    // private Task HandleItemRenamed(string name)
+    // {
+    //     var oldPath = Path;
+    //     var oldName = Item.Name;
+    //     Item.Name = name;
+    //
+    //     if (ParentItem != null)
+    //         return ParentItem.ItemRenamed(Item, Path, oldPath, name, oldName);
+    //     
+    //     return TreeBrowser.ItemRenamed(Item, Path, oldPath, name, oldName);
+    // }
+    //
+    // private Task ItemRenamed(HierarchyItem item, string? path, string? oldPath, string name, string oldName)
+    // {
+    //     if (_newItem == item)
+    //     {
+    //         if (string.IsNullOrEmpty(name))
+    //         {
+    //             _items?.Remove(item);
+    //             return Task.CompletedTask;
+    //         }
+    //         
+    //         _newItem = null;
+    //         return TreeBrowser.NotifyCreateRootItem(path);
+    //     }
+    //     else if (TreeBrowser.RenamingItem == item)
+    //     {
+    //         HierarchyPathSelection pathSelection;
+    //
+    //         if (TreeBrowser.RenamingItem is HierarchyRootItem rootItem)
+    //         {
+    //             pathSelection = new HierarchyPathSelection(oldPath);
+    //         }
+    //         else
+    //         {
+    //             pathSelection = new HierarchyItemSelection(oldPath, oldName);
+    //         }
+    //     
+    //         return TreeBrowser.NotifyRenameItem(pathSelection, name);
+    //     }
+    //     return Task.CompletedTask;
+    // }
 }
