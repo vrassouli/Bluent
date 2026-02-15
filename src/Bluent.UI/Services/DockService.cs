@@ -8,10 +8,11 @@ internal class DockService : IDockService
     private readonly Dictionary<string, List<DockPanel>> _dockPanels = new();
     private readonly Dictionary<string, DockPanel?> _activePanels = new();
 
-    public event EventHandler? PanelActivated;
-    public event EventHandler? PanelDeactivated;
-    public event EventHandler? PanelRegistered;
-    public event EventHandler? PanelUnregistered;
+    public event EventHandler<DockPanelEventArgs>? PanelActivated;
+    public event EventHandler<DockPanelEventArgs>? PanelDeactivated;
+    public event EventHandler<DockPanelEventArgs>? PanelRegistered;
+    public event EventHandler<DockPanelEventArgs>? PanelUnregistered;
+    public event EventHandler<DockPanelEventArgs>? PanelStateHasChanged;
 
     public void ActivatePanel(DockPanel activePanel)
     {
@@ -20,7 +21,7 @@ internal class DockService : IDockService
             return;
         
         _activePanels[dockName] = activePanel;
-        PanelActivated?.Invoke(this, EventArgs.Empty);
+        PanelActivated?.Invoke(this, new DockPanelEventArgs(dockName));
     }
 
     public void DeactivatePanel(DockPanel activePanel)
@@ -30,7 +31,7 @@ internal class DockService : IDockService
             if (kv.Value == activePanel)
             {
                 _activePanels.Remove(kv.Key);
-                PanelDeactivated?.Invoke(this, EventArgs.Empty);
+                PanelDeactivated?.Invoke(this, new DockPanelEventArgs(kv.Key));
                 break;
             }
         }
@@ -56,7 +57,12 @@ internal class DockService : IDockService
 
         return [];
     }
-    
+
+    public void NotifyStateHasChanged(string dockName)
+    {
+        PanelStateHasChanged?.Invoke(this, new DockPanelEventArgs(dockName));
+    }
+
     public void RegisterPanel(DockPanel dockPanel, string dockName)
     {
         UnregisterPanel(dockPanel);
@@ -65,7 +71,7 @@ internal class DockService : IDockService
         else
             _dockPanels[dockName] = [dockPanel];
         
-        PanelRegistered?.Invoke(this, EventArgs.Empty);
+        PanelRegistered?.Invoke(this, new DockPanelEventArgs(dockName));
     }
 
     public void UnregisterPanel(DockPanel dockPanel)
@@ -73,7 +79,7 @@ internal class DockService : IDockService
         foreach (var panels in _dockPanels.Values)
             panels.Remove(dockPanel);
         
-        PanelUnregistered?.Invoke(this, EventArgs.Empty);
+        PanelUnregistered?.Invoke(this, new DockPanelEventArgs(dockPanel.DockName));
     }
 
     private string? FindPanelDockName(DockPanel dockPanel)

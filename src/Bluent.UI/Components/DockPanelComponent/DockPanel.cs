@@ -31,4 +31,9 @@ public class DockPanel : ComponentBase, IDisposable
 
         DockService.RegisterPanel(this, DockName);
     }
+
+    public void SetStateHasChanged()
+    {
+        DockService.NotifyStateHasChanged(DockName);
+    }
 }

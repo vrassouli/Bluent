@@ -22,6 +22,7 @@ public partial class DockContainer
         base.OnInitialized();
     }
 
+
     public override IEnumerable<string> GetClasses()
     {
         foreach (var c in base.GetClasses())
@@ -34,22 +35,38 @@ public partial class DockContainer
     {
         DockService.PanelActivated -= OnPanelActivated;
         DockService.PanelDeactivated -= OnPanelDeactivated;
+        DockService.PanelStateHasChanged -= OnPanelStateHasChanged;
 
         return base.DisposeAsync();
     }
 
-    private void OnPanelDeactivated(object? sender, EventArgs e)
+    private void OnPanelDeactivated(object? sender, DockPanelEventArgs e)
     {
-        UpdateSplitPanel();
-        StateHasChanged();
+        if (e.DockName == DockName)
+        {
+            UpdateSplitPanel();
+            StateHasChanged();
+        }
     }
 
-    private void OnPanelActivated(object? sender, EventArgs e)
+    private void OnPanelActivated(object? sender, DockPanelEventArgs e)
     {
-        UpdateSplitPanel();
-        StateHasChanged();
+        if (e.DockName == DockName)
+        {
+            UpdateSplitPanel();
+            StateHasChanged();
+        }
     }
 
+    private void OnPanelStateHasChanged(object? sender, DockPanelEventArgs e)
+    {
+        if (e.DockName == DockName)
+        {
+            UpdateSplitPanel();
+            StateHasChanged();
+        }
+    }
+    
     private void UpdateSplitPanel()
     {
         if (SplitPanel is null)
