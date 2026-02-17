@@ -98,6 +98,9 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
 
         yield return "bui-dock-container";
 
+        if (ActivePanel is not null)
+            yield return "open";
+        
         if (SplitPanel is not null && DockMode == DockMode.Floating)
         {
             yield return "floating";
