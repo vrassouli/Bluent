@@ -43,8 +43,16 @@ public abstract partial class Overflow
 
     public override async ValueTask DisposeAsync()
     {
-        if (_interop != null)
-            await _interop.DisposeAsync();
+        try
+        {
+            if (_interop != null)
+                await _interop.DisposeAsync();
+        }
+        catch (JSDisconnectedException e)
+        {
+            // swallow
+        }
+        
         await base.DisposeAsync();
     }
 

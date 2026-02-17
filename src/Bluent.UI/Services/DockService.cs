@@ -7,51 +7,60 @@ internal class DockService : IDockService
 {
     private readonly Dictionary<string, List<DockPanel>> _dockPanels = new();
     private readonly Dictionary<string, DockPanel?> _activePanels = new();
+    private readonly Dictionary<string, DockMode> _dockModes = new();
 
     public event EventHandler<DockPanelUpdateEventArgs>? PanelActivated;
     public event EventHandler<DockPanelUpdateEventArgs>? PanelDeactivated;
     public event EventHandler<DockPanelUpdateEventArgs>? PanelRegistered;
     public event EventHandler<DockPanelUpdateEventArgs>? PanelUnregistered;
     public event EventHandler<DockPanelUpdateEventArgs>? PanelStateHasChanged;
+    public event EventHandler<DockPanelUpdateEventArgs>? PanelDockModeChanged;
 
     public void ActivatePanel(DockPanel activePanel)
     {
-        var dockName = FindPanelDockName(activePanel);
-        if (dockName == null)
-            return;
-        
+        var dockName = activePanel.DockName;
         _activePanels[dockName] = activePanel;
+
         PanelActivated?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
     }
 
     public void DeactivatePanel(DockPanel activePanel)
     {
-        foreach (var kv in _activePanels)
+        _activePanels.TryGetValue(activePanel.DockName, out var panel);
+        _activePanels[activePanel.DockName] = null;
+
+        if (panel != null)
         {
-            if (kv.Value == activePanel)
-            {
-                _activePanels.Remove(kv.Key);
-                PanelDeactivated?.Invoke(this, new DockPanelUpdateEventArgs(kv.Key));
-                break;
-            }
+            PanelDeactivated?.Invoke(this, new DockPanelUpdateEventArgs(panel.DockName));
         }
     }
 
     public DockPanel? GetActivePanel(string dockName)
     {
-        if (!_dockPanels.ContainsKey(dockName))
-            _dockPanels[dockName] = [];
-        
-        return _activePanels.GetValueOrDefault(dockName);
+        if (_activePanels.TryGetValue(dockName, out var panel))
+            return panel;
+
+        var mode = GetDockMode(dockName);
+        if (mode == DockMode.Pinned)
+            return _dockPanels[dockName].FirstOrDefault();
+
+        return null;
+    }
+
+    public DockMode GetDockMode(string dockName)
+    {
+        _dockModes.TryAdd(dockName, DockMode.Pinned);
+
+        return _dockModes[dockName];
     }
 
     public string[] GetDockNames() => _dockPanels.Keys.OrderBy(x => x).ToArray();
-    
+
     public List<DockPanel> GetRegisteredPanels(string dockName)
     {
         if (!_dockPanels.ContainsKey(dockName))
             _dockPanels[dockName] = [];
-        
+
         if (_dockPanels.TryGetValue(dockName, out var panels))
             return panels;
 
@@ -70,26 +79,37 @@ internal class DockService : IDockService
             panels.Add(dockPanel);
         else
             _dockPanels[dockName] = [dockPanel];
-        
+
         PanelRegistered?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
+    }
+
+    public void SetDockMode(string dockName, DockMode mode)
+    {
+        var current = _dockModes.GetValueOrDefault(dockName);
+        _dockModes[dockName] = mode;
+        
+        if (current != mode)
+            PanelDockModeChanged?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
     }
 
     public void UnregisterPanel(DockPanel dockPanel)
     {
         foreach (var panels in _dockPanels.Values)
             panels.Remove(dockPanel);
-        
+
+        _activePanels.Remove(dockPanel.DockName);
+
         PanelUnregistered?.Invoke(this, new DockPanelUpdateEventArgs(dockPanel.DockName));
     }
 
-    private string? FindPanelDockName(DockPanel dockPanel)
-    {
-        foreach (var kv in _dockPanels)
-        {
-            if (kv.Value.Contains(dockPanel))
-                return kv.Key;
-        }
-        
-        return null;
-    }
+    // private string? FindPanelDockName(DockPanel dockPanel)
+    // {
+    //     foreach (var kv in _dockPanels)
+    //     {
+    //         if (kv.Value.Contains(dockPanel))
+    //             return kv.Key;
+    //     }
+    //
+    //     return null;
+    // }
 }

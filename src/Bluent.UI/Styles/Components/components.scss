@@ -1,10 +1,12 @@
 ﻿:root {
-  --zIndexOverlay: 1000;
-  --zIndexDrawer: 1100;
-  --zIndexDialog: 1100;
-  --zIndexPopover: 1100;
-  --zIndexTooltip: 1100;
-  --zIndexToast: 1100;
+  --zIndexFloatingContainer: 1000;
+  --zIndexSplitPanelResizer: 1100;
+  --zIndexOverlay: 1200;
+  --zIndexDrawer: 1300;
+  --zIndexDialog: 1400;
+  --zIndexPopover: 1500;
+  --zIndexTooltip: 1600;
+  --zIndexToast: 1700;
 }
 
 @import "_accordion.scss";

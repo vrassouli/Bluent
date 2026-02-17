@@ -7,6 +7,8 @@ public class SplitPanel : ComponentBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public SplitArea SplitArea { get; set; }
+    [Parameter] public bool Floating { get; set; }
+    [Parameter] public int? Size { get; set; }
     [CascadingParameter] public SplitPanelContainer Container { get; set; } = default!;
 
     private string AreaClass => $"{SplitArea}-panel".ToLower();
@@ -15,19 +17,28 @@ public class SplitPanel : ComponentBase
     {
         get
         {
-            return SplitArea switch
+            if (Floating)
+                return null;
+            
+            if (Size is null)
+                return null;
+
+            var style = SplitArea switch
             {
-                SplitArea.Header => Container.HeaderSize is null ? null : $"height: {Container.HeaderSize}px",
-                SplitArea.Footer => Container.FooterSize is null ? null : $"height: {Container.FooterSize}px",
-                SplitArea.StartSide => Container.StartSideSize is null ? null : $"width: {Container.StartSideSize}px",
-                SplitArea.EndSide => Container.EndSideSize is null ? null : $"width: {Container.EndSideSize}px",
-                
-                SplitArea.Top => Container.TopSize is null ? null : $"height: {Container.TopSize}px",
-                SplitArea.Bottom => Container.BottomSize is null ? null : $"height: {Container.BottomSize}px",
-                SplitArea.Start => Container.StartSize is null ? null : $"width: {Container.StartSize}px",
-                SplitArea.End => Container.EndSize is null ? null : $"width: {Container.EndSize}px",
-                _ => null
+                SplitArea.Header or
+                    SplitArea.Footer or
+                    SplitArea.Top or
+                    SplitArea.Bottom => "height",
+
+
+                SplitArea.Start or
+                    SplitArea.End or
+                    SplitArea.StartSide or
+                    SplitArea.EndSide => "width",
+                _ => throw new ArgumentOutOfRangeException()
             };
+
+            return $"{style}:{Size}px";
         }
     }
 
@@ -35,8 +46,10 @@ public class SplitPanel : ComponentBase
     {
         if (Container == null!)
         {
-            throw new InvalidOperationException($"{nameof(SplitPanel)} must be nested inside a {nameof(SplitPanelContainer)}.");
+            throw new InvalidOperationException(
+                $"{nameof(SplitPanel)} must be nested inside a {nameof(SplitPanelContainer)}.");
         }
+
         base.OnInitialized();
     }
 
@@ -50,10 +63,8 @@ public class SplitPanel : ComponentBase
         builder.OpenComponent<CascadingValue<SplitPanel>>(++seq);
         builder.AddAttribute(++seq, nameof(CascadingValue<>.IsFixed), true);
         builder.AddAttribute(++seq, nameof(CascadingValue<>.Value), this);
-        builder.AddAttribute(++seq, nameof(CascadingValue<>.ChildContent), (RenderFragment)((cascadeBuilder) =>
-        {
-            cascadeBuilder.AddContent(0, ChildContent);
-        }));
+        builder.AddAttribute(++seq, nameof(CascadingValue<>.ChildContent),
+            (RenderFragment)((cascadeBuilder) => { cascadeBuilder.AddContent(0, ChildContent); }));
         builder.CloseComponent();
         builder.CloseElement();
 
@@ -63,4 +74,9 @@ public class SplitPanel : ComponentBase
     public void SetAllowResize(bool allow) => Container.SetAllowResize(SplitArea, allow);
 
     public void ResetSize() => Container.ResetSize(SplitArea);
+
+    internal void SetFloating(bool floating) => Container.SetFloating(SplitArea, floating);
+
+    internal int? GetSize() => Container.GetSize(SplitArea);
+    internal void SetSize(int size) => Container.SetSize(SplitArea, size);
 }

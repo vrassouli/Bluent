@@ -1,10 +1,12 @@
 :root {
-  --zIndexOverlay: 1000;
-  --zIndexDrawer: 1100;
-  --zIndexDialog: 1100;
-  --zIndexPopover: 1100;
-  --zIndexTooltip: 1100;
-  --zIndexToast: 1100;
+  --zIndexFloatingContainer: 1000;
+  --zIndexSplitPanelResizer: 1100;
+  --zIndexOverlay: 1200;
+  --zIndexDrawer: 1300;
+  --zIndexDialog: 1400;
+  --zIndexPopover: 1500;
+  --zIndexTooltip: 1600;
+  --zIndexToast: 1700;
 }
 
 .bui-accordion > .accordion-panel > .header {
@@ -1626,6 +1628,9 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+  animation-duration: var(--durationGentle);
+  animation-timing-function: var(--curveEasyEase);
+  animation-fill-mode: both;
 }
 .bui-dock-container > .header {
   display: flex;
@@ -1639,10 +1644,38 @@
 }
 .bui-dock-container > .header > .title {
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .bui-dock-container > .content {
   flex: 1;
   overflow: auto;
+}
+.bui-dock-container.floating {
+  position: absolute;
+  z-index: var(--zIndexFloatingContainer);
+}
+.bui-dock-container.floating.right-aligned {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  animation-name: fade-in, slide-in-right;
+}
+.bui-dock-container.floating.left-aligned {
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+.bui-dock-container.floating.top-aligned {
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.bui-dock-container.floating.bottom-aligned {
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .bui-dock-bar {
@@ -1771,6 +1804,7 @@
     background-color: inherit;
     color: inherit;
     box-shadow: inherit;
+    animation-name: none !important;
   }
   .drawer-xs > .header {
     display: none;
@@ -1787,6 +1821,7 @@
     background-color: inherit;
     color: inherit;
     box-shadow: inherit;
+    animation-name: none !important;
   }
   .drawer-sm > .header {
     display: none;
@@ -1803,6 +1838,7 @@
     background-color: inherit;
     color: inherit;
     box-shadow: inherit;
+    animation-name: none !important;
   }
   .drawer-md > .header {
     display: none;
@@ -1819,6 +1855,7 @@
     background-color: inherit;
     color: inherit;
     box-shadow: inherit;
+    animation-name: none !important;
   }
   .drawer-lg > .header {
     display: none;
@@ -1835,6 +1872,7 @@
     background-color: inherit;
     color: inherit;
     box-shadow: inherit;
+    animation-name: none !important;
   }
   .drawer-xl > .header {
     display: none;
@@ -1851,6 +1889,7 @@
     background-color: inherit;
     color: inherit;
     box-shadow: inherit;
+    animation-name: none !important;
   }
   .drawer-xxl > .header {
     display: none;
@@ -3164,104 +3203,115 @@
 .bui-split-panel {
   --resizer-size: 0.5rem;
   display: grid;
-  grid-template-columns: auto auto auto auto 1fr auto auto auto auto;
-  grid-template-rows: auto auto auto auto 1fr auto auto auto auto;
+  gap: var(--resizer-size);
+  grid-template-columns: auto auto 1fr auto auto;
+  grid-template-rows: auto auto 1fr auto auto;
 }
 .bui-split-panel > .split-panel {
   user-select: none;
-  overflow: hidden;
+  position: relative;
 }
 .bui-split-panel > .split-panel.header-panel {
   grid-row: 1;
-  grid-column: 1/span 9;
+  grid-column: 1/span 5;
 }
 .bui-split-panel > .split-panel.top-panel {
-  grid-row: 3;
-  grid-column: 5;
+  grid-row: 2;
+  grid-column: 3;
 }
 .bui-split-panel > .split-panel.bottom-panel {
-  grid-row: 7;
-  grid-column: 5;
+  grid-row: 4;
+  grid-column: 3;
 }
 .bui-split-panel > .split-panel.footer-panel {
-  grid-row: 9;
-  grid-column: 1/span 9;
+  grid-row: 5;
+  grid-column: 1/span 5;
 }
 .bui-split-panel > .split-panel.startside-panel {
-  grid-row: 3/span 5;
+  grid-row: 2/span 3;
   grid-column: 1;
 }
 .bui-split-panel > .split-panel.start-panel {
-  grid-row: 3/span 5;
-  grid-column: 3;
+  grid-row: 2/span 3;
+  grid-column: 2;
 }
 .bui-split-panel > .split-panel.center-panel {
-  grid-row: 5;
-  grid-column: 5;
+  grid-row: 3;
+  grid-column: 3;
 }
 .bui-split-panel > .split-panel.end-panel {
-  grid-row: 3/span 5;
-  grid-column: 7;
+  grid-row: 2/span 3;
+  grid-column: 4;
 }
 .bui-split-panel > .split-panel.endside-panel {
-  grid-row: 3/span 5;
-  grid-column: 9;
+  grid-row: 2/span 3;
+  grid-column: 5;
 }
-.bui-split-panel > .panel-resizer {
+.bui-split-panel > .split-panel > .panel-resizer {
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: var(--resizer-size);
   border-radius: 10px !important;
+  position: absolute;
+  z-index: var(--zIndexSplitPanelResizer);
 }
-.bui-split-panel > .panel-resizer:hover {
+.bui-split-panel > .split-panel > .panel-resizer:hover {
   background-color: var(--colorNeutralBackground2);
 }
-.bui-split-panel > .panel-resizer.header-resizer {
-  grid-row: 2;
-  grid-column: 1/span 9;
+.bui-split-panel > .split-panel > .panel-resizer.header-resizer {
+  top: 100%;
+  left: 0;
+  right: 0;
   height: var(--resizer-size);
   cursor: ns-resize;
 }
-.bui-split-panel > .panel-resizer.top-resizer {
-  grid-row: 4;
-  grid-column: 5;
+.bui-split-panel > .split-panel > .panel-resizer.top-resizer {
+  top: 100%;
+  left: 0;
+  right: 0;
   height: var(--resizer-size);
   cursor: ns-resize;
 }
-.bui-split-panel > .panel-resizer.bottom-resizer {
-  grid-row: 6;
-  grid-column: 5;
+.bui-split-panel > .split-panel > .panel-resizer.bottom-resizer {
+  bottom: 100%;
+  left: 0;
+  right: 0;
   height: var(--resizer-size);
   cursor: ns-resize;
 }
-.bui-split-panel > .panel-resizer.footer-resizer {
-  grid-row: 8;
-  grid-column: 1/span 9;
+.bui-split-panel > .split-panel > .panel-resizer.footer-resizer {
+  bottom: 100%;
+  left: 0;
+  right: 0;
   height: var(--resizer-size);
   cursor: ns-resize;
 }
-.bui-split-panel > .panel-resizer.startside-resizer {
-  grid-row: 3/span 5;
-  grid-column: 2;
+.bui-split-panel > .split-panel > .panel-resizer.startside-resizer {
+  left: 100%;
+  top: 0;
+  bottom: 0;
   width: var(--resizer-size);
   cursor: ew-resize;
 }
-.bui-split-panel > .panel-resizer.start-resizer {
-  grid-row: 3/span 5;
-  grid-column: 4;
+.bui-split-panel > .split-panel > .panel-resizer.start-resizer {
+  left: 100%;
+  top: 0;
+  bottom: 0;
   width: var(--resizer-size);
   cursor: ew-resize;
 }
-.bui-split-panel > .panel-resizer.end-resizer {
-  grid-row: 3/span 5;
-  grid-column: 6;
+.bui-split-panel > .split-panel > .panel-resizer.end-resizer {
+  right: 100%;
+  top: 0;
+  bottom: 0;
   width: var(--resizer-size);
   cursor: ew-resize;
 }
-.bui-split-panel > .panel-resizer.endside-resizer {
-  grid-row: 3/span 5;
-  grid-column: 8;
+.bui-split-panel > .split-panel > .panel-resizer.endside-resizer {
+  right: 100%;
+  top: 0;
+  bottom: 0;
   width: var(--resizer-size);
   cursor: ew-resize;
 }
