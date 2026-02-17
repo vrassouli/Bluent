@@ -16,23 +16,19 @@ internal sealed class DockService : IDockService
     public event EventHandler<DockPanelUpdateEventArgs>? PanelStateHasChanged;
     public event EventHandler<DockPanelUpdateEventArgs>? PanelDockModeChanged;
 
-    public void ActivatePanel(DockPanel activePanel)
+    public void ActivatePanel(DockPanel panel)
     {
-        var dockName = activePanel.DockName;
-        _activePanels[dockName] = activePanel;
+        var dockName = panel.DockName;
+        _activePanels[dockName] = panel;
 
         PanelActivated?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
     }
 
-    public void DeactivatePanel(DockPanel activePanel)
+    public void DeactivatePanel(DockPanel panel)
     {
-        _activePanels.TryGetValue(activePanel.DockName, out var panel);
-        _activePanels[activePanel.DockName] = null;
-
-        if (panel != null)
-        {
-            PanelDeactivated?.Invoke(this, new DockPanelUpdateEventArgs(panel.DockName));
-        }
+        _activePanels[panel.DockName] = null;
+        
+        PanelDeactivated?.Invoke(this, new DockPanelUpdateEventArgs(panel.DockName));
     }
 
     public DockPanel? GetActivePanel(string dockName)
@@ -72,13 +68,13 @@ internal sealed class DockService : IDockService
         PanelStateHasChanged?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
     }
 
-    public void RegisterPanel(DockPanel dockPanel, string dockName)
+    public void RegisterPanel(DockPanel panel, string dockName)
     {
-        UnregisterPanel(dockPanel);
+        UnregisterPanel(panel);
         if (_dockPanels.TryGetValue(dockName, out var panels))
-            panels.Add(dockPanel);
+            panels.Add(panel);
         else
-            _dockPanels[dockName] = [dockPanel];
+            _dockPanels[dockName] = [panel];
 
         PanelRegistered?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
     }
@@ -92,24 +88,13 @@ internal sealed class DockService : IDockService
             PanelDockModeChanged?.Invoke(this, new DockPanelUpdateEventArgs(dockName));
     }
 
-    public void UnregisterPanel(DockPanel dockPanel)
+    public void UnregisterPanel(DockPanel panel)
     {
         foreach (var panels in _dockPanels.Values)
-            panels.Remove(dockPanel);
+            panels.Remove(panel);
 
-        _activePanels.Remove(dockPanel.DockName);
+        _activePanels.Remove(panel.DockName);
 
-        PanelUnregistered?.Invoke(this, new DockPanelUpdateEventArgs(dockPanel.DockName));
+        PanelUnregistered?.Invoke(this, new DockPanelUpdateEventArgs(panel.DockName));
     }
-
-    // private string? FindPanelDockName(DockPanel dockPanel)
-    // {
-    //     foreach (var kv in _dockPanels)
-    //     {
-    //         if (kv.Value.Contains(dockPanel))
-    //             return kv.Key;
-    //     }
-    //
-    //     return null;
-    // }
 }

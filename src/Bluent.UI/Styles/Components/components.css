@@ -1628,6 +1628,8 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+}
+.bui-dock-container.open {
   border: 1px solid var(--colorNeutralStroke1);
 }
 .bui-dock-container > .header {
