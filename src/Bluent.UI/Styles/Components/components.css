@@ -1628,9 +1628,7 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  animation-duration: var(--durationGentle);
-  animation-timing-function: var(--curveEasyEase);
-  animation-fill-mode: both;
+  border: 1px solid var(--colorNeutralStroke1);
 }
 .bui-dock-container > .header {
   display: flex;
@@ -1676,6 +1674,9 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+.bui-dock-container:not(.floating) {
+  height: 100%;
 }
 
 .bui-dock-bar {
