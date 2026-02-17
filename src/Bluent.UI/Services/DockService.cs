@@ -3,7 +3,7 @@ using Bluent.UI.Services.Abstractions;
 
 namespace Bluent.UI.Services;
 
-internal class DockService : IDockService
+internal sealed class DockService : IDockService
 {
     private readonly Dictionary<string, List<DockPanel>> _dockPanels = new();
     private readonly Dictionary<string, DockPanel?> _activePanels = new();
@@ -41,8 +41,8 @@ internal class DockService : IDockService
             return panel;
 
         var mode = GetDockMode(dockName);
-        if (mode == DockMode.Pinned)
-            return _dockPanels[dockName].FirstOrDefault();
+        if (mode == DockMode.Pinned && _dockPanels.TryGetValue(dockName, out var dockPanel))
+            return dockPanel.FirstOrDefault();
 
         return null;
     }
