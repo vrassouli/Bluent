@@ -30,10 +30,10 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
         DockService.PanelStateHasChanged += OnPanelStateHasChanged;
 
         DockService.SetDockMode(DockName, DockMode);
-        
+
         if (RendererInfo.IsInteractive)
             await UpdateSplitPanel();
-        
+
         await base.OnInitializedAsync();
     }
 
@@ -59,7 +59,7 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
             if (DockMode is DockMode.Floating)
             {
                 SplitPanel?.SetSize(DefaultSize);
-                
+
                 StateHasChanged();
             }
         }
@@ -100,7 +100,7 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
 
         if (ActivePanel is not null)
             yield return "open";
-        
+
         if (SplitPanel is not null && DockMode == DockMode.Floating)
         {
             yield return "floating";
@@ -173,37 +173,40 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
         }
     }
 
-    private void OnPanelDeactivated(object? sender, DockPanelUpdateEventArgs e)
+    private void OnPanelDeactivated(object? sender, DockAreaUpdateEventArgs e)
         => DockPanelUpdate(e);
 
-    private void OnPanelActivated(object? sender, DockPanelUpdateEventArgs e)
-    {
-        DockPanelUpdate(e);
-    }
-
-    private void OnDockPanelUnregistered(object? sender, DockPanelUpdateEventArgs e)
+    private void OnPanelActivated(object? sender, DockAreaUpdateEventArgs e)
         => DockPanelUpdate(e);
 
-    private void OnDockPanelRegistered(object? sender, DockPanelUpdateEventArgs e)
-        => DockPanelUpdate(e);
-
-    private void OnPanelStateHasChanged(object? sender, DockPanelUpdateEventArgs e)
-        => DockPanelUpdate(e);
-
-    private void DockPanelUpdate(DockPanelUpdateEventArgs e)
+    private void OnDockPanelUnregistered(object? sender, DockAreaUpdateEventArgs e)
     {
         if (e.DockName == DockName)
         {
-            InvokeAsync(UpdateSplitPanel);
+            InvokeAsync(() => UpdateSplitPanel(false));
         }
     }
 
-    private async Task UpdateSplitPanel()
+    private void OnDockPanelRegistered(object? sender, DockAreaUpdateEventArgs e)
+        => DockPanelUpdate(e);
+
+    private void OnPanelStateHasChanged(object? sender, DockAreaUpdateEventArgs e)
+        => DockPanelUpdate(e);
+
+    private void DockPanelUpdate(DockAreaUpdateEventArgs e)
+    {
+        if (e.DockName == DockName)
+        {
+            InvokeAsync(() => UpdateSplitPanel());
+        }
+    }
+
+    private async Task UpdateSplitPanel(bool setSize = true)
     {
         if (SplitPanel is null)
             return;
 
-        if (ActivePanel is not null)
+        if (ActivePanel is not null && setSize)
         {
             SplitPanel.SetAllowResize(true);
 
@@ -231,9 +234,9 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
         else
         {
             SplitPanel.ResetSize();
-            SplitPanel.SetAllowResize(false);
         }
 
+        SplitPanel.SetAllowResize(ActivePanel is not null);
         StateHasChanged();
     }
 

@@ -29,12 +29,12 @@ public class SplitPanel : ComponentBase
                     SplitArea.Footer or
                     SplitArea.Top or
                     SplitArea.Bottom => "height",
-
-
+                
                 SplitArea.Start or
                     SplitArea.End or
                     SplitArea.StartSide or
                     SplitArea.EndSide => "width",
+                
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -64,7 +64,7 @@ public class SplitPanel : ComponentBase
         builder.AddAttribute(++seq, nameof(CascadingValue<>.IsFixed), true);
         builder.AddAttribute(++seq, nameof(CascadingValue<>.Value), this);
         builder.AddAttribute(++seq, nameof(CascadingValue<>.ChildContent),
-            (RenderFragment)((cascadeBuilder) => { cascadeBuilder.AddContent(0, ChildContent); }));
+            (RenderFragment)(cascadeBuilder => { cascadeBuilder.AddContent(0, ChildContent); }));
         builder.CloseComponent();
         builder.CloseElement();
 
@@ -78,5 +78,6 @@ public class SplitPanel : ComponentBase
     internal void SetFloating(bool floating) => Container.SetFloating(SplitArea, floating);
 
     internal int? GetSize() => Container.GetSize(SplitArea);
+    
     internal void SetSize(int size) => Container.SetSize(SplitArea, size);
 }

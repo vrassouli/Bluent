@@ -2,23 +2,35 @@ using Bluent.UI.Components;
 
 namespace Bluent.UI.Services.Abstractions;
 
-public class DockPanelUpdateEventArgs : EventArgs
+public class DockAreaUpdateEventArgs : EventArgs
 {
     public string DockName { get; }
 
-    public DockPanelUpdateEventArgs(string dockName)
+    public DockAreaUpdateEventArgs(string dockName)
     {
         DockName = dockName;
     }
 }
+
+public class DockPanelUnregisteredEventArgs : DockAreaUpdateEventArgs
+{
+    public DockPanel Panel { get; }
+
+    public DockPanelUnregisteredEventArgs(string dockName, DockPanel panel)
+        : base(dockName)
+    {
+        Panel = panel;
+    }
+}
+
 public interface IDockService
 {
-    event EventHandler<DockPanelUpdateEventArgs>? PanelActivated;
-    event EventHandler<DockPanelUpdateEventArgs>? PanelDeactivated;
-    event EventHandler<DockPanelUpdateEventArgs>? PanelRegistered;
-    event EventHandler<DockPanelUpdateEventArgs>? PanelUnregistered;
-    event EventHandler<DockPanelUpdateEventArgs>? PanelStateHasChanged;
-    event EventHandler<DockPanelUpdateEventArgs>? PanelDockModeChanged;
+    event EventHandler<DockAreaUpdateEventArgs>? PanelActivated;
+    event EventHandler<DockAreaUpdateEventArgs>? PanelDeactivated;
+    event EventHandler<DockAreaUpdateEventArgs>? PanelRegistered;
+    event EventHandler<DockAreaUpdateEventArgs>? PanelUnregistered;
+    event EventHandler<DockAreaUpdateEventArgs>? PanelStateHasChanged;
+    event EventHandler<DockAreaUpdateEventArgs>? PanelDockModeChanged;
 
     void ActivatePanel(DockPanel panel);
     void DeactivatePanel(DockPanel panel);
