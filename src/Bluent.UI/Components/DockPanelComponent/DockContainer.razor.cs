@@ -30,7 +30,9 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
         DockService.PanelStateHasChanged += OnPanelStateHasChanged;
 
         DockService.SetDockMode(DockName, DockMode);
-        await UpdateSplitPanel();
+        
+        if (RendererInfo.IsInteractive)
+            await UpdateSplitPanel();
         
         await base.OnInitializedAsync();
     }
