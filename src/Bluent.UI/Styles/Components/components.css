@@ -3211,7 +3211,6 @@
   grid-template-rows: auto auto 1fr auto auto;
 }
 .bui-split-panel > .split-panel {
-  user-select: none;
   position: relative;
 }
 .bui-split-panel > .split-panel.header-panel {
