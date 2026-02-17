@@ -1,7 +1,7 @@
 @inherits BluentUiComponentBase
 @namespace Bluent.UI.Components
 
-<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@GetComponentStyle()">
     @if (ActivePanel is not null)
     {
         <div class="header">
@@ -19,7 +19,7 @@
                 @ActivePanel.MoreActionsContent
             }
             
-            <Button Tooltip="Move"
+            <Button Tooltip="More"
                     Appearance="ButtonAppearance.Subtle"
                     Icon="icon-ic_fluent_more_vertical_20_regular"
                     ActiveIcon="icon-ic_fluent_more_vertical_20_filled"
@@ -31,6 +31,13 @@
                             <MenuItem Title="@name"
                                       Checked="@(name == DockName)"
                                       OnClick="() => ChangeDock(name)"/>
+                        }
+                        <MenuDivider />
+                        @foreach (var mode in Enum.GetValues<DockMode>())
+                        {
+                            <MenuItem Title="@mode.ToString()"
+                                      Checked="@(mode == DockMode)"
+                                      OnClick="() => ChangeMode(mode)"/>
                         }
                     </MenuList>
                 </Dropdown>

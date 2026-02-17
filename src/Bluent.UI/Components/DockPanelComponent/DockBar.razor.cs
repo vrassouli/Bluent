@@ -20,6 +20,7 @@ public partial class DockBar
         DockService.PanelDeactivated += OnPanelDeactivated;
         DockService.PanelRegistered += OnDockPanelRegistered;
         DockService.PanelUnregistered += OnDockPanelUnregistered;
+        DockService.PanelDockModeChanged += OnPanelDockModeChanged;
 
         base.OnInitialized();
     }
@@ -30,9 +31,11 @@ public partial class DockBar
         DockService.PanelDeactivated -= OnPanelDeactivated;
         DockService.PanelRegistered -= OnDockPanelRegistered;
         DockService.PanelUnregistered -= OnDockPanelUnregistered;
+        DockService.PanelDockModeChanged += OnPanelDockModeChanged;
 
         return base.DisposeAsync();
     }
+
 
     public override IEnumerable<string> GetClasses()
     {
@@ -77,6 +80,14 @@ public partial class DockBar
         }
     }
 
+    private void OnPanelDockModeChanged(object? sender, DockPanelUpdateEventArgs e)
+    {
+        if (e.DockName == DockName)
+        {
+            StateHasChanged();
+        }
+    }
+
     private void TogglePanel(DockPanel panel)
     {
         if (ActivePanel == panel)
@@ -84,6 +95,6 @@ public partial class DockBar
         else
             DockService.ActivatePanel(panel);
     }
-
+    
     private bool IsActive(DockPanel panel) => ActivePanel == panel;
 }

@@ -28,7 +28,8 @@
                              DisplayTitle 
                              Class="mb-3" />
                 </div>
-                <SplitPanelContainer Class="bui-split-panel flex-fill overflow-hidden rounded-5">
+                <SplitPanelContainer Class="bui-split-panel flex-fill overflow-hidden rounded-5"
+                                     EndSideResizeMode="ResizeMode.Fixed">
                     <Top>
                         <DockContainer DockName="Top" Class="bg-3 h-100" />
                     </Top>
@@ -43,8 +44,11 @@
                         </div>
                     </Center>
                     <End>
-                        <DockContainer DockName="Right" Class="bg-3 h-100"/>
+                        <DockContainer DockName="Right" DockMode="DockMode.Floating" Class="bg-3 h-100"/>
                     </End>
+                    <EndSide>
+                        End Side!
+                    </EndSide>
                 </SplitPanelContainer>
                 
             </div>

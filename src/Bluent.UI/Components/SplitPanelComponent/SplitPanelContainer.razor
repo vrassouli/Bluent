@@ -2,41 +2,65 @@
 @inherits BluentUiComponentBase
 @namespace Bluent.UI.Components
 <CascadingValue Value="this" IsFixed>
-    <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+    <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@GetComponentStyle()">
         @if (Header is not null)
         {
-            <SplitPanel SplitArea="SplitArea.Header">@Header</SplitPanel>
-            @if (CanResizeHeader)
-            {
-                <PanelResizer SplitArea="SplitArea.Header"/>
-            }
+            <SplitPanel SplitArea="SplitArea.Header"
+                        Floating="GetFloating(SplitArea.Header)"
+                        Size="GetSize(SplitArea.Header)">
+                @Header
+                @if (CanResizeHeader)
+                {
+                    <PanelResizer SplitArea="SplitArea.Header" 
+                                  Floating="GetFloating(SplitArea.Header)"
+                                  Size="GetSize(SplitArea.Header)"/>
+                }
+            </SplitPanel>
         }
 
         @if (Top is not null)
         {
-            <SplitPanel SplitArea="SplitArea.Top">@Top</SplitPanel>
-            @if (CanResizeTop)
-            {
-                <PanelResizer SplitArea="SplitArea.Top"/>
-            }
+            <SplitPanel SplitArea="SplitArea.Top"
+                        Floating="GetFloating(SplitArea.Top)"
+                        Size="GetSize(SplitArea.Top)">
+                @Top
+                @if (CanResizeTop)
+                {
+                    <PanelResizer SplitArea="SplitArea.Top"
+                                  Floating="GetFloating(SplitArea.Top)"
+                                  Size="GetSize(SplitArea.Top)"/>
+                }
+            </SplitPanel>
         }
 
         @if (Start is not null)
         {
-            <SplitPanel SplitArea="SplitArea.Start">@Start</SplitPanel>
-            @if (CanResizeStart)
-            {
-                <PanelResizer SplitArea="SplitArea.Start"/>
-            }
+            <SplitPanel SplitArea="SplitArea.Start"
+                        Floating="GetFloating(SplitArea.Start)"
+                        Size="GetSize(SplitArea.Start)">
+                @Start
+                @if (CanResizeStart)
+                {
+                    <PanelResizer SplitArea="SplitArea.Start" 
+                                  Floating="GetFloating(SplitArea.Start)"
+                                  Size="GetSize(SplitArea.Start)"/>
+                }
+            </SplitPanel>
         }
 
         @if (StartSide is not null)
         {
-            <SplitPanel SplitArea="SplitArea.StartSide">@StartSide</SplitPanel>
-            @if (CanResizeStartSide)
-            {
-                <PanelResizer SplitArea="SplitArea.StartSide"/>
-            }
+            <SplitPanel SplitArea="SplitArea.StartSide"
+                        Floating="GetFloating(SplitArea.StartSide)"
+                        Size="GetSize(SplitArea.StartSide)">
+                @StartSide
+                @if (CanResizeStartSide)
+                {
+                    <PanelResizer SplitArea="SplitArea.StartSide" 
+                                  Floating="GetFloating(SplitArea.StartSide)"
+                                  Size="GetSize(SplitArea.StartSide)"/>
+                }
+            </SplitPanel>
         }
 
         @if (Center is not null)
@@ -46,38 +70,62 @@
 
         @if (End is not null)
         {
-            <SplitPanel SplitArea="SplitArea.End">@End</SplitPanel>
-            @if (CanResizeEnd)
-            {
-                <PanelResizer SplitArea="SplitArea.End"/>
-            }
+            <SplitPanel SplitArea="SplitArea.End"
+                        Floating="GetFloating(SplitArea.End)"
+                        Size="GetSize(SplitArea.End)">
+                @End
+                @if (CanResizeEnd)
+                {
+                    <PanelResizer SplitArea="SplitArea.End" 
+                                  Floating="GetFloating(SplitArea.End)"
+                                  Size="GetSize(SplitArea.End)"/>
+                }
+            </SplitPanel>
         }
 
         @if (EndSide is not null)
         {
-            <SplitPanel SplitArea="SplitArea.EndSide">@EndSide</SplitPanel>
-            @if (CanResizeEndSide)
-            {
-                <PanelResizer SplitArea="SplitArea.EndSide"/>
-            }
+            <SplitPanel SplitArea="SplitArea.EndSide"
+                        Floating="GetFloating(SplitArea.EndSide)"
+                        Size="GetSize(SplitArea.EndSide)">
+                @EndSide
+                @if (CanResizeEndSide)
+                {
+                    <PanelResizer SplitArea="SplitArea.EndSide"
+                                  Floating="GetFloating(SplitArea.EndSide)"
+                                  Size="GetSize(SplitArea.EndSide)"/>
+                }
+            </SplitPanel>
         }
 
         @if (Bottom is not null)
         {
-            <SplitPanel SplitArea="SplitArea.Bottom">@Bottom</SplitPanel>
-            @if (CanResizeBottom)
-            {
-                <PanelResizer SplitArea="SplitArea.Bottom"/>
-            }
+            <SplitPanel SplitArea="SplitArea.Bottom"
+                        Floating="GetFloating(SplitArea.Bottom)"
+                        Size="GetSize(SplitArea.Bottom)">
+                @Bottom
+                @if (CanResizeBottom)
+                {
+                    <PanelResizer SplitArea="SplitArea.Bottom" 
+                                  Floating="GetFloating(SplitArea.Bottom)"
+                                  Size="GetSize(SplitArea.Bottom)"/>
+                }
+            </SplitPanel>
         }
 
         @if (Footer is not null)
         {
-            <SplitPanel SplitArea="SplitArea.Footer">@Footer</SplitPanel>
-            @if (CanResizeFooter)
-            {
-                <PanelResizer SplitArea="SplitArea.Footer"/>
-            }
+            <SplitPanel SplitArea="SplitArea.Footer"
+                        Floating="GetFloating(SplitArea.Footer)"
+                        Size="GetSize(SplitArea.Footer)">
+                @Footer
+                @if (CanResizeFooter)
+                {
+                    <PanelResizer SplitArea="SplitArea.Footer"
+                                  Floating="GetFloating(SplitArea.Footer)"
+                                  Size="GetSize(SplitArea.Footer)"/>
+                }
+            </SplitPanel>
         }
     </div>
 </CascadingValue>

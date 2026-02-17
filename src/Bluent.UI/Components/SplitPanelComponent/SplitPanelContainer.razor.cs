@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Bluent.UI.Components.SplitPanelComponent.Internal;
 using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Services.Abstractions;
@@ -16,15 +15,10 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
     private long? _resizePointerId;
     private double _resizeDeltaX;
     private double _resizeDeltaY;
-    private DomRect? _resizeTargetSize;
-    private bool? _allowHeaderResize;
-    private bool? _allowFooterResize;
-    private bool? _allowStartSideResize;
-    private bool? _allowEndSideResize;
-    private bool? _allowTopResize;
-    private bool? _allowBottomResize;
-    private bool? _allowStartResize;
-    private bool? _allowEndResize;
+    private int? _resizeTargetSize;
+    private readonly Dictionary<SplitArea, bool?> _allowResizes = new();
+    private readonly Dictionary<SplitArea, bool?> _floatings = new();
+    private readonly Dictionary<SplitArea, int?> _sizes = new();
 
     [Parameter] public RenderFragment? Header { get; set; }
     [Parameter] public RenderFragment? Footer { get; set; }
@@ -43,33 +37,50 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
     [Parameter] public ResizeMode BottomResizeMode { get; set; } = ResizeMode.Auto;
     [Parameter] public ResizeMode StartResizeMode { get; set; } = ResizeMode.Auto;
     [Parameter] public ResizeMode EndResizeMode { get; set; } = ResizeMode.Auto;
+    // [Parameter] public int? HeaderMinSize { get; set; } = 100;
+    // [Parameter] public int? TopMinSize { get; set; } = 100;
+    // [Parameter] public int? BottomMinSize { get; set; } = 100;
+    // [Parameter] public int? FooterMinSize { get; set; } = 100;
+    // [Parameter] public int? StartMinSize { get; set; } = 100;
+    // [Parameter] public int? StartSideMinSize { get; set; } = 100;
+    // [Parameter] public int? EndMinSize { get; set; } = 100;
+    // [Parameter] public int? EndSideMinSize { get; set; } = 100;
+    [Parameter] public int? HeaderMaxSize { get; set; }
+    [Parameter] public int? TopMaxSize { get; set; }
+    [Parameter] public int? BottomMaxSize { get; set; }
+    [Parameter] public int? FooterMaxSize { get; set; }
+    [Parameter] public int? StartMaxSize { get; set; }
+    [Parameter] public int? StartSideMaxSize { get; set; }
+    [Parameter] public int? EndMaxSize { get; set; }
+    [Parameter] public int? EndSideMaxSize { get; set; }
+    
     [Inject] private IDomHelper DomHelper { get; set; } = default!;
 
-    internal int? HeaderSize { get; private set; }
-    internal int? FooterSize { get; private set; }
-    internal int? StartSideSize { get; private set; }
-    internal int? EndSideSize { get; private set; }
-    internal int? TopSize { get; private set; }
-    internal int? BottomSize { get; private set; }
-    internal int? StartSize { get; private set; }
-    internal int? EndSize { get; private set; }
-
     private bool CanResizeHeader => HeaderResizeMode == ResizeMode.Resizable ||
-                                 (HeaderResizeMode == ResizeMode.Auto && _allowHeaderResize != false);
+                                    (HeaderResizeMode == ResizeMode.Auto && GetAllowResize(SplitArea.Footer) != false);
+
     private bool CanResizeFooter => FooterResizeMode == ResizeMode.Resizable ||
-                                 (FooterResizeMode == ResizeMode.Auto && _allowFooterResize != false);
+                                    (FooterResizeMode == ResizeMode.Auto && GetAllowResize(SplitArea.Footer) != false);
+
     private bool CanResizeStartSide => StartSideResizeMode == ResizeMode.Resizable ||
-                                 (StartSideResizeMode == ResizeMode.Auto && _allowStartSideResize != false);
+                                       (StartSideResizeMode == ResizeMode.Auto &&
+                                        GetAllowResize(SplitArea.EndSide) != false);
+
     private bool CanResizeEndSide => EndSideResizeMode == ResizeMode.Resizable ||
-                                 (EndSideResizeMode == ResizeMode.Auto && _allowEndSideResize != false);
+                                     (EndSideResizeMode == ResizeMode.Auto &&
+                                      GetAllowResize(SplitArea.EndSide) != false);
+
     private bool CanResizeTop => TopResizeMode == ResizeMode.Resizable ||
-                                 (TopResizeMode == ResizeMode.Auto && _allowTopResize != false);
+                                 (TopResizeMode == ResizeMode.Auto && GetAllowResize(SplitArea.Top) != false);
+
     private bool CanResizeBottom => BottomResizeMode == ResizeMode.Resizable ||
-                                    (BottomResizeMode == ResizeMode.Auto && _allowBottomResize != false);
+                                    (BottomResizeMode == ResizeMode.Auto && GetAllowResize(SplitArea.Bottom) != false);
+
     private bool CanResizeStart => StartResizeMode == ResizeMode.Resizable ||
-                                   (StartResizeMode == ResizeMode.Auto && _allowStartResize != false);
+                                   (StartResizeMode == ResizeMode.Auto && GetAllowResize(SplitArea.Start) != false);
+
     private bool CanResizeEnd => EndResizeMode == ResizeMode.Resizable ||
-                                 (EndResizeMode == ResizeMode.Auto && _allowEndResize != false);
+                                 (EndResizeMode == ResizeMode.Auto && GetAllowResize(SplitArea.End) != false);
 
     public override IEnumerable<string> GetClasses()
     {
@@ -94,8 +105,15 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
     {
         if (RendererInfo.IsInteractive)
         {
-            await DomHelper.UnregisterPointerUpHandler(this);
-            await DomHelper.UnregisterPointerMoveHandler(this);
+            try
+            {
+                await DomHelper.UnregisterPointerUpHandler(this);
+                await DomHelper.UnregisterPointerMoveHandler(this);
+            }
+            catch (JSDisconnectedException e)
+            {
+                // swallow
+            }
         }
 
         await base.DisposeAsync();
@@ -120,44 +138,9 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
         _resizeDeltaX = args.ClientX - _resizeStartX;
         _resizeDeltaY = args.ClientY - _resizeStartY;
 
-        if (_resizeTargetSize == null)
-            return Task.CompletedTask;
+        if (ResizeArea())
+            StateHasChanged();
 
-        if (_resizeArea == SplitArea.Header)
-        {
-            HeaderSize = (int)(_resizeTargetSize.Height + _resizeDeltaY);
-        }
-        else if (_resizeArea == SplitArea.Top)
-        {
-            TopSize = (int)(_resizeTargetSize.Height + _resizeDeltaY);
-        }
-        else if (_resizeArea == SplitArea.Bottom)
-        {
-            BottomSize = (int)(_resizeTargetSize.Height - _resizeDeltaY);
-        }
-        else if (_resizeArea == SplitArea.Footer)
-        {
-            FooterSize = (int)(_resizeTargetSize.Height - _resizeDeltaY);
-        }
-        
-        else if (_resizeArea == SplitArea.StartSide)
-        {
-            StartSideSize = (int)(_resizeTargetSize.Width + _resizeDeltaX);
-        }
-        else if (_resizeArea == SplitArea.Start)
-        {
-            StartSize = (int)(_resizeTargetSize.Width + _resizeDeltaX);
-        }
-        else if (_resizeArea == SplitArea.End)
-        {
-            EndSize = (int)(_resizeTargetSize.Width - _resizeDeltaX);
-        }
-        else if (_resizeArea == SplitArea.EndSide)
-        {
-            EndSideSize = (int)(_resizeTargetSize.Width - _resizeDeltaX);
-        }
-
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -168,66 +151,120 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
         _resizeStartX = startEventArgs.ClientX;
         _resizeStartY = startEventArgs.ClientY;
 
-        _resizeTargetSize = await DomHelper.GetBoundingClientRectAsync($"#{Id}>.{area.ToString().ToLower()}-panel");
+        _resizeTargetSize = GetSize(area);
+        if (_resizeTargetSize is null)
+        {
+            var rect = await DomHelper.GetBoundingClientRectAsync($"#{Id}>.{area.ToString().ToLower()}-panel");
+
+            if (rect != null)
+            {
+                _resizeTargetSize = area switch
+                {
+                    SplitArea.Header or SplitArea.Top or SplitArea.Bottom or SplitArea.Footer
+                        => (int)rect.Height,
+                    SplitArea.StartSide or SplitArea.Start or SplitArea.EndSide or SplitArea.End
+                        => (int)rect.Width,
+                    _ => null
+                };
+            }
+        }
     }
 
-    public void SetAllowResize(SplitArea area, bool allow)
+    internal bool ResizeArea()
     {
-        if (area == SplitArea.Top)
-            _allowTopResize = allow;
-        else if (area == SplitArea.Bottom)
-            _allowBottomResize = allow;
-        else if (area == SplitArea.Start)
-            _allowStartResize = allow;
-        else if (area == SplitArea.End)
-            _allowEndResize = allow;
+        if (_resizeTargetSize == null)
+            return false;
 
+        var size = _resizeArea switch
+        {
+            SplitArea.Header or SplitArea.Top => _resizeTargetSize + _resizeDeltaY,
+            SplitArea.Bottom or SplitArea.Footer => _resizeTargetSize - _resizeDeltaY,
+            SplitArea.StartSide or SplitArea.Start => _resizeTargetSize + _resizeDeltaX,
+            SplitArea.EndSide or SplitArea.End => _resizeTargetSize - _resizeDeltaX,
+            _ => null
+        };
+
+        var min = 0;//GetAreaMin(_resizeArea) ?? size;
+        var max = GetAreaMax(_resizeArea) ?? size;
+        
+        if (size < min || size > max)
+            return false;
+        
+        _sizes[_resizeArea] = (int?)size;
+        
+        return true;
+    }
+
+    internal int? GetSize(SplitArea area)
+    {
+        var size = _sizes.GetValueOrDefault(area);
+        
+        // if (size is null)
+        //     return GetAreaMin(area);
+        
+        return size;
+    }
+
+    public void SetSize(SplitArea area, int size)
+    {
+        _sizes[area] = size;
+        StateHasChanged();
+    }
+    
+    internal void SetAllowResize(SplitArea area, bool allow)
+    {
+        _allowResizes[area] = allow;
         StateHasChanged();
     }
 
-    public void ResetSize(SplitArea area)
+    internal void ResetSize(SplitArea area)
     {
-        if (area == SplitArea.Header)
-        {
-            HeaderSize = null;
-            _allowHeaderResize = null;
-        }
-        else if (area == SplitArea.Footer)
-        {
-            FooterSize = null;
-            _allowFooterResize = null;
-        }
-        else if (area == SplitArea.StartSide)
-        {
-            StartSideSize = null;
-            _allowStartSideResize = null;
-        }
-        else if (area == SplitArea.EndSide)
-        {
-            EndSideSize = null;
-            _allowEndSideResize = null;
-        }
-        else if (area == SplitArea.Top)
-        {
-            TopSize = null;
-            _allowTopResize = null;
-        }
-        else if (area == SplitArea.Bottom)
-        {
-            BottomSize = null;
-            _allowBottomResize = null;
-        }
-        else if (area == SplitArea.Start)
-        {
-            StartSize = null;
-            _allowStartResize = null;
-        }
-        else if (area == SplitArea.End)
-        {
-            EndSize = null;
-            _allowEndResize = null;
-        }
-
+        _sizes[area] = null;
         StateHasChanged();
     }
+
+    internal bool? GetAllowResize(SplitArea area) => _allowResizes.GetValueOrDefault(area);
+
+    internal void SetFloating(SplitArea area, bool floating)
+    {
+        _floatings[area] = floating;
+        StateHasChanged();
+    }
+
+    internal bool GetFloating(SplitArea area) => _floatings.GetValueOrDefault(area) ?? false;
+
+    // internal int? GetAreaMin(SplitArea area)
+    // {
+    //     return area switch
+    //     {
+    //         SplitArea.Top => TopMinSize,
+    //         SplitArea.Header => HeaderMinSize,
+    //         SplitArea.Bottom => BottomMinSize,
+    //         SplitArea.Footer => FooterMinSize,
+    //         SplitArea.Start => StartMinSize,
+    //         SplitArea.End => EndMinSize,
+    //         SplitArea.StartSide => StartSideMinSize,
+    //         SplitArea.EndSide => EndSideMinSize,
+    //         
+    //         _ => null
+    //     };
+    // }
+
+    internal int? GetAreaMax(SplitArea area)
+    {
+        return area switch
+        {
+            SplitArea.Top => TopMaxSize,
+            SplitArea.Header => HeaderMaxSize,
+            SplitArea.Bottom => BottomMaxSize,
+            SplitArea.Footer => FooterMaxSize,
+            SplitArea.Start => StartMaxSize,
+            SplitArea.End => EndMaxSize,
+            SplitArea.StartSide => StartSideMaxSize,
+            SplitArea.EndSide => EndSideMaxSize,
+            
+            _ => null
+        };
+    }
+
 }

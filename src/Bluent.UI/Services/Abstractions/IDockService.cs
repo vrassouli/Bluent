@@ -18,6 +18,7 @@ public interface IDockService
     event EventHandler<DockPanelUpdateEventArgs>? PanelRegistered;
     event EventHandler<DockPanelUpdateEventArgs>? PanelUnregistered;
     event EventHandler<DockPanelUpdateEventArgs>? PanelStateHasChanged;
+    event EventHandler<DockPanelUpdateEventArgs>? PanelDockModeChanged;
 
     void ActivatePanel(DockPanel activePanel);
     void DeactivatePanel(DockPanel activePanel);
@@ -26,5 +27,6 @@ public interface IDockService
     List<DockPanel> GetRegisteredPanels(string dockName);
     void NotifyStateHasChanged(string dockName);
     void RegisterPanel(DockPanel dockPanel, string dockName);
+    void SetDockMode(string dockName, DockMode mode);
     void UnregisterPanel(DockPanel dockPanel);
 }
