@@ -58,7 +58,7 @@ public class SplitPanel : ComponentBase
         var seq = -1;
 
         builder.OpenElement(++seq, "div");
-        builder.AddAttribute(++seq, "class", $"split-panel {AreaClass}");
+        builder.AddAttribute(++seq, "class", $"split-panel {AreaClass} {(Container.GetCanResize(SplitArea) ? "resizable" : "")}");
         builder.AddAttribute(++seq, "style", $"{SizeStyle}");
         builder.OpenComponent<CascadingValue<SplitPanel>>(++seq);
         builder.AddAttribute(++seq, nameof(CascadingValue<>.IsFixed), true);

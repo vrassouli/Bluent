@@ -1,45 +1,63 @@
 .bui-split-panel {
   --resizer-size: 0.5rem;
   display: grid;
-  gap: var(--resizer-size);
+  //gap: var(--resizer-size);
   grid-template-columns: auto auto 1fr auto auto;
   grid-template-rows: auto auto 1fr auto auto;
 
   > .split-panel {
-    //user-select: none;
-    //overflow: hidden;
     position: relative;
-    
+
     &.header-panel {
       grid-row: 1;
       grid-column: 1 / span 5;
+
+      &.resizable {
+        margin-bottom: var(--resizer-size);
+      }
     }
-    
+
     &.top-panel {
       grid-row: 2;
       grid-column: 3;
+      &.resizable {
+        margin-bottom: var(--resizer-size);
+      }
     }
 
     &.bottom-panel {
       grid-row: 4;
       grid-column: 3;
+      &.resizable {
+        margin-top: var(--resizer-size);
+      }
     }
 
     &.footer-panel {
       grid-row: 5;
       grid-column: 1 / span 5;
+      &.resizable {
+        margin-top: var(--resizer-size);
+      }
     }
 
     &.startside-panel {
       grid-row: 2 / span 3;
       grid-column: 1;
+
+      &.resizable {
+        margin-inline-end: var(--resizer-size);
+      }
     }
 
     &.start-panel {
       grid-row: 2 / span 3;
       grid-column: 2;
+      &.resizable {
+        margin-inline-end: var(--resizer-size);
+      }
     }
-    
+
     &.center-panel {
       grid-row: 3;
       grid-column: 3;
@@ -48,11 +66,19 @@
     &.end-panel {
       grid-row: 2 / span 3;
       grid-column: 4;
+
+      &.resizable {
+        margin-inline-start: var(--resizer-size);
+      }
     }
 
     &.endside-panel {
       grid-row: 2 / span 3;
       grid-column: 5;
+
+      &.resizable {
+        margin-inline-start: var(--resizer-size);
+      }
     }
 
     > .panel-resizer {
