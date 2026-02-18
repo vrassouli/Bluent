@@ -85,7 +85,7 @@ public abstract class RequestComponentBase : ComponentBase, IDisposable
     /// Marks the component as busy. Optionally triggers StateHasChanged.
     /// </summary>
     /// <param name="stateChanged">If true, triggers UI update.</param>
-    protected void SetBusy(bool stateChanged = false)
+    protected virtual void SetBusy(bool stateChanged = false)
     {
         Interlocked.Increment(ref _busyCount);
         if (stateChanged)
@@ -96,7 +96,7 @@ public abstract class RequestComponentBase : ComponentBase, IDisposable
     /// Marks the component as ideal (not busy). Optionally triggers StateHasChanged.
     /// </summary>
     /// <param name="stateChanged">If true, triggers UI update.</param>
-    protected void SetIdeal(bool stateChanged = false)
+    protected virtual void SetIdeal(bool stateChanged = false)
     {
         var v = Interlocked.Decrement(ref _busyCount);
         if (v < 0)
