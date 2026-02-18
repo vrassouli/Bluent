@@ -233,23 +233,6 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
 
     internal bool GetFloating(SplitArea area) => _floatings.GetValueOrDefault(area) ?? false;
 
-    // internal int? GetAreaMin(SplitArea area)
-    // {
-    //     return area switch
-    //     {
-    //         SplitArea.Top => TopMinSize,
-    //         SplitArea.Header => HeaderMinSize,
-    //         SplitArea.Bottom => BottomMinSize,
-    //         SplitArea.Footer => FooterMinSize,
-    //         SplitArea.Start => StartMinSize,
-    //         SplitArea.End => EndMinSize,
-    //         SplitArea.StartSide => StartSideMinSize,
-    //         SplitArea.EndSide => EndSideMinSize,
-    //         
-    //         _ => null
-    //     };
-    // }
-
     internal int? GetAreaMax(SplitArea area)
     {
         return area switch
@@ -267,4 +250,25 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
         };
     }
 
+    internal bool GetCanResize(SplitArea area)
+    {
+        return area switch
+        {
+            SplitArea.Header => CanResizeHeader,
+            SplitArea.Top => CanResizeTop,
+            
+            SplitArea.Bottom => CanResizeBottom,
+            SplitArea.Footer => CanResizeFooter,
+            
+            SplitArea.Start => CanResizeStart,
+            SplitArea.StartSide => CanResizeStartSide,
+
+            SplitArea.End => CanResizeEnd,
+            SplitArea.EndSide => CanResizeEndSide,
+            
+            SplitArea.Center => false,
+            
+            _ => throw new ArgumentOutOfRangeException($"Area {area} is not supported")
+        };
+    }
 }
