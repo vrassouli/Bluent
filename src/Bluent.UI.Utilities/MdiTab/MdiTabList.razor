@@ -3,7 +3,8 @@
 <TabList SelectedIndex="_selectedIndex"
          SelectedIndexChanged="OnSelectedIndexChanged"
          OnTabAdded="OnTabAdded"
-         Class="@Class">
+         Class="@Class"
+         EmptyContent="EmptyContent">
     @if (_openDocuments.Any())
     {
         <CascadingValue Value="this">
@@ -16,9 +17,5 @@
                         @key="item"/>
             }
         </CascadingValue>
-    }
-    else
-    {
-        @EmptyContent
     }
 </TabList>

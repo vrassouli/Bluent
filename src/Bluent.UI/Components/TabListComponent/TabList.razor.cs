@@ -15,6 +15,7 @@ public partial class TabList
     [Parameter] public int SelectedIndex { get; set; } = -1;
     [Parameter] public EventCallback<int> SelectedIndexChanged { get; set; }
     [Parameter] public EventCallback<int> OnTabAdded { get; set; }
+    [Parameter] public RenderFragment? EmptyContent { get; set; }
 
     private TabListTabItem? SelectedTab
     {
