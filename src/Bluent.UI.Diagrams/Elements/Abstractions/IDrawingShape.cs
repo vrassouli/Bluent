@@ -15,4 +15,5 @@ public interface IDrawingShape : INotifyPropertyChanged
     string? SelectionStrokeDashArray { get; set; }
     RenderFragment? SelectionOptions { get; set; }
     RenderFragment Render();
+    void RequestRender();
 }

@@ -186,7 +186,12 @@ public abstract class DiagramConnectorBase : IDiagramConnector, IHasUpdatablePoi
         _sourceElement = source;
         _start = start;
     }
-
+    public void RequestRender()
+    {
+        // this fires an event, which is captured by ElementHost, and results in Component's state to change!
+        NotifyPropertyChanged();
+    }
+    
     public RenderFragment Render()
     {
         return builder =>

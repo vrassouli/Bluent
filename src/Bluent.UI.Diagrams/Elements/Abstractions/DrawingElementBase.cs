@@ -60,7 +60,12 @@ public abstract class DrawingElementBase : IDrawingElement
     }
 
     public abstract RenderFragment Render();
-
+    public void RequestRender()
+    {
+        // this fires an event, which is captured by ElementHost, and results in Component's state to change!
+        NotifyPropertyChanged();
+    }
+    
     //public virtual RenderFragment? RenderSelectionUptions()
     //{
     //    return builder =>
