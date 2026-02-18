@@ -245,6 +245,11 @@ public abstract class DiagramNodeBase : IDiagramNode, IHasUpdatablePoints
     #endregion
 
     public abstract RenderFragment Render();
+    public void RequestRender()
+    {
+        // this fires an event, which is captured by ElementHost, and results in Component's state to change!
+        NotifyPropertyChanged();
+    }
 
     public bool HitTest(DiagramPoint point)
     {
