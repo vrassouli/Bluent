@@ -23,6 +23,8 @@ public class CommandManager
     }
 
     public event EventHandler? CommandExecuted;
+    public event EventHandler? UndoExecuted;
+    public event EventHandler? RedoExecuted;
     public event EventHandler? SavePointChanged;
 
     public void Do(ICommand command)
@@ -43,6 +45,7 @@ public class CommandManager
         _redoCommands.Push(cmd);
   
         CommandExecuted?.Invoke(this, EventArgs.Empty);
+        UndoExecuted?.Invoke(this, EventArgs.Empty);
     }
 
     public void Redo()
@@ -53,6 +56,7 @@ public class CommandManager
         _doneCommands.Push(cmd);
 
         CommandExecuted?.Invoke(this, EventArgs.Empty);
+        RedoExecuted?.Invoke(this, EventArgs.Empty);
     }
 
     public void SetSavePoint()
