@@ -4,14 +4,21 @@
          SelectedIndexChanged="OnSelectedIndexChanged"
          OnTabAdded="OnTabAdded"
          Class="@Class">
-    <CascadingValue Value="this">
-        @foreach (var item in _openDocuments)
-        {
-            <MdiTab ComponentType="item.ComponentType"
-                    TabId="@item.Id"
-                    CommandManager="item.CommandManager"
-                    Parameters="item.Parameters"
-                    @key="item"/>
-        }
-    </CascadingValue>
+    @if (_openDocuments.Any())
+    {
+        <CascadingValue Value="this">
+            @foreach (var item in _openDocuments)
+            {
+                <MdiTab ComponentType="item.ComponentType"
+                        TabId="@item.Id"
+                        CommandManager="item.CommandManager"
+                        Parameters="item.Parameters"
+                        @key="item"/>
+            }
+        </CascadingValue>
+    }
+    else
+    {
+        @EmptyContent
+    }
 </TabList>

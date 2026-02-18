@@ -14,6 +14,7 @@ public partial class MdiTabList : IAsyncDisposable
 
     [Parameter] public EventCallback<IMdiTab?> TabChanged { get; set; }
     [Parameter] public string? Class { get; set; } = "h-100 overflow-auto";
+    [Parameter] public RenderFragment? EmptyContent{ get; set; }
     [Inject] private IMdiService MdiService { get; set; } = default!;
 
     protected override void OnInitialized()
