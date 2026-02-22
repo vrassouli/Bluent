@@ -8,7 +8,7 @@ namespace Bluent.UI.Utilities;
 /// <summary>
 /// Base class for Blazor components providing DI, busy state, cancellation, and async request handling utilities.
 /// </summary>
-public abstract class RequestComponentBase : ComponentBase, IDisposable
+public abstract class RequestComponentBase : ComponentBase, IAsyncDisposable
 {
     /// <summary>
     /// Logger for error reporting and diagnostics.
@@ -472,10 +472,11 @@ public abstract class RequestComponentBase : ComponentBase, IDisposable
         ExceptionDispatchInfo.Capture(ex).Throw();
 #endif
     }
+
     /// <summary>
     /// Disposes the component, cancels tokens and disposes scope.
     /// </summary>
-    public virtual void Dispose()
+    public virtual ValueTask DisposeAsync()
     {
         CancelToken();
         if (_currentScope is not null)
@@ -483,5 +484,7 @@ public abstract class RequestComponentBase : ComponentBase, IDisposable
             _currentScope.Dispose();
             _currentScope = null;
         }
+        
+        return ValueTask.CompletedTask;
     }
 }
