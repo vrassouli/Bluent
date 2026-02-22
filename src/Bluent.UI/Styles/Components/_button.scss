@@ -210,6 +210,31 @@
     }
   }
 
+  &.danger {
+    background-color: var(--colorPaletteRedBackground2);
+    color: var(--colorNeutralForegroundOnBrand);
+    border-color: transparent;
+
+    &.toggled {
+      background-color: var(--colorPaletteRedBackground1);
+      color: var(--colorNeutralForegroundOnBrand);
+      border-color: transparent;
+    }
+
+    &:hover {
+      background-color: var(--colorPaletteRedBackground3);
+
+      &:active {
+        background-color: var(--colorPaletteRedBackground1);
+        color: var(--colorNeutralForegroundOnBrand);
+      }
+    }
+
+    &:focus {
+      box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
+    }
+  }
+
   &.outline {
     background-color: var(--colorTransparentBackground);
 
