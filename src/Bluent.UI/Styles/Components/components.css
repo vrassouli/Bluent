@@ -744,6 +744,26 @@
 .bui-button.primary:focus {
   box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
 }
+.bui-button.danger {
+  background-color: var(--colorPaletteRedBackground2);
+  color: var(--colorNeutralForegroundOnBrand);
+  border-color: transparent;
+}
+.bui-button.danger.toggled {
+  background-color: var(--colorPaletteRedBackground1);
+  color: var(--colorNeutralForegroundOnBrand);
+  border-color: transparent;
+}
+.bui-button.danger:hover {
+  background-color: var(--colorPaletteRedBackground3);
+}
+.bui-button.danger:hover:active {
+  background-color: var(--colorPaletteRedBackground1);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+.bui-button.danger:focus {
+  box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
+}
 .bui-button.outline {
   background-color: var(--colorTransparentBackground);
 }
