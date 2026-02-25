@@ -299,101 +299,7 @@ $important-utilities: map-merge(
                                 values: (break: break-word),
                                 rtl: false
                         ),
-                  // Borders
-                        "border": (
-                                property: border,
-                                values: (
-                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
-                                        0: 0,
-                                )
-                        ),
-                        "border-top": (
-                                property: border-top,
-                                values: (
-                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
-                                        0: 0,
-                                )
-                        ),
-                        "border-end": (
-                                property: border-inline-end,
-                                class: border-end,
-                                values: (
-                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
-                                        0: 0,
-                                )
-                        ),
-                        "border-bottom": (
-                                property: border-bottom,
-                                values: (
-                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
-                                        0: 0,
-                                )
-                        ),
-                        "border-start": (
-                                property: border-inline-start,
-                                class: border-start,
-                                values: (
-                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
-                                        0: 0,
-                                )
-                        ),
-                  /*
-                          "border-color": (
-                              property: border-color,
-                              class: border,
-                              local-vars: (
-                                  "border-opacity": 1
-                              ),
-                              values: $utilities-border-colors
-                          ),
-                          "subtle-border-color": (
-                              property: border-color,
-                              class: border,
-                              values: $utilities-border-subtle
-                          ),
-                  */
-                        "border-width": (
-                                property: border-width,
-                                class: border,
-                                values: $border-widths
-                        ),
-                        "border-opacity": (
-                                css-var: true,
-                                class: border-opacity,
-                                values: (
-                                        10: .1,
-                                        25: .25,
-                                        50: .5,
-                                        75: .75,
-                                        100: 1
-                                )
-                        ),
-                  // Border - Rounded
-                        "rounded": (
-                                property: border-radius,
-                                class: rounded,
-                                values: $border-radius
-                        ),
-                        "rounded-top": (
-                                property: border-top-left-radius border-top-right-radius,
-                                class: rounded-top,
-                                values: $border-radius
-                        ),
-                        "rounded-end": (
-                                property: border-top-right-radius border-bottom-right-radius,
-                                class: rounded-end,
-                                values: $border-radius
-                        ),
-                        "rounded-bottom": (
-                                property: border-bottom-right-radius border-bottom-left-radius,
-                                class: rounded-bottom,
-                                values: $border-radius
-                        ),
-                        "rounded-start": (
-                                property: border-bottom-left-radius border-top-left-radius,
-                                class: rounded-start,
-                                values: $border-radius
-                        ),
+                  
                   // Visibility
                         "visibility": (
                                 property: visibility,
@@ -594,7 +500,87 @@ $non-important-utilities: map-merge(
                         "overflow-y": (
                                 property: overflow-y,
                                 values: auto hidden visible scroll,
-                        )
+                        ),
+                  // Borders
+                        "border": (
+                                property: border,
+                                values: (
+                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                                        0: 0,
+                                )
+                        ),
+                        "border-top": (
+                                property: border-top,
+                                values: (
+                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                                        0: 0,
+                                )
+                        ),
+                        "border-end": (
+                                property: border-inline-end,
+                                class: border-end,
+                                values: (
+                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                                        0: 0,
+                                )
+                        ),
+                        "border-bottom": (
+                                property: border-bottom,
+                                values: (
+                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                                        0: 0,
+                                )
+                        ),
+                        "border-start": (
+                                property: border-inline-start,
+                                class: border-start,
+                                values: (
+                                        null: var(--strokeWidthThin) solid var(--colorNeutralStroke1),
+                                        0: 0,
+                                )
+                        ),
+                        "border-width": (
+                                property: border-width,
+                                class: border,
+                                values: $border-widths
+                        ),
+                        "border-opacity": (
+                                css-var: true,
+                                class: border-opacity,
+                                values: (
+                                        10: .1,
+                                        25: .25,
+                                        50: .5,
+                                        75: .75,
+                                        100: 1
+                                )
+                        ),
+                  // Border - Rounded
+                        "rounded": (
+                                property: border-radius,
+                                class: rounded,
+                                values: $border-radius
+                        ),
+                        "rounded-top": (
+                                property: border-top-left-radius border-top-right-radius,
+                                class: rounded-top,
+                                values: $border-radius
+                        ),
+                        "rounded-end": (
+                                property: border-top-right-radius border-bottom-right-radius,
+                                class: rounded-end,
+                                values: $border-radius
+                        ),
+                        "rounded-bottom": (
+                                property: border-bottom-right-radius border-bottom-left-radius,
+                                class: rounded-bottom,
+                                values: $border-radius
+                        ),
+                        "rounded-start": (
+                                property: border-bottom-left-radius border-top-left-radius,
+                                class: rounded-start,
+                                values: $border-radius
+                        ),
                 ),
                 $non-important-utilities
 );
