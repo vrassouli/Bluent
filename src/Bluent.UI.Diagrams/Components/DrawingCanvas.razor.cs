@@ -38,6 +38,7 @@ public partial class DrawingCanvas
     [Parameter] public bool AllowPan { get; set; }
     [Parameter] public bool AllowScale { get; set; }
     [Parameter] public bool AllowDelete { get; set; }
+    [Parameter] public bool AllowOptions { get; set; }
     [Parameter] public int SnapSize { get; set; }
     [Parameter] public double SelectionPadding { get; set; }
     [Parameter] public EventCallback<IEnumerable<IDrawingShape>> OnSelectionChanged { get; set; }

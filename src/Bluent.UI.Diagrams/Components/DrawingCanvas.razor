@@ -33,14 +33,16 @@
                 }
             </g>
         </svg>
-        <div class="selection-options">
-            @if (SelectedElements.Count() == 1)
-            {
-                var selection = SelectedElements.First();
+        @if (AllowOptions)
+        {
+            <div class="selection-options">
+                @if (SelectedElements.Count() == 1)
+                {
+                    var selection = SelectedElements.First();
 
-                <SelectionOptionsContainer @key="selection" Shape="selection" Pan="_pan + _activePan" Scale="_scale" />
-
-            }
-        </div>
+                    <SelectionOptionsContainer @key="selection" Shape="selection" Pan="_pan + _activePan" Scale="_scale"/>
+                }
+            </div>
+        }
     </div>
 </CascadingValue>

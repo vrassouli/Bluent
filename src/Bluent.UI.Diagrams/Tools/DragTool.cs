@@ -26,9 +26,9 @@ internal class DragTool : SinglePointerToolBase
         if (Canvas.Tool is not null)
             return;
 
-        if (Canvas.SelectedElements.Any())
+        if (Canvas.SelectedElements.Any() && !Canvas.AllowDrag)
             Drag(e);
-        else
+        else if (Canvas.AllowPan)
             Pan(e);
     }
 
