@@ -5,7 +5,6 @@ namespace Bluent.Core;
 
 public abstract class BluentComponentBase : ComponentBase, IBluentComponent
 {
-    private string? _id;
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
     [Parameter] public string? Class { get; set; }
     [Parameter] public string? Style { get; set; }
@@ -19,9 +18,9 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent
             if (!string.IsNullOrEmpty(providedId))
                 return providedId;
 
-            _id ??= Identifier.NewId();
+            field ??= Identifier.NewId();
 
-            return _id;
+            return field;
         }
     }
 
@@ -44,10 +43,12 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent
         return Enumerable.Empty<string>();
     }
 
-    public virtual IEnumerable<(string key, string value)> GetStyles()
+    protected virtual IEnumerable<(string key, string value)> GetStyles()
     {
         return Enumerable.Empty<(string key, string value)>();
     }
+    
+    public void SetStateHasChanged() => StateHasChanged();
 
     private string? GetUserProvidedId()
     {

@@ -123,7 +123,7 @@ public partial class DockContainer : IPointerUpEventHandler, IPointerMoveEventHa
         }
     }
 
-    public override IEnumerable<(string key, string value)> GetStyles()
+    protected override IEnumerable<(string key, string value)> GetStyles()
     {
         foreach (var c in base.GetStyles())
             yield return c;
