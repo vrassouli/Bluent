@@ -84,16 +84,6 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
     {
         return (this as IDiagramContainer).FindElementContainer(element);
     }
-    
-    //internal IEnumerable<IDiagramContainer> GetContainersAt(DiagramPoint point)
-    //{
-    //    var elements = GetElementsAt(point);
-
-    //    foreach (var el in elements.OfType<IDiagramContainer>())
-    //        yield return el;
-
-    //    yield return this;
-    //}
 
     protected override void ActivatePanTool()
     {
@@ -154,7 +144,7 @@ public partial class Diagram : DrawingCanvas, IDiagramElementContainer
 
     protected override void Clear()
     {
-        (this as IDiagramContainer).Clear();
+        (this as IDiagramContainer).ClearContainer();
 
         base.Clear();
     }

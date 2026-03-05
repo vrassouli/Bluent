@@ -189,15 +189,13 @@ public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*
                     if (result is not null)
                         return result;
                 }
-                // if (el.Equals(element) && boundaryElementContainer is IDiagramElement boundaryElement)
-                //     return FindElementContainer(boundaryElement);
             }
         }
 
         return null;
     }
     
-    void Clear()
+    void ClearContainer()
     {
         if (this is IDiagramElementContainer elementContainer)
         {
@@ -205,7 +203,7 @@ public interface IDiagramContainer : IDiagramShape /*, INotifyCollectionChanged*
             foreach (var el in elements)
             {
                 if (el is IDiagramContainer container)
-                    container.Clear();
+                    container.ClearContainer();
 
                 RemoveDiagramElement(el);
             }
