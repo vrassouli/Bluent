@@ -10,7 +10,6 @@ internal class DragTool : SinglePointerToolBase
     private DiagramPoint? _dragStart;
     private Distance2D? _dragDelta;
     private ScreenPoint? _panStart;
-    private Dictionary<long, DiagramPoint> _startPoints = new();
 
     public DragTool()
     {
@@ -26,7 +25,7 @@ internal class DragTool : SinglePointerToolBase
         if (Canvas.Tool is not null)
             return;
 
-        if (Canvas.SelectedElements.Any() && !Canvas.AllowDrag)
+        if (Canvas.AllowDrag && Canvas.SelectedElements.Any())
             Drag(e);
         else if (Canvas.AllowPan)
             Pan(e);
@@ -47,8 +46,6 @@ internal class DragTool : SinglePointerToolBase
                 Canvas.ExecuteCommand(command);
             }
         }
-
-        _startPoints.Clear();
 
         _panStart = null;
         _dragStart = null;
