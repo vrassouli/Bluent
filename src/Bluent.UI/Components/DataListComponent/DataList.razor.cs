@@ -34,7 +34,7 @@ public partial class DataList<TItem>
         if (_selectedItem != SelectedItem)
         {
             SelectedData.Clear();
-            SelectedItem = _selectedItem;
+            _selectedItem = SelectedItem;
             if (SelectedItem != null)
             {
                 SelectedData.Add(SelectedItem);
