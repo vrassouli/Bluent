@@ -18,7 +18,7 @@ public partial class EnumerableEditor : ComponentBase
                                  throw new InvalidOperationException("Value is not an Enumerable");
 
     private Type PropertyType => Property.PropertyType;
-    private IEnumerable<Type> ItemTypes => GetItemTypes();
+    private IEnumerable<Type> ItemTypes => GetItemTypes().OrderBy(x => x.Name);
     private bool IsCollection => PropertyType.IsAssignableTo(typeof(ICollection));
     private bool IsList => PropertyType.IsAssignableTo(typeof(IList));
 
