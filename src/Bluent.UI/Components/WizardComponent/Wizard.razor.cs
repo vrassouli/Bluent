@@ -25,6 +25,7 @@ public partial class Wizard
     [Parameter] public int CurrentStep { get; set; }
     [Parameter] public EventCallback<int> CurrentStepChanged { get; set; }
     [Parameter] public EventCallback OnNext { get; set; }
+    [Parameter] public EventCallback OnDone { get; set; }
     [Parameter] public EventCallback OnPrevious { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
 
@@ -63,17 +64,19 @@ public partial class Wizard
         return CurrentStep == _steps.IndexOf(step);
     }
 
-    private void NextHandler()
+    private async Task NextHandler()
     {
-        if (!IsLastStep || (IsLastStep && !SubmitWhenDone))
-            OnNext.InvokeAsync();
-
+        if (!IsLastStep)
+            await OnNext.InvokeAsync();
+        else if (IsLastStep && !SubmitWhenDone)
+            await OnDone.InvokeAsync();
+        
         SetCurrentStep(Math.Min(_steps.Count - 1, CurrentStep + 1));
     }
 
-    private void PreviousHandler()
+    private async Task PreviousHandler()
     {
-        OnPrevious.InvokeAsync();
+        await OnPrevious.InvokeAsync();
 
         SetCurrentStep(Math.Max(0, CurrentStep - 1));
     }
@@ -84,9 +87,9 @@ public partial class Wizard
             SetCurrentStep(index);
     }
 
-    private void CancelHandler()
+    private async Task CancelHandler()
     {
-        OnCancel.InvokeAsync();
+        await OnCancel.InvokeAsync();
     }
 
     private void SetCurrentStep(int index)
