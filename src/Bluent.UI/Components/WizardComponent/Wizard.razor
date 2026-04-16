@@ -35,7 +35,7 @@
                     Appearance="ButtonAppearance.Primary"
                     OnClick="NextHandler"
                     disabled="@(!CanGoNext)"
-                    type="@((IsLastStep && SubmitWhenDone) ? "submit" : "button")"/>
+                    type="@(IsLastStep && SubmitWhenDone ? "submit" : "button")"/>
             <Button Text="@LabelPrevious" OnClick="PreviousHandler"
                     disabled="@(!CanGoPrev)"/>
             @if (CanCancel)
