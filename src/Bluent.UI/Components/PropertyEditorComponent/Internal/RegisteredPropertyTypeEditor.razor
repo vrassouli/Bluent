@@ -3,16 +3,24 @@
 <div class="editor-row">
     <Bluent.UI.Components.Label Text="@Property.GetDisplayName()" Style="@($"width: {LabelWidth}px;")"  for="@Property.Name" />
 
-    <Button Text="@GetDropdownTitle()" ShowDropdownIndicator Class="flex-fill">
-        <Dropdown>
-            <MenuList>
-                @foreach (var type in GetPossibleTypes())
-                {
-                    <MenuItem Title="@type.GetDisplayName()" OnClick="() => CreateInstance(type)" Checked="GetCurrentType() == type" />
-                }
-            </MenuList>
-        </Dropdown>
-    </Button>
+    <SelectField @bind-Value="SelectedType"
+                 Class="flex-fill">
+        <option value="">Select...</option>
+        @foreach (var type in GetPossibleTypes())
+        {
+            <option value="@type.FullName" selected="@(GetCurrentType() == type)">@type.GetDisplayName()</option>
+        }
+    </SelectField>
+    @* <Button Text="@GetDropdownTitle()" ShowDropdownIndicator Class="flex-fill"> *@
+    @*     <Dropdown> *@
+    @*         <MenuList> *@
+    @*             @foreach (var type in GetPossibleTypes()) *@
+    @*             { *@
+    @*                 <MenuItem Title="@type.GetDisplayName()" OnClick="() => CreateInstance(type)" Checked="GetCurrentType() == type" /> *@
+    @*             } *@
+    @*         </MenuList> *@
+    @*     </Dropdown> *@
+    @* </Button> *@
 </div>
 @if (GetPropertyValue() is not null)
 {

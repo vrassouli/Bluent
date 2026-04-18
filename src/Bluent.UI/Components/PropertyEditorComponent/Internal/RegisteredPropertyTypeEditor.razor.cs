@@ -7,6 +7,11 @@ namespace Bluent.UI.Components.PropertyEditorComponent.Internal;
 
 public partial class RegisteredPropertyTypeEditor
 {
+    private string? SelectedType
+    {
+        get => GetCurrentType()?.FullName;
+        set => SetCurrentType(value);
+    }
     [Parameter] public PropertyInfo Property { get; set; } = null!;
     [Parameter] public object Object { get; set; } = null!;
     [Parameter] public int LabelWidth { get; set; } = 120;
@@ -15,20 +20,35 @@ public partial class RegisteredPropertyTypeEditor
 
     [Inject] private IPropertyEditorTypeRegistry TypeRegistry { get; set; } = default!;
 
-    private object? GetPropertyValue() => Property?.GetValue(Object);
+    private object? GetPropertyValue() => Property.GetValue(Object);
     private IReadOnlyList<Type> GetPossibleTypes()
     {
         return TypeRegistry.GetPossibleTypes(Property.PropertyType);
     }
 
-    private void CreateInstance(Type type)
+    private void CreateInstance(Type? type)
     {
-        var instance = Activator.CreateInstance(type);
+        if (type is null)
+        {
+            Editor.SetPropertyValue(Object, null, Property);
+        }
+        else
+        {
+            var instance = Activator.CreateInstance(type);
 
-        //Property.SetValue(Object, instance);
-        Editor.SetPropertyValue(Object, instance, Property);
+            //Property.SetValue(Object, instance);
+            Editor.SetPropertyValue(Object, instance, Property);
+        }        
     }
 
+    private void SetCurrentType(string? typeName)
+    {
+        if (typeName is null)
+            CreateInstance(null);
+        else
+            CreateInstance(Type.GetType(typeName));
+            
+    }
     private Type? GetCurrentType() => GetPropertyValue()?.GetType();
 
     private string GetDropdownTitle()
