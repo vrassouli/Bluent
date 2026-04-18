@@ -8,7 +8,8 @@
         <option value="">Select...</option>
         @foreach (var type in GetPossibleTypes())
         {
-            <option value="@type.FullName" selected="@(GetCurrentType() == type)">@type.GetDisplayName()</option>
+            <option value="@type.FullName" 
+                    selected="@(GetCurrentType() == type)">@type.GetDisplayName()</option>
         }
     </SelectField>
     @* <Button Text="@GetDropdownTitle()" ShowDropdownIndicator Class="flex-fill"> *@
