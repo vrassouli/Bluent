@@ -7,11 +7,6 @@ namespace Bluent.UI.Components.PropertyEditorComponent.Internal;
 
 public partial class RegisteredPropertyTypeEditor
 {
-    private string? SelectedType
-    {
-        get => GetCurrentType()?.FullName;
-        set => SetCurrentType(value);
-    }
     [Parameter] public PropertyInfo Property { get; set; } = null!;
     [Parameter] public object Object { get; set; } = null!;
     [Parameter] public int LabelWidth { get; set; } = 120;
@@ -19,7 +14,12 @@ public partial class RegisteredPropertyTypeEditor
     [CascadingParameter] public PropertyEditor Editor { get; set; } = default!;
 
     [Inject] private IPropertyEditorTypeRegistry TypeRegistry { get; set; } = default!;
-
+    
+    private string? SelectedType
+    {
+        get => GetCurrentType()?.FullName;
+        set => SetCurrentType(value);
+    }
     private object? GetPropertyValue() => Property.GetValue(Object);
     private IReadOnlyList<Type> GetPossibleTypes()
     {
@@ -43,11 +43,8 @@ public partial class RegisteredPropertyTypeEditor
 
     private void SetCurrentType(string? typeName)
     {
-        if (typeName is null)
-            CreateInstance(null);
-        else
-            CreateInstance(Type.GetType(typeName));
-            
+        var type = GetPossibleTypes().FirstOrDefault(t => t.FullName == typeName);
+        CreateInstance(type);
     }
     private Type? GetCurrentType() => GetPropertyValue()?.GetType();
 
