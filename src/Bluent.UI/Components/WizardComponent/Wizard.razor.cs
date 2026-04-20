@@ -42,10 +42,20 @@ public partial class Wizard
             yield return Orientation.ToString().Kebaberize();
     }
 
-    internal void Add(WizardStep step)
+    internal int Add(WizardStep step, int? index)
     {
-        _steps.Add(step);
+        if (index is null || index < 0 || index > _steps.Count)
+        {
+            _steps.Add(step);
+            index = _steps.IndexOf(step);
+        }
+        else
+        {
+            _steps.Insert(index.Value, step);
+        }
         StateHasChanged();
+        
+        return index.Value;
     }
 
     internal void Remove(WizardStep step)

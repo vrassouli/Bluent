@@ -5,9 +5,11 @@ namespace Bluent.UI.Components;
 public partial class WizardStep
 {
     private string? _title;
-    [Parameter] public string? Title { get; set; } = default!;
-    [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public bool DeferredLoading { get; set; }
+    [Parameter] public int? Index { get; set; }
+    [Parameter] public EventCallback<int> IndexChanged { get; set; }
     [CascadingParameter] public Wizard Wizard { get; set; } = default!;
 
     protected override void OnInitialized()
@@ -16,10 +18,16 @@ public partial class WizardStep
         {
             throw new InvalidOperationException($"'{nameof(WizardStep)}' component should be nested inside of a '{nameof(Components.Wizard)}' component.");
         }
-
-        Wizard.Add(this);
-
         base.OnInitialized();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var index = Wizard.Add(this, Index);
+        if (index != Index)
+            await IndexChanged.InvokeAsync(index);
+        
+        await base.OnInitializedAsync();
     }
 
     protected override void OnParametersSet()
