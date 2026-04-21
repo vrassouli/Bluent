@@ -9,7 +9,7 @@ public partial class WizardStep
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public bool DeferredLoading { get; set; }
     [Parameter] public int? Index { get; set; }
-    [Parameter] public EventCallback<int> IndexChanged { get; set; }
+    [Parameter] public EventCallback<int?> IndexChanged { get; set; }
     [CascadingParameter] public Wizard Wizard { get; set; } = default!;
 
     protected override void OnInitialized()
