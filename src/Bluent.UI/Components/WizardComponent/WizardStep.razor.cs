@@ -23,7 +23,7 @@ public partial class WizardStep
 
     protected override async Task OnInitializedAsync()
     {
-        var index = Wizard.Add(this, Index);
+        var index = await Wizard.Add(this, Index);
         if (index != Index)
             await IndexChanged.InvokeAsync(index);
         
@@ -39,6 +39,8 @@ public partial class WizardStep
         }
         base.OnParametersSet();
     }
+    
+    internal Task UpdateIndex(int index) => IndexChanged.InvokeAsync(index);
 
     public override ValueTask DisposeAsync()
     {

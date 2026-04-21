@@ -42,7 +42,7 @@ public partial class Wizard
             yield return Orientation.ToString().Kebaberize();
     }
 
-    internal int Add(WizardStep step, int? index)
+    internal async Task<int> Add(WizardStep step, int? index)
     {
         if (index is null || index < 0 || index > _steps.Count)
         {
@@ -52,6 +52,11 @@ public partial class Wizard
         else
         {
             _steps.Insert(index.Value, step);
+
+            foreach (var nextStep in _steps.Skip(index.Value + 1))
+            {
+                await nextStep.UpdateIndex(_steps.IndexOf(nextStep));
+            }
         }
         StateHasChanged();
         
