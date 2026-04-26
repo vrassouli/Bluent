@@ -1,9 +1,10 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
-public partial class Card
+public partial class Card : BluentUiComponentBase
 {
     [Parameter] public CardOrientation Orientation { get; set; } = CardOrientation.Vertical;
     [Parameter] public CardSize Size { get; set; } = CardSize.Medium;
@@ -12,9 +13,31 @@ public partial class Card
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public bool Selected { get; set; }
     [Parameter] public EventCallback<bool> SelectedChanged { get; set; }
+    [Parameter] public string? Href { get; set; }
 
-    protected bool IsActive => OnClick.HasDelegate || IsSelectable;
+    private bool IsLink => !string.IsNullOrEmpty(Href);
+    protected bool IsActive => OnClick.HasDelegate || IsSelectable || IsLink;
     protected bool IsSelectable => SelectedChanged.HasDelegate;
+
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenElement(0, GetCardTag());
+        if (IsLink && !IsDisabled)
+            builder.AddAttribute(1, "href", Href);
+
+        builder.AddMultipleAttributes(2, AdditionalAttributes);
+        builder.AddAttribute(3, "id", Id);
+        builder.AddAttribute(4, "class", GetComponentClass());
+        builder.AddAttribute(5, "style", Style);
+        builder.AddAttribute(6, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+        builder.OpenRegion(8);
+        
+        builder.AddContent(9, ChildContent);
+    
+        builder.CloseRegion();
+        builder.CloseElement();
+        base.BuildRenderTree(builder);
+    }
 
     public override IEnumerable<string> GetClasses()
     {
@@ -45,5 +68,13 @@ public partial class Card
             Selected = !Selected;
             InvokeAsync(() => SelectedChanged.InvokeAsync(Selected));
         }
+    }
+
+    private string GetCardTag()
+    {
+        if (IsLink)
+            return "a";
+
+        return "div";
     }
 }
