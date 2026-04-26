@@ -12,6 +12,7 @@
   flex-direction: column;
   background-color: var(--colorNeutralBackground1);
   color: var(--colorNeutralForeground1);
+  text-decoration: none;
 
   &:after {
     border: var(--strokeWidthThin) solid var(--colorTransparentStroke);

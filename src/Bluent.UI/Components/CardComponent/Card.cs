@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Bluent.UI.Components;
 
-public partial class Card : BluentUiComponentBase
+public class Card : BluentUiComponentBase
 {
     [Parameter] public CardOrientation Orientation { get; set; } = CardOrientation.Vertical;
     [Parameter] public CardSize Size { get; set; } = CardSize.Medium;
