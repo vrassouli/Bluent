@@ -132,7 +132,7 @@ public abstract class RequestComponentBase : ComponentBase, IAsyncDisposable
     /// <summary>
     /// Renews the cancellation token, disposing the previous one.
     /// </summary>
-    private CancellationToken RenewCancellationToken()
+    protected CancellationToken RenewCancellationToken()
     {
         var newCts = new CancellationTokenSource();
         var old = Interlocked.Exchange(ref _cts, newCts);
