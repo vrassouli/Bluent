@@ -13,6 +13,8 @@ public partial class AccordionPanel
     [Parameter] public bool Expanded { get; set; }
     [Parameter] public string? ExpandedClasses { get; set; }
     [Parameter] public string? CollapsedClasses { get; set; }
+    [Parameter] public string? ExpandedHeaderClasses { get; set; }
+    [Parameter] public string? CollapsedHeaderClasses { get; set; }
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
     [CascadingParameter] public Accordion Accordion { get; set; } = default!;
 
@@ -44,6 +46,18 @@ public partial class AccordionPanel
             yield return ExpandedClasses;
         else if (!Expanded && !string.IsNullOrEmpty(CollapsedClasses))
             yield return CollapsedClasses;
+    }
+
+    public string GetHeaderClasses()
+    {
+        var list = new List<string> { "header" };
+        
+        if (Expanded && !string.IsNullOrEmpty(ExpandedHeaderClasses))
+            list.Add(ExpandedHeaderClasses);
+        else if (!Expanded && !string.IsNullOrEmpty(CollapsedHeaderClasses))
+            list.Add(CollapsedHeaderClasses);
+        
+        return string.Join(" ", list);
     }
 
     public void Toggle()
