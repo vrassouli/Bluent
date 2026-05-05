@@ -46,40 +46,12 @@ public partial class HierarchyTreeBrowser
 
         foreach (var treeItem in _treeItems)
             await treeItem.RefreshAsync();
+        
+        StateHasChanged();
     }
-
-    // public void CreateNewRootItem()
-    // {
-    //     if (_selectedTreeItem is null && _items is not null)
-    //     {
-    //         _newItem = new HierarchyRootItem("");
-    //         _items.Add(_newItem);
-    //
-    //         StateHasChanged();
-    //     }
-    //     else if (_selectedTreeItem is not null && _selectedTreeItem.Item is HierarchyRootItem)
-    //     {
-    //         _selectedTreeItem.CreateNewRootItem();
-    //     }
-    // }
-    //
-    // public void Rename()
-    // {
-    //     _renameItem = _selectedTreeItem?.Item;
-    //     // if (_selectedTreeItem is not null)
-    //     //     _selectedTreeItem.SetStateHasChanged();
-    // }
 
     public Task OnItemClicked(HierarchyTreeItem treeItem)
     {
-        // if (_newItem == treeItem.Item)
-        //     return Task.CompletedTask;
-        //
-        // if (_renameItem is not null)
-        // {
-        //     _renameItem = null;
-        // }
-
         if (treeItem != _selectedTreeItem)
         {
             _selectedTreeItem?.SetStateHasChanged();
@@ -114,45 +86,4 @@ public partial class HierarchyTreeBrowser
     }
 
     public bool IsSelected(HierarchyTreeItem item) => item == _selectedTreeItem;
-    //
-    // public Task ItemRenamed(HierarchyItem item, string? path, string? oldPath, string name, string oldName)
-    // {
-    //     if (item == _newItem)
-    //     {
-    //         if (string.IsNullOrEmpty(name))
-    //             _items?.Remove(item);
-    //         else
-    //             return NotifyCreateRootItem(path!);
-    //     }
-    //     else if (item == _renameItem)
-    //     {
-    //         HierarchyPathSelection pathSelection;
-    //
-    //         if (_renameItem is HierarchyRootItem)
-    //         {
-    //             pathSelection = new HierarchyPathSelection(oldPath);
-    //         }
-    //         else
-    //         {
-    //             pathSelection = new HierarchyItemSelection(oldPath, oldName);
-    //         }
-    //
-    //         return NotifyRenameItem(pathSelection, name);
-    //     }
-    //
-    //     return Task.CompletedTask;
-    // }
-    //
-    // internal Task NotifyCreateRootItem(string path)
-    // {
-    //     _newItem = null;
-    //     
-    //     return OnCreateRootItem.InvokeAsync(new HierarchyPathSelection(path));
-    // }
-    //
-    // internal Task NotifyRenameItem(HierarchyPathSelection pathSelection, string name)
-    // {
-    //     _renameItem = null;
-    //     return OnRenameItem.InvokeAsync((pathSelection, name));
-    // }
 }
