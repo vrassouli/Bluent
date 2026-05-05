@@ -7,9 +7,9 @@ public partial class HierarchyTreeItem : ComponentBase, IDisposable
     private bool _expanded;
     private List<HierarchyItem>? _items;
     private readonly List<HierarchyTreeItem> _subItems = new();
-    // private HierarchyRootItem? _newItem;
+
     [Parameter, EditorRequired] public HierarchyItem Item { get; set; }
-    // [Parameter, EditorRequired] public bool Rename { get; set; }
+    [Parameter] public RenderFragment<HierarchyItem>? Options { get; set; }
     [CascadingParameter] public HierarchyTreeBrowser TreeBrowser { get; set; } = default!;
     [CascadingParameter] public HierarchyTreeItem? ParentItem { get; set; }
 
