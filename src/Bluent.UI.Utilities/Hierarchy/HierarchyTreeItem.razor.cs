@@ -94,6 +94,8 @@ public partial class HierarchyTreeItem : ComponentBase, IDisposable
         
         foreach (var subItem in _subItems)
             await subItem.RefreshAsync();
+        
+        StateHasChanged();
     }
 
     internal void SetStateHasChanged()
