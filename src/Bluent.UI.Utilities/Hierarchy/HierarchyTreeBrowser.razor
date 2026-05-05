@@ -10,7 +10,8 @@
         {
             foreach (var hierarchyItem in _items.Where(x => !RootOnly || x is HierarchyRootItem))
             {
-                <HierarchyTreeItem Item="hierarchyItem"/>
+                <HierarchyTreeItem Item="hierarchyItem"
+                                   Options="ItemOptions"/>
             }
         }
     </Tree>
