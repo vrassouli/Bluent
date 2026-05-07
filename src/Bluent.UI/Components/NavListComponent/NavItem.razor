@@ -44,7 +44,7 @@
 </div>
 @if (ChildContent is not null)
 {
-    <div class="sub-items">
+    <div class="sub-items" @onclick:stopPropagation="true">
         @ChildContent
     </div>
 }

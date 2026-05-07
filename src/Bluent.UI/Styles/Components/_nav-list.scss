@@ -51,11 +51,11 @@
           transition: all var(--durationNormal) var(--curveEasyEaseMax);
         }
 
-        >.expander{
+        > .expander {
           margin-inline-start: 8px;
           transition: all var(--durationNormal) var(--curveEasyEaseMax);
         }
-        
+
         &:hover {
           background-color: var(--colorNeutralBackground5);
 
@@ -95,29 +95,28 @@
       }
 
       &.active {
-        > .item {
-          &::before {
-            background-color: var(--colorCompoundBrandStroke);
-          }
+        &::before {
+          background-color: var(--colorCompoundBrandStroke);
         }
       }
     }
 
     > .sub-items {
-      background-color: var(--colorNeutralBackground2);
+      margin-inline-start: 1rem;
       transition: all var(--durationNormal) var(--curveEasyEaseMax);
       max-height: 0;
       overflow: hidden;
     }
 
     &.expanded {
-      >.item{
-        >.content{
-          >.expander{
+      > .item {
+        > .content {
+          > .expander {
             rotate: 90deg;
           }
         }
       }
+
       > .sub-items {
         max-height: 100vh;
       }
@@ -145,16 +144,16 @@
     .bui-nav-item {
       > .item {
         > .content {
-          >.expander {
+          > .expander {
             rotate: 180deg;
           }
         }
       }
 
       &.expanded {
-        >.item{
-          >.content{
-            >.expander{
+        > .item {
+          > .content {
+            > .expander {
               rotate: 90deg;
             }
           }
