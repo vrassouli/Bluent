@@ -2643,11 +2643,11 @@
   background-color: var(--colorNeutralStroke1Hover);
   animation-name: scale-in-center;
 }
-.bui-nav-list .bui-nav-item:not(.expandable).active > .item::before {
+.bui-nav-list .bui-nav-item:not(.expandable).active::before {
   background-color: var(--colorCompoundBrandStroke);
 }
 .bui-nav-list .bui-nav-item > .sub-items {
-  background-color: var(--colorNeutralBackground2);
+  margin-inline-start: 1rem;
   transition: all var(--durationNormal) var(--curveEasyEaseMax);
   max-height: 0;
   overflow: hidden;

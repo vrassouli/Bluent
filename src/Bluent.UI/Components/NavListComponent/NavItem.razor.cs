@@ -16,8 +16,11 @@ public partial class NavItem
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? Options { get; set; }
     [Parameter] public bool Expanded { get; set; }
+    [Parameter] public bool AutoCloseDrawer { get; set; } = true;
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
+    [CascadingParameter] private Drawer? Drawer { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+    
     private bool IsLink => !string.IsNullOrEmpty(Href);
     private bool IsExpandable => ChildContent is not null; 
     
@@ -75,6 +78,10 @@ public partial class NavItem
         {
             Expanded = !Expanded;
             return ExpandedChanged.InvokeAsync(Expanded);
+        }
+        else if (AutoCloseDrawer)
+        {
+            Drawer?.Close();
         }
         
         return Task.CompletedTask;
