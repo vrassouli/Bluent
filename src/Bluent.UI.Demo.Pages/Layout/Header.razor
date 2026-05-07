@@ -1,6 +1,10 @@
 ﻿@using Blazored.LocalStorage
 @using Bluent.UI.Interops.Abstractions
-<Button Icon="icon-ic_fluent_app_folder_20_regular" ActiveIcon="icon-ic_fluent_app_folder_20_filled" Size="ButtonSize.Large" Appearance="ButtonAppearance.Subtle" Class="fs-6 bg-brand-2-hovered bg-brand-2-pressed rounded-0" />
+<Button Icon="@(SideMenuExpanded ? "icon-ic_fluent_panel_right_expand_20_regular" : "icon-ic_fluent_panel_left_expand_20_regular")" 
+        ActiveIcon="@(SideMenuExpanded ? "icon-ic_fluent_panel_right_expand_20_filled" : "icon-ic_fluent_panel_left_expand_20_filled")"
+        OnClick="ToggleExpand"
+        Size="ButtonSize.Large" 
+        Appearance="ButtonAppearance.Subtle"  />
 <Button Appearance="ButtonAppearance.Transparent" href="/" Text="Bluent" />
 <div class="flex-fill"></div>
 <Popover>
@@ -37,34 +41,34 @@
     private const string LtrDirection = "ltr";
     private const string LightTheme = "light";
     private const string DarkTheme = "dark";
-    private bool _isDarkTheme;
-    private bool _isRtl;
 
     private readonly List<ThemeColorModel> _colors =
     [
-        new ThemeColorModel("Default", "#0F6CBD"),
-        new ThemeColorModel("Excel", "#107C41"),
-        new ThemeColorModel("Office", "#d83b01"),
-        new ThemeColorModel("Outlook", "#0078d4"),
-        new ThemeColorModel("PowerApps", "#742774"),
-        new ThemeColorModel("PowerBI", "#f2c811"),
-        new ThemeColorModel("PowerPoint", "#C43E1C"),
-        new ThemeColorModel("Stream", "#BC1948"),
-        new ThemeColorModel("Teams", "#5B5FC7"),
-        new ThemeColorModel("Word", "#185ABD")
+        new("Default", "#0F6CBD"),
+        new("Excel", "#107C41"),
+        new ("Office", "#d83b01"),
+        new ("Outlook", "#0078d4"),
+        new ("PowerApps", "#742774"),
+        new ("PowerBI", "#f2c811"),
+        new ("PowerPoint", "#C43E1C"),
+        new ("Stream", "#BC1948"),
+        new ("Teams", "#5B5FC7"),
+        new ("Word", "#185ABD")
     ];
 
+    [Parameter] public bool SideMenuExpanded { get; set; }
+    [Parameter] public EventCallback<bool> SideMenuExpandedChanged { get; set; }
     [Inject] private IBluentTheme Theme { get; set; } = default!;
     [Inject] private ILocalStorageService LocalStorage { get; set; } = default!;
 
     private bool IsDarkTheme
     {
-        get => _isDarkTheme;
+        get;
         set
         {
-            if (value != _isDarkTheme)
+            if (value != field)
             {
-                _isDarkTheme = value;
+                field = value;
                 _ = UpdateTheme();
             }
         }
@@ -72,12 +76,12 @@
 
     private bool IsRtl
     {
-        get => _isRtl;
+        get;
         set
         {
-            if (value != _isRtl)
+            if (value != field)
             {
-                _isRtl = value;
+                field = value;
                 _ = UpdateDirection();
             }
         }
@@ -137,4 +141,11 @@
         public string Name { get; }
         public string ColorHex { get; }
     }
+
+    private Task ToggleExpand()
+    {
+        SideMenuExpanded = !SideMenuExpanded;
+        return SideMenuExpandedChanged.InvokeAsync(SideMenuExpanded);
+    }
+
 }
