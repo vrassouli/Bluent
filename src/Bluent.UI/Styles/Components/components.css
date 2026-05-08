@@ -3947,6 +3947,14 @@
   border-bottom-left-radius: var(--borderRadiusMedium);
 }
 
+.bui-tile-layout {
+  --tile-cell-width: 300px;
+  --tile-cell-gap: 1rem;
+  display: grid;
+  gap: var(--tile-cell-gap);
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile-cell-width), 1fr));
+}
+
 .bui-toast-stack {
   z-index: var(--zIndexToast);
   position: fixed;
