@@ -39,11 +39,10 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
         <PackageReference Include="Humanizer.Core" Version="3.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.6" />
-        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.6" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.7" />
     </ItemGroup>
     <Target Name="BundleMinify" BeforeTargets="BeforeBuild">
         <Exec Command="dotnet tool restore" />
