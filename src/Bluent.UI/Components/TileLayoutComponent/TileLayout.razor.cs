@@ -4,7 +4,7 @@ namespace Bluent.UI.Components;
 
 public partial class TileLayout
 {
-    [Parameter] public RendererInfo? ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string CellMinWidth { get; set; } = "300px";
     [Parameter] public string CellGap { get; set; } = "1rem";
 
