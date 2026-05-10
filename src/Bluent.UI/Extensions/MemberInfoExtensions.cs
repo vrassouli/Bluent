@@ -9,12 +9,21 @@ public static class MemberInfoExtensions
     public static string GetDisplayName(this MemberInfo member)
     {
         var display = member.GetCustomAttribute<DisplayAttribute>();
-        if (display != null && !string.IsNullOrEmpty(display.Name))
-            return display.Name;
+
+        if (display != null)
+        {
+            var name = display.GetName();
+
+            if (!string.IsNullOrEmpty(name))
+                return name;
+        }
 
         var displayName = member.GetCustomAttribute<DisplayNameAttribute>();
-        if (displayName != null && !string.IsNullOrEmpty(displayName.DisplayName))
+        if (displayName != null &&
+            !string.IsNullOrEmpty(displayName.DisplayName))
+        {
             return displayName.DisplayName;
+        }
 
         return member.Name;
     }
