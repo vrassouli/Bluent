@@ -22,8 +22,8 @@
                 <Button Text="@action.Text"
                         Appearance="@(action.Primary ? ButtonAppearance.Primary : ButtonAppearance.Default)"
                         OnClick="()=>{ OnActionClick(action); }"
-                        form="@action.FormToSumbit"
-                        type="@(string.IsNullOrEmpty(action.FormToSumbit) ? "button" : "submit")" />
+                        form="@action.FormToSubmit"
+                        type="@(string.IsNullOrEmpty(action.FormToSubmit) ? "button" : "submit")" />
             }
         </div>
     }
@@ -44,7 +44,7 @@
 
     private void OnActionClick(DialogAction action)
     {
-        if (!string.IsNullOrEmpty(action.FormToSumbit))
+        if (!string.IsNullOrEmpty(action.FormToSubmit))
             return;
         else if (action.Callback != null && Dialog != null)
             action.Callback(Dialog, action.Result);
