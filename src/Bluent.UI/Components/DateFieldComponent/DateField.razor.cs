@@ -109,10 +109,27 @@ public partial class DateField<TValue>
     {
         return value switch
         {
-            DateTime dateTimeValue => BindConverter.FormatValue(dateTimeValue, _format, Culture),
-            DateOnly dateOnlyValue => BindConverter.FormatValue(dateOnlyValue, _format, Culture),
+            DateTime dateTimeValue => !IsSupported(dateTimeValue) ? null : BindConverter.FormatValue(dateTimeValue, _format, Culture),
+            DateOnly dateOnlyValue => !IsSupported(dateOnlyValue) ? null :  BindConverter.FormatValue(dateOnlyValue, _format, Culture),
             _ => null, // Handles null for Nullable<DateTime>, etc.
         };
+    }
+
+    private bool IsSupported(DateTime value)
+    {
+        if (value < Culture.Calendar.MinSupportedDateTime || value > Culture.Calendar.MaxSupportedDateTime)
+            return false;
+        
+        return true;
+    }
+
+    private bool IsSupported(DateOnly value)
+    {
+        if (value < DateOnly.FromDateTime(Culture.Calendar.MinSupportedDateTime)
+            || value > DateOnly.FromDateTime(Culture.Calendar.MaxSupportedDateTime))
+            return false;
+        
+        return true;
     }
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
