@@ -7,11 +7,11 @@
                 ActiveIcon="icon-ic_fluent_calendar_20_filled"
                 Appearance="ButtonAppearance.Subtle"
                 Size="ButtonSize"
-                disabled="@IsDisabled" />
+                disabled="@IsDisabled"/>
     </Trigger>
     <Surface>
         <Calendar TValue=TValue
-                  SelectedDate=Value
+                  SelectedDate=_value
                   SelectedDateChanged="OnDatePicked"
                   Culture=Culture
                   Mode="Mode"
@@ -22,6 +22,8 @@
 </Popover>
 
 @code {
+    TValue? _value;
+
     [Parameter, EditorRequired] public ButtonSize ButtonSize { get; set; }
     [Parameter, EditorRequired] public bool IsDisabled { get; set; }
     [Parameter, EditorRequired] public CultureInfo Culture { get; set; } = default!;
@@ -30,4 +32,23 @@
     [Parameter, EditorRequired] public CalendarMode Mode { get; set; }
     [Parameter, EditorRequired] public DateTime? Min { get; set; }
     [Parameter, EditorRequired] public DateTime? Max { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (_value is null || !_value.Equals(Value))
+            _value = Value;
+
+        if (_value is null)
+        {
+            var valueType = typeof(TValue);
+            
+            if (valueType == typeof(DateTime) || valueType == typeof(DateTime?))
+                _value = (TValue)(object)DateTime.Now;
+            else if (typeof(TValue) == typeof(DateOnly) || valueType == typeof(DateOnly?))
+                _value = (TValue)(object)DateOnly.FromDateTime(DateTime.Now);
+        }
+
+        base.OnParametersSet();
+    }
+
 }
