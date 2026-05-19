@@ -95,6 +95,14 @@ public partial class TimeField<TValue>
     {
         if (BindConverter.TryConvertTo(value, Culture, out result))
         {
+            if (Value is DateTime dateTime && result is DateTime resultDt)
+            {
+                // keep the date, update time part
+                var dt = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, resultDt.Hour, resultDt.Minute, resultDt.Second);
+                
+                result = (TValue)(object)dt;
+            }
+            
             _lastValidInput = value;
 
             Debug.Assert(result != null);

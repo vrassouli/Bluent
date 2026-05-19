@@ -269,7 +269,7 @@
 
     [Display(Name = "Large")] private string? _largeTextField;
 
-    [Display(Name = "Date field")] private DateTime? _dateField = DateTime.Now;
+    [Display(Name = "Date field")] private DateTime? _dateField = DateTime.Now.AddDays(-1);
 
     [Display(Name = "Month field")] private DateTime? _monthField = DateTime.Now;
 
