@@ -170,11 +170,11 @@
   }
 
   &:focus {
-    border-color: var(--colorStrokeFocus2);
-    border-radius: var(--borderRadiusMedium);
-    border-width: 1px;
-    outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
-    box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
+    //border-color: var(--colorStrokeFocus2);
+    //border-radius: var(--borderRadiusMedium);
+    //border-width: 1px;
+    //outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
+    //box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
   }
 
   &.circular {

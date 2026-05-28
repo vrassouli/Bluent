@@ -710,13 +710,6 @@
   color: var(--colorNeutralForeground1Pressed);
   outline-style: none;
 }
-.bui-button:focus {
-  border-color: var(--colorStrokeFocus2);
-  border-radius: var(--borderRadiusMedium);
-  border-width: 1px;
-  outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);
-  box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;
-}
 .bui-button.circular {
   border-radius: var(--borderRadiusCircular);
 }
