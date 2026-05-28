@@ -8,6 +8,7 @@ public interface IMdiDocument
     string Title { get; }
     string Icon { get; }
     List<DocumentToolbarItem> Items { get; }
+    bool HasChanges { get; }
     
     void OnActivated();
     void OnDeactivated();

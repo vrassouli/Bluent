@@ -31,7 +31,7 @@ public partial class MdiTab : IDisposable
             var title = Document?.Title ?? "Opening...";
             var cmdManager = GetCommandManager();
 
-            if (cmdManager.HasChanges)
+            if (Document?.HasChanges ?? cmdManager.HasChanges)
             {
                 title += "*";
             }
