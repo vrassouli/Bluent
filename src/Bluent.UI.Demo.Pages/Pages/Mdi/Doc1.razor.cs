@@ -12,7 +12,8 @@ public partial class Doc1 : IMdiDocument, IDisposable
     public string Title => _loaded ? "Document 1" : "Waiting...";
     public string Icon => "icon-ic_fluent_tree_deciduous_20_regular";
     public List<DocumentToolbarItem> Items { get; }
-    
+    public bool HasChanges => CommandManager.HasChanges;
+
     public int Counter { get; set; }
 
     [Parameter] public CommandManager CommandManager { get; set; } = default!;
