@@ -35,7 +35,7 @@ public partial class MessageBar
             MessageBarType.Danger => "icon-ic_fluent_error_circle_20_filled",
             MessageBarType.Success => "icon-ic_fluent_checkmark_circle_20_filled",
             MessageBarType.Information => "icon-ic_fluent_info_20_filled",
-            _ => "icon-ic_fluent_info_20_filled"
+            _ => "icon-ic_fluent_alert_20_filled"
         };
     }
 }
