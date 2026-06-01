@@ -71,4 +71,12 @@
       color: var(--colorStatusSuccessForeground1);
     }
   }
+
+  &.information {
+    border-color: var(--colorStatusInfoBorder1);
+    background-color: var(--colorStatusInfoBackground1);
+   > .icon {
+      color: var(--colorStatusInfoForeground1);
+    }
+  }
 }

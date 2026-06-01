@@ -5,5 +5,6 @@ public enum MessageBarType
     Default,
     Warning,
     Danger,
-    Success
+    Success,
+    Information
 }
