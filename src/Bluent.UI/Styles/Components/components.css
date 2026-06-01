@@ -2554,6 +2554,13 @@
 .bui-message-bar.success > .icon {
   color: var(--colorStatusSuccessForeground1);
 }
+.bui-message-bar.information {
+  border-color: var(--colorStatusInfoBorder1);
+  background-color: var(--colorStatusInfoBackground1);
+}
+.bui-message-bar.information > .icon {
+  color: var(--colorStatusInfoForeground1);
+}
 
 .bui-nav-list {
   transition: all var(--durationNormal) var(--curveEasyEaseMax);
