@@ -52,7 +52,7 @@ public abstract class BluentComponentBase : ComponentBase, IBluentComponent
 
     private string? GetUserProvidedId()
     {
-        return AdditionalAttributes?.TryGetValue("id", out var attribute) is true ? attribute.ToString() : null;
+        return AdditionalAttributes?.TryGetValue("id", out var attribute) is true && attribute != null! ? attribute.ToString() : null;
     }
 
     private string MergeStyle(string? style, string key, string value)

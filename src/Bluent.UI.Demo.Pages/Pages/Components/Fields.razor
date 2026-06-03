@@ -141,6 +141,13 @@
         <h3>Numeric field</h3>
         <section class="p-7 rounded-5 shadow-3">
             <EditForm Model="this">
+                <Label ForExpression="()=>_intField" Class="d-block mb-1 mt-4" />
+                <NumericField @bind-Value="_intField" />
+                <ValidationMessage For="() => _intField" />
+
+                <pre>Value: @_intField</pre>
+            </EditForm>
+            <EditForm Model="this">
                 <Label ForExpression="()=>_floatFormat" Class="d-block mb-1 mt-4"/>
                 <TextField @bind-Value="_floatFormat"/>
 
@@ -149,7 +156,6 @@
                 <ValidationMessage For="() => _numericFloat"/>
 
                 <pre>Value: @_numericFloat</pre>
-
             </EditForm>
         </section>
         <section class="p-7 rounded-5 shadow-3">
@@ -273,6 +279,7 @@
 
     [Display(Name = "Month field")] private DateTime? _monthField = DateTime.Now;
 
+    [Display(Name = "Nullable int")] private int?  _intField;
     [Display(Name = "Float field")] private float _numericFloat;
     [Display(Name = "Byte field")] private byte _numericByte;
     [Display(Name = "Decimal field")] private Decimal _numericDecimal = 12.50m;
