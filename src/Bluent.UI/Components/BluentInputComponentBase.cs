@@ -68,7 +68,7 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>, IBlu
 
     private string? GetUserProvidedId()
     {
-        return AdditionalAttributes?.TryGetValue("id", out var attribute) is true ? attribute.ToString() : null;
+        return AdditionalAttributes?.TryGetValue("id", out var attribute) is true && attribute != null! ? attribute.ToString() : null;
     }
 
     protected string? GetInputId()
