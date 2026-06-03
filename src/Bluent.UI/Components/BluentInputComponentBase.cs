@@ -75,7 +75,7 @@ public abstract class BluentInputComponentBase<TValue> : InputBase<TValue>, IBlu
     {
         string? id = null;
 
-        if (AdditionalAttributes?.TryGetValue("id", out var attribute) is true)
+        if (AdditionalAttributes?.TryGetValue("id", out var attribute) is true && attribute != null!)
             id = attribute.ToString();
 
         if (!string.IsNullOrEmpty(id))

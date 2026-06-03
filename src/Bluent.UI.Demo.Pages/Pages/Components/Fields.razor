@@ -9,7 +9,7 @@
 
         <h3>Text field</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Label ForExpression="()=>_textField" Class="d-block mb-1"/>
+            <Label ForExpression="()=>_textField" Class="d-block mb-1" id="@_nullId"/>
             <TextField @bind-Value="_textField"/>
         </section>
 
@@ -259,6 +259,7 @@
 </div>
 
 @code {
+    private string? _nullId = null;
     [Display(Name = "Example text field")] private string? _otpToken;
 
     [Display(Name = "Example text field")] private string? _textField;
