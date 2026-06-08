@@ -176,10 +176,10 @@
         <section class="p-7 rounded-5 shadow-3">
             <EditForm Model="this">
                 <Label ForExpression="()=>_digitOnlyText" Class="d-block mb-1 mt-4"/>
-                <TextField @bind-Value="_digitOnlyText" DigitOnly="true"/>
+                <TextField Value="@_digitOnlyText" ValueChanged="@(v => _digitOnlyText = v )" DigitOnly="true"/>
 
                 <Label ForExpression="()=>_englishDigitOnlyText" Class="d-block mb-1 mt-4"/>
-                <TextField @bind-Value="_englishDigitOnlyText" EnglishDigits="true"/>
+                <TextField @bind-Value="_englishDigitOnlyText" AsciiDigitsDigits="true"/>
 
                 <pre>Value: @_numericFloat</pre>
 
