@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Bluent.UI.Extensions;
 
 namespace Bluent.UI.Components;
 
@@ -46,8 +47,8 @@ public partial class NumericField<TValue>
         }
         set
         {
-            _userValue = value;
-            CurrentValueAsString = value;
+            _userValue = value?.ToDigits();
+            CurrentValueAsString = _userValue;
         }
     }
 

@@ -171,6 +171,20 @@
 
             </EditForm>
         </section>
+       
+        <h3>Numeric TextField</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="this">
+                <Label ForExpression="()=>_digitOnlyText" Class="d-block mb-1 mt-4"/>
+                <TextField @bind-Value="_digitOnlyText" DigitOnly="true"/>
+
+                <Label ForExpression="()=>_englishDigitOnlyText" Class="d-block mb-1 mt-4"/>
+                <TextField @bind-Value="_englishDigitOnlyText" EnglishDigits="true"/>
+
+                <pre>Value: @_numericFloat</pre>
+
+            </EditForm>
+        </section>
 
         <h3>Minimum and Maximum</h3>
         <section class="p-7 rounded-5 shadow-3">
@@ -263,6 +277,8 @@
     [Display(Name = "Example text field")] private string? _otpToken;
 
     [Display(Name = "Example text field")] private string? _textField;
+    [Display(Name = "Digit only Text")] private string? _digitOnlyText;
+    [Display(Name = "English digit only text")] private string? _englishDigitOnlyText;
 
     [Display(Name = "Example teaxtarea field")]
     private string? _textareaField;
