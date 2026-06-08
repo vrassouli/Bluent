@@ -47,7 +47,7 @@ public partial class NumericField<TValue>
         }
         set
         {
-            _userValue = value?.ToDigits();
+            _userValue = value?.ToDigits().ToAsciiDigits();
             CurrentValueAsString = _userValue;
         }
     }

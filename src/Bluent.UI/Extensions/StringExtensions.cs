@@ -37,7 +37,7 @@ public static class StringExtensions
         return builder?.ToString() ?? input;
     }
 
-    public static string ToEnglishDigits(this string input, bool fullNormalize = false, CultureInfo? cultureInfo = null)
+    public static string ToAsciiDigits(this string input, bool fullNormalize = false, CultureInfo? cultureInfo = null)
     {
         if (string.IsNullOrEmpty(input))
             return input;
