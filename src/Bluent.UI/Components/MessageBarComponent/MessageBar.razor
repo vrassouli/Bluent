@@ -1,6 +1,9 @@
 ﻿@namespace Bluent.UI.Components
 @inherits BluentUiComponentBase
 
+@if (_dismissed)
+    return;
+
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <div class="icon">
         <Icon Content="@GetIconClass()" />
@@ -14,7 +17,7 @@
             <Button Appearance="ButtonAppearance.Transparent"
                     Size="ButtonSize.Small"
                     Icon="icon-ic_fluent_dismiss_20_regular" ActiveIcon="icon-ic_fluent_dismiss_20_filled"
-                    OnClick="OnDismiss" />
+                    OnClick="HandleDismiss" />
         </div>
     }
     @if (Actions != null)
