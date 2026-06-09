@@ -12,6 +12,7 @@
   gap: var(--spacingHorizontalS);
 
   > .icon {
+    align-self: start;
     grid-area: icon;
     font-size: var(--fontSizeBase500);
     color: var(--colorNeutralForeground3);
@@ -30,6 +31,8 @@
 
   > .dismiss {
     grid-area: actions;
+    align-self: start;
+    
   }
 
   > .actions {
