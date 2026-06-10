@@ -14,5 +14,7 @@ public partial class CardHeader
         yield return "card-header";
         if (ContextualAction)
             yield return "contextual-action";
+        
+        yield return "text-truncate";
     }
 }

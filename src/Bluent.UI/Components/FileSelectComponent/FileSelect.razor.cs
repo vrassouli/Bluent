@@ -21,9 +21,14 @@ public partial class FileSelect
     [Parameter] public bool Disabled { get; set; } 
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public EventCallback<IEnumerable<SelectedFile>> OnChange { get; set; }
-    [Parameter] public bool Multiple { get; set; }
+    [Parameter] public EventCallback<SelectedFile> OnFileSelected { get; set; }
+    [Parameter] public EventCallback<SelectedFile> OnFileRemoved { get; set; }
+    // [Parameter] public bool Multiple { get; set; }
+    [Parameter] public int MaxFiles { get; set; } = 1;
     [Inject] private IJSRuntime Js { get; set; } = default!;
     [Inject] private IDomHelper DomHelper { get; set; } = default!;
+
+    private bool Multiple => MaxFiles > 1;
 
     public override IEnumerable<string> GetClasses()
     {
@@ -35,12 +40,16 @@ public partial class FileSelect
         if (_files.Contains(file))
         {
             _files.Remove(file);
+            InvokeAsync(() => OnFileRemoved.InvokeAsync(file));
             InvokeAsync(() => OnChange.InvokeAsync(_files));
         }
     }
 
     public void Clear()
     {
+        foreach (var file in _files)
+            InvokeAsync(() => OnFileRemoved.InvokeAsync(file));
+        
         _files.Clear();
         InvokeAsync(() => OnChange.InvokeAsync(_files));
     }
@@ -57,13 +66,21 @@ public partial class FileSelect
     {
         if (Multiple)
         {
-            var files = args.GetMultipleFiles(args.FileCount);
-            _files.AddRange(files.Select(x => new SelectedFile(x)));
+            var browserFiles = args.GetMultipleFiles(args.FileCount);
+            var files = browserFiles.Select(x => new SelectedFile(x));
+
+            foreach (var file in files)
+            {
+                _files.Add(file);
+                InvokeAsync(() => OnFileSelected.InvokeAsync(file));
+            }
         }
         else
         {
-            _files.Clear();
-            _files.Add(new SelectedFile(args.File));
+            Clear();
+            var file = new SelectedFile(args.File);
+            _files.Add(file);
+            InvokeAsync(() => OnFileSelected.InvokeAsync(file));
         }
 
         InvokeAsync(() => OnChange.InvokeAsync(_files));
@@ -104,33 +121,33 @@ public partial class FileSelect
 
             ".razor" or
             ".cshtml" or
-            ".html" => $"/_content/Bluent.UI/assets/file-types/html.svg",
+            ".html" => "/_content/Bluent.UI/assets/file-types/html.svg",
 
-            ".pdf" => $"/_content/Bluent.UI/assets/file-types/pdf.svg",
+            ".pdf" => "/_content/Bluent.UI/assets/file-types/pdf.svg",
 
             ".png" or
             ".svg" or
             ".jpg" or
             ".jpeg" or
             ".tif" or
-            ".bpm" => $"/_content/Bluent.UI/assets/file-types/photo.svg",
+            ".bpm" => "/_content/Bluent.UI/assets/file-types/photo.svg",
 
             ".ppt" or
-            ".pptx" => $"/_content/Bluent.UI/assets/file-types/pptx.svg",
+            ".pptx" => "/_content/Bluent.UI/assets/file-types/pptx.svg",
 
             ".txt" or
-            ".rtf" => $"/_content/Bluent.UI/assets/file-types/txt.svg",
+            ".rtf" => "/_content/Bluent.UI/assets/file-types/txt.svg",
 
             ".mkv" or
             ".mpeg" or
-            ".mp4" => $"/_content/Bluent.UI/assets/file-types/video.svg",
+            ".mp4" => "/_content/Bluent.UI/assets/file-types/video.svg",
 
             ".xls" or
-            ".xlsx" => $"/_content/Bluent.UI/assets/file-types/xlsx.svg",
+            ".xlsx" => "/_content/Bluent.UI/assets/file-types/xlsx.svg",
 
-            ".xml" => $"/_content/Bluent.UI/assets/file-types/xml.svg",
+            ".xml" => "/_content/Bluent.UI/assets/file-types/xml.svg",
 
-            _ => $"/_content/Bluent.UI/assets/file-types/genericfile.svg"
+            _ => "/_content/Bluent.UI/assets/file-types/genericfile.svg"
         };
     }
 }
