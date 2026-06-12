@@ -2618,16 +2618,16 @@
   margin-inline-start: 8px;
   transition: all var(--durationNormal) var(--curveEasyEaseMax);
 }
-.bui-nav-list .bui-nav-item > .item > .content:hover {
-  background-color: var(--colorNeutralBackground5);
+.bui-nav-list .bui-nav-item:not(.active) > .item > .content:hover {
+  background-color: var(--colorNeutralBackground1);
 }
-.bui-nav-list .bui-nav-item > .item > .content:hover > .active-icon {
+.bui-nav-list .bui-nav-item:not(.active) > .item > .content:hover > .active-icon {
   display: inline;
 }
-.bui-nav-list .bui-nav-item > .item > .content:hover > .active-icon + .icon {
+.bui-nav-list .bui-nav-item:not(.active) > .item > .content:hover > .active-icon + .icon {
   display: none;
 }
-.bui-nav-list .bui-nav-item > .item > .content:hover:active {
+.bui-nav-list .bui-nav-item:not(.active) > .item > .content:hover:active {
   background-color: var(--colorNeutralBackground3Pressed);
 }
 .bui-nav-list .bui-nav-item:not(.expandable)::before {
@@ -2644,6 +2644,11 @@
 .bui-nav-list .bui-nav-item:not(.expandable):hover::before {
   background-color: var(--colorNeutralStroke1Hover);
   animation-name: scale-in-center;
+}
+.bui-nav-list .bui-nav-item:not(.expandable).active {
+  background: var(--colorBrandBackgroundSelected);
+  border-radius: var(--borderRadiusLarge);
+  color: var(--colorNeutralForegroundOnBrand);
 }
 .bui-nav-list .bui-nav-item:not(.expandable).active::before {
   background-color: var(--colorCompoundBrandStroke);
