@@ -9,6 +9,7 @@
     text-decoration: none;
     color: var(--colorNeutralForeground2);
 
+
     > .item {
       position: relative;
 
@@ -55,20 +56,26 @@
           margin-inline-start: 8px;
           transition: all var(--durationNormal) var(--curveEasyEaseMax);
         }
+      }
+    }
 
-        &:hover {
-          background-color: var(--colorNeutralBackground5);
+    &:not(.active) {
+      > .item {
+        > .content {
+          &:hover {
+            background-color: var(--colorNeutralBackground1);
 
-          > .active-icon {
-            display: inline;
+            > .active-icon {
+              display: inline;
 
-            & + .icon {
-              display: none;
+              & + .icon {
+                display: none;
+              }
             }
-          }
 
-          &:active {
-            background-color: var(--colorNeutralBackground3Pressed);
+            &:active {
+              background-color: var(--colorNeutralBackground3Pressed);
+            }
           }
         }
       }
@@ -95,6 +102,10 @@
       }
 
       &.active {
+        background: var(--colorBrandBackgroundSelected);
+        border-radius: var(--borderRadiusLarge);
+        color: var(--colorNeutralForegroundOnBrand);
+
         &::before {
           background-color: var(--colorCompoundBrandStroke);
         }
