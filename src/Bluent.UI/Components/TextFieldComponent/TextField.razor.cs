@@ -10,7 +10,7 @@ public partial class TextField
     [Parameter] public bool ResizeTextarea { get; set; }
     [Parameter] public bool GainFocus { get; set; }
     [Parameter] public bool DigitOnly { get; set; }
-    [Parameter] public bool AsciiDigitsDigits { get; set; }
+    [Parameter] public bool AsciiDigits { get; set; }
     [Parameter] public bool ArabicToPersianConversion { get; set; }
 
     protected string? ValueStringProxy
@@ -24,7 +24,7 @@ public partial class TextField
             if (DigitOnly)
                 value = value?.ToDigits();
 
-            if (AsciiDigitsDigits)
+            if (AsciiDigits)
                 value = value?.ToAsciiDigits();
 
             if (ArabicToPersianConversion)
