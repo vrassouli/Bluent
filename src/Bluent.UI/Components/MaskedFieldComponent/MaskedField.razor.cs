@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using Bluent.UI.Extensions;
 
 namespace Bluent.UI.Components;
 
@@ -13,7 +14,9 @@ public partial class MaskedField
     private string? _lastValidInput;
     private string? _value;
     [Parameter, EditorRequired] public string Mask { get; set; } = default!;
-
+    [Parameter] public bool AsciiDigits { get; set; }
+    [Parameter] public bool ArabicToPersianConversion { get; set; }
+    
     private string? UserInput { get; set; }
 
     protected override void OnParametersSet()
@@ -47,7 +50,13 @@ public partial class MaskedField
 
     private void OnUserInputChanged(ChangeEventArgs args)
     {
-        SetUserInput(args.Value?.ToString());
+        var value = args.Value?.ToString();
+        if (AsciiDigits)
+            value = value?.ToAsciiDigits();
+        if (ArabicToPersianConversion)
+            value = value?.ToPersianChars();
+        
+        SetUserInput(value);
     }
 
     private void SetUserInput(string? value)
