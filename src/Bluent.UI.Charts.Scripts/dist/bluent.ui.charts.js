@@ -9207,7 +9207,7 @@ class bo {
     this._chart = new Wi(e, t);
   }
   update(t) {
-    this._chart && (this.syncDatasets(this._chart, t.data.datasets), t.options?.plugins && (this._chart.options.plugins = t.options.plugins), t.plugins && (this._chart.config.plugins = t.plugins), this._chart.update());
+    this._chart && (t.data?.labels && (this._chart.data.labels = t.data.labels), this.syncDatasets(this._chart, t.data.datasets), t.options?.plugins && (this._chart.options.plugins = t.options.plugins), t.plugins && (this._chart.config.plugins = t.plugins), this._chart.update());
   }
   syncDatasets(t, e) {
     const s = t.data.datasets, n = e.length, o = s.length, a = Math.min(o, n);

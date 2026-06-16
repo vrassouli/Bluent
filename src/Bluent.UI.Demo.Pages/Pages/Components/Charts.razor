@@ -28,13 +28,14 @@
         @* <h3>Line</h3> *@
         <section class="p-7 rounded-5 shadow-3">
             <TextField @bind-Value="_lineSubTitle" />
-            <Chart TDataSource="List<double>" Labels="_series1.Keys">
+            <Chart TDataSource="IEnumerable<double>" Labels="_series1.Keys">
                 <Legend Position="Position.Left"/>
                 <Title Text="عنوان نمودار" Family="Tahoma"/>
                 <Subtitle Text="@_lineSubTitle" Size="20" />
-                <Dataset ChartType="ChartType.Line" Data="_series1.Values.ToList()" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
-                <Dataset ChartType="ChartType.Line" Data="_series2.Values.ToList()" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
+                <Dataset TDataSource="IEnumerable<double>" ChartType="ChartType.Line" Data="_series1.Values.ToList()" Label="My Data" BorderRadius="5" BorderWidth="2" BorderColor="@DefaultColors.Orange" BackgroundColor="@DefaultColors.Orange.Opacity(127)"></Dataset>
+                <Dataset TDataSource="IEnumerable<double>" ChartType="ChartType.Bar" Data="_series2.Values.ToList()" Label="My Data!!" BorderWidth="2" BorderColor="@DefaultColors.Purple" BackgroundColor="@DefaultColors.Purple.Opacity(127)"></Dataset>
             </Chart>
+            <Button Text="Update data" OnClick="UpdateData" />
         </section>
         @* *@
         @* <h3>Pie</h3> *@
@@ -213,11 +214,6 @@
     string[] _labels = ["Item 1", "Item 2", "Item 3", "Item 4"];
     Dictionary<string, double> _series1 = new()
     {
-        {"Jan", 10.001},
-        {"Feb", 20},
-        {"Mar", -18},
-        {"Apr", 23},
-        {"May", 23},
     };
     Dictionary<string, double> _series2 = new()
     {

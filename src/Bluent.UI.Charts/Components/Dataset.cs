@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Charts.Components;
 
+// public class KeyValueDataset<TKey, TValue> : Dataset<IEnumerable<KeyValuePair<TKey, TValue>>>
+// {
+//     public IEnumerable<TKey> Keys => Data.Select(x => x.Key);
+// }
 public class Dataset<TDataSource> : ComponentBase, IDisposable
 {
     [CascadingParameter] public Chart<TDataSource> Chart { get; set; } = default!;
@@ -13,7 +17,7 @@ public class Dataset<TDataSource> : ComponentBase, IDisposable
     [Parameter] public string? BackgroundColor { get; set; }
     [Parameter] public int? BorderWidth { get; set; }
     [Parameter] public int? BorderRadius { get; set; }
-    [Parameter] public bool BorderSkiped { get; set; }
+    [Parameter] public bool BorderSkipped { get; set; }
     [Parameter] public bool Smooth { get; set; }
     [Parameter] public FillTarget? FillTarget { get; set; }
 
@@ -47,7 +51,7 @@ public class Dataset<TDataSource> : ComponentBase, IDisposable
             BackgroundColor = BackgroundColor,
             BorderColor = BorderColor,
             BorderRadius = BorderRadius,
-            BorderSkipped = BorderSkiped,
+            BorderSkipped = BorderSkipped,
             BorderWidth = BorderWidth,
             Fill = fill,
             Tension = Smooth ? 0.4f : (float?)null
