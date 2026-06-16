@@ -47,7 +47,7 @@ public class Dataset<TDataSource> : ComponentBase, IDisposable
             BackgroundColor = BackgroundColor,
             BorderColor = BorderColor,
             BorderRadius = BorderRadius,
-            BorderSkiped = BorderSkiped,
+            BorderSkipped = BorderSkiped,
             BorderWidth = BorderWidth,
             Fill = fill,
             Tension = Smooth ? 0.4f : (float?)null

@@ -84,7 +84,7 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (_interop != null)
+        if (_interop != null!)
             await _interop.DisposeAsync();
     }
 

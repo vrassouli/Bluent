@@ -15,15 +15,20 @@ internal class ChartDataset<TDataSource>
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? BorderColor { get; set; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? BackgroundColor { get; set; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? BorderWidth { get; set; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? BorderRadius { get; set; } 
-    public bool BorderSkiped { get; set; }
+    public bool BorderSkipped { get; set; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public float? Tension { get; set; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public AreaFill? Fill { get; set; }
 
