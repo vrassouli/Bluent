@@ -54,7 +54,7 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public async Task InitializeAsync<TDataSource>(ChartConfig<TDataSource> config)
+    public async Task InitializeAsync(ChartConfig config)
     {
 #if DEBUG
         var jsonOptions = new JsonSerializerOptions
@@ -89,8 +89,17 @@ internal class ChartJsInterop : IAsyncDisposable
         }
     }
 
-    public async Task UpdateAsync<TDataSource>(ChartConfig<TDataSource> config)
+    public async Task UpdateAsync(ChartConfig config)
     {
+#if DEBUG
+        var jsonOptions = new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        };
+        var json = JsonSerializer.Serialize(config, jsonOptions);
+        Console.WriteLine(json);
+#endif
+        
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("update", config);
     }

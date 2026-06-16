@@ -19,6 +19,10 @@ export class ChartJs {
 
     public update(config: ChartConfiguration) {
         if (this._chart) {
+            if (config.data?.labels) {
+                this._chart.data.labels = config.data.labels as any;
+            }
+
             this.syncDatasets(this._chart, config.data.datasets);
 
             // replace plugin options (built-in plugin options like title/subtitle)

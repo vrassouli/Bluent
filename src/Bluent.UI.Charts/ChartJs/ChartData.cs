@@ -2,14 +2,14 @@
 
 namespace Bluent.UI.Charts.ChartJs;
 
-internal class ChartData<TDataSource>
+internal class ChartData
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IEnumerable<string>? Labels { get; }
 
-    public IEnumerable<ChartDataset<TDataSource>> Datasets { get; }
+    public IEnumerable<ChartDataset> Datasets { get; }
 
-    public ChartData(IEnumerable<ChartDataset<TDataSource>> datasets, IEnumerable<string>? labels)
+    public ChartData(IEnumerable<ChartDataset> datasets, IEnumerable<string>? labels)
     {
         Datasets = datasets;
         Labels = labels;

@@ -1,4 +1,5 @@
-﻿using Bluent.Core;
+﻿using System.Collections;
+using Bluent.Core;
 using Bluent.UI.Charts.ChartJs;
 using Bluent.UI.Charts.Interops;
 using Bluent.UI.Charts.Interops.Abstractions;
@@ -33,14 +34,14 @@ public abstract class ChartJs : BluentComponentBase
         ScalesList.Remove(scale);
     }
 }
-public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
+public class Chart : ChartJs, IChartJsHost, IAsyncDisposable
 {
     private ChartJsInterop _interop = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
-    [Parameter] public IEnumerable<string>? Labels { get; set; }
+    // [Parameter] public IEnumerable<string>? Labels { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    protected List<Dataset<TDataSource>> DatasetsList { get; } = new();
+    protected List<Dataset> DatasetsList { get; } = new();
 
     protected override void OnInitialized()
     {
@@ -53,10 +54,10 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
     {
         var seq = -1;
 
-        builder.OpenComponent<CascadingValue<Chart<TDataSource>>>(++seq);
-        builder.AddComponentParameter(++seq, nameof(CascadingValue<Chart<TDataSource>>.Value), this);
-        builder.AddComponentParameter(++seq, nameof(CascadingValue<Chart<TDataSource>>.IsFixed), true);
-        builder.AddComponentParameter(++seq, nameof(CascadingValue<Chart<TDataSource>>.ChildContent), ChildContent);
+        builder.OpenComponent<CascadingValue<Chart>>(++seq);
+        builder.AddComponentParameter(++seq, nameof(CascadingValue<>.Value), this);
+        builder.AddComponentParameter(++seq, nameof(CascadingValue<>.IsFixed), true);
+        builder.AddComponentParameter(++seq, nameof(CascadingValue<>.ChildContent), ChildContent);
         builder.CloseComponent();
 
         builder.OpenElement(++seq, "canvas");
@@ -89,22 +90,22 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
     }
 
 
-    internal void Add(Dataset<TDataSource> dataset)
+    internal void Add(Dataset dataset)
     {
         DatasetsList.Add(dataset);
         //StateHasChanged();
     }
 
-    internal void Remove(Dataset<TDataSource> dataset)
+    internal void Remove(Dataset dataset)
     {
         DatasetsList.Remove(dataset);
         //StateHasChanged();
     }
 
 
-    internal ChartConfig<TDataSource> BuildConfig()
+    internal ChartConfig BuildConfig()
     {
-        return new ChartConfig<TDataSource>(BuildChartData(BuildDatasets()), BuildChartOptions());
+        return new ChartConfig(BuildChartData(BuildDatasets()), BuildChartOptions());
     }
 
     internal ChartOptions BuildChartOptions()
@@ -121,15 +122,74 @@ public class Chart<TDataSource> : ChartJs, IChartJsHost, IAsyncDisposable
         return options;
     }
 
-    internal IEnumerable<ChartDataset<TDataSource>> BuildDatasets()
+    internal IEnumerable<ChartDataset> BuildDatasets()
     {
-        return DatasetsList.Select(x => x.ToDataset());
+        var mergedLabels = MergeOrderedLists(DatasetsList.Select(x => x.Keys));
+        return DatasetsList.Select(x => x.ToDataset(mergedLabels));
     }
 
-    internal ChartData<TDataSource> BuildChartData(IEnumerable<ChartDataset<TDataSource>> datasets)
+    internal ChartData BuildChartData(IEnumerable<ChartDataset> datasets)
     {
-        var data = new ChartData<TDataSource>(datasets, Labels);
+        var mergedLabels = MergeOrderedLists(DatasetsList.Select(x => x.Keys));
+        var data = new ChartData(datasets, mergedLabels);
         return data;
     }
+    
+    public static List<string> MergeOrderedLists(IEnumerable<IEnumerable> lists)
+    {
+        var graph = new Dictionary<string, HashSet<string>>();
+        var indegree = new Dictionary<string, int>();
 
+        foreach (var list in lists)
+        {
+            var items = list
+                .Cast<object?>()
+                .Select(x => x?.ToString() ?? string.Empty)
+                .ToList();
+
+            foreach (var item in items)
+            {
+                graph.TryAdd(item, []);
+                indegree.TryAdd(item, 0);
+            }
+
+            for (var i = 0; i < items.Count - 1; i++)
+            {
+                var from = items[i];
+                var to = items[i + 1];
+
+                if (from == to)
+                    continue;
+
+                if (graph[from].Add(to))
+                    indegree[to]++;
+            }
+        }
+
+        var queue = new Queue<string>(
+            indegree
+                .Where(x => x.Value == 0)
+                .Select(x => x.Key));
+
+        var result = new List<string>();
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            result.Add(current);
+
+            foreach (var next in graph[current])
+            {
+                indegree[next]--;
+
+                if (indegree[next] == 0)
+                    queue.Enqueue(next);
+            }
+        }
+
+        if (result.Count != indegree.Count)
+            throw new InvalidOperationException("Lists contain conflicting orderings.");
+
+        return result;
+    }
 }
