@@ -1,12 +1,13 @@
-﻿using Bluent.UI.Charts.Components;
+﻿using System.Collections;
+using Bluent.UI.Charts.Components;
 using Humanizer;
 using System.Text.Json.Serialization;
 
 namespace Bluent.UI.Charts.ChartJs;
 
-internal class ChartDataset<TDataSource> 
+internal class ChartDataset 
 {
-    public TDataSource Data { get; }
+    public IEnumerable Data { get; }
 
     public string Type { get;  }
 
@@ -32,7 +33,7 @@ internal class ChartDataset<TDataSource>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public AreaFill? Fill { get; set; }
 
-    public ChartDataset(ChartType type, TDataSource data)
+    public ChartDataset(ChartType type, IEnumerable data)
     {
         Type = type.ToString().Camelize();
         Data = data;

@@ -7,6 +7,7 @@ namespace Bluent.UI.Charts.ChartJs;
 [JsonDerivedType(typeof(ChartSubtitlePlugin), "subtitle")]
 [JsonDerivedType(typeof(ChartTitlePlugin), "title")]
 [JsonDerivedType(typeof(ChartTooltipPlugin), "tooltip")]
+[JsonDerivedType(typeof(ChartColorsPlugin), "colors")]
 public abstract class ChartPlugin
 {
     [JsonIgnore]
