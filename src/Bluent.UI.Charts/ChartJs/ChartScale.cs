@@ -6,6 +6,7 @@ public class ChartScale
 {
     public string Key { get; }
     public bool Display { get; }
+
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] 
     public ChartTitlePlugin? Title { get; }
 

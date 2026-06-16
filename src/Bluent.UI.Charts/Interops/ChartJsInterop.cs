@@ -2,6 +2,7 @@
 using Bluent.UI.Charts.Interops.Abstractions;
 using Microsoft.JSInterop;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Bluent.UI.Charts.Interops;
 
@@ -27,7 +28,9 @@ internal class ChartJsInterop : IAsyncDisposable
     public ChartJsInterop(IChartJsHost host, IJSRuntime jsRuntime)
     {
         _host = host;
-        _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI.Charts/bluent.ui.charts.js").AsTask());
+        _moduleTask = new(() =>
+            jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI.Charts/bluent.ui.charts.js")
+                .AsTask());
     }
 
     public async ValueTask DisposeAsync()
@@ -54,8 +57,12 @@ internal class ChartJsInterop : IAsyncDisposable
     public async Task InitializeAsync<TDataSource>(ChartConfig<TDataSource> config)
     {
 #if DEBUG
-        var ser = JsonSerializer.Serialize(config);
-        Console.WriteLine(ser);
+        var jsonOptions = new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        };
+        var json = JsonSerializer.Serialize(config, jsonOptions);
+        Console.WriteLine(json);
 #endif
 
         try

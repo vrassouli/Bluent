@@ -8,11 +8,13 @@ internal class ChartSubtitlePlugin : ChartPlugin
     public override string Key => "subtitle";
 
     public bool Display { get; set; }
-    public string Text { get; set; } = string.Empty;
-
-    public ChartSubtitlePlugin()
-    {
-    }
+    public string Text { get; set; }
+    
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ChartFontConfig? Font { get; set; }
+    
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ChartPaddingConfig? Padding { get; set; }
 
     public ChartSubtitlePlugin(bool display, string text)
     {
