@@ -20,6 +20,7 @@ public partial class FileSelect
     [Parameter] public bool AllowRemove { get; set; } = true;
     [Parameter] public bool Disabled { get; set; } 
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
+    [Parameter] public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
     [Parameter] public EventCallback<IEnumerable<SelectedFile>> OnChange { get; set; }
     [Parameter] public EventCallback<SelectedFile> OnFileSelected { get; set; }
     [Parameter] public EventCallback<SelectedFile> OnFileRemoved { get; set; }
