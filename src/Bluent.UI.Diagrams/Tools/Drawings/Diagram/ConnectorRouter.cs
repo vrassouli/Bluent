@@ -91,7 +91,7 @@ public class ConnectorRouter
     /// <param name="obstacles">A list of all other elements on the diagram to be avoided.</param>
     /// <param name="stubLength">The minimum length of the initial and final segments of the connector.</param>
     /// <param name="obstaclePadding">The clearance margin around obstacles.</param>
-    /// <param name="gridSize">The resolution of the pathfinding grid. Smaller is more precise but slower.</param>
+    /// <param name="gridSize">Reserved for compatibility with existing callers.</param>
     /// <returns>A list of DiagramPoint objects that define the connector's path.</returns>
     public List<DiagramPoint> GetRoute(
         Boundary sourceBoundary, Edges sourceEdge, DiagramPoint? start,
@@ -104,15 +104,16 @@ public class ConnectorRouter
         var startPoint = start ?? GetAttachmentPoint(sourceBoundary, sourceEdge);
         var endPoint = end ?? GetAttachmentPoint(targetBoundary, targetEdge);
 
-        // If there are no obstacles, use the fast, simple router.
-        if (obstacles == null || !obstacles.Any())
-        {
-            return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength);
-        }
-
-        // Otherwise, use the A* router for obstacle avoidance.
-        return GetAStarRoute(startPoint, sourceEdge, endPoint, targetEdge, sourceBoundary, targetBoundary, obstacles,
-            obstaclePadding, gridSize, stubLength);
+        return GetOrthogonalRoute(
+            sourceBoundary,
+            sourceEdge,
+            startPoint,
+            targetBoundary,
+            targetEdge,
+            endPoint,
+            obstacles,
+            obstaclePadding,
+            stubLength);
     }
 
     #endregion
@@ -126,32 +127,91 @@ public class ConnectorRouter
 
     #endregion
 
-    #region Simple Heuristic Router (No Obstacles)
+    #region Orthogonal Router
 
-    private static List<DiagramPoint> GetSimpleRoute(
-        DiagramPoint startPoint, Edges sourceEdge,
-        DiagramPoint endPoint, Edges targetEdge,
+    private static List<DiagramPoint> GetOrthogonalRoute(
+        Boundary sourceBoundary,
+        Edges sourceEdge,
+        DiagramPoint startPoint,
+        Boundary targetBoundary,
+        Edges targetEdge,
+        DiagramPoint endPoint,
+        Boundary[]? obstacles,
+        double obstaclePadding,
         double stubLength)
     {
         var firstWaypoint = GetStubEndPoint(startPoint, sourceEdge, stubLength);
         var secondWaypoint = GetStubEndPoint(endPoint, targetEdge, stubLength);
+        var paddedObstacles = GetPaddedObstacles(sourceBoundary, targetBoundary, obstacles, obstaclePadding, stubLength);
 
-        var intermediatePoints = GetIntermediatePoints(firstWaypoint, sourceEdge, secondWaypoint, targetEdge);
+        var preferredPath = BuildRoute(
+            startPoint,
+            firstWaypoint,
+            GetIntermediatePoints(firstWaypoint, sourceEdge, secondWaypoint, targetEdge),
+            secondWaypoint,
+            endPoint);
 
+        if (IsRouteBodyClear(preferredPath, paddedObstacles))
+            return SimplifyPath(preferredPath, firstWaypoint, secondWaypoint);
+
+        var visibilityPath = GetVisibilityRoute(firstWaypoint, sourceEdge, secondWaypoint, targetEdge, paddedObstacles);
+        if (visibilityPath.Count > 0)
+        {
+            var fullPath = new List<DiagramPoint> { startPoint, firstWaypoint };
+            AddOrthogonalPath(fullPath, visibilityPath.Skip(1));
+            AddOrthogonalPoint(fullPath, secondWaypoint);
+            fullPath.Add(endPoint);
+            return SimplifyPath(fullPath, firstWaypoint, secondWaypoint);
+        }
+
+        return SimplifyPath(preferredPath, firstWaypoint, secondWaypoint);
+    }
+
+    private static List<DiagramPoint> BuildRoute(
+        DiagramPoint startPoint,
+        DiagramPoint firstWaypoint,
+        IEnumerable<DiagramPoint> intermediatePoints,
+        DiagramPoint secondWaypoint,
+        DiagramPoint endPoint)
+    {
         var fullPath = new List<DiagramPoint> { startPoint, firstWaypoint };
-        fullPath.AddRange(intermediatePoints);
-        fullPath.Add(secondWaypoint);
+        AddOrthogonalPath(fullPath, intermediatePoints);
+        AddOrthogonalPoint(fullPath, secondWaypoint);
         fullPath.Add(endPoint);
-
-        return SimplifyPath(fullPath, firstWaypoint, secondWaypoint);
+        return fullPath;
     }
 
     private static List<DiagramPoint> GetIntermediatePoints(DiagramPoint p1, Edges edge1, DiagramPoint p2, Edges edge2)
     {
         var points = new List<DiagramPoint>();
-        bool isEdge1Horizontal = edge1 == Edges.Left || edge1 == Edges.Right;
 
-        if (isEdge1Horizontal)
+        if (AreVerticalEdges(edge1, edge2))
+        {
+            if (edge1 == edge2)
+            {
+                points.Add(new DiagramPoint(p1.X, p2.Y));
+            }
+            else
+            {
+                var middleY = (p1.Y + p2.Y) / 2;
+                points.Add(new DiagramPoint(p1.X, middleY));
+                points.Add(new DiagramPoint(p2.X, middleY));
+            }
+        }
+        else if (AreHorizontalEdges(edge1, edge2))
+        {
+            if (edge1 == edge2)
+            {
+                points.Add(new DiagramPoint(p2.X, p1.Y));
+            }
+            else
+            {
+                var middleX = (p1.X + p2.X) / 2;
+                points.Add(new DiagramPoint(middleX, p1.Y));
+                points.Add(new DiagramPoint(middleX, p2.Y));
+            }
+        }
+        else if (IsVerticalEdge(edge1))
         {
             points.Add(new DiagramPoint(p1.X, p2.Y));
         }
@@ -163,181 +223,242 @@ public class ConnectorRouter
         return points;
     }
 
-    #endregion
-
-    #region A* Pathfinding Router (With Obstacle Avoidance)
-
-    /// <summary>
-    /// Internal representation of a node in the A* pathfinding grid.
-    /// </summary>
-    private class PathNode
+    private sealed class VisibilityNode(DiagramPoint point)
     {
-        public int X { get; }
-        public int Y { get; }
-        public bool IsWalkable { get; set; }
-        public PathNode? Parent { get; set; }
-        public int GCost { get; set; } = int.MaxValue; // Cost from the start node
-        public int HCost { get; set; } // Heuristic cost to the end node
-        public int FCost => GCost + HCost; // Total cost
-
-        public PathNode(int x, int y, bool isWalkable)
-        {
-            X = x;
-            Y = y;
-            IsWalkable = isWalkable;
-        }
+        public DiagramPoint Point { get; } = point;
+        public VisibilityNode? Parent { get; set; }
+        public double Cost { get; set; } = double.PositiveInfinity;
     }
 
-    private static List<DiagramPoint> GetAStarRoute(
-        DiagramPoint startPoint, Edges sourceEdge,
-        DiagramPoint endPoint, Edges targetEdge,
-        Boundary sourceBoundary, Boundary targetBoundary,
-        Boundary[] obstacles, double padding, double gridSize, double stubLength)
+    private static List<Boundary> GetPaddedObstacles(
+        Boundary sourceBoundary,
+        Boundary targetBoundary,
+        Boundary[]? obstacles,
+        double obstaclePadding,
+        double stubLength)
     {
-        // Define the start and end points of the stubs. The A* will route between these.
-        var stubStartPoint = GetStubEndPoint(startPoint, sourceEdge, stubLength);
-        var stubEndPoint = GetStubEndPoint(endPoint, targetEdge, stubLength);
+        var allObstacles = obstacles?.Distinct().ToList() ?? [];
+        if (!allObstacles.Contains(sourceBoundary))
+            allObstacles.Add(sourceBoundary);
+        if (!allObstacles.Contains(targetBoundary))
+            allObstacles.Add(targetBoundary);
 
-        // 1. Define the total area for the grid
-        var allBounds = new List<Boundary>(obstacles) { sourceBoundary, targetBoundary };
-        double minX = allBounds.Min(b => b.X) - padding * 2 - stubLength;
-        double minY = allBounds.Min(b => b.Y) - padding * 2 - stubLength;
-        double maxX = allBounds.Max(b => b.Right) + padding * 2 + stubLength;
-        double maxY = allBounds.Max(b => b.Bottom) + padding * 2 + stubLength;
-
-        var gridOrigin = new DiagramPoint(minX, minY);
-        int gridWidth = gridSize <= 0 ? 0 : (int)Math.Ceiling((maxX - minX) / gridSize);
-        int gridHeight = gridSize <= 0 ? 0 : (int)Math.Ceiling((maxY - minY) / gridSize);
-
-        if (gridWidth <= 0 || gridHeight <= 0)
-            return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength); // Fallback
-
-        // 2. Create the grid and mark obstacles
-        var grid = new PathNode[gridWidth, gridHeight];
+        var padding = Math.Max(0, obstaclePadding);
+        var endpointPadding = Math.Min(padding, Math.Max(0, stubLength));
         var endpointBoundaries = new[] { sourceBoundary, targetBoundary };
-        var paddedObstacles = obstacles
-            .Where(o => !endpointBoundaries.Contains(o))
-            .Select(o =>
-                new Boundary(o.X - padding, o.Y - padding, o.Width + padding * 2, o.Height + padding * 2))
-            .Concat(endpointBoundaries)
+
+        return allObstacles
+            .Select(o => Inflate(o, endpointBoundaries.Contains(o) ? endpointPadding : padding))
             .ToList();
+    }
 
-        for (int x = 0; x < gridWidth; x++)
+    private static Boundary Inflate(Boundary boundary, double padding)
+    {
+        return new Boundary(
+            boundary.X - padding,
+            boundary.Y - padding,
+            boundary.Width + padding * 2,
+            boundary.Height + padding * 2);
+    }
+
+    private static bool IsRouteBodyClear(IReadOnlyList<DiagramPoint> route, IReadOnlyList<Boundary> obstacles)
+    {
+        for (var i = 1; i < route.Count - 2; i++)
         {
-            for (int y = 0; y < gridHeight; y++)
+            if (IsSegmentBlocked(route[i], route[i + 1], obstacles))
+                return false;
+        }
+
+        return true;
+    }
+
+    private static List<DiagramPoint> GetVisibilityRoute(
+        DiagramPoint start,
+        Edges sourceEdge,
+        DiagramPoint end,
+        Edges targetEdge,
+        IReadOnlyList<Boundary> obstacles)
+    {
+        var xCoordinates = new SortedSet<double> { start.X, end.X };
+        var yCoordinates = new SortedSet<double> { start.Y, end.Y };
+
+        foreach (var obstacle in obstacles)
+        {
+            xCoordinates.Add(obstacle.X);
+            xCoordinates.Add(obstacle.Right);
+            yCoordinates.Add(obstacle.Y);
+            yCoordinates.Add(obstacle.Bottom);
+        }
+
+        var nodes = new Dictionary<DiagramPoint, VisibilityNode>();
+        foreach (var x in xCoordinates)
+        {
+            foreach (var y in yCoordinates)
             {
-                var worldPoint =
-                    new DiagramPoint(minX + x * gridSize + gridSize / 2, minY + y * gridSize + gridSize / 2);
-                var nodeBoundary = new Boundary(worldPoint.X - gridSize / 2, worldPoint.Y - gridSize / 2, gridSize,
-                    gridSize);
-                bool isWalkable = !paddedObstacles.Any(o => o.Intersects(nodeBoundary));
-                grid[x, y] = new PathNode(x, y, isWalkable);
+                var point = new DiagramPoint(x, y);
+                if (AreSamePoint(point, start) || AreSamePoint(point, end) || !IsInsideAnyObstacle(point, obstacles))
+                    nodes[point] = new VisibilityNode(point);
             }
         }
 
-        // 3. Find start and end nodes on the grid (for the stubs)
-        var startNode = GetNodeFromWorldPoint(stubStartPoint, gridOrigin, gridSize, gridWidth, gridHeight);
-        var endNode = GetNodeFromWorldPoint(stubEndPoint, gridOrigin, gridSize, gridWidth, gridHeight);
+        if (!nodes.TryGetValue(start, out var startNode) || !nodes.TryGetValue(end, out var endNode))
+            return [];
 
-        if (startNode == null || endNode == null)
-            return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength); // Fallback
+        var queue = new PriorityQueue<VisibilityNode, double>();
+        startNode.Cost = 0;
+        queue.Enqueue(startNode, 0);
 
-        // Ensure start/end nodes are walkable
-        grid[startNode.X, startNode.Y].IsWalkable = true;
-        grid[endNode.X, endNode.Y].IsWalkable = true;
-
-        // 4. Run A* Algorithm
-        var firstNode = grid[startNode.X, startNode.Y];
-        firstNode.GCost = 0;
-        firstNode.HCost = GetManhattanDistance(firstNode, grid[endNode.X, endNode.Y]);
-
-        var openQueue = new PriorityQueue<PathNode, (int FCost, int HCost)>();
-        openQueue.Enqueue(firstNode, (firstNode.FCost, firstNode.HCost));
-        var closedList = new HashSet<PathNode>();
-
-        while (openQueue.Count > 0)
+        while (queue.Count > 0)
         {
-            var currentNode = openQueue.Dequeue();
+            var node = queue.Dequeue();
+            if (node == endNode)
+                return ReconstructVisibilityPath(endNode);
 
-            if (closedList.Contains(currentNode))
-                continue;
-
-            closedList.Add(currentNode);
-
-            if (currentNode.X == endNode.X && currentNode.Y == endNode.Y)
+            foreach (var neighbor in GetVisibleNeighbors(
+                         node,
+                         nodes,
+                         xCoordinates,
+                         yCoordinates,
+                         start,
+                         sourceEdge,
+                         end,
+                         targetEdge,
+                         obstacles))
             {
-                // Path found: assemble the stubs and the A* path, then simplify.
-                var aStarPath = ReconstructPath(currentNode, gridOrigin, gridSize);
-                var fullPath = new List<DiagramPoint> { startPoint, stubStartPoint };
-                AddOrthogonalPath(fullPath, aStarPath);
-                AddOrthogonalPoint(fullPath, stubEndPoint);
-                fullPath.Add(endPoint);
-                return SimplifyPath(fullPath, stubStartPoint, stubEndPoint);
-            }
+                var cost = node.Cost + GetOrthogonalDistance(node.Point, neighbor.Point);
+                if (cost >= neighbor.Cost)
+                    continue;
 
-            foreach (var neighbor in GetNeighbors(currentNode, grid))
-            {
-                if (!neighbor.IsWalkable || closedList.Contains(neighbor)) continue;
-
-                int newGCost = currentNode.GCost + 10; // Cost for orthogonal movement
-                if (newGCost < neighbor.GCost)
-                {
-                    neighbor.GCost = newGCost;
-                    neighbor.HCost = GetManhattanDistance(neighbor, grid[endNode.X, endNode.Y]);
-                    neighbor.Parent = currentNode;
-
-                    openQueue.Enqueue(neighbor, (neighbor.FCost, neighbor.HCost));
-                }
+                neighbor.Cost = cost;
+                neighbor.Parent = node;
+                queue.Enqueue(neighbor, cost);
             }
         }
 
-        // Path not found, return a simple direct route as a fallback
-        return GetSimpleRoute(startPoint, sourceEdge, endPoint, targetEdge, stubLength);
+        return [];
     }
 
-    private static PathNode? GetNodeFromWorldPoint(DiagramPoint point, DiagramPoint origin, double gridSize, int width,
-        int height)
+    private static IEnumerable<VisibilityNode> GetVisibleNeighbors(
+        VisibilityNode node,
+        IReadOnlyDictionary<DiagramPoint, VisibilityNode> nodes,
+        SortedSet<double> xCoordinates,
+        SortedSet<double> yCoordinates,
+        DiagramPoint start,
+        Edges sourceEdge,
+        DiagramPoint end,
+        Edges targetEdge,
+        IReadOnlyList<Boundary> obstacles)
     {
-        int x = gridSize <= 0 ? 0 :(int)Math.Floor((point.X - origin.X) / gridSize);
-        int y = gridSize <= 0 ? 0 :(int)Math.Floor((point.Y - origin.Y) / gridSize);
-        if (x >= 0 && x < width && y >= 0 && y < height) 
-            return new PathNode(x, y, true);
-        return null;
+        foreach (var x in GetAdjacentCoordinates(xCoordinates, node.Point.X))
+        {
+            var point = new DiagramPoint(x, node.Point.Y);
+            if (CanUseVisibilitySegment(node.Point, point, start, sourceEdge, end, targetEdge, obstacles) &&
+                nodes.TryGetValue(point, out var neighbor))
+                yield return neighbor;
+        }
+
+        foreach (var y in GetAdjacentCoordinates(yCoordinates, node.Point.Y))
+        {
+            var point = new DiagramPoint(node.Point.X, y);
+            if (CanUseVisibilitySegment(node.Point, point, start, sourceEdge, end, targetEdge, obstacles) &&
+                nodes.TryGetValue(point, out var neighbor))
+                yield return neighbor;
+        }
     }
 
-    private static int GetManhattanDistance(PathNode node, PathNode other)
+    private static bool CanUseVisibilitySegment(
+        DiagramPoint from,
+        DiagramPoint to,
+        DiagramPoint start,
+        Edges sourceEdge,
+        DiagramPoint end,
+        Edges targetEdge,
+        IReadOnlyList<Boundary> obstacles)
     {
-        return Math.Abs(node.X - other.X) + Math.Abs(node.Y - other.Y);
+        if (AreSamePoint(from, start) && IsMovingInEdgeDirection(from, to, GetOppositeEdge(sourceEdge)))
+            return false;
+
+        if (AreSamePoint(to, end) && IsMovingInEdgeDirection(from, to, targetEdge))
+            return false;
+
+        return !IsSegmentBlocked(from, to, obstacles);
     }
 
-    private static IEnumerable<PathNode> GetNeighbors(PathNode node, PathNode[,] grid)
+    private static IEnumerable<double> GetAdjacentCoordinates(SortedSet<double> coordinates, double value)
     {
-        var neighbors = new List<PathNode>();
-        int w = grid.GetLength(0);
-        int h = grid.GetLength(1);
+        var lower = coordinates.GetViewBetween(double.NegativeInfinity, value).Reverse().Skip(1).FirstOrDefault(double.NaN);
+        if (!double.IsNaN(lower))
+            yield return lower;
 
-        if (node.X > 0) neighbors.Add(grid[node.X - 1, node.Y]);
-        if (node.X < w - 1) neighbors.Add(grid[node.X + 1, node.Y]);
-        if (node.Y > 0) neighbors.Add(grid[node.X, node.Y - 1]);
-        if (node.Y < h - 1) neighbors.Add(grid[node.X, node.Y + 1]);
-
-        return neighbors;
+        var upper = coordinates.GetViewBetween(value, double.PositiveInfinity).Skip(1).FirstOrDefault(double.NaN);
+        if (!double.IsNaN(upper))
+            yield return upper;
     }
 
-    private static List<DiagramPoint> ReconstructPath(PathNode endNode, DiagramPoint origin, double gridSize)
+    private static List<DiagramPoint> ReconstructVisibilityPath(VisibilityNode endNode)
     {
         var path = new List<DiagramPoint>();
         var current = endNode;
         while (current != null)
         {
-            path.Add(new DiagramPoint(
-                origin.X + current.X * gridSize + gridSize / 2,
-                origin.Y + current.Y * gridSize + gridSize / 2));
+            path.Add(current.Point);
             current = current.Parent;
         }
 
         path.Reverse();
         return path;
+    }
+
+    private static bool IsInsideAnyObstacle(DiagramPoint point, IEnumerable<Boundary> obstacles)
+    {
+        return obstacles.Any(o =>
+            point.X > o.X + Tolerance &&
+            point.X < o.Right - Tolerance &&
+            point.Y > o.Y + Tolerance &&
+            point.Y < o.Bottom - Tolerance);
+    }
+
+    private static bool IsSegmentBlocked(
+        DiagramPoint start,
+        DiagramPoint end,
+        IEnumerable<Boundary> obstacles)
+    {
+        if (AreSamePoint(start, end))
+            return false;
+
+        return obstacles.Any(o => SegmentIntersectsInterior(start, end, o));
+    }
+
+    private static bool SegmentIntersectsInterior(DiagramPoint start, DiagramPoint end, Boundary obstacle)
+    {
+        if (AreSameY(start, end))
+        {
+            var y = start.Y;
+            if (y <= obstacle.Y + Tolerance || y >= obstacle.Bottom - Tolerance)
+                return false;
+
+            var minX = Math.Min(start.X, end.X);
+            var maxX = Math.Max(start.X, end.X);
+            return minX < obstacle.Right - Tolerance && maxX > obstacle.X + Tolerance;
+        }
+
+        if (AreSameX(start, end))
+        {
+            var x = start.X;
+            if (x <= obstacle.X + Tolerance || x >= obstacle.Right - Tolerance)
+                return false;
+
+            var minY = Math.Min(start.Y, end.Y);
+            var maxY = Math.Max(start.Y, end.Y);
+            return minY < obstacle.Bottom - Tolerance && maxY > obstacle.Y + Tolerance;
+        }
+
+        return true;
+    }
+
+    private static double GetOrthogonalDistance(DiagramPoint a, DiagramPoint b)
+    {
+        return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
     }
 
     #endregion
@@ -365,6 +486,39 @@ public class ConnectorRouter
             Edges.Top => point with { Y = point.Y - length },
             Edges.Bottom => point with { Y = point.Y + length },
             _ => point,
+        };
+    }
+
+    private static bool AreVerticalEdges(Edges edge1, Edges edge2) => IsVerticalEdge(edge1) && IsVerticalEdge(edge2);
+
+    private static bool AreHorizontalEdges(Edges edge1, Edges edge2) =>
+        IsHorizontalEdge(edge1) && IsHorizontalEdge(edge2);
+
+    private static bool IsVerticalEdge(Edges edge) => edge is Edges.Top or Edges.Bottom;
+
+    private static bool IsHorizontalEdge(Edges edge) => edge is Edges.Left or Edges.Right;
+
+    private static Edges GetOppositeEdge(Edges edge)
+    {
+        return edge switch
+        {
+            Edges.Left => Edges.Right,
+            Edges.Right => Edges.Left,
+            Edges.Top => Edges.Bottom,
+            Edges.Bottom => Edges.Top,
+            _ => edge,
+        };
+    }
+
+    private static bool IsMovingInEdgeDirection(DiagramPoint from, DiagramPoint to, Edges edge)
+    {
+        return edge switch
+        {
+            Edges.Left => AreSameY(from, to) && to.X < from.X - Tolerance,
+            Edges.Right => AreSameY(from, to) && to.X > from.X + Tolerance,
+            Edges.Top => AreSameX(from, to) && to.Y < from.Y - Tolerance,
+            Edges.Bottom => AreSameX(from, to) && to.Y > from.Y + Tolerance,
+            _ => false,
         };
     }
 
