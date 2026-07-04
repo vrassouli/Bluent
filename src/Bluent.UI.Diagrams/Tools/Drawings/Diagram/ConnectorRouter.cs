@@ -75,7 +75,7 @@ public class ConnectorRouter
             obstaclePadding,
             gridSize);
 
-        connector.SetWayPoints(points.GetRange(1, points.Count - 2));
+        connector.SetWayPoints(points.Count > 2 ? points.GetRange(1, points.Count - 2) : []);
     }
 
 
@@ -143,7 +143,7 @@ public class ConnectorRouter
         fullPath.Add(secondWaypoint);
         fullPath.Add(endPoint);
 
-        return SimplifyPath(fullPath);
+        return SimplifyPath(fullPath, firstWaypoint, secondWaypoint);
     }
 
     private static List<DiagramPoint> GetIntermediatePoints(DiagramPoint p1, Edges edge1, DiagramPoint p2, Edges edge2)
@@ -176,7 +176,7 @@ public class ConnectorRouter
         public int Y { get; }
         public bool IsWalkable { get; set; }
         public PathNode? Parent { get; set; }
-        public int GCost { get; set; } // Cost from the start node
+        public int GCost { get; set; } = int.MaxValue; // Cost from the start node
         public int HCost { get; set; } // Heuristic cost to the end node
         public int FCost => GCost + HCost; // Total cost
 
@@ -214,8 +214,13 @@ public class ConnectorRouter
 
         // 2. Create the grid and mark obstacles
         var grid = new PathNode[gridWidth, gridHeight];
-        var paddedObstacles = obstacles.Select(o =>
-            new Boundary(o.X - padding, o.Y - padding, o.Width + padding * 2, o.Height + padding * 2)).ToList();
+        var endpointBoundaries = new[] { sourceBoundary, targetBoundary };
+        var paddedObstacles = obstacles
+            .Where(o => !endpointBoundaries.Contains(o))
+            .Select(o =>
+                new Boundary(o.X - padding, o.Y - padding, o.Width + padding * 2, o.Height + padding * 2))
+            .Concat(endpointBoundaries)
+            .ToList();
 
         for (int x = 0; x < gridWidth; x++)
         {
@@ -242,24 +247,32 @@ public class ConnectorRouter
         grid[endNode.X, endNode.Y].IsWalkable = true;
 
         // 4. Run A* Algorithm
-        var openList = new List<PathNode> { grid[startNode.X, startNode.Y] };
+        var firstNode = grid[startNode.X, startNode.Y];
+        firstNode.GCost = 0;
+        firstNode.HCost = GetManhattanDistance(firstNode, grid[endNode.X, endNode.Y]);
+
+        var openQueue = new PriorityQueue<PathNode, (int FCost, int HCost)>();
+        openQueue.Enqueue(firstNode, (firstNode.FCost, firstNode.HCost));
         var closedList = new HashSet<PathNode>();
 
-        while (openList.Count > 0)
+        while (openQueue.Count > 0)
         {
-            var currentNode = openList.OrderBy(n => n.FCost).ThenBy(n => n.HCost).First();
+            var currentNode = openQueue.Dequeue();
 
-            openList.Remove(currentNode);
+            if (closedList.Contains(currentNode))
+                continue;
+
             closedList.Add(currentNode);
 
             if (currentNode.X == endNode.X && currentNode.Y == endNode.Y)
             {
                 // Path found: assemble the stubs and the A* path, then simplify.
                 var aStarPath = ReconstructPath(currentNode, gridOrigin, gridSize);
-                var fullPath = new List<DiagramPoint> { startPoint };
-                fullPath.AddRange(aStarPath);
+                var fullPath = new List<DiagramPoint> { startPoint, stubStartPoint };
+                AddOrthogonalPath(fullPath, aStarPath);
+                AddOrthogonalPoint(fullPath, stubEndPoint);
                 fullPath.Add(endPoint);
-                return SimplifyPath(fullPath);
+                return SimplifyPath(fullPath, stubStartPoint, stubEndPoint);
             }
 
             foreach (var neighbor in GetNeighbors(currentNode, grid))
@@ -267,17 +280,13 @@ public class ConnectorRouter
                 if (!neighbor.IsWalkable || closedList.Contains(neighbor)) continue;
 
                 int newGCost = currentNode.GCost + 10; // Cost for orthogonal movement
-                if (newGCost < neighbor.GCost || !openList.Contains(neighbor))
+                if (newGCost < neighbor.GCost)
                 {
                     neighbor.GCost = newGCost;
-                    neighbor.HCost =
-                        Math.Abs(neighbor.X - endNode.X) + Math.Abs(neighbor.Y - endNode.Y); // Manhattan distance
+                    neighbor.HCost = GetManhattanDistance(neighbor, grid[endNode.X, endNode.Y]);
                     neighbor.Parent = currentNode;
 
-                    if (!openList.Contains(neighbor))
-                    {
-                        openList.Add(neighbor);
-                    }
+                    openQueue.Enqueue(neighbor, (neighbor.FCost, neighbor.HCost));
                 }
             }
         }
@@ -289,11 +298,16 @@ public class ConnectorRouter
     private static PathNode? GetNodeFromWorldPoint(DiagramPoint point, DiagramPoint origin, double gridSize, int width,
         int height)
     {
-        int x = gridSize <= 0 ? 0 :(int)Math.Round((point.X - origin.X) / gridSize);
-        int y = gridSize <= 0 ? 0 :(int)Math.Round((point.Y - origin.Y) / gridSize);
+        int x = gridSize <= 0 ? 0 :(int)Math.Floor((point.X - origin.X) / gridSize);
+        int y = gridSize <= 0 ? 0 :(int)Math.Floor((point.Y - origin.Y) / gridSize);
         if (x >= 0 && x < width && y >= 0 && y < height) 
             return new PathNode(x, y, true);
         return null;
+    }
+
+    private static int GetManhattanDistance(PathNode node, PathNode other)
+    {
+        return Math.Abs(node.X - other.X) + Math.Abs(node.Y - other.Y);
     }
 
     private static IEnumerable<PathNode> GetNeighbors(PathNode node, PathNode[,] grid)
@@ -316,7 +330,9 @@ public class ConnectorRouter
         var current = endNode;
         while (current != null)
         {
-            path.Add(new DiagramPoint(origin.X + current.X * gridSize, origin.Y + current.Y * gridSize));
+            path.Add(new DiagramPoint(
+                origin.X + current.X * gridSize + gridSize / 2,
+                origin.Y + current.Y * gridSize + gridSize / 2));
             current = current.Parent;
         }
 
@@ -352,20 +368,50 @@ public class ConnectorRouter
         };
     }
 
-    private static List<DiagramPoint> SimplifyPath(List<DiagramPoint> path)
+    private static void AddOrthogonalPath(List<DiagramPoint> path, IEnumerable<DiagramPoint> points)
+    {
+        foreach (var point in points)
+        {
+            AddOrthogonalPoint(path, point);
+        }
+    }
+
+    private static void AddOrthogonalPoint(List<DiagramPoint> path, DiagramPoint point)
+    {
+        if (path.Count == 0)
+        {
+            path.Add(point);
+            return;
+        }
+
+        var last = path.Last();
+        if (AreSamePoint(last, point))
+            return;
+
+        if (!AreOrthogonal(last, point))
+        {
+            var corner = new DiagramPoint(point.X, last.Y);
+            if (!AreSamePoint(last, corner) && !AreSamePoint(corner, point))
+                path.Add(corner);
+        }
+
+        path.Add(point);
+    }
+
+    private static List<DiagramPoint> SimplifyPath(List<DiagramPoint> path, params DiagramPoint[] protectedPoints)
     {
         if (path.Count < 3) return path;
+        var protectedPointSet = protectedPoints.ToHashSet();
         var simplified = new List<DiagramPoint> { path[0] };
         for (int i = 1; i < path.Count - 1; i++)
         {
             var p_prev = simplified.Last();
             var p_curr = path[i];
             var p_next = path[i + 1];
-            const double tolerance = 1e-5;
             bool isCollinear =
-                (Math.Abs(p_prev.X - p_curr.X) < tolerance && Math.Abs(p_curr.X - p_next.X) < tolerance) ||
-                (Math.Abs(p_prev.Y - p_curr.Y) < tolerance && Math.Abs(p_curr.Y - p_next.Y) < tolerance);
-            if (!isCollinear)
+                (AreSameX(p_prev, p_curr) && AreSameX(p_curr, p_next)) ||
+                (AreSameY(p_prev, p_curr) && AreSameY(p_curr, p_next));
+            if (!isCollinear || protectedPointSet.Contains(p_curr))
             {
                 simplified.Add(p_curr);
             }
@@ -374,6 +420,16 @@ public class ConnectorRouter
         simplified.Add(path.Last());
         return simplified;
     }
+
+    private static bool AreOrthogonal(DiagramPoint a, DiagramPoint b) => AreSameX(a, b) || AreSameY(a, b);
+
+    private static bool AreSamePoint(DiagramPoint a, DiagramPoint b) => AreSameX(a, b) && AreSameY(a, b);
+
+    private static bool AreSameX(DiagramPoint a, DiagramPoint b) => Math.Abs(a.X - b.X) < Tolerance;
+
+    private static bool AreSameY(DiagramPoint a, DiagramPoint b) => Math.Abs(a.Y - b.Y) < Tolerance;
+
+    private const double Tolerance = 1e-5;
 
     #endregion
 }
