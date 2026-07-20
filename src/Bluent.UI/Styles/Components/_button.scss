@@ -211,7 +211,7 @@
   }
 
   &.danger {
-    background-color: var(--colorPaletteRedBackground2);
+    background-color: var(--colorPaletteRedBackground3);
     color: var(--colorNeutralForegroundOnBrand);
     border-color: transparent;
 
@@ -222,10 +222,10 @@
     }
 
     &:hover {
-      background-color: var(--colorPaletteRedBackground3);
+      background-color: var(--colorPaletteDarkOrangeBackground3);
 
       &:active {
-        background-color: var(--colorPaletteRedBackground1);
+        background-color: var(--colorPaletteDarkRedForeground2);
         color: var(--colorNeutralForegroundOnBrand);
       }
     }
