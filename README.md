@@ -114,7 +114,14 @@ The current focus is to make Bluent easier to evaluate, adopt, and contribute to
 4. Expand automated testing and accessibility checks.
 5. Build a welcoming contributor workflow and public roadmap.
 
-See [`ROADMAP.md`](ROADMAP.md) for the working plan.
+## Project documents
+
+- [Vision](VISION.md) — what Bluent is, who it serves, and its product principles.
+- [Roadmap](ROADMAP.md) — current phases, outcomes, and exit criteria.
+- [Changelog](CHANGELOG.md) — notable changes and release history.
+- [Versioning and releases](RELEASING.md) — compatibility and release policy.
+- [Contributing](CONTRIBUTING.md) — development setup and contribution workflow.
+- [Code of Conduct](CODE_OF_CONDUCT.md) — community participation standards.
 
 ## Contributing
 
