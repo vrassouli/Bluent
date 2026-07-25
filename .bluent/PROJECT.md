@@ -192,11 +192,15 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - Local validation passes a zero-warning Release build, 19 tests, five-package
   artifact inspection, release-tool tests, links, YAML parsing, rendered
   accessibility smoke checks, and representative browser runtime checks.
-- PR #377 targets `Dev`; its first clean Quality run passed every build, test,
-  package, documentation, workflow, and accessibility-smoke step and produced
-  the validated package artifact.
-- Remaining completion gates are the release-workflow dry run and Issue
-  #366/#372 evidence updates.
+- PR #377 targets `Dev` and is ready for maintainer review.
+- Clean Quality run #4 passed every build, test, package, documentation,
+  workflow, and accessibility-smoke step.
+- Release packages run #367 passed the artifact-only path. Its inspected
+  `bluent-0.0.0-ci.367` artifact contains the five aligned packages, package
+  report, and deterministic notes; NuGet and GitHub Release jobs were skipped.
+- Issues #366 and #372 contain the committed evidence and explicit
+  limitations. Sprint 3 implementation is complete pending maintainer review
+  and merge.
 
 ## Maintainer-Approved Maintenance
 

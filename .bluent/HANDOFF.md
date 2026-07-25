@@ -70,10 +70,10 @@ Sprint 3 implementation is locally complete and awaiting clean CI evidence:
 
 ## Next Session
 
-1. Confirm the PR-triggered `Release packages` artifact-only run passes and
-   inspect its package/report/notes artifact.
-2. Update Issues #366 and #372 with the committed evidence.
-3. Leave PR #377 open for maintainer review; do not self-merge it.
+1. Review PR #377 and its successful Quality and Release packages checks.
+2. Leave PR #377 open until a maintainer explicitly authorizes merge.
+3. Configure/protect `nuget-production` and add `NUGET_API_KEY` before any
+   real publication attempt.
 4. Do not create a real tag, GitHub Release, or NuGet publication without
    explicit maintainer authorization.
 

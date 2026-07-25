@@ -104,7 +104,7 @@ product development begins.
   reconnection remains explicitly unverified.
 - [x] Record commit, SDK, OS, browser, host, results, and limitations in
   `docs/compatibility/hosting-and-render-modes.md`.
-- [ ] Update Issue #366 with the committed evidence.
+- [x] Update Issue #366 with the committed evidence.
 
 ### 6. Quality gates
 
@@ -160,6 +160,18 @@ On macOS 26.5, Apple Silicon, and .NET SDK 10.0.300:
   behavior;
 - fresh console checks were clean for the tested interactive modes;
 - no NuGet package, tag, or GitHub Release was published or created.
+
+## GitHub Actions evidence
+
+- [Quality run #4](https://github.com/vrassouli/Bluent/actions/runs/30159984912)
+  passed every build, test, package, link, workflow, whitespace, and focused
+  accessibility-smoke step.
+- [Release packages run #367](https://github.com/vrassouli/Bluent/actions/runs/30159984921)
+  passed its artifact-only path.
+- The downloaded `bluent-0.0.0-ci.367` artifact contained exactly five aligned
+  packages, `package-validation.json`, and deterministic `release-notes.md`.
+- NuGet preflight/publication and GitHub Release creation were skipped as
+  designed; no external release state changed.
 
 ## Dependencies
 
@@ -230,19 +242,19 @@ Also required:
 
 ## Definition of Done
 
-- [ ] A documented, predictable release process exists.
-- [ ] Release automation has passed a safe dry run.
-- [ ] All five packages are validated as release artifacts.
-- [ ] Accidental and partial publication risks are protected against as far as
+- [x] A documented, predictable release process exists.
+- [x] Release automation has passed a safe dry run.
+- [x] All five packages are validated as release artifacts.
+- [x] Accidental and partial publication risks are protected against as far as
   the NuGet service permits.
-- [ ] Changelog and release-note generation are deterministic.
-- [ ] Existing compiler warnings are fixed or formally triaged.
-- [ ] CI prevents unexpected new warnings.
-- [ ] Issue #366 has evidence-backed compatibility results.
-- [ ] Required render-mode documentation is current.
-- [ ] Practical quality gates pass.
-- [ ] Contributor-ready issues exist.
-- [ ] Project tracking and handoff files reflect the final state.
-- [ ] The completion PR targets `Dev` and is ready for maintainer review.
-- [ ] The final PR is not self-merged without explicit maintainer
+- [x] Changelog and release-note generation are deterministic.
+- [x] Existing compiler warnings are fixed or formally triaged.
+- [x] CI prevents unexpected new warnings.
+- [x] Issue #366 has evidence-backed compatibility results.
+- [x] Required render-mode documentation is current.
+- [x] Practical quality gates pass.
+- [x] Contributor-ready issues exist.
+- [x] Project tracking and handoff files reflect the final state.
+- [x] The completion PR targets `Dev` and is ready for maintainer review.
+- [x] The final PR is not self-merged without explicit maintainer
   authorization.
