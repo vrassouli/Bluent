@@ -6,6 +6,7 @@ Bluent component documentation is developed from a source-derived inventory and 
 
 - [Public component inventory and coverage](inventory.md)
 - [Component reference template](TEMPLATE.md)
+- [Dialog](dialog.md)
 - [Getting Started](../getting-started/index.md)
 - [Package selection and boundaries](../packages/index.md)
 - [Hosting models and render modes](../compatibility/hosting-and-render-modes.md)

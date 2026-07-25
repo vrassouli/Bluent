@@ -15,6 +15,7 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 ## Components
 
 - [Component documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/README.md): entry point for component references
+- [Dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dialog.md): service usage, results, modal configuration, and nested dialog stacking
 - [Component inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md): tracked public component families and documentation coverage
 - [Component reference standard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/TEMPLATE.md): required structure and verification rules for component pages
 

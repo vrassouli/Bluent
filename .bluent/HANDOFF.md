@@ -55,6 +55,12 @@ Completed through PR #370:
 - Confirmed in the final live browser check that deployed Home/Bluent links respect `/Bluent/`, the operations chart renders, root navigation succeeds, overflow is zero, and the console is clean.
 - Restored the `github-pages` deployment environment to its original `Dev` and `gh-pages` branch policies after feature-branch validation.
 
+Current maintainer-approved maintenance in the working tree:
+
+- Nested dialogs now stack instead of replacing the existing dialog.
+- Each modal stack layer owns its overlay, so outside-click closes only that dialog and earlier context remains.
+- Automated render tests, a runnable nested-dialog demo, canonical dialog documentation, and desktop/mobile light/LTR and dark/RTL runtime evidence were added.
+
 Final evidence was added to Issue #368, PR #370 was merged into `Dev`, and the merged Sprint branches were deleted.
 
 ## Next Session

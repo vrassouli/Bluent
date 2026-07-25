@@ -1,7 +1,17 @@
-﻿<div>
+﻿@using Bluent.UI.Services.Abstractions
+
+<div>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam exercitationem cumque repellendus eaque est dolor eius expedita nulla ullam? Tenetur reprehenderit aut voluptatum impedit voluptates in natus iure cumque eaque?
 </div>
+<Button Text="Open nested dialog" OnClick="OpenNestedDialog" />
 
 @code {
+    [Inject] private IDialogService DialogService { get; set; } = default!;
 
+    private async Task OpenNestedDialog()
+    {
+        await DialogService.ShowMessageBoxAsync(
+            "Nested dialog",
+            "This dialog is stacked above the original dialog. Close it to return to the original context.");
+    }
 }

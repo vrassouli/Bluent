@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- Dialogs opened from another dialog now stack above the parent instead of closing it, and modal overlays close only their own top layer.
 - Corrected invalid NuGet `RepositoryUrl` values.
 - Corrected the `Bluent.UI.Utilities` package description, which previously referred to `Bluent.UI.MDI`.
 - Cleared stale `TabList` link selection when navigation activates an item in another tab list.

@@ -167,6 +167,17 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [ ] Review automated builds and tests.
 - [ ] Add accessibility and quality checks where practical.
 
+## Maintainer-Approved Maintenance
+
+### 2026-07-25 — Nested dialog stacking
+
+- [x] Preserve an existing dialog when another dialog is opened from it.
+- [x] Render each modal dialog with an overlay scoped to its own stack layer.
+- [x] Keep non-modal layers free of additional overlays.
+- [x] Add automated render regression tests and a runnable nested-dialog demo.
+- [x] Add canonical dialog documentation and an `Unreleased` changelog entry.
+- [x] Validate nested close-button and overlay-close flows in the WebAssembly demo at desktop and 390 × 844 mobile viewports, including dark RTL with zero horizontal overflow.
+
 ## Parallel Quality Follow-ups
 
 These tasks are important but should not silently expand the Sprint 2 visual scope.

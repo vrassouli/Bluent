@@ -47,7 +47,7 @@ Namespace: `Bluent.UI.Components`
 | DataGrid | `Bluent.UI` | `src/Bluent.UI/Components/DataGridComponent/` | Not started | Verify | Not validated |
 | DataPager | `Bluent.UI` | `src/Bluent.UI/Components/DataPagerComponent/` | Not started | Verify | Not validated |
 | DateField | `Bluent.UI` | `src/Bluent.UI/Components/DateFieldComponent/` | Not started | Verify | Not validated |
-| Dialog | `Bluent.UI` | `src/Bluent.UI/Components/DialogComponent/` | Not started | Verify | Not validated |
+| Dialog | `Bluent.UI` | `src/Bluent.UI/Components/DialogComponent/` | [Runtime verified](dialog.md) | Runnable nested-dialog demo | Automated render tests; desktop/mobile and LTR/RTL |
 | DockPanel | `Bluent.UI` | `src/Bluent.UI/Components/DockPanelComponent/` | Not started | Verify | Not validated |
 | Drawer | `Bluent.UI` | `src/Bluent.UI/Components/DrawerComponent/` | Not started | Verify | Not validated |
 | DropdownSelect | `Bluent.UI` | `src/Bluent.UI/Components/DropdownSelectComponent/` | Not started | Verify | Not validated |

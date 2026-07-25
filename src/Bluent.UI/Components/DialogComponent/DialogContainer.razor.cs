@@ -6,7 +6,7 @@ namespace Bluent.UI.Components.DialogComponent;
 
 public partial class DialogContainer : IDisposable
 {
-    private List<DialogContext> _contexts = new();
+    private readonly List<DialogContext> _contexts = [];
 
     [Inject] private IDialogService DialogService { get; set; } = default!;
 
@@ -26,25 +26,18 @@ public partial class DialogContainer : IDisposable
 
     private void Service_ShowDialog(object? sender, Services.EventArguments.ShowDialogEventArgs e)
     {
-        if (_contexts.Any())
-            _contexts.First().DialogReference?.Close();
-
         _contexts.Add(e.Context);
         StateHasChanged();
     }
     
     private void OnDialogClose(dynamic? result, DialogContext context)
     {
-        context.ResultTCS.SetResult(result);
+        context.ResultTCS.TrySetResult(result);
         _contexts.Remove(context);
     }
 
-    private void OverlayClickHandler()
+    private void OverlayClickHandler(DialogContext context)
     {
-        var dialog = _contexts.FirstOrDefault();
-        if (dialog?.DialogReference != null)
-        {
-            dialog.DialogReference.Close();
-        }
+        context.DialogReference?.Close();
     }
 }

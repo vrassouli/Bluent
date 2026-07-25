@@ -1,4 +1,16 @@
-﻿.bui-dialog {
+﻿.dialog-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--zIndexDialog) + var(--dialog-stack-index));
+    pointer-events: none;
+
+    > .bui-overlay,
+    > .bui-dialog {
+        pointer-events: auto;
+    }
+}
+
+.bui-dialog {
     z-index: var(--zIndexDialog);
     overflow: auto;
     box-shadow: var(--shadow64);
