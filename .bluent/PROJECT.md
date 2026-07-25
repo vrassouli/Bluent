@@ -9,7 +9,18 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 2 — Demo and Visual Presentation  
 **Status:** In Progress  
-**Working Branch:** `demo/sprint-2-visual-presentation`
+**Working Branch:** `demo/sprint-2-visual-presentation`  
+**Pull Request:** [#369](https://github.com/vrassouli/Bluent/pull/369) — draft  
+**Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
+
+## Operational Files
+
+- `.bluent/HANDOFF.md` — immediate continuation instructions for Codex and other coding agents.
+- `.bluent/sprints/sprint-02.md` — detailed Sprint 2 execution plan and acceptance criteria.
+- `.bluent/QUALITY.md` — validation evidence and completion policy.
+- `.bluent/BACKLOG.md` — current, next, later, and deferred project work.
+- `docs/demo/sprint-2-audit.md` — source audit of the existing demo.
+- `src/Bluent.UI.Demo.Pages/AGENTS.md` — scoped instructions for demo work.
 
 ## Working Agreement
 
@@ -17,8 +28,9 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - Prioritize documentation, presentation, reliability, adoption, and AI readiness.
 - Preserve API consistency across packages and components.
 - Avoid breaking changes unless they are necessary, documented, and reviewed.
-- Every completed project task must update this file.
-- Use this file as the first reference when resuming work.
+- Do not claim validation without recorded evidence defined in `.bluent/QUALITY.md`.
+- Every completed project task must update this file and the relevant tracking issue.
+- Use this file and `.bluent/HANDOFF.md` as the first references when resuming work.
 - Complete existing sprint work before starting a new sprint.
 
 ## Product Positioning
@@ -96,27 +108,36 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Sprint 2 — Demo and Visual Presentation
 
-**Branch:** `demo/sprint-2-visual-presentation`
+Detailed plan: `.bluent/sprints/sprint-02.md`
 
-### Active Order
+### Completed on Active Branch
 
-- [ ] Audit the current demo application, page structure, navigation, and component coverage.
-- [ ] Define the demo information architecture and visual direction.
-- [ ] Redesign the demo landing page around Bluent's enterprise strengths.
-- [ ] Build a structured and searchable component showcase.
-- [ ] Improve mobile and desktop demo navigation.
-- [ ] Add clear package, hosting, RTL, localization, and theming demonstrations.
-- [ ] Make Bluent's strongest differentiators immediately visible.
-- [ ] Capture professional screenshots for the README and project pages.
-- [ ] Produce short usage GIFs or videos where they add clear value.
-- [ ] Validate demo build, links, responsive behavior, and static deployment.
-- [ ] Open one focused Sprint 2 pull request into `Dev`.
+- [x] Audit the current demo application, page structure, navigation, and component coverage.
+- [x] Define the initial demo information architecture and visual direction.
+- [x] Replace the default landing page with product positioning and calls to action.
+- [x] Add an in-demo Getting Started destination.
+- [x] Group navigation by purpose and support compact/expanded behavior.
+- [x] Highlight themes, dark mode, RTL, Charts, and Diagrams.
+- [x] Run initial restore, Release build, tests, package creation, and Markdown-link validation in GitHub Actions.
+- [x] Add Codex handoff, backlog, quality policy, sprint plan, and scoped demo-agent instructions.
+
+### Remaining
+
+- [ ] Add at least three runnable enterprise scenario pages.
+- [ ] Apply a repeatable component showcase structure to high-value pages.
+- [ ] Validate desktop and mobile navigation in a running browser.
+- [ ] Validate light/dark and LTR/RTL combinations.
+- [ ] Capture professional screenshots from the validated application.
+- [ ] Modernize and validate static deployment where required.
+- [ ] Record final validation evidence and remaining risks.
+- [ ] Mark PR #369 ready for review.
+- [ ] Merge the reviewed Sprint 2 pull request into `Dev`.
 
 ### Definition of Done
 
 - The landing page explains what Bluent is and why an application team would choose it.
 - Important component families are easy to find from desktop and mobile navigation.
-- The showcase demonstrates real business-application scenarios, not only isolated controls.
+- The showcase demonstrates at least three real business-application scenarios.
 - Theme, dark/light mode, RTL, localization, dialogs, feedback, charts, and diagrams are visibly represented where supported.
 - README-quality screenshots are committed and accurately represent the current product.
 - The demo builds successfully and its deployment workflow is validated.
@@ -143,18 +164,6 @@ These tasks are important but should not silently expand the Sprint 2 visual sco
 4. Expand the AI benchmark to context-free and multiple-model runs.
 5. Continue [Issue #363](https://github.com/vrassouli/Bluent/issues/363) by adding verified references/examples for public components and compiling representative AI-generated consumer samples.
 
-## Backlog
-
-- Documentation website or GitHub Pages redesign beyond the Sprint 2 demo scope.
-- Brand guide and visual identity refinement.
-- Public component coverage matrix enhancements.
-- Automated API documentation.
-- Community outreach and launch announcement.
-- Showcase of applications built with Bluent.
-- Package naming and boundary review.
-- Release cadence review.
-- Evaluate a Bluent MCP or generated AI context bundle only after canonical static documentation exists.
-
 ## Accepted Decisions
 
 ### 2026-07-25 — Pause new features
@@ -177,8 +186,8 @@ These tasks are important but should not silently expand the Sprint 2 visual sco
 
 ### 2026-07-25 — Repository-based project tracking
 
-**Decision:** Track relaunch progress in `.bluent/PROJECT.md`.  
-**Reason:** The file is version-controlled, readable by contributors, and can be used to resume future work without reconstructing project state from chat history.  
+**Decision:** Track relaunch progress in `.bluent/PROJECT.md`, maintain immediate work in `.bluent/HANDOFF.md`, and keep detailed sprint execution under `.bluent/sprints/`.  
+**Reason:** Version-controlled project state enables reliable continuation by maintainers and coding agents without reconstructing context from chat history.  
 **Status:** Accepted
 
 ### 2026-07-25 — AI readiness and discoverability
@@ -193,8 +202,10 @@ These tasks are important but should not silently expand the Sprint 2 visual sco
 
 When resuming work on Bluent:
 
-1. Read this file from `Dev` and from the active working branch.
-2. Check open pull requests and issues before assuming sprint status.
-3. Continue with the first unchecked task in the current sprint.
-4. Update this file after completing or changing a task.
-5. Keep parallel quality work explicitly separated from the active sprint scope.
+1. Read root `AGENTS.md`.
+2. Read `.bluent/HANDOFF.md`, this file, and the active sprint plan.
+3. Check open pull requests and issues before assuming sprint status.
+4. Continue in the documented execution order.
+5. Apply `.bluent/QUALITY.md` before claiming completion.
+6. Update this file, the tracking issue, and the pull request as work progresses.
+7. Keep parallel quality work explicitly separated from the active sprint scope.
