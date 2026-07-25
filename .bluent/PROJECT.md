@@ -8,7 +8,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 1 — Documentation Foundation  
-**Status:** In progress — tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
+**Status:** In progress — [Draft PR #367](https://github.com/vrassouli/Bluent/pull/367), tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
 **Working Branch:** `docs/sprint-1-foundation`
 
 ## Working Agreement
