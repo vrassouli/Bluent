@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
@@ -10,14 +10,19 @@
 
     <PropertyGroup>
         <PackageId>Bluent.UI.Charts</PackageId>
+        <Title>Bluent UI Charts</Title>
         <Authors>Vahid Rassouli</Authors>
-        <Description>'Bluent.UI.Charts' is a Blazor component library for adding Charts from chart.js to your app.</Description>
-        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <Description>Blazor chart components for Bluent business applications, powered by Chart.js.</Description>
+        <PackageTags>Blazor;Charts;Chart.js;Components;Data Visualization;Business Applications</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/vrassouli/Bluent</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vrassouli/Bluent.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
         <SupportedPlatform Include="browser" />
     </ItemGroup>
 
