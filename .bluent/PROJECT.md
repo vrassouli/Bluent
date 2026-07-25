@@ -42,10 +42,10 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - [x] Create the project status tracking file.
 - [x] Verify all README installation instructions against the source code.
 - [x] Add `VISION.md`.
+- [x] Add `ROADMAP.md`.
 
 ### In Progress
 
-- [ ] Add `ROADMAP.md`.
 - [ ] Add `CONTRIBUTING.md`.
 - [ ] Add `CODE_OF_CONDUCT.md`.
 - [ ] Add `CHANGELOG.md`.
@@ -156,7 +156,7 @@ These items are intentionally deferred until the relaunch foundation is complete
 ## Known Issues Found During Relaunch
 
 - `src/Bluent.UI/Bluent.UI.csproj` contains an invalid repository URL: `githttps://github.com/vrassouli/Bluent`.
-- The rewritten README references `ROADMAP.md` and `CONTRIBUTING.md`, which must be created before the relaunch branch is merged.
+- The rewritten README references `CONTRIBUTING.md`, which must be created before the relaunch branch is merged.
 
 ## Session Resume Procedure
 
