@@ -7,9 +7,9 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 ## Current Phase
 
 **Phase:** Project Relaunch  
-**Current Sprint:** Sprint 0 — Repository Professionalization  
-**Status:** Complete — [PR #364](https://github.com/vrassouli/Bluent/pull/364) open for review  
-**Working Branch:** `docs/project-relaunch`
+**Current Sprint:** Sprint 1 — Documentation Foundation  
+**Status:** In progress — tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
+**Working Branch:** `docs/sprint-1-foundation`
 
 ## Working Agreement
 
@@ -53,15 +53,16 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - [x] Review all relaunch changes for consistency.
 - [x] Open the project relaunch pull request into `Dev` ([PR #364](https://github.com/vrassouli/Bluent/pull/364)).
 
-### Review Summary
+### Completion Summary
 
-- The branch is based directly on `Dev` and was not behind it at final review.
+- [PR #364](https://github.com/vrassouli/Bluent/pull/364) was merged into `Dev` on 2026-07-25.
+- The branch was based directly on `Dev` and was not behind it at final review.
 - README setup instructions were verified against service registration, layout containers, and packaged stylesheet paths.
 - NuGet metadata now uses the Apache-2.0 license expression, valid project/repository URLs, focused descriptions and tags, and a packaged README.
 - Repository documents and templates link to canonical project policies.
 - No product features were added.
 - The existing GitHub Pages workflow still targets `master`, .NET 9, and Actions v3. Updating CI is deferred to a dedicated quality task because it is outside Sprint 0's documentation and repository-professionalization scope.
-- A full solution build was not run through the GitHub connector; the pull request requires local or CI build/test validation before merge.
+- A full solution build/test/package validation was not recorded before merge; this remains a quality follow-up and must be completed before the next package release.
 
 ### Definition of Done
 
@@ -77,7 +78,10 @@ Sprint 0 is complete when:
 
 ## Sprint 1 — Documentation Foundation
 
-### Planned
+**Tracking:** [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
+**Branch:** `docs/sprint-1-foundation`
+
+### In progress
 
 - [ ] Define the documentation information architecture.
 - [ ] Create a reliable getting-started guide.
@@ -164,8 +168,8 @@ These items are intentionally deferred until the relaunch foundation is complete
 ## Known Follow-up Work
 
 - Modernize and validate `.github/workflows/static.yml`.
-- Run the full build/test/package validation before merging the relaunch pull request.
-- Start Sprint 1 only after the Sprint 0 pull request is reviewed and merged.
+- Run and record full build/test/package validation before the next package release.
+- Execute Sprint 1 through [Issue #365](https://github.com/vrassouli/Bluent/issues/365).
 
 ## Session Resume Procedure
 
