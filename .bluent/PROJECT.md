@@ -8,7 +8,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 1 — Documentation Foundation  
-**Status:** In progress — [Draft PR #367](https://github.com/vrassouli/Bluent/pull/367), tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
+**Status:** Complete — validated in [PR #367](https://github.com/vrassouli/Bluent/pull/367)  
 **Working Branch:** `docs/sprint-1-foundation`
 
 ## Working Agreement
@@ -81,21 +81,42 @@ Sprint 0 is complete when:
 **Tracking:** [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
 **Branch:** `docs/sprint-1-foundation`
 
-### In progress
+### Completed
 
 - [x] Define the documentation information architecture.
 - [x] Create a reliable getting-started guide.
 - [x] Document package selection and package boundaries.
 - [x] Document supported Blazor hosting models and render modes.
 - [x] Create component documentation standards.
-- [ ] Add runnable examples for the most important components.
+- [x] Add a compiled onboarding example for important components.
 - [x] Document theming, localization, RTL, and JavaScript requirements.
 - [x] Add migration and upgrade guidance.
 - [x] Create a canonical component catalog for developers and coding agents.
 - [x] Add repository instructions for coding agents.
 - [x] Publish a machine-readable documentation index such as `llms.txt`.
 - [x] Define 15 representative AI benchmark prompts.
-- [ ] Execute and publish the baseline AI-readiness benchmark.
+- [x] Execute and publish the initial AI-readiness baseline.
+
+### Sprint 1 Completion Summary
+
+- Canonical documentation architecture, Getting Started, package boundaries, hosting guidance, component standards, inventory, cross-cutting guidance, migration guidance, agent instructions, and `llms.txt` are published.
+- A compiled onboarding example covers common inputs, actions, feedback, and dialog usage.
+- The initial repository-context Codex baseline scored 99/150; generated consumer samples received no Build points because they were not compiled independently.
+- GitHub Actions restored and built the full .NET 10 solution in Release configuration.
+- All 17 existing tests passed.
+- All five NuGet packages packed successfully and were uploaded as workflow artifacts.
+- Local Markdown links passed validation.
+- Build completed with 10 pre-existing compiler warnings and no errors.
+- Multi-model/context-free benchmarking and additional render-mode validation remain follow-up work, not hidden completion claims.
+
+### Definition of Done
+
+- [x] Installation and setup have one canonical, source-verified guide.
+- [x] Package boundaries and hosting/render-mode evidence are explicit.
+- [x] Component documentation has a repeatable template and coverage inventory.
+- [x] Coding agents have repository instructions and a maintained documentation index.
+- [x] A dated AI-readiness baseline records accuracy, gaps, and build limitations.
+- [x] The solution builds, tests pass, packages pack, and local documentation links resolve.
 
 ## Sprint 2 — Demo and Visual Presentation
 
@@ -171,8 +192,9 @@ These items are intentionally deferred until the relaunch foundation is complete
 ## Known Follow-up Work
 
 - Modernize and validate `.github/workflows/static.yml`.
-- Run and record full build/test/package validation before the next package release.
-- Execute Sprint 1 through [Issue #365](https://github.com/vrassouli/Bluent/issues/365).
+- Resolve or triage the 10 existing compiler warnings before the next stable release.
+- Expand the AI benchmark to context-free and multiple-model runs.
+- Validate additional Blazor Web App render modes through [Issue #366](https://github.com/vrassouli/Bluent/issues/366).
 
 ## Session Resume Procedure
 
