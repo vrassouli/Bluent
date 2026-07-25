@@ -1,0 +1,51 @@
+# Bluent
+
+> Bluent is a Blazor-native UI toolkit for building modern, component-rich business applications with forms, navigation, feedback, overlays, data presentation, charts, diagrams, and desktop-style interaction patterns.
+
+Bluent is open source under Apache License 2.0. The current repository targets .NET 10. Blazor WebAssembly is the verified onboarding path; additional Blazor Web App interactive render modes are being validated.
+
+## Start here
+
+- [Project README](https://github.com/vrassouli/Bluent/blob/Dev/README.md): concise product overview, packages, installation, and project links
+- [Getting Started](https://github.com/vrassouli/Bluent/blob/Dev/docs/getting-started/index.md): canonical installation, registration, styles, containers, and troubleshooting
+- [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
+- [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
+
+## Components
+
+- [Component documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/README.md): entry point for component references
+- [Component inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md): tracked public component families and documentation coverage
+- [Component reference standard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/TEMPLATE.md): required structure and verification rules for component pages
+
+## Cross-cutting guidance
+
+- [Hosting and render modes](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/hosting-and-render-modes.md): evidence-based support matrix and validation status
+- [Theming, localization, RTL, and assets](https://github.com/vrassouli/Bluent/blob/Dev/docs/guides/theming-localization-rtl-and-assets.md): themes, dark/light mode, direction, localization, ES modules, and package assets
+- [Migration and upgrades](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/migration-and-upgrades.md): safe upgrade process and compatibility surface
+
+## Project and contribution
+
+- [Vision](https://github.com/vrassouli/Bluent/blob/Dev/VISION.md): product users, principles, positioning, and AI-ready strategy
+- [Roadmap](https://github.com/vrassouli/Bluent/blob/Dev/ROADMAP.md): outcome-based project phases
+- [Contributing](https://github.com/vrassouli/Bluent/blob/Dev/CONTRIBUTING.md): development and contribution workflow
+- [Release policy](https://github.com/vrassouli/Bluent/blob/Dev/RELEASING.md): Semantic Versioning, validation, tagging, and publication
+- [Changelog](https://github.com/vrassouli/Bluent/blob/Dev/CHANGELOG.md): notable changes and release history
+- [Coding-agent instructions](https://github.com/vrassouli/Bluent/blob/Dev/AGENTS.md): repository facts, guardrails, build commands, and documentation rules
+
+## Canonical facts for code generation
+
+- Main NuGet package: `Bluent.UI`
+- Component namespace: `Bluent.UI.Components`
+- Service registration namespace: `Bluent.UI.Extensions`
+- Registration: `builder.Services.AddBluentUI();`
+- Shared overlay host: one `<Containers />` in the active layout
+- Required base styles: `_content/Bluent.UI/bluent.ui.theme.default.min.css` and `_content/Bluent.UI/bluent.ui.components.min.css`
+- The base JavaScript module is loaded through Blazor JS interop; do not add an unverified global script tag
+- Optional packages: `Bluent.UI.Charts`, `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities`
+- Do not invent APIs or claim render-mode compatibility that the linked documentation marks unverified
+
+## Source
+
+- [Repository](https://github.com/vrassouli/Bluent)
+- [AI readiness epic](https://github.com/vrassouli/Bluent/issues/363)
+- [Sprint 1 documentation foundation](https://github.com/vrassouli/Bluent/issues/365)
