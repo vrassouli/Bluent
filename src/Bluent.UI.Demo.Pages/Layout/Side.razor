@@ -9,13 +9,13 @@
         </TabList>
     </div>
 
-    <NavGroup Title="Actions">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Actions</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Buttons")" Icon="icon-ic_fluent_button_20_regular" ActiveIcon="icon-ic_fluent_button_20_filled" Href="components/buttons" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Links")" Icon="icon-ic_fluent_link_20_regular" ActiveIcon="icon-ic_fluent_link_20_filled" Href="components/links" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Toolbars")" Icon="icon-ic_fluent_apps_20_regular" ActiveIcon="icon-ic_fluent_apps_20_filled" Href="components/toolbars" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Inputs and forms">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Inputs and forms</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Fields")" Icon="icon-ic_fluent_text_field_20_regular" ActiveIcon="icon-ic_fluent_text_field_20_filled" Href="components/fields" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Checkboxes")" Icon="icon-ic_fluent_checkbox_checked_20_regular" ActiveIcon="icon-ic_fluent_checkbox_checked_20_filled" Href="components/checkboxes" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Radio")" Icon="icon-ic_fluent_radio_button_20_regular" ActiveIcon="icon-ic_fluent_radio_button_20_filled" Href="components/radios" Orientation="Orientation.Vertical" />
@@ -23,39 +23,39 @@
         <Tab Text="@Label("Calendar")" Icon="icon-ic_fluent_calendar_20_regular" ActiveIcon="icon-ic_fluent_calendar_20_filled" Href="components/calendars" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Sliders")" Icon="icon-ic_fluent_line_flow_diagonal_up_right_20_regular" ActiveIcon="icon-ic_fluent_line_flow_diagonal_up_right_20_filled" Href="components/sliders" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("File selects")" Icon="icon-ic_fluent_attach_20_regular" ActiveIcon="icon-ic_fluent_attach_20_filled" Href="components/file-selects" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Navigation">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Navigation</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Breadcrumbs")" Icon="icon-ic_fluent_document_chevron_double_20_regular" ActiveIcon="icon-ic_fluent_document_chevron_double_20_filled" Href="components/breadcrumbs" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Menus")" Icon="icon-ic_fluent_text_bullet_list_square_20_regular" ActiveIcon="icon-ic_fluent_text_bullet_list_square_20_filled" Href="components/menus" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Tab lists")" Icon="icon-ic_fluent_tab_desktop_20_regular" ActiveIcon="icon-ic_fluent_tab_desktop_20_filled" Href="components/tablists" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Trees")" Icon="icon-ic_fluent_text_bullet_list_tree_20_regular" ActiveIcon="icon-ic_fluent_text_bullet_list_tree_20_filled" Href="components/trees" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Wizards")" Icon="icon-ic_fluent_slide_text_sparkle_20_regular" ActiveIcon="icon-ic_fluent_slide_text_sparkle_20_filled" Href="components/wizards" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Feedback and overlays">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Feedback and overlays</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Dialogs")" Icon="icon-ic_fluent_window_20_regular" ActiveIcon="icon-ic_fluent_window_20_filled" Href="components/dialogs" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Drawers")" Icon="icon-ic_fluent_slide_arrow_right_20_regular" ActiveIcon="icon-ic_fluent_slide_arrow_right_20_filled" Href="components/drawers" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Message bars")" Icon="icon-ic_fluent_info_20_regular" ActiveIcon="icon-ic_fluent_info_20_filled" Href="components/message-bars" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Popovers")" Icon="icon-ic_fluent_tooltip_quote_20_regular" ActiveIcon="icon-ic_fluent_tooltip_quote_20_filled" Href="components/popovers" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Toasts")" Icon="icon-ic_fluent_alert_urgent_20_regular" ActiveIcon="icon-ic_fluent_alert_urgent_20_filled" Href="components/toasts" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Tooltips")" Icon="icon-ic_fluent_tooltip_quote_20_regular" ActiveIcon="icon-ic_fluent_tooltip_quote_20_filled" Href="components/tooltips" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Data display">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Data display</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Data grids")" Icon="icon-ic_fluent_grid_20_regular" ActiveIcon="icon-ic_fluent_grid_20_filled" Href="components/data-grids" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Data pagers")" Icon="icon-ic_fluent_arrow_fit_20_regular" ActiveIcon="icon-ic_fluent_arrow_fit_20_filled" Href="components/data-pagers" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Lists")" Icon="icon-ic_fluent_list_20_regular" ActiveIcon="icon-ic_fluent_list_20_filled" Href="components/lists" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Cards")" Icon="icon-ic_fluent_card_ui_20_regular" ActiveIcon="icon-ic_fluent_card_ui_20_filled" Href="components/cards" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Layout">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Layout</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Dock panels")" Icon="icon-ic_fluent_layout_column_two_split_left_20_regular" ActiveIcon="icon-ic_fluent_layout_column_two_split_left_20_filled" Href="components/dock-panels" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Split panels")" Icon="icon-ic_fluent_split_hint_20_regular" ActiveIcon="icon-ic_fluent_split_hint_20_filled" Href="components/split-panels" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Stacks")" Icon="icon-ic_fluent_stack_vertical_20_regular" ActiveIcon="icon-ic_fluent_stack_vertical_20_filled" Href="components/stacks" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Status and visuals">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Status and visuals</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Avatars")" Icon="icon-ic_fluent_person_circle_20_regular" ActiveIcon="icon-ic_fluent_person_circle_20_filled" Href="components/avatars" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Badges")" Icon="icon-ic_fluent_badge_20_regular" ActiveIcon="icon-ic_fluent_badge_20_filled" Href="components/badges" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Icons")" Icon="icon-ic_fluent_icons_20_regular" ActiveIcon="icon-ic_fluent_icons_20_filled" Href="components/icons" Orientation="Orientation.Vertical" />
@@ -64,11 +64,11 @@
         <Tab Text="@Label("Progress bars")" Icon="icon-ic_fluent_apps_20_regular" ActiveIcon="icon-ic_fluent_apps_20_filled" Href="components/progress-bars" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Skeletons")" Icon="icon-ic_fluent_apps_20_regular" ActiveIcon="icon-ic_fluent_apps_20_filled" Href="components/skeletons" Orientation="Orientation.Vertical" />
         <Tab Text="@Label("Spinners")" Icon="icon-ic_fluent_spinner_ios_20_regular" ActiveIcon="icon-ic_fluent_spinner_ios_20_filled" Href="components/spinners" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 
-    <NavGroup Title="Rich capabilities">
+    <section class="nav-group">\n        @if (Expanded)\n        {\n            <h2 class="nav-group-title">Rich capabilities</h2>\n        }\n        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
         <Tab Text="@Label("Drawing")" Icon="icon-ic_fluent_draw_image_20_regular" ActiveIcon="icon-ic_fluent_draw_image_20_filled" Href="components/drawing-canvases" Orientation="Orientation.Vertical" />
-    </NavGroup>
+        </TabList>\n    </section>
 </nav>
 
 @code {
