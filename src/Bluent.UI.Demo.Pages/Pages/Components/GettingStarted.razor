@@ -1,0 +1,68 @@
+@page "/getting-started"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Services.Abstractions
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <h1>Getting started</h1>
+        <p>A small, runnable onboarding example using common Bluent components and the dialog service.</p>
+
+        <section class="p-7 rounded-5 shadow-3">
+            <Label ForExpression="() => _name" Class="d-block mb-1" />
+            <TextField @bind-Value="_name" placeholder="Name" />
+
+            <Label ForExpression="() => _quantity" Class="d-block mb-1 mt-4" />
+            <NumericField @bind-Value="_quantity" Min="1" />
+
+            <Label ForExpression="() => _color" Class="d-block mb-1 mt-4" />
+            <SelectField @bind-Value="_color">
+                @foreach (var color in _colors)
+                {
+                    <option value="@color">@color</option>
+                }
+            </SelectField>
+
+            <Checkbox @bind-Value="_confirmed" Label="Details are correct" Class="d-flex mt-4" />
+
+            <div class="d-flex gap-2 mt-5">
+                <Button Text="Save"
+                        Appearance="ButtonAppearance.Primary"
+                        OnClick="Save"
+                        disabled="@(!_confirmed)" />
+                <Button Text="Confirm in dialog" OnClick="ConfirmInDialog" />
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(_status))
+            {
+                <MessageBar Class="mt-5">@_status</MessageBar>
+            }
+        </section>
+    </div>
+</div>
+
+@code {
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+
+    private string? _name;
+    private int _quantity = 1;
+    private string _color = "Blue";
+    private bool _confirmed;
+    private string? _status;
+    private readonly string[] _colors = ["Blue", "Green", "Red"];
+
+    private void Save()
+    {
+        _status = $"Saved {_quantity} item(s) for {_name ?? "the user"} in {_color}.";
+    }
+
+    private async Task ConfirmInDialog()
+    {
+        var result = await DialogService.ShowMessageBoxAsync(
+            "Confirm",
+            "Save these details?",
+            MessageBoxButton.Yes | MessageBoxButton.No,
+            MessageBoxButton.Yes);
+
+        _status = $"Dialog result: {result}.";
+    }
+}
