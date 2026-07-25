@@ -8,14 +8,19 @@
 
     <PropertyGroup>
         <PackageId>Bluent.UI.Diagrams</PackageId>
+        <Title>Bluent UI Diagrams</Title>
         <Authors>Vahid Rassouli</Authors>
-        <Description>'Bluent.UI.Diagrams' is a Blazor component library for adding Diagram capability to your app.</Description>
-        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <Description>Blazor diagramming components and tools for interactive business application workflows.</Description>
+        <PackageTags>Blazor;Diagrams;Components;Visualization;Business Applications</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/vrassouli/Bluent</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vrassouli/Bluent.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
         <Content Remove="bundleconfig.json;compilerconfig.json" />
         <None Include="bundleconfig.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
