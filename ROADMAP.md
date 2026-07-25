@@ -55,8 +55,7 @@ For the long-term product direction, see [VISION.md](VISION.md). AI readiness an
 
 ## Phase 1 — Documentation and AI Foundation
 
-**Status:** In progress — tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
-**Working branch:** `docs/sprint-1-foundation`
+**Status:** Complete — delivered in [PR #367](https://github.com/vrassouli/Bluent/pull/367)
 
 ### Outcomes
 
@@ -69,18 +68,18 @@ For the long-term product direction, see [VISION.md](VISION.md). AI readiness an
 
 ### Deliverables
 
-- [ ] Define the documentation information architecture.
-- [ ] Publish a complete getting-started guide.
-- [ ] Document package selection and dependencies.
-- [ ] Document supported render modes and hosting models.
-- [ ] Define the component reference template.
-- [ ] Build an inventory of public components and documentation coverage.
-- [ ] Document theming, localization, RTL, JavaScript, and static asset requirements.
-- [ ] Add migration and compatibility guidance.
-- [ ] Publish a maintained `llms.txt` index.
-- [ ] Add repository instructions for coding agents.
-- [ ] Define 10–15 representative AI benchmark prompts.
-- [ ] Capture and publish the AI-readiness baseline.
+- [x] Define the documentation information architecture.
+- [x] Publish a complete getting-started guide.
+- [x] Document package selection and dependencies.
+- [x] Document supported render modes and hosting models.
+- [x] Define the component reference template.
+- [x] Build an inventory of public components and documentation coverage.
+- [x] Document theming, localization, RTL, JavaScript, and static asset requirements.
+- [x] Add migration and compatibility guidance.
+- [x] Publish a maintained `llms.txt` index.
+- [x] Add repository instructions for coding agents.
+- [x] Define 10–15 representative AI benchmark prompts.
+- [x] Capture and publish the AI-readiness baseline.
 
 ### Exit Criteria
 
