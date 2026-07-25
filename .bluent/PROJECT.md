@@ -8,9 +8,9 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 2 — Demo and Visual Presentation  
-**Status:** In Progress  
+**Status:** Ready for Review
 **Working Branch:** `demo/sprint-2-completion`
-**Pull Request:** pending final deployment validation; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
+**Pull Request:** pending creation; validation gates are complete; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
 **Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
 
 ## Operational Files
@@ -133,8 +133,8 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Validate desktop and mobile navigation in a running browser.
 - [x] Validate light/dark and LTR/RTL combinations.
 - [x] Capture professional screenshots from the validated application.
-- [ ] Run clean GitHub Actions validation and validate the deployed Pages site at the final commit.
-- [ ] Record final validation evidence and remaining risks.
+- [x] Run clean GitHub Actions validation and validate the deployed Pages site at commit `f1c2748`.
+- [x] Record final validation evidence and remaining risks.
 - [ ] Open the Sprint 2 completion pull request to `Dev` for review.
 - [ ] Merge the reviewed Sprint 2 pull request into `Dev`.
 
@@ -147,6 +147,14 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - README-quality screenshots are committed and accurately represent the current product.
 - The demo builds successfully and its deployment workflow is validated.
 - Sprint 2 is delivered in a reviewed pull request targeting `Dev`.
+
+### Validation Summary
+
+- Local browser validation covered 1440 × 1000 desktop and 390 × 844 mobile layouts, light/dark themes, LTR/RTL, a non-default brand color, all three enterprise scenarios, and the selected component showcases.
+- Clean GitHub Actions validation passed on commit `f1c2748`: restore, Release build, 17/17 tests, five package builds, and Markdown links.
+- GitHub Pages deployment passed on commit `f1c2748`; the live root, client-side routes, framework files, Bluent styles, and demo JavaScript were checked.
+- The final live browser check confirmed the `/Bluent/` home links, operations chart, deployed root navigation, zero horizontal overflow, and a clean console.
+- Ten pre-existing compiler warnings remain; no new public APIs, package-boundary changes, or breaking changes were introduced.
 
 ## Sprint 3 — Release and Community Readiness
 

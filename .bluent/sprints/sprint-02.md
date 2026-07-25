@@ -8,7 +8,7 @@ Turn the Bluent demo into a credible public product experience for teams evaluat
 
 - Branch: `demo/sprint-2-completion`
 - Foundation pull request: [#369](https://github.com/vrassouli/Bluent/pull/369) — merged
-- Completion pull request: pending final deployment validation
+- Completion pull request: pending creation; validation gates are complete
 - Issue: [#368](https://github.com/vrassouli/Bluent/issues/368)
 - Audit: `docs/demo/sprint-2-audit.md`
 
@@ -89,7 +89,7 @@ Preferred minimum set for completion:
 - [x] Validate LTR.
 - [x] Validate RTL.
 - [x] Check browser console and navigation errors.
-- [ ] Record environment and commit SHA after final validation commit.
+- [x] Record environment and commit SHA after final validation commit.
 
 ### 6. Assets and Deployment
 
@@ -98,12 +98,12 @@ Preferred minimum set for completion:
 - [x] Capture enterprise scenario screenshot.
 - [x] Capture RTL or theme demonstration screenshot.
 - [x] Modernize static deployment workflow where required for this demo.
-- [ ] Run and validate the static deployment workflow.
-- [ ] Check deployed routes and assets.
+- [x] Run and validate the static deployment workflow.
+- [x] Check deployed routes and assets.
 
 ### 7. Finalization
 
-- [ ] Run Release restore/build/test.
+- [x] Run Release restore/build/test.
 - [x] Pack all five packages where the workflow requires it.
 - [x] Validate local Markdown links.
 - [x] Update `.bluent/PROJECT.md`.
@@ -118,8 +118,11 @@ Preferred minimum set for completion:
 - Modes: light and dark themes, LTR and RTL direction, and a non-default Teams brand color reviewed without horizontal overflow.
 - Interaction: customer save, dashboard refresh and alert acknowledgement, confirmation dialog, toast, mobile drawer, and navigation scroll reset exercised.
 - Console: no browser console warnings or errors during the final local review.
-- Local verification: Release build, 17/17 tests, all five package outputs and metadata, Release static publish, packaged assets, and local Markdown links passed. One pre-existing `DockPanels._panel` compiler warning remains.
-- Pending before completion: clean GitHub Actions validation, Pages deployment, and deployed route/asset review at the final commit SHA.
+- Local verification: Release build, 17/17 tests, all five package outputs and metadata, Release static publish, packaged assets, and local Markdown links passed.
+- Remote verification: commit `f1c2748` passed clean restore/build/test/pack/link validation in [run 30154038522](https://github.com/vrassouli/Bluent/actions/runs/30154038522). All 17 tests passed and the five packages were produced. The clean build retained 10 pre-existing compiler warnings and no errors.
+- Deployment: commit `f1c2748` passed the modernized Pages workflow in [run 30154039208](https://github.com/vrassouli/Bluent/actions/runs/30154039208) and deployed to `https://vrassouli.github.io/Bluent/`. Root, fallback routes, framework assets, Bluent styles, and demo JavaScript were checked; GitHub Pages returns its expected HTTP 404 status for client-side fallback URLs while the Blazor router renders them successfully.
+- Final live browser check: the deployed operations route rendered its chart without overflow or console errors, Home/Bluent resolved to the `/Bluent/` base path, and the brand link returned successfully to the deployed landing page.
+- Deployment policy: the feature branch was temporarily added to the existing `github-pages` custom branch allowlist for validation, then removed. The original `Dev` and `gh-pages` policies remain.
 
 ## Acceptance Criteria
 

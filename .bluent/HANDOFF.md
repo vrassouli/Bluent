@@ -51,13 +51,16 @@ Completed on `demo/sprint-2-completion`:
 - Captured and documented current landing, component, enterprise, and dark/RTL screenshots.
 - Modernized the static deployment workflow and validated the local Release publish output.
 - Passed the cached Release build, all 17 tests, five-package pack/metadata inspection, and Markdown-link validation.
+- Passed clean restore/build/test/pack/link validation on commit `f1c2748` in GitHub Actions run `30154038522`.
+- Deployed commit `f1c2748` successfully in Pages run `30154039208` and checked the live root, client-side routes, and required assets.
+- Confirmed in the final live browser check that deployed Home/Bluent links respect `/Bluent/`, the operations chart renders, root navigation succeeds, overflow is zero, and the console is clean.
+- Restored the `github-pages` deployment environment to its original `Dev` and `gh-pages` branch policies after feature-branch validation.
 
 Still required before Sprint 2 can be considered complete:
 
-- Run clean restore/build/test/pack validation in GitHub Actions at the final commit.
-- Deploy the final commit through the GitHub Pages workflow and inspect deployed routes and assets.
-- Record the final commit SHA and remote evidence in project tracking and Issue #368.
+- Add the final evidence to Issue #368.
 - Open the completion pull request to `Dev` with exact evidence and remaining risks.
+- Obtain maintainer review and merge the completion pull request.
 
 ## Execution Order
 
