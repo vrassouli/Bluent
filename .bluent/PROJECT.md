@@ -8,7 +8,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 0 — Repository Professionalization  
-**Status:** In Progress  
+**Status:** Complete — pull request pending  
 **Working Branch:** `docs/project-relaunch`
 
 ## Working Agreement
@@ -43,30 +43,37 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - [x] Verify all README installation instructions against the source code.
 - [x] Add `VISION.md`.
 - [x] Add `ROADMAP.md`.
-
-### In Progress
-
-- [ ] Add `CONTRIBUTING.md`.
-- [ ] Add `CODE_OF_CONDUCT.md`.
-- [ ] Add `CHANGELOG.md`.
-- [ ] Document the versioning and release policy.
-- [ ] Fix NuGet package metadata, including the invalid `RepositoryUrl`.
-- [ ] Add GitHub issue templates.
-- [ ] Add a pull request template.
-- [ ] Review all relaunch changes for consistency.
+- [x] Add `CONTRIBUTING.md`.
+- [x] Add `CODE_OF_CONDUCT.md`.
+- [x] Add `CHANGELOG.md`.
+- [x] Document the versioning and release policy in `RELEASING.md`.
+- [x] Fix and complete NuGet metadata for the five packable projects.
+- [x] Add GitHub issue templates.
+- [x] Add a pull request template.
+- [x] Review all relaunch changes for consistency.
 - [ ] Open the project relaunch pull request into `Dev`.
+
+### Review Summary
+
+- The branch is based directly on `Dev` and was not behind it at final review.
+- README setup instructions were verified against service registration, layout containers, and packaged stylesheet paths.
+- NuGet metadata now uses the Apache-2.0 license expression, valid project/repository URLs, focused descriptions and tags, and a packaged README.
+- Repository documents and templates link to canonical project policies.
+- No product features were added.
+- The existing GitHub Pages workflow still targets `master`, .NET 9, and Actions v3. Updating CI is deferred to a dedicated quality task because it is outside Sprint 0's documentation and repository-professionalization scope.
+- A full solution build was not run through the GitHub connector; the pull request requires local or CI build/test validation before merge.
 
 ### Definition of Done
 
 Sprint 0 is complete when:
 
-- The repository has a clear license and project identity.
-- README instructions have been verified against the implementation.
-- Contribution and community guidelines exist.
-- Release and versioning expectations are documented.
-- NuGet repository metadata is valid.
-- Issue and pull request templates are available.
-- All changes are reviewed in one clean pull request targeting `Dev`.
+- [x] The repository has a clear license and project identity.
+- [x] README instructions have been verified against the implementation.
+- [x] Contribution and community guidelines exist.
+- [x] Release and versioning expectations are documented.
+- [x] NuGet repository metadata is valid.
+- [x] Issue and pull request templates are available.
+- [ ] All changes are available in one reviewed pull request targeting `Dev`.
 
 ## Sprint 1 — Documentation Foundation
 
@@ -109,6 +116,7 @@ Sprint 0 is complete when:
 
 These items are intentionally deferred until the relaunch foundation is complete.
 
+- Update and validate the GitHub Pages workflow.
 - Documentation website or GitHub Pages redesign.
 - Brand guide and visual identity refinement.
 - Public component coverage matrix.
@@ -153,10 +161,11 @@ These items are intentionally deferred until the relaunch foundation is complete
 **Tracking:** [Issue #363](https://github.com/vrassouli/Bluent/issues/363)  
 **Status:** Accepted
 
-## Known Issues Found During Relaunch
+## Known Follow-up Work
 
-- `src/Bluent.UI/Bluent.UI.csproj` contains an invalid repository URL: `githttps://github.com/vrassouli/Bluent`.
-- The rewritten README references `CONTRIBUTING.md`, which must be created before the relaunch branch is merged.
+- Modernize and validate `.github/workflows/static.yml`.
+- Run the full build/test/package validation before merging the relaunch pull request.
+- Start Sprint 1 only after the Sprint 0 pull request is reviewed and merged.
 
 ## Session Resume Procedure
 
