@@ -6,12 +6,13 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 Complete **Sprint 2 — Demo and Visual Presentation**.
 
-The immediate goal is to turn the existing demo into a credible public product experience for developers evaluating Bluent as an enterprise Blazor UI toolkit.
+The Sprint 2 foundation was merged into `Dev` through PR #369. Continue the remaining work from the fresh continuation branch created from that merge.
 
 ## Current Branch and Tracking
 
-- Branch: `demo/sprint-2-visual-presentation`
-- Pull request: [#369](https://github.com/vrassouli/Bluent/pull/369) — draft
+- Base branch: `Dev`
+- Active branch: `demo/sprint-2-completion`
+- Completed checkpoint: [PR #369](https://github.com/vrassouli/Bluent/pull/369) — merged
 - Sprint issue: [#368](https://github.com/vrassouli/Bluent/issues/368)
 - AI-readiness epic: [#363](https://github.com/vrassouli/Bluent/issues/363)
 - Demo audit: `docs/demo/sprint-2-audit.md`
@@ -31,14 +32,15 @@ The immediate goal is to turn the existing demo into a credible public product e
 
 ## Current State
 
-Already implemented on the active branch:
+Already merged into `Dev`:
 
 - Product-oriented responsive landing page replacing the default Blazor starter page.
 - In-demo Getting Started page based on canonical documentation.
 - Purpose-based navigation groups.
 - Functional compact and expanded navigation.
 - Initial responsive scoped styling.
-- Successful GitHub Actions restore, Release build, tests, package creation, and Markdown-link validation.
+- Repository-native Codex handoff, backlog, quality policy, and sprint plan.
+- Successful checkpoint restore, Release build, tests, package creation, and Markdown-link validation.
 
 Still required before Sprint 2 can be considered complete:
 
@@ -50,20 +52,20 @@ Still required before Sprint 2 can be considered complete:
 - Validate Home and Getting Started behavior in a running application.
 - Capture accurate professional screenshots.
 - Validate the static deployment workflow.
-- Update project tracking and PR evidence.
+- Update project tracking and final PR evidence.
 
 ## Execution Order
 
-1. Review the active branch and PR #369 before changing code.
-2. Implement the enterprise scenario pages defined in `.bluent/sprints/sprint-02.md`.
-3. Apply the showcase structure to selected high-value components.
-4. Perform runtime visual validation across required modes and widths.
-5. Fix issues found during validation without expanding into unrelated feature work.
-6. Capture screenshots only from the validated running application.
-7. Run all required build, test, pack, and documentation checks.
-8. Update `.bluent/PROJECT.md`, Issue #368, and PR #369 with exact evidence.
-9. Mark PR #369 ready for review only after the Sprint 2 definition of done is satisfied.
-10. Do not merge the PR without maintainer review.
+1. Confirm the current branch is `demo/sprint-2-completion` and it is based on current `Dev`.
+2. Review Issue #368 and the Sprint 2 plan before changing code.
+3. Implement the enterprise scenario pages defined in `.bluent/sprints/sprint-02.md`.
+4. Apply the showcase structure to selected high-value components.
+5. Perform runtime visual validation across required modes and widths.
+6. Fix issues found during validation without expanding into unrelated feature work.
+7. Capture screenshots only from the validated running application.
+8. Run all required build, test, pack, documentation, and deployment checks.
+9. Update `.bluent/PROJECT.md`, Issue #368, and the new completion PR with exact evidence.
+10. Open a focused pull request from `demo/sprint-2-completion` to `Dev` when the definition of done is satisfied.
 
 ## Constraints
 
@@ -87,5 +89,5 @@ Sprint 2 is complete only when:
 - themes and direction modes are visually validated;
 - screenshots accurately represent the current product;
 - required CI and deployment checks pass;
-- `.bluent/PROJECT.md`, Issue #368, and PR #369 contain the final evidence;
-- PR #369 is ready for maintainer review against `Dev`.
+- `.bluent/PROJECT.md`, Issue #368, and the completion PR contain the final evidence;
+- the completion PR is reviewed and merged into `Dev`.
