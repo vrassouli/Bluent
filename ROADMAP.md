@@ -17,8 +17,7 @@ For the long-term product direction, see [VISION.md](VISION.md). AI readiness an
 
 ## Phase 0 — Repository Professionalization
 
-**Status:** In progress  
-**Working branch:** `docs/project-relaunch`
+**Status:** Complete — merged in [PR #364](https://github.com/vrassouli/Bluent/pull/364)
 
 ### Outcomes
 
@@ -37,15 +36,15 @@ For the long-term product direction, see [VISION.md](VISION.md). AI readiness an
 - [x] Add the Apache License 2.0.
 - [x] Verify README installation instructions against source.
 - [x] Publish the product vision.
-- [ ] Publish this roadmap.
-- [ ] Add the contribution guide.
-- [ ] Add the code of conduct.
-- [ ] Establish the changelog.
-- [ ] Document versioning and release policy.
-- [ ] Correct and complete NuGet package metadata.
-- [ ] Add issue templates.
-- [ ] Add a pull request template.
-- [ ] Review all relaunch changes and open the relaunch pull request.
+- [x] Publish this roadmap.
+- [x] Add the contribution guide.
+- [x] Add the code of conduct.
+- [x] Establish the changelog.
+- [x] Document versioning and release policy.
+- [x] Correct and complete NuGet package metadata.
+- [x] Add issue templates.
+- [x] Add a pull request template.
+- [x] Review all relaunch changes and merge the relaunch pull request.
 
 ### Exit Criteria
 
@@ -56,7 +55,8 @@ For the long-term product direction, see [VISION.md](VISION.md). AI readiness an
 
 ## Phase 1 — Documentation and AI Foundation
 
-**Status:** Planned
+**Status:** In progress — tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
+**Working branch:** `docs/sprint-1-foundation`
 
 ### Outcomes
 
