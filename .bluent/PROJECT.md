@@ -39,10 +39,10 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - [x] Select Apache License 2.0.
 - [x] Add the repository-level `LICENSE` file.
 - [x] Create the project status tracking file.
+- [x] Verify all README installation instructions against the source code.
 
 ### In Progress
 
-- [ ] Verify all README installation instructions against the source code.
 - [ ] Add `VISION.md`.
 - [ ] Add `ROADMAP.md`.
 - [ ] Add `CONTRIBUTING.md`.
@@ -144,7 +144,6 @@ These items are intentionally deferred until the relaunch foundation is complete
 
 - `src/Bluent.UI/Bluent.UI.csproj` contains an invalid repository URL: `githttps://github.com/vrassouli/Bluent`.
 - The rewritten README references `ROADMAP.md` and `CONTRIBUTING.md`, which must be created before the relaunch branch is merged.
-- README installation instructions and asset paths must be verified against the source before merging.
 
 ## Session Resume Procedure
 
