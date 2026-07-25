@@ -92,7 +92,8 @@ Sprint 0 is complete when:
 - [x] Document theming, localization, RTL, and JavaScript requirements.
 - [x] Add migration and upgrade guidance.
 - [x] Create a canonical component catalog for developers and coding agents.
-- [ ] Publish a machine-readable documentation index such as `llms.txt`.
+- [x] Add repository instructions for coding agents.
+- [x] Publish a machine-readable documentation index such as `llms.txt`.
 - [ ] Establish a baseline AI-readiness benchmark.
 
 ## Sprint 2 — Demo and Visual Presentation
