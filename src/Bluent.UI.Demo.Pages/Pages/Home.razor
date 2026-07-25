@@ -1,7 +1,129 @@
-﻿@page "/"
+@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Bluent — Enterprise Blazor UI</PageTitle>
 
-<h1>Hello, world!</h1>
+<main class="home">
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow">Enterprise UI for Blazor</span>
+            <h1>Build polished business applications without rebuilding the design system.</h1>
+            <p class="hero-lead">
+                Bluent is a Fluent-inspired, open-source component toolkit for teams creating
+                capable, self-hosted Blazor applications.
+            </p>
+            <div class="hero-actions">
+                <Button Text="Explore components"
+                        Href="components/buttons"
+                        Appearance="ButtonAppearance.Primary"
+                        Size="ButtonSize.Large"
+                        Icon="icon-ic_fluent_apps_20_regular"
+                        ActiveIcon="icon-ic_fluent_apps_20_filled" />
+                <Button Text="View on GitHub"
+                        Href="https://github.com/vrassouli/Bluent"
+                        Appearance="ButtonAppearance.Outline"
+                        Size="ButtonSize.Large"
+                        Icon="icon-ic_fluent_code_20_regular"
+                        ActiveIcon="icon-ic_fluent_code_20_filled" />
+            </div>
+            <ul class="hero-facts" aria-label="Bluent highlights">
+                <li>Built for modern .NET</li>
+                <li>Dark mode and theme colors</li>
+                <li>LTR and RTL ready</li>
+            </ul>
+        </div>
 
-Welcome to your new app.
+        <div class="hero-preview" aria-label="Example operations workspace">
+            <div class="preview-header">
+                <div>
+                    <span class="preview-kicker">Operations</span>
+                    <strong>Business overview</strong>
+                </div>
+                <Badge Text="Live" Color="BadgeColor.Success" />
+            </div>
+            <div class="metric-grid">
+                <article>
+                    <span>Open requests</span>
+                    <strong>128</strong>
+                    <small>12 need attention</small>
+                </article>
+                <article>
+                    <span>Completion</span>
+                    <strong>94%</strong>
+                    <small>Up 6% this month</small>
+                </article>
+            </div>
+            <div class="preview-list">
+                <div><span class="status status-brand"></span><span>Customer onboarding</span><strong>72%</strong></div>
+                <div><span class="status status-success"></span><span>Contract review</span><strong>Complete</strong></div>
+                <div><span class="status status-warning"></span><span>Compliance checks</span><strong>18 open</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" aria-labelledby="capabilities-title">
+        <div class="section-heading">
+            <span class="eyebrow">A practical component system</span>
+            <h2 id="capabilities-title">Everything a serious business UI needs</h2>
+            <p>Compose forms, workflows, dashboards, and rich visual tools from one coherent library.</p>
+        </div>
+        <div class="feature-grid">
+            <a class="feature-card" href="components/fields">
+                <span class="feature-icon icon-ic_fluent_form_20_regular"></span>
+                <h3>Forms and inputs</h3>
+                <p>Fields, validation controls, selectors, calendars, and file inputs for data-heavy workflows.</p>
+                <span class="card-link">Browse form components →</span>
+            </a>
+            <a class="feature-card" href="components/data-grids">
+                <span class="feature-icon icon-ic_fluent_grid_20_regular"></span>
+                <h3>Data and layout</h3>
+                <p>Grids, lists, cards, pagers, stacks, and split layouts for complex application surfaces.</p>
+                <span class="card-link">Explore data display →</span>
+            </a>
+            <a class="feature-card" href="components/dialogs">
+                <span class="feature-icon icon-ic_fluent_window_20_regular"></span>
+                <h3>Feedback and overlays</h3>
+                <p>Dialogs, drawers, popovers, toasts, tooltips, and message bars with shared services.</p>
+                <span class="card-link">See interaction patterns →</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="package-showcase" aria-labelledby="packages-title">
+        <div class="section-heading">
+            <span class="eyebrow">More than base components</span>
+            <h2 id="packages-title">Visualize systems, data, and decisions</h2>
+        </div>
+        <div class="package-grid">
+            <a class="package-card charts" href="components/charts">
+                <span class="package-label">Bluent.UI.Charts</span>
+                <h3>Charts for operational insight</h3>
+                <p>Turn application data into clear, theme-aware visualizations.</p>
+                <span>Explore Charts →</span>
+            </a>
+            <a class="package-card diagrams" href="components/diagrams">
+                <span class="package-label">Bluent.UI.Diagrams</span>
+                <h3>Diagrams for connected workflows</h3>
+                <p>Model relationships and processes directly inside your Blazor application.</p>
+                <span>Explore Diagrams →</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="adapt-section" aria-labelledby="adapt-title">
+        <div>
+            <span class="eyebrow">Designed for real users</span>
+            <h2 id="adapt-title">One interface. Every working context.</h2>
+            <p>
+                Use the controls in the header to switch theme colors, light or dark mode,
+                and LTR or RTL direction. The entire demo adapts immediately.
+            </p>
+        </div>
+        <div class="adapt-pills" aria-label="Adaptive capabilities">
+            <span>Light</span>
+            <span>Dark</span>
+            <span>Theme colors</span>
+            <span>RTL</span>
+            <span>Responsive</span>
+        </div>
+    </section>
+</main>
