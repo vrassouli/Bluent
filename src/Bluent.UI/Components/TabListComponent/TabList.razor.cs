@@ -110,6 +110,18 @@ public partial class TabList
         }
     }
 
+    internal void DeselectTab(TabListTabItem tabItem)
+    {
+        var index = _tabItems.IndexOf(tabItem);
+
+        if (index < 0 || index != SelectedIndex)
+            return;
+
+        SelectedIndex = -1;
+        SelectedIndexChanged.InvokeAsync(SelectedIndex);
+        tabItem.OnStateChanged();
+    }
+
     internal void SelectTab(Tab tab)
     {
         var index = _tabs.IndexOf(tab);
