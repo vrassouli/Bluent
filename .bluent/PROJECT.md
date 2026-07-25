@@ -89,9 +89,9 @@ Sprint 0 is complete when:
 - [x] Document supported Blazor hosting models and render modes.
 - [x] Create component documentation standards.
 - [ ] Add runnable examples for the most important components.
-- [ ] Document theming, localization, RTL, and JavaScript requirements.
+- [x] Document theming, localization, RTL, and JavaScript requirements.
 - [ ] Add migration and upgrade guidance.
-- [ ] Create a canonical component catalog for developers and coding agents.
+- [x] Create a canonical component catalog for developers and coding agents.
 - [ ] Publish a machine-readable documentation index such as `llms.txt`.
 - [ ] Establish a baseline AI-readiness benchmark.
 
