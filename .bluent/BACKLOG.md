@@ -6,25 +6,34 @@ Use `.bluent/PROJECT.md` for current status and `.bluent/HANDOFF.md` for the imm
 
 ## Now
 
-Work committed to Sprint 2:
+Work committed to Sprint 3 and tracked by
+[Issue #372](https://github.com/vrassouli/Bluent/issues/372):
 
-- Complete the demo landing, navigation, component showcase, enterprise scenarios, visual validation, screenshots, and deployment validation tracked by Issue #368 and PR #369.
-- Keep project tracking and validation evidence current.
+- Replace the unsafe publication workflow with explicit, validated,
+  artifact-first automation and a dry-run path.
+- Make changelog-derived release notes deterministic.
+- Triage compiler warnings and prevent unexpected additions.
+- Complete or substantially progress Issue #366 render-mode validation.
+- Add practical CI quality gates.
+- Create contributor-ready issues after the foundations expose the remaining
+  small gaps.
+
+GitHub Pages/static deployment modernization was completed and validated in
+Sprint 2. It is not active backlog work.
 
 ## Next
 
-Likely Sprint 3 candidates:
+Work to reconsider only after Sprint 3 foundations are complete:
 
-- Define and automate a predictable release workflow.
-- Modernize and validate the GitHub Pages/static deployment workflow.
-- Improve release notes and release evidence.
-- Triage and resolve existing compiler warnings before the next stable release.
-- Add accessibility and quality gates where practical.
-- Create contributor-friendly issues and identify good-first-issue candidates.
+- Complete remaining low-risk compatibility or warning follow-ups that Sprint
+  3 explicitly defers.
+- Refine release cadence after the first release through the replacement
+  process.
+- Improve contributor guidance based on observed use of the new quality gates.
 
 ## Parallel Quality Work
 
-- [Issue #366](https://github.com/vrassouli/Bluent/issues/366): validate Interactive Server, Interactive WebAssembly, and Interactive Auto render modes.
+- Issue #366 is now an explicit Sprint 3 workstream rather than parallel work.
 - Continue [Issue #363](https://github.com/vrassouli/Bluent/issues/363): expand verified component references and compile representative AI-generated consumer samples.
 - Expand the AI benchmark to context-free and multiple-model runs.
 - Add consumer-project build validation for generated examples.
