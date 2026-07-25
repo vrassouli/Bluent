@@ -15,7 +15,7 @@ The repository root README remains the short evaluation and installation entry p
 | Packages | [`packages/`](packages/index.md) | Choose packages and understand dependencies and boundaries |
 | Components | [`components/`](components/README.md) | Use public components through a consistent reference format |
 | Guides | [`guides/`](guides/theming-localization-rtl-and-assets.md) | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
-| Compatibility | [`compatibility/`](compatibility/hosting-and-render-modes.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
+| Compatibility | [`compatibility/`](compatibility/README.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
 | Examples | `examples/` | Find runnable, source-verified examples and reference applications |
 | AI readiness | `ai/` | Maintain benchmark prompts, dated results, scoring, and recurring failure analysis |
 | Contributor workflow | [../CONTRIBUTING.md](../CONTRIBUTING.md) | Build, test, and contribute to the repository |
