@@ -145,8 +145,8 @@ List current limitations, unsupported combinations, and version-specific behavio
 
 ## Related components
 
-- [Related component](related-component.md)
-- [Relevant guide](../guides/example.md)
+- Related component: `related-component.md`
+- Relevant guide: `../guides/example.md`
 
 ## Source and verification
 
