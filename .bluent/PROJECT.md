@@ -10,7 +10,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Current Sprint:** Sprint 2 — Demo and Visual Presentation  
 **Status:** Ready for Review
 **Working Branch:** `demo/sprint-2-completion`
-**Pull Request:** pending creation; validation gates are complete; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
+**Pull Request:** [#370](https://github.com/vrassouli/Bluent/pull/370) — ready for review; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
 **Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
 
 ## Operational Files
@@ -135,7 +135,7 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Capture professional screenshots from the validated application.
 - [x] Run clean GitHub Actions validation and validate the deployed Pages site at commit `f1c2748`.
 - [x] Record final validation evidence and remaining risks.
-- [ ] Open the Sprint 2 completion pull request to `Dev` for review.
+- [x] Open the Sprint 2 completion pull request to `Dev` for review.
 - [ ] Merge the reviewed Sprint 2 pull request into `Dev`.
 
 ### Definition of Done

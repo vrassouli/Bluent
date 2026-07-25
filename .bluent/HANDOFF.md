@@ -56,11 +56,11 @@ Completed on `demo/sprint-2-completion`:
 - Confirmed in the final live browser check that deployed Home/Bluent links respect `/Bluent/`, the operations chart renders, root navigation succeeds, overflow is zero, and the console is clean.
 - Restored the `github-pages` deployment environment to its original `Dev` and `gh-pages` branch policies after feature-branch validation.
 
-Still required before Sprint 2 can be considered complete:
+Final evidence was added to Issue #368 and the ready-for-review completion PR is [#370](https://github.com/vrassouli/Bluent/pull/370).
 
-- Add the final evidence to Issue #368.
-- Open the completion pull request to `Dev` with exact evidence and remaining risks.
-- Obtain maintainer review and merge the completion pull request.
+Still required before Sprint 2 can be considered merged:
+
+- Obtain maintainer review and merge PR #370 into `Dev`.
 
 ## Execution Order
 

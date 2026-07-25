@@ -8,7 +8,7 @@ Turn the Bluent demo into a credible public product experience for teams evaluat
 
 - Branch: `demo/sprint-2-completion`
 - Foundation pull request: [#369](https://github.com/vrassouli/Bluent/pull/369) — merged
-- Completion pull request: pending creation; validation gates are complete
+- Completion pull request: [#370](https://github.com/vrassouli/Bluent/pull/370) — ready for review
 - Issue: [#368](https://github.com/vrassouli/Bluent/issues/368)
 - Audit: `docs/demo/sprint-2-audit.md`
 
@@ -107,9 +107,9 @@ Preferred minimum set for completion:
 - [x] Pack all five packages where the workflow requires it.
 - [x] Validate local Markdown links.
 - [x] Update `.bluent/PROJECT.md`.
-- [ ] Update Issue #368 with evidence.
+- [x] Update Issue #368 with evidence.
 - [x] Preserve PR #369 as the merged foundation checkpoint.
-- [ ] Open the Sprint 2 completion PR with exact validation and remaining risks.
+- [x] Open the Sprint 2 completion PR with exact validation and remaining risks.
 
 ## Validation Evidence
 
