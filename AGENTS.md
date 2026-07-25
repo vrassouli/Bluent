@@ -8,12 +8,18 @@ Bluent is a Blazor-native toolkit for modern business applications. The current 
 
 Read these sources before making changes:
 
-1. `.bluent/PROJECT.md`
-2. `VISION.md`
-3. `ROADMAP.md`
-4. `CONTRIBUTING.md`
-5. `docs/README.md`
-6. the documentation page for the affected package or component
+1. `.bluent/HANDOFF.md`
+2. `.bluent/PROJECT.md`
+3. the active sprint plan under `.bluent/sprints/`
+4. `.bluent/QUALITY.md`
+5. `VISION.md`
+6. `ROADMAP.md`
+7. `CONTRIBUTING.md`
+8. `docs/README.md`
+9. the nearest scoped `AGENTS.md`
+10. the documentation page for the affected package or component
+
+Use `.bluent/BACKLOG.md` for unscheduled and future work. Do not silently pull backlog items into the active sprint.
 
 ## Guardrails
 
@@ -23,8 +29,9 @@ Read these sources before making changes:
 - Do not invent support claims, components, parameters, events, namespaces, render modes, or static assets.
 - Treat current source and verified examples as evidence; report documentation/source mismatches.
 - Do not describe a demo page as validation unless its behavior was actually built or run.
+- Apply the evidence definitions and completion rules in `.bluent/QUALITY.md`.
 - Keep changes focused and reviewable.
-- Update `.bluent/PROJECT.md` and the tracking issue when completing project work.
+- Update `.bluent/PROJECT.md`, the active tracking issue, and the pull request when completing project work.
 
 ## Repository map
 
@@ -35,8 +42,9 @@ Read these sources before making changes:
 - `src/Bluent.UI.Utilities` — higher-level application utilities; NuGet package `Bluent.UI.Utilities`
 - `src/Bluent.UI.Demo` — Blazor WebAssembly demo host
 - `src/Bluent.UI.Demo.SSR` — Blazor Web App/static SSR host
-- `src/Bluent.UI.Demo.Pages` — shared demo pages
+- `src/Bluent.UI.Demo.Pages` — shared demo pages; follow its scoped `AGENTS.md`
 - `docs` — canonical product documentation
+- `.bluent` — project state, handoff, backlog, quality policy, and sprint execution plans
 
 Package IDs and project directory names are not always identical. Verify the project file before writing installation instructions.
 
@@ -79,7 +87,7 @@ dotnet test Bluent.sln --configuration Release --no-build
 
 For package work, also pack the affected projects in Release configuration and inspect the resulting package metadata, dependencies, README, license, and static assets.
 
-Do not claim that validation passed unless the command actually ran successfully. Record commands, configuration, relevant environment, and failures.
+Do not claim that validation passed unless the command actually ran successfully. Record commands, configuration, relevant environment, and failures. Follow `.bluent/QUALITY.md` for runtime, visual, documentation, package, and deployment evidence.
 
 ## Documentation rules
 
@@ -124,7 +132,7 @@ A pull request should state:
 - affected packages/components
 - source and documentation changes
 - build/test/pack commands actually run
-- render modes tested
+- runtime, visual, deployment, and render modes actually tested
 - breaking changes and migration steps
 - remaining risks or unverified behavior
 
