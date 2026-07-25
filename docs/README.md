@@ -17,6 +17,7 @@ The repository root README remains the short evaluation and installation entry p
 | Guides | [`guides/`](guides/theming-localization-rtl-and-assets.md) | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
 | Compatibility | [`compatibility/`](compatibility/README.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
 | Examples | [`examples/`](examples/README.md) | Find runnable, source-verified examples and reference applications |
+| Demo gallery | [`demo/`](demo/README.md) | Review current screenshots captured from the validated running demo |
 | AI readiness | [`ai/`](ai/benchmark.md) | Maintain benchmark prompts, dated results, scoring, and recurring failure analysis |
 | Contributor workflow | [../CONTRIBUTING.md](../CONTRIBUTING.md) | Build, test, and contribute to the repository |
 | Releases | [../RELEASING.md](../RELEASING.md) and [../CHANGELOG.md](../CHANGELOG.md) | Prepare releases and understand changes |

@@ -33,3 +33,27 @@
             flex-direction: column;
             overflow: auto;
         }
+
+@media (max-width: 720px) {
+    .page > .content {
+        position: relative;
+    }
+
+    .page > .content > .sidebar {
+        position: absolute;
+        z-index: 10;
+        inset-block: 0;
+        inset-inline-start: 0;
+        max-width: 82vw;
+        height: 100%;
+        box-shadow: var(--shadow16);
+    }
+
+    .page > .content > .sidebar.compact {
+        display: none !important;
+    }
+
+    .page > .content > .page-content {
+        width: 100%;
+    }
+}

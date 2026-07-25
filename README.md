@@ -11,6 +11,12 @@ Bluent is a Blazor UI toolkit designed for developers building real-world web ap
 
 > Bluent is independently developed and is not affiliated with or endorsed by Microsoft.
 
+## Demo at a glance
+
+[![Bluent product landing page in the light theme](docs/demo/screenshots/landing-light-ltr.jpg)](https://vrassouli.github.io/Bluent/)
+
+The demo combines component references with runnable business workflows such as the [operations dashboard](docs/demo/screenshots/operations-dashboard.jpg). See the [Sprint 2 visual gallery](docs/demo/README.md) for the component showcase and validated dark/RTL presentation.
+
 ## Why Bluent?
 
 - **Built for Blazor** — Razor components and .NET APIs without wrapping another application framework.

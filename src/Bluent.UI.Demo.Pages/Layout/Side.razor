@@ -13,6 +13,18 @@
     <section class="nav-group">
         @if (Expanded)
         {
+            <h2 class="nav-group-title">Enterprise scenarios</h2>
+        }
+        <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">
+            <Tab Text="@Label("Customer profile")" Icon="icon-ic_fluent_person_edit_20_regular" ActiveIcon="icon-ic_fluent_person_edit_20_filled" Href="scenarios/customer-profile" Orientation="Orientation.Vertical" />
+            <Tab Text="@Label("Operations dashboard")" Icon="icon-ic_fluent_data_trending_20_regular" ActiveIcon="icon-ic_fluent_data_trending_20_filled" Href="scenarios/operations-dashboard" Orientation="Orientation.Vertical" />
+            <Tab Text="@Label("Confirmation flow")" Icon="icon-ic_fluent_shield_task_20_regular" ActiveIcon="icon-ic_fluent_shield_task_20_filled" Href="scenarios/confirmation-flow" Orientation="Orientation.Vertical" />
+        </TabList>
+    </section>
+
+    <section class="nav-group">
+        @if (Expanded)
+        {
             <h2 class="nav-group-title">Actions</h2>
         }
         <TabList Appearance="TabListAppearance.Subtle" Size="TabListSize.Small" Orientation="Orientation.Vertical">

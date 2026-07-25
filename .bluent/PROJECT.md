@@ -9,8 +9,8 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 2 — Demo and Visual Presentation  
 **Status:** In Progress  
-**Working Branch:** `demo/sprint-2-visual-presentation`  
-**Pull Request:** [#369](https://github.com/vrassouli/Bluent/pull/369) — draft  
+**Working Branch:** `demo/sprint-2-completion`
+**Pull Request:** pending final deployment validation; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
 **Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
 
 ## Operational Files
@@ -120,17 +120,22 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Highlight themes, dark mode, RTL, Charts, and Diagrams.
 - [x] Run initial restore, Release build, tests, package creation, and Markdown-link validation in GitHub Actions.
 - [x] Add Codex handoff, backlog, quality policy, sprint plan, and scoped demo-agent instructions.
+- [x] Add three runnable enterprise scenarios: customer profile, operations dashboard, and confirmation flow.
+- [x] Apply a repeatable showcase header to Buttons, Fields, Data Grid, Data Pager, Dialogs, Toasts, Message Bars, Charts, and Diagrams.
+- [x] Validate desktop/mobile navigation, responsive layout, light/dark themes, LTR/RTL direction, interactions, and browser console state.
+- [x] Capture and document four current screenshots from the validated application.
+- [x] Modernize the GitHub Pages workflow and validate a local Release publish.
 
 ### Remaining
 
-- [ ] Add at least three runnable enterprise scenario pages.
-- [ ] Apply a repeatable component showcase structure to high-value pages.
-- [ ] Validate desktop and mobile navigation in a running browser.
-- [ ] Validate light/dark and LTR/RTL combinations.
-- [ ] Capture professional screenshots from the validated application.
-- [ ] Modernize and validate static deployment where required.
+- [x] Add at least three runnable enterprise scenario pages.
+- [x] Apply a repeatable component showcase structure to high-value pages.
+- [x] Validate desktop and mobile navigation in a running browser.
+- [x] Validate light/dark and LTR/RTL combinations.
+- [x] Capture professional screenshots from the validated application.
+- [ ] Run clean GitHub Actions validation and validate the deployed Pages site at the final commit.
 - [ ] Record final validation evidence and remaining risks.
-- [ ] Mark PR #369 ready for review.
+- [ ] Open the Sprint 2 completion pull request to `Dev` for review.
 - [ ] Merge the reviewed Sprint 2 pull request into `Dev`.
 
 ### Definition of Done

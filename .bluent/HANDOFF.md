@@ -42,17 +42,22 @@ Already merged into `Dev`:
 - Repository-native Codex handoff, backlog, quality policy, and sprint plan.
 - Successful checkpoint restore, Release build, tests, package creation, and Markdown-link validation.
 
+Completed on `demo/sprint-2-completion`:
+
+- Added runnable customer profile, operations dashboard, and confirmation/notification scenarios.
+- Applied a repeatable showcase header to the highest-value component pages.
+- Validated Home, Getting Started, scenarios, and showcase pages at desktop and mobile widths.
+- Validated light/dark, LTR/RTL, a non-default brand color, interactions, navigation, overflow, and console state.
+- Captured and documented current landing, component, enterprise, and dark/RTL screenshots.
+- Modernized the static deployment workflow and validated the local Release publish output.
+- Passed the cached Release build, all 17 tests, five-package pack/metadata inspection, and Markdown-link validation.
+
 Still required before Sprint 2 can be considered complete:
 
-- Add at least three runnable enterprise scenario pages.
-- Establish and apply a repeatable component showcase layout to the highest-value pages.
-- Perform browser-based desktop and mobile review.
-- Validate light and dark themes.
-- Validate LTR and RTL layouts.
-- Validate Home and Getting Started behavior in a running application.
-- Capture accurate professional screenshots.
-- Validate the static deployment workflow.
-- Update project tracking and final PR evidence.
+- Run clean restore/build/test/pack validation in GitHub Actions at the final commit.
+- Deploy the final commit through the GitHub Pages workflow and inspect deployed routes and assets.
+- Record the final commit SHA and remote evidence in project tracking and Issue #368.
+- Open the completion pull request to `Dev` with exact evidence and remaining risks.
 
 ## Execution Order
 
