@@ -167,12 +167,16 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Reconcile Sprint 2 and PRs #370 and #371 with the merged `Dev` state.
 - [x] Audit the current release mechanics, package history, version sources,
   tags, releases, secrets/variables, environments, and publication risks.
-- [ ] Implement and dry-run predictable release automation.
-- [ ] Establish deterministic changelog-derived release notes.
-- [ ] Triage the Release compiler-warning baseline and prevent regressions.
-- [ ] Complete or substantially progress Issue #366 render-mode validation.
-- [ ] Add practical CI quality gates.
-- [ ] Create contributor-ready issues and label appropriate work.
+- [x] Implement predictable release automation and pass the local artifact
+  dry-run; a clean GitHub Actions dry run remains required.
+- [x] Establish deterministic changelog-derived release notes.
+- [x] Triage and fix the 10-warning Release baseline; CI treats warnings as
+  errors.
+- [x] Substantially progress Issue #366 with reproducible consumers and runtime
+  evidence for all requested modes.
+- [x] Add practical CI quality gates.
+- [x] Create contributor-ready Issues #374, #375, and #376 with appropriate
+  `good first issue` labels.
 
 ### Current audit findings
 
@@ -185,6 +189,14 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
   NuGet production environment still requires maintainer configuration.
 - GitHub Pages modernization is complete Sprint 2 work and is not a Sprint 3
   backlog item.
+- Local validation passes a zero-warning Release build, 19 tests, five-package
+  artifact inspection, release-tool tests, links, YAML parsing, rendered
+  accessibility smoke checks, and representative browser runtime checks.
+- PR #377 targets `Dev`; its first clean Quality run passed every build, test,
+  package, documentation, workflow, and accessibility-smoke step and produced
+  the validated package artifact.
+- Remaining completion gates are the release-workflow dry run and Issue
+  #366/#372 evidence updates.
 
 ## Maintainer-Approved Maintenance
 

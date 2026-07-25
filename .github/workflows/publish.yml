@@ -1,6 +1,9 @@
 name: Release packages
 
 on:
+  pull_request:
+    branches:
+      - Dev
   workflow_dispatch:
     inputs:
       version:
@@ -17,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: release-${{ inputs.version }}
+  group: release-${{ github.event_name }}-${{ github.ref }}-${{ inputs.version }}
   cancel-in-progress: false
 
 env:
@@ -25,6 +28,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   PACKAGE_DIRECTORY: artifacts/packages
   RELEASE_DIRECTORY: artifacts/release
+  RELEASE_VERSION: ${{ inputs.version || format('0.0.0-ci.{0}', github.run_number) }}
 
 jobs:
   validate:
@@ -41,7 +45,6 @@ jobs:
       - name: Validate requested version and release ref
         shell: bash
         env:
-          RELEASE_VERSION: ${{ inputs.version }}
           PUBLISH: ${{ inputs.publish }}
           REF_NAME: ${{ github.ref_name }}
           REF_TYPE: ${{ github.ref_type }}
@@ -78,7 +81,6 @@ jobs:
       - name: Pack the five public packages
         shell: bash
         env:
-          RELEASE_VERSION: ${{ inputs.version }}
           REPOSITORY_COMMIT: ${{ github.sha }}
         run: |
           mkdir -p "$PACKAGE_DIRECTORY" "$RELEASE_DIRECTORY"
@@ -101,7 +103,6 @@ jobs:
 
       - name: Validate package metadata and dependencies
         env:
-          RELEASE_VERSION: ${{ inputs.version }}
           REPOSITORY_COMMIT: ${{ github.sha }}
         run: >
           python3 scripts/release/release_tools.py validate-packages
@@ -113,7 +114,6 @@ jobs:
       - name: Generate deterministic release notes
         shell: bash
         env:
-          RELEASE_VERSION: ${{ inputs.version }}
           PUBLISH: ${{ inputs.publish }}
         run: |
           args=()
@@ -128,8 +128,6 @@ jobs:
 
       - name: Check version availability on NuGet
         if: ${{ inputs.publish }}
-        env:
-          RELEASE_VERSION: ${{ inputs.version }}
         run: >
           python3 scripts/release/release_tools.py preflight-nuget
           --version "$RELEASE_VERSION"
@@ -137,7 +135,7 @@ jobs:
       - name: Upload validated release artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: bluent-${{ inputs.version }}
+          name: bluent-${{ env.RELEASE_VERSION }}
           path: |
             artifacts/packages/*.nupkg
             artifacts/release/package-validation.json
@@ -153,14 +151,11 @@ jobs:
     timeout-minutes: 15
     environment:
       name: nuget-production
-    env:
-      RELEASE_VERSION: ${{ inputs.version }}
-
     steps:
       - name: Download validated artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bluent-${{ inputs.version }}
+          name: bluent-${{ env.RELEASE_VERSION }}
           path: artifacts
 
       - name: Set up .NET 10
@@ -199,13 +194,12 @@ jobs:
       - name: Download validated artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bluent-${{ inputs.version }}
+          name: bluent-${{ env.RELEASE_VERSION }}
           path: artifacts
 
       - name: Create release for the validated tag
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_VERSION: ${{ inputs.version }}
           REPOSITORY: ${{ github.repository }}
         run: |
           prerelease_flag=()

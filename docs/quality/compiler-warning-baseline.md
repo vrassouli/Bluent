@@ -1,7 +1,7 @@
 # Compiler Warning Baseline
 
 **Baseline date:** 2026-07-25
-**Baseline commit:** `566242f` plus uncommitted Sprint 3 release work
+**Baseline commit:** `4307a30`
 **Environment:** macOS 26.5, Apple Silicon, .NET SDK 10.0.300
 **Command:** `dotnet clean Bluent.sln --configuration Release` followed by
 `dotnet build Bluent.sln --configuration Release --no-restore --verbosity minimal`

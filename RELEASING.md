@@ -75,13 +75,17 @@ section is missing or empty. Artifact-only dry runs may preview notes from
 ## Automated release workflow
 
 `.github/workflows/publish.yml` is the only supported package publication path.
-It is manual by design and has two modes:
+Publication is manual by design. Pull requests to `Dev` also exercise the
+artifact-only path with a synthetic `0.0.0-ci.<run>` version so the workflow
+itself is proven before merge. The workflow's two dispatch modes are:
 
 - `publish: false` builds and validates artifacts without creating a tag,
   GitHub Release, or NuGet publication.
 - `publish: true` is accepted only when the workflow is dispatched from the
   existing annotated tag `v<version>`, publishes through the protected
   `nuget-production` environment, and then creates the GitHub Release.
+
+Pull-request runs cannot enter either publication job.
 
 The workflow:
 

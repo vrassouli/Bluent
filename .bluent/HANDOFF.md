@@ -34,7 +34,7 @@ Execute Sprint 3 — Release Reliability and Compatibility, tracked in
 
 ## Current State
 
-Sprint 3 planning and the initial audit are complete:
+Sprint 3 implementation is locally complete and awaiting clean CI evidence:
 
 - `Dev` was confirmed current at
   `864f0d308775e4fdebacc1c12504a098ad1cc73c`.
@@ -49,16 +49,33 @@ Sprint 3 planning and the initial audit are complete:
 - GitHub Pages modernization is already complete and was removed from the
   active backlog.
 - No real package release has been authorized or published during Sprint 3.
+- The replacement manual workflow validates explicit SemVer, a matching publish
+  tag, the full zero-warning Release build, tests, all five aligned packages,
+  deterministic changelog notes, and NuGet version availability.
+- NuGet publication is isolated behind the `nuget-production` environment;
+  that environment and `NUGET_API_KEY` require maintainer configuration before
+  real use.
+- The clean compiler baseline is zero after fixing all 10 pre-existing
+  warnings without suppression.
+- Reproducible compatibility routes now cover static SSR, Interactive Server,
+  Interactive WebAssembly, and Interactive Auto; the existing standalone
+  WebAssembly demo was also exercised.
+- Browser checks passed binding, callbacks, dialog, toast, chart, diagram,
+  navigation/disposal, and clean console scenarios. Transient server circuit
+  reconnection and exact Auto renderer-transition timing remain unverified.
+- Quality CI now checks the zero-warning build, 19 tests, five packages,
+  metadata/dependencies, release tooling, links, workflow YAML, whitespace, and
+  focused rendered accessibility.
+- Contributor Issues #374, #375, and #376 are labeled `good first issue`.
 
 ## Next Session
 
-1. Commit the Sprint 3 plan and release audit checkpoint if it is not already
-   committed.
-2. Implement workstream 2 from `.bluent/sprints/sprint-03.md`: safe,
-   artifact-first release automation and exact release documentation.
-3. Do not create a real tag, GitHub Release, or NuGet publication without
+1. Confirm the PR-triggered `Release packages` artifact-only run passes and
+   inspect its package/report/notes artifact.
+2. Update Issues #366 and #372 with the committed evidence.
+3. Leave PR #377 open for maintainer review; do not self-merge it.
+4. Do not create a real tag, GitHub Release, or NuGet publication without
    explicit maintainer authorization.
-4. Keep Issue #372 and the pull request current as evidence is collected.
 
 ## Constraints
 

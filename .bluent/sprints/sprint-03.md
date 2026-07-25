@@ -54,74 +54,112 @@ product development begins.
 
 ### 2. Predictable release automation
 
-- [ ] Require an explicit manual release action or an approved release tag.
-- [ ] Validate the requested SemVer and require the tag/version to agree.
-- [ ] Restore tools and dependencies.
-- [ ] Build the full solution in Release configuration.
-- [ ] Run all tests.
-- [ ] Pack exactly the five public NuGet packages at one aligned version.
-- [ ] Validate package count, IDs, versions, metadata, contents, and internal
+- [x] Require an explicit manual release action; require an exact matching tag
+  for publication.
+- [x] Validate the requested SemVer and require the tag/version to agree.
+- [x] Restore tools and dependencies.
+- [x] Build the full solution in Release configuration.
+- [x] Run all tests.
+- [x] Pack exactly the five public NuGet packages at one aligned version.
+- [x] Validate package count, IDs, versions, metadata, contents, and internal
   dependencies.
-- [ ] Upload immutable package and release-note artifacts.
-- [ ] Add an artifact-only dry-run path.
-- [ ] Create a GitHub Release only after validation in the authorized path.
-- [ ] Publish to NuGet only after validation and production-environment
+- [x] Upload immutable package and release-note artifacts.
+- [x] Add an artifact-only dry-run path.
+- [x] Exercise that dry-run automatically on pull requests to `Dev` with a
+  synthetic version so the release workflow is proven before merge.
+- [x] Create a GitHub Release only after validation in the authorized path.
+- [x] Publish to NuGet only after validation and production-environment
   approval.
-- [ ] Fail before publication when any requested package version already
+- [x] Fail before publication when any requested package version already
   exists on NuGet.
-- [ ] Document the residual limitation that NuGet does not provide a
+- [x] Document the residual limitation that NuGet does not provide a
   multi-package atomic transaction.
 
 ### 3. Release notes and changelog policy
 
-- [ ] Give `Unreleased` the complete Keep a Changelog category structure.
-- [ ] Define package-impact notation without manufacturing history.
-- [ ] Require explicit breaking-change and migration entries.
-- [ ] Add deterministic extraction/validation of a versioned changelog section.
-- [ ] Document when contributors must update the changelog.
+- [x] Give `Unreleased` the complete Keep a Changelog category structure.
+- [x] Define package-impact notation without manufacturing history.
+- [x] Require explicit breaking-change and migration entries.
+- [x] Add deterministic extraction/validation of a versioned changelog section.
+- [x] Document when contributors must update the changelog.
 
 ### 4. Compiler warning triage
 
-- [ ] Run a clean Release build and capture every warning.
-- [ ] Record warning code, project, location, cause, pre-existing status,
+- [x] Run a clean Release build and capture every warning.
+- [x] Record warning code, project, location, cause, pre-existing status,
   recommended resolution, risk, and disposition.
-- [ ] Fix low-risk warnings that have clearly correct resolutions.
-- [ ] Keep any remaining warning only with a narrow, documented justification.
-- [ ] Establish a warning baseline and reject unexpected additions.
+- [x] Fix low-risk warnings that have clearly correct resolutions.
+- [x] Keep any remaining warning only with a narrow, documented justification.
+  No warning remained.
+- [x] Establish a zero-warning baseline and reject unexpected additions.
 
 ### 5. Render-mode compatibility
 
-- [ ] Add or configure reproducible minimal consumers for WebAssembly,
+- [x] Add or configure reproducible minimal consumers for WebAssembly,
   Interactive Server, Interactive WebAssembly, and Interactive Auto.
-- [ ] Validate applicable static SSR display-only behavior.
-- [ ] Verify registration, imports, styles, containers, DI scopes, prerender,
+- [x] Validate applicable static SSR display-only behavior.
+- [x] Verify registration, imports, styles, containers, DI scopes, prerender,
   JavaScript loading, callbacks, binding, navigation, dialogs, toasts,
-  overlays, reconnection, disposal, and console state where relevant.
-- [ ] Record commit, SDK, OS, browser, host, results, and limitations in
+  overlays, disposal, and console state where relevant. Transient circuit
+  reconnection remains explicitly unverified.
+- [x] Record commit, SDK, OS, browser, host, results, and limitations in
   `docs/compatibility/hosting-and-render-modes.md`.
-- [ ] Update Issue #366 with the evidence.
+- [ ] Update Issue #366 with the committed evidence.
 
 ### 6. Quality gates
 
-- [ ] Consolidate or replace sprint-specific validation with durable CI.
-- [ ] Gate clean Release build, tests, five-package packing, package metadata,
+- [x] Consolidate or replace sprint-specific validation with durable CI.
+- [x] Gate clean Release build, tests, five-package packing, package metadata,
   and internal dependencies.
-- [ ] Check Markdown links.
-- [ ] Reject unexpected compiler warnings.
-- [ ] Check workflow YAML and repository diff/format hygiene.
-- [ ] Add focused accessibility checks for selected demo pages when they can be
+- [x] Check Markdown links.
+- [x] Reject unexpected compiler warnings.
+- [x] Check workflow YAML and repository diff/format hygiene.
+- [x] Add focused accessibility checks for selected demo pages when they can be
   run repeatably; do not claim complete WCAG compliance.
 
 ### 7. Contributor-ready work
 
-- [ ] Create several small issues only after foundations and remaining gaps are
+- [x] Create several small issues only after foundations and remaining gaps are
   known.
-- [ ] Give each issue observable acceptance criteria and validation guidance.
-- [ ] Apply `good first issue` only to genuinely low-risk,
+- [x] Give each issue observable acceptance criteria and validation guidance.
+- [x] Apply `good first issue` only to genuinely low-risk,
   independently-completable work.
-- [ ] Keep architectural changes and broad public API work out of beginner
+- [x] Keep architectural changes and broad public API work out of beginner
   issues.
-- [ ] Update contribution guidance if the new gates change contributor steps.
+- [x] Update contribution guidance for the new gates.
+
+Created issues:
+
+- [#374](https://github.com/vrassouli/Bluent/issues/374) — Checkbox
+  documentation.
+- [#375](https://github.com/vrassouli/Bluent/issues/375) — synthetic package
+  validator tests.
+- [#376](https://github.com/vrassouli/Bluent/issues/376) — Badge
+  documentation.
+
+## Local validation evidence
+
+On macOS 26.5, Apple Silicon, and .NET SDK 10.0.300:
+
+- tool restore passed;
+- solution restore passed earlier in the session; a later clean-gate retry was
+  cancelled after prolonged NuGet network inactivity;
+- clean Release build passed with warnings treated as errors: 0 warnings,
+  0 errors;
+- 19 of 19 .NET tests passed;
+- 4 of 4 release-tool unit tests passed;
+- all five `1.0.366-preview.1` dry-run packages packed and passed ID, version,
+  metadata, repository commit, README, framework, asset, and aligned internal
+  dependency validation;
+- Unreleased release-note preview generation passed;
+- Markdown links passed across 33 maintained files;
+- all three workflow YAML files parsed;
+- focused rendered accessibility checks passed for four compatibility routes;
+- browser runtime checks passed for standalone WebAssembly, Interactive Server,
+  Interactive WebAssembly, Interactive Auto, and static SSR display-only
+  behavior;
+- fresh console checks were clean for the tested interactive modes;
+- no NuGet package, tag, or GitHub Release was published or created.
 
 ## Dependencies
 

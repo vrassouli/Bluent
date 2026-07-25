@@ -25,6 +25,8 @@ Sprint 2. It is not active backlog work.
 
 Work to reconsider only after Sprint 3 foundations are complete:
 
+- Automate a transient Interactive Server circuit reconnection test.
+- Instrument and record the Interactive Auto server-to-WebAssembly transition.
 - Complete remaining low-risk compatibility or warning follow-ups that Sprint
   3 explicitly defers.
 - Refine release cadence after the first release through the replacement
@@ -34,6 +36,12 @@ Work to reconsider only after Sprint 3 foundations are complete:
 ## Parallel Quality Work
 
 - Issue #366 is now an explicit Sprint 3 workstream rather than parallel work.
+- [Issue #374](https://github.com/vrassouli/Bluent/issues/374): document
+  Checkbox from current source.
+- [Issue #375](https://github.com/vrassouli/Bluent/issues/375): expand
+  release-package validator tests with synthetic archives.
+- [Issue #376](https://github.com/vrassouli/Bluent/issues/376): document Badge
+  from current source.
 - Continue [Issue #363](https://github.com/vrassouli/Bluent/issues/363): expand verified component references and compile representative AI-generated consumer samples.
 - Expand the AI benchmark to context-free and multiple-model runs.
 - Add consumer-project build validation for generated examples.

@@ -138,8 +138,7 @@ and dock services as scoped by default.
 
 Evidence collected on 2026-07-25:
 
-- source baseline: `566242fc53a30d5ba6d30aef55b77130f635ea6b`
-  plus the Sprint 3 compatibility working tree;
+- source commit: `ef0be8fae32b50b8b21a180e826ee0104a4be1d1`;
 - operating system: macOS 26.5 on Apple Silicon;
 - .NET SDK: 10.0.300;
 - runtime: .NET 10.0.8;
