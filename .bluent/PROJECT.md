@@ -84,7 +84,7 @@ Sprint 0 is complete when:
 ### In progress
 
 - [x] Define the documentation information architecture.
-- [ ] Create a reliable getting-started guide.
+- [x] Create a reliable getting-started guide.
 - [ ] Document package selection and package boundaries.
 - [ ] Create component documentation standards.
 - [ ] Add runnable examples for the most important components.
