@@ -8,7 +8,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 0 — Repository Professionalization  
-**Status:** Complete — pull request pending  
+**Status:** Complete — [PR #364](https://github.com/vrassouli/Bluent/pull/364) open for review  
 **Working Branch:** `docs/project-relaunch`
 
 ## Working Agreement
@@ -51,7 +51,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - [x] Add GitHub issue templates.
 - [x] Add a pull request template.
 - [x] Review all relaunch changes for consistency.
-- [ ] Open the project relaunch pull request into `Dev`.
+- [x] Open the project relaunch pull request into `Dev` ([PR #364](https://github.com/vrassouli/Bluent/pull/364)).
 
 ### Review Summary
 
@@ -73,7 +73,7 @@ Sprint 0 is complete when:
 - [x] Release and versioning expectations are documented.
 - [x] NuGet repository metadata is valid.
 - [x] Issue and pull request templates are available.
-- [ ] All changes are available in one reviewed pull request targeting `Dev`.
+- [x] All changes are available in one pull request targeting `Dev` ([PR #364](https://github.com/vrassouli/Bluent/pull/364)).
 
 ## Sprint 1 — Documentation Foundation
 
