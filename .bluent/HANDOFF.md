@@ -15,6 +15,7 @@ No new sprint is active. The next maintainer decision is release planning throug
 - Sprint 3 plan: `.bluent/sprints/sprint-03.md`
 - Sprint issue: [#372](https://github.com/vrassouli/Bluent/issues/372) — completed
 - Sprint completion: [PR #377](https://github.com/vrassouli/Bluent/pull/377) — merged
+- Closeout pull request: [PR #378](https://github.com/vrassouli/Bluent/pull/378)
 - AI-readiness epic: [#363](https://github.com/vrassouli/Bluent/issues/363)
 - Remaining render-mode follow-ups: [#366](https://github.com/vrassouli/Bluent/issues/366)
 - Release audit: `docs/releasing/release-workflow-audit.md`
