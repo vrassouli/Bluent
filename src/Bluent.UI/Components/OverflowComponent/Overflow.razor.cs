@@ -48,7 +48,7 @@ public abstract partial class Overflow
             if (_interop != null)
                 await _interop.DisposeAsync();
         }
-        catch (JSDisconnectedException e)
+        catch (JSDisconnectedException)
         {
             // swallow
         }

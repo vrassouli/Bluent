@@ -109,8 +109,11 @@ Use concise commit messages that explain the intent of the change. Conventional 
 
 Before opening a pull request:
 
-- [ ] Build the solution.
+- [ ] Build the solution in Release configuration without compiler warnings.
 - [ ] Run applicable tests.
+- [ ] Run `python3 scripts/quality/check_markdown_links.py` for documentation
+  changes.
+- [ ] Pack and inspect affected packages for package or release changes.
 - [ ] Review the diff for unrelated changes.
 - [ ] Update documentation and `CHANGELOG.md` when appropriate.
 - [ ] Complete the pull request template.

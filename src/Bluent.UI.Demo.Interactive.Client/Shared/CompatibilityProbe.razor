@@ -1,0 +1,89 @@
+@inject IDialogService DialogService
+@inject IToastService ToastService
+
+<PageTitle>@Mode compatibility | Bluent</PageTitle>
+
+<h1 data-testid="mode-heading">@Mode compatibility probe</h1>
+<p>
+    This minimal consumer validates Bluent registration, component imports,
+    styles, event callbacks, binding, overlays, charts, diagrams, and disposal.
+</p>
+
+<section aria-labelledby="interaction-heading">
+    <h2 id="interaction-heading">Interaction</h2>
+    <label for="compatibility-input">Bound value</label>
+    <TextField id="compatibility-input" @bind-Value="_value" BindValueEvent="oninput" />
+    <p data-testid="bound-value">Bound value: @_value</p>
+    <p role="status" data-testid="event-count">Event count: @_count</p>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <Button Text="Increment" OnClick="Increment" Appearance="ButtonAppearance.Primary" />
+        <Button Text="Show toast" OnClick="ShowToast" />
+        <Button Text="Show dialog" OnClick="ShowDialog" />
+        <NavLink href="/compatibility/static">Navigate to static SSR probe</NavLink>
+    </div>
+</section>
+
+<section aria-labelledby="chart-heading">
+    <h2 id="chart-heading">Chart module</h2>
+    <div style="max-width: 36rem;">
+        <Chart>
+            <Legend Display="false" />
+            <Title Text="@($"{Mode} chart")" />
+            <Dataset ChartType="ChartType.Line"
+                     Data="_chartData"
+                     Label="Requests"
+                     BorderWidth="2"
+                     BorderColor="@DefaultColors.Purple" />
+        </Chart>
+    </div>
+</section>
+
+<section aria-labelledby="diagram-heading">
+    <h2 id="diagram-heading">Diagram module</h2>
+    <div style="height: 12rem; border: 1px solid var(--colorNeutralStroke1);">
+        <Diagram>
+            <ChildContent>
+                <rect x="20" y="20" width="140" height="60"
+                      fill="var(--colorBrandBackground2)"
+                      stroke="var(--colorBrandStroke1)" />
+                <text x="35" y="55" fill="var(--colorNeutralForeground1)">
+                    @Mode
+                </text>
+            </ChildContent>
+        </Diagram>
+    </div>
+</section>
+
+<Containers />
+
+@code {
+    [Parameter, EditorRequired] public string Mode { get; set; } = string.Empty;
+
+    private string _value = "ready";
+    private int _count;
+    private readonly Dictionary<string, double> _chartData = new()
+    {
+        ["First"] = 2,
+        ["Second"] = 5,
+        ["Third"] = 3
+    };
+
+    private void Increment()
+    {
+        _count++;
+    }
+
+    private void ShowToast()
+    {
+        _ = ToastService.ShowAsync(
+            $"{Mode} toast",
+            configuration => configuration.SetMessage("Overlay service resolved in the active interactive scope."));
+    }
+
+    private async Task ShowDialog()
+    {
+        await DialogService.ShowMessageBoxAsync(
+            $"{Mode} dialog",
+            "Dialog service resolved in the active interactive scope.");
+    }
+}

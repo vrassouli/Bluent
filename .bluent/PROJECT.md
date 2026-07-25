@@ -7,16 +7,16 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 ## Current Phase
 
 **Phase:** Project Relaunch  
-**Current Sprint:** Sprint 2 — Demo and Visual Presentation  
-**Status:** Completed
-**Working Branch:** `Dev`
-**Pull Request:** [#370](https://github.com/vrassouli/Bluent/pull/370) — merged; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
-**Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
+**Current Sprint:** Sprint 3 — Release Reliability and Compatibility
+**Status:** In progress
+**Working Branch:** `release/sprint-3-reliability`
+**Pull Request:** Not opened
+**Tracking Issue:** [#372](https://github.com/vrassouli/Bluent/issues/372)
 
 ## Operational Files
 
 - `.bluent/HANDOFF.md` — immediate continuation instructions for Codex and other coding agents.
-- `.bluent/sprints/sprint-02.md` — detailed Sprint 2 execution plan and acceptance criteria.
+- `.bluent/sprints/sprint-03.md` — active Sprint 3 execution plan and acceptance criteria.
 - `.bluent/QUALITY.md` — validation evidence and completion policy.
 - `.bluent/BACKLOG.md` — current, next, later, and deferred project work.
 - `docs/demo/sprint-2-audit.md` — source audit of the existing demo.
@@ -156,16 +156,51 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - The final live browser check confirmed the `/Bluent/` home links, operations chart, deployed root navigation, zero horizontal overflow, and a clean console.
 - Ten pre-existing compiler warnings remain; no new public APIs, package-boundary changes, or breaking changes were introduced.
 
-## Sprint 3 — Release and Community Readiness
+## Sprint 3 — Release Reliability and Compatibility
 
-### Planned
+**Tracking:** [Issue #372](https://github.com/vrassouli/Bluent/issues/372)
+**Branch:** `release/sprint-3-reliability`
+**Detailed plan:** `.bluent/sprints/sprint-03.md`
 
-- [ ] Define a predictable release workflow.
-- [ ] Improve release notes.
-- [ ] Create contributor-friendly issues.
-- [ ] Identify and label good first issues.
-- [ ] Review automated builds and tests.
-- [ ] Add accessibility and quality checks where practical.
+### In progress
+
+- [x] Reconcile Sprint 2 and PRs #370 and #371 with the merged `Dev` state.
+- [x] Audit the current release mechanics, package history, version sources,
+  tags, releases, secrets/variables, environments, and publication risks.
+- [x] Implement predictable release automation and pass the local artifact
+  dry-run; a clean GitHub Actions dry run remains required.
+- [x] Establish deterministic changelog-derived release notes.
+- [x] Triage and fix the 10-warning Release baseline; CI treats warnings as
+  errors.
+- [x] Substantially progress Issue #366 with reproducible consumers and runtime
+  evidence for all requested modes.
+- [x] Add practical CI quality gates.
+- [x] Create contributor-ready Issues #374, #375, and #376 with appropriate
+  `good first issue` labels.
+
+### Current audit findings
+
+- All five NuGet packages are published through `1.0.365`, but the repository
+  has no tags or GitHub Releases.
+- The legacy workflow derives versions from repository variables and the
+  workflow run number, can publish from a `master` push or manual dispatch, and
+  does not gate publication on the full build and test suite.
+- The only GitHub environment currently visible is `github-pages`; a protected
+  NuGet production environment still requires maintainer configuration.
+- GitHub Pages modernization is complete Sprint 2 work and is not a Sprint 3
+  backlog item.
+- Local validation passes a zero-warning Release build, 19 tests, five-package
+  artifact inspection, release-tool tests, links, YAML parsing, rendered
+  accessibility smoke checks, and representative browser runtime checks.
+- PR #377 targets `Dev` and is ready for maintainer review.
+- Clean Quality run #4 passed every build, test, package, documentation,
+  workflow, and accessibility-smoke step.
+- Release packages run #367 passed the artifact-only path. Its inspected
+  `bluent-0.0.0-ci.367` artifact contains the five aligned packages, package
+  report, and deterministic notes; NuGet and GitHub Release jobs were skipped.
+- Issues #366 and #372 contain the committed evidence and explicit
+  limitations. Sprint 3 implementation is complete pending maintainer review
+  and merge.
 
 ## Maintainer-Approved Maintenance
 

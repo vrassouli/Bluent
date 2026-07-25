@@ -19,8 +19,9 @@ The repository root README remains the short evaluation and installation entry p
 | Examples | [`examples/`](examples/README.md) | Find runnable, source-verified examples and reference applications |
 | Demo gallery | [`demo/`](demo/README.md) | Review current screenshots captured from the validated running demo |
 | AI readiness | [`ai/`](ai/benchmark.md) | Maintain benchmark prompts, dated results, scoring, and recurring failure analysis |
+| Quality | [`quality/compiler-warning-baseline.md`](quality/compiler-warning-baseline.md) | Review the accepted compiler-warning baseline and regression policy |
 | Contributor workflow | [../CONTRIBUTING.md](../CONTRIBUTING.md) | Build, test, and contribute to the repository |
-| Releases | [../RELEASING.md](../RELEASING.md) and [../CHANGELOG.md](../CHANGELOG.md) | Prepare releases and understand changes |
+| Releases | [../RELEASING.md](../RELEASING.md), [../CHANGELOG.md](../CHANGELOG.md), and [`releasing/release-workflow-audit.md`](releasing/release-workflow-audit.md) | Prepare releases, understand changes, and review the audited release baseline |
 
 Directories are introduced as their first maintained document is added. Empty placeholder directories are intentionally avoided.
 

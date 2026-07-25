@@ -47,12 +47,86 @@ Every user-visible change should be added to the `Unreleased` section of [CHANGE
 - Fixed
 - Security
 
+Use `[Package.Id]` at the start of an entry when a change affects only one or a
+subset of packages. Ecosystem-wide entries do not need a package prefix.
+
+Start a breaking entry with `**Breaking:**` and link it to migration guidance
+under `docs/compatibility/`. A breaking change must never be inferred only from
+a pull request title.
+
+Contributors should update the changelog in the same pull request as a
+user-visible component, behavior, static-asset, package, compatibility, or
+release-process change. Pure tests, internal refactors, and typo-only
+corrections do not require an entry unless they affect shipped behavior or
+consumer guidance.
+
 When releasing:
 
 1. Create a version section from the relevant `Unreleased` entries.
 2. Add the release date in `YYYY-MM-DD` format.
 3. Leave a fresh empty `Unreleased` section.
 4. Link the release section to the Git comparison when practical.
+
+The release workflow extracts notes from the exact
+`## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` section. A publication run fails if that
+section is missing or empty. Artifact-only dry runs may preview notes from
+`Unreleased`, but that preview cannot be used for a real GitHub Release.
+
+## Automated release workflow
+
+`.github/workflows/publish.yml` is the only supported package publication path.
+Publication is manual by design. Pull requests to `Dev` also exercise the
+artifact-only path with a synthetic `0.0.0-ci.<run>` version so the workflow
+itself is proven before merge. The workflow's two dispatch modes are:
+
+- `publish: false` builds and validates artifacts without creating a tag,
+  GitHub Release, or NuGet publication.
+- `publish: true` is accepted only when the workflow is dispatched from the
+  existing annotated tag `v<version>`, publishes through the protected
+  `nuget-production` environment, and then creates the GitHub Release.
+
+Pull-request runs cannot enter either publication job.
+
+The workflow:
+
+1. Validates the explicit SemVer input.
+2. Restores tools and dependencies.
+3. Builds the full solution in Release configuration with warnings treated as
+   errors.
+4. Runs all tests.
+5. Packs exactly `Bluent.UI.Core`, `Bluent.UI`, `Bluent.UI.Charts`,
+   `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities` at the requested aligned
+   version.
+6. Validates package IDs, versions, metadata, README, license, target
+   framework, repository commit, and exact aligned internal dependencies.
+7. Generates release notes from `CHANGELOG.md`.
+8. Uploads packages, validation results, and notes as a 30-day workflow
+   artifact.
+9. For a publish run, checks that none of the five immutable ID/version pairs
+   already exists on NuGet before requesting production approval.
+10. Publishes in dependency order without `--skip-duplicate`.
+11. Creates the GitHub Release from the validated tag and attaches the package
+    artifacts and validation report.
+
+NuGet does not offer an atomic transaction across five package IDs. The
+all-package preflight and production approval substantially reduce risk, but an
+external failure during sequential pushes can still create a partial release.
+If that occurs, stop: do not reuse the version for different bits, record the
+published subset, and coordinate recovery with the maintainer.
+
+### Required repository configuration
+
+Before the first real publication, a repository administrator must:
+
+1. Create a GitHub Actions environment named `nuget-production`.
+2. Require maintainer approval for that environment and restrict deployment to
+   protected release tags where the repository plan permits.
+3. Add an environment secret named `NUGET_API_KEY` containing a scoped NuGet
+   API key authorized only for the five Bluent package IDs.
+4. Keep the existing `github-pages` environment separate.
+
+Secret values must never be committed, printed, copied into release notes, or
+stored as repository variables.
 
 ## Release Checklist
 
@@ -70,6 +144,10 @@ When releasing:
 - [ ] Update `CHANGELOG.md`.
 - [ ] Add migration guidance for breaking changes.
 - [ ] Confirm the repository is clean and the release commit is identifiable.
+- [ ] Convert `Unreleased` to a dated version section and create a fresh,
+  category-complete `Unreleased` section.
+- [ ] Run `Release packages` with `publish: false` from the release commit and
+  inspect the uploaded packages, validation JSON, and release notes.
 
 ### Validate
 
@@ -84,13 +162,28 @@ dotnet test Bluent.sln --configuration Release --no-build
 
 Package validation should include installation into a clean sample application before publishing a stable release.
 
+For a safe dry run:
+
+1. Open **Actions → Release packages → Run workflow**.
+2. Select the release commit or branch.
+3. Enter the candidate version without a `v` prefix.
+4. Leave **Publish** disabled.
+5. Confirm `Validate release artifacts` passes.
+6. Download `bluent-<version>` and inspect all five packages,
+   `package-validation.json`, and `release-notes.md`.
+
 ### Publish
 
 - [ ] Create the release commit.
-- [ ] Tag the exact release commit.
-- [ ] Build packages from that tag or commit.
-- [ ] Publish the intended packages to NuGet.
-- [ ] Create a GitHub Release using the changelog as the basis for release notes.
+- [ ] Create and push an annotated `v<version>` tag pointing to the exact
+  validated release commit.
+- [ ] In **Actions → Release packages**, select that tag, enter the same version
+  without `v`, enable **Publish**, and start the workflow.
+- [ ] Review the validation job and production-environment approval request.
+- [ ] Approve NuGet publication only when the tag, version, changelog, five
+  packages, validation report, and migration guidance are correct.
+- [ ] Confirm the workflow publishes the intended packages and creates the
+  GitHub Release using the exact changelog section.
 - [ ] Include breaking changes, migrations, known issues, and package versions.
 - [ ] Verify package pages, links, license, README, and symbols after publication.
 
