@@ -90,7 +90,7 @@ Sprint 0 is complete when:
 - [x] Create component documentation standards.
 - [ ] Add runnable examples for the most important components.
 - [x] Document theming, localization, RTL, and JavaScript requirements.
-- [ ] Add migration and upgrade guidance.
+- [x] Add migration and upgrade guidance.
 - [x] Create a canonical component catalog for developers and coding agents.
 - [ ] Publish a machine-readable documentation index such as `llms.txt`.
 - [ ] Establish a baseline AI-readiness benchmark.
