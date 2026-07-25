@@ -1,0 +1,224 @@
+.scenario-page {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    padding: clamp(1rem, 3vw, 3rem);
+}
+
+.scenario-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: clamp(1.4rem, 4vw, 3rem);
+    border-radius: 1.25rem;
+    color: var(--colorNeutralForegroundOnBrand);
+    background:
+        radial-gradient(circle at 85% 15%, rgb(255 255 255 / 18%), transparent 32%),
+        linear-gradient(135deg, var(--colorBrandBackground), var(--colorBrandBackground2));
+    box-shadow: var(--shadow16);
+}
+
+.scenario-eyebrow {
+    margin: 0 0 .5rem;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .82;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.02;
+}
+
+.scenario-hero p:last-child {
+    max-width: 720px;
+    margin: .85rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: .9;
+}
+
+.scenario-capabilities {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .45rem;
+    max-width: 320px;
+}
+
+.scenario-capabilities span {
+    padding: .35rem .65rem;
+    border: 1px solid rgb(255 255 255 / 36%);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 12%);
+    font-size: .78rem;
+    white-space: nowrap;
+}
+
+.scenario-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.scenario-switcher a {
+    padding: .55rem .8rem;
+    border: 1px solid var(--colorNeutralStroke1);
+    border-radius: .65rem;
+    color: var(--colorNeutralForeground1);
+    background: var(--colorNeutralBackground1);
+    text-decoration: none;
+}
+
+.scenario-switcher a:hover,
+.scenario-switcher a:focus-visible {
+    border-color: var(--colorBrandStroke1);
+    color: var(--colorBrandForegroundLink);
+}
+
+::deep .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+::deep .scenario-panel {
+    grid-column: span 12;
+    min-width: 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: 1rem;
+    background: var(--colorNeutralBackground1);
+    box-shadow: var(--shadow4);
+}
+
+::deep .scenario-panel h2,
+::deep .scenario-panel h3 {
+    margin-top: 0;
+}
+
+::deep .scenario-panel p {
+    color: var(--colorNeutralForeground2);
+    line-height: 1.55;
+}
+
+::deep .scenario-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+::deep .scenario-field {
+    min-width: 0;
+}
+
+::deep .scenario-field label {
+    display: block;
+    margin-bottom: .4rem;
+    font-weight: 600;
+}
+
+::deep .scenario-field.wide {
+    grid-column: 1 / -1;
+}
+
+::deep .scenario-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin-top: 1.25rem;
+}
+
+::deep .scenario-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .75rem;
+}
+
+::deep .scenario-stat {
+    padding: 1rem;
+    border-radius: .85rem;
+    background: var(--colorNeutralBackground2);
+}
+
+::deep .scenario-stat strong {
+    display: block;
+    margin-top: .35rem;
+    font-size: 1.65rem;
+}
+
+::deep .scenario-table-wrap {
+    overflow-x: auto;
+}
+
+::deep .scenario-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: start;
+}
+
+::deep .scenario-table th,
+::deep .scenario-table td {
+    padding: .75rem;
+    border-bottom: 1px solid var(--colorNeutralStroke2);
+    text-align: start;
+    white-space: nowrap;
+}
+
+::deep .scenario-status {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+::deep .scenario-status::before {
+    width: .55rem;
+    height: .55rem;
+    border-radius: 50%;
+    background: var(--colorPaletteGreenBackground3);
+    content: "";
+}
+
+::deep .scenario-status.warning::before {
+    background: var(--colorPaletteMarigoldBackground3);
+}
+
+@media (min-width: 900px) {
+    ::deep .scenario-panel.span-7 {
+        grid-column: span 7;
+    }
+
+    ::deep .scenario-panel.span-5 {
+        grid-column: span 5;
+    }
+}
+
+@media (max-width: 820px) {
+    .scenario-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .scenario-capabilities {
+        justify-content: flex-start;
+    }
+
+    ::deep .scenario-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .scenario-page {
+        padding: .75rem;
+    }
+
+    ::deep .scenario-form-grid,
+    ::deep .scenario-stat-grid {
+        grid-template-columns: 1fr;
+    }
+}

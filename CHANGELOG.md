@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Enterprise demo scenarios for customer profiles, operations dashboards, and confirmation workflows.
+- Demo showcase context and a verified screenshot gallery for high-value component pages.
 - Project vision and outcome-based public roadmap.
 - Apache License 2.0 at the repository level.
 - Contribution guide, code of conduct, changelog, and release policy.
@@ -17,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Improved demo navigation, responsive drawer behavior, theme and RTL presentation, and GitHub Pages deployment.
 - Repositioned Bluent as a Blazor-native toolkit for modern business applications.
 - Rewrote and verified the repository README.
 - Improved NuGet package descriptions, tags, repository links, project links, license metadata, and package README metadata.

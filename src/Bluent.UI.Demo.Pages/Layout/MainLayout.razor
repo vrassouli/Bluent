@@ -1,13 +1,18 @@
 ﻿@inherits LayoutComponentBase
+@implements IDisposable
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.JSInterop
+@inject NavigationManager Navigation
+@inject IJSRuntime Js
 <div class="page">
     <div class="header">
         <Header @bind-SideMenuExpanded="_expanded"/>
     </div>
     <div class="content">
-        <div class="sidebar d-flex flex-column">
+        <div class="sidebar d-flex flex-column @(_expanded ? "expanded" : "compact")">
             <Side Expanded="_expanded" />
         </div>
-        <div class="page-content">
+        <div class="page-content" @ref="_pageContent">
             @Body
         </div>
     </div>
@@ -15,8 +20,50 @@
 
 <Containers/>
 
-@code{
+@code {
+    private bool _expanded = true;
+    private bool _viewportInitialized;
+    private bool _resetScrollPosition;
+    private ElementReference _pageContent;
 
-    bool _expanded = true;
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+    }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_viewportInitialized)
+        {
+            _viewportInitialized = true;
+            if (await Js.InvokeAsync<bool>("bluentDemo.isNarrowViewport"))
+            {
+                _expanded = false;
+                StateHasChanged();
+            }
+        }
+
+        if (_resetScrollPosition)
+        {
+            _resetScrollPosition = false;
+            await Js.InvokeVoidAsync("bluentDemo.scrollToTop", _pageContent);
+        }
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        _resetScrollPosition = true;
+        _ = InvokeAsync(async () =>
+        {
+            if (await Js.InvokeAsync<bool>("bluentDemo.isNarrowViewport"))
+                _expanded = false;
+
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+    }
 }

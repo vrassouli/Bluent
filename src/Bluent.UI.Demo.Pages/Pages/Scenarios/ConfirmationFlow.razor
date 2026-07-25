@@ -1,0 +1,96 @@
+@page "/scenarios/confirmation-flow"
+@namespace Bluent.UI.Demo.Pages.Scenarios
+@using Bluent.UI.Services.Abstractions
+
+<PageTitle>Confirmation Flow | Bluent</PageTitle>
+
+<ScenarioLayout Title="Confirmation and notification flow"
+                Description="A safe destructive-action workflow using persistent inline guidance, a modal confirmation, completion feedback, and a transient toast."
+                Capabilities="@(new[] { "Dialog", "Message bar", "Toast", "Buttons", "Action state" })">
+    <div class="scenario-grid">
+        <section class="scenario-panel span-7">
+            <h2>Quarterly access review</h2>
+            <p>Review and archive an expired access request. The action remains reversible in this demo.</p>
+
+            <div class="scenario-table-wrap">
+                <table class="scenario-table">
+                    <thead>
+                        <tr><th>Request</th><th>Owner</th><th>Expired</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Finance reporting</td>
+                            <td>Jordan Lee</td>
+                            <td>14 days ago</td>
+                            <td><span class="scenario-status @(_archived ? null : "warning")">@(_archived ? "Archived" : "Review")</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="scenario-actions">
+                <Button Text="Archive request"
+                        Appearance="ButtonAppearance.Primary"
+                        disabled="@_archived"
+                        OnClick="ConfirmArchive" />
+                <Button Text="Restore demo state"
+                        Appearance="ButtonAppearance.Subtle"
+                        disabled="@(!_archived)"
+                        OnClick="Restore" />
+            </div>
+        </section>
+
+        <aside class="scenario-panel span-5">
+            <h2>Workflow feedback</h2>
+            @if (_archived)
+            {
+                <MessageBar Type="MessageBarType.Success" Multiline Dismissable>
+                    <strong>Request archived.</strong> The account owner was notified and the audit record was preserved.
+                </MessageBar>
+            }
+            else
+            {
+                <MessageBar Type="MessageBarType.Information" Multiline>
+                    Archiving requires explicit confirmation. Canceling the dialog leaves the request unchanged.
+                </MessageBar>
+            }
+            <p class="mt-4">This scenario exercises the shared overlay containers configured by the demo layout.</p>
+        </aside>
+    </div>
+</ScenarioLayout>
+
+@code {
+    private bool _archived;
+
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
+
+    private async Task ConfirmArchive()
+    {
+        var result = await DialogService.ShowMessageBoxAsync(
+            "Archive access request?",
+            "This removes the request from the active queue while preserving its audit history.",
+            MessageBoxButton.Yes | MessageBoxButton.Cancel,
+            MessageBoxButton.Yes);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            _archived = true;
+            _ = ToastService.ShowAsync(
+                "Request archived",
+                config => config.SetMessage("Finance reporting access moved to the archive.")
+                                .SetIntend(ToastIntend.Success)
+                                .SetPlace(ToastPlacement.BottomEnd));
+        }
+    }
+
+    private void Restore()
+    {
+        _archived = false;
+        _ = ToastService.ShowAsync(
+            "Demo restored",
+            config => config.SetMessage("The request is active again.")
+                            .SetIntend(ToastIntend.Info)
+                            .SetPlace(ToastPlacement.BottomEnd));
+    }
+}

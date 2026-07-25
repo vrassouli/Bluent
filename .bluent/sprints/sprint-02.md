@@ -6,8 +6,9 @@ Turn the Bluent demo into a credible public product experience for teams evaluat
 
 ## Tracking
 
-- Branch: `demo/sprint-2-visual-presentation`
-- Pull request: [#369](https://github.com/vrassouli/Bluent/pull/369)
+- Branch: `demo/sprint-2-completion`
+- Foundation pull request: [#369](https://github.com/vrassouli/Bluent/pull/369) — merged
+- Completion pull request: [#370](https://github.com/vrassouli/Bluent/pull/370) — ready for review
 - Issue: [#368](https://github.com/vrassouli/Bluent/issues/368)
 - Audit: `docs/demo/sprint-2-audit.md`
 
@@ -27,7 +28,7 @@ Turn the Bluent demo into a credible public product experience for teams evaluat
 - [x] Explain Bluent's enterprise positioning.
 - [x] Add clear calls to action.
 - [x] Highlight themes, dark mode, RTL, Charts, and Diagrams.
-- [ ] Complete browser-based review of the landing page.
+- [x] Complete browser-based review of the landing page.
 
 ### 2. Navigation and Discovery
 
@@ -35,9 +36,9 @@ Turn the Bluent demo into a credible public product experience for teams evaluat
 - [x] Group component links by purpose.
 - [x] Promote Charts and Diagrams.
 - [x] Support compact and expanded navigation.
-- [ ] Validate desktop behavior.
-- [ ] Validate mobile behavior.
-- [ ] Validate navigation in LTR and RTL.
+- [x] Validate desktop behavior.
+- [x] Validate mobile behavior.
+- [x] Validate navigation in LTR and RTL.
 
 ### 3. Component Showcase Standard
 
@@ -53,21 +54,21 @@ Define a repeatable structure for high-value component pages:
 
 Apply it first to:
 
-- [ ] Buttons/actions.
-- [ ] Fields/forms.
-- [ ] Data Grid and Data Pager.
-- [ ] Dialogs, Toasts, and Message Bars.
-- [ ] Charts.
-- [ ] Diagrams.
+- [x] Buttons/actions.
+- [x] Fields/forms.
+- [x] Data Grid and Data Pager.
+- [x] Dialogs, Toasts, and Message Bars.
+- [x] Charts.
+- [x] Diagrams.
 
 ### 4. Enterprise Scenarios
 
 Implement at least three runnable scenarios using existing public components:
 
-- [ ] Customer profile form — common fields, validation affordances, primary/secondary actions.
-- [ ] Operations dashboard — cards, statuses, table/grid, feedback, and charts where supported.
+- [x] Customer profile form — common fields, validation affordances, primary/secondary actions.
+- [x] Operations dashboard — cards, statuses, table/grid, feedback, and charts where supported.
 - [ ] Search and filter workspace — filters, results, paging, empty/loading state.
-- [ ] Confirmation and notification flow — dialog, message bar, toast, and action handling.
+- [x] Confirmation and notification flow — dialog, message bar, toast, and action handling.
 - [ ] RTL business form — demonstrate direction, alignment, and localized business UI.
 
 Preferred minimum set for completion:
@@ -78,37 +79,50 @@ Preferred minimum set for completion:
 
 ### 5. Visual and Runtime Validation
 
-- [ ] Run the WebAssembly demo.
-- [ ] Review Home and Getting Started in a browser.
-- [ ] Review selected showcase pages and all completed scenario pages.
-- [ ] Validate representative desktop widths.
-- [ ] Validate representative mobile widths.
-- [ ] Validate light theme.
-- [ ] Validate dark theme.
-- [ ] Validate LTR.
-- [ ] Validate RTL.
-- [ ] Check browser console and navigation errors.
-- [ ] Record environment and commit SHA.
+- [x] Run the WebAssembly demo.
+- [x] Review Home and Getting Started in a browser.
+- [x] Review selected showcase pages and all completed scenario pages.
+- [x] Validate representative desktop widths.
+- [x] Validate representative mobile widths.
+- [x] Validate light theme.
+- [x] Validate dark theme.
+- [x] Validate LTR.
+- [x] Validate RTL.
+- [x] Check browser console and navigation errors.
+- [x] Record environment and commit SHA after final validation commit.
 
 ### 6. Assets and Deployment
 
-- [ ] Capture README-quality landing screenshot.
-- [ ] Capture component showcase screenshot.
-- [ ] Capture enterprise scenario screenshot.
-- [ ] Capture RTL or theme demonstration screenshot.
-- [ ] Modernize static deployment workflow where required for this demo.
-- [ ] Run and validate the static deployment workflow.
-- [ ] Check deployed routes and assets.
+- [x] Capture README-quality landing screenshot.
+- [x] Capture component showcase screenshot.
+- [x] Capture enterprise scenario screenshot.
+- [x] Capture RTL or theme demonstration screenshot.
+- [x] Modernize static deployment workflow where required for this demo.
+- [x] Run and validate the static deployment workflow.
+- [x] Check deployed routes and assets.
 
 ### 7. Finalization
 
-- [ ] Run Release restore/build/test.
-- [ ] Pack all five packages where the workflow requires it.
-- [ ] Validate local Markdown links.
-- [ ] Update `.bluent/PROJECT.md`.
-- [ ] Update Issue #368 with evidence.
-- [ ] Update PR #369 with exact validation and remaining risks.
-- [ ] Mark PR #369 ready for review.
+- [x] Run Release restore/build/test.
+- [x] Pack all five packages where the workflow requires it.
+- [x] Validate local Markdown links.
+- [x] Update `.bluent/PROJECT.md`.
+- [x] Update Issue #368 with evidence.
+- [x] Preserve PR #369 as the merged foundation checkpoint.
+- [x] Open the Sprint 2 completion PR with exact validation and remaining risks.
+
+## Validation Evidence
+
+- Local runtime: Blazor WebAssembly demo on macOS 26.5.2 with .NET SDK 10.0.300.
+- Browser matrix: 1440 × 1000 desktop and 390 × 844 mobile; Home, Getting Started, all three enterprise scenarios, and the selected high-value showcase pages reviewed.
+- Modes: light and dark themes, LTR and RTL direction, and a non-default Teams brand color reviewed without horizontal overflow.
+- Interaction: customer save, dashboard refresh and alert acknowledgement, confirmation dialog, toast, mobile drawer, and navigation scroll reset exercised.
+- Console: no browser console warnings or errors during the final local review.
+- Local verification: Release build, 17/17 tests, all five package outputs and metadata, Release static publish, packaged assets, and local Markdown links passed.
+- Remote verification: commit `f1c2748` passed clean restore/build/test/pack/link validation in [run 30154038522](https://github.com/vrassouli/Bluent/actions/runs/30154038522). All 17 tests passed and the five packages were produced. The clean build retained 10 pre-existing compiler warnings and no errors.
+- Deployment: commit `f1c2748` passed the modernized Pages workflow in [run 30154039208](https://github.com/vrassouli/Bluent/actions/runs/30154039208) and deployed to `https://vrassouli.github.io/Bluent/`. Root, fallback routes, framework assets, Bluent styles, and demo JavaScript were checked; GitHub Pages returns its expected HTTP 404 status for client-side fallback URLs while the Blazor router renders them successfully.
+- Final live browser check: the deployed operations route rendered its chart without overflow or console errors, Home/Bluent resolved to the `/Bluent/` base path, and the brand link returned successfully to the deployed landing page.
+- Deployment policy: the feature branch was temporarily added to the existing `github-pages` custom branch allowlist for validation, then removed. The original `Dev` and `gh-pages` policies remain.
 
 ## Acceptance Criteria
 

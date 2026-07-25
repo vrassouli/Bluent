@@ -3,10 +3,17 @@
 
 @using Bluent.UI.Demo.Pages.Pages.Components.ToastsComponents
 @using Bluent.UI.Services.Abstractions
+<PageTitle>Toasts | Bluent</PageTitle>
 
 <div class="p-5 py-md-10 px-md-12">
     <div class="w-100 w-md-50 m-auto">
-        <h1>Toast</h1>
+        <ShowcaseHeader Title="Toasts"
+                        Purpose="Deliver transient workflow feedback with configurable intent, placement, duration, dismiss text, and custom content."
+                        Package="Bluent.UI"
+                        Namespace="Bluent.UI.Services.Abstractions"
+                        ApiSummary="IToastService, ToastConfiguration, title, message, intent, placement, duration, dismiss title, and custom toast components."
+                        SourcePath="Toasts.razor"
+                        Notes="The shared Containers component must be present in the application layout. Keep critical or persistent information in page content or a message bar rather than only in a toast." />
 
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">

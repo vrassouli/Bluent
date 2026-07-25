@@ -10,6 +10,7 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Getting Started](https://github.com/vrassouli/Bluent/blob/Dev/docs/getting-started/index.md): canonical installation, registration, styles, containers, and troubleshooting
 - [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
+- [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
 
 ## Components
 

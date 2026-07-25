@@ -29,6 +29,18 @@
     text-transform: uppercase;
 }
 
+.demo-nav ::deep .bui-overflow.vertical {
+    overflow: visible;
+}
+
+.demo-nav ::deep .bui-overflow.vertical > .overflowing {
+    display: flex !important;
+}
+
+.demo-nav ::deep .bui-overflow.vertical > .overflow-button {
+    display: none !important;
+}
+
 .compact .nav-group {
     margin-top: .65rem;
     padding-top: .5rem;

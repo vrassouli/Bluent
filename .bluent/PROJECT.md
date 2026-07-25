@@ -8,9 +8,9 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 2 — Demo and Visual Presentation  
-**Status:** In Progress  
-**Working Branch:** `demo/sprint-2-visual-presentation`  
-**Pull Request:** [#369](https://github.com/vrassouli/Bluent/pull/369) — draft  
+**Status:** Ready for Review
+**Working Branch:** `demo/sprint-2-completion`
+**Pull Request:** [#370](https://github.com/vrassouli/Bluent/pull/370) — ready for review; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
 **Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
 
 ## Operational Files
@@ -120,17 +120,22 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Highlight themes, dark mode, RTL, Charts, and Diagrams.
 - [x] Run initial restore, Release build, tests, package creation, and Markdown-link validation in GitHub Actions.
 - [x] Add Codex handoff, backlog, quality policy, sprint plan, and scoped demo-agent instructions.
+- [x] Add three runnable enterprise scenarios: customer profile, operations dashboard, and confirmation flow.
+- [x] Apply a repeatable showcase header to Buttons, Fields, Data Grid, Data Pager, Dialogs, Toasts, Message Bars, Charts, and Diagrams.
+- [x] Validate desktop/mobile navigation, responsive layout, light/dark themes, LTR/RTL direction, interactions, and browser console state.
+- [x] Capture and document four current screenshots from the validated application.
+- [x] Modernize the GitHub Pages workflow and validate a local Release publish.
 
 ### Remaining
 
-- [ ] Add at least three runnable enterprise scenario pages.
-- [ ] Apply a repeatable component showcase structure to high-value pages.
-- [ ] Validate desktop and mobile navigation in a running browser.
-- [ ] Validate light/dark and LTR/RTL combinations.
-- [ ] Capture professional screenshots from the validated application.
-- [ ] Modernize and validate static deployment where required.
-- [ ] Record final validation evidence and remaining risks.
-- [ ] Mark PR #369 ready for review.
+- [x] Add at least three runnable enterprise scenario pages.
+- [x] Apply a repeatable component showcase structure to high-value pages.
+- [x] Validate desktop and mobile navigation in a running browser.
+- [x] Validate light/dark and LTR/RTL combinations.
+- [x] Capture professional screenshots from the validated application.
+- [x] Run clean GitHub Actions validation and validate the deployed Pages site at commit `f1c2748`.
+- [x] Record final validation evidence and remaining risks.
+- [x] Open the Sprint 2 completion pull request to `Dev` for review.
 - [ ] Merge the reviewed Sprint 2 pull request into `Dev`.
 
 ### Definition of Done
@@ -142,6 +147,14 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - README-quality screenshots are committed and accurately represent the current product.
 - The demo builds successfully and its deployment workflow is validated.
 - Sprint 2 is delivered in a reviewed pull request targeting `Dev`.
+
+### Validation Summary
+
+- Local browser validation covered 1440 × 1000 desktop and 390 × 844 mobile layouts, light/dark themes, LTR/RTL, a non-default brand color, all three enterprise scenarios, and the selected component showcases.
+- Clean GitHub Actions validation passed on commit `f1c2748`: restore, Release build, 17/17 tests, five package builds, and Markdown links.
+- GitHub Pages deployment passed on commit `f1c2748`; the live root, client-side routes, framework files, Bluent styles, and demo JavaScript were checked.
+- The final live browser check confirmed the `/Bluent/` home links, operations chart, deployed root navigation, zero horizontal overflow, and a clean console.
+- Ten pre-existing compiler warnings remain; no new public APIs, package-boundary changes, or breaking changes were introduced.
 
 ## Sprint 3 — Release and Community Readiness
 
