@@ -1,14 +1,16 @@
 # Sprint 2 — Demo and Visual Presentation
 
+**Status:** Completed
+
 ## Goal
 
 Turn the Bluent demo into a credible public product experience for teams evaluating an enterprise Blazor UI toolkit.
 
 ## Tracking
 
-- Branch: `demo/sprint-2-completion`
+- Completed branch: `demo/sprint-2-completion` — deleted after merge
 - Foundation pull request: [#369](https://github.com/vrassouli/Bluent/pull/369) — merged
-- Completion pull request: [#370](https://github.com/vrassouli/Bluent/pull/370) — ready for review
+- Completion pull request: [#370](https://github.com/vrassouli/Bluent/pull/370) — merged
 - Issue: [#368](https://github.com/vrassouli/Bluent/issues/368)
 - Audit: `docs/demo/sprint-2-audit.md`
 
@@ -110,6 +112,7 @@ Preferred minimum set for completion:
 - [x] Update Issue #368 with evidence.
 - [x] Preserve PR #369 as the merged foundation checkpoint.
 - [x] Open the Sprint 2 completion PR with exact validation and remaining risks.
+- [x] Merge the Sprint 2 completion PR into `Dev`.
 
 ## Validation Evidence
 
