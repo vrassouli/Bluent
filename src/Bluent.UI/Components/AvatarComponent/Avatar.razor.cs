@@ -46,8 +46,8 @@ public partial class Avatar
 
         if (Color != null)
         {
-            yield return $"color-{Color.ToString().Camelize()}-2";
-            yield return $"bg-{Color.ToString().Camelize()}-2";
+            yield return $"color-{Color.Value.ToString().Camelize()}-2";
+            yield return $"bg-{Color.Value.ToString().Camelize()}-2";
         }
         else if (AutoColor)
         {

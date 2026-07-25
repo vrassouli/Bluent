@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+Entries should identify affected packages when a change is not ecosystem-wide,
+for example `[Bluent.UI.Charts]`. Breaking changes must start with
+`**Breaking:**` and link to migration guidance.
+
 ### Added
 
 - Enterprise demo scenarios for customer profiles, operations dashboards, and confirmation workflows.
@@ -16,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - GitHub issue and pull request templates.
 - Repository-based project relaunch tracking.
 - AI readiness and discoverability initiative tracked in Issue #363.
+- Deterministic, artifact-first release validation with protected NuGet
+  publication and changelog-derived release notes.
+- Reproducible Interactive Server, Interactive WebAssembly, Interactive Auto,
+  and static SSR compatibility probes.
 
 ### Changed
 
@@ -23,6 +31,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Repositioned Bluent as a Blazor-native toolkit for modern business applications.
 - Rewrote and verified the repository README.
 - Improved NuGet package descriptions, tags, repository links, project links, license metadata, and package README metadata.
+- Replaced run-number-based package publication with an explicit SemVer release
+  workflow and an artifact-only dry-run path.
+- Updated render-mode guidance with build and runtime evidence instead of
+  unverified compatibility placeholders.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
 
 ### Fixed
 
@@ -30,6 +50,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Corrected invalid NuGet `RepositoryUrl` values.
 - Corrected the `Bluent.UI.Utilities` package description, which previously referred to `Bluent.UI.MDI`.
 - Cleared stale `TabList` link selection when navigation activates an item in another tab list.
+
+### Security
+
+- None.
 
 ## Release History
 

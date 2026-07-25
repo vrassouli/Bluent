@@ -1,9 +1,9 @@
 # Release Workflow Audit
 
-**Audit date:** 2026-07-25  
-**Audited commit:** `864f0d308775e4fdebacc1c12504a098ad1cc73c`  
-**Branch at audit start:** `Dev`  
-**Environment:** macOS 26.5, Apple Silicon, .NET SDK 10.0.300  
+**Audit date:** 2026-07-25
+**Audited commit:** `864f0d308775e4fdebacc1c12504a098ad1cc73c`
+**Branch at audit start:** `Dev`
+**Environment:** macOS 26.5, Apple Silicon, .NET SDK 10.0.300
 **Tracking:** [Sprint 3 Issue #372](https://github.com/vrassouli/Bluent/issues/372)
 
 ## Summary

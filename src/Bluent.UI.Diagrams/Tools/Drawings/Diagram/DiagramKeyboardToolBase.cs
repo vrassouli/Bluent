@@ -11,8 +11,17 @@ internal abstract class DiagramKeyboardToolBase : IDiagramTool
 
     public Components.Diagram Diagram => (Canvas as Components.Diagram) ?? throw new ArgumentNullException("The tool should be added and registered on a Diagram component");
 
-    public event EventHandler? Completed;
-    public event PropertyChangedEventHandler? PropertyChanged;
+    event EventHandler? ITool.Completed
+    {
+        add { }
+        remove { }
+    }
+
+    event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
+    {
+        add { }
+        remove { }
+    }
 
     public void Register(DrawingCanvas canvas)
     {

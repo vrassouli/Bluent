@@ -9,8 +9,17 @@ internal abstract class KeyboardToolBase : ITool
     public string Cursor { get; set; } = "auto";
     public DrawingCanvas Canvas { get; private set; } = default!;
 
-    public event EventHandler? Completed;
-    public event PropertyChangedEventHandler? PropertyChanged;
+    event EventHandler? ITool.Completed
+    {
+        add { }
+        remove { }
+    }
+
+    event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
+    {
+        add { }
+        remove { }
+    }
 
     public void Register(DrawingCanvas canvas)
     {
