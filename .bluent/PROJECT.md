@@ -8,9 +8,9 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 **Phase:** Project Relaunch  
 **Current Sprint:** Sprint 2 — Demo and Visual Presentation  
-**Status:** Ready for Review
-**Working Branch:** `demo/sprint-2-completion`
-**Pull Request:** [#370](https://github.com/vrassouli/Bluent/pull/370) — ready for review; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
+**Status:** Completed
+**Working Branch:** `Dev`
+**Pull Request:** [#370](https://github.com/vrassouli/Bluent/pull/370) — merged; [#369](https://github.com/vrassouli/Bluent/pull/369) is the merged foundation checkpoint
 **Tracking Issue:** [#368](https://github.com/vrassouli/Bluent/issues/368)
 
 ## Operational Files
@@ -110,7 +110,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 Detailed plan: `.bluent/sprints/sprint-02.md`
 
-### Completed on Active Branch
+### Completed
 
 - [x] Audit the current demo application, page structure, navigation, and component coverage.
 - [x] Define the initial demo information architecture and visual direction.
@@ -126,7 +126,7 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Capture and document four current screenshots from the validated application.
 - [x] Modernize the GitHub Pages workflow and validate a local Release publish.
 
-### Remaining
+### Completion Checklist
 
 - [x] Add at least three runnable enterprise scenario pages.
 - [x] Apply a repeatable component showcase structure to high-value pages.
@@ -136,7 +136,7 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Run clean GitHub Actions validation and validate the deployed Pages site at commit `f1c2748`.
 - [x] Record final validation evidence and remaining risks.
 - [x] Open the Sprint 2 completion pull request to `Dev` for review.
-- [ ] Merge the reviewed Sprint 2 pull request into `Dev`.
+- [x] Merge the reviewed Sprint 2 pull request into `Dev`.
 
 ### Definition of Done
 

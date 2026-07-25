@@ -4,15 +4,14 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 ## Current Objective
 
-Complete **Sprint 2 — Demo and Visual Presentation**.
-
-The Sprint 2 foundation was merged into `Dev` through PR #369. Continue the remaining work from the fresh continuation branch created from that merge.
+Sprint 2 — Demo and Visual Presentation is complete. Prepare Sprint 3 only when the maintainer chooses to begin it.
 
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `demo/sprint-2-completion`
+- Active branch: `Dev`
 - Completed checkpoint: [PR #369](https://github.com/vrassouli/Bluent/pull/369) — merged
+- Sprint completion: [PR #370](https://github.com/vrassouli/Bluent/pull/370) — merged
 - Sprint issue: [#368](https://github.com/vrassouli/Bluent/issues/368)
 - AI-readiness epic: [#363](https://github.com/vrassouli/Bluent/issues/363)
 - Demo audit: `docs/demo/sprint-2-audit.md`
@@ -42,7 +41,7 @@ Already merged into `Dev`:
 - Repository-native Codex handoff, backlog, quality policy, and sprint plan.
 - Successful checkpoint restore, Release build, tests, package creation, and Markdown-link validation.
 
-Completed on `demo/sprint-2-completion`:
+Completed through PR #370:
 
 - Added runnable customer profile, operations dashboard, and confirmation/notification scenarios.
 - Applied a repeatable showcase header to the highest-value component pages.
@@ -56,24 +55,13 @@ Completed on `demo/sprint-2-completion`:
 - Confirmed in the final live browser check that deployed Home/Bluent links respect `/Bluent/`, the operations chart renders, root navigation succeeds, overflow is zero, and the console is clean.
 - Restored the `github-pages` deployment environment to its original `Dev` and `gh-pages` branch policies after feature-branch validation.
 
-Final evidence was added to Issue #368 and the ready-for-review completion PR is [#370](https://github.com/vrassouli/Bluent/pull/370).
+Final evidence was added to Issue #368, PR #370 was merged into `Dev`, and the merged Sprint branches were deleted.
 
-Still required before Sprint 2 can be considered merged:
+## Next Session
 
-- Obtain maintainer review and merge PR #370 into `Dev`.
-
-## Execution Order
-
-1. Confirm the current branch is `demo/sprint-2-completion` and it is based on current `Dev`.
-2. Review Issue #368 and the Sprint 2 plan before changing code.
-3. Implement the enterprise scenario pages defined in `.bluent/sprints/sprint-02.md`.
-4. Apply the showcase structure to selected high-value components.
-5. Perform runtime visual validation across required modes and widths.
-6. Fix issues found during validation without expanding into unrelated feature work.
-7. Capture screenshots only from the validated running application.
-8. Run all required build, test, pack, documentation, and deployment checks.
-9. Update `.bluent/PROJECT.md`, Issue #368, and the new completion PR with exact evidence.
-10. Open a focused pull request from `demo/sprint-2-completion` to `Dev` when the definition of done is satisfied.
+1. Start from current `Dev`.
+2. Review `.bluent/PROJECT.md`, `.bluent/BACKLOG.md`, `ROADMAP.md`, and open tracking issues.
+3. Confirm Sprint 3 scope with the maintainer before creating its branch or pulling backlog items into active work.
 
 ## Constraints
 
