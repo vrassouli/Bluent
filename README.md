@@ -53,6 +53,13 @@ Install the main package:
 dotnet add package Bluent.UI
 ```
 
+Import the component and extension namespaces in `_Imports.razor`:
+
+```razor
+@using Bluent.UI
+@using Bluent.UI.Extensions
+```
+
 Register Bluent services in `Program.cs`:
 
 ```csharp
@@ -124,4 +131,4 @@ The most useful ways to help Bluent grow are:
 
 ## License
 
-A repository-level license is being clarified as part of the project relaunch. Until a license file is published, do not assume rights beyond viewing the public source code.
+Bluent is licensed under the [Apache License 2.0](LICENSE).
