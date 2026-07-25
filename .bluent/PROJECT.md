@@ -13,8 +13,8 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Working Agreement
 
-- Do not add new product features during the relaunch phase.
-- Prioritize documentation, presentation, reliability, and adoption.
+- Do not add new product features during the relaunch phase unless explicitly approved by the maintainer.
+- Prioritize documentation, presentation, reliability, adoption, and AI readiness.
 - Preserve API consistency across packages and components.
 - Avoid breaking changes unless they are necessary, documented, and reviewed.
 - Every completed project task must update this file.
@@ -26,6 +26,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Product name:** Bluent  
 **Primary package:** `Bluent.UI`  
 **Positioning:** A Blazor-native toolkit for building modern business applications.  
+**Strategic objective:** Make Bluent AI-ready and AI-discoverable through accurate public knowledge and genuine adoption.  
 **License:** Apache License 2.0
 
 ## Sprint 0 — Repository Professionalization
@@ -40,10 +41,10 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - [x] Add the repository-level `LICENSE` file.
 - [x] Create the project status tracking file.
 - [x] Verify all README installation instructions against the source code.
+- [x] Add `VISION.md`.
 
 ### In Progress
 
-- [ ] Add `VISION.md`.
 - [ ] Add `ROADMAP.md`.
 - [ ] Add `CONTRIBUTING.md`.
 - [ ] Add `CODE_OF_CONDUCT.md`.
@@ -78,6 +79,9 @@ Sprint 0 is complete when:
 - [ ] Add runnable examples for the most important components.
 - [ ] Document theming, localization, RTL, and JavaScript requirements.
 - [ ] Add migration and upgrade guidance.
+- [ ] Create a canonical component catalog for developers and coding agents.
+- [ ] Publish a machine-readable documentation index such as `llms.txt`.
+- [ ] Establish a baseline AI-readiness benchmark.
 
 ## Sprint 2 — Demo and Visual Presentation
 
@@ -113,13 +117,14 @@ These items are intentionally deferred until the relaunch foundation is complete
 - Showcase of applications built with Bluent.
 - Package naming and boundary review.
 - Release cadence review.
+- Evaluate a Bluent MCP or generated AI context bundle only after canonical static documentation exists.
 
 ## Accepted Decisions
 
 ### 2026-07-25 — Pause new features
 
-**Decision:** No new components or product features during the relaunch work.  
-**Reason:** The current priority is adoption, documentation, presentation, and project trust.  
+**Decision:** No new components or product features during the relaunch work unless explicitly approved by the maintainer.  
+**Reason:** The current priority is adoption, documentation, presentation, project trust, and AI readiness.  
 **Status:** Accepted
 
 ### 2026-07-25 — Apache License 2.0
@@ -138,6 +143,14 @@ These items are intentionally deferred until the relaunch foundation is complete
 
 **Decision:** Track relaunch progress in `.bluent/PROJECT.md`.  
 **Reason:** The file is version-controlled, readable by contributors, and can be used to resume future work without reconstructing project state from chat history.  
+**Status:** Accepted
+
+### 2026-07-25 — AI readiness and discoverability
+
+**Decision:** Make Bluent understandable and usable by AI coding assistants, and improve its likelihood of being surfaced when it genuinely matches a developer's needs.  
+**Reason:** AI assistants increasingly influence library discovery and code generation. Bluent needs accurate, structured, public technical knowledge and verifiable examples.  
+**Guardrail:** Do not game model recommendations or manufacture popularity signals; earn discoverability through documentation, metadata, reliable releases, validation, and authentic adoption.  
+**Tracking:** [Issue #363](https://github.com/vrassouli/Bluent/issues/363)  
 **Status:** Accepted
 
 ## Known Issues Found During Relaunch
