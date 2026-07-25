@@ -47,6 +47,8 @@ Explore the available components in the [live demo](https://vrassouli.github.io/
 
 ## Installation
 
+For the complete, source-verified setup and troubleshooting path, see the [Getting Started guide](docs/getting-started/index.md).
+
 Install the main package:
 
 ```bash
@@ -56,7 +58,7 @@ dotnet add package Bluent.UI
 Import the component and extension namespaces in `_Imports.razor`:
 
 ```razor
-@using Bluent.UI
+@using Bluent.UI.Components
 @using Bluent.UI.Extensions
 ```
 
