@@ -1,0 +1,99 @@
+name: Sprint 1 Validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - docs/sprint-1-foundation
+    paths:
+      - '**/*.md'
+      - 'llms.txt'
+      - 'AGENTS.md'
+      - 'src/**'
+      - 'Bluent.sln'
+      - '.config/**'
+      - '.github/workflows/sprint-1-validation.yml'
+  pull_request:
+    branches:
+      - Dev
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build, test, pack, and check docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore solution
+        run: dotnet restore Bluent.sln
+
+      - name: Build solution
+        run: dotnet build Bluent.sln --configuration Release --no-restore
+
+      - name: Test solution
+        run: dotnet test Bluent.sln --configuration Release --no-build
+
+      - name: Pack libraries
+        shell: bash
+        run: |
+          mkdir -p artifacts/packages
+          projects=(
+            src/Bluent.Core/Bluent.Core.csproj
+            src/Bluent.UI/Bluent.UI.csproj
+            src/Bluent.UI.Charts/Bluent.UI.Charts.csproj
+            src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj
+            src/Bluent.UI.Utilities/Bluent.UI.Utilities.csproj
+          )
+          for project in "${projects[@]}"; do
+            dotnet pack "$project" --configuration Release --no-build --output artifacts/packages
+          done
+
+      - name: Check local Markdown links
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import sys
+          from urllib.parse import unquote
+
+          roots = list(Path(".").glob("*.md")) + list(Path("docs").rglob("*.md"))
+          pattern = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
+          failures = []
+
+          for document in roots:
+              text = document.read_text(encoding="utf-8-sig")
+              for target in pattern.findall(text):
+                  target = target.strip().split(maxsplit=1)[0].strip("<>")
+                  if not target or target.startswith(("#", "http://", "https://", "mailto:")):
+                      continue
+                  target = unquote(target.split("#", 1)[0])
+                  resolved = (document.parent / target).resolve()
+                  if not resolved.exists():
+                      failures.append(f"{document}: missing {target}")
+
+          if failures:
+              print("\n".join(failures))
+              sys.exit(1)
+
+          print(f"Checked local links in {len(roots)} Markdown files.")
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: sprint-1-packages
+          path: artifacts/packages/*.nupkg
+          if-no-files-found: error
