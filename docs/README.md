@@ -11,7 +11,7 @@ The repository root README remains the short evaluation and installation entry p
 | Product overview | [../README.md](../README.md) | Evaluate Bluent and complete the shortest verified installation path |
 | Product direction | [../VISION.md](../VISION.md) | Understand users, principles, positioning, and long-term goals |
 | Roadmap | [../ROADMAP.md](../ROADMAP.md) | Track outcome-based project phases |
-| Getting started | `getting-started/` | Install, register, configure, and run Bluent in supported Blazor hosting models |
+| Getting started | [`getting-started/`](getting-started/index.md) | Install, register, configure, and run Bluent in supported Blazor hosting models |
 | Packages | `packages/` | Choose packages and understand dependencies and boundaries |
 | Components | `components/` | Use public components through a consistent reference format |
 | Guides | `guides/` | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
