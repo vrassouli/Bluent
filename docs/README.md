@@ -104,3 +104,8 @@ Sprint 1 is tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/3
 4. Coding-agent instructions and `llms.txt`
 5. AI benchmark definition and baseline
 6. Consistency, link, build, and example validation
+
+## Machine-readable and agent guidance
+
+- [Coding-agent instructions](../AGENTS.md)
+- [Machine-readable documentation index](../llms.txt)
