@@ -31,7 +31,7 @@
     font-size: clamp(2.6rem, 5.5vw, 5.2rem);
     font-weight: 700;
     letter-spacing: -.055em;
-    line-height: .98;
+    line-height: 1.05;
 }
 
 .hero-lead {
@@ -161,6 +161,7 @@
     margin: .6rem 0 .75rem;
     font-size: clamp(2rem, 4vw, 3.5rem);
     letter-spacing: -.04em;
+    line-height: 1.1;
 }
 
 .section-heading p,
@@ -214,6 +215,7 @@
 .package-card h3 {
     margin: 1.3rem 0 .6rem;
     font-size: 1.25rem;
+    line-height: 1.2;
 }
 
 .card-link,
@@ -246,6 +248,7 @@
 .package-card h3 {
     max-width: 480px;
     font-size: clamp(1.7rem, 3vw, 2.6rem);
+    line-height: 1.1;
 }
 
 .package-card p {

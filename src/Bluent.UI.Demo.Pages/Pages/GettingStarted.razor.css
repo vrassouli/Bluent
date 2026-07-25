@@ -25,7 +25,7 @@
     margin: .75rem 0 1rem;
     font-size: clamp(2.5rem, 5vw, 4.7rem);
     letter-spacing: -.05em;
-    line-height: 1;
+    line-height: 1.05;
 }
 
 .guide-hero > p {
@@ -102,6 +102,7 @@
 .guide-content h2 {
     margin: .15rem 0 .65rem;
     font-size: 1.65rem;
+    line-height: 1.2;
 }
 
 .guide-content p {
@@ -170,6 +171,7 @@
 
 .next-step h2 {
     margin: .45rem 0;
+    line-height: 1.2;
 }
 
 .next-step p {

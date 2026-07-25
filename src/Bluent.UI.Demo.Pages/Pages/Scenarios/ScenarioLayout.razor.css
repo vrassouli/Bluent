@@ -30,7 +30,7 @@
 h1 {
     margin: 0;
     font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.02;
+    line-height: 1.08;
 }
 
 .scenario-hero p:last-child {
@@ -99,6 +99,7 @@ h1 {
 ::deep .scenario-panel h2,
 ::deep .scenario-panel h3 {
     margin-top: 0;
+    line-height: 1.2;
 }
 
 ::deep .scenario-panel p {

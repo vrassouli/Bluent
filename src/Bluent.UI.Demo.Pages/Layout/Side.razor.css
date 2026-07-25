@@ -41,6 +41,19 @@
     display: none !important;
 }
 
+.expanded ::deep .bui-tab-list,
+.expanded ::deep .bui-tab-list > .header,
+.expanded ::deep .bui-tab-list > .header > .bui-overflow.vertical {
+    width: 100%;
+}
+
+.expanded ::deep .bui-tab-list > .header > .bui-overflow.vertical > .tab-item.vertical {
+    width: 100%;
+    min-height: 36px;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
 .compact .nav-group {
     margin-top: .65rem;
     padding-top: .5rem;
