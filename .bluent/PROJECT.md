@@ -6,21 +6,22 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Current Phase
 
-**Phase:** Project Relaunch  
+**Phase:** Project Relaunch
 **Current Sprint:** Sprint 3 — Release Reliability and Compatibility
-**Status:** In progress
-**Working Branch:** `release/sprint-3-reliability`
-**Pull Request:** Not opened
-**Tracking Issue:** [#372](https://github.com/vrassouli/Bluent/issues/372)
+**Status:** Completed
+**Working Branch:** `Dev`
+**Pull Request:** [#377](https://github.com/vrassouli/Bluent/pull/377) — merged
+**Tracking Issue:** [#372](https://github.com/vrassouli/Bluent/issues/372) — completed
 
 ## Operational Files
 
 - `.bluent/HANDOFF.md` — immediate continuation instructions for Codex and other coding agents.
-- `.bluent/sprints/sprint-03.md` — active Sprint 3 execution plan and acceptance criteria.
+- `.bluent/sprints/sprint-03.md` — completed Sprint 3 execution plan and acceptance criteria.
 - `.bluent/QUALITY.md` — validation evidence and completion policy.
 - `.bluent/BACKLOG.md` — current, next, later, and deferred project work.
-- `docs/demo/sprint-2-audit.md` — source audit of the existing demo.
-- `src/Bluent.UI.Demo.Pages/AGENTS.md` — scoped instructions for demo work.
+- `docs/releasing/release-workflow-audit.md` — Sprint 3 release audit.
+- `docs/quality/compiler-warning-baseline.md` — zero-warning baseline and triage record.
+- `docs/compatibility/hosting-and-render-modes.md` — evidence-backed compatibility status.
 
 ## Working Agreement
 
@@ -35,10 +36,10 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Product Positioning
 
-**Product name:** Bluent  
-**Primary package:** `Bluent.UI`  
-**Positioning:** A Blazor-native toolkit for building modern business applications.  
-**Strategic objective:** Make Bluent AI-ready and AI-discoverable through accurate public knowledge and genuine adoption.  
+**Product name:** Bluent
+**Primary package:** `Bluent.UI`
+**Positioning:** A Blazor-native toolkit for building modern business applications.
+**Strategic objective:** Make Bluent AI-ready and AI-discoverable through accurate public knowledge and genuine adoption.
 **License:** Apache License 2.0
 
 ## Sprint 0 — Repository Professionalization
@@ -75,8 +76,8 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Sprint 1 — Documentation Foundation
 
-**Tracking:** [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
-**Branch:** `docs/sprint-1-foundation`  
+**Tracking:** [Issue #365](https://github.com/vrassouli/Bluent/issues/365)
+**Branch:** `docs/sprint-1-foundation`
 **Pull Request:** [PR #367](https://github.com/vrassouli/Bluent/pull/367) — merged
 
 ### Completed
@@ -138,123 +139,102 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 - [x] Open the Sprint 2 completion pull request to `Dev` for review.
 - [x] Merge the reviewed Sprint 2 pull request into `Dev`.
 
-### Definition of Done
-
-- The landing page explains what Bluent is and why an application team would choose it.
-- Important component families are easy to find from desktop and mobile navigation.
-- The showcase demonstrates at least three real business-application scenarios.
-- Theme, dark/light mode, RTL, localization, dialogs, feedback, charts, and diagrams are visibly represented where supported.
-- README-quality screenshots are committed and accurately represent the current product.
-- The demo builds successfully and its deployment workflow is validated.
-- Sprint 2 is delivered in a reviewed pull request targeting `Dev`.
-
 ### Validation Summary
 
 - Local browser validation covered 1440 × 1000 desktop and 390 × 844 mobile layouts, light/dark themes, LTR/RTL, a non-default brand color, all three enterprise scenarios, and the selected component showcases.
 - Clean GitHub Actions validation passed on commit `f1c2748`: restore, Release build, 17/17 tests, five package builds, and Markdown links.
 - GitHub Pages deployment passed on commit `f1c2748`; the live root, client-side routes, framework files, Bluent styles, and demo JavaScript were checked.
 - The final live browser check confirmed the `/Bluent/` home links, operations chart, deployed root navigation, zero horizontal overflow, and a clean console.
-- Ten pre-existing compiler warnings remain; no new public APIs, package-boundary changes, or breaking changes were introduced.
+- Ten pre-existing compiler warnings remained at Sprint 2 close; Sprint 3 later resolved all ten without suppression.
 
 ## Sprint 3 — Release Reliability and Compatibility
 
-**Tracking:** [Issue #372](https://github.com/vrassouli/Bluent/issues/372)
+**Tracking:** [Issue #372](https://github.com/vrassouli/Bluent/issues/372) — completed
 **Branch:** `release/sprint-3-reliability`
+**Pull Request:** [PR #377](https://github.com/vrassouli/Bluent/pull/377) — merged
 **Detailed plan:** `.bluent/sprints/sprint-03.md`
 
-### In progress
+### Completed
 
 - [x] Reconcile Sprint 2 and PRs #370 and #371 with the merged `Dev` state.
-- [x] Audit the current release mechanics, package history, version sources,
-  tags, releases, secrets/variables, environments, and publication risks.
-- [x] Implement predictable release automation and pass the local artifact
-  dry-run; a clean GitHub Actions dry run remains required.
-- [x] Establish deterministic changelog-derived release notes.
-- [x] Triage and fix the 10-warning Release baseline; CI treats warnings as
-  errors.
-- [x] Substantially progress Issue #366 with reproducible consumers and runtime
-  evidence for all requested modes.
-- [x] Add practical CI quality gates.
-- [x] Create contributor-ready Issues #374, #375, and #376 with appropriate
-  `good first issue` labels.
+- [x] Audit release mechanics, version sources, packages, dependencies, tags, releases, environments, and publication risks.
+- [x] Replace the legacy publication path with explicit, validated, artifact-first release automation.
+- [x] Add an artifact-only dry-run path that cannot publish NuGet packages or create a GitHub Release from a PR.
+- [x] Generate release notes deterministically from the versioned `CHANGELOG.md` section.
+- [x] Fix all 10 pre-existing compiler warnings without suppression and enforce a zero-warning Release build.
+- [x] Validate static SSR, Interactive Server, Interactive WebAssembly, Interactive Auto, and standalone WebAssembly representative scenarios.
+- [x] Add durable Quality CI for build, tests, packages, metadata, links, workflow YAML, whitespace, and focused rendered accessibility.
+- [x] Create contributor-ready Issues #374, #375, and #376 with `good first issue` labels.
+- [x] Merge PR #377 into `Dev` and close Issue #372.
 
-### Current audit findings
+### Validation Summary
 
-- All five NuGet packages are published through `1.0.365`, but the repository
-  has no tags or GitHub Releases.
-- The legacy workflow derives versions from repository variables and the
-  workflow run number, can publish from a `master` push or manual dispatch, and
-  does not gate publication on the full build and test suite.
-- The only GitHub environment currently visible is `github-pages`; a protected
-  NuGet production environment still requires maintainer configuration.
-- GitHub Pages modernization is complete Sprint 2 work and is not a Sprint 3
-  backlog item.
-- Local validation passes a zero-warning Release build, 19 tests, five-package
-  artifact inspection, release-tool tests, links, YAML parsing, rendered
-  accessibility smoke checks, and representative browser runtime checks.
-- PR #377 targets `Dev` and is ready for maintainer review.
-- Clean Quality run #4 passed every build, test, package, documentation,
-  workflow, and accessibility-smoke step.
-- Release packages run #367 passed the artifact-only path. Its inspected
-  `bluent-0.0.0-ci.367` artifact contains the five aligned packages, package
-  report, and deterministic notes; NuGet and GitHub Release jobs were skipped.
-- Issues #366 and #372 contain the committed evidence and explicit
-  limitations. Sprint 3 implementation is complete pending maintainer review
-  and merge.
+- The final PR head passed the Quality and Release packages workflows.
+- Release build passed with zero warnings and zero errors.
+- Application tests passed 19/19; release-tool tests passed 4/4.
+- Exactly five aligned NuGet packages were packed and validated, including metadata, dependencies, and expected static assets.
+- Release notes were generated deterministically from `CHANGELOG.md`.
+- Browser runtime checks covered representative binding, callbacks, dialogs, toasts, charts, diagrams, navigation, disposal, and clean console behavior across the tested render modes.
+- No real tag, GitHub Release, or NuGet publication was created.
 
-## Maintainer-Approved Maintenance
+### Remaining Operational Prerequisites
 
-### 2026-07-25 — Nested dialog stacking
+Before a real NuGet release:
 
-- [x] Preserve an existing dialog when another dialog is opened from it.
-- [x] Render each modal dialog with an overlay scoped to its own stack layer.
-- [x] Keep non-modal layers free of additional overlays.
-- [x] Add automated render regression tests and a runnable nested-dialog demo.
-- [x] Add canonical dialog documentation and an `Unreleased` changelog entry.
-- [x] Validate nested close-button and overlay-close flows in the WebAssembly demo at desktop and 390 × 844 mobile viewports, including dark RTL with zero horizontal overflow.
+1. Create and protect the `nuget-production` GitHub environment.
+2. Add the `NUGET_API_KEY` environment secret.
+3. Choose and document the exact release version.
+4. Prepare the matching `v<version>` tag.
+5. Explicitly authorize the production release run.
 
-## Parallel Quality Follow-ups
+Known deferred compatibility work remains tracked in Issue #366, including transient Interactive Server reconnection and exact Interactive Auto renderer-transition instrumentation.
 
-These tasks are important but should not silently expand the Sprint 2 visual scope.
+## Next Phase — Release Planning
 
-1. [Issue #366](https://github.com/vrassouli/Bluent/issues/366) — validate Interactive Server, Interactive WebAssembly, and Interactive Auto render modes.
-2. Modernize and validate `.github/workflows/static.yml` before relying on the demo deployment.
-3. Resolve or triage the 10 existing compiler warnings before the next stable release.
-4. Expand the AI benchmark to context-free and multiple-model runs.
-5. Continue [Issue #363](https://github.com/vrassouli/Bluent/issues/363) by adding verified references/examples for public components and compiling representative AI-generated consumer samples.
+No new sprint is active.
+
+The next maintainer decision is to select the first release through the new process:
+
+- choose the exact version and whether it is preview or stable;
+- confirm the five-package publication set;
+- configure the protected production environment and secret;
+- review the versioned changelog section and migration impact;
+- perform an authorized release dry run or production publication.
+
+Community outreach, new product features, and Sprint 4 remain unstarted until this release decision is made.
 
 ## Accepted Decisions
 
 ### 2026-07-25 — Pause new features
 
-**Decision:** No new components or product features during the relaunch work unless explicitly approved by the maintainer.  
-**Reason:** The current priority is adoption, documentation, presentation, project trust, and AI readiness.  
+**Decision:** No new components or product features during the relaunch work unless explicitly approved by the maintainer.
+**Reason:** The current priority is adoption, documentation, presentation, project trust, and AI readiness.
 **Status:** Accepted
 
 ### 2026-07-25 — Apache License 2.0
 
-**Decision:** License Bluent under Apache License 2.0.  
-**Reason:** It is commercially friendly and includes an explicit patent grant suitable for enterprise adoption.  
+**Decision:** License Bluent under Apache License 2.0.
+**Reason:** It is commercially friendly and includes an explicit patent grant suitable for enterprise adoption.
 **Status:** Accepted
 
 ### 2026-07-25 — Brand and package naming
 
-**Decision:** Use `Bluent` as the product and ecosystem name; use package names such as `Bluent.UI`, `Bluent.UI.Charts`, and `Bluent.UI.Diagrams` only when referring to NuGet packages or implementation projects.  
-**Reason:** This creates a consistent product identity without changing existing package names.  
+**Decision:** Use `Bluent` as the product and ecosystem name; use package names such as `Bluent.UI`, `Bluent.UI.Charts`, and `Bluent.UI.Diagrams` only when referring to NuGet packages or implementation projects.
+**Reason:** This creates a consistent product identity without changing existing package names.
 **Status:** Accepted
 
 ### 2026-07-25 — Repository-based project tracking
 
-**Decision:** Track relaunch progress in `.bluent/PROJECT.md`, maintain immediate work in `.bluent/HANDOFF.md`, and keep detailed sprint execution under `.bluent/sprints/`.  
-**Reason:** Version-controlled project state enables reliable continuation by maintainers and coding agents without reconstructing context from chat history.  
+**Decision:** Track relaunch progress in `.bluent/PROJECT.md`, maintain immediate work in `.bluent/HANDOFF.md`, and keep detailed sprint execution under `.bluent/sprints/`.
+**Reason:** Version-controlled project state enables reliable continuation by maintainers and coding agents without reconstructing context from chat history.
 **Status:** Accepted
 
 ### 2026-07-25 — AI readiness and discoverability
 
-**Decision:** Make Bluent understandable and usable by AI coding assistants, and improve its likelihood of being surfaced when it genuinely matches a developer's needs.  
-**Reason:** AI assistants increasingly influence library discovery and code generation. Bluent needs accurate, structured, public technical knowledge and verifiable examples.  
-**Guardrail:** Do not game model recommendations or manufacture popularity signals; earn discoverability through documentation, metadata, reliable releases, validation, and authentic adoption.  
-**Tracking:** [Issue #363](https://github.com/vrassouli/Bluent/issues/363)  
+**Decision:** Make Bluent understandable and usable by AI coding assistants, and improve its likelihood of being surfaced when it genuinely matches a developer's needs.
+**Reason:** AI assistants increasingly influence library discovery and code generation. Bluent needs accurate, structured, public technical knowledge and verifiable examples.
+**Guardrail:** Do not game model recommendations or manufacture popularity signals; earn discoverability through documentation, metadata, reliable releases, validation, and authentic adoption.
+**Tracking:** [Issue #363](https://github.com/vrassouli/Bluent/issues/363)
 **Status:** Accepted
 
 ## Session Resume Procedure
@@ -262,9 +242,9 @@ These tasks are important but should not silently expand the Sprint 2 visual sco
 When resuming work on Bluent:
 
 1. Read root `AGENTS.md`.
-2. Read `.bluent/HANDOFF.md`, this file, and the active sprint plan.
-3. Check open pull requests and issues before assuming sprint status.
-4. Continue in the documented execution order.
+2. Read `.bluent/HANDOFF.md`, this file, and the most recent completed sprint plan.
+3. Check open pull requests and issues before assuming project status.
+4. Do not start a new sprint until the maintainer approves its scope.
 5. Apply `.bluent/QUALITY.md` before claiming completion.
-6. Update this file, the tracking issue, and the pull request as work progresses.
-7. Keep parallel quality work explicitly separated from the active sprint scope.
+6. Update this file, the handoff, the tracking issue, and the pull request as work progresses.
+7. Keep deferred compatibility work and AI-readiness work explicitly separated from release planning.
