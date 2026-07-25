@@ -6,11 +6,11 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Current Phase
 
-**Phase:** Project Relaunch  
-**Current Sprint:** Sprint 3 — Release Reliability and Compatibility  
-**Status:** Completed  
-**Working Branch:** `Dev`  
-**Pull Request:** [#377](https://github.com/vrassouli/Bluent/pull/377) — merged  
+**Phase:** Project Relaunch
+**Current Sprint:** Sprint 3 — Release Reliability and Compatibility
+**Status:** Completed
+**Working Branch:** `Dev`
+**Pull Request:** [#377](https://github.com/vrassouli/Bluent/pull/377) — merged
 **Tracking Issue:** [#372](https://github.com/vrassouli/Bluent/issues/372) — completed
 
 ## Operational Files
@@ -36,10 +36,10 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Product Positioning
 
-**Product name:** Bluent  
-**Primary package:** `Bluent.UI`  
-**Positioning:** A Blazor-native toolkit for building modern business applications.  
-**Strategic objective:** Make Bluent AI-ready and AI-discoverable through accurate public knowledge and genuine adoption.  
+**Product name:** Bluent
+**Primary package:** `Bluent.UI`
+**Positioning:** A Blazor-native toolkit for building modern business applications.
+**Strategic objective:** Make Bluent AI-ready and AI-discoverable through accurate public knowledge and genuine adoption.
 **License:** Apache License 2.0
 
 ## Sprint 0 — Repository Professionalization
@@ -76,8 +76,8 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Sprint 1 — Documentation Foundation
 
-**Tracking:** [Issue #365](https://github.com/vrassouli/Bluent/issues/365)  
-**Branch:** `docs/sprint-1-foundation`  
+**Tracking:** [Issue #365](https://github.com/vrassouli/Bluent/issues/365)
+**Branch:** `docs/sprint-1-foundation`
 **Pull Request:** [PR #367](https://github.com/vrassouli/Bluent/pull/367) — merged
 
 ### Completed
@@ -149,9 +149,9 @@ Detailed plan: `.bluent/sprints/sprint-02.md`
 
 ## Sprint 3 — Release Reliability and Compatibility
 
-**Tracking:** [Issue #372](https://github.com/vrassouli/Bluent/issues/372) — completed  
-**Branch:** `release/sprint-3-reliability`  
-**Pull Request:** [PR #377](https://github.com/vrassouli/Bluent/pull/377) — merged  
+**Tracking:** [Issue #372](https://github.com/vrassouli/Bluent/issues/372) — completed
+**Branch:** `release/sprint-3-reliability`
+**Pull Request:** [PR #377](https://github.com/vrassouli/Bluent/pull/377) — merged
 **Detailed plan:** `.bluent/sprints/sprint-03.md`
 
 ### Completed
@@ -207,34 +207,34 @@ Community outreach, new product features, and Sprint 4 remain unstarted until th
 
 ### 2026-07-25 — Pause new features
 
-**Decision:** No new components or product features during the relaunch work unless explicitly approved by the maintainer.  
-**Reason:** The current priority is adoption, documentation, presentation, project trust, and AI readiness.  
+**Decision:** No new components or product features during the relaunch work unless explicitly approved by the maintainer.
+**Reason:** The current priority is adoption, documentation, presentation, project trust, and AI readiness.
 **Status:** Accepted
 
 ### 2026-07-25 — Apache License 2.0
 
-**Decision:** License Bluent under Apache License 2.0.  
-**Reason:** It is commercially friendly and includes an explicit patent grant suitable for enterprise adoption.  
+**Decision:** License Bluent under Apache License 2.0.
+**Reason:** It is commercially friendly and includes an explicit patent grant suitable for enterprise adoption.
 **Status:** Accepted
 
 ### 2026-07-25 — Brand and package naming
 
-**Decision:** Use `Bluent` as the product and ecosystem name; use package names such as `Bluent.UI`, `Bluent.UI.Charts`, and `Bluent.UI.Diagrams` only when referring to NuGet packages or implementation projects.  
-**Reason:** This creates a consistent product identity without changing existing package names.  
+**Decision:** Use `Bluent` as the product and ecosystem name; use package names such as `Bluent.UI`, `Bluent.UI.Charts`, and `Bluent.UI.Diagrams` only when referring to NuGet packages or implementation projects.
+**Reason:** This creates a consistent product identity without changing existing package names.
 **Status:** Accepted
 
 ### 2026-07-25 — Repository-based project tracking
 
-**Decision:** Track relaunch progress in `.bluent/PROJECT.md`, maintain immediate work in `.bluent/HANDOFF.md`, and keep detailed sprint execution under `.bluent/sprints/`.  
-**Reason:** Version-controlled project state enables reliable continuation by maintainers and coding agents without reconstructing context from chat history.  
+**Decision:** Track relaunch progress in `.bluent/PROJECT.md`, maintain immediate work in `.bluent/HANDOFF.md`, and keep detailed sprint execution under `.bluent/sprints/`.
+**Reason:** Version-controlled project state enables reliable continuation by maintainers and coding agents without reconstructing context from chat history.
 **Status:** Accepted
 
 ### 2026-07-25 — AI readiness and discoverability
 
-**Decision:** Make Bluent understandable and usable by AI coding assistants, and improve its likelihood of being surfaced when it genuinely matches a developer's needs.  
-**Reason:** AI assistants increasingly influence library discovery and code generation. Bluent needs accurate, structured, public technical knowledge and verifiable examples.  
-**Guardrail:** Do not game model recommendations or manufacture popularity signals; earn discoverability through documentation, metadata, reliable releases, validation, and authentic adoption.  
-**Tracking:** [Issue #363](https://github.com/vrassouli/Bluent/issues/363)  
+**Decision:** Make Bluent understandable and usable by AI coding assistants, and improve its likelihood of being surfaced when it genuinely matches a developer's needs.
+**Reason:** AI assistants increasingly influence library discovery and code generation. Bluent needs accurate, structured, public technical knowledge and verifiable examples.
+**Guardrail:** Do not game model recommendations or manufacture popularity signals; earn discoverability through documentation, metadata, reliable releases, validation, and authentic adoption.
+**Tracking:** [Issue #363](https://github.com/vrassouli/Bluent/issues/363)
 **Status:** Accepted
 
 ## Session Resume Procedure
