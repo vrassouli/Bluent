@@ -8,14 +8,19 @@
 
     <PropertyGroup>
         <PackageId>Bluent.UI.Core</PackageId>
+        <Title>Bluent UI Core</Title>
         <Authors>Vahid Rassouli</Authors>
-        <Description>'Bluent.UI.Core' is a Blazor component library providing base functionality for Bluent UI Components.</Description>
-        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <Description>Shared abstractions and base functionality used by the Bluent UI component packages.</Description>
+        <PackageTags>Blazor;Components;UI;Core;Business Applications</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/vrassouli/Bluent</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vrassouli/Bluent.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
         <SupportedPlatform Include="browser" />
     </ItemGroup>
 

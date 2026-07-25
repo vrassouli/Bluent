@@ -1,0 +1,205 @@
+.getting-started {
+    width: 100%;
+    padding-bottom: 5rem;
+    color: var(--colorNeutralForeground1);
+}
+
+.guide-hero {
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 7vw, 7rem);
+    border-bottom: 1px solid var(--colorNeutralStroke2);
+    background:
+        radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--colorBrandBackground) 16%, transparent), transparent 36%),
+        var(--colorNeutralBackground2);
+}
+
+.eyebrow {
+    color: var(--colorBrandForeground1);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.guide-hero h1 {
+    max-width: 850px;
+    margin: .75rem 0 1rem;
+    font-size: clamp(2.5rem, 5vw, 4.7rem);
+    letter-spacing: -.05em;
+    line-height: 1.05;
+}
+
+.guide-hero > p {
+    max-width: 720px;
+    color: var(--colorNeutralForeground2);
+    font-size: 1.15rem;
+    line-height: 1.65;
+}
+
+.guide-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem 1.25rem;
+    margin-top: 1.5rem;
+    color: var(--colorNeutralForeground3);
+    font-size: .9rem;
+}
+
+.guide-layout {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 860px);
+    gap: clamp(2rem, 6vw, 6rem);
+    justify-content: center;
+    padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 7vw, 7rem);
+}
+
+.guide-layout aside {
+    position: sticky;
+    top: 1.5rem;
+    display: flex;
+    align-self: start;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.guide-layout aside strong {
+    margin-bottom: .5rem;
+}
+
+.guide-layout aside a {
+    padding: .35rem 0;
+    color: var(--colorNeutralForeground3);
+    text-decoration: none;
+}
+
+.guide-layout aside a:hover {
+    color: var(--colorBrandForeground1);
+}
+
+.guide-content {
+    min-width: 0;
+}
+
+.guide-content > section {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0 0 3.5rem;
+    scroll-margin-top: 2rem;
+}
+
+.step-number {
+    display: grid;
+    width: 2.2rem;
+    height: 2.2rem;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--colorNeutralForegroundOnBrand);
+    background: var(--colorBrandBackground);
+    font-weight: 700;
+}
+
+.guide-content h2 {
+    margin: .15rem 0 .65rem;
+    font-size: 1.65rem;
+    line-height: 1.2;
+}
+
+.guide-content p {
+    color: var(--colorNeutralForeground2);
+    line-height: 1.65;
+}
+
+.guide-content pre {
+    max-width: 100%;
+    margin: 1rem 0;
+    padding: 1.2rem;
+    overflow-x: auto;
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: .8rem;
+    color: var(--colorNeutralForeground1);
+    background: var(--colorNeutralBackground3);
+    font-size: .88rem;
+    line-height: 1.6;
+}
+
+.note {
+    padding: .9rem 1rem;
+    border-inline-start: 3px solid var(--colorBrandStroke1);
+    background: var(--colorBrandBackground2);
+}
+
+.example-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(190px, .6fr);
+    gap: 1rem;
+}
+
+.example-grid pre {
+    margin: 0;
+}
+
+.example-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: .8rem;
+    background: var(--colorNeutralBackground1);
+}
+
+.example-preview > span {
+    color: var(--colorNeutralForeground3);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.next-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 1rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 1.25rem;
+    background: var(--colorNeutralBackground2);
+}
+
+.next-step h2 {
+    margin: .45rem 0;
+    line-height: 1.2;
+}
+
+.next-step p {
+    margin: 0;
+}
+
+@media (max-width: 800px) {
+    .guide-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-layout aside {
+        position: static;
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .example-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .next-step {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .guide-content > section {
+        grid-template-columns: 1fr;
+    }
+}

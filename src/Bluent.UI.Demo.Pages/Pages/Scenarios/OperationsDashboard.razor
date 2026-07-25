@@ -1,0 +1,102 @@
+@page "/scenarios/operations-dashboard"
+@namespace Bluent.UI.Demo.Pages.Scenarios
+@using Bluent.UI.Charts.ChartJs
+
+<PageTitle>Operations Dashboard | Bluent</PageTitle>
+
+<ScenarioLayout Title="Operations dashboard"
+                Description="A responsive command view combining operational KPIs, actionable status feedback, a live chart, and a compact work queue."
+                Capabilities="@(new[] { "Cards", "Statuses", "Chart", "Table", "Feedback" })">
+    <div class="scenario-grid">
+        <section class="scenario-panel">
+            <div class="scenario-stat-grid">
+                <div class="scenario-stat"><span>Orders today</span><strong>1,284</strong></div>
+                <div class="scenario-stat"><span>On-time rate</span><strong>96.8%</strong></div>
+                <div class="scenario-stat"><span>At risk</span><strong>@_atRisk</strong></div>
+                <div class="scenario-stat"><span>Open alerts</span><strong>@_alerts</strong></div>
+            </div>
+        </section>
+
+        <section class="scenario-panel span-7">
+            <h2>Throughput by day</h2>
+            <p>Update the data to simulate a fresh operational snapshot.</p>
+            <Chart>
+                <Legend Display="false" />
+                <Title Text="Completed work orders" />
+                <YScale Text="Orders" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_throughput"
+                         Label="Completed"
+                         Smooth
+                         FillTarget="FillTarget.Start"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Purple"
+                         BackgroundColor="@DefaultColors.Purple.Opacity(64)" />
+            </Chart>
+            <div class="scenario-actions">
+                <Button Text="Refresh snapshot" OnClick="RefreshSnapshot" Appearance="ButtonAppearance.Primary" />
+                <Button Text="Acknowledge alerts" OnClick="AcknowledgeAlerts" Appearance="ButtonAppearance.Subtle" />
+            </div>
+        </section>
+
+        <aside class="scenario-panel span-5">
+            <h2>Shift status</h2>
+            <MessageBar Type="@(_alerts == 0 ? MessageBarType.Success : MessageBarType.Warning)" Multiline>
+                @if (_alerts == 0)
+                {
+                    <span><strong>All alerts acknowledged.</strong> The queue is operating within target.</span>
+                }
+                else
+                {
+                    <span><strong>@_alerts alerts need review.</strong> Prioritize delayed fulfillment work.</span>
+                }
+            </MessageBar>
+            <div class="scenario-table-wrap mt-4">
+                <table class="scenario-table">
+                    <thead>
+                        <tr><th>Team</th><th>Status</th><th>Queue</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Fulfillment</td><td><span class="scenario-status warning">Attention</span></td><td>18</td></tr>
+                        <tr><td>Inventory</td><td><span class="scenario-status">Healthy</span></td><td>7</td></tr>
+                        <tr><td>Customer care</td><td><span class="scenario-status">Healthy</span></td><td>11</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+    </div>
+</ScenarioLayout>
+
+@code {
+    private int _alerts = 3;
+    private int _atRisk = 18;
+    private int _refreshCount;
+
+    private Dictionary<string, double> _throughput = new()
+    {
+        ["Mon"] = 820,
+        ["Tue"] = 940,
+        ["Wed"] = 910,
+        ["Thu"] = 1080,
+        ["Fri"] = 1160
+    };
+
+    private void RefreshSnapshot()
+    {
+        _refreshCount++;
+        _throughput = new()
+        {
+            ["Mon"] = 820 + (_refreshCount * 10),
+            ["Tue"] = 940 + (_refreshCount * 8),
+            ["Wed"] = 910 + (_refreshCount * 12),
+            ["Thu"] = 1080 + (_refreshCount * 9),
+            ["Fri"] = 1160 + (_refreshCount * 14)
+        };
+        _atRisk = Math.Max(6, _atRisk - 2);
+    }
+
+    private void AcknowledgeAlerts()
+    {
+        _alerts = 0;
+    }
+}

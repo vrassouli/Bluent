@@ -1561,6 +1561,17 @@
   margin: 0;
 }
 
+.dialog-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--zIndexDialog) + var(--dialog-stack-index));
+  pointer-events: none;
+}
+.dialog-wrapper > .bui-overlay,
+.dialog-wrapper > .bui-dialog {
+  pointer-events: auto;
+}
+
 .bui-dialog {
   z-index: var(--zIndexDialog);
   overflow: auto;

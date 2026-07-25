@@ -111,10 +111,12 @@ public partial class TabListTabItem
         var hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
         var isActive = UrlMatcher.ShouldMatch(Match, NavigationManager.Uri, hrefAbsolute);
 
-        if (isActive && TabList is TabList tabList)
+        if (TabList is TabList tabList)
         {
-            tabList.SelectTab(this);
+            if (isActive)
+                tabList.SelectTab(this);
+            else
+                tabList.DeselectTab(this);
         }
-
     }
 }

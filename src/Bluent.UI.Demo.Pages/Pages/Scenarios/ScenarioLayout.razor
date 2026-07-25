@@ -1,0 +1,34 @@
+@namespace Bluent.UI.Demo.Pages.Scenarios
+
+<div class="scenario-page">
+    <header class="scenario-hero">
+        <div>
+            <p class="scenario-eyebrow">Enterprise scenario</p>
+            <h1>@Title</h1>
+            <p>@Description</p>
+        </div>
+        <div class="scenario-capabilities" aria-label="Capabilities demonstrated">
+            @foreach (var capability in Capabilities)
+            {
+                <span>@capability</span>
+            }
+        </div>
+    </header>
+
+    <nav class="scenario-switcher" aria-label="Enterprise scenarios">
+        <a href="scenarios/customer-profile">Customer profile</a>
+        <a href="scenarios/operations-dashboard">Operations dashboard</a>
+        <a href="scenarios/confirmation-flow">Confirmation flow</a>
+    </nav>
+
+    <main>
+        @ChildContent
+    </main>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Description { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string[] Capabilities { get; set; } = [];
+    [Parameter, EditorRequired] public RenderFragment? ChildContent { get; set; }
+}

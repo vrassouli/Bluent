@@ -1,0 +1,40 @@
+name: Documentation issue
+description: Report missing, incorrect, or unclear Bluent documentation
+title: "[Docs]: "
+labels:
+  - documentation
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Documentation location
+      description: Link or repository path to the affected documentation.
+      placeholder: README.md or https://...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Explain what is missing, incorrect, outdated, or ambiguous.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction
+      description: Describe the accurate behavior or improvement. Include a verified example when possible.
+  - type: textarea
+    id: impact
+    attributes:
+      label: Developer or AI impact
+      description: Explain how the current text can cause incorrect setup, usage, or generated code.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checks
+      options:
+        - label: I checked the current source or a current package before reporting this.
+          required: true
+        - label: I searched existing issues for duplicates.
+          required: true

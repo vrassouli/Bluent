@@ -1,10 +1,12 @@
-﻿@if (_contexts.Any(x => x.Config.Modal))
+﻿@for (var index = 0; index < _contexts.Count; index++)
 {
-    <Overlay OnClick="OverlayClickHandler" />
-}
-@foreach (var context in _contexts)
-{
-    <div class="dialog-wrapper">
+    var context = _contexts[index];
+
+    <div class="dialog-wrapper" style="--dialog-stack-index: @index">
+        @if (context.Config.Modal)
+        {
+            <Overlay OnClick="() => OverlayClickHandler(context)" />
+        }
         <Dialog @ref=context.DialogReference
                 @key=context
                 Size="context.Config.Size"

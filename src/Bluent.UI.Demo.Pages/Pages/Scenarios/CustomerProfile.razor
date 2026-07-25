@@ -1,0 +1,118 @@
+@page "/scenarios/customer-profile"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@namespace Bluent.UI.Demo.Pages.Scenarios
+
+<PageTitle>Customer Profile | Bluent</PageTitle>
+
+<ScenarioLayout Title="Customer profile"
+                Description="A realistic account-maintenance form with accessible labels, validation, status feedback, and clear primary and secondary actions."
+                Capabilities="@(new[] { "Fields", "Validation", "Checkbox", "Message bar", "Responsive form" })">
+    <div class="scenario-grid">
+        <section class="scenario-panel span-7">
+            <h2>Account details</h2>
+            <p>Update the customer record and submit the form to exercise validation and success feedback.</p>
+
+            <EditForm Model="_customer" OnValidSubmit="SaveCustomer">
+                <DataAnnotationsValidator />
+                <div class="scenario-form-grid">
+                    <div class="scenario-field">
+                        <label for="customer-name">Full name</label>
+                        <TextField id="customer-name" @bind-Value="_customer.Name" autocomplete="name" />
+                        <ValidationMessage For="() => _customer.Name" />
+                    </div>
+                    <div class="scenario-field">
+                        <label for="customer-email">Work email</label>
+                        <TextField id="customer-email" @bind-Value="_customer.Email" type="email" autocomplete="email" />
+                        <ValidationMessage For="() => _customer.Email" />
+                    </div>
+                    <div class="scenario-field">
+                        <label for="customer-company">Company</label>
+                        <TextField id="customer-company" @bind-Value="_customer.Company" autocomplete="organization" />
+                        <ValidationMessage For="() => _customer.Company" />
+                    </div>
+                    <div class="scenario-field">
+                        <label for="customer-role">Account role</label>
+                        <SelectField id="customer-role" @bind-Value="_customer.Role">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Billing">Billing</option>
+                            <option value="Viewer">Viewer</option>
+                        </SelectField>
+                    </div>
+                    <div class="scenario-field wide">
+                        <Checkbox @bind-Value="_customer.ProductUpdates"
+                                  Label="Send product and maintenance updates" />
+                    </div>
+                </div>
+
+                <div class="scenario-actions">
+                    <Button type="submit" Text="Save profile" Appearance="ButtonAppearance.Primary" />
+                    <Button type="button" Text="Reset changes" Appearance="ButtonAppearance.Subtle" OnClick="ResetCustomer" />
+                </div>
+            </EditForm>
+        </section>
+
+        <aside class="scenario-panel span-5">
+            <h2>Account health</h2>
+            @if (_saved)
+            {
+                <MessageBar Type="MessageBarType.Success" Dismissable>
+                    <strong>Profile saved.</strong> The customer record is ready for the next workflow.
+                </MessageBar>
+            }
+            else
+            {
+                <MessageBar Type="MessageBarType.Information">
+                    Complete the required fields before saving this account.
+                </MessageBar>
+            }
+
+            <div class="scenario-stat-grid mt-4">
+                <div class="scenario-stat"><span>Plan</span><strong>Growth</strong></div>
+                <div class="scenario-stat"><span>Seats</span><strong>48</strong></div>
+                <div class="scenario-stat"><span>Open cases</span><strong>2</strong></div>
+                <div class="scenario-stat"><span>Renewal</span><strong>84d</strong></div>
+            </div>
+        </aside>
+    </div>
+</ScenarioLayout>
+
+@code {
+    private CustomerProfileModel _customer = NewCustomer();
+    private bool _saved;
+
+    private void SaveCustomer()
+    {
+        _saved = true;
+    }
+
+    private void ResetCustomer()
+    {
+        _customer = NewCustomer();
+        _saved = false;
+    }
+
+    private static CustomerProfileModel NewCustomer() => new()
+    {
+        Name = "Alex Morgan",
+        Email = "alex.morgan@contoso.example",
+        Company = "Contoso Operations",
+        Role = "Administrator",
+        ProductUpdates = true
+    };
+
+    private sealed class CustomerProfileModel
+    {
+        [Required, StringLength(80, MinimumLength = 2)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        public string Company { get; set; } = string.Empty;
+
+        public string Role { get; set; } = string.Empty;
+        public bool ProductUpdates { get; set; }
+    }
+}

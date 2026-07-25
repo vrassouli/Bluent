@@ -1,0 +1,128 @@
+@page "/getting-started"
+
+<PageTitle>Getting Started — Bluent</PageTitle>
+
+<main class="getting-started">
+    <header class="guide-hero">
+        <span class="eyebrow">Getting started</span>
+        <h1>Add Bluent to a Blazor application</h1>
+        <p>
+            Follow the verified WebAssembly onboarding path to install the main package,
+            register its services, load the design system, and render your first component.
+        </p>
+        <div class="guide-meta">
+            <Badge Text=".NET 10" Color="BadgeColor.Brand" />
+            <span>Interactive Blazor application</span>
+            <span>About 5 minutes</span>
+        </div>
+    </header>
+
+    <div class="guide-layout">
+        <aside aria-label="On this page">
+            <strong>On this page</strong>
+            <a href="#install">1. Install</a>
+            <a href="#imports">2. Import</a>
+            <a href="#services">3. Register services</a>
+            <a href="#styles">4. Add styles</a>
+            <a href="#containers">5. Add containers</a>
+            <a href="#component">6. Use a component</a>
+        </aside>
+
+        <article class="guide-content">
+            <section id="install">
+                <span class="step-number">1</span>
+                <div>
+                    <h2>Install the main package</h2>
+                    <p>Run this command from your application project directory.</p>
+                    <pre><code>dotnet add package Bluent.UI</code></pre>
+                    <p class="note">Charts, Diagrams, and Utilities are separate optional packages.</p>
+                </div>
+            </section>
+
+            <section id="imports">
+                <span class="step-number">2</span>
+                <div>
+                    <h2>Import the namespaces</h2>
+                    <p>Add the component and extension namespaces to <code>_Imports.razor</code>.</p>
+                    <pre><code>@@using Bluent.UI.Components
+@@using Bluent.UI.Extensions</code></pre>
+                </div>
+            </section>
+
+            <section id="services">
+                <span class="step-number">3</span>
+                <div>
+                    <h2>Register Bluent services</h2>
+                    <p>Call the registration extension while configuring your application.</p>
+                    <pre><code>using Bluent.UI.Extensions;
+
+builder.Services.AddBluentUI();</code></pre>
+                    <p>
+                        This registers the scoped theme, DOM, dialog, drawer, popover,
+                        toast, tooltip, and dock services used by interactive components.
+                    </p>
+                </div>
+            </section>
+
+            <section id="styles">
+                <span class="step-number">4</span>
+                <div>
+                    <h2>Add the stylesheets</h2>
+                    <p>Add both resources inside the document <code>&lt;head&gt;</code>.</p>
+                    <pre><code>&lt;link href="_content/Bluent.UI/bluent.ui.theme.default.min.css" rel="stylesheet" /&gt;
+&lt;link href="_content/Bluent.UI/bluent.ui.components.min.css" rel="stylesheet" /&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="containers">
+                <span class="step-number">5</span>
+                <div>
+                    <h2>Add the shared containers</h2>
+                    <p>
+                        Place one container host in the layout wrapping pages that use overlays.
+                        Do not add one to every page.
+                    </p>
+                    <pre><code>@@inherits LayoutComponentBase
+
+&lt;main&gt;
+    @@Body
+&lt;/main&gt;
+
+&lt;Containers /&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="component">
+                <span class="step-number">6</span>
+                <div>
+                    <h2>Use your first component</h2>
+                    <p>The application is now ready to render Bluent components.</p>
+                    <div class="example-grid">
+                        <pre><code>&lt;Button Text="Save changes"
+        Appearance="ButtonAppearance.Primary"
+        OnClick="Save" /&gt;</code></pre>
+                        <div class="example-preview">
+                            <span>Result</span>
+                            <Button Text="Save changes"
+                                    Appearance="ButtonAppearance.Primary"
+                                    Icon="icon-ic_fluent_save_20_regular"
+                                    ActiveIcon="icon-ic_fluent_save_20_filled" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="next-step">
+                <div>
+                    <span class="eyebrow">Ready to build?</span>
+                    <h2>Explore the component library</h2>
+                    <p>Start with forms, data display, dialogs, charts, or diagrams.</p>
+                </div>
+                <Button Text="Browse components"
+                        Href="components/buttons"
+                        Appearance="ButtonAppearance.Primary"
+                        Size="ButtonSize.Large" />
+            </footer>
+        </article>
+    </div>
+</main>

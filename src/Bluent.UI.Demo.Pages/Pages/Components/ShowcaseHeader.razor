@@ -1,0 +1,45 @@
+@namespace Bluent.UI.Demo.Pages.Components
+
+<header class="showcase-header">
+    <p class="showcase-eyebrow">@Eyebrow</p>
+    <h1>@Title</h1>
+    <p class="showcase-purpose">@Purpose</p>
+
+    <dl class="showcase-facts">
+        <div>
+            <dt>Package</dt>
+            <dd><code>@Package</code></dd>
+        </div>
+        <div>
+            <dt>Namespace</dt>
+            <dd><code>@Namespace</code></dd>
+        </div>
+        <div>
+            <dt>Important API</dt>
+            <dd>@ApiSummary</dd>
+        </div>
+        <div>
+            <dt>Implementation</dt>
+            <dd><a href="@SourceUrl" target="_blank" rel="noreferrer">View this runnable demo source</a></dd>
+        </div>
+    </dl>
+
+    <div class="showcase-notes">
+        <strong>Evaluation notes</strong>
+        <span>@Notes</span>
+    </div>
+</header>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Purpose { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Package { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Namespace { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string ApiSummary { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string SourcePath { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Notes { get; set; } = string.Empty;
+    [Parameter] public string Eyebrow { get; set; } = "Component showcase";
+
+    private string SourceUrl =>
+        $"https://github.com/vrassouli/Bluent/blob/Dev/src/Bluent.UI.Demo.Pages/Pages/Components/{SourcePath}";
+}
