@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
@@ -9,12 +9,15 @@
 
     <PropertyGroup>
         <PackageId>Bluent.UI</PackageId>
+        <Title>Bluent UI</Title>
         <Authors>Vahid Rassouli</Authors>
-        <Description>'Bluent.UI' is a Blazor component library for building apps with Fluent UI look and feel.</Description>
-        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <Description>Blazor-native components for building modern business applications with a Fluent-inspired look and feel.</Description>
+        <PackageTags>Blazor;Components;Fluent;UI;Business Applications;WebAssembly</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/vrassouli/Bluent</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vrassouli/Bluent.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
-        <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,10 +30,7 @@
         <None Include="package.json" />
         <Content Remove="package-lock.json" />
         <None Include="package-lock.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="docs\readme.md" Pack="true" PackagePath="\" />
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
     </ItemGroup>
 
     <ItemGroup>

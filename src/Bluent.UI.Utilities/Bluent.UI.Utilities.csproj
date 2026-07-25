@@ -5,17 +5,22 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+
     <PropertyGroup>
-        
         <PackageId>Bluent.UI.Utilities</PackageId>
+        <Title>Bluent UI Utilities</Title>
         <Authors>Vahid Rassouli</Authors>
-        <Description>'Bluent.UI.MDI' is a Blazor component library for adding Multiple Document Interface pattern to your project.</Description>
-        <RepositoryUrl>githttps://github.com/vrassouli/Bluent</RepositoryUrl>
+        <Description>Higher-level Bluent UI utilities and application patterns, including multiple-document interfaces.</Description>
+        <PackageTags>Blazor;Components;Utilities;MDI;Business Applications</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/vrassouli/Bluent</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vrassouli/Bluent.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Blazor, Fluent, UI, WASM, Library</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
         <SupportedPlatform Include="browser"/>
     </ItemGroup>
 

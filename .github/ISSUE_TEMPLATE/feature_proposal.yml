@@ -1,0 +1,50 @@
+name: Feature proposal
+description: Propose a problem or capability for future consideration
+title: "[Proposal]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature implementation is paused during the project relaunch unless explicitly approved by the maintainer. A proposal records the problem for evaluation; it is not approval to begin implementation.
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the user need without assuming a specific implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: Show how this appears in a real Blazor business application.
+    validations:
+      required: true
+  - type: input
+    id: area
+    attributes:
+      label: Package or component area
+      placeholder: Bluent.UI / forms
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing components, composition patterns, or external solutions you evaluated.
+    validations:
+      required: true
+  - type: textarea
+    id: implications
+    attributes:
+      label: Compatibility and maintenance implications
+      description: Consider API consistency, accessibility, localization, RTL, hosting models, dependencies, and breaking changes.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checks
+      options:
+        - label: I searched existing issues and the roadmap.
+          required: true
+        - label: I understand this proposal is not approval to implement the feature.
+          required: true

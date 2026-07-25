@@ -1,0 +1,84 @@
+name: Bug report
+description: Report reproducible incorrect behavior in Bluent
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Bluent. Please provide a minimal, reproducible report and remove sensitive information.
+  - type: input
+    id: package
+    attributes:
+      label: Affected package
+      description: For example, Bluent.UI or Bluent.UI.Diagrams
+      placeholder: Bluent.UI
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: 1.2.3
+    validations:
+      required: true
+  - type: dropdown
+    id: hosting
+    attributes:
+      label: Hosting model
+      options:
+        - Blazor WebAssembly
+        - Blazor Web App / Interactive Server
+        - Blazor Web App / Interactive WebAssembly
+        - Blazor Server (legacy hosting model)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Include steps and the smallest relevant Razor/C# sample or a public reproduction repository.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include .NET SDK, browser, operating system, and other relevant versions.
+      placeholder: |
+        .NET SDK:
+        Browser:
+        OS:
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Logs, screenshots, or other context. Remove secrets and private data.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checks
+      options:
+        - label: I searched existing issues for duplicates.
+          required: true
+        - label: I removed secrets and sensitive information.
+          required: true
