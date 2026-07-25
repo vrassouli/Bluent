@@ -94,7 +94,8 @@ Sprint 0 is complete when:
 - [x] Create a canonical component catalog for developers and coding agents.
 - [x] Add repository instructions for coding agents.
 - [x] Publish a machine-readable documentation index such as `llms.txt`.
-- [ ] Establish a baseline AI-readiness benchmark.
+- [x] Define 15 representative AI benchmark prompts.
+- [ ] Execute and publish the baseline AI-readiness benchmark.
 
 ## Sprint 2 — Demo and Visual Presentation
 
