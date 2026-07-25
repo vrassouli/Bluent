@@ -85,7 +85,7 @@ Sprint 0 is complete when:
 
 - [x] Define the documentation information architecture.
 - [x] Create a reliable getting-started guide.
-- [ ] Document package selection and package boundaries.
+- [x] Document package selection and package boundaries.
 - [ ] Create component documentation standards.
 - [ ] Add runnable examples for the most important components.
 - [ ] Document theming, localization, RTL, and JavaScript requirements.
