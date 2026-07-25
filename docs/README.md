@@ -12,7 +12,7 @@ The repository root README remains the short evaluation and installation entry p
 | Product direction | [../VISION.md](../VISION.md) | Understand users, principles, positioning, and long-term goals |
 | Roadmap | [../ROADMAP.md](../ROADMAP.md) | Track outcome-based project phases |
 | Getting started | [`getting-started/`](getting-started/index.md) | Install, register, configure, and run Bluent in supported Blazor hosting models |
-| Packages | `packages/` | Choose packages and understand dependencies and boundaries |
+| Packages | [`packages/`](packages/index.md) | Choose packages and understand dependencies and boundaries |
 | Components | `components/` | Use public components through a consistent reference format |
 | Guides | `guides/` | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
 | Compatibility | `compatibility/` | Check framework, render-mode, package-version, migration, and upgrade guidance |
