@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+        <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Bluent.UI\Bluent.UI.csproj" />
+        <ProjectReference Include="..\Bluent.UI.Charts\Bluent.UI.Charts.csproj" />
+        <ProjectReference Include="..\Bluent.UI.Diagrams\Bluent.UI.Diagrams.csproj" />
+    </ItemGroup>
+
+</Project>

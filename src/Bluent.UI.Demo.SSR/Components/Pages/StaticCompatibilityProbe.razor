@@ -1,0 +1,18 @@
+@page "/compatibility/static"
+@layout Bluent.UI.Demo.Interactive.Client.Layout.CompatibilityLayout
+
+<PageTitle>Static SSR compatibility | Bluent</PageTitle>
+
+<h1 data-testid="mode-heading">Static SSR display-only probe</h1>
+<p>
+    This page intentionally validates initial display markup only. Event
+    callbacks, binding, overlays, and JavaScript-backed components require an
+    interactive render mode.
+</p>
+
+<MessageBar Type="MessageBarType.Information" Multiline>
+    Bluent styles, component namespaces, and server-side component rendering
+    are active. This button is intentionally display-only.
+</MessageBar>
+
+<Button Text="Static display button" Appearance="ButtonAppearance.Primary" />

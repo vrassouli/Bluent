@@ -15,7 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Bluent.UI.Demo.Interactive.Client\Bluent.UI.Demo.Interactive.Client.csproj" />
       <ProjectReference Include="..\Bluent.UI.Demo.Pages\Bluent.UI.Demo.Pages.csproj" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.7" />
     </ItemGroup>
 
 </Project>
