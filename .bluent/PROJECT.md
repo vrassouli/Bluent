@@ -222,6 +222,10 @@ or GitHub Release.
   `nuget-production` or the presence of `NUGET_API_KEY`.
 - The changelog now separates changes already shipped in `1.0.366` from the
   proposed `1.0.367` contents.
+- PR #380 passed Quality run #30188954331 and Release packages dry-run
+  #30188954356. The downloaded artifact contained exactly five aligned
+  packages, the validation report, and deterministic dry-run notes; publication
+  and GitHub Release jobs were skipped.
 
 ### Remaining work
 
@@ -229,7 +233,7 @@ or GitHub Release.
   workflow-YAML, whitespace, and focused accessibility validation.
 - [x] Validate a clean consumer against the five non-publish packages.
 - [x] Open the preparation pull request targeting `Dev`.
-- [ ] Record clean Quality and Release packages artifact-only workflow runs.
+- [x] Record clean Quality and Release packages artifact-only workflow runs.
 - [ ] Obtain the maintainer's exact-version decision.
 - [ ] Obtain maintainer confirmation of the protected environment and secret
   prerequisites before any later publication authorization.

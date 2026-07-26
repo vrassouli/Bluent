@@ -209,9 +209,24 @@ passed. Both the failed attempt and the controlled result are retained here.
 The package validation report and generated notes were inspected in the
 temporary validation directory. No package was pushed to NuGet.
 
-The following checks remain pending until the branch can be committed, pushed,
-and opened as a pull request:
+## GitHub Actions evidence
 
-- [ ] Quality workflow on the exact preparation commit.
-- [ ] Release packages artifact-only workflow on the exact preparation commit.
-- [ ] Inspection of the uploaded package report and release notes.
+PR #380 head `7f6bad8d8b589b216d04544142fd732cfa5476ee` produced:
+
+- [Quality run #30188954331](https://github.com/vrassouli/Bluent/actions/runs/30188954331),
+  which passed the build, tests, five-package inspection, links, workflow YAML,
+  whitespace, and focused accessibility smoke.
+- [Release packages run #30188954356](https://github.com/vrassouli/Bluent/actions/runs/30188954356),
+  whose artifact-validation job passed. The NuGet publication and GitHub
+  Release jobs were skipped as designed.
+
+The downloaded `bluent-0.0.0-ci.376` artifact contained exactly five packages,
+`release/package-validation.json`, and `release/release-notes.md`. The report
+records the pull-request merge ref commit
+`97863aaa731bb9c8676a77336006c338767d9b4b`, aligned version
+`0.0.0-ci.376`, the expected internal dependency graph, and expected static
+assets. Each package nuspec contains that same repository commit. The notes are
+a deterministic `Unreleased` preview with the required dry-run warning and the
+pending `1.0.367` recommendation.
+
+No publication job ran, and no external release state changed.

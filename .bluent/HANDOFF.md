@@ -72,6 +72,10 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
   metadata. Secret presence cannot be verified through public metadata.
 - The detailed evidence and remaining checks are in
   `docs/releasing/stable-release-readiness.md`.
+- PR #380 passed Quality run #30188954331 and Release packages run
+  #30188954356. The downloaded artifact contained exactly five aligned
+  packages, the validation report, and deterministic notes; both publication
+  jobs were skipped.
 
 Before any production publication, the maintainer still must:
 
@@ -101,8 +105,8 @@ Do not infer or invent a release version.
 
 ## Next Session
 
-1. Record clean Quality and Release packages workflow evidence for PR #380.
-2. Inspect the uploaded package-validation report and deterministic notes.
-3. Update the issue and PR with final CI evidence.
-4. Leave the pull request open for the maintainer's version and prerequisite
+1. Review PR #380 and approve or replace the proposed exact version `1.0.367`.
+2. Confirm the protected `nuget-production` environment and scoped
+   `NUGET_API_KEY`.
+3. Leave the pull request open until the maintainer's version and prerequisite
    decisions.
