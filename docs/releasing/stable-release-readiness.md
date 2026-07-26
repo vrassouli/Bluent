@@ -268,7 +268,10 @@ runtime 10.0.8.
 | Release build with `--no-restore -warnaserror` | Passed with 0 warnings and 0 errors |
 | Full solution tests | Passed 19/19 |
 | Release-tool tests | Passed 6/6 |
+| Exact five-package pack | Passed at `1.0.367` |
+| Package validation | Passed IDs, aligned versions, exact internal dependencies, repository commit, license, `net10.0`, README, trusted README image sources, and expected static assets |
 | Deterministic notes | Passed from the dated `1.0.367` section |
+| Clean Blazor WebAssembly consumer | Passed restore and zero-warning Release build with `Bluent.UI`, Charts, Diagrams, and Utilities directly referenced; `Bluent.UI.Core` resolved transitively |
 | Markdown links | Passed across 34 maintained files |
 | Workflow YAML | All three workflow files parsed |
 | Focused rendered accessibility | Passed four compatibility routes; not a WCAG conformance claim |

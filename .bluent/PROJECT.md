@@ -235,10 +235,10 @@ Release.
 
 ### Remaining work
 
-- [ ] Complete and record local build, test, exact pack, notes, documentation,
+- [x] Complete and record local build, test, exact pack, notes, documentation,
   workflow-YAML, and whitespace validation.
-- [ ] Validate a clean consumer against the five exact `1.0.367` packages.
-- [ ] Confirm all five `1.0.367` package ID/version pairs are absent on NuGet.
+- [x] Validate a clean consumer against the five exact `1.0.367` packages.
+- [x] Confirm all five `1.0.367` package ID/version pairs are absent on NuGet.
 - [ ] Record clean Quality and exact `publish: false` Release packages runs.
 - [ ] Inspect the uploaded `bluent-1.0.367` artifact.
 - [ ] Open the final non-draft release pull request targeting `Dev`.
