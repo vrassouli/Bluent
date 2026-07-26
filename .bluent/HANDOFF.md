@@ -105,6 +105,8 @@ Before any production publication, the maintainer still must:
   follow-up work on `test/render-mode-followups`, based on `Dev` commit
   `782ddad1f082ead94d020e03e95a4c803d4bbbb9`. The probe source exercised at
   runtime is commit `848a083e4341b26fbf4d394ffea123157b03aa6c`.
+  [PR #389](https://github.com/vrassouli/Bluent/pull/389) is open and
+  non-draft against `Dev`.
 - Issue #366 remains open only for work not covered by those focused issues,
   including exact Interactive Auto renderer-transition timing if the
   maintainer still requires instrumentation.

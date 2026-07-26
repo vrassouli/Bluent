@@ -226,6 +226,9 @@ Known deferred compatibility work remains tracked in Issue #366, including trans
 
 **Branch:** `test/render-mode-followups`
 
+**Pull Request:** [#389](https://github.com/vrassouli/Bluent/pull/389) — open
+for review
+
 ### Completed on branch
 
 - [x] Reproduce a transient Interactive Server transport interruption without
@@ -261,7 +264,8 @@ Known deferred compatibility work remains tracked in Issue #366, including trans
 - Solution restore passed; the Release build passed with warnings treated as
   errors: 0 warnings, 0 errors; and application tests passed 19/19.
 - The diff against `origin/Dev` passed `git diff --check`.
-- The non-draft review pull request is pending.
+- The non-draft [PR #389](https://github.com/vrassouli/Bluent/pull/389)
+  targets `Dev` and remains open for review.
 
 ## Stable Release 1.0.367
 
