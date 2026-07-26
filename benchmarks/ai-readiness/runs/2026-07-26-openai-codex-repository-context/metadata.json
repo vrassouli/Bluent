@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-07-26-openai-codex-repository-context",
+  "provider": "OpenAI",
+  "assistant": "Codex",
+  "model_identifier": null,
+  "model_identifier_exposed": false,
+  "execution_date": "2026-07-26",
+  "execution_timezone": "Asia/Tehran",
+  "context_mode": "repository context plus canonical Sprint 4 documents",
+  "repository_access": "read access to vrassouli/Bluent at origin/Dev 5483d3d",
+  "documentation_access": "llms.txt, canonical docs, task examples, and OrderDesk source supplied through repository access",
+  "web_access": "available; used only to inspect GitHub issue state, not to answer benchmark prompts",
+  "supplied_context": [
+    "AGENTS.md",
+    ".bluent/HANDOFF.md",
+    ".bluent/PROJECT.md",
+    ".bluent/sprints/sprint-04.md",
+    ".bluent/QUALITY.md",
+    "docs/ai/benchmark.md",
+    "docs/ai/results/2026-07-25-codex-repository-context.md",
+    "llms.txt",
+    "docs/examples/tasks/",
+    "samples/Bluent.TaskExamples/",
+    "docs/examples/reference-application.md",
+    "samples/Bluent.OrderDesk/"
+  ],
+  "reviewer": "Codex self-review against repository source and compiler output",
+  "baseline_reference": "docs/ai/results/2026-07-25-codex-repository-context.md",
+  "sample_build_command": "dotnet build benchmarks/ai-readiness/runs/2026-07-26-openai-codex-repository-context/samples/Bluent.AiReadiness.Generated.csproj --configuration Release --no-restore -warnaserror"
+}

@@ -10,13 +10,14 @@
   [#391](https://github.com/vrassouli/Bluent/issues/391) and
   [#392](https://github.com/vrassouli/Bluent/issues/392)
 - **Active reference-app branch:** `codex/issue-393`
-- **Active issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
+- **Completed reference-app issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
 - **Active reference-app pull request:**
-  [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
-- **Status:** In progress
+  [#396](https://github.com/vrassouli/Bluent/pull/396) — merged
+- **Active benchmark branch:** `codex/issue-394`
+- **Active benchmark issue:**
+  [#394](https://github.com/vrassouli/Bluent/issues/394)
+- **Status:** Ready for review
 - **Started:** 2026-07-26
-
-Issue #394 remains separate and is not included in this workstream.
 
 ## Objective
 
@@ -161,3 +162,65 @@ for PR #395.
   passed.
 - External CI, deployment, package, and non-WebAssembly render-mode evidence
   are pending and are not claimed.
+
+## AI-readiness benchmark workstream
+
+### Scope
+
+- [x] Preserve the 15 existing prompts and five-dimension scoring rubric.
+- [x] Add a repeatable run structure under `benchmarks/ai-readiness`.
+- [x] Record provider/model exposure, date, context and access modes, exact
+  prompts, first responses, package/setup/API review, hallucinations,
+  compilation, canonical links, score, and rationale.
+- [x] Materialize ten representative generated samples in a standalone
+  WebAssembly consumer.
+- [x] Compare total, category, compilation, setup, API, hallucination, and
+  recurring-failure results with the committed baseline.
+- [x] Separate measured facts, interpretation, limitations, and untested
+  assistants or modes.
+- [x] Convert the actionable generated-code failure into
+  [Issue #397](https://github.com/vrassouli/Bluent/issues/397).
+- [x] Link the report from canonical documentation indexes and `llms.txt`.
+
+### Current evidence
+
+- One OpenAI Codex repository-context run was executed. The exact model
+  identifier was not exposed and was not inferred.
+- The rerun scored 139/150 (92.7%), compared with the committed baseline's
+  99/150 (66.0%).
+- Nine generated samples compiled unchanged. The first-pass drawer sample
+  failed with `CS0104` because its application-owned `DrawerContent` name
+  collided with `Bluent.UI.Components.DrawerContent`; all ten compiled with
+  zero warnings after a documented fully qualified repair.
+- No hallucinated Bluent API was recorded. Context-free, link-only,
+  `llms.txt`-only, web-only, external-assistant, runtime, and visual modes were
+  not tested or claimed.
+- The repeatable record passed
+  `benchmarks/ai-readiness/scripts/validate_run.py`.
+
+### Remaining
+
+- [x] Run and record the complete Issue #394 repository validation.
+- [x] Commit the focused branch with a clean worktree.
+- [x] Update Issue #394 with the final local evidence.
+
+### Local validation evidence
+
+Run on 2026-07-26 on macOS 26.5.2, Apple Silicon, with .NET SDK
+`10.0.300`:
+
+- Tool restore and full solution restore passed.
+- The Release solution build passed with warnings treated as errors: 0
+  warnings and 0 errors.
+- Application tests passed 19/19.
+- The canonical task-example gate passed, including the intentional `CS0234`
+  negative control.
+- Release-tool tests passed 13/13.
+- Markdown links passed across 50 maintained files.
+- All three workflow YAML files parsed successfully.
+- `git diff --check origin/Dev` passed.
+- The benchmark record validator passed all 15 rows.
+- The repaired ten-sample Release build passed with 0 warnings and 0 errors.
+
+Runtime, visual, deployment, package, tag, release, external CI, and
+external-assistant validation were not run or claimed.
