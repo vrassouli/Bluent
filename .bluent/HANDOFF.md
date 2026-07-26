@@ -4,8 +4,9 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 ## Current Objective
 
-Prepare the completed local AI-readiness benchmark rerun tracked in
-[Issue #394](https://github.com/vrassouli/Bluent/issues/394).
+Document and prevent application-owned component naming collisions with Bluent
+public types, especially `DrawerContent`, as tracked in
+[Issue #397](https://github.com/vrassouli/Bluent/issues/397).
 
 This work does not publish packages, create a tag or GitHub Release, add public
 APIs, or push the local branch without maintainer instruction.
@@ -13,8 +14,10 @@ APIs, or push the local branch without maintainer instruction.
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `codex/issue-394`
-- Active issue: [#394](https://github.com/vrassouli/Bluent/issues/394)
+- Active branch: `codex/issue-397`
+- Active issue: [#397](https://github.com/vrassouli/Bluent/issues/397)
+- Completed benchmark issue:
+  [#394](https://github.com/vrassouli/Bluent/issues/394)
 - Sprint 4 plan: `.bluent/sprints/sprint-04.md`
 - Pull request: not opened
 - Completed reference-application issue:
@@ -73,6 +76,18 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
 
 ## Active Work State
 
+- The canonical Drawer/Popover guidance now warns that an application-owned
+  `DrawerContent` collides with `Bluent.UI.Components.DrawerContent`, recommends
+  a task-specific name such as `OrderFilterDrawer`, and documents full
+  qualification as the reliable fallback for an existing collision.
+- The standalone task consumer uses the distinctive `OrderFilterDrawer` name.
+  Its negative validation source deliberately creates the collision and must
+  fail with `CS0104`.
+- No Bluent public API or package boundary changes are included.
+- Full local validation passed: tool/solution restore, zero-warning Release
+  build, 19/19 application tests, the positive task consumer plus focused
+  `CS0104` negative control, 50-file Markdown links, and
+  `git diff --check origin/Dev`.
 - `benchmarks/ai-readiness` now contains a repeatable run layout, record
   template, and structural validator.
 - One OpenAI Codex repository-context run preserved all 15 existing prompts,
@@ -146,8 +161,8 @@ Before any production publication, the maintainer still must:
   including exact Interactive Auto renderer-transition timing if the
   maintainer still requires instrumentation.
 - Issue #363 remains the parent AI-readiness work.
-- Issue #394 is the active Sprint 4 workstream. Issues #391, #392, and #393
-  are closed, and PRs #395 and #396 are merged into `Dev`.
+- Issue #397 is the active focused Sprint 4 follow-up. Issues #391, #392,
+  #393, and #394 are closed; PRs #395, #396, and #398 are merged into `Dev`.
 
 ## Constraints
 
@@ -160,7 +175,8 @@ Before any production publication, the maintainer still must:
 
 ## Next Session
 
-1. Review the committed `codex/issue-394` branch.
+1. Review the committed `codex/issue-397` branch and its local validation
+   evidence.
 2. Push and open a pull request targeting `Dev` only when requested.
 3. Record external CI evidence if a pull request is opened. Do not publish
    packages, tags, or releases.

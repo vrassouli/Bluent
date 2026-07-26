@@ -17,7 +17,7 @@
     <ProjectReference Include="../../src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ValidateInvalidTaskExample)' == 'true'">
-    <Compile Include="Validation/InvalidTaskExample.cs.invalid" />
+  <ItemGroup Condition="'$(ValidateDrawerContentCollision)' == 'true'">
+    <Compile Include="Validation/DrawerContentCollision.cs.invalid" />
   </ItemGroup>
 </Project>

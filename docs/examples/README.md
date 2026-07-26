@@ -16,9 +16,10 @@ business-application patterns for inputs, validation, confirmation, feedback,
 data presentation, navigation, overlays, charts, diagrams, theming, and RTL.
 
 Their source lives in the standalone `Bluent.TaskExamples` WebAssembly
-consumer. Quality CI compiles that project and exercises a negative control so
-invalid API references produce a focused failure. The task documentation links
-to the compiled source rather than maintaining duplicate snippets.
+consumer. Quality CI compiles that project and exercises a focused negative
+control so an application-owned `DrawerContent` collision produces the
+expected `CS0104` failure. The task documentation links to the compiled source
+rather than maintaining duplicate snippets.
 
 ## Demo examples
 

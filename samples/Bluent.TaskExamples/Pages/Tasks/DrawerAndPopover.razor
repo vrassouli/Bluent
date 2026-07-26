@@ -30,7 +30,7 @@
 
     private async Task OpenDrawer()
     {
-        var result = await DrawerService.ShowAsync<DrawerTaskContent>(
+        var result = await DrawerService.ShowAsync<OrderFilterDrawer>(
             "Order filters",
             null,
             configuration => configuration.SetPosition(DrawerPosition.End));

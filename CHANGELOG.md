@@ -25,7 +25,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Changed
 
-- None.
+- Expanded canonical Drawer guidance and compiler validation to prevent
+  application-owned `DrawerContent` naming collisions.
 
 ### Deprecated
 
