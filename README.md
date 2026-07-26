@@ -32,7 +32,7 @@ The demo combines component references with runnable business workflows such as 
 | [`Bluent.UI`](https://www.nuget.org/packages/Bluent.UI) | Main component library |
 | [`Bluent.UI.Charts`](https://www.nuget.org/packages/Bluent.UI.Charts) | Chart components |
 | [`Bluent.UI.Diagrams`](https://www.nuget.org/packages/Bluent.UI.Diagrams) | Diagramming components |
-| `Bluent.UI.Utilities` | Shared UI utilities |
+| [`Bluent.UI.Utilities`](https://www.nuget.org/packages/Bluent.UI.Utilities) | Shared UI utilities |
 
 ## Component areas
 

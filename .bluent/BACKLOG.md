@@ -6,20 +6,17 @@ Use `.bluent/PROJECT.md` for current status and `.bluent/HANDOFF.md` for the imm
 
 ## Now
 
-Work committed to Sprint 3 and tracked by
-[Issue #372](https://github.com/vrassouli/Bluent/issues/372):
+Stable release preparation tracked by
+[Issue #379](https://github.com/vrassouli/Bluent/issues/379):
 
-- Replace the unsafe publication workflow with explicit, validated,
-  artifact-first automation and a dry-run path.
-- Make changelog-derived release notes deterministic.
-- Triage compiler warnings and prevent unexpected additions.
-- Complete or substantially progress Issue #366 render-mode validation.
-- Add practical CI quality gates.
-- Create contributor-ready issues after the foundations expose the remaining
-  small gaps.
+- Audit current published package versions and release prerequisites.
+- Propose an exact stable version without selecting it silently.
+- Reconcile the changelog with the already-published `1.0.366` packages.
+- Validate the five aligned packages and deterministic notes without
+  publication.
+- Open a preparation pull request for maintainer review.
 
-GitHub Pages/static deployment modernization was completed and validated in
-Sprint 2. It is not active backlog work.
+Do not publish packages or create a tag or GitHub Release as part of this work.
 
 ## Next
 
