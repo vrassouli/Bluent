@@ -1,0 +1,64 @@
+@inherits LayoutComponentBase
+@inject IBluentTheme Theme
+
+<header class="topbar">
+    <a class="brand" href="">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>
+            <strong>OrderDesk</strong>
+            <small>Customer operations</small>
+        </span>
+    </a>
+
+    <div class="topbar-actions" aria-label="Display preferences">
+        <Button Text="@(_darkMode ? "Light mode" : "Dark mode")"
+                OnClick="ToggleDarkMode" />
+        <Button Text="@(_rtl ? "LTR" : "RTL")"
+                OnClick="ToggleDirection" />
+    </div>
+</header>
+
+<div class="app-shell">
+    <nav class="primary-nav" aria-label="Primary navigation">
+        <NavLink href="" Match="NavLinkMatch.All">Dashboard</NavLink>
+        <NavLink href="customers">Customers</NavLink>
+        <NavLink href="orders">Orders</NavLink>
+    </nav>
+
+    <main id="main-content">
+        @Body
+    </main>
+</div>
+
+<Containers />
+
+@code {
+    private bool _darkMode;
+    private bool _rtl;
+
+    private async Task ToggleDarkMode()
+    {
+        _darkMode = !_darkMode;
+        if (_darkMode)
+        {
+            await Theme.SetDarkThemeModeAsync();
+        }
+        else
+        {
+            await Theme.SetLightThemeModeAsync();
+        }
+    }
+
+    private async Task ToggleDirection()
+    {
+        _rtl = !_rtl;
+        if (_rtl)
+        {
+            await Theme.SetRtlDirectionAsync();
+        }
+        else
+        {
+            await Theme.SetLtrDirectionAsync();
+        }
+    }
+}

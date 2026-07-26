@@ -3,21 +3,26 @@
 ## Tracking
 
 - **Base branch:** `Dev`
-- **Working branch:** `codex/issues-391-392`
-- **Pull request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
-- **Issues in this workstream:**
+- **Completed examples branch:** `codex/issues-391-392`
+- **Completed examples pull request:**
+  [#395](https://github.com/vrassouli/Bluent/pull/395) — merged
+- **Completed example issues:**
   [#391](https://github.com/vrassouli/Bluent/issues/391) and
   [#392](https://github.com/vrassouli/Bluent/issues/392)
+- **Active reference-app branch:** `codex/issue-393`
+- **Active issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
+- **Active reference-app pull request:**
+  [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
 - **Status:** In progress
 - **Started:** 2026-07-26
 
-Issues #393 and #394 are related Sprint 4 work but are not silently included
-in this workstream.
+Issue #394 remains separate and is not included in this workstream.
 
 ## Objective
 
-Publish at least ten reusable task-oriented examples and make their runnable
-source a durable compiler-validated quality gate.
+Publish at least ten reusable task-oriented examples, keep their runnable
+source behind a durable compiler gate, and compose those patterns in a small
+production-oriented reference application.
 
 ## Scope
 
@@ -37,7 +42,6 @@ source a durable compiler-validated quality gate.
 
 - New Bluent product components or public APIs.
 - Redesigning the demo.
-- Completing the reference application in Issue #393.
 - Re-running the AI benchmark in Issue #394.
 - Publishing packages, tags, or releases.
 - Claiming runtime or visual evidence from compilation alone.
@@ -110,3 +114,50 @@ No browser interaction, visual review, deployment, package creation, tag,
 release, or external CI run is claimed by this local evidence. Quality and
 release-package workflow results remain pending until GitHub Actions completes
 for PR #395.
+
+## Reference application workstream
+
+### Scope
+
+- [x] Add a standalone in-memory WebAssembly customer/order application.
+- [x] Add responsive layout, navigation, dashboard, and list/detail/create/edit
+  workflows.
+- [x] Compose DataGrid, form validation, dialog confirmation, toast and
+  MessageBar feedback, a filter drawer, chart, and meaningful diagram.
+- [x] Add light/dark and LTR/RTL controls.
+- [x] Make loading, empty, validation-error, archive, and success states
+  reachable.
+- [x] Separate application/domain code from Bluent component composition.
+- [x] Add the project to the solution and link canonical docs plus `llms.txt`.
+
+### Acceptance criteria
+
+- The application builds from a clean checkout and its run commands are
+  maintained.
+- The complete customer workflow, validation, confirmation, feedback, overlay,
+  chart, theme, and RTL routes are runtime verified.
+- Desktop and mobile presentation are visually reviewed.
+- A fresh-tab console has no Bluent-related warning or error in the tested
+  route.
+- The full zero-warning Release build, existing tests, documentation links,
+  workflow YAML, and whitespace checks pass.
+- Project tracking, Issue #393, and any pull request record exact evidence and
+  remaining limitations.
+
+### Current evidence
+
+- `dotnet build samples/Bluent.OrderDesk/Bluent.OrderDesk.csproj
+  --configuration Release --no-restore -warnaserror` passed with 0 warnings
+  and 0 errors.
+- Source review confirmed the application uses current public APIs and has no
+  demo-project dependency.
+- Browser runtime and visual checks passed for the documented desktop/mobile,
+  customer/order, state, theme, direction, overlay, feedback, chart, diagram,
+  and clean-console route.
+- Tool and solution restore passed. The full Release solution build passed with
+  0 warnings and 0 errors; application tests passed 19/19; the canonical
+  task-example gate passed; release-tool tests passed 13/13; all 49 maintained
+  Markdown files passed link validation; workflow YAML and `git diff --check`
+  passed.
+- External CI, deployment, package, and non-WebAssembly render-mode evidence
+  are pending and are not claimed.

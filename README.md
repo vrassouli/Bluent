@@ -15,7 +15,7 @@ Bluent is a Blazor UI toolkit designed for developers building real-world web ap
 
 [![Bluent product landing page in the light theme](https://raw.githubusercontent.com/vrassouli/Bluent/56812a0f324a47df51c50e5030cbe696ea3a3e92/docs/demo/screenshots/landing-light-ltr.jpg)](https://vrassouli.github.io/Bluent/)
 
-The demo combines component references with runnable business workflows such as the [operations dashboard](docs/demo/screenshots/operations-dashboard.jpg). See the [Sprint 2 visual gallery](docs/demo/README.md) for the component showcase and validated dark/RTL presentation.
+The demo combines component references with runnable business workflows such as the [operations dashboard](docs/demo/screenshots/operations-dashboard.jpg). See the [Sprint 2 visual gallery](docs/demo/README.md) for the component showcase and validated dark/RTL presentation. For an end-to-end consumer structure, explore the [OrderDesk production-pattern reference application](docs/examples/reference-application.md).
 
 ## Why Bluent?
 
@@ -97,7 +97,7 @@ You can now use Bluent components in your Razor pages.
 </Button>
 ```
 
-For complete examples and component behavior, see the [demo application](https://vrassouli.github.io/Bluent/) and the source under [`src/Bluent.UI.Demo.Pages`](src/Bluent.UI.Demo.Pages).
+For complete examples and component behavior, see the [demo application](https://vrassouli.github.io/Bluent/), the source under [`src/Bluent.UI.Demo.Pages`](src/Bluent.UI.Demo.Pages), and the standalone [OrderDesk reference application](samples/Bluent.OrderDesk/README.md).
 
 ## Repository structure
 
@@ -110,6 +110,10 @@ src/
 ├── Bluent.UI.Utilities
 ├── Bluent.UI.Demo
 └── Bluent.UI.Demo.Pages
+
+samples/
+├── Bluent.TaskExamples
+└── Bluent.OrderDesk
 ```
 
 ## Project direction
