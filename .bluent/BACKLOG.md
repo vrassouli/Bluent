@@ -6,17 +6,13 @@ Use `.bluent/PROJECT.md` for current status and `.bluent/HANDOFF.md` for the imm
 
 ## Now
 
-Stable release preparation tracked by
-[Issue #379](https://github.com/vrassouli/Bluent/issues/379):
+Final stable release candidate work tracked by
+[Issue #381](https://github.com/vrassouli/Bluent/issues/381):
 
-- Audit current published package versions and release prerequisites.
-- Propose an exact stable version without selecting it silently.
-- Reconcile the changelog with the already-published `1.0.366` packages.
-- Correct packaged README image sources for NuGet.org and prevent unsupported
-  sources from passing release validation.
-- Validate the five aligned packages and deterministic notes without
-  publication.
-- Open a preparation pull request for maintainer review.
+- Finalize the approved stable `1.0.367` changelog section dated 2026-07-26.
+- Validate the five existing published package IDs at exact version `1.0.367`.
+- Run and inspect the protected artifact-only workflow without publication.
+- Open the final release pull request targeting `Dev` for maintainer review.
 
 Do not publish packages or create a tag or GitHub Release as part of this work.
 

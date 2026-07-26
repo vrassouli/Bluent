@@ -10,8 +10,35 @@ Entries should identify affected packages when a change is not ecosystem-wide,
 for example `[Bluent.UI.Charts]`. Breaking changes must start with
 `**Breaking:**` and link to migration guidance.
 
-> Proposed stable version: `1.0.367` (pending maintainer approval). The
-> versioned section and release date will be created only after approval.
+### Added
+
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
+- None.
+
+### Security
+
+- None.
+
+## [1.0.367] - 2026-07-26
+
+No version-specific consumer migration is required. Applications should
+continue to update directly installed Bluent packages together to keep their
+versions aligned.
 
 ### Added
 
@@ -96,3 +123,6 @@ history remains available on NuGet, but the repository has no historical tags
 or GitHub Releases from which complete release notes can be reconstructed.
 
 Future releases will add a dated section here and move the relevant entries from `Unreleased`.
+
+[Unreleased]: https://github.com/vrassouli/Bluent/compare/v1.0.367...Dev
+[1.0.367]: https://github.com/vrassouli/Bluent/compare/9056d1c5b3b9f0d714854da0a1712efa55fd3ed8...v1.0.367
