@@ -9,8 +9,8 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Phase:** Reliable Examples and AI Readiness
 **Current Sprint:** Sprint 4 examples and compilation workstream
 **Status:** In progress
-**Working Branch:** `Dev`
-**Pull Request:** Pending
+**Working Branch:** `codex/issues-391-392`
+**Pull Request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
 **Tracking Issues:** [#391](https://github.com/vrassouli/Bluent/issues/391)
 and [#392](https://github.com/vrassouli/Bluent/issues/392)
 
@@ -328,7 +328,9 @@ examples workstream.
 **Tracking:** [Issue #391](https://github.com/vrassouli/Bluent/issues/391) and
 [Issue #392](https://github.com/vrassouli/Bluent/issues/392)
 
-**Branch:** `Dev`
+**Branch:** `codex/issues-391-392`
+
+**Pull Request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
 
 **Detailed plan:** `.bluent/sprints/sprint-04.md`
 
@@ -356,7 +358,7 @@ examples workstream.
 - [x] Complete and record the repository-required local validation.
 - [x] Update Issues #391 and #392 with exact local evidence and pending external
   validation.
-- [ ] Open a focused pull request when requested.
+- [x] Open draft PR #395 targeting `Dev`.
 
 Issues #393 and #394 remain separate and are not included in this workstream.
 

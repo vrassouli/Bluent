@@ -14,11 +14,11 @@ APIs, or include the reference application and benchmark issues.
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `Dev`
+- Active branch: `codex/issues-391-392`
 - Example issues: [#391](https://github.com/vrassouli/Bluent/issues/391) and
   [#392](https://github.com/vrassouli/Bluent/issues/392)
 - Sprint 4 plan: `.bluent/sprints/sprint-04.md`
-- Pull request: pending
+- Pull request: [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
 - Related release issue: [#381](https://github.com/vrassouli/Bluent/issues/381)
 - Preparation issue:
   [#379](https://github.com/vrassouli/Bluent/issues/379) — completed

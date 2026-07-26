@@ -3,7 +3,8 @@
 ## Tracking
 
 - **Base branch:** `Dev`
-- **Working branch:** `Dev`
+- **Working branch:** `codex/issues-391-392`
+- **Pull request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
 - **Issues in this workstream:**
   [#391](https://github.com/vrassouli/Bluent/issues/391) and
   [#392](https://github.com/vrassouli/Bluent/issues/392)
@@ -107,5 +108,5 @@ Run on 2026-07-26 on macOS 26.5.2, Apple Silicon, with .NET SDK
 
 No browser interaction, visual review, deployment, package creation, tag,
 release, or external CI run is claimed by this local evidence. Quality and
-release-package workflow results remain pending until a branch is pushed and a
-pull request is opened.
+release-package workflow results remain pending until GitHub Actions completes
+for PR #395.
