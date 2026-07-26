@@ -1,0 +1,112 @@
+@page "/orders"
+@inject OrderDeskRepository Repository
+@inject IDrawerService DrawerService
+
+<PageTitle>Orders · OrderDesk</PageTitle>
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Fulfillment</p>
+        <h1>Orders</h1>
+        <p>Review order value and progress across every customer.</p>
+    </div>
+    <Button Text="@(_filter.IsActive ? "Edit filters" : "Filter orders")"
+            Appearance="ButtonAppearance.Primary"
+            OnClick="OpenFilters" />
+</div>
+
+@if (_filter.IsActive)
+{
+    <MessageBar Type="MessageBarType.Information" Multiline Dismissable>
+        Showing filtered orders.
+        Status: @(_filter.Status?.ToString() ?? "any");
+        minimum total: @(_filter.MinimumTotal?.ToString("C0") ?? "none").
+    </MessageBar>
+}
+
+@if (_loading)
+{
+    <LoadingState Message="Loading orders…" />
+}
+else if (_orders.Count == 0)
+{
+    <div class="state-card empty-state">
+        <strong>No orders match these filters</strong>
+        <p>Clear the filters to return to the full order queue.</p>
+        <Button Text="Clear filters" OnClick="ClearFilters" />
+    </div>
+}
+else
+{
+    <section class="panel data-grid-panel">
+        <DataGrid @key="_gridVersion"
+                  ItemsProvider="LoadOrders"
+                  Style="height: 29rem;">
+            <Columns>
+                <DataGridColumn TItem="Order" Field="order => order.Number" Header="Order" Width="120" Freezed />
+                <DataGridColumn TItem="Order" Field="order => order.CustomerName" Header="Customer" Width="220" />
+                <DataGridColumn TItem="Order" Field="order => order.PlacedOn" Header="Placed" Width="130">
+                    @context.PlacedOn.ToString("MMM d, yyyy")
+                </DataGridColumn>
+                <DataGridColumn TItem="Order" Field="order => order.Status" Header="Status" Width="130">
+                    <span class="status-pill @context.Status.ToString().ToLowerInvariant()">@context.Status</span>
+                </DataGridColumn>
+                <DataGridColumn TItem="Order" Field="order => order.Total" Header="Total" Width="140">
+                    <strong>@context.Total.ToString("C0")</strong>
+                </DataGridColumn>
+            </Columns>
+        </DataGrid>
+    </section>
+}
+
+@code {
+    private IReadOnlyList<Order> _orders = [];
+    private OrderFilter _filter = OrderFilter.Empty;
+    private bool _loading = true;
+    private int _gridVersion;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ReloadOrders();
+    }
+
+    private ValueTask<ItemsProviderResult<Order>> LoadOrders(ItemsProviderRequest request)
+    {
+        var page = _orders.Skip(request.StartIndex).Take(request.Count).ToArray();
+        return ValueTask.FromResult(new ItemsProviderResult<Order>(page, _orders.Count));
+    }
+
+    private async Task OpenFilters()
+    {
+        var parameters = new Dictionary<string, object?>
+        {
+            [nameof(OrderFilterDrawer.Filter)] = _filter
+        };
+
+        var result = await DrawerService.ShowAsync<OrderFilterDrawer>(
+            "Filter orders",
+            parameters,
+            configuration => configuration.SetPosition(DrawerPosition.End));
+
+        if (result is OrderFilter filter)
+        {
+            _filter = filter;
+            await ReloadOrders();
+        }
+    }
+
+    private async Task ClearFilters()
+    {
+        _filter = OrderFilter.Empty;
+        await ReloadOrders();
+    }
+
+    private async Task ReloadOrders()
+    {
+        _loading = true;
+        await Task.Delay(300);
+        _orders = Repository.GetOrders(_filter);
+        _gridVersion++;
+        _loading = false;
+    }
+}

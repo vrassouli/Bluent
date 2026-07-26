@@ -1,0 +1,130 @@
+@page "/customers/{Id:int}"
+@inject OrderDeskRepository Repository
+@inject IDialogService DialogService
+@inject IToastService ToastService
+
+<PageTitle>Customer details · OrderDesk</PageTitle>
+
+@if (_loading)
+{
+    <LoadingState Message="Loading customer details…" />
+}
+else if (_customer is null)
+{
+    <div class="state-card empty-state">
+        <h1>Customer not found</h1>
+        <p>The customer may have been removed or the address is incorrect.</p>
+        <a href="customers">Return to customers</a>
+    </div>
+}
+else
+{
+    <div class="breadcrumb"><a href="customers">Customers</a><span>/</span><span>@_customer.Company</span></div>
+
+    @if (Saved)
+    {
+        <MessageBar Type="MessageBarType.Success" Multiline Dismissable>
+            Customer changes were saved successfully.
+        </MessageBar>
+    }
+
+    @if (_archived)
+    {
+        <MessageBar Type="MessageBarType.Success" Multiline>
+            This customer has been archived and removed from the active customer list.
+        </MessageBar>
+    }
+
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">@_customer.Segment account</p>
+            <h1>@_customer.Company</h1>
+            <p>@_customer.Name · Customer since @_customer.CustomerSince.ToString("MMM yyyy")</p>
+        </div>
+        <div class="form-actions">
+            <Button Text="Edit customer"
+                    Appearance="ButtonAppearance.Primary"
+                    OnClick="@(() => Navigation.NavigateTo($"customers/{Id}/edit"))" />
+            <Button Text="Archive"
+                    disabled="@(_customer.Status == CustomerStatus.Archived || _archived)"
+                    OnClick="ConfirmArchive" />
+        </div>
+    </div>
+
+    <div class="detail-grid">
+        <section class="panel">
+            <p class="eyebrow">Contact</p>
+            <h2>Account details</h2>
+            <dl class="detail-list">
+                <div><dt>Primary contact</dt><dd>@_customer.Name</dd></div>
+                <div><dt>Email</dt><dd><a href="@($"mailto:{_customer.Email}")">@_customer.Email</a></dd></div>
+                <div><dt>Location</dt><dd>@_customer.City</dd></div>
+                <div><dt>Status</dt><dd>@_customer.Status</dd></div>
+            </dl>
+        </section>
+
+        <section class="panel">
+            <p class="eyebrow">Orders</p>
+            <h2>Recent activity</h2>
+            @if (_orders.Count == 0)
+            {
+                <div class="empty-inline">This customer has no orders yet.</div>
+            }
+            else
+            {
+                <div class="order-stack">
+                    @foreach (var order in _orders.Take(4))
+                    {
+                        <div>
+                            <span><strong>@order.Number</strong><small>@order.PlacedOn.ToString("MMM d, yyyy")</small></span>
+                            <span class="status-pill @order.Status.ToString().ToLowerInvariant()">@order.Status</span>
+                            <strong>@order.Total.ToString("C0")</strong>
+                        </div>
+                    }
+                </div>
+            }
+        </section>
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    [SupplyParameterFromQuery] public bool Saved { get; set; }
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    private Customer? _customer;
+    private IReadOnlyList<Order> _orders = [];
+    private bool _loading = true;
+    private bool _archived;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _loading = true;
+        _customer = await Repository.GetCustomerAsync(Id);
+        _orders = Repository.GetCustomerOrders(Id);
+        _loading = false;
+    }
+
+    private async Task ConfirmArchive()
+    {
+        var result = await DialogService.ShowMessageBoxAsync(
+            "Archive this customer?",
+            "The account will leave the active customer list. Existing orders and audit history remain available.",
+            MessageBoxButton.Yes | MessageBoxButton.Cancel,
+            MessageBoxButton.Yes);
+
+        if (result != MessageBoxResult.Yes || !Repository.ArchiveCustomer(Id))
+        {
+            return;
+        }
+
+        _archived = true;
+        _customer = _customer! with { Status = CustomerStatus.Archived };
+        _ = ToastService.ShowAsync(
+            "Customer archived",
+            configuration => configuration
+                .SetMessage($"{_customer.Company} is no longer active.")
+                .SetIntend(ToastIntend.Success)
+                .SetPlace(ToastPlacement.BottomEnd));
+    }
+}

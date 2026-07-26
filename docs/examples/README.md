@@ -1,5 +1,14 @@
 # Runnable examples
 
+## Production-pattern reference application
+
+[OrderDesk](reference-application.md) is the canonical small business
+application. It composes customer list/detail/create/edit workflows, a
+virtualized order grid, validation, confirmation, notifications, a filter
+drawer, charting, a lifecycle diagram, theme switching, and RTL using current
+public Bluent APIs. Its local in-memory domain layer is separate from the
+component composition and requires no external infrastructure.
+
 ## Canonical task examples
 
 The [task-oriented example index](tasks/README.md) contains ten complete

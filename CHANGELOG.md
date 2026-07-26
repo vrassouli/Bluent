@@ -12,6 +12,9 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+- A standalone OrderDesk production-pattern reference application with
+  customer and order workflows, validation, confirmation, feedback, filtering,
+  charting, a lifecycle diagram, light/dark themes, and RTL.
 - Ten canonical, task-oriented Bluent examples backed by a standalone
   compilable WebAssembly consumer.
 - CI validation that builds documentation examples and proves invalid sample

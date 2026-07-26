@@ -4,21 +4,24 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 ## Current Objective
 
-Complete the canonical task-oriented examples and compilation gate tracked in
-[Issue #391](https://github.com/vrassouli/Bluent/issues/391) and
-[Issue #392](https://github.com/vrassouli/Bluent/issues/392).
+Complete the OrderDesk production-pattern reference application tracked in
+[Issue #393](https://github.com/vrassouli/Bluent/issues/393).
 
 This work does not publish packages, create a tag or GitHub Release, add public
-APIs, or include the reference application and benchmark issues.
+APIs, or include the benchmark rerun in Issue #394.
 
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `codex/issues-391-392`
-- Example issues: [#391](https://github.com/vrassouli/Bluent/issues/391) and
-  [#392](https://github.com/vrassouli/Bluent/issues/392)
+- Active branch: `codex/issue-393`
+- Active issue: [#393](https://github.com/vrassouli/Bluent/issues/393)
 - Sprint 4 plan: `.bluent/sprints/sprint-04.md`
-- Pull request: [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
+- Pull request: not opened
+- Completed example issues:
+  [#391](https://github.com/vrassouli/Bluent/issues/391) and
+  [#392](https://github.com/vrassouli/Bluent/issues/392)
+- Completed examples pull request:
+  [#395](https://github.com/vrassouli/Bluent/pull/395) — merged
 - Related release issue: [#381](https://github.com/vrassouli/Bluent/issues/381)
 - Preparation issue:
   [#379](https://github.com/vrassouli/Bluent/issues/379) — completed
@@ -66,19 +69,30 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
 
 ## Active Work State
 
-- A standalone `samples/Bluent.TaskExamples` WebAssembly consumer contains ten
-  task-oriented examples and does not reference the demo projects.
-- Canonical pages under `docs/examples/tasks` link directly to the compiled
-  source and cover package, namespace, setup, assets, behavior, mistakes,
-  render modes, and evidence.
-- Quality CI now runs `scripts/quality/check_task_examples.sh`.
-- The focused validator builds all examples and proves drift detection with an
-  opt-in invalid source whose compiler failure must name the source file.
-- Local validation passed: focused validator, 48-file Markdown link check,
-  tool/solution restore, zero-warning Release build, 19 application tests, 13
-  release-tool tests, workflow YAML parsing, and `git diff --check`.
-- Runtime, visual, deployment, package, and external CI results are not
-  claimed.
+- `samples/Bluent.OrderDesk` is a standalone WebAssembly customer/order
+  application using current UI, Charts, and Diagrams project references.
+- It contains a responsive shell, dashboard, customer
+  list/detail/create/edit/archive workflow, filterable order DataGrid,
+  validation, dialog, toast, MessageBar, drawer, chart, lifecycle diagram,
+  light/dark control, RTL control, and explicit loading/empty/error/success
+  states.
+- Domain models and the local in-memory repository are separate from Bluent
+  page composition; the application does not reference demo projects.
+- The project is included in `Bluent.sln`. Focused and full Release builds
+  passed with warnings treated as errors: 0 warnings and 0 errors.
+- Canonical architecture, setup, run instructions, limitations, and the
+  representative verification route are documented in
+  `docs/examples/reference-application.md` and
+  `samples/Bluent.OrderDesk/README.md`.
+- Browser runtime and visual verification passed at desktop and mobile sizes
+  for the customer/order workflow, validation, feedback, overlays, DataGrid,
+  chart, diagram, light/dark themes, RTL, and clean fresh-tab console.
+- Full validation passed: tool/solution restore, zero-warning Release build,
+  19 application tests, canonical task-example gate, 13 release-tool tests,
+  49-file Markdown links, workflow YAML, and whitespace.
+- Issue #393 has a progress comment with the same local evidence and pending
+  external checks.
+- External CI and a pull request remain pending.
 
 ## Current Release State
 
@@ -127,8 +141,8 @@ Before any production publication, the maintainer still must:
   including exact Interactive Auto renderer-transition timing if the
   maintainer still requires instrumentation.
 - Issue #363 remains the parent AI-readiness work.
-- Sprint 4 Issues #393 and #394 remain separate from the active examples and
-  compilation workstream.
+- Sprint 4 Issue #394 remains separate from the active reference-application
+  workstream.
 
 ## Constraints
 
@@ -141,9 +155,8 @@ Before any production publication, the maintainer still must:
 
 ## Next Session
 
-1. Review the focused diff and create a branch/commit when requested.
-2. Open a pull request targeting `Dev`.
-3. Record the Quality and release-package workflow results without hiding
-   failures or skipped checks.
-4. Close Issues #391 and #392 only after their independent acceptance criteria
-   and required external workflow evidence are satisfied.
+1. Review the focused diff and open a pull request targeting `Dev` when
+   requested.
+2. Update Issue #393 and the pull request with local and external evidence
+   without hiding failures or skipped checks.
+3. Record clean external Quality and release-package workflow results.

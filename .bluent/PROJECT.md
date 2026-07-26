@@ -7,12 +7,11 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 ## Current Phase
 
 **Phase:** Reliable Examples and AI Readiness
-**Current Sprint:** Sprint 4 examples and compilation workstream
+**Current Sprint:** Sprint 4 production-pattern reference application
 **Status:** In progress
-**Working Branch:** `codex/issues-391-392`
-**Pull Request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
-**Tracking Issues:** [#391](https://github.com/vrassouli/Bluent/issues/391)
-and [#392](https://github.com/vrassouli/Bluent/issues/392)
+**Working Branch:** `codex/issue-393`
+**Pull Request:** Not opened
+**Tracking Issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
 
 ## Operational Files
 
@@ -330,11 +329,11 @@ examples workstream.
 
 **Branch:** `codex/issues-391-392`
 
-**Pull Request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
+**Pull Request:** [#395](https://github.com/vrassouli/Bluent/pull/395) — merged
 
 **Detailed plan:** `.bluent/sprints/sprint-04.md`
 
-**Status:** In progress
+**Status:** Completed
 
 ### Implemented
 
@@ -360,7 +359,7 @@ examples workstream.
   validation.
 - [x] Open draft PR #395 targeting `Dev`.
 
-Issues #393 and #394 remain separate and are not included in this workstream.
+Issue #394 remains separate and is not included in this workstream.
 
 ### Local validation summary
 
@@ -375,6 +374,65 @@ Issues #393 and #394 remain separate and are not included in this workstream.
 - All three workflow YAML files parsed and `git diff --check` passed.
 - Runtime, visual, deployment, package, and external CI validation were not
   run or claimed.
+
+## Sprint 4 — Production-pattern Reference Application
+
+**Tracking:** [Issue #393](https://github.com/vrassouli/Bluent/issues/393)
+
+**Branch:** `codex/issue-393`
+
+**Pull Request:** Not opened
+
+**Detailed plan:** `.bluent/sprints/sprint-04.md`
+
+**Status:** In progress
+
+### Implemented
+
+- [x] Add the standalone `samples/Bluent.OrderDesk` Blazor WebAssembly
+  application without demo-project references or external infrastructure.
+- [x] Add a responsive layout and dashboard, customer list/detail/create/edit
+  workflow, and representative order DataGrid.
+- [x] Add data-annotation validation, archive confirmation, MessageBar and
+  toast feedback, a filter drawer, fulfilled-revenue chart, and meaningful
+  order-lifecycle diagram.
+- [x] Add light/dark and LTR/RTL controls plus deliberate loading, empty,
+  validation-error, archive, and save-success states.
+- [x] Separate the in-memory customer/order repository and domain models from
+  Bluent page composition.
+- [x] Add the project to `Bluent.sln` and publish its canonical architecture,
+  runbook, limitations, verification route, and documentation links.
+
+### Current evidence
+
+- The focused Release build passed with warnings treated as errors: 0 warnings
+  and 0 errors.
+- Source verification confirmed current public Bluent APIs, canonical
+  registration/assets, and no demo-project dependency.
+- Runtime verification passed for the customer create/edit/archive flow,
+  validation, feedback, dialog, drawer filtering, DataGrid loading and empty
+  states, chart, diagram, light/dark themes, and LTR/RTL direction.
+- Desktop and mobile visual review passed with no rendered horizontal overflow.
+- A final fresh tab kept the Blazor error UI hidden and recorded no browser
+  console warning or error.
+- Tool restore and full solution restore passed. An earlier focused restore was
+  canceled after 112 seconds while its NuGet connection remained pending; the
+  later full restore completed successfully.
+- The zero-warning full Release build, 19/19 application tests, canonical
+  example gate, 13/13 release-tool tests, 49-file Markdown link check, workflow
+  YAML parsing, and `git diff --check` passed.
+- Issue #393 records the implemented scope, exact local evidence, disclosed
+  validation substitutions/failures, and pending external CI.
+
+### Remaining
+
+- [x] Exercise the representative browser route at desktop and mobile sizes.
+- [x] Verify light/dark and LTR/RTL presentation.
+- [x] Verify dialog, toast, drawer, DataGrid, chart, validation, and state
+  transitions at runtime.
+- [x] Check a fresh-tab browser console for Bluent-related warnings or errors.
+- [x] Run the complete repository validation and record exact results.
+- [ ] Open a pull request and record external CI evidence.
 
 ## Accepted Decisions
 

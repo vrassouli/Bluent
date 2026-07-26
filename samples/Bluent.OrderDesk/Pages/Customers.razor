@@ -1,0 +1,105 @@
+@page "/customers"
+@inject OrderDeskRepository Repository
+
+<PageTitle>Customers · OrderDesk</PageTitle>
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Accounts</p>
+        <h1>Customers</h1>
+        <p>Find an account, review its orders, or add a new customer.</p>
+    </div>
+    <Button Text="Add customer"
+            Appearance="ButtonAppearance.Primary"
+            OnClick="@(() => Navigation.NavigateTo("customers/new"))" />
+</div>
+
+<div class="toolbar">
+    <div class="search-field">
+        <label for="customer-search">Search customers</label>
+        <TextField id="customer-search"
+                   placeholder="Name or company"
+                   @bind-Value="_query"
+                   BindValueEvent="oninput" />
+    </div>
+    <Checkbox TValue="bool"
+              Value="@_includeArchived"
+              Label="Include archived"
+              ValueChanged="@(async (bool value) => await Reload(value))" />
+</div>
+
+@if (_loading)
+{
+    <LoadingState Message="Loading customers…" />
+}
+else if (FilteredCustomers.Count == 0)
+{
+    <div class="state-card empty-state">
+        <strong>No customers found</strong>
+        <p>Try another search or include archived accounts.</p>
+        <Button Text="Clear search" OnClick="ClearSearch" />
+    </div>
+}
+else
+{
+    <div class="customer-list">
+        @foreach (var customer in FilteredCustomers)
+        {
+            <article class="customer-row">
+                <div class="avatar" aria-hidden="true">@Initials(customer.Name)</div>
+                <div class="customer-primary">
+                    <a href="@($"customers/{customer.Id}")">@customer.Company</a>
+                    <span>@customer.Name · @customer.Email</span>
+                </div>
+                <span class="status-pill @customer.Status.ToString().ToLowerInvariant()">@customer.Status</span>
+                <span>@customer.Segment</span>
+                <span>@customer.City</span>
+                <a class="row-action" href="@($"customers/{customer.Id}")">View</a>
+            </article>
+        }
+    </div>
+}
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    private IReadOnlyList<Customer> _customers = [];
+    private string _query = string.Empty;
+    private bool _includeArchived;
+    private bool _loading = true;
+
+    private IReadOnlyList<Customer> FilteredCustomers =>
+        string.IsNullOrWhiteSpace(_query)
+            ? _customers
+            : _customers
+                .Where(customer =>
+                    customer.Name.Contains(_query, StringComparison.OrdinalIgnoreCase) ||
+                    customer.Company.Contains(_query, StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCustomers();
+    }
+
+    private async Task Reload(bool includeArchived)
+    {
+        _includeArchived = includeArchived;
+        await LoadCustomers();
+    }
+
+    private async Task LoadCustomers()
+    {
+        _loading = true;
+        _customers = await Repository.GetCustomersAsync(includeArchived: _includeArchived);
+        _loading = false;
+    }
+
+    private void ClearSearch()
+    {
+        _query = string.Empty;
+    }
+
+    private static string Initials(string name) =>
+        string.Concat(name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(part => part[0]));
+}

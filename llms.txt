@@ -12,6 +12,12 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
 - [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
 - [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): ten complete, compiled patterns for common Bluent application tasks
+- [OrderDesk reference application](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/reference-application.md): standalone production-pattern customer and order workflow with architecture, run commands, limitations, and evidence
+
+## Reference application
+
+- [OrderDesk source and runbook](https://github.com/vrassouli/Bluent/blob/Dev/samples/Bluent.OrderDesk/README.md): project structure, pattern rationale, local run commands, and representative verification route
+- [OrderDesk application source](https://github.com/vrassouli/Bluent/tree/Dev/samples/Bluent.OrderDesk): compilable WebAssembly consumer using Bluent.UI, Charts, and Diagrams without demo-project dependencies
 
 ## Task-oriented examples
 
