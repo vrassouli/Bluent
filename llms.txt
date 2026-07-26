@@ -33,7 +33,7 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Release policy](https://github.com/vrassouli/Bluent/blob/Dev/RELEASING.md): Semantic Versioning, validation, tagging, and publication
 - [Changelog](https://github.com/vrassouli/Bluent/blob/Dev/CHANGELOG.md): notable changes and release history
 - [Release workflow audit](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/release-workflow-audit.md): audited version sources, publication history, workflow risks, and required controls
-- [Stable release readiness](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/stable-release-readiness.md): current package evidence, proposed version, migration impact, risks, and maintainer prerequisites
+- [Stable release readiness](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/stable-release-readiness.md): approved release version, package evidence, migration impact, validation, risks, and maintainer prerequisites
 - [Compiler warning baseline](https://github.com/vrassouli/Bluent/blob/Dev/docs/quality/compiler-warning-baseline.md): warning inventory, dispositions, and zero-warning regression policy
 - [Coding-agent instructions](https://github.com/vrassouli/Bluent/blob/Dev/AGENTS.md): repository facts, guardrails, build commands, and documentation rules
 

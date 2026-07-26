@@ -4,19 +4,22 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 ## Current Objective
 
-Prepare the first stable release through the protected Sprint 3 workflow,
-tracked in [Issue #379](https://github.com/vrassouli/Bluent/issues/379).
+Finalize the approved stable `1.0.367` release candidate through the protected
+artifact-only workflow, tracked in
+[Issue #381](https://github.com/vrassouli/Bluent/issues/381).
 
 The preparation must not publish packages or create a tag or GitHub Release.
 
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `release/stable-release-preparation`
-- Release-preparation issue:
-  [#379](https://github.com/vrassouli/Bluent/issues/379)
+- Active branch: `release/1.0.367`
+- Release issue: [#381](https://github.com/vrassouli/Bluent/issues/381)
+- Final release pull request: pending
+- Preparation issue:
+  [#379](https://github.com/vrassouli/Bluent/issues/379) — completed
 - Preparation pull request:
-  [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
+  [#380](https://github.com/vrassouli/Bluent/pull/380) — merged
 - Sprint 3 plan: `.bluent/sprints/sprint-03.md`
 - Sprint issue: [#372](https://github.com/vrassouli/Bluent/issues/372) — completed
 - Sprint completion: [PR #377](https://github.com/vrassouli/Bluent/pull/377) — merged
@@ -57,19 +60,24 @@ Merged through PR #377:
 
 No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
 
-## Current Release-Preparation State
+## Current Release State
 
-- PRs #377 and #378 are merged and there were no open pull requests when the
-  preparation branch was created from `Dev` commit `23bf85e`.
+- PR #380 is merged into `Dev`; `release/1.0.367` was created from merge commit
+  `f1cb349`.
 - All five packages have a newer published version than the Sprint 3 audit
   recorded: legacy `master`-push run #366 published aligned `1.0.366` packages
   on 2026-07-25 before the replacement workflow merged.
 - `1.0.366` is immutable and cannot be reused.
-- The evidence-based recommendation is stable `1.0.367`, pending explicit
-  maintainer approval.
+- The maintainer approved stable version `1.0.367` with release date
+  2026-07-26.
+- The five existing published package IDs remain `Bluent.UI.Core`, `Bluent.UI`,
+  `Bluent.UI.Charts`, `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities`.
+- References to `Bluent.Core` as a NuGet package ID in Issue #381 are typos;
+  there is no package rename in this release.
 - No consumer migration is required by the audited post-`1.0.366` changes.
-- The required `nuget-production` environment is not visible in public GitHub
-  metadata. Secret presence cannot be verified through public metadata.
+- The maintainer confirmed that `nuget-production` exists and its
+  `NUGET_API_KEY` environment secret is configured. The secret value must not
+  be inspected.
 - The detailed evidence and remaining checks are in
   `docs/releasing/stable-release-readiness.md`.
 - The packaged README now uses a NuGet.org-trusted, commit-pinned screenshot
@@ -83,14 +91,12 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
 
 Before any production publication, the maintainer still must:
 
-1. approve or replace the proposed exact version;
-2. review and finalize the matching `CHANGELOG.md` section;
-3. create and protect the `nuget-production` GitHub environment;
-4. add `NUGET_API_KEY` to that environment;
-5. create the exact matching `v<version>` tag only after review;
-6. explicitly authorize the production workflow run.
-
-Do not infer or invent a release version.
+1. review and merge the final release pull request;
+2. explicitly authorize an annotated `v1.0.367` tag on the exact merged release
+   commit;
+3. explicitly authorize the production workflow run from that tag with version
+   `1.0.367` and `publish: true`;
+4. approve the protected `nuget-production` deployment when prompted.
 
 ## Deferred Work
 
@@ -109,9 +115,8 @@ Do not infer or invent a release version.
 
 ## Next Session
 
-1. Review the updated PR #380 workflow evidence for packaged README validation.
-2. Approve or replace the proposed exact version `1.0.367`.
-3. Confirm the protected `nuget-production` environment and scoped
-   `NUGET_API_KEY`.
-4. Leave the pull request open until the maintainer's version and prerequisite
-   decisions.
+1. Complete local validation of the exact `1.0.367` candidate.
+2. Run `Release packages` with `publish: false` from the exact candidate commit.
+3. Inspect and record the `bluent-1.0.367` artifact.
+4. Open the final release pull request targeting `Dev` and leave it open for
+   maintainer review.

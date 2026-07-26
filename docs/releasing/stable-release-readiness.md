@@ -2,22 +2,28 @@
 
 **Audit date:** 2026-07-26
 
-**Audited branch:** `release/stable-release-preparation`
+**Release branch:** `release/1.0.367`
 
-**Base commit:** `23bf85e35ae85532603812f758a74916eb03fe4d`
+**Base commit:** `f1cb349`
 
-**Tracking:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
+**Tracking:** [Issue #381](https://github.com/vrassouli/Bluent/issues/381)
 
-**Preparation PR:** [#380](https://github.com/vrassouli/Bluent/pull/380)
+**Preparation:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
+and [PR #380](https://github.com/vrassouli/Bluent/pull/380) — completed
 
 ## Decision status
 
-The maintainer selected a stable release through the protected Sprint 3
-workflow. The exact version remains pending maintainer approval.
+The maintainer approved a stable release through the protected Sprint 3
+workflow.
 
-**Recommendation:** `1.0.367`
+**Approved version and date:** `1.0.367` — 2026-07-26
 
-No package, tag, or GitHub Release is created by this preparation work.
+The existing five-package set is unchanged. `Bluent.Core` references in Issue
+#381 are package-ID typos; the published Core package remains
+`Bluent.UI.Core`. No package rename or migration change is part of this
+release.
+
+No package, tag, or GitHub Release is created by this finalization work.
 
 ## Repository reconciliation
 
@@ -25,18 +31,18 @@ No package, tag, or GitHub Release is created by this preparation work.
   2026-07-25.
 - PR [#378](https://github.com/vrassouli/Bluent/pull/378) merged into `Dev` on
   2026-07-25.
-- The GitHub pull-request API returned no open pull requests at audit time.
-- `Dev` resolved to `23bf85e35ae85532603812f758a74916eb03fe4d`
-  before this branch was created.
+- PR [#380](https://github.com/vrassouli/Bluent/pull/380) merged into `Dev` on
+  2026-07-26.
+- `Dev` resolved to merge commit `f1cb349` before the final release branch was
+  created.
 - The publication set remains exactly five packages:
   `Bluent.UI.Core`, `Bluent.UI`, `Bluent.UI.Charts`,
   `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities`.
 
 ## Published package evidence
 
-NuGet's official V2 package endpoints were queried for each exact package and
-version. The V3 flat-container requests timed out during TLS negotiation in the
-local environment, so the successful V2 results are the recorded evidence.
+NuGet's official V3 flat-container endpoints were queried for each exact
+package and version.
 
 | Package | Latest verified version | Published (UTC) | Direct Bluent dependency |
 | --- | --- | --- | --- |
@@ -62,11 +68,11 @@ Consequences:
 - Its already-shipped changes are now recorded in the dated `1.0.366`
   changelog section instead of being attributed to the next release.
 
-## Version recommendation
+## Approved version
 
-### Proposed exact version
+### Exact version
 
-`1.0.367`, pending explicit maintainer approval.
+`1.0.367`, approved by the maintainer for 2026-07-26.
 
 ### SemVer justification
 
@@ -99,15 +105,13 @@ container, and asset paths remain unchanged.
 
 ### Risks
 
-- This would be the first production use of the replacement workflow.
-- The required `nuget-production` environment is not visible through public
-  GitHub metadata.
-- The presence or value of `NUGET_API_KEY` cannot be verified through public
-  GitHub metadata and must remain a maintainer-owned prerequisite.
+- This will be the first production use of the replacement workflow.
+- The maintainer reports that the protected `nuget-production` environment
+  exists and its `NUGET_API_KEY` secret is configured. The secret value is not
+  inspected; the protected production workflow will prove the configuration
+  only after separate publication authorization.
 - NuGet cannot publish five packages atomically. Preflight and dependency-order
   publication reduce, but cannot eliminate, partial-publication risk.
-- The dated `1.0.367` changelog section must not be created until the
-  maintainer approves the version and release date.
 - The already-published `1.0.366` package README cannot be edited in place, so
   its unsupported-image warning remains until a corrected version is
   published.
@@ -153,13 +157,14 @@ after a corrected new version is published.
 The previous `Unreleased` section mixed changes already shipped in `1.0.366`
 with post-`1.0.366` work. It was not suitable as `1.0.367` release notes.
 
-This preparation:
+The preparation and finalization work:
 
 - moves the already-shipped entries into a dated `1.0.366` section;
 - records the absence of a corresponding tag and GitHub Release;
-- keeps post-`1.0.366` release, quality, and compatibility work under
-  `Unreleased`;
-- marks `1.0.367` as a proposal pending approval.
+- moves the approved post-`1.0.366` release, quality, and compatibility work
+  into the dated `1.0.367` section;
+- creates a fresh empty, category-complete `Unreleased` section;
+- records that no version-specific consumer migration is required.
 
 No breaking entry or version-specific migration guide is required.
 
@@ -180,20 +185,19 @@ workflow:
 - publishes through `nuget-production`;
 - creates a GitHub Release only after NuGet publication.
 
-Public GitHub metadata currently exposes only the `github-pages` environment.
-It exposes no repository tags or GitHub Releases. Public metadata cannot reveal
-whether a secret exists. The maintainer must therefore confirm all of the
-following before any production action:
+The maintainer confirmed that `nuget-production` exists and the scoped
+`NUGET_API_KEY` environment secret is configured. Secret contents were not
+inspected. Before any production action, the maintainer still must:
 
-- [ ] Approve or replace the proposed exact version `1.0.367`.
-- [ ] Create and protect `nuget-production`.
-- [ ] Add the scoped `NUGET_API_KEY` environment secret.
-- [ ] Review the final dated changelog section.
-- [ ] Review the five dry-run packages and validation report.
-- [ ] Authorize creation of the matching annotated tag.
-- [ ] Authorize the production workflow run.
+- [ ] Review and merge the final release pull request.
+- [ ] Review the five exact dry-run packages, validation report, and notes.
+- [ ] Authorize the matching annotated `v1.0.367` tag on the exact merged
+  release commit.
+- [ ] Authorize the production workflow run from that tag with version
+  `1.0.367` and `publish: true`.
+- [ ] Approve the protected `nuget-production` deployment when prompted.
 
-## Validation record
+## Preparation validation record
 
 Local environment: macOS 26.5, Apple Silicon, .NET SDK 10.0.300, and .NET
 runtime 10.0.8.
@@ -228,7 +232,7 @@ four `img.shields.io` badges and the commit-pinned `raw.githubusercontent.com`
 screenshot, with no relative or unsupported image source. No package was
 pushed to NuGet.
 
-## GitHub Actions evidence
+## Preparation GitHub Actions evidence
 
 PR #380 head `927dd201638ba812c021ee42748fad61dd87ad3d` produced:
 
@@ -248,6 +252,39 @@ and the same five trusted README image sources for every package. Each package
 nuspec contains that same repository commit. Direct inspection of all five
 archived README files passed the trusted-source validator. The notes are a
 deterministic `Unreleased` preview with the required dry-run warning and the
-pending `1.0.367` recommendation.
+then-proposed `1.0.367` recommendation.
 
 No publication job ran, and no external release state changed.
+
+## Final `1.0.367` validation
+
+Local environment: macOS 26.5, Apple Silicon, .NET SDK 10.0.300, and .NET
+runtime 10.0.8.
+
+| Check | Result |
+| --- | --- |
+| `dotnet tool restore` | Passed |
+| `dotnet restore Bluent.sln` | Passed |
+| Release build with `--no-restore -warnaserror` | Passed with 0 warnings and 0 errors |
+| Full solution tests | Passed 19/19 |
+| Release-tool tests | Passed 7/7 |
+| Exact five-package pack | Passed at `1.0.367` |
+| Package validation | Passed IDs, aligned versions, exact internal dependencies, repository commit, license, `net10.0`, README, trusted README image sources, and expected static assets |
+| Deterministic notes | Passed from the dated `1.0.367` section |
+| Clean Blazor WebAssembly consumer | Passed restore and zero-warning Release build with `Bluent.UI`, Charts, Diagrams, and Utilities directly referenced; `Bluent.UI.Core` resolved transitively |
+| Markdown links | Passed across 34 maintained files |
+| Workflow YAML | All three workflow files parsed |
+| Focused rendered accessibility | Passed four compatibility routes; not a WCAG conformance claim |
+| Whitespace | `git diff --check origin/Dev` passed |
+| Candidate availability | Official NuGet V3 flat-container preflight confirmed `1.0.367` is unused for all five package IDs |
+
+Exact package metadata, dependency, README, clean-consumer, repository-commit,
+Quality workflow, artifact-only Release workflow, and downloaded-artifact
+evidence is recorded in the final release pull request so recording the
+evidence does not mutate the exact validated candidate afterward.
+
+The final pull request exposed and corrected one additional dry-run edge case:
+after release finalization creates an empty `Unreleased` section, synthetic
+pull-request package versions now use the latest non-empty dated release
+section for deterministic preview notes. Exact-version artifact and publication
+runs still require their matching dated changelog section.

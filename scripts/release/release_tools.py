@@ -131,6 +131,29 @@ def changelog_section(text: str, heading: str) -> str | None:
     return match.group(0).strip() + "\n"
 
 
+def meaningful_changelog_entries(section: str) -> list[str]:
+    return [
+        line
+        for line in section.splitlines()
+        if line.startswith("- ") and line != "- None."
+    ]
+
+
+def latest_dated_release(text: str) -> tuple[str, str] | None:
+    for match in re.finditer(
+        r"^## \[(?P<version>[^\]]+)\] - \d{4}-\d{2}-\d{2}\s*$",
+        text,
+        re.MULTILINE,
+    ):
+        version = match.group("version")
+        if not SEMVER_PATTERN.fullmatch(version):
+            continue
+        section = changelog_section(text, version)
+        if section is not None and meaningful_changelog_entries(section):
+            return version, section
+    return None
+
+
 def extract_notes(args: argparse.Namespace) -> None:
     validate_version(args.version)
     text = args.changelog.read_text(encoding="utf-8-sig")
@@ -139,6 +162,10 @@ def extract_notes(args: argparse.Namespace) -> None:
     if section is None and args.allow_unreleased:
         section = changelog_section(text, "Unreleased")
         source = "Unreleased"
+        if section is None or not meaningful_changelog_entries(section):
+            latest = latest_dated_release(text)
+            if latest is not None:
+                source, section = latest
     if section is None:
         fail(
             f"CHANGELOG.md has no section for [{args.version}]. A publish run "
@@ -150,21 +177,25 @@ def extract_notes(args: argparse.Namespace) -> None:
         re.MULTILINE,
     ):
         fail(f"The [{source}] changelog section has no recognized change category.")
-    meaningful = [
-        line
-        for line in section.splitlines()
-        if line.startswith("- ") and line != "- None."
-    ]
+    meaningful = meaningful_changelog_entries(section)
     if not meaningful:
         fail(f"The [{source}] changelog section contains no release-note entries.")
-    output = (
-        f"# Bluent {args.version}\n\n"
-        + (
+    if source == "Unreleased":
+        dry_run_notice = (
             "> Dry-run preview generated from the Unreleased section. A real "
             "publication requires a dated version section.\n\n"
-            if source == "Unreleased"
-            else ""
         )
+    elif source != args.version:
+        dry_run_notice = (
+            f"> Dry-run preview generated from [{source}] because the "
+            "Unreleased section contains no entries. A real publication "
+            "requires the exact requested version section.\n\n"
+        )
+    else:
+        dry_run_notice = ""
+    output = (
+        f"# Bluent {args.version}\n\n"
+        + dry_run_notice
         + "\n".join(section.splitlines()[1:]).strip()
         + "\n"
     )

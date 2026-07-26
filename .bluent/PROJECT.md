@@ -9,9 +9,9 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Phase:** Stable Release Preparation
 **Current Sprint:** None; Sprint 3 is complete
 **Status:** In progress
-**Working Branch:** `release/stable-release-preparation`
-**Pull Request:** [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
-**Tracking Issue:** [#379](https://github.com/vrassouli/Bluent/issues/379)
+**Working Branch:** `release/1.0.367`
+**Pull Request:** Pending
+**Tracking Issue:** [#381](https://github.com/vrassouli/Bluent/issues/381)
 
 ## Operational Files
 
@@ -21,7 +21,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - `.bluent/BACKLOG.md` — current, next, later, and deferred project work.
 - `docs/releasing/release-workflow-audit.md` — Sprint 3 release audit.
 - `docs/releasing/stable-release-readiness.md` — current package evidence,
-  version recommendation, risks, prerequisites, and validation status.
+  approved version, risks, prerequisites, and validation status.
 - `docs/quality/compiler-warning-baseline.md` — zero-warning baseline and triage record.
 - `docs/compatibility/hosting-and-render-modes.md` — evidence-backed compatibility status.
 
@@ -191,37 +191,39 @@ Before a real NuGet release:
 
 Known deferred compatibility work remains tracked in Issue #366, including transient Interactive Server reconnection and exact Interactive Auto renderer-transition instrumentation.
 
-## Stable Release Preparation
+## Stable Release 1.0.367
 
-**Tracking:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
+**Tracking:** [Issue #381](https://github.com/vrassouli/Bluent/issues/381)
 
-**Branch:** `release/stable-release-preparation`
+**Branch:** `release/1.0.367`
 
-**Pull Request:** [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
+**Preparation:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
+and [PR #380](https://github.com/vrassouli/Bluent/pull/380) — completed
 
 **Status:** In progress
 
-The maintainer selected a stable release through the protected workflow.
-Preparation is underway without publishing packages or creating a release tag
-or GitHub Release.
+The maintainer approved stable version `1.0.367` dated 2026-07-26 and confirmed
+that the protected `nuget-production` environment and its `NUGET_API_KEY`
+secret are configured. The secret value is not inspected. Final validation is
+underway without publishing packages or creating a release tag or GitHub
+Release.
 
 ### Current findings
 
-- PRs #377 and #378 are merged, and no pull requests were open when
-  preparation started from `Dev` commit `23bf85e`.
+- PR #380 is merged, and the final release branch starts from `Dev` merge
+  commit `f1cb349`.
 - The five-package publication set remains `Bluent.UI.Core`, `Bluent.UI`,
   `Bluent.UI.Charts`, `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities`.
+- `Bluent.Core` references in Issue #381 are package-ID typos. No package
+  rename, dependency-boundary change, or migration is included in `1.0.367`.
 - Legacy `master`-push workflow run #366 published aligned stable `1.0.366`
   packages on 2026-07-25 before the protected workflow merged.
-- The recommended successor is stable `1.0.367`, pending explicit maintainer
-  approval. A patch is SemVer-correct because no incompatible public API,
-  behavior, package-boundary, target-framework, or static-asset change was
-  identified.
+- Stable `1.0.367` is the approved successor. A patch is SemVer-correct because
+  no incompatible public API, behavior, package-boundary, target-framework, or
+  static-asset change was identified.
 - No version-specific consumer migration is required.
-- Public GitHub metadata exposes only `github-pages`; it cannot verify
-  `nuget-production` or the presence of `NUGET_API_KEY`.
-- The changelog now separates changes already shipped in `1.0.366` from the
-  proposed `1.0.367` contents.
+- The changelog contains a dated `1.0.367` section and a fresh empty,
+  category-complete `Unreleased` section.
 - The packaged README now uses a NuGet.org-trusted, commit-pinned screenshot
   URL, and release validation rejects relative or untrusted image sources in
   each of the five packages.
@@ -233,17 +235,16 @@ or GitHub Release.
 
 ### Remaining work
 
-- [x] Complete and record local build, test, pack, notes, documentation,
-  workflow-YAML, whitespace, and focused accessibility validation.
-- [x] Validate a clean consumer against the five non-publish packages.
-- [x] Open the preparation pull request targeting `Dev`.
-- [x] Record clean Quality and Release packages artifact-only workflow runs.
-- [x] Correct and validate NuGet.org-compatible packaged README image sources.
-- [ ] Obtain the maintainer's exact-version decision.
-- [ ] Obtain maintainer confirmation of the protected environment and secret
-  prerequisites before any later publication authorization.
+- [x] Complete and record local build, test, exact pack, notes, documentation,
+  workflow-YAML, and whitespace validation.
+- [x] Validate a clean consumer against the five exact `1.0.367` packages.
+- [x] Confirm all five `1.0.367` package ID/version pairs are absent on NuGet.
+- [ ] Record clean Quality and exact `publish: false` Release packages runs.
+- [ ] Inspect the uploaded `bluent-1.0.367` artifact.
+- [ ] Open the final non-draft release pull request targeting `Dev`.
 
-Community outreach, new product features, and Sprint 4 remain unstarted until this release decision is made.
+Community outreach, new product features, and Sprint 4 remain unstarted until
+the final release pull request is reviewed.
 
 ## Accepted Decisions
 
