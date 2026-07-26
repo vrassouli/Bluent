@@ -1,0 +1,41 @@
+@page "/samples/basic-input"
+
+<PageTitle>Basic input</PageTitle>
+
+<h1>Basic form input</h1>
+
+<div>
+    <label for="contact-name">Contact name</label>
+    <TextField id="contact-name"
+               @bind-Value="_name"
+               BindValueEvent="oninput"
+               autocomplete="name" />
+</div>
+
+<div>
+    <label for="seat-count">Seat count</label>
+    <NumericField id="seat-count" @bind-Value="_seats" Min="1" Max="500" />
+</div>
+
+<div>
+    <label for="account-role">Account role</label>
+    <SelectField id="account-role" @bind-Value="_role">
+        <option value="Administrator">Administrator</option>
+        <option value="Billing">Billing</option>
+        <option value="Viewer">Viewer</option>
+    </SelectField>
+</div>
+
+<Checkbox @bind-Value="_sendUpdates" Label="Send product updates" />
+
+<p role="status">
+    @_name will receive @_role access for @_seats seat(s).
+    Product updates: @(_sendUpdates ? "on" : "off").
+</p>
+
+@code {
+    private string _name = "Alex Morgan";
+    private int _seats = 12;
+    private string _role = "Administrator";
+    private bool _sendUpdates = true;
+}

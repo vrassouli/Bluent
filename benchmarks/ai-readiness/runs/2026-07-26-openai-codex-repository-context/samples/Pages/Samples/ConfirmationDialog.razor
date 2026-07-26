@@ -1,0 +1,37 @@
+@page "/samples/confirmation"
+@inject IDialogService DialogService
+
+<PageTitle>Confirmation dialog</PageTitle>
+
+<h1>Confirmation dialog</h1>
+
+<Button Text="Archive request"
+        Appearance="ButtonAppearance.Primary"
+        disabled="@_archived"
+        OnClick="ConfirmArchive" />
+
+<p role="status">@_status</p>
+
+@code {
+    private bool _archived;
+    private string _status = "The request is active.";
+
+    private async Task ConfirmArchive()
+    {
+        var result = await DialogService.ShowMessageBoxAsync(
+            "Archive access request?",
+            "The request will leave the active queue, but its audit history will remain.",
+            MessageBoxButton.Yes | MessageBoxButton.Cancel,
+            MessageBoxButton.Yes);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            _archived = true;
+            _status = "The request was archived.";
+        }
+        else
+        {
+            _status = "Archive canceled; the request is still active.";
+        }
+    }
+}

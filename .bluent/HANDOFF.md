@@ -4,19 +4,23 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 ## Current Objective
 
-Complete the OrderDesk production-pattern reference application tracked in
-[Issue #393](https://github.com/vrassouli/Bluent/issues/393).
+Prepare the completed local AI-readiness benchmark rerun tracked in
+[Issue #394](https://github.com/vrassouli/Bluent/issues/394).
 
 This work does not publish packages, create a tag or GitHub Release, add public
-APIs, or include the benchmark rerun in Issue #394.
+APIs, or push the local branch without maintainer instruction.
 
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `codex/issue-393`
-- Active issue: [#393](https://github.com/vrassouli/Bluent/issues/393)
+- Active branch: `codex/issue-394`
+- Active issue: [#394](https://github.com/vrassouli/Bluent/issues/394)
 - Sprint 4 plan: `.bluent/sprints/sprint-04.md`
-- Pull request: [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
+- Pull request: not opened
+- Completed reference-application issue:
+  [#393](https://github.com/vrassouli/Bluent/issues/393)
+- Completed reference-application pull request:
+  [#396](https://github.com/vrassouli/Bluent/pull/396) — merged
 - Completed example issues:
   [#391](https://github.com/vrassouli/Bluent/issues/391) and
   [#392](https://github.com/vrassouli/Bluent/issues/392)
@@ -69,30 +73,31 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
 
 ## Active Work State
 
-- `samples/Bluent.OrderDesk` is a standalone WebAssembly customer/order
-  application using current UI, Charts, and Diagrams project references.
-- It contains a responsive shell, dashboard, customer
-  list/detail/create/edit/archive workflow, filterable order DataGrid,
-  validation, dialog, toast, MessageBar, drawer, chart, lifecycle diagram,
-  light/dark control, RTL control, and explicit loading/empty/error/success
-  states.
-- Domain models and the local in-memory repository are separate from Bluent
-  page composition; the application does not reference demo projects.
-- The project is included in `Bluent.sln`. Focused and full Release builds
-  passed with warnings treated as errors: 0 warnings and 0 errors.
-- Canonical architecture, setup, run instructions, limitations, and the
-  representative verification route are documented in
-  `docs/examples/reference-application.md` and
-  `samples/Bluent.OrderDesk/README.md`.
-- Browser runtime and visual verification passed at desktop and mobile sizes
-  for the customer/order workflow, validation, feedback, overlays, DataGrid,
-  chart, diagram, light/dark themes, RTL, and clean fresh-tab console.
-- Full validation passed: tool/solution restore, zero-warning Release build,
-  19 application tests, canonical task-example gate, 13 release-tool tests,
-  49-file Markdown links, workflow YAML, and whitespace.
-- Issue #393 has a progress comment with the same local evidence and pending
-  external checks.
-- External CI remains pending on draft PR #396.
+- `benchmarks/ai-readiness` now contains a repeatable run layout, record
+  template, and structural validator.
+- One OpenAI Codex repository-context run preserved all 15 existing prompts,
+  first responses, structured package/setup/API/link review, failure flags,
+  score rationales, and compilation evidence. The exact model identifier was
+  not exposed and was not inferred.
+- The rerun scored 139/150 (92.7%) versus the committed 99/150 (66.0%)
+  baseline. The baseline's row-derived API subtotal is 18/30, not the printed
+  20/30; the dated comparison calls out that arithmetic discrepancy.
+- Nine of ten generated samples compiled unchanged. The first drawer sample
+  failed with `CS0104` because an application-owned `DrawerContent` collided
+  with `Bluent.UI.Components.DrawerContent`. All ten compiled with zero
+  warnings after a documented fully qualified repair.
+- No hallucinated Bluent API was recorded. Context-free, link-only,
+  `llms.txt`-only, web-only, external-assistant, runtime, and visual modes were
+  not tested or claimed.
+- The report is linked from the documentation index, canonical benchmark, and
+  `llms.txt`.
+- [Issue #397](https://github.com/vrassouli/Bluent/issues/397) tracks the
+  focused naming-collision guidance and compiled regression example.
+- Full local validation passed: tool/solution restore, zero-warning Release
+  build, 19/19 application tests, canonical task-example gate, 13/13
+  release-tool tests, 50-file Markdown links, all three workflow YAML files,
+  benchmark record validation, repaired ten-sample build, and
+  `git diff --check origin/Dev`.
 
 ## Current Release State
 
@@ -141,8 +146,8 @@ Before any production publication, the maintainer still must:
   including exact Interactive Auto renderer-transition timing if the
   maintainer still requires instrumentation.
 - Issue #363 remains the parent AI-readiness work.
-- Sprint 4 Issue #394 remains separate from the active reference-application
-  workstream.
+- Issue #394 is the active Sprint 4 workstream. Issues #391, #392, and #393
+  are closed, and PRs #395 and #396 are merged into `Dev`.
 
 ## Constraints
 
@@ -155,8 +160,7 @@ Before any production publication, the maintainer still must:
 
 ## Next Session
 
-1. Review the focused diff and open a pull request targeting `Dev` when
-   requested.
-2. Update Issue #393 and the pull request with local and external evidence
-   without hiding failures or skipped checks.
-3. Record clean external Quality and release-package workflow results.
+1. Review the committed `codex/issue-394` branch.
+2. Push and open a pull request targeting `Dev` only when requested.
+3. Record external CI evidence if a pull request is opened. Do not publish
+   packages, tags, or releases.

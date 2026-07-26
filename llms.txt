@@ -13,6 +13,9 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
 - [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): ten complete, compiled patterns for common Bluent application tasks
 - [OrderDesk reference application](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/reference-application.md): standalone production-pattern customer and order workflow with architecture, run commands, limitations, and evidence
+- [AI-readiness benchmark](https://github.com/vrassouli/Bluent/blob/Dev/docs/ai/benchmark.md): canonical prompts, rubric, execution modes, and recording rules
+- [Latest AI-readiness report](https://github.com/vrassouli/Bluent/blob/Dev/docs/ai/results/2026-07-26-codex-repository-context.md): repository-context score comparison, compiled generated samples, limitations, and follow-up findings
+- [Repeatable AI benchmark workspace](https://github.com/vrassouli/Bluent/tree/Dev/benchmarks/ai-readiness): run schema, validator, raw responses, scoring records, and generated compilation artifacts
 
 ## Reference application
 

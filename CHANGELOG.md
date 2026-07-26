@@ -19,6 +19,9 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
   compilable WebAssembly consumer.
 - CI validation that builds documentation examples and proves invalid sample
   references produce a focused compiler failure.
+- A repeatable AI-readiness benchmark workspace with preserved prompts and
+  responses, structured scoring, ten compiled generated samples, and a dated
+  Sprint 4 comparison report.
 
 ### Changed
 

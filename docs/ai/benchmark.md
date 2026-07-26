@@ -2,6 +2,11 @@
 
 This benchmark measures whether AI coding assistants can discover Bluent, select correct packages, and generate current code without inventing APIs.
 
+The repeatable run structure, schema validator, and durable execution artifacts
+live under [`benchmarks/ai-readiness/`](../../benchmarks/ai-readiness/). The
+latest completed report is the
+[2026-07-26 repository-context rerun](results/2026-07-26-codex-repository-context.md).
+
 ## Recording rules
 
 For every run, record:

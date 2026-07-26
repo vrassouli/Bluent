@@ -7,11 +7,11 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 ## Current Phase
 
 **Phase:** Reliable Examples and AI Readiness
-**Current Sprint:** Sprint 4 production-pattern reference application
-**Status:** In progress
-**Working Branch:** `codex/issue-393`
-**Pull Request:** [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
-**Tracking Issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
+**Current Sprint:** Sprint 4 AI-readiness benchmark rerun
+**Status:** Ready for review
+**Working Branch:** `codex/issue-394`
+**Pull Request:** Not opened
+**Tracking Issue:** [#394](https://github.com/vrassouli/Bluent/issues/394)
 
 ## Operational Files
 
@@ -381,11 +381,11 @@ Issue #394 remains separate and is not included in this workstream.
 
 **Branch:** `codex/issue-393`
 
-**Pull Request:** [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
+**Pull Request:** [#396](https://github.com/vrassouli/Bluent/pull/396) — merged
 
 **Detailed plan:** `.bluent/sprints/sprint-04.md`
 
-**Status:** In progress
+**Status:** Completed
 
 ### Implemented
 
@@ -424,7 +424,7 @@ Issue #394 remains separate and is not included in this workstream.
 - Issue #393 records the implemented scope, exact local evidence, disclosed
   validation substitutions/failures, and pending external CI.
 
-### Remaining
+### Completion
 
 - [x] Exercise the representative browser route at desktop and mobile sizes.
 - [x] Verify light/dark and LTR/RTL presentation.
@@ -433,7 +433,72 @@ Issue #394 remains separate and is not included in this workstream.
 - [x] Check a fresh-tab browser console for Bluent-related warnings or errors.
 - [x] Run the complete repository validation and record exact results.
 - [x] Open draft pull request #396 targeting `Dev`.
-- [ ] Record external CI evidence.
+- [x] Merge PR #396 and close Issue #393.
+
+External CI evidence was not added to the local project record before merge;
+the recorded source, build, test, runtime, visual, and console evidence remains
+explicitly scoped.
+
+## Sprint 4 — AI-readiness Benchmark Rerun
+
+**Tracking:** [Issue #394](https://github.com/vrassouli/Bluent/issues/394)
+
+**Branch:** `codex/issue-394`
+
+**Status:** Ready for review
+
+### Implemented
+
+- [x] Add a repeatable benchmark workspace, run template, and structural
+  validator under `benchmarks/ai-readiness`.
+- [x] Preserve all 15 existing prompts and the existing five-dimension rubric.
+- [x] Execute one OpenAI Codex repository-context run without inferring an
+  unexposed exact model identifier.
+- [x] Preserve prompt responses, structured per-prompt scoring, and ten
+  representative generated WebAssembly samples.
+- [x] Compile nine samples unchanged and all ten after a documented repair to
+  the only first-pass failure.
+- [x] Publish the numerical baseline comparison and explicitly separate facts,
+  interpretation, limitations, and untested assistants/modes.
+- [x] Open focused follow-up
+  [Issue #397](https://github.com/vrassouli/Bluent/issues/397) for the
+  application `DrawerContent` naming collision.
+- [x] Link the report from canonical documentation indexes and `llms.txt`.
+
+### Current evidence
+
+- The rerun scored 139/150 (92.7%), up 40 points from the committed 99/150
+  (66.0%) repository-context baseline.
+- Category changes were Discovery +4, Setup +3, API +12, Build +19, and
+  Explanation +2. The baseline's printed API subtotal is arithmetically
+  inconsistent; the comparison uses its row-derived 18/30 so category totals
+  reconcile to 99/150.
+- Unchanged generated-sample compilation was 9/10 (90%); cumulative compilation
+  after one documented repair was 10/10 (100%).
+- Hallucinated API frequency remained 0/15. The only code failure was a
+  non-hallucinated application/public-type name collision.
+- Context-free, repository-link-only, `llms.txt`-only, web-only,
+  external-assistant, runtime, visual, deployment, and non-WebAssembly modes
+  were not run or claimed.
+
+### Remaining
+
+- [x] Complete the full Issue #394 validation matrix.
+- [x] Commit the focused changes and update Issue #394 with final evidence.
+
+### Local validation summary
+
+- Tool and solution restore passed.
+- The full Release build passed with warnings treated as errors: 0 warnings
+  and 0 errors.
+- Application tests passed 19/19; canonical task-example validation passed;
+  release-tool tests passed 13/13.
+- Markdown links passed across 50 files; all three workflow YAML files parsed;
+  and `git diff --check origin/Dev` passed.
+- The benchmark record validator passed all 15 prompts, and the repaired
+  ten-sample consumer built with 0 warnings and 0 errors.
+- No runtime, visual, deployment, package, tag, release, external CI, or
+  external-assistant validation is claimed.
 
 ## Accepted Decisions
 

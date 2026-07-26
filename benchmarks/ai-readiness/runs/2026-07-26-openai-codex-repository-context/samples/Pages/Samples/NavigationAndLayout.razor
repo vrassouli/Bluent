@@ -1,0 +1,21 @@
+@page "/samples/navigation"
+@inject NavigationManager Navigation
+
+<PageTitle>Navigation and layout</PageTitle>
+
+<h1>Navigation and layout</h1>
+
+<p>
+    This page is rendered by <code>MainLayout</code>. The layout owns the
+    application navigation and the single shared <code>Containers</code> host.
+</p>
+
+<nav aria-label="Related generated samples">
+    <NavLink href="samples/basic-input">Basic input</NavLink>
+    <NavLink href="samples/data-grid">Data grid</NavLink>
+    <NavLink href="samples/chart">Chart</NavLink>
+</nav>
+
+<Button Text="Go to the overview"
+        Appearance="ButtonAppearance.Primary"
+        OnClick="@(() => Navigation.NavigateTo(""))" />

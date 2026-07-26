@@ -1,0 +1,92 @@
+@page "/samples/form-validation"
+
+<PageTitle>Form validation</PageTitle>
+
+<h1>Form validation</h1>
+
+<EditForm Model="_model" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div>
+        <label for="customer-name">Customer name</label>
+        <TextField id="customer-name" @bind-Value="_model.Name" autocomplete="name" />
+        <ValidationMessage For="() => _model.Name" />
+    </div>
+
+    <div>
+        <label for="customer-email">Work email</label>
+        <TextField id="customer-email"
+                   @bind-Value="_model.Email"
+                   type="email"
+                   autocomplete="email" />
+        <ValidationMessage For="() => _model.Email" />
+    </div>
+
+    <div>
+        <label for="seat-count">Seat count</label>
+        <NumericField id="seat-count" @bind-Value="_model.Seats" Min="1" Max="500" />
+        <ValidationMessage For="() => _model.Seats" />
+    </div>
+
+    <div>
+        <label for="start-date">Start date</label>
+        <DateField id="start-date" @bind-Value="_model.StartDate" />
+        <ValidationMessage For="() => _model.StartDate" />
+    </div>
+
+    <div>
+        <label for="account-role">Account role</label>
+        <SelectField id="account-role" @bind-Value="_model.Role">
+            <option value="">Choose a role</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Billing">Billing</option>
+            <option value="Viewer">Viewer</option>
+        </SelectField>
+        <ValidationMessage For="() => _model.Role" />
+    </div>
+
+    <Checkbox @bind-Value="_model.AcceptedTerms" Label="Accept account terms" />
+    <ValidationMessage For="() => _model.AcceptedTerms" />
+
+    <Button type="submit"
+            Text="Save customer"
+            Appearance="ButtonAppearance.Primary" />
+</EditForm>
+
+@if (_saved)
+{
+    <MessageBar Type="MessageBarType.Success">
+        Customer saved.
+    </MessageBar>
+}
+
+@code {
+    private readonly CustomerModel _model = new();
+    private bool _saved;
+
+    private void Save()
+    {
+        _saved = true;
+    }
+
+    private sealed class CustomerModel
+    {
+        [Required, StringLength(80, MinimumLength = 2)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Range(1, 500)]
+        public int Seats { get; set; } = 1;
+
+        [Required]
+        public DateTime? StartDate { get; set; }
+
+        [Required]
+        public string Role { get; set; } = string.Empty;
+
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Account terms must be accepted.")]
+        public bool AcceptedTerms { get; set; }
+    }
+}
