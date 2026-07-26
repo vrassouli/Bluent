@@ -56,6 +56,40 @@ Historical prose.
                     )
                 )
 
+    def test_accepts_nuget_trusted_readme_image_sources(self) -> None:
+        readme = """\
+![NuGet](https://img.shields.io/nuget/v/Bluent.UI.svg)
+![Demo](https://raw.githubusercontent.com/owner/repo/commit/demo.jpg)
+![Build][build-badge]
+<img src="https://i.imgur.com/example.png" alt="Example">
+
+[build-badge]: https://github.com/owner/repo/actions/workflows/build.yml/badge.svg
+"""
+        self.assertEqual(
+            release_tools.validate_readme_images(readme, "Bluent.UI"),
+            [
+                "https://img.shields.io/nuget/v/Bluent.UI.svg",
+                "https://raw.githubusercontent.com/owner/repo/commit/demo.jpg",
+                "https://github.com/owner/repo/actions/workflows/build.yml/badge.svg",
+                "https://i.imgur.com/example.png",
+            ],
+        )
+
+    def test_rejects_unsupported_readme_image_sources(self) -> None:
+        sources = (
+            "docs/demo.jpg",
+            "http://img.shields.io/example.svg",
+            "https://example.com/example.png",
+        )
+        for source in sources:
+            with self.subTest(source=source):
+                with self.assertRaisesRegex(
+                    ValueError, "NuGet.org will not render"
+                ):
+                    release_tools.validate_readme_images(
+                        f"![Example]({source})", "Bluent.UI"
+                    )
+
 
 if __name__ == "__main__":
     unittest.main()

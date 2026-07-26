@@ -72,6 +72,9 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
   metadata. Secret presence cannot be verified through public metadata.
 - The detailed evidence and remaining checks are in
   `docs/releasing/stable-release-readiness.md`.
+- The packaged README now uses a NuGet.org-trusted, commit-pinned screenshot
+  URL. Release validation checks every packaged README and rejects relative or
+  untrusted image sources.
 - PR #380 passed Quality run #30188954331 and Release packages run
   #30188954356. The downloaded artifact contained exactly five aligned
   packages, the validation report, and deterministic notes; both publication
@@ -105,8 +108,9 @@ Do not infer or invent a release version.
 
 ## Next Session
 
-1. Review PR #380 and approve or replace the proposed exact version `1.0.367`.
-2. Confirm the protected `nuget-production` environment and scoped
+1. Review the updated PR #380 workflow evidence for packaged README validation.
+2. Approve or replace the proposed exact version `1.0.367`.
+3. Confirm the protected `nuget-production` environment and scoped
    `NUGET_API_KEY`.
-3. Leave the pull request open until the maintainer's version and prerequisite
+4. Leave the pull request open until the maintainer's version and prerequisite
    decisions.

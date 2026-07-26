@@ -12,6 +12,8 @@ Stable release preparation tracked by
 - Audit current published package versions and release prerequisites.
 - Propose an exact stable version without selecting it silently.
 - Reconcile the changelog with the already-published `1.0.366` packages.
+- Correct packaged README image sources for NuGet.org and prevent unsupported
+  sources from passing release validation.
 - Validate the five aligned packages and deterministic notes without
   publication.
 - Open a preparation pull request for maintainer review.

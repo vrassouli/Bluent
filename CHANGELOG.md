@@ -39,7 +39,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
-- None.
+- Corrected the packaged README screenshot URL for NuGet.org and added release
+  validation that rejects relative or untrusted README image sources.
 
 ### Security
 

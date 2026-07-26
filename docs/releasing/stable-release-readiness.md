@@ -108,8 +108,9 @@ container, and asset paths remain unchanged.
   publication reduce, but cannot eliminate, partial-publication risk.
 - The dated `1.0.367` changelog section must not be created until the
   maintainer approves the version and release date.
-- The final preparation commit still requires an artifact-only GitHub Actions
-  dry run from the preparation head.
+- The already-published `1.0.366` package README cannot be edited in place, so
+  its unsupported-image warning remains until a corrected version is
+  published.
 
 ## Package and metadata audit
 
@@ -134,6 +135,19 @@ guidance, project metadata, and release workflow agree on package names and
 setup. This preparation adds the missing NuGet link for
 `Bluent.UI.Utilities` in the root README.
 
+The README packed into all five `1.0.366` packages contains a relative landing
+screenshot path. NuGet.org does not render relative images and reports an
+owner-visible unsupported-image warning. This preparation replaces that source
+with an HTTPS `raw.githubusercontent.com` URL pinned to commit
+`56812a0f324a47df51c50e5030cbe696ea3a3e92`, where the verified screenshot is
+immutable. The existing `img.shields.io` badges already use a trusted host.
+
+The package validator now reads the actual README from each of the five
+archives, records its image sources, and rejects relative paths, non-HTTPS
+sources, and hosts outside NuGet.org's documented allowlist. The published
+`1.0.366` packages are immutable; the package-page warning can disappear only
+after a corrected new version is published.
+
 ## Changelog and migration audit
 
 The previous `Unreleased` section mixed changes already shipped in `1.0.366`
@@ -151,14 +165,16 @@ No breaking entry or version-specific migration guide is required.
 
 ## Workflow and repository prerequisites
 
-No additional repository-side workflow code change was identified. The
-replacement workflow already:
+The package validator required one additional release-safety check for
+NuGet.org-compatible README images. With that check added, the replacement
+workflow:
 
 - accepts an explicit SemVer;
 - prevents pull-request publication;
 - requires an exact matching `v<version>` tag for publishing;
 - builds and tests before packing;
 - validates exactly five aligned packages and their metadata;
+- validates every packaged README image against NuGet.org's trusted sources;
 - generates deterministic changelog notes;
 - preflights all five immutable NuGet versions;
 - publishes through `nuget-production`;
@@ -188,9 +204,9 @@ runtime 10.0.8.
 | `dotnet restore Bluent.sln` | Canceled after prolonged NuGet network inactivity; no restore completion is claimed |
 | Release build with `--no-restore -warnaserror` | Passed with 0 warnings and 0 errors using the previously restored assets |
 | Full solution tests | Passed 19/19 |
-| Release-tool tests | Passed 4/4 |
-| Five-package pack | Passed at non-publish version `1.0.367-validation.1` |
-| Package validation | Passed IDs, aligned versions, metadata, README, license, `net10.0`, static assets, repository commit, and exact internal dependencies |
+| Release-tool tests | Passed 6/6, including trusted and rejected README image sources |
+| Five-package pack | Passed at non-publish version `1.0.367-validation.2` |
+| Package validation | Passed IDs, aligned versions, metadata, README, trusted README image sources, license, `net10.0`, static assets, repository commit, and exact internal dependencies |
 | Deterministic notes | Passed from `Unreleased`, with the required dry-run notice |
 | Clean Blazor WebAssembly consumer | Passed restore and zero-warning Release build with `Bluent.UI`, Charts, Diagrams, and Utilities directly referenced; Core resolved transitively |
 | Markdown links | Passed across 34 maintained files |
@@ -207,7 +223,10 @@ the control and Bluent consumers using the canonical `/private/tmp` path
 passed. Both the failed attempt and the controlled result are retained here.
 
 The package validation report and generated notes were inspected in the
-temporary validation directory. No package was pushed to NuGet.
+temporary validation directory. Each of the five package records contains the
+four `img.shields.io` badges and the commit-pinned `raw.githubusercontent.com`
+screenshot, with no relative or unsupported image source. No package was
+pushed to NuGet.
 
 ## GitHub Actions evidence
 
