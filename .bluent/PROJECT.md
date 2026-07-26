@@ -6,12 +6,12 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Current Phase
 
-**Phase:** Project Relaunch
-**Current Sprint:** Sprint 3 — Release Reliability and Compatibility
-**Status:** Completed
-**Working Branch:** `Dev`
-**Pull Request:** [#377](https://github.com/vrassouli/Bluent/pull/377) — merged
-**Tracking Issue:** [#372](https://github.com/vrassouli/Bluent/issues/372) — completed
+**Phase:** Stable Release Preparation
+**Current Sprint:** None; Sprint 3 is complete
+**Status:** In progress
+**Working Branch:** `release/stable-release-preparation`
+**Pull Request:** [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
+**Tracking Issue:** [#379](https://github.com/vrassouli/Bluent/issues/379)
 
 ## Operational Files
 
@@ -20,6 +20,8 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 - `.bluent/QUALITY.md` — validation evidence and completion policy.
 - `.bluent/BACKLOG.md` — current, next, later, and deferred project work.
 - `docs/releasing/release-workflow-audit.md` — Sprint 3 release audit.
+- `docs/releasing/stable-release-readiness.md` — current package evidence,
+  version recommendation, risks, prerequisites, and validation status.
 - `docs/quality/compiler-warning-baseline.md` — zero-warning baseline and triage record.
 - `docs/compatibility/hosting-and-render-modes.md` — evidence-backed compatibility status.
 
@@ -189,17 +191,57 @@ Before a real NuGet release:
 
 Known deferred compatibility work remains tracked in Issue #366, including transient Interactive Server reconnection and exact Interactive Auto renderer-transition instrumentation.
 
-## Next Phase — Release Planning
+## Stable Release Preparation
 
-No new sprint is active.
+**Tracking:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
 
-The next maintainer decision is to select the first release through the new process:
+**Branch:** `release/stable-release-preparation`
 
-- choose the exact version and whether it is preview or stable;
-- confirm the five-package publication set;
-- configure the protected production environment and secret;
-- review the versioned changelog section and migration impact;
-- perform an authorized release dry run or production publication.
+**Pull Request:** [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
+
+**Status:** In progress
+
+The maintainer selected a stable release through the protected workflow.
+Preparation is underway without publishing packages or creating a release tag
+or GitHub Release.
+
+### Current findings
+
+- PRs #377 and #378 are merged, and no pull requests were open when
+  preparation started from `Dev` commit `23bf85e`.
+- The five-package publication set remains `Bluent.UI.Core`, `Bluent.UI`,
+  `Bluent.UI.Charts`, `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities`.
+- Legacy `master`-push workflow run #366 published aligned stable `1.0.366`
+  packages on 2026-07-25 before the protected workflow merged.
+- The recommended successor is stable `1.0.367`, pending explicit maintainer
+  approval. A patch is SemVer-correct because no incompatible public API,
+  behavior, package-boundary, target-framework, or static-asset change was
+  identified.
+- No version-specific consumer migration is required.
+- Public GitHub metadata exposes only `github-pages`; it cannot verify
+  `nuget-production` or the presence of `NUGET_API_KEY`.
+- The changelog now separates changes already shipped in `1.0.366` from the
+  proposed `1.0.367` contents.
+- The packaged README now uses a NuGet.org-trusted, commit-pinned screenshot
+  URL, and release validation rejects relative or untrusted image sources in
+  each of the five packages.
+- PR #380 commit `927dd20` passed Quality run #30189474232 and Release packages
+  dry-run #30189474228. Downloaded artifact `bluent-0.0.0-ci.378` contained
+  exactly five aligned packages, the validation report, and deterministic
+  dry-run notes. Every packaged README recorded only the five expected trusted
+  image sources; publication and GitHub Release jobs were skipped.
+
+### Remaining work
+
+- [x] Complete and record local build, test, pack, notes, documentation,
+  workflow-YAML, whitespace, and focused accessibility validation.
+- [x] Validate a clean consumer against the five non-publish packages.
+- [x] Open the preparation pull request targeting `Dev`.
+- [x] Record clean Quality and Release packages artifact-only workflow runs.
+- [x] Correct and validate NuGet.org-compatible packaged README image sources.
+- [ ] Obtain the maintainer's exact-version decision.
+- [ ] Obtain maintainer confirmation of the protected environment and secret
+  prerequisites before any later publication authorization.
 
 Community outreach, new product features, and Sprint 4 remain unstarted until this release decision is made.
 

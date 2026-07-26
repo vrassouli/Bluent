@@ -10,7 +10,9 @@ import sys
 import urllib.error
 import urllib.request
 import zipfile
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 from xml.etree import ElementTree
 
 
@@ -27,6 +29,81 @@ SEMVER_PATTERN = re.compile(
     r"(?:-((?:0|[1-9]\d*|[A-Za-z-][0-9A-Za-z-]*)"
     r"(?:\.(?:0|[1-9]\d*|[A-Za-z-][0-9A-Za-z-]*))*))?$"
 )
+
+# Keep this list aligned with NuGet.org's documented trusted image hosts:
+# https://learn.microsoft.com/nuget/nuget-org/package-readme-on-nuget-org
+NUGET_TRUSTED_IMAGE_HOSTS = frozenset(
+    {
+        "api.codacy.com",
+        "api.codeclimate.com",
+        "api.dependabot.com",
+        "api.reuse.software",
+        "api.travis-ci.com",
+        "app.codacy.com",
+        "app.deepsource.com",
+        "avatars.githubusercontent.com",
+        "badgen.net",
+        "badges.gitter.im",
+        "camo.githubusercontent.com",
+        "caniuse.bitsofco.de",
+        "cdn.jsdelivr.net",
+        "cdn.syncfusion.com",
+        "ci.appveyor.com",
+        "circleci.com",
+        "cloudback.it",
+        "codecov.io",
+        "codefactor.io",
+        "coveralls.io",
+        "dev.azure.com",
+        "devpod.sh",
+        "flat.badgen.net",
+        "gitlab.com",
+        "i.imgur.com",
+        "img.shields.io",
+        "infragistics.com",
+        "isitmaintained.com",
+        "media.githubusercontent.com",
+        "opencollective.com",
+        "raw.github.com",
+        "raw.githubusercontent.com",
+        "snyk.io",
+        "sonarcloud.io",
+        "travis-ci.com",
+        "travis-ci.org",
+        "user-images.githubusercontent.com",
+    }
+)
+
+MARKDOWN_IMAGE_PATTERN = re.compile(
+    r"!\[[^\]]*\]\(\s*(?:<(?P<angled>[^>]+)>|(?P<plain>[^\s)]+))",
+    re.MULTILINE,
+)
+REFERENCE_DEFINITION_PATTERN = re.compile(
+    r"^[ \t]{0,3}\[(?P<label>[^\]]+)\]:[ \t]*"
+    r"(?:<(?P<angled>[^>\n]+)>|(?P<plain>\S+))",
+    re.MULTILINE,
+)
+REFERENCE_IMAGE_PATTERN = re.compile(
+    r"!\[(?P<alt>[^\]]*)\]\[(?P<label>[^\]]*)\]"
+)
+SHORTCUT_IMAGE_PATTERN = re.compile(
+    r"!\[(?P<label>[^\]]+)\](?![ \t]*(?:\(|\[))"
+)
+
+
+class ReadmeImageParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.sources: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        if tag.lower() != "img":
+            return
+        for name, value in attrs:
+            if name.lower() == "src" and value:
+                self.sources.append(value.strip())
 
 
 def fail(message: str) -> None:
@@ -107,6 +184,82 @@ def nuspec_root(package: Path) -> ElementTree.Element:
 def child_text(metadata: ElementTree.Element, name: str) -> str:
     element = metadata.find(f"{{*}}{name}")
     return "" if element is None or element.text is None else element.text.strip()
+
+
+def readme_image_sources(readme: str) -> list[str]:
+    sources = [
+        match.group("angled") or match.group("plain")
+        for match in MARKDOWN_IMAGE_PATTERN.finditer(readme)
+    ]
+    references = {
+        " ".join(match.group("label").split()).casefold(): (
+            match.group("angled") or match.group("plain")
+        )
+        for match in REFERENCE_DEFINITION_PATTERN.finditer(readme)
+    }
+    unresolved: list[str] = []
+    for match in REFERENCE_IMAGE_PATTERN.finditer(readme):
+        label = match.group("label") or match.group("alt")
+        normalized = " ".join(label.split()).casefold()
+        if normalized not in references:
+            unresolved.append(label)
+        else:
+            sources.append(references[normalized])
+    for match in SHORTCUT_IMAGE_PATTERN.finditer(readme):
+        label = match.group("label")
+        normalized = " ".join(label.split()).casefold()
+        if normalized not in references:
+            unresolved.append(label)
+        else:
+            sources.append(references[normalized])
+    if unresolved:
+        fail(
+            "README contains unresolved image references: "
+            f"{', '.join(sorted(set(unresolved)))}."
+        )
+    parser = ReadmeImageParser()
+    parser.feed(readme)
+    sources.extend(parser.sources)
+    return sources
+
+
+def is_nuget_trusted_image_url(source: str) -> bool:
+    try:
+        parsed = urlsplit(source)
+        port = parsed.port
+    except ValueError:
+        return False
+    if (
+        parsed.scheme.lower() != "https"
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or port not in (None, 443)
+    ):
+        return False
+    host = parsed.hostname.lower()
+    if host in NUGET_TRUSTED_IMAGE_HOSTS:
+        return True
+    if host != "github.com":
+        return False
+    return re.fullmatch(
+        r"/[^/]+/[^/]+/(?:actions/)?workflows/[^/]+/badge\.svg",
+        parsed.path,
+        re.IGNORECASE,
+    ) is not None
+
+
+def validate_readme_images(readme: str, package_id: str) -> list[str]:
+    sources = readme_image_sources(readme)
+    unsupported = [
+        source for source in sources if not is_nuget_trusted_image_url(source)
+    ]
+    if unsupported:
+        fail(
+            f"{package_id} README contains image sources that NuGet.org will "
+            f"not render: {', '.join(unsupported)}."
+        )
+    return sources
 
 
 def validate_packages(args: argparse.Namespace) -> None:
@@ -195,8 +348,14 @@ def validate_packages(args: argparse.Namespace) -> None:
 
         with zipfile.ZipFile(package) as archive:
             names = set(archive.namelist())
-            if "README.md" not in names:
-                fail(f"{package_id} does not contain README.md.")
+            readme_path = required_fields["readme"]
+            if readme_path not in names:
+                fail(f"{package_id} does not contain {readme_path}.")
+            try:
+                readme = archive.read(readme_path).decode("utf-8-sig")
+            except UnicodeDecodeError:
+                fail(f"{package_id} {readme_path} is not valid UTF-8.")
+            image_sources = validate_readme_images(readme, package_id)
             if not any(
                 name.startswith("lib/net10.0/") and name.endswith(".dll")
                 for name in names
@@ -215,6 +374,7 @@ def validate_packages(args: argparse.Namespace) -> None:
                     dependency: sorted(dependency_versions[dependency])
                     for dependency in sorted(expected_internal)
                 },
+                "readme_image_sources": image_sources,
                 "static_web_asset_count": len(static_assets),
             }
         )

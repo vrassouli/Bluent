@@ -21,7 +21,7 @@ The repository root README remains the short evaluation and installation entry p
 | AI readiness | [`ai/`](ai/benchmark.md) | Maintain benchmark prompts, dated results, scoring, and recurring failure analysis |
 | Quality | [`quality/compiler-warning-baseline.md`](quality/compiler-warning-baseline.md) | Review the accepted compiler-warning baseline and regression policy |
 | Contributor workflow | [../CONTRIBUTING.md](../CONTRIBUTING.md) | Build, test, and contribute to the repository |
-| Releases | [../RELEASING.md](../RELEASING.md), [../CHANGELOG.md](../CHANGELOG.md), and [`releasing/release-workflow-audit.md`](releasing/release-workflow-audit.md) | Prepare releases, understand changes, and review the audited release baseline |
+| Releases | [../RELEASING.md](../RELEASING.md), [../CHANGELOG.md](../CHANGELOG.md), [`releasing/release-workflow-audit.md`](releasing/release-workflow-audit.md), and [`releasing/stable-release-readiness.md`](releasing/stable-release-readiness.md) | Prepare releases, understand changes, and review release-readiness evidence |
 
 Directories are introduced as their first maintained document is added. Empty placeholder directories are intentionally avoided.
 
