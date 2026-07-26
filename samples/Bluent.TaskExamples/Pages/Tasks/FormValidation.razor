@@ -1,0 +1,54 @@
+@page "/tasks/form-validation"
+
+<PageTitle>Form validation</PageTitle>
+
+<h1>Form validation</h1>
+
+<EditForm Model="_model" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div class="example-field">
+        <label for="customer-name">Customer name</label>
+        <TextField id="customer-name" @bind-Value="_model.Name" autocomplete="name" />
+        <ValidationMessage For="() => _model.Name" />
+    </div>
+
+    <div class="example-field">
+        <label for="customer-email">Work email</label>
+        <TextField id="customer-email"
+                   @bind-Value="_model.Email"
+                   type="email"
+                   autocomplete="email" />
+        <ValidationMessage For="() => _model.Email" />
+    </div>
+
+    <Button type="submit"
+            Text="Save customer"
+            Appearance="ButtonAppearance.Primary" />
+</EditForm>
+
+@if (_saved)
+{
+    <MessageBar Type="MessageBarType.Success" Class="mt-4">
+        Customer saved.
+    </MessageBar>
+}
+
+@code {
+    private readonly CustomerModel _model = new();
+    private bool _saved;
+
+    private void Save()
+    {
+        _saved = true;
+    }
+
+    private sealed class CustomerModel
+    {
+        [Required, StringLength(80, MinimumLength = 2)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, EmailAddress]
+        public string Email { get; set; } = string.Empty;
+    }
+}

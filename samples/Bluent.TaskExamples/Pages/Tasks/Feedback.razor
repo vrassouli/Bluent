@@ -1,0 +1,41 @@
+@page "/tasks/feedback"
+@inject IToastService ToastService
+
+<PageTitle>Toast and message feedback</PageTitle>
+
+<h1>Toast and MessageBar feedback</h1>
+
+<MessageBar Type="@(_saved ? MessageBarType.Success : MessageBarType.Information)"
+            Multiline
+            Dismissable>
+    @(_saved
+        ? "Changes are saved. This persistent message remains in the workflow."
+        : "Save the record to see persistent and transient feedback together.")
+</MessageBar>
+
+<div class="example-actions">
+    <Button Text="Save record"
+            Appearance="ButtonAppearance.Primary"
+            OnClick="Save" />
+    <Button Text="Reset" OnClick="Reset" />
+</div>
+
+@code {
+    private bool _saved;
+
+    private void Save()
+    {
+        _saved = true;
+        _ = ToastService.ShowAsync(
+            "Record saved",
+            configuration => configuration
+                .SetMessage("The customer record is up to date.")
+                .SetIntend(ToastIntend.Success)
+                .SetPlace(ToastPlacement.BottomEnd));
+    }
+
+    private void Reset()
+    {
+        _saved = false;
+    }
+}

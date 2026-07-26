@@ -1,0 +1,40 @@
+@page "/tasks/drawer-popover"
+@inject IDrawerService DrawerService
+
+<PageTitle>Drawer and popover</PageTitle>
+
+<h1>Drawer and Popover interaction</h1>
+
+<div class="example-actions">
+    <Button Text="Open filter drawer"
+            Appearance="ButtonAppearance.Primary"
+            OnClick="OpenDrawer" />
+
+    <Popover Placement="Placement.BottomStart" SameWidth>
+        <Trigger>
+            <Button Text="Show order summary" />
+        </Trigger>
+        <Surface>
+            <div class="p-3">
+                <strong>18 open orders</strong>
+                <div>3 require review.</div>
+            </div>
+        </Surface>
+    </Popover>
+</div>
+
+<p role="status">Drawer result: @_drawerResult</p>
+
+@code {
+    private string _drawerResult = "Not opened";
+
+    private async Task OpenDrawer()
+    {
+        var result = await DrawerService.ShowAsync<DrawerTaskContent>(
+            "Order filters",
+            null,
+            configuration => configuration.SetPosition(DrawerPosition.End));
+
+        _drawerResult = result?.ToString() ?? "Dismissed";
+    }
+}

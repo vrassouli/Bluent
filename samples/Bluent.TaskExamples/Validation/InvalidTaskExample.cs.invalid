@@ -1,0 +1,8 @@
+namespace Bluent.TaskExamples.Validation;
+
+// Included only when ValidateInvalidTaskExample=true. The Quality workflow
+// expects compilation to fail and name this file in its diagnostics.
+internal sealed class InvalidTaskExample
+{
+    private Bluent.UI.Components.ComponentThatDoesNotExist _component = default!;
+}

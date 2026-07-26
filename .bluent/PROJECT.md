@@ -6,16 +6,18 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Current Phase
 
-**Phase:** Stable Release Preparation
-**Current Sprint:** None; Sprint 3 is complete
+**Phase:** Reliable Examples and AI Readiness
+**Current Sprint:** Sprint 4 examples and compilation workstream
 **Status:** In progress
-**Working Branch:** `release/1.0.367`
+**Working Branch:** `Dev`
 **Pull Request:** Pending
-**Tracking Issue:** [#381](https://github.com/vrassouli/Bluent/issues/381)
+**Tracking Issues:** [#391](https://github.com/vrassouli/Bluent/issues/391)
+and [#392](https://github.com/vrassouli/Bluent/issues/392)
 
 ## Operational Files
 
 - `.bluent/HANDOFF.md` — immediate continuation instructions for Codex and other coding agents.
+- `.bluent/sprints/sprint-04.md` — active canonical examples and compilation plan.
 - `.bluent/sprints/sprint-03.md` — completed Sprint 3 execution plan and acceptance criteria.
 - `.bluent/QUALITY.md` — validation evidence and completion policy.
 - `.bluent/BACKLOG.md` — current, next, later, and deferred project work.
@@ -226,8 +228,7 @@ Known deferred compatibility work remains tracked in Issue #366, including trans
 
 **Branch:** `test/render-mode-followups`
 
-**Pull Request:** [#389](https://github.com/vrassouli/Bluent/pull/389) — open
-for review
+**Pull Request:** [#389](https://github.com/vrassouli/Bluent/pull/389) — merged
 
 ### Completed on branch
 
@@ -265,7 +266,7 @@ for review
   errors: 0 warnings, 0 errors; and application tests passed 19/19.
 - The diff against `origin/Dev` passed `git diff --check`.
 - The non-draft [PR #389](https://github.com/vrassouli/Bluent/pull/389)
-  targets `Dev` and remains open for review.
+  was merged into `Dev` on 2026-07-26.
 
 ## Stable Release 1.0.367
 
@@ -319,8 +320,59 @@ Release.
 - [ ] Inspect the uploaded `bluent-1.0.367` artifact.
 - [ ] Open the final non-draft release pull request targeting `Dev`.
 
-Community outreach, new product features, and Sprint 4 remain unstarted until
-the final release pull request is reviewed.
+No publication, tag, or GitHub Release action is part of the active Sprint 4
+examples workstream.
+
+## Sprint 4 — Canonical Examples and Compilation
+
+**Tracking:** [Issue #391](https://github.com/vrassouli/Bluent/issues/391) and
+[Issue #392](https://github.com/vrassouli/Bluent/issues/392)
+
+**Branch:** `Dev`
+
+**Detailed plan:** `.bluent/sprints/sprint-04.md`
+
+**Status:** In progress
+
+### Implemented
+
+- [x] Add ten task-oriented examples covering forms, validation, confirmation,
+  feedback, DataGrid paging, navigation/layout, drawers/popovers, Charts,
+  Diagrams, themes, dark mode, and RTL.
+- [x] Back every example with complete source in a standalone WebAssembly
+  consumer that does not reference demo projects.
+- [x] Add the consumer to the solution with current UI, Charts, and Diagrams
+  project references.
+- [x] Add canonical task pages that link to compiled source and explicitly
+  document package, namespace, setup, assets, behavior, mistakes, render modes,
+  and evidence.
+- [x] Add a focused build script and opt-in invalid-source negative control.
+- [x] Integrate the focused validation into Quality CI.
+- [x] Update maintained documentation indexes, `llms.txt`, contributor
+  guidance, and the changelog.
+
+### Remaining
+
+- [x] Complete and record the repository-required local validation.
+- [x] Update Issues #391 and #392 with exact local evidence and pending external
+  validation.
+- [ ] Open a focused pull request when requested.
+
+Issues #393 and #394 remain separate and are not included in this workstream.
+
+### Local validation summary
+
+- Focused task validation passed: the standalone consumer built with 0
+  warnings and 0 errors, while the opt-in invalid source failed with `CS0234`
+  and a diagnostic naming `InvalidTaskExample.cs.invalid`.
+- Markdown links passed across 48 maintained files.
+- Tool restore and solution restore passed.
+- The Release solution build passed with warnings treated as errors: 0
+  warnings and 0 errors.
+- Application tests passed 19/19; release-tool tests passed 13/13.
+- All three workflow YAML files parsed and `git diff --check` passed.
+- Runtime, visual, deployment, package, and external CI validation were not
+  run or claimed.
 
 ## Accepted Decisions
 
