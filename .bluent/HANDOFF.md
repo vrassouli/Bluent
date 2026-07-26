@@ -75,10 +75,11 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
 - The packaged README now uses a NuGet.org-trusted, commit-pinned screenshot
   URL. Release validation checks every packaged README and rejects relative or
   untrusted image sources.
-- PR #380 passed Quality run #30188954331 and Release packages run
-  #30188954356. The downloaded artifact contained exactly five aligned
-  packages, the validation report, and deterministic notes; both publication
-  jobs were skipped.
+- PR #380 commit `927dd20` passed Quality run #30189474232 and Release packages
+  run #30189474228. Downloaded artifact `bluent-0.0.0-ci.378` contained exactly
+  five aligned packages, the validation report, and deterministic notes. Every
+  package README recorded only the five expected trusted image sources; both
+  publication jobs were skipped.
 
 Before any production publication, the maintainer still must:
 

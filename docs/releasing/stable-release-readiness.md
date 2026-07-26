@@ -230,22 +230,24 @@ pushed to NuGet.
 
 ## GitHub Actions evidence
 
-PR #380 head `7f6bad8d8b589b216d04544142fd732cfa5476ee` produced:
+PR #380 head `927dd201638ba812c021ee42748fad61dd87ad3d` produced:
 
-- [Quality run #30188954331](https://github.com/vrassouli/Bluent/actions/runs/30188954331),
+- [Quality run #30189474232](https://github.com/vrassouli/Bluent/actions/runs/30189474232),
   which passed the build, tests, five-package inspection, links, workflow YAML,
   whitespace, and focused accessibility smoke.
-- [Release packages run #30188954356](https://github.com/vrassouli/Bluent/actions/runs/30188954356),
+- [Release packages run #30189474228](https://github.com/vrassouli/Bluent/actions/runs/30189474228),
   whose artifact-validation job passed. The NuGet publication and GitHub
   Release jobs were skipped as designed.
 
-The downloaded `bluent-0.0.0-ci.376` artifact contained exactly five packages,
+The downloaded `bluent-0.0.0-ci.378` artifact contained exactly five packages,
 `release/package-validation.json`, and `release/release-notes.md`. The report
 records the pull-request merge ref commit
-`97863aaa731bb9c8676a77336006c338767d9b4b`, aligned version
-`0.0.0-ci.376`, the expected internal dependency graph, and expected static
-assets. Each package nuspec contains that same repository commit. The notes are
-a deterministic `Unreleased` preview with the required dry-run warning and the
+`0a79c805d9be8d934d078103ee985e7ffff51114`, aligned version
+`0.0.0-ci.378`, the expected internal dependency graph, expected static assets,
+and the same five trusted README image sources for every package. Each package
+nuspec contains that same repository commit. Direct inspection of all five
+archived README files passed the trusted-source validator. The notes are a
+deterministic `Unreleased` preview with the required dry-run warning and the
 pending `1.0.367` recommendation.
 
 No publication job ran, and no external release state changed.

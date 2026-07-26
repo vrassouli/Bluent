@@ -225,10 +225,11 @@ or GitHub Release.
 - The packaged README now uses a NuGet.org-trusted, commit-pinned screenshot
   URL, and release validation rejects relative or untrusted image sources in
   each of the five packages.
-- PR #380 passed Quality run #30188954331 and Release packages dry-run
-  #30188954356. The downloaded artifact contained exactly five aligned
-  packages, the validation report, and deterministic dry-run notes; publication
-  and GitHub Release jobs were skipped.
+- PR #380 commit `927dd20` passed Quality run #30189474232 and Release packages
+  dry-run #30189474228. Downloaded artifact `bluent-0.0.0-ci.378` contained
+  exactly five aligned packages, the validation report, and deterministic
+  dry-run notes. Every packaged README recorded only the five expected trusted
+  image sources; publication and GitHub Release jobs were skipped.
 
 ### Remaining work
 
