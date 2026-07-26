@@ -1,4 +1,5 @@
 @inject IDialogService DialogService
+@inject IDrawerService DrawerService
 @inject IToastService ToastService
 
 <PageTitle>@Mode compatibility | Bluent</PageTitle>
@@ -8,6 +9,7 @@
     This minimal consumer validates Bluent registration, component imports,
     styles, event callbacks, binding, overlays, charts, diagrams, and disposal.
 </p>
+<p data-testid="observed-renderer">Observed interactive renderer: @_observedRenderer</p>
 
 <section aria-labelledby="interaction-heading">
     <h2 id="interaction-heading">Interaction</h2>
@@ -19,7 +21,29 @@
         <Button Text="Increment" OnClick="Increment" Appearance="ButtonAppearance.Primary" />
         <Button Text="Show toast" OnClick="ShowToast" />
         <Button Text="Show dialog" OnClick="ShowDialog" />
+        <Button Text="Open drawer" OnClick="ShowDrawer" data-testid="drawer-trigger" />
         <NavLink href="/compatibility/static">Navigate to static SSR probe</NavLink>
+    </div>
+    <p role="status" data-testid="drawer-result">Drawer result: @_drawerResult</p>
+</section>
+
+<section aria-labelledby="overlay-heading">
+    <h2 id="overlay-heading">Placement and focus</h2>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 1rem;">
+        <Popover Placement="Placement.Bottom" SameWidth>
+            <Trigger>
+                <Button Text="Toggle measured popover" data-testid="popover-trigger" />
+            </Trigger>
+            <Surface>
+                <div data-testid="popover-surface">
+                    Placement-dependent popover content.
+                </div>
+            </Surface>
+        </Popover>
+        <Button Text="Focus tooltip trigger"
+                Tooltip="@($"{Mode} focus tooltip")"
+                TooltipPlacement="Placement.Top"
+                data-testid="tooltip-trigger" />
     </div>
 </section>
 
@@ -61,6 +85,9 @@
 
     private string _value = "ready";
     private int _count;
+    private string _drawerResult = "not opened";
+    private readonly string _observedRenderer =
+        OperatingSystem.IsBrowser() ? "WebAssembly" : "Server";
     private readonly Dictionary<string, double> _chartData = new()
     {
         ["First"] = 2,
@@ -85,5 +112,13 @@
         await DialogService.ShowMessageBoxAsync(
             $"{Mode} dialog",
             "Dialog service resolved in the active interactive scope.");
+    }
+
+    private async Task ShowDrawer()
+    {
+        _drawerResult = "open";
+        var result = await DrawerService.ShowAsync<CompatibilityDrawerContent>(
+            $"{Mode} drawer");
+        _drawerResult = result?.ToString() ?? "dismissed";
     }
 }
