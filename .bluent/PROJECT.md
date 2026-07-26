@@ -191,6 +191,34 @@ Before a real NuGet release:
 
 Known deferred compatibility work remains tracked in Issue #366, including transient Interactive Server reconnection and exact Interactive Auto renderer-transition instrumentation.
 
+## Post-Sprint 3 Small Backlog Cleanup
+
+**Issues:** [#374](https://github.com/vrassouli/Bluent/issues/374),
+[#375](https://github.com/vrassouli/Bluent/issues/375), and
+[#376](https://github.com/vrassouli/Bluent/issues/376)
+
+**Branch:** `chore/close-small-open-issues`
+
+### Completed on branch
+
+- [x] Add source-verified canonical Badge and Checkbox references without
+  changing either component or its public API.
+- [x] Update the component index, coverage inventory, and `llms.txt` for both
+  references.
+- [x] Add temporary standard-library `.nupkg` fixtures covering a valid package
+  set and five focused package-validator failures.
+
+### Validation Summary
+
+- Release-tool tests passed 13/13, including all six synthetic package
+  scenarios.
+- Markdown links passed across 36 maintained files.
+- Solution restore passed.
+- Release build passed with warnings treated as errors: 0 warnings, 0 errors.
+- Application tests passed 19/19.
+- The diff against `origin/Dev` passed `git diff --check`.
+- No package, tag, GitHub Release, or product API was created or published.
+
 ## Stable Release 1.0.367
 
 **Tracking:** [Issue #381](https://github.com/vrassouli/Bluent/issues/381)
