@@ -56,6 +56,38 @@ Historical prose.
                     )
                 )
 
+    def test_dry_run_uses_latest_release_when_unreleased_is_empty(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            changelog = root / "CHANGELOG.md"
+            output = root / "notes.md"
+            changelog.write_text(
+                """## [Unreleased]
+
+### Added
+
+- None.
+
+## [1.2.3] - 2026-07-26
+
+### Fixed
+
+- A released fix.
+""",
+                encoding="utf-8",
+            )
+            release_tools.extract_notes(
+                Namespace(
+                    changelog=changelog,
+                    version="0.0.0-ci.1",
+                    output=output,
+                    allow_unreleased=True,
+                )
+            )
+            notes = output.read_text(encoding="utf-8")
+            self.assertIn("generated from [1.2.3]", notes)
+            self.assertIn("- A released fix.", notes)
+
     def test_accepts_nuget_trusted_readme_image_sources(self) -> None:
         readme = """\
 ![NuGet](https://img.shields.io/nuget/v/Bluent.UI.svg)

@@ -70,7 +70,9 @@ When releasing:
 The release workflow extracts notes from the exact
 `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` section. A publication run fails if that
 section is missing or empty. Artifact-only dry runs may preview notes from
-`Unreleased`, but that preview cannot be used for a real GitHub Release.
+`Unreleased`. When a finalized release leaves `Unreleased` empty, pull-request
+dry runs use the latest non-empty dated release section instead. Neither
+preview can be used for a real GitHub Release.
 
 ## Automated release workflow
 

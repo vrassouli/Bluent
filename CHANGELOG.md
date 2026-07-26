@@ -68,6 +68,8 @@ versions aligned.
 
 - Corrected the packaged README screenshot URL for NuGet.org and added release
   validation that rejects relative or untrusted README image sources.
+- Kept pull-request artifact dry runs deterministic after release finalization
+  by using the latest dated release notes when `Unreleased` is empty.
 
 ### Security
 

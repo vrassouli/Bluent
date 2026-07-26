@@ -267,7 +267,7 @@ runtime 10.0.8.
 | `dotnet restore Bluent.sln` | Passed |
 | Release build with `--no-restore -warnaserror` | Passed with 0 warnings and 0 errors |
 | Full solution tests | Passed 19/19 |
-| Release-tool tests | Passed 6/6 |
+| Release-tool tests | Passed 7/7 |
 | Exact five-package pack | Passed at `1.0.367` |
 | Package validation | Passed IDs, aligned versions, exact internal dependencies, repository commit, license, `net10.0`, README, trusted README image sources, and expected static assets |
 | Deterministic notes | Passed from the dated `1.0.367` section |
@@ -282,3 +282,9 @@ Exact package metadata, dependency, README, clean-consumer, repository-commit,
 Quality workflow, artifact-only Release workflow, and downloaded-artifact
 evidence is recorded in the final release pull request so recording the
 evidence does not mutate the exact validated candidate afterward.
+
+The final pull request exposed and corrected one additional dry-run edge case:
+after release finalization creates an empty `Unreleased` section, synthetic
+pull-request package versions now use the latest non-empty dated release
+section for deterministic preview notes. Exact-version artifact and publication
+runs still require their matching dated changelog section.
