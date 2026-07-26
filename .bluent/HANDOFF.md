@@ -16,7 +16,7 @@ APIs, or include the benchmark rerun in Issue #394.
 - Active branch: `codex/issue-393`
 - Active issue: [#393](https://github.com/vrassouli/Bluent/issues/393)
 - Sprint 4 plan: `.bluent/sprints/sprint-04.md`
-- Pull request: not opened
+- Pull request: [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
 - Completed example issues:
   [#391](https://github.com/vrassouli/Bluent/issues/391) and
   [#392](https://github.com/vrassouli/Bluent/issues/392)
@@ -92,7 +92,7 @@ No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
   49-file Markdown links, workflow YAML, and whitespace.
 - Issue #393 has a progress comment with the same local evidence and pending
   external checks.
-- External CI and a pull request remain pending.
+- External CI remains pending on draft PR #396.
 
 ## Current Release State
 

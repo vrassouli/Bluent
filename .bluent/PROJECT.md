@@ -10,7 +10,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Current Sprint:** Sprint 4 production-pattern reference application
 **Status:** In progress
 **Working Branch:** `codex/issue-393`
-**Pull Request:** Not opened
+**Pull Request:** [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
 **Tracking Issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
 
 ## Operational Files
@@ -381,7 +381,7 @@ Issue #394 remains separate and is not included in this workstream.
 
 **Branch:** `codex/issue-393`
 
-**Pull Request:** Not opened
+**Pull Request:** [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
 
 **Detailed plan:** `.bluent/sprints/sprint-04.md`
 
@@ -432,7 +432,8 @@ Issue #394 remains separate and is not included in this workstream.
   transitions at runtime.
 - [x] Check a fresh-tab browser console for Bluent-related warnings or errors.
 - [x] Run the complete repository validation and record exact results.
-- [ ] Open a pull request and record external CI evidence.
+- [x] Open draft pull request #396 targeting `Dev`.
+- [ ] Record external CI evidence.
 
 ## Accepted Decisions
 

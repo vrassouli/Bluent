@@ -11,6 +11,8 @@
   [#392](https://github.com/vrassouli/Bluent/issues/392)
 - **Active reference-app branch:** `codex/issue-393`
 - **Active issue:** [#393](https://github.com/vrassouli/Bluent/issues/393)
+- **Active reference-app pull request:**
+  [#396](https://github.com/vrassouli/Bluent/pull/396) — draft
 - **Status:** In progress
 - **Started:** 2026-07-26
 
