@@ -100,7 +100,14 @@ Before any production publication, the maintainer still must:
 
 ## Deferred Work
 
-- Issue #366 remains open for transient Interactive Server reconnection and exact Interactive Auto renderer-transition instrumentation.
+- Issues [#387](https://github.com/vrassouli/Bluent/issues/387) and
+  [#388](https://github.com/vrassouli/Bluent/issues/388) have runtime-complete
+  follow-up work on `test/render-mode-followups`, based on `Dev` commit
+  `782ddad1f082ead94d020e03e95a4c803d4bbbb9`. The probe source exercised at
+  runtime is commit `848a083e4341b26fbf4d394ffea123157b03aa6c`.
+- Issue #366 remains open only for work not covered by those focused issues,
+  including exact Interactive Auto renderer-transition timing if the
+  maintainer still requires instrumentation.
 - Issue #363 remains separate AI-readiness work.
 - Community outreach, new public components, and Sprint 4 have not started.
 

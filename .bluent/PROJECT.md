@@ -219,6 +219,50 @@ Known deferred compatibility work remains tracked in Issue #366, including trans
 - The diff against `origin/Dev` passed `git diff --check`.
 - No package, tag, GitHub Release, or product API was created or published.
 
+## Post-Sprint 3 Render-Mode Follow-ups
+
+**Issues:** [#387](https://github.com/vrassouli/Bluent/issues/387) and
+[#388](https://github.com/vrassouli/Bluent/issues/388)
+
+**Branch:** `test/render-mode-followups`
+
+### Completed on branch
+
+- [x] Reproduce a transient Interactive Server transport interruption without
+  terminating the ASP.NET host.
+- [x] Verify automatic circuit reconnection, preserved binding/callback state,
+  post-reconnect dialog/toast services, and post-reconnect JavaScript-backed
+  popover behavior.
+- [x] Verify representative Drawer close/navigation/disposal, Popover
+  placement/dismissal, Tooltip focus/cleanup, and DOM-measurement scenarios in
+  Interactive Server, Interactive WebAssembly, and Interactive Auto.
+- [x] Record the Interactive Auto renderer observed by the interactive
+  component instance without claiming transition timing.
+- [x] Reconfirm meaningful static SSR display-only output and document
+  interactive behavior there as unsupported.
+- [x] Update the canonical hosting/render-mode evidence with exact environment,
+  steps, actual results, console/server findings, and limitations.
+
+### Runtime evidence
+
+- Runtime probe commit:
+  `848a083e4341b26fbf4d394ffea123157b03aa6c`.
+- The Interactive Server circuit automatically rejoined after the forwarding
+  layer was unavailable for approximately 10 seconds; state was preserved and
+  overlays plus JavaScript-backed placement worked after recovery.
+- Drawer, Popover, Tooltip, focus movement, navigation, and disposal checks
+  passed in all three interactive modes. Interactive Auto reported WebAssembly
+  for the tested instance.
+- Fresh matrix tabs had no browser-console warning or error. The reconnection
+  tab recorded only the expected transport and retry failures during the
+  simulated outage. The server remained alive and logged no circuit or
+  component exception.
+- Markdown links passed across 36 maintained files.
+- Solution restore passed; the Release build passed with warnings treated as
+  errors: 0 warnings, 0 errors; and application tests passed 19/19.
+- The diff against `origin/Dev` passed `git diff --check`.
+- The non-draft review pull request is pending.
+
 ## Stable Release 1.0.367
 
 **Tracking:** [Issue #381](https://github.com/vrassouli/Bluent/issues/381)
