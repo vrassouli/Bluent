@@ -6,6 +6,8 @@ Bluent component documentation is developed from a source-derived inventory and 
 
 - [Public component inventory and coverage](inventory.md)
 - [Component reference template](TEMPLATE.md)
+- [Badge](badge.md)
+- [Checkbox](checkbox.md)
 - [Dialog](dialog.md)
 - [Getting Started](../getting-started/index.md)
 - [Package selection and boundaries](../packages/index.md)
@@ -14,6 +16,6 @@ Bluent component documentation is developed from a source-derived inventory and 
 
 ## Current status
 
-The Sprint 1 inventory tracks 71 initial component families or public types across the main UI, Charts, Diagrams, and Utilities packages. Canonical per-component references are now the next documentation stage.
+The Sprint 1 inventory tracks 71 initial component families or public types across the main UI, Charts, Diagrams, and Utilities packages. Canonical references currently cover Badge, Checkbox, and Dialog, with the inventory recording their distinct source, build, and runtime evidence.
 
 A demo page or source file does not count as completed documentation. A reference progresses from draft to source verified, then runtime verified, using the status definitions in the inventory.
