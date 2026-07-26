@@ -15,7 +15,8 @@ The preparation must not publish packages or create a tag or GitHub Release.
 - Active branch: `release/stable-release-preparation`
 - Release-preparation issue:
   [#379](https://github.com/vrassouli/Bluent/issues/379)
-- Preparation pull request: not opened
+- Preparation pull request:
+  [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
 - Sprint 3 plan: `.bluent/sprints/sprint-03.md`
 - Sprint issue: [#372](https://github.com/vrassouli/Bluent/issues/372) — completed
 - Sprint completion: [PR #377](https://github.com/vrassouli/Bluent/pull/377) — merged
@@ -100,8 +101,8 @@ Do not infer or invent a release version.
 
 ## Next Session
 
-1. Commit and push the focused preparation changes.
-2. Open a preparation pull request targeting `Dev`.
-3. Record clean Quality and Release packages workflow evidence.
+1. Record clean Quality and Release packages workflow evidence for PR #380.
+2. Inspect the uploaded package-validation report and deterministic notes.
+3. Update the issue and PR with final CI evidence.
 4. Leave the pull request open for the maintainer's version and prerequisite
    decisions.

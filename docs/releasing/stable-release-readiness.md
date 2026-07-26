@@ -8,6 +8,8 @@
 
 **Tracking:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
 
+**Preparation PR:** [#380](https://github.com/vrassouli/Bluent/pull/380)
+
 ## Decision status
 
 The maintainer selected a stable release through the protected Sprint 3

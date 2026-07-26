@@ -10,7 +10,7 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 **Current Sprint:** None; Sprint 3 is complete
 **Status:** In progress
 **Working Branch:** `release/stable-release-preparation`
-**Pull Request:** Not opened
+**Pull Request:** [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
 **Tracking Issue:** [#379](https://github.com/vrassouli/Bluent/issues/379)
 
 ## Operational Files
@@ -197,6 +197,8 @@ Known deferred compatibility work remains tracked in Issue #366, including trans
 
 **Branch:** `release/stable-release-preparation`
 
+**Pull Request:** [#380](https://github.com/vrassouli/Bluent/pull/380) — draft
+
 **Status:** In progress
 
 The maintainer selected a stable release through the protected workflow.
@@ -226,7 +228,7 @@ or GitHub Release.
 - [x] Complete and record local build, test, pack, notes, documentation,
   workflow-YAML, whitespace, and focused accessibility validation.
 - [x] Validate a clean consumer against the five non-publish packages.
-- [ ] Open the preparation pull request targeting `Dev`.
+- [x] Open the preparation pull request targeting `Dev`.
 - [ ] Record clean Quality and Release packages artifact-only workflow runs.
 - [ ] Obtain the maintainer's exact-version decision.
 - [ ] Obtain maintainer confirmation of the protected environment and secret
