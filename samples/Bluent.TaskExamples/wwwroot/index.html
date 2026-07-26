@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-bui-theme="light" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bluent task examples</title>
+    <base href="/" />
+    <link href="_content/Bluent.UI/bluent.ui.theme.default.min.css" rel="stylesheet" />
+    <link href="_content/Bluent.UI/bluent.ui.components.min.css" rel="stylesheet" />
+    <link href="_content/Bluent.UI.Diagrams/bluent.ui.diagrams.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .app-header {
+            border-bottom: 1px solid var(--colorNeutralStroke2);
+            padding: 1rem 1.5rem;
+        }
+
+        .app-header a {
+            color: var(--colorNeutralForeground1);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .app-shell {
+            display: grid;
+            grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr);
+            min-height: calc(100vh - 3.5rem);
+        }
+
+        .app-shell nav {
+            border-inline-end: 1px solid var(--colorNeutralStroke2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 1rem;
+        }
+
+        .app-shell nav a {
+            border-radius: 0.25rem;
+            color: var(--colorNeutralForeground1);
+            padding: 0.5rem 0.75rem;
+            text-decoration: none;
+        }
+
+        .app-shell nav a.active {
+            background: var(--colorNeutralBackground1Selected);
+            color: var(--colorBrandForeground1);
+        }
+
+        .app-shell main {
+            max-width: 64rem;
+            padding: 1.5rem;
+        }
+
+        .example-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-block: 1rem;
+        }
+
+        .example-field {
+            display: grid;
+            gap: 0.35rem;
+            margin-block: 1rem;
+            max-width: 30rem;
+        }
+
+        .diagram-frame {
+            border: 1px solid var(--colorNeutralStroke1);
+            height: 16rem;
+            max-width: 42rem;
+        }
+
+        @media (max-width: 48rem) {
+            .app-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .app-shell nav {
+                border-block-end: 1px solid var(--colorNeutralStroke2);
+                border-inline-end: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">Loading task examples…</div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+</html>

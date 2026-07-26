@@ -4,18 +4,22 @@ This file is the operational entry point for continuing Bluent with Codex or ano
 
 ## Current Objective
 
-Finalize the approved stable `1.0.367` release candidate through the protected
-artifact-only workflow, tracked in
-[Issue #381](https://github.com/vrassouli/Bluent/issues/381).
+Complete the canonical task-oriented examples and compilation gate tracked in
+[Issue #391](https://github.com/vrassouli/Bluent/issues/391) and
+[Issue #392](https://github.com/vrassouli/Bluent/issues/392).
 
-The preparation must not publish packages or create a tag or GitHub Release.
+This work does not publish packages, create a tag or GitHub Release, add public
+APIs, or include the reference application and benchmark issues.
 
 ## Current Branch and Tracking
 
 - Base branch: `Dev`
-- Active branch: `release/1.0.367`
-- Release issue: [#381](https://github.com/vrassouli/Bluent/issues/381)
-- Final release pull request: pending
+- Active branch: `codex/issues-391-392`
+- Example issues: [#391](https://github.com/vrassouli/Bluent/issues/391) and
+  [#392](https://github.com/vrassouli/Bluent/issues/392)
+- Sprint 4 plan: `.bluent/sprints/sprint-04.md`
+- Pull request: [#395](https://github.com/vrassouli/Bluent/pull/395) — draft
+- Related release issue: [#381](https://github.com/vrassouli/Bluent/issues/381)
 - Preparation issue:
   [#379](https://github.com/vrassouli/Bluent/issues/379) — completed
 - Preparation pull request:
@@ -33,7 +37,7 @@ The preparation must not publish packages or create a tag or GitHub Release.
 1. `AGENTS.md`
 2. `.bluent/PROJECT.md`
 3. this file
-4. `.bluent/sprints/sprint-03.md`
+4. `.bluent/sprints/sprint-04.md`
 5. `.bluent/QUALITY.md`
 6. `.bluent/BACKLOG.md`
 7. `RELEASING.md`
@@ -59,6 +63,22 @@ Merged through PR #377:
 - contributor-ready Issues #374, #375, and #376.
 
 No real tag, GitHub Release, or NuGet publication was created during Sprint 3.
+
+## Active Work State
+
+- A standalone `samples/Bluent.TaskExamples` WebAssembly consumer contains ten
+  task-oriented examples and does not reference the demo projects.
+- Canonical pages under `docs/examples/tasks` link directly to the compiled
+  source and cover package, namespace, setup, assets, behavior, mistakes,
+  render modes, and evidence.
+- Quality CI now runs `scripts/quality/check_task_examples.sh`.
+- The focused validator builds all examples and proves drift detection with an
+  opt-in invalid source whose compiler failure must name the source file.
+- Local validation passed: focused validator, 48-file Markdown link check,
+  tool/solution restore, zero-warning Release build, 19 application tests, 13
+  release-tool tests, workflow YAML parsing, and `git diff --check`.
+- Runtime, visual, deployment, package, and external CI results are not
+  claimed.
 
 ## Current Release State
 
@@ -101,17 +121,14 @@ Before any production publication, the maintainer still must:
 ## Deferred Work
 
 - Issues [#387](https://github.com/vrassouli/Bluent/issues/387) and
-  [#388](https://github.com/vrassouli/Bluent/issues/388) have runtime-complete
-  follow-up work on `test/render-mode-followups`, based on `Dev` commit
-  `782ddad1f082ead94d020e03e95a4c803d4bbbb9`. The probe source exercised at
-  runtime is commit `848a083e4341b26fbf4d394ffea123157b03aa6c`.
-  [PR #389](https://github.com/vrassouli/Bluent/pull/389) is open and
-  non-draft against `Dev`.
+  [#388](https://github.com/vrassouli/Bluent/issues/388) were completed by
+  merged [PR #389](https://github.com/vrassouli/Bluent/pull/389).
 - Issue #366 remains open only for work not covered by those focused issues,
   including exact Interactive Auto renderer-transition timing if the
   maintainer still requires instrumentation.
-- Issue #363 remains separate AI-readiness work.
-- Community outreach, new public components, and Sprint 4 have not started.
+- Issue #363 remains the parent AI-readiness work.
+- Sprint 4 Issues #393 and #394 remain separate from the active examples and
+  compilation workstream.
 
 ## Constraints
 
@@ -124,8 +141,9 @@ Before any production publication, the maintainer still must:
 
 ## Next Session
 
-1. Complete local validation of the exact `1.0.367` candidate.
-2. Run `Release packages` with `publish: false` from the exact candidate commit.
-3. Inspect and record the `bluent-1.0.367` artifact.
-4. Open the final release pull request targeting `Dev` and leave it open for
-   maintainer review.
+1. Review the focused diff and create a branch/commit when requested.
+2. Open a pull request targeting `Dev`.
+3. Record the Quality and release-package workflow results without hiding
+   failures or skipped checks.
+4. Close Issues #391 and #392 only after their independent acceptance criteria
+   and required external workflow evidence are satisfied.

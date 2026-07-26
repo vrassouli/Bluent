@@ -1,0 +1,27 @@
+@inherits LayoutComponentBase
+
+<header class="app-header">
+    <a href="">Bluent task examples</a>
+</header>
+
+<div class="app-shell">
+    <nav aria-label="Task examples">
+        <NavLink href="" Match="NavLinkMatch.All">Overview</NavLink>
+        <NavLink href="tasks/basic-input">Basic input</NavLink>
+        <NavLink href="tasks/form-validation">Form validation</NavLink>
+        <NavLink href="tasks/confirmation-dialog">Confirmation dialog</NavLink>
+        <NavLink href="tasks/feedback">Feedback</NavLink>
+        <NavLink href="tasks/data-grid">Data grid</NavLink>
+        <NavLink href="tasks/navigation-layout">Navigation and layout</NavLink>
+        <NavLink href="tasks/drawer-popover">Drawer and popover</NavLink>
+        <NavLink href="tasks/chart-dashboard">Chart dashboard</NavLink>
+        <NavLink href="tasks/simple-diagram">Simple diagram</NavLink>
+        <NavLink href="tasks/theme-rtl">Theme and RTL</NavLink>
+    </nav>
+
+    <main>
+        @Body
+    </main>
+</div>
+
+<Containers />

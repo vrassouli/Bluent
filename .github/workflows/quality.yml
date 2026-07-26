@@ -43,6 +43,9 @@ jobs:
           --no-restore
           -warnaserror
 
+      - name: Compile canonical task examples and exercise drift detection
+        run: bash scripts/quality/check_task_examples.sh
+
       - name: Test solution
         run: dotnet test Bluent.sln --configuration Release --no-build
 

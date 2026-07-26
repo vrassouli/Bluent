@@ -12,7 +12,10 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- None.
+- Ten canonical, task-oriented Bluent examples backed by a standalone
+  compilable WebAssembly consumer.
+- CI validation that builds documentation examples and proves invalid sample
+  references produce a focused compiler failure.
 
 ### Changed
 

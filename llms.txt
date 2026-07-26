@@ -11,6 +11,20 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
 - [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
+- [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): ten complete, compiled patterns for common Bluent application tasks
+
+## Task-oriented examples
+
+- [Basic form input](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/basic-input.md): bound text, numeric, select, and Boolean inputs
+- [Form validation](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/form-validation.md): EditForm, data annotations, validation messages, and valid submit
+- [Confirmation dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/confirmation-dialog.md): awaited modal result before a consequential action
+- [Toast and MessageBar feedback](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/feedback.md): persistent inline and transient global feedback
+- [DataGrid with paging](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/data-grid-paging.md): typed columns, ItemsProvider, and DataPager
+- [Navigation and layout](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/navigation-and-layout.md): Router, shared layout, NavLink, NavigationManager, and one Containers host
+- [Drawer and Popover](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/drawer-and-popover.md): service-backed drawer results and anchored popover content
+- [Chart dashboard](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/chart-dashboard.md): typed Chart.js-backed operational dataset
+- [Simple diagram](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/simple-diagram.md): packaged diagram surface with meaningful SVG content
+- [Theme, dark mode, and RTL](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/theme-dark-mode-and-rtl.md): runtime theme family, mode, and direction changes
 
 ## Components
 

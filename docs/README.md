@@ -16,7 +16,7 @@ The repository root README remains the short evaluation and installation entry p
 | Components | [`components/`](components/README.md) | Use public components through a consistent reference format |
 | Guides | [`guides/`](guides/theming-localization-rtl-and-assets.md) | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
 | Compatibility | [`compatibility/`](compatibility/README.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
-| Examples | [`examples/`](examples/README.md) | Find runnable, source-verified examples and reference applications |
+| Examples | [`examples/`](examples/README.md) and [`examples/tasks/`](examples/tasks/README.md) | Find compilable task patterns, runnable examples, and reference applications |
 | Demo gallery | [`demo/`](demo/README.md) | Review current screenshots captured from the validated running demo |
 | AI readiness | [`ai/`](ai/benchmark.md) | Maintain benchmark prompts, dated results, scoring, and recurring failure analysis |
 | Quality | [`quality/compiler-warning-baseline.md`](quality/compiler-warning-baseline.md) | Review the accepted compiler-warning baseline and regression policy |
