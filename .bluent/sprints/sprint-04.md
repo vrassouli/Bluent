@@ -16,6 +16,9 @@
 - **Active benchmark branch:** `codex/issue-394`
 - **Active benchmark issue:**
   [#394](https://github.com/vrassouli/Bluent/issues/394)
+- **Active naming-collision follow-up branch:** `codex/issue-397`
+- **Active naming-collision follow-up issue:**
+  [#397](https://github.com/vrassouli/Bluent/issues/397)
 - **Status:** Ready for review
 - **Started:** 2026-07-26
 
@@ -224,3 +227,40 @@ Run on 2026-07-26 on macOS 26.5.2, Apple Silicon, with .NET SDK
 
 Runtime, visual, deployment, package, tag, release, external CI, and
 external-assistant validation were not run or claimed.
+
+## DrawerContent naming-collision follow-up
+
+### Scope
+
+- [x] Update the canonical Drawer/Popover task guidance with the
+  application-owned `DrawerContent` collision risk.
+- [x] Recommend the distinctive `OrderFilterDrawer` pattern and document full
+  qualification as the fallback for an existing application component.
+- [x] Compile the positive pattern in the standalone task consumer.
+- [x] Require the focused negative source to fail with `CS0104`.
+- [x] Preserve all public APIs and package boundaries.
+
+### Remaining
+
+- [x] Run and record the Issue #397 validation matrix.
+- [x] Commit the branch with a clean worktree.
+
+### Local validation evidence
+
+Run on 2026-07-26 on macOS 26.5.2, Apple Silicon, with .NET SDK
+`10.0.300`:
+
+- Tool and solution restore passed.
+- The Release solution build passed with warnings treated as errors: 0
+  warnings and 0 errors.
+- Application tests passed 19/19.
+- The canonical task consumer built with 0 warnings and 0 errors. The focused
+  negative source failed as required with `CS0104`, named
+  `DrawerContentCollision.cs.invalid`, and identified both competing
+  `DrawerContent` types.
+- Markdown links passed across 50 maintained files.
+- `git diff --check origin/Dev` passed.
+
+Runtime, visual, deployment, package, tag, release, and external CI validation
+were not run or claimed. Packing was not applicable because package content
+did not change.

@@ -1,0 +1,19 @@
+namespace Bluent.TaskExamples.ApplicationComponents
+{
+    internal sealed class DrawerContent : Microsoft.AspNetCore.Components.ComponentBase
+    {
+    }
+}
+
+namespace Bluent.TaskExamples.Validation
+{
+    using Bluent.TaskExamples.ApplicationComponents;
+    using Bluent.UI.Components;
+
+    // Included only when ValidateDrawerContentCollision=true. The Quality
+    // workflow expects DrawerContent to be ambiguous and name this file.
+    internal sealed class DrawerContentCollision
+    {
+        private DrawerContent _component = default!;
+    }
+}

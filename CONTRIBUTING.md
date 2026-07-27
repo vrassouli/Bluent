@@ -84,10 +84,11 @@ bash scripts/quality/check_task_examples.sh
 ```
 
 The script first builds every canonical example with warnings treated as
-errors. It then enables an intentionally invalid opt-in source and requires the
-compiler diagnostic to identify that source. Add complete examples under
-`samples/Bluent.TaskExamples`, link them from `docs/examples/tasks`, and do not
-copy a second divergent version into Markdown.
+errors. It then enables an opt-in application `DrawerContent` type and requires
+the compiler to reject its collision with `Bluent.UI.Components.DrawerContent`
+using `CS0104`. Add complete examples under `samples/Bluent.TaskExamples`, link
+them from `docs/examples/tasks`, and do not copy a second divergent version
+into Markdown.
 
 ### Demo
 

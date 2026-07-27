@@ -7,11 +7,11 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 ## Current Phase
 
 **Phase:** Reliable Examples and AI Readiness
-**Current Sprint:** Sprint 4 AI-readiness benchmark rerun
+**Current Sprint:** Sprint 4 DrawerContent naming-collision follow-up
 **Status:** Ready for review
-**Working Branch:** `codex/issue-394`
+**Working Branch:** `codex/issue-397`
 **Pull Request:** Not opened
-**Tracking Issue:** [#394](https://github.com/vrassouli/Bluent/issues/394)
+**Tracking Issue:** [#397](https://github.com/vrassouli/Bluent/issues/397)
 
 ## Operational Files
 
@@ -276,7 +276,7 @@ Known deferred compatibility work remains tracked in Issue #366, including trans
 **Preparation:** [Issue #379](https://github.com/vrassouli/Bluent/issues/379)
 and [PR #380](https://github.com/vrassouli/Bluent/pull/380) — completed
 
-**Status:** In progress
+**Status:** Ready for review
 
 The maintainer approved stable version `1.0.367` dated 2026-07-26 and confirmed
 that the protected `nuget-production` environment and its `NUGET_API_KEY`
@@ -499,6 +499,55 @@ explicitly scoped.
   ten-sample consumer built with 0 warnings and 0 errors.
 - No runtime, visual, deployment, package, tag, release, external CI, or
   external-assistant validation is claimed.
+
+## Sprint 4 — DrawerContent Naming-Collision Follow-up
+
+**Tracking:** [Issue #397](https://github.com/vrassouli/Bluent/issues/397)
+
+**Branch:** `codex/issue-397`
+
+**Status:** In progress
+
+### Implemented
+
+- [x] Explain the collision between an application-owned `DrawerContent` and
+  `Bluent.UI.Components.DrawerContent` in the canonical Drawer/Popover task
+  guidance.
+- [x] Recommend a distinctive application name such as `OrderFilterDrawer`
+  and show fully qualified application type usage as the fallback for an
+  existing collision.
+- [x] Compile the positive `OrderFilterDrawer` pattern in the standalone task
+  consumer.
+- [x] Replace the generic invalid-reference check with a focused collision
+  source that must fail with `CS0104`.
+- [x] Keep existing public APIs and package boundaries unchanged.
+
+### Remaining
+
+- [x] Run and record the complete Issue #397 validation matrix.
+- [x] Commit the focused changes with a clean worktree.
+
+### Local validation summary
+
+Run on 2026-07-26 on macOS 26.5.2, Apple Silicon, with .NET SDK
+`10.0.300`:
+
+- `dotnet tool restore` — passed.
+- `dotnet restore Bluent.sln` — passed; all projects were up to date.
+- `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror`
+  — passed with 0 warnings and 0 errors.
+- `dotnet test Bluent.sln --configuration Release --no-build` — passed 19/19.
+- `bash scripts/quality/check_task_examples.sh` — passed. The positive
+  consumer built with 0 warnings and 0 errors; the focused negative source
+  failed as required with `CS0104` naming
+  `DrawerContentCollision.cs.invalid` and both competing types.
+- `python3 scripts/quality/check_markdown_links.py` — passed across 50
+  Markdown files.
+- `git diff --check origin/Dev` — passed.
+
+No runtime, visual, deployment, package, tag, release, or external CI
+validation was run or claimed. No package content changed, so packing was not
+applicable.
 
 ## Accepted Decisions
 

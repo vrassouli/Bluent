@@ -15,7 +15,7 @@ so a code change cannot leave a second snippet silently out of date.
 | [Toast and MessageBar feedback](feedback.md) | `Bluent.UI` | [`Feedback.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/Feedback.razor) |
 | [DataGrid with paging](data-grid-paging.md) | `Bluent.UI` | [`DataGridPaging.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/DataGridPaging.razor) |
 | [Navigation and layout](navigation-and-layout.md) | `Bluent.UI` | [`NavigationAndLayout.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/NavigationAndLayout.razor) |
-| [Drawer and Popover](drawer-and-popover.md) | `Bluent.UI` | [`DrawerAndPopover.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/DrawerAndPopover.razor) |
+| [Drawer and Popover](drawer-and-popover.md) | `Bluent.UI` | [`DrawerAndPopover.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/DrawerAndPopover.razor) and [`OrderFilterDrawer.razor`](../../../samples/Bluent.TaskExamples/Shared/OrderFilterDrawer.razor) |
 | [Chart dashboard](chart-dashboard.md) | `Bluent.UI`, `Bluent.UI.Charts` | [`ChartDashboard.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/ChartDashboard.razor) |
 | [Simple diagram](simple-diagram.md) | `Bluent.UI.Diagrams` | [`SimpleDiagram.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/SimpleDiagram.razor) |
 | [Theme, dark mode, and RTL](theme-dark-mode-and-rtl.md) | `Bluent.UI` | [`ThemeAndRtl.razor`](../../../samples/Bluent.TaskExamples/Pages/Tasks/ThemeAndRtl.razor) |
@@ -75,10 +75,11 @@ containers, or assets from either demo host.
 Quality CI runs
 [`check_task_examples.sh`](../../../scripts/quality/check_task_examples.sh).
 The script builds the entire consumer with warnings treated as errors. It then
-enables an intentionally invalid opt-in source and requires compilation to
-fail with a diagnostic naming that source. This negative control demonstrates
-that an invalid component/API reference is detected rather than silently
-ignored.
+enables an opt-in source that declares an application-owned `DrawerContent`
+beside `Bluent.UI.Components.DrawerContent`. The build must fail with `CS0104`
+and name the collision source. This negative control keeps the documented
+naming risk visible while the normal `OrderFilterDrawer` example proves the
+recommended pattern compiles.
 
 When adding an example:
 
