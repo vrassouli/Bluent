@@ -1,0 +1,16 @@
+<div class="p-4">
+    <Checkbox @bind-Value="_includeArchived" Label="Include archived orders" />
+
+    <div class="example-actions">
+        <Button Text="Apply"
+                Appearance="ButtonAppearance.Primary"
+                OnClick="@(() => Drawer?.Close(_includeArchived ? "Archived included" : "Active only"))" />
+        <Button Text="Cancel" OnClick="@(() => Drawer?.Close())" />
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] public Drawer? Drawer { get; set; }
+
+    private bool _includeArchived;
+}

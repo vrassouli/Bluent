@@ -37,13 +37,13 @@ Namespace: `Bluent.UI.Components`
 | ActionCard | `Bluent.UI` | `src/Bluent.UI/Components/ActionCardComponent/` | Not started | Verify | Not validated |
 | AudioCapture | `Bluent.UI` | `src/Bluent.UI/Components/AudioCaptureComponent/` | Not started | Verify | Not validated |
 | Avatar | `Bluent.UI` | `src/Bluent.UI/Components/AvatarComponent/` | Not started | Verify | Not validated |
-| Badge | `Bluent.UI` | `src/Bluent.UI/Components/BadgeComponent/` | Not started | Verify | Not validated |
+| [Badge](badge.md) | `Bluent.UI` | `src/Bluent.UI/Components/BadgeComponent/` | Source verified | Compiled demo | Build |
 | Breadcrumb | `Bluent.UI` | `src/Bluent.UI/Components/BreadcrumbComponent/` | Not started | Verify | Not validated |
 | Button | `Bluent.UI` | `src/Bluent.UI/Components/ButtonComponent/` | Not started | Verify | Not validated |
 | ButtonGroup | `Bluent.UI` | `src/Bluent.UI/Components/ButtonGroupComponent/` | Not started | Verify | Not validated |
 | Calendar | `Bluent.UI` | `src/Bluent.UI/Components/CalendarComponent/` | Not started | Verify | Not validated |
 | Card | `Bluent.UI` | `src/Bluent.UI/Components/CardComponent/` | Not started | Verify | Not validated |
-| Checkbox | `Bluent.UI` | `src/Bluent.UI/Components/CheckboxComponent/` | Not started | Verify | Not validated |
+| [Checkbox](checkbox.md) | `Bluent.UI` | `src/Bluent.UI/Components/CheckBoxComponent/` | Source verified | Compiled component demo and scenario | Runtime in standalone WebAssembly |
 | DataGrid | `Bluent.UI` | `src/Bluent.UI/Components/DataGridComponent/` | Not started | Verify | Not validated |
 | DataPager | `Bluent.UI` | `src/Bluent.UI/Components/DataPagerComponent/` | Not started | Verify | Not validated |
 | DateField | `Bluent.UI` | `src/Bluent.UI/Components/DateFieldComponent/` | Not started | Verify | Not validated |
@@ -148,13 +148,13 @@ Utilities includes services and abstractions in addition to Razor components. Th
 
 | Package | Tracked families/types | Source-verified references | Runtime-verified references | Automated examples |
 | --- | ---: | ---: | ---: | ---: |
-| `Bluent.UI` | 52 | 0 | 0 | 0 |
+| `Bluent.UI` | 52 | 2 | 1 | 2 |
 | `Bluent.UI.Charts` | 10 | 0 | 0 | 0 |
 | `Bluent.UI.Diagrams` | 5 | 0 | 0 | 0 |
 | `Bluent.UI.Utilities` | 4 | 0 | 0 | 0 |
-| **Total** | **71** | **0** | **0** | **0** |
+| **Total** | **71** | **2** | **1** | **2** |
 
-The zero baseline is intentional: a demo page or public source file is not counted as canonical documentation until it is reviewed against the [component reference template](TEMPLATE.md).
+Badge and Checkbox now have source-verified canonical references, while Dialog retains its separately recorded runtime verification. A demo page or public source file is not counted as canonical documentation until it is reviewed against the [component reference template](TEMPLATE.md).
 
 ## Prioritization
 

@@ -1,6 +1,30 @@
 # Runnable examples
 
-The repository's demo projects are the canonical runnable example host:
+## Production-pattern reference application
+
+[OrderDesk](reference-application.md) is the canonical small business
+application. It composes customer list/detail/create/edit workflows, a
+virtualized order grid, validation, confirmation, notifications, a filter
+drawer, charting, a lifecycle diagram, theme switching, and RTL using current
+public Bluent APIs. Its local in-memory domain layer is separate from the
+component composition and requires no external infrastructure.
+
+## Canonical task examples
+
+The [task-oriented example index](tasks/README.md) contains ten complete
+business-application patterns for inputs, validation, confirmation, feedback,
+data presentation, navigation, overlays, charts, diagrams, theming, and RTL.
+
+Their source lives in the standalone `Bluent.TaskExamples` WebAssembly
+consumer. Quality CI compiles that project and exercises a focused negative
+control so an application-owned `DrawerContent` collision produces the
+expected `CS0104` failure. The task documentation links to the compiled source
+rather than maintaining duplicate snippets.
+
+## Demo examples
+
+The repository's demo projects remain the broader component-gallery and
+scenario hosts:
 
 - `Bluent.UI.Demo` — Blazor WebAssembly host
 - `Bluent.UI.Demo.SSR` — Blazor Web App/static SSR host
@@ -38,4 +62,7 @@ A demo page counts as:
 
 ## Validation
 
-The Sprint 1 workflow restores and builds the entire solution in Release configuration, runs tests, packs all five libraries, checks local documentation links, and uploads package artifacts.
+The durable Quality workflow restores and builds the entire solution in
+Release configuration, compiles the canonical task consumer, demonstrates
+invalid-sample rejection, runs tests, packs all five libraries, checks local
+documentation links, and uploads package artifacts.

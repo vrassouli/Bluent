@@ -1,0 +1,108 @@
+@page "/"
+@inject OrderDeskRepository Repository
+
+<PageTitle>Dashboard · OrderDesk</PageTitle>
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Monday, July 26</p>
+        <h1>Good morning</h1>
+        <p>Here is what needs attention across customer operations.</p>
+    </div>
+    <Button Text="Add customer"
+            Appearance="ButtonAppearance.Primary"
+            OnClick="@(() => Navigation.NavigateTo("customers/new"))" />
+</div>
+
+<section class="metric-grid" aria-label="Business summary">
+    <article class="metric-card">
+        <span>Active customers</span>
+        <strong>@Repository.ActiveCustomerCount</strong>
+        <small>Across three segments</small>
+    </article>
+    <article class="metric-card attention">
+        <span>Needs attention</span>
+        <strong>@Repository.OrdersNeedingAttention</strong>
+        <small>Draft or in review</small>
+    </article>
+    <article class="metric-card">
+        <span>Open order value</span>
+        <strong>@Repository.OpenOrderValue.ToString("C0")</strong>
+        <small>Not yet fulfilled</small>
+    </article>
+</section>
+
+<div class="dashboard-grid">
+    <section class="panel">
+        <div class="panel-heading">
+            <div>
+                <p class="eyebrow">Performance</p>
+                <h2>Fulfilled revenue</h2>
+            </div>
+            <span class="status-pill success">Last 10 days</span>
+        </div>
+
+        <div class="chart-frame">
+            <Chart>
+                <Legend Display="false" />
+                <Title Text="Fulfilled order revenue" />
+                <YScale Text="Revenue (USD)" />
+                <Dataset ChartType="ChartType.Line"
+                         Data="_revenue"
+                         Label="Revenue"
+                         Smooth
+                         FillTarget="FillTarget.Start"
+                         BorderWidth="2"
+                         BorderColor="@DefaultColors.Purple"
+                         BackgroundColor="@DefaultColors.Purple.Opacity(48)" />
+            </Chart>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-heading">
+            <div>
+                <p class="eyebrow">Workflow</p>
+                <h2>Order lifecycle</h2>
+            </div>
+        </div>
+
+        <p class="panel-copy">
+            Teams move consequential orders through review before fulfillment.
+        </p>
+        <div class="workflow-diagram" aria-label="Draft, review, ready, fulfilled order lifecycle">
+            <Diagram>
+                <ChildContent>
+                    <rect x="4" y="45" width="58" height="48" rx="8" class="diagram-node" />
+                    <text x="17" y="74" class="diagram-label">Draft</text>
+                    <line x1="62" y1="69" x2="78" y2="69" class="diagram-line" />
+                    <path d="M 70 63 L 80 69 L 70 75 Z" class="diagram-arrow" />
+
+                    <rect x="80" y="45" width="65" height="48" rx="8" class="diagram-node review" />
+                    <text x="90" y="74" class="diagram-label">Review</text>
+                    <line x1="145" y1="69" x2="161" y2="69" class="diagram-line" />
+                    <path d="M 153 63 L 163 69 L 153 75 Z" class="diagram-arrow" />
+
+                    <rect x="163" y="45" width="58" height="48" rx="8" class="diagram-node" />
+                    <text x="176" y="74" class="diagram-label">Ready</text>
+                    <line x1="221" y1="69" x2="237" y2="69" class="diagram-line" />
+                    <path d="M 229 63 L 239 69 L 229 75 Z" class="diagram-arrow" />
+
+                    <rect x="239" y="45" width="78" height="48" rx="8" class="diagram-node fulfilled" />
+                    <text x="247" y="74" class="diagram-label">Fulfilled</text>
+                </ChildContent>
+            </Diagram>
+        </div>
+    </section>
+</div>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    private Dictionary<string, double> _revenue = [];
+
+    protected override void OnInitialized()
+    {
+        _revenue = Repository.GetFulfilledRevenueByDay();
+    }
+}

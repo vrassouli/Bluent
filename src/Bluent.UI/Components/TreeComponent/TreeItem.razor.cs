@@ -7,7 +7,6 @@ public partial class TreeItem
     private List<TreeItem> _items = new();
     private bool _mouseEntered;
     private bool _dragOver;
-    private bool _dragOverBefore;
     private bool _dragOverAfter;
     private bool _dndStarted;
 

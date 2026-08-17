@@ -1,0 +1,21 @@
+@page "/tasks/navigation-layout"
+@inject NavigationManager Navigation
+
+<PageTitle>Navigation and layout</PageTitle>
+
+<h1>Navigation and layout</h1>
+
+<p>
+    This page is rendered by <code>MainLayout</code>. The layout owns the
+    application navigation and the single shared <code>Containers</code> host.
+</p>
+
+<nav aria-label="Related task examples" class="example-actions">
+    <NavLink href="tasks/basic-input">Basic input</NavLink>
+    <NavLink href="tasks/data-grid">Data grid</NavLink>
+    <NavLink href="tasks/chart-dashboard">Chart dashboard</NavLink>
+</nav>
+
+<Button Text="Go to the overview"
+        Appearance="ButtonAppearance.Primary"
+        OnClick="@(() => Navigation.NavigateTo(""))" />

@@ -1,0 +1,137 @@
+name: Quality
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - Dev
+      - release/sprint-3-reliability
+  pull_request:
+    branches:
+      - Dev
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build, test, pack, and inspect
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore solution
+        run: dotnet restore Bluent.sln
+
+      - name: Build solution without compiler warnings
+        run: >
+          dotnet build Bluent.sln
+          --configuration Release
+          --no-restore
+          -warnaserror
+
+      - name: Compile canonical task examples and exercise drift detection
+        run: bash scripts/quality/check_task_examples.sh
+
+      - name: Test solution
+        run: dotnet test Bluent.sln --configuration Release --no-build
+
+      - name: Test release tooling
+        working-directory: scripts/release
+        run: python3 -m unittest -v test_release_tools.py
+
+      - name: Pack and validate the five public packages
+        shell: bash
+        env:
+          VALIDATION_VERSION: 0.0.0-ci.${{ github.run_number }}
+        run: |
+          mkdir -p artifacts/packages artifacts/release
+          projects=(
+            src/Bluent.Core/Bluent.Core.csproj
+            src/Bluent.UI/Bluent.UI.csproj
+            src/Bluent.UI.Charts/Bluent.UI.Charts.csproj
+            src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj
+            src/Bluent.UI.Utilities/Bluent.UI.Utilities.csproj
+          )
+          for project in "${projects[@]}"; do
+            dotnet pack "$project" \
+              --configuration Release \
+              --no-build \
+              --output artifacts/packages \
+              -p:PackageVersion="$VALIDATION_VERSION" \
+              -p:RepositoryCommit="${{ github.sha }}" \
+              -p:ContinuousIntegrationBuild=true
+          done
+          python3 scripts/release/release_tools.py validate-packages \
+            --directory artifacts/packages \
+            --version "$VALIDATION_VERSION" \
+            --commit "${{ github.sha }}" \
+            --report artifacts/release/package-validation.json
+
+      - name: Check local Markdown links
+        run: python3 scripts/quality/check_markdown_links.py
+
+      - name: Parse workflow YAML
+        shell: bash
+        run: |
+          ruby -e 'require "yaml"; Dir[".github/workflows/*.{yml,yaml}"].each { |file| YAML.parse_file(file); puts "Parsed #{file}" }'
+
+      - name: Check selected rendered pages for basic accessibility
+        shell: bash
+        run: |
+          ASPNETCORE_ENVIRONMENT=Development \
+            dotnet run \
+            --project src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj \
+            --configuration Release \
+            --no-build \
+            --no-launch-profile \
+            --urls http://127.0.0.1:5054 \
+            > /tmp/bluent-compatibility-host.log 2>&1 &
+          host_pid=$!
+          trap 'kill "$host_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5054/compatibility/static > /dev/null; then
+              break
+            fi
+            if [[ "$attempt" == "30" ]]; then
+              cat /tmp/bluent-compatibility-host.log
+              exit 1
+            fi
+            sleep 1
+          done
+          python3 scripts/quality/check_rendered_accessibility.py \
+            http://127.0.0.1:5054
+
+      - name: Check changed-line whitespace
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [[ -n "$BASE_SHA" ]]; then
+            git diff --check "$BASE_SHA"...HEAD
+          else
+            git diff --check HEAD^ HEAD
+          fi
+
+      - name: Upload validated packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: validated-packages-${{ github.sha }}
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/release/package-validation.json
+          if-no-files-found: error
+          retention-days: 7

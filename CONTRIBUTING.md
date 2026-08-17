@@ -71,6 +71,25 @@ Run the current test projects with:
 dotnet test Bluent.sln
 ```
 
+### Canonical task examples
+
+Task-oriented documentation uses a standalone WebAssembly consumer so Razor,
+C# models, package references, imports, component parameters, and events are
+compiled rather than maintained as unchecked Markdown snippets.
+
+Run its validation after changing a task example or a public API used by one:
+
+```bash
+bash scripts/quality/check_task_examples.sh
+```
+
+The script first builds every canonical example with warnings treated as
+errors. It then enables an opt-in application `DrawerContent` type and requires
+the compiler to reject its collision with `Bluent.UI.Components.DrawerContent`
+using `CS0104`. Add complete examples under `samples/Bluent.TaskExamples`, link
+them from `docs/examples/tasks`, and do not copy a second divergent version
+into Markdown.
+
 ### Demo
 
 The repository contains WebAssembly and server-rendered demo projects. For the WebAssembly demo:
@@ -109,8 +128,12 @@ Use concise commit messages that explain the intent of the change. Conventional 
 
 Before opening a pull request:
 
-- [ ] Build the solution.
+- [ ] Build the solution in Release configuration without compiler warnings.
 - [ ] Run applicable tests.
+- [ ] Compile canonical task examples when their APIs or documentation are affected.
+- [ ] Run `python3 scripts/quality/check_markdown_links.py` for documentation
+  changes.
+- [ ] Pack and inspect affected packages for package or release changes.
 - [ ] Review the diff for unrelated changes.
 - [ ] Update documentation and `CHANGELOG.md` when appropriate.
 - [ ] Complete the pull request template.

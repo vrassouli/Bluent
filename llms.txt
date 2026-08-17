@@ -11,10 +11,35 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
 - [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
+- [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): ten complete, compiled patterns for common Bluent application tasks
+- [OrderDesk reference application](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/reference-application.md): standalone production-pattern customer and order workflow with architecture, run commands, limitations, and evidence
+- [AI-readiness benchmark](https://github.com/vrassouli/Bluent/blob/Dev/docs/ai/benchmark.md): canonical prompts, rubric, execution modes, and recording rules
+- [Latest AI-readiness report](https://github.com/vrassouli/Bluent/blob/Dev/docs/ai/results/2026-07-26-codex-repository-context.md): repository-context score comparison, compiled generated samples, limitations, and follow-up findings
+- [Repeatable AI benchmark workspace](https://github.com/vrassouli/Bluent/tree/Dev/benchmarks/ai-readiness): run schema, validator, raw responses, scoring records, and generated compilation artifacts
+
+## Reference application
+
+- [OrderDesk source and runbook](https://github.com/vrassouli/Bluent/blob/Dev/samples/Bluent.OrderDesk/README.md): project structure, pattern rationale, local run commands, and representative verification route
+- [OrderDesk application source](https://github.com/vrassouli/Bluent/tree/Dev/samples/Bluent.OrderDesk): compilable WebAssembly consumer using Bluent.UI, Charts, and Diagrams without demo-project dependencies
+
+## Task-oriented examples
+
+- [Basic form input](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/basic-input.md): bound text, numeric, select, and Boolean inputs
+- [Form validation](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/form-validation.md): EditForm, data annotations, validation messages, and valid submit
+- [Confirmation dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/confirmation-dialog.md): awaited modal result before a consequential action
+- [Toast and MessageBar feedback](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/feedback.md): persistent inline and transient global feedback
+- [DataGrid with paging](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/data-grid-paging.md): typed columns, ItemsProvider, and DataPager
+- [Navigation and layout](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/navigation-and-layout.md): Router, shared layout, NavLink, NavigationManager, and one Containers host
+- [Drawer and Popover](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/drawer-and-popover.md): service-backed drawer results, collision-safe application component naming, and anchored popover content
+- [Chart dashboard](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/chart-dashboard.md): typed Chart.js-backed operational dataset
+- [Simple diagram](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/simple-diagram.md): packaged diagram surface with meaningful SVG content
+- [Theme, dark mode, and RTL](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/theme-dark-mode-and-rtl.md): runtime theme family, mode, and direction changes
 
 ## Components
 
 - [Component documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/README.md): entry point for component references
+- [Badge](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/badge.md): values, appearance, color, shape, icon/text behavior, styling, and accessibility limitations
+- [Checkbox](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/checkbox.md): Boolean binding, nullable and indeterminate behavior, labels, styling, and accessibility limitations
 - [Dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dialog.md): service usage, results, modal configuration, and nested dialog stacking
 - [Component inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md): tracked public component families and documentation coverage
 - [Component reference standard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/TEMPLATE.md): required structure and verification rules for component pages
@@ -32,6 +57,9 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Contributing](https://github.com/vrassouli/Bluent/blob/Dev/CONTRIBUTING.md): development and contribution workflow
 - [Release policy](https://github.com/vrassouli/Bluent/blob/Dev/RELEASING.md): Semantic Versioning, validation, tagging, and publication
 - [Changelog](https://github.com/vrassouli/Bluent/blob/Dev/CHANGELOG.md): notable changes and release history
+- [Release workflow audit](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/release-workflow-audit.md): audited version sources, publication history, workflow risks, and required controls
+- [Stable release readiness](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/stable-release-readiness.md): approved release version, package evidence, migration impact, validation, risks, and maintainer prerequisites
+- [Compiler warning baseline](https://github.com/vrassouli/Bluent/blob/Dev/docs/quality/compiler-warning-baseline.md): warning inventory, dispositions, and zero-warning regression policy
 - [Coding-agent instructions](https://github.com/vrassouli/Bluent/blob/Dev/AGENTS.md): repository facts, guardrails, build commands, and documentation rules
 
 ## Canonical facts for code generation

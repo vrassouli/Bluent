@@ -1,0 +1,165 @@
+@page "/customers/new"
+@page "/customers/{Id:int}/edit"
+@inject OrderDeskRepository Repository
+@inject IToastService ToastService
+
+<PageTitle>@(_isEdit ? "Edit customer" : "Add customer") · OrderDesk</PageTitle>
+
+@if (_loading)
+{
+    <LoadingState Message="Loading customer form…" />
+}
+else if (_notFound)
+{
+    <div class="state-card empty-state">
+        <h1>Customer not found</h1>
+        <a href="customers">Return to customers</a>
+    </div>
+}
+else
+{
+    <div class="breadcrumb"><a href="customers">Customers</a><span>/</span><span>@(_isEdit ? "Edit" : "New")</span></div>
+
+    <div class="page-heading compact">
+        <div>
+            <p class="eyebrow">Account setup</p>
+            <h1>@(_isEdit ? "Edit customer" : "Add customer")</h1>
+            <p>Keep the account owner and segmentation details current.</p>
+        </div>
+    </div>
+
+    @if (_saveFailed)
+    {
+        <MessageBar Type="MessageBarType.Danger" Multiline>
+            The customer could not be saved. Review the form and try again.
+        </MessageBar>
+    }
+
+    <EditForm Model="_model" OnValidSubmit="Save" OnInvalidSubmit="ShowValidationError" class="editor-panel">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-grid">
+            <div class="form-field">
+                <label for="customer-company">Company</label>
+                <TextField id="customer-company"
+                           @bind-Value="_model.Company"
+                           BindValueEvent="oninput"
+                           autocomplete="organization" />
+                <ValidationMessage For="() => _model.Company" />
+            </div>
+
+            <div class="form-field">
+                <label for="customer-name">Primary contact</label>
+                <TextField id="customer-name"
+                           @bind-Value="_model.Name"
+                           BindValueEvent="oninput"
+                           autocomplete="name" />
+                <ValidationMessage For="() => _model.Name" />
+            </div>
+
+            <div class="form-field">
+                <label for="customer-email">Work email</label>
+                <TextField id="customer-email"
+                           type="email"
+                           @bind-Value="_model.Email"
+                           BindValueEvent="oninput"
+                           autocomplete="email" />
+                <ValidationMessage For="() => _model.Email" />
+            </div>
+
+            <div class="form-field">
+                <label for="customer-city">City</label>
+                <TextField id="customer-city"
+                           @bind-Value="_model.City"
+                           BindValueEvent="oninput"
+                           autocomplete="address-level2" />
+                <ValidationMessage For="() => _model.City" />
+            </div>
+
+            <div class="form-field">
+                <label for="customer-segment">Segment</label>
+                <SelectField id="customer-segment" @bind-Value="_model.Segment">
+                    @foreach (var segment in Enum.GetValues<CustomerSegment>())
+                    {
+                        <option value="@segment">@segment</option>
+                    }
+                </SelectField>
+                <ValidationMessage For="() => _model.Segment" />
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <Button type="submit"
+                    Text="@(_saving ? "Saving…" : "Save customer")"
+                    disabled="@_saving"
+                    Appearance="ButtonAppearance.Primary" />
+            <Button Text="Cancel" OnClick="Cancel" />
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    private CustomerEditorModel _model = new();
+    private bool _loading = true;
+    private bool _saving;
+    private bool _saveFailed;
+    private bool _notFound;
+    private bool _isEdit;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _isEdit = Id is not null;
+        if (Id is { } customerId)
+        {
+            var customer = await Repository.GetCustomerAsync(customerId);
+            if (customer is null)
+            {
+                _notFound = true;
+                _loading = false;
+                return;
+            }
+
+            _model = CustomerEditorModel.FromCustomer(customer);
+        }
+
+        _loading = false;
+    }
+
+    private async Task Save()
+    {
+        _saving = true;
+        _saveFailed = false;
+
+        try
+        {
+            await Task.Delay(300);
+            var customer = Repository.SaveCustomer(Id, _model);
+            _ = ToastService.ShowAsync(
+                "Customer saved",
+                configuration => configuration
+                    .SetMessage($"{customer.Company} is up to date.")
+                    .SetIntend(ToastIntend.Success)
+                    .SetPlace(ToastPlacement.BottomEnd));
+            Navigation.NavigateTo($"customers/{customer.Id}?saved=true");
+        }
+        catch (InvalidOperationException)
+        {
+            _saveFailed = true;
+            _saving = false;
+        }
+    }
+
+    private void ShowValidationError()
+    {
+        _saveFailed = true;
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo(Id is { } customerId ? $"customers/{customerId}" : "customers");
+    }
+}

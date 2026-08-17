@@ -1,0 +1,36 @@
+@page "/samples/chart"
+
+<PageTitle>Chart dashboard</PageTitle>
+
+<h1>Dashboard using Bluent.UI.Charts</h1>
+
+<MessageBar Type="MessageBarType.Information">
+    Weekly order throughput
+</MessageBar>
+
+<div style="max-width: 42rem;">
+    <Chart>
+        <Legend Display="false" />
+        <Title Text="Completed orders" />
+        <YScale Text="Orders" />
+        <Dataset ChartType="ChartType.Line"
+                 Data="_throughput"
+                 Label="Completed"
+                 Smooth
+                 FillTarget="FillTarget.Start"
+                 BorderWidth="2"
+                 BorderColor="@DefaultColors.Purple"
+                 BackgroundColor="@DefaultColors.Purple.Opacity(64)" />
+    </Chart>
+</div>
+
+@code {
+    private readonly Dictionary<string, double> _throughput = new()
+    {
+        ["Mon"] = 82,
+        ["Tue"] = 94,
+        ["Wed"] = 91,
+        ["Thu"] = 108,
+        ["Fri"] = 116
+    };
+}

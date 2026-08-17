@@ -1,0 +1,8 @@
+<div class="state-card loading-state" role="status" aria-live="polite">
+    <span class="loading-dot" aria-hidden="true"></span>
+    <span>@Message</span>
+</div>
+
+@code {
+    [Parameter] public string Message { get; set; } = "Loading…";
+}

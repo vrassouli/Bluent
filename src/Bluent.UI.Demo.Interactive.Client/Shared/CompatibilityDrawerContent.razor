@@ -1,0 +1,23 @@
+<div style="display: grid; gap: 1rem; padding: 1rem;">
+    <p>
+        This drawer content validates close, navigation, and disposal in the
+        active interactive render boundary.
+    </p>
+    <Button Text="Close drawer"
+            Appearance="ButtonAppearance.Primary"
+            OnClick="Close"
+            data-testid="drawer-close" />
+    <NavLink href="/compatibility/static"
+             data-testid="drawer-navigate">
+        Navigate from drawer to static SSR probe
+    </NavLink>
+</div>
+
+@code {
+    [CascadingParameter] public Drawer? Drawer { get; set; }
+
+    private void Close()
+    {
+        Drawer?.Close("closed");
+    }
+}

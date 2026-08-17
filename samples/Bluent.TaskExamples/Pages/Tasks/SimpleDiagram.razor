@@ -1,0 +1,31 @@
+@page "/tasks/simple-diagram"
+
+<PageTitle>Simple diagram</PageTitle>
+
+<h1>Simple diagram using Bluent.UI.Diagrams</h1>
+
+<div class="diagram-frame">
+    <Diagram>
+        <ChildContent>
+            <rect x="30" y="70" width="150" height="60" rx="8"
+                  fill="var(--colorBrandBackground2)"
+                  stroke="var(--colorBrandStroke1)" />
+            <text x="70" y="105" fill="var(--colorNeutralForeground1)">
+                New order
+            </text>
+
+            <line x1="180" y1="100" x2="290" y2="100"
+                  stroke="var(--colorNeutralStroke1)"
+                  stroke-width="2" />
+            <path d="M 280 92 L 294 100 L 280 108 Z"
+                  fill="var(--colorNeutralStroke1)" />
+
+            <rect x="295" y="70" width="150" height="60" rx="8"
+                  fill="var(--colorPaletteGreenBackground2)"
+                  stroke="var(--colorPaletteGreenBorder1)" />
+            <text x="338" y="105" fill="var(--colorNeutralForeground1)">
+                Fulfilled
+            </text>
+        </ChildContent>
+    </Diagram>
+</div>

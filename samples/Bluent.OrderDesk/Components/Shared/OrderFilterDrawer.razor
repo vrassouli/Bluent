@@ -1,0 +1,54 @@
+<div class="drawer-form">
+    <div class="form-field">
+        <label for="order-status">Order status</label>
+        <SelectField id="order-status" @bind-Value="_status">
+            <option value="">All statuses</option>
+            @foreach (var status in Enum.GetValues<OrderStatus>())
+            {
+                <option value="@status">@status</option>
+            }
+        </SelectField>
+    </div>
+
+    <div class="form-field">
+        <label for="minimum-total">Minimum total</label>
+        <NumericField id="minimum-total"
+                      @bind-Value="_minimumTotal"
+                      BindValueEvent="oninput"
+                      Min="0"
+                      Step="500" />
+    </div>
+
+    <div class="form-actions">
+        <Button Text="Apply filters"
+                Appearance="ButtonAppearance.Primary"
+                OnClick="Apply" />
+        <Button Text="Clear"
+                OnClick="@(() => Drawer?.Close(OrderFilter.Empty))" />
+        <Button Text="Cancel"
+                OnClick="@(() => Drawer?.Close())" />
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] public Drawer? Drawer { get; set; }
+    [Parameter] public OrderFilter Filter { get; set; } = OrderFilter.Empty;
+
+    private string _status = string.Empty;
+    private decimal? _minimumTotal;
+
+    protected override void OnParametersSet()
+    {
+        _status = Filter.Status?.ToString() ?? string.Empty;
+        _minimumTotal = Filter.MinimumTotal;
+    }
+
+    private void Apply()
+    {
+        var status = Enum.TryParse<OrderStatus>(_status, out var parsedStatus)
+            ? parsedStatus
+            : (OrderStatus?)null;
+
+        Drawer?.Close(new OrderFilter(status, _minimumTotal));
+    }
+}

@@ -6,25 +6,37 @@ Use `.bluent/PROJECT.md` for current status and `.bluent/HANDOFF.md` for the imm
 
 ## Now
 
-Work committed to Sprint 2:
+Final stable release candidate work tracked by
+[Issue #381](https://github.com/vrassouli/Bluent/issues/381):
 
-- Complete the demo landing, navigation, component showcase, enterprise scenarios, visual validation, screenshots, and deployment validation tracked by Issue #368 and PR #369.
-- Keep project tracking and validation evidence current.
+- Finalize the approved stable `1.0.367` changelog section dated 2026-07-26.
+- Validate the five existing published package IDs at exact version `1.0.367`.
+- Run and inspect the protected artifact-only workflow without publication.
+- Open the final release pull request targeting `Dev` for maintainer review.
+
+Do not publish packages or create a tag or GitHub Release as part of this work.
 
 ## Next
 
-Likely Sprint 3 candidates:
+Work to reconsider only after Sprint 3 foundations are complete:
 
-- Define and automate a predictable release workflow.
-- Modernize and validate the GitHub Pages/static deployment workflow.
-- Improve release notes and release evidence.
-- Triage and resolve existing compiler warnings before the next stable release.
-- Add accessibility and quality gates where practical.
-- Create contributor-friendly issues and identify good-first-issue candidates.
+- Automate a transient Interactive Server circuit reconnection test.
+- Instrument and record the Interactive Auto server-to-WebAssembly transition.
+- Complete remaining low-risk compatibility or warning follow-ups that Sprint
+  3 explicitly defers.
+- Refine release cadence after the first release through the replacement
+  process.
+- Improve contributor guidance based on observed use of the new quality gates.
 
 ## Parallel Quality Work
 
-- [Issue #366](https://github.com/vrassouli/Bluent/issues/366): validate Interactive Server, Interactive WebAssembly, and Interactive Auto render modes.
+- Issue #366 is now an explicit Sprint 3 workstream rather than parallel work.
+- [Issue #374](https://github.com/vrassouli/Bluent/issues/374): document
+  Checkbox from current source.
+- [Issue #375](https://github.com/vrassouli/Bluent/issues/375): expand
+  release-package validator tests with synthetic archives.
+- [Issue #376](https://github.com/vrassouli/Bluent/issues/376): document Badge
+  from current source.
 - Continue [Issue #363](https://github.com/vrassouli/Bluent/issues/363): expand verified component references and compile representative AI-generated consumer samples.
 - Expand the AI benchmark to context-free and multiple-model runs.
 - Add consumer-project build validation for generated examples.

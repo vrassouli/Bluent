@@ -1,0 +1,62 @@
+@page "/tasks/data-grid"
+
+<PageTitle>Data grid with paging</PageTitle>
+
+<h1>DataGrid with paging</h1>
+
+<DataGrid @key="_page"
+          ItemsProvider="LoadOrders"
+          Style="height: 12rem;">
+    <Columns>
+        <DataGridColumn TItem="OrderRow" Field="order => order.Number" Header="Order" Width="120" />
+        <DataGridColumn TItem="OrderRow" Field="order => order.Customer" Width="220" />
+        <DataGridColumn TItem="OrderRow" Field="order => order.Status" Width="140" />
+        <DataGridColumn TItem="OrderRow" Field="order => order.Total" Width="120">
+            @context.Total.ToString("C")
+        </DataGridColumn>
+    </Columns>
+</DataGrid>
+
+<DataPager PageCount="@PageCount"
+           @bind-Page="_page"
+           ShowFirstPage
+           ShowPreviousPage
+           ShowNextPage
+           ShowLastPage />
+
+@code {
+    private const int PageSize = 5;
+    private int _page = 1;
+
+    private readonly IReadOnlyList<OrderRow> _orders =
+        Enumerable.Range(1, 23)
+            .Select(index => new OrderRow(
+                $"SO-{index:0000}",
+                $"Customer {index}",
+                index % 3 == 0 ? "Review" : "Ready",
+                125m + (index * 17.5m)))
+            .ToArray();
+
+    private int PageCount => (int)Math.Ceiling(_orders.Count / (double)PageSize);
+
+    private ValueTask<ItemsProviderResult<OrderRow>> LoadOrders(ItemsProviderRequest request)
+    {
+        var pageItems = _orders
+            .Skip((_page - 1) * PageSize)
+            .Take(PageSize)
+            .ToArray();
+
+        var visibleItems = pageItems
+            .Skip(request.StartIndex)
+            .Take(request.Count);
+
+        return ValueTask.FromResult(
+            new ItemsProviderResult<OrderRow>(visibleItems, pageItems.Length));
+    }
+
+    private sealed record OrderRow(
+        string Number,
+        string Customer,
+        string Status,
+        decimal Total);
+}

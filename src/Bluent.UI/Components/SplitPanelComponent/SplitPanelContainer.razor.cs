@@ -110,7 +110,7 @@ public partial class SplitPanelContainer : IPointerUpEventHandler, IPointerMoveE
                 await DomHelper.UnregisterPointerUpHandler(this);
                 await DomHelper.UnregisterPointerMoveHandler(this);
             }
-            catch (JSDisconnectedException e)
+            catch (JSDisconnectedException)
             {
                 // swallow
             }

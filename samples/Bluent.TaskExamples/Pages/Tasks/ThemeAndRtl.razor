@@ -1,0 +1,54 @@
+@page "/tasks/theme-rtl"
+@inject IBluentTheme Theme
+
+<PageTitle>Theme, dark mode, and RTL</PageTitle>
+
+<h1>Theme, dark mode, and RTL</h1>
+
+<div class="example-actions">
+    <Button Text="Light mode" OnClick="SetLightMode" />
+    <Button Text="Dark mode" OnClick="SetDarkMode" />
+    <Button Text="Default theme" OnClick="@(() => SetThemeFamily("default"))" />
+    <Button Text="Teams theme" OnClick="@(() => SetThemeFamily("teams"))" />
+    <Button Text="LTR" OnClick="SetLtr" />
+    <Button Text="RTL" OnClick="SetRtl" />
+</div>
+
+<MessageBar Type="MessageBarType.Information">
+    Current choice: @_status. Persist this preference in application code when
+    it must survive a reload.
+</MessageBar>
+
+@code {
+    private string _status = "light, default theme, LTR";
+
+    private async Task SetLightMode()
+    {
+        await Theme.SetLightThemeModeAsync();
+        _status = "light mode";
+    }
+
+    private async Task SetDarkMode()
+    {
+        await Theme.SetDarkThemeModeAsync();
+        _status = "dark mode";
+    }
+
+    private async Task SetThemeFamily(string family)
+    {
+        await Theme.SetThemeAsync(family);
+        _status = $"{family} theme";
+    }
+
+    private async Task SetLtr()
+    {
+        await Theme.SetLtrDirectionAsync();
+        _status = "LTR direction";
+    }
+
+    private async Task SetRtl()
+    {
+        await Theme.SetRtlDirectionAsync();
+        _status = "RTL direction";
+    }
+}

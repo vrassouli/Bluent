@@ -1,86 +1,215 @@
-name: publish
-on:
-  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
-  push:
-    branches:
-      - 'master'       # Run the workflow when pushing to the main branch
-  # pull_request:
-  #   branches:
-  #     - 'master'          # Run the workflow for all pull requests
-  release:
-    types:
-      - published    # Run the workflow when a new GitHub release is published
-env:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  DOTNET_NOLOGO: true
-  NuGetDirectory: ${{ github.workspace}}/nuget
-  env_var: ${{ vars.ENV_CONTEXT_VAR }}
-  Version: ${{ vars.VERSION_MAJOR }}.${{ vars.VERSION_MINOR }}.${{ github.run_number }}
+name: Release packages
 
-defaults:
-  run:
-    shell: pwsh
+on:
+  pull_request:
+    branches:
+      - Dev
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SemVer package version without the v prefix
+        required: true
+        type: string
+      publish:
+        description: Publish the validated packages and create a GitHub Release
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event_name }}-${{ github.ref }}-${{ inputs.version }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  PACKAGE_DIRECTORY: artifacts/packages
+  RELEASE_DIRECTORY: artifacts/release
+  RELEASE_VERSION: ${{ inputs.version || format('0.0.0-ci.{0}', github.run_number) }}
 
 jobs:
-  # run-test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Setup .NET
-  #     uses: actions/setup-dotnet@v4
-  #   - name: Run tests
-  #     run: dotnet test --configuration Release
-
-  create-nuget:
+  validate:
+    name: Validate release artifacts
     runs-on: ubuntu-latest
-    # needs: [ run-test ]
+    timeout-minutes: 30
+
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
-
-    # Install the .NET SDK indicated in the global.json file
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0'
-
-    # Create the NuGet package in the folder from the environment variable NuGetDirectory
-    #- run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}  /p:Version=${{github.ref_name}}
-    - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}  /p:Version=${{ env.Version }}
-
-    # Publish the NuGet package as an artifact, so they can be used in the following jobs
-    - uses: actions/upload-artifact@v4
-      with:
-        name: nuget
-        if-no-files-found: error
-        retention-days: 7
-        path: ${{ env.NuGetDirectory }}/*.nupkg
-        
-  deploy:
-    # Publish only when creating a GitHub Release
-    # https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
-    # You can update this logic if you want to manage releases differently
-    #if: github.event_name == 'release'
-    runs-on: ubuntu-latest
-    # needs: [ run-test, create-nuget ]
-    needs: [ create-nuget ]
-    steps:
-      # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v4
+      - name: Checkout exact ref
+        uses: actions/checkout@v4
         with:
-          name: nuget
-          path: ${{ env.NuGetDirectory }}
+          fetch-depth: 0
 
-      # Install the .NET SDK indicated in the global.json file
-      - name: Setup .NET Core
+      - name: Validate requested version and release ref
+        shell: bash
+        env:
+          PUBLISH: ${{ inputs.publish }}
+          REF_NAME: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
+        run: |
+          python3 scripts/release/release_tools.py validate-version "$RELEASE_VERSION"
+          if [[ "$PUBLISH" == "true" ]]; then
+            if [[ "$REF_TYPE" != "tag" || "$REF_NAME" != "v$RELEASE_VERSION" ]]; then
+              echo "Publish runs must be dispatched from tag v$RELEASE_VERSION." >&2
+              exit 1
+            fi
+          fi
+
+      - name: Set up .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0'
+          dotnet-version: 10.0.x
 
-      # Publish all NuGet packages to NuGet.org
-      # Use --skip-duplicate to prevent errors if a package with the same version already exists.
-      # If you retry a failed workflow, already published packages will be skipped without error.
-      - name: Publish NuGet package
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore solution
+        run: dotnet restore Bluent.sln
+
+      - name: Build solution without compiler warnings
+        run: >
+          dotnet build Bluent.sln
+          --configuration Release
+          --no-restore
+          -warnaserror
+
+      - name: Test solution
+        run: dotnet test Bluent.sln --configuration Release --no-build
+
+      - name: Pack the five public packages
+        shell: bash
+        env:
+          REPOSITORY_COMMIT: ${{ github.sha }}
         run: |
-          dotnet nuget push ${{ env.NuGetDirectory }}/Bluent.*${{ env.Version }}.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          mkdir -p "$PACKAGE_DIRECTORY" "$RELEASE_DIRECTORY"
+          projects=(
+            src/Bluent.Core/Bluent.Core.csproj
+            src/Bluent.UI/Bluent.UI.csproj
+            src/Bluent.UI.Charts/Bluent.UI.Charts.csproj
+            src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj
+            src/Bluent.UI.Utilities/Bluent.UI.Utilities.csproj
+          )
+          for project in "${projects[@]}"; do
+            dotnet pack "$project" \
+              --configuration Release \
+              --no-build \
+              --output "$PACKAGE_DIRECTORY" \
+              -p:PackageVersion="$RELEASE_VERSION" \
+              -p:RepositoryCommit="$REPOSITORY_COMMIT" \
+              -p:ContinuousIntegrationBuild=true
+          done
+
+      - name: Validate package metadata and dependencies
+        env:
+          REPOSITORY_COMMIT: ${{ github.sha }}
+        run: >
+          python3 scripts/release/release_tools.py validate-packages
+          --directory "$PACKAGE_DIRECTORY"
+          --version "$RELEASE_VERSION"
+          --commit "$REPOSITORY_COMMIT"
+          --report "$RELEASE_DIRECTORY/package-validation.json"
+
+      - name: Generate deterministic release notes
+        shell: bash
+        env:
+          PUBLISH: ${{ inputs.publish }}
+        run: |
+          args=()
+          if [[ "$PUBLISH" != "true" ]]; then
+            args+=(--allow-unreleased)
+          fi
+          python3 scripts/release/release_tools.py extract-notes \
+            --changelog CHANGELOG.md \
+            --version "$RELEASE_VERSION" \
+            --output "$RELEASE_DIRECTORY/release-notes.md" \
+            "${args[@]}"
+
+      - name: Check version availability on NuGet
+        if: ${{ inputs.publish }}
+        run: >
+          python3 scripts/release/release_tools.py preflight-nuget
+          --version "$RELEASE_VERSION"
+
+      - name: Upload validated release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bluent-${{ env.RELEASE_VERSION }}
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/release/package-validation.json
+            artifacts/release/release-notes.md
+          if-no-files-found: error
+          retention-days: 30
+
+  publish:
+    name: Publish to NuGet
+    if: ${{ inputs.publish }}
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: nuget-production
+    steps:
+      - name: Download validated artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bluent-${{ env.RELEASE_VERSION }}
+          path: artifacts
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish packages in dependency order
+        shell: bash
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          packages=(
+            Bluent.UI.Core
+            Bluent.UI
+            Bluent.UI.Charts
+            Bluent.UI.Diagrams
+            Bluent.UI.Utilities
+          )
+          for package in "${packages[@]}"; do
+            dotnet nuget push \
+              "artifacts/packages/$package.$RELEASE_VERSION.nupkg" \
+              --api-key "$NUGET_API_KEY" \
+              --source https://api.nuget.org/v3/index.json
+          done
+
+  github-release:
+    name: Create GitHub Release
+    if: ${{ inputs.publish }}
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download validated artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bluent-${{ env.RELEASE_VERSION }}
+          path: artifacts
+
+      - name: Create release for the validated tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          prerelease_flag=()
+          if [[ "$RELEASE_VERSION" == *-* ]]; then
+            prerelease_flag+=(--prerelease)
+          fi
+          gh release create "v$RELEASE_VERSION" \
+            --repo "$REPOSITORY" \
+            --title "Bluent $RELEASE_VERSION" \
+            --notes-file artifacts/release/release-notes.md \
+            "${prerelease_flag[@]}" \
+            artifacts/packages/*.nupkg \
+            artifacts/release/package-validation.json
