@@ -28,14 +28,14 @@ It tracks completed work, active work, upcoming work, and the working agreement 
 
 ## Package static-asset regression follow-up
 
-- A local, unreleased fix prevents generated unminified stylesheets from being
+- Release `1.0.368` prevents generated unminified stylesheets from being
   packed as consumer-owned `contentFiles` by `Bluent.UI` and
   `Bluent.UI.Diagrams`.
 - The Release solution build, five-package build-without-rebuilding sequence,
   package-content validator, 19 application tests, and a two-Razor-library
   consumer reproduction pass locally on Windows with .NET SDK `10.0.300`.
-- No package, tag, GitHub Release, or external change was published. Consumers
-  of `1.0.367` can exclude the package's `contentFiles` assets as a workaround.
+- Consumers remaining on `1.0.367` can exclude the package's `contentFiles`
+  assets as a workaround.
 
 ## Working Agreement
 
