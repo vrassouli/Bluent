@@ -12,6 +12,36 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
+- None.
+
+### Security
+
+- None.
+
+## [1.0.368] - 2026-08-17
+
+Applications should update directly installed Bluent packages together. This
+release preserves the documented minified static-asset paths and requires no
+public API migration.
+
+### Added
+
 - A standalone OrderDesk production-pattern reference application with
   customer and order workflows, validation, confirmation, feedback, filtering,
   charting, a lifecycle diagram, light/dark themes, and RTL.
