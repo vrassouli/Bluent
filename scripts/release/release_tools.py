@@ -379,6 +379,21 @@ def validate_packages(args: argparse.Namespace) -> None:
 
         with zipfile.ZipFile(package) as archive:
             names = set(archive.namelist())
+            consumer_web_assets = sorted(
+                name
+                for name in names
+                if name.startswith("content/wwwroot/")
+                or (
+                    name.startswith("contentFiles/")
+                    and "/wwwroot/" in name
+                )
+            )
+            if consumer_web_assets:
+                fail(
+                    f"{package_id} contains consumer-owned web assets instead of "
+                    "Razor static web assets: "
+                    f"{', '.join(consumer_web_assets)}."
+                )
             readme_path = required_fields["readme"]
             if readme_path not in names:
                 fail(f"{package_id} does not contain {readme_path}.")

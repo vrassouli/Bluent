@@ -22,6 +22,8 @@
     <ItemGroup>
         <None Include="../../README.md" Pack="true" PackagePath="/" />
         <Content Remove="bundleconfig.json;compilerconfig.json" />
+        <!-- Keep the generated unminified intermediate out of NuGet contentFiles. -->
+        <Content Remove="wwwroot\bluent.ui.diagrams.css" />
         <None Include="bundleconfig.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>

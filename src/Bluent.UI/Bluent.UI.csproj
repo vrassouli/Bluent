@@ -22,6 +22,13 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json;compilerconfig.json" />
+        <!--
+          BundlerMinifier creates these unminified intermediate files during
+          the build. Keep them out of NuGet contentFiles when a later
+          pack without rebuilding evaluates the project after they are created.
+          The tracked .min.css files remain Razor static web assets.
+        -->
+        <Content Remove="wwwroot\bluent.ui.components.css;wwwroot\bluent.ui.theme.default.css;wwwroot\bluent.ui.theme.excel.css;wwwroot\bluent.ui.theme.office.css;wwwroot\bluent.ui.theme.outlook.css;wwwroot\bluent.ui.theme.powerapps.css;wwwroot\bluent.ui.theme.powerbi.css;wwwroot\bluent.ui.theme.powerpoint.css;wwwroot\bluent.ui.theme.stream.css;wwwroot\bluent.ui.theme.teams.css;wwwroot\bluent.ui.theme.word.css" />
         <None Include="bundleconfig.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>

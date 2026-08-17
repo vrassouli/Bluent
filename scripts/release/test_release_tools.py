@@ -29,6 +29,7 @@ class ReleaseToolsTests(unittest.TestCase):
         repository_commit: str = REPOSITORY_COMMIT,
         include_readme: bool = True,
         dependency_versions: dict[str, str] | None = None,
+        extra_entries: dict[str, bytes] | None = None,
     ) -> None:
         package_id = package_id or package_file_id
         dependency_versions = dependency_versions or {
@@ -84,6 +85,8 @@ class ReleaseToolsTests(unittest.TestCase):
             if include_readme:
                 archive.writestr("README.md", f"# {package_id}\n")
             archive.writestr(f"lib/net10.0/{package_file_id}.dll", b"fixture")
+            for name, contents in (extra_entries or {}).items():
+                archive.writestr(name, contents)
 
     @contextmanager
     def _package_fixture(self, **overrides: dict[str, object]):
@@ -254,6 +257,22 @@ Historical prose.
             with self.assertRaisesRegex(
                 ValueError,
                 re.escape("Bluent.UI does not contain README.md"),
+            ):
+                release_tools.validate_packages(args)
+
+    def test_package_validator_rejects_consumer_owned_web_assets(self) -> None:
+        with self._package_fixture(
+            **{
+                "Bluent.UI": {
+                    "extra_entries": {
+                        "contentFiles/any/net10.0/wwwroot/bluent.ui.components.css": b""
+                    }
+                }
+            }
+        ) as args:
+            with self.assertRaisesRegex(
+                ValueError,
+                "contains consumer-owned web assets instead of Razor static web assets",
             ):
                 release_tools.validate_packages(args)
 

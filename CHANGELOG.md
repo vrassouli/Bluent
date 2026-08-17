@@ -38,7 +38,10 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
-- None.
+- `[Bluent.UI]` and `[Bluent.UI.Diagrams]` Prevented generated, unminified
+  stylesheets from being packed as consumer-owned `contentFiles`, which could
+  make .NET 10 static-web-asset compression fail when multiple referenced
+  Razor libraries used Bluent.
 
 ### Security
 
