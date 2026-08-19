@@ -9,7 +9,7 @@ public partial class ActionCard
     [Parameter] public bool IsExpanded { get; set; }
     [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public string? Icon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public RenderFragment? IconContent { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
