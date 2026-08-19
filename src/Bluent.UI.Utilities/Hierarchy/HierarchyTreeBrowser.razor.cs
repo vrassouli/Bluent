@@ -10,9 +10,9 @@ public partial class HierarchyTreeBrowser
     private readonly List<HierarchyTreeItem> _treeItems = new();
     private HierarchyTreeItem? _selectedTreeItem;
 
-    [Parameter] public string? RootItemIcon { get; set; } = "icon-ic_fluent_folder_20_regular";
-    [Parameter] public string? RootItemExpandedIcon { get; set; } = "icon-ic_fluent_folder_open_20_regular";
-    [Parameter] public string? ItemIcon { get; set; } = "icon-ic_fluent_document_20_regular";
+    [Parameter] public IconDefinition RootItemIcon { get; set; } = FluentIcons.Folder;
+    [Parameter] public IconDefinition RootItemExpandedIcon { get; set; } = FluentIcons.FolderOpen;
+    [Parameter] public IconDefinition ItemIcon { get; set; } = FluentIcons.Document;
     [Parameter] public bool RootOnly { get; set; }
     [Parameter] public RenderFragment<HierarchyItem>? ItemOptions { get; set; }
 
@@ -50,35 +50,22 @@ public partial class HierarchyTreeBrowser
         if (treeItem != _selectedTreeItem)
         {
             _selectedTreeItem?.SetStateHasChanged();
-
             _selectedTreeItem = treeItem;
 
             if (treeItem.Item is HierarchyRootItem)
-            {
                 return OnPathSelected.InvokeAsync(new HierarchyPathSelection(treeItem.Path));
-            }
 
             return OnItemSelected.InvokeAsync(new HierarchyItemSelection(treeItem.Path, treeItem.Item.Name));
         }
-        else
-        {
-            var currentSelection = _selectedTreeItem;
-            _selectedTreeItem = null;
-            currentSelection?.SetStateHasChanged();
 
-            return OnItemDeselected.InvokeAsync();
-        }
+        var currentSelection = _selectedTreeItem;
+        _selectedTreeItem = null;
+        currentSelection?.SetStateHasChanged();
+
+        return OnItemDeselected.InvokeAsync();
     }
 
-    public void AddItem(HierarchyTreeItem item)
-    {
-        _treeItems.Add(item);
-    }
-
-    public void RemoveItem(HierarchyTreeItem item)
-    {
-        _treeItems.Remove(item);
-    }
-
+    public void AddItem(HierarchyTreeItem item) => _treeItems.Add(item);
+    public void RemoveItem(HierarchyTreeItem item) => _treeItems.Remove(item);
     public bool IsSelected(HierarchyTreeItem item) => item == _selectedTreeItem;
 }
