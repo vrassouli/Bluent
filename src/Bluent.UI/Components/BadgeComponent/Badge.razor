@@ -2,9 +2,9 @@
 @inherits BluentUiComponentBase
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    @if (!string.IsNullOrEmpty(Icon))
+    @if (Icon is not null)
     {
-        <Icon Content="@Icon"/>
+        <Icon Value="@Icon"/>
     }
     <div class="text">@Text</div>
 </div>
