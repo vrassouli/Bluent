@@ -4,11 +4,11 @@
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <div class="@GetHeaderClasses()" @onclick="ClickHandler">
         <div class="expander">
-            <i class="icon-ic_fluent_chevron_right_20_regular"></i>
+            <Icon Value="@FluentIcons.ChevronRight" />
         </div>
-        @if (!string.IsNullOrEmpty(HeaderIcon))
+        @if (HeaderIcon.HasValue)
         {
-            <Icon Content="@HeaderIcon" Class="icon" />
+            <Icon Value="@HeaderIcon" Class="icon" />
         }
         <div class="title"><span>@Header</span></div>
         @if (HeaderAction != null)
