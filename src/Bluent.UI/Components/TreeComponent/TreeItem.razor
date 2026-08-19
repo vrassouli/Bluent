@@ -17,19 +17,10 @@
          @onmouseenter="MouseEnterHandler"
          @onmouseleave="MouseLeaveHandler">
         
-
-        @* <div class="order-drop before @(_dragOverBefore ? "over" : "")" *@
-        @*      @ondragover:preventDefault="CanDrop" *@
-        @*      @ondragenter="OnDragEnterBefore" *@
-        @*      @ondragleave="OnDragLeaveBefore"> *@
-        @*     <div class="indicator"></div> *@
-        @*     <div class="line"></div> *@
-        @* </div> *@
-        
         <div class="expander" @onclick:stopPropagation="true">
             @if (HasSubItems)
             {
-                <i @onclick="ExpanderClickHandler" class="icon icon-ic_fluent_chevron_right_20_regular"></i>
+                <Icon Value="@FluentIcons.ChevronRight" Class="icon" @onclick="ExpanderClickHandler" />
             }
         </div>
 
@@ -50,14 +41,14 @@
             </div>
         }
 
-        @if (!string.IsNullOrEmpty(Icon))
+        @if (Icon.HasValue)
         {
-            @if (!string.IsNullOrEmpty(ExpandedIcon))
+            @if (ExpandedIcon.HasValue)
             {
-                <Icon Content="@ExpandedIcon" Class="expanded-icon"/>
+                <Icon Value="@ExpandedIcon" Class="expanded-icon"/>
             }
 
-            <Icon Content="@Icon" Class="icon"/>
+            <Icon Value="@Icon" Class="icon"/>
         }
 
         @if (ItemTemplate != null)
