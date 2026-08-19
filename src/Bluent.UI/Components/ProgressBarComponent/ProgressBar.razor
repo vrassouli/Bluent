@@ -8,9 +8,9 @@
     @if (!string.IsNullOrEmpty(Message))
     {
         <div class="message-bar">
-            @if(!string.IsNullOrEmpty(Icon))
+            @if(Icon.HasValue)
             {
-                <Icon Content="@Icon" Class="icon me-2" />
+                <Icon Value="@Icon" Class="icon me-2" />
             }
             <div class="message">@Message</div>
         </div>
