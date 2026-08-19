@@ -15,14 +15,12 @@ public partial class MessageBar
     [Parameter] public RenderFragment? Actions { get; set; }
     [Parameter] public bool Multiline { get; set; }
     [Parameter] public EventCallback OnDismiss { get; set; }
-    [Parameter] public string? IconClass { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
 
     protected override Task OnParametersSetAsync()
     {
         if (_dismissed != Dismissed)
-        {
             _dismissed = true;
-        }
         
         return base.OnParametersSetAsync();
     }
@@ -38,18 +36,18 @@ public partial class MessageBar
             yield return Type.ToString().Kebaberize();
     }
 
-    private string GetIconClass()
+    private IconDefinition GetIcon()
     {
-        if (!string.IsNullOrEmpty(IconClass))
-            return IconClass;
+        if (Icon.HasValue)
+            return Icon.Value;
         
         return Type switch
         {
-            MessageBarType.Warning => "icon-ic_fluent_warning_20_filled",
-            MessageBarType.Danger => "icon-ic_fluent_error_circle_20_filled",
-            MessageBarType.Success => "icon-ic_fluent_checkmark_circle_20_filled",
-            MessageBarType.Information => "icon-ic_fluent_info_20_filled",
-            _ => "icon-ic_fluent_alert_20_filled"
+            MessageBarType.Warning => FluentIcons.Warning,
+            MessageBarType.Danger => FluentIcons.ErrorCircle,
+            MessageBarType.Success => FluentIcons.CheckmarkCircle,
+            MessageBarType.Information => FluentIcons.Info,
+            _ => FluentIcons.Alert
         };
     }
 
