@@ -6,7 +6,7 @@ public interface IMdiDocument
 {
     CommandManager CommandManager { get; set; }
     string Title { get; }
-    string Icon { get; }
+    IconDefinition Icon { get; }
     List<DocumentToolbarItem> Items { get; }
     bool HasChanges { get; }
     
