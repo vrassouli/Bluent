@@ -8,9 +8,6 @@
             <Button Href="@GetLink(1)" OnClick="() => GoTo(1)" Text="@FirstPageText"
                     Class="flex-shrink-0"
                     Icon="@FirstButtonIcon"
-                    IconClass="@FirstButtonIconClass"
-                    ActiveIcon="@FirstButtonActiveIcon"
-                    ActiveIconClass="@FirstButtonActiveIconClass"
                     Shape="ButtonShape"
                     disabled="@(Page == 1)"></Button>
         }
@@ -21,9 +18,6 @@
                     Text="@PreviousPageText"
                     Class="flex-shrink-0"
                     Icon="@PreviousButtonIcon"
-                    IconClass="@PreviousButtonIconClass"
-                    ActiveIcon="@PreviousButtonActiveIcon"
-                    ActiveIconClass="@PreviousButtonActiveIconClass"
                     Shape="ButtonShape"
                     disabled="@(Page == 1)"></Button>
         }
@@ -69,9 +63,6 @@
                     Text="@NextPageText"
                     Class="flex-shrink-0"
                     Icon="@NextButtonIcon"
-                    IconClass="@NextButtonIconClass"
-                    ActiveIcon="@NextButtonActiveIcon"
-                    ActiveIconClass="@NextButtonActiveIconClass"
                     Shape="ButtonShape"
                     disabled="@(Page == PageCount)"></Button>
         }
@@ -81,9 +72,6 @@
             <Button Href="@GetLink(PageCount)" OnClick="() => GoTo(PageCount)" Text="@LastPageText"
                     Class="flex-shrink-0"
                     Icon="@LastButtonIcon"
-                    IconClass="@LastButtonIconClass"
-                    ActiveIcon="@LastButtonActiveIcon"
-                    ActiveIconClass="@LastButtonActiveIconClass"
                     Shape="ButtonShape"
                     disabled="@(Page == PageCount)"></Button>
         }
