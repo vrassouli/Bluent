@@ -16,7 +16,6 @@ public partial class ItemsList
     public override IEnumerable<string> GetClasses()
     {
         yield return "bui-list";
-
         yield return SelectionMode.ToString().Kebaberize();
     }
 
@@ -32,7 +31,7 @@ public partial class ItemsList
 
     internal bool ShouldRenderIcon()
     {
-        return _items.Any(x => !string.IsNullOrEmpty(x.Icon));
+        return _items.Any(x => x.Icon.HasValue);
     }
 
     internal virtual void OnItemSelectionChanged(ListItem listItem)
@@ -40,9 +39,7 @@ public partial class ItemsList
         if (listItem.Selected && SelectionMode == SelectionMode.Single)
         {
             foreach (var item in _items.Where(x => x.Selected && x != listItem))
-            {
                 item.SetSelection(false);
-            }
         }
 
         SelectedItemsChanged.InvokeAsync(_items.Where(x => x.Selected));
