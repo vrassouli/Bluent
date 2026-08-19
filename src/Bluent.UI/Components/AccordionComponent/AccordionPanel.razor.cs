@@ -7,7 +7,7 @@ public partial class AccordionPanel
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? HeaderAction { get; set; }
     [Parameter, EditorRequired] public string Header { get; set; } = default!;
-    [Parameter] public string HeaderIcon { get; set; } = default!;
+    [Parameter] public IconDefinition? HeaderIcon { get; set; }
     [Parameter] public string? PanelClasses { get; set; }
     [Parameter] public bool DeferredLoading { get; set; }
     [Parameter] public bool Expanded { get; set; }
