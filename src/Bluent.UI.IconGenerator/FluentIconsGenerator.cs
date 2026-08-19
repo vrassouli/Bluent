@@ -9,6 +9,10 @@ namespace Bluent.UI.IconGenerator;
 public sealed class FluentIconsGenerator : IIncrementalGenerator
 {
     private const string MetadataFileName = "FluentSystemIcons-Resizable.json";
+    private const string Prefix = "ic_fluent_";
+    private const string RegularSuffix = "_20_regular";
+    private const string FilledSuffix = "_20_filled";
+
     private static readonly Regex IconRegex = new(
         "\\\"(?<name>ic_fluent_[^\\\"]+_20_(?:regular|filled))\\\"\\s*:\\s*\\d+",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -33,9 +37,9 @@ public sealed class FluentIconsGenerator : IIncrementalGenerator
         foreach (Match match in IconRegex.Matches(json))
         {
             var fullName = match.Groups["name"].Value;
-            var isRegular = fullName.EndsWith("_20_regular", StringComparison.Ordinal);
-            var suffix = isRegular ? "_20_regular" : "_20_filled";
-            var rawName = fullName["ic_fluent_".Length..^suffix.Length];
+            var isRegular = fullName.EndsWith(RegularSuffix, StringComparison.Ordinal);
+            var suffix = isRegular ? RegularSuffix : FilledSuffix;
+            var rawName = fullName.Substring(Prefix.Length, fullName.Length - Prefix.Length - suffix.Length);
             var identifier = ToIdentifier(rawName);
 
             if (identifiers.TryGetValue(identifier, out var existingName) && !string.Equals(existingName, rawName, StringComparison.Ordinal))
@@ -43,11 +47,16 @@ public sealed class FluentIconsGenerator : IIncrementalGenerator
 
             identifiers[identifier] = rawName;
 
-            icons.TryGetValue(identifier, out var pair);
-            pair = isRegular
-                ? pair with { Regular = fullName }
-                : pair with { Filled = fullName };
-            icons[identifier] = pair;
+            if (!icons.TryGetValue(identifier, out var pair))
+            {
+                pair = new IconPair();
+                icons.Add(identifier, pair);
+            }
+
+            if (isRegular)
+                pair.Regular = fullName;
+            else
+                pair.Filled = fullName;
         }
 
         var builder = new StringBuilder();
@@ -62,8 +71,10 @@ public sealed class FluentIconsGenerator : IIncrementalGenerator
         builder.AppendLine("public static partial class FluentIcons");
         builder.AppendLine("{");
 
-        foreach (var (identifier, pair) in icons)
+        foreach (var entry in icons)
         {
+            var identifier = entry.Key;
+            var pair = entry.Value;
             var regular = pair.Regular ?? pair.Filled;
             if (regular is null)
                 continue;
@@ -111,5 +122,9 @@ public sealed class FluentIconsGenerator : IIncrementalGenerator
         return builder.ToString();
     }
 
-    private readonly record struct IconPair(string? Regular = null, string? Filled = null);
+    private sealed class IconPair
+    {
+        public string? Regular { get; set; }
+        public string? Filled { get; set; }
+    }
 }
