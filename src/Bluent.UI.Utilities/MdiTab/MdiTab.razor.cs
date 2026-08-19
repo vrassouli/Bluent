@@ -8,8 +8,6 @@ namespace Bluent.UI.Utilities;
 public partial class MdiTab : IDisposable
 {
     private CommandManager? _commandManager;
-
-    //private DynamicComponent? _componentRef;
     private object? _instance;
 
     [Parameter, EditorRequired] public Type ComponentType { get; set; }
@@ -32,23 +30,18 @@ public partial class MdiTab : IDisposable
             var cmdManager = GetCommandManager();
 
             if (Document?.HasChanges ?? cmdManager.HasChanges)
-            {
                 title += "*";
-            }
 
             return title;
         }
     }
 
-    private string? Icon => (_instance as IMdiDocument)?.Icon;
+    private IconDefinition? Icon => (_instance as IMdiDocument)?.Icon;
 
     protected override void OnInitialized()
     {
         if (Popover is null)
-        {
-            // See Tab.cs from Bluent.UI
             Parent.Add(this);
-        }
 
         var commandManager = GetCommandManager();
         commandManager.CommandExecuted += OnCommandExecuted;
@@ -99,26 +92,15 @@ public partial class MdiTab : IDisposable
             return commandManager;
         }
 
-        if (_commandManager is null)
-            _commandManager = new CommandManager();
-
-        return _commandManager;
+        return _commandManager ??= new CommandManager();
     }
 
-    private void OnCommandExecuted(object? sender, EventArgs e)
-    {
-        StateHasChanged();
-    }
-
-    private void OnSavePointChanged(object? sender, EventArgs e)
-    {
-        StateHasChanged();
-    }
+    private void OnCommandExecuted(object? sender, EventArgs e) => StateHasChanged();
+    private void OnSavePointChanged(object? sender, EventArgs e) => StateHasChanged();
 
     private void OnComponentCaptured(object componentInstance)
     {
         _instance = componentInstance;
-
         Parent.OnDocumentRendered(this);
     }
 }
