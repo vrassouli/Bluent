@@ -13,7 +13,6 @@
         else if (item is DocumentToolbarCommand cmd)
         {
             <ToolbarButton Icon="@cmd.Icon"
-                           ActiveIcon="@cmd.ActiveIcon"
                            Text="@cmd.Text"
                            Tooltip="@cmd.Tooltip"
                            OnClick="() => cmd.OnClick.Invoke()"
