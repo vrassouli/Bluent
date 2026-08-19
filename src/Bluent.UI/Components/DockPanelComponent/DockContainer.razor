@@ -11,7 +11,7 @@
             }
             else
             {
-                <Icon Content="@ActivePanel.Icon"/>
+                <Icon Value="@ActivePanel.Icon"/>
                 <div class="title">@ActivePanel.Title</div>
             }
             @if (ActivePanel.MoreActionsContent is not null)
@@ -21,8 +21,7 @@
             
             <Button Tooltip="More"
                     Appearance="ButtonAppearance.Subtle"
-                    Icon="icon-ic_fluent_more_vertical_20_regular"
-                    ActiveIcon="icon-ic_fluent_more_vertical_20_filled"
+                    Icon="@FluentIcons.MoreVertical"
                     Size="ButtonSize.Small">
                 <Dropdown>
                     <MenuList>
@@ -44,8 +43,7 @@
             </Button>
             <Button Tooltip="Close"
                     Appearance="ButtonAppearance.Subtle"
-                    Icon="icon-ic_fluent_dismiss_20_regular"
-                    ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                    Icon="@FluentIcons.Dismiss"
                     Size="ButtonSize.Small"
                     OnClick="Deactivate"/>
         </div>
