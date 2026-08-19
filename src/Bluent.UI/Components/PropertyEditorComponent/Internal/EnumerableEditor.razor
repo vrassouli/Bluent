@@ -7,8 +7,7 @@
     @if (CanAdd)
     {
         <Button Text="Add"
-                Icon="icon-ic_fluent_add_20_regular"
-                ActiveIcon="icon-ic_fluent_add_20_regular"
+                Icon="@FluentIcons.Add"
                 ShowDropdownIndicator
                 Size="ButtonSize.Small">
             <Dropdown>
@@ -40,21 +39,18 @@ else
                 @if (Count > 1)
                 {
                     <ButtonGroup>
-                        <Button Icon="icon-ic_fluent_arrow_up_20_regular"
-                                ActiveIcon="icon-ic_fluent_arrow_up_20_regular"
+                        <Button Icon="@FluentIcons.ArrowUp"
                                 Size="ButtonSize.Small"
                                 OnClick="() => GoUp(item)"
                                 disabled="@(!CanGoUp(item))"/>
 
-                        <Button Icon="icon-ic_fluent_arrow_down_20_regular"
-                                ActiveIcon="icon-ic_fluent_arrow_down_20_regular"
+                        <Button Icon="@FluentIcons.ArrowDown"
                                 Size="ButtonSize.Small"
                                 OnClick="() => GoDown(item)"
                                 disabled="@(!CanGoDown(item))"/>
                     </ButtonGroup>
                 }
-                <Button Icon="icon-ic_fluent_delete_20_regular"
-                        ActiveIcon="icon-ic_fluent_delete_20_regular"
+                <Button Icon="@FluentIcons.Delete"
                         Size="ButtonSize.Small"
                         OnClick="() => RemoveItem(item)"/>
             </div>
