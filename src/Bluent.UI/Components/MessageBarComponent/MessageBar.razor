@@ -6,7 +6,7 @@
 
 <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <div class="icon">
-        <Icon Content="@GetIconClass()" />
+        <Icon Value="@GetIcon()" Variant="IconVariant.Filled" />
     </div>
     <div class="body">
         @ChildContent
@@ -16,7 +16,7 @@
         <div class="dismiss">
             <Button Appearance="ButtonAppearance.Transparent"
                     Size="ButtonSize.Small"
-                    Icon="icon-ic_fluent_dismiss_20_regular" ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                    Icon="@FluentIcons.Dismiss"
                     OnClick="HandleDismiss" />
         </div>
     }
