@@ -12,8 +12,7 @@ public partial class AudioCapture : IAudioCaptureEventHandler, IAsyncDisposable
     private AudioCaptureInterop _interop = default!;
 
     [Parameter] public string? Text { get; set; }
-    [Parameter] public string? Icon { get; set; } = "icon-ic_fluent_mic_20_regular";
-    [Parameter] public string? ActiveIcon { get; set; } = "icon-ic_fluent_mic_20_filled";
+    [Parameter] public IconDefinition Icon { get; set; } = FluentIcons.Mic;
     [Parameter] public string Format { get; set; } = "audio/mp3";
     [Parameter] public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
     [Parameter] public EventCallback CaptureStarted { get; set; }
