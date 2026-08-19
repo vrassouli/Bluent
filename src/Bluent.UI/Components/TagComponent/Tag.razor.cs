@@ -6,7 +6,7 @@ public partial class Tag
 {
     [Parameter] public string Title { get; set; } = default!;
     [Parameter] public bool Dismissable { get; set; }
-    [Parameter] public string? Icon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public EventCallback OnDismiss { get; set; }
     
