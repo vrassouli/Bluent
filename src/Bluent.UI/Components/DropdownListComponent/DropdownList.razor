@@ -30,7 +30,7 @@
                            autocomplete="off"
                            placeholder="@FilterPlaceholder">
                     <StartAddon>
-                        <Icon Content="icon-ic_fluent_filter_20_regular" />
+                        <Icon Value="@FluentIcons.Filter" />
                     </StartAddon>
                     <EndAddon>
                         @if (!string.IsNullOrEmpty(_filter))
@@ -38,8 +38,7 @@
                             <div @onclick:preventDefault="true">
                                 <Button Appearance="ButtonAppearance.Transparent"
                                         Size="ButtonSize.Small"
-                                        Icon="icon-ic_fluent_dismiss_20_regular"
-                                        ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                                        Icon="@FluentIcons.Dismiss"
                                         OnClick="OnClearFilter" />
                             </div>
                         }
