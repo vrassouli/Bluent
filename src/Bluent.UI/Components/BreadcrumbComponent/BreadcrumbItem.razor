@@ -3,13 +3,13 @@
 
 <li @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
     <a href="@Href" target="@Target">
-        @if (!string.IsNullOrEmpty(Icon))
+        @if (Icon.HasValue)
         {
-            @if(!string.IsNullOrEmpty(ActiveIcon))
+            @if (Icon.Value.Filled.HasValue)
             {
-                <Icon Class="active-icon" Content="@ActiveIcon" />
+                <Icon Class="active-icon" Value="@Icon" Variant="IconVariant.Filled" />
             }
-            <Icon Class="icon" Content="@Icon"/>
+            <Icon Class="icon" Value="@Icon"/>
         }
         <div class="title">
             @Title
@@ -19,6 +19,6 @@
 @if (!IsCurrent)
 {
     <li class="seperator">
-        <Icon Class="icon" Content="icon-ic_fluent_chevron_right_20_regular" />
+        <Icon Class="icon" Value="@FluentIcons.ChevronRight" />
     </li>
 }
