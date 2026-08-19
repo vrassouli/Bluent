@@ -10,8 +10,7 @@ public partial class TabListTabItem
     private string? _href;
     [Parameter] public string Text { get; set; } = default!;
     [Parameter] public string? MenuLabel { get; set; }
-    [Parameter] public string Icon { get; set; } = default!;
-    [Parameter] public string ActiveIcon { get; set; } = default!;
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public bool DeferredLoading { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter] public NavLinkMatch Match { get; set; }
@@ -68,19 +67,14 @@ public partial class TabListTabItem
         if (Orientation != Orientation.Horizontal)
             yield return Orientation.ToString().Kebaberize();
 
-        if (TabList is TabList tabList)
-        {
-            if (tabList.IsSelected(this))
-                yield return "selected";
-        }
+        if (TabList is TabList tabList && tabList.IsSelected(this))
+            yield return "selected";
     }
 
     private void ClickHandler()
     {
         if (TabList is TabList tabList)
-        {
             tabList.SelectTab(this);
-        }
 
         OnClick.InvokeAsync();
     }
