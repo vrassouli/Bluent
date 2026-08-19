@@ -15,13 +15,13 @@
     __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
     __builder.OpenRegion(8);
 
-    @if (!string.IsNullOrEmpty(Icon))
+    @if (Icon.HasValue)
     {
-        @if (!string.IsNullOrEmpty(ActiveIcon))
+        @if (Icon.Value.Filled.HasValue)
         {
-            <Icon Content="@ActiveIcon" Class="@($"active-icon {ActiveIconClass}")" />
+            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
         }
-        <Icon Content="@Icon" Class="@($"icon {IconClass}")" />
+        <Icon Value="@Icon" Class="icon" />
     }
     @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
     {
@@ -38,8 +38,9 @@
     }
     @if (ParentPopover != null && ShowDropdownIndicator)
     {
-        <Icon Content="@($"icon-ic_fluent_{GetDropdownIcon()}_20_filled")" Class="dropdown-active-icon" />
-        <Icon Content="@($"icon-ic_fluent_{GetDropdownIcon()}_20_regular")" Class="dropdown-icon" />
+        var dropdownIcon = GetDropdownIcon();
+        <Icon Value="@dropdownIcon" Variant="IconVariant.Filled" Class="dropdown-active-icon" />
+        <Icon Value="@dropdownIcon" Class="dropdown-icon" />
     }
 
     if (Badge != null)
@@ -60,9 +61,6 @@ else if (IsDropdownButton)
                     TextClass="@TextClass"
                     SecondaryText="@SecondaryText"
                     Icon="@Icon"
-                    IconClass="@IconClass"
-                    ActiveIcon="@ActiveIcon"
-                    ActiveIconClass="@ActiveIconClass"
                     Compact="@Compact"
                     Toggled="@Toggled"
                     ToggledChanged="@ToggledChanged"
@@ -87,9 +85,6 @@ else if (IsSplitButton)
                 TextClass="@TextClass"
                 SecondaryText="@SecondaryText"
                 Icon="@Icon"
-                IconClass="@IconClass"
-                ActiveIcon="@ActiveIcon"
-                ActiveIconClass="@ActiveIconClass"
                 Compact="@Compact"
                 Toggled="@Toggled"
                 ToggledChanged="@ToggledChanged"
