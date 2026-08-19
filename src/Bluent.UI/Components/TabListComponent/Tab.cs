@@ -9,8 +9,7 @@ public class Tab : OverflowItemComponentBase
 {
     [Parameter] public string Text { get; set; } = default!;
     [Parameter] public string? MenuLabel { get; set; } = default!;
-    [Parameter] public string Icon { get; set; } = default!;
-    [Parameter] public string ActiveIcon { get; set; } = default!;
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter] public NavLinkMatch Match { get; set; }
     [Parameter] public object? Data { get; set; }
@@ -30,14 +29,7 @@ public class Tab : OverflowItemComponentBase
                 $"'{this.GetType().Name}' component should be nested inside a '{nameof(Components.TabList)}' component.");
 
         if (Popover is null)
-        {
-            // Tab items get instantiated twice
-            // One as a real tab panel, and once as menu item for tab overflow
-            // so we should add this instance to tabs list, only when
-            // not being instantiated for overflow (Popover == null)
-            
             tabList.Add(this);
-        }
 
         base.OnInitialized();
     }
@@ -56,7 +48,6 @@ public class Tab : OverflowItemComponentBase
 
         builder.AddAttribute(++seq, nameof(TabListTabItem.Text), Text);
         builder.AddAttribute(++seq, nameof(TabListTabItem.Icon), Icon);
-        builder.AddAttribute(++seq, nameof(TabListTabItem.ActiveIcon), ActiveIcon);
         builder.AddAttribute(++seq, nameof(TabListTabItem.ChildContent), ChildContent);
         builder.AddAttribute(++seq, nameof(TabListTabItem.Actions), Actions);
         builder.AddAttribute(++seq, nameof(TabListTabItem.Orientation), Orientation);
@@ -80,10 +71,9 @@ public class Tab : OverflowItemComponentBase
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(2, nameof(MenuItem.Title), MenuLabel ?? Text);
         builder.AddAttribute(3, nameof(MenuItem.Icon), Icon);
-        builder.AddAttribute(4, nameof(MenuItem.ActiveIcon), ActiveIcon);
-        builder.AddAttribute(5, nameof(MenuItem.Data), Data);
-        builder.AddAttribute(6, nameof(MenuItem.Href), Href);
-        builder.AddAttribute(7, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () =>
+        builder.AddAttribute(4, nameof(MenuItem.Data), Data);
+        builder.AddAttribute(5, nameof(MenuItem.Href), Href);
+        builder.AddAttribute(6, nameof(MenuItem.OnClick), EventCallback.Factory.Create(this, () =>
         {
             (Overflow as TabList)?.SelectTab(this);
             OnClick.InvokeAsync();
