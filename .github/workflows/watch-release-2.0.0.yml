@@ -1,0 +1,92 @@
+name: Watch Bluent 2.0.0 publication
+
+on:
+  push:
+    branches:
+      - Dev
+    paths:
+      - .github/workflows/watch-release-2.0.0.yml
+  workflow_run:
+    workflows:
+      - Release packages
+    types:
+      - completed
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine release result
+        id: release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          WORKFLOW_RUN_EVENT: ${{ github.event.workflow_run.event }}
+          WORKFLOW_RUN_HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: |
+          set -euo pipefail
+
+          if [[ "$EVENT_NAME" == "workflow_run" ]]; then
+            if [[ "$WORKFLOW_RUN_EVENT" != "workflow_dispatch" || "$WORKFLOW_RUN_HEAD_BRANCH" != "v2.0.0" ]]; then
+              echo "relevant=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+            echo "conclusion=$WORKFLOW_RUN_CONCLUSION" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          run_json="$(gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow publish.yml \
+            --event workflow_dispatch \
+            --limit 20 \
+            --json headBranch,status,conclusion,createdAt \
+            --jq '[.[] | select(.headBranch == "v2.0.0")] | sort_by(.createdAt) | last // {}')"
+
+          if [[ -z "$run_json" || "$run_json" == "{}" ]]; then
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          status="$(jq -r '.status // ""' <<<"$run_json")"
+          conclusion="$(jq -r '.conclusion // ""' <<<"$run_json")"
+          echo "relevant=true" >> "$GITHUB_OUTPUT"
+          echo "conclusion=$conclusion" >> "$GITHUB_OUTPUT"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      - name: Fail if completed release failed
+        if: steps.release.outputs.relevant == 'true' && steps.release.outputs.conclusion != '' && steps.release.outputs.conclusion != 'success'
+        shell: bash
+        run: |
+          echo "Bluent 2.0.0 publication completed with conclusion: ${{ steps.release.outputs.conclusion }}" >&2
+          exit 1
+
+      - name: Clean up bootstrap workflows after successful release
+        if: steps.release.outputs.relevant == 'true' && steps.release.outputs.conclusion == 'success'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api \
+            --method DELETE \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/$GITHUB_REPOSITORY/contents/.github/workflows/bootstrap-release-2.0.0.yml" \
+            -f message='chore: remove 2.0.0 release bootstrap' \
+            -f sha="$(gh api "/repos/$GITHUB_REPOSITORY/contents/.github/workflows/bootstrap-release-2.0.0.yml?ref=Dev" --jq .sha)" \
+            -f branch=Dev
+
+          gh api \
+            --method DELETE \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/$GITHUB_REPOSITORY/contents/.github/workflows/watch-release-2.0.0.yml" \
+            -f message='chore: remove 2.0.0 release watcher' \
+            -f sha="$(gh api "/repos/$GITHUB_REPOSITORY/contents/.github/workflows/watch-release-2.0.0.yml?ref=Dev" --jq .sha)" \
+            -f branch=Dev
