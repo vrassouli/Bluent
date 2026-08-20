@@ -3,8 +3,7 @@
 @implements IDisposable
 @namespace Bluent.UI.Utilities
 
-<ToolbarButton Icon="icon-ic_fluent_save_20_regular"
-               ActiveIcon="icon-ic_fluent_save_20_filled"
+<ToolbarButton Icon="@FluentIcons.Save"
                Text="@Text"
                Tooltip="@Tooltip"
                OnClick="OnSave"
@@ -23,7 +22,6 @@
     protected override void OnParametersSet()
     {
         InitializeCommandManager();
-
         base.OnParametersSet();
     }
 
@@ -37,10 +35,7 @@
         }
     }
 
-    public void Dispose()
-    {
-        UnsetEvents();
-    }
+    public void Dispose() => UnsetEvents();
 
     private void SetEvents()
     {
@@ -60,14 +55,6 @@
         _commandManager.SavePointChanged -= OnSavePointChanged;
     }
 
-    private void OnCommandExecuted(object? sender, EventArgs e)
-    {
-        StateHasChanged();
-    }
-
-    private void OnSavePointChanged(object? sender, EventArgs e)
-    {
-        StateHasChanged();
-    }
-
+    private void OnCommandExecuted(object? sender, EventArgs e) => StateHasChanged();
+    private void OnSavePointChanged(object? sender, EventArgs e) => StateHasChanged();
 }

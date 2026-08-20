@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components.IconComponent;
+﻿using Bluent.UI.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -6,54 +6,56 @@ namespace Bluent.UI.Components;
 
 public class Icon : BluentUiComponentBase
 {
-    [Parameter] public string? Content { get; set; }
+    [Parameter, EditorRequired] public IconDefinition? Value { get; set; }
+    [Parameter] public IconVariant Variant { get; set; } = IconVariant.Regular;
 
-    bool IsSvg => Content?.StartsWith("<svg", StringComparison.InvariantCultureIgnoreCase) == true;
-    bool IsPath => Content?.Contains("/") == true;
-    bool IsCssClass => !IsSvg && !IsPath;
+    private IconSource? Source => Value?.GetSource(Variant);
 
     public override IEnumerable<string> GetClasses()
     {
         yield return "bui-icon";
 
-        if (IsCssClass && !string.IsNullOrEmpty(Content))
-            yield return Content;
+        if (Source is { Kind: IconSourceKind.CssClass } source)
+            yield return source.Value;
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (IsSvg)
+        if (Source is not { } source)
+            return;
+
+        switch (source.Kind)
         {
-            builder.OpenElement(0, "div");
-            builder.AddMultipleAttributes(1, AdditionalAttributes);
-            builder.AddAttribute(2, "id", Id);
-            builder.AddAttribute(3, "class", GetComponentClass());
-            builder.AddAttribute(4, "style", Style);
-            if (!string.IsNullOrEmpty(Content))
-                builder.AddContent(5, (MarkupString)Content);
-            builder.CloseElement();
-        }
-        else if (IsPath)
-        {
-            builder.OpenElement(6, "img");
-            builder.AddMultipleAttributes(7, AdditionalAttributes);
-            builder.AddAttribute(8, "id", Id);
-            builder.AddAttribute(9, "class", GetComponentClass());
-            builder.AddAttribute(10, "style", Style);
-            builder.AddAttribute(11, "src", Content);
-            builder.CloseElement();
-        }
-        else
-        {
-            builder.OpenElement(12, "i");
-            builder.AddMultipleAttributes(13, AdditionalAttributes);
-            builder.AddAttribute(14, "id", Id);
-            builder.AddAttribute(15, "class", GetComponentClass());
-            builder.AddAttribute(16, "style", Style);
-            builder.CloseElement();
+            case IconSourceKind.Svg:
+                builder.OpenElement(0, "span");
+                AddCommonAttributes(builder, 1);
+                builder.AddContent(5, (MarkupString)source.Value);
+                builder.CloseElement();
+                break;
+
+            case IconSourceKind.Image:
+                builder.OpenElement(6, "img");
+                AddCommonAttributes(builder, 7);
+                builder.AddAttribute(11, "src", source.Value);
+                builder.CloseElement();
+                break;
+
+            case IconSourceKind.CssClass:
+                builder.OpenElement(12, "i");
+                AddCommonAttributes(builder, 13);
+                builder.CloseElement();
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(source.Kind), source.Kind, "Unsupported icon source kind.");
         }
     }
 
-    public static SvgGenerator FromContent(string content) =>
-        new SvgGenerator().Content(content);
+    private void AddCommonAttributes(RenderTreeBuilder builder, int sequence)
+    {
+        builder.AddMultipleAttributes(sequence, AdditionalAttributes);
+        builder.AddAttribute(sequence + 1, "id", Id);
+        builder.AddAttribute(sequence + 2, "class", GetComponentClass());
+        builder.AddAttribute(sequence + 3, "style", Style);
+    }
 }

@@ -1,7 +1,7 @@
 ﻿<div class="title">
     @if (Intend != ToastIntend.None)
     {
-        <i class="@GetIconClass()"></i>
+        <Icon Value="@GetIcon()" Variant="IconVariant.Filled" Class="@GetIconClass()" />
     }
     <div class="text">@Title</div>
     @if (!string.IsNullOrEmpty(DismissTitle))
@@ -21,17 +21,23 @@
     [Parameter] public ToastIntend Intend { get; set; } = ToastIntend.None;
     [CascadingParameter] public Toast? Toast{ get; set; }
 
-    private string GetIconClass()
+    private IconDefinition GetIcon() => Intend switch
     {
-        return Intend switch
-        {
-            ToastIntend.Success => "icon-ic_fluent_checkmark_circle_20_filled color-success-1 me-2",
-            ToastIntend.Info => "icon-ic_fluent_info_20_filled color-info-1 me-2",
-            ToastIntend.Warning => "icon-ic_fluent_warning_20_filled color-warning-1 me-2",
-            ToastIntend.Error => "icon-ic_fluent_dismiss_circle_20_filled color-danger-1 me-2",
-            _ => string.Empty
-        };
-    }
+        ToastIntend.Success => FluentIcons.CheckmarkCircle,
+        ToastIntend.Info => FluentIcons.Info,
+        ToastIntend.Warning => FluentIcons.Warning,
+        ToastIntend.Error => FluentIcons.DismissCircle,
+        _ => FluentIcons.Info
+    };
+
+    private string GetIconClass() => Intend switch
+    {
+        ToastIntend.Success => "color-success-1 me-2",
+        ToastIntend.Info => "color-info-1 me-2",
+        ToastIntend.Warning => "color-warning-1 me-2",
+        ToastIntend.Error => "color-danger-1 me-2",
+        _ => "me-2"
+    };
 
     private void OnDismissClick()
     {

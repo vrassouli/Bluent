@@ -5,10 +5,10 @@
     @if (OnClick.HasDelegate)
     {
         <button class="content" @onclick="OnClick">
-            @if (!string.IsNullOrEmpty(Icon))
+            @if (Icon is not null)
             {
                 <span class="icon">
-                    <Icon Content="@Icon" />
+                    <Icon Value="@Icon" />
                 </span>
             }
             <div class="title">@Title</div>
@@ -17,9 +17,9 @@
     else
     {
         <div class="content">
-            @if (!string.IsNullOrEmpty(Icon))
+            @if (Icon is not null)
             {
-                <Icon Content="@Icon" Class="icon" />
+                <Icon Value="@Icon" Class="icon" />
             }
             <div class="title">@Title</div>
         </div>
@@ -27,7 +27,7 @@
     @if (Dismissable)
     {
         <button class="dismiss" type="button" @onclick=OnDismiss>
-            <i class="icon icon-ic_fluent_dismiss_20_regular" />
+            <Icon Value="@FluentIcons.Dismiss" Class="icon" />
         </button>
     }
 </div>

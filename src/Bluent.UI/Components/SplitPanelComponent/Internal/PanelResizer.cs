@@ -18,13 +18,11 @@ public class PanelResizer : BluentUiComponentBase, IPointerUpEventHandler, IPoin
 
     private string AreaClass => $"{SplitArea}-resizer".ToLower();
 
-    private string GripIcon => SplitArea switch
+    private IconDefinition GripIcon => SplitArea switch
     {
-        SplitArea.Top or SplitArea.Bottom or SplitArea.Header or SplitArea.Footer
-            => "icon-ic_fluent_more_horizontal_20_regular",
-        SplitArea.Start or SplitArea.End or SplitArea.StartSide or SplitArea.EndSide
-            => "icon-ic_fluent_more_vertical_20_regular",
-        _ => string.Empty
+        SplitArea.Top or SplitArea.Bottom or SplitArea.Header or SplitArea.Footer => FluentIcons.MoreHorizontal,
+        SplitArea.Start or SplitArea.End or SplitArea.StartSide or SplitArea.EndSide => FluentIcons.MoreVertical,
+        _ => throw new ArgumentOutOfRangeException(nameof(SplitArea), SplitArea, null)
     };
 
     private string? PositionStyle
@@ -40,13 +38,9 @@ public class PanelResizer : BluentUiComponentBase, IPointerUpEventHandler, IPoin
             var style = SplitArea switch
             {
                 SplitArea.Header or SplitArea.Top => "top",
-
                 SplitArea.Footer or SplitArea.Bottom => "bottom",
-
-
                 SplitArea.Start or SplitArea.StartSide => "left",
                 SplitArea.End or SplitArea.EndSide => "right",
-
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -107,7 +101,7 @@ public class PanelResizer : BluentUiComponentBase, IPointerUpEventHandler, IPoin
             EventCallback.Factory.Create<PointerEventArgs>(this, OnPointerDown));
 
         builder.OpenComponent<Icon>(++seq);
-        builder.AddComponentParameter(++seq, nameof(Icon.Content), GripIcon);
+        builder.AddComponentParameter(++seq, nameof(Icon.Value), GripIcon);
         builder.CloseComponent();
 
         builder.CloseElement();
@@ -123,7 +117,6 @@ public class PanelResizer : BluentUiComponentBase, IPointerUpEventHandler, IPoin
     [JSInvokable]
     public Task OnPointerUp(PointerEventArgs args)
     {
-        // Check and stop resize...
         if (_capturedPointerId == args.PointerId)
             _capturedPointerId = null;
 

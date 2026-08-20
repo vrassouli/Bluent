@@ -9,7 +9,7 @@ public partial class Badge
     [Parameter] public BadgeSize Size { get; set; } = BadgeSize.Medium;
     [Parameter] public BadgeShape Shape { get; set; } = BadgeShape.Circular;
     [Parameter] public BadgeColor Color { get; set; } = BadgeColor.Brand;
-    [Parameter] public string? Icon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public string? Text { get; set; }
     [Parameter] public bool DropShadow { get; set; }
     [Parameter] public bool AnimateShadow { get; set; }

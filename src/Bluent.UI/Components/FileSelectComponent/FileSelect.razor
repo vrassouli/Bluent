@@ -10,9 +10,9 @@
     <div class="content">
         @if (_files.Count < MaxFiles || !ShowFileInfo)
         {
-            <Button Text="@Text" Icon="@Icon" ActiveIcon="@ActiveIcon" Appearance="@Appearance"  Shape="Shape"
-                    OnClick="HandleOnClick" 
-                    type="button" 
+            <Button Text="@Text" Icon="@Icon" Appearance="@Appearance" Shape="Shape"
+                    OnClick="HandleOnClick"
+                    type="button"
                     disabled="@Disabled" />
         }
         @if (ShowFileInfo && _files.Any())
@@ -22,7 +22,7 @@
                 {
                     <Card Orientation="CardOrientation.Horizontal">
                         <CardPreview>
-                            <Icon Content="@GetIcon(Path.GetExtension(file.File.Name))" Style="width: 50px; margin: 7px;" />
+                            <Icon Value="@GetIcon(Path.GetExtension(file.File.Name))" Style="width: 50px; margin: 7px;" />
                         </CardPreview>
                         <CardHeader>
                             <Header>
@@ -34,8 +34,7 @@
                             <Action>
                                 @if (AllowRemove)
                                 {
-                                    <Button Icon="icon-ic_fluent_delete_20_regular"
-                                            ActiveIcon="icon-ic_fluent_delete_20_filled"
+                                    <Button Icon="@FluentIcons.Delete"
                                             Appearance="ButtonAppearance.Transparent"
                                             OnClick="()=>HandleFileRemove(file)" />
                                 }

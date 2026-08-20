@@ -23,10 +23,10 @@
         <section class="p-7 rounded-5 shadow-3">
             <TextField @bind-Value="_textField" placeholder="Search..." accesskey="s">
                 <StartAddon>
-                    <i class="icon-ic_fluent_search_20_regular"></i>
+                    <Icon Value="@FluentIcons.Search" />
                 </StartAddon>
                 <EndAddon>
-                    <Button Icon="icon-ic_fluent_search_20_regular" ActiveIcon="icon-ic_fluent_search_20_filled"
+                    <Button Icon="@FluentIcons.Search"
                             Appearance="ButtonAppearance.Subtle"/>
                 </EndAddon>
             </TextField>
@@ -37,7 +37,7 @@
             <Label ForExpression="()=>_disabledTextField" Class="d-block mb-1"/>
             <TextField @bind-Value="_disabledTextField" disabled>
                 <StartAddon>
-                    <i class="icon-ic_fluent_search_20_regular"></i>
+                    <Icon Value="@FluentIcons.Search" />
                 </StartAddon>
             </TextField>
         </section>
@@ -47,28 +47,28 @@
             <Label ForExpression="()=>_smallTextField" Class="d-block mb-1"/>
             <TextField @bind-Value="_smallTextField">
                 <StartAddon>
-                    <i class="icon-ic_fluent_people_20_regular"></i>
+                    <Icon Value="@FluentIcons.People" />
                 </StartAddon>
             </TextField>
 
             <Label ForExpression="()=>_smallTextField" Class="d-block mb-1"/>
             <TextField @bind-Value="_smallTextField" Size="FieldSize.Small">
                 <StartAddon>
-                    <i class="icon-ic_fluent_people_20_regular"></i>
+                    <Icon Value="@FluentIcons.People" />
                 </StartAddon>
             </TextField>
 
             <Label ForExpression="()=>_mediumTextField" Class="d-block mb-1 mt-4"/>
             <TextField @bind-Value="_mediumTextField" Size="FieldSize.Medium">
                 <StartAddon>
-                    <i class="icon-ic_fluent_people_20_regular"></i>
+                    <Icon Value="@FluentIcons.People" />
                 </StartAddon>
             </TextField>
 
             <Label ForExpression="()=>_largeTextField" Class="d-block mb-1 mt-4"/>
             <TextField @bind-Value="_largeTextField" Size="FieldSize.Large">
                 <StartAddon>
-                    <i class="icon-ic_fluent_people_20_regular"></i>
+                    <Icon Value="@FluentIcons.People" />
                 </StartAddon>
             </TextField>
         </section>
@@ -223,7 +223,7 @@
                                   BindValueEvent="oninput"
                                   Min="0"
                                   Format="G29"/>
-                    <Icon Content="icon-ic_fluent_arrow_swap_20_regular" Class="fs-7"/>
+                    <Icon Value="@FluentIcons.ArrowSwap" Class="fs-7"/>
                     <NumericField TValue="int" 
                                   Value="_grams" 
                                   ValueExpression="() => _grams" 

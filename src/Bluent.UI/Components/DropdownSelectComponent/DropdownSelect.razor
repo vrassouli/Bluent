@@ -21,8 +21,7 @@
                 {
                     <Button Appearance="ButtonAppearance.Transparent"
                             Size="ButtonSize.Small"
-                            Icon="icon-ic_fluent_dismiss_20_regular"
-                            ActiveIcon="icon-ic_fluent_dismiss_20_filled"
+                            Icon="@FluentIcons.Dismiss"
                             OnClick="() => ClearOption.InvokeAsync(Options.ElementAt(0).Value)" />
                 }
             }
@@ -35,7 +34,7 @@
                     }
                 </div>
             }
-            <Icon Content="icon-ic_fluent_chevron_down_20_regular" />
+            <Icon Value="@FluentIcons.ChevronDown" />
         </div>
     </Trigger>
     <Surface>

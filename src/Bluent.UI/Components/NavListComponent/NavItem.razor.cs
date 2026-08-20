@@ -9,10 +9,9 @@ public partial class NavItem
     private string? _href;
     private bool _isActive;
     [Parameter, EditorRequired] public string Text { get; set; }
-    [Parameter, EditorRequired] public string Icon { get; set; }
+    [Parameter, EditorRequired] public IconDefinition? Icon { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter] public NavLinkMatch Match { get; set; }
-    [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? Options { get; set; }
     [Parameter] public bool Expanded { get; set; }

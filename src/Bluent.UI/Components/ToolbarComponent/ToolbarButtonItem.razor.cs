@@ -8,8 +8,7 @@ public partial class ToolbarButtonItem
     private Popover? _popover;
     [Parameter] public string Text { get; set; } = default!;
     [Parameter] public string? MenuLabel { get; set; }
-    [Parameter] public string Icon { get; set; } = default!;
-    [Parameter] public string? ActiveIcon {  get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public ToolbarButtonAppearance Appearance { get; set; } = ToolbarButtonAppearance.Default;
@@ -25,9 +24,7 @@ public partial class ToolbarButtonItem
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender && _popover != null)
-        {
             _popover.SetTrigger(this);
-        }
 
         base.OnAfterRender(firstRender);
     }

@@ -9,7 +9,7 @@ public partial class Avatar
     [Parameter] public string? Initials { get; set; }
     [Parameter] public string? Name { get; set; }
     [Parameter] public string? ImageSource { get; set; }
-    [Parameter] public string? Icon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public string? InitialsSeperator { get; set; }
     [Parameter] public bool AutoColor { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }

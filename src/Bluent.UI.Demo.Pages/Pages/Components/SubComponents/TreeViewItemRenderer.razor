@@ -1,6 +1,6 @@
-﻿@using Bluent.UI.Demo.Pages.Components.ViewModels
+@using Bluent.UI.Demo.Pages.Components.ViewModels
 
-<TreeItem Title="@Item.Title" Data="Item" Icon="@GetIcon()" ExpandedIcon="icon-ic_fluent_folder_open_20_regular" @key=Item>
+<TreeItem Title="@Item.Title" Data="Item" Icon="@GetIcon()" ExpandedIcon="@FluentIcons.FolderOpen" @key=Item>
     @if (Item.Children.Any())
     {
         foreach (var item in Item.Children.OrderBy(x => !x.Title.StartsWith("Folder")).ThenBy(x => x.Title))
@@ -13,11 +13,11 @@
 @code {
     [Parameter, EditorRequired] public TreeItemViewModel Item { get; set; } = default!;
 
-    private string GetIcon()
+    private IconDefinition GetIcon()
     {
         if (Item.Title.StartsWith("Folder"))
-            return "icon-ic_fluent_folder_20_regular";
+            return FluentIcons.Folder;
 
-        return "icon-ic_fluent_document_20_regular";
+        return FluentIcons.Document;
     }
 }

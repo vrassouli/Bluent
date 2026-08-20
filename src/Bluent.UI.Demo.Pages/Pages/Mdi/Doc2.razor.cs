@@ -11,7 +11,7 @@ public partial class Doc2 : IMdiDocument, IDisposable
     private bool _loaded;
 
     public string Title => _loaded ? "Document 2" : "Waiting...";
-    public string Icon => "icon-ic_fluent_vehicle_car_profile_20_regular";
+    public IconDefinition Icon => FluentIcons.VehicleCarProfile;
     public List<DocumentToolbarItem> Items { get; }
     public bool HasChanges => CommandManager.HasChanges;
 
@@ -24,18 +24,16 @@ public partial class Doc2 : IMdiDocument, IDisposable
     {
         Items =
         [
-            new DocumentToolbarCommand("icon-ic_fluent_add_circle_20_regular", OnIncreaseValue)
+            new DocumentToolbarCommand(FluentIcons.AddCircle, OnIncreaseValue)
             {
                 Text = "Increase",
                 Tooltip = "Increase Value",
-                ActiveIcon = "icon-ic_fluent_add_circle_20_filled",
                 CanExecute = CanIncreaseValue
             },
-            new DocumentToolbarCommand("icon-ic_fluent_subtract_circle_20_regular", OnDecreaseValue)
+            new DocumentToolbarCommand(FluentIcons.SubtractCircle, OnDecreaseValue)
             {
                 Text = "Decrease",
                 Tooltip = "Decrease Value",
-                ActiveIcon = "icon-ic_fluent_subtract_circle_20_filled",
                 CanExecute = CanDecreaseValue
             }
         ];

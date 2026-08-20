@@ -10,7 +10,7 @@ public partial class Doc1 : IMdiDocument, IDisposable
     private bool _loaded;
 
     public string Title => _loaded ? "Document 1" : "Waiting...";
-    public string Icon => "icon-ic_fluent_tree_deciduous_20_regular";
+    public IconDefinition Icon => FluentIcons.TreeDeciduous;
     public List<DocumentToolbarItem> Items { get; }
     public bool HasChanges => CommandManager.HasChanges;
 
@@ -23,11 +23,10 @@ public partial class Doc1 : IMdiDocument, IDisposable
     {
         Items =
         [
-            new DocumentToolbarCommand("icon-ic_fluent_save_20_regular", OnSaveAsync)
+            new DocumentToolbarCommand(FluentIcons.Save, OnSaveAsync)
             {
                 Text = "Save",
                 Tooltip = "Save the document",
-                ActiveIcon = "icon-ic_fluent_save_20_filled",
                 CanExecute = CanSave
             }
         ];

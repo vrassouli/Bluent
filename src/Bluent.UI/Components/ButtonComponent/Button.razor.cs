@@ -6,15 +6,10 @@ namespace Bluent.UI.Components;
 
 public partial class Button
 {
-    //private Popover? _dropdownPopover;
-
     [Parameter] public string? Text { get; set; }
     [Parameter] public string? TextClass { get; set; }
     [Parameter] public string? SecondaryText { get; set; }
-    [Parameter] public string? Icon { get; set; }
-    [Parameter] public string? IconClass { get; set; }
-    [Parameter] public string? ActiveIcon { get; set; }
-    [Parameter] public string? ActiveIconClass { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public bool? Toggled { get; set; }
     [Parameter] public bool Rotated { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -80,10 +75,8 @@ public partial class Button
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
-        {
             ParentPopover?.SetTrigger(this);
-            //_dropdownPopover?.SetTrigger(this);
-        }
+
         base.OnAfterRender(firstRender);
     }
 
@@ -95,17 +88,17 @@ public partial class Button
         return "button";
     }
 
-    private string GetDropdownIcon()
+    private IconDefinition GetDropdownIcon()
     {
         if (ParentPopover is null)
             throw new InvalidOperationException("Dropdown button needs to be nested in a Popover");
 
         return ParentPopover.Placement switch
         {
-            (Placement.Top or Placement.TopStart or Placement.TopEnd) => "caret_up",
-            (Placement.Right or Placement.RightStart or Placement.RightEnd) => "caret_right",
-            (Placement.Left or Placement.LeftStart or Placement.LeftEnd) => "caret_left",
-            _ => "caret_down"
+            (Placement.Top or Placement.TopStart or Placement.TopEnd) => FluentIcons.CaretUp,
+            (Placement.Right or Placement.RightStart or Placement.RightEnd) => FluentIcons.CaretRight,
+            (Placement.Left or Placement.LeftStart or Placement.LeftEnd) => FluentIcons.CaretLeft,
+            _ => FluentIcons.CaretDown
         };
     }
 
@@ -125,6 +118,4 @@ public partial class Button
         if (_popover != null)
             _popover.RefreshSurface();
     }
-    
-    
 }

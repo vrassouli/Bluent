@@ -1,8 +1,8 @@
-﻿@implements ISelectionOptionsComponent
+@implements ISelectionOptionsComponent
 
 @using Bluent.UI.Diagrams.Commands.Basic
 @using Bluent.UI.Diagrams.Elements
-<Button Text="Delete" Icon="icon-ic_fluent_delete_20_regular" ActiveIcon="icon-ic_fluent_delete_20_filled" OnClick="DeleteElement" />
+<Button Text="Delete" Icon="@FluentIcons.Delete" OnClick="DeleteElement" />
 
 @code {
     [CascadingParameter] public DrawingCanvas Canvas { get; set; } = default!;

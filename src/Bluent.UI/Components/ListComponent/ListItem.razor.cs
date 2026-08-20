@@ -11,10 +11,9 @@ public partial class ListItem
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public object? Data { get; set; }
     [Parameter] public string? Text { get; set; }
-    [Parameter] public string? Icon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     // [Parameter] public bool? Draggable { get; set; }
     // [Parameter] public Func<object> DragData { get; set; }
-    [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public bool Selected { get; set; }
     [Parameter] public EventCallback<bool> SelectedChanged { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
@@ -45,11 +44,8 @@ public partial class ListItem
 
         List.Add(this);
 
-        // initially selected?
         if (Selected)
             List.OnItemSelectionChanged(this);
-
-        //Selected = List.IsSelected(this);
 
         base.OnInitialized();
     }
@@ -99,10 +95,6 @@ public partial class ListItem
 
         OnClick.InvokeAsync();
     }
-    // private void DragStartHandler()
-    // {
-    //     DndContext?.Dragging = DragData.Invoke();
-    // }
 
     private void DragEndHandler()
     {

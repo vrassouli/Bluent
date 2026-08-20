@@ -12,9 +12,7 @@ public partial class ProgressBar
     [Parameter] public float Value { get; set; }
 
     [Parameter] public string? Message { get; set; }
-
-    [Parameter] public string? Icon { get; set; }
-
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public ProgressBarColor Color { get; set; } = ProgressBarColor.Brand;
     [Parameter] public ProgressBarSize Size { get; set; } = ProgressBarSize.Small;
     [Parameter] public bool Indeterminate { get; set; }

@@ -21,9 +21,9 @@ public partial class HierarchyItemBrowser
     [Parameter] public string CancelButtonTitle { get; set; } = "Cancel";
     [Parameter] public string CreateButtonTitle { get; set; } = "New";
     [Parameter] public string RootTitle { get; set; } = "Root";
-    [Parameter] public string? RootItemIcon { get; set; } = "icon-ic_fluent_folder_20_regular";
-    [Parameter] public string? RootItemExpandedIcon { get; set; } = "icon-ic_fluent_folder_open_20_regular";
-    [Parameter] public string? ItemIcon { get; set; } = "icon-ic_fluent_document_20_regular";
+    [Parameter] public IconDefinition RootItemIcon { get; set; } = FluentIcons.Folder;
+    [Parameter] public IconDefinition RootItemExpandedIcon { get; set; } = FluentIcons.FolderOpen;
+    [Parameter] public IconDefinition ItemIcon { get; set; } = FluentIcons.Document;
     [Parameter] public bool HideCancel { get; set; }
     [Parameter] public bool MustExist { get; set; }
     [Parameter] public string? DefaultFileName { get; set; }
@@ -51,11 +51,9 @@ public partial class HierarchyItemBrowser
 
             var fileName = _selectionResult.Name;
 
-            // File open mode...
             if (MustExist && _items is not null && _items.Any(x => x.Name == fileName))
                 return true;
 
-            // File create mode...
             if (!MustExist && _items is not null && _items.All(x => x.Name.CompareTo(fileName, StringComparison.OrdinalIgnoreCase) != 0))
                 return true;
 
@@ -119,22 +117,15 @@ public partial class HierarchyItemBrowser
         if (!string.IsNullOrEmpty(path))
         {
             if (!_backStack.TryPeek(out var peakedItem) || peakedItem != path)
-            {
                 _backStack.Push(path);
-            }
         }
 
         _selectedPath = path;
         await RefreshAsync();
     }
 
-    private string? GetIcon(HierarchyItem item)
-    {
-        if (item is HierarchyRootItem)
-            return RootItemIcon;
-
-        return ItemIcon;
-    }
+    private IconDefinition GetIcon(HierarchyItem item) =>
+        item is HierarchyRootItem ? RootItemIcon : ItemIcon;
 
     private async Task OnGoBack()
     {
@@ -150,7 +141,6 @@ public partial class HierarchyItemBrowser
             return;
 
         var next = _forwardStack.Pop();
-
         await LoadPathAsync(next);
     }
 
@@ -243,7 +233,6 @@ public partial class HierarchyItemBrowser
         if (_items is not null)
         {
             var newRoot = new HierarchyRootItem("New Item");
-
             _items.Add(newRoot);
             _newItem = newRoot;
         }
@@ -331,7 +320,6 @@ public partial class HierarchyItemBrowser
             return ChoosePathAsync(null);
 
         var path = string.Join('/', PathSegments.Skip(1).Take(index));
-
         return ChoosePathAsync(path);
     }
 }

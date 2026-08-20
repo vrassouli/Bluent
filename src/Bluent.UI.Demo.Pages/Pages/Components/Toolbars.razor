@@ -1,4 +1,4 @@
-﻿@page "/components/toolbars"
+@page "/components/toolbars"
 @namespace Bluent.UI.Demo.Pages.Components
 
 <div class="p-5 py-md-10 px-md-12">
@@ -11,7 +11,7 @@
             <NumericField @bind-Value="_horizontalToolbarWidth" />
             <Checkbox @bind-Value="_disabledItems" Label="Disabled Items"/>
             <Toolbar Class="my-4 shadow-2" Style="@HorizontalToolbarWidth">
-                <ToolbarButton MenuLabel="Backward" Icon="icon-ic_fluent_arrow_circle_left_20_regular" ActiveIcon="icon-ic_fluent_arrow_circle_left_20_filled" OnClick="@(()=>{SetMessage("Backward"); })">
+                <ToolbarButton MenuLabel="Backward" Icon="@FluentIcons.ArrowCircleLeft" OnClick="@(()=>{SetMessage("Backward"); })">
                     <Dropdown>
                         <MenuList>
                             <MenuItem Title="Document 1" OnClick="@(()=>{SetMessage("Document 1"); })" />
@@ -20,7 +20,7 @@
                         </MenuList>
                     </Dropdown>
                 </ToolbarButton>
-                <ToolbarButton MenuLabel="Forward" Icon="icon-ic_fluent_arrow_circle_right_20_regular" ActiveIcon="icon-ic_fluent_arrow_circle_right_20_filled">
+                <ToolbarButton MenuLabel="Forward" Icon="@FluentIcons.ArrowCircleRight">
                     <Dropdown>
                         <MenuList>
                             <MenuItem Title="Document 5" OnClick="@(()=>{SetMessage("Document 5"); })" />
@@ -30,20 +30,20 @@
                     </Dropdown>
                 </ToolbarButton>
                 <ToolbarDivider />
-                <ToolbarButton Text="Open" Icon="icon-ic_fluent_folder_open_20_regular" ActiveIcon="icon-ic_fluent_folder_open_20_filled" Appearance="ToolbarButtonAppearance.Primary" OnClick="@(()=>{SetMessage("Open"); })" />
-                <ToolbarButton Text="Save" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" OnClick="@(()=>{SetMessage("Save"); })" />
-                <ToolbarButton Text="Save All" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" OnClick="@(()=>{SetMessage("Save All"); })" />
+                <ToolbarButton Text="Open" Icon="@FluentIcons.FolderOpen" Appearance="ToolbarButtonAppearance.Primary" OnClick="@(()=>{SetMessage("Open"); })" />
+                <ToolbarButton Text="Save" Icon="@FluentIcons.Save" OnClick="@(()=>{SetMessage("Save"); })" />
+                <ToolbarButton Text="Save All" Icon="@FluentIcons.SaveMultiple" OnClick="@(()=>{SetMessage("Save All"); })" />
                 <ToolbarDivider />
-                <ToolbarButton Text="Undo" Icon="icon-ic_fluent_arrow_undo_20_regular" ActiveIcon="icon-ic_fluent_arrow_undo_20_filled" disabled="@_disabledItems" OnClick="@(()=>{SetMessage("Undo"); })" />
-                <ToolbarButton Text="Redo" Icon="icon-ic_fluent_arrow_redo_20_regular" ActiveIcon="icon-ic_fluent_arrow_redo_20_filled" disabled="@_disabledItems" OnClick="@(()=>{SetMessage("Redo"); })" />
+                <ToolbarButton Text="Undo" Icon="@FluentIcons.ArrowUndo" disabled="@_disabledItems" OnClick="@(()=>{SetMessage("Undo"); })" />
+                <ToolbarButton Text="Redo" Icon="@FluentIcons.ArrowRedo" disabled="@_disabledItems" OnClick="@(()=>{SetMessage("Redo"); })" />
                 <ToolbarDivider />
-                <ToolbarButton MenuLabel="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
-                <ToolbarButton MenuLabel="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
-                <ToolbarButton MenuLabel="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Paste"); })" Tooltip="Paste" />
+                <ToolbarButton MenuLabel="Cut" Icon="@FluentIcons.Cut" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Cut"); })" Tooltip="Cut" />
+                <ToolbarButton MenuLabel="Copy" Icon="@FluentIcons.Copy" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Copy"); })" Tooltip="Copy" />
+                <ToolbarButton MenuLabel="Paste" Icon="@FluentIcons.ClipboardPaste" Appearance="ToolbarButtonAppearance.Subtle" OnClick="@(()=>{SetMessage("Paste"); })" Tooltip="Paste" />
                 <ToolbarDivider />
                 <ToolbarButton Text="Quick Actions" OnClick="@(()=>{SetMessage("Quick Actions"); })" />
                 <ToolbarDivider />
-                <ToolbarButton Text="Learn" Icon="icon-ic_fluent_hat_graduation_20_regular" ActiveIcon="icon-ic_fluent_hat_graduation_20_filled" Href="https://learn.microsoft.com/en-us/" target="_blank" />
+                <ToolbarButton Text="Learn" Icon="@FluentIcons.HatGraduation" Href="https://learn.microsoft.com/en-us/" target="_blank" />
             </Toolbar>
 
             <div>
@@ -57,13 +57,13 @@
             <NumericField @bind-Value="_verticalToolbarHeight" />
 
             <Toolbar Orientation="Orientation.Vertical" Class="my-4 shadow-2" Style="@VerticalToolbarHeight">
-                <ToolbarButton Text="Open" Icon="icon-ic_fluent_folder_open_20_regular" ActiveIcon="icon-ic_fluent_folder_open_20_filled" Appearance="ToolbarButtonAppearance.Primary" />
-                <ToolbarButton Text="Save" Icon="icon-ic_fluent_save_20_regular" ActiveIcon="icon-ic_fluent_save_20_filled" />
-                <ToolbarButton Text="Save All" Icon="icon-ic_fluent_save_multiple_20_regular" ActiveIcon="icon-ic_fluent_save_multiple_20_filled" />
+                <ToolbarButton Text="Open" Icon="@FluentIcons.FolderOpen" Appearance="ToolbarButtonAppearance.Primary" />
+                <ToolbarButton Text="Save" Icon="@FluentIcons.Save" />
+                <ToolbarButton Text="Save All" Icon="@FluentIcons.SaveMultiple" />
                 <ToolbarDivider />
-                <ToolbarButton MenuLabel="Cut" Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled" Tooltip="Cut" Appearance="ToolbarButtonAppearance.Subtle" />
-                <ToolbarButton MenuLabel="Copy" Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled" Tooltip="Copy" Appearance="ToolbarButtonAppearance.Subtle" />
-                <ToolbarButton MenuLabel="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular" ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Tooltip="Paste" Appearance="ToolbarButtonAppearance.Subtle" />
+                <ToolbarButton MenuLabel="Cut" Icon="@FluentIcons.Cut" Tooltip="Cut" Appearance="ToolbarButtonAppearance.Subtle" />
+                <ToolbarButton MenuLabel="Copy" Icon="@FluentIcons.Copy" Tooltip="Copy" Appearance="ToolbarButtonAppearance.Subtle" />
+                <ToolbarButton MenuLabel="Paste" Icon="@FluentIcons.ClipboardPaste" Tooltip="Paste" Appearance="ToolbarButtonAppearance.Subtle" />
                 <ToolbarDivider />
                 <ToolbarButton Text="Quick Actions" />
             </Toolbar>

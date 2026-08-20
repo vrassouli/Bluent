@@ -6,25 +6,35 @@
     <div class="w-100 w-md-50 m-auto">
         <h1>Icons</h1>
 
-        <h3>Default</h3>
-        <section class="p-7 rounded-5 shadow-3">
-            <h4>Icon class</h4>
-            <div class="mb-3">
-                <Label Text="Css Class name" />
-                <TextField @bind-Value="@_iconClass" Class="w-100" />
+        <h3>Strongly typed Fluent icons</h3>
+        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
+            <div>
+                <h4>Default</h4>
+                <Icon Value="@FluentIcons.Settings" Class="fs-6" />
             </div>
-            <Icon Content="@_iconClass" Class="fs-6" />
 
-            <h4>Svg</h4>
-            <textarea class="w-100" rows="5" @bind=_wordSvg />
-            <Icon Content="@_wordSvg" Class="fs-6" Style="width: 24px;" />
+            <div>
+                <h4>Filled variant</h4>
+                <Icon Value="@FluentIcons.Settings" Variant="IconVariant.Filled" Class="fs-6" />
+            </div>
 
-            <h4>Svg content</h4>
-            <textarea class="w-100" rows="5" @bind=_outlookSvgContent />
-            <Icon Content="@Icon.FromContent(_outlookSvgContent).Viewbox(24).Size(54)" Class="fs-6" />
+            <div>
+                <h4>Stateful component</h4>
+                <Button Text="Save" Icon="@FluentIcons.Save" />
+            </div>
+        </section>
 
-            <h4>Image path</h4>
-            <Icon Content="/assets/icons/powerpoint.svg" Class="fs-6" Style="width: 24px;" />
+        <h3 class="mt-7">Custom sources</h3>
+        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
+            <div>
+                <h4>SVG</h4>
+                <Icon Value="@CustomSvgIcon" Style="width: 32px; height: 32px;" />
+            </div>
+
+            <div>
+                <h4>Image</h4>
+                <Icon Value="@PowerPointIcon" Style="width: 32px; height: 32px;" />
+            </div>
         </section>
     </div>
 </div>

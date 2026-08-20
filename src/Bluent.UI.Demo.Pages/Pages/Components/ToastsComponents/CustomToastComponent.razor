@@ -1,4 +1,4 @@
-﻿<div class="title">
+<div class="title">
     <i class="icon-ic_fluent_diversity_20_filled color-success-1 me-2"></i>
     <div class="text">A custom toast</div>
     <Link Text="Close" Class="dismiss" OnClick="()=>Toast?.Close(null)" />
@@ -9,8 +9,7 @@
 <div class="d-flex gap-3">
     <Button Text="Confirm"
             Appearance="ButtonAppearance.Primary"
-            Icon="icon-ic_fluent_checkmark_20_regular"
-            ActiveIcon="icon-ic_fluent_checkmark_20_filled"
+            Icon="@FluentIcons.Checkmark"
             OnClick="()=>Toast?.Close(true)" />
     <Link Text="Cancel" OnClick="()=>Toast?.Close(false)" />
 </div>

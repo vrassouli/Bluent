@@ -11,9 +11,9 @@ public partial class TreeItem
     private bool _dndStarted;
 
     [Parameter] public string Title { get; set; } = default!;
-    [Parameter] public string? Icon { get; set; } = default!;
-    [Parameter] public string? ExpandedIcon { get; set; } = default!;
-    [Parameter] public bool Expanded { get; set; } = default!;
+    [Parameter] public IconDefinition? Icon { get; set; }
+    [Parameter] public IconDefinition? ExpandedIcon { get; set; }
+    [Parameter] public bool Expanded { get; set; }
     [Parameter] public bool DisableCheckBox { get; set; }
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; } = default!;
     [Parameter] public bool? IsChecked { get; set; } = false;
@@ -44,11 +44,6 @@ public partial class TreeItem
 
                 if (Tree.CanDrop != null && !Tree.CanDrop(DndContext.Data, DragData.Invoke()))
                     return false;
-
-                // if (Items.Select(i => i.DragData).Contains(DndContext.Data) || 
-                //     //draggingTreeItem.Contains(this) || 
-                //     DndContext.Data == DragData.Invoke())
-                //     return false;
 
                 return true;
             }
@@ -122,7 +117,6 @@ public partial class TreeItem
         return base.DisposeAsync();
     }
 
-
     public override IEnumerable<string> GetClasses()
     {
         yield return "item";
@@ -174,17 +168,6 @@ public partial class TreeItem
     {
         _dragOver = false;
     }
-    // private void OnDragEnterBefore()
-    // {
-    //     Console.WriteLine($"Drag Enter Before {Data}");
-    //     _dragOverBefore = true;
-    // }
-    //
-    // private void OnDragLeaveBefore()
-    // {
-    //     Console.WriteLine($"Drag Leave Before {Data}");
-    //     _dragOverBefore = false;
-    // }
 
     private void OnDragEnterAfter()
     {
@@ -272,9 +255,7 @@ public partial class TreeItem
         }
 
         if (mode == TreeCheckboxMode.Cascade || mode == TreeCheckboxMode.CascadeUp)
-        {
             ParentItem?.CascadeUpCheckState();
-        }
     }
 
     private async Task CascadeUpCheckState()
@@ -282,17 +263,11 @@ public partial class TreeItem
         var currentState = IsChecked;
 
         if (_items.All(i => i.IsChecked == true) && currentState != true)
-        {
             await SetCheckState(true);
-        }
         else if (_items.All(i => i.IsChecked == false) && currentState != false)
-        {
             await SetCheckState(false);
-        }
         else if (currentState != null)
-        {
             await SetCheckState(null);
-        }
 
         ParentItem?.CascadeUpCheckState();
     }

@@ -14,9 +14,9 @@
 }
 
 <div class="header" @onclick="HeaderClickHandler">
-    @if (!string.IsNullOrEmpty(Icon))
+    @if (Icon.HasValue)
     {
-        <Icon Class="icon" Content="@Icon" />
+        <Icon Class="icon" Value="@Icon" />
     }
     else if (IconContent != null)
     {
@@ -44,11 +44,11 @@
     }
     @if (IsExpandable)
     {
-        <Icon Class="icon expand-icon" Content="icon-ic_fluent_chevron_down_20_regular" />
+        <Icon Class="icon expand-icon" Value="@FluentIcons.ChevronDown" />
     }
     @if (IsLink || OnClick.HasDelegate)
     {
-        <Icon Class="icon nav-icon" Content="icon-ic_fluent_chevron_right_20_regular" />
+        <Icon Class="icon nav-icon" Value="@FluentIcons.ChevronRight" />
     }
 </div>
 @if (ChildContent != null && (!DeferredLoading || IsExpanded))

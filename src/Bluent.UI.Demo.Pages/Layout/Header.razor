@@ -1,8 +1,7 @@
-﻿@using Blazored.LocalStorage
+@using Blazored.LocalStorage
 @using Bluent.UI.Interops.Abstractions
 @inject NavigationManager Navigation
-<Button Icon="@(SideMenuExpanded ? "icon-ic_fluent_panel_right_expand_20_regular" : "icon-ic_fluent_panel_left_expand_20_regular")" 
-        ActiveIcon="@(SideMenuExpanded ? "icon-ic_fluent_panel_right_expand_20_filled" : "icon-ic_fluent_panel_left_expand_20_filled")"
+<Button Icon="@(SideMenuExpanded ? FluentIcons.PanelRightExpand : FluentIcons.PanelLeftExpand)"
         OnClick="ToggleExpand"
         aria-label="Toggle demo navigation"
         Size="ButtonSize.Large" 
@@ -11,7 +10,7 @@
 <div class="flex-fill"></div>
 <Popover>
     <Trigger>
-        <Button Icon="icon-ic_fluent_color_20_regular" ActiveIcon="icon-ic_fluent_color_20_filled" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Large" Class="fs-6 rounded-0" aria-label="Choose theme color" />
+        <Button Icon="@FluentIcons.Color" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Large" Class="fs-6 rounded-0" aria-label="Choose theme color" />
     </Trigger>
     <Surface>
         <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: 400px;">

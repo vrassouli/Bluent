@@ -6,9 +6,9 @@
     {
         <span class="initials">@DisplayInitials</span>
     }
-    @if (!string.IsNullOrEmpty(Icon))
+    @if (Icon.HasValue)
     {
-        <Icon Content="@Icon" Class="icon"></Icon>
+        <Icon Value="@Icon" Class="icon"></Icon>
     }
     @if (!string.IsNullOrEmpty(ImageSource))
     {

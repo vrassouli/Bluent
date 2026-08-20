@@ -14,13 +14,13 @@
     __builder.OpenRegion(8);
 }
 
-@if (!string.IsNullOrEmpty(Icon))
+@if (Icon.HasValue)
 {
-    @if (!string.IsNullOrEmpty(ActiveIcon))
+    @if (Icon.Value.Filled.HasValue)
     {
-        <Icon Content="@ActiveIcon" Class="active-icon" />
+        <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
     }
-    <Icon Content="@Icon" Class="icon"/>
+    <Icon Value="@Icon" Class="icon"/>
 }
 @if (!string.IsNullOrEmpty(Text))
 {

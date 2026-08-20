@@ -7,12 +7,9 @@ public class ToolbarButton : OverflowItemComponentBase
 {
     [Parameter] public string Text { get; set; } = default!;
     [Parameter] public string? MenuLabel { get; set; }
-    [Parameter] public string Icon { get; set; } = default!;
-    [Parameter] public string IconClass { get; set; } = default!;
-    [Parameter] public string ActiveIconClass { get; set; } = default!;
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public string TextClass { get; set; } = default!;
     [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public string? ActiveIcon { get; set; }
     [Parameter] public string? Href { get; set; }
     [Parameter] public RenderFragment? Dropdown { get; set; }
     [Parameter] public bool ShowDropdownIndicator { get; set; }
@@ -28,21 +25,18 @@ public class ToolbarButton : OverflowItemComponentBase
         builder.AddAttribute(1, nameof(Button.Text), Text);
         builder.AddAttribute(2, nameof(Button.TextClass), TextClass);
         builder.AddAttribute(3, nameof(Button.Icon), Icon);
-        builder.AddAttribute(4, nameof(Button.IconClass), IconClass);
-        builder.AddAttribute(5, nameof(Button.ActiveIcon), ActiveIcon);
-        builder.AddAttribute(6, nameof(Button.ActiveIconClass), ActiveIconClass);
-        builder.AddAttribute(7, nameof(Button.Href), Href);
-        builder.AddAttribute(8, nameof(Button.Appearance), Enum.Parse<ButtonAppearance>(Appearance.ToString()));
-        builder.AddAttribute(9, nameof(Button.Dropdown), Dropdown);
-        builder.AddAttribute(10, nameof(Button.ShowDropdownIndicator), ShowDropdownIndicator);
-        builder.AddAttribute(11, nameof(Button.DropdownPlacement), DropdownPlacement);
-        builder.AddAttribute(12, nameof(Button.OnClick), OnClick);
-        builder.AddAttribute(13, nameof(Button.Tooltip), Tooltip);
-        builder.AddAttribute(14, nameof(Button.Class), Class);
-        builder.AddAttribute(15, nameof(Button.Style), Style);
-        builder.AddAttribute(16, nameof(Button.Toggled), Toggled);
-        builder.AddAttribute(17, nameof(Button.ToggledChanged), ToggledChanged);
-        builder.AddMultipleAttributes(18, AdditionalAttributes);
+        builder.AddAttribute(4, nameof(Button.Href), Href);
+        builder.AddAttribute(5, nameof(Button.Appearance), Enum.Parse<ButtonAppearance>(Appearance.ToString()));
+        builder.AddAttribute(6, nameof(Button.Dropdown), Dropdown);
+        builder.AddAttribute(7, nameof(Button.ShowDropdownIndicator), ShowDropdownIndicator);
+        builder.AddAttribute(8, nameof(Button.DropdownPlacement), DropdownPlacement);
+        builder.AddAttribute(9, nameof(Button.OnClick), OnClick);
+        builder.AddAttribute(10, nameof(Button.Tooltip), Tooltip);
+        builder.AddAttribute(11, nameof(Button.Class), Class);
+        builder.AddAttribute(12, nameof(Button.Style), Style);
+        builder.AddAttribute(13, nameof(Button.Toggled), Toggled);
+        builder.AddAttribute(14, nameof(Button.ToggledChanged), ToggledChanged);
+        builder.AddMultipleAttributes(15, AdditionalAttributes);
 
         builder.CloseComponent();
     }
@@ -53,14 +47,13 @@ public class ToolbarButton : OverflowItemComponentBase
 
         builder.AddAttribute(1, nameof(MenuItem.Title), MenuLabel ?? Text);
         builder.AddAttribute(2, nameof(MenuItem.Icon), Icon);
-        builder.AddAttribute(3, nameof(MenuItem.ActiveIcon), ActiveIcon);
-        builder.AddAttribute(4, nameof(MenuItem.Href), Href);
-        builder.AddAttribute(5, nameof(MenuItem.OnClick), OnClick);
-        builder.AddAttribute(6, nameof(MenuItem.ChildContent), Dropdown);
-        builder.AddAttribute(7, nameof(MenuItem.Checked), Toggled);
-        builder.AddAttribute(8, nameof(Class), Class);
-        builder.AddAttribute(9, nameof(Style), Style);
-        builder.AddMultipleAttributes(10, AdditionalAttributes);
+        builder.AddAttribute(3, nameof(MenuItem.Href), Href);
+        builder.AddAttribute(4, nameof(MenuItem.OnClick), OnClick);
+        builder.AddAttribute(5, nameof(MenuItem.ChildContent), Dropdown);
+        builder.AddAttribute(6, nameof(MenuItem.Checked), Toggled);
+        builder.AddAttribute(7, nameof(Class), Class);
+        builder.AddAttribute(8, nameof(Style), Style);
+        builder.AddMultipleAttributes(9, AdditionalAttributes);
 
         builder.CloseComponent();
     }

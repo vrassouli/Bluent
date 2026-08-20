@@ -9,9 +9,6 @@
     __builder.AddAttribute(3, "class", GetComponentClass());
     __builder.AddAttribute(4, "style", Style);
     __builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    //__builder.AddAttribute(6, "draggable", IsDraggable.ToString().ToLower());
-    // __builder.AddAttribute(7, "ondragstart", EventCallback.Factory.Create(this, DragStartHandler));
-    // __builder.AddAttribute(8, "ondragend", EventCallback.Factory.Create(this, DragEndHandler));
     
     if (IsLink)
     {
@@ -32,13 +29,13 @@
     }
     else
     {
-        @if (!string.IsNullOrEmpty(Icon) || List.ShouldRenderIcon())
+        @if (Icon.HasValue || List.ShouldRenderIcon())
         {
-            @if (!string.IsNullOrEmpty(ActiveIcon))
+            @if (Icon.HasValue && Icon.Value.Filled.HasValue)
             {
-                <Icon Content="@ActiveIcon" Class="active-icon" />
+                <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
             }
-            <Icon Content="@Icon" Class="icon" />
+            <Icon Value="@Icon" Class="icon" />
         }
         @if (!string.IsNullOrEmpty(Text))
         {

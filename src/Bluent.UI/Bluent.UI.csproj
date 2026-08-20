@@ -67,7 +67,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Bluent.Core\Bluent.Core.csproj" />
+        <ProjectReference Include="..\Bluent.Core\Bluent.Core.csproj" />
+        <ProjectReference Include="..\Bluent.UI.IconGenerator\Bluent.UI.IconGenerator.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"
+                          PrivateAssets="all" />
+        <AdditionalFiles Include="wwwroot\fonts\icons\FluentSystemIcons-Resizable.json" />
     </ItemGroup>
 
     <ItemGroup>

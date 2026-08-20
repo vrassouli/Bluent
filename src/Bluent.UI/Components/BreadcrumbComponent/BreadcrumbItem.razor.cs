@@ -7,8 +7,7 @@ public partial class BreadcrumbItem
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Href { get; set; }
     [Parameter] public string? Target { get; set; }
-    [Parameter] public string? Icon { get; set; }
-    [Parameter] public string? ActiveIcon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
 
     private bool IsCurrent => string.IsNullOrEmpty(Href);
 

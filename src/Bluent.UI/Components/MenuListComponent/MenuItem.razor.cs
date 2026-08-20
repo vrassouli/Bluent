@@ -10,8 +10,7 @@ public partial class MenuItem
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public string? Icon { get; set; }
-    [Parameter] public string? ActiveIcon { get; set; }
+    [Parameter] public IconDefinition? Icon { get; set; }
     [Parameter] public bool Checked { get; set; }
     [Parameter] public object? Data { get; set; }
     [CascadingParameter] public MenuList MenuList { get; set; } = default!;
@@ -34,7 +33,6 @@ public partial class MenuItem
     public override ValueTask DisposeAsync()
     {
         MenuList.Remove(this);
-        
         return base.DisposeAsync();
     }
 
@@ -61,9 +59,7 @@ public partial class MenuItem
         InvokeAsync(OnClick.InvokeAsync);
 
         if (Popover != null)
-        {
             Popover.Close();
-        }
     }
 
     private string GetItemTag()
