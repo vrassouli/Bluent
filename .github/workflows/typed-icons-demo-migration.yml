@@ -1,0 +1,118 @@
+name: Typed icons demo migration
+
+on:
+  push:
+    branches:
+      - feature/typed-icons
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/typed-icons
+          fetch-depth: 0
+
+      - name: Migrate legacy demo icon attributes
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          root = Path("src/Bluent.UI.Demo.Pages")
+
+          def pascal(name: str) -> str:
+              return "".join(part[:1].upper() + part[1:] for part in name.split("_") if part)
+
+          legacy = r"icon-ic_fluent_(?P<name>[a-z0-9_]+)_20_(?:regular|filled)"
+          icon_attribute = re.compile(
+              rf'(?P<attr>\b[A-Za-z_][A-Za-z0-9_]*Icon[A-Za-z0-9_]*)="{legacy}"'
+          )
+          active_icon = re.compile(
+              rf'\s+ActiveIcon="{legacy}"'
+          )
+          active_icon_class = re.compile(r'\s+ActiveIconClass="[^"]*"')
+          code_assignment = re.compile(
+              rf'(?P<lhs>\b[A-Za-z_][A-Za-z0-9_]*Icon[A-Za-z0-9_]*\s*=\s*)"{legacy}"'
+          )
+          icon_value = re.compile(
+              rf'(?P<prefix><Icon\b[^>]*?\bValue)="{legacy}"'
+          )
+          icon_content = re.compile(
+              rf'(?P<prefix><Icon\b[^>]*?\b)Content="{legacy}"'
+          )
+
+          changed_files = 0
+          replacements = 0
+
+          for path in sorted(root.rglob("*")):
+              if path.suffix not in {".razor", ".cs"}:
+                  continue
+
+              original = path.read_text(encoding="utf-8-sig")
+              text = original
+
+              # ActiveIcon represented the filled state in the old API. The new
+              # IconDefinition already contains both regular and filled sources.
+              text, count = active_icon.subn("", text)
+              replacements += count
+              text, count = active_icon_class.subn("", text)
+              replacements += count
+
+              def replace_attr(match: re.Match[str]) -> str:
+                  return f'{match.group("attr") }="@FluentIcons.{pascal(match.group("name"))}"'
+
+              text, count = icon_attribute.subn(replace_attr, text)
+              replacements += count
+
+              def replace_value(match: re.Match[str]) -> str:
+                  return f'{match.group("prefix") }="@FluentIcons.{pascal(match.group("name"))}"'
+
+              text, count = icon_value.subn(replace_value, text)
+              replacements += count
+
+              def replace_content(match: re.Match[str]) -> str:
+                  return f'{match.group("prefix") }Value="@FluentIcons.{pascal(match.group("name"))}"'
+
+              text, count = icon_content.subn(replace_content, text)
+              replacements += count
+
+              def replace_assignment(match: re.Match[str]) -> str:
+                  return f'{match.group("lhs") }FluentIcons.{pascal(match.group("name"))}'
+
+              text, count = code_assignment.subn(replace_assignment, text)
+              replacements += count
+
+              if text != original:
+                  path.write_text(text, encoding="utf-8")
+                  changed_files += 1
+
+          print(f"Migrated {replacements} icon references across {changed_files} files.")
+
+          # Fail loudly if any old Fluent class is still assigned directly to an
+          # icon-named component parameter. Raw HTML/CSS class usage is intentionally
+          # outside this assertion and will be handled separately.
+          leftovers = []
+          check = re.compile(r'\b[A-Za-z_][A-Za-z0-9_]*Icon[A-Za-z0-9_]*="icon-ic_fluent_')
+          for path in sorted(root.rglob("*.razor")):
+              for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                  if check.search(line):
+                      leftovers.append(f"{path}:{line_number}: {line.strip()}")
+
+          if leftovers:
+              raise SystemExit("Legacy typed icon attributes remain:\n" + "\n".join(leftovers[:100]))
+
+      - name: Commit migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/typed-icons-demo-migration.yml
+          git add src/Bluent.UI.Demo.Pages
+          git commit -m "Migrate demo icons to typed catalog"
+          git push origin HEAD:feature/typed-icons
