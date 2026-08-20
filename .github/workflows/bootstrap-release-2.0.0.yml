@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create validated annotated release tag
+      - name: Create or verify validated annotated release tag
         shell: bash
         env:
           RELEASE_COMMIT: 5e134914aab0072471fb783990fc56bda66e5777
@@ -43,14 +43,68 @@ jobs:
             git push origin "$RELEASE_TAG"
           fi
 
-      - name: Dispatch protected release workflow
+      - name: Ensure protected release workflow is dispatched and record it
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh workflow run publish.yml \
-            --repo "$GITHUB_REPOSITORY" \
-            --ref v2.0.0 \
-            -f version=2.0.0 \
-            -f publish=true
+
+          find_run() {
+            gh run list \
+              --repo "$GITHUB_REPOSITORY" \
+              --workflow publish.yml \
+              --event workflow_dispatch \
+              --limit 30 \
+              --json databaseId,headBranch,status,conclusion,createdAt,url \
+              --jq '[.[] | select(.headBranch == "v2.0.0")] | sort_by(.createdAt) | last // {}'
+          }
+
+          run_json="$(find_run)"
+          if [[ -z "$run_json" || "$run_json" == "{}" ]]; then
+            gh workflow run publish.yml \
+              --repo "$GITHUB_REPOSITORY" \
+              --ref v2.0.0 \
+              -f version=2.0.0 \
+              -f publish=true
+
+            for attempt in {1..20}; do
+              sleep 2
+              run_json="$(find_run)"
+              if [[ -n "$run_json" && "$run_json" != "{}" ]]; then
+                break
+              fi
+            done
+          fi
+
+          if [[ -z "$run_json" || "$run_json" == "{}" ]]; then
+            echo "Unable to find or dispatch the v2.0.0 release workflow." >&2
+            exit 1
+          fi
+
+          run_id="$(jq -r '.databaseId' <<<"$run_json")"
+          status="$(jq -r '.status // ""' <<<"$run_json")"
+          conclusion="$(jq -r '.conclusion // ""' <<<"$run_json")"
+          url="$(jq -r '.url // ""' <<<"$run_json")"
+          status_content="run_id=$run_id
+status=$status
+conclusion=$conclusion
+url=$url
+"
+          encoded="$(printf '%s' "$status_content" | base64 -w0)"
+          existing_sha="$(gh api "/repos/$GITHUB_REPOSITORY/contents/.release-2.0.0-status?ref=Dev" --jq .sha 2>/dev/null || true)"
+
+          if [[ -n "$existing_sha" ]]; then
+            gh api --method PUT \
+              "/repos/$GITHUB_REPOSITORY/contents/.release-2.0.0-status" \
+              -f message='chore: update 2.0.0 release status' \
+              -f content="$encoded" \
+              -f sha="$existing_sha" \
+              -f branch=Dev >/dev/null
+          else
+            gh api --method PUT \
+              "/repos/$GITHUB_REPOSITORY/contents/.release-2.0.0-status" \
+              -f message='chore: record 2.0.0 release status' \
+              -f content="$encoded" \
+              -f branch=Dev >/dev/null
+          fi
