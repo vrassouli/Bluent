@@ -13,11 +13,11 @@
 @code {
     [Parameter, EditorRequired] public TreeItemViewModel Item { get; set; } = default!;
 
-    private string GetIcon()
+    private IconDefinition GetIcon()
     {
         if (Item.Title.StartsWith("Folder"))
-            return "icon-ic_fluent_folder_20_regular";
+            return FluentIcons.Folder;
 
-        return "icon-ic_fluent_document_20_regular";
+        return FluentIcons.Document;
     }
 }
