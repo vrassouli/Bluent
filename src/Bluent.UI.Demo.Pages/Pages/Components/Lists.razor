@@ -1,4 +1,4 @@
-﻿@page "/components/lists"
+@page "/components/lists"
 @namespace Bluent.UI.Demo.Pages.Components
 @using Bluent.Core
 @using Bluent.UI.Demo.Pages.Components.ViewModels
@@ -14,20 +14,20 @@
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ItemsList>
-                <ListItem Text="My files" Icon="icon-ic_fluent_folder_20_regular" ActiveIcon="icon-ic_fluent_folder_20_filled"></ListItem>
-                <ListItem Text="Recent" Icon="icon-ic_fluent_history_20_regular" ActiveIcon="icon-ic_fluent_history_20_filled" Selected></ListItem>
-                <ListItem Text="Shared" Icon="icon-ic_fluent_people_20_regular" ActiveIcon="icon-ic_fluent_people_20_filled"></ListItem>
-                <ListItem Text="Recycle bin" Icon="icon-ic_fluent_bin_recycle_20_regular" ActiveIcon="icon-ic_fluent_bin_recycle_20_filled"></ListItem>
+                <ListItem Text="My files" Icon="icon-ic_fluent_folder_20_regular"></ListItem>
+                <ListItem Text="Recent" Icon="icon-ic_fluent_history_20_regular" Selected></ListItem>
+                <ListItem Text="Shared" Icon="icon-ic_fluent_people_20_regular"></ListItem>
+                <ListItem Text="Recycle bin" Icon="icon-ic_fluent_bin_recycle_20_regular"></ListItem>
             </ItemsList>
         </section>
 
         <h3>Multiselect</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ItemsList SelectionMode="SelectionMode.Multiple" SelectedItemsChanged="SelectedItemsChanged">
-                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular" ActiveIcon="icon-ic_fluent_book_20_filled"></ListItem>
-                <ListItem Text="Computers" Icon="icon-ic_fluent_desktop_20_regular" ActiveIcon="icon-ic_fluent_desktop_20_filled"></ListItem>
-                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" ActiveIcon="icon-ic_fluent_vehicle_car_20_filled" Selected></ListItem>
-                <ListItem Text="Animals" Icon="icon-ic_fluent_animal_dog_20_regular" ActiveIcon="icon-ic_fluent_animal_dog_20_filled"></ListItem>
+                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular"></ListItem>
+                <ListItem Text="Computers" Icon="icon-ic_fluent_desktop_20_regular"></ListItem>
+                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" Selected></ListItem>
+                <ListItem Text="Animals" Icon="icon-ic_fluent_animal_dog_20_regular"></ListItem>
             </ItemsList>
 
             <Card Class="mt-3">
@@ -40,10 +40,10 @@
         <h3>No selection</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ItemsList SelectionMode="SelectionMode.None">
-                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular" ActiveIcon="icon-ic_fluent_book_20_filled"></ListItem>
-                <ListItem Text="Computers" Icon="icon-ic_fluent_desktop_20_regular" ActiveIcon="icon-ic_fluent_desktop_20_filled"></ListItem>
-                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" ActiveIcon="icon-ic_fluent_vehicle_car_20_filled"></ListItem>
-                <ListItem Text="Animals" Icon="icon-ic_fluent_animal_dog_20_regular" ActiveIcon="icon-ic_fluent_animal_dog_20_filled"></ListItem>
+                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular"></ListItem>
+                <ListItem Text="Computers" Icon="icon-ic_fluent_desktop_20_regular"></ListItem>
+                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular"></ListItem>
+                <ListItem Text="Animals" Icon="icon-ic_fluent_animal_dog_20_regular"></ListItem>
             </ItemsList>
         </section>
 
@@ -60,9 +60,9 @@
         <h3>Mixed icon</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ItemsList>
-                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular" ActiveIcon="icon-ic_fluent_book_20_filled"></ListItem>
+                <ListItem Text="Books" Icon="icon-ic_fluent_book_20_regular"></ListItem>
                 <ListItem Text="Computers"></ListItem>
-                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular" ActiveIcon="icon-ic_fluent_vehicle_car_20_filled"></ListItem>
+                <ListItem Text="Cars" Icon="icon-ic_fluent_vehicle_car_20_regular"></ListItem>
                 <ListItem Text="Animals"></ListItem>
             </ItemsList>
         </section>
@@ -159,7 +159,7 @@
                             <div>@context.Birthdate</div>
                         </div>
                         <div>
-                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" ActiveIcon="icon-ic_fluent_more_horizontal_20_filled" Appearance="ButtonAppearance.Transparent" />
+                            <Button Icon="icon-ic_fluent_more_horizontal_20_regular" Appearance="ButtonAppearance.Transparent" />
                         </div>
                     </div>
                 </ItemTemplate>

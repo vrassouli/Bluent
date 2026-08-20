@@ -1,4 +1,4 @@
-﻿@page "/components/buttons"
+@page "/components/buttons"
 @namespace Bluent.UI.Demo.Pages.Components
 <PageTitle>Buttons | Bluent</PageTitle>
 
@@ -26,7 +26,6 @@
             {
                 <Button Text="@appearance.ToString()"
                         Icon="icon-ic_fluent_cursor_click_20_regular"
-                        ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
                         Appearance="@appearance"/>
             }
         </div>
@@ -34,32 +33,26 @@
 
     <div>
         <h5>Icon</h5>
-        <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"
-                ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
-        <Button Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+        <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"/>
+        <Button Icon="icon-ic_fluent_cursor_click_20_regular"/>
     </div>
 
     <div>
         <h5>Size</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
             <Button Size="ButtonSize.Small" Text="Small"/>
-            <Button Size="ButtonSize.Small" Text="Small with icon" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
-            <Button Size="ButtonSize.Small" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+            <Button Size="ButtonSize.Small" Text="Small with icon" Icon="icon-ic_fluent_cursor_click_20_regular"/>
+            <Button Size="ButtonSize.Small" Icon="icon-ic_fluent_cursor_click_20_regular"/>
         </div>
         <div class="d-flex mb-3 gap-2 align-items-center">
             <Button Text="Medium"/>
-            <Button Text="Medium with icon" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
-            <Button Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+            <Button Text="Medium with icon" Icon="icon-ic_fluent_cursor_click_20_regular"/>
+            <Button Icon="icon-ic_fluent_cursor_click_20_regular"/>
         </div>
         <div class="d-flex mb-3 gap-2 align-items-center">
             <Button Size="ButtonSize.Large" Text="Large"/>
-            <Button Size="ButtonSize.Large" Text="Large with icon" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
-            <Button Size="ButtonSize.Large" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+            <Button Size="ButtonSize.Large" Text="Large with icon" Icon="icon-ic_fluent_cursor_click_20_regular"/>
+            <Button Size="ButtonSize.Large" Icon="icon-ic_fluent_cursor_click_20_regular"/>
         </div>
     </div>
 
@@ -79,36 +72,29 @@
     <div>
         <h5>Compound</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Text="Rounded" SecondaryText="Compound text" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+            <Button Text="Rounded" SecondaryText="Compound text" Icon="icon-ic_fluent_cursor_click_20_regular"/>
             <Button Text="Circular" SecondaryText="Compound text" Shape="ButtonShape.Circular"
-                    Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+                    Icon="icon-ic_fluent_cursor_click_20_regular"/>
             <Button Text="Square" SecondaryText="Compound text" Shape="ButtonShape.Square"
-                    Icon="icon-ic_fluent_cursor_click_20_regular" ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
+                    Icon="icon-ic_fluent_cursor_click_20_regular"/>
         </div>
     </div>
 
     <div>
         <h5>Toggle</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Toggled="false" Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"/>
-            <Button Toggled="false" Text="Primary" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled" Appearance="ButtonAppearance.Primary"/>
-            <Button Toggled="false" Text="Outline" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled" Appearance="ButtonAppearance.Outline"/>
-            <Button Toggled="false" Text="Subtle" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled" Appearance="ButtonAppearance.Subtle"/>
-            <Button Toggled="false" Text="Transparent" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled" Appearance="ButtonAppearance.Transparent"/>
+            <Button Toggled="false" Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"/>
+            <Button Toggled="false" Text="Primary" Icon="icon-ic_fluent_cursor_click_20_regular" Appearance="ButtonAppearance.Primary"/>
+            <Button Toggled="false" Text="Outline" Icon="icon-ic_fluent_cursor_click_20_regular" Appearance="ButtonAppearance.Outline"/>
+            <Button Toggled="false" Text="Subtle" Icon="icon-ic_fluent_cursor_click_20_regular" Appearance="ButtonAppearance.Subtle"/>
+            <Button Toggled="false" Text="Transparent" Icon="icon-ic_fluent_cursor_click_20_regular" Appearance="ButtonAppearance.Transparent"/>
         </div>
     </div>
 
     <div>
         <h5>Tootip</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Text="Button with tooltip" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
+            <Button Text="Button with tooltip" Icon="icon-ic_fluent_cursor_click_20_regular">
                 <TooltipContent>
                     This is a tooltip!
                 </TooltipContent>
@@ -120,42 +106,37 @@
         <h5>Button Group</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
             <ButtonGroup>
-                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled"/>
-                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled"/>
-                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                        ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled"/>
+                <Button Icon="icon-ic_fluent_cut_20_regular"/>
+                <Button Icon="icon-ic_fluent_copy_20_regular"/>
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled"
+                <Button Icon="icon-ic_fluent_cut_20_regular"
                         Appearance="ButtonAppearance.Primary"/>
-                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled"
+                <Button Icon="icon-ic_fluent_copy_20_regular"
                         Appearance="ButtonAppearance.Primary"/>
-                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                        ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Primary"/>
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" Appearance="ButtonAppearance.Primary"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled"
+                <Button Icon="icon-ic_fluent_cut_20_regular"
                         Appearance="ButtonAppearance.Outline"/>
-                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled"
+                <Button Icon="icon-ic_fluent_copy_20_regular"
                         Appearance="ButtonAppearance.Outline"/>
-                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                        ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Outline"/>
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" Appearance="ButtonAppearance.Outline"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled"
+                <Button Icon="icon-ic_fluent_cut_20_regular"
                         Appearance="ButtonAppearance.Subtle"/>
-                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled"
+                <Button Icon="icon-ic_fluent_copy_20_regular"
                         Appearance="ButtonAppearance.Subtle"/>
-                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                        ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled" Appearance="ButtonAppearance.Subtle"/>
+                <Button Icon="icon-ic_fluent_clipboard_paste_20_regular" Appearance="ButtonAppearance.Subtle"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="icon-ic_fluent_cut_20_regular" ActiveIcon="icon-ic_fluent_cut_20_filled"
+                <Button Icon="icon-ic_fluent_cut_20_regular"
                         Appearance="ButtonAppearance.Transparent"/>
-                <Button Icon="icon-ic_fluent_copy_20_regular" ActiveIcon="icon-ic_fluent_copy_20_filled"
+                <Button Icon="icon-ic_fluent_copy_20_regular"
                         Appearance="ButtonAppearance.Transparent"/>
                 <Button Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                        ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled"
                         Appearance="ButtonAppearance.Transparent"/>
             </ButtonGroup>
         </div>
@@ -164,29 +145,21 @@
     <div>
         <h5>Dropdown button</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled">
+            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular">
                 <Dropdown>
                     <MenuList>
-                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular"
-                                  ActiveIcon="icon-ic_fluent_cut_20_filled" Checked/>
-                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"
-                                  ActiveIcon="icon-ic_fluent_copy_20_filled"/>
-                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                                  ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled"/>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" Checked/>
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"/>
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"/>
                     </MenuList>
                 </Dropdown>
             </Button>
-            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled" disabled>
+            <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular" disabled>
                 <Dropdown>
                     <MenuList>
-                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular"
-                                  ActiveIcon="icon-ic_fluent_cut_20_filled" Checked/>
-                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"
-                                  ActiveIcon="icon-ic_fluent_copy_20_filled"/>
-                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                                  ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled"/>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" Checked/>
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"/>
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"/>
                     </MenuList>
                 </Dropdown>
             </Button>
@@ -197,30 +170,22 @@
         <h5>Split button</h5>
         <div class="d-flex mb-3 gap-2 align-items-center">
             <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
                     OnClick="()=>{}">
                 <Dropdown>
                     <MenuList>
-                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular"
-                                  ActiveIcon="icon-ic_fluent_cut_20_filled" Checked/>
-                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"
-                                  ActiveIcon="icon-ic_fluent_copy_20_filled"/>
-                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                                  ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled"/>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" Checked/>
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"/>
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"/>
                     </MenuList>
                 </Dropdown>
             </Button>
             <Button Text="Default" Icon="icon-ic_fluent_cursor_click_20_regular"
-                    ActiveIcon="icon-ic_fluent_cursor_click_20_filled"
                     OnClick="()=>{}" disabled>
                 <Dropdown>
                     <MenuList>
-                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular"
-                                  ActiveIcon="icon-ic_fluent_cut_20_filled" Checked/>
-                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"
-                                  ActiveIcon="icon-ic_fluent_copy_20_filled"/>
-                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"
-                                  ActiveIcon="icon-ic_fluent_clipboard_paste_20_filled"/>
+                        <MenuItem Title="Cut" Icon="icon-ic_fluent_cut_20_regular" Checked/>
+                        <MenuItem Title="Copy" Icon="icon-ic_fluent_copy_20_regular"/>
+                        <MenuItem Title="Paste" Icon="icon-ic_fluent_clipboard_paste_20_regular"/>
                     </MenuList>
                 </Dropdown>
             </Button>
