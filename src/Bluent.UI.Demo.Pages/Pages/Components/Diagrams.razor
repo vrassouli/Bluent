@@ -13,20 +13,20 @@
 </div>
 
 <Toolbar>
-    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" aria-label="Pointer tool" />
+    <ToolbarButton Icon="@FluentIcons.Cursor" ActiveIcon="@(_tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(_tool is null)" aria-label="Pointer tool" />
 
-    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" OnClick="SelectAreaSelectTool" Toggled="@(_tool is DiagramAreaSelectTool)" aria-label="Area selection tool" />
+    <ToolbarButton Icon="@FluentIcons.CircleHintCursor" OnClick="SelectAreaSelectTool" Toggled="@(_tool is DiagramAreaSelectTool)" aria-label="Area selection tool" />
     <ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" OnClick="Undo" disabled="@(!_canUndo)" aria-label="Undo" />
-    <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" OnClick="Redo" disabled="@(!_canRedo)" aria-label="Redo" />
-    <ToolbarButton Tooltip="Rectangle" Icon="icon-ic_fluent_rectangle_landscape_20_regular" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectangleNodeTool)" aria-label="Rectangle tool" />
-    <ToolbarButton Tooltip="Circle" Icon="icon-ic_fluent_circle_20_regular" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleNodeTool)" aria-label="Circle tool" />
+    <ToolbarButton Icon="@FluentIcons.ArrowUndo" OnClick="Undo" disabled="@(!_canUndo)" aria-label="Undo" />
+    <ToolbarButton Icon="@FluentIcons.ArrowRedo" OnClick="Redo" disabled="@(!_canRedo)" aria-label="Redo" />
+    <ToolbarButton Tooltip="Rectangle" Icon="@FluentIcons.RectangleLandscape" OnClick="SelectRectTool" Toggled="@(_tool is DrawRectangleNodeTool)" aria-label="Rectangle tool" />
+    <ToolbarButton Tooltip="Circle" Icon="@FluentIcons.Circle" OnClick="SelectCircleTool" Toggled="@(_tool is DrawCircleNodeTool)" aria-label="Circle tool" />
     <ToolbarDivider />
-    <ToolbarButton Tooltip="Boundary Circle" Icon="icon-ic_fluent_circle_multiple_concentric_20_regular" OnClick="SelectBoundaryCircleTool" Toggled="@(_tool is DrawBoundaryCircleNodeTool)" aria-label="Boundary circle tool" />
+    <ToolbarButton Tooltip="Boundary Circle" Icon="@FluentIcons.CircleMultipleConcentric" OnClick="SelectBoundaryCircleTool" Toggled="@(_tool is DrawBoundaryCircleNodeTool)" aria-label="Boundary circle tool" />
     <ToolbarDivider />
-    <ToolbarButton Tooltip="Rectangle Container" Icon="icon-ic_fluent_rectangle_landscape_20_regular" OnClick="SelectRectContainerTool" Toggled="@(_tool is DrawRectangleContainerNodeTool)" aria-label="Rectangle container tool" />
+    <ToolbarButton Tooltip="Rectangle Container" Icon="@FluentIcons.RectangleLandscape" OnClick="SelectRectContainerTool" Toggled="@(_tool is DrawRectangleContainerNodeTool)" aria-label="Rectangle container tool" />
     <ToolbarDivider />
-    <ToolbarButton Tooltip="Connector" Icon="icon-ic_fluent_arrow_flow_diagonal_up_right_20_regular" OnClick="SelectConnectorTool" Toggled="@(_tool is DrawDiagramConnectorTool)" aria-label="Connector tool" />
+    <ToolbarButton Tooltip="Connector" Icon="@FluentIcons.ArrowFlowDiagonalUpRight" OnClick="SelectConnectorTool" Toggled="@(_tool is DrawDiagramConnectorTool)" aria-label="Connector tool" />
 
 </Toolbar>
 

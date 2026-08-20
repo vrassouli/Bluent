@@ -5,18 +5,18 @@
 @using Bluent.UI.Diagrams.Tools.Drawings.Basic
 
 <Toolbar>
-    <ToolbarButton Icon="icon-ic_fluent_cursor_20_regular" ActiveIcon="@(Tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(Tool is null)" />
-    <ToolbarButton Icon="icon-ic_fluent_circle_hint_cursor_20_regular" OnClick="SelectAreaSelectTool" Toggled="@(Tool is AreaSelectTool)" />
+    <ToolbarButton Icon="@FluentIcons.Cursor" ActiveIcon="@(Tool is null ? "icon-ic_fluent_cursor_20_regular" : "icon-ic_fluent_cursor_20_filled")" OnClick="DeselectTool" Toggled="@(Tool is null)" />
+    <ToolbarButton Icon="@FluentIcons.CircleHintCursor" OnClick="SelectAreaSelectTool" Toggled="@(Tool is AreaSelectTool)" />
     <ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_arrow_undo_20_regular" OnClick="Undo" disabled="@(!_canUndo)" />
-    <ToolbarButton Icon="icon-ic_fluent_arrow_redo_20_regular" OnClick="Redo" disabled="@(!_canRedo)" />
+    <ToolbarButton Icon="@FluentIcons.ArrowUndo" OnClick="Undo" disabled="@(!_canUndo)" />
+    <ToolbarButton Icon="@FluentIcons.ArrowRedo" OnClick="Redo" disabled="@(!_canRedo)" />
     <ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_line_20_regular" OnClick="SelectLineTool" Toggled="@(Tool is DrawLineTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_rectangle_landscape_20_regular" OnClick="SelectRectTool" Toggled="@(Tool is DrawRectTool<RectSelectionOptions>)" />
-    <ToolbarButton Icon="icon-ic_fluent_circle_20_regular" OnClick="SelectCircleTool" Toggled="@(Tool is DrawCircleTool)" />
-    <ToolbarButton Icon="icon-ic_fluent_diamond_20_regular" OnClick="SelectDiamondTool" Toggled="@(Tool is DrawDiamondTool)" />
+    <ToolbarButton Icon="@FluentIcons.Line" OnClick="SelectLineTool" Toggled="@(Tool is DrawLineTool)" />
+    <ToolbarButton Icon="@FluentIcons.RectangleLandscape" OnClick="SelectRectTool" Toggled="@(Tool is DrawRectTool<RectSelectionOptions>)" />
+    <ToolbarButton Icon="@FluentIcons.Circle" OnClick="SelectCircleTool" Toggled="@(Tool is DrawCircleTool)" />
+    <ToolbarButton Icon="@FluentIcons.Diamond" OnClick="SelectDiamondTool" Toggled="@(Tool is DrawDiamondTool)" />
     <ToolbarDivider />
-    <ToolbarButton Icon="icon-ic_fluent_ink_stroke_20_regular" OnClick="SelectInkToShapeTool" Toggled="@(Tool is InkToShapeTool)" />
+    <ToolbarButton Icon="@FluentIcons.InkStroke" OnClick="SelectInkToShapeTool" Toggled="@(Tool is InkToShapeTool)" />
 </Toolbar>
 
 <Stack Orientation="Orientation.Horizontal" Class="flex-fill">
@@ -29,7 +29,7 @@
             <input type="color" id="head" name="head" @bind-value="StrokeColor" />
             <label for="head">Stroke</label>
         </Stack>
-        <Button Icon="icon-ic_fluent_line_thickness_20_regular">
+        <Button Icon="@FluentIcons.LineThickness">
             <Dropdown>
                 <MenuList>
                     <MenuItem Title="0" OnClick="() => SetStrokeWidth(0)" Checked="_strokeWidth == 0" />

@@ -1,4 +1,4 @@
-﻿@page "/components/action-cards"
+@page "/components/action-cards"
 @namespace Bluent.UI.Demo.Pages.Components
 @using System.Globalization
 <PageTitle>Action cards</PageTitle>
@@ -9,7 +9,7 @@
 
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+            <ActionCard Icon="@FluentIcons.GlobeLocation"
                         Title="Regional format"
                         Description="Windows and some apps format dates and times based on your regional format">
                 <HeaderAction>
@@ -25,7 +25,7 @@
 
         <h3>Expandable</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+            <ActionCard Icon="@FluentIcons.GlobeLocation"
                         Title="Regional format"
                         Description="Windows and some apps format dates and times based on your regional format">
                 <HeaderAction>
@@ -77,7 +77,7 @@
 
         <h3>Expandable (Deferred Loading)</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+            <ActionCard Icon="@FluentIcons.GlobeLocation"
                         Title="Regional format"
                         Description="Windows and some apps format dates and times based on your regional format"
                         DeferredLoading>
@@ -130,7 +130,7 @@
 
         <h3>Link</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+            <ActionCard Icon="@FluentIcons.GlobeLocation"
                         Title="Regional format"
                         Description="Windows and some apps format dates and times based on your regional format"
                         Href="/components/action-cards?#Links">
@@ -140,12 +140,12 @@
         <h3>Group</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ActionCardGroup>
-                <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+                <ActionCard Icon="@FluentIcons.GlobeLocation"
                             Title="Regional format"
                             Description="Windows and some apps format dates and times based on your regional format"
                             Href="/components/action-cards?#Links">
                 </ActionCard>
-                <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+                <ActionCard Icon="@FluentIcons.GlobeLocation"
                             Title="Regional format"
                             Description="Windows and some apps format dates and times based on your regional format">
                     <HeaderAction>
@@ -157,7 +157,7 @@
                         </SelectField>
                     </HeaderAction>
                 </ActionCard>
-                <ActionCard Icon="icon-ic_fluent_globe_location_20_regular"
+                <ActionCard Icon="@FluentIcons.GlobeLocation"
                             Title="Regional format"
                             Description="Windows and some apps format dates and times based on your regional format">
                     <HeaderAction>
