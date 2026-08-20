@@ -34,6 +34,63 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 - None.
 
+## [2.0.0] - 2026-08-20
+
+This release intentionally redesigns Bluent's icon API around strongly typed,
+IntelliSense-discoverable icon definitions. Applications using icon-bearing
+components must migrate from Fluent CSS-class strings to the typed icon model.
+See the [1.0.368 → 2.0.0 migration guidance](docs/compatibility/migration-and-upgrades.md#migrating-from-10368-to-200).
+
+### Added
+
+- `[Bluent.UI]` Added the strongly typed `IconDefinition`, `IconSource`,
+  `IconSourceKind`, and `IconVariant` model for CSS, SVG, and image-backed icons.
+- `[Bluent.UI]` Added the generated `FluentIcons` catalog so bundled Fluent
+  icons can be selected through IntelliSense, for example `FluentIcons.Save`,
+  without remembering CSS class naming conventions.
+- `[Bluent.UI]` Added build-time generation of the Fluent icon catalog from the
+  bundled `FluentSystemIcons-Resizable.json` metadata.
+- Added typed-icon usage guidance covering Fluent icons, direct rendering,
+  custom SVG/image sources, active variants, and migration from the string API.
+
+### Changed
+
+- **Breaking:** `[Bluent.UI]` Icon-bearing component parameters now use
+  `IconDefinition` instead of string CSS-class names. Regular and filled Fluent
+  variants are grouped into one definition, and stateful components select the
+  filled variant automatically when appropriate. See the
+  [migration guidance](docs/compatibility/migration-and-upgrades.md#migrating-from-10368-to-200).
+- **Breaking:** `[Bluent.UI]` Direct `<Icon>` rendering now uses `Value` and an
+  optional `IconVariant` instead of polymorphic string content; icon source type
+  is explicit rather than inferred from string contents. See the
+  [migration guidance](docs/compatibility/migration-and-upgrades.md#migrating-from-10368-to-200).
+- **Breaking:** `[Bluent.UI.Utilities]` MDI, hierarchy, and toolbar icon
+  contracts now use the typed icon model, including `IMdiDocument.Icon` and
+  document toolbar items. See the
+  [migration guidance](docs/compatibility/migration-and-upgrades.md#migrating-from-10368-to-200).
+- `[Bluent.UI]` Built-in component affordances now route through the typed icon
+  abstraction instead of embedding Fluent CSS class names directly.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- **Breaking:** `[Bluent.UI]` Removed the legacy string-icon surface including
+  separate active-icon/class parameters where the regular/filled relationship
+  is now represented by `IconDefinition`, and removed the obsolete
+  `SvgGenerator`. See the
+  [migration guidance](docs/compatibility/migration-and-upgrades.md#migrating-from-10368-to-200).
+
+### Fixed
+
+- None.
+
+### Security
+
+- None.
+
 ## [1.0.368] - 2026-08-17
 
 Applications should update directly installed Bluent packages together. This
@@ -169,5 +226,7 @@ or GitHub Releases from which complete release notes can be reconstructed.
 
 Future releases will add a dated section here and move the relevant entries from `Unreleased`.
 
-[Unreleased]: https://github.com/vrassouli/Bluent/compare/v1.0.367...Dev
+[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.0.0...Dev
+[2.0.0]: https://github.com/vrassouli/Bluent/compare/v1.0.368...v2.0.0
+[1.0.368]: https://github.com/vrassouli/Bluent/compare/v1.0.367...v1.0.368
 [1.0.367]: https://github.com/vrassouli/Bluent/compare/9056d1c5b3b9f0d714854da0a1712efa55fd3ed8...v1.0.367

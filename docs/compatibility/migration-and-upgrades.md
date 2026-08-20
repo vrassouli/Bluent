@@ -78,6 +78,151 @@ Remove stale application-copied Bluent assets unless the release explicitly requ
 
 Clear browser/CDN caches when stylesheet or module behavior changed, then confirm that requested asset URLs correspond to the target package version.
 
+## Migrating from 1.0.368 to 2.0.0
+
+### Who is affected
+
+Applications using `[Bluent.UI]` or `[Bluent.UI.Utilities]` icon APIs are affected. This includes consumers that:
+
+- pass Fluent CSS class strings to component `Icon` parameters
+- use separate `ActiveIcon`, `IconClass`, or `ActiveIconClass` parameters
+- render `<Icon Content="..." />` directly
+- use `SvgGenerator`
+- implement icon-bearing utility contracts such as `IMdiDocument.Icon`
+- create document toolbar or hierarchy items with string icon values
+
+Applications that do not use Bluent icon APIs may update without icon-specific source changes, but directly installed Bluent packages should still be upgraded together.
+
+### Required changes
+
+1. Import `Bluent.UI.Icons` where needed.
+2. Replace bundled Fluent CSS class strings with `FluentIcons.*` definitions.
+3. Remove separate regular/filled icon pairs from stateful components; one `IconDefinition` now carries both variants.
+4. Replace direct `<Icon Content="..." />` usage with `<Icon Value="..." />`.
+5. Replace custom SVG/image/path strings with explicit `IconDefinition.FromSvg(...)`, `IconDefinition.FromImage(...)`, or `IconDefinition.FromCss(...)` definitions.
+6. Update implementations of utility APIs whose icon members changed from `string` to `IconDefinition?`.
+7. Replace dynamic string construction of Fluent class names with a typed mapping to `IconDefinition` values.
+
+### Fluent icon parameters
+
+Before:
+
+```razor
+<Button Text="Save"
+        Icon="icon-ic_fluent_save_20_regular"
+        ActiveIcon="icon-ic_fluent_save_20_filled" />
+```
+
+After:
+
+```razor
+@using Bluent.UI.Icons
+
+<Button Text="Save" Icon="@FluentIcons.Save" />
+```
+
+`FluentIcons.Save` contains the regular source and, when available, the matching filled source. Stateful components select the filled source automatically for the relevant active/hover/toggled state.
+
+### Direct icon rendering
+
+Before:
+
+```razor
+<Icon Content="icon-ic_fluent_settings_20_regular" />
+```
+
+After:
+
+```razor
+<Icon Value="@FluentIcons.Settings" />
+```
+
+To explicitly request the filled variant:
+
+```razor
+<Icon Value="@FluentIcons.Settings" Variant="IconVariant.Filled" />
+```
+
+If a definition has no filled source, the renderer falls back to the regular source.
+
+### Custom SVG, image, and CSS-backed icons
+
+Before, `Icon.Content` inferred the source type from the string value. In 2.0.0 the source type is explicit.
+
+Custom SVG:
+
+```csharp
+private static readonly IconDefinition ProductIcon = IconDefinition.FromSvg("""
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="..." />
+    </svg>
+    """);
+```
+
+Image-backed icon:
+
+```csharp
+private static readonly IconDefinition PowerPointIcon =
+    IconDefinition.FromImage("/assets/icons/powerpoint.svg");
+```
+
+Custom CSS-backed icon:
+
+```csharp
+private static readonly IconDefinition LegacyAppIcon =
+    IconDefinition.FromCss("my-app-icon", "my-app-icon-filled");
+```
+
+Pass any of these definitions to a typed icon parameter or to `<Icon Value="..." />`.
+
+SVG content is rendered as markup. Only use trusted developer-controlled SVG strings; do not pass unsanitized user input to `IconDefinition.FromSvg`.
+
+### Utility API implementations
+
+Before:
+
+```csharp
+public string? Icon => "icon-ic_fluent_document_20_regular";
+```
+
+After:
+
+```csharp
+public IconDefinition? Icon => FluentIcons.Document;
+```
+
+The same type change applies to icon-bearing MDI, hierarchy, and document-toolbar APIs in `Bluent.UI.Utilities`.
+
+### Removed legacy surface
+
+The 2.0.0 icon architecture removes the legacy polymorphic/string surface, including:
+
+- direct `Icon.Content`
+- separate `ActiveIcon` where active state is represented by the definition's filled source
+- icon-specific string class parameters replaced by the typed model
+- `SvgGenerator`
+
+Use the [Icons guide](../guides/icons.md) for the complete new model and custom-icon examples.
+
+### Behavioral differences
+
+- Fluent icon names are compiler-checked and IntelliSense-discoverable through `FluentIcons`.
+- Regular/filled relationships are centralized in `IconDefinition` instead of repeated by each consumer.
+- Source type is explicit; Bluent no longer guesses CSS vs SVG vs image from string contents.
+- Stateful components can render the filled variant without a separate active-icon parameter.
+- Requesting `IconVariant.Filled` falls back to the regular source when a filled source does not exist.
+- Bundled Fluent icon font assets remain part of the Bluent theme assets; the migration changes the API used to select icons, not the asset delivery mechanism.
+
+### Validation
+
+After migrating:
+
+1. Build the application and resolve every icon-related compiler error rather than adding string compatibility wrappers.
+2. Exercise normal, hover, selected, toggled, expanded, and disabled states on icon-bearing components used by the application.
+3. Verify custom SVG and image icons render at the intended size and inherit styling as expected.
+4. Verify MDI, hierarchy, and toolbar implementations compile against the new `IconDefinition?` contracts.
+5. Search application code for `icon-ic_fluent_` and remove remaining Bluent-facing magic strings unless they are intentionally used outside Bluent's icon API.
+
 ## Compatibility surface
 
 Migration notes are required when a release changes:
