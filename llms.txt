@@ -49,11 +49,14 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Checkbox](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/checkbox.md)
 - [DateField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/date-field.md)
 - [Dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dialog.md)
+- [Drawer](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/drawer.md)
 - [DropdownSelect](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dropdown-select.md)
 - [FileSelect](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/file-select.md)
 - [MaskedField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/masked-field.md)
+- [MessageBar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/message-bar.md)
 - [NumericField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/numeric-field.md)
 - [OtpField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/otp-field.md)
+- [Popover](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/popover.md)
 - [RadioGroup](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/radio-group.md)
 - [RangeSlider](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/range-slider.md)
 - [SelectField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/select-field.md)
@@ -61,6 +64,7 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Switch](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/switch.md)
 - [TextField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/text-field.md)
 - [TimeField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/time-field.md)
+- [Toast](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/toast.md)
 
 ## Cross-cutting guidance
 
