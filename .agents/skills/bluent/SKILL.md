@@ -25,6 +25,7 @@ Load only what the task needs:
 - accessibility claims -> `references/foundation/accessibility.md`
 - common UI composition -> the matching file under `references/patterns/`
 - exact component API -> the canonical component reference linked by `COMPONENT-INDEX.md`
+- service/container/helper classification -> `docs/components/consumer-api-surface.md`, then the owning component family
 
 The files in this skill route to canonical repository documentation. They are not a second API encyclopedia.
 
