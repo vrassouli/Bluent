@@ -58,11 +58,11 @@ Directories are introduced as their first maintained document is added. Empty pl
 
 ## Current consumer-skill coverage
 
-Issue #406 is expanding source-verified canonical coverage in coherent batches. The source-reconciled inventory currently tracks 57 `Bluent.UI` component families and 76 total families/types across UI, Charts, Diagrams, and Utilities. Of the main-UI families, 50 now have source-verified canonical references; Dialog additionally retains separately recorded runtime verification.
+Issue #406 is expanding source-verified canonical coverage in coherent batches. The source-reconciled inventory currently tracks 57 `Bluent.UI` component families and 76 total families/types across UI, Charts, Diagrams, and Utilities. All 57 main-UI families now have source-verified canonical references; Dialog additionally retains separately recorded runtime verification.
 
-Source discovery expanded the earlier main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all five now have source-verified canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row. Seven main-UI families remain pending source-verified canonical coverage: `Accordion`, `ActionCard`, `AudioCapture`, `Breadcrumb`, `Calendar`, `PropertyEditor`, and `Wizard`.
+Source discovery expanded the earlier main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all five now have source-verified canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row.
 
-The skill index must follow the maintained ledger rather than claiming unsupported coverage.
+Remaining #406 coverage work is in Charts, Diagrams, Utilities, public helper/service/configuration classification, high-risk runtime verification, deterministic drift/link/coverage validation, and consumer dogfood scenarios. The skill index follows the maintained ledger rather than claiming unsupported coverage.
 
 ## Source-of-truth rules
 
