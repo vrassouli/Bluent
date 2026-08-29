@@ -13,6 +13,7 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Getting Started](https://github.com/vrassouli/Bluent/blob/Dev/docs/getting-started/index.md): canonical installation, registration, styles, containers, and troubleshooting
 - [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
+- [Consumer infrastructure classification](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/consumer-infrastructure.md): service/container/configuration APIs versus low-level implementation infrastructure
 - [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
 - [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): complete, compiled patterns for common Bluent application tasks
 - [OrderDesk reference application](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/reference-application.md): standalone production-pattern customer and order workflow
@@ -94,6 +95,29 @@ All 57 currently tracked `Bluent.UI` component families have source-verified can
 - [Tree](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tree.md)
 - [Wizard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/wizard.md)
 
+## Optional package retrieval families
+
+All tracked optional-package retrieval families are source verified. Closely related public helper/configuration types are documented with the consumer workflow that uses them.
+
+### Bluent.UI.Charts
+
+- [Chart composition](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/chart.md): `Chart`, typed `Dataset`, legend/title/subtitle/tooltip plugins, scales, chart types, and related configuration
+- [Gauge](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/gauge.md): JS-backed gauge and value formatting/configuration
+
+### Bluent.UI.Diagrams
+
+- [Diagram / DrawingCanvas](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/diagram.md): drawing/diagram surface, selection, tools, pan/scale/delete integration, commands
+- [Basic shapes](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/diagram-shapes.md): `Circle`, `Line`, and `Rect`
+
+### Bluent.UI.Utilities
+
+- [AppBusyIndicator](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/app-busy-indicator.md): busy service and indicator component
+- [Hierarchy](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/hierarchy.md): tree/item browsing and hierarchy selection workflows
+- [MdiTab](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/mdi-tab.md): MDI documents, tabs, service, and lifecycle
+- [ToolbarButtons](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/toolbar-buttons.md): save/undo/redo helpers backed by `CommandManager`
+
+The maintained [inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md) currently contains 65 source-verified consumer retrieval families in total: 57 main UI, 2 Charts, 2 Diagrams, and 4 Utilities.
+
 ## Cross-cutting guidance
 
 - [Hosting and render modes](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/hosting-and-render-modes.md)
@@ -116,3 +140,4 @@ All 57 currently tracked `Bluent.UI` component families have source-verified can
 
 - [Repository](https://github.com/vrassouli/Bluent)
 - [Consumer skill tracking issue](https://github.com/vrassouli/Bluent/issues/406)
+- [Product/API gap backlog](https://github.com/vrassouli/Bluent/issues/411)
