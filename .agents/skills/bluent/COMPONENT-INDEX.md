@@ -30,13 +30,13 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | List | list presentation/selection | pending canonical reference |
 | MaskedField | formatted/masked text input | `docs/components/masked-field.md` |
 | MediaQuery | responsive conditional UI | pending canonical reference |
-| Menu | menu interaction | pending canonical reference |
-| MenuList | menu item composition | pending canonical reference |
+| Menu | popover-backed command/action menu | `docs/components/menu.md` |
+| MenuList | lower-level menu item composition | `docs/components/menu.md` |
 | MessageBar | persistent inline status/message | `docs/components/message-bar.md` |
-| NavList | application navigation | pending canonical reference |
+| NavList | application navigation and nested NavItem composition | `docs/components/nav-list.md` |
 | NumericField | numeric entry | `docs/components/numeric-field.md` |
 | OtpField | one-time-password/code entry | `docs/components/otp-field.md` |
-| Overflow | overflow-aware command/content grouping | pending canonical reference |
+| Overflow | abstract overflow composition used by concrete controls | `docs/components/overflow.md` |
 | Overlay | lightweight visual/click-catching backdrop; not the service host | `docs/components/overlay.md` |
 | Popover | anchored transient surface | `docs/components/popover.md` |
 | ProgressBar | progress indication | pending canonical reference |
@@ -51,7 +51,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | SplitPanel | resizable split layout | pending canonical reference |
 | Stack | stacked layout | pending canonical reference |
 | Switch | immediate Boolean on/off setting | `docs/components/switch.md` |
-| TabList | tabbed navigation/content | pending canonical reference |
+| TabList | overflow-aware tabbed navigation/content | `docs/components/tab-list.md` |
 | Tag | compact categorical/status label | pending canonical reference |
 | TextField | text/password/textarea-style entry | `docs/components/text-field.md` |
 | TimeField | time entry | `docs/components/time-field.md` |
@@ -61,6 +61,8 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Wizard | multi-step workflow | pending canonical reference |
 
 Consumer-facing overlay infrastructure: `docs/components/containers.md` documents the parameterless shared `<Containers />` host for Drawer, Dialog, Popover, Tooltip, and Toast containers. Shared base classes, services, and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
+
+Source discovery has also identified public component directories absent from the current family ledger, including `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `Containers`. Treat that as Phase A inventory drift to classify; do not silently invent rows or APIs from names alone.
 
 ## Charts — `Bluent.UI.Charts`
 
