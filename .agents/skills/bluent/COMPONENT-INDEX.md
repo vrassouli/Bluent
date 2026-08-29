@@ -1,6 +1,6 @@
 # Bluent component index
 
-This index is a retrieval map, not an API catalog. Canonical component pages under `docs/components/` remain authoritative. Families without a source-verified canonical page are deliberately marked as such so an agent knows to inspect current source/demo rather than guess.
+This index is a retrieval map, not an API catalog. Canonical component pages under `docs/components/` remain authoritative. If a behavior is marked runtime-unverified, inspect the canonical page/source rather than guessing.
 
 ## Main UI — `Bluent.UI`
 
@@ -65,22 +65,37 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Tree | hierarchical expand/check/drag-drop data/navigation | `docs/components/tree.md` |
 | Wizard | multi-step workflow | `docs/components/wizard.md` |
 
-All 57 currently tracked `Bluent.UI` component families have source-verified canonical routes. Consumer-facing overlay infrastructure remains separate: `docs/components/containers.md` documents the parameterless shared `<Containers />` host for Drawer, Dialog, Popover, Tooltip, and Toast containers. Shared base classes, services, and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
-
-The main-UI family ledger is source-reconciled to include previously omitted `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; `Containers` remains classified as cross-component infrastructure rather than an ordinary component-family row.
+All 57 currently tracked `Bluent.UI` component families have source-verified canonical routes. Consumer-facing overlay infrastructure remains separate: `docs/components/containers.md` documents the parameterless shared `<Containers />` host.
 
 ## Charts — `Bluent.UI.Charts`
 
-Tracked families/types: Chart, Gauge, Dataset, Legend, Scale, Subtitle, Title, Tooltip, XScale, YScale. These still require the component-vs-configuration classification pass before separate canonical pages are treated as authoritative. Use the compiled canonical chart task meanwhile: `docs/examples/tasks/chart-dashboard.md`.
+| Consumer family | Typical need | Canonical reference |
+| --- | --- | --- |
+| Chart composition | canvas chart with typed datasets, legend/title/subtitle/tooltip and x/y scales | `docs/components/chart.md` |
+| Gauge | scalar gauge visualization | `docs/components/gauge.md` |
+
+`Dataset`, `Legend`, `Title`, `Subtitle`, Charts `Tooltip`, `Scale`, `XScale`, and `YScale` are public composition/configuration components within the Chart family rather than separate top-level consumer families. The compiled end-to-end pattern is `docs/examples/tasks/chart-dashboard.md`.
 
 ## Diagrams — `Bluent.UI.Diagrams`
 
-Tracked families/types: Diagram, DrawingCanvas, Circle, Line, Rect. Use `docs/examples/tasks/simple-diagram.md` for the current compiled pattern; individual family references remain pending source verification.
+| Consumer family | Typical need | Canonical reference |
+| --- | --- | --- |
+| Diagram / DrawingCanvas | interactive drawing/diagram surface, selection/tools/pan/scale | `docs/components/diagram.md` |
+| Basic shapes | declarative circle/line/rectangle shapes nested in a canvas | `docs/components/diagram-shapes.md` |
+
+The compiled display pattern is `docs/examples/tasks/simple-diagram.md`. Editing/pointer/keyboard behavior remains runtime-sensitive; follow the limitations in the canonical pages.
 
 ## Utilities — `Bluent.UI.Utilities`
 
-Tracked families: AppBusyIndicator, Hierarchy, MdiTab, ToolbarButtons. Utilities includes services/abstractions as well as Razor components; inspect the current source/demo until canonical family documentation is added.
+| Consumer family | Typical need | Canonical reference |
+| --- | --- | --- |
+| AppBusyIndicator | application-level busy progress driven by `IBusyIndicator` | `docs/components/app-busy-indicator.md` |
+| Hierarchy | tree/file-browser-style hierarchical navigation and selection | `docs/components/hierarchy-utilities.md` |
+| MDI tabs | dynamic multi-document tabs and activation lifecycle | `docs/components/mdi-tabs.md` |
+| ToolbarButtons | `CommandManager` save/undo/redo toolbar helpers | `docs/components/toolbar-buttons.md` |
+
+Utilities registration is `builder.Services.AddBluentUtilities()` when service-backed MDI/busy-indicator features are used. Supporting abstractions and models belong to their family pages and should not be treated as extra visual component families.
 
 ## Coverage source
 
-The complete maintained coverage ledger is `docs/components/inventory.md`. When this index and the inventory disagree, treat that as drift to fix rather than guessing which API is correct.
+The complete maintained coverage ledger is `docs/components/inventory.md`. When this index and the inventory disagree, treat that as drift to fix rather than guessing which API is correct. Product/API gaps found during verification are tracked in issue #411.
