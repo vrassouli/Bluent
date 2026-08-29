@@ -22,7 +22,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | DateField | date entry | `docs/components/date-field.md` |
 | Dialog | modal/confirmation workflow | `docs/components/dialog.md` |
 | DockPanel | docked application layout | pending canonical reference |
-| Drawer | side-panel workflow | pending canonical reference |
+| Drawer | side-panel workflow | `docs/components/drawer.md` |
 | DropdownSelect | custom popover-backed selected-value display | `docs/components/dropdown-select.md` |
 | FileSelect | browser file selection | `docs/components/file-select.md` |
 | Icon | icon rendering | pending canonical reference |
@@ -32,13 +32,13 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | MediaQuery | responsive conditional UI | pending canonical reference |
 | Menu | menu interaction | pending canonical reference |
 | MenuList | menu item composition | pending canonical reference |
-| MessageBar | persistent inline status/message | pending canonical reference |
+| MessageBar | persistent inline status/message | `docs/components/message-bar.md` |
 | NavList | application navigation | pending canonical reference |
 | NumericField | numeric entry | `docs/components/numeric-field.md` |
 | OtpField | one-time-password/code entry | `docs/components/otp-field.md` |
 | Overflow | overflow-aware command/content grouping | pending canonical reference |
 | Overlay | overlay surface/infrastructure | pending canonical reference |
-| Popover | anchored transient surface | pending canonical reference |
+| Popover | anchored transient surface | `docs/components/popover.md` |
 | ProgressBar | progress indication | pending canonical reference |
 | PropertyEditor | object/property editing | pending canonical reference |
 | RadioGroup | single-choice set | `docs/components/radio-group.md` |
@@ -55,7 +55,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Tag | compact categorical/status label | pending canonical reference |
 | TextField | text/password/textarea-style entry | `docs/components/text-field.md` |
 | TimeField | time entry | `docs/components/time-field.md` |
-| Toast | transient global status | pending canonical reference |
+| Toast | transient global status | `docs/components/toast.md` |
 | Toolbar | command bar/overflow composition | pending canonical reference |
 | Tree | hierarchical data/navigation | pending canonical reference |
 | Wizard | multi-step workflow | pending canonical reference |
