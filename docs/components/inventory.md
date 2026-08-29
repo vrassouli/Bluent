@@ -50,12 +50,12 @@ Namespace: `Bluent.UI.Components`
 | [Dialog](dialog.md) | `Bluent.UI` | `src/Bluent.UI/Components/DialogComponent/` | Runtime verified | Runnable nested-dialog demo | Automated render tests; desktop/mobile and LTR/RTL |
 | [DockPanel](dock-panel.md) | `Bluent.UI` | `src/Bluent.UI/Components/DockPanelComponent/` | Source verified | Verify | Runtime still required |
 | [Drawer](drawer.md) | `Bluent.UI` | `src/Bluent.UI/Components/DrawerComponent/` | Source verified | Compiled task example | Build; representative disposal runtime evidence |
-| DropdownList | `Bluent.UI` | `src/Bluent.UI/Components/DropdownListComponent/` | Not started | Verify | Not validated |
+| [DropdownList](dropdown-list.md) | `Bluent.UI` | `src/Bluent.UI/Components/DropdownListComponent/` | Source verified | Verify | Runtime/virtualization still required |
 | [DropdownSelect](dropdown-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/DropdownSelectComponent/` | Source verified | Verify | Not validated |
 | [FileSelect](file-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/FileSelectComponent/` | Source verified | Verify | Not validated |
 | Icon | `Bluent.UI` | `src/Bluent.UI/Components/IconComponent/` | Not started | Verify | Not validated |
 | Label | `Bluent.UI` | `src/Bluent.UI/Components/LabelComponent/` | Not started | Verify | Not validated |
-| Link | `Bluent.UI` | `src/Bluent.UI/Components/LinkComponent/` | Not started | Verify | Not validated |
+| [Link](link.md) | `Bluent.UI` | `src/Bluent.UI/Components/LinkComponent/` | Source verified | Verify | Source only |
 | List | `Bluent.UI` | `src/Bluent.UI/Components/ListComponent/` | Not started | Verify | Not validated |
 | [MaskedField](masked-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/MaskedFieldComponent/` | Source verified | Compiled demo | Build |
 | [MediaQuery](media-query.md) | `Bluent.UI` | `src/Bluent.UI/Components/MediaQueryComponent/` | Source verified | Verify | Runtime still required |
@@ -87,7 +87,7 @@ Namespace: `Bluent.UI.Components`
 | [TimeField](time-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/TimeFieldComponent/` | Source verified | Compiled demo | Build |
 | [Toast](toast.md) | `Bluent.UI` | `src/Bluent.UI/Components/ToastComponent/` | Source verified | Compiled feedback task | Build; timer/hover/accessibility runtime still required |
 | Toolbar | `Bluent.UI` | `src/Bluent.UI/Components/ToolbarComponent/` | Not started | Verify | Not validated |
-| Tooltip | `Bluent.UI` | `src/Bluent.UI/Components/TooltipComponent/` | Not started | Verify | Not validated |
+| [Tooltip](tooltip.md) | `Bluent.UI` | `src/Bluent.UI/Components/TooltipComponent/` | Source verified | Common base usage | Runtime/positioning/accessibility still required |
 | Tree | `Bluent.UI` | `src/Bluent.UI/Components/TreeComponent/` | Not started | Verify | Not validated |
 | Wizard | `Bluent.UI` | `src/Bluent.UI/Components/WizardComponent/` | Not started | Verify | Not validated |
 
@@ -141,17 +141,17 @@ Primary source root: `src/Bluent.UI.Utilities/`
 
 | Package | Tracked families/types | Source-verified references | Runtime-verified references |
 | --- | ---: | ---: | ---: |
-| `Bluent.UI` | 56 | 33 | 1 |
+| `Bluent.UI` | 56 | 36 | 1 |
 | `Bluent.UI.Charts` | 10 | 0 | 0 |
 | `Bluent.UI.Diagrams` | 5 | 0 | 0 |
 | `Bluent.UI.Utilities` | 4 | 0 | 0 |
-| **Total** | **75** | **33** | **1** |
+| **Total** | **75** | **36** | **1** |
 
-The source-verified main-UI count now includes the completed action/input, overlay/feedback, navigation, and layout references through `DockPanel`, `MediaQuery`, `Menu`/`MenuList`, `NavList`, `Overflow`, `Overlay`, `Spacer`, `SplitPanel`, `Stack`, `TabList`, and `TileLayout`. Dialog retains its separately recorded runtime verification.
+The source-verified main-UI count now includes the source-discovered `DropdownList`, `Link`, `TileLayout`, and Tooltip capability as well as the completed action/input, overlay/feedback, navigation, and layout batches. Dialog retains its separately recorded runtime verification.
 
 ## Prioritization
 
-Continue in coherent batches from #406: finish newly discovered main-UI families and remaining feedback/navigation/layout gaps, then data/list/tree, specialized UI, Charts, Diagrams, and Utilities.
+Continue in coherent batches from #406: finish remaining main-UI feedback/navigation/layout gaps, then data/list/tree, specialized UI, Charts, Diagrams, and Utilities.
 
 ## Maintenance rules
 
