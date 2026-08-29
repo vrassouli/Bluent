@@ -37,7 +37,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | NumericField | numeric entry | `docs/components/numeric-field.md` |
 | OtpField | one-time-password/code entry | `docs/components/otp-field.md` |
 | Overflow | overflow-aware command/content grouping | pending canonical reference |
-| Overlay | overlay surface/infrastructure | pending canonical reference |
+| Overlay | lightweight visual/click-catching backdrop; not the service host | `docs/components/overlay.md` |
 | Popover | anchored transient surface | `docs/components/popover.md` |
 | ProgressBar | progress indication | pending canonical reference |
 | PropertyEditor | object/property editing | pending canonical reference |
@@ -60,7 +60,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Tree | hierarchical data/navigation | pending canonical reference |
 | Wizard | multi-step workflow | pending canonical reference |
 
-Cross-component infrastructure such as `Containers`, shared base classes, services and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
+Consumer-facing overlay infrastructure: `docs/components/containers.md` documents the parameterless shared `<Containers />` host for Drawer, Dialog, Popover, Tooltip, and Toast containers. Shared base classes, services, and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
 
 ## Charts — `Bluent.UI.Charts`
 
