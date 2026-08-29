@@ -1,8 +1,8 @@
 # Public component inventory and documentation coverage
 
-This inventory tracks Bluent's public component families and canonical documentation coverage. It is derived from current public source, demos/examples, package projects, and the component references maintained under this directory.
+This inventory tracks Bluent's public consumer-facing component families and canonical documentation coverage. It is derived from current public source, demos/examples, package projects, and the component references maintained under this directory.
 
-It tracks component families rather than every helper type, enum, internal renderer, configuration record, or nested implementation component. A family page may document several tightly coupled public types.
+It tracks **retrieval families**, not every public helper type, enum, nested renderer, service implementation, or configuration record. A canonical family page may document several tightly coupled public types. Consumer-facing infrastructure and service/configuration APIs are classified separately when they are important for correct usage.
 
 ## Status definitions
 
@@ -92,84 +92,86 @@ Namespace: `Bluent.UI.Components`
 | [Tree](tree.md) | `Bluent.UI` | `src/Bluent.UI/Components/TreeComponent/` | Source verified | Verify | Runtime/drag-drop/keyboard still required |
 | [Wizard](wizard.md) | `Bluent.UI` | `src/Bluent.UI/Components/WizardComponent/` | Source verified | Verify | Runtime/focus/validation flow still required |
 
-### Infrastructure and shared UI types
+### Infrastructure and shared UI API
 
-The main package also exposes or contains cross-component infrastructure such as `BluentDynamicComponent`, field/input/overflow/UI base classes, the parameterless [`Containers`](containers.md) host and overlay containers, shared enums, and service-facing configuration/result types. These types must be classified individually as consumer-facing infrastructure, helper/configuration API, or internal during the remaining #406 inventory pass.
+| Surface | Classification | Canonical route |
+| --- | --- | --- |
+| `<Containers />` and specialized overlay containers | Consumer infrastructure | [containers.md](containers.md) |
+| `IDialogService` / dialog config/results | Consumer service/configuration API | [dialog.md](dialog.md) |
+| `IDrawerService` / drawer config/results | Consumer service/configuration API | [drawer.md](drawer.md) |
+| `IDockService` / dock configuration | Consumer service/configuration API | [dock-panel.md](dock-panel.md) |
+| `IToastService`, `ToastConfiguration`, `ToastConfigurator` | Consumer service/configuration API | [toast.md](toast.md) |
+| `IPopoverService` / popover settings | Mostly component infrastructure; direct use is advanced | [popover.md](popover.md) |
+| `ITooltipService` / tooltip settings | Mostly inherited-component infrastructure | [tooltip.md](tooltip.md) |
+| `IPropertyEditorProvider`, `IPropertyEditorTypeRegistry` | Consumer extension points | [property-editor.md](property-editor.md) |
+| `IDomHelper`, `DomRect` | Low-level browser/DOM infrastructure; not normal app UI API | [consumer-infrastructure.md](consumer-infrastructure.md) |
+| Component/input/overflow base classes and concrete service implementations | Framework/internal extension surface unless a canonical page explicitly requires them | [consumer-infrastructure.md](consumer-infrastructure.md) |
 
 ## Charts package
 
 Namespace: `Bluent.UI.Charts.Components`
 
-| Family or public type | Package | Source area | Documentation | Example | Validation |
-| --- | --- | --- | --- | --- | --- |
-| Chart | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Chart` | Not started | Compiled task | Build |
-| Gauge | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Gauge` | Not started | Verify | Not validated |
-| Dataset | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Dataset` | Not started | Compiled task | Build |
-| Legend | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Legend` | Not started | Verify | Not validated |
-| Scale | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Scale` | Not started | Verify | Not validated |
-| Subtitle | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Subtitle` | Not started | Verify | Not validated |
-| Title | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Title` | Not started | Verify | Not validated |
-| Tooltip | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/Tooltip` | Not started | Verify | Not validated |
-| XScale | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/XScale` | Not started | Verify | Not validated |
-| YScale | `Bluent.UI.Charts` | `src/Bluent.UI.Charts/Components/YScale` | Not started | Verify | Not validated |
+| Retrieval family | Public types covered | Documentation | Example | Validation |
+| --- | --- | --- | --- | --- |
+| [Chart composition](chart.md) | `Chart`, `Dataset<TKey,TValue>`, `Legend`, `Title`, `Subtitle`, Charts `Tooltip`, `Scale`, `XScale`, `YScale`, `ChartType` and closely related Chart.js config types | Source verified | Compiled task | Build; interactive canvas/runtime still required |
+| [Gauge](gauge.md) | `Gauge` and gauge configuration | Source verified | Verify | Browser/JS runtime still required |
 
-The Charts inventory must distinguish Razor components from public configuration models during reference authoring. The package's Chart.js asset loading also requires runtime validation.
+Charts exposes additional public Chart.js configuration/model types. They are configuration helpers for these two retrieval families rather than independent component-family rows.
 
 ## Diagrams package
 
 Namespace: `Bluent.UI.Diagrams.Components`
 
-| Family or public type | Package | Source area | Documentation | Example | Validation |
-| --- | --- | --- | --- | --- | --- |
-| Diagram | `Bluent.UI.Diagrams` | `src/Bluent.UI.Diagrams/Components/Diagram` | Not started | Compiled task | Build |
-| DrawingCanvas | `Bluent.UI.Diagrams` | `src/Bluent.UI.Diagrams/Components/DrawingCanvas` | Not started | Verify | Not validated |
-| Circle | `Bluent.UI.Diagrams` | `src/Bluent.UI.Diagrams/Components/Circle` | Not started | Compiled task | Build |
-| Line | `Bluent.UI.Diagrams` | `src/Bluent.UI.Diagrams/Components/Line` | Not started | Compiled task | Build |
-| Rect | `Bluent.UI.Diagrams` | `src/Bluent.UI.Diagrams/Components/Rect` | Not started | Compiled task | Build |
+| Retrieval family | Public types covered | Documentation | Example | Validation |
+| --- | --- | --- | --- | --- |
+| [Diagram / DrawingCanvas](diagram.md) | `Diagram`, `DrawingCanvas`, tool/selection/command integration and diagram container behavior | Source verified | Compiled task | Build; pointer/keyboard/tool runtime still required |
+| [Basic shapes](diagram-shapes.md) | `Circle`, `Line`, `Rect` | Source verified | Compiled task | Build; dynamic parameter behavior source-only |
+
+Public element/tool/command abstractions support these families and are not separate retrieval families unless a future consumer workflow needs dedicated documentation.
 
 ## Utilities package
 
 Primary source root: `src/Bluent.UI.Utilities/`
 
-| Family | Package | Source area | Documentation | Example | Validation |
-| --- | --- | --- | --- | --- | --- |
-| AppBusyIndicator | `Bluent.UI.Utilities` | `src/Bluent.UI.Utilities/AppBusyIndicator` | Not started | Verify | Not validated |
-| Hierarchy | `Bluent.UI.Utilities` | `src/Bluent.UI.Utilities/Hierarchy` | Not started | Verify | Not validated |
-| MdiTab | `Bluent.UI.Utilities` | `src/Bluent.UI.Utilities/MdiTab` | Not started | Verify | Not validated |
-| ToolbarButtons | `Bluent.UI.Utilities` | `src/Bluent.UI.Utilities/ToolbarButtons` | Not started | Verify | Not validated |
+| Retrieval family | Public types covered | Documentation | Example | Validation |
+| --- | --- | --- | --- | --- |
+| [AppBusyIndicator](app-busy-indicator.md) | `AppBusyIndicator`, `IBusyIndicator`, `AddBluentUtilities()` registration | Source verified | Verify | Source only |
+| [Hierarchy](hierarchy.md) | `HierarchyItemBrowser`, `HierarchyTreeBrowser`, hierarchy items/selections/delegate | Source verified | Verify | Composite runtime/accessibility still required |
+| [MdiTab](mdi-tab.md) | `MdiTab`, `MdiTabList`, `IMdiService`, `IMdiDocument`, MDI toolbar/document contracts | Source verified | Verify | Runtime lifecycle/focus still required |
+| [ToolbarButtons](toolbar-buttons.md) | `SaveToolbarButton`, `UndoToolbarButton`, `RedoToolbarButton`, `CommandManager` integration | Source verified | Verify | Source only |
 
 ## Coverage summary
 
-| Package | Tracked families/types | Source-verified references | Runtime-verified references |
+| Package | Retrieval families | Source-verified references | Runtime-verified references |
 | --- | ---: | ---: | ---: |
 | `Bluent.UI` | 57 | 57 | 1 |
-| `Bluent.UI.Charts` | 10 | 0 | 0 |
-| `Bluent.UI.Diagrams` | 5 | 0 | 0 |
-| `Bluent.UI.Utilities` | 4 | 0 | 0 |
-| **Total** | **76** | **57** | **1** |
+| `Bluent.UI.Charts` | 2 | 2 | 0 |
+| `Bluent.UI.Diagrams` | 2 | 2 | 0 |
+| `Bluent.UI.Utilities` | 4 | 4 | 0 |
+| **Total** | **65** | **65** | **1** |
 
-All 57 currently tracked `Bluent.UI` component families now have source-verified canonical references. Dialog retains its separately recorded runtime verification. The source-reconciled main-UI ledger includes previously omitted `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; `Containers` remains classified as cross-component infrastructure rather than an ordinary family row.
+All 65 currently tracked consumer retrieval families now have source-verified canonical references. Dialog retains its separately recorded runtime verification. Public helper/configuration/service types are intentionally grouped with the component/workflow that consumes them instead of inflating the retrieval index with one row per CLR type.
 
 ## Prioritization
 
-Continue #406 with Charts, Diagrams, Utilities, the remaining public helper/service/configuration classification pass, high-risk runtime verification, deterministic coverage/link/drift validation, and consumer dogfood scenarios.
+The remaining #406 work is runtime evidence for high-risk families, consumer dogfood scenarios, final public helper/service/config classification checks, and final state/CI evidence. Deterministic source/inventory/index drift validation is implemented by `scripts/quality/check_consumer_skill.py` and runs in the Quality workflow.
 
 ## Maintenance rules
 
-- Add a row when a new public component family is introduced.
+- Add a retrieval-family row when a new public consumer capability is introduced.
+- Map every top-level main-UI `*Component` source directory to the main table or explicitly classify it as infrastructure.
 - Do not mark a row source verified until the reference follows [TEMPLATE.md](TEMPLATE.md) and its API claims are checked against current source.
 - Link each completed family name to its canonical page.
+- Keep helper/configuration types grouped with the family that makes them useful unless independent retrieval materially improves consumer use.
 - Record demo paths during source verification.
 - Recalculate the summary whenever statuses change.
-- Review public helper/configuration types during each family pass.
 - Treat deletions and renames as migration-documentation changes.
 - Keep `.agents/skills/bluent/COMPONENT-INDEX.md` mechanically consistent with this ledger.
 
 ## Known limitations of this inventory
 
-- The current ledger is still a family-level source inventory rather than a compiler/reflection-generated public API inventory.
-- Nested, generic, dynamically rendered, service, configuration, and inherited public types still require the Phase A classification pass from #406.
-- Demo/runtime presence is not assumed when evidence has not been checked.
-- A deterministic automated inventory/coverage drift check is still required before #406 acceptance.
+- It is a consumer retrieval inventory rather than a compiler/reflection-generated list of every public CLR symbol.
+- Runtime/demo presence is not assumed when evidence has not been checked.
+- Accessibility, pointer, browser API, JS interop, RTL and render-mode claims remain limited to explicitly recorded evidence.
 
-These limitations are tracked as validation work, not hidden behind a claim of complete API coverage.
+These limitations are tracked as validation work, not hidden behind a claim of complete runtime coverage.
