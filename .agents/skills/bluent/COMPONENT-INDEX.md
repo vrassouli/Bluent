@@ -21,15 +21,17 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | DataPager | page navigation for data | pending canonical reference |
 | DateField | date entry | `docs/components/date-field.md` |
 | Dialog | modal/confirmation workflow | `docs/components/dialog.md` |
-| DockPanel | docked application layout | pending canonical reference |
+| DockPanel | service-backed named dock/tool-window layout | `docs/components/dock-panel.md` |
 | Drawer | side-panel workflow | `docs/components/drawer.md` |
+| DropdownList | dropdown-list selection/composition | pending canonical reference |
 | DropdownSelect | custom popover-backed selected-value display | `docs/components/dropdown-select.md` |
 | FileSelect | browser file selection | `docs/components/file-select.md` |
 | Icon | icon rendering | pending canonical reference |
 | Label | field/content label | pending canonical reference |
+| Link | link/navigation primitive | pending canonical reference |
 | List | list presentation/selection | pending canonical reference |
 | MaskedField | formatted/masked text input | `docs/components/masked-field.md` |
-| MediaQuery | responsive conditional UI | pending canonical reference |
+| MediaQuery | initial browser breakpoint detection | `docs/components/media-query.md` |
 | Menu | popover-backed command/action menu | `docs/components/menu.md` |
 | MenuList | lower-level menu item composition | `docs/components/menu.md` |
 | MessageBar | persistent inline status/message | `docs/components/message-bar.md` |
@@ -46,23 +48,25 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | SelectField | single- or source-observed array selection | `docs/components/select-field.md` |
 | Skeleton | loading placeholder | pending canonical reference |
 | Slider | scalar pointer-driven range selection | `docs/components/slider.md` |
-| Spacer | flexible layout spacing | pending canonical reference |
+| Spacer | flexible flex-layout spacing | `docs/components/spacer.md` |
 | Spinner | indeterminate busy state | pending canonical reference |
-| SplitPanel | resizable split layout | pending canonical reference |
-| Stack | stacked layout | pending canonical reference |
+| SplitPanel | pointer-resizable multi-region application layout | `docs/components/split-panel.md` |
+| Stack | flex stack layout | `docs/components/stack.md` |
 | Switch | immediate Boolean on/off setting | `docs/components/switch.md` |
 | TabList | overflow-aware tabbed navigation/content | `docs/components/tab-list.md` |
 | Tag | compact categorical/status label | pending canonical reference |
 | TextField | text/password/textarea-style entry | `docs/components/text-field.md` |
+| TileLayout | CSS-driven responsive tile layout | `docs/components/tile-layout.md` |
 | TimeField | time entry | `docs/components/time-field.md` |
 | Toast | transient global status | `docs/components/toast.md` |
 | Toolbar | command bar/overflow composition | pending canonical reference |
+| Tooltip | tooltip interaction/surface | pending canonical reference |
 | Tree | hierarchical data/navigation | pending canonical reference |
 | Wizard | multi-step workflow | pending canonical reference |
 
 Consumer-facing overlay infrastructure: `docs/components/containers.md` documents the parameterless shared `<Containers />` host for Drawer, Dialog, Popover, Tooltip, and Toast containers. Shared base classes, services, and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
 
-Source discovery has also identified public component directories absent from the current family ledger, including `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `Containers`. Treat that as Phase A inventory drift to classify; do not silently invent rows or APIs from names alone.
+The main-UI family ledger is now reconciled to include source-discovered `DropdownList`, `Link`, `TileLayout`, and `Tooltip`; `Containers` remains classified as cross-component infrastructure rather than an ordinary component-family row.
 
 ## Charts — `Bluent.UI.Charts`
 
