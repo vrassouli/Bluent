@@ -52,8 +52,10 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dialog.md)
 - [DockPanel](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dock-panel.md)
 - [Drawer](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/drawer.md)
+- [DropdownList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dropdown-list.md)
 - [DropdownSelect](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dropdown-select.md)
 - [FileSelect](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/file-select.md)
+- [Link](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/link.md)
 - [MaskedField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/masked-field.md)
 - [MediaQuery](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/media-query.md)
 - [Menu and MenuList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/menu.md)
@@ -77,6 +79,7 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [TileLayout](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tile-layout.md)
 - [TimeField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/time-field.md)
 - [Toast](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/toast.md)
+- [Tooltip capability](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tooltip.md)
 
 ## Cross-cutting guidance
 
