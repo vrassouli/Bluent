@@ -6,15 +6,15 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 
 | Family | Typical need | Canonical reference |
 | --- | --- | --- |
-| Accordion | grouped expandable content | pending canonical reference |
-| ActionCard | prominent actionable content card | pending canonical reference |
-| AudioCapture | capture audio input | pending canonical reference |
+| Accordion | grouped expandable content | `docs/components/accordion.md` |
+| ActionCard | prominent clickable/link/expandable content | `docs/components/action-card.md` |
+| AudioCapture | browser microphone capture | `docs/components/audio-capture.md` |
 | Avatar | person/entity avatar | `docs/components/avatar.md` |
 | Badge | compact status/count/value | `docs/components/badge.md` |
-| Breadcrumb | hierarchy/location trail | pending canonical reference |
+| Breadcrumb | hierarchy/location trail | `docs/components/breadcrumb.md` |
 | Button | commands, links, toggle/dropdown/split actions | `docs/components/button.md` |
 | ButtonGroup | grouped related buttons | `docs/components/button-group.md` |
-| Calendar | calendar/date presentation | pending canonical reference |
+| Calendar | culture-aware date/month/year selection | `docs/components/calendar.md` |
 | Card | grouped/selectable/link content | `docs/components/card.md` |
 | Checkbox | Boolean/nullable choice | `docs/components/checkbox.md` |
 | DataGrid | virtualized tabular provider-backed data | `docs/components/data-grid.md` |
@@ -43,7 +43,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Overlay | lightweight visual/click-catching backdrop; not the service host | `docs/components/overlay.md` |
 | Popover | anchored transient surface | `docs/components/popover.md` |
 | ProgressBar | determinate/indeterminate progress indication | `docs/components/progress-bar.md` |
-| PropertyEditor | object/property editing | pending canonical reference |
+| PropertyEditor | reflection-driven object/property editing | `docs/components/property-editor.md` |
 | RadioGroup | single-choice set | `docs/components/radio-group.md` |
 | RangeSlider | bounded two-thumb range selection | `docs/components/range-slider.md` |
 | SelectField | single- or source-observed array selection | `docs/components/select-field.md` |
@@ -63,15 +63,15 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Toolbar | overflow-aware command bar | `docs/components/toolbar.md` |
 | Tooltip | inherited service-backed contextual help capability | `docs/components/tooltip.md` |
 | Tree | hierarchical expand/check/drag-drop data/navigation | `docs/components/tree.md` |
-| Wizard | multi-step workflow | pending canonical reference |
+| Wizard | multi-step workflow | `docs/components/wizard.md` |
 
-Consumer-facing overlay infrastructure: `docs/components/containers.md` documents the parameterless shared `<Containers />` host for Drawer, Dialog, Popover, Tooltip, and Toast containers. Shared base classes, services, and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
+All 57 currently tracked `Bluent.UI` component families have source-verified canonical routes. Consumer-facing overlay infrastructure remains separate: `docs/components/containers.md` documents the parameterless shared `<Containers />` host for Drawer, Dialog, Popover, Tooltip, and Toast containers. Shared base classes, services, and configuration/result types must be selected from canonical setup/task/component docs, not inferred from this table.
 
 The main-UI family ledger is source-reconciled to include previously omitted `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; `Containers` remains classified as cross-component infrastructure rather than an ordinary component-family row.
 
 ## Charts — `Bluent.UI.Charts`
 
-Tracked families/types: Chart, Gauge, Dataset, Legend, Scale, Subtitle, Title, Tooltip, XScale, YScale. The current inventory requires a component-vs-configuration classification pass before separate canonical pages are treated as authoritative. Use the canonical chart task example meanwhile: `docs/examples/tasks/chart-dashboard.md`.
+Tracked families/types: Chart, Gauge, Dataset, Legend, Scale, Subtitle, Title, Tooltip, XScale, YScale. These still require the component-vs-configuration classification pass before separate canonical pages are treated as authoritative. Use the compiled canonical chart task meanwhile: `docs/examples/tasks/chart-dashboard.md`.
 
 ## Diagrams — `Bluent.UI.Diagrams`
 
