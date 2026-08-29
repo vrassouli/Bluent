@@ -46,6 +46,9 @@ jobs:
       - name: Compile canonical task examples and exercise drift detection
         run: bash scripts/quality/check_task_examples.sh
 
+      - name: Validate Bluent consumer skill coverage
+        run: python3 scripts/quality/check_consumer_skill.py
+
       - name: Test solution
         run: dotnet test Bluent.sln --configuration Release --no-build
 
