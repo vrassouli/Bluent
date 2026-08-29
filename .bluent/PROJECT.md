@@ -6,9 +6,9 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **Phase:** AI readiness and consumer usability
 **Current Work:** Issue #406 — canonical Bluent consumer skill
-**Status:** Implementation complete; final validation/review-readiness pass in progress
+**Status:** Implementation and acceptance evidence complete; PR review-readiness confirmation in progress
 **Working Branch:** `docs/issue-406-consumer-skill`
-**Pull Request:** [#407](https://github.com/vrassouli/Bluent/pull/407) — Draft
+**Pull Request:** [#407](https://github.com/vrassouli/Bluent/pull/407) — Draft pending final evidence-only CI
 **Tracking Issue:** [#406](https://github.com/vrassouli/Bluent/issues/406)
 **Product/API Gap Backlog:** [#411](https://github.com/vrassouli/Bluent/issues/411)
 
@@ -30,7 +30,9 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 ## Validation State
 
-The complete Quality workflow passed on PR head `99b9d03eee1d6a571b0b6a357cbf501679465e36` as run #197, including:
+Quality run #199 and Release packages run #546 both passed on PR head `d6b8176e5e30ee96340344287baf6338e6a55dd0` after the complete implementation, inventory/link reconciliation, dogfood work, project-state refresh, and acceptance audit.
+
+Quality #199 verified:
 
 - tool/solution restore;
 - zero-warning Release solution build;
@@ -44,9 +46,9 @@ The complete Quality workflow passed on PR head `99b9d03eee1d6a571b0b6a357cbf501
 - focused rendered accessibility checks;
 - changed-line whitespace validation.
 
-Release packages run #544 also passed on that head.
+Release packages #546 verified the exact-ref Release build/tests, all five packages, package metadata/dependencies, deterministic release notes, and artifact upload. NuGet publication and GitHub Release jobs remained skipped; no package, tag, or release was published.
 
-The state-file update that creates this current `PROJECT.md` is documentation-only and requires one final current-head CI confirmation before PR #407 is described as fully validated.
+This commit only records the resulting evidence/state. One final CI pass on the evidence-only head is required before changing PR #407 from Draft to review-ready.
 
 Existing runtime evidence in `docs/compatibility/hosting-and-render-modes.md` verifies representative Drawer, Popover, Tooltip, Chart, Diagram, navigation, disposal, overlay, and DOM-measurement behavior in the named interactive modes. That evidence must not be generalized into component-wide/browser-wide accessibility guarantees.
 
@@ -64,12 +66,11 @@ Existing runtime evidence in `docs/compatibility/hosting-and-render-modes.md` ve
 
 ## Remaining #406 Work
 
-1. Confirm Quality and Release-package workflows on the final state-documentation head.
-2. Refresh PR #407 with exact final-head workflow evidence.
-3. Re-read #406 acceptance criteria and ensure no criterion is represented by an unverified claim.
-4. Keep runtime-sensitive limitations explicitly bounded where browser evidence is absent.
-5. Keep #411 open for product/API gaps found during or after the skill work.
-6. When all required evidence is green, PR #407 may be made review-ready; do not merge it or close #406 as part of the implementation task.
+1. Confirm Quality and Release-package workflows on this evidence-only head.
+2. Refresh PR #407 with exact final-head workflow evidence and mark it review-ready if those checks pass.
+3. Keep runtime-sensitive limitations explicitly bounded where browser evidence is absent.
+4. Keep #411 open for product/API gaps found during or after the skill work.
+5. Do not merge PR #407 or close #406 as part of the implementation task.
 
 ## Working Agreement
 
