@@ -112,7 +112,7 @@ Array `TValue` enables `multiple` in source, but the current showcase only demon
 
 - `TextField`: `text-field.md`
 - `DropdownSelect` and `DropdownList`: see [component inventory](inventory.md)
-- [Forms and validation guide](../guides/forms-and-validation.md)
+- [Form validation task](../examples/tasks/form-validation.md)
 
 ## Source and verification
 
