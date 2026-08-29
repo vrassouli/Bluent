@@ -28,14 +28,14 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Icon | icon rendering | pending canonical reference |
 | Label | field/content label | pending canonical reference |
 | List | list presentation/selection | pending canonical reference |
-| MaskedField | formatted/masked text input | pending canonical reference |
+| MaskedField | formatted/masked text input | `docs/components/masked-field.md` |
 | MediaQuery | responsive conditional UI | pending canonical reference |
 | Menu | menu interaction | pending canonical reference |
 | MenuList | menu item composition | pending canonical reference |
 | MessageBar | persistent inline status/message | pending canonical reference |
 | NavList | application navigation | pending canonical reference |
 | NumericField | numeric entry | `docs/components/numeric-field.md` |
-| OtpField | one-time-password/code entry | pending canonical reference |
+| OtpField | one-time-password/code entry | `docs/components/otp-field.md` |
 | Overflow | overflow-aware command/content grouping | pending canonical reference |
 | Overlay | overlay surface/infrastructure | pending canonical reference |
 | Popover | anchored transient surface | pending canonical reference |
@@ -50,6 +50,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Spinner | indeterminate busy state | pending canonical reference |
 | SplitPanel | resizable split layout | pending canonical reference |
 | Stack | stacked layout | pending canonical reference |
+| Switch | immediate Boolean on/off setting | `docs/components/switch.md` |
 | TabList | tabbed navigation/content | pending canonical reference |
 | Tag | compact categorical/status label | pending canonical reference |
 | TextField | text/password/textarea-style entry | `docs/components/text-field.md` |
