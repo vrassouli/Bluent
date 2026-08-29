@@ -14,14 +14,18 @@
       OnClick="HandleClick"
       OnItemDrop="HandleDrop"
       OnInsertAfter="HandleInsertAfter">
-    <TreeItem Title="Projects" Data="projects" Expanded IsChecked="false">
-        <TreeItem Title="Bluent" Data="bluent" IsChecked="false" />
-        <TreeItem Title="Ruzin" Data="ruzin" IsChecked="false" />
+    <TreeItem Title="Projects" Data="@_projects" Expanded IsChecked="false">
+        <TreeItem Title="Bluent" Data="@_bluent" IsChecked="false" />
+        <TreeItem Title="Ruzin" Data="@_ruzin" IsChecked="false" />
     </TreeItem>
-    <TreeItem Title="Archive" Data="archive" IsChecked="false" />
+    <TreeItem Title="Archive" Data="@_archive" IsChecked="false" />
 </Tree>
 
 @code {
+    private readonly object _projects = "projects";
+    private readonly object _bluent = "bluent";
+    private readonly object _ruzin = "ruzin";
+    private readonly object _archive = "archive";
     private string _status = "Select, check, or drag a tree item.";
 
     private void HandleClick(TreeItem item)
