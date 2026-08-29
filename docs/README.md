@@ -13,7 +13,7 @@ The repository root README remains the short evaluation and installation entry p
 | Roadmap | [../ROADMAP.md](../ROADMAP.md) | Track outcome-based project phases |
 | Getting started | [`getting-started/`](getting-started/index.md) | Install, register, configure, and run Bluent in supported Blazor hosting models |
 | Packages | [`packages/`](packages/index.md) | Choose packages and understand dependencies and boundaries |
-| Components | [`components/`](components/README.md) | Use public components through a consistent reference format |
+| Components | [`components/`](components/README.md) | Use public components through a consistent reference format; see the maintained [coverage inventory](components/inventory.md) |
 | Consumer AI skill | [`../.agents/skills/bluent/`](../.agents/skills/bluent/SKILL.md) | Route coding agents from UI intent to canonical Bluent documentation without duplicating the API catalog |
 | Guides | [`guides/`](guides/theming-localization-rtl-and-assets.md) | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
 | Compatibility | [`compatibility/`](compatibility/README.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
@@ -55,6 +55,10 @@ Directories are introduced as their first maintained document is added. Empty pl
 4. Include package, namespace, prerequisites, and known limitations.
 5. Mark version-specific behavior explicitly.
 6. Run applicable builds, tests, examples, and link checks before opening a pull request.
+
+## Current consumer-skill coverage
+
+Issue #406 is expanding source-verified canonical coverage in coherent batches. The maintained inventory currently records 17 source-verified `Bluent.UI` families plus the existing runtime-verified Dialog reference. The skill index must follow that ledger rather than claiming unsupported coverage.
 
 ## Source-of-truth rules
 
