@@ -48,23 +48,25 @@ Namespace: `Bluent.UI.Components`
 | DataPager | `Bluent.UI` | `src/Bluent.UI/Components/DataPagerComponent/` | Not started | Verify | Not validated |
 | [DateField](date-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/DateFieldComponent/` | Source verified | Compiled demo | Build |
 | [Dialog](dialog.md) | `Bluent.UI` | `src/Bluent.UI/Components/DialogComponent/` | Runtime verified | Runnable nested-dialog demo | Automated render tests; desktop/mobile and LTR/RTL |
-| DockPanel | `Bluent.UI` | `src/Bluent.UI/Components/DockPanelComponent/` | Not started | Verify | Not validated |
+| [DockPanel](dock-panel.md) | `Bluent.UI` | `src/Bluent.UI/Components/DockPanelComponent/` | Source verified | Verify | Runtime still required |
 | [Drawer](drawer.md) | `Bluent.UI` | `src/Bluent.UI/Components/DrawerComponent/` | Source verified | Compiled task example | Build; representative disposal runtime evidence |
+| DropdownList | `Bluent.UI` | `src/Bluent.UI/Components/DropdownListComponent/` | Not started | Verify | Not validated |
 | [DropdownSelect](dropdown-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/DropdownSelectComponent/` | Source verified | Verify | Not validated |
 | [FileSelect](file-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/FileSelectComponent/` | Source verified | Verify | Not validated |
 | Icon | `Bluent.UI` | `src/Bluent.UI/Components/IconComponent/` | Not started | Verify | Not validated |
 | Label | `Bluent.UI` | `src/Bluent.UI/Components/LabelComponent/` | Not started | Verify | Not validated |
+| Link | `Bluent.UI` | `src/Bluent.UI/Components/LinkComponent/` | Not started | Verify | Not validated |
 | List | `Bluent.UI` | `src/Bluent.UI/Components/ListComponent/` | Not started | Verify | Not validated |
 | [MaskedField](masked-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/MaskedFieldComponent/` | Source verified | Compiled demo | Build |
-| MediaQuery | `Bluent.UI` | `src/Bluent.UI/Components/MediaQueryComponent/` | Not started | Verify | Not validated |
-| Menu | `Bluent.UI` | `src/Bluent.UI/Components/MenuComponent/` | Not started | Verify | Not validated |
-| MenuList | `Bluent.UI` | `src/Bluent.UI/Components/MenuListComponent/` | Not started | Verify | Not validated |
+| [MediaQuery](media-query.md) | `Bluent.UI` | `src/Bluent.UI/Components/MediaQueryComponent/` | Source verified | Verify | Runtime still required |
+| [Menu](menu.md) | `Bluent.UI` | `src/Bluent.UI/Components/MenuComponent/` | Source verified | Verify | Runtime/keyboard still required |
+| [MenuList](menu.md) | `Bluent.UI` | `src/Bluent.UI/Components/MenuListComponent/` | Source verified | Verify | Runtime/keyboard still required |
 | [MessageBar](message-bar.md) | `Bluent.UI` | `src/Bluent.UI/Components/MessageBarComponent/` | Source verified | Compiled feedback task | Build; runtime dismissal still required |
-| NavList | `Bluent.UI` | `src/Bluent.UI/Components/NavListComponent/` | Not started | Verify | Not validated |
+| [NavList](nav-list.md) | `Bluent.UI` | `src/Bluent.UI/Components/NavListComponent/` | Source verified | Verify | Runtime/keyboard still required |
 | [NumericField](numeric-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/NumericFieldComponent/` | Source verified | Compiled demo | Build |
 | [OtpField](otp-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/OtpFieldComponent/` | Source verified | Compiled demo | Build; runtime still required |
-| Overflow | `Bluent.UI` | `src/Bluent.UI/Components/OverflowComponent/` | Not started | Verify | Not validated |
-| Overlay | `Bluent.UI` | `src/Bluent.UI/Components/OverlayComponent/` | Not started | Verify | Not validated |
+| [Overflow](overflow.md) | `Bluent.UI` | `src/Bluent.UI/Components/OverflowComponent/` | Source verified | Verify | Runtime/JS measurement still required |
+| [Overlay](overlay.md) | `Bluent.UI` | `src/Bluent.UI/Components/OverlayComponent/` | Source verified | Verify | Not validated |
 | [Popover](popover.md) | `Bluent.UI` | `src/Bluent.UI/Components/PopoverComponent/` | Source verified | Compiled task example | Build; representative measurement runtime evidence |
 | ProgressBar | `Bluent.UI` | `src/Bluent.UI/Components/ProgressBarComponent/` | Not started | Verify | Not validated |
 | PropertyEditor | `Bluent.UI` | `src/Bluent.UI/Components/PropertyEditorComponent/` | Not started | Verify | Not validated |
@@ -73,23 +75,25 @@ Namespace: `Bluent.UI.Components`
 | [SelectField](select-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/SelectFieldComponent/` | Source verified | Compiled demo | Build |
 | Skeleton | `Bluent.UI` | `src/Bluent.UI/Components/SkeletonComponent/` | Not started | Verify | Not validated |
 | [Slider](slider.md) | `Bluent.UI` | `src/Bluent.UI/Components/SliderComponent/` | Source verified | Compiled demo | Build; runtime still required |
-| Spacer | `Bluent.UI` | `src/Bluent.UI/Components/SpacerComponent/` | Not started | Verify | Not validated |
+| [Spacer](spacer.md) | `Bluent.UI` | `src/Bluent.UI/Components/SpacerComponent/` | Source verified | Verify | Source only |
 | Spinner | `Bluent.UI` | `src/Bluent.UI/Components/SpinnerComponent/` | Not started | Verify | Not validated |
-| SplitPanel | `Bluent.UI` | `src/Bluent.UI/Components/SplitPanelComponent/` | Not started | Verify | Not validated |
-| Stack | `Bluent.UI` | `src/Bluent.UI/Components/StackComponent/` | Not started | Verify | Not validated |
+| [SplitPanel](split-panel.md) | `Bluent.UI` | `src/Bluent.UI/Components/SplitPanelComponent/` | Source verified | Verify | Runtime/pointer still required |
+| [Stack](stack.md) | `Bluent.UI` | `src/Bluent.UI/Components/StackComponent/` | Source verified | Verify | Source only |
 | [Switch](switch.md) | `Bluent.UI` | `src/Bluent.UI/Components/SwitchComponent/` | Source verified | Compiled demo | Build |
-| TabList | `Bluent.UI` | `src/Bluent.UI/Components/TabListComponent/` | Not started | Verify | Not validated |
+| [TabList](tab-list.md) | `Bluent.UI` | `src/Bluent.UI/Components/TabListComponent/` | Source verified | Verify | Runtime/keyboard/overflow still required |
 | Tag | `Bluent.UI` | `src/Bluent.UI/Components/TagComponent/` | Not started | Verify | Not validated |
 | [TextField](text-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/TextFieldComponent/` | Source verified | Compiled demo | Build |
+| [TileLayout](tile-layout.md) | `Bluent.UI` | `src/Bluent.UI/Components/TileLayoutComponent/` | Source verified | Verify | Source only |
 | [TimeField](time-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/TimeFieldComponent/` | Source verified | Compiled demo | Build |
 | [Toast](toast.md) | `Bluent.UI` | `src/Bluent.UI/Components/ToastComponent/` | Source verified | Compiled feedback task | Build; timer/hover/accessibility runtime still required |
 | Toolbar | `Bluent.UI` | `src/Bluent.UI/Components/ToolbarComponent/` | Not started | Verify | Not validated |
+| Tooltip | `Bluent.UI` | `src/Bluent.UI/Components/TooltipComponent/` | Not started | Verify | Not validated |
 | Tree | `Bluent.UI` | `src/Bluent.UI/Components/TreeComponent/` | Not started | Verify | Not validated |
 | Wizard | `Bluent.UI` | `src/Bluent.UI/Components/WizardComponent/` | Not started | Verify | Not validated |
 
 ### Infrastructure and shared UI types
 
-The main package also exposes or contains cross-component infrastructure such as `BluentDynamicComponent`, field/input/overflow/UI base classes, `Containers` and overlay containers, shared enums, and service-facing configuration/result types. These types must be classified individually as consumer-facing infrastructure, helper/configuration API, or internal during the remaining #406 inventory pass.
+The main package also exposes or contains cross-component infrastructure such as `BluentDynamicComponent`, field/input/overflow/UI base classes, the parameterless [`Containers`](containers.md) host and overlay containers, shared enums, and service-facing configuration/result types. These types must be classified individually as consumer-facing infrastructure, helper/configuration API, or internal during the remaining #406 inventory pass.
 
 ## Charts package
 
@@ -137,17 +141,17 @@ Primary source root: `src/Bluent.UI.Utilities/`
 
 | Package | Tracked families/types | Source-verified references | Runtime-verified references |
 | --- | ---: | ---: | ---: |
-| `Bluent.UI` | 52 | 21 | 1 |
+| `Bluent.UI` | 56 | 33 | 1 |
 | `Bluent.UI.Charts` | 10 | 0 | 0 |
 | `Bluent.UI.Diagrams` | 5 | 0 | 0 |
 | `Bluent.UI.Utilities` | 4 | 0 | 0 |
-| **Total** | **71** | **21** | **1** |
+| **Total** | **75** | **33** | **1** |
 
-The source-verified count includes canonical pages for Badge, Button, ButtonGroup, Checkbox, DateField, Drawer, DropdownSelect, FileSelect, MaskedField, MessageBar, NumericField, OtpField, Popover, RadioGroup, RangeSlider, SelectField, Slider, Switch, TextField, TimeField, and Toast. Dialog retains its separately recorded runtime verification.
+The source-verified main-UI count now includes the completed action/input, overlay/feedback, navigation, and layout references through `DockPanel`, `MediaQuery`, `Menu`/`MenuList`, `NavList`, `Overflow`, `Overlay`, `Spacer`, `SplitPanel`, `Stack`, `TabList`, and `TileLayout`. Dialog retains its separately recorded runtime verification.
 
 ## Prioritization
 
-Continue in coherent batches from #406: remaining overlay infrastructure/feedback, navigation/layout, data/list/tree, specialized UI, Charts, Diagrams, and Utilities.
+Continue in coherent batches from #406: finish newly discovered main-UI families and remaining feedback/navigation/layout gaps, then data/list/tree, specialized UI, Charts, Diagrams, and Utilities.
 
 ## Maintenance rules
 
