@@ -49,7 +49,7 @@ Namespace: `Bluent.UI.Components`
 | [DateField](date-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/DateFieldComponent/` | Source verified | Compiled demo | Build |
 | [Dialog](dialog.md) | `Bluent.UI` | `src/Bluent.UI/Components/DialogComponent/` | Runtime verified | Runnable nested-dialog demo | Automated render tests; desktop/mobile and LTR/RTL |
 | DockPanel | `Bluent.UI` | `src/Bluent.UI/Components/DockPanelComponent/` | Not started | Verify | Not validated |
-| Drawer | `Bluent.UI` | `src/Bluent.UI/Components/DrawerComponent/` | Not started | Verify | Not validated |
+| [Drawer](drawer.md) | `Bluent.UI` | `src/Bluent.UI/Components/DrawerComponent/` | Source verified | Compiled task example | Build; representative disposal runtime evidence |
 | [DropdownSelect](dropdown-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/DropdownSelectComponent/` | Source verified | Verify | Not validated |
 | [FileSelect](file-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/FileSelectComponent/` | Source verified | Verify | Not validated |
 | Icon | `Bluent.UI` | `src/Bluent.UI/Components/IconComponent/` | Not started | Verify | Not validated |
@@ -59,13 +59,13 @@ Namespace: `Bluent.UI.Components`
 | MediaQuery | `Bluent.UI` | `src/Bluent.UI/Components/MediaQueryComponent/` | Not started | Verify | Not validated |
 | Menu | `Bluent.UI` | `src/Bluent.UI/Components/MenuComponent/` | Not started | Verify | Not validated |
 | MenuList | `Bluent.UI` | `src/Bluent.UI/Components/MenuListComponent/` | Not started | Verify | Not validated |
-| MessageBar | `Bluent.UI` | `src/Bluent.UI/Components/MessageBarComponent/` | Not started | Verify | Not validated |
+| [MessageBar](message-bar.md) | `Bluent.UI` | `src/Bluent.UI/Components/MessageBarComponent/` | Source verified | Compiled feedback task | Build; runtime dismissal still required |
 | NavList | `Bluent.UI` | `src/Bluent.UI/Components/NavListComponent/` | Not started | Verify | Not validated |
 | [NumericField](numeric-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/NumericFieldComponent/` | Source verified | Compiled demo | Build |
 | [OtpField](otp-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/OtpFieldComponent/` | Source verified | Compiled demo | Build; runtime still required |
 | Overflow | `Bluent.UI` | `src/Bluent.UI/Components/OverflowComponent/` | Not started | Verify | Not validated |
 | Overlay | `Bluent.UI` | `src/Bluent.UI/Components/OverlayComponent/` | Not started | Verify | Not validated |
-| Popover | `Bluent.UI` | `src/Bluent.UI/Components/PopoverComponent/` | Not started | Verify | Not validated |
+| [Popover](popover.md) | `Bluent.UI` | `src/Bluent.UI/Components/PopoverComponent/` | Source verified | Compiled task example | Build; representative measurement runtime evidence |
 | ProgressBar | `Bluent.UI` | `src/Bluent.UI/Components/ProgressBarComponent/` | Not started | Verify | Not validated |
 | PropertyEditor | `Bluent.UI` | `src/Bluent.UI/Components/PropertyEditorComponent/` | Not started | Verify | Not validated |
 | [RadioGroup](radio-group.md) | `Bluent.UI` | `src/Bluent.UI/Components/RadioGroupComponent/` | Source verified | Verify | Not validated |
@@ -82,7 +82,7 @@ Namespace: `Bluent.UI.Components`
 | Tag | `Bluent.UI` | `src/Bluent.UI/Components/TagComponent/` | Not started | Verify | Not validated |
 | [TextField](text-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/TextFieldComponent/` | Source verified | Compiled demo | Build |
 | [TimeField](time-field.md) | `Bluent.UI` | `src/Bluent.UI/Components/TimeFieldComponent/` | Source verified | Compiled demo | Build |
-| Toast | `Bluent.UI` | `src/Bluent.UI/Components/ToastComponent/` | Not started | Verify | Not validated |
+| [Toast](toast.md) | `Bluent.UI` | `src/Bluent.UI/Components/ToastComponent/` | Source verified | Compiled feedback task | Build; timer/hover/accessibility runtime still required |
 | Toolbar | `Bluent.UI` | `src/Bluent.UI/Components/ToolbarComponent/` | Not started | Verify | Not validated |
 | Tree | `Bluent.UI` | `src/Bluent.UI/Components/TreeComponent/` | Not started | Verify | Not validated |
 | Wizard | `Bluent.UI` | `src/Bluent.UI/Components/WizardComponent/` | Not started | Verify | Not validated |
@@ -137,17 +137,17 @@ Primary source root: `src/Bluent.UI.Utilities/`
 
 | Package | Tracked families/types | Source-verified references | Runtime-verified references |
 | --- | ---: | ---: | ---: |
-| `Bluent.UI` | 52 | 17 | 1 |
+| `Bluent.UI` | 52 | 21 | 1 |
 | `Bluent.UI.Charts` | 10 | 0 | 0 |
 | `Bluent.UI.Diagrams` | 5 | 0 | 0 |
 | `Bluent.UI.Utilities` | 4 | 0 | 0 |
-| **Total** | **71** | **17** | **1** |
+| **Total** | **71** | **21** | **1** |
 
-The source-verified count includes canonical pages for Badge, Button, ButtonGroup, Checkbox, DateField, DropdownSelect, FileSelect, MaskedField, NumericField, OtpField, RadioGroup, RangeSlider, SelectField, Slider, Switch, TextField, and TimeField. Dialog retains its separately recorded runtime verification.
+The source-verified count includes canonical pages for Badge, Button, ButtonGroup, Checkbox, DateField, Drawer, DropdownSelect, FileSelect, MaskedField, MessageBar, NumericField, OtpField, Popover, RadioGroup, RangeSlider, SelectField, Slider, Switch, TextField, TimeField, and Toast. Dialog retains its separately recorded runtime verification.
 
 ## Prioritization
 
-Continue in coherent batches from #406: remaining selection/forms helpers, overlays/feedback, navigation/layout, data/list/tree, specialized UI, Charts, Diagrams, and Utilities.
+Continue in coherent batches from #406: remaining overlay infrastructure/feedback, navigation/layout, data/list/tree, specialized UI, Charts, Diagrams, and Utilities.
 
 ## Maintenance rules
 
