@@ -125,7 +125,7 @@ Live parsing can produce validation errors while the user is midway through typi
 - `TextField`: `text-field.md`
 - `DateField<TValue>`: `date-field.md`
 - `TimeField<TValue>`: `time-field.md`
-- [Forms and validation guide](../guides/forms-and-validation.md)
+- [Form validation task](../examples/tasks/form-validation.md)
 
 ## Source and verification
 
