@@ -18,6 +18,13 @@ INDEX = ROOT / ".agents/skills/bluent/COMPONENT-INDEX.md"
 SKILL_ROOT = ROOT / ".agents/skills/bluent"
 MAIN_SOURCE_ROOT = ROOT / "src/Bluent.UI/Components"
 
+# Public source areas intentionally classified as cross-component infrastructure
+# rather than independent retrieval families. Keep this list explicit so a newly
+# added *Component directory still fails validation until it is classified.
+EXPLICIT_INFRA_SOURCE_DIRS = {
+    "src/Bluent.UI/Components/ContainersComponent/",
+}
+
 REQUIRED_SKILL_FILES = (
     "SKILL.md",
     "COMPONENT-INDEX.md",
@@ -68,22 +75,28 @@ def main() -> None:
     index_text = INDEX.read_text(encoding="utf-8-sig")
     main_inventory = section(inventory_text, "Main UI package", "Charts package")
 
-    source_dirs = sorted(
+    all_component_dirs = sorted(
         path.relative_to(ROOT).as_posix() + "/"
         for path in MAIN_SOURCE_ROOT.iterdir()
         if path.is_dir() and path.name.endswith("Component")
     )
-    if not source_dirs:
+    if not all_component_dirs:
         fail("no main UI *Component source directories found")
 
-    missing_source_rows = [path for path in source_dirs if f"`{path}`" not in main_inventory]
+    unknown_infra = sorted(EXPLICIT_INFRA_SOURCE_DIRS - set(all_component_dirs))
+    if unknown_infra:
+        fail("explicit infrastructure paths no longer exist: " + ", ".join(unknown_infra))
+
+    family_source_dirs = sorted(set(all_component_dirs) - EXPLICIT_INFRA_SOURCE_DIRS)
+
+    missing_source_rows = [path for path in family_source_dirs if f"`{path}`" not in main_inventory]
     if missing_source_rows:
         fail("main UI source areas missing from inventory: " + ", ".join(missing_source_rows))
 
     inventory_source_paths = set(
         re.findall(r"`(src/Bluent\.UI/Components/[^`]+Component/)`", main_inventory)
     )
-    stale_source_rows = sorted(inventory_source_paths - set(source_dirs))
+    stale_source_rows = sorted(inventory_source_paths - set(all_component_dirs))
     if stale_source_rows:
         fail("inventory references missing main UI source areas: " + ", ".join(stale_source_rows))
 
@@ -96,6 +109,17 @@ def main() -> None:
     not_verified = [line for line in table_rows if "| Source verified |" not in line and "| Runtime verified |" not in line]
     if not_verified:
         fail("main UI rows not source/runtime verified:\n" + "\n".join(not_verified))
+
+    if len(table_rows) != len(family_source_dirs):
+        fail(
+            "main UI family row count does not match classified source surface: "
+            f"{len(table_rows)} rows vs {len(family_source_dirs)} family source directories"
+        )
+
+    for infrastructure_path in EXPLICIT_INFRA_SOURCE_DIRS:
+        component_name = Path(infrastructure_path.rstrip("/")).name.removesuffix("Component")
+        if component_name not in main_inventory:
+            fail(f"classified infrastructure {component_name} is not described in inventory")
 
     canonical_refs = sorted(set(re.findall(r"`(docs/components/[^`]+\.md)`", index_text)))
     if not canonical_refs:
@@ -113,8 +137,8 @@ def main() -> None:
 
     print(
         "consumer-skill coverage OK: "
-        f"{len(source_dirs)} main UI source families mapped, "
-        f"{len(table_rows)} main UI inventory rows verified, "
+        f"{len(family_source_dirs)} main UI families mapped, "
+        f"{len(EXPLICIT_INFRA_SOURCE_DIRS)} main UI infrastructure source area(s) classified, "
         f"{len(canonical_refs)} canonical index routes resolved"
     )
 
