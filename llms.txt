@@ -7,6 +7,9 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 ## Start here
 
 - [Project README](https://github.com/vrassouli/Bluent/blob/Dev/README.md): concise product overview, packages, installation, and project links
+- [Bluent consumer skill](https://github.com/vrassouli/Bluent/blob/Dev/.agents/skills/bluent/SKILL.md): compact Bluent-first router for coding agents; routes UI intent to canonical docs and targeted references
+- [Consumer skill component index](https://github.com/vrassouli/Bluent/blob/Dev/.agents/skills/bluent/COMPONENT-INDEX.md): retrieval map across tracked UI, Charts, Diagrams, and Utilities families, with missing canonical coverage called out explicitly
+- [Consumer skill decision guide](https://github.com/vrassouli/Bluent/blob/Dev/.agents/skills/bluent/DECISION-GUIDE.md): problem-to-component routing without duplicating full APIs
 - [Getting Started](https://github.com/vrassouli/Bluent/blob/Dev/docs/getting-started/index.md): canonical installation, registration, styles, containers, and troubleshooting
 - [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
@@ -79,3 +82,4 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - [Repository](https://github.com/vrassouli/Bluent)
 - [AI readiness epic](https://github.com/vrassouli/Bluent/issues/363)
 - [Sprint 1 documentation foundation](https://github.com/vrassouli/Bluent/issues/365)
+- [Consumer skill tracking issue](https://github.com/vrassouli/Bluent/issues/406)
