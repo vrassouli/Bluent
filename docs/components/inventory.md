@@ -89,7 +89,7 @@ Namespace: `Bluent.UI.Components`
 | [Toast](toast.md) | `Bluent.UI` | `src/Bluent.UI/Components/ToastComponent/` | Source verified | Compiled feedback task | Build; timer/hover/accessibility runtime still required |
 | [Toolbar](toolbar.md) | `Bluent.UI` | `src/Bluent.UI/Components/ToolbarComponent/` | Source verified | Verify | Runtime/overflow still required |
 | [Tooltip](tooltip.md) | `Bluent.UI` | `src/Bluent.UI/Components/TooltipComponent/` | Source verified | Common base usage | Runtime/positioning/accessibility still required |
-| [Tree](tree.md) | `Bluent.UI` | `src/Bluent.UI/Components/TreeComponent/` | Source verified | Verify | Runtime/drag-drop/keyboard still required |
+| [Tree](tree.md) | `Bluent.UI` | `src/Bluent.UI/Components/TreeComponent/` | Source verified | Compiled dogfood task | Build; drag/drop/keyboard runtime still required |
 | [Wizard](wizard.md) | `Bluent.UI` | `src/Bluent.UI/Components/WizardComponent/` | Source verified | Verify | Runtime/focus/validation flow still required |
 
 ### Infrastructure and shared UI API
@@ -104,8 +104,8 @@ Namespace: `Bluent.UI.Components`
 | `IPopoverService` / popover settings | Mostly component infrastructure; direct use is advanced | [popover.md](popover.md) |
 | `ITooltipService` / tooltip settings | Mostly inherited-component infrastructure | [tooltip.md](tooltip.md) |
 | `IPropertyEditorProvider`, `IPropertyEditorTypeRegistry` | Consumer extension points | [property-editor.md](property-editor.md) |
-| `IDomHelper`, `DomRect` | Low-level browser/DOM infrastructure; not normal app UI API | [consumer-infrastructure.md](consumer-infrastructure.md) |
-| Component/input/overflow base classes and concrete service implementations | Framework/internal extension surface unless a canonical page explicitly requires them | [consumer-infrastructure.md](consumer-infrastructure.md) |
+| `IDomHelper`, `DomRect` | Low-level browser/DOM infrastructure; not normal app UI API | [consumer-api-surface.md](consumer-api-surface.md) |
+| Component/input/overflow base classes and concrete service implementations | Framework/internal extension surface unless a canonical page explicitly requires them | [consumer-api-surface.md](consumer-api-surface.md) |
 
 ## Charts package
 
@@ -135,9 +135,9 @@ Primary source root: `src/Bluent.UI.Utilities/`
 
 | Retrieval family | Public types covered | Documentation | Example | Validation |
 | --- | --- | --- | --- | --- |
-| [AppBusyIndicator](app-busy-indicator.md) | `AppBusyIndicator`, `IBusyIndicator`, `AddBluentUtilities()` registration | Source verified | Verify | Source only |
-| [Hierarchy](hierarchy.md) | `HierarchyItemBrowser`, `HierarchyTreeBrowser`, hierarchy items/selections/delegate | Source verified | Verify | Composite runtime/accessibility still required |
-| [MdiTab](mdi-tab.md) | `MdiTab`, `MdiTabList`, `IMdiService`, `IMdiDocument`, MDI toolbar/document contracts | Source verified | Verify | Runtime lifecycle/focus still required |
+| [AppBusyIndicator](app-busy-indicator.md) | `AppBusyIndicator`, `IBusyIndicator`, `AddBluentUtilities()` registration | Source verified | Compiled dogfood task | Build; visual/a11y runtime still required |
+| [Hierarchy](hierarchy-utilities.md) | `HierarchyItemBrowser`, `HierarchyTreeBrowser`, hierarchy items/selections/delegate | Source verified | Verify | Composite runtime/accessibility still required |
+| [MdiTab](mdi-tabs.md) | `MdiTab`, `MdiTabList`, `IMdiService`, `IMdiDocument`, MDI toolbar/document contracts | Source verified | Verify | Runtime lifecycle/focus still required |
 | [ToolbarButtons](toolbar-buttons.md) | `SaveToolbarButton`, `UndoToolbarButton`, `RedoToolbarButton`, `CommandManager` integration | Source verified | Verify | Source only |
 
 ## Coverage summary
@@ -154,7 +154,7 @@ All 65 currently tracked consumer retrieval families now have source-verified ca
 
 ## Prioritization
 
-The remaining #406 work is runtime evidence for high-risk families, consumer dogfood scenarios, final public helper/service/config classification checks, and final state/CI evidence. Deterministic source/inventory/index drift validation is implemented by `scripts/quality/check_consumer_skill.py` and runs in the Quality workflow.
+The remaining #406 work is runtime evidence for high-risk families, final public helper/service/config classification spot-checks, final state/CI evidence, and acceptance review. Deterministic source/inventory/index drift validation is implemented by `scripts/quality/check_consumer_skill.py` and runs in the Quality workflow.
 
 ## Maintenance rules
 
