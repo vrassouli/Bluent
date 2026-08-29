@@ -14,6 +14,7 @@ The repository root README remains the short evaluation and installation entry p
 | Getting started | [`getting-started/`](getting-started/index.md) | Install, register, configure, and run Bluent in supported Blazor hosting models |
 | Packages | [`packages/`](packages/index.md) | Choose packages and understand dependencies and boundaries |
 | Components | [`components/`](components/README.md) | Use public components through a consistent reference format |
+| Consumer AI skill | [`../.agents/skills/bluent/`](../.agents/skills/bluent/SKILL.md) | Route coding agents from UI intent to canonical Bluent documentation without duplicating the API catalog |
 | Guides | [`guides/`](guides/theming-localization-rtl-and-assets.md) | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
 | Compatibility | [`compatibility/`](compatibility/README.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
 | Examples | [`examples/`](examples/README.md) and [`examples/tasks/`](examples/tasks/README.md) | Find compilable task patterns, runnable examples, and reference applications |
@@ -40,10 +41,11 @@ Directories are introduced as their first maintained document is added. Empty pl
 
 1. Read the repository agent instructions.
 2. Read `llms.txt` for the maintained documentation index.
-3. Use the getting-started and package guides before generating code.
-4. Treat component references and verified examples as authoritative for public APIs.
-5. Do not invent components, parameters, events, namespaces, or supported hosting modes.
-6. When documentation and source disagree, report the discrepancy and prefer current source until documentation is corrected.
+3. Load the compact [Bluent consumer skill](../.agents/skills/bluent/SKILL.md) to route the task to the minimum relevant references.
+4. Use the getting-started and package guides before generating code.
+5. Treat component references and verified examples as authoritative for public APIs.
+6. Do not invent components, parameters, events, namespaces, or supported hosting modes.
+7. When documentation and source disagree, report the discrepancy and prefer current source until documentation is corrected.
 
 ### Documentation contributor
 
@@ -60,6 +62,7 @@ Directories are introduced as their first maintained document is added. Empty pl
 - The canonical getting-started guide owns installation and setup details. Other pages link to it.
 - Package pages own package boundaries and dependency guidance.
 - Component pages own component API usage; task guides compose components without duplicating full API references.
+- The consumer skill is a retrieval/router layer; it must route to canonical docs and explicitly flag missing coverage rather than becoming an independent API encyclopedia.
 - Compatibility pages own version and migration statements.
 - AI benchmark reports are dated observations, not product documentation.
 - The demo is supporting evidence and must not be the only place a public behavior is documented.
@@ -95,6 +98,7 @@ A documentation change is complete when:
 - Related canonical pages are updated instead of contradicted.
 - The documentation coverage inventory reflects the change.
 - `llms.txt` is updated when a canonical document is added, moved, or removed.
+- Consumer-skill routes are updated when canonical component/task coverage changes.
 
 ## Planned Sprint 1 deliverables
 
@@ -110,4 +114,5 @@ Sprint 1 is tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/3
 ## Machine-readable and agent guidance
 
 - [Coding-agent instructions](../AGENTS.md)
+- [Bluent consumer skill](../.agents/skills/bluent/SKILL.md)
 - [Machine-readable documentation index](../llms.txt)
