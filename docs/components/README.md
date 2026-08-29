@@ -33,6 +33,6 @@ The source-reconciled inventory currently tracks 76 families/types across `Bluen
 
 The inventory grew from the earlier 71-item baseline after source discovery found public main-UI component families absent from the old ledger: `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`. All five now have canonical source-verified coverage. `Containers` is classified as cross-component infrastructure rather than an ordinary family row.
 
-Charts, Diagrams, and Utilities still require source classification/reference coverage. High-risk JS, browser-permission, pointer, keyboard, RTL, and accessibility behavior remains explicitly marked as requiring runtime evidence where applicable; source verification is not presented as runtime verification.
+Source verification means API/markup/implementation claims were checked against current source. It is not a blanket runtime guarantee. High-risk JS, browser-permission, pointer, keyboard, RTL, and accessibility behavior remains explicitly marked as requiring runtime evidence where applicable.
 
-A demo page or source file does not count as completed documentation. A reference progresses from draft to source verified, then runtime verified, using the status definitions in the inventory.
+Charts, Diagrams, and Utilities still require source classification/reference coverage. A demo page or source file does not count as completed documentation. A reference progresses from draft to source verified, then runtime verified, using the status definitions in the inventory.
