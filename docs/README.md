@@ -58,7 +58,9 @@ Directories are introduced as their first maintained document is added. Empty pl
 
 ## Current consumer-skill coverage
 
-Issue #406 is expanding source-verified canonical coverage in coherent batches. The maintained inventory currently records 17 source-verified `Bluent.UI` families plus the existing runtime-verified Dialog reference. The skill index must follow that ledger rather than claiming unsupported coverage.
+Issue #406 is expanding source-verified canonical coverage in coherent batches. The reconciled inventory currently tracks 56 `Bluent.UI` component families and 75 total families/types across UI, Charts, Diagrams, and Utilities. Of the main-UI families, 33 now have source-verified canonical references; Dialog additionally retains separately recorded runtime verification.
+
+Source discovery expanded the earlier main-UI ledger with `DropdownList`, `Link`, `TileLayout`, and `Tooltip`. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row. The skill index must follow this ledger rather than claiming unsupported coverage.
 
 ## Source-of-truth rules
 
