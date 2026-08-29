@@ -23,12 +23,12 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Dialog | modal/confirmation workflow | `docs/components/dialog.md` |
 | DockPanel | service-backed named dock/tool-window layout | `docs/components/dock-panel.md` |
 | Drawer | side-panel workflow | `docs/components/drawer.md` |
-| DropdownList | dropdown-list selection/composition | pending canonical reference |
+| DropdownList | provider-backed virtualized/filterable selection | `docs/components/dropdown-list.md` |
 | DropdownSelect | custom popover-backed selected-value display | `docs/components/dropdown-select.md` |
 | FileSelect | browser file selection | `docs/components/file-select.md` |
 | Icon | icon rendering | pending canonical reference |
 | Label | field/content label | pending canonical reference |
-| Link | link/navigation primitive | pending canonical reference |
+| Link | lightweight button-or-anchor text action | `docs/components/link.md` |
 | List | list presentation/selection | pending canonical reference |
 | MaskedField | formatted/masked text input | `docs/components/masked-field.md` |
 | MediaQuery | initial browser breakpoint detection | `docs/components/media-query.md` |
@@ -60,7 +60,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | TimeField | time entry | `docs/components/time-field.md` |
 | Toast | transient global status | `docs/components/toast.md` |
 | Toolbar | command bar/overflow composition | pending canonical reference |
-| Tooltip | tooltip interaction/surface | pending canonical reference |
+| Tooltip | inherited service-backed contextual help capability | `docs/components/tooltip.md` |
 | Tree | hierarchical data/navigation | pending canonical reference |
 | Wizard | multi-step workflow | pending canonical reference |
 
