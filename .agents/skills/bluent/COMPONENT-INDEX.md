@@ -23,8 +23,8 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Dialog | modal/confirmation workflow | `docs/components/dialog.md` |
 | DockPanel | docked application layout | pending canonical reference |
 | Drawer | side-panel workflow | pending canonical reference |
-| DropdownSelect | dropdown selection | pending canonical reference |
-| FileSelect | file selection | pending canonical reference |
+| DropdownSelect | custom popover-backed selected-value display | `docs/components/dropdown-select.md` |
+| FileSelect | browser file selection | `docs/components/file-select.md` |
 | Icon | icon rendering | pending canonical reference |
 | Label | field/content label | pending canonical reference |
 | List | list presentation/selection | pending canonical reference |
@@ -42,10 +42,10 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | ProgressBar | progress indication | pending canonical reference |
 | PropertyEditor | object/property editing | pending canonical reference |
 | RadioGroup | single-choice set | `docs/components/radio-group.md` |
-| RangeSlider | bounded range selection | pending canonical reference |
+| RangeSlider | bounded two-thumb range selection | `docs/components/range-slider.md` |
 | SelectField | single- or source-observed array selection | `docs/components/select-field.md` |
 | Skeleton | loading placeholder | pending canonical reference |
-| Slider | scalar range selection | pending canonical reference |
+| Slider | scalar pointer-driven range selection | `docs/components/slider.md` |
 | Spacer | flexible layout spacing | pending canonical reference |
 | Spinner | indeterminate busy state | pending canonical reference |
 | SplitPanel | resizable split layout | pending canonical reference |
