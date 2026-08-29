@@ -60,7 +60,7 @@ Directories are introduced as their first maintained document is added. Empty pl
 
 Issue #406 now has source-verified canonical coverage for **all 65 tracked consumer retrieval families** across `Bluent.UI`, Charts, Diagrams, and Utilities. The main UI contributes 57 families; Charts is grouped into `Chart composition` and `Gauge`; Diagrams into `Diagram / DrawingCanvas` and `Basic shapes`; Utilities into four workflow-oriented families. Dialog additionally retains separately recorded runtime verification.
 
-The 65-family retrieval model intentionally replaces the older 76-type count. Public helper/configuration types such as Chart datasets/plugins/scales and Diagram shapes/tools are grouped with the consumer workflow that makes them useful instead of inflating the agent index with one row per CLR type. Consumer-facing services and low-level infrastructure are classified separately in [components/consumer-infrastructure.md](components/consumer-infrastructure.md).
+The 65-family retrieval model intentionally replaces the older 76-type count. Public helper/configuration types such as Chart datasets/plugins/scales and Diagram shapes/tools are grouped with the consumer workflow that makes them useful instead of inflating the agent index with one row per CLR type. Consumer-facing services and low-level infrastructure are classified separately in [components/consumer-api-surface.md](components/consumer-api-surface.md).
 
 Source discovery expanded the original main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all now have canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row.
 
