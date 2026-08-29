@@ -25,7 +25,7 @@ Status vocabulary follows `.bluent/QUALITY.md`:
 | Repeatable coverage/link/drift check prevents silent omissions | **Satisfied** | `scripts/quality/check_consumer_skill.py` in `.github/workflows/quality.yml`; existing `check_markdown_links.py`; source-derived main-UI mapping with explicit infrastructure exception for `ContainersComponent` |
 | Representative consumer dogfood scenarios demonstrate Bluent-first discovery/usage | **Satisfied at compile/source level; runtime bounded** | `docs/ai/bluent-consumer-skill-dogfood.md`; canonical TaskExamples for form validation, CRUD/DataGrid, Dialog, Tree selection/DnD, theme/RTL, Charts, Diagrams, and Utilities |
 | `docs/components/inventory.md`, docs indexes/`llms.txt`, and AI-readiness documentation are updated consistently | **Satisfied** | inventory, `docs/README.md`, `docs/components/README.md`, `llms.txt`, dogfood matrix, skill index |
-| Full solution build/tests required by `AGENTS.md` pass; skipped runtime verification is documented precisely | **Pending final-head confirmation** | Quality CI already passed the full gate on the immediately preceding documentation head; final state-documentation commits require one final current-head Quality/Release check before the PR can claim completion |
+| Full solution build/tests required by `AGENTS.md` pass; skipped runtime verification is documented precisely | **Pending final-head confirmation** | Quality run #197 and Release packages run #544 passed on the immediately preceding full implementation/documentation head. The current state/acceptance-only head requires one final CI confirmation before the PR can claim completion. |
 
 ## Runtime scope carried into #406
 
@@ -48,10 +48,13 @@ The required scenario set is mapped in `docs/ai/bluent-consumer-skill-dogfood.md
 
 Compilation validates the public Razor/C# contracts and setup; browser behavior remains governed by the exact runtime evidence above.
 
+## Project-state tracking
+
+`.bluent/PROJECT.md` now reflects Issue #406 as the current workstream. The prior detailed Sprint 0–4/relaunch record was preserved verbatim as `.bluent/PROJECT-HISTORY-2026-08-29.md` rather than discarded. `.bluent/HANDOFF.md` and `.bluent/QUALITY.md` also describe the current #406 continuation and validation contract.
+
 ## Remaining before review-ready
 
-1. Confirm Quality and Release-package workflows on the final documentation/state head.
-2. Update project tracking if the active-state header still points at the completed #397 workstream.
-3. Refresh PR #407 validation text with exact final workflow evidence.
-4. Keep #411 open as the product-gap backlog; do not fix unrelated product APIs inside #406.
-5. Do not merge PR #407 or close issue #406 as part of this implementation task.
+1. Confirm Quality and Release-package workflows on this final state/acceptance head.
+2. Refresh PR #407 validation text with the exact final workflow evidence.
+3. Keep #411 open as the product-gap backlog; do not fix unrelated product APIs inside #406.
+4. Do not merge PR #407 or close issue #406 as part of this implementation task.
