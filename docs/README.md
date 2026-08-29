@@ -62,6 +62,8 @@ Issue #406 is expanding source-verified canonical coverage in coherent batches. 
 
 Source discovery expanded the earlier main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all five now have source-verified canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row.
 
+Source verification is not runtime certification. High-risk JavaScript, browser-permission, pointer, keyboard, RTL, accessibility, and render-mode behaviors remain explicitly marked where runtime evidence is still required.
+
 Remaining #406 coverage work is in Charts, Diagrams, Utilities, public helper/service/configuration classification, high-risk runtime verification, deterministic drift/link/coverage validation, and consumer dogfood scenarios. The skill index follows the maintained ledger rather than claiming unsupported coverage.
 
 ## Source-of-truth rules
