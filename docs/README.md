@@ -58,13 +58,15 @@ Directories are introduced as their first maintained document is added. Empty pl
 
 ## Current consumer-skill coverage
 
-Issue #406 is expanding source-verified canonical coverage in coherent batches. The source-reconciled inventory currently tracks 57 `Bluent.UI` component families and 76 total families/types across UI, Charts, Diagrams, and Utilities. All 57 main-UI families now have source-verified canonical references; Dialog additionally retains separately recorded runtime verification.
+Issue #406 now has source-verified canonical coverage for **all 65 tracked consumer retrieval families** across `Bluent.UI`, Charts, Diagrams, and Utilities. The main UI contributes 57 families; Charts is grouped into `Chart composition` and `Gauge`; Diagrams into `Diagram / DrawingCanvas` and `Basic shapes`; Utilities into four workflow-oriented families. Dialog additionally retains separately recorded runtime verification.
 
-Source discovery expanded the earlier main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all five now have source-verified canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row.
+The 65-family retrieval model intentionally replaces the older 76-type count. Public helper/configuration types such as Chart datasets/plugins/scales and Diagram shapes/tools are grouped with the consumer workflow that makes them useful instead of inflating the agent index with one row per CLR type. Consumer-facing services and low-level infrastructure are classified separately in [components/consumer-infrastructure.md](components/consumer-infrastructure.md).
 
-Source verification is not runtime certification. High-risk JavaScript, browser-permission, pointer, keyboard, RTL, accessibility, and render-mode behaviors remain explicitly marked where runtime evidence is still required.
+Source discovery expanded the original main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all now have canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row.
 
-Remaining #406 coverage work is in Charts, Diagrams, Utilities, public helper/service/configuration classification, high-risk runtime verification, deterministic drift/link/coverage validation, and consumer dogfood scenarios. The skill index follows the maintained ledger rather than claiming unsupported coverage.
+Source verification is not runtime certification. High-risk JavaScript, browser-permission, pointer, keyboard, RTL, accessibility, and render-mode behaviors remain explicitly marked where runtime evidence is still required. Product/API defects discovered during verification are tracked separately in issue #411.
+
+Deterministic coverage/drift validation is implemented by `scripts/quality/check_consumer_skill.py` and runs in the Quality workflow. Remaining #406 work is focused on high-risk runtime verification, consumer dogfood scenarios, final classification/state review, and current-head CI evidence.
 
 ## Source-of-truth rules
 
