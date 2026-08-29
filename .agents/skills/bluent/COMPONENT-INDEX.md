@@ -41,7 +41,7 @@ This index is a retrieval map, not an API catalog. Canonical component pages und
 | Popover | anchored transient surface | pending canonical reference |
 | ProgressBar | progress indication | pending canonical reference |
 | PropertyEditor | object/property editing | pending canonical reference |
-| RadioGroup | single-choice set | pending canonical reference |
+| RadioGroup | single-choice set | `docs/components/radio-group.md` |
 | RangeSlider | bounded range selection | pending canonical reference |
 | SelectField | single- or source-observed array selection | `docs/components/select-field.md` |
 | Skeleton | loading placeholder | pending canonical reference |
