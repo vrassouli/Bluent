@@ -1,0 +1,20 @@
+@page "/tasks/utilities-busy-indicator"
+@inject IBusyIndicator BusyIndicator
+
+<PageTitle>Utilities busy indicator</PageTitle>
+
+<h1>Utilities busy indicator</h1>
+
+<div style="position: relative; min-height: 7rem;">
+    <AppBusyIndicator />
+
+    <Stack>
+        <Button Text="Set busy" OnClick="SetBusy" />
+        <Button Text="Clear busy" Appearance="ButtonAppearance.Subtle" OnClick="ClearBusy" />
+    </Stack>
+</div>
+
+@code {
+    private void SetBusy() => BusyIndicator.SetBusy();
+    private void ClearBusy() => BusyIndicator.SetIdeal();
+}

@@ -53,6 +53,23 @@ For package-affecting work, also run Release packing for affected packable proje
 - Update `llms.txt` when canonical documentation is added, moved, or removed.
 - Update component inventory when public component coverage changes.
 
+## Issue #406 consumer-skill validation
+
+The consumer skill has additional acceptance evidence beyond ordinary documentation changes:
+
+- `docs/components/inventory.md` is the maintained consumer retrieval ledger.
+- `scripts/quality/check_consumer_skill.py` must derive the current top-level `Bluent.UI` `*Component` source surface and fail if a family is silently absent from the inventory.
+- Cross-component source areas such as `ContainersComponent` may be excluded from the family count only through an explicit infrastructure classification in the checker and canonical docs.
+- `.agents/skills/bluent/COMPONENT-INDEX.md` routes must resolve to existing canonical references.
+- Required skill router/foundation/pattern files must exist.
+- Every tracked consumer retrieval family must be at least source verified before #406 can be review-ready.
+- `samples/Bluent.TaskExamples` must compile the representative consumer scenarios, including Tree selection/DnD contracts and a Utilities service-backed scenario.
+- Product/API/runtime/accessibility defects discovered while verifying #406 belong in issue #411 rather than being silently changed or omitted.
+- Existing runtime evidence may be reused only for the exact component/mode/behavior scope recorded in `docs/compatibility/hosting-and-render-modes.md`.
+- High-risk browser/JS/pointer/keyboard/accessibility behavior without runtime evidence must remain explicitly labeled unverified or limited.
+
+The Quality workflow is the primary automated gate for #406. It runs zero-warning Release build, canonical task-example compilation, consumer-skill drift validation, tests, release-tool tests, five-package validation, Markdown-link validation, workflow YAML parsing, focused rendered accessibility, and changed-line whitespace validation.
+
 ## Demo and Visual Work
 
 Required before Sprint 2 completion:

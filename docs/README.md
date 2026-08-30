@@ -13,7 +13,8 @@ The repository root README remains the short evaluation and installation entry p
 | Roadmap | [../ROADMAP.md](../ROADMAP.md) | Track outcome-based project phases |
 | Getting started | [`getting-started/`](getting-started/index.md) | Install, register, configure, and run Bluent in supported Blazor hosting models |
 | Packages | [`packages/`](packages/index.md) | Choose packages and understand dependencies and boundaries |
-| Components | [`components/`](components/README.md) | Use public components through a consistent reference format |
+| Components | [`components/`](components/README.md) | Use public components through a consistent reference format; see the maintained [coverage inventory](components/inventory.md) |
+| Consumer AI skill | [`../.agents/skills/bluent/`](../.agents/skills/bluent/SKILL.md) | Route coding agents from UI intent to canonical Bluent documentation without duplicating the API catalog |
 | Guides | [`guides/`](guides/theming-localization-rtl-and-assets.md) | Complete cross-component tasks such as forms, dialogs, theming, RTL, and localization |
 | Compatibility | [`compatibility/`](compatibility/README.md) | Check framework, render-mode, package-version, migration, and upgrade guidance |
 | Examples | [`examples/`](examples/README.md) and [`examples/tasks/`](examples/tasks/README.md) | Find compilable task patterns, runnable examples, and reference applications |
@@ -40,10 +41,11 @@ Directories are introduced as their first maintained document is added. Empty pl
 
 1. Read the repository agent instructions.
 2. Read `llms.txt` for the maintained documentation index.
-3. Use the getting-started and package guides before generating code.
-4. Treat component references and verified examples as authoritative for public APIs.
-5. Do not invent components, parameters, events, namespaces, or supported hosting modes.
-6. When documentation and source disagree, report the discrepancy and prefer current source until documentation is corrected.
+3. Load the compact [Bluent consumer skill](../.agents/skills/bluent/SKILL.md) to route the task to the minimum relevant references.
+4. Use the getting-started and package guides before generating code.
+5. Treat component references and verified examples as authoritative for public APIs.
+6. Do not invent components, parameters, events, namespaces, or supported hosting modes.
+7. When documentation and source disagree, report the discrepancy and prefer current source until documentation is corrected.
 
 ### Documentation contributor
 
@@ -54,12 +56,25 @@ Directories are introduced as their first maintained document is added. Empty pl
 5. Mark version-specific behavior explicitly.
 6. Run applicable builds, tests, examples, and link checks before opening a pull request.
 
+## Current consumer-skill coverage
+
+Issue #406 now has source-verified canonical coverage for **all 65 tracked consumer retrieval families** across `Bluent.UI`, Charts, Diagrams, and Utilities. The main UI contributes 57 families; Charts is grouped into `Chart composition` and `Gauge`; Diagrams into `Diagram / DrawingCanvas` and `Basic shapes`; Utilities into four workflow-oriented families. Dialog additionally retains separately recorded runtime verification.
+
+The 65-family retrieval model intentionally replaces the older 76-type count. Public helper/configuration types such as Chart datasets/plugins/scales and Diagram shapes/tools are grouped with the consumer workflow that makes them useful instead of inflating the agent index with one row per CLR type. Consumer-facing services and low-level infrastructure are classified separately in [components/consumer-api-surface.md](components/consumer-api-surface.md).
+
+Source discovery expanded the original main-UI ledger with `DropdownList`, `Link`, `TileLayout`, `Tooltip`, and `DataList`; all now have canonical references. `Containers` is documented as cross-component consumer infrastructure rather than counted as an ordinary component-family row.
+
+Source verification is not runtime certification. High-risk JavaScript, browser-permission, pointer, keyboard, RTL, accessibility, and render-mode behaviors remain explicitly marked where runtime evidence is still required. Product/API defects discovered during verification are tracked separately in issue #411.
+
+Deterministic coverage/drift validation is implemented by `scripts/quality/check_consumer_skill.py` and runs in the Quality workflow. Remaining #406 work is focused on high-risk runtime verification, consumer dogfood scenarios, final classification/state review, and current-head CI evidence.
+
 ## Source-of-truth rules
 
 - Public behavior is defined by released code; documentation describes it and must stay aligned.
 - The canonical getting-started guide owns installation and setup details. Other pages link to it.
 - Package pages own package boundaries and dependency guidance.
 - Component pages own component API usage; task guides compose components without duplicating full API references.
+- The consumer skill is a retrieval/router layer; it must route to canonical docs and explicitly flag missing coverage rather than becoming an independent API encyclopedia.
 - Compatibility pages own version and migration statements.
 - AI benchmark reports are dated observations, not product documentation.
 - The demo is supporting evidence and must not be the only place a public behavior is documented.
@@ -95,6 +110,7 @@ A documentation change is complete when:
 - Related canonical pages are updated instead of contradicted.
 - The documentation coverage inventory reflects the change.
 - `llms.txt` is updated when a canonical document is added, moved, or removed.
+- Consumer-skill routes are updated when canonical component/task coverage changes.
 
 ## Planned Sprint 1 deliverables
 
@@ -110,4 +126,5 @@ Sprint 1 is tracked in [Issue #365](https://github.com/vrassouli/Bluent/issues/3
 ## Machine-readable and agent guidance
 
 - [Coding-agent instructions](../AGENTS.md)
+- [Bluent consumer skill](../.agents/skills/bluent/SKILL.md)
 - [Machine-readable documentation index](../llms.txt)

@@ -7,60 +7,124 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 ## Start here
 
 - [Project README](https://github.com/vrassouli/Bluent/blob/Dev/README.md): concise product overview, packages, installation, and project links
+- [Bluent consumer skill](https://github.com/vrassouli/Bluent/blob/Dev/.agents/skills/bluent/SKILL.md): compact Bluent-first router for coding agents; routes UI intent to canonical docs and targeted references
+- [Consumer skill component index](https://github.com/vrassouli/Bluent/blob/Dev/.agents/skills/bluent/COMPONENT-INDEX.md): retrieval map across tracked UI, Charts, Diagrams, and Utilities families
+- [Consumer skill decision guide](https://github.com/vrassouli/Bluent/blob/Dev/.agents/skills/bluent/DECISION-GUIDE.md): problem-to-component routing without duplicating full APIs
 - [Getting Started](https://github.com/vrassouli/Bluent/blob/Dev/docs/getting-started/index.md): canonical installation, registration, styles, containers, and troubleshooting
 - [Package selection](https://github.com/vrassouli/Bluent/blob/Dev/docs/packages/index.md): package roles, dependency boundaries, namespaces, and optional setup
 - [Documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/README.md): canonical documentation map and source-of-truth rules
+- [Consumer service and infrastructure classification](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/consumer-api-surface.md): service/container/configuration APIs versus low-level implementation infrastructure
 - [Demo gallery](https://github.com/vrassouli/Bluent/blob/Dev/docs/demo/README.md): validated landing, component showcase, enterprise scenario, dark-theme, and RTL screenshots
-- [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): ten complete, compiled patterns for common Bluent application tasks
-- [OrderDesk reference application](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/reference-application.md): standalone production-pattern customer and order workflow with architecture, run commands, limitations, and evidence
+- [Canonical task examples](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/README.md): complete, compiled patterns for common Bluent application tasks
+- [OrderDesk reference application](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/reference-application.md): standalone production-pattern customer and order workflow
 - [AI-readiness benchmark](https://github.com/vrassouli/Bluent/blob/Dev/docs/ai/benchmark.md): canonical prompts, rubric, execution modes, and recording rules
-- [Latest AI-readiness report](https://github.com/vrassouli/Bluent/blob/Dev/docs/ai/results/2026-07-26-codex-repository-context.md): repository-context score comparison, compiled generated samples, limitations, and follow-up findings
-- [Repeatable AI benchmark workspace](https://github.com/vrassouli/Bluent/tree/Dev/benchmarks/ai-readiness): run schema, validator, raw responses, scoring records, and generated compilation artifacts
-
-## Reference application
-
-- [OrderDesk source and runbook](https://github.com/vrassouli/Bluent/blob/Dev/samples/Bluent.OrderDesk/README.md): project structure, pattern rationale, local run commands, and representative verification route
-- [OrderDesk application source](https://github.com/vrassouli/Bluent/tree/Dev/samples/Bluent.OrderDesk): compilable WebAssembly consumer using Bluent.UI, Charts, and Diagrams without demo-project dependencies
 
 ## Task-oriented examples
 
-- [Basic form input](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/basic-input.md): bound text, numeric, select, and Boolean inputs
-- [Form validation](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/form-validation.md): EditForm, data annotations, validation messages, and valid submit
-- [Confirmation dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/confirmation-dialog.md): awaited modal result before a consequential action
-- [Toast and MessageBar feedback](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/feedback.md): persistent inline and transient global feedback
-- [DataGrid with paging](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/data-grid-paging.md): typed columns, ItemsProvider, and DataPager
-- [Navigation and layout](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/navigation-and-layout.md): Router, shared layout, NavLink, NavigationManager, and one Containers host
-- [Drawer and Popover](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/drawer-and-popover.md): service-backed drawer results, collision-safe application component naming, and anchored popover content
-- [Chart dashboard](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/chart-dashboard.md): typed Chart.js-backed operational dataset
-- [Simple diagram](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/simple-diagram.md): packaged diagram surface with meaningful SVG content
-- [Theme, dark mode, and RTL](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/theme-dark-mode-and-rtl.md): runtime theme family, mode, and direction changes
+- [Basic form input](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/basic-input.md)
+- [Form validation](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/form-validation.md)
+- [Confirmation dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/confirmation-dialog.md)
+- [Toast and MessageBar feedback](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/feedback.md)
+- [DataGrid with paging](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/data-grid-paging.md)
+- [Navigation and layout](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/navigation-and-layout.md)
+- [Drawer and Popover](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/drawer-and-popover.md)
+- [Tree selection and drag/drop](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/tree-drag-drop.md)
+- [Chart dashboard](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/chart-dashboard.md)
+- [Simple diagram](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/simple-diagram.md)
+- [Utilities busy indicator](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/utilities-busy-indicator.md)
+- [Theme, dark mode, and RTL](https://github.com/vrassouli/Bluent/blob/Dev/docs/examples/tasks/theme-dark-mode-and-rtl.md)
 
-## Components
+## Components — Bluent.UI
 
-- [Component documentation index](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/README.md): entry point for component references
-- [Badge](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/badge.md): values, appearance, color, shape, icon/text behavior, styling, and accessibility limitations
-- [Checkbox](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/checkbox.md): Boolean binding, nullable and indeterminate behavior, labels, styling, and accessibility limitations
-- [Dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dialog.md): service usage, results, modal configuration, and nested dialog stacking
-- [Component inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md): tracked public component families and documentation coverage
-- [Component reference standard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/TEMPLATE.md): required structure and verification rules for component pages
+All 57 currently tracked `Bluent.UI` component families have source-verified canonical references. Use the [coverage inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md) for validation status and runtime caveats.
+
+- [Accordion](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/accordion.md)
+- [ActionCard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/action-card.md)
+- [AudioCapture](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/audio-capture.md)
+- [Avatar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/avatar.md)
+- [Badge](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/badge.md)
+- [Breadcrumb](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/breadcrumb.md)
+- [Button](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/button.md)
+- [ButtonGroup](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/button-group.md)
+- [Calendar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/calendar.md)
+- [Card](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/card.md)
+- [Checkbox](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/checkbox.md)
+- [Containers](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/containers.md): shared overlay infrastructure host
+- [DataGrid](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/data-grid.md)
+- [DataList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/data-list.md)
+- [DataPager](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/data-pager.md)
+- [DateField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/date-field.md)
+- [Dialog](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dialog.md)
+- [DockPanel](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dock-panel.md)
+- [Drawer](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/drawer.md)
+- [DropdownList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dropdown-list.md)
+- [DropdownSelect](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/dropdown-select.md)
+- [FileSelect](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/file-select.md)
+- [Icon](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/icon.md)
+- [Label](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/label.md)
+- [Link](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/link.md)
+- [List](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/list.md)
+- [MaskedField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/masked-field.md)
+- [MediaQuery](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/media-query.md)
+- [Menu and MenuList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/menu.md)
+- [MessageBar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/message-bar.md)
+- [NavList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/nav-list.md)
+- [NumericField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/numeric-field.md)
+- [OtpField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/otp-field.md)
+- [Overflow](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/overflow.md)
+- [Overlay](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/overlay.md)
+- [Popover](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/popover.md)
+- [ProgressBar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/progress-bar.md)
+- [PropertyEditor](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/property-editor.md)
+- [RadioGroup](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/radio-group.md)
+- [RangeSlider](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/range-slider.md)
+- [SelectField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/select-field.md)
+- [Skeleton](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/skeleton.md)
+- [Slider](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/slider.md)
+- [Spacer](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/spacer.md)
+- [Spinner](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/spinner.md)
+- [SplitPanel](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/split-panel.md)
+- [Stack](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/stack.md)
+- [Switch](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/switch.md)
+- [TabList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tab-list.md)
+- [Tag](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tag.md)
+- [TextField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/text-field.md)
+- [TileLayout](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tile-layout.md)
+- [TimeField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/time-field.md)
+- [Toast](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/toast.md)
+- [Toolbar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/toolbar.md)
+- [Tooltip capability](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tooltip.md)
+- [Tree](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/tree.md)
+- [Wizard](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/wizard.md)
+
+## Optional package retrieval families
+
+All tracked optional-package retrieval families are source verified. Closely related public helper/configuration types are documented with the consumer workflow that uses them.
+
+### Bluent.UI.Charts
+
+- [Chart composition](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/chart.md): `Chart`, typed `Dataset`, legend/title/subtitle/tooltip plugins, scales, chart types, and related configuration
+- [Gauge](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/gauge.md): JS-backed gauge and value formatting/configuration
+
+### Bluent.UI.Diagrams
+
+- [Diagram / DrawingCanvas](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/diagram.md): drawing/diagram surface, selection, tools, pan/scale/delete integration, commands
+- [Basic shapes](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/diagram-shapes.md): `Circle`, `Line`, and `Rect`
+
+### Bluent.UI.Utilities
+
+- [AppBusyIndicator](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/app-busy-indicator.md): busy service and indicator component
+- [Hierarchy](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/hierarchy-utilities.md): tree/item browsing and hierarchy selection workflows
+- [MdiTab](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/mdi-tabs.md): MDI documents, tabs, service, and lifecycle
+- [ToolbarButtons](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/toolbar-buttons.md): save/undo/redo helpers backed by `CommandManager`
+
+The maintained [inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md) currently contains 65 source-verified consumer retrieval families in total: 57 main UI, 2 Charts, 2 Diagrams, and 4 Utilities.
 
 ## Cross-cutting guidance
 
-- [Hosting and render modes](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/hosting-and-render-modes.md): evidence-based support matrix and validation status
-- [Theming, localization, RTL, and assets](https://github.com/vrassouli/Bluent/blob/Dev/docs/guides/theming-localization-rtl-and-assets.md): themes, dark/light mode, direction, localization, ES modules, and package assets
-- [Migration and upgrades](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/migration-and-upgrades.md): safe upgrade process and compatibility surface
-
-## Project and contribution
-
-- [Vision](https://github.com/vrassouli/Bluent/blob/Dev/VISION.md): product users, principles, positioning, and AI-ready strategy
-- [Roadmap](https://github.com/vrassouli/Bluent/blob/Dev/ROADMAP.md): outcome-based project phases
-- [Contributing](https://github.com/vrassouli/Bluent/blob/Dev/CONTRIBUTING.md): development and contribution workflow
-- [Release policy](https://github.com/vrassouli/Bluent/blob/Dev/RELEASING.md): Semantic Versioning, validation, tagging, and publication
-- [Changelog](https://github.com/vrassouli/Bluent/blob/Dev/CHANGELOG.md): notable changes and release history
-- [Release workflow audit](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/release-workflow-audit.md): audited version sources, publication history, workflow risks, and required controls
-- [Stable release readiness](https://github.com/vrassouli/Bluent/blob/Dev/docs/releasing/stable-release-readiness.md): approved release version, package evidence, migration impact, validation, risks, and maintainer prerequisites
-- [Compiler warning baseline](https://github.com/vrassouli/Bluent/blob/Dev/docs/quality/compiler-warning-baseline.md): warning inventory, dispositions, and zero-warning regression policy
-- [Coding-agent instructions](https://github.com/vrassouli/Bluent/blob/Dev/AGENTS.md): repository facts, guardrails, build commands, and documentation rules
+- [Hosting and render modes](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/hosting-and-render-modes.md)
+- [Theming, localization, RTL, and assets](https://github.com/vrassouli/Bluent/blob/Dev/docs/guides/theming-localization-rtl-and-assets.md)
+- [Migration and upgrades](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/migration-and-upgrades.md)
 
 ## Canonical facts for code generation
 
@@ -72,10 +136,10 @@ Bluent is open source under Apache License 2.0. The current repository targets .
 - Required base styles: `_content/Bluent.UI/bluent.ui.theme.default.min.css` and `_content/Bluent.UI/bluent.ui.components.min.css`
 - The base JavaScript module is loaded through Blazor JS interop; do not add an unverified global script tag
 - Optional packages: `Bluent.UI.Charts`, `Bluent.UI.Diagrams`, and `Bluent.UI.Utilities`
-- Do not invent APIs or claim render-mode compatibility that the linked documentation marks unverified
+- Do not invent APIs or claim render-mode compatibility that canonical documentation marks unverified
 
 ## Source
 
 - [Repository](https://github.com/vrassouli/Bluent)
-- [AI readiness epic](https://github.com/vrassouli/Bluent/issues/363)
-- [Sprint 1 documentation foundation](https://github.com/vrassouli/Bluent/issues/365)
+- [Consumer skill tracking issue](https://github.com/vrassouli/Bluent/issues/406)
+- [Product/API gap backlog](https://github.com/vrassouli/Bluent/issues/411)

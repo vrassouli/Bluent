@@ -1,0 +1,45 @@
+@page "/tasks/tree-drag-drop"
+
+<PageTitle>Tree drag and drop</PageTitle>
+
+<h1>Tree selection and drag/drop</h1>
+
+<MessageBar Type="MessageBarType.Information">
+    @_status
+</MessageBar>
+
+<Tree CheckboxMode="TreeCheckboxMode.Cascade"
+      Draggable
+      Orderable
+      OnClick="HandleClick"
+      OnItemDrop="HandleDrop"
+      OnInsertAfter="HandleInsertAfter">
+    <TreeItem Title="Projects" Data="@_projects" Expanded IsChecked="false">
+        <TreeItem Title="Bluent" Data="@_bluent" IsChecked="false" />
+        <TreeItem Title="Ruzin" Data="@_ruzin" IsChecked="false" />
+    </TreeItem>
+    <TreeItem Title="Archive" Data="@_archive" IsChecked="false" />
+</Tree>
+
+@code {
+    private readonly object _projects = "projects";
+    private readonly object _bluent = "bluent";
+    private readonly object _ruzin = "ruzin";
+    private readonly object _archive = "archive";
+    private string _status = "Select, check, or drag a tree item.";
+
+    private void HandleClick(TreeItem item)
+    {
+        _status = $"Selected: {item.Title}";
+    }
+
+    private void HandleDrop(DndContext _)
+    {
+        _status = "Drop-on-item received; update the backing hierarchy here.";
+    }
+
+    private void HandleInsertAfter(DndContext _)
+    {
+        _status = "Insert-after received; persist the reordered hierarchy here.";
+    }
+}
