@@ -2090,6 +2090,9 @@
 .bui-field > .start-addon + input, .bui-field > .start-addon + select, .bui-field > .start-addon + teaxtarea {
   padding-inline-start: 0;
 }
+.bui-field > .start-addon:empty {
+  display: none;
+}
 .bui-field > .end-addon {
   min-width: var(--fui-text-field-min-height);
   font-size: var(--fui-text-field-font-size);
@@ -2098,6 +2101,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+.bui-field > .end-addon:empty {
+  display: none;
 }
 .bui-field > select {
   background-color: var(--colorNeutralBackground1);

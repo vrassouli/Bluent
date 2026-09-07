@@ -61,6 +61,10 @@
     + input, + select, + teaxtarea {
       padding-inline-start: 0;
     }
+    
+    &:empty {
+      display: none;
+    }
   }
 
   > .end-addon {
@@ -71,6 +75,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    
+    &:empty {
+      display: none;
+    }
   }
 
   > select {

@@ -34,6 +34,32 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 - None.
 
+## [2.0.1] - 2026-09-07
+
+### Added
+
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
+- `[Bluent.UI]` Hide empty field start/end addon containers so controls without addon content no longer reserve unnecessary inline space.
+
+### Security
+
+- None.
+
 ## [2.0.0] - 2026-08-20
 
 This release intentionally redesigns Bluent's icon API around strongly typed,
@@ -188,7 +214,6 @@ or GitHub Release.
 - Project vision and outcome-based public roadmap.
 - Apache License 2.0 at the repository level.
 - Contribution guide, code of conduct, changelog, and release policy.
-- GitHub issue and pull request templates.
 - Repository-based project relaunch tracking.
 - AI readiness and discoverability initiative tracked in Issue #363.
 
@@ -226,7 +251,8 @@ or GitHub Releases from which complete release notes can be reconstructed.
 
 Future releases will add a dated section here and move the relevant entries from `Unreleased`.
 
-[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.0.0...Dev
+[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.0.1...Dev
+[2.0.1]: https://github.com/vrassouli/Bluent/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/vrassouli/Bluent/compare/v1.0.368...v2.0.0
 [1.0.368]: https://github.com/vrassouli/Bluent/compare/v1.0.367...v1.0.368
 [1.0.367]: https://github.com/vrassouli/Bluent/compare/9056d1c5b3b9f0d714854da0a1712efa55fd3ed8...v1.0.367
