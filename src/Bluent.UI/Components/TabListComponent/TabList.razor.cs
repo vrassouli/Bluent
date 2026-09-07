@@ -9,6 +9,7 @@ public partial class TabList
     //private bool _shouldCheckOverflow;
     private readonly List<TabListTabItem> _tabItems = new();
     private readonly List<Tab> _tabs = new();
+    private bool _selectedIndexWasSpecified;
 
     [Parameter] public TabListAppearance Appearance { get; set; } = TabListAppearance.Transparent;
     [Parameter] public TabListSize Size { get; set; } = TabListSize.Medium;
@@ -44,6 +45,14 @@ public partial class TabList
             yield return Size.ToString().Kebaberize();
     }
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        if (!_selectedIndexWasSpecified && parameters.TryGetValue<int>(nameof(SelectedIndex), out _))
+            _selectedIndexWasSpecified = true;
+
+        await base.SetParametersAsync(parameters);
+    }
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
@@ -74,6 +83,10 @@ public partial class TabList
             _tabs.Add(tab);
 
             var index = _tabs.IndexOf(tab);
+
+            if (!_selectedIndexWasSpecified && SelectedIndex < 0 && index == 0)
+                SelectedIndex = 0;
+
             OnTabAdded.InvokeAsync(index);
 
             StateHasChanged();
@@ -120,6 +133,7 @@ public partial class TabList
         SelectedIndex = -1;
         SelectedIndexChanged.InvokeAsync(SelectedIndex);
         tabItem.OnStateChanged();
+        StateHasChanged();
     }
 
     internal void SelectTab(Tab tab)
@@ -155,5 +169,7 @@ public partial class TabList
 
         if (index > -1 && index < _tabItems.Count)
             _tabItems[index].OnStateChanged();
+
+        StateHasChanged();
     }
 }
