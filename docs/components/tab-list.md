@@ -27,7 +27,7 @@
 | --- | --- | --- | --- |
 | `Appearance` | `TabListAppearance` | `Transparent` | Tab-list appearance. |
 | `Size` | `TabListSize` | `Medium` | Tab-list size. |
-| `SelectedIndex` / `SelectedIndexChanged` | `int` / `EventCallback<int>` | `-1` / empty | Selection contract; supports `@bind-SelectedIndex`. |
+| `SelectedIndex` / `SelectedIndexChanged` | `int` / `EventCallback<int>` | first tab / empty | Selection contract; supports `@bind-SelectedIndex`. Omitting `SelectedIndex` selects the first tab when one is registered; explicitly setting `-1` keeps the list unselected. |
 | `OnTabAdded` | `EventCallback<int>` | empty | Invoked with the index when a public `Tab` registers. |
 | `EmptyContent` | `RenderFragment?` | `null` | Rendered when no concrete tab items are registered. |
 | `ChildContent` | inherited from `Overflow` | `null` | Public `Tab` children. |
@@ -55,7 +55,7 @@
 
 ## Selection behavior
 
-`SelectedIndex = -1` means no selected tab. Selecting a tab updates `SelectedIndex`, invokes `SelectedIndexChanged`, and refreshes the previously/currently selected rendered tab items.
+When `SelectedIndex` is omitted, `TabList` selects the first registered tab. Explicitly supplying `SelectedIndex = -1` means no selected tab. Selecting or deselecting a tab updates `SelectedIndex`, invokes `SelectedIndexChanged`, and refreshes both the rendered tab items and the parent `TabList` so the visible panel changes in the same interaction.
 
 The source clamps programmatic selection performed through the internal selection path: indices above the current tab count become the last tab, and negative indices become zero. The public parameter itself is not rewritten merely because an out-of-range value was supplied; `SelectedTab` returns null unless the current index is valid.
 
@@ -90,4 +90,4 @@ Overflow placement and the inherited overflow menu have direction-sensitive beha
 
 ## Evidence
 
-Source verified against `TabList.razor`, `TabList.razor.cs`, `Tab.cs`, `TabListTabItem.razor`, `TabListTabItem.razor.cs`, and the shared Overflow infrastructure on 2026-08-29. Overflow measurement, keyboard behavior, route-driven selection, and RTL remain runtime-verification targets.
+Source verified against `TabList.razor`, `TabList.razor.cs`, `Tab.cs`, `TabListTabItem.razor`, `TabListTabItem.razor.cs`, and the shared Overflow infrastructure on 2026-09-07. Overflow measurement, keyboard behavior, route-driven selection, and RTL remain runtime-verification targets.
