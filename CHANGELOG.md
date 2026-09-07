@@ -34,6 +34,32 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 - None.
 
+## [2.0.2] - 2026-09-07
+
+### Added
+
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
+- `[Bluent.UI]` Fix `TabList` selection and panel synchronization so uncontrolled tabs select and show content on the first click, while externally supplied `SelectedIndex` values remain authoritative and interactive changes stay synchronized.
+
+### Security
+
+- None.
+
 ## [2.0.1] - 2026-09-07
 
 ### Added
