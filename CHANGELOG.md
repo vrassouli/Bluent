@@ -12,11 +12,11 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- None.
+- `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
 
 ### Changed
 
-- None.
+- `[Bluent.UI]` Refreshed the bundled Fluent System Icons Resizable CSS, metadata, and font assets from upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442` so generated icon names and font codepoints stay synchronized.
 
 ### Deprecated
 
@@ -38,11 +38,11 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- None.
+- `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
 
 ### Changed
 
-- None.
+- `[Bluent.UI]` Refreshed the bundled Fluent System Icons Resizable CSS, metadata, and font assets from upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442` so generated icon names and font codepoints stay synchronized.
 
 ### Deprecated
 
@@ -64,11 +64,11 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- None.
+- `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
 
 ### Changed
 
-- None.
+- `[Bluent.UI]` Refreshed the bundled Fluent System Icons Resizable CSS, metadata, and font assets from upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442` so generated icon names and font codepoints stay synchronized.
 
 ### Deprecated
 

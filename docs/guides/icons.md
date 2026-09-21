@@ -22,6 +22,8 @@ Then select icons through IntelliSense:
 
 Do not write classes such as `icon-ic_fluent_save_20_regular` in application code. The `FluentIcons` catalog is generated from Bluent's bundled `FluentSystemIcons-Resizable.json`, so the compiler and IDE can discover and validate icon names.
 
+The currently bundled assets track Microsoft `fluentui-system-icons` version `1.1.341`, upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442`. The CSS, JSON metadata, and font files must be updated together from one upstream revision because the font codepoints can change when the icon set grows.
+
 ## Rendering an icon directly
 
 Use the `Icon` component with its `Value` parameter:
