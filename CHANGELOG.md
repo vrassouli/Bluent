@@ -12,6 +12,32 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
+- None.
+
+### Security
+
+- None.
+
+## [2.1.0] - 2026-09-21
+
+### Added
+
 - `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
 
 ### Changed
@@ -38,11 +64,11 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
+- None.
 
 ### Changed
 
-- `[Bluent.UI]` Refreshed the bundled Fluent System Icons Resizable CSS, metadata, and font assets from upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442` so generated icon names and font codepoints stay synchronized.
+- None.
 
 ### Deprecated
 
@@ -64,11 +90,11 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
+- None.
 
 ### Changed
 
-- `[Bluent.UI]` Refreshed the bundled Fluent System Icons Resizable CSS, metadata, and font assets from upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442` so generated icon names and font codepoints stay synchronized.
+- None.
 
 ### Deprecated
 
@@ -277,7 +303,9 @@ or GitHub Releases from which complete release notes can be reconstructed.
 
 Future releases will add a dated section here and move the relevant entries from `Unreleased`.
 
-[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.0.1...Dev
+[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.1.0...Dev
+[2.1.0]: https://github.com/vrassouli/Bluent/compare/v2.0.2...v2.1.0
+[2.0.2]: https://github.com/vrassouli/Bluent/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/vrassouli/Bluent/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/vrassouli/Bluent/compare/v1.0.368...v2.0.0
 [1.0.368]: https://github.com/vrassouli/Bluent/compare/v1.0.367...v1.0.368
