@@ -1,0 +1,28 @@
+@page "/components/nav-lists"
+@namespace Bluent.UI.Demo.Pages.Components
+
+<PageTitle>Nav Lists — Bluent</PageTitle>
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-50 m-auto">
+        <ShowcaseHeader Title="Nav Lists"
+                        Purpose="Build application navigation with route-aware links, nested expandable groups, icons, and drawer-friendly behavior."
+                        Package="Bluent.UI"
+                        Namespace="Bluent.UI.Components"
+                        ApiSummary="NavList: Compact, CollapsedWidth, and ChildContent. NavItem: Text, Icon, Href, Match, Expanded, Options, and AutoCloseDrawer."
+                        SourcePath="NavLists.razor"
+                        Notes="Use NavList for application navigation. NavItem tracks active routes, and items with child content become expandable groups." />
+
+        <h3>Default</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <NavList>
+                <NavItem Text="Dashboard" Icon="@FluentIcons.Home" Href="scenarios/operations-dashboard" />
+                <NavItem Text="Getting started" Icon="@FluentIcons.BookOpen" Href="getting-started" />
+                <NavItem Text="Components" Icon="@FluentIcons.Apps">
+                    <NavItem Text="Buttons" Icon="@FluentIcons.Button" Href="components/buttons" />
+                    <NavItem Text="Data grids" Icon="@FluentIcons.Grid" Href="components/data-grids" />
+                </NavItem>
+            </NavList>
+        </section>
+    </div>
+</div>
