@@ -39,13 +39,14 @@ The component inherits normal Bluent `Class`, `Style`, `Id`, tooltip, and unmatc
 
 ## Value behavior
 
-In determinate mode the current source renders the bar width as:
+In determinate mode the current source clamps the percentage before formatting it for CSS:
 
 ```csharp
-Math.Max(0, Math.Min(Value, 100))
+var value = Math.Max(0, Math.Min(Value, 100));
+value.ToString(CultureInfo.InvariantCulture)
 ```
 
-So values below zero render at 0% and values above 100 render at 100%. The component does not throw or mutate the supplied `Value`.
+So values below zero render at 0% and values above 100 render at 100%. The component does not throw or mutate the supplied `Value`. The generated CSS percentage is serialized with invariant culture, so decimal values always use `.` (for example `83.95448%`) even when the application culture uses another decimal separator such as `fa-IR`.
 
 In indeterminate mode no width style is emitted; CSS controls the animation through the `indeterminate` class.
 
