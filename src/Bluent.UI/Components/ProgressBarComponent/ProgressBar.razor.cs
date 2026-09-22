@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using System.Globalization;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 
 namespace Bluent.UI.Components;
@@ -34,7 +35,7 @@ public partial class ProgressBar
     private string? GetBarStyles()
     {
         if (!Indeterminate)
-            return $"width: {Math.Max(0, Math.Min(Value, 100))}%";
+            return $"width: {Math.Max(0, Math.Min(Value, 100)).ToString(CultureInfo.InvariantCulture)}%";
 
         return null;
     }

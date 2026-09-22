@@ -28,7 +28,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
-- None.
+- `[Bluent.UI]` Serialize determinate `ProgressBar` widths with invariant culture so fractional percentages produce valid CSS under cultures such as `fa-IR`.
 
 ### Security
 
