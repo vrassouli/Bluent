@@ -28,6 +28,32 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
+- None.
+
+### Security
+
+- None.
+
+## [2.1.1] - 2026-09-22
+
+### Added
+
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
 - `[Bluent.UI]` Serialize determinate `ProgressBar` widths with invariant culture so fractional percentages produce valid CSS under cultures such as `fa-IR`.
 
 ### Security
@@ -303,7 +329,8 @@ or GitHub Releases from which complete release notes can be reconstructed.
 
 Future releases will add a dated section here and move the relevant entries from `Unreleased`.
 
-[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.1.0...Dev
+[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.1.1...Dev
+[2.1.1]: https://github.com/vrassouli/Bluent/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/vrassouli/Bluent/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/vrassouli/Bluent/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/vrassouli/Bluent/compare/v2.0.0...v2.0.1
