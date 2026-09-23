@@ -28,7 +28,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
-- None.
+- `[Bluent.UI]` Use the selected neutral background token for non-active `NavList` item hover states.
 
 ### Security
 

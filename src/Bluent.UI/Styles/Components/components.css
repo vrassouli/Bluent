@@ -2636,7 +2636,7 @@
   transition: all var(--durationNormal) var(--curveEasyEaseMax);
 }
 .bui-nav-list .bui-nav-item:not(.active) > .item > .content:hover {
-  background-color: var(--colorNeutralBackground1);
+  background-color: var(--colorNeutralBackground1Selected);
 }
 .bui-nav-list .bui-nav-item:not(.active) > .item > .content:hover > .active-icon {
   display: inline;
