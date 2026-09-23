@@ -28,6 +28,32 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
+- None.
+
+### Security
+
+- None.
+
+## [2.1.2] - 2026-09-23
+
+### Added
+
+- None.
+
+### Changed
+
+- None.
+
+### Deprecated
+
+- None.
+
+### Removed
+
+- None.
+
+### Fixed
+
 - `[Bluent.UI]` Use the selected neutral background token for non-active `NavList` item hover states.
 
 ### Security
@@ -329,7 +355,8 @@ or GitHub Releases from which complete release notes can be reconstructed.
 
 Future releases will add a dated section here and move the relevant entries from `Unreleased`.
 
-[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.1.1...Dev
+[Unreleased]: https://github.com/vrassouli/Bluent/compare/v2.1.2...Dev
+[2.1.2]: https://github.com/vrassouli/Bluent/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/vrassouli/Bluent/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/vrassouli/Bluent/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/vrassouli/Bluent/compare/v2.0.1...v2.0.2
