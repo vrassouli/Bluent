@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Mandatory Bluent v3 issue workflow
+
+Use the **actual Status field** in [Bluent Project #5](https://github.com/users/vrassouli/projects/5) and read [`docs/v3/ISSUE-WORKFLOW.md`](docs/v3/ISSUE-WORKFLOW.md) before processing any issue under Epic #416. The normal sequence is **Backlog → Ready → In progress → Review → Done**. Do not begin work on Backlog issues: a task must first satisfy and enter Ready. Move to In progress only when implementation begins, to Review only when the `bluent-v3` PR and evidence are ready, and to Done only after all criteria are satisfied and the PR is accepted/merged into `bluent-v3`. **Analysis must never be processed or promoted without the maintainer's explicit request**; Blocked requires evidence of a real blocker. Never simulate these statuses using labels. Do not move work directly to Done just because a PR exists.
+
 ## Mandatory Bluent v3 branch isolation
 
 **All work associated with Epic #416 must be performed on the separate `bluent-v3` integration branch or a task branch created from it (`v3/issue-<id>-<topic>`). All task PRs target `bluent-v3`, never the existing default `Dev`, `main`, stable/release branches or v2.x. Do not merge, cherry-pick, publish or deploy any v3 work into existing 2.x branches/releases before explicit final v3 approval. Read [`docs/v3/BRANCHING.md`](docs/v3/BRANCHING.md) before any v3 change. Existing 2.x code, docs, NuGet and deployments must remain intact. The final integration is a separate, maintainer-approved operation; completing an individual issue never authorizes merging into `Dev`.**
