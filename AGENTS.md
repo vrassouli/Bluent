@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Mandatory Bluent v3 branch isolation
+
+**All work associated with Epic #416 must be performed on the separate `bluent-v3` integration branch or a task branch created from it (`v3/issue-<id>-<topic>`). All task PRs target `bluent-v3`, never the existing default `Dev`, `main`, stable/release branches or v2.x. Do not merge, cherry-pick, publish or deploy any v3 work into existing 2.x branches/releases before explicit final v3 approval. Read [`docs/v3/BRANCHING.md`](docs/v3/BRANCHING.md) before any v3 change. Existing 2.x code, docs, NuGet and deployments must remain intact. The final integration is a separate, maintainer-approved operation; completing an individual issue never authorizes merging into `Dev`.**
+
 This file provides repository-wide instructions for coding agents working on Bluent.
 
 ## Project
