@@ -27,7 +27,11 @@
 
 - The default branch stays `Dev` during v3 development.
 - Existing stable NuGet package(s) and demo(s) must remain available; do not retarget stable CI deployments to v3.
-- Target-branch reviews are mandatory in the manual workflow; add or strengthen GitHub branch protection / rulesets when available. **This document is a policy, not proof that server-side protection is configured.**
+- Target-branch reviews are mandatory in the manual workflow. **Server-side GitHub repository rulesets were activated and verified on 2026-10-09:**
+  - [**Dev freeze: ruleset #24813649**](https://github.com/vrassouli/Bluent/rules/24813649) — active; exactly `Dev`; `update`, `deletion` and `non_fast_forward` restrictions; **no bypass actors**. This blocks all pushes and PR merges into `Dev` until the ruleset is intentionally disabled or updated by a repository administrator as part of the approved final release.
+  - [**v3 PR-only integration: ruleset #24813657**](https://github.com/vrassouli/Bluent/rules/24813657) — active; exactly `bluent-v3`; requires a PR with all review conversations resolved, blocks deletion and force pushes, and presently requires **zero formal approving reviews** to avoid deadlocking an individual repository owner. Manual review and explicit task readiness requirements still apply.
+  - These rulesets were confirmed using GitHub's effective branch rules endpoint; both branches report `protected: true`. They do not imply that release workflows are disabled; independent release/deployment verification remains part of #427.
+- **When v3 is complete**, obtain explicit maintainer approval, record it in #416/#427, then disable/modify the Dev freeze ruleset before attempting the final integration. Do not silently remove, bypass or weaken rules in normal v3 tasks.
 - A manual exception needs the maintainer's explicit approval, documented in the relevant issue, with rationale and rollback plan.
 
 ## Project workflow
