@@ -70,7 +70,7 @@ Use Button, field/input and overlay to compare the old and candidate cascade/tok
 
 **Source verified:** cited source files, imports, selectors and package/build configuration inspected on the v3 baseline. **Not yet build/test/runtime/visual/pack verified** for the proposed architecture. No public component has been changed.
 
-> **Penpot design gate (2026-10-10):** The code-only Button/Field/Overlay experiment below is **not** a Penpot design or approved Fluent styling baseline. Every foundation decision and component implementation must have a verified Penpot design/decision map first, per [Penpot-first workflow](../PENPOT-WORKFLOW.md). The integration currently returns `No Penpot instance connected for user token`; this blocks final ADR/design acceptance and Penpot-dependent UI refinement.
+> **Design gate (2026-10-10):** Penpot is preferred, with an explicitly authorized **Figma fallback** if Penpot is disconnected or attached to a different file. The verified [Microsoft Fluent 2 Web Community kit](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) is the upstream reference; the independent editable [Bluent v3 working file](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc) contains a [draft #417 architecture board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2) (page `0:1`, node `2:2`). This is **research**, not an approved ADR/token specification or proof of component visual parity. The earlier code-only Button/Field/Overlay experiment remains separate, pending comparison to the eventually approved design. See [design-first workflow](../PENPOT-WORKFLOW.md).
 
 ## 2026-10-10 measured CSS / JS inventory
 

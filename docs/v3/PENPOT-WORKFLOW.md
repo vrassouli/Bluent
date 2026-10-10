@@ -1,62 +1,56 @@
-# Bluent v3 — Penpot-first design contract
+# Bluent v3 — Design-first contract: Penpot primary, Figma fallback
 
-> **Mandatory for every issue under [Epic #416](https://github.com/vrassouli/Bluent/issues/416).** This is a workflow policy, not a claim that a Penpot file/design is connected, created, reviewed or approved. See [ISSUE-WORKFLOW.md](ISSUE-WORKFLOW.md) for GitHub Project status gates and [BRANCHING.md](BRANCHING.md) for v2/v3 isolation.
+> **Mandatory for every issue under [Epic #416](https://github.com/vrassouli/Bluent/issues/416).** The maintainer explicitly authorized **Figma as the fallback** when Penpot is unavailable or connected to the wrong project (2026-10-10). Follow [ISSUE-WORKFLOW.md](ISSUE-WORKFLOW.md) for GitHub Project status and [BRANCHING.md](BRANCHING.md) for v2/v3 isolation.
 
-## Principle: Penpot is the source of truth for design
+## Design source of truth
 
-**Every v3 issue must be represented and evaluated in Penpot**, including foundation architecture, tokens, component families, legacy components, layout patterns, charts/diagrams, demo design, documentation examples, accessibility states, and migration UX. Do not substitute an ad hoc HTML/CSS mockup, Figma-only artifact, source code, or a screenshot for a Penpot design artifact.
+Every v3 issue must have a **real editable design artifact or meaningful design-decision/system-flow map** in a connected design tool, before the corresponding design-dependent implementation. This covers foundations, tokens, components, charts/diagrams, application patterns, demos, docs/Skills, accessibility and migration.
 
-Source code, tests and docs remain the authority for implemented behavior and APIs, but proposed visual and interaction decisions must be captured in Penpot **before the corresponding implementation** and checked against the result. Code, Penpot and documentation must stay linked.
+**Tool priority:** use **Penpot** first **when the correct Bluent v3 file is connected**. If it is disconnected, inaccessible, or attached to a different project's file, **immediately use Figma** without blocking useful v3 design work. Figma is an approved alternative, not a second-class sketch. No work item may be treated as designed solely because code, screenshots or a third-party kit exists.
 
-### Proposed design workspace structure (create only after Penpot connects)
+One **authoritative issue-specific design location** (Penpot or Figma) must be named in each issue and PR, with concrete file/page/node IDs, revision or date, review notes and implementation mapping. When switching tools, migrate/synchronize the relevant accepted design or explicitly link the new authoritative location and mark the old one as a prior reference; **do not silently maintain contradictory sources of truth**.
 
-Use one coherent **Bluent v3 Design System** Penpot file/library or a deliberately linked library and application file, with these sections or pages:
+**Reference kit (read-only upstream, not our working file):** [Microsoft Fluent 2 Web — Community](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD/Microsoft-Fluent-2-Web--Community-?t=yMfCvNxMbI8Vc0yU-0) (file key `UxJ11V0c8TI8aaSVpdKeQD`). Verified accessible in Figma on 2026-10-10, with component pages including Button, Field, Dialog, DataGrid, Menu, Tooltip and others. Example Button source: page `8911:3188`, node `9026:639` (Primary / Large / Rest). Preserve the community kit; **do not write into it**, claim ownership or presume its React example code is Blazor-native.
 
-1. **Foundations** — color/semantic tokens, typography, spacing, radii, elevation, motion, breakpoints, themes, contrast, focus, density and RTL/LTR.
-2. **Components** — one traceable area per public component, including internal parts, variants, properties and state matrices.
-3. **Patterns / App shell** — responsive desktop/mobile compositions, navigation, tasks, forms, data-heavy screens and overlay placement.
-4. **Charts / Diagrams / Utilities** — preserve and improve non-Fluent Bluent capabilities; design their variants, complex flows and interaction models.
-5. **Quality / Migration** — reference snapshots, issue-specific visual acceptance, old-to-new pattern comparisons and migration guidance.
+**Bluent v3 Figma working file (editable project output):** [Bluent v3 — Fluent 2 Design System (Working)](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc) (file key `JfxkDgSbNr8W0ppUZPQPHc`). Its first verified board is [#417 Foundation research · draft](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2), page `0:1`, frame `2:2`. This is **a research/architecture decision board only**, not an approved token/variant library or visual acceptance of component implementations.
 
-These are **planned page names**, not a declaration of existing Penpot content.
+## Workspace layout
 
-## Required per-issue design cycle
+Use a coherent **Bluent v3 Design System** library/file in the currently authoritative tool. Organize work into:
 
-| Stage | Penpot gate / evidence |
+1. **Foundations:** primitive and semantic colors, typography, spacing, radius, elevation, motion, themes, high contrast, focus, density, and RTL/LTR.
+2. **Components:** one traceable section per public component, including appearance, size, states, focus, validation, interaction and responsive variants.
+3. **Patterns and application shell:** desktop/mobile business-app layouts, forms, dense data, navigation, overlays and cross-component workflows.
+4. **Charts, Diagrams and Utilities:** maintain and improve distinctive non-Fluent functionality rather than deleting it or copying generic Fluent components.
+5. **Quality and Migration:** parity checks, state matrices, decisions, old-to-new comparison, screenshot evidence and exceptions.
+
+These are **planned categories**; do not claim all the corresponding pages/components have been created.
+
+## Required issue lifecycle
+
+| GitHub Project transition | Design acceptance gate |
 | --- | --- |
-| **Backlog → Ready** | Define intended Penpot work, source/reference to inspect, desired states, review criteria and dependencies. For a design-creation foundation issue (e.g. initial library), the new Penpot artifact is the *deliverable*, not a prerequisite to begin; for implementation issues, link the relevant existing design or explicitly require design completion as the first subtask **before code changes**. |
-| **Ready → In progress** | Confirm Penpot session/file access and record the target page, design owner and issue number. Produce or update Penpot design first; validate the intended state/variant matrix. Do not proceed with design-dependent UI implementation if connection, required design or approval is unavailable. |
-| **In progress → Review** | Attach real Penpot file/page/shape URLs or stable IDs, design review/decision notes, screenshots or exports where useful, and an implementation-to-design mapping. Show theme, RTL, density and responsive parity (and keyboard/assistive states as applicable). |
-| **Review → Done** | Reviewer confirms design/implementation parity, exceptions and migration notes are documented, PR checks pass, and the PR merges **only** into `bluent-v3`. |
+| **Backlog → Ready** | Specify intended design work, dependencies, upstream reference, required variants/states, review criteria and chosen tool. For the issue that creates the design library, the artifact is the **deliverable** and need not exist beforehand. |
+| **Ready → In progress** | Verify access to **the actual Bluent file** in Penpot or Figma. Link the target design page/board and create/review it **before design-dependent UI coding**. |
+| **In progress → Review** | Link concrete editable Penpot/Figma file, page and node, design decision/revision, reviewed state matrix, screenshots/exports if useful, and a mapping between the approved design and tested Blazor behavior. |
+| **Review → Done** | Reviewer accepts design and implementation parity, exceptions, docs/Skills/demos and migration coverage; required CI passes; PR merges into `bluent-v3` **only**. |
 
-Nonvisual foundation/automation/docs tasks must still record their UX/system-flow map, component impact or design-decision diagram in Penpot, at an appropriate level of detail. Do not invent irrelevant mockups merely to satisfy a checkbox; record a meaningful visual artifact, or flag an explicit maintainer decision if genuinely impossible.
+For nonvisual foundation/automation/docs issues, record the meaningful UX/system flow, affected component map or architecture decision in the design tool; do not invent ornamental mockups to satisfy the workflow.
 
-## Per-component acceptance checklist
+## Per-component review checklist
 
-- Issue number, canonical component/public API and linked Penpot shape/page.
-- Base appearance and property variants (type, size, intent, state and density as relevant).
-- Hover, pressed, focus-visible, disabled, loading, validation and keyboard states *where supported*.
-- Light, dark and high-contrast considerations; grounded typography, spacing, tokens and contrast.
-- LTR/RTL and logical directionality; small/mobile and wide/desktop geometry.
-- Overlay layering and focus/keyboard interaction when relevant.
-- Blazor implementation + comprehensive interactive demo + documentation + consumer Skills + migration notes, linked back to the exact Penpot design and its reviewed revision.
-- Evidence for missing variants, browser/runtime limitations and explicit accepted differences.
+- Exact issue, Blazor API component/family, authoritative Penpot/Figma page/node and design revision.
+- Component anatomy and applicable style, size, state, icon and density variants.
+- Supported hover, pressed, selected, focus-visible, disabled, loading, validation and keyboard interactions.
+- Light and dark, high-contrast considerations, typography/tokens, screen-reader and focus expectations.
+- LTR/RTL, mobile and desktop composition, overlay/portal behavior where applicable.
+- Implementation tests plus 100%-feature demo expectation, documentation, consumer Skills and migration guidance linked to the reviewed design.
+- Explicit gaps and accepted differences; do not conflate design reference with implemented behavior.
 
-For complex data visualizations, diagrams or non-Fluent features, preserve specialized interaction requirements rather than forcing a superficial Fluent look.
+## Changes and tool availability
 
-## Change control
-
-- Every design decision must carry its GitHub issue ID and, when possible, its Penpot page/shape reference in the issue and PR.
-- If design changes after implementation, first update/review Penpot, then code, tests, demo, docs, Skills and migration ledger as applicable.
-- If implementation reveals infeasible design behavior, document the discrepancy, update and review Penpot, and only then adopt the amended contract.
-- Do not mark **Review** or **Done** solely because code builds. A confirmed design reference and parity assessment are required.
-- Keep all implementation and documentation on isolated `bluent-v3` task branches; external Penpot designs must be clearly labeled **v3** and must not overwrite public 2.x references.
-- If Penpot cannot connect, **record the exact connection error** and block Penpot-dependent work without presenting source-only experiments as Penpot-approved.
-
-## Current dependency
-
-At the time this policy was requested, the Penpot integration reported:
-
-`No Penpot instance connected for user token. Please ensure that Penpot is connected and that the MCP client connection is using the correct token.`
-
-There is **no verified active Penpot file** yet. The user must open the intended file in Penpot and connect its Penpot MCP plugin/session to the current integration. Do not invent a file URL, page ID, design artifact or approval. Once connected, inspect existing pages/assets *before* creating the v3 library or duplicating a design.
+- When design changes after implementation, update/review the **authoritative design** first; then align code, tests, demo, docs, Skills and migration ledger.
+- If a design proves infeasible, record why and amend the authoritative Figma/Penpot design **before** accepting the new implementation.
+- If Penpot connects to a different project (e.g. the **PuyaStudio Runner** file, which was verified in the active session on 2026-10-10), **never modify the unrelated file**; use the v3 Figma working file instead.
+- If neither Penpot nor Figma can access/create a suitable editable v3 file, document the actual technical blocker and mark the issue Blocked with prior status and next action.
+- All code, docs and agent instructions remain isolated on `bluent-v3` or feature branches based on it. Do not update 2.x or its public design/assets. Do not mark Review/Done simply because a Figma document exists.

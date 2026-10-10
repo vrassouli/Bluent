@@ -4,15 +4,13 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 ## Parallel v3 foundation (isolated development)
 
-**Penpot mandate (2026-10-10):** All Bluent v3 tasks require Penpot-backed designs/decision maps and documented design parity; see [`docs/v3/PENPOT-WORKFLOW.md`](../docs/v3/PENPOT-WORKFLOW.md). Penpot integration currently reports **no connected instance**, so existing #417 CSS lab remains explicitly a code-only experiment and its Penpot design approval is blocked pending file/plugin connection.
-
-
+**Design mandate (2026-10-10):** All Bluent v3 tasks require traceable design decisions in **Penpot first, or Figma when the correct Bluent Penpot file is unavailable**; see [`docs/v3/PENPOT-WORKFLOW.md`](../docs/v3/PENPOT-WORKFLOW.md). Penpot is currently connected to an **unrelated PuyaStudio Runner file**, so it must not be modified. The verified [Microsoft Fluent 2 Web Community kit](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) is a **read-only reference**. The independent editable [Bluent v3 Figma working file](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc) now contains a [#417 architecture research board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2). Board is DRAFT, not approved token/component parity. With this authorized fallback, #417's external design connection blocker is resolved and the issue can return to **In progress**, pending acceptance testing and design review.
 
 **Epic:** [#416](https://github.com/vrassouli/Bluent/issues/416) — Fluent by Design
 **Integration branch:** `bluent-v3` (protected; all v3 PRs target this branch)
 **Active foundation task:** [#417](https://github.com/vrassouli/Bluent/issues/417) — CSS audit and styling ADR
 **Work branch:** `v3/issue-417-css-architecture`; [draft PR #498](https://github.com/vrassouli/Bluent/pull/498)
-**GitHub Project Status:** In progress (not Review/Done).
+**GitHub Project Status:** In progress (after resolving the earlier design-tool connection blocker; not Review/Done).
 **Evidence:** [CSS architecture audit](../docs/v3/architecture/css-architecture-audit.md) with reproducible source scanner, real Blazor demo-only Button/Field/Overlay lab, .NET Release and Debug builds, 20 existing tests, and limited Chrome interactions.
 **Outstanding gate:** agree styling ADR and validate high-contrast/keyboard/overlay portal/cascade-layer and packaging concerns before #418 and component migrations.
 **Isolation:** legacy `Dev` / stable 2.x releases and public deployments remain unchanged; final v3 integration needs separate explicit approval.
