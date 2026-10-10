@@ -146,5 +146,6 @@ The maintained [inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/com
 
 ## Bluent v3 research (separate from released 2.x)
 
+- [v3 Penpot-first design workflow](https://github.com/vrassouli/Bluent/blob/v3/issue-417-css-architecture/docs/v3/PENPOT-WORKFLOW.md): mandatory Penpot references, review gates and design-to-code parity for all v3 issues, pending a connected Penpot design session.
 - [v3 branch and release isolation](https://github.com/vrassouli/Bluent/blob/bluent-v3/docs/v3/BRANCHING.md): v3 task branches and PRs target `bluent-v3`, never the stable `Dev` branch.
 - [v3 CSS architecture audit and initial experiment](https://github.com/vrassouli/Bluent/blob/v3/issue-417-css-architecture/docs/v3/architecture/css-architecture-audit.md): source-only inventory and browser evidence for issue #417; the ADR remains a draft and its experiment-only CSS is not a released API.

@@ -4,6 +4,10 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 ## Parallel v3 foundation (isolated development)
 
+**Penpot mandate (2026-10-10):** All Bluent v3 tasks require Penpot-backed designs/decision maps and documented design parity; see [`docs/v3/PENPOT-WORKFLOW.md`](../docs/v3/PENPOT-WORKFLOW.md). Penpot integration currently reports **no connected instance**, so existing #417 CSS lab remains explicitly a code-only experiment and its Penpot design approval is blocked pending file/plugin connection.
+
+
+
 **Epic:** [#416](https://github.com/vrassouli/Bluent/issues/416) — Fluent by Design
 **Integration branch:** `bluent-v3` (protected; all v3 PRs target this branch)
 **Active foundation task:** [#417](https://github.com/vrassouli/Bluent/issues/417) — CSS audit and styling ADR

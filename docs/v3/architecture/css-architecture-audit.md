@@ -70,6 +70,8 @@ Use Button, field/input and overlay to compare the old and candidate cascade/tok
 
 **Source verified:** cited source files, imports, selectors and package/build configuration inspected on the v3 baseline. **Not yet build/test/runtime/visual/pack verified** for the proposed architecture. No public component has been changed.
 
+> **Penpot design gate (2026-10-10):** The code-only Button/Field/Overlay experiment below is **not** a Penpot design or approved Fluent styling baseline. Every foundation decision and component implementation must have a verified Penpot design/decision map first, per [Penpot-first workflow](../PENPOT-WORKFLOW.md). The integration currently returns `No Penpot instance connected for user token`; this blocks final ADR/design acceptance and Penpot-dependent UI refinement.
+
 ## 2026-10-10 measured CSS / JS inventory
 
 Reproduce with `python scripts/quality/audit_v3_css.py` or `--json` for per-file source counts.
