@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 48,
-    "savedDraftVersionLabel": "Bluent v3 · #419 local TextField Checkbox Switch draft 2026-10-10"
+    "lastSeenRevision": 89,
+    "savedDraftVersionLabel": "Bluent v3 · #419 native form-control variants reviewed 2026-10-10"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -293,6 +293,24 @@
       "name": "15 · Bluent native control drafts",
       "id": "07c521b9-e441-80bd-8008-c4d95657c458",
       "boardId": "07c521b9-e441-80bd-8008-c4d9703f9bc2"
+    },
+    {
+      "key": "native-textfield-variants",
+      "name": "16 · Bluent TextField variants",
+      "id": "e31294c6-7c55-805f-8008-c51213e75deb",
+      "boardId": "e31294c6-7c55-805f-8008-c512bf412b37"
+    },
+    {
+      "key": "native-checkbox-variants",
+      "name": "17 · Bluent Checkbox variants",
+      "id": "e31294c6-7c55-805f-8008-c51213e87848",
+      "boardId": "e31294c6-7c55-805f-8008-c51334e865e4"
+    },
+    {
+      "key": "native-switch-variants",
+      "name": "18 · Bluent Switch variants",
+      "id": "e31294c6-7c55-805f-8008-c51213e8a17b",
+      "boardId": "e31294c6-7c55-805f-8008-c5139a9544bf"
     }
   ],
   "tokens": {
@@ -407,11 +425,103 @@
     "formGridNewLinkedInstancesVerified": 109,
     "localDraftComponentsDoc": "docs/v3/design/LOCAL-COMPONENT-DRAFTS.md",
     "localDraftPreviewBoardVisuallyInspected": true,
-    "localDraftPreviewVerifiedInstances": 3
+    "localDraftPreviewVerifiedInstances": 3,
+    "nativeVariantDesignDoc": "docs/v3/design/NATIVE-CONTROL-VARIANTS.md",
+    "nativeVariantFamilies": 3,
+    "nativeVariantTotal": 34,
+    "nativeVariantLinkedPreviews": 34,
+    "nativeVariantBoardsVisuallyInspected": 3,
+    "localComponentFamilyEntriesVerified": 7,
+    "additionalDraftTokenBindings": 15
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",
     "integrationBranch": "bluent-v3",
     "stableDevUntouched": true
-  }
+  },
+  "localVariantMatrices": [
+    {
+      "family": "textfield",
+      "source": "local Bluent native component variants, not imported Fluent",
+      "pageId": "e31294c6-7c55-805f-8008-c51213e75deb",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c512bf412b37",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c51241e2236b",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c5122926bf55",
+      "axes": {
+        "State": [
+          "Rest",
+          "Focus",
+          "Error",
+          "Disabled",
+          "ReadOnly"
+        ],
+        "Appearance": [
+          "Outline",
+          "Filled"
+        ]
+      },
+      "variantCount": 10,
+      "linkedLocalPreviewCount": 10,
+      "uniqueAxisTuplesVerified": true,
+      "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    },
+    {
+      "family": "checkbox",
+      "source": "local Bluent native component variants, not imported Fluent",
+      "pageId": "e31294c6-7c55-805f-8008-c51213e87848",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c51334e865e4",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c512f68f2d1e",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c512ef110f24",
+      "axes": {
+        "Status": [
+          "Unchecked",
+          "Checked",
+          "Mixed"
+        ],
+        "State": [
+          "Rest",
+          "Focus",
+          "Disabled",
+          "Error"
+        ]
+      },
+      "variantCount": 12,
+      "linkedLocalPreviewCount": 12,
+      "uniqueAxisTuplesVerified": true,
+      "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    },
+    {
+      "family": "switch",
+      "source": "local Bluent native component variants, not imported Fluent",
+      "pageId": "e31294c6-7c55-805f-8008-c51213e8a17b",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c5139a9544bf",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c51360ccbff0",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c513588af6de",
+      "axes": {
+        "Checked": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Rest",
+          "Focus",
+          "Disabled"
+        ],
+        "Direction": [
+          "LTR",
+          "RTL"
+        ]
+      },
+      "variantCount": 12,
+      "linkedLocalPreviewCount": 12,
+      "uniqueAxisTuplesVerified": true,
+      "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    }
+  ]
 }

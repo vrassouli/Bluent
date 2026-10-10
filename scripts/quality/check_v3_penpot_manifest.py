@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 16:
-        errors.append("Expanded working file should expose fifteen tracked design pages")
+    if len(data["pages"]) != 19:
+        errors.append("Penpot workspace should track nineteen design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -78,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 48:
+    if data["designSource"].get("lastSeenRevision", 0) < 89:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -130,6 +130,50 @@ def main() -> int:
         errors.append("Missing new Penpot form/grid visual and source-link review evidence")
     if data["evidence"].get("upstreamVariantSwitchingVerified") is not False:
         errors.append("Imported Fluent Button variant switching remains unverified")
+    # Three new native, project-owned Penpot *variant families*, separate
+    # from the four earlier one-state local components and 134 upstream refs.
+    native = data.get("localVariantMatrices", [])
+    family_counts = {"textfield": 10, "checkbox": 12, "switch": 12}
+    if len(native) != 3 or {x.get("family") for x in native} != set(family_counts):
+        errors.append("Expected exactly three Bluent-native form-control variant families")
+    native_total = 0
+    linked_total = 0
+    for entry in native:
+        family = entry.get("family")
+        expected = family_counts.get(family)
+        if expected is None:
+            errors.append(f"Unrecognized native variant family {family}")
+            continue
+        for field in ("pageId", "presentationBoardId", "variantContainerId", "componentFamilyId"):
+            valid_id(f"native {family} {field}", entry.get(field))
+        page = next((p for p in data["pages"] if p["id"] == entry.get("pageId")), None)
+        if page is None or page.get("boardId") != entry.get("presentationBoardId"):
+            errors.append(f"Native {family} board is not traceable to a registered page")
+        combinations = 1
+        for values in entry.get("axes", {}).values():
+            combinations *= len(set(values))
+        if combinations != expected or entry.get("variantCount") != expected:
+            errors.append(f"Wrong axis matrix/variant count for {family}")
+        if entry.get("linkedLocalPreviewCount") != expected:
+            errors.append(f"Native {family} linked preview count differs from variant count")
+        if not all(entry.get(k) for k in
+                   ("uniqueAxisTuplesVerified", "allLocalLinksVerified", "renderedAndVisuallyInspected")):
+            errors.append(f"Missing native variant evidence for {family}")
+        if entry.get("approved") is not False or "local" not in entry.get("source", ""):
+            errors.append(f"Native {family} reference must remain an unapproved local draft")
+        native_total += entry.get("variantCount", 0)
+        linked_total += entry.get("linkedLocalPreviewCount", 0)
+    ev = data["evidence"]
+    if (native_total, linked_total) != (34, 34):
+        errors.append("Native variant and linked-preview totals must both be 34")
+    if (ev.get("nativeVariantFamilies") != 3 or
+        ev.get("nativeVariantTotal") != 34 or
+        ev.get("nativeVariantLinkedPreviews") != 34 or
+        ev.get("nativeVariantBoardsVisuallyInspected") != 3 or
+        ev.get("localComponentFamilyEntriesVerified") != 7):
+        errors.append("Native form-control design evidence/asset counts are incomplete")
+    if ev.get("additionalDraftTokenBindings") != 15:
+        errors.append("Missing record of 15 newly applied draft design-token bindings")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):
@@ -137,7 +181,9 @@ def main() -> int:
     print(f"#419 Penpot manifest: {len(data['pages'])} pages, "
           f"{len(data['tokens']['sets'])} token sets, "
           f"{len(data['tokens']['themes'])} themes, "
-          f"{len(data['components'])} draft component(s); "
+          f"{len(data['components'])} original local draft component(s), "
+          f"{len(native)} native variant families / {native_total} variants, "
+          f"{linked_total} linked previews; "
           f"{len(errors)} errors. Offline metadata only.")
     for problem in errors:
         print("ERROR:", problem)

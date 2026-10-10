@@ -21,6 +21,8 @@ On page 15, actual **linked instances of these three new locally-owned component
 
 The complete native Penpot preview board was PNG-exported and visually inspected. The TextField preview currently has an editable label, a 1px simulated border, a token-bound surface and placeholder text. The Checkbox is a **single checked visual** with an editable check symbol and label. The Switch is a **single enabled/on visual** with an editable track/knob and label. They are **not native HTML input controls and do not have value propagation or interaction in Penpot**.
 
+**Update: independent native variant families now exist.** The four entries above are the *original single-state reusable Penpot components*. They remain intact. Three **additional**, editable and reusable native Penpot variant families have since been created on pages 16–18: TextField (10), Checkbox (12), Switch (12). Their 34 preview instances are linked to local variant component sources, **not** the imported Fluent source. See [native variant implementation evidence](NATIVE-CONTROL-VARIANTS.md); none is a finalized public component API.
+
 ## What this achieves — and what it does not
 
 - Establishes a **real reusable Bluent Penpot library** beyond its original local draft Primary Button. The upstream Fluent kit remains a separate linked reference with 134 matrix instances.
