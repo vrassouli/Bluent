@@ -5,7 +5,7 @@
 > **Design file:** `Bluent v3 Design System`, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. All IDs below were returned by the **live connected Penpot MCP API**, not inferred from external URLs. The browser workspace URL was not supplied; **do not invent a Penpot deep link**.
 > **Scope:** Build a traceable, editable **project-owned** design workspace before any public component/CSS changes. Approval of #417's CSS ADR and #418's token implementation is **not** implied by this draft.
 
-**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`. Both mark **draft progress**, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
+**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
 
 ## 1. Design provenance and connected library caveat
 
@@ -28,8 +28,9 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `06 · Motion & elevation` | `07c521b9-e441-80bd-8008-c4b24ce54e51` | `07c521b9-e441-80bd-8008-c4b2ead05451` | Eight source durations, six illustrative Penpot drop shadows, reduced-motion policy gap |
 | `07 · Accessibility & RTL` | `07c521b9-e441-80bd-8008-c4b24ce6f58c` | `07c521b9-e441-80bd-8008-c4b32a4e1bec` | Editable Persian RTL and English LTR, conceptual forced-colors system colors/focus |
 | `08 · Brand inventory` | `07c521b9-e441-80bd-8008-c4b24ce7b0aa` | `07c521b9-e441-80bd-8008-c4b3688e43c6` | Ten existing brand × light/dark CSS background token specimens |
+| `09 · Fluent Button state reference` | `07c521b9-e441-80bd-8008-c4b57568c3ef` | `07c521b9-e441-80bd-8008-c4b5759995ec` | **25 genuinely linked** imported Fluent Button variants: five styles × five states, Medium/icon+label; upstream visual reference only |
 
-The original design boards and all **five extended foundation boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
+The original design boards, all **five extended foundation boards**, and the **25-instance linked Fluent Button reference board** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
 ## 3. Prototype design tokens and themes (never ship as final names)
 
@@ -47,7 +48,7 @@ The values above are a **source-referenced prototype of Bluent 2.x default-brand
 
 ## 4. First local reusable prototype component and upstream link
 
-The locally created Penpot library component **`DRAFT · Primary Button`** has ID `07c521b9-e441-80bd-8008-c4aec6fea27e` and main board ID `07c521b9-e441-80bd-8008-c4aec6f7e429`. The first 164 × 40px primary example was made from **native editable Penpot board + text** and its background **successfully applied the local `bluent.color.brandBackground` design token** (`applyToken`). It is **not** an imported Fluent instance, an approved public Button, or a complete v3 Button variant library. **Separately**, a real linked upstream Fluent Button instance now exists in the `#419 · Fluent connected specimen` board (IDs above). This is a reference object only; the Bluent Button is its own distinct editable component.
+The locally created Penpot library component **`DRAFT · Primary Button`** has ID `07c521b9-e441-80bd-8008-c4aec6fea27e` and main board ID `07c521b9-e441-80bd-8008-c4aec6f7e429`. The first 164 × 40px primary example was made from **native editable Penpot board + text** and its background **successfully applied the local `bluent.color.brandBackground` design token** (`applyToken`). It is **not** an imported Fluent instance, an approved public Button, or a complete v3 Button variant library. **Separately**, a real linked upstream Fluent Button instance now exists in the `#419 · Fluent connected specimen` board (IDs above), and an additional board holds **25 verified linked upstream variants**, with exact IDs in the [extended foundations specification](FOUNDATION-EXTENSIONS.md). This is a reference object only; the Bluent Button is its own distinct editable component.
 
 The [verified upstream Penpot reference](https://github.com/vrassouli/Bluent/issues/417) defines 150 layout/size/state/appearance variants; existing Bluent public `Button` also has `Danger`, `Circular`/`Square`, `Compact`, toggle, icon/badge/link/split/dropdown, secondary text and RTL behaviors. The exact final design, keyboard accessibility and 100%-feature demo belong to the later **individual Button implementation issue**, not #419.
 

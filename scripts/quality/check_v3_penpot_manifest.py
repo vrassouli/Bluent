@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 9:
-        errors.append("Expanded working file should expose nine tracked design pages")
+    if len(data["pages"]) != 10:
+        errors.append("Expanded working file should expose ten tracked design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -67,12 +67,21 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 24:
+    if data["designSource"].get("lastSeenRevision", 0) < 27:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
     if data["evidence"].get("brandModeColorInventoryCount") != 20:
         errors.append("Expected source-verified ten brands times two modes")
+    matrix = upstream.get("linkedButtonMatrix", {})
+    if matrix.get("count") != 25 or len(matrix.get("styles", [])) != 5 or len(matrix.get("states", [])) != 5:
+        errors.append("Expected complete 5x5 imported Button state reference")
+    for key in ("pageId", "boardId"):
+        valid_id(f"linked Button reference matrix {key}", matrix.get(key))
+    if not matrix.get("linkedVerified") or not matrix.get("visuallyInspected"):
+        errors.append("Button reference matrix must be linked and image-inspected")
+    if data["evidence"].get("upstreamMatrixVerifiedLinkedCount") != 25:
+        errors.append("The full upstream Button reference state matrix is not confirmed")
     if data["evidence"].get("upstreamVariantSwitchingVerified") is not False:
         errors.append("Imported Fluent Button variant switching remains unverified")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":

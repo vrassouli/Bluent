@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 24,
-    "savedDraftVersionLabel": "Bluent v3 · #419 expanded foundation research 2026-10-10"
+    "lastSeenRevision": 27,
+    "savedDraftVersionLabel": "Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -30,6 +30,30 @@
       "defaultAppearance": "Secondary",
       "defaultSize": "Medium",
       "visualInspection": true
+    },
+    "linkedButtonMatrix": {
+      "pageId": "07c521b9-e441-80bd-8008-c4b57568c3ef",
+      "boardId": "07c521b9-e441-80bd-8008-c4b5759995ec",
+      "count": 25,
+      "styles": [
+        "Secondary (Default)",
+        "Primary",
+        "Outline",
+        "Subtle",
+        "Transparent"
+      ],
+      "states": [
+        "Rest",
+        "Hover",
+        "Pressed",
+        "Selected",
+        "Disabled"
+      ],
+      "layout": "Icon and label (Default)",
+      "size": "Medium (Default)",
+      "linkedVerified": true,
+      "visuallyInspected": true,
+      "origin": "linked library variant-component instances, not an implementation"
     }
   },
   "pages": [
@@ -86,6 +110,12 @@
       "name": "08 · Brand inventory",
       "id": "07c521b9-e441-80bd-8008-c4b24ce7b0aa",
       "boardId": "07c521b9-e441-80bd-8008-c4b3688e43c6"
+    },
+    {
+      "key": "fluent-button-state-reference",
+      "name": "09 · Fluent Button state reference",
+      "id": "07c521b9-e441-80bd-8008-c4b57568c3ef",
+      "boardId": "07c521b9-e441-80bd-8008-c4b5759995ec"
     }
   ],
   "tokens": {
@@ -163,7 +193,8 @@
     "rtlPersianCanvasFont": "Noto Sans Arabic",
     "latinPreviewCanvasFont": "Inter",
     "brandModeColorInventoryCount": 20,
-    "upstreamVariantSwitchingVerified": false
+    "upstreamVariantSwitchingVerified": false,
+    "upstreamMatrixVerifiedLinkedCount": 25
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",

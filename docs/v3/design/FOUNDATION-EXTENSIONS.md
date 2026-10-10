@@ -80,9 +80,19 @@ Four additional *unapproved* token sets were created in the separate Bluent v3 f
 
 Together with the original local `light` (5), `dark` (5) and `layout` (3) sets, the file now contains **7 sets, 49 total token entries and 2 Mode themes**. The five shared sets (layout, typography, spacing-scale, motion, density) are linked into *both* draft Mode themes. A live **Light → Dark → Light** toggle test confirmed that the mode-specific 5-token color set changes while the other **5 shared sets remain active**, and the final active mode was restored to **Light**. These tokens are **design research only**; no CSS variables, public API, Blazor components, published assets or NuGet packages were changed.
 
+## Linked Fluent Button: complete medium 5 × 5 visual-state reference
+
+An additional genuine Penpot **source-linked** reference board was authored in the **separate Bluent v3 file**: page `09 · Fluent Button state reference`, ID `07c521b9-e441-80bd-8008-c4b57568c3ef`; board `07c521b9-e441-80bd-8008-c4b5759995ec`. Instead of asking Penpot to change one existing component with `switchVariant`, it directly instantiated all 25 exact imported upstream variant components for:
+
+- **Styles:** Secondary, Primary, Outline, Subtle, Transparent.
+- **States:** Rest, Hover, Pressed, Selected, Disabled.
+- **Fixed axes:** Medium (Default), Icon and label (Default).
+
+The live Penpot API returned **25/25 linked source Button instances**, none disconnected; the complete 5×5 board was **PNG-exported and visually inspected**. This is stronger *upstream design-state reference evidence* than the prior single linked Button. It does **not** exercise state interactions, test keyboard focus, implement a Blazor Button, or cover Small/Large and Icon-only axes. Those 25 additional instances were created **inside Bluent's file only**, without modifying the source Fluent kit. A named design recovery version `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10` was saved at observed file revision **27**.
+
 ## Component linkage caveat
 
-The imported upstream Fluent 2 `Button` is a true **linked instance** in the local `02 · Component anatomy` reference board. Its upstream component reports four variant axes and 150 available variant components. A follow-up experiment calling `switchVariant(3, "Primary")` and `switchVariant(4, "Primary")` did **not** throw, but the linked instance's reported `component().variantProps.Style` **remained `Secondary (Default)`**. The temporary test instance was removed; the prior linked reference remains intact. Therefore, **variant switching is NOT verified** and remains an acceptance task. Do not treat “API call did not throw” as successful behavior.
+The imported upstream Fluent 2 `Button` is a true **linked instance** in the local `02 · Component anatomy` reference board. Its upstream component reports four variant axes and 150 available variant components. A prior experiment calling `switchVariant(3, "Primary")` and `switchVariant(4, "Primary")` did **not** throw, but the linked instance's reported `component().variantProps.Style` **remained `Secondary (Default)`**. In contrast, **direct instantiation** from the 25 upstream source variant components succeeded as a static design reference; it does not prove that in-place `switchVariant` works. The temporary test instance was removed; the prior linked reference remains intact. Therefore, **variant switching is NOT verified** and remains an acceptance task. Do not treat “API call did not throw” as successful behavior.
 
 ## Outstanding sign-off gates
 
