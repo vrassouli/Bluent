@@ -2,6 +2,17 @@
 
 This file is the current project-state entry point. Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
 
+## Parallel v3 foundation (isolated development)
+
+**Epic:** [#416](https://github.com/vrassouli/Bluent/issues/416) — Fluent by Design
+**Integration branch:** `bluent-v3` (protected; all v3 PRs target this branch)
+**Active foundation task:** [#417](https://github.com/vrassouli/Bluent/issues/417) — CSS audit and styling ADR
+**Work branch:** `v3/issue-417-css-architecture`; [draft PR #498](https://github.com/vrassouli/Bluent/pull/498)
+**GitHub Project Status:** In progress (not Review/Done).
+**Evidence:** [CSS architecture audit](../docs/v3/architecture/css-architecture-audit.md) with reproducible source scanner, real Blazor demo-only Button/Field/Overlay lab, .NET Release and Debug builds, 20 existing tests, and limited Chrome interactions.
+**Outstanding gate:** agree styling ADR and validate high-contrast/keyboard/overlay portal/cascade-layer and packaging concerns before #418 and component migrations.
+**Isolation:** legacy `Dev` / stable 2.x releases and public deployments remain unchanged; final v3 integration needs separate explicit approval.
+
 ## Current Phase
 
 **Phase:** AI readiness and consumer usability

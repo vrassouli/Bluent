@@ -69,3 +69,47 @@ Use Button, field/input and overlay to compare the old and candidate cascade/tok
 ## Evidence classification
 
 **Source verified:** cited source files, imports, selectors and package/build configuration inspected on the v3 baseline. **Not yet build/test/runtime/visual/pack verified** for the proposed architecture. No public component has been changed.
+
+## 2026-10-10 measured CSS / JS inventory
+
+Reproduce with `python scripts/quality/audit_v3_css.py` or `--json` for per-file source counts.
+
+| Signal | Source-derived count |
+| --- | ---: |
+| All package SCSS files | 120 (118 main UI; 2 Diagrams) |
+| Sass source lines | 9,336 |
+| Legacy `@import` occurrences | 178 |
+| Sass `@use`/`@forward` occurrences | 17 |
+| Direct Bootstrap SCSS imports | 14, across 2 local files |
+| Literal `px`/`rem`/`em`/`vh`/`vw` values | 566 |
+| Literal hex-color occurrences | 643 (including legitimate palette definitions) |
+| `!important` occurrences | 67 |
+| Distinct lexical CSS variable definitions / references | 220 / 248 |
+| References without definition **in scanned SCSS** | 112 (not proof of broken tokens; may come from emitted CSS or host styles) |
+| `:root` in source SCSS | `Components/components.scss` |
+| TypeScript files needing positioning review | DataGrid, DomHelper, Overflow, Popover |
+
+The audit counts are lexical and include legitimate intentional design values, repeated declarations, and Sass palettes. They cannot independently prove CSS collisions or actual computed styles. Generated bundles and vendor scripts are excluded from the TypeScript positioning list to avoid double counting; `src/Bluent.UI.Scripts/src/Popover/Popover.ts` directly reads trigger bounding geometry, while `Overflow.ts` measures layout in multiple places.
+
+### Real Blazor styling experiment
+
+- **Files:** `src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor` and colocated scoped `.razor.css`.
+- **Local-only development route:** `/v3/styling-lab`; intentionally unlisted in the **public v2-oriented navigation** while the v3 architecture is experimental.
+- **Actual control API:** existing Bluent `Button`, `TextField`, `Overlay`. No new public API and no stable CSS bundle modifications.
+- **Candidate pattern:** local `--v3-lab-*` aliases resolve to existing Fluent-style variables; a scoped theme container and density switch adjust only the experiment. Candidate token names are **not yet the public schema** (#418).
+- **Bounded functionality:** theme (light/dark), direction (LTR/RTL), compact/comfortable density, disabled Button, text binding and submit feedback, visual-only overlay (click backdrop to dismiss). The overlay is explicitly **not** a production modal: focus trap, focus restore and escape-key behavior are out of scope.
+- **Initial test problem:** `dotnet run -c Release` served the GitHub Pages `<base href="/Bluent/">` variant, so the local root URL had incorrect asset paths and Blazor did not initialize. This is a host configuration issue, **not evidence about the candidate CSS**. Debug build and host correctly use `<base href="/">`; no release file was edited.
+- **Debug browser:** Chrome dedicated temporary profile on Dev01; `http://127.0.0.1:5078/v3/styling-lab`. Confirmed switching themes, switching direction, density change (button height 40 → 32 CSS pixels), text entry, action feedback, overlay show/dismiss and return to baseline. On a 390×844 viewport, closed the demo's default mobile navigation and inspected Dark+RTL. An overlay preview centering bug on RTL was observed (negative x-coordinate) and repaired by using a viewport-anchored left center, then rechecked at positive centered bounds (x=307 for 1034px width / 420px panel).
+- **Build:** `dotnet build Bluent.sln --configuration Release --no-restore --nologo -v:q` passed (0 warnings/errors), both before and after adding the POC. `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore --nologo -v:q` passed (0 warnings/errors).
+- **Tests:** `dotnet test Bluent.sln --configuration Release --no-build --nologo -v:q` passed 20/20 tests. These are existing suite checks, **not** dedicated CSS parity, accessibility or visual-regression tests.
+- **Browser diagnostics:** after clearing older entries and reloading the Debug lab, no new browser diagnostics were reported immediately. No broad multi-browser/browser-engine or all-render-mode claim is made.
+
+### Findings from the experiment
+
+1. **Incremental scoped aliases work for real Bluent components** without rewriting public component source. However, the experiment changes the control appearance intentionally and is not proof of Fluent 2 fidelity.
+2. **CSS-isolation + nested theme is useful** for component-scoped experiments, but production overlays rendered to document-level portals may fall outside local token inheritance. Dedicated tests are still needed (#420).
+3. **RTL and viewport anchoring must be tested together.** A superficially logical `inset-inline-start: 50%` with `translate(-50%, -50%)` miscentered the preview in RTL. Use an explicit viewport-centered positioning strategy for this type of element.
+4. **Do not remove Bootstrap yet**: build-time mixins and generated utility/grid classes still require replacement coverage and consumer migration tests.
+5. **Not yet validated:** WCAG contrast calculations, keyboard focus trapping, high contrast, reduced motion in real browser settings, browser-wide screenshot diffs, Sass package size differences, CSS `@layer` compatibility and SSR/static-rendering behavior. These remain approval gates for the final styling ADR.
+
+This remains **In progress** under #417 and draft PR #498, not approved/merged architecture.
