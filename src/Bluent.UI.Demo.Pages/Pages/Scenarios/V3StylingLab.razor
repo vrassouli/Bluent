@@ -1,0 +1,56 @@
+@page "/v3/styling-lab"
+@namespace Bluent.UI.Demo.Pages.Scenarios
+
+<PageTitle>v3 CSS architecture experiment | Bluent</PageTitle>
+
+<main class="v3-lab">
+    <h1>v3 styling lab — issue #417</h1>
+    <p>This isolated experiment uses existing public Bluent controls. It previews scoped tokens; it is not a new public component or an approved Fluent parity claim.</p>
+    <div class="v3-lab-controls">
+        <Button Text="@(_dark ? "Switch to light" : "Switch to dark")" OnClick="() => _dark = !_dark" />
+        <Button Text="@(_rtl ? "Switch to LTR" : "Switch to RTL")" OnClick="() => _rtl = !_rtl" />
+        <Button Text="@(_compact ? "Comfortable density" : "Compact density")" OnClick="() => _compact = !_compact" />
+    </div>
+
+    <section class="v3-lab-surface" data-bui-theme="@(_dark ? "dark" : "light")"
+             data-density="@(_compact ? "compact" : "comfortable")"
+             dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 token experiment">
+        <h2>Button / Field / Overlay</h2>
+        <p>Use Tab and Shift+Tab to inspect focus, then change direction and theme.</p>
+        <div class="v3-lab-actions">
+            <Button Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
+            <Button Text="Disabled" disabled />
+            <Button Text="Preview overlay" OnClick="() => _overlayOpen = true" />
+        </div>
+        <div class="v3-lab-field">
+            <label for="v3-experiment-name">Name</label>
+            <TextField id="v3-experiment-name" @bind-Value="_name" placeholder="Example name" />
+            <span class="v3-lab-hint">This existing TextField receives experiment-only CSS aliases.</span>
+        </div>
+        <p role="status" aria-live="polite">@_message</p>
+        @if (_overlayOpen)
+        {
+            <Overlay OnClick="() => _overlayOpen = false" />
+            <div class="v3-lab-overlay-visual" role="status">
+                <strong>Overlay appearance preview</strong>
+                <p>Click the dimmed backdrop to close. This is NOT a production modal: focus trapping and restoration are not implemented here.</p>
+            </div>
+        }
+    </section>
+</main>
+
+@code {
+    private string? _name;
+    private string _message = "No action yet";
+    private bool _dark;
+    private bool _rtl;
+    private bool _compact;
+    private bool _overlayOpen;
+
+    private void Submit()
+    {
+        _message = string.IsNullOrWhiteSpace(_name)
+            ? "Enter a name to preview feedback."
+            : $"Preview saved for {_name}.";
+    }
+}
