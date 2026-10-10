@@ -14,6 +14,8 @@ One **authoritative issue-specific design location** (Penpot or Figma) must be n
 
 **Bluent v3 Figma working file (editable project output):** [Bluent v3 — Fluent 2 Design System (Working)](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc) (file key `JfxkDgSbNr8W0ppUZPQPHc`). Its first verified board is [#417 Foundation research · draft](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2), page `0:1`, frame `2:2`. This is **a research/architecture decision board only**, not an approved token/variant library or visual acceptance of component implementations.
 
+**Verified imported Penpot Fluent 2 reference (2026-10-10):** `Microsoft Fluent 2 Web (Community)`, file ID `b64f6665-c9ab-80b5-8008-c3cd9685a0a0`, revision 12, **51 pages, 124 reusable library components, 153 token sets**. See [read-only import audit](design/penpot-fluent-import-audit.md). This is an **upstream reference copy**, *not* an authored Bluent v3 workspace. Never edit its reference pages/components/tokens as part of v3. For original Bluent designs use a **separately created and connected Penpot file**; existing Figma working board remains draft research until designs and decisions are migrated/reviewed. The earlier PuyaStudio Runner connection is no longer the active file.
+
 ## Workspace layout
 
 Use a coherent **Bluent v3 Design System** library/file in the currently authoritative tool. Organize work into:

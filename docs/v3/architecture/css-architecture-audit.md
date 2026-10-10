@@ -114,6 +114,8 @@ The audit counts are lexical and include legitimate intentional design values, r
 4. **Do not remove Bootstrap yet**: build-time mixins and generated utility/grid classes still require replacement coverage and consumer migration tests.
 5. **Not yet validated:** WCAG contrast calculations, keyboard focus trapping, high contrast, reduced motion in real browser settings, browser-wide screenshot diffs, Sass package size differences, CSS `@layer` compatibility and SSR/static-rendering behavior. These remain approval gates for the final styling ADR.
 
+The [verified Penpot Fluent 2 import audit](../design/penpot-fluent-import-audit.md) now provides actual connected reference file/page/component/token IDs (read-only), including Button's 150-variant matrix. This does not substitute for a separate editable Bluent v3 Penpot design or architectural sign-off.
+
 For browser-backed CSS cascade proofs, actual nested DialogContainer theme behavior, reduced-motion and forced-color observations, and the design-tool quota limitation, see [CSS runtime probes](css-runtime-probes.md). For the latest **80-pair color contrast arithmetic**, generated utility usage inventory and **published Release/Production SSR smoke**, see [accessibility and utility baseline](accessibility-and-utility-baseline.md).
 
 For precise source-to-Figma palette mapping, all ten branded CSS bundle checks and local NuGet pack evidence see [theme contract crosswalk](theme-contract-crosswalk.md) and the [verified Figma token/cascade decision board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) (node `14:3`). All proposed architectural decisions remain drafts.

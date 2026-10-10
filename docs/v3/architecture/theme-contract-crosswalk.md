@@ -2,7 +2,7 @@
 
 > **Status:** source- and package-verified **design research**, not an approved styling ADR, public v3 token API, Fluent parity claim or a #418 implementation.
 >
-> **Design evidence:** [Bluent v3 Figma CSS/token decision matrix — frame `14:3`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) on page `14:2`. The earlier [foundation research frame `2:2`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2) remains a draft. **Read-only reference:** [Microsoft Fluent 2 Web (Community)](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD); Button example source node `9026:639`. Figma is the authorized fallback because the connected Penpot file is **PuyaStudio Runner**, not Bluent.
+> **Design evidence:** [Bluent v3 Figma CSS/token decision matrix — frame `14:3`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) on page `14:2`. The earlier [foundation research frame `2:2`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2) remains a draft. **Read-only reference:** [Microsoft Fluent 2 Web (Community)](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD); Button example source node `9026:639`. Figma was the authorized fallback while Penpot still pointed to PuyaStudio Runner. **Update:** Penpot now connects to the imported Microsoft Fluent 2 reference; see the [read-only Penpot import audit](../design/penpot-fluent-import-audit.md). A separate Bluent v3 Penpot working file and reviewed design decisions are still required.
 
 ## Source of truth
 
