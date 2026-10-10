@@ -43,7 +43,7 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 15:
+    if len(data["pages"]) != 16:
         errors.append("Expanded working file should expose fifteen tracked design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
@@ -52,11 +52,22 @@ def main() -> int:
         all_ids.extend([page["id"], page["boardId"]])
     if len(all_ids) != len(set(all_ids)):
         errors.append("Design page/board IDs must be distinct")
+    local_names = {"DRAFT · Primary Button", "DRAFT · TextField", "DRAFT · Checkbox", "DRAFT · Switch"}
+    if len(data["components"]) != 4 or {c["name"] for c in data["components"]} != local_names:
+        errors.append("Expected four local editable draft component assets")
+    local_preview_count = 0
     for c in data["components"]:
         valid_id(f"{c['name']} component", c["id"])
         valid_id(f"{c['name']} board", c["boardId"])
         if c.get("upstreamLinked") or c.get("approved"):
-            errors.append("Draft local Button must not be represented as linked/approved")
+            errors.append("Local Bluent draft must not be represented as source-linked/approved")
+        if c["name"] in {"DRAFT · TextField", "DRAFT · Checkbox", "DRAFT · Switch"}:
+            valid_id(c["name"] + " local preview", c.get("linkedLocalPreviewId"))
+            local_preview_count += 1
+    if local_preview_count != 3 or data["evidence"].get("localDraftPreviewVerifiedInstances") != 3:
+        errors.append("Expected three real linked instances of locally-owned control drafts")
+    if not data["evidence"].get("localDraftPreviewBoardVisuallyInspected"):
+        errors.append("Local Bluent draft controls must be visually inspected")
     if {s["name"] for s in data["tokens"]["sets"]} != {
         "bluent-v3/draft/light", "bluent-v3/draft/dark", "bluent-v3/draft/layout",
         "bluent-v3/draft/typography", "bluent-v3/draft/spacing-scale",
@@ -67,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 42:
+    if data["designSource"].get("lastSeenRevision", 0) < 48:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")

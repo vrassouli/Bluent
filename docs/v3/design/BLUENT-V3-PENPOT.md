@@ -5,7 +5,7 @@
 > **Design file:** `Bluent v3 Design System`, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. All IDs below were returned by the **live connected Penpot MCP API**, not inferred from external URLs. The browser workspace URL was not supplied; **do not invent a Penpot deep link**.
 > **Scope:** Build a traceable, editable **project-owned** design workspace before any public component/CSS changes. Approval of #417's CSS ADR and #418's token implementation is **not** implied by this draft.
 
-**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. A further revision **42** was saved as `Bluent v3 · #419 linked form/grid references 2026-10-10`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
+**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. A further revision **42** was saved as `Bluent v3 · #419 linked form/grid references 2026-10-10`; then revision **48** as `Bluent v3 · #419 local TextField Checkbox Switch draft 2026-10-10`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
 
 ## 1. Design provenance and connected library caveat
 
@@ -34,6 +34,7 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `12 · Fluent Dialog reference` | `07c521b9-e441-80bd-8008-c4d6ead3600b` | `07c521b9-e441-80bd-8008-c4d6eae7cfb0` | **4 linked** 320/600px × Text/Placeholder layouts; no modal behavior testing |
 | `13 · Fluent DataGrid cells reference` | `07c521b9-e441-80bd-8008-c4d7543f25ff` | `07c521b9-e441-80bd-8008-c4d7545257d7` | **7 linked** Medium **cell-only** layouts, not a complete Grid |
 | `14 · Fluent Switch reference` | `07c521b9-e441-80bd-8008-c4d793a549ff` | `07c521b9-e441-80bd-8008-c4d793b68198` | **40 linked** Checked×Layout×State switch variants |
+| `15 · Bluent native control drafts` | `07c521b9-e441-80bd-8008-c4d95657c458` | `07c521b9-e441-80bd-8008-c4d9703f9bc2` | Three locally authored and reusable draft TextField, Checkbox, Switch control designs with three real linked **local** preview instances |
 
 The original design boards, all **five extended foundation boards**, the **25-instance linked Fluent Button reference board**, and the **five new Input/Checkbox/Dialog/DataGrid-cell/Switch reference boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
@@ -63,7 +64,13 @@ Five additional **source-linked static design** matrices have been authored with
 
 The exact upstream variant axes, new page/board IDs, existing Bluent C# source/API crosswalk and unresolved acceptance tests are in the [component reference matrices](COMPONENT-REFERENCE-MATRICES.md).
 
-## 6. Design and code contract: acceptance gates
+## 6. Expanded local Bluent editable components
+
+The local Bluent library now has **four native reusable Penpot draft components**: Primary Button, TextField, Checkbox and Switch. The last three are authored independently of the upstream Fluent library, their draft background/brand fill properties use local design tokens, and the page `15 · Bluent native control drafts` contains **three linked local instances** (one per new prototype), with the full board visually reviewed. They are *single-state visual proposals*, not final public Blazor controls or comprehensive design variants.
+
+See [locally owned component drafts](LOCAL-COMPONENT-DRAFTS.md) for their exact component IDs, main boards, preview instance IDs, token binding evidence, and the untouched public API boundary.
+
+## 7. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.

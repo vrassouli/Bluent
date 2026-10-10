@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 42,
-    "savedDraftVersionLabel": "Bluent v3 · #419 linked form/grid references 2026-10-10"
+    "lastSeenRevision": 48,
+    "savedDraftVersionLabel": "Bluent v3 · #419 local TextField Checkbox Switch draft 2026-10-10"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -287,6 +287,12 @@
       "name": "14 · Fluent Switch reference",
       "id": "07c521b9-e441-80bd-8008-c4d793a549ff",
       "boardId": "07c521b9-e441-80bd-8008-c4d793b68198"
+    },
+    {
+      "key": "bluent-native-control-drafts",
+      "name": "15 · Bluent native control drafts",
+      "id": "07c521b9-e441-80bd-8008-c4d95657c458",
+      "boardId": "07c521b9-e441-80bd-8008-c4d9703f9bc2"
     }
   ],
   "tokens": {
@@ -352,6 +358,36 @@
       "upstreamLinked": false,
       "appliedDraftToken": "bluent.color.brandBackground",
       "approved": false
+    },
+    {
+      "name": "DRAFT · TextField",
+      "id": "07c521b9-e441-80bd-8008-c4d9894618fd",
+      "boardId": "07c521b9-e441-80bd-8008-c4d98926e6fc",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.background1",
+      "approved": false,
+      "linkedLocalPreviewId": "07c521b9-e441-80bd-8008-c4d9b70c7903",
+      "source": "native Penpot editable prototype"
+    },
+    {
+      "name": "DRAFT · Checkbox",
+      "id": "07c521b9-e441-80bd-8008-c4d99a88df90",
+      "boardId": "07c521b9-e441-80bd-8008-c4d99a652d5d",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.brandBackground",
+      "approved": false,
+      "linkedLocalPreviewId": "07c521b9-e441-80bd-8008-c4d9b7140d69",
+      "source": "native Penpot editable prototype"
+    },
+    {
+      "name": "DRAFT · Switch",
+      "id": "07c521b9-e441-80bd-8008-c4d9a7c1e966",
+      "boardId": "07c521b9-e441-80bd-8008-c4d9a7a9cde2",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.brandBackground",
+      "approved": false,
+      "linkedLocalPreviewId": "07c521b9-e441-80bd-8008-c4d9b71d4287",
+      "source": "native Penpot editable prototype"
     }
   ],
   "evidence": {
@@ -368,7 +404,10 @@
     "upstreamMatrixVerifiedLinkedCount": 25,
     "formGridReferenceDoc": "docs/v3/design/COMPONENT-REFERENCE-MATRICES.md",
     "formGridNewBoardsVisuallyInspected": 5,
-    "formGridNewLinkedInstancesVerified": 109
+    "formGridNewLinkedInstancesVerified": 109,
+    "localDraftComponentsDoc": "docs/v3/design/LOCAL-COMPONENT-DRAFTS.md",
+    "localDraftPreviewBoardVisuallyInspected": true,
+    "localDraftPreviewVerifiedInstances": 3
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",
