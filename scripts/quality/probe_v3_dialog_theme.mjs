@@ -56,7 +56,17 @@ try{
  const reducedAfter=await evaluate("(()=>{const overlay=document.querySelector('.v3-lab-surface .bui-overlay');return {overlayAnimationDuration:getComputedStyle(overlay).animationDuration,overlayAnimationName:getComputedStyle(overlay).animationName};})()");
  await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'}]});
  const forcedColors=await evaluate("(()=>{const button=[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Primary action'),surf=document.querySelector('.v3-lab-surface');return {queryMatches:matchMedia('(forced-colors: active)').matches,buttonBackground:getComputedStyle(button).backgroundColor,buttonText:getComputedStyle(button).color,surfaceBackground:getComputedStyle(surf).backgroundColor};})()");
- const mediaObservations={reducedMotion:{...reducedBefore,...reducedAfter},forcedColors};
+ await evaluate("document.querySelector('.v3-lab-surface .bui-overlay').click();true");
+ await poll(async()=>await evaluate("!document.querySelector('.v3-lab-surface .bui-overlay')"),40);
+ await evaluate("document.querySelector('.v3-lab-field input').focus();true");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,modifiers:8});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,modifiers:8});
+ const focusAndTargets=await evaluate("(()=>{const button=[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Preview overlay');const style=getComputedStyle(button),r=button.getBoundingClientRect(),field=document.querySelector('.v3-lab-field input');const f=field?.getBoundingClientRect();return {keyboardFocusOnPreviousButton:document.activeElement===button,buttonFocusVisible:button.matches(':focus-visible'),outlineStyle:style.outlineStyle,outlineWidth:style.outlineWidth,outlineColor:style.outlineColor,buttonWidth:Math.round(r.width),buttonHeight:Math.round(r.height),fieldWidth:f?Math.round(f.width):null,fieldHeight:f?Math.round(f.height):null};})()");
+ await send('Emulation.setEmulatedMedia',{features:[]});
+ await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:false});
+ await evaluate("[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Compact density').click();true");
+ const mobileAndDensity=await evaluate("(()=>{const surf=document.querySelector('.v3-lab-surface'),button=[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Primary action'),rect=button.getBoundingClientRect();return {viewportWidth:innerWidth,density:surf.dataset.density,buttonHeight:Math.round(rect.height),buttonWidth:Math.round(rect.width),documentScrollWidth:document.documentElement.scrollWidth};})()");
+ const mediaObservations={reducedMotion:{...reducedBefore,...reducedAfter},forcedColors,focusAndTargets,mobileAndDensity};
  const passed=observed.contentTheme==='dark'&&observed.htmlTheme==='light'&&observed.contentToken.toLowerCase()==='#292929'&&['#fff','#ffffff'].includes(observed.dialogToken.toLowerCase())&&!observed.dialogInsideScopedContent&&!observed.overlayInsideScopedContent;
  console.log(JSON.stringify({classification:'real Bluent Debug WASM runtime, scoped theme experiment; NOT a proposed v3 fix',url:base+'/components/dialogs',observed,expected:'Dialog remains under the global light theme while the local page is dark',mediaObservations,passed},null,2));
  process.exitCode=passed?0:1;

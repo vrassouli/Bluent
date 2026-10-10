@@ -67,6 +67,8 @@ In the same isolated Chrome session, the Node script navigates to the existing `
 | `prefers-reduced-motion: reduce` | **real `.bui-overlay`** animation `fade-in`, duration **`0.25s`** | Overlay motion is **not suppressed** by the current demo rule. This is a concrete accessibility follow-up, not acceptable as completed reduced-motion support |
 | `forced-colors: active` | query matches; Button background `rgb(0,0,0)`, text `rgb(255,255,255)`, surface background `rgb(0,0,0)` | Browser applied forced colors to these samples. Does **not** establish contrast, focus-outline visibility, or complete high-contrast support |
 
+**Further current Chrome evidence (2026-10-10):** after closing the overlay under forced-colors, the probe focuses the lab TextField and dispatches an actual **Shift+Tab** key event. The preceding **Preview overlay** button became active, matched `:focus-visible`, and had a computed **2px solid rgb(26,235,255)** outline. The same probe measured a ~40px high Button at desktop, a ~38px high TextField, and ~32px Button in compact mode at a **390px** viewport, with document-wide scroll width also **390px**. This demonstrates one correct forced-colors keyboard path and absence of document horizontal overflow in that scenario, **not** complete accessibility/responsiveness.
+
 The recorded `passed` from `probe_v3_dialog_theme.mjs` asserts only the **observed existing theme separation**; it must **not** be interpreted as an acceptance pass for nested themes, high contrast, keyboard behavior or reduced motion.
 
 ## 4. Decisions and remaining acceptance

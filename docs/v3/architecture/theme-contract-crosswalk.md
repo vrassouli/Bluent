@@ -65,10 +65,13 @@ For migration issue #424, record any changed CSS asset path, utility class, sele
 - [ ] Decide intended scoped theme semantics and validate any future fix across WASM/SSR/interactive render modes.
 - [x] Chrome desktop keyboard spot-check: clicked the lab Name field, pressed **Shift+Tab**, and visually observed the **Preview overlay** button's blue focus-visible outline at 929×917; no new browser diagnostics in that session. This proves only that specific keyboard route.
 - [x] Run targeted Chrome CDP media probes: reduced-motion Button transition is 0s, but real Overlay animation remains **0.25s**; forced-colors remaps sampled colors. This exposes a motion gap but does not validate WCAG compliance. See [runtime CSS probes](css-runtime-probes.md).
-- [ ] Complete the remaining keyboard/focus matrix, forced-colors/high-contrast, reduced-motion **remediation**, and minimum target tests.
+- [x] Sample forced-colors **keyboard focus** using actual Chrome Shift+Tab: focused previous Bluent button has a 2px cyan system-color outline; desktop 40px, mobile compact 32px and no document horizontal overflow at 390px. See [accessibility/utility baseline](accessibility-and-utility-baseline.md).
+- [x] Contrast-screen representative color pairs: 80 opaque text pairs across 10 brands / two modes, none below 4.5:1; five math unit tests pass. This is **not** a WCAG claim.
+- [ ] Complete the remaining keyboard/focus matrix, disabled/high-contrast semantics, reduced-motion **remediation**, and minimum target tests.
 - [x] Prove five native Chrome CSS cascade/theme inheritance rules (including `!important`) through a standalone fixture. See [runtime CSS probes](css-runtime-probes.md).
 - [ ] Test candidate layering **against real consumer overrides and compiled Bluent rules** before adopting `@layer`.
-- [ ] Demonstrate migration for grid/utility classes and lock equivalent CSS bundle size targets.
+- [x] Measure generated utility selector intersection with literal Demo/sample Razor class attributes: 86 used classes in 78 files; see [accessibility/utility baseline](accessibility-and-utility-baseline.md).
+- [ ] Demonstrate real-consumer migration for grid/utility classes and lock equivalent CSS bundle size targets.
 - [ ] Map the component styling-lab DOM/screenshots to the **reviewed** Figma design, not only to source values.
 
 Do **not** move #417 to Review/Done until the missing gates and the ADR approval have evidence attached to its draft PR.
