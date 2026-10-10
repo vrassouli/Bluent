@@ -70,6 +70,8 @@ The local Bluent library now has **four native reusable Penpot draft components*
 
 See [locally owned component drafts](LOCAL-COMPONENT-DRAFTS.md) for their exact component IDs, main boards, preview instance IDs, token binding evidence, and the untouched public API boundary.
 
+**Behavioral review note:** [source-backed form-control design gates](FORM-CONTROL-DESIGN-GATES.md) define proposed FC1–FC6 for TextField/Checkbox/Switch; the current Penpot working file has **not yet** received these additional native variants because its plugin tab is suspended. Treat these as pending design work, not approved decisions.
+
 ## 7. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.

@@ -29,6 +29,8 @@ The complete native Penpot preview board was PNG-exported and visually inspected
 - **Does not** approve design tokens, CSS, final Figma/Penpot visual parity, RTL, focus/keyboard semantics, disabled states, validation, error/indeterminate states, animations, touch-size defaults, locale-specific font metrics or Blazor binding.
 - **Does not** authorize #418 to leave Backlog or individual component work to skip Ready/In progress gates. Design review of #417 CSS ADR is still outstanding.
 
+The exact **FC1–FC6 design-review criteria**, including nullable-checkbox transitions, switch semantics and Persian input/textarea behavior, are now tracked in [form-control design gates](FORM-CONTROL-DESIGN-GATES.md). These remain **proposed** until actually authored and reviewed as Penpot native variants; this document alone does not satisfy the design gate.
+
 ## Remaining design tasks before #419 Review
 
 The prototypes need complete component anatomy/variants (especially TextField state+size+appearance, nullable-checkbox Indeterminate and Switch two-state/bidi label positions), accent theme-state review, typography/focus/contrast, RTL/Persian and responsive densities. The three components need side-by-side evaluation against the already created **real source-linked** Fluent 2 component matrices, and explicit public Bluent API mapping. Visual review requires approved design evidence; app behavior requires browser/runtime tests under the later component issues.
