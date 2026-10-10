@@ -5,6 +5,8 @@
 > **Design file:** `Bluent v3 Design System`, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. All IDs below were returned by the **live connected Penpot MCP API**, not inferred from external URLs. The browser workspace URL was not supplied; **do not invent a Penpot deep link**.
 > **Scope:** Build a traceable, editable **project-owned** design workspace before any public component/CSS changes. Approval of #417's CSS ADR and #418's token implementation is **not** implied by this draft.
 
+**Penpot recovery point:** a named design-file version was saved on 2026-10-10 as `Bluent v3 · #419 foundation library draft 2026-10-10` (verified working-file revision 14 at the time of the save). This labels **draft progress**, not approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
+
 ## 1. Design provenance and connected library caveat
 
 The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **read-only upstream reference**, file ID `b64f6665-c9ab-80b5-8008-c3cd9685a0a0`, revision 12 when inspected. It contains **51 pages, 124 local reusable components, 153 token sets and 150 connected Button variants** (2 layouts × 3 sizes × 5 states × 5 styles); see issue #417 source-audit work on [draft PR #498](https://github.com/vrassouli/Bluent/pull/498).

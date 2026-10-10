@@ -9,7 +9,9 @@
     "fileName": "Bluent v3 Design System",
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
-    "approval": "pending"
+    "approval": "pending",
+    "lastSeenRevision": 14,
+    "savedDraftVersionLabel": "Bluent v3 · #419 foundation library draft 2026-10-10"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
