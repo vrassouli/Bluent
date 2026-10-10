@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "project": "Bluent v3",
+  "issue": 419,
+  "reviewStatus": "draft",
+  "updatedDate": "2026-10-10",
+  "designSource": {
+    "platform": "penpot",
+    "fileName": "Bluent v3 Design System",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "url": null,
+    "approval": "pending"
+  },
+  "externalReference": {
+    "fileName": "Microsoft Fluent 2 Web (Community)",
+    "fileId": "b64f6665-c9ab-80b5-8008-c3cd9685a0a0",
+    "readOnly": true,
+    "listedAsConnected": true,
+    "importableComponentsVerified": 124,
+    "sharedLibraryPublicationPending": false,
+    "referenceButtonVariantCount": 150,
+    "realLinkedInstance": {
+      "componentName": "Button",
+      "componentId": "76a3faa3-4591-5372-9caa-785ae9ce78df",
+      "instanceId": "07c521b9-e441-80bd-8008-c4afbeace57a",
+      "boardId": "07c521b9-e441-80bd-8008-c4afd554a335",
+      "linked": true,
+      "defaultAppearance": "Secondary",
+      "defaultSize": "Medium",
+      "visualInspection": true
+    }
+  },
+  "pages": [
+    {
+      "key": "overview",
+      "name": "00 · Start here",
+      "id": "b64f6665-c9ab-80b5-8008-c4ac99d9d001",
+      "boardId": "07c521b9-e441-80bd-8008-c4ada8c1f76c"
+    },
+    {
+      "key": "foundations",
+      "name": "01 · Foundations",
+      "id": "07c521b9-e441-80bd-8008-c4ad87dde57e",
+      "boardId": "07c521b9-e441-80bd-8008-c4ae222798a6"
+    },
+    {
+      "key": "component-anatomy",
+      "name": "02 · Component anatomy",
+      "id": "07c521b9-e441-80bd-8008-c4ad87dee26e",
+      "boardId": "07c521b9-e441-80bd-8008-c4ae9e63585f"
+    },
+    {
+      "key": "quality-migration",
+      "name": "03 · Quality & migration",
+      "id": "07c521b9-e441-80bd-8008-c4ad87df93c3",
+      "boardId": "07c521b9-e441-80bd-8008-c4aee23bc3ec"
+    }
+  ],
+  "tokens": {
+    "status": "draft",
+    "sets": [
+      {
+        "name": "bluent-v3/draft/light",
+        "count": 5,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/dark",
+        "count": 5,
+        "defaultActive": false
+      },
+      {
+        "name": "bluent-v3/draft/layout",
+        "count": 3,
+        "defaultActive": true
+      }
+    ],
+    "themes": [
+      {
+        "group": "Bluent v3 / Mode",
+        "name": "Light · Draft"
+      },
+      {
+        "group": "Bluent v3 / Mode",
+        "name": "Dark · Draft"
+      }
+    ],
+    "switchingVerified": true,
+    "restoredMode": "Light"
+  },
+  "components": [
+    {
+      "name": "DRAFT · Primary Button",
+      "id": "07c521b9-e441-80bd-8008-c4aec6fea27e",
+      "boardId": "07c521b9-e441-80bd-8008-c4aec6f7e429",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.brandBackground",
+      "approved": false
+    }
+  ],
+  "evidence": {
+    "renderedPenpotBoardsVisuallyInspected": true,
+    "sourceRef": "docs/v3/design/BLUENT-V3-PENPOT.md",
+    "codeImplemented": false,
+    "parityValidated": false
+  },
+  "guardrails": {
+    "workBranch": "v3/issue-419-penpot-library",
+    "integrationBranch": "bluent-v3",
+    "stableDevUntouched": true
+  }
+}

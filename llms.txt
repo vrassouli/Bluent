@@ -120,6 +120,11 @@ All tracked optional-package retrieval families are source verified. Closely rel
 
 The maintained [inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md) currently contains 65 source-verified consumer retrieval families in total: 57 main UI, 2 Charts, 2 Diagrams, and 4 Utilities.
 
+## Bluent v3 isolated design work (not released)
+
+- [Penpot v3 working library and issue #419 traceability](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/BLUENT-V3-PENPOT.md): real Penpot file/page/board IDs, draft token modes, first editable component and upstream library publication caveat; not approved v3 product guidance.
+- [Machine-readable Penpot design inventory](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/penpot-workspace.manifest.json): offline metadata, not a substitute for live design access.
+
 ## Cross-cutting guidance
 
 - [Hosting and render modes](https://github.com/vrassouli/Bluent/blob/Dev/docs/compatibility/hosting-and-render-modes.md)
