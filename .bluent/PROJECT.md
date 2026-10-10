@@ -11,8 +11,8 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 **Active foundation task:** [#417](https://github.com/vrassouli/Bluent/issues/417) — CSS audit and styling ADR
 **Work branch:** `v3/issue-417-css-architecture`; [draft PR #498](https://github.com/vrassouli/Bluent/pull/498)
 **GitHub Project Status:** In progress (after resolving the earlier design-tool connection blocker; not Review/Done).
-**Evidence:** [CSS architecture audit](../docs/v3/architecture/css-architecture-audit.md) and [theme contract crosswalk](../docs/v3/architecture/theme-contract-crosswalk.md) with Figma frame `14:3`, source scanner and static theme checker (10 branded themes, 9 representative tokens), local NuGet package smoke check, Blazor lab, Release and Debug builds, 20 tests, and limited Chrome interactions.
-**Outstanding gate:** agree styling ADR and validate high-contrast/keyboard/overlay portal/cascade-layer and packaging concerns before #418 and component migrations.
+**Evidence:** [CSS architecture audit](../docs/v3/architecture/css-architecture-audit.md), [real browser CSS runtime probes](../docs/v3/architecture/css-runtime-probes.md) and [theme contract crosswalk](../docs/v3/architecture/theme-contract-crosswalk.md) with Figma frame `14:3`, source scanner and static theme checker (10 branded themes, 9 representative tokens), local NuGet package smoke check, Blazor lab, Release and Debug builds, 20 tests, and limited Chrome interactions.
+**Outstanding gate:** decide the verified local-theme/DialogContainer separation, reduced-motion Overlay animation gap and consumer override migration after design-tool review; broader high-contrast/keyboard/SSR and ADR approvals remain before #418 and component migrations. **Design-tool limitation:** Figma Starter MCP quota exhausted in latest session; Penpot is connected to unrelated PuyaStudio Runner, so no new design mutations were attempted.
 **Isolation:** legacy `Dev` / stable 2.x releases and public deployments remain unchanged; final v3 integration needs separate explicit approval.
 
 ## Current Phase

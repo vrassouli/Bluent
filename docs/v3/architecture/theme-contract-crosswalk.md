@@ -61,10 +61,13 @@ For migration issue #424, record any changed CSS asset path, utility class, sele
 - [x] Actual Figma token/cascade design **research** board with verified palette values; screenshot reviewed, dark-mode label contrast fixed.
 - [x] Compiled light/dark token crosswalk for default brand, 10 brand output checks, and isolated NuGet **pack** baseline.
 - [ ] Approve the D1–D4 decisions; until approval they are candidate architecture, not commitments.
-- [ ] Verify portal-mounted overlays and nested theme propagation in the intended render modes.
+- [x] Reproduce the **current Debug WASM** portal/nested-theme limitation in the real DialogContainer: dark page remains dark while the shared Dialog and its overlay inherit global light. See [runtime CSS probes](css-runtime-probes.md).
+- [ ] Decide intended scoped theme semantics and validate any future fix across WASM/SSR/interactive render modes.
 - [x] Chrome desktop keyboard spot-check: clicked the lab Name field, pressed **Shift+Tab**, and visually observed the **Preview overlay** button's blue focus-visible outline at 929×917; no new browser diagnostics in that session. This proves only that specific keyboard route.
-- [ ] Complete the remaining keyboard/focus matrix, forced-colors/high-contrast, reduced motion and minimum interactive target tests in a real browser.
-- [ ] Record candidate cascade-layer specificity and consumer CSS precedence proofs (including `!important`).
+- [x] Run targeted Chrome CDP media probes: reduced-motion Button transition is 0s, but real Overlay animation remains **0.25s**; forced-colors remaps sampled colors. This exposes a motion gap but does not validate WCAG compliance. See [runtime CSS probes](css-runtime-probes.md).
+- [ ] Complete the remaining keyboard/focus matrix, forced-colors/high-contrast, reduced-motion **remediation**, and minimum target tests.
+- [x] Prove five native Chrome CSS cascade/theme inheritance rules (including `!important`) through a standalone fixture. See [runtime CSS probes](css-runtime-probes.md).
+- [ ] Test candidate layering **against real consumer overrides and compiled Bluent rules** before adopting `@layer`.
 - [ ] Demonstrate migration for grid/utility classes and lock equivalent CSS bundle size targets.
 - [ ] Map the component styling-lab DOM/screenshots to the **reviewed** Figma design, not only to source values.
 

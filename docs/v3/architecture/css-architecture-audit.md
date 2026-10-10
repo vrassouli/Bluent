@@ -114,4 +114,8 @@ The audit counts are lexical and include legitimate intentional design values, r
 4. **Do not remove Bootstrap yet**: build-time mixins and generated utility/grid classes still require replacement coverage and consumer migration tests.
 5. **Not yet validated:** WCAG contrast calculations, keyboard focus trapping, high contrast, reduced motion in real browser settings, browser-wide screenshot diffs, Sass package size differences, CSS `@layer` compatibility and SSR/static-rendering behavior. These remain approval gates for the final styling ADR.
 
-For precise source-to-Figma palette mapping, all ten branded CSS bundle checks and local NuGet pack evidence see [theme contract crosswalk](theme-contract-crosswalk.md) and the [verified Figma token/cascade decision board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) (node `14:3`). All proposed architectural decisions remain drafts.\n\nThis remains **In progress** under #417 and draft PR #498, not approved/merged architecture.
+For browser-backed CSS cascade proofs, actual nested DialogContainer theme behavior, reduced-motion and forced-color observations, and the design-tool quota limitation, see [CSS runtime probes](css-runtime-probes.md).
+
+For precise source-to-Figma palette mapping, all ten branded CSS bundle checks and local NuGet pack evidence see [theme contract crosswalk](theme-contract-crosswalk.md) and the [verified Figma token/cascade decision board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) (node `14:3`). All proposed architectural decisions remain drafts.
+
+This remains **In progress** under #417 and draft PR #498, not approved/merged architecture.
