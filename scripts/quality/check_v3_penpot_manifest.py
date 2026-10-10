@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 4:
-        errors.append("Initial working file should expose four tracked design pages")
+    if len(data["pages"]) != 9:
+        errors.append("Expanded working file should expose nine tracked design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -58,9 +58,23 @@ def main() -> int:
         if c.get("upstreamLinked") or c.get("approved"):
             errors.append("Draft local Button must not be represented as linked/approved")
     if {s["name"] for s in data["tokens"]["sets"]} != {
-        "bluent-v3/draft/light", "bluent-v3/draft/dark", "bluent-v3/draft/layout"
+        "bluent-v3/draft/light", "bluent-v3/draft/dark", "bluent-v3/draft/layout",
+        "bluent-v3/draft/typography", "bluent-v3/draft/spacing-scale",
+        "bluent-v3/draft/motion", "bluent-v3/draft/density"
     }:
         errors.append("Missing expected draft token set")
+    if sum(s["count"] for s in data["tokens"]["sets"]) != data["tokens"].get("totalEntries"):
+        errors.append("Penpot token counts must total 49 in the extended draft")
+    if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
+        errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
+    if data["designSource"].get("lastSeenRevision", 0) < 24:
+        errors.append("Saved extended Penpot research version missing")
+    if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
+        errors.append("Five new foundation boards were not all reviewed")
+    if data["evidence"].get("brandModeColorInventoryCount") != 20:
+        errors.append("Expected source-verified ten brands times two modes")
+    if data["evidence"].get("upstreamVariantSwitchingVerified") is not False:
+        errors.append("Imported Fluent Button variant switching remains unverified")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):

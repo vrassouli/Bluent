@@ -124,6 +124,7 @@ The maintained [inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/com
 
 - [Penpot v3 working library and issue #419 traceability](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/BLUENT-V3-PENPOT.md): real Penpot file/page/board IDs, draft token modes, first editable component and upstream library publication caveat; not approved v3 product guidance.
 - [Machine-readable Penpot design inventory](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/penpot-workspace.manifest.json): offline metadata, not a substitute for live design access.
+- [Draft Penpot v3 Foundations extensions](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/FOUNDATION-EXTENSIONS.md): editable typography/rhythm, density, motion/elevation, Persian RTL/forced-colors concepts, and source-verified 10-brand × 2-mode palette specimens. Research, not approved design or API.
 
 ## Cross-cutting guidance
 

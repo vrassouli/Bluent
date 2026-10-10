@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 14,
-    "savedDraftVersionLabel": "Bluent v3 · #419 foundation library draft 2026-10-10"
+    "lastSeenRevision": 24,
+    "savedDraftVersionLabel": "Bluent v3 · #419 expanded foundation research 2026-10-10"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -56,6 +56,36 @@
       "name": "03 · Quality & migration",
       "id": "07c521b9-e441-80bd-8008-c4ad87df93c3",
       "boardId": "07c521b9-e441-80bd-8008-c4aee23bc3ec"
+    },
+    {
+      "key": "typography-spacing",
+      "name": "04 · Typography & spacing",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce333b9",
+      "boardId": "07c521b9-e441-80bd-8008-c4b27d1df98c"
+    },
+    {
+      "key": "density-responsive",
+      "name": "05 · Density & responsive",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce4cf82",
+      "boardId": "07c521b9-e441-80bd-8008-c4b2a95b3527"
+    },
+    {
+      "key": "motion-elevation",
+      "name": "06 · Motion & elevation",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce54e51",
+      "boardId": "07c521b9-e441-80bd-8008-c4b2ead05451"
+    },
+    {
+      "key": "accessibility-rtl",
+      "name": "07 · Accessibility & RTL",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce6f58c",
+      "boardId": "07c521b9-e441-80bd-8008-c4b32a4e1bec"
+    },
+    {
+      "key": "brand-inventory",
+      "name": "08 · Brand inventory",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce7b0aa",
+      "boardId": "07c521b9-e441-80bd-8008-c4b3688e43c6"
     }
   ],
   "tokens": {
@@ -75,6 +105,26 @@
         "name": "bluent-v3/draft/layout",
         "count": 3,
         "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/typography",
+        "count": 13,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/spacing-scale",
+        "count": 11,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/motion",
+        "count": 6,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/density",
+        "count": 6,
+        "defaultActive": true
       }
     ],
     "themes": [
@@ -88,7 +138,10 @@
       }
     ],
     "switchingVerified": true,
-    "restoredMode": "Light"
+    "restoredMode": "Light",
+    "totalEntries": 49,
+    "sharedSetsPerMode": 5,
+    "modesLinkSharedSetsVerified": true
   },
   "components": [
     {
@@ -104,7 +157,13 @@
     "renderedPenpotBoardsVisuallyInspected": true,
     "sourceRef": "docs/v3/design/BLUENT-V3-PENPOT.md",
     "codeImplemented": false,
-    "parityValidated": false
+    "parityValidated": false,
+    "extendedFoundationsDoc": "docs/v3/design/FOUNDATION-EXTENSIONS.md",
+    "extendedBoardsVisuallyInspected": 5,
+    "rtlPersianCanvasFont": "Noto Sans Arabic",
+    "latinPreviewCanvasFont": "Inter",
+    "brandModeColorInventoryCount": 20,
+    "upstreamVariantSwitchingVerified": false
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",

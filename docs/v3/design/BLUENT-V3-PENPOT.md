@@ -5,7 +5,7 @@
 > **Design file:** `Bluent v3 Design System`, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. All IDs below were returned by the **live connected Penpot MCP API**, not inferred from external URLs. The browser workspace URL was not supplied; **do not invent a Penpot deep link**.
 > **Scope:** Build a traceable, editable **project-owned** design workspace before any public component/CSS changes. Approval of #417's CSS ADR and #418's token implementation is **not** implied by this draft.
 
-**Penpot recovery point:** a named design-file version was saved on 2026-10-10 as `Bluent v3 · #419 foundation library draft 2026-10-10` (verified working-file revision 14 at the time of the save). This labels **draft progress**, not approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
+**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`. Both mark **draft progress**, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
 
 ## 1. Design provenance and connected library caveat
 
@@ -23,12 +23,17 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `01 · Foundations` | `07c521b9-e441-80bd-8008-c4ad87dde57e` | `07c521b9-e441-80bd-8008-c4ae222798a6` | Native editable light/dark specimens from **verified current** default CSS, candidate D1–D4 decision cards |
 | `02 · Component anatomy` | `07c521b9-e441-80bd-8008-c4ad87dee26e` | `07c521b9-e441-80bd-8008-c4ae9e63585f` | Native, **locally drawn** Button variant mapping and Bluent-specific extension checklist |
 | `03 · Quality & migration` | `07c521b9-e441-80bd-8008-c4ad87df93c3` | `07c521b9-e441-80bd-8008-c4aee23bc3ec` | Four-stage reference → design → implementation → review acceptance flow; v2 isolation policy |
+| `04 · Typography & spacing` | `07c521b9-e441-80bd-8008-c4b24ce333b9` | `07c521b9-e441-80bd-8008-c4b27d1df98c` | Source font sizes/line heights and spacing specimens; Inter visual substitute |
+| `05 · Density & responsive` | `07c521b9-e441-80bd-8008-c4b24ce4cf82` | `07c521b9-e441-80bd-8008-c4b2a95b3527` | Three proposed density/command-surface patterns, not accepted defaults |
+| `06 · Motion & elevation` | `07c521b9-e441-80bd-8008-c4b24ce54e51` | `07c521b9-e441-80bd-8008-c4b2ead05451` | Eight source durations, six illustrative Penpot drop shadows, reduced-motion policy gap |
+| `07 · Accessibility & RTL` | `07c521b9-e441-80bd-8008-c4b24ce6f58c` | `07c521b9-e441-80bd-8008-c4b32a4e1bec` | Editable Persian RTL and English LTR, conceptual forced-colors system colors/focus |
+| `08 · Brand inventory` | `07c521b9-e441-80bd-8008-c4b24ce7b0aa` | `07c521b9-e441-80bd-8008-c4b3688e43c6` | Ten existing brand × light/dark CSS background token specimens |
 
-All three authored boards were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
+The original design boards and all **five extended foundation boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
 ## 3. Prototype design tokens and themes (never ship as final names)
 
-The new file has **3 locally authored draft sets**:
+The design file began with **3 locally authored draft sets** and now has **7 sets / 49 entries** in total. Source-aligned typography, spacing-scale, motion, and experimental density sets are described in the [extended foundations audit](FOUNDATION-EXTENSIONS.md). The initial sets were:
 
 | Set | Active in verified Light baseline? | Values |
 | --- | --- | --- |
@@ -36,7 +41,7 @@ The new file has **3 locally authored draft sets**:
 | `bluent-v3/draft/dark` | no | `bluent.color.background1=#292929`; `foreground1=#FFFFFF`; `brandBackground=#18599B`; `stroke1=#666666`; `brandForeground1=#4F82C8` |
 | `bluent-v3/draft/layout` | yes | `bluent.spacing.horizontalM=12` (spacing); `bluent.radius.medium=4` (border radius); `bluent.motion.fasterMs=100` (number) |
 
-There are **two themes** in group `Bluent v3 / Mode`: `Light · Draft` and `Dark · Draft`. A real API toggle **Light → Dark → Light** verified the expected mutually exclusive active theme/semantic sets, while retaining the layout set. The final state was restored to **Light**. This validates the **Penpot token-set/theme activation mechanism**, not complete light/dark visual or 10-brand parity.
+Both draft themes now explicitly include **five shared token sets** (layout, typography, spacing-scale, motion, density) plus their single mode-specific Light/Dark set. The verified transition still leaves the shared sets active. There are **two themes** in group `Bluent v3 / Mode`: `Light · Draft` and `Dark · Draft`. A real API toggle **Light → Dark → Light** verified the expected mutually exclusive active theme/semantic sets, while retaining the layout set. The final state was restored to **Light**. This validates the **Penpot token-set/theme activation mechanism**, not complete light/dark visual or 10-brand parity.
 
 The values above are a **source-referenced prototype of Bluent 2.x default-brand styling**, pending #417 styling ADR, #418 source/alias architecture and approved contrast/forced-colors/motion design. They are not claims of exact Microsoft Fluent 2 theme values or the full Bluent design token contract.
 
