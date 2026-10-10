@@ -1,6 +1,6 @@
 # Bluent v3 — CSS architecture baseline and proposed ADR
 
-> **Issue:** [#417](https://github.com/vrassouli/Bluent/issues/417) · **Status:** draft / source-verified only · **Branch:** `v3/issue-417-css-architecture` · **Date:** 2026-10-09
+> **Issue:** [#417](https://github.com/vrassouli/Bluent/issues/417) · **Status:** draft / source, limited browser and local package verified; ADR not approved · **Branch:** `v3/issue-417-css-architecture` · **Date:** 2026-10-09
 
 ## Purpose and guardrails
 
@@ -54,21 +54,21 @@ bundleconfig.json -> theme bundles (icons, reboot, light, dark, shared styles)
 - **Keep old cascade unchanged:** cheapest short-term, but does not resolve global overrides and themes.
 - **Adopt Fluent JS runtime wholesale:** unnecessary for the proposed Blazor-native styling and interaction foundation.
 
-## Required v3-only proof-of-concept (not yet implemented)
+## Required v3-only proof-of-concept (first demo implemented; full gates remain)
 
 Use Button, field/input and overlay to compare the old and candidate cascade/tokens under light/dark, RTL/LTR, disabled/validation, keyboard focus and nested themes. Exercise overlays outside normal DOM stacking contexts. Capture computed CSS and screenshots, specificity/cascade behavior, CSS bundle size, build/package output and supported render modes. Source examples or mockups alone are **not runtime/visual evidence**.
 
 ## Remaining work / review gates
 
-- [ ] Quantify selector specificity, hard-coded colors/dimensions, generated utilities, CSS collision and JS positioning dependencies with source references.
-- [ ] Record build warnings and distinguish compile-time, runtime and package dependencies.
-- [ ] Implement and validate the isolated Button/field/overlay POC before choosing tokens or cascade layers.
+- [x] Quantify lexical hard-coded colors/dimensions, Bootstrap source imports and JavaScript positioning candidates; generated utility equivalence, selector specificity and CSS collisions **remain open**.
+- [x] Record successful Release/Debug build, 20 existing tests and local NuGet pack evidence; distinguish static Sass imports from runtime dependencies.
+- [x] Implement the demo-only Button/Field/Overlay POC and exercise limited Chrome interaction; accessibility, portal inheritance and cross-browser tests remain open.
 - [ ] Approve or revise this ADR with reviewer findings; then unblock #418 and #420.
 - [ ] Add per-change CSS/assets compatibility rows to the #424 migration ledger.
 
 ## Evidence classification
 
-**Source verified:** cited source files, imports, selectors and package/build configuration inspected on the v3 baseline. **Not yet build/test/runtime/visual/pack verified** for the proposed architecture. No public component has been changed.
+**Source verified:** cited source files and package/build configuration. **Runtime verified (limited):** Chrome WASM Debug styling lab controls, themes, directions and mobile viewport. **Build/test verified:** Release and Debug builds, 20 existing unit tests, local pack smoke evidence. **Not verified:** a production v3 token architecture, full accessibility, multihost/portal theme behavior, unlayered/layered specificity regressions or approved visual parity. No public component has been changed.
 
 > **Design gate (2026-10-10):** Penpot is preferred, with an explicitly authorized **Figma fallback** if Penpot is disconnected or attached to a different file. The verified [Microsoft Fluent 2 Web Community kit](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) is the upstream reference; the independent editable [Bluent v3 working file](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc) contains a [draft #417 architecture board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2) (page `0:1`, node `2:2`). This is **research**, not an approved ADR/token specification or proof of component visual parity. The earlier code-only Button/Field/Overlay experiment remains separate, pending comparison to the eventually approved design. See [design-first workflow](../PENPOT-WORKFLOW.md).
 
@@ -114,4 +114,4 @@ The audit counts are lexical and include legitimate intentional design values, r
 4. **Do not remove Bootstrap yet**: build-time mixins and generated utility/grid classes still require replacement coverage and consumer migration tests.
 5. **Not yet validated:** WCAG contrast calculations, keyboard focus trapping, high contrast, reduced motion in real browser settings, browser-wide screenshot diffs, Sass package size differences, CSS `@layer` compatibility and SSR/static-rendering behavior. These remain approval gates for the final styling ADR.
 
-This remains **In progress** under #417 and draft PR #498, not approved/merged architecture.
+For precise source-to-Figma palette mapping, all ten branded CSS bundle checks and local NuGet pack evidence see [theme contract crosswalk](theme-contract-crosswalk.md) and the [verified Figma token/cascade decision board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) (node `14:3`). All proposed architectural decisions remain drafts.\n\nThis remains **In progress** under #417 and draft PR #498, not approved/merged architecture.
