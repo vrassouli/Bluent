@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 10:
-        errors.append("Expanded working file should expose ten tracked design pages")
+    if len(data["pages"]) != 15:
+        errors.append("Expanded working file should expose fifteen tracked design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -67,7 +67,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 27:
+    if data["designSource"].get("lastSeenRevision", 0) < 42:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -82,6 +82,41 @@ def main() -> int:
         errors.append("Button reference matrix must be linked and image-inspected")
     if data["evidence"].get("upstreamMatrixVerifiedLinkedCount") != 25:
         errors.append("The full upstream Button reference state matrix is not confirmed")
+    # This is an offline ledger check, not an API assertion against the Penpot server.
+    expected_matrices = {
+        "input": (28, 84),
+        "checkbox": (30, 30),
+        "dialog": (4, 4),
+        "datagrid-cell-medium": (7, 7),
+        "switch": (40, 40),
+    }
+    recorded = upstream.get("linkedComponentMatrices", [])
+    if len(recorded) != 5:
+        errors.append("Expected five linked form/grid source-reference matrices")
+    counts = 0
+    for entry in recorded:
+        family = entry.get("family", "")
+        expected = expected_matrices.get(family)
+        if expected is None:
+            errors.append(f"Unexpected linked reference family: {family}")
+            continue
+        count, source_count = expected
+        if entry.get("linkedInstanceCount") != count or entry.get("upstreamSourceVariantCount") != source_count:
+            errors.append(f"Source/linked count discrepancy in {family}")
+        for field in ("pageId", "boardId", "upstreamComponentId"):
+            valid_id(f"{family} {field}", entry.get(field))
+        if not entry.get("linkedVerified") or not entry.get("visuallyInspected"):
+            errors.append(f"{family} requires source-linked and visually inspected evidence")
+        matching_page = next((p for p in data["pages"] if p["id"] == entry.get("pageId")), None)
+        if not matching_page or matching_page["boardId"] != entry.get("boardId"):
+            errors.append(f"{family} board must be traceable to a manifest page")
+        counts += entry.get("linkedInstanceCount", 0)
+    if counts != 109 or upstream.get("totalLinkedReferenceMatrixInstances") != 134:
+        errors.append("Input/Checkbox/Dialog/Grid cell/Switch and Button counts disagree")
+    if upstream.get("totalLinkedReferenceMatrixFamilies") != 6:
+        errors.append("Expected six reference matrix families including Button")
+    if data["evidence"].get("formGridNewBoardsVisuallyInspected") != 5 or data["evidence"].get("formGridNewLinkedInstancesVerified") != 109:
+        errors.append("Missing new Penpot form/grid visual and source-link review evidence")
     if data["evidence"].get("upstreamVariantSwitchingVerified") is not False:
         errors.append("Imported Fluent Button variant switching remains unverified")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":

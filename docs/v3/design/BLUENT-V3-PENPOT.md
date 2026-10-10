@@ -5,7 +5,7 @@
 > **Design file:** `Bluent v3 Design System`, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. All IDs below were returned by the **live connected Penpot MCP API**, not inferred from external URLs. The browser workspace URL was not supplied; **do not invent a Penpot deep link**.
 > **Scope:** Build a traceable, editable **project-owned** design workspace before any public component/CSS changes. Approval of #417's CSS ADR and #418's token implementation is **not** implied by this draft.
 
-**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
+**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. A further revision **42** was saved as `Bluent v3 · #419 linked form/grid references 2026-10-10`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
 
 ## 1. Design provenance and connected library caveat
 
@@ -29,8 +29,13 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `07 · Accessibility & RTL` | `07c521b9-e441-80bd-8008-c4b24ce6f58c` | `07c521b9-e441-80bd-8008-c4b32a4e1bec` | Editable Persian RTL and English LTR, conceptual forced-colors system colors/focus |
 | `08 · Brand inventory` | `07c521b9-e441-80bd-8008-c4b24ce7b0aa` | `07c521b9-e441-80bd-8008-c4b3688e43c6` | Ten existing brand × light/dark CSS background token specimens |
 | `09 · Fluent Button state reference` | `07c521b9-e441-80bd-8008-c4b57568c3ef` | `07c521b9-e441-80bd-8008-c4b5759995ec` | **25 genuinely linked** imported Fluent Button variants: five styles × five states, Medium/icon+label; upstream visual reference only |
+| `10 · Fluent Input reference` | `07c521b9-e441-80bd-8008-c4d65ae7b089` | `07c521b9-e441-80bd-8008-c4d65b54658b` | **28 linked** Input Medium states/appearances, not TextField runtime tests |
+| `11 · Fluent Checkbox reference` | `07c521b9-e441-80bd-8008-c4d69e1290a6` | `07c521b9-e441-80bd-8008-c4d69e2a5bfe` | **30 linked** Checkbox state/status/style specimens, including Indeterminate |
+| `12 · Fluent Dialog reference` | `07c521b9-e441-80bd-8008-c4d6ead3600b` | `07c521b9-e441-80bd-8008-c4d6eae7cfb0` | **4 linked** 320/600px × Text/Placeholder layouts; no modal behavior testing |
+| `13 · Fluent DataGrid cells reference` | `07c521b9-e441-80bd-8008-c4d7543f25ff` | `07c521b9-e441-80bd-8008-c4d7545257d7` | **7 linked** Medium **cell-only** layouts, not a complete Grid |
+| `14 · Fluent Switch reference` | `07c521b9-e441-80bd-8008-c4d793a549ff` | `07c521b9-e441-80bd-8008-c4d793b68198` | **40 linked** Checked×Layout×State switch variants |
 
-The original design boards, all **five extended foundation boards**, and the **25-instance linked Fluent Button reference board** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
+The original design boards, all **five extended foundation boards**, the **25-instance linked Fluent Button reference board**, and the **five new Input/Checkbox/Dialog/DataGrid-cell/Switch reference boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
 ## 3. Prototype design tokens and themes (never ship as final names)
 
@@ -52,7 +57,13 @@ The locally created Penpot library component **`DRAFT · Primary Button`** has I
 
 The [verified upstream Penpot reference](https://github.com/vrassouli/Bluent/issues/417) defines 150 layout/size/state/appearance variants; existing Bluent public `Button` also has `Danger`, `Circular`/`Square`, `Compact`, toggle, icon/badge/link/split/dropdown, secondary text and RTL behaviors. The exact final design, keyboard accessibility and 100%-feature demo belong to the later **individual Button implementation issue**, not #419.
 
-## 5. Design and code contract: acceptance gates
+## 5. Linked form/grid reference work
+
+Five additional **source-linked static design** matrices have been authored within this independent Penpot file: Input **28**, Checkbox **30**, Dialog **4**, DataGrid **cell** **7**, Switch **40**. All five boards were visually inspected, and every one of the **109 new instances** was reverified as a connected source variant after the Penpot file was saved at revision 42. **Total linked reference matrix instances including Button: 134 across six families.** This does not mean 134 public Blazor components, full Fluent coverage, or functioning UI.
+
+The exact upstream variant axes, new page/board IDs, existing Bluent C# source/API crosswalk and unresolved acceptance tests are in the [component reference matrices](COMPONENT-REFERENCE-MATRICES.md).
+
+## 6. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.

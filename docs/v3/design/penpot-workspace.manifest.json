@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 27,
-    "savedDraftVersionLabel": "Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10"
+    "lastSeenRevision": 42,
+    "savedDraftVersionLabel": "Bluent v3 · #419 linked form/grid references 2026-10-10"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -54,7 +54,148 @@
       "linkedVerified": true,
       "visuallyInspected": true,
       "origin": "linked library variant-component instances, not an implementation"
-    }
+    },
+    "linkedComponentMatrices": [
+      {
+        "family": "input",
+        "pageId": "07c521b9-e441-80bd-8008-c4d65ae7b089",
+        "boardId": "07c521b9-e441-80bd-8008-c4d65b54658b",
+        "upstreamComponentId": "131b0055-4dfd-5274-b259-45c21ea2374c",
+        "upstreamSourceVariantCount": 84,
+        "linkedInstanceCount": 28,
+        "axes": {
+          "Size": [
+            "Medium (Default)"
+          ],
+          "State": [
+            "Rest",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Error",
+            "Disabled",
+            "Read only"
+          ],
+          "Style": [
+            "Filled lighter",
+            "Filled darker",
+            "Outline",
+            "Underline"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "checkbox",
+        "pageId": "07c521b9-e441-80bd-8008-c4d69e1290a6",
+        "boardId": "07c521b9-e441-80bd-8008-c4d69e2a5bfe",
+        "upstreamComponentId": "497b3553-d0e5-53d3-9c38-15a4f88d192b",
+        "upstreamSourceVariantCount": 30,
+        "linkedInstanceCount": 30,
+        "axes": {
+          "State": [
+            "Rest",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Disabled"
+          ],
+          "Status": [
+            "Unchecked",
+            "Checked",
+            "Indeterminate"
+          ],
+          "Style": [
+            "Standard",
+            "Circular"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "dialog",
+        "pageId": "07c521b9-e441-80bd-8008-c4d6ead3600b",
+        "boardId": "07c521b9-e441-80bd-8008-c4d6eae7cfb0",
+        "upstreamComponentId": "6806bf65-c164-5171-92cd-4cb84102ffa3",
+        "upstreamSourceVariantCount": 4,
+        "linkedInstanceCount": 4,
+        "axes": {
+          "Size": [
+            "320px",
+            "600px"
+          ],
+          "Layout": [
+            "Text",
+            "Placeholder"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "datagrid-cell-medium",
+        "pageId": "07c521b9-e441-80bd-8008-c4d7543f25ff",
+        "boardId": "07c521b9-e441-80bd-8008-c4d7545257d7",
+        "upstreamComponentId": "5cd3dfcb-e9d0-539a-b917-90dc6582535f",
+        "upstreamSourceVariantCount": 7,
+        "linkedInstanceCount": 7,
+        "axes": {
+          "Layout": [
+            "Cell actions",
+            "Single select",
+            "Multi-select",
+            "Text",
+            "Swappable",
+            "Link"
+          ],
+          "Style": [
+            "None",
+            "Primary",
+            "Secondary"
+          ]
+        },
+        "scope": "cell-only reference, NOT complete DataGrid",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "switch",
+        "pageId": "07c521b9-e441-80bd-8008-c4d793a549ff",
+        "boardId": "07c521b9-e441-80bd-8008-c4d793b68198",
+        "upstreamComponentId": "33756525-5af9-5f3d-a369-d85a217449f1",
+        "upstreamSourceVariantCount": 40,
+        "linkedInstanceCount": 40,
+        "axes": {
+          "Checked": [
+            "True",
+            "False"
+          ],
+          "Layout": [
+            "Switch+Label above",
+            "Switch+Label before",
+            "Switch+Label after",
+            "Switch"
+          ],
+          "State": [
+            "Rest",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Disabled"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      }
+    ],
+    "totalLinkedReferenceMatrixInstances": 134,
+    "totalLinkedReferenceMatrixFamilies": 6
   },
   "pages": [
     {
@@ -116,6 +257,36 @@
       "name": "09 · Fluent Button state reference",
       "id": "07c521b9-e441-80bd-8008-c4b57568c3ef",
       "boardId": "07c521b9-e441-80bd-8008-c4b5759995ec"
+    },
+    {
+      "key": "fluent-input-reference",
+      "name": "10 · Fluent Input reference",
+      "id": "07c521b9-e441-80bd-8008-c4d65ae7b089",
+      "boardId": "07c521b9-e441-80bd-8008-c4d65b54658b"
+    },
+    {
+      "key": "fluent-checkbox-reference",
+      "name": "11 · Fluent Checkbox reference",
+      "id": "07c521b9-e441-80bd-8008-c4d69e1290a6",
+      "boardId": "07c521b9-e441-80bd-8008-c4d69e2a5bfe"
+    },
+    {
+      "key": "fluent-dialog-reference",
+      "name": "12 · Fluent Dialog reference",
+      "id": "07c521b9-e441-80bd-8008-c4d6ead3600b",
+      "boardId": "07c521b9-e441-80bd-8008-c4d6eae7cfb0"
+    },
+    {
+      "key": "fluent-datagrid-cell-medium-reference",
+      "name": "13 · Fluent DataGrid cells reference",
+      "id": "07c521b9-e441-80bd-8008-c4d7543f25ff",
+      "boardId": "07c521b9-e441-80bd-8008-c4d7545257d7"
+    },
+    {
+      "key": "fluent-switch-reference",
+      "name": "14 · Fluent Switch reference",
+      "id": "07c521b9-e441-80bd-8008-c4d793a549ff",
+      "boardId": "07c521b9-e441-80bd-8008-c4d793b68198"
     }
   ],
   "tokens": {
@@ -194,7 +365,10 @@
     "latinPreviewCanvasFont": "Inter",
     "brandModeColorInventoryCount": 20,
     "upstreamVariantSwitchingVerified": false,
-    "upstreamMatrixVerifiedLinkedCount": 25
+    "upstreamMatrixVerifiedLinkedCount": 25,
+    "formGridReferenceDoc": "docs/v3/design/COMPONENT-REFERENCE-MATRICES.md",
+    "formGridNewBoardsVisuallyInspected": 5,
+    "formGridNewLinkedInstancesVerified": 109
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",
