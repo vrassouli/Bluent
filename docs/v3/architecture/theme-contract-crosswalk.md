@@ -62,7 +62,8 @@ For migration issue #424, record any changed CSS asset path, utility class, sele
 - [x] Compiled light/dark token crosswalk for default brand, 10 brand output checks, and isolated NuGet **pack** baseline.
 - [ ] Approve the D1–D4 decisions; until approval they are candidate architecture, not commitments.
 - [ ] Verify portal-mounted overlays and nested theme propagation in the intended render modes.
-- [ ] Exercise keyboard focus, forced-colors/high-contrast, reduced motion and minimum interactive targets on a real browser.
+- [x] Chrome desktop keyboard spot-check: clicked the lab Name field, pressed **Shift+Tab**, and visually observed the **Preview overlay** button's blue focus-visible outline at 929×917; no new browser diagnostics in that session. This proves only that specific keyboard route.
+- [ ] Complete the remaining keyboard/focus matrix, forced-colors/high-contrast, reduced motion and minimum interactive target tests in a real browser.
 - [ ] Record candidate cascade-layer specificity and consumer CSS precedence proofs (including `!important`).
 - [ ] Demonstrate migration for grid/utility classes and lock equivalent CSS bundle size targets.
 - [ ] Map the component styling-lab DOM/screenshots to the **reviewed** Figma design, not only to source values.
