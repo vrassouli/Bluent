@@ -44,3 +44,7 @@ See [concurrent brand design + source contract](BRAND-SCOPES-PREVIEW.md) and [pr
 
 ## 2026-10-11 follow-up: Persian reflow parity
 The same published InteractiveServer Chrome route now executes the expanded [Persian typography test](PERSIAN-TYPOGRAPHY-RESEARCH.md): 139/139 assertions, including semantic RTL text, bdi Latin identifiers, platform font glyph introspection, geometric Fluent icon/text alignment, actual 320 CSS-pixel viewport and consumer-enlarged 200%/400% Persian Button text. The previous 126/126 table above is an earlier checkpoint. This does not certify native AT or final font design.
+
+
+## 2026-10-11 source and form-state checkpoint
+Extended InteractiveServer Chrome/CDP browser result: **144/144** real checks, matching updated WASM **144/144**. Added native disabled Button keyboard focus exclusion and real Persian invalid TextField with label, aria-describedby, danger-state CSS and simulated forced-colors semantic continuity. See TYPOGRAPHY-SOURCE-AUDIT.md. The earlier 126/126 and 139/139 figures above remain historical milestones.

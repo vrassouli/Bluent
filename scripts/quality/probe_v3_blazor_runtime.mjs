@@ -53,6 +53,12 @@ try {
  assert("Blazor Button plus opt-in CSS",initial.opted&&initial.asset&&!!initial.color,JSON.stringify(initial));
  const field=await cdp.js("(()=>{const f=document.querySelector('.v3-lab-field .bui-field'),input=document.querySelector('#v3-experiment-name');return f&&input&&{background:getComputedStyle(f).backgroundColor,border:getComputedStyle(f).borderTopColor};})()");
  assert("real Blazor TextField under alias bridge",field&&!!field.background&&!!field.border,JSON.stringify(field));
+ const stateSemantics=await cdp.js("(()=>{const disabled=document.querySelector('#v3-disabled-button'),input=document.querySelector('#v3-invalid-field'),label=document.querySelector('label[for=v3-invalid-field]'),hint=document.querySelector('#v3-invalid-description'),field=input?.closest('.bui-field');return {disabled:disabled?.disabled,disabledTabIndex:disabled?.tabIndex,invalid:input?.getAttribute('aria-invalid'),described:input?.getAttribute('aria-describedby')===hint?.id,label:label?.textContent?.trim(),border:field&&getComputedStyle(field).borderTopColor,normalBorder:getComputedStyle(document.querySelector('.v3-lab-field .bui-field')).borderTopColor,danger:getComputedStyle(field).getPropertyValue('--colorStatusDangerBorder2').trim(),text:hint?.textContent?.trim()};})()");
+ assert("disabled Bluent Button is natively disabled",stateSemantics.disabled===true&&stateSemantics.disabledTabIndex===0,JSON.stringify(stateSemantics));
+ const disabledFocus=await cdp.js("(()=>{const b=document.querySelector('#v3-disabled-button');b.focus();return {focused:document.activeElement===b,disabled:b.disabled}})()");
+ assert("disabled Button cannot receive programmatic keyboard focus",disabledFocus.disabled&&!disabledFocus.focused,JSON.stringify(disabledFocus));
+ assert("Persian invalid TextField is labeled and aria-described",stateSemantics.invalid==="true"&&stateSemantics.described&&!!stateSemantics.label&&!!stateSemantics.text,JSON.stringify(stateSemantics));
+ assert("opt-in error field border follows source danger token",!!stateSemantics.danger&&stateSemantics.border!==stateSemantics.normalBorder,JSON.stringify(stateSemantics));
  // #418 bilingual text and real Fluent icon/text geometry in the authored Blazor
  // sample. Restrict to measurable DOM/focus/layout; optical glyph centering and
  // Persian shaping still need visual/native review.
@@ -205,6 +211,8 @@ try {
  const portalForced=await cdp.js("(()=>{const d=[...document.querySelectorAll('.dialog-wrapper')],p=document.querySelector('#v3-popover-trigger_surface');const pick=x=>{const s=getComputedStyle(x);return {background:s.getPropertyValue('--bui-v3-action-background').trim(),focus:s.getPropertyValue('--bui-v3-border-focus').trim()}};return {first:pick(d[0]),second:pick(d[1]),legacy:pick(d[2]),popover:pick(p)};})()");
  assert("forced colors reach scoped Dialog and Popover",portalForced.first.background==="ButtonFace"&&portalForced.second.background==="ButtonFace"&&portalForced.popover.background==="ButtonFace"&&portalForced.first.focus==="Highlight",JSON.stringify(portalForced));
  assert("forced colors do not leak v3 aliases into unscoped Dialog",portalForced.legacy.background==="",JSON.stringify(portalForced.legacy));
+ const forcedError=await cdp.js("(()=>{const input=document.querySelector('#v3-invalid-field'),field=input.closest('.bui-field'),hint=document.querySelector('#v3-invalid-description');return {invalid:input.getAttribute('aria-invalid'),border:getComputedStyle(field).borderTopColor,textColor:getComputedStyle(hint).color,enabled:matchMedia('(forced-colors: active)').matches};})()");
+ assert("forced-colors Persian error remains semantically identified",forcedError.enabled&&forcedError.invalid==="true"&&!!forcedError.border&&!!forcedError.textColor,JSON.stringify(forcedError));
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
  const dialogMotion=await cdp.js("getComputedStyle(document.querySelector('.dialog-wrapper .bui-dialog')).animationDuration");

@@ -28,7 +28,7 @@
         <p>Use Tab and Shift+Tab to inspect focus. Switch Light/Dark and LTR/RTL to compare computed colors.</p>
         <div class="v3-lab-actions">
             <Button id="v3-token-action" Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
-            <Button Text="Disabled" disabled />
+            <Button id="v3-disabled-button" Text="Disabled" disabled />
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
             <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
@@ -73,6 +73,10 @@
             </div>
             <label for="v3-fa-field">عنوان درخواست</label>
             <TextField id="v3-fa-field" placeholder="عنوان را وارد کنید" />
+            <label for="v3-invalid-field">مبلغ نامعتبر</label>
+            <TextField id="v3-invalid-field" aria-invalid="true" aria-describedby="v3-invalid-description"
+                       placeholder="مبلغ را اصلاح کنید" />
+            <span id="v3-invalid-description" class="v3-lab-validation">لطفاً مبلغ معتبر وارد کنید.</span>
             <p class="v3-lab-hint">فونت‌ها از سیستم کاربر انتخاب می‌شوند؛ این بخش صرفاً آزمایش‌پذیر است و فونت جدیدی همراه بسته منتشر نمی‌کند.</p>
         </section>        <div class="v3-lab-field">
             <label for="v3-experiment-name">Name</label>

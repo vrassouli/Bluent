@@ -48,3 +48,7 @@ Final API/RTL typography approval, visual tests on real devices and migration do
 
 ## Additional browser host matrix
 Repeated the identical 139-assertion browser script with CHROME_PATH set to the installed Microsoft Edge browser on Dev01. **Edge + Blazor WebAssembly: 139/139; Edge + published Interactive Server: 139/139**. Existing Google Chrome tests independently pass 139/139 on both hosts. Edge and Chrome are both Chromium-based and this does NOT certify Firefox, Safari, actual mobile browsers, native OS forced-colors or screen readers. Reproduction with Edge: set CHROME_PATH to C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe; optionally set BLUENT_V3_LAB_MODE=server; run node scripts/quality/probe_v3_blazor_runtime.mjs. The script tears down the isolated browser and local app after the run.
+
+
+## 2026-10-11 state and source typography audit
+[Exact 17-token typography source inventory across 10 brands and two modes](TYPOGRAPHY-SOURCE-AUDIT.md) and the new real semantic disabled/invalid Persian samples extend the opt-in demo. The updated Chrome/Blazor WebAssembly and InteractiveServer probes each pass **144/144**. Disabled Button cannot acquire focus; the invalid TextField has associated visible label and aria-describedby; its demo-only danger border is measurably distinct from the normal field and its error role persists in simulated forced-colors. Do not read this as screen-reader or complete state conformance.

@@ -135,3 +135,17 @@
 .v3-lab-typography ::deep .bui-field {
     max-width: 100%;
 }
+/* #418 candidate only: invalid field explanation is semantic. No global
+   TextField/error-state contract is added to the shipping component stylesheet. */
+.v3-lab-validation {
+    color: var(--bui-v3-text-danger-accessible, var(--colorStatusDangerForeground1));
+    overflow-wrap: anywhere;
+}
+.v3-lab-typography ::deep .bui-field:has(input[aria-invalid="true"]) {
+    border-color: var(--colorStatusDangerBorder2);
+}
+@media (forced-colors: active) {
+    .v3-lab-typography ::deep .bui-field:has(input[aria-invalid="true"]) {
+        border-color: CanvasText;
+    }
+}

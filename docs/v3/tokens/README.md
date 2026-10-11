@@ -119,3 +119,9 @@ The [published SSR InteractiveServer integration probe](INTERACTIVE-SERVER-PROBE
 
 ## Persian typography / genuine 320px reflow research
 The [live فارسی, ZWNJ, Latin identifiers and icon/text alignment research](PERSIAN-TYPOGRAPHY-RESEARCH.md) adds three real Bluent Buttons, one TextField, isolated bidi identifiers and Chrome platform-font tracing to the opt-in lab. It corrects the previous mobile emulation false-positive: CSS viewport width is now explicitly asserted to be 320 or 390px. An observed 400% long Persian Button overflow was fixed **only inside the v3 demo CSS**, using wrapping and width constraints. The current dual-mode browser matrix is **139/139 WASM and 139/139 Interactive Server**, subject to their documented scope. A new Penpot typography design and approved font choice are still pending; stable Bluent.UI Button SCSS is unchanged.
+
+
+## Verifiable typography source and invalid/disabled states
+The [#418 typography source audit](TYPOGRAPHY-SOURCE-AUDIT.md) parses the existing 10-brand × Light/Dark CSS and verifies the same 17 declared family/weight/size/line-height values for all 20 modes (fontSizeBase300 14px, lineHeightBase300 20px). These are **legacy source facts**, not approved v3 typography. The research demo now contains a truly disabled Bluent Button and Persian invalid TextField with aria-describedby and a demo-only source-danger border. Updated Chrome WASM and InteractiveServer test suites pass **144/144** each; final font/visual/native AT decisions remain open.
+
+Additional real Microsoft Edge (Chromium) repetitions of the full new 144-check matrix pass on both WebAssembly and locally published InteractiveServer; see TYPOGRAPHY-SOURCE-AUDIT.md. This does not provide Firefox/Safari/AT coverage.
