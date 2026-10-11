@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 19:
-        errors.append("Penpot workspace should track nineteen design pages")
+    if len(data["pages"]) != 22:
+        errors.append("Penpot workspace should track twenty-two design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -78,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 89:
+    if data["designSource"].get("lastSeenRevision", 0) < 110:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -170,10 +170,52 @@ def main() -> int:
         ev.get("nativeVariantTotal") != 34 or
         ev.get("nativeVariantLinkedPreviews") != 34 or
         ev.get("nativeVariantBoardsVisuallyInspected") != 3 or
-        ev.get("localComponentFamilyEntriesVerified") != 7):
+        ev.get("localComponentFamilyEntriesVerified") != 9):
         errors.append("Native form-control design evidence/asset counts are incomplete")
     if ev.get("additionalDraftTokenBindings") != 15:
         errors.append("Missing record of 15 newly applied draft design-token bindings")
+    button_specs = {"button-appearance-state": 25, "button-size-layout": 6}
+    button_matrices = data.get("nativeButtonVariantMatrices", [])
+    if len(button_matrices) != 2 or {x.get("family") for x in button_matrices} != set(button_specs):
+        errors.append("Native Button should have two separate state/size variant families")
+    button_total = 0
+    button_links = 0
+    for entry in button_matrices:
+        family = entry.get("family", "")
+        expected = button_specs.get(family)
+        if expected is None:
+            errors.append(f"Unexpected Button family: {family}")
+            continue
+        for field in ("pageId", "presentationBoardId", "variantContainerId", "componentFamilyId"):
+            valid_id(f"native Button {family} {field}", entry.get(field))
+        p = next((p for p in data["pages"] if p["id"] == entry.get("pageId")), None)
+        if p is None or p["boardId"] != entry.get("presentationBoardId"):
+            errors.append(f"Button {family} main board not registered")
+        cardinality = 1
+        for values in entry.get("axes", {}).values():
+            cardinality *= len(set(values))
+        if (cardinality != expected or entry.get("variantCount") != expected or
+            entry.get("linkedLocalPreviewCount") != expected):
+            errors.append(f"Native Button {family} count/axis mismatch")
+        if not all(entry.get(flag) for flag in
+                   ("allLocalLinksVerified", "uniqueAxisTuplesVerified", "renderedAndVisuallyInspected")):
+            errors.append(f"Button {family} needs actual variant and rendering proof")
+        if entry.get("approved") is not False or "native" not in entry.get("source", ""):
+            errors.append(f"Native Button {family} must remain unapproved research")
+        button_total += entry.get("variantCount", 0)
+        button_links += entry.get("linkedLocalPreviewCount", 0)
+    if (button_total, button_links) != (31, 31):
+        errors.append("Expected 25 + 6 native Button variants and linked previews")
+    if (ev.get("nativeButtonVariantFamilies") != 2 or
+        ev.get("nativeButtonVariantTotal") != 31 or
+        ev.get("nativeButtonLinkedPreviews") != 31 or
+        ev.get("nativeButtonBoardsVisuallyInspected") != 2 or
+        not ev.get("nativeButtonApiSketchBoardVisuallyInspected") or
+        ev.get("nativeButtonApiSketchCases") != 8 or
+        ev.get("totalLocalNativeVariantFamilies") != 5 or
+        ev.get("totalLocalNativeVariants") != native_total + button_total or
+        ev.get("totalLocalNativeLinkedPreviews") != linked_total + button_links):
+        errors.append("Incomplete linked Penpot native Button/API research evidence")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):
@@ -182,8 +224,9 @@ def main() -> int:
           f"{len(data['tokens']['sets'])} token sets, "
           f"{len(data['tokens']['themes'])} themes, "
           f"{len(data['components'])} original local draft component(s), "
-          f"{len(native)} native variant families / {native_total} variants, "
-          f"{linked_total} linked previews; "
+          f"{len(native) + len(button_matrices)} native variant families / "
+          f"{native_total + button_total} variants, "
+          f"{linked_total + button_links} linked previews; "
           f"{len(errors)} errors. Offline metadata only.")
     for problem in errors:
         print("ERROR:", problem)

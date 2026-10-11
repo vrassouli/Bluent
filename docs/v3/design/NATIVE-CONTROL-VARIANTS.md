@@ -52,6 +52,8 @@ A static Penpot RTL example does **not** certify correct keyboard order, click t
 - The first two native variants were merged using `combineAsVariants()`, and subsequent variants were added using Penpot's `Variants.addVariant()` before individually setting variant axis values. We explicitly **verified all 34 axis tuples and instance links** because newly added variants can initially report placeholder axis values until the next plugin update.
 - The completed TextField, Checkbox and Switch presentation boards were PNG-exported and visually inspected. We corrected TextField row labels that overlapped the linked field specimen, expanded matrix row widths that clipped components, adjusted Persian text widths, and added explicit Checkbox focus outlines across all statuses. These corrections are part of the final named recovery version.
 
+**Follow-up:** Two additional local **Button** variant families were implemented after this form-control research: 25 appearance/state and 6 size/layout combinations, with 31 linked local previews in a separate Penpot design board, plus eight editable Bluent-specific API sketches. These are documented in [native Button variants](NATIVE-BUTTON-VARIANTS.md). The workspace now contains **five native variant families / 65 combinations**, not just the three form-control families described above. All remain draft.
+
 ## Open acceptance gates
 
 1. **#417** architecture D1–D4 approval: theme scope, CSS layers, semantic aliases and utility migration.

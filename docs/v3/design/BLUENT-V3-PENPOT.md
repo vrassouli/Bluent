@@ -1,11 +1,11 @@
 # Bluent v3 Design System — Penpot working library (#419)
 
-> **Status: In progress · DRAFT / NOT APPROVED · 2026-10-10**
+> **Status: In progress · DRAFT / NOT APPROVED · 2026-10-11**
 > **Repository work:** `v3/issue-419-penpot-library` → **PR into `bluent-v3` only**.
 > **Design file:** `Bluent v3 Design System`, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. All IDs below were returned by the **live connected Penpot MCP API**, not inferred from external URLs. The browser workspace URL was not supplied; **do not invent a Penpot deep link**.
 > **Scope:** Build a traceable, editable **project-owned** design workspace before any public component/CSS changes. Approval of #417's CSS ADR and #418's token implementation is **not** implied by this draft.
 
-**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. A further revision **42** was saved as `Bluent v3 · #419 linked form/grid references 2026-10-10`; then revision **48** as `Bluent v3 · #419 local TextField Checkbox Switch draft 2026-10-10`. Finally, native local TextField/Checkbox/Switch variant sets were saved at revision **89** as `Bluent v3 · #419 native form-control variants reviewed 2026-10-10`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
+**Penpot recovery points:** the initial named draft was saved at revision 14 as `Bluent v3 · #419 foundation library draft 2026-10-10`; the extended foundation design was subsequently saved at revision **24** as `Bluent v3 · #419 expanded foundation research 2026-10-10`, and the upstream linked Button matrix at revision **27** as `Bluent v3 · #419 Fluent Button 25-state reference 2026-10-10`. A further revision **42** was saved as `Bluent v3 · #419 linked form/grid references 2026-10-10`; then revision **48** as `Bluent v3 · #419 local TextField Checkbox Switch draft 2026-10-10`. Finally, native local TextField/Checkbox/Switch variant sets were saved at revision **89** as `Bluent v3 · #419 native form-control variants reviewed 2026-10-10`. A further native **Button** state/size/API extension research version was saved at revision **110** as `Bluent v3 · #419 native Button states sizes and API anatomy 2026-10-11`. All are draft recovery points, not design approval. The primary source of design truth is still the Penpot working file; this repository only stores IDs and review evidence.
 
 ## 1. Design provenance and connected library caveat
 
@@ -38,6 +38,9 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `16 · Bluent TextField variants` | `e31294c6-7c55-805f-8008-c51213e75deb` | `e31294c6-7c55-805f-8008-c512bf412b37` | **10 locally owned linked** TextField native variants; `State × Appearance` |
 | `17 · Bluent Checkbox variants` | `e31294c6-7c55-805f-8008-c51213e87848` | `e31294c6-7c55-805f-8008-c51334e865e4` | **12 locally owned linked** Checkbox native variants; `Status × State` including Mixed |
 | `18 · Bluent Switch variants` | `e31294c6-7c55-805f-8008-c51213e8a17b` | `e31294c6-7c55-805f-8008-c5139a9544bf` | **12 locally owned linked** Switch native variants; `Checked × State × Direction`, Persian RTL |
+| `19 · Bluent Button native variants` | `e31294c6-7c55-805f-8008-c58ffcf22e07` | `e31294c6-7c55-805f-8008-c5907590b592` | **25 linked local** Button `Appearance × State` variants |
+| `20 · Bluent Button sizes and layout` | `e31294c6-7c55-805f-8008-c590b2678162` | `e31294c6-7c55-805f-8008-c590fe0982cf` | **6 linked local** Button `Size × Layout` variants |
+| `21 · Button Bluent-specific API anatomy` | `e31294c6-7c55-805f-8008-c5912770e8ab` | `e31294c6-7c55-805f-8008-c591278b98dd` | Eight editable **noninteractive** visual sketches of existing Bluent-specific Button features |
 
 The original design boards, all **five extended foundation boards**, the **25-instance linked Fluent Button reference board**, and the **five new Input/Checkbox/Dialog/DataGrid-cell/Switch reference boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
@@ -83,7 +86,13 @@ The [native Penpot variant record](NATIVE-CONTROL-VARIANTS.md) identifies exact 
 
 This is **design implementation**, not Blazor implementation, CSS architecture sign-off, 100%-feature demo, or an accepted WCAG claim. Additional error/disabled/filled draft swatches remain literal values until #417/#418 authorize a final semantic token mapping.
 
-## 8. Design and code contract: acceptance gates
+## 8. Native Button visual states, sizes and Bluent extensions
+
+Penpot now has **22 editable pages** and **five native project-owned variant families** (34 previously verified TextField/Checkbox/Switch variants **plus 31 new Button variants**, 65 in total). The native Button design comprises a 5×5 Medium appearance/state family and a 3×2 size/layout family, with **31 real linked local preview instances**. An additional page illustrates eight existing Bluent Button API capabilities including Danger, Toggle, badge, compound text and dropdown/split without claiming those illustrations are interactive. The current public Button `Appearance.Default` is distinct from the imported Fluent `Secondary` terminology; Danger exists in Bluent and must be preserved.
+
+All three new Penpot boards were PNG-exported and reviewed, all 31 local Button variants and source-linked previews were read back live with **unique axis tuples**, and a named design-file recovery version was saved at revision **110**. See [Button native design/API ledger](NATIVE-BUTTON-VARIANTS.md) for exact IDs, current C#/Razor API evidence and open sign-off checks. **Never mistake five families of design variants for component behavior, runtime correctness or Fluent parity.** Imported reference source is unchanged.
+
+## 9. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.

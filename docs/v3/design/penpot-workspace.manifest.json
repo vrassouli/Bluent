@@ -3,15 +3,15 @@
   "project": "Bluent v3",
   "issue": 419,
   "reviewStatus": "draft",
-  "updatedDate": "2026-10-10",
+  "updatedDate": "2026-10-11",
   "designSource": {
     "platform": "penpot",
     "fileName": "Bluent v3 Design System",
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 89,
-    "savedDraftVersionLabel": "Bluent v3 · #419 native form-control variants reviewed 2026-10-10"
+    "lastSeenRevision": 110,
+    "savedDraftVersionLabel": "Bluent v3 · #419 native Button states sizes and API anatomy 2026-10-11"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -311,6 +311,24 @@
       "name": "18 · Bluent Switch variants",
       "id": "e31294c6-7c55-805f-8008-c51213e8a17b",
       "boardId": "e31294c6-7c55-805f-8008-c5139a9544bf"
+    },
+    {
+      "key": "native-button-state-variants",
+      "name": "19 · Bluent Button native variants",
+      "id": "e31294c6-7c55-805f-8008-c58ffcf22e07",
+      "boardId": "e31294c6-7c55-805f-8008-c5907590b592"
+    },
+    {
+      "key": "native-button-size-layout",
+      "name": "20 · Bluent Button sizes and layout",
+      "id": "e31294c6-7c55-805f-8008-c590b2678162",
+      "boardId": "e31294c6-7c55-805f-8008-c590fe0982cf"
+    },
+    {
+      "key": "button-bluent-extensions",
+      "name": "21 · Button Bluent-specific API anatomy",
+      "id": "e31294c6-7c55-805f-8008-c5912770e8ab",
+      "boardId": "e31294c6-7c55-805f-8008-c591278b98dd"
     }
   ],
   "tokens": {
@@ -431,8 +449,18 @@
     "nativeVariantTotal": 34,
     "nativeVariantLinkedPreviews": 34,
     "nativeVariantBoardsVisuallyInspected": 3,
-    "localComponentFamilyEntriesVerified": 7,
-    "additionalDraftTokenBindings": 15
+    "localComponentFamilyEntriesVerified": 9,
+    "additionalDraftTokenBindings": 15,
+    "nativeButtonDesignDoc": "docs/v3/design/NATIVE-BUTTON-VARIANTS.md",
+    "nativeButtonVariantFamilies": 2,
+    "nativeButtonVariantTotal": 31,
+    "nativeButtonLinkedPreviews": 31,
+    "nativeButtonBoardsVisuallyInspected": 2,
+    "nativeButtonApiSketchBoardVisuallyInspected": true,
+    "nativeButtonApiSketchCases": 8,
+    "totalLocalNativeVariantFamilies": 5,
+    "totalLocalNativeVariants": 65,
+    "totalLocalNativeLinkedPreviews": 65
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",
@@ -520,6 +548,63 @@
       "linkedLocalPreviewCount": 12,
       "uniqueAxisTuplesVerified": true,
       "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    }
+  ],
+  "nativeButtonVariantMatrices": [
+    {
+      "family": "button-appearance-state",
+      "source": "native project-owned Bluent design variants, not upstream",
+      "pageId": "e31294c6-7c55-805f-8008-c58ffcf22e07",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c5900fba48e4",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c5907590b592",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c5900987e9aa",
+      "axes": {
+        "Appearance": [
+          "Primary",
+          "Secondary",
+          "Outline",
+          "Subtle",
+          "Transparent"
+        ],
+        "State": [
+          "Rest",
+          "Hover",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "variantCount": 25,
+      "linkedLocalPreviewCount": 25,
+      "allLocalLinksVerified": true,
+      "uniqueAxisTuplesVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    },
+    {
+      "family": "button-size-layout",
+      "source": "native project-owned Bluent design variants, not upstream",
+      "pageId": "e31294c6-7c55-805f-8008-c590b2678162",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c590d62d466d",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c590fe0982cf",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c590b2a37ba8",
+      "axes": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "Layout": [
+          "Icon and label",
+          "Icon only"
+        ]
+      },
+      "variantCount": 6,
+      "linkedLocalPreviewCount": 6,
+      "allLocalLinksVerified": true,
+      "uniqueAxisTuplesVerified": true,
       "renderedAndVisuallyInspected": true,
       "approved": false
     }
