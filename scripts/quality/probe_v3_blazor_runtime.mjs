@@ -7,11 +7,13 @@ import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
 const cwd=resolve(fileURLToPath(new URL("../../",import.meta.url)));
-const origin=process.env.BLUENT_V3_LAB_ORIGIN||"http://127.0.0.1:5129";
+const interactiveServer=process.env.BLUENT_V3_LAB_MODE==="server";
+const origin=process.env.BLUENT_V3_LAB_ORIGIN||(interactiveServer?"http://127.0.0.1:5159":"http://127.0.0.1:5129");
+const route=interactiveServer?"/v3/interactive-portal-lab":"/v3/styling-lab";
 const chromePath=process.env.CHROME_PATH||"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const dir=mkdtempSync(join(tmpdir(),"bluent-v3-418-cdp-")),children=[],checks=[],errors=[];
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function start(cmd,args){const p=spawn(cmd,args,{cwd,stdio:["ignore","pipe","pipe"],windowsHide:true});let log="";for(const s of [p.stdout,p.stderr])s.on("data",b=>log=(log+String(b)).slice(-2000));p.tail=()=>log;children.push(p);return p;}
+function start(cmd,args,workDir=cwd,environment=process.env){const p=spawn(cmd,args,{cwd:workDir,env:environment,stdio:["ignore","pipe","pipe"],windowsHide:true});let log="";for(const s of [p.stdout,p.stderr])s.on("data",b=>log=(log+String(b)).slice(-2000));p.tail=()=>log;children.push(p);return p;}
 function assert(name,ok,notes=""){checks.push({name,pass:!!ok,notes});if(!ok)errors.push(name+": "+notes);}
 async function until(fn,name,ms=65000){const end=Date.now()+ms;let last="";while(Date.now()<end){try{const r=await fn();if(r)return r;}catch(e){last=String(e)}await sleep(320);}throw Error("Timeout "+name+" "+last);}
 class CDP {
@@ -23,13 +25,28 @@ class CDP {
 }
 let cdp;
 try {
- const app=start("dotnet",["run","--configuration","Debug","--no-build","--no-launch-profile","--project","src/Bluent.UI.Demo/Bluent.UI.Demo.csproj","--","--urls="+origin]);
- await until(async()=>{if(app.exitCode!==null)throw Error(app.tail());return (await fetch(origin+"/v3/styling-lab",{signal:AbortSignal.timeout(1100)})).ok;},"WASM server",85000);
+ // ASP.NET Core 10 Development static asset endpoints can be unavailable in
+ // a raw --no-build host. Run a genuine PUBLISHED Production SSR host from
+ // its own working directory, exactly as the verified SSR smoke does.
+ let app;
+ if(interactiveServer) {
+   const published=join(dir,"published-ssr");
+   execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
+     "--configuration","Release","--no-restore","--nologo","--verbosity","quiet","--output",published],
+     {cwd,windowsHide:true,stdio:"pipe",timeout:120000});
+   app=start("dotnet",["Bluent.UI.Demo.SSR.dll"],published,{
+     ...process.env,ASPNETCORE_ENVIRONMENT:"Production",ASPNETCORE_URLS:origin
+   });
+ } else {
+   app=start("dotnet",["run","--configuration","Debug","--no-build","--no-launch-profile",
+     "--project","src/Bluent.UI.Demo/Bluent.UI.Demo.csproj","--","--urls="+origin]);
+ }
+ await until(async()=>{if(app.exitCode!==null)throw Error(app.tail());return (await fetch(origin+route,{signal:AbortSignal.timeout(1100)})).ok;},"WASM server",85000);
  const browser=start(chromePath,["--headless=new","--disable-gpu","--no-sandbox","--disable-extensions","--no-first-run","--remote-debugging-port=0","--remote-allow-origins=*","--user-data-dir="+dir,"about:blank"]);
  const port=await until(()=>{if(browser.exitCode!==null)throw Error(browser.tail());const p=join(dir,"DevToolsActivePort");return existsSync(p)?readFileSync(p,"utf8").split(/\r?\n/)[0]:null;},"Chrome CDP");
  const target=await until(async()=>{const r=await fetch("http://127.0.0.1:"+port+"/json/list");return (await r.json()).find(t=>t.type==="page"&&t.webSocketDebuggerUrl);},"Chrome target");
  cdp=new CDP(target.webSocketDebuggerUrl);await cdp.open();await cdp.send("Page.enable");await cdp.send("Runtime.enable");await cdp.send("Log.enable");await cdp.send("Network.enable");
- await cdp.send("Page.navigate",{url:origin+"/v3/styling-lab"});
+ await cdp.send("Page.navigate",{url:origin+route});
  await until(()=>cdp.js("!!(document.querySelector('.v3-lab-surface')&&document.querySelector('#v3-token-action'))"),"real controls",18000);
  await sleep(2000);
  const initial=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.querySelector('#v3-token-action');return {opted:h.hasAttribute('data-bui-v3-tokens'),color:getComputedStyle(b).backgroundColor,asset:[...document.styleSheets].some(s=>s.href?.includes('issue-418.opt-in.preview.css'))};})()");
@@ -169,7 +186,7 @@ try {
  assert("opt-in reduced-motion Dialog can be dismissed",beforeClose===3&&afterClose===2,"before="+beforeClose+" after="+afterClose);
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  const passCount=checks.filter(x=>x.pass).length;
- const summary={classification:"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),expectedUnfixedDefects:[],errors,limits:"computed-style arithmetic and Chrome smoke; NOT a full WCAG, AT, cross-browser, live brand-host, portal fix or native OS certification"};
+ const summary={classification:interactiveServer?"actual Blazor interactive SSR Server Chrome/CDP interaction":"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),expectedUnfixedDefects:[],errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;

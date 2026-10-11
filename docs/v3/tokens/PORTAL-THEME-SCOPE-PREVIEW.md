@@ -55,3 +55,6 @@ Run `dotnet build Bluent.sln --configuration Release --no-restore`, `dotnet test
 
 ## Latest multi-brand checkpoint
 See BRAND-SCOPES-PREVIEW.md for Penpot page 34 and 126/126 Chrome checks with Excel/Light and Word/Dark simultaneously, two branded portals, 49 source-varying custom properties, and 40/40 NUnit tests. This remains a research-only opt-in API and stylesheet.
+
+## Actual Interactive Server parity
+A second local Chrome execution (Production-published SSR + InteractiveServer, no remote deploy) now passes the same **126/126** Blazor interactions as WASM. See INTERACTIVE-SERVER-PROBE.md. This adds interaction evidence for the scoped Dialog/Popover services, but does not certify every pre-rendered SSR page, native accessibility or RenderMode.Auto.

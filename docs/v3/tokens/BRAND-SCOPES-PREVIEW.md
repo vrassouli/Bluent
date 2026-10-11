@@ -44,6 +44,9 @@ The real Blazor lab uses **Excel / Light** as an explicitly branded main host, a
 
 **40/40 NUnit checks** pass, including brand allowed-list/validation tests. The 126 browser checks are narrow observable behavior, **not** native OS High Contrast, assistive technology, screen-reader, WCAG certification, full reflow or all interaction-state coverage. Runtime tests use 20 single-theme document swaps in one section **and concurrently different brands in two hosts** in another section; do not conflate these test types.
 
-**Remaining:** final API/type naming and ownership approval, full 450-variable cross-layer contract sign-off, complete 10×2 visual parity, multiple independent applications with SSR prerender/interactivity, keyboard and accessibility testing on native devices, Persian typography, disabled/error/hover state coverage, full design-to-code review and migration/Skills before #418 is eligible for Review.
+**Remaining:** final API/type naming and ownership approval, full 450-variable cross-layer contract sign-off, complete 10×2 visual parity, multiple independent applications beyond the tested Interactive Server probe, keyboard and accessibility testing on native devices, Persian typography, disabled/error/hover state coverage, full design-to-code review and migration/Skills before #418 is eligible for Review.
 
 The experimental CSS is intentionally **not** a production or stable NuGet asset, and the issue must stay **In progress** until the full gate is satisfied.
+
+## Published Interactive Server browser validation
+The separate SSR interactive page /v3/interactive-portal-lab uses an actual Blazor InteractiveServer island with service Containers in the same circuit. A temporary published Release/Production host passed the full identical Chrome/CDP suite **126/126**, in addition to WASM **126/126**. See INTERACTIVE-SERVER-PROBE.md for exact reproduction, initial Development static-asset HTTP 500 isolation, and residual SSR/Auto/AT limitations.

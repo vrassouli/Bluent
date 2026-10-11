@@ -113,3 +113,6 @@ The [nine-check interactive WASM/Chrome proof, SSR smoke and D2 Penpot decision 
 
 ## Concurrent brand-scoped owners
 See BRAND-SCOPES-PREVIEW.md for the source-based 10-brand, 2-mode CSS generator, Penpot page 34 and 126/126 real Blazor Chrome tests. All 450 variable declarations are parsed per theme, but only 49 brand-varying variables are overridden for each opted-in host (980 declarations across 20 combinations). NUnit tests: 40/40. Legacy, stable and default bundles are unchanged. Older browser-count checkpoints above are retained for traceability.
+
+## Interactive Server browser parity
+The [published SSR InteractiveServer integration probe](INTERACTIVE-SERVER-PROBE.md) now passes the same **126/126 real Chrome/CDP tests** as standalone Blazor WebAssembly. The isolated SSR probe route keeps the service-hosted Containers in its own interactive circuit; the Production-published local host handles static assets correctly. This is not native accessibility validation, deployment, or a release.
