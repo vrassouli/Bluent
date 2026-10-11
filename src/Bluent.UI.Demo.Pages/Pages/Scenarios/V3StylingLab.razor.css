@@ -1,0 +1,75 @@
+/* #417 experiment — demo-only aliases, not a public v3 token API. */
+.v3-lab {
+    max-width: 940px;
+    margin-inline: auto;
+    padding: 24px;
+    font-family: var(--fontFamilyBase, sans-serif);
+}
+.v3-lab-controls,
+.v3-lab-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-block: 14px;
+}
+.v3-lab-surface {
+    --v3-lab-surface: var(--colorNeutralBackground1, #fff);
+    --v3-lab-text: var(--colorNeutralForeground1, #242424);
+    --v3-lab-border: var(--colorNeutralStroke1, #999);
+    --v3-lab-focus: var(--colorBrandStroke1, #0f6cbd);
+    --v3-lab-control-height: 40px;
+    --v3-lab-radius: var(--borderRadiusMedium, 4px);
+    --v3-lab-scrim: rgb(0 0 0 / 48%);
+    background: var(--v3-lab-surface);
+    color: var(--v3-lab-text);
+    border: 1px solid var(--v3-lab-border);
+    border-radius: var(--v3-lab-radius);
+    padding: 24px;
+    position: relative;
+}
+.v3-lab-surface[data-density="compact"] {
+    --v3-lab-control-height: 32px;
+}
+.v3-lab-surface ::deep .bui-button {
+    min-height: var(--v3-lab-control-height);
+    transition-duration: var(--durationFaster, 100ms);
+}
+.v3-lab-surface ::deep .bui-button:focus-visible,
+.v3-lab-surface ::deep .bui-field:focus-within {
+    outline: 2px solid var(--v3-lab-focus);
+    outline-offset: 2px;
+}
+.v3-lab-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 400px;
+    margin-block: 24px;
+}
+.v3-lab-field ::deep .bui-field {
+    min-height: var(--v3-lab-control-height);
+    max-width: 100%;
+}
+.v3-lab-hint { font-size: 0.875rem; opacity: 0.8; }
+.v3-lab-surface ::deep .bui-overlay {
+    background-color: var(--v3-lab-scrim);
+}
+.v3-lab-overlay-visual {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: var(--zIndexDialog, 1400);
+    max-width: min(90vw, 420px);
+    padding: 20px;
+    border-radius: var(--v3-lab-radius);
+    border: 1px solid var(--v3-lab-border);
+    background: var(--v3-lab-surface);
+    color: var(--v3-lab-text);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 20%);
+    pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    .v3-lab-surface ::deep .bui-button { transition: none; }
+}

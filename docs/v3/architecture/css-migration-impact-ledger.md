@@ -1,0 +1,34 @@
+# Bluent v3 — styling and asset consumer-compatibility ledger (#417)
+
+> **Status: candidate migration impacts, not proof that consumers are broken.** This is #417's contribution to the future #424 full migration guide. Research scoped to `v3/issue-417-css-architecture` targeting `bluent-v3`. No stable `Dev`, public NuGet or source CSS replacement is authorized by this ledger.
+
+| Ref | Existing consumer-facing dependency (verified source or measured bundles) | Risk if changed | Explicit acceptance/rollback guard |
+| --- | --- | --- | --- |
+| CSSM-01 | Ten brand Light/Dark bundle outputs and selectors `[data-bui-theme=light|dark]` | Existing brand selection, inherited colors and custom host CSS may change | Keep scopes/selectors/links until v3 theme contract is accepted; build and compare all 10 brands × 2 modes and verify real browser computed values |
+| CSSM-02 | Existing `--colorNeutral*`, `--colorBrand*`, `--spacing*`, `--borderRadius*`, `--duration*` and `--fui-text-field-*` variables | Silent renaming removes documented/undocumented customer overrides | Versioned aliases, deprecation examples and a measured CSS override fixture before old variable retirement; token naming belongs to #418 |
+| CSSM-03 | Service-hosted Dialog/Popover/Overlay outside local theme DOM subtree | Nested theme change may leave globally hosted content in wrong mode | Pass effective theme context to overlay host or place host in governed subtree, browser-verify nested Light/Dark and SSR; do not assume CSS inherits across portals |
+| CSSM-04 | Global `:root` stacking `--zIndex*`, overlay and layout CSS | Z-index collisions and conflicting host styles | Scope only after consumer smoke coverage; keep old stacking alias/values until old app proof |
+| CSSM-05 | Unlayered CSS, Sass `!important` utilities, consumer unlayered overrides | Global `@layer` rollout changes normal/important cascade ordering. A fixture using **real compiled Bluent components CSS** measured unlayered consumer override 13px, token override 14px, normal layered proposal defeated by 4px unlayered rule, and layered-important 7px winning over consumer-important 13px | [Real consumer-css browser probe](../../../scripts/quality/probe_v3_consumer_css_overrides.py) passed **7/7** for representative Button styles; keep global `@layer` opt-in pending full consumer parity |
+| CSSM-06 | Bootstrap Sass utility/grid/breakpoint/mixin imports (**14 direct imports**) | Removing Bootstrap at build time drops existing responsive utilities and SCSS mixins | Preserve build dependency until layout parity and utility-origin map, 86 source-literal consumer classes/1,441 references independently reconciled |
+| CSSM-07 | Existing `Styles/Themes/styles.css` selector classes (**2,653 distinct lexical class names**) | Utility purge/rename can break dynamic app markup and third-party custom CSS | Treat the count as **lexical inventory**, not proof all are used; smoke-check real consumer packages and record safe replacement classes |
+| CSSM-08 | Ten equal-sized but distinctly hashed minified brand CSS files (**166,423 bytes each** in source build) | Collapsing assets incorrectly may remove brand-specific palettes | Verify brand CSS hashes/colors independently; do not treat identical byte lengths as identical themes |
+| CSSM-09 | Shared components CSS minified bundle (**117,963 bytes in source build**) and icon assets | Bundled order, asset paths, MIME/CDN cache and static-web-assets resolution may change. **Observed:** running a published SSR DLL from the wrong content root returned HTTP 200 with empty CSS/MIME despite the physical CSS asset existing | Real Release pack and [published SSR Production smoke](../../../scripts/quality/probe_v3_ssr_publish.ps1); launch with published WorkingDirectory and assert HTML/CSS/JS payload size and MIME, not just status or Debug/Development |
+| CSSM-10 | `.bui-overlay` opacity animation and Button/field motion | `prefers-reduced-motion` can still animate or regress under new token contract | Browser tests under reduced motion must check **actual Overlay** and Button; current observed `.bui-overlay` ~0.25s is unresolved |
+| CSSM-11 | Scoped selectors, logical properties, `.rtl` / `[dir=rtl]` and component density | Direction, icon order, text alignment and small-target layout can regress | Real LTR/RTL + Persian font, 200–400% zoom, min inline size, touch target, focus visible/forced colors tests |
+| CSSM-12 | Current Sass compiler/build task and `bundleconfig.json`, dynamic package output | Build/publish passes locally but CSS may not load for consumer SSR/render mode | Preserve pipeline until build reproducibility and actual publish/static-assets checks; no implicit conversion from Sass `@import` to `@use` |
+| CSSM-13 | Existing Button/TextField/Popover runtime class names and public Razor APIs | Design token refresh could be incorrectly bundled with breaking runtime changes | Separate component issue, approved API/migration matrix; no product C# changes in ADR issue |
+
+## Source and test evidence
+
+- [CSS dependency inventory](css-architecture-audit.md): 178 `@import` occurrences, 566 length literals and 643 hex-colors (source lexical counts), 67 `!important`, positioning TS files and package-asset graph.
+- [Theme contract](theme-contract-crosswalk.md): verified Light/Dark default token values and ten brand bundles.
+- [Browser/runtime probes](css-runtime-probes.md): unlayered/layered/important cascade examples, nested-dark versus global-dialog light result and reduced-motion Overlay discrepancy.
+- [Accessibility and consumer utility baseline](accessibility-and-utility-baseline.md): 80 token pairs arithmetic, 86 literally referenced utility classes, selector-overlap risk.
+- [Proposed architecture ADR](ADR-0001-styling-boundaries.md): recommendation **D1–D5**, current status Proposed.
+- [Penpot source-to-Razor handoff under active design PR #499](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/DESIGN-TO-RAZOR-HANDOFF.md); design PR being reviewed separately; do not assume its drafts are final #418 semantics.
+
+## Expected #424 migration guide input
+
+Include explicit Razor and CSS before/after samples, bundle/static asset inclusion order, site-wide vs nested host theme behavior, old/new variable lookup table, preserved Bootstrap/utility classes and substitute mapping, brand and forced-colors behavior, responsive/RTL typography considerations, SSR/webassembly/interactivity test matrix, rollback instructions and the owner/status for any intentionally breaking change.
+
+**Compatibility recommendation:** maintain a **non-breaking bridge by default**. Any removal/renaming of supported CSS variables, utilities, asset bundles or public C# APIs requires a separate approved issue, tests, migration guidance and release notes. In particular, #417 cannot authorize changes to stable Bluent 2.x merely by proposing an ADR.
