@@ -103,6 +103,30 @@ public class PortalThemeScopeTests
                     Throws.TypeOf<ArgumentOutOfRangeException>());
     }
     [Test]
+    public void ExplicitInitialFocusRemainsOptInAndCanBeConfiguredWithPersianContent()
+    {
+        var legacy = new DialogConfiguration();
+        var optedIn = new DialogConfiguration
+        {
+            AccessibleName = "تأیید اطلاعات",
+            InitialFocusTargetId = "v3-modal-last-0"
+        };
+        Assert.Multiple(() =>
+        {
+            Assert.That(legacy.InitialFocusTargetId, Is.Null);
+            Assert.That(optedIn.AccessibleName, Is.EqualTo("تأیید اطلاعات"));
+            Assert.That(optedIn.InitialFocusTargetId, Is.EqualTo("v3-modal-last-0"));
+        });
+    }
+
+    [TestCase("")]
+    [TestCase(" ")]
+    public void InitialFocusConfiguratorRejectsBlankElementIds(string id)
+    {
+        Assert.That(() => new DialogConfigurator().SetInitialFocusTargetId(id),
+                    Throws.TypeOf<ArgumentException>());
+    }
+    [Test]
     public void ModalKeyboardNavigationRemainsExplicitOptIn()
     {
         var legacy = new DialogConfiguration();

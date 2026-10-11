@@ -21,4 +21,6 @@ public class DialogConfiguration
     public string? ReturnFocusTargetId { get; init; }
     /// <summary>Explicit opt-in v3 modal keyboard navigation. False preserves legacy behavior.</summary>
     public bool EnableModalKeyboard { get; init; }
+    /// <summary>Draft #418 opt-in initial focus element ID, scoped to the Dialog subtree.</summary>
+    public string? InitialFocusTargetId { get; init; }
 }

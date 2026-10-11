@@ -1,3 +1,5 @@
+> **Current 2026-10-11 D5 continuation:** Escape arbitration now gives descendant controls first opportunity to handle Escape (rather than capturing it at document entry), a real opt-in Popover nested in a real Modal closes before its parent, and explicit caller-chosen initial focus has safe inside-Dialog checks. This subsequent scope is documented in [Escape and initial-focus priority prototype](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md), with four 176/176 Chromium browser matrices. Earlier open items below are historical; native AT remains unverified.
+
 # #418 — Opt-in nested Modal keyboard ownership: tested D5 prototype
 
 **2026-10-11. Draft, not final API or WCAG sign-off.** Task branch v3/issue-418-design-tokens; Draft PR #500 targets bluent-v3 only. Dev, stable v2 and released NuGet remain unchanged.

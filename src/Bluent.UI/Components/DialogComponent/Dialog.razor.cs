@@ -16,6 +16,7 @@ public partial class Dialog
     [Parameter] public string? CloseButtonLabel { get; set; }
     [Parameter] public bool IsModal { get; set; }
     [Parameter] public bool EnableModalKeyboard { get; set; }
+    [Parameter] public string? InitialFocusTargetId { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
     [Parameter] public DialogSize Size { get; set; } = DialogSize.Medium;
     [Parameter] public EventCallback<dynamic?> OnClose { get; set; }
@@ -26,14 +27,20 @@ public partial class Dialog
         if (!firstRender) return;
         if (!string.IsNullOrWhiteSpace(AccessibleName))
             await _root.FocusAsync();
-        if (EnableModalKeyboard && IsModal && !string.IsNullOrWhiteSpace(AccessibleName))
+        if (!string.IsNullOrWhiteSpace(AccessibleName) &&
+            ((EnableModalKeyboard && IsModal) || !string.IsNullOrWhiteSpace(InitialFocusTargetId)))
         {
             var js = Services.GetService(typeof(IJSRuntime)) as IJSRuntime
-                ?? throw new InvalidOperationException("Opt-in modal keyboard navigation requires IJSRuntime.");
+                ?? throw new InvalidOperationException("Opt-in Dialog focus/keyboard features require IJSRuntime.");
             _keyboardModule = await js.InvokeAsync<IJSObjectReference>(
                 "import", "./_content/Bluent.UI/v3/issue-418-dialog-focus.preview.js");
-            _keyboardReference = DotNetObjectReference.Create(this);
-            await _keyboardModule.InvokeVoidAsync("registerModal", _root, _keyboardReference);
+            if (EnableModalKeyboard && IsModal)
+            {
+                _keyboardReference = DotNetObjectReference.Create(this);
+                await _keyboardModule.InvokeVoidAsync("registerModal", _root, _keyboardReference);
+            }
+            if (!string.IsNullOrWhiteSpace(InitialFocusTargetId))
+                await _keyboardModule.InvokeVoidAsync("focusInitial", _root, InitialFocusTargetId);
         }
     }
 

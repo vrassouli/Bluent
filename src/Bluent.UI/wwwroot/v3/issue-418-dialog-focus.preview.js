@@ -75,12 +75,25 @@ function onModalKeyDown(event) {
     }
 }
 
+export function focusInitial(root, elementId) {
+    if (!(root instanceof HTMLElement) || !root.isConnected) return false;
+    const target = document.getElementById(elementId);
+    // Never focus outside this named Dialog, including sibling/underlying
+    // modals, disabled, inert, hidden and nonfocusable candidates.
+    if (target instanceof HTMLElement && target !== root &&
+        root.contains(target) && focusables(root).includes(target)) {
+        target.focus({ preventScroll: true });
+        if (document.activeElement === target) return true;
+    }
+    root.focus({ preventScroll: true });
+    return false;
+}
 export function registerModal(root, dotnetReference) {
     if (!(root instanceof HTMLElement) || !dotnetReference) return;
     modalOwners.set(root, dotnetReference);
     root.setAttribute("data-bui-v3-keyboard-bound", "");
     if (!keyboardListenerInstalled) {
-        document.addEventListener("keydown", onModalKeyDown, true);
+        window.addEventListener("keydown", onModalKeyDown);
         keyboardListenerInstalled = true;
     }
 }
@@ -89,7 +102,7 @@ export function unregisterModal(root) {
     if (!modalOwners.delete(root)) return;
     root.removeAttribute("data-bui-v3-keyboard-bound");
     if (!modalOwners.size && keyboardListenerInstalled) {
-        document.removeEventListener("keydown", onModalKeyDown, true);
+        window.removeEventListener("keydown", onModalKeyDown);
         keyboardListenerInstalled = false;
     }
     // On nested close, focus must not remain on a detached element or escape

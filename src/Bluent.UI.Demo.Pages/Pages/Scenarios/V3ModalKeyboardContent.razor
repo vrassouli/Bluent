@@ -8,6 +8,14 @@
     @if (Depth == 0)
     {
         <Button id="v3-modal-open-nested" Text="Open nested keyboard modal" OnClick="ShowNested" />
+        <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+            <Trigger>
+                <Button id="v3-modal-popover-trigger" Text="Open menu-like Popover" />
+            </Trigger>
+            <Surface>
+                <span data-v3-modal-popover-surface>Escape closes this Popover before its owning Modal.</span>
+            </Surface>
+        </Popover>
     }
     <Button id="@($"v3-modal-last-{Depth}")" Text="Last focusable" />
 </div>

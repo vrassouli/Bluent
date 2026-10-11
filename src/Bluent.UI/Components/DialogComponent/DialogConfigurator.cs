@@ -11,6 +11,7 @@ public class DialogConfigurator
     private string? _closeButtonLabel;
     private string? _returnFocusTargetId;
     private bool _enableModalKeyboard;
+    private string? _initialFocusTargetId;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
@@ -57,6 +58,13 @@ public class DialogConfigurator
         _enableModalKeyboard = enabled;
         return this;
     }
+    /// <summary>Experimental opt-in initial focus on a visible enabled element inside the named Dialog.</summary>
+    public DialogConfigurator SetInitialFocusTargetId(string elementId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(elementId);
+        _initialFocusTargetId = elementId;
+        return this;
+    }
     public DialogConfigurator SetCloseButton(bool show)
     {
         _showCloseButton = show;
@@ -71,7 +79,7 @@ public class DialogConfigurator
         return this;
     }
 
-    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard };
+    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard, InitialFocusTargetId = _initialFocusTargetId };
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }

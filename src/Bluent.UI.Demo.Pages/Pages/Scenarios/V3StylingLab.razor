@@ -32,6 +32,8 @@
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
             <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
+            <Button id="v3-show-initial-focus-modal" Text="Show modal focused on last action" OnClick="() => ShowInitialFocusModal(false)" />
+            <Button id="v3-show-invalid-focus-modal" Text="Show modal with external focus target" OnClick="() => ShowInitialFocusModal(true)" />
             <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
             <Button Text="Show legacy unscoped dialog" OnClick="ShowUnscopedDialog" />
             <Popover KeepSurface="true" Placement="Placement.Bottom">
@@ -151,6 +153,23 @@
                 .SetAccessibleDialog("v3 keyboard modal", "Close modal")
                 .SetModalKeyboardNavigation()
                 .SetReturnFocusTargetId("v3-show-keyboard-modal"));
+    }
+    private void ShowInitialFocusModal(bool externalTarget)
+    {
+        var scope = CurrentScope;
+        var parameters = new Dictionary<string, object?>
+        {
+            [nameof(V3ModalKeyboardContent.Scope)] = scope,
+            [nameof(V3ModalKeyboardContent.Depth)] = 0
+        };
+        var launcher = externalTarget ? "v3-show-invalid-focus-modal" : "v3-show-initial-focus-modal";
+        var focusId = externalTarget ? "v3-token-action" : "v3-modal-last-0";
+        _ = DialogService.ShowAsync<V3ModalKeyboardContent>("v3 explicit focus modal", parameters,
+            config => config.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("v3 explicit focus modal", "Close focused modal")
+                .SetModalKeyboardNavigation()
+                .SetInitialFocusTargetId(focusId)
+                .SetReturnFocusTargetId(launcher));
     }
     private void ShowUnscopedDialog()
     {
