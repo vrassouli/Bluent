@@ -186,6 +186,72 @@ public class DialogContainerTests
             });
         });
     }
+    [Test]
+    public async Task PageLocalV3DialogMustCompletePendingResultWhenHostIsDisposed()
+    {
+        await using var services = CreateServices();
+        var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        Task<dynamic?>? pending = null;
+        try
+        {
+            await renderer.Dispatcher.InvokeAsync(async () =>
+            {
+                var container = await renderer.RenderComponentAsync<DialogContainer>();
+                pending = services.GetRequiredService<IDialogService>().ShowAsync(
+                    TextContent("Navigate away with pending v3 Dialog"),
+                    new DialogConfiguration(modal: true)
+                    {
+                        AccessibleName = "Route-local active Dialog",
+                        EnableModalKeyboard = true
+                    });
+                await container.QuiescenceTask;
+                Assert.That(pending.IsCompleted, Is.False);
+            });
+        }
+        finally
+        {
+            await renderer.DisposeAsync();
+        }
+
+        Assert.That(pending, Is.Not.Null);
+        Assert.That(pending!.IsCompleted, Is.True,
+            "When the route-local DialogContainer is disposed, an awaited opted-in Dialog task must not hang.");
+        Assert.That((object?)await pending, Is.Null);
+    }
+    [Test]
+    public async Task PageLocalHostDisposalCompletesAllOptInResultsAndLeavesLegacyContractAlone()
+    {
+        await using var services = CreateServices();
+        var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        Task<dynamic?>? named = null, keyboardOnly = null, legacy = null;
+        try
+        {
+            await renderer.Dispatcher.InvokeAsync(async () =>
+            {
+                var container = await renderer.RenderComponentAsync<DialogContainer>();
+                var dialogService = services.GetRequiredService<IDialogService>();
+                named = dialogService.ShowAsync(TextContent("Named"), new DialogConfiguration { AccessibleName = "Name" });
+                keyboardOnly = dialogService.ShowAsync(TextContent("Keyboard"), new DialogConfiguration { EnableModalKeyboard = true });
+                legacy = dialogService.ShowAsync(TextContent("Legacy"));
+                await container.QuiescenceTask;
+                Assert.That(named.IsCompleted || keyboardOnly.IsCompleted || legacy.IsCompleted, Is.False);
+            });
+        }
+        finally
+        {
+            await renderer.DisposeAsync();
+        }
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(named!.IsCompletedSuccessfully, Is.True);
+            Assert.That(keyboardOnly!.IsCompletedSuccessfully, Is.True);
+            Assert.That(legacy!.IsCompleted, Is.False,
+                "Existing v2 non-opt-in lifetime behavior must not change on the isolated research branch.");
+        });
+        Assert.That((object?)await named!, Is.Null);
+        Assert.That((object?)await keyboardOnly!, Is.Null);
+    }
     public sealed class EmptyDialogBody : ComponentBase { }
     private static ServiceProvider CreateServices()
     {

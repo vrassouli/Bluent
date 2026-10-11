@@ -9,6 +9,7 @@ public partial class DialogContainer : IDisposable
 {
     private readonly List<DialogContext> _contexts = [];
     private string? _pendingFocusTargetId;
+    private bool _disposed;
     [Inject] private IServiceProvider Services { get; set; } = default!;
 
     [Inject] private IDialogService DialogService { get; set; } = default!;
@@ -23,12 +24,33 @@ public partial class DialogContainer : IDisposable
 
     public void Dispose()
     {
+        if (_disposed) return;
+        _disposed = true;
         if (DialogService is DialogService service)
             service.ShowDialog -= Service_ShowDialog;
+
+        // A route-local host can disappear before an opt-in v3 Dialog closes.
+        // Complete the pending ShowAsync task as dismissed, without attempting
+        // to focus a launcher that no longer belongs to the current page.
+        var pending = _contexts
+            .Where(context => context.Config.AccessibleName is not null || context.Config.EnableModalKeyboard)
+            .ToArray();
+        _contexts.Clear();
+        _pendingFocusTargetId = null;
+        // Complete after clearing owner state; awaiting callers may resume
+        // synchronously, but cannot mutate a list being enumerated.
+        foreach (var context in pending)
+            context.ResultTCS.TrySetResult(null);
     }
 
     private void Service_ShowDialog(object? sender, Services.EventArguments.ShowDialogEventArgs e)
     {
+        if (_disposed)
+        {
+            if (e.Context.Config.AccessibleName is not null || e.Context.Config.EnableModalKeyboard)
+                e.Context.ResultTCS.TrySetResult(null);
+            return;
+        }
         // A newer Dialog supersedes any delayed focus restoration.
         _pendingFocusTargetId = null;
         _contexts.Add(e.Context);

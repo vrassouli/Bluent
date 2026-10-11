@@ -110,6 +110,26 @@ def run(driver, base):
             click("#v3-unmount-lifecycle-modal")
             check(f"real Dialog unmount {i+1}",
                   wait("return !document.querySelector('[data-v3-lifecycle-modal]')", "unmount"))
+        # An actual route transition from INSIDE a service-hosted Dialog.
+        # Unlike @if unmount, this destroys the page-local <Containers/>.
+        click("#v3-show-route-exit-modal")
+        route = wait("""let d=document.querySelector('.dialog-wrapper .bui-dialog');
+            return d?.hasAttribute('data-bui-v3-keyboard-bound')&&d.querySelector('#v3-dialog-route-leave')?
+            {role:d.getAttribute('role'),focus:document.activeElement===d}:null""",
+            "service-hosted route Dialog")
+        check("route-local service Dialog receives keyboard ownership",
+              route["role"] == "dialog" and route["focus"])
+        click("#v3-dialog-route-leave")
+        landing = wait("""let d=document.querySelector('[data-v3-route-after-dialog]');
+            return d?{path:location.pathname,dialogs:document.querySelectorAll('.dialog-wrapper').length,
+            action:!!d.querySelector('#v3-route-after-focus')}:null""",
+            "actual cross-route navigation")
+        check("navigation destroys old page-local Dialog host",
+              landing["path"] == "/v3/route-after-dialog" and landing["dialogs"] == 0 and landing["action"])
+        js("document.querySelector('#v3-route-after-focus').focus();return true")
+        check("new route focus does not belong to destroyed Modal",
+              js("return document.activeElement?.id==='v3-route-after-focus' &&"
+                 "!document.activeElement?.closest('.bui-dialog')"))
         return checks
     finally:
         request(path, method="DELETE")

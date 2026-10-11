@@ -32,6 +32,7 @@
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
             <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
+            <Button id="v3-show-route-exit-modal" Text="Open Dialog and navigate away" OnClick="ShowRouteExitModal" />
             <Button id="v3-mount-lifecycle-modal" Text="Mount temporary keyboard modal" OnClick="() => _lifecycleModalMounted = true" />
             @if (_lifecycleModalMounted)
             {
@@ -200,6 +201,17 @@
                 .SetModalKeyboardNavigation()
                 .SetInitialFocusTargetId("v3-live-title-field")
                 .SetReturnFocusTargetId("v3-show-live-title"));
+    }
+    private void ShowRouteExitModal()
+    {
+        var scope = CurrentScope;
+        _ = DialogService.ShowAsync<V3RouteExitDialogContent>(
+            "Route-local Dialog awaiting navigation", null,
+            config => config.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("Route-local Dialog", "Close Dialog")
+                .SetAccessibleDescription("Navigation will dispose this page-local Dialog host.")
+                .SetModalKeyboardNavigation()
+                .SetReturnFocusTargetId("v3-show-route-exit-modal"));
     }
     private void ShowKeyboardModal()
     {

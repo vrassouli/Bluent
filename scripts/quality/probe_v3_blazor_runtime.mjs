@@ -428,6 +428,26 @@ try {
  const freeAfterUnmount=await cdp.js("(()=>({active:document.activeElement?.id,dialogs:document.querySelectorAll('.bui-dialog[data-bui-v3-keyboard-bound]').length}))()");
  assert("after repeated Dialog teardown Tab remains normal and no modal is registered",
    freeAfterUnmount.dialogs===0&&freeAfterUnmount.active!=="v3-mount-lifecycle-modal",JSON.stringify(freeAfterUnmount));
+ if(interactiveServer){
+   // Actual route-local service Dialog and a genuine cross-route navigation.
+   // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
+   await cdp.js("document.querySelector('#v3-show-route-exit-modal')?.click()");
+   const routeModal=await until(()=>cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog'),inside=d?.querySelector('#v3-dialog-route-leave');return d?.hasAttribute('data-bui-v3-keyboard-bound')&&inside?{role:d.getAttribute('role'),description:d.getAttribute('aria-describedby'),focus:document.activeElement===d,action:inside.id}:null;})()"),"route-local service modal appears",20000);
+   assert("route-local service Dialog opens with focus and real navigation action",
+     routeModal.role==="dialog"&&!!routeModal.description&&routeModal.focus&&routeModal.action==="v3-dialog-route-leave",JSON.stringify(routeModal));
+   await cdp.js("document.querySelector('#v3-dialog-route-leave')?.click()");
+   const destination=await until(async()=>{
+     try{
+       return await cdp.js("(()=>{const d=document.querySelector('[data-v3-route-after-dialog]');return d?{url:location.pathname,dialogs:document.querySelectorAll('.dialog-wrapper').length,old:!!document.querySelector('#v3-show-route-exit-modal'),action:!!d.querySelector('#v3-route-after-focus')}:null;})()");
+     }catch{return null}
+   },"real navigation disposes the route-local Dialog host",25000);
+   assert("cross-route navigation removes old Dialog host without invoking Close",
+     destination.url==="/v3/route-after-dialog"&&destination.dialogs===0&&!destination.old&&destination.action,JSON.stringify(destination));
+   await cdp.js("document.querySelector('#v3-route-after-focus')?.focus()");
+   const routeFocus=await cdp.js("(()=>({id:document.activeElement?.id,inside:!!document.activeElement?.closest('.bui-dialog')}))()");
+   assert("destination focus stays outside the disposed Modal",
+     routeFocus.id==="v3-route-after-focus"&&!routeFocus.inside,JSON.stringify(routeFocus));
+ }
  const passCount=checks.filter(x=>x.pass).length;
  const summary={classification:interactiveServer?"actual Blazor interactive SSR Server Chrome/CDP interaction":"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
