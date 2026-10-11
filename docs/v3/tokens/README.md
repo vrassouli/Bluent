@@ -102,3 +102,7 @@ The [scoped accessibility policy overlay](issue-418-accessibility.preview.css) a
 
 ## Real Blazor runtime and detached Dialog checkpoint
 The [nine-check interactive WASM/Chrome proof, SSR smoke and D2 Penpot decision map](BLZ-RUNTIME-PORTAL-AUDIT.md) exercise scoped candidate tokens in real Bluent controls and document the **reproduced, still-unfixed** global service Dialog theme ownership gap. Preview CSS stays opt-in and demo-only.
+
+
+## Expanded Chrome/Blazor 74-check runtime matrix
+[Runtime results](BLZ-RUNTIME-PORTAL-AUDIT.md) now include 20 real Button brand-mode colors, 20 root alias isolation assertions, 20 primary color-contrast arithmetic checks (minimum 5.552:1), mobile 390px RTL, compact height, and **both still-unfixed** service Dialog/Popover ownership defects. See [D2 candidate owner contract](PORTAL-THEME-OWNERSHIP-PROPOSAL.md) for required app-scoped propagation design; the document-wide style swap does not demonstrate independent simultaneous brands.

@@ -25,7 +25,7 @@ node scripts/quality/probe_v3_blazor_runtime.mjs
 pwsh -NoProfile -File scripts/quality/probe_v3_ssr_publish.ps1 -Port 5108
 ```
 
-**9/9 real Blazor WebAssembly Chrome/CDP checks passed:** existing Button and CSS loaded; real TextField background/border read; interactive Light→Dark and LTR→RTL; reduced-motion `0s` on real Overlay; 150ms no-preference token via explicit media emulation; live forced-colors `ButtonFace` and `Highlight` roles; injected keyboard Tab produced `:focus-visible` with 2px outline; and detached service Dialog ownership defect reproduced. **The last check passes by detecting the bug, not by fixing it.** The Dialog wrapper was outside the opted-in subtree and inherited Light while the page was Dark. Real Popover propagation was not exercised.
+**Initial 9/9 real Blazor WebAssembly Chrome/CDP checks passed:** existing Button and CSS loaded; real TextField background/border read; interactive Light→Dark and LTR→RTL; reduced-motion `0s` on real Overlay; 150ms no-preference token via explicit media emulation; live forced-colors `ButtonFace` and `Highlight` roles; injected keyboard Tab produced `:focus-visible` with 2px outline; and detached service Dialog ownership defect reproduced. **The last check passes by detecting the bug, not by fixing it.** The Dialog wrapper was outside the opted-in subtree and inherited Light while the page was Dark. A subsequent revision added a real triggered Popover and reproduced **the same unfixed D2 scope defect**: it renders in the global Light layout instead of its initiating Dark subtree.
 
 Published **SSR Production static-asset smoke 4/4**: page, package CSS, demo research CSS and Blazor script all HTTP 200 with content-type checks. This is not interactive SSR validation.
 
@@ -36,3 +36,11 @@ The standalone WASM Release index intentionally uses GitHub Pages `/Bluent/` as 
 Review and approve D2 theme-host ownership semantics and #420 API boundaries before modifying service/container APIs. Prove real Dialog **and Popover** propagation, independently nested hosts, SSR fallback, ten brands × two modes, real OS high contrast, screen readers, Persian metrics, zoom/reflow, mobile and cross-browser behavior. This nine-check test is narrowly scoped and cannot establish Fluent/WCAG parity.
 
 **Branch:** `v3/issue-418-design-tokens` → Draft PR #500 targeting `bluent-v3` only. No `Dev` merge or stable release.
+
+
+## Expanded live browser matrix (2026-10-11)
+The same executable Chrome/CDP test now passes **74/74 assertions**: 10 shipped brand stylesheets x Light/Dark (20 real Blazor primary Button computed colors), 20 explicit root-token isolation checks, 20 computed Button white-on-brand numeric contrast pairs (minimum **5.552:1**, restricted to opaque primary Button text), plus 14 runtime assertions including both **expected-unfixed** D2 Dialog and Popover findings, compact density actual height 40px → 32px, 390px RTL lab no horizontal overflow, keyboard Tab focus, forced-colors aliases and reduced motion. The test swaps the stylesheet in the *temporary browser tab*, so **simultaneous multi-brand host isolation is not demonstrated**. Use BLUENT_V3_PROBE_VERBOSE=1 for individual assertion detail.
+The explicit **[proposed theme ownership contract](PORTAL-THEME-OWNERSHIP-PROPOSAL.md)** documents why inheriting or copying the last-click DOM theme is unsafe, and how scoped host context should be handed to each service portal without touching global roots. It is not yet accepted or implemented.
+
+### D5 detached portal motion regression
+The live Chrome probe explicitly enables prefers-reduced-motion: reduce **while the global Popover and Dialog are open**, reads computed transition/animation durations and confirms that both are still **nonzero**. These extra two assertions pass by **reproducing the accessibility gap**, not by certifying or correcting it. The v3 opt-in local Overlay does correctly report 0s in the same run; its policy does not automatically cross the global service-host boundary. Future portal-owner implementation must address both style scope and motion.

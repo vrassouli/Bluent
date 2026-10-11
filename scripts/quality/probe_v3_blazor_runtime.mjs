@@ -36,10 +36,55 @@ try {
  assert("Blazor Button plus opt-in CSS",initial.opted&&initial.asset&&!!initial.color,JSON.stringify(initial));
  const field=await cdp.js("(()=>{const f=document.querySelector('.v3-lab-field .bui-field'),input=document.querySelector('#v3-experiment-name');return f&&input&&{background:getComputedStyle(f).backgroundColor,border:getComputedStyle(f).borderTopColor};})()");
  assert("real Blazor TextField under alias bridge",field&&!!field.background&&!!field.border,JSON.stringify(field));
+ // Load each real shipped brand stylesheet against the SAME Blazor Button and
+ // TextField, switching both modes. This tests runtime computed styles rather
+ // than synthetic CSS fixtures. It modifies only this temporary browser tab.
+ const matrix=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-brand-matrix.preview.json"),"utf8")).brands;
+ const hexRgb=v=>{const m=/^#([a-f0-9]{6})$/i.exec(v);if(!m)throw Error("Unexpected hex "+v);const x=m[1];return "rgb("+[0,2,4].map(i=>parseInt(x.slice(i,i+2),16)).join(", ")+")";};
+ const rgbParts=v=>[...v.matchAll(/[0-9]+/g)].slice(0,3).map(x=>Number(x[0]));
+ const luminance=v=>{const [r,g,b]=rgbParts(v).map(n=>{const c=n/255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b;};
+ const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);};
+ const combos=[];
+ for(const [brand,modes] of Object.entries(matrix)) {
+   const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");
+   if(swap!=="ok"){assert("brand asset "+brand,false,String(swap));continue;}
+   for(const mode of ["light","dark"]) {
+     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim()};})()");
+     const expected=hexRgb(modes[mode].tokens["bluent.color.brandBackground"]);
+     combos.push({brand,mode,match:sample.button===expected,button:sample.button,expected});
+     assert("brand "+brand+" "+mode+" on real Button",sample.button===expected,JSON.stringify(sample));
+     assert("primary Button text/source contrast "+brand+" "+mode,contrast(sample.button,sample.text)>=4.5,contrast(sample.button,sample.text).toFixed(3)+":1");
+     assert("opt-in alias not leaked to root "+brand+" "+mode,sample.root==="",sample.root);
+   }
+ }
+ // Restore the initial stylesheet and mode before using Blazor's real event
+ // handlers. This ensures that client-side demo state remains the sole owner.
+ await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));return await new Promise((resolve,reject)=>{const n=document.createElement('link');n.rel='stylesheet';n.href='_content/Bluent.UI/bluent.ui.theme.default.min.css';n.onload=()=>{l.remove();resolve(true);};n.onerror=()=>reject(Error('restore default failed'));l.after(n);});})()");
+ await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='light'");
+ console.log("v3 live brand/mode matrix:",JSON.stringify({combos:combos.length,bad:combos.filter(x=>!x.match)}));
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Switch to dark'))?.click()");
  assert("interactive dark toggle",await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.buiTheme==='dark'"),"dark",26000));
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Switch to RTL'))?.click()");
  assert("interactive RTL toggle",await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dir==='rtl'"),"rtl",26000));
+ await cdp.js("document.querySelector('#v3-popover-trigger')?.click()");
+ const popover=await until(()=>cdp.js("(()=>{const x=document.querySelector('[data-v3-popover-probe]');if(!x)return null;const surface=x.closest('.bui-popover-surface');if(!surface||surface.classList.contains('hidden'))return null;return {outside:!x.closest('[data-bui-v3-tokens]'),ancestor:x.closest('[data-bui-theme]')?.dataset.buiTheme,lab:document.querySelector('.v3-lab-surface').dataset.buiTheme,surface:surface.id};})()"),"real service-hosted Popover",26000);
+ assert("D2 global Popover theme gap reproduced",popover.outside&&popover.lab==="dark"&&popover.ancestor!=="dark",JSON.stringify(popover));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
+ const popMotion=await cdp.js("getComputedStyle(document.querySelector('#v3-popover-trigger_surface')).transitionDuration");
+ assert("D5 detached Popover reduced-motion gap reproduced",popMotion.split(",").some(s=>parseFloat(s)>0),popMotion);
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ await cdp.js("document.querySelector('#v3-popover-trigger')?.click()");
+ const defaultSize=await cdp.js("document.querySelector('#v3-token-action').getBoundingClientRect().height");
+ await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Compact density'))?.click()");
+ const compact=await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.density==='compact'"),"compact density",15000);
+ const compactSize=await cdp.js("document.querySelector('#v3-token-action').getBoundingClientRect().height");
+ assert("real Blazor compact density changes button height",compact&&compactSize<defaultSize,"comfortable="+defaultSize+" compact="+compactSize);
+ await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Comfortable density'))?.click()");
+ await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.density==='comfortable'"),"return comfortable",15000);
+ await cdp.send("Emulation.setDeviceMetricsOverride",{width:390,height:844,deviceScaleFactor:1,mobile:true});
+ const mobile=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),box=h.getBoundingClientRect();return {width:window.innerWidth,x:box.x,right:box.right,scroll:h.scrollWidth,client:h.clientWidth,dir:h.dir};})()");
+ assert("390px RTL lab host without horizontal overflow",mobile.x>=-1&&mobile.right<=mobile.width+2&&mobile.scroll<=mobile.client+2,JSON.stringify(mobile));
+ await cdp.send("Emulation.clearDeviceMetricsOverride");
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"no-preference"}]});
  const normal=await cdp.js("getComputedStyle(document.querySelector('.v3-lab-surface')).getPropertyValue('--bui-v3-motion-duration-fast').trim()");
  assert("non-reduced duration 150ms",normal==="150ms",normal);
@@ -61,7 +106,14 @@ try {
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Show service-hosted dialog'))?.click()");
  const portal=await until(()=>cdp.js("(()=>{const x=document.querySelector('.dialog-wrapper');return x&&{outside:!x.closest('[data-bui-v3-tokens]'),ancestor:x.closest('[data-bui-theme]')?.dataset.buiTheme,lab:document.querySelector('.v3-lab-surface').dataset.buiTheme};})()"),"real service dialog",24000);
  assert("D2 global Dialog theme gap reproduced",portal.outside&&portal.lab==="dark"&&portal.ancestor!=="dark",JSON.stringify(portal));
- console.log(JSON.stringify({classification:"actual Blazor WebAssembly Chrome/CDP interaction",checks,errors,limits:"not full keyboard, AT, zoom or native OS certification"},null,2));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
+ const dialogMotion=await cdp.js("getComputedStyle(document.querySelector('.dialog-wrapper .bui-dialog')).animationDuration");
+ assert("D5 detached Dialog reduced-motion gap reproduced",dialogMotion.split(",").some(s=>parseFloat(s)>0),dialogMotion);
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ const passCount=checks.filter(x=>x.pass).length;
+ const summary={classification:"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),expectedUnfixedDefects:["D2 Dialog ownership gap","D2 Popover ownership gap","D5 detached Dialog reduced-motion gap","D5 detached Popover reduced-motion gap"],errors,limits:"computed-style arithmetic and Chrome smoke; NOT a full WCAG, AT, cross-browser, live brand-host, portal fix or native OS certification"};
+ if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
+ console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;
 }catch(e){console.error("Probe error: "+String(e));if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
 finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{rmSync(dir,{recursive:true,force:true});}catch{}}
