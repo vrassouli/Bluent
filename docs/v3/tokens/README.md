@@ -94,4 +94,7 @@ The [design and runtime acceptance distinctions](HIGH-CONTRAST-MOTION-DESIGN.md)
 - **Actual component consumption:** the CSS is deliberately opt-in research and not yet imported by final Blazor v3 component code. Test real disabled/focus/error/hover, modes, SSR, keyboard, zoom and screen readers, with nonbreaking CSS variable precedence.
 - **Quality & migration:** full browser/reflow/forced-colors evidence, documentation/Skills, exhaustive demo, build/pack/SSR validations and [#424](https://github.com/vrassouli/Bluent/issues/424) migration notes before Review/Done. #419 Penpot PR remains under separate acceptance review.
 
-**Isolation:** work on branch `v3/issue-418-design-tokens` based on `bluent-v3`; stable `Dev` and published NuGet untouched. The architecture D1–D5 is accepted; the *exact v3 token vocabulary and complete brand themes have not yet been approved*.`n## Browser emulation checkpoint`nThe [scoped accessibility policy overlay](issue-418-accessibility.preview.css) and [six-scenario Chrome probe](ACCESSIBILITY-MEDIA-PROBE.md) exercise forced-colors and reduced-motion at research scope only; keyboard focus and non-reduced motion remain open. This is not shipped CSS.
+**Isolation:** work on branch `v3/issue-418-design-tokens` based on `bluent-v3`; stable `Dev` and published NuGet untouched. The architecture D1–D5 is accepted; the *exact v3 token vocabulary and complete brand themes have not yet been approved*.
+
+## Browser emulation checkpoint
+The [scoped accessibility policy overlay](issue-418-accessibility.preview.css) and [six-scenario Chrome probe](ACCESSIBILITY-MEDIA-PROBE.md) exercise forced-colors and reduced-motion at research scope only; keyboard focus and non-reduced motion remain open. This is not shipped CSS.
