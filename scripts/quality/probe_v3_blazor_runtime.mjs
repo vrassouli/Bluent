@@ -170,6 +170,23 @@ try {
  await cdp.js("document.querySelector('#v3-popover-trigger')?.click()");
  const popReopen=await until(()=>cdp.js("(()=>{const s=document.querySelector('#v3-popover-trigger_surface'),t=document.querySelector('#v3-popover-trigger');return s&&!s.classList.contains('hidden')&&t?.getAttribute('aria-expanded')==='true';})()"),"Popover reopened aria-expanded",16000);
  assert("Popover reopening reports expanded=true after previous close",popReopen);
+ // #418 opt-in unmount regression: an already visible Popover removed by
+ // Blazor must release its document Escape listener, not retain stale refs.
+ const countDocumentKeydowns=async()=>{
+   const target=await cdp.send("Runtime.evaluate",{expression:"document",returnByValue:false});
+   const listeners=await cdp.send("DOMDebugger.getEventListeners",{objectId:target.result.objectId});
+   return listeners.listeners.filter(l=>l.type==="keydown").length;
+ };
+ await cdp.js("document.querySelector('#v3-toggle-removable-popover')?.click()");
+ await until(()=>cdp.js("!!document.querySelector('#v3-removable-popover-trigger[aria-expanded]')"),"removable Popover mounted",16000);
+ const keydownBefore=await countDocumentKeydowns();
+ await cdp.js("document.querySelector('#v3-removable-popover-trigger')?.click()");
+ await until(()=>cdp.js("document.querySelector('#v3-removable-popover-trigger')?.getAttribute('aria-expanded')==='true'"),"removable Popover opened",17000);
+ const keydownDuring=await countDocumentKeydowns();
+ await cdp.js("document.querySelector('#v3-remove-open-popover')?.click()");
+ const removed=await until(()=>cdp.js("!document.querySelector('#v3-removable-popover-trigger')"),"removable Popover disposed",17000);
+ const removedListener=await until(async()=>await countDocumentKeydowns()===keydownBefore,"removed Popover Escape listener cleanup",17000);
+ assert("unmounting an open v3 Popover frees exactly its Escape listener",removed&&keydownDuring===keydownBefore+1&&removedListener,JSON.stringify({keydownBefore,keydownDuring,removed}));
  const defaultSize=await cdp.js("document.querySelector('#v3-token-action').getBoundingClientRect().height");
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Compact density'))?.click()");
  const compact=await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.density==='compact'"),"compact density",15000);

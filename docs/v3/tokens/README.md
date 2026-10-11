@@ -151,3 +151,7 @@ The [new native Penpot #418 design and runtime ledger](D5-MODAL-KEYBOARD-STACK-P
 
 ## D5 escape precedence and explicit initial focus (draft)
 Penpot file Bluent v3 Design System now has **page 37** \`535db143-a732-807e-8008-c644769400c0\`, native board \`535db143-a732-807e-8008-c644771eb48a\`: 26 editable elements, 0 board-bounds errors, actual PNG visually reviewed. [D5 design-to-code record](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md) specifies child Popover Escape consumption before its Modal, internal preventDefault/stopPropagation Escape ownership and explicit caller-selected initial focus with inside/visible/enabled validation and fallback to the Dialog root. Four actual **176/176** Chrome/Edge x WebAssembly/InteractiveServer interactive probes pass; final native AT/Fluent API acceptance remains open.
+
+
+### D5 open-Popover disposal proof
+Added an opt-in JS Escape-listener disposal path through existing Blazor PopoverService.Destroy and PopoverInterop. Browser integration checks count actual document keyboard listeners before show, while a Popover is open, and after *in-surface button-triggered component unmount*, proving **+1 then -1**. Four Chromium x Blazor runs each **177/177**, including prior Escape/initial-focus checks. See [D5 Escape/focus audit](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md). Arbitrary navigation, other libraries and real screen readers remain separate acceptance items.

@@ -44,6 +44,18 @@
                     <span data-v3-legacy-popover>Legacy Popover remains untouched</span>
                 </Surface>
             </Popover>
+            <Button id="v3-toggle-removable-popover" Text="Mount removable Popover" OnClick="() => _removablePopover = true" />
+            @if (_removablePopover)
+            {
+                <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+                    <Trigger>
+                        <Button id="v3-removable-popover-trigger" Text="Open removable Popover" />
+                    </Trigger>
+                    <Surface>
+                        <Button id="v3-remove-open-popover" Text="Remove while open" OnClick="() => _removablePopover = false" />
+                    </Surface>
+                </Popover>
+            }
             <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
                 <Trigger>
                     <Button id="v3-popover-trigger" Text="Show service-hosted popover" />
@@ -121,6 +133,7 @@
     private bool _rtl;
     private bool _compact;
     private bool _overlayOpen;
+    private bool _removablePopover;
 
     private void ToggleMainBrand() => _mainBrand = _mainBrand == "excel" ? null : "excel";
 

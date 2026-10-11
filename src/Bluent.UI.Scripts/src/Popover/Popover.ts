@@ -193,11 +193,16 @@ export class Popover {
         this._optInEscapeHandlers.set(settings.triggerId, listener);
     }
 
-    private unregisterOptInEscape(settings: PopoverSettings) {
-        const listener = this._optInEscapeHandlers.get(settings.triggerId);
+    // An opted-in owner can be removed from the Blazor render tree while
+    // its surface is open. Explicitly release its document Escape handler.
+    public unregisterOptInEscapeByTriggerId(triggerId: string) {
+        const listener = this._optInEscapeHandlers.get(triggerId);
         if (!listener) return;
         document.removeEventListener("keydown", listener);
-        this._optInEscapeHandlers.delete(settings.triggerId);
+        this._optInEscapeHandlers.delete(triggerId);
+    }
+    private unregisterOptInEscape(settings: PopoverSettings) {
+        this.unregisterOptInEscapeByTriggerId(settings.triggerId);
     }
     private hideSurface(settings: PopoverSettings) {
         const surface = <HTMLElement>this.getSurface(settings);
