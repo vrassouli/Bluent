@@ -97,4 +97,4 @@ Existing runtime evidence in `docs/compatibility/hosting-and-render-modes.md` ve
 
 ## Historical Project Record
 
-The prior detailed relaunch/Sprint 0–4 project record is preserved verbatim in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md). Use it for historical decisions and completed sprint evidence; use this file for current project state.
+The prior detailed relaunch/Sprint 0–4 project record is preserved verbatim in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md). Use it for historical decisions and completed sprint evidence; use this file for current project state.`n- 2026-10-11 (#418, in progress): Penpot page 32 forced-colors/reduced-motion design is mapped to a separate opt-in research CSS overlay, six-scenario Chrome emulation script and limitations in docs/v3/tokens/ACCESSIBILITY-MEDIA-PROBE.md. No stable Dev/2.x changes; PR #500 remains Draft.
