@@ -1,3 +1,5 @@
+> CURRENT 2026-10-11 PROTOTYPE UPDATE: the original Dialog role/Close AX name/initial-focus findings below are **historical before-fix results**. Explicit opt-in Dialog semantics now pass browser assertions on Chrome+Edge, WASM+InteractiveServer. **The Popover expanded/controls issue, focus restoration and full modal keyboard handling are NOT fixed.** See [the draft implementation](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md). No final public API or native accessibility approval.
+
 # #418 — D5 dialog accessible semantics and keyboard ownership audit
 
 **Status: three directly observed open issues; not fixed in the current opt-in portal-theme prototype.** This audit is based on live Chrome DevTools Protocol (CDP) DOM and Accessibility (AX) output from actual Blazor WebAssembly and published Interactive Server, 2026-10-11. All tested Dialogs were opened by a **programmatic click** through the existing demo; no claim about a completed keyboard Enter/Tab workflow or actual screen-reader speech is made.

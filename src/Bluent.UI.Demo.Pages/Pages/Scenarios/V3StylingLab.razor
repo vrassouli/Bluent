@@ -126,7 +126,7 @@
         // The opt-in scope must be explicitly supplied by this owner.
         var snapshot = CurrentScope;
         _ = DialogService.ShowAsync<SampleDialogContent>("v3 scoped Dialog",
-            null, options => options.SetThemeScope(snapshot).SetModal(false));
+            null, options => options.SetThemeScope(snapshot).SetModal(false).SetAccessibleDialog("v3 scoped Dialog", "Close dialog"));
     }
 
     private void ShowUnscopedDialog()
@@ -139,6 +139,6 @@
     {
         var alternate = AlternateScope;
         _ = DialogService.ShowAsync<SampleDialogContent>("v3 independent host",
-            null, options => options.SetThemeScope(alternate).SetModal(false));
+            null, options => options.SetThemeScope(alternate).SetModal(false).SetAccessibleDialog("v3 independent host", "بستن پنجره"));
     }
 }

@@ -135,3 +135,7 @@ Final page #35 board re-exported from the connected Penpot file after refinement
 
 ## Penpot #418 Button labels: rendered-content centering
 The maintainer spotted visibly top-aligned Button text on page 34 (Excel/Word) and page 35 (Persian disabled and multiline RTL). [Native Penpot correction evidence](PENPOT-BUTTON-LABEL-CENTERING.md) records the before/after layout and actual Penpot Text.textBounds measurement: all five labels now have centered ink boxes (horizontal 0 px, vertical <=0.21 px), all inside their background buttons, and both page PNG exports were visually inspected. Setting verticalAlign=center alone was inadequate for Penpot Noto Sans Arabic, so the final result was calibrated from actual rendered text bounds. This changes Penpot design assets only; no shipping Button CSS or stable NuGet.
+
+
+## Opt-in Dialog accessible name/entry proof
+The [D5 scoped Dialog accessibility prototype](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md) supplies an explicit localized accessible name and Close icon label, adds role=dialog and focuses the Dialog on initial render, only with caller opt-in. Real Chrome and Edge, WASM and published InteractiveServer **149/149** each; NUnit **43/43**. Legacy unscoped markup is unchanged. **Remaining gaps:** focus restoration, full modal keyboard trap/stack, Popover aria-expanded/aria-controls, native AT and approved API. The earlier four D5 defects in D5-PORTAL-ACCESSIBILITY-AUDIT.md are historical baseline findings.

@@ -9,10 +9,36 @@ public class PortalThemeScopeTests
     {
         var config = new DialogConfiguration();
         Assert.That(config.ThemeScope, Is.Null);
+        Assert.That(config.AccessibleName, Is.Null);
+        Assert.That(config.CloseButtonLabel, Is.Null);
         Assert.That(config.Modal, Is.True);
         Assert.That(config.Size, Is.EqualTo(DialogSize.Medium));
     }
 
+    [Test]
+    public void AccessibleDialogConfigurationSupportsExplicitPersianLabels()
+    {
+        var config = new DialogConfiguration(modal: false)
+        {
+            AccessibleName = "پنجره آزمایشی",
+            CloseButtonLabel = "بستن پنجره"
+        };
+        Assert.Multiple(() =>
+        {
+            Assert.That(config.AccessibleName, Is.EqualTo("پنجره آزمایشی"));
+            Assert.That(config.CloseButtonLabel, Is.EqualTo("بستن پنجره"));
+            Assert.That(config.Modal, Is.False);
+            Assert.That(config.ThemeScope, Is.Null);
+        });
+    }
+
+    [TestCase("", "Close dialog")]
+    [TestCase("Dialog title", "")]
+    public void AccessibleDialogConfiguratorRejectsEmptyText(string name, string label)
+    {
+        Assert.That(() => new DialogConfigurator().SetAccessibleDialog(name, label),
+                    Throws.TypeOf<ArgumentException>());
+    }
     [Test]
     public void ScopedDialogSnapshotIsExplicitAndImmutable()
     {

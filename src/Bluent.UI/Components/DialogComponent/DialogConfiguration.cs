@@ -13,4 +13,8 @@ public class DialogConfiguration
 
     /// <summary>Experimental #418 opt-in theme context for detached portals.</summary>
     public PortalThemeScope? ThemeScope { get; init; }
+    /// <summary>Opt-in accessible name for a v3 owned dialog. Null leaves existing v2 behavior unchanged.</summary>
+    public string? AccessibleName { get; init; }
+    /// <summary>Localized text alternative for the dismiss icon.</summary>
+    public string? CloseButtonLabel { get; init; }
 }

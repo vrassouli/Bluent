@@ -1,10 +1,11 @@
-﻿<div class="dialog-content">
+<div class="dialog-content">
     <div class="header">
         <h2 class="title">@Title</h2>
         @if (ShowCloseButton)
         {
             <Button Appearance="ButtonAppearance.Transparent"
                     Icon="@FluentIcons.Dismiss"
+                    aria-label="@Dialog?.CloseButtonLabel"
                     Size="ButtonSize.Large"
                     Class="fs-4"
                     OnClick="CloseHandler" />

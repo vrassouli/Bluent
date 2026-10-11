@@ -58,3 +58,7 @@ See BRAND-SCOPES-PREVIEW.md for Penpot page 34 and 126/126 Chrome checks with Ex
 
 ## Actual Interactive Server parity
 A second local Chrome execution (Production-published SSR + InteractiveServer, no remote deploy) now passes the same **126/126** Blazor interactions as WASM. See INTERACTIVE-SERVER-PROBE.md. This adds interaction evidence for the scoped Dialog/Popover services, but does not certify every pre-rendered SSR page, native accessibility or RenderMode.Auto.
+
+
+## Additive draft Dialog AX/focus entry (2026-10-11)
+See [D5 accessible Dialog prototype](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md). Configurator.SetAccessibleDialog(name, localizedCloseLabel) opts a Dialog into role=dialog, a readable accessible name and Close Button, and native Blazor focus entry. No-config v2 markup stays unchanged. Chrome and Edge on WASM and published InteractiveServer each pass 149/149 assertions; NUnit 43/43. Focus return, modal trapping, Popover expanded state, native AT and final API review remain open.

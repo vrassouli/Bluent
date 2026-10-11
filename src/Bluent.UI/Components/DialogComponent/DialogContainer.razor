@@ -15,6 +15,9 @@
         <Dialog @ref=context.DialogReference
                 @key=context
                 Size="context.Config.Size"
+                AccessibleName="@context.Config.AccessibleName"
+                CloseButtonLabel="@context.Config.CloseButtonLabel"
+                IsModal="@context.Config.Modal"
                 OnClose="(result) => { OnDialogClose(result, context); }">
             @context.Content
         </Dialog>
