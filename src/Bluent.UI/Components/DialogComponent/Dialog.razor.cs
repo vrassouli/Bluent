@@ -17,6 +17,8 @@ public partial class Dialog
     [Parameter] public bool IsModal { get; set; }
     [Parameter] public bool EnableModalKeyboard { get; set; }
     [Parameter] public string? InitialFocusTargetId { get; set; }
+    [Parameter] public bool UseStandardTitleHeading { get; set; }
+    internal string AccessibleHeadingId => $"{Id}_title";
     [Parameter] public RenderFragment? ChildContent { get; set; } = default!;
     [Parameter] public DialogSize Size { get; set; } = DialogSize.Medium;
     [Parameter] public EventCallback<dynamic?> OnClose { get; set; }

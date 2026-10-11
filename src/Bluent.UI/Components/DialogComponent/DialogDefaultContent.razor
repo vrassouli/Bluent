@@ -1,6 +1,6 @@
 <div class="dialog-content">
     <div class="header">
-        <h2 class="title">@Title</h2>
+        <h2 class="title" id="@(Dialog?.UseStandardTitleHeading == true ? Dialog.AccessibleHeadingId : null)">@Title</h2>
         @if (ShowCloseButton)
         {
             <Button Appearance="ButtonAppearance.Transparent"

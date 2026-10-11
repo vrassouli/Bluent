@@ -12,6 +12,7 @@ public class DialogConfigurator
     private string? _returnFocusTargetId;
     private bool _enableModalKeyboard;
     private string? _initialFocusTargetId;
+    private bool _useStandardTitleHeading;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
@@ -79,7 +80,10 @@ public class DialogConfigurator
         return this;
     }
 
-    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard, InitialFocusTargetId = _initialFocusTargetId };
+    /// <summary>Called only by the built-in title-bearing Dialog overload.</summary>
+    internal void UseStandardTitleHeading(bool hasNonemptyTitle) =>
+        _useStandardTitleHeading = hasNonemptyTitle;
+    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard, InitialFocusTargetId = _initialFocusTargetId, UseStandardTitleHeading = _useStandardTitleHeading && !string.IsNullOrWhiteSpace(_accessibleName) };
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }

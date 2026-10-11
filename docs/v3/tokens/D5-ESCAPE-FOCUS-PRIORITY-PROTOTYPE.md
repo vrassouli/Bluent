@@ -1,3 +1,5 @@
+> **New D5 name-from-title audit (2026-10-11):** Named standard Dialogs now associate their visible h2 with a unique aria-labelledby reference; custom fragment Dialogs retain an explicit aria-label fallback. Four Chrome/Edge × WASM/InteractiveServer browser suites pass 183/183 each. See [Penpot page 38 and Dialog AX naming evidence](D5-DIALOG-HEADING-AX-AUDIT.md). Native NVDA/VoiceOver sign-off remains OPEN.
+
 # #418 — Escape priority and caller-owned initial focus (D5 draft)
 
 **2026-10-11.** This is experimental, *opt-in* code on `v3/issue-418-design-tokens`, with Draft PR #500 targeting `bluent-v3`. No stable `Dev` merge or NuGet publish.

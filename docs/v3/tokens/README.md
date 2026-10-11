@@ -155,3 +155,7 @@ Penpot file Bluent v3 Design System now has **page 37** \`535db143-a732-807e-800
 
 ### D5 open-Popover disposal proof
 Added an opt-in JS Escape-listener disposal path through existing Blazor PopoverService.Destroy and PopoverInterop. Browser integration checks count actual document keyboard listeners before show, while a Popover is open, and after *in-surface button-triggered component unmount*, proving **+1 then -1**. Four Chromium x Blazor runs each **177/177**, including prior Escape/initial-focus checks. See [D5 Escape/focus audit](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md). Arbitrary navigation, other libraries and real screen readers remain separate acceptance items.
+
+
+## D5 visible Dialog heading as accessible name
+Real editable Bluent v3 Penpot **page 38** (\`535db143-a732-807e-8008-c64b3e0c419d\`, native board \`535db143-a732-807e-8008-c64b3e839d5a\`) documents the [title-to-AX-name contract](D5-DIALOG-HEADING-AX-AUDIT.md): standard titled \`ShowAsync<T>(title,...)\` opts into an \`aria-labelledby\` reference to its true unique \`h2\`; custom render-fragment dialogs keep the explicit localized \`aria-label\` fallback and never point to a missing heading. Board has **22 editable shapes**, zero bounds errors and reviewed PNG export. Real Chrome/Edge × WASM/InteractiveServer **183/183 each**, NUnit **53/53** including static SSR/HTML-encoding tests. NVDA was not found on Dev01; VoiceOver was not running on MacBook3: no actual native screen-reader approval is claimed.

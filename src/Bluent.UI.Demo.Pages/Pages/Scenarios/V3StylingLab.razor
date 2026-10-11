@@ -32,6 +32,7 @@
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
             <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
+            <Button id="v3-show-custom-fragment" Text="Show custom named fragment (no header)" OnClick="ShowCustomNamedFragment" />
             <Button id="v3-show-initial-focus-modal" Text="Show modal focused on last action" OnClick="() => ShowInitialFocusModal(false)" />
             <Button id="v3-show-invalid-focus-modal" Text="Show modal with external focus target" OnClick="() => ShowInitialFocusModal(true)" />
             <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
@@ -153,6 +154,25 @@
             null, options => options.SetThemeScope(snapshot).SetModal(false).SetAccessibleDialog("v3 scoped Dialog", "Close dialog").SetReturnFocusTargetId("v3-show-service-dialog"));
     }
 
+    private void ShowCustomNamedFragment()
+    {
+        RenderFragment content = builder =>
+        {
+            builder.OpenElement(0, "p");
+            builder.AddAttribute(1, "id", "v3-custom-fragment-content");
+            builder.AddContent(2, "Custom fragment with no standard title header.");
+            builder.CloseElement();
+        };
+        _ = DialogService.ShowAsync(content,
+            new DialogConfiguration(modal: true)
+            {
+                ThemeScope = CurrentScope,
+                AccessibleName = "پنجره سفارشی",
+                CloseButtonLabel = "بستن پنجره",
+                EnableModalKeyboard = true,
+                ReturnFocusTargetId = "v3-show-custom-fragment"
+            });
+    }
     private void ShowKeyboardModal()
     {
         var scope = CurrentScope;

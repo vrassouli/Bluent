@@ -4,7 +4,8 @@
 <div @ref="_root" @attributes=AdditionalAttributes id="@Id"
      tabindex="@(string.IsNullOrWhiteSpace(AccessibleName) ? null : "-1")" class="@GetComponentClass()" style="@Style"
      role="@(string.IsNullOrWhiteSpace(AccessibleName) ? null : "dialog")"
-     aria-label="@AccessibleName"
+     aria-label="@(UseStandardTitleHeading ? null : AccessibleName)"
+     aria-labelledby="@(UseStandardTitleHeading && !string.IsNullOrWhiteSpace(AccessibleName) ? AccessibleHeadingId : null)"
      aria-modal="@(string.IsNullOrWhiteSpace(AccessibleName) || !IsModal ? null : "true")"
      data-bui-v3-keyboard-modal="@(EnableModalKeyboard && IsModal && !string.IsNullOrWhiteSpace(AccessibleName) ? "" : null)"
      @onanimationend="AnimationEndedHandler">

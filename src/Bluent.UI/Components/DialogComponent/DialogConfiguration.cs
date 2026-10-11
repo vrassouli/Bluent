@@ -23,4 +23,6 @@ public class DialogConfiguration
     public bool EnableModalKeyboard { get; init; }
     /// <summary>Draft #418 opt-in initial focus element ID, scoped to the Dialog subtree.</summary>
     public string? InitialFocusTargetId { get; init; }
+    /// <summary>Internal #418 draft: only the standard title-bearing overload owns a verified heading.</summary>
+    internal bool UseStandardTitleHeading { get; init; }
 }

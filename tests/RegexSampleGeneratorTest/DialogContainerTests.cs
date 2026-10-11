@@ -75,6 +75,64 @@ public class DialogContainerTests
         });
     }
 
+    [Test]
+    public async Task OptInTitleDialogsReferenceExactlyTheirOwnHeadings()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            var dialogService = services.GetRequiredService<IDialogService>();
+            _ = dialogService.ShowAsync<EmptyDialogBody>(
+                "First real heading", null,
+                options => options.SetAccessibleDialog("Outdated fallback", "Close dialog"));
+            _ = dialogService.ShowAsync<EmptyDialogBody>(
+                "Second real heading", null,
+                options => options.SetAccessibleDialog("Other fallback", "Close dialog"));
+            await container.QuiescenceTask;
+
+            var html = container.ToHtmlString();
+            var refs = System.Text.RegularExpressions.Regex.Matches(
+                html, "aria-labelledby=\"([^\"]+)\"");
+            Assert.That(refs.Count, Is.EqualTo(2), html);
+            Assert.That(refs[0].Groups[1].Value, Is.Not.EqualTo(refs[1].Groups[1].Value));
+            foreach (System.Text.RegularExpressions.Match match in refs)
+                Assert.That(CountOccurrences(html, "id=\"" + match.Groups[1].Value + "\""),
+                            Is.EqualTo(1), html);
+            Assert.Multiple(() =>
+            {
+                Assert.That(html, Does.Contain("First real heading"));
+                Assert.That(html, Does.Contain("Second real heading"));
+                Assert.That(html, Does.Not.Contain("Outdated fallback\""));
+                Assert.That(html, Does.Not.Contain("Other fallback\""));
+            });
+        });
+    }
+
+    [Test]
+    public async Task OptInCustomContentWithoutHeaderRetainsExplicitNameOnly()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            var dialogService = services.GetRequiredService<IDialogService>();
+            _ = dialogService.ShowAsync(TextContent("Custom, no h2"),
+                new DialogConfiguration(modal: false) { AccessibleName = "پنجره سفارشی" });
+            await container.QuiescenceTask;
+            var html = container.ToHtmlString();
+            Assert.Multiple(() =>
+            {
+                Assert.That(html, Does.Contain("role=\"dialog\""));
+                Assert.That(System.Net.WebUtility.HtmlDecode(html), Does.Contain("aria-label=\"پنجره سفارشی\""));
+                Assert.That(html, Does.Not.Contain("aria-labelledby="));
+            });
+        });
+    }
+
+    public sealed class EmptyDialogBody : ComponentBase { }
     private static ServiceProvider CreateServices()
     {
         var services = new ServiceCollection();
