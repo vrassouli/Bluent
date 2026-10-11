@@ -104,7 +104,7 @@ def main() -> int:
                 if scenario == "host-preference":
                     if result["forced"]:
                         failed.append(f"{mode}: native forced-colors already active; baseline unavailable")
-                    
+
                     if result["duration"] != ("0s" if result["reduced"] else "0.15s"):
                         failed.append(f"{mode}: unexpected duration {result['duration']}")
                 if scenario == "forced-colors":
