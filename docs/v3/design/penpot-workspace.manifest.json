@@ -1,0 +1,689 @@
+{
+  "schemaVersion": 1,
+  "project": "Bluent v3",
+  "issue": 419,
+  "reviewStatus": "draft",
+  "updatedDate": "2026-10-11",
+  "designSource": {
+    "platform": "penpot",
+    "fileName": "Bluent v3 Design System",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "url": null,
+    "approval": "pending",
+    "lastSeenRevision": 138,
+    "savedDraftVersionLabel": "Bluent v3 · #419 Button source parity and resize constraints 2026-10-11"
+  },
+  "externalReference": {
+    "fileName": "Microsoft Fluent 2 Web (Community)",
+    "fileId": "b64f6665-c9ab-80b5-8008-c3cd9685a0a0",
+    "readOnly": true,
+    "listedAsConnected": true,
+    "importableComponentsVerified": 124,
+    "sharedLibraryPublicationPending": false,
+    "referenceButtonVariantCount": 150,
+    "realLinkedInstance": {
+      "componentName": "Button",
+      "componentId": "76a3faa3-4591-5372-9caa-785ae9ce78df",
+      "instanceId": "07c521b9-e441-80bd-8008-c4afbeace57a",
+      "boardId": "07c521b9-e441-80bd-8008-c4afd554a335",
+      "linked": true,
+      "defaultAppearance": "Secondary",
+      "defaultSize": "Medium",
+      "visualInspection": true
+    },
+    "linkedButtonMatrix": {
+      "pageId": "07c521b9-e441-80bd-8008-c4b57568c3ef",
+      "boardId": "07c521b9-e441-80bd-8008-c4b5759995ec",
+      "count": 25,
+      "styles": [
+        "Secondary (Default)",
+        "Primary",
+        "Outline",
+        "Subtle",
+        "Transparent"
+      ],
+      "states": [
+        "Rest",
+        "Hover",
+        "Pressed",
+        "Selected",
+        "Disabled"
+      ],
+      "layout": "Icon and label (Default)",
+      "size": "Medium (Default)",
+      "linkedVerified": true,
+      "visuallyInspected": true,
+      "origin": "linked library variant-component instances, not an implementation"
+    },
+    "linkedComponentMatrices": [
+      {
+        "family": "input",
+        "pageId": "07c521b9-e441-80bd-8008-c4d65ae7b089",
+        "boardId": "07c521b9-e441-80bd-8008-c4d65b54658b",
+        "upstreamComponentId": "131b0055-4dfd-5274-b259-45c21ea2374c",
+        "upstreamSourceVariantCount": 84,
+        "linkedInstanceCount": 28,
+        "axes": {
+          "Size": [
+            "Medium (Default)"
+          ],
+          "State": [
+            "Rest",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Error",
+            "Disabled",
+            "Read only"
+          ],
+          "Style": [
+            "Filled lighter",
+            "Filled darker",
+            "Outline",
+            "Underline"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "checkbox",
+        "pageId": "07c521b9-e441-80bd-8008-c4d69e1290a6",
+        "boardId": "07c521b9-e441-80bd-8008-c4d69e2a5bfe",
+        "upstreamComponentId": "497b3553-d0e5-53d3-9c38-15a4f88d192b",
+        "upstreamSourceVariantCount": 30,
+        "linkedInstanceCount": 30,
+        "axes": {
+          "State": [
+            "Rest",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Disabled"
+          ],
+          "Status": [
+            "Unchecked",
+            "Checked",
+            "Indeterminate"
+          ],
+          "Style": [
+            "Standard",
+            "Circular"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "dialog",
+        "pageId": "07c521b9-e441-80bd-8008-c4d6ead3600b",
+        "boardId": "07c521b9-e441-80bd-8008-c4d6eae7cfb0",
+        "upstreamComponentId": "6806bf65-c164-5171-92cd-4cb84102ffa3",
+        "upstreamSourceVariantCount": 4,
+        "linkedInstanceCount": 4,
+        "axes": {
+          "Size": [
+            "320px",
+            "600px"
+          ],
+          "Layout": [
+            "Text",
+            "Placeholder"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "datagrid-cell-medium",
+        "pageId": "07c521b9-e441-80bd-8008-c4d7543f25ff",
+        "boardId": "07c521b9-e441-80bd-8008-c4d7545257d7",
+        "upstreamComponentId": "5cd3dfcb-e9d0-539a-b917-90dc6582535f",
+        "upstreamSourceVariantCount": 7,
+        "linkedInstanceCount": 7,
+        "axes": {
+          "Layout": [
+            "Cell actions",
+            "Single select",
+            "Multi-select",
+            "Text",
+            "Swappable",
+            "Link"
+          ],
+          "Style": [
+            "None",
+            "Primary",
+            "Secondary"
+          ]
+        },
+        "scope": "cell-only reference, NOT complete DataGrid",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      },
+      {
+        "family": "switch",
+        "pageId": "07c521b9-e441-80bd-8008-c4d793a549ff",
+        "boardId": "07c521b9-e441-80bd-8008-c4d793b68198",
+        "upstreamComponentId": "33756525-5af9-5f3d-a369-d85a217449f1",
+        "upstreamSourceVariantCount": 40,
+        "linkedInstanceCount": 40,
+        "axes": {
+          "Checked": [
+            "True",
+            "False"
+          ],
+          "Layout": [
+            "Switch+Label above",
+            "Switch+Label before",
+            "Switch+Label after",
+            "Switch"
+          ],
+          "State": [
+            "Rest",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Disabled"
+          ]
+        },
+        "scope": "upstream visual reference only",
+        "linkedVerified": true,
+        "visuallyInspected": true
+      }
+    ],
+    "totalLinkedReferenceMatrixInstances": 134,
+    "totalLinkedReferenceMatrixFamilies": 6
+  },
+  "pages": [
+    {
+      "key": "overview",
+      "name": "00 · Start here",
+      "id": "b64f6665-c9ab-80b5-8008-c4ac99d9d001",
+      "boardId": "07c521b9-e441-80bd-8008-c4ada8c1f76c"
+    },
+    {
+      "key": "foundations",
+      "name": "01 · Foundations",
+      "id": "07c521b9-e441-80bd-8008-c4ad87dde57e",
+      "boardId": "07c521b9-e441-80bd-8008-c4ae222798a6"
+    },
+    {
+      "key": "component-anatomy",
+      "name": "02 · Component anatomy",
+      "id": "07c521b9-e441-80bd-8008-c4ad87dee26e",
+      "boardId": "07c521b9-e441-80bd-8008-c4ae9e63585f"
+    },
+    {
+      "key": "quality-migration",
+      "name": "03 · Quality & migration",
+      "id": "07c521b9-e441-80bd-8008-c4ad87df93c3",
+      "boardId": "07c521b9-e441-80bd-8008-c4aee23bc3ec"
+    },
+    {
+      "key": "typography-spacing",
+      "name": "04 · Typography & spacing",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce333b9",
+      "boardId": "07c521b9-e441-80bd-8008-c4b27d1df98c"
+    },
+    {
+      "key": "density-responsive",
+      "name": "05 · Density & responsive",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce4cf82",
+      "boardId": "07c521b9-e441-80bd-8008-c4b2a95b3527"
+    },
+    {
+      "key": "motion-elevation",
+      "name": "06 · Motion & elevation",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce54e51",
+      "boardId": "07c521b9-e441-80bd-8008-c4b2ead05451"
+    },
+    {
+      "key": "accessibility-rtl",
+      "name": "07 · Accessibility & RTL",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce6f58c",
+      "boardId": "07c521b9-e441-80bd-8008-c4b32a4e1bec"
+    },
+    {
+      "key": "brand-inventory",
+      "name": "08 · Brand inventory",
+      "id": "07c521b9-e441-80bd-8008-c4b24ce7b0aa",
+      "boardId": "07c521b9-e441-80bd-8008-c4b3688e43c6"
+    },
+    {
+      "key": "fluent-button-state-reference",
+      "name": "09 · Fluent Button state reference",
+      "id": "07c521b9-e441-80bd-8008-c4b57568c3ef",
+      "boardId": "07c521b9-e441-80bd-8008-c4b5759995ec"
+    },
+    {
+      "key": "fluent-input-reference",
+      "name": "10 · Fluent Input reference",
+      "id": "07c521b9-e441-80bd-8008-c4d65ae7b089",
+      "boardId": "07c521b9-e441-80bd-8008-c4d65b54658b"
+    },
+    {
+      "key": "fluent-checkbox-reference",
+      "name": "11 · Fluent Checkbox reference",
+      "id": "07c521b9-e441-80bd-8008-c4d69e1290a6",
+      "boardId": "07c521b9-e441-80bd-8008-c4d69e2a5bfe"
+    },
+    {
+      "key": "fluent-dialog-reference",
+      "name": "12 · Fluent Dialog reference",
+      "id": "07c521b9-e441-80bd-8008-c4d6ead3600b",
+      "boardId": "07c521b9-e441-80bd-8008-c4d6eae7cfb0"
+    },
+    {
+      "key": "fluent-datagrid-cell-medium-reference",
+      "name": "13 · Fluent DataGrid cells reference",
+      "id": "07c521b9-e441-80bd-8008-c4d7543f25ff",
+      "boardId": "07c521b9-e441-80bd-8008-c4d7545257d7"
+    },
+    {
+      "key": "fluent-switch-reference",
+      "name": "14 · Fluent Switch reference",
+      "id": "07c521b9-e441-80bd-8008-c4d793a549ff",
+      "boardId": "07c521b9-e441-80bd-8008-c4d793b68198"
+    },
+    {
+      "key": "bluent-native-control-drafts",
+      "name": "15 · Bluent native control drafts",
+      "id": "07c521b9-e441-80bd-8008-c4d95657c458",
+      "boardId": "07c521b9-e441-80bd-8008-c4d9703f9bc2"
+    },
+    {
+      "key": "native-textfield-variants",
+      "name": "16 · Bluent TextField variants",
+      "id": "e31294c6-7c55-805f-8008-c51213e75deb",
+      "boardId": "e31294c6-7c55-805f-8008-c512bf412b37"
+    },
+    {
+      "key": "native-checkbox-variants",
+      "name": "17 · Bluent Checkbox variants",
+      "id": "e31294c6-7c55-805f-8008-c51213e87848",
+      "boardId": "e31294c6-7c55-805f-8008-c51334e865e4"
+    },
+    {
+      "key": "native-switch-variants",
+      "name": "18 · Bluent Switch variants",
+      "id": "e31294c6-7c55-805f-8008-c51213e8a17b",
+      "boardId": "e31294c6-7c55-805f-8008-c5139a9544bf"
+    },
+    {
+      "key": "native-button-state-variants",
+      "name": "19 · Bluent Button native variants",
+      "id": "e31294c6-7c55-805f-8008-c58ffcf22e07",
+      "boardId": "e31294c6-7c55-805f-8008-c5907590b592"
+    },
+    {
+      "key": "native-button-size-layout",
+      "name": "20 · Bluent Button sizes and layout",
+      "id": "e31294c6-7c55-805f-8008-c590b2678162",
+      "boardId": "e31294c6-7c55-805f-8008-c590fe0982cf"
+    },
+    {
+      "key": "button-bluent-extensions",
+      "name": "21 · Button Bluent-specific API anatomy",
+      "id": "e31294c6-7c55-805f-8008-c5912770e8ab",
+      "boardId": "e31294c6-7c55-805f-8008-c591278b98dd"
+    },
+    {
+      "key": "button-fluent-parity-review",
+      "name": "22 · Button Fluent parity review",
+      "id": "e31294c6-7c55-805f-8008-c5a8fb268d03",
+      "boardId": "e31294c6-7c55-805f-8008-c5a91188deb7"
+    },
+    {
+      "key": "button-resize-stress-lab",
+      "name": "23 · Button resize stress laboratory",
+      "id": "e31294c6-7c55-805f-8008-c5aa0da135fb",
+      "boardId": "e31294c6-7c55-805f-8008-c5aaa288cc59"
+    }
+  ],
+  "tokens": {
+    "status": "draft",
+    "sets": [
+      {
+        "name": "bluent-v3/draft/light",
+        "count": 5,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/dark",
+        "count": 5,
+        "defaultActive": false
+      },
+      {
+        "name": "bluent-v3/draft/layout",
+        "count": 3,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/typography",
+        "count": 13,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/spacing-scale",
+        "count": 11,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/motion",
+        "count": 6,
+        "defaultActive": true
+      },
+      {
+        "name": "bluent-v3/draft/density",
+        "count": 6,
+        "defaultActive": true
+      }
+    ],
+    "themes": [
+      {
+        "group": "Bluent v3 / Mode",
+        "name": "Light · Draft"
+      },
+      {
+        "group": "Bluent v3 / Mode",
+        "name": "Dark · Draft"
+      }
+    ],
+    "switchingVerified": true,
+    "restoredMode": "Light",
+    "totalEntries": 49,
+    "sharedSetsPerMode": 5,
+    "modesLinkSharedSetsVerified": true
+  },
+  "components": [
+    {
+      "name": "DRAFT · Primary Button",
+      "id": "07c521b9-e441-80bd-8008-c4aec6fea27e",
+      "boardId": "07c521b9-e441-80bd-8008-c4aec6f7e429",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.brandBackground",
+      "approved": false
+    },
+    {
+      "name": "DRAFT · TextField",
+      "id": "07c521b9-e441-80bd-8008-c4d9894618fd",
+      "boardId": "07c521b9-e441-80bd-8008-c4d98926e6fc",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.background1",
+      "approved": false,
+      "linkedLocalPreviewId": "07c521b9-e441-80bd-8008-c4d9b70c7903",
+      "source": "native Penpot editable prototype"
+    },
+    {
+      "name": "DRAFT · Checkbox",
+      "id": "07c521b9-e441-80bd-8008-c4d99a88df90",
+      "boardId": "07c521b9-e441-80bd-8008-c4d99a652d5d",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.brandBackground",
+      "approved": false,
+      "linkedLocalPreviewId": "07c521b9-e441-80bd-8008-c4d9b7140d69",
+      "source": "native Penpot editable prototype"
+    },
+    {
+      "name": "DRAFT · Switch",
+      "id": "07c521b9-e441-80bd-8008-c4d9a7c1e966",
+      "boardId": "07c521b9-e441-80bd-8008-c4d9a7a9cde2",
+      "upstreamLinked": false,
+      "appliedDraftToken": "bluent.color.brandBackground",
+      "approved": false,
+      "linkedLocalPreviewId": "07c521b9-e441-80bd-8008-c4d9b71d4287",
+      "source": "native Penpot editable prototype"
+    }
+  ],
+  "evidence": {
+    "renderedPenpotBoardsVisuallyInspected": true,
+    "sourceRef": "docs/v3/design/BLUENT-V3-PENPOT.md",
+    "codeImplemented": false,
+    "parityValidated": false,
+    "extendedFoundationsDoc": "docs/v3/design/FOUNDATION-EXTENSIONS.md",
+    "extendedBoardsVisuallyInspected": 5,
+    "rtlPersianCanvasFont": "Noto Sans Arabic",
+    "latinPreviewCanvasFont": "Inter",
+    "brandModeColorInventoryCount": 20,
+    "upstreamVariantSwitchingVerified": false,
+    "upstreamMatrixVerifiedLinkedCount": 25,
+    "formGridReferenceDoc": "docs/v3/design/COMPONENT-REFERENCE-MATRICES.md",
+    "formGridNewBoardsVisuallyInspected": 5,
+    "formGridNewLinkedInstancesVerified": 109,
+    "localDraftComponentsDoc": "docs/v3/design/LOCAL-COMPONENT-DRAFTS.md",
+    "localDraftPreviewBoardVisuallyInspected": true,
+    "localDraftPreviewVerifiedInstances": 3,
+    "nativeVariantDesignDoc": "docs/v3/design/NATIVE-CONTROL-VARIANTS.md",
+    "nativeVariantFamilies": 3,
+    "nativeVariantTotal": 34,
+    "nativeVariantLinkedPreviews": 34,
+    "nativeVariantBoardsVisuallyInspected": 3,
+    "localComponentFamilyEntriesVerified": 9,
+    "additionalDraftTokenBindings": 15,
+    "nativeButtonDesignDoc": "docs/v3/design/NATIVE-BUTTON-VARIANTS.md",
+    "nativeButtonVariantFamilies": 2,
+    "nativeButtonVariantTotal": 31,
+    "nativeButtonLinkedPreviews": 31,
+    "nativeButtonBoardsVisuallyInspected": 2,
+    "nativeButtonApiSketchBoardVisuallyInspected": true,
+    "nativeButtonApiSketchCases": 8,
+    "totalLocalNativeVariantFamilies": 5,
+    "totalLocalNativeVariants": 65,
+    "totalLocalNativeLinkedPreviews": 65
+  },
+  "guardrails": {
+    "workBranch": "v3/issue-419-penpot-library",
+    "integrationBranch": "bluent-v3",
+    "stableDevUntouched": true
+  },
+  "localVariantMatrices": [
+    {
+      "family": "textfield",
+      "source": "local Bluent native component variants, not imported Fluent",
+      "pageId": "e31294c6-7c55-805f-8008-c51213e75deb",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c512bf412b37",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c51241e2236b",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c5122926bf55",
+      "axes": {
+        "State": [
+          "Rest",
+          "Focus",
+          "Error",
+          "Disabled",
+          "ReadOnly"
+        ],
+        "Appearance": [
+          "Outline",
+          "Filled"
+        ]
+      },
+      "variantCount": 10,
+      "linkedLocalPreviewCount": 10,
+      "uniqueAxisTuplesVerified": true,
+      "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    },
+    {
+      "family": "checkbox",
+      "source": "local Bluent native component variants, not imported Fluent",
+      "pageId": "e31294c6-7c55-805f-8008-c51213e87848",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c51334e865e4",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c512f68f2d1e",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c512ef110f24",
+      "axes": {
+        "Status": [
+          "Unchecked",
+          "Checked",
+          "Mixed"
+        ],
+        "State": [
+          "Rest",
+          "Focus",
+          "Disabled",
+          "Error"
+        ]
+      },
+      "variantCount": 12,
+      "linkedLocalPreviewCount": 12,
+      "uniqueAxisTuplesVerified": true,
+      "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    },
+    {
+      "family": "switch",
+      "source": "local Bluent native component variants, not imported Fluent",
+      "pageId": "e31294c6-7c55-805f-8008-c51213e8a17b",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c5139a9544bf",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c51360ccbff0",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c513588af6de",
+      "axes": {
+        "Checked": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Rest",
+          "Focus",
+          "Disabled"
+        ],
+        "Direction": [
+          "LTR",
+          "RTL"
+        ]
+      },
+      "variantCount": 12,
+      "linkedLocalPreviewCount": 12,
+      "uniqueAxisTuplesVerified": true,
+      "allLocalLinksVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    }
+  ],
+  "nativeButtonVariantMatrices": [
+    {
+      "family": "button-appearance-state",
+      "source": "native project-owned Bluent design variants, not upstream",
+      "pageId": "e31294c6-7c55-805f-8008-c58ffcf22e07",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c5900fba48e4",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c5907590b592",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c5900987e9aa",
+      "axes": {
+        "Appearance": [
+          "Primary",
+          "Secondary",
+          "Outline",
+          "Subtle",
+          "Transparent"
+        ],
+        "State": [
+          "Rest",
+          "Hover",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "variantCount": 25,
+      "linkedLocalPreviewCount": 25,
+      "allLocalLinksVerified": true,
+      "uniqueAxisTuplesVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    },
+    {
+      "family": "button-size-layout",
+      "source": "native project-owned Bluent design variants, not upstream",
+      "pageId": "e31294c6-7c55-805f-8008-c590b2678162",
+      "variantContainerId": "e31294c6-7c55-805f-8008-c590d62d466d",
+      "presentationBoardId": "e31294c6-7c55-805f-8008-c590fe0982cf",
+      "componentFamilyId": "e31294c6-7c55-805f-8008-c590b2a37ba8",
+      "axes": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "Layout": [
+          "Icon and label",
+          "Icon only"
+        ]
+      },
+      "variantCount": 6,
+      "linkedLocalPreviewCount": 6,
+      "allLocalLinksVerified": true,
+      "uniqueAxisTuplesVerified": true,
+      "renderedAndVisuallyInspected": true,
+      "approved": false
+    }
+  ],
+  "alignmentAudit": {
+    "status": "passed-at-observed-revision",
+    "scope": "actual project-owned Penpot source variants, linked previews, original prototypes, editable API sketches and root #419 board text bounds",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "revision": 138,
+    "report": "docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md",
+    "executablePenpotScript": "scripts/quality/penpot_v3_alignment_audit.js",
+    "nativeVariantsInspected": 65,
+    "linkedNativePreviewsVerified": 65,
+    "authoredRootBoardsScanned": 25,
+    "authoredVisibleTextFramesScanned": 712,
+    "geometricChecks": 990,
+    "errors": 0,
+    "initialVerticalAndOverflowFlags": 37,
+    "correctedBoardTextOverflows": 1,
+    "imagesVisuallyReviewed": true,
+    "namedVersion": "Bluent v3 · #419 Button source parity and resize constraints 2026-10-11",
+    "limitations": [
+      "not a live CI/screenshot regression suite",
+      "not typography optical accuracy",
+      "not responsive/RTL browser behavior or WCAG/a11y certification",
+      "does not alter imported Fluent source assets"
+    ]
+  },
+  "buttonParityReview": {
+    "status": "source-linked-comparison-verified; NOT parity-approved",
+    "pageId": "e31294c6-7c55-805f-8008-c5a8fb268d03",
+    "boardId": "e31294c6-7c55-805f-8008-c5a91188deb7",
+    "importedLinkedInstances": 10,
+    "localLinkedInstances": 10,
+    "matchedStyleAndStatePairs": 10,
+    "structuralAuditPassed": true,
+    "structuralErrors": 0,
+    "copyMismatchPairs": 10,
+    "iconMissingFromLocalPairs": 10,
+    "referenceMediumRoot": [
+      91,
+      32
+    ],
+    "localMediumFace": [
+      155,
+      33
+    ],
+    "pixelParityApproved": false,
+    "script": "scripts/quality/penpot_v3_button_parity_audit.js",
+    "report": "docs/v3/design/BUTTON-PARITY-REVIEW.md",
+    "pngVisuallyReviewed": true,
+    "revision": 138
+  },
+  "buttonResizeAudit": {
+    "status": "source-constraint-geometry-verified; NOT runtime-responsive-approved",
+    "pageId": "e31294c6-7c55-805f-8008-c5aa0da135fb",
+    "boardId": "e31294c6-7c55-805f-8008-c5aaa288cc59",
+    "localSourceVariants": 6,
+    "linkedResizeSpecimens": 18,
+    "responsiveDesignChecks": 145,
+    "errors": 0,
+    "textButtonStretch": true,
+    "iconOnlySquareAndCentered": true,
+    "atOrAboveContentMinimumOnly": true,
+    "script": "scripts/quality/penpot_v3_button_resize_audit.js",
+    "report": "docs/v3/design/BUTTON-RESIZE-REVIEW.md",
+    "pngVisuallyReviewed": true,
+    "revision": 138
+  }
+}
