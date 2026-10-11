@@ -68,7 +68,7 @@ public partial class Dialog
         try
         {
             if (_keyboardModule is not null)
-                await _keyboardModule.InvokeVoidAsync("unregisterModal", _root);
+                await _keyboardModule.InvokeVoidAsync("unregisterModal", Id);
         }
         catch (JSDisconnectedException) { }
         finally

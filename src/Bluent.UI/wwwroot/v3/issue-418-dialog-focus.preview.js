@@ -107,8 +107,14 @@ export function registerModal(root, dotnetReference) {
     }
 }
 
-export function unregisterModal(root) {
-    if (!modalOwners.delete(root)) return;
+export function unregisterModal(rootOrId) {
+    // During Blazor component disposal the actual DOM element may already
+    // be detached. Resolve its retained JS owner by stable ID rather than
+    // passing a stale ElementReference through interop.
+    const root = typeof rootOrId === "string"
+        ? [...modalOwners.keys()].find(el => el.id === rootOrId)
+        : rootOrId;
+    if (!root || !modalOwners.delete(root)) return;
     root.removeAttribute("data-bui-v3-keyboard-bound");
     if (!modalOwners.size && keyboardListenerInstalled) {
         window.removeEventListener("keydown", onModalKeyDown);

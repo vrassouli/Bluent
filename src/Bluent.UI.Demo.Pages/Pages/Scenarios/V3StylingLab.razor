@@ -32,6 +32,19 @@
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
             <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
+            <Button id="v3-mount-lifecycle-modal" Text="Mount temporary keyboard modal" OnClick="() => _lifecycleModalMounted = true" />
+            @if (_lifecycleModalMounted)
+            {
+                <Dialog AccessibleName="Temporary modal lifecycle fixture"
+                        CloseButtonLabel="Close temporary modal"
+                        EnableModalKeyboard="true" IsModal="true">
+                    <section data-v3-lifecycle-modal>
+                        <p>This temporary Modal will be removed without the Close lifecycle.</p>
+                        <Button id="v3-unmount-lifecycle-modal" Text="Unmount this Modal now"
+                                OnClick="() => _lifecycleModalMounted = false" />
+                    </section>
+                </Dialog>
+            }
             <Button id="v3-show-custom-fragment" Text="Show custom named fragment (no header)" OnClick="ShowCustomNamedFragment" />
             <Button id="v3-show-live-title" Text="Show Dialog with live changing heading" OnClick="ShowLiveTitleDialog" />
             <Button id="v3-show-initial-focus-modal" Text="Show modal focused on last action" OnClick="() => ShowInitialFocusModal(false)" />
@@ -136,6 +149,7 @@
     private bool _compact;
     private bool _overlayOpen;
     private bool _removablePopover;
+    private bool _lifecycleModalMounted;
 
     private void ToggleMainBrand() => _mainBrand = _mainBrand == "excel" ? null : "excel";
 

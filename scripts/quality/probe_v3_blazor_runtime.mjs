@@ -405,6 +405,29 @@ try {
  const liveClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-live-title'"),"dynamic heading modal close and return",16000);
  assert("live-title Dialog Escape restores launcher and tears down overlay",liveClosed);
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ // D5 lifecycle: remove an opt-in Dialog component from a live Blazor
+ // render tree, without calling Close(). Check actual global keydown count.
+ const windowKeydownCount=async()=>{
+   const ref=await cdp.send("Runtime.evaluate",{expression:"window",returnByValue:false});
+   const result=await cdp.send("DOMDebugger.getEventListeners",{objectId:ref.result.objectId});
+   return result.listeners.filter(l=>l.type==="keydown").length;
+ };
+ const baselineWindowKeys=await windowKeydownCount();
+ for(let pass=1;pass<=3;pass++){
+   await cdp.js("document.querySelector('#v3-mount-lifecycle-modal')?.click()");
+   const mounted=await until(()=>cdp.js("(()=>{const d=document.querySelector('.bui-dialog[data-bui-v3-keyboard-modal]'),section=d?.querySelector('[data-v3-lifecycle-modal]');return !!section&&d.hasAttribute('data-bui-v3-keyboard-bound')&&document.activeElement===d;})()"),"temporary modal mounted and registered #"+pass,19000);
+   const activeListeners=await until(async()=>{const n=await windowKeydownCount();return n===baselineWindowKeys+1?n:null;},"opt-in global keyboard listener registered #"+pass,12000);
+   await cdp.js("document.querySelector('#v3-unmount-lifecycle-modal')?.click()");
+   const removed=await until(()=>cdp.js("!document.querySelector('[data-v3-lifecycle-modal]')&&!document.querySelector('.bui-dialog[data-bui-v3-keyboard-modal]')"),"temporary Dialog unmounted without closing #"+pass,16000);
+   const after=await until(async()=>{const n=await windowKeydownCount();return n===baselineWindowKeys;},"window keydown cleanup after actual Dialog dispose #"+pass,18000);
+   assert("Dialog owner unmount "+pass+" releases JS window keydown listener and references",mounted&&activeListeners===baselineWindowKeys+1&&removed&&after===true,
+    JSON.stringify({baselineWindowKeys,activeListeners,after,pass}));
+ }
+ await cdp.js("document.querySelector('#v3-mount-lifecycle-modal')?.focus()");
+ await sendModalKey("Tab");
+ const freeAfterUnmount=await cdp.js("(()=>({active:document.activeElement?.id,dialogs:document.querySelectorAll('.bui-dialog[data-bui-v3-keyboard-bound]').length}))()");
+ assert("after repeated Dialog teardown Tab remains normal and no modal is registered",
+   freeAfterUnmount.dialogs===0&&freeAfterUnmount.active!=="v3-mount-lifecycle-modal",JSON.stringify(freeAfterUnmount));
  const passCount=checks.filter(x=>x.pass).length;
  const summary={classification:interactiveServer?"actual Blazor interactive SSR Server Chrome/CDP interaction":"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
