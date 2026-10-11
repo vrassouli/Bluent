@@ -1,3 +1,5 @@
+> **UPDATED 2026-10-11:** Safari remote automation was enabled subsequently and the actual published v3 SSR InteractiveServer lab passed **15/15** repeatable, real Safari 27.0.1 WebDriver checks on MacBook3. The earlier Safari block below is historical. Native VoiceOver remains unverified because first-run Quickstart appeared. See [Safari/WebKit and VoiceOver evidence](D5-SAFARI-VOICEOVER-AUDIT.md).
+
 # #418 D5 - Dialog owner unmount / global keyboard cleanup
 
 **2026-10-11. Status: DRAFT opt-in evidence only, no final Fluent API or native AT acceptance.** Branch v3/issue-418-design-tokens; Draft PR #500 targeting bluent-v3.
