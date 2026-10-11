@@ -52,3 +52,7 @@ Repeated the identical 139-assertion browser script with CHROME_PATH set to the 
 
 ## 2026-10-11 state and source typography audit
 [Exact 17-token typography source inventory across 10 brands and two modes](TYPOGRAPHY-SOURCE-AUDIT.md) and the new real semantic disabled/invalid Persian samples extend the opt-in demo. The updated Chrome/Blazor WebAssembly and InteractiveServer probes each pass **144/144**. Disabled Button cannot acquire focus; the invalid TextField has associated visible label and aria-describedby; its demo-only danger border is measurably distinct from the normal field and its error role persists in simulated forced-colors. Do not read this as screen-reader or complete state conformance.
+
+
+## Connected editable Penpot board (2026-10-11)
+Penpot MCP connection resumed. Created and PNG-reviewed actual native page #35 Persian validation states and reflow in the exact Bluent v3 Design System, page 916ee53e-8991-8009-8008-c61c0754ce9d, board 916ee53e-8991-8009-8008-c61c075e54cc. The 44 native elements stay within their board (geometry checked after edits; latest PNG re-export pending) and schematically show Light/Dark Persian invalid TextField, disabled Button, 320px constrained wrapped long label and semantic status notes. The draft uses locally available Noto Sans Arabic *for an editable comparison preview only*. Existing CSS --fontFamilyBase remains Segoe UI-first; no production font files or font changes are introduced. Separate Dialog/Popover D5 defects are in D5-PORTAL-ACCESSIBILITY-AUDIT.md.
