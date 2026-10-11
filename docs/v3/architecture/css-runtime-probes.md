@@ -71,12 +71,34 @@ In the same isolated Chrome session, the Node script navigates to the existing `
 
 The recorded `passed` from `probe_v3_dialog_theme.mjs` asserts only the **observed existing theme separation**; it must **not** be interpreted as an acceptance pass for nested themes, high contrast, keyboard behavior or reduced motion.
 
-## 4. Decisions and remaining acceptance
+## 4. Repeatable Release/Production SSR publish + static assets smoke (2026-10-11)
+
+A new **Windows Dev01-only** PowerShell probe is in [`scripts/quality/probe_v3_ssr_publish.ps1`](../../../scripts/quality/probe_v3_ssr_publish.ps1):
+
+```powershell
+pwsh -NoProfile -File scripts/quality/probe_v3_ssr_publish.ps1 -Port 5098
+```
+
+The script creates a unique temporary output, runs `dotnet publish src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj -c Release --no-restore`, launches the **published** DLL in `ASPNETCORE_ENVIRONMENT=Production`, requests real localhost endpoints with `HttpClient` and checks **HTTP 200, MIME and nonempty payload markers**, then stops the smoke server and deletes temporary artifacts.
+
+**Critical harness/runtime distinction observed during development:** initially the published DLL was launched while the process's current directory was the **repository root**, not the published output directory. The static CSS file physically existed at `wwwroot/_content/Bluent.UI/bluent.ui.components.min.css` with **117,963 bytes**, but the HTTP endpoint returned **200 with Content-Length: 0 and no Content-Type** (both HttpClient and curl agreed). This was a **reproducible content-root launch misconfiguration**, not proof that the CSS bundle was empty or incorrectly generated. Set `Start-Process -WorkingDirectory $out` so the host's content root points to the Release publish output. No change to existing Bluent production code was necessary.
+
+**Final verified smoke run** after fixing launch working directory:
+
+| Real local Production HTTP request | Status | MIME | Observed characters |
+| --- | ---: | --- | ---: |
+| `GET /v3/styling-lab` | 200 | `text/html` | **30,612** |
+| `GET /_content/Bluent.UI/bluent.ui.components.min.css` | 200 | `text/css` | **117,963** |
+| `GET /_framework/blazor.web.js` | 200 | `text/javascript` | **200,645** |
+
+**Result: 3/3 verified.** This is actual Release-published **Production static-asset** evidence, not remote deployment, interactive SSR hydration, form/keyboard tests, theme-mode acceptance or proof every RCL asset/brand loads. CSSM-09's requirement to run this exact script before bundle/order migration is documented in [the compatibility ledger](css-migration-impact-ledger.md). Preserve the current `MapStaticAssets()` and bundling model pending approved CSS ADR.
+
+## 5. Decisions and remaining acceptance
 
 1. **D2 confirmed risk:** Shared DialogContainer lives outside a locally themed page, and actual Dialog does not inherit its theme. Decide desired app/global vs nested scope contract in the next design-tool review; once approved, implement separately under the appropriate foundation/component issue.
 2. **D3 confirmed browser behavior:** ordinary vs `!important` cascade ordering changes under `@layer`. Keep current unlayered CSS until a consumer-style precedence migration suite demonstrates safe adoption.
 3. **Reduced-motion follow-up:** establish component-level motion policy in the v3 design spec; test overlay/dialog/drawer/popover animations, rather than claiming the lab Button's rule solves it.
 4. **Forced-colors follow-up:** check actual focus visibility, border distinguishability, control states, hover and disabled under forced-color emulation and assistive input. A black/white screenshot is insufficient for WCAG compliance claims.
-5. **Design-tool gate:** Figma MCP returned `You've reached the Figma MCP tool call limit on the Starter plan` when trying to inspect/update the design. At the time of this probe, Penpot pointed to **PuyaStudio Runner**; this was a historical connection limitation. **Update:** Penpot now points to the imported [Fluent 2 reference](../design/penpot-fluent-import-audit.md), which must remain read-only; a separate Bluent v3 Penpot design file is still needed. Continue only source/runtime validation and documentation that corresponds to the already recorded [D2/D3 Figma architecture board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3). Future design revisions and ADR sign-off must wait until an authorized Bluent Penpot session or available Figma quota.
+5. **Design-tool gate:** Figma MCP returned `You've reached the Figma MCP tool call limit on the Starter plan` when trying to inspect/update the design. At the time of the first probe, Penpot pointed to **PuyaStudio Runner**; this was a historical connection limitation. **Update (2026-10-11):** the independent [Bluent v3 Design System Penpot file](https://github.com/vrassouli/Bluent/pull/499) was subsequently created on the dedicated #419 task branch with linked Fluent reference, source-owned draft variant families and handoff evidence. Its design PR is in Review; it does **not** constitute approval of the final #417 styling ADR or #418 token schema. Continue only source/runtime validation and documentation that corresponds to the already recorded [D2/D3 Figma architecture board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3). Future design revisions and ADR sign-off must wait until an authorized Bluent Penpot session or available Figma quota.
 
 No changes to released Bluent 2.x API/CSS/assets or NuGet have been made; all experiments are in `v3/issue-417-css-architecture` targeting `bluent-v3`. Keep GitHub Project Status **In progress** while independently actionable tests remain; do not move to Review without design approval.

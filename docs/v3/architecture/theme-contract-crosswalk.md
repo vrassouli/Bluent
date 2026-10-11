@@ -4,6 +4,8 @@
 >
 > **Design evidence:** [Bluent v3 Figma CSS/token decision matrix — frame `14:3`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) on page `14:2`. The earlier [foundation research frame `2:2`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=2-2) remains a draft. **Read-only reference:** [Microsoft Fluent 2 Web (Community)](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD); Button example source node `9026:639`. Figma was the authorized fallback while Penpot still pointed to PuyaStudio Runner. **Update:** Penpot now connects to the imported Microsoft Fluent 2 reference; see the [read-only Penpot import audit](../design/penpot-fluent-import-audit.md). A separate Bluent v3 Penpot working file and reviewed design decisions are still required.
 
+> **2026-10-11 handoff update:** The independent [#419 Penpot design-library PR](https://github.com/vrassouli/Bluent/pull/499) was made ready for review and its real connected `Bluent v3 Design System` file now includes seven **draft** token sets / 49 entries, Light/Dark draft modes, 65 core design variants and 16 test fixtures. Those designs are a source-to-Razor review input **only**. Final #418 semantic tokens, 10-brand modes and font strategy are **not yet implemented**. Proposed styling decisions D1–D5 now live in [ADR-0001](ADR-0001-styling-boundaries.md) and [the CSS migration ledger](css-migration-impact-ledger.md). ADR approval is still pending.
+
 ## Source of truth
 
 - CSS source: `src/Bluent.UI/Styles/Themes/theme-default-{light,dark}.scss`, `Styles/Themes/theme/{light-theme,dark-theme}.scss`, `Styles/Themes/theme/{light,dark}/brand-palette.scss`, `Styles/Components/{_button,_field,_overlay}.scss`.

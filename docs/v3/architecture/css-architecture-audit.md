@@ -58,13 +58,21 @@ bundleconfig.json -> theme bundles (icons, reboot, light, dark, shared styles)
 
 Use Button, field/input and overlay to compare the old and candidate cascade/tokens under light/dark, RTL/LTR, disabled/validation, keyboard focus and nested themes. Exercise overlays outside normal DOM stacking contexts. Capture computed CSS and screenshots, specificity/cascade behavior, CSS bundle size, build/package output and supported render modes. Source examples or mockups alone are **not runtime/visual evidence**.
 
+## Formal architecture decision and v2 compatibility handoff
+
+The written [ADR-0001 styling boundaries](ADR-0001-styling-boundaries.md) consolidates this source assessment into five **explicitly proposed** decisions (D1–D5) with alternatives, rollback policy, owner and acceptance gates. **It is not approved** until a maintainer reviews/accepts its recommendations.
+
+The companion [CSS and static-asset migration impact ledger](css-migration-impact-ledger.md) enumerates **13 specific consumer-facing risks** with change impact and backward-compatibility test requirements. These findings are inputs for later migration #424, not a product-level code change under #417.
+
+The actual independent Bluent v3 Penpot #419 [library/import/handoff deliverables](https://github.com/vrassouli/Bluent/pull/499) are now available for review on their **separate task branch**: real locally owned Penpot variants, imported Fluent reference links, source-to-Razor mapping, typography gaps and source-linked variant-switch discrepancy. These design outcomes inform D1–D5 but do **not** mean the token contract in #418 has been implemented. The stable `Dev` branch and NuGet remain untouched.
+
 ## Remaining work / review gates
 
 - [x] Quantify lexical hard-coded colors/dimensions, Bootstrap source imports and JavaScript positioning candidates; generated utility equivalence, selector specificity and CSS collisions **remain open**.
 - [x] Record successful Release/Debug build, 20 existing tests and local NuGet pack evidence; distinguish static Sass imports from runtime dependencies.
 - [x] Implement the demo-only Button/Field/Overlay POC and exercise limited Chrome interaction; accessibility, portal inheritance and cross-browser tests remain open.
 - [ ] Approve or revise this ADR with reviewer findings; then unblock #418 and #420.
-- [ ] Add per-change CSS/assets compatibility rows to the #424 migration ledger.
+- [x] Produce a #417 CSS/assets consumer impact ledger with 13 compatibility risks, ownership and rollback gates; #424's final full migration guide remains a separate task.
 
 ## Evidence classification
 
