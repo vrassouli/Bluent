@@ -1,0 +1,27 @@
+/* AUTO-GENERATED #418 PREVIEW — source-backed token alias mapping.
+   Not part of Bluent 2.x bundle; no CSS is enabled without explicit opt-in.
+   This is a v3 research preview, NOT an approved public token naming API.
+   Regenerate: python scripts/quality/generate_v3_token_preview.py */
+[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme] {
+  /* semantic: aliases only; legacy variables are never overwritten. */
+  --bui-v3-surface-default: var(--colorNeutralBackground1);
+  --bui-v3-text-primary: var(--colorNeutralForeground1);
+  --bui-v3-action-background: var(--colorBrandBackground);
+  --bui-v3-action-foreground: var(--colorBrandForeground1);
+  --bui-v3-action-on-brand: var(--colorNeutralForegroundOnBrand);
+  --bui-v3-border-default: var(--colorNeutralStroke1);
+  --bui-v3-border-strong: var(--colorNeutralStrokeAccessible);
+  --bui-v3-status-danger: var(--colorStatusDangerForeground1);
+  --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
+  --bui-v3-surface-disabled: var(--colorNeutralBackgroundDisabled);
+  --bui-v3-border-focus: var(--colorBrandBackground);
+  /* component: aliases only; legacy variables are never overwritten. */
+  --bui-v3-button-background-primary: var(--bui-v3-action-background);
+  --bui-v3-button-foreground-primary: var(--bui-v3-action-on-brand);
+  --bui-v3-button-foreground-default: var(--bui-v3-text-primary);
+  --bui-v3-text-field-background: var(--bui-v3-surface-default);
+  --bui-v3-text-field-stroke: var(--bui-v3-border-strong);
+  --bui-v3-checkbox-checked-fill: var(--bui-v3-action-background);
+  --bui-v3-switch-checked-track: var(--bui-v3-action-background);
+  --bui-v3-badge-danger-foreground: var(--bui-v3-status-danger);
+}
