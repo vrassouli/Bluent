@@ -23,8 +23,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
     "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
-    "savedVersion": "Bluent v3 · #418 20 brands contrast and foundations audited 2026-10-11",
-    "observedRevision": 220,
+    "savedVersion": "Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11",
+    "observedRevision": 223,
     "nativeTokensPerMode": 24,
     "totalNativeTokens": 48,
     "sourceAddedPerMode": 5,
@@ -34,7 +34,7 @@
     "brandBoardId": "acf5f619-7d81-80da-8008-c5cce3bd4593",
     "brandSnapshotChecks": 60,
     "brandSnapshotErrors": 0,
-    "totalDesignPages": 32,
+    "totalDesignPages": 33,
     "brandThemeCount": 20,
     "brandThemeSourceSets": 20,
     "sharedBrandPreviewSets": 2,
@@ -63,7 +63,13 @@
     "foundationAliasTokenSetId": "acf5f619-7d81-80da-8008-c5e09d49cf8a",
     "foundationAliasTokens": 6,
     "foundationLiveChecks": 18,
-    "foundationLiveErrors": 0
+    "foundationLiveErrors": 0,
+    "accessibilityPolicyPageId": "acf5f619-7d81-80da-8008-c5ef1089ac94",
+    "accessibilityPolicyBoardId": "acf5f619-7d81-80da-8008-c5ef2f9a3158",
+    "nestedThemeBrowserChecks": 100,
+    "nestedThemeBrowserFailures": 0,
+    "forcedColorsRuntimeApproved": false,
+    "reducedMotionRuntimeApproved": false
   },
   "layers": {
     "source": [

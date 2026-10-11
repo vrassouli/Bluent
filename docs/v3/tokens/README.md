@@ -80,6 +80,12 @@ The fixture loads **all ten existing brands** independently and checks a non-opt
 
 **Limit:** This tests nested DOM CSS inheritance, **not** service-hosted Dialog/Popover outside its ancestry, keyboard, screen readers, forced colors or full accessibility. Runtime portal propagation (ADR D2) still requires implementation and real Blazor testing.
 
+## Native forced-colors and reduced-motion acceptance study
+
+A new **editable native Penpot page**, `32 · High contrast and reduced motion policy · #418` (ID `acf5f619-7d81-80da-8008-c5ef1089ac94`, board `acf5f619-7d81-80da-8008-c5ef2f9a3158`), documents three separate policy concepts: regular Light/Dark semantic tokens, OS forced-colors system roles and reduced-motion acceptance. The board was exported to PNG and visually inspected. Recovery version `Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11` at Penpot revision **223** contains **33 pages**, still **38 native TokenSets**. Original imported Fluent source was not modified.
+
+The [design and runtime acceptance distinctions](HIGH-CONTRAST-MOTION-DESIGN.md) explicitly prohibit treating the illustration as proof of native forced-color behavior, functioning Blazor control focus or automatic portal context propagation. The real Chrome DOM ancestry scope check immediately above passed **100/100**; actual portal, forced-colors and reduced-motion runtime verification remain open.
+
 ## Still required before #418 Review
 
 - **Penpot:** repeat the [default-mode native alias audit](../../../scripts/quality/penpot_v3_token_alias_audit.js) (**48/48 passed**), [static palette source audit](../../../scripts/quality/penpot_v3_brand_matrix_audit.js) (**60/60 passed**) and [true native brand theme-switch audit](../../../scripts/quality/penpot_v3_native_brand_theme_audit.js) (**80/80 passed**, observed revision 193). The selected Brand×Mode palette group requires **matching the separate base Mode Light/Dark selection**. Neither these proofs nor native Penpot preview names approve all runtime semantic aliases.
