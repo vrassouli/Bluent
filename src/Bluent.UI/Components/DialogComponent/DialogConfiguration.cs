@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 
 public class DialogConfiguration
 {
@@ -10,4 +10,7 @@ public class DialogConfiguration
 
     public bool Modal { get; }
     public DialogSize Size { get; }
+
+    /// <summary>Experimental #418 opt-in theme context for detached portals.</summary>
+    public PortalThemeScope? ThemeScope { get; init; }
 }

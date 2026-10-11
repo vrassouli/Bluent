@@ -86,3 +86,13 @@
 .v3-lab-surface ::deep .bui-overlay {
     animation-duration: var(--bui-v3-motion-duration-fast, var(--durationGentle, 250ms));
 }
+
+/* #418 two independent nested CSS hosts; no global theme mutation. */
+.v3-lab-independent-host {
+    background: var(--bui-v3-surface-default, var(--colorNeutralBackground1));
+    color: var(--bui-v3-text-primary, var(--colorNeutralForeground1));
+    border: 1px solid var(--bui-v3-border-default, var(--colorNeutralStroke1));
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 440px;
+}

@@ -58,3 +58,17 @@
     --bui-v3-motion-duration-fast: 0ms;
   }
 }
+
+/* #418 opt-in portal motion research; not shipped in Bluent.UI bundles.
+   Apply only to individually scoped global Dialog/Popover portals. */
+@media (prefers-reduced-motion: reduce) {
+  .dialog-wrapper[data-bui-v3-tokens] .bui-dialog,
+  .dialog-wrapper[data-bui-v3-tokens] > .bui-overlay {
+    animation-duration: 0s;
+    transition-duration: 0s;
+  }
+
+  .bui-popover-surface[data-bui-v3-tokens] {
+    transition-duration: 0s;
+  }
+}

@@ -1,4 +1,4 @@
-﻿using Bluent.Core;
+using Bluent.Core;
 using Bluent.UI.Extensions;
 using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
@@ -9,6 +9,7 @@ public partial class Popover : IDisposable
 {
     private bool _triggerAlreadySet;
     private PopoverSettings? _settings;
+    private PopoverConfiguration? _configuration;
 
     [Parameter, EditorRequired] public RenderFragment Trigger { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
@@ -22,6 +23,7 @@ public partial class Popover : IDisposable
     [Parameter] public bool SameWidth { get; set; }
     [Parameter] public PopoverAppearance Appearance { get; set; } = PopoverAppearance.Default;
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
+    [CascadingParameter] public PortalThemeScope? ThemeScope { get; set; }
 
     protected override void OnInitialized()
     {
@@ -49,11 +51,24 @@ public partial class Popover : IDisposable
             SameWidth = SameWidth
         };
 
-        PopoverService.SetTrigger(GetSurfaceFragment(), new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface));
+        _configuration = new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface, ThemeScope);
+        PopoverService.SetTrigger(GetSurfaceFragment(), _configuration);
 
         _triggerAlreadySet = true;
     }
 
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // Existing trigger/interops stay registered. Only refresh this one
+        // detached surface when its nearest theme host changes.
+        if (_configuration != null && !Equals(_configuration.ThemeScope, ThemeScope))
+        {
+            _configuration.ThemeScope = ThemeScope;
+            PopoverService.RefreshSurface(_configuration.Settings.TriggerId);
+        }
+    }
     public void Show()
     {
         if (_settings is null)

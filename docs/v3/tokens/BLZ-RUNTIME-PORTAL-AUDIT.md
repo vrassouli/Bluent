@@ -1,3 +1,4 @@
+> **2026-10-11 latest implementation checkpoint:** The original D2/D5 failure observations below are **historical pre-fix baselines**. An additive opt-in runtime prototype now transfers a per-item mode/direction/density snapshot into both global Dialog and Popover. The current [prototype guide](PORTAL-THEME-SCOPE-PREVIEW.md) records **82/82 actual Chrome/Blazor assertions** and **26/26 NUnit tests**, including real multi-host isolation, reduced motion and unscoped v2 fallback. The final API and independent brand scopes are NOT approved. The prior "still-unfixed" statements below refer to the **unscoped baseline and earlier commits**, not the current opted-in demo.
 # #418 — Blazor runtime and D2 portal ownership checkpoint
 
 **2026-10-11 · In progress / PR #500 Draft.** Research only; not a public v3 API or WCAG/AT certification.

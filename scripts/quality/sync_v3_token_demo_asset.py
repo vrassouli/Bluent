@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCES = [
     ROOT / "docs/v3/tokens/issue-418-opt-in.preview.css",
     ROOT / "docs/v3/tokens/issue-418-accessibility.preview.css",
+    ROOT / "docs/v3/tokens/issue-418-portal.preview.css",
 ]
 TARGET = ROOT / "src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css"
 

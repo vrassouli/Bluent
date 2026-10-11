@@ -1,6 +1,7 @@
 @page "/v3/styling-lab"
 @namespace Bluent.UI.Demo.Pages.Scenarios
 @using Bluent.UI.Services.Abstractions
+@using Bluent.UI.Demo.Pages.Pages.Components.DialogComponents
 @inject IDialogService DialogService
 
 <PageTitle>v3 opt-in tokens and theme ownership experiment | Bluent</PageTitle>
@@ -18,6 +19,7 @@
         <Button Text="@(_compact ? "Comfortable density" : "Compact density")" OnClick="() => _compact = !_compact" />
     </div>
 
+    <CascadingValue Value="CurrentScope">
     <section class="v3-lab-surface" data-bui-v3-tokens data-bui-theme="@(_dark ? "dark" : "light")"
              data-density="@(_compact ? "compact" : "comfortable")"
              dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 opt-in token experiment">
@@ -28,6 +30,8 @@
             <Button Text="Disabled" disabled />
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
+            <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
+            <Button Text="Show legacy unscoped dialog" OnClick="ShowUnscopedDialog" />
             <Popover KeepSurface="true" Placement="Placement.Bottom">
                 <Trigger>
                     <Button id="v3-popover-trigger" Text="Show service-hosted popover" />
@@ -40,7 +44,22 @@
                 </Surface>
             </Popover>
         </div>
-        <div class="v3-lab-field">
+        <CascadingValue Value="AlternateScope">
+            <section class="v3-lab-independent-host" data-bui-v3-tokens
+                     data-bui-theme="@AlternateScope.Mode" dir="@AlternateScope.Direction"
+                     aria-label="independent nested theme owner">
+                <h3>Independent nested host</h3>
+                <p>Uses the opposite mode and direction, without modifying its parent.</p>
+                <Popover KeepSurface="true" Placement="Placement.Bottom">
+                    <Trigger>
+                        <Button id="v3-independent-popover-trigger" Text="Show other host popover" />
+                    </Trigger>
+                    <Surface>
+                        <span data-v3-independent-popover-probe>Independent host portal</span>
+                    </Surface>
+                </Popover>
+            </section>
+        </CascadingValue>        <div class="v3-lab-field">
             <label for="v3-experiment-name">Name</label>
             <TextField id="v3-experiment-name" @bind-Value="_name" placeholder="Example name" />
             <span class="v3-lab-hint">This is a real Bluent TextField styled through the unpublished, scoped alias bridge.</span>
@@ -48,7 +67,7 @@
         <p role="status" aria-live="polite">@_message</p>
         <p class="v3-lab-hint">
             Service-hosted dialogs and popovers are rendered by the layout's global containers, outside this page-local theme.
-            Both triggers intentionally reproduce the D2 ownership gap; neither has automatic theme propagation.
+            Opt-in scope snapshots keep each detached surface in its initiating theme. The alternate Dialog deliberately uses the opposite mode to test simultaneous independent ownership.
         </p>
         @if (_overlayOpen)
         {
@@ -59,9 +78,12 @@
             </div>
         }
     </section>
+    </CascadingValue>
 </main>
 
 @code {
+    private PortalThemeScope CurrentScope => new(_dark ? "dark" : "light", _rtl ? "rtl" : "ltr", _compact ? "compact" : "comfortable");
+    private PortalThemeScope AlternateScope => new(_dark ? "light" : "dark", _rtl ? "ltr" : "rtl");
     private string? _name;
     private string _message = "No action yet";
     private bool _dark;
@@ -78,7 +100,23 @@
 
     private void ShowServiceDialog()
     {
-        _ = DialogService.ShowMessageBoxAsync("v3 theme ownership probe",
-            "This service-hosted dialog is outside the nested v3 theme host. Theme propagation is not yet implemented.");
+        // A service cannot infer its caller from the current document/focus.
+        // The opt-in scope must be explicitly supplied by this owner.
+        var snapshot = CurrentScope;
+        _ = DialogService.ShowAsync<SampleDialogContent>("v3 scoped Dialog",
+            null, options => options.SetThemeScope(snapshot).SetModal(false));
+    }
+
+    private void ShowUnscopedDialog()
+    {
+        // Guard against accidentally enabling v3 data attributes for v2 usage.
+        _ = DialogService.ShowAsync<SampleDialogContent>("Legacy unscoped Dialog",
+            null, options => options.SetModal(false));
+    }
+    private void ShowAlternateDialog()
+    {
+        var alternate = AlternateScope;
+        _ = DialogService.ShowAsync<SampleDialogContent>("v3 independent host",
+            null, options => options.SetThemeScope(alternate).SetModal(false));
     }
 }

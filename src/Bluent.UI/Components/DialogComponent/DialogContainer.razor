@@ -1,8 +1,12 @@
-﻿@for (var index = 0; index < _contexts.Count; index++)
+@for (var index = 0; index < _contexts.Count; index++)
 {
     var context = _contexts[index];
 
-    <div class="dialog-wrapper" style="--dialog-stack-index: @index">
+    <div class="dialog-wrapper" style="--dialog-stack-index: @index"
+         data-bui-theme="@context.Config.ThemeScope?.Mode"
+         data-bui-v3-tokens="@(context.Config.ThemeScope?.UseV3Tokens == true ? "" : null)"
+         data-density="@context.Config.ThemeScope?.Density"
+         dir="@context.Config.ThemeScope?.Direction">
         @if (context.Config.Modal)
         {
             <Overlay OnClick="() => OverlayClickHandler(context)" />

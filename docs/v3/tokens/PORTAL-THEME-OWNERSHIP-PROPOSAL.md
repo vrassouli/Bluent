@@ -1,8 +1,8 @@
 # #418 · D2 Theme owner and detached portal contract (proposal)
 
-**Status: proposed, NOT approved nor implemented in Bluent.UI runtime.** Authoritative editable design source: `Bluent v3 Design System` Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `acf5f619-7d81-80da-8008-c5fec09d9837`, board `acf5f619-7d81-80da-8008-c5fec0b7ec61`. Governed by accepted [ADR-0001 D2](../architecture/ADR-0001-styling-boundaries.md). Component interfaces need coordination with #420 before final implementation.
+**Status: original design proposal; an additive opt-in proof-of-concept is now implemented on the #418 task branch, but NOT approved as final API or released.** Authoritative editable design source: `Bluent v3 Design System` Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `acf5f619-7d81-80da-8008-c5fec09d9837`, board `acf5f619-7d81-80da-8008-c5fec0b7ec61`. Governed by accepted [ADR-0001 D2](../architecture/ADR-0001-styling-boundaries.md). Component interfaces need coordination with #420 before final implementation.
 
-## Proven failure
+## Original proven failure (before the opt-in prototype)
 
 In real Debug Blazor WebAssembly, the Dark v3 lab opens both a Dialog through `IDialogService` and a Popover through a Bluent Trigger. Both surfaces are children of the global `Containers` layout node, **not** the logical initiating host. Their nearest `[data-bui-theme]` ancestor is Light. These passing tests detect two **unfixed** defects.
 
@@ -31,3 +31,6 @@ In real Debug Blazor WebAssembly, the Dark v3 lab opens both a Dialog through `I
 All implementation remains on `v3/issue-418-design-tokens` / Draft PR #500 targeting `bluent-v3`, outside `Dev` or stable NuGet.
 
 **Additional measured defect:** In Chrome simulated prefers-reduced-motion: reduce, the existing detached Popover transition and Dialog animation retain nonzero computed durations. The opt-in lab Overlay reaches 0s. An accepted implementation must ensure the per-item portal theme/motion policy is applied to the wrapper itself and cannot leak globally.
+
+## Runtime trial after the decision board
+See [the executable opt-in prototype and exact API limitations](PORTAL-THEME-SCOPE-PREVIEW.md). The first three D2 implementation steps were exercised with a minimal mode/direction/density value snapshot; the tentative brand/owner ID and independently scoped brand CSS remain **unimplemented**. Dialog captures explicit show-time context; Popover follows its nearest CascadingValue through a private surface refresh. A no-scope Dialog does not emit v3 attributes. Reduced-motion animation zero still permits Dialog closing. 82/82 Chrome checks pass, but the original no-scope behavior still receives the legacy root theme. Preserve this before/after distinction in issue comments and future reviews.

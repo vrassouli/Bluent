@@ -106,3 +106,7 @@ The [nine-check interactive WASM/Chrome proof, SSR smoke and D2 Penpot decision 
 
 ## Expanded Chrome/Blazor 74-check runtime matrix
 [Runtime results](BLZ-RUNTIME-PORTAL-AUDIT.md) now include 20 real Button brand-mode colors, 20 root alias isolation assertions, 20 primary color-contrast arithmetic checks (minimum 5.552:1), mobile 390px RTL, compact height, and **both still-unfixed** service Dialog/Popover ownership defects. See [D2 candidate owner contract](PORTAL-THEME-OWNERSHIP-PROPOSAL.md) for required app-scoped propagation design; the document-wide style swap does not demonstrate independent simultaneous brands.
+
+
+## Opt-in portal theme prototype — actual runtime implementation
+[The scope prototype guide](PORTAL-THEME-SCOPE-PREVIEW.md) documents the proposed C# PortalThemeScope/SetThemeScope/CascadingValue contract, real Blazor ownership propagation and v2 no-scope fallback. Actual Dev01 Chrome passes **82/82** assertions and NUnit **26/26**; the original D2/D5 defects are fixed **only in the opted-in research path**. Brand-isolated simultaneous apps, native High Contrast/AT, interactive SSR, final API/Skills and full Penpot approval are **still pending**. It is not in current NuGet/CSS packages. The earlier findings above are preserved as historical pre-fix evidence.
