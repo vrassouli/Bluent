@@ -58,6 +58,10 @@ bundleconfig.json -> theme bundles (icons, reboot, light, dark, shared styles)
 
 Use Button, field/input and overlay to compare the old and candidate cascade/tokens under light/dark, RTL/LTR, disabled/validation, keyboard focus and nested themes. Exercise overlays outside normal DOM stacking contexts. Capture computed CSS and screenshots, specificity/cascade behavior, CSS bundle size, build/package output and supported render modes. Source examples or mockups alone are **not runtime/visual evidence**.
 
+## Browser-backed consumer CSS override fixture
+
+To move beyond native CSS specification samples, [a reproducible Chrome fixture](../../../scripts/quality/probe_v3_consumer_css_overrides.py) now loads **actual default theme and components CSS** (166,423 and 117,963 bytes respectively) and applies six representative `.bui-button` cases. It confirms legacy consumer `border-radius` override (13px), custom-token override (14px), baseline 4px, layered-normal losing to unlayered (4px), layered-important winning against unlayered important (7px), and nested dark background (rgb(41,41,41)): **seven measured assertions passed, no failures**. This is a representative fixture, not exhaustive existing-consumer parity, but directly supports proposed ADR D3.
+
 ## Formal architecture decision and v2 compatibility handoff
 
 The written [ADR-0001 styling boundaries](ADR-0001-styling-boundaries.md) consolidates this source assessment into five **explicitly proposed** decisions (D1–D5) with alternatives, rollback policy, owner and acceptance gates. **It is not approved** until a maintainer reviews/accepts its recommendations.

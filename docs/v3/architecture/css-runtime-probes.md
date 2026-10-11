@@ -93,7 +93,22 @@ The script creates a unique temporary output, runs `dotnet publish src/Bluent.UI
 
 **Result: 3/3 verified.** This is actual Release-published **Production static-asset** evidence, not remote deployment, interactive SSR hydration, form/keyboard tests, theme-mode acceptance or proof every RCL asset/brand loads. CSSM-09's requirement to run this exact script before bundle/order migration is documented in [the compatibility ledger](css-migration-impact-ledger.md). Preserve the current `MapStaticAssets()` and bundling model pending approved CSS ADR.
 
-## 5. Decisions and remaining acceptance
+## 5. Real compiled Bluent CSS + representative consumer override experiment
+
+**Executable:** [`scripts/quality/probe_v3_consumer_css_overrides.py`](../../../scripts/quality/probe_v3_consumer_css_overrides.py). This headless-Chrome probe embeds the **actual** current default theme CSS (**166,423 bytes**) and components CSS (**117,963 bytes**) directly into a temporary HTML fixture; no synthetic replacement of Bluent's `.bui-button` rules is used.
+
+| Scenario | Actual computed `border-top-left-radius` | Interpretation |
+| --- | --- | --- |
+| Base Bluent `.bui-button` | **4px** | Current `--borderRadiusMedium` token |
+| Application `.case-consumer .bui-button {border-radius:13px}` (unlayered) | **13px** | Consumer's ordinary local override works against current compiled Bluent CSS |
+| Application overrides `--borderRadiusMedium:14px` | **14px** | Token-value override works through current Button CSS variable consumption |
+| Proposed `@layer bluent-v3-proposal { .case-layer .bui-button {border-radius:19px} }` | **4px** | Existing unlayered Bluent rule wins even against a more specific *normal* layered rule |
+| Proposed layered `border-radius:7px !important` versus unlayered consumer `13px !important` | **7px** | Important layered rule outranks unlayered consumer important override |
+| Nested `data-bui-theme="dark"` | **4px** and background **rgb(41,41,41)** | Current nested theme background works for an element **inside** the scoped subtree; does not fix service-hosted Dialog outside subtree |
+
+**Observed 7/7 checks, 0 failures.** This is stronger than an abstract native CSS cascade sample because both authentic generated Bluent bundles participate in the same rendered document. Still, the fixture uses **representative Button selectors**; it does not enumerate all real consumers, dynamic utilities, `!important` origins, styling engines, portal ancestors or third-party CSS. **D3 remains a proposal**: opt-in `@layer` only after migration/compatibility acceptance.
+
+## 6. Decisions and remaining acceptance
 
 1. **D2 confirmed risk:** Shared DialogContainer lives outside a locally themed page, and actual Dialog does not inherit its theme. Decide desired app/global vs nested scope contract in the next design-tool review; once approved, implement separately under the appropriate foundation/component issue.
 2. **D3 confirmed browser behavior:** ordinary vs `!important` cascade ordering changes under `@layer`. Keep current unlayered CSS until a consumer-style precedence migration suite demonstrates safe adoption.
