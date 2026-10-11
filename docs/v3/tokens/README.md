@@ -61,6 +61,7 @@ python scripts/quality/generate_v3_token_preview.py
 python scripts/quality/generate_v3_token_preview.py --check
 python scripts/quality/probe_v3_token_preview.py
 python scripts/quality/audit_v3_token_preview_contrast.py
+python scripts/quality/probe_v3_token_nested_theme_scope.py
 ```
 
 [Generator](../../../scripts/quality/generate_v3_token_preview.py) validates existing **20 emitted brand/mode source files**, resolves all 32 logical tokens per combination, rejects missing/conflicting source declarations, forward/cyclic aliases and schema drift. It writes [the deterministic 10×2 source-color matrix](issue-418-brand-matrix.preview.json) and [the opt-in CSS bridge](issue-418-opt-in.preview.css) under `docs/v3/tokens`.
@@ -68,6 +69,16 @@ python scripts/quality/audit_v3_token_preview_contrast.py
 **Important D1 safety:** The CSS is **not included in `bundleconfig.json`, the current static-asset CSS or NuGet release** and never defines or overwrites a preexisting `--color*`, `--spacing*`, `--fui-*` variable. The new aliases exist *only* under `[data-bui-v3-tokens][data-bui-theme]` and descendant `[data-bui-theme]` scopes **when a consumer explicitly includes this research CSS file**.
 
 A [real Chromium computed-style probe](../../../scripts/quality/probe_v3_token_preview.py) uses all **10 actual brand theme files × 2 modes** with the generated opt-in CSS. It verified **140/140 assertions, 0 failures** for Button background/text/border, disabled foreground/background and the new opt-in accessible Danger text candidate. This is measurable stylesheet interoperability, **not a claim of actual Button Blazor behavior** or WCAG AA compliance.
+
+## Browser evidence: nested Theme and opt-in boundaries (2026-10-11)
+
+Run `python scripts/quality/probe_v3_token_nested_theme_scope.py` for a repeatable Chrome check with real emitted Light/Dark CSS and the opt-in token preview.
+
+The fixture loads **all ten existing brands** independently and checks a non-opted-in subtree, a Light opt-in host, a nested Dark host, a nested Light host and an outside Dark subtree. It verifies the current legacy brand source variable remains correct, that opt-in aliases resolve to each mode's computed color, and that unopted regions receive no v3 token alias.
+
+**Results: 10 brands × 10 computed-style expectations = 100/100 PASS (0 errors).** Default brand Button-background samples: `rgb(18, 103, 180)` Light and `rgb(24, 89, 155)` Dark. The generator's `--check` mode also passes across 20 brand/mode combinations with 32 logical tokens each.
+
+**Limit:** This tests nested DOM CSS inheritance, **not** service-hosted Dialog/Popover outside its ancestry, keyboard, screen readers, forced colors or full accessibility. Runtime portal propagation (ADR D2) still requires implementation and real Blazor testing.
 
 ## Still required before #418 Review
 
