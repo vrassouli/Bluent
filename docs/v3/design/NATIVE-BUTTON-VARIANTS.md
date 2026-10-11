@@ -59,6 +59,12 @@ It verifies the **existing** six `ButtonAppearance` values, three sizes, three s
 
 **Attempted visual parity board:** a separate Penpot page was planned to place exact Fluent and Bluent Button examples side by side for measurable review. The Penpot plugin browser tab suspended before the operation completed, so **no successfully created/verified comparison board is claimed**. The existing individually exported Fluent upstream and Bluent native Button matrix boards remain available. A comparison must use the same button label and layout to interpret width/height differences fairly.
 
+## Alignment remediation (maintainer-reported design defect)
+
+The first v3 Button size/layout specimens **were not acceptably aligned**: the Small Button's 33px glyph box extended 9px below its 24px face. In the live Penpot source we replaced the decorative `+` text with a centered, editable **vector cross** and fixed icon slots for Small/Medium/Large; recalculated icon+label gaps and frame centers; and corrected the 25 appearance/state labels horizontally and vertically. The imported upstream Fluent components remained untouched.
+
+Our first experiment using a Penpot `FlexLayout` exposed a plugin/render synchronization problem: the Small caption vanished in the exported board. We removed that flex layout and used deterministic geometry instead. **Do not advertise this draft as responsive auto-layout.** We confirmed the final small/medium/large icon positions visually on the exported board and with the 910-check [Penpot geometry scanner](../../../scripts/quality/penpot_v3_alignment_audit.js). The other source families and original drafts also received fixes. See the [full alignment-quality audit](ALIGNMENT-QUALITY-AUDIT.md) and named Penpot recovery revision **122**.
+
 ## Full-parity and accessibility gates still open
 
 1. Source Fluent 2 upstream Button offers **150 variant combinations** (2 layouts × 3 sizes × 5 states × 5 styles). Our **25 appearance/state** and **6 size/layout** native families cover *two complementary 2-axis slices*, **not 31 unique combinations of the upstream 150-product Cartesian space**. Other axes and their cross-interactions are not implemented yet.

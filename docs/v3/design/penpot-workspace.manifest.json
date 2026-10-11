@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 110,
-    "savedDraftVersionLabel": "Bluent v3 · #419 native Button states sizes and API anatomy 2026-10-11"
+    "lastSeenRevision": 122,
+    "savedDraftVersionLabel": "Bluent v3 · #419 Button and control alignment verified 2026-10-11"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -608,5 +608,29 @@
       "renderedAndVisuallyInspected": true,
       "approved": false
     }
-  ]
+  ],
+  "alignmentAudit": {
+    "status": "passed-at-observed-revision",
+    "scope": "actual project-owned Penpot source variants, linked previews, original prototypes, editable API sketches and root #419 board text bounds",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "revision": 122,
+    "report": "docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md",
+    "executablePenpotScript": "scripts/quality/penpot_v3_alignment_audit.js",
+    "nativeVariantsInspected": 65,
+    "linkedNativePreviewsVerified": 65,
+    "authoredRootBoardsScanned": 23,
+    "authoredVisibleTextFramesScanned": 632,
+    "geometricChecks": 910,
+    "errors": 0,
+    "initialVerticalAndOverflowFlags": 37,
+    "correctedBoardTextOverflows": 1,
+    "imagesVisuallyReviewed": true,
+    "namedVersion": "Bluent v3 · #419 Button and control alignment verified 2026-10-11",
+    "limitations": [
+      "not a live CI/screenshot regression suite",
+      "not typography optical accuracy",
+      "not responsive/RTL browser behavior or WCAG/a11y certification",
+      "does not alter imported Fluent source assets"
+    ]
+  }
 }

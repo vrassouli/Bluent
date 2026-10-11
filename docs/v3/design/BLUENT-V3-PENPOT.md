@@ -92,7 +92,15 @@ Penpot now has **22 editable pages** and **five native project-owned variant fam
 
 All three new Penpot boards were PNG-exported and reviewed, all 31 local Button variants and source-linked previews were read back live with **unique axis tuples**, and a named design-file recovery version was saved at revision **110**. See [Button native design/API ledger](NATIVE-BUTTON-VARIANTS.md) for exact IDs, current C#/Razor API evidence and open sign-off checks. **Never mistake five families of design variants for component behavior, runtime correctness or Fluent parity.** Imported reference source is unchanged.
 
-## 9. Design and code contract: acceptance gates
+## 9. Alignment-quality sweep after maintainer feedback
+
+The maintainer identified actual misalignment in our native Button examples. A full local-source geometry sweep found **37 initial center/overflow flags** (7 Button sizing, 10 TextField, 8 Checkbox, 12 Switch) plus one project board's text frame crossing its boundary. We corrected the **source variants**, original four single-state drafts, and the compound Button API illustration rather than patching presentation instances alone. Button icon-only/text+icon glyphs were replaced with **centered local vector + icon slot** geometry in six size/layout variants.
+
+The [alignment audit and acceptance gates](ALIGNMENT-QUALITY-AUDIT.md) record all corrections and the reproducible [live Penpot alignment scanner](../../../scripts/quality/penpot_v3_alignment_audit.js). Live execution after repairs: **65 native variants, 65 linked local previews, 23 authored boards / 632 visible text frames, 910 geometric checks, 0 errors**. Revised PNGs were visually reviewed, and the named recovery version `Bluent v3 · #419 Button and control alignment verified 2026-10-11` was saved at observed file revision **122**.
+
+This is **frame geometry verification only**. Optical font baseline/pixel fidelity, responsive sizing, actual CSS/Blazor/ARIA and interactive keyboard focus remain open.
+
+## 10. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.

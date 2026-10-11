@@ -54,6 +54,8 @@ A static Penpot RTL example does **not** certify correct keyboard order, click t
 
 **Follow-up:** Two additional local **Button** variant families were implemented after this form-control research: 25 appearance/state and 6 size/layout combinations, with 31 linked local previews in a separate Penpot design board, plus eight editable Bluent-specific API sketches. These are documented in [native Button variants](NATIVE-BUTTON-VARIANTS.md). The workspace now contains **five native variant families / 65 combinations**, not just the three form-control families described above. All remain draft.
 
+**Alignment repair:** Following maintainer review, all source variants in this document had their editable text/indicator/knob frames aligned to their control faces. This corrected 10 TextField placeholder, 8 Checkbox glyph and 12 Switch label initial center/overflow flags (within the original 37-flag audit). The [live Penpot alignment gate](ALIGNMENT-QUALITY-AUDIT.md) now reports 0 errors across 910 geometry checks, but this does **not** approve keyboard or typography parity.
+
 ## Open acceptance gates
 
 1. **#417** architecture D1–D4 approval: theme scope, CSS layers, semantic aliases and utility migration.

@@ -33,6 +33,8 @@ The complete native Penpot preview board was PNG-exported and visually inspected
 
 The exact **FC1–FC6 design-review criteria**, including nullable-checkbox transitions, switch semantics and Persian input/textarea behavior, are now tracked in [form-control design gates](FORM-CONTROL-DESIGN-GATES.md). These remain **proposed** until actually authored and reviewed as Penpot native variants; this document alone does not satisfy the design gate.
 
+**Post-review correction:** All three original draft components (TextField, Checkbox, Switch), as well as the original local Primary Button, had their editable text, indicator and knob frames aligned to the corresponding control faces during the [quality sweep](ALIGNMENT-QUALITY-AUDIT.md). The public API, original imported Fluent references and v2.x releases remain untouched.
+
 ## Remaining design tasks before #419 Review
 
 The prototypes need complete component anatomy/variants (especially TextField state+size+appearance, nullable-checkbox Indeterminate and Switch two-state/bidi label positions), accent theme-state review, typography/focus/contrast, RTL/Persian and responsive densities. The three components need side-by-side evaluation against the already created **real source-linked** Fluent 2 component matrices, and explicit public Bluent API mapping. Visual review requires approved design evidence; app behavior requires browser/runtime tests under the later component issues.

@@ -78,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 110:
+    if data["designSource"].get("lastSeenRevision", 0) < 122:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -216,6 +216,35 @@ def main() -> int:
         ev.get("totalLocalNativeVariants") != native_total + button_total or
         ev.get("totalLocalNativeLinkedPreviews") != linked_total + button_links):
         errors.append("Incomplete linked Penpot native Button/API research evidence")
+    # Alignment is a dated LIVE Penpot observation recorded in the manifest,
+    # not an offline recreation of the Penpot plugin geometry inspection.
+    audit = data.get("alignmentAudit", {})
+    if audit.get("status") != "passed-at-observed-revision":
+        errors.append("Alignment audit live evidence is not recorded as passed")
+    if audit.get("fileId") != data["designSource"]["fileId"]:
+        errors.append("Alignment audit must refer to the same v3 Penpot design file")
+    if audit.get("revision") != data["designSource"].get("lastSeenRevision"):
+        errors.append("Alignment evidence and design revision must agree")
+    for field, expected in {
+        "nativeVariantsInspected": 65,
+        "linkedNativePreviewsVerified": 65,
+        "authoredRootBoardsScanned": 23,
+        "authoredVisibleTextFramesScanned": 632,
+        "geometricChecks": 910,
+        "errors": 0,
+        "initialVerticalAndOverflowFlags": 37,
+        "correctedBoardTextOverflows": 1,
+    }.items():
+        if audit.get(field) != expected:
+            errors.append(f"Alignment evidence {field} must match live inspected baseline {expected}")
+    if not audit.get("imagesVisuallyReviewed"):
+        errors.append("Alignment changes need independent final PNG review")
+    for field in ("report", "executablePenpotScript"):
+        path_value = audit.get(field)
+        if not path_value or not (ROOT / path_value).is_file():
+            errors.append(f"Missing documented alignment quality artifact: {field}")
+    if audit.get("namedVersion") != data["designSource"].get("savedDraftVersionLabel"):
+        errors.append("Penpot saved recovery version not attached to alignment findings")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):
