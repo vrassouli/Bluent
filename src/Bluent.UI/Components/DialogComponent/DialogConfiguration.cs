@@ -19,4 +19,6 @@ public class DialogConfiguration
     public string? CloseButtonLabel { get; init; }
     /// <summary>Optional explicit launcher ID for opt-in focus restoration when the last Dialog closes.</summary>
     public string? ReturnFocusTargetId { get; init; }
+    /// <summary>Explicit opt-in v3 modal keyboard navigation. False preserves legacy behavior.</summary>
+    public bool EnableModalKeyboard { get; init; }
 }

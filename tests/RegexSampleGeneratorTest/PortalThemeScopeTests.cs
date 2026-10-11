@@ -103,6 +103,23 @@ public class PortalThemeScopeTests
                     Throws.TypeOf<ArgumentOutOfRangeException>());
     }
     [Test]
+    public void ModalKeyboardNavigationRemainsExplicitOptIn()
+    {
+        var legacy = new DialogConfiguration();
+        var keyboardModal = new DialogConfiguration
+        {
+            AccessibleName = "پنجره آزمایشی",
+            CloseButtonLabel = "بستن پنجره",
+            EnableModalKeyboard = true
+        };
+        Assert.Multiple(() =>
+        {
+            Assert.That(legacy.EnableModalKeyboard, Is.False);
+            Assert.That(keyboardModal.EnableModalKeyboard, Is.True);
+            Assert.That(new DialogConfigurator().SetModalKeyboardNavigation(), Is.Not.Null);
+        });
+    }
+    [Test]
     public void DialogReturnFocusRequiresExplicitLauncher()
     {
         var legacy = new DialogConfiguration();

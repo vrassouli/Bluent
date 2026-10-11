@@ -1,3 +1,5 @@
+> CURRENT 2026-10-11 CONTINUATION: The prior opt-in Dialog role, Close label and focus-entry prototype now includes tested nested Modal Tab, Shift+Tab, Escape and per-launcher focus return. See [D5 Modal keyboard stack evidence](D5-MODAL-KEYBOARD-STACK-PROTOTYPE.md). Earlier gaps below are historical, not current assertions. Final AT approval remains open.
+
 > **Current 2026-10-11 follow-up:** Explicit last-Dialog focus return and opt-in Popover expanded/controls are now implemented and verified in real Chrome/Edge WASM/InteractiveServer (157/157 each). The older focus-return/Popover gaps below are historical baselines. Nested modal focus traps, native AT and final contract approval remain OPEN. See [D5 focus-return and Popover ARIA prototype](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md).
 
 # #418 — Opt-in Dialog accessibility contract (draft implementation)

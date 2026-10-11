@@ -38,7 +38,7 @@ public partial class DialogContainer : IDisposable
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-        if (_pendingFocusTargetId is not { } targetId || _contexts.Count != 0)
+        if (_pendingFocusTargetId is not { } targetId)
             return;
         _pendingFocusTargetId = null;
         // Import only for explicitly opted-in v3 callers, not existing v2 Dialogs.
@@ -52,8 +52,8 @@ public partial class DialogContainer : IDisposable
     {
         context.ResultTCS.TrySetResult(result);
         _contexts.Remove(context);
-        if (_contexts.Count == 0)
-            _pendingFocusTargetId = context.Config.ReturnFocusTargetId;
+        // Explicit nested launcher restoration is permitted only inside the surviving top Dialog.
+        _pendingFocusTargetId = context.Config.ReturnFocusTargetId;
         StateHasChanged();
     }
 

@@ -276,6 +276,58 @@ try {
  await cdp.js("document.querySelector('.dialog-wrapper .header button')?.click()");
  const focusReturned=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-service-dialog'"),"Dialog focus restoration after close",16000);
  assert("opt-in Dialog restores focus to explicitly supplied live Bluent Button",focusReturned);
+ // D5: exercise the actual v3 opt-in MODAL, including topmost-only keyboard
+ // capture, real Tab/Shift+Tab cycling and nested Escape focus ownership.
+ const sendModalKey=async(key,shift=false)=>{
+     const code=key==="Tab"?"Tab":"Escape",vk=key==="Tab"?9:27,modifiers=shift?8:0;
+     await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk,modifiers});
+     await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk,modifiers});
+ };
+ await cdp.js("document.querySelector('#v3-show-keyboard-modal')?.focus()");
+ await cdp.js("document.querySelector('#v3-show-keyboard-modal')?.click()");
+ const modal=await until(()=>cdp.js("(()=>{const list=[...document.querySelectorAll('.dialog-wrapper')],d=list[0]?.querySelector('.bui-dialog');return list.length===1&&d?.hasAttribute('data-bui-v3-keyboard-bound')?{role:d.getAttribute('role'),modal:d.getAttribute('aria-modal'),focused:document.activeElement===d,dir:d.closest('.dialog-wrapper').dir,hasNested:!!d.querySelector('#v3-modal-open-nested')}:null;})()"),"v3 opted-in modal is registered",25000);
+ assert("opt-in v3 Modal role aria-modal and focus entry",modal.role==="dialog"&&modal.modal==="true"&&modal.focused&&modal.dir==="rtl"&&modal.hasNested,JSON.stringify(modal));
+ await sendModalKey("Tab");
+ const firstTab=await until(()=>cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog');return document.activeElement===d?.querySelector('.header button');})()"),"Tab from modal root enters first close action",9000);
+ assert("Modal Tab starts at its first focusable button",firstTab);
+ await sendModalKey("Tab",true);
+ const backwards=await until(()=>cdp.js("document.activeElement?.id==='v3-modal-last-0'"),"Shift Tab from first wraps to last",9000);
+ assert("Modal Shift+Tab wraps from first to last",backwards);
+ await sendModalKey("Tab");
+ const forwards=await until(()=>cdp.js("document.activeElement?.closest('.bui-dialog')?.querySelector('.header button')===document.activeElement"),"Tab from last wraps to first",9000);
+ assert("Modal Tab wraps from last to first",forwards);
+ await cdp.js("document.querySelector('#v3-token-action')?.focus()");
+ await sendModalKey("Tab");
+ const recaptured=await until(()=>cdp.js("document.activeElement?.closest('.bui-dialog')?.querySelector('.header button')===document.activeElement"),"modal Tab recaptures focus",9000);
+ assert("Modal prevents Tab escape when focus is outside",recaptured);
+ await cdp.js("document.querySelector('#v3-modal-open-nested')?.focus()");
+ await cdp.js("document.querySelector('#v3-modal-open-nested')?.click()");
+ const nested=await until(()=>cdp.js("(()=>{const w=[...document.querySelectorAll('.dialog-wrapper')];const d=w.at(-1)?.querySelector('.bui-dialog');return w.length===2&&d?.hasAttribute('data-bui-v3-keyboard-bound')?{focused:document.activeElement===d,role:d.getAttribute('role'),modal:d.getAttribute('aria-modal'),nestedButton:!!d.querySelector('#v3-modal-last-1')}:null;})()"),"stacked nested modal registered",23000);
+ assert("nested v3 Modal becomes the focused topmost owner",nested.focused&&nested.modal==="true"&&nested.nestedButton,JSON.stringify(nested));
+ await sendModalKey("Tab",true);
+ const nestedShift=await until(()=>cdp.js("document.activeElement?.id==='v3-modal-last-1'"),"nested Shift Tab last",9000);
+ assert("nested modal Shift+Tab remains inside topmost modal",nestedShift);
+ await sendModalKey("Escape");
+ // A held/repeating Escape must never pass through a closing child
+ // and unexpectedly dismiss the still-open parent.
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27,nativeVirtualKeyCode:27,autoRepeat:true});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27,nativeVirtualKeyCode:27});
+ const nestedClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===1&&document.activeElement?.id==='v3-modal-open-nested'"),"nested Escape closes only top dialog and returns focus",23000);
+ assert("Escape closes top nested Dialog and restores owning launcher focus",nestedClosed);
+ await sendModalKey("Escape");
+ const outerClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-keyboard-modal'"),"outer Escape closes and restores page launcher",23000);
+ assert("Escape closes remaining Modal and restores page-launcher focus",outerClosed);
+ await sendModalKey("Tab");
+ const noTrap=await cdp.js("(()=>({active:document.activeElement?.id,withinModal:!!document.activeElement?.closest('.bui-dialog'),modalCount:document.querySelectorAll('[data-bui-v3-keyboard-bound]').length}))()");
+ assert("modal listener release restores normal page tab order",noTrap.modalCount===0&&!noTrap.withinModal&&noTrap.active!=="v3-show-keyboard-modal",JSON.stringify(noTrap));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
+ await cdp.js("document.querySelector('#v3-show-keyboard-modal')?.click()");
+ const reducedModal=await until(()=>cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog[data-bui-v3-keyboard-bound]');return d?{duration:getComputedStyle(d).animationDuration,role:d.getAttribute('role')}:null;})()"),"reduced-motion modal registration",24000);
+ assert("reduced-motion opt-in modal preserves semantic keyboard registration",reducedModal.duration.split(",").every(x=>parseFloat(x)===0)&&reducedModal.role==="dialog",JSON.stringify(reducedModal));
+ await sendModalKey("Escape");
+ const reducedDismiss=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-keyboard-modal'"),"reduced-motion Escape dismiss and focus return",23000);
+ assert("reduced-motion Escape completes dismissal and launcher restoration",reducedDismiss);
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  const passCount=checks.filter(x=>x.pass).length;
  const summary={classification:interactiveServer?"actual Blazor interactive SSR Server Chrome/CDP interaction":"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;

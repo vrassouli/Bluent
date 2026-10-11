@@ -6,6 +6,7 @@
      role="@(string.IsNullOrWhiteSpace(AccessibleName) ? null : "dialog")"
      aria-label="@AccessibleName"
      aria-modal="@(string.IsNullOrWhiteSpace(AccessibleName) || !IsModal ? null : "true")"
+     data-bui-v3-keyboard-modal="@(EnableModalKeyboard && IsModal && !string.IsNullOrWhiteSpace(AccessibleName) ? "" : null)"
      @onanimationend="AnimationEndedHandler">
     <CascadingValue Value="this" IsFixed>
         @ChildContent

@@ -10,6 +10,7 @@ public class DialogConfigurator
     private string? _accessibleName;
     private string? _closeButtonLabel;
     private string? _returnFocusTargetId;
+    private bool _enableModalKeyboard;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
@@ -50,6 +51,12 @@ public class DialogConfigurator
         _returnFocusTargetId = elementId;
         return this;
     }
+    /// <summary>Experimental opt-in Tab/Shift+Tab/Escape handling for a named modal Dialog.</summary>
+    public DialogConfigurator SetModalKeyboardNavigation(bool enabled = true)
+    {
+        _enableModalKeyboard = enabled;
+        return this;
+    }
     public DialogConfigurator SetCloseButton(bool show)
     {
         _showCloseButton = show;
@@ -64,7 +71,7 @@ public class DialogConfigurator
         return this;
     }
 
-    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId };
+    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard };
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }

@@ -1,0 +1,35 @@
+@namespace Bluent.UI.Demo.Pages.Scenarios
+@using Bluent.UI.Services.Abstractions
+@inject IDialogService DialogService
+
+<div class="v3-modal-keyboard-content" data-v3-modal-depth="@Depth">
+    <p>Experimental opt-in modal keyboard test: Tab, Shift+Tab, Escape and nested focus return.</p>
+    <Button id="@($"v3-modal-first-{Depth}")" Text="First focusable" />
+    @if (Depth == 0)
+    {
+        <Button id="v3-modal-open-nested" Text="Open nested keyboard modal" OnClick="ShowNested" />
+    }
+    <Button id="@($"v3-modal-last-{Depth}")" Text="Last focusable" />
+</div>
+
+@code {
+    [Parameter] public PortalThemeScope Scope { get; set; } = new("light");
+    [Parameter] public int Depth { get; set; }
+
+    private void ShowNested()
+    {
+        if (Depth != 0) return;
+        var parameters = new Dictionary<string, object?>
+        {
+            [nameof(Scope)] = Scope,
+            [nameof(Depth)] = 1
+        };
+        _ = DialogService.ShowAsync<V3ModalKeyboardContent>(
+            "v3 nested keyboard modal", parameters,
+            config => config.SetThemeScope(Scope)
+                .SetModal(true)
+                .SetAccessibleDialog("v3 nested keyboard modal", "Close nested modal")
+                .SetModalKeyboardNavigation()
+                .SetReturnFocusTargetId("v3-modal-open-nested"));
+    }
+}

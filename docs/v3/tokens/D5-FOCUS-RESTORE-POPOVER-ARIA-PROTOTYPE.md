@@ -1,3 +1,5 @@
+> CURRENT 2026-10-11 CONTINUATION: Explicit opt-in named Modal now supports real Tab/Shift+Tab, Escape, nested parent-child keyboard ownership, inner-launcher focus return and document-listener cleanup. Previous modal/nested gaps below are historical. See [D5 Modal keyboard design/runtime audit](D5-MODAL-KEYBOARD-STACK-PROTOTYPE.md). Native AT and final API acceptance remain OPEN.
+
 # #418 — Explicit Dialog focus return + Popover ARIA ownership
 
 **2026-10-11 implementation checkpoint. Status: DRAFT opt-in runtime, not accepted final v3 component API.** This code exists only on v3/issue-418-design-tokens, PR #500 targeting bluent-v3. Stable Dev and published NuGet are unchanged.

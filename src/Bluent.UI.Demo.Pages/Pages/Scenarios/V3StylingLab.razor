@@ -31,6 +31,7 @@
             <Button id="v3-disabled-button" Text="Disabled" disabled />
             <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
             <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
+            <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
             <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
             <Button Text="Show legacy unscoped dialog" OnClick="ShowUnscopedDialog" />
             <Popover KeepSurface="true" Placement="Placement.Bottom">
@@ -40,7 +41,8 @@
                 <Surface>
                     <span data-v3-legacy-popover>Legacy Popover remains untouched</span>
                 </Surface>
-            </Popover>            <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+            </Popover>
+            <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
                 <Trigger>
                     <Button id="v3-popover-trigger" Text="Show service-hosted popover" />
                 </Trigger>
@@ -59,14 +61,7 @@
                 <h3>Independent nested Word brand host</h3>
                 <p>Word brand; opposite mode and direction, without modifying its Excel parent.</p>
                 <Button id="v3-nested-brand-action" Text="Word primary action" Appearance="ButtonAppearance.Primary" />
-                <Popover KeepSurface="true" Placement="Placement.Bottom">
-                <Trigger>
-                    <Button id="v3-legacy-popover-trigger" Text="Legacy Popover without ARIA opt-in" />
-                </Trigger>
-                <Surface>
-                    <span data-v3-legacy-popover>Legacy Popover remains untouched</span>
-                </Surface>
-            </Popover>            <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+                <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
                     <Trigger>
                         <Button id="v3-independent-popover-trigger" Text="Show other host popover" />
                     </Trigger>
@@ -143,6 +138,20 @@
             null, options => options.SetThemeScope(snapshot).SetModal(false).SetAccessibleDialog("v3 scoped Dialog", "Close dialog").SetReturnFocusTargetId("v3-show-service-dialog"));
     }
 
+    private void ShowKeyboardModal()
+    {
+        var scope = CurrentScope;
+        var parameters = new Dictionary<string, object?>
+        {
+            [nameof(V3ModalKeyboardContent.Scope)] = scope,
+            [nameof(V3ModalKeyboardContent.Depth)] = 0
+        };
+        _ = DialogService.ShowAsync<V3ModalKeyboardContent>("v3 keyboard modal", parameters,
+            options => options.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("v3 keyboard modal", "Close modal")
+                .SetModalKeyboardNavigation()
+                .SetReturnFocusTargetId("v3-show-keyboard-modal"));
+    }
     private void ShowUnscopedDialog()
     {
         // Guard against accidentally enabling v3 data attributes for v2 usage.
