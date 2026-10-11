@@ -62,3 +62,7 @@ A second local Chrome execution (Production-published SSR + InteractiveServer, n
 
 ## Additive draft Dialog AX/focus entry (2026-10-11)
 See [D5 accessible Dialog prototype](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md). Configurator.SetAccessibleDialog(name, localizedCloseLabel) opts a Dialog into role=dialog, a readable accessible name and Close Button, and native Blazor focus entry. No-config v2 markup stays unchanged. Chrome and Edge on WASM and published InteractiveServer each pass 149/149 assertions; NUnit 43/43. Focus return, modal trapping, Popover expanded state, native AT and final API review remain open.
+
+
+## D5 ARIA and launcher return experiment
+See [the opt-in keyboard/ARIA continuation](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md). The existing Dialog first-render focus and icon accessible name are extended by explicit caller-ID focus restoration after the final dialog closes. Popover visibility remains owned by its existing JavaScript implementation, which emits aria-expanded/aria-controls only when opted in and has a bounded no-transition dismissal fallback. All four real Chrome/Edge and WASM/InteractiveServer suites pass 157/157; NUnit 47/47. Full nested modal/AT remains pending.

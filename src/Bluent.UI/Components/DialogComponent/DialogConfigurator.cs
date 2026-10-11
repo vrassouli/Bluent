@@ -9,6 +9,7 @@ public class DialogConfigurator
     private PortalThemeScope? _themeScope;
     private string? _accessibleName;
     private string? _closeButtonLabel;
+    private string? _returnFocusTargetId;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
@@ -42,6 +43,13 @@ public class DialogConfigurator
         return this;
     }
 
+    /// <summary>Opt-in return of focus to an explicitly named launcher after the final Dialog dismisses.</summary>
+    public DialogConfigurator SetReturnFocusTargetId(string elementId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(elementId);
+        _returnFocusTargetId = elementId;
+        return this;
+    }
     public DialogConfigurator SetCloseButton(bool show)
     {
         _showCloseButton = show;
@@ -56,7 +64,7 @@ public class DialogConfigurator
         return this;
     }
 
-    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel };
+    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId };
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }

@@ -125,11 +125,20 @@ try {
  assert("interactive dark toggle",await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.buiTheme==='dark'"),"dark",26000));
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Switch to RTL'))?.click()");
  assert("interactive RTL toggle",await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dir==='rtl'"),"rtl",26000));
+ const popInitially=await until(()=>cdp.js("(()=>{const t=document.querySelector('#v3-popover-trigger'),expanded=t?.getAttribute('aria-expanded'),controls=t?.getAttribute('aria-controls');if(expanded===null||controls===null)return null;return {expanded,controls,surface:document.querySelector('#v3-popover-trigger_surface')?.id};})()"),"Popover initial ARIA after component registration",16000);
+ assert("v3 Popover initially reports collapsed trigger with valid controls",popInitially.expanded==="false"&&popInitially.controls==="v3-popover-trigger_surface"&&popInitially.surface===popInitially.controls,JSON.stringify(popInitially));
+ const oldPopoverBefore=await cdp.js("(()=>{const t=document.querySelector('#v3-legacy-popover-trigger');return {expanded:t?.getAttribute('aria-expanded'),controls:t?.getAttribute('aria-controls')};})()");
+ assert("nonopted legacy Popover has no v3 ARIA trigger attributes",oldPopoverBefore.expanded===null&&oldPopoverBefore.controls===null,JSON.stringify(oldPopoverBefore));
+ await cdp.js("document.querySelector('#v3-legacy-popover-trigger')?.click()");
+ const oldPopoverAfter=await until(()=>cdp.js("(()=>{const s=document.querySelector('#v3-legacy-popover-trigger_surface'),t=document.querySelector('#v3-legacy-popover-trigger');return s&&!s.classList.contains('hidden')?{expanded:t.getAttribute('aria-expanded'),controls:t.getAttribute('aria-controls')}:null;})()"),"real nonopted legacy Popover",16000);
+ assert("legacy Popover remains without opt-in aria-expanded/controls after opening",oldPopoverAfter.expanded===null&&oldPopoverAfter.controls===null,JSON.stringify(oldPopoverAfter));
+ await cdp.js("document.querySelector('#v3-token-action')?.click()");
  await cdp.js("document.querySelector('#v3-popover-trigger')?.click()");
  const popover=await until(()=>cdp.js("(()=>{const x=document.querySelector('[data-v3-popover-probe]');if(!x)return null;const surface=x.closest('.bui-popover-surface');if(!surface||surface.classList.contains('hidden'))return null;return {outside:!x.closest('[data-bui-v3-tokens]'),ancestor:x.closest('[data-bui-theme]')?.dataset.buiTheme,lab:document.querySelector('.v3-lab-surface').dataset.buiTheme,brand:surface.dataset.buiBrand,brandColor:getComputedStyle(surface).getPropertyValue('--colorBrandBackground').trim(),surface:surface.id};})()"),"real service-hosted Popover",26000);
  assert("D2 Popover inherits Excel Dark scope",!popover.outside&&popover.lab==="dark"&&popover.ancestor==="dark"&&popover.brand==="excel"&&hexRgb(popover.brandColor)===hexRgb(matrix.excel.dark.tokens["bluent.color.brandBackground"]),JSON.stringify(popover));
  const popoverA11y=await cdp.js("(()=>{const t=document.querySelector('#v3-popover-trigger'),s=document.querySelector('#v3-popover-trigger_surface');return {triggerExpanded:t?.getAttribute('aria-expanded'),triggerControls:t?.getAttribute('aria-controls'),triggerHasPopup:t?.getAttribute('aria-haspopup'),surfaceRole:s?.getAttribute('role'),surfaceHidden:s?.classList.contains('hidden'),surfaceId:s?.id};})()");
- console.log("D5 Popover trigger/surface accessibility baseline (not certified):",JSON.stringify(popoverA11y));
+ console.log("D5 opted-in Popover ARIA state:",JSON.stringify(popoverA11y));
+ assert("visible Popover reports expanded=true with correct aria-controls",popoverA11y.triggerExpanded==="true"&&popoverA11y.triggerControls===popoverA11y.surfaceId&&!popoverA11y.surfaceHidden,JSON.stringify(popoverA11y));
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Clear main brand'))?.click()");
  const cleared=await until(()=>cdp.js("(()=>{const s=document.querySelector('#v3-popover-trigger_surface');if(!s||s.hasAttribute('data-bui-brand'))return null;return {source:getComputedStyle(s).getPropertyValue('--colorBrandBackground').trim(),word:getComputedStyle(document.querySelector('#v3-independent-popover-trigger_surface')).getPropertyValue('--colorBrandBackground').trim()};})()"),"live Popover brand reset",16000);
  assert("Popover brand reset follows owner without leaking into Word sibling",hexRgb(cleared.source)===hexRgb(matrix.default.dark.tokens["bluent.color.brandBackground"])&&hexRgb(cleared.word)===hexRgb(matrix.word.light.tokens["bluent.color.brandBackground"]),JSON.stringify(cleared));
@@ -152,7 +161,15 @@ try {
  const popMotion=await cdp.js("getComputedStyle(document.querySelector('#v3-popover-trigger_surface')).transitionDuration");
  assert("D5 scoped Popover reduced-motion fixed",popMotion.split(",").every(s=>parseFloat(s)===0),popMotion);
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ await cdp.js("document.querySelector('#v3-token-action')?.click()");
+ await sleep(920);
+ const popDismissDebug=await cdp.js("(()=>{const s=document.querySelector('#v3-popover-trigger_surface'),t=document.querySelector('#v3-popover-trigger');return {classes:s?.className,transition:getComputedStyle(s).transitionDuration,visible:s&&!s.classList.contains('hidden'),expanded:t?.getAttribute('aria-expanded'),controls:t?.getAttribute('aria-controls'),show:s?.classList.contains('show'),tokenAction:document.querySelector('#v3-token-action')?.id};})()");
+ console.log("D5 Popover dismissal evidence:",JSON.stringify(popDismissDebug));
+ const popClosed=await until(()=>cdp.js("(()=>{const s=document.querySelector('#v3-popover-trigger_surface'),t=document.querySelector('#v3-popover-trigger');return s?.classList.contains('hidden')&&t?.getAttribute('aria-expanded')==='false'&&t?.getAttribute('aria-controls')===s?.id;})()"),"real Popover close updates aria-expanded",16000);
+ assert("Popover outside dismissal reports collapsed=false with retained controls",popClosed);
  await cdp.js("document.querySelector('#v3-popover-trigger')?.click()");
+ const popReopen=await until(()=>cdp.js("(()=>{const s=document.querySelector('#v3-popover-trigger_surface'),t=document.querySelector('#v3-popover-trigger');return s&&!s.classList.contains('hidden')&&t?.getAttribute('aria-expanded')==='true';})()"),"Popover reopened aria-expanded",16000);
+ assert("Popover reopening reports expanded=true after previous close",popReopen);
  const defaultSize=await cdp.js("document.querySelector('#v3-token-action').getBoundingClientRect().height");
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Compact density'))?.click()");
  const compact=await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.density==='compact'"),"compact density",15000);
@@ -245,6 +262,20 @@ try {
  const afterClose=await cdp.js("document.querySelectorAll('.dialog-wrapper').length");
  assert("opt-in reduced-motion Dialog can be dismissed",beforeClose===3&&afterClose===2,"before="+beforeClose+" after="+afterClose);
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ // Clean up the two pre-existing sibling dialogs before testing single-owner
+ // focus restoration. Focus must not be redirected behind an open sibling.
+ await cdp.js("[...document.querySelectorAll('.dialog-wrapper')].at(-1)?.querySelector('.header button')?.click()");
+ await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===1"),"legacy Dialog cleanup",15000);
+ await cdp.js("document.querySelector('.dialog-wrapper .header button')?.click()");
+ await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0"),"independent Dialog cleanup",15000);
+ await cdp.js("document.querySelector('#v3-show-service-dialog')?.focus()");
+ const beforeReturn=await cdp.js("document.activeElement?.id");
+ assert("explicit opt-in Dialog launcher can hold keyboard focus",beforeReturn==="v3-show-service-dialog",beforeReturn);
+ await cdp.js("document.querySelector('#v3-show-service-dialog')?.click()");
+ await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===1&&!!document.activeElement?.closest('.bui-dialog')"),"return-focus Dialog open",16000);
+ await cdp.js("document.querySelector('.dialog-wrapper .header button')?.click()");
+ const focusReturned=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-service-dialog'"),"Dialog focus restoration after close",16000);
+ assert("opt-in Dialog restores focus to explicitly supplied live Bluent Button",focusReturned);
  const passCount=checks.filter(x=>x.pass).length;
  const summary={classification:interactiveServer?"actual Blazor interactive SSR Server Chrome/CDP interaction":"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;

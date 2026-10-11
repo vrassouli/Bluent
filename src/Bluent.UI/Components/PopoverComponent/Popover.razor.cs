@@ -18,6 +18,8 @@ public partial class Popover : IDisposable
     [Parameter] public int Padding { get; set; } = 5;
     [Parameter] public bool DisplayArrow { get; set; } = true;
     [Parameter] public bool KeepSurface { get; set; }
+    /// <summary>Experimental #418 opt-in button-triggered aria-expanded/aria-controls support.</summary>
+    [Parameter] public bool AccessibleTriggerState { get; set; }
     [Parameter] public string? TriggerEvents { get; set; } = "click";
     [Parameter] public string? HideEvents { get; set; }
     [Parameter] public bool SameWidth { get; set; }
@@ -48,7 +50,8 @@ public partial class Popover : IDisposable
         {
             TriggerEvents = TriggerEvents?.Split([',', ' ', ';'], StringSplitOptions.TrimEntries),
             HideEvents = HideEvents?.Split([',', ' ', ';'], StringSplitOptions.TrimEntries),
-            SameWidth = SameWidth
+            SameWidth = SameWidth,
+            AccessibleTriggerState = AccessibleTriggerState
         };
 
         _configuration = new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface, ThemeScope);

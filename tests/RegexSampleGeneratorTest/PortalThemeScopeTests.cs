@@ -102,6 +102,37 @@ public class PortalThemeScopeTests
         Assert.That(() => new PortalThemeScope("dark", brand: brand),
                     Throws.TypeOf<ArgumentOutOfRangeException>());
     }
+    [Test]
+    public void DialogReturnFocusRequiresExplicitLauncher()
+    {
+        var legacy = new DialogConfiguration();
+        var optedIn = new DialogConfiguration(modal: false)
+        {
+            ReturnFocusTargetId = "v3-show-service-dialog"
+        };
+        Assert.Multiple(() =>
+        {
+            Assert.That(legacy.ReturnFocusTargetId, Is.Null);
+            Assert.That(optedIn.ReturnFocusTargetId, Is.EqualTo("v3-show-service-dialog"));
+        });
+    }
+
+    [TestCase("")]
+    [TestCase(" ")]
+    public void DialogConfiguratorRejectsEmptyReturnFocusTarget(string id)
+    {
+        Assert.That(() => new DialogConfigurator().SetReturnFocusTargetId(id),
+                    Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void PopoverAccessibleTriggerStateIsExplicitOptIn()
+    {
+        var settings = new PopoverSettings("trigger", Placement.Bottom, 6, 5);
+        Assert.That(settings.AccessibleTriggerState, Is.False);
+        settings.AccessibleTriggerState = true;
+        Assert.That(settings.AccessibleTriggerState, Is.True);
+    }
     [TestCase("system", "ltr", "comfortable")]
     [TestCase("dark", "auto", "comfortable")]
     [TestCase("dark", "ltr", "very-small")]

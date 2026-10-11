@@ -1,3 +1,5 @@
+> **Current 2026-10-11 follow-up:** Explicit last-Dialog focus return and opt-in Popover expanded/controls are now implemented and verified in real Chrome/Edge WASM/InteractiveServer (157/157 each). The older focus-return/Popover gaps below are historical baselines. Nested modal focus traps, native AT and final contract approval remain OPEN. See [D5 focus-return and Popover ARIA prototype](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md).
+
 # #418 — Opt-in Dialog accessibility contract (draft implementation)
 
 **Status: browser-tested draft on v3/issue-418-design-tokens, NOT approved or shipped.** PR #500 targets bluent-v3 only. Stable Dev and released NuGet are unchanged.

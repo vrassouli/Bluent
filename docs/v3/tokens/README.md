@@ -139,3 +139,7 @@ The maintainer spotted visibly top-aligned Button text on page 34 (Excel/Word) a
 
 ## Opt-in Dialog accessible name/entry proof
 The [D5 scoped Dialog accessibility prototype](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md) supplies an explicit localized accessible name and Close icon label, adds role=dialog and focuses the Dialog on initial render, only with caller opt-in. Real Chrome and Edge, WASM and published InteractiveServer **149/149** each; NUnit **43/43**. Legacy unscoped markup is unchanged. **Remaining gaps:** focus restoration, full modal keyboard trap/stack, Popover aria-expanded/aria-controls, native AT and approved API. The earlier four D5 defects in D5-PORTAL-ACCESSIBILITY-AUDIT.md are historical baseline findings.
+
+
+## Explicit focus restoration and actual Popover ARIA state (opt-in)
+The [#418 D5 focus-return and Popover ARIA proof](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md) covers a caller-supplied Dialog launch Button ID and safe restoration after the last Dialog closes; real Popover show/hide/reopen cycles set aria-expanded and aria-controls in the JS component that owns visibility. A legacy Popover opened without opt-in remains unchanged. Four Chrome/Edge x WASM/InteractiveServer browser runs **157/157 each**, NUnit **47/47**; the previously reported original D5 gaps are now historical only in the opted-in prototype. Modal focus trapping, nested stacks, AT, final component API approval and complete design parity remain open.

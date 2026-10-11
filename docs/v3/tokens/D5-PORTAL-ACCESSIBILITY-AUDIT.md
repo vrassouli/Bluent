@@ -1,3 +1,5 @@
+> **2026-10-11 second opt-in checkpoint:** The original four D5 findings below are PRE-FIX observations. Accessible Dialog role, icon label, initial focus, explicit last-Dialog return, and the real Popover trigger expanded/controls cycle now pass in the research path. Modal trap/nested-stack behavior and native AT are not accepted. See [current runtime proof](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md).
+
 > CURRENT 2026-10-11 PROTOTYPE UPDATE: the original Dialog role/Close AX name/initial-focus findings below are **historical before-fix results**. Explicit opt-in Dialog semantics now pass browser assertions on Chrome+Edge, WASM+InteractiveServer. **The Popover expanded/controls issue, focus restoration and full modal keyboard handling are NOT fixed.** See [the draft implementation](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md). No final public API or native accessibility approval.
 
 # #418 — D5 dialog accessible semantics and keyboard ownership audit

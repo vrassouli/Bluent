@@ -17,4 +17,6 @@ public class DialogConfiguration
     public string? AccessibleName { get; init; }
     /// <summary>Localized text alternative for the dismiss icon.</summary>
     public string? CloseButtonLabel { get; init; }
+    /// <summary>Optional explicit launcher ID for opt-in focus restoration when the last Dialog closes.</summary>
+    public string? ReturnFocusTargetId { get; init; }
 }
