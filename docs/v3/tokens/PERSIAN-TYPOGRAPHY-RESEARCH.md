@@ -1,0 +1,47 @@
+# #418 — Persian typography, mixed direction and real reflow probe
+
+**Date:** 2026-10-11. **Status:** executable research and demo-only reflow mitigation; **not** a shipping typography design/token decision, native accessibility certification, or a new bundled font.
+
+## Design source and remaining approval
+
+Existing design source: *Bluent v3 Design System* Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 32 `acf5f619-7d81-80da-8008-c5ef1089ac94` (accessible motion/high-contrast policy), and design-first #418 foundations in [issue-418-token-schema.preview.json](issue-418-token-schema.preview.json). Current demo builds on these **prior design decisions only**. **No newly approved Persian font/type ramp or Penpot typography board was created in this checkpoint**: the Penpot browser plugin was suspended, and the authorized Figma fallback reported an MCP Starter-plan tool call limit. Do not claim design parity or put a new font in Bluent.UI until the typography design can be reviewed in the connected v3 working file.
+
+## Live sample content
+
+The research-only `/v3/styling-lab` contains a semantic `<section lang="fa" dir="rtl">` with:
+- Persian words including real ZWNJ (e.g. `گزارش‌های`), Persian numerals and a date;
+- mixed `ABC-123` and `2026/10/11` identifiers isolated in separate semantic `<bdi>` elements;
+- three actual Bluent `Button` controls with real `FluentIcons.CursorClick`: short Persian, mixed Persian/Latin and long Persian;
+- a real `TextField` with Persian placeholder.
+
+No external font files are bundled, fetched or redistributed.
+
+## What the browser actually observed
+
+`node scripts/quality/probe_v3_blazor_runtime.mjs` launches an actual Chrome session against Blazor WebAssembly. Running it with `BLUENT_V3_LAB_MODE=server` launches a **local Release-published Interactive Server** and checks the same DOM and real Blazor controls.
+
+| Exact scope | WebAssembly | Interactive Server |
+| --- | --- | --- |
+| Full suite including brand, portal, motion, typography | **139/139** | **139/139** |
+| Persian paragraph actual reported platform font via `CSS.getPlatformFontsForNode` | Tahoma (50 glyphs) | Segoe UI (50 glyphs) |
+| Real Button icon/text center separation for short/mixed/long initial samples | 0 CSS px | 0 CSS px |
+| `<bdi>` for Latin identifiers | computed `unicode-bidi:isolate`, LTR | same |
+| 320px CSS viewport, RTL, root `font-size:200%` | reflow passed | reflow passed |
+| 320px CSS viewport, **component Button text = 28px (200%)** | no clipping or host escape | same |
+| 320px CSS viewport, **component Button text = 56px (400%)** | no clipping or host escape after demo-only mitigation | same |
+
+### Important correction: the original 320px test was not strict enough
+
+The earlier CDP viewport command used `mobile:true`. In Chrome without an effective mobile viewport declaration, this may yield a ~980px layout viewport despite a 320px device metric. The new test uses `Emulation.setDeviceMetricsOverride({width:320,height:700,deviceScaleFactor:1,mobile:false})` and explicitly asserts `window.innerWidth === 320`; similarly, the 390px RTL test asserts CSS viewport width 390. This is a **real CSS narrow viewport** test, not a claim about an actual physical mobile browser.
+
+With that stricter test and a true **400% per-Button text override**, the long Persian button initially extended beyond the v3 lab host boundary. This failure was measured, **not inferred from screenshot heuristics**. The demo-only `V3StylingLab.razor.css` now constrains hosted controls with `min-width:0`, `max-width:100%`, a wrapping text area (`white-space:normal;overflow-wrap:anywhere`) and an RTL-friendly stacked flex group. All three actual Fluent-icon Bluent buttons fit at 400%, with their icon/text geometric centers aligned to within 2 CSS pixels, and the 200% test also passes. **Production Button SCSS has not been modified.**
+
+### Actual font-family selection remains unresolved
+
+The CSS-visible `font-family` on the control reads the existing stack beginning with `Segoe UI`; actual platform glyphs differed across WASM and Interactive Server runs. These observations alone do not explain why fallback changed or establish any font as the approved v3 Persian choice. Browser rasterization, fallback selection, font-loading timing, OS/browser availability, glyph shaping and visual alignment need actual side-by-side design and human review. A zero difference between CSS icon/text box centers proves geometric alignment, **not** optical baseline or perceived centering for Persian glyphs.
+
+## What this does *not* certify
+
+No full-page zoom at 400%, native Windows high-contrast OS, macOS/Safari, Android, iOS, screen reader interaction, keyboard focus trap, all hover/error/disabled states, screenshot regression or assistive-technology approval was performed. The typography mitigation applies **only** inside the opt-in v3 demo and should not silently become a public Bluent v3 Button contract.
+
+Final API/RTL typography approval, visual tests on real devices and migration documentation remain open on #418. Keep PR #500 Draft, target `bluent-v3` only; never merge to stable `Dev` or publish stable NuGet from this work.

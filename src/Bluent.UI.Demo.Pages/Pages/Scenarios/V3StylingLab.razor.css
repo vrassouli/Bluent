@@ -96,3 +96,42 @@
     border-radius: 8px;
     max-width: 440px;
 }
+
+/* #418 research reflow: a real 320 CSS-pixel viewport, not a virtual 980px
+   mobile layout viewport. No component library CSS is changed. */
+.v3-lab,
+.v3-lab-surface,
+.v3-lab-independent-host,
+.v3-lab-typography {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+.v3-lab-actions ::deep .bui-button,
+.v3-lab-typography ::deep .bui-button {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+.v3-lab-actions ::deep .bui-button > .text,
+.v3-lab-typography ::deep .bui-button > .text {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-persian-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-block: 12px;
+    max-width: 100%;
+    min-width: 0;
+}
+.v3-lab-typography p,
+.v3-lab-typography label {
+    overflow-wrap: anywhere;
+}
+.v3-lab-typography ::deep .bui-field {
+    max-width: 100%;
+}

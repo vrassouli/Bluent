@@ -41,3 +41,6 @@ The same .NET test suite passes **40/40**, source CSS generator detects drift (4
 This test verifies **Interactive Server behavior inside the newly isolated probe island**, *not* every existing static SSR route, route transitions, RenderMode.Auto, persistence after disconnection, full native high contrast, screen reader flows, formal Fluent compliance or all keyboard interactions. Stable `Dev`/2.x and publicly released NuGet were not changed.
 
 See [concurrent brand design + source contract](BRAND-SCOPES-PREVIEW.md) and [proposed portal owner API](PORTAL-THEME-SCOPE-PREVIEW.md). Final type names, per-component specs and accessibility sign-off remain gating work under issue #418; PR #500 stays Draft to `bluent-v3`.
+
+## 2026-10-11 follow-up: Persian reflow parity
+The same published InteractiveServer Chrome route now executes the expanded [Persian typography test](PERSIAN-TYPOGRAPHY-RESEARCH.md): 139/139 assertions, including semantic RTL text, bdi Latin identifiers, platform font glyph introspection, geometric Fluent icon/text alignment, actual 320 CSS-pixel viewport and consumer-enlarged 200%/400% Persian Button text. The previous 126/126 table above is an earlier checkpoint. This does not certify native AT or final font design.

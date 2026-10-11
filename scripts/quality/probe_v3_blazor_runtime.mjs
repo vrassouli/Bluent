@@ -53,6 +53,23 @@ try {
  assert("Blazor Button plus opt-in CSS",initial.opted&&initial.asset&&!!initial.color,JSON.stringify(initial));
  const field=await cdp.js("(()=>{const f=document.querySelector('.v3-lab-field .bui-field'),input=document.querySelector('#v3-experiment-name');return f&&input&&{background:getComputedStyle(f).backgroundColor,border:getComputedStyle(f).borderTopColor};})()");
  assert("real Blazor TextField under alias bridge",field&&!!field.background&&!!field.border,JSON.stringify(field));
+ // #418 bilingual text and real Fluent icon/text geometry in the authored Blazor
+ // sample. Restrict to measurable DOM/focus/layout; optical glyph centering and
+ // Persian shaping still need visual/native review.
+ const typography=await cdp.js("(()=>{const s=document.querySelector('.v3-lab-typography'),p=document.querySelector('#v3-fa-paragraph'),m=document.querySelector('#v3-mixed-paragraph'),i=document.querySelector('#v3-fa-field');const buttons=['v3-fa-button','v3-fa-mixed-button','v3-fa-long-button'].map(id=>{const b=document.getElementById(id),icon=b?.querySelector('.icon'),text=b?.querySelector('.text');if(!b||!icon||!text)return {id,missing:true};const a=icon.getBoundingClientRect(),t=text.getBoundingClientRect(),r=b.getBoundingClientRect();return {id,verticalOffset:Math.abs(a.top+a.height/2-t.top-t.height/2),iconX:a.x,textX:t.x,clipped:text.scrollWidth>text.clientWidth+1,buttonW:r.width,font:getComputedStyle(text).fontFamily};});return {lang:s.lang,dir:s.dir,bidi:[...m.querySelectorAll('bdi')].map(x=>({text:x.textContent,direction:getComputedStyle(x).direction,unicodeBidi:getComputedStyle(x).unicodeBidi})),zwnj:p.textContent.includes('گزارش‌های'),fieldDirection:getComputedStyle(i).direction,buttons};})()");
+ assert("Persian lang/RTL/ZWNJ and editable field direction",typography.lang==="fa"&&typography.dir==="rtl"&&typography.zwnj&&typography.fieldDirection==="rtl",JSON.stringify(typography));
+ assert("bidi mixed identifiers are isolated",typography.bidi.length===2&&typography.bidi.every(x=>x.unicodeBidi==="isolate"&&x.direction==="ltr"),JSON.stringify(typography.bidi));
+ for(const item of typography.buttons) {
+   assert("Fluent icon/text vertical centering "+item.id,!item.missing&&item.verticalOffset<=2,JSON.stringify(item));
+   assert("RTL visual icon ordering "+item.id,!item.missing&&item.iconX>item.textX,JSON.stringify(item));
+ }
+ await cdp.send("DOM.enable");await cdp.send("CSS.enable");
+ const doc=await cdp.send("DOM.getDocument",{depth:1});
+ const node=await cdp.send("DOM.querySelector",{nodeId:doc.root.nodeId,selector:"#v3-fa-paragraph"});
+ const platform=await cdp.send("CSS.getPlatformFontsForNode",{nodeId:node.nodeId});
+ const actualFonts=platform.fonts?.map(x=>({family:x.familyName,glyphCount:x.glyphCount,isCustom:x.isCustomFont}))||[];
+ assert("Chrome resolves real Persian fallback font glyphs",actualFonts.length>0&&actualFonts.some(x=>x.glyphCount>0),JSON.stringify(actualFonts));
+ console.log("Persian typography runtime sources:",JSON.stringify({actualFonts,buttons:typography.buttons}));
  // Load each real shipped brand stylesheet against the SAME Blazor Button and
  // TextField, switching both modes. This tests runtime computed styles rather
  // than synthetic CSS fixtures. It modifies only this temporary browser tab.
@@ -135,13 +152,26 @@ try {
  assert("real Blazor compact density changes button height",compact&&compactSize<defaultSize,"comfortable="+defaultSize+" compact="+compactSize);
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Comfortable density'))?.click()");
  await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.density==='comfortable'"),"return comfortable",15000);
- await cdp.send("Emulation.setDeviceMetricsOverride",{width:390,height:844,deviceScaleFactor:1,mobile:true});
+ await cdp.send("Emulation.setDeviceMetricsOverride",{width:390,height:844,deviceScaleFactor:1,mobile:false});
  const mobile=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),box=h.getBoundingClientRect();return {width:window.innerWidth,x:box.x,right:box.right,scroll:h.scrollWidth,client:h.clientWidth,dir:h.dir};})()");
- assert("390px RTL lab host without horizontal overflow",mobile.x>=-1&&mobile.right<=mobile.width+2&&mobile.scroll<=mobile.client+2,JSON.stringify(mobile));
- await cdp.send("Emulation.setDeviceMetricsOverride",{width:320,height:700,deviceScaleFactor:1,mobile:true});
+ assert("390px RTL lab host without horizontal overflow",mobile.width===390&&mobile.x>=-1&&mobile.right<=mobile.width+2&&mobile.scroll<=mobile.client+2,JSON.stringify(mobile));
+ await cdp.send("Emulation.setDeviceMetricsOverride",{width:320,height:700,deviceScaleFactor:1,mobile:false});
  await cdp.js("document.documentElement.style.fontSize='200%'");
  const reflow=await cdp.js("(()=>{const host=document.querySelector('.v3-lab-surface');const outer=host.getBoundingClientRect(),nested=host.querySelector('.v3-lab-independent-host'),inner=nested.getBoundingClientRect();return {viewport:window.innerWidth,hostX:outer.x,hostRight:outer.right,hostScroll:host.scrollWidth,hostClient:host.clientWidth,nestedX:inner.x,nestedRight:inner.right,rootFont:getComputedStyle(document.documentElement).fontSize};})()");
- assert("320px viewport at 200% root text size preserves host reflow",reflow.hostX>=-1&&reflow.hostRight<=reflow.viewport+1&&reflow.hostScroll<=reflow.hostClient+2&&reflow.nestedX>=reflow.hostX&&reflow.nestedRight<=reflow.hostRight+2&&reflow.rootFont==="32px",JSON.stringify(reflow));
+ assert("320px viewport at 200% root text size preserves host reflow",reflow.viewport===320&&reflow.hostX>=-1&&reflow.hostRight<=reflow.viewport+1&&reflow.hostScroll<=reflow.hostClient+2&&reflow.nestedX>=reflow.hostX&&reflow.nestedRight<=reflow.hostRight+2&&reflow.rootFont==="32px",JSON.stringify(reflow));
+ // True component text enlargement, distinct from changing the rem root:
+ // Fluent v2 button tokens use absolute px, so setting html font-size alone
+ // does not double the control text. Verify the RTL content survives an
+ // explicit 200% consumer text-size override at 320px.
+ await cdp.js("document.querySelectorAll('.v3-lab-typography .bui-button').forEach(b=>{b.style.fontSize='28px';b.style.lineHeight='1.5';})");
+ const enlarged=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),r=h.getBoundingClientRect();return [...document.querySelectorAll('.v3-lab-typography .bui-button')].map(b=>{const i=b.querySelector('.icon'),t=b.querySelector('.text'),a=i.getBoundingClientRect(),v=t.getBoundingClientRect(),x=b.getBoundingClientRect();return {id:b.id,font:getComputedStyle(b).fontSize,buttonLeft:x.left,buttonRight:x.right,hostLeft:r.left,hostRight:r.right,clipped:t.scrollWidth>t.clientWidth+1,iconOffset:Math.abs(a.top+a.height/2-v.top-v.height/2),buttonH:x.height};});})()");
+ assert("200% Persian button text in 320px RTL does not clip or overflow",enlarged.every(x=>x.font==="28px"&&!x.clipped&&x.buttonLeft>=x.hostLeft-2&&x.buttonRight<=x.hostRight+2),JSON.stringify(enlarged));
+ assert("icon/text remain vertically centered at 200% text size",enlarged.every(x=>x.iconOffset<=2),JSON.stringify(enlarged.map(x=>({id:x.id,offset:x.iconOffset}))));
+ await cdp.js("document.querySelectorAll('.v3-lab-typography .bui-button').forEach(b=>{b.style.fontSize='56px';b.style.lineHeight='1.5';})");
+ const huge=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),r=h.getBoundingClientRect();return [...document.querySelectorAll('.v3-lab-typography .bui-button')].map(b=>{const t=b.querySelector('.text'),icon=b.querySelector('.icon'),v=b.getBoundingClientRect(),ix=icon.getBoundingClientRect(),tx=t.getBoundingClientRect();return {id:b.id,iconOffset:Math.abs(ix.top+ix.height/2-tx.top-tx.height/2),font:getComputedStyle(b).fontSize,clipped:t.scrollWidth>t.clientWidth+1,buttonLeft:v.left,buttonRight:v.right,hostLeft:r.left,hostRight:r.right,textScroll:t.scrollWidth,textClient:t.clientWidth};});})()");
+ assert("400% Persian text inside 320px RTL host has no lost content",huge.every(x=>x.font==="56px"&&!x.clipped&&x.buttonLeft>=x.hostLeft-2&&x.buttonRight<=x.hostRight+2),JSON.stringify(huge));
+ assert("400% Persian icon and wrapped text geometric centers aligned",huge.every(x=>x.iconOffset<=2),JSON.stringify(huge.map(x=>({id:x.id,offset:x.iconOffset}))));
+ await cdp.js("document.querySelectorAll('.v3-lab-typography .bui-button').forEach(b=>{b.style.fontSize='';b.style.lineHeight='';})");
  await cdp.js("document.documentElement.style.fontSize=''");
  await cdp.send("Emulation.clearDeviceMetricsOverride");
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"no-preference"}]});

@@ -116,3 +116,6 @@ See BRAND-SCOPES-PREVIEW.md for the source-based 10-brand, 2-mode CSS generator,
 
 ## Interactive Server browser parity
 The [published SSR InteractiveServer integration probe](INTERACTIVE-SERVER-PROBE.md) now passes the same **126/126 real Chrome/CDP tests** as standalone Blazor WebAssembly. The isolated SSR probe route keeps the service-hosted Containers in its own interactive circuit; the Production-published local host handles static assets correctly. This is not native accessibility validation, deployment, or a release.
+
+## Persian typography / genuine 320px reflow research
+The [live فارسی, ZWNJ, Latin identifiers and icon/text alignment research](PERSIAN-TYPOGRAPHY-RESEARCH.md) adds three real Bluent Buttons, one TextField, isolated bidi identifiers and Chrome platform-font tracing to the opt-in lab. It corrects the previous mobile emulation false-positive: CSS viewport width is now explicitly asserted to be 320 or 390px. An observed 400% long Persian Button overflow was fixed **only inside the v3 demo CSS**, using wrapping and width constraints. The current dual-mode browser matrix is **139/139 WASM and 139/139 Interactive Server**, subject to their documented scope. A new Penpot typography design and approved font choice are still pending; stable Bluent.UI Button SCSS is unchanged.

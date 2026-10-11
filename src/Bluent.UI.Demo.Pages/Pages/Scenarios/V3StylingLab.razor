@@ -62,7 +62,19 @@
                 </Popover>
             </section>
         </CascadingValue>
-        <div class="v3-lab-field">
+        <section class="v3-lab-typography" lang="fa" dir="rtl" aria-label="Persian and mixed-direction typography QA">
+            <h3>آزمون تایپوگرافی و راست‌به‌چپ</h3>
+            <p id="v3-fa-paragraph">گزارش‌های حضور و غیاب — درخواست مأموریت ۱۴۰۵/۰۷/۱۹</p>
+            <p id="v3-mixed-paragraph">شماره پیگیری: <bdi>ABC-123</bdi>، شناسه: <bdi>2026/10/11</bdi>، وضعیت: تأیید شد</p>
+            <div class="v3-lab-persian-actions">
+                <Button id="v3-fa-button" Text="ثبت درخواست" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary" />
+                <Button id="v3-fa-mixed-button" Text="مشاهده گزارش ABC-123" Icon="@FluentIcons.CursorClick" />
+                <Button id="v3-fa-long-button" Text="ارسال گزارش‌های تأییدشده برای بررسی مجدد" Icon="@FluentIcons.CursorClick" />
+            </div>
+            <label for="v3-fa-field">عنوان درخواست</label>
+            <TextField id="v3-fa-field" placeholder="عنوان را وارد کنید" />
+            <p class="v3-lab-hint">فونت‌ها از سیستم کاربر انتخاب می‌شوند؛ این بخش صرفاً آزمایش‌پذیر است و فونت جدیدی همراه بسته منتشر نمی‌کند.</p>
+        </section>        <div class="v3-lab-field">
             <label for="v3-experiment-name">Name</label>
             <TextField id="v3-experiment-name" @bind-Value="_name" placeholder="Example name" />
             <span class="v3-lab-hint">This is a real Bluent TextField styled through the unpublished, scoped alias bridge.</span>
