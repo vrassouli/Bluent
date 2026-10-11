@@ -45,6 +45,14 @@ The source family's full Button matrix exposes **150 upstream variants**. Our 25
 
 The previously passed [alignment quality sweep](ALIGNMENT-QUALITY-AUDIT.md) remains separately grounded at Penpot revision 122: 65 native variants, 65 native linked previews, 23 existing design boards, 632 root-board text frames, 910 geometry checks, zero errors. It does **not** establish this page's pixel parity or responsive behavior.
 
+## Follow-up: genuinely controlled same-content Button parity board
+
+The previous comparison intentionally revealed **ten sample-copy differences and ten missing source-icon specimens** in the **original project-owned 25-variant Button family**. We did not change those user-facing draft examples merely to make their comparison look successful.
+
+Instead, a separate **ten-variant native editable test-fixture family** was built. Its new [equal-content and Persian RTL evidence](BUTTON-CONTROLLED-FIDELITY-AND-RTL.md) compares original imported Fluent instances with **91×32px** owned `Button` controls, matching text, icon slot, the exact source vector path copied locally as editable native Path geometry, border/fill/text colors and label alignment. The repeatable test-fixture audit passed **233 live checks / 0 errors** at saved revision **157**, with **zero copy mismatches and zero path/type mismatches**. The remaining design-sample difference is **Segoe UI font vs local Inter**, so pixel-perfect parity is still not certified. The original core variant family, public API and CSS/Blazor code are unchanged.
+
+The recovery version also contains **six Persian Button Size×Direction fixtures** (Small/Medium/Large × LTR/RTL), PNG-reviewed and live tested: **98 checks / 0 errors**. These remain design test fixtures, not approved public components.
+
 ## Workflow and release boundary
 
 This is part of the existing **#419 In progress** design-library issue, on the isolated branch `v3/issue-419-penpot-library` and [Draft PR #499](https://github.com/vrassouli/Bluent/pull/499) targeting **`bluent-v3`**. The #417 CSS ADR and #418 token contract are not approved. No changes to Bluent's stable `Dev`, released NuGet, imported Microsoft assets or public Blazor code are authorized.

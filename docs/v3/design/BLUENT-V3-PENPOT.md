@@ -43,6 +43,8 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `21 · Button Bluent-specific API anatomy` | `e31294c6-7c55-805f-8008-c5912770e8ab` | `e31294c6-7c55-805f-8008-c591278b98dd` | Eight editable **noninteractive** visual sketches of existing Bluent-specific Button features |
 | `22 · Button Fluent parity review` | `e31294c6-7c55-805f-8008-c5a8fb268d03` | `e31294c6-7c55-805f-8008-c5a91188deb7` | **10 imported Fluent + 10 local Bluent linked instances**, with measured geometry and explicit content/icon parity gaps |
 | `23 · Button resize stress laboratory` | `e31294c6-7c55-805f-8008-c5aa0da135fb` | `e31294c6-7c55-805f-8008-c5aaa288cc59` | **18 linked native Button instances**, six controls × natural/wide/compact, constraints-verified |
+| `24 · Button equal-content comparison` | `e31294c6-7c55-805f-8008-c5af6658c671` | `e31294c6-7c55-805f-8008-c5afb988d983` | **10 source + 10 independent local comparison fixture instances** with exact same copy/geometry and locally duplicated vector icon paths |
+| `25 · Button Persian RTL typography` | `e31294c6-7c55-805f-8008-c5b0bae3546a` | `e31294c6-7c55-805f-8008-c5b10a9aeae4` | **6 local direction/size fixture instances**, Persian label and mirrored icon, three sizes |
 
 The original design boards, all **five extended foundation boards**, the **25-instance linked Fluent Button reference board**, and the **five new Input/Checkbox/Dialog/DataGrid-cell/Switch reference boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
@@ -112,7 +114,16 @@ The six source Button `Size × Layout` variants were updated with actual Penpot 
 
 The whole dedicated Penpot working file now has **24 authored pages**. Its named recovery version **`Bluent v3 · #419 Button source parity and resize constraints 2026-10-11`**, revision **138**, includes both verified boards. After the additions the expanded alignment audit was rerun with **25 authored boards, 712 visible text frames and 990 geometric checks / 0 errors**. The design remains Draft, not runtime/Blazor validation or approved exact pixel parity.
 
-## 12. Design and code contract: acceptance gates
+## 12. Matched Fluent-content specimens and Persian RTL design tests
+
+Two further **project-owned Penpot design-test pages** were created, bringing the dedicated file to **26 design pages**. They deliberately do **not** mutate the five earlier product-facing variant families (**65 core design variants**).
+
+- **Matched-content Button:** 10 real native variant sources (`Appearance × State`, Medium / Rest + Disabled), plus **10 authentic imported Fluent + 10 native fixture linked previews**. All fixture labels are `Button`, all visual frames are 91×32px, and the editable local icon uses **exact source Fluent Path commands translated into Bluent-owned geometry**, not a rough ellipse. The live [controlled audit](BUTTON-CONTROLLED-FIDELITY-AND-RTL.md) passed **233 checks / 0 errors**, with **zero text, color, icon-path or frame mismatch**. The still-open font mismatch is **upstream Segoe UI versus local Inter**, so *pixel parity is not approved*.
+- **Persian RTL:** 6 additional independent local size/direction variants with `ذخیره تغییرات` in 3 sizes × 2 directions, real mirrored icon placements and provisional **Noto Sans Arabic** typography. The live [RTL check](BUTTON-CONTROLLED-FIDELITY-AND-RTL.md) passed **98 checks / 0 errors**, and the board was visually reviewed.
+
+These are **16 additional reusable design testing variants** beyond the original 65 core variants, not 16 implemented C# components or fully Fluent-parity states. The last saved Penpot version **`Bluent v3 · #419 exact Button source comparison and Persian RTL 2026-10-11`** corresponds to observed revision **157**. The comprehensive native-core alignment check was rerun over **27 authored boards / 781 visible text layers, 1059 geometric checks / 0 errors**; the previous 25-board/990-check result remains historical evidence.
+
+## 13. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.

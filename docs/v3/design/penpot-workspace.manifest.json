@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 138,
-    "savedDraftVersionLabel": "Bluent v3 · #419 Button source parity and resize constraints 2026-10-11"
+    "lastSeenRevision": 157,
+    "savedDraftVersionLabel": "Bluent v3 · #419 exact Button source comparison and Persian RTL 2026-10-11"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -341,6 +341,18 @@
       "name": "23 · Button resize stress laboratory",
       "id": "e31294c6-7c55-805f-8008-c5aa0da135fb",
       "boardId": "e31294c6-7c55-805f-8008-c5aaa288cc59"
+    },
+    {
+      "key": "button-controlled-fidelity",
+      "name": "24 · Button equal-content comparison",
+      "id": "e31294c6-7c55-805f-8008-c5af6658c671",
+      "boardId": "e31294c6-7c55-805f-8008-c5afb988d983"
+    },
+    {
+      "key": "button-persian-rtl",
+      "name": "25 · Button Persian RTL typography",
+      "id": "e31294c6-7c55-805f-8008-c5b0bae3546a",
+      "boardId": "e31294c6-7c55-805f-8008-c5b10a9aeae4"
     }
   ],
   "tokens": {
@@ -461,7 +473,7 @@
     "nativeVariantTotal": 34,
     "nativeVariantLinkedPreviews": 34,
     "nativeVariantBoardsVisuallyInspected": 3,
-    "localComponentFamilyEntriesVerified": 9,
+    "localComponentFamilyEntriesVerified": 11,
     "additionalDraftTokenBindings": 15,
     "nativeButtonDesignDoc": "docs/v3/design/NATIVE-BUTTON-VARIANTS.md",
     "nativeButtonVariantFamilies": 2,
@@ -470,9 +482,9 @@
     "nativeButtonBoardsVisuallyInspected": 2,
     "nativeButtonApiSketchBoardVisuallyInspected": true,
     "nativeButtonApiSketchCases": 8,
-    "totalLocalNativeVariantFamilies": 5,
-    "totalLocalNativeVariants": 65,
-    "totalLocalNativeLinkedPreviews": 65
+    "totalLocalNativeVariantFamilies": 7,
+    "totalLocalNativeVariants": 81,
+    "totalLocalNativeLinkedPreviews": 81
   },
   "guardrails": {
     "workBranch": "v3/issue-419-penpot-library",
@@ -625,19 +637,19 @@
     "status": "passed-at-observed-revision",
     "scope": "actual project-owned Penpot source variants, linked previews, original prototypes, editable API sketches and root #419 board text bounds",
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
-    "revision": 138,
+    "revision": 157,
     "report": "docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md",
     "executablePenpotScript": "scripts/quality/penpot_v3_alignment_audit.js",
     "nativeVariantsInspected": 65,
     "linkedNativePreviewsVerified": 65,
-    "authoredRootBoardsScanned": 25,
-    "authoredVisibleTextFramesScanned": 712,
-    "geometricChecks": 990,
+    "authoredRootBoardsScanned": 27,
+    "authoredVisibleTextFramesScanned": 781,
+    "geometricChecks": 1059,
     "errors": 0,
     "initialVerticalAndOverflowFlags": 37,
     "correctedBoardTextOverflows": 1,
     "imagesVisuallyReviewed": true,
-    "namedVersion": "Bluent v3 · #419 Button source parity and resize constraints 2026-10-11",
+    "namedVersion": "Bluent v3 · #419 exact Button source comparison and Persian RTL 2026-10-11",
     "limitations": [
       "not a live CI/screenshot regression suite",
       "not typography optical accuracy",
@@ -668,7 +680,7 @@
     "script": "scripts/quality/penpot_v3_button_parity_audit.js",
     "report": "docs/v3/design/BUTTON-PARITY-REVIEW.md",
     "pngVisuallyReviewed": true,
-    "revision": 138
+    "revision": 157
   },
   "buttonResizeAudit": {
     "status": "source-constraint-geometry-verified; NOT runtime-responsive-approved",
@@ -684,6 +696,53 @@
     "script": "scripts/quality/penpot_v3_button_resize_audit.js",
     "report": "docs/v3/design/BUTTON-RESIZE-REVIEW.md",
     "pngVisuallyReviewed": true,
-    "revision": 138
+    "revision": 157
+  },
+  "controlledButtonFidelityAudit": {
+    "status": "controlled native Penpot layout parity verified; Segoe UI font pending",
+    "pageId": "e31294c6-7c55-805f-8008-c5af6658c671",
+    "boardId": "e31294c6-7c55-805f-8008-c5afb988d983",
+    "nativeVariantContainerId": "e31294c6-7c55-805f-8008-c5af7f698c58",
+    "sourceReferenceLinkedInstances": 10,
+    "controlledLocalLinkedInstances": 10,
+    "controlledNativeVariantCount": 10,
+    "checks": 233,
+    "errors": 0,
+    "copyMismatchPairs": 0,
+    "iconPathTypeMismatches": 0,
+    "normalizedFluentPathCommandMismatches": 0,
+    "fontFamilyMismatchPairs": 10,
+    "fontReference": "Segoe UI",
+    "fontLocal": "Inter",
+    "pixelParityApproved": false,
+    "script": "scripts/quality/penpot_v3_equal_content_button_audit.js",
+    "report": "docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md",
+    "pngVisuallyReviewed": true,
+    "revision": 157
+  },
+  "persianButtonRtlAudit": {
+    "status": "Persian RTL visual geometry passed, not runtime approved",
+    "pageId": "e31294c6-7c55-805f-8008-c5b0bae3546a",
+    "boardId": "e31294c6-7c55-805f-8008-c5b10a9aeae4",
+    "nativeVariantContainerId": "e31294c6-7c55-805f-8008-c5b0d6e50880",
+    "visualVariantCount": 6,
+    "linkedSamples": 6,
+    "checks": 98,
+    "errors": 0,
+    "provisionalFont": "Noto Sans Arabic",
+    "auditedSizes": [
+      "Small",
+      "Medium",
+      "Large"
+    ],
+    "directions": [
+      "LTR",
+      "RTL"
+    ],
+    "browserInteractionApproved": false,
+    "script": "scripts/quality/penpot_v3_button_persian_rtl_audit.js",
+    "report": "docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md",
+    "pngVisuallyReviewed": true,
+    "revision": 157
   }
 }

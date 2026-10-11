@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 24:
-        errors.append("Penpot workspace should track twenty-four design pages")
+    if len(data["pages"]) != 26:
+        errors.append("Penpot workspace should track twenty-six design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -78,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 138:
+    if data["designSource"].get("lastSeenRevision", 0) < 157:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -170,7 +170,7 @@ def main() -> int:
         ev.get("nativeVariantTotal") != 34 or
         ev.get("nativeVariantLinkedPreviews") != 34 or
         ev.get("nativeVariantBoardsVisuallyInspected") != 3 or
-        ev.get("localComponentFamilyEntriesVerified") != 9):
+        ev.get("localComponentFamilyEntriesVerified") != 11):
         errors.append("Native form-control design evidence/asset counts are incomplete")
     if ev.get("additionalDraftTokenBindings") != 15:
         errors.append("Missing record of 15 newly applied draft design-token bindings")
@@ -212,9 +212,9 @@ def main() -> int:
         ev.get("nativeButtonBoardsVisuallyInspected") != 2 or
         not ev.get("nativeButtonApiSketchBoardVisuallyInspected") or
         ev.get("nativeButtonApiSketchCases") != 8 or
-        ev.get("totalLocalNativeVariantFamilies") != 5 or
-        ev.get("totalLocalNativeVariants") != native_total + button_total or
-        ev.get("totalLocalNativeLinkedPreviews") != linked_total + button_links):
+        ev.get("totalLocalNativeVariantFamilies") != 7 or
+        ev.get("totalLocalNativeVariants") != native_total + button_total + 16 or
+        ev.get("totalLocalNativeLinkedPreviews") != linked_total + button_links + 16):
         errors.append("Incomplete linked Penpot native Button/API research evidence")
     # Alignment is a dated LIVE Penpot observation recorded in the manifest,
     # not an offline recreation of the Penpot plugin geometry inspection.
@@ -228,9 +228,9 @@ def main() -> int:
     for field, expected in {
         "nativeVariantsInspected": 65,
         "linkedNativePreviewsVerified": 65,
-        "authoredRootBoardsScanned": 25,
-        "authoredVisibleTextFramesScanned": 712,
-        "geometricChecks": 990,
+        "authoredRootBoardsScanned": 27,
+        "authoredVisibleTextFramesScanned": 781,
+        "geometricChecks": 1059,
         "errors": 0,
         "initialVerticalAndOverflowFlags": 37,
         "correctedBoardTextOverflows": 1,
@@ -282,6 +282,46 @@ def main() -> int:
         not resize.get("iconOnlySquareAndCentered") or
         not resize.get("atOrAboveContentMinimumOnly")):
         errors.append("Button responsive design constraints missing verified test evidence")
+    # Keep controlled parity/RTL **test fixtures** distinct from the 65
+    # product-facing draft native variants. These metadata entries are not
+    # independent proof; raw scripts were separately executed in live Penpot.
+    controlled = data.get("controlledButtonFidelityAudit", {})
+    persian = data.get("persianButtonRtlAudit", {})
+    for entry, name in ((controlled, "controlled Button"), (persian, "Persian RTL")):
+        for field in ("pageId", "boardId", "nativeVariantContainerId"):
+            valid_id(f"{name} {field}", entry.get(field))
+        pg = next((p for p in data["pages"] if p["id"] == entry.get("pageId")), None)
+        if pg is None or pg.get("boardId") != entry.get("boardId"):
+            errors.append(f"{name}: page/board IDs must match Penpot manifest")
+        if entry.get("revision") != data["designSource"].get("lastSeenRevision"):
+            errors.append(f"{name}: evidence must match last live revision")
+        for field in ("script", "report"):
+            path_value = entry.get(field)
+            if not path_value or not (ROOT / path_value).is_file():
+                errors.append(f"Missing {name} {field} file")
+        if not entry.get("pngVisuallyReviewed"):
+            errors.append(f"{name}: last exported board must be visually inspected")
+    if (controlled.get("sourceReferenceLinkedInstances") != 10 or
+        controlled.get("controlledLocalLinkedInstances") != 10 or
+        controlled.get("controlledNativeVariantCount") != 10 or
+        controlled.get("checks") != 233 or controlled.get("errors") != 0 or
+        controlled.get("copyMismatchPairs") != 0 or
+        controlled.get("iconPathTypeMismatches") != 0 or
+        controlled.get("normalizedFluentPathCommandMismatches") != 0 or
+        controlled.get("fontFamilyMismatchPairs") != 10 or
+        controlled.get("fontReference") != "Segoe UI" or
+        controlled.get("fontLocal") != "Inter" or
+        controlled.get("pixelParityApproved") is not False):
+        errors.append("Controlled Button source comparison must capture actual passes and font gap")
+    if (persian.get("visualVariantCount") != 6 or
+        persian.get("linkedSamples") != 6 or
+        persian.get("checks") != 98 or
+        persian.get("errors") != 0 or
+        persian.get("provisionalFont") != "Noto Sans Arabic" or
+        persian.get("auditedSizes") != ["Small", "Medium", "Large"] or
+        persian.get("directions") != ["LTR", "RTL"] or
+        persian.get("browserInteractionApproved") is not False):
+        errors.append("Persian Button RTL visual geometry evidence is incomplete")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):
@@ -290,9 +330,10 @@ def main() -> int:
           f"{len(data['tokens']['sets'])} token sets, "
           f"{len(data['tokens']['themes'])} themes, "
           f"{len(data['components'])} original local draft component(s), "
-          f"{len(native) + len(button_matrices)} native variant families / "
-          f"{native_total + button_total} variants, "
-          f"{linked_total + button_links} linked previews; "
+          f"{len(native) + len(button_matrices)} core native variant families / "
+          f"{native_total + button_total} core variants; "
+          f"2 additional fidelity/RTL fixture families / 16 variants; "
+          f"{linked_total + button_links + 16} total linked native previews; "
           f"{len(errors)} errors. Offline metadata only.")
     for problem in errors:
         print("ERROR:", problem)

@@ -73,6 +73,12 @@ After adding **two new project-owned Penpot pages** (Fluent Button comparison an
 
 A separate [Button parity linked-source audit](BUTTON-PARITY-REVIEW.md) found ten real reference/native pairs with ten content/icon mismatches; it deliberately does **not** claim pixel parity. The [Button resize audit](BUTTON-RESIZE-REVIEW.md) verified 18 linked samples, 145 design geometry checks and 0 errors, distinguishing stretchable icon+label buttons from fixed-square icon-only controls. All source and presentation research remains Draft; browser/Blazor behavior is not established.
 
+## Latest expanded geometry inspection (revision 157)
+
+After the project-owned equal-content Button fidelity board and Persian RTL direction board were created and visually inspected, the [same source geometry/link scanner](../../../scripts/quality/penpot_v3_alignment_audit.js) was rerun against the real design file at revision **157**: **27 authored `#419` root boards, 781 visible text layer frames, 65 existing core native variants and 65 linked previews, 1059 geometric checks / 0 errors**. These are the *latest* full-board/core-variant results; the 25-board/990-check result at revision 138 and 23-board/910-check result at revision 122 are historical snapshots.
+
+The **new** controlled reference test fixtures (10 owned variants with 10 imported source counterpart links) have an independent [233-check live audit](BUTTON-CONTROLLED-FIDELITY-AND-RTL.md); the six Persian RTL test fixtures have another **98-check live audit**, both with zero geometry errors. This distinction avoids claiming the core scanner tests product interactions or all 81 local design variants under the same semantics.
+
 ## What this does *not* establish
 
 A zero-failure geometry audit proves only the checked **Penpot frame geometry**, not precise optical centering across OS font renderers. It also does **not** certify:
