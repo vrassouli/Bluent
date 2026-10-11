@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 122,
-    "savedDraftVersionLabel": "Bluent v3 · #419 Button and control alignment verified 2026-10-11"
+    "lastSeenRevision": 138,
+    "savedDraftVersionLabel": "Bluent v3 · #419 Button source parity and resize constraints 2026-10-11"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -329,6 +329,18 @@
       "name": "21 · Button Bluent-specific API anatomy",
       "id": "e31294c6-7c55-805f-8008-c5912770e8ab",
       "boardId": "e31294c6-7c55-805f-8008-c591278b98dd"
+    },
+    {
+      "key": "button-fluent-parity-review",
+      "name": "22 · Button Fluent parity review",
+      "id": "e31294c6-7c55-805f-8008-c5a8fb268d03",
+      "boardId": "e31294c6-7c55-805f-8008-c5a91188deb7"
+    },
+    {
+      "key": "button-resize-stress-lab",
+      "name": "23 · Button resize stress laboratory",
+      "id": "e31294c6-7c55-805f-8008-c5aa0da135fb",
+      "boardId": "e31294c6-7c55-805f-8008-c5aaa288cc59"
     }
   ],
   "tokens": {
@@ -613,24 +625,65 @@
     "status": "passed-at-observed-revision",
     "scope": "actual project-owned Penpot source variants, linked previews, original prototypes, editable API sketches and root #419 board text bounds",
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
-    "revision": 122,
+    "revision": 138,
     "report": "docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md",
     "executablePenpotScript": "scripts/quality/penpot_v3_alignment_audit.js",
     "nativeVariantsInspected": 65,
     "linkedNativePreviewsVerified": 65,
-    "authoredRootBoardsScanned": 23,
-    "authoredVisibleTextFramesScanned": 632,
-    "geometricChecks": 910,
+    "authoredRootBoardsScanned": 25,
+    "authoredVisibleTextFramesScanned": 712,
+    "geometricChecks": 990,
     "errors": 0,
     "initialVerticalAndOverflowFlags": 37,
     "correctedBoardTextOverflows": 1,
     "imagesVisuallyReviewed": true,
-    "namedVersion": "Bluent v3 · #419 Button and control alignment verified 2026-10-11",
+    "namedVersion": "Bluent v3 · #419 Button source parity and resize constraints 2026-10-11",
     "limitations": [
       "not a live CI/screenshot regression suite",
       "not typography optical accuracy",
       "not responsive/RTL browser behavior or WCAG/a11y certification",
       "does not alter imported Fluent source assets"
     ]
+  },
+  "buttonParityReview": {
+    "status": "source-linked-comparison-verified; NOT parity-approved",
+    "pageId": "e31294c6-7c55-805f-8008-c5a8fb268d03",
+    "boardId": "e31294c6-7c55-805f-8008-c5a91188deb7",
+    "importedLinkedInstances": 10,
+    "localLinkedInstances": 10,
+    "matchedStyleAndStatePairs": 10,
+    "structuralAuditPassed": true,
+    "structuralErrors": 0,
+    "copyMismatchPairs": 10,
+    "iconMissingFromLocalPairs": 10,
+    "referenceMediumRoot": [
+      91,
+      32
+    ],
+    "localMediumFace": [
+      155,
+      33
+    ],
+    "pixelParityApproved": false,
+    "script": "scripts/quality/penpot_v3_button_parity_audit.js",
+    "report": "docs/v3/design/BUTTON-PARITY-REVIEW.md",
+    "pngVisuallyReviewed": true,
+    "revision": 138
+  },
+  "buttonResizeAudit": {
+    "status": "source-constraint-geometry-verified; NOT runtime-responsive-approved",
+    "pageId": "e31294c6-7c55-805f-8008-c5aa0da135fb",
+    "boardId": "e31294c6-7c55-805f-8008-c5aaa288cc59",
+    "localSourceVariants": 6,
+    "linkedResizeSpecimens": 18,
+    "responsiveDesignChecks": 145,
+    "errors": 0,
+    "textButtonStretch": true,
+    "iconOnlySquareAndCentered": true,
+    "atOrAboveContentMinimumOnly": true,
+    "script": "scripts/quality/penpot_v3_button_resize_audit.js",
+    "report": "docs/v3/design/BUTTON-RESIZE-REVIEW.md",
+    "pngVisuallyReviewed": true,
+    "revision": 138
   }
 }

@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 22:
-        errors.append("Penpot workspace should track twenty-two design pages")
+    if len(data["pages"]) != 24:
+        errors.append("Penpot workspace should track twenty-four design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -78,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 122:
+    if data["designSource"].get("lastSeenRevision", 0) < 138:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -228,9 +228,9 @@ def main() -> int:
     for field, expected in {
         "nativeVariantsInspected": 65,
         "linkedNativePreviewsVerified": 65,
-        "authoredRootBoardsScanned": 23,
-        "authoredVisibleTextFramesScanned": 632,
-        "geometricChecks": 910,
+        "authoredRootBoardsScanned": 25,
+        "authoredVisibleTextFramesScanned": 712,
+        "geometricChecks": 990,
         "errors": 0,
         "initialVerticalAndOverflowFlags": 37,
         "correctedBoardTextOverflows": 1,
@@ -245,6 +245,43 @@ def main() -> int:
             errors.append(f"Missing documented alignment quality artifact: {field}")
     if audit.get("namedVersion") != data["designSource"].get("savedDraftVersionLabel"):
         errors.append("Penpot saved recovery version not attached to alignment findings")
+    # Additional *observed live* Button reference comparisons and resize cases.
+    # These metadata checks are NOT substitutes for running the two scripts in Penpot.
+    parity = data.get("buttonParityReview", {})
+    resize = data.get("buttonResizeAudit", {})
+    for obj, label in ((parity, "Button parity"), (resize, "Button resize")):
+        for field in ("pageId", "boardId"):
+            valid_id(f"{label} {field}", obj.get(field))
+        page = next((x for x in data["pages"] if x["id"] == obj.get("pageId")), None)
+        if page is None or page.get("boardId") != obj.get("boardId"):
+            errors.append(f"{label} board must be tracked in Penpot page manifest")
+        if obj.get("revision") != data["designSource"].get("lastSeenRevision"):
+            errors.append(f"{label} evidence must match latest observed file revision")
+        for field in ("script", "report"):
+            relative_path = obj.get(field)
+            if not relative_path or not (ROOT / relative_path).is_file():
+                errors.append(f"{label} lacks reproducible {field}")
+        if not obj.get("pngVisuallyReviewed"):
+            errors.append(f"{label} board needs real exported-image review")
+    if (parity.get("importedLinkedInstances") != 10 or
+        parity.get("localLinkedInstances") != 10 or
+        parity.get("matchedStyleAndStatePairs") != 10 or
+        parity.get("structuralAuditPassed") is not True or
+        parity.get("structuralErrors") != 0 or
+        parity.get("copyMismatchPairs") != 10 or
+        parity.get("iconMissingFromLocalPairs") != 10 or
+        parity.get("referenceMediumRoot") != [91, 32] or
+        parity.get("localMediumFace") != [155, 33] or
+        parity.get("pixelParityApproved") is not False):
+        errors.append("Button parity must record the REAL 10 linked comparisons and open gaps")
+    if (resize.get("localSourceVariants") != 6 or
+        resize.get("linkedResizeSpecimens") != 18 or
+        resize.get("responsiveDesignChecks") != 145 or
+        resize.get("errors") != 0 or
+        not resize.get("textButtonStretch") or
+        not resize.get("iconOnlySquareAndCentered") or
+        not resize.get("atOrAboveContentMinimumOnly")):
+        errors.append("Button responsive design constraints missing verified test evidence")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):

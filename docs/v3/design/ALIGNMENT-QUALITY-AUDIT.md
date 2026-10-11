@@ -67,6 +67,12 @@ The test inspects:
 
 The five corrected native matrix boards (Button appearance × state, Button size × layout, TextField, Checkbox, Switch), original local control preview board, and Bluent-specific Button API sketch board were **PNG-exported and reviewed** after repairs. This was also checked on source variants rather than patching only visual copy instances, preserving the instance source links.
 
+## Follow-up after linked parity and resize pages
+
+After adding **two new project-owned Penpot pages** (Fluent Button comparison and responsive resize stress laboratory) and correcting the six Button size/layout native variants with actual Penpot horizontal constraints, the live source alignment script was rerun against saved file revision **138**. Its expanded results: **25 authored root boards**, **712 visible text frames**, **65 native variants and 65 linked native matrix instances**, **990 geometric checks / 0 errors**. The earlier **910 checks / 23 boards / 632 text frames** were the historically verified baseline at revision 122, not the latest full scan.
+
+A separate [Button parity linked-source audit](BUTTON-PARITY-REVIEW.md) found ten real reference/native pairs with ten content/icon mismatches; it deliberately does **not** claim pixel parity. The [Button resize audit](BUTTON-RESIZE-REVIEW.md) verified 18 linked samples, 145 design geometry checks and 0 errors, distinguishing stretchable icon+label buttons from fixed-square icon-only controls. All source and presentation research remains Draft; browser/Blazor behavior is not established.
+
 ## What this does *not* establish
 
 A zero-failure geometry audit proves only the checked **Penpot frame geometry**, not precise optical centering across OS font renderers. It also does **not** certify:

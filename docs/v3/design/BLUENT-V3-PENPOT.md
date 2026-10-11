@@ -41,6 +41,8 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `19 · Bluent Button native variants` | `e31294c6-7c55-805f-8008-c58ffcf22e07` | `e31294c6-7c55-805f-8008-c5907590b592` | **25 linked local** Button `Appearance × State` variants |
 | `20 · Bluent Button sizes and layout` | `e31294c6-7c55-805f-8008-c590b2678162` | `e31294c6-7c55-805f-8008-c590fe0982cf` | **6 linked local** Button `Size × Layout` variants |
 | `21 · Button Bluent-specific API anatomy` | `e31294c6-7c55-805f-8008-c5912770e8ab` | `e31294c6-7c55-805f-8008-c591278b98dd` | Eight editable **noninteractive** visual sketches of existing Bluent-specific Button features |
+| `22 · Button Fluent parity review` | `e31294c6-7c55-805f-8008-c5a8fb268d03` | `e31294c6-7c55-805f-8008-c5a91188deb7` | **10 imported Fluent + 10 local Bluent linked instances**, with measured geometry and explicit content/icon parity gaps |
+| `23 · Button resize stress laboratory` | `e31294c6-7c55-805f-8008-c5aa0da135fb` | `e31294c6-7c55-805f-8008-c5aaa288cc59` | **18 linked native Button instances**, six controls × natural/wide/compact, constraints-verified |
 
 The original design boards, all **five extended foundation boards**, the **25-instance linked Fluent Button reference board**, and the **five new Input/Checkbox/Dialog/DataGrid-cell/Switch reference boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
@@ -100,7 +102,17 @@ The [alignment audit and acceptance gates](ALIGNMENT-QUALITY-AUDIT.md) record al
 
 This is **frame geometry verification only**. Optical font baseline/pixel fidelity, responsive sizing, actual CSS/Blazor/ARIA and interactive keyboard focus remain open.
 
-## 10. Design and code contract: acceptance gates
+## 10. Actual imported/native Button parity research
+
+The new [Button linked-source comparison](BUTTON-PARITY-REVIEW.md) uses **ten genuine imported Fluent Button instances and ten locally linked Bluent variants** (5 styles × Rest/Disabled), with a live Penpot read-only crosswalk. The **91×32px upstream Medium Button** carries text `Button` and an icon placeholder; our **155×33px native Button face** carries `Save changes` but no icon. The live audit verified ten links/pairs and reported **ten copy differences and ten missing native icons**. This is proof of **unresolved parity differences**, not a justification to declare Fluent 2 support complete.
+
+## 11. Button native resize constraints (verified)
+
+The six source Button `Size × Layout` variants were updated with actual Penpot constraints and width-normalized roots, then tested in [the resize stress laboratory](BUTTON-RESIZE-REVIEW.md). Text+icon faces stretch, with the centered content group retaining its icon/label gap; icon-only face sizes remain **24/32/40px circles** while their outer container widens. After fixing initial wide icon-only pill rendering, all **18 live linked samples** passed **145 repeatable geometry checks / 0 errors**, confirmed on an exported PNG.
+
+The whole dedicated Penpot working file now has **24 authored pages**. Its named recovery version **`Bluent v3 · #419 Button source parity and resize constraints 2026-10-11`**, revision **138**, includes both verified boards. After the additions the expanded alignment audit was rerun with **25 authored boards, 712 visible text frames and 990 geometric checks / 0 errors**. The design remains Draft, not runtime/Blazor validation or approved exact pixel parity.
+
+## 12. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.
