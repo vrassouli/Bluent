@@ -1,3 +1,5 @@
+> **2026-10-11 D5 continuation:** Real visible Dialog explanations are now tied through aria-describedby and a real Blazor Button can update the standard h2 while AX name follows Persian text; the reduced-motion zero-duration close edge is covered. See [D5 visible description + live title audit](D5-DESCRIPTION-LIVE-TITLE-AUDIT.md), four Chromium x Blazor suites 190/190 each, NUnit 58/58. Native AT remains OPEN.
+
 # #418 D5 — Visible Dialog title as the accessible name
 
 **Date:** 2026-10-11. **Status:** DRAFT opt-in design-to-code proof. This research is isolated to `v3/issue-418-design-tokens`, PR #500 targeting `bluent-v3` only. Not approved for stable v2 or NuGet release.

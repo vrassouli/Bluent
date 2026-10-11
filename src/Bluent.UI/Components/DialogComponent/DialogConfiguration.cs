@@ -25,4 +25,6 @@ public class DialogConfiguration
     public string? InitialFocusTargetId { get; init; }
     /// <summary>Internal #418 draft: only the standard title-bearing overload owns a verified heading.</summary>
     internal bool UseStandardTitleHeading { get; init; }
+    /// <summary>Opt-in visible description announced through Dialog aria-describedby.</summary>
+    public string? AccessibleDescription { get; init; }
 }

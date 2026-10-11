@@ -32,6 +32,25 @@ public class PortalThemeScopeTests
         });
     }
 
+    [TestCase("")]
+    [TestCase(" ")]
+    public void AccessibleDescriptionConfiguratorRejectsBlankText(string description)
+    {
+        Assert.That(() => new DialogConfigurator().SetAccessibleDescription(description),
+            Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void AccessibleDescriptionRequiresExplicitOptIn()
+    {
+        var legacy = new DialogConfiguration();
+        var named = new DialogConfiguration { AccessibleName = "Review", AccessibleDescription = "Visible review hint" };
+        Assert.Multiple(() =>
+        {
+            Assert.That(legacy.AccessibleDescription, Is.Null);
+            Assert.That(named.AccessibleDescription, Is.EqualTo("Visible review hint"));
+        });
+    }
     [TestCase("", "Close dialog")]
     [TestCase("Dialog title", "")]
     public void AccessibleDialogConfiguratorRejectsEmptyText(string name, string label)

@@ -33,6 +33,7 @@
             <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
             <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
             <Button id="v3-show-custom-fragment" Text="Show custom named fragment (no header)" OnClick="ShowCustomNamedFragment" />
+            <Button id="v3-show-live-title" Text="Show Dialog with live changing heading" OnClick="ShowLiveTitleDialog" />
             <Button id="v3-show-initial-focus-modal" Text="Show modal focused on last action" OnClick="() => ShowInitialFocusModal(false)" />
             <Button id="v3-show-invalid-focus-modal" Text="Show modal with external focus target" OnClick="() => ShowInitialFocusModal(true)" />
             <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
@@ -151,7 +152,7 @@
         // The opt-in scope must be explicitly supplied by this owner.
         var snapshot = CurrentScope;
         _ = DialogService.ShowAsync<SampleDialogContent>("v3 scoped Dialog",
-            null, options => options.SetThemeScope(snapshot).SetModal(false).SetAccessibleDialog("v3 scoped Dialog", "Close dialog").SetReturnFocusTargetId("v3-show-service-dialog"));
+            null, options => options.SetThemeScope(snapshot).SetModal(false).SetAccessibleDialog("v3 scoped Dialog", "Close dialog").SetAccessibleDescription("Review the attendance changes before confirming.").SetReturnFocusTargetId("v3-show-service-dialog"));
     }
 
     private void ShowCustomNamedFragment()
@@ -168,10 +169,23 @@
             {
                 ThemeScope = CurrentScope,
                 AccessibleName = "پنجره سفارشی",
+                AccessibleDescription = "متن راهنمای این پنجره سفارشی برای صفحه‌خوان",
                 CloseButtonLabel = "بستن پنجره",
                 EnableModalKeyboard = true,
                 ReturnFocusTargetId = "v3-show-custom-fragment"
             });
+    }
+    private void ShowLiveTitleDialog()
+    {
+        var scope = CurrentScope;
+        _ = DialogService.ShowAsync<V3DynamicTitleContent>(
+            "Review attendance changes", null,
+            config => config.SetThemeScope(scope)
+                .SetAccessibleDialog("Fallback accessible name", "Close dialog")
+                .SetAccessibleDescription("Review this person's changes before approving.")
+                .SetModalKeyboardNavigation()
+                .SetInitialFocusTargetId("v3-live-title-field")
+                .SetReturnFocusTargetId("v3-show-live-title"));
     }
     private void ShowKeyboardModal()
     {

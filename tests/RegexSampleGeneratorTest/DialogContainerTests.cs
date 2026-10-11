@@ -132,6 +132,60 @@ public class DialogContainerTests
         });
     }
 
+    [Test]
+    public async Task OptedInTitleAndCustomDialogsDescribeOnlyTheirOwnVisibleNodes()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            var service = services.GetRequiredService<IDialogService>();
+            _ = service.ShowAsync<EmptyDialogBody>("Titled content", null,
+                options => options.SetAccessibleDialog("Titled content", "Close")
+                                  .SetAccessibleDescription("Visible explanatory text"));
+            _ = service.ShowAsync(TextContent("Custom body"), new DialogConfiguration(modal: false)
+            {
+                AccessibleName = "پنجره سفارشی",
+                AccessibleDescription = "توضیح سفارشی"
+            });
+            await container.QuiescenceTask;
+            var html = System.Net.WebUtility.HtmlDecode(container.ToHtmlString());
+            var refs = System.Text.RegularExpressions.Regex.Matches(html, "aria-describedby=\"([^\"]+)\"");
+            Assert.That(refs.Count, Is.EqualTo(2), html);
+            Assert.That(refs[0].Groups[1].Value, Is.Not.EqualTo(refs[1].Groups[1].Value));
+            foreach (System.Text.RegularExpressions.Match match in refs)
+                Assert.That(CountOccurrences(html, "id=\"" + match.Groups[1].Value + "\""),
+                    Is.EqualTo(1), html);
+            Assert.Multiple(() =>
+            {
+                Assert.That(html, Does.Contain("Visible explanatory text"));
+                Assert.That(html, Does.Contain("توضیح سفارشی"));
+                Assert.That(html, Does.Contain("Titled content"));
+                Assert.That(html, Does.Contain("aria-label=\"پنجره سفارشی\""));
+                Assert.That(CountOccurrences(html, "class=\"bui-v3-dialog-description\""), Is.EqualTo(2));
+            });
+        });
+    }
+
+    [Test]
+    public async Task LegacyDialogHasNoImplicitDescriptionMarkup()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            _ = services.GetRequiredService<IDialogService>().ShowAsync(TextContent("Legacy content"));
+            await container.QuiescenceTask;
+            var html = container.ToHtmlString();
+            Assert.Multiple(() =>
+            {
+                Assert.That(html, Does.Not.Contain("aria-describedby="));
+                Assert.That(html, Does.Not.Contain("bui-v3-dialog-description"));
+            });
+        });
+    }
     public sealed class EmptyDialogBody : ComponentBase { }
     private static ServiceProvider CreateServices()
     {

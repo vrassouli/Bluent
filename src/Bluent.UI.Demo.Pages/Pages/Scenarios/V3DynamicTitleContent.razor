@@ -1,0 +1,16 @@
+@namespace Bluent.UI.Demo.Pages.Scenarios
+
+<div data-v3-live-title-content>
+    <p>This description and title are announced by the browser accessibility tree.</p>
+    <label for="v3-live-title-field">Review note</label>
+    <TextField id="v3-live-title-field" placeholder="Type an optional note" />
+    <Button id="v3-live-title-update" Text="Change Dialog title to Persian" OnClick="ChangeTitle" />
+</div>
+
+@code {
+    [CascadingParameter(Name = "V3DialogTitleUpdate")]
+    public Action<string>? UpdateDraftTitle { get; set; }
+
+    private void ChangeTitle() =>
+        UpdateDraftTitle?.Invoke("تأیید درخواست - عنوان جدید");
+}

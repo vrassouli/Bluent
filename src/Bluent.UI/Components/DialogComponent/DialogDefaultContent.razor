@@ -1,6 +1,6 @@
 <div class="dialog-content">
     <div class="header">
-        <h2 class="title" id="@(Dialog?.UseStandardTitleHeading == true ? Dialog.AccessibleHeadingId : null)">@Title</h2>
+        <h2 class="title" id="@(Dialog?.UseStandardTitleHeading == true ? Dialog.AccessibleHeadingId : null)">@(_draftTitle ?? Title)</h2>
         @if (ShowCloseButton)
         {
             <Button Appearance="ButtonAppearance.Transparent"
@@ -12,7 +12,20 @@
         }
     </div>
     <div class="content">
-        <DynamicComponent Type="ContentComponentType" Parameters="ContentParameters" />
+        @if (Dialog?.UseStandardTitleHeading == true && !string.IsNullOrWhiteSpace(Dialog.AccessibleDescription))
+        {
+            <p class="bui-v3-dialog-description" id="@Dialog.AccessibleDescriptionId">@Dialog.AccessibleDescription</p>
+        }
+        @if (Dialog?.UseStandardTitleHeading == true)
+        {
+            <CascadingValue Value="(Action<string>)ChangeV3Title" Name="V3DialogTitleUpdate" IsFixed>
+                <DynamicComponent Type="ContentComponentType" Parameters="ContentParameters" />
+            </CascadingValue>
+        }
+        else
+        {
+            <DynamicComponent Type="ContentComponentType" Parameters="ContentParameters" />
+        }
     </div>
     @if (Actions.Any())
     {
@@ -30,6 +43,16 @@
 </div>
 
 @code {
+    private string? _draftTitle;
+    // An experimental opt-in cascading callback, intentionally absent
+    // from the public DialogConfigurator and from legacy render paths.
+    private void ChangeV3Title(string title)
+    {
+        if (Dialog?.UseStandardTitleHeading != true || string.IsNullOrWhiteSpace(title))
+            return;
+        _draftTitle = title;
+        _ = InvokeAsync(StateHasChanged);
+    }
     [Parameter] public Type ContentComponentType { get; set; } = default!;
     [Parameter] public IDictionary<string, object?>? ContentParameters { get; set; }
     [Parameter] public string Title { get; set; } = default!;

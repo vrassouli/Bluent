@@ -6,9 +6,14 @@
      role="@(string.IsNullOrWhiteSpace(AccessibleName) ? null : "dialog")"
      aria-label="@(UseStandardTitleHeading ? null : AccessibleName)"
      aria-labelledby="@(UseStandardTitleHeading && !string.IsNullOrWhiteSpace(AccessibleName) ? AccessibleHeadingId : null)"
+     aria-describedby="@(!string.IsNullOrWhiteSpace(AccessibleName) && !string.IsNullOrWhiteSpace(AccessibleDescription) ? AccessibleDescriptionId : null)"
      aria-modal="@(string.IsNullOrWhiteSpace(AccessibleName) || !IsModal ? null : "true")"
      data-bui-v3-keyboard-modal="@(EnableModalKeyboard && IsModal && !string.IsNullOrWhiteSpace(AccessibleName) ? "" : null)"
      @onanimationend="AnimationEndedHandler">
+    @if (!UseStandardTitleHeading && !string.IsNullOrWhiteSpace(AccessibleName) && !string.IsNullOrWhiteSpace(AccessibleDescription))
+    {
+        <p class="bui-v3-dialog-description" id="@AccessibleDescriptionId">@AccessibleDescription</p>
+    }
     <CascadingValue Value="this" IsFixed>
         @ChildContent
     </CascadingValue>

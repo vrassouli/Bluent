@@ -13,6 +13,7 @@ public class DialogConfigurator
     private bool _enableModalKeyboard;
     private string? _initialFocusTargetId;
     private bool _useStandardTitleHeading;
+    private string? _accessibleDescription;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
@@ -47,6 +48,13 @@ public class DialogConfigurator
     }
 
     /// <summary>Opt-in return of focus to an explicitly named launcher after the final Dialog dismisses.</summary>
+    /// <summary>Draft #418: opt in to a visible description, linked by aria-describedby.</summary>
+    public DialogConfigurator SetAccessibleDescription(string description)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(description);
+        _accessibleDescription = description;
+        return this;
+    }
     public DialogConfigurator SetReturnFocusTargetId(string elementId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(elementId);
@@ -83,7 +91,7 @@ public class DialogConfigurator
     /// <summary>Called only by the built-in title-bearing Dialog overload.</summary>
     internal void UseStandardTitleHeading(bool hasNonemptyTitle) =>
         _useStandardTitleHeading = hasNonemptyTitle;
-    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard, InitialFocusTargetId = _initialFocusTargetId, UseStandardTitleHeading = _useStandardTitleHeading && !string.IsNullOrWhiteSpace(_accessibleName) };
+    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size) { ThemeScope = _themeScope, AccessibleName = _accessibleName, CloseButtonLabel = _closeButtonLabel, ReturnFocusTargetId = _returnFocusTargetId, EnableModalKeyboard = _enableModalKeyboard, InitialFocusTargetId = _initialFocusTargetId, UseStandardTitleHeading = _useStandardTitleHeading && !string.IsNullOrWhiteSpace(_accessibleName), AccessibleDescription = !string.IsNullOrWhiteSpace(_accessibleName) ? _accessibleDescription : null };
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }

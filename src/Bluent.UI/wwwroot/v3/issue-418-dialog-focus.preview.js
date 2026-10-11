@@ -75,6 +75,15 @@ function onModalKeyDown(event) {
     }
 }
 
+export function hasZeroDialogAnimation(root) {
+    if (!(root instanceof HTMLElement) || !root.isConnected) return false;
+    const durations = getComputedStyle(root).animationDuration.split(',');
+    return durations.length > 0 && durations.every(value => {
+        const duration = parseFloat(value.trim());
+        return Number.isFinite(duration) && duration === 0;
+    });
+}
+
 export function focusInitial(root, elementId) {
     if (!(root instanceof HTMLElement) || !root.isConnected) return false;
     const target = document.getElementById(elementId);

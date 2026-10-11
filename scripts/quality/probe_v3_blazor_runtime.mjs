@@ -23,12 +23,11 @@ class CDP {
  async js(expression){const r=await this.send("Runtime.evaluate",{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result?.value;}
  close(){this.ws?.close();}
 }
-let cdp;
+let cdp, app;
 try {
  // ASP.NET Core 10 Development static asset endpoints can be unavailable in
  // a raw --no-build host. Run a genuine PUBLISHED Production SSR host from
  // its own working directory, exactly as the verified SSR smoke does.
- let app;
  if(interactiveServer) {
    const published=join(dir,"published-ssr");
    execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
@@ -251,6 +250,9 @@ try {
  const dialogRootAx=await cdp.send("Accessibility.getPartialAXTree",{nodeId:dialogRootNode.nodeId,fetchRelatives:false});
  const rootAx=dialogRootAx.nodes?.find(x=>x.role?.value==="dialog");
  assert("Chrome accessibility tree computes name from visible Dialog heading",rootAx?.name?.value===dialogAccessibility.title,JSON.stringify({name:rootAx?.name,relatedNodes:rootAx?.name?.sources?.map(x=>x.type)}));
+ const standardDescription=await cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper[data-bui-v3-tokens] .bui-dialog'),id=d.getAttribute('aria-describedby'),p=id&&d.querySelector('#'+id);return {id,description:p?.textContent?.trim(),visible:!!p&&p.getClientRects().length>0,onlyOne:!!id&&document.querySelectorAll('#'+id).length===1};})()");
+ assert("standard opt-in Dialog aria-describedby targets exactly one visible explanation",standardDescription.visible&&standardDescription.onlyOne&&standardDescription.description==="Review the attendance changes before confirming.",JSON.stringify(standardDescription));
+ assert("Chrome AX Dialog description comes from the actual explanation node",rootAx?.description?.value===standardDescription.description,JSON.stringify({name:rootAx?.name?.value,description:rootAx?.description?.value}));
  assert("opt-in close Button has readable AX name",accessibilityGap.closeButtonAxName==="Close dialog"&&!accessibilityGap.closeButtonIgnored,JSON.stringify(accessibilityGap));
  assert("opt-in Dialog initially receives focus",accessibilityGap.activeFocusInDialog,JSON.stringify(accessibilityGap));
  const openAccessibilityGaps=[];
@@ -382,14 +384,31 @@ try {
  const customNode=await cdp.send("DOM.querySelector",{nodeId:customDocument.root.nodeId,selector:".dialog-wrapper .bui-dialog"});
  const customAxTree=await cdp.send("Accessibility.getPartialAXTree",{nodeId:customNode.nodeId,fetchRelatives:false});
  assert("custom Dialog Persian fallback is computed AX name",customAxTree.nodes?.find(x=>x.role?.value==="dialog")?.name?.value==="پنجره سفارشی",JSON.stringify(customAxTree.nodes?.map(x=>({role:x.role?.value,name:x.name?.value}))));
+ const customDescription=await cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog'),id=d?.getAttribute('aria-describedby'),p=id&&d.querySelector('#'+id);return {id,present:!!p,text:p?.textContent?.trim(),count:id?document.querySelectorAll('#'+id).length:0};})()");
+ const customAxRoot=customAxTree.nodes?.find(x=>x.role?.value==="dialog");
+ assert("custom Persian Dialog description is visible, unique and exposed in AX",customDescription.present&&customDescription.count===1&&customDescription.text==="متن راهنمای این پنجره سفارشی برای صفحه‌خوان"&&customAxRoot?.description?.value===customDescription.text,JSON.stringify({customDescription,ax:customAxRoot?.description?.value}));
  await sendModalKey("Escape");
  const customClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-custom-fragment'"),"custom fragment dismiss and return",16000);
  assert("custom Dialog closes and restores its explicitly configured launcher",customClosed);
+ await cdp.js("document.querySelector('#v3-show-live-title')?.click()");
+ const liveBefore=await until(()=>cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog'),h=d?.querySelector('h2.title'),description=d?.querySelector('.bui-v3-dialog-description');return h&&d.hasAttribute('data-bui-v3-keyboard-bound')?{id:h.id,text:h.textContent.trim(),reference:d.getAttribute('aria-labelledby'),descId:d.getAttribute('aria-describedby'),descText:description?.textContent.trim(),focus:document.activeElement?.id}:null;})()"),"live title Dialog is opened and has rendered heading",18000);
+ assert("live-title opt-in Dialog initializes proper heading description and TextField focus",liveBefore.reference===liveBefore.id&&liveBefore.text==="Review attendance changes"&&liveBefore.descText==="Review this person's changes before approving."&&liveBefore.focus==="v3-live-title-field",JSON.stringify(liveBefore));
+ await cdp.js("document.querySelector('#v3-live-title-update')?.click()");
+ const liveAfter=await until(()=>cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog'),h=d?.querySelector('h2.title');return h?.textContent?.trim()==='تأیید درخواست - عنوان جدید'?{id:h.id,reference:d.getAttribute('aria-labelledby'),title:h.textContent.trim(),desc:d.getAttribute('aria-describedby')}:null;})()"),"Blazor changes live Dialog title",18000);
+ assert("Blazor re-render changes only visible heading text and preserves IDREFs",liveAfter.id===liveBefore.id&&liveAfter.reference===liveBefore.reference&&liveAfter.desc===liveBefore.descId,JSON.stringify(liveAfter));
+ const liveDocument=await cdp.send("DOM.getDocument",{depth:1});
+ const liveNode=await cdp.send("DOM.querySelector",{nodeId:liveDocument.root.nodeId,selector:".dialog-wrapper .bui-dialog"});
+ const liveAxTree=await cdp.send("Accessibility.getPartialAXTree",{nodeId:liveNode.nodeId,fetchRelatives:false});
+ const liveAx=liveAxTree.nodes?.find(x=>x.role?.value==="dialog");
+ assert("Chrome AX name follows Blazor-updated Persian title and retains description",liveAx?.name?.value===liveAfter.title&&liveAx?.description?.value===liveBefore.descText,JSON.stringify({name:liveAx?.name?.value,description:liveAx?.description?.value}));
+ await sendModalKey("Escape");
+ const liveClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-live-title'"),"dynamic heading modal close and return",16000);
+ assert("live-title Dialog Escape restores launcher and tears down overlay",liveClosed);
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  const passCount=checks.filter(x=>x.pass).length;
  const summary={classification:interactiveServer?"actual Blazor interactive SSR Server Chrome/CDP interaction":"actual Blazor WebAssembly Chrome/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;
-}catch(e){console.error("Probe error: "+String(e));if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
+}catch(e){console.error("Probe error: "+String(e));if(interactiveServer&&app)console.error("SSR APP LOG: "+app.tail());if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
 finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{rmSync(dir,{recursive:true,force:true});}catch{}}
