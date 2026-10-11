@@ -43,10 +43,12 @@ _ = dialogService.ShowAsync<MyDialogContent>(
 
 Run `dotnet build Bluent.sln --configuration Release --no-restore`, `dotnet test Bluent.sln --configuration Release --no-build`, `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore`, and `node scripts/quality/probe_v3_blazor_runtime.mjs`. Published SSR assets: `pwsh -NoProfile -File scripts/quality/probe_v3_ssr_publish.ps1 -Port 5108`.
 
-**82/82 Chrome/real Blazor WASM checks passed:** 20 actual brand/Light-Dark Button colors, 20 primary opaque foreground/background numeric contrasts (minimum **5.552:1**, not general WCAG compliance), 20 root-token isolation checks and 22 runtime checks. The latter cover mode/RTL/density/keyboard, two concurrent opposite-mode Dialogs, nested independent Popovers, live Popover theme change, unscoped legacy Dialog, motion `0s` and actual close/removal of a scoped Dialog, and forced-colors role propagation without leakage. Six new NUnit cases bring the suite to **26/26**.
+**83/83 Chrome/real Blazor WASM checks passed:** 20 actual brand/Light-Dark Button colors, 20 primary opaque foreground/background numeric contrasts (minimum **5.552:1**, not general WCAG compliance), 20 root-token isolation checks and 22 runtime checks. The latter cover mode/RTL/density/keyboard, two concurrent opposite-mode Dialogs, nested independent Popovers, live Popover theme change, unscoped legacy Dialog, motion `0s` and actual close/removal of a scoped Dialog, and forced-colors role propagation without leakage. Six new NUnit cases bring the suite to **26/26**.
 
 ## Remaining acceptance
 
 - The name and API remain provisional; brand-specific simultaneous independent hosts, owner lifecycle and final D2/#420 integration require review. This tests two mode scopes under one brand stylesheet, **not** different brands at once.
 - Real High Contrast OS/assistive technology, screen readers, full keyboard focus trap/restoration, interactive SSR, additional browsers, Persian font fallback, zoom/reflow, all component states, design sign-off and component documentation remain open.
 - Do not merge into `Dev`, publish stable NuGet, or mark #418 Done. To revert consumer use, omit the scope and research CSS; the old rendering path is intact.
+
+**Additional reflow smoke:** Chrome emulates a 320px viewport with 200% root font size (32px) while the main host is RTL and contains an independent nested theme owner. Neither host overflows horizontally. This is one browser reflow sample, not complete WCAG zoom certification.

@@ -96,6 +96,11 @@ try {
  await cdp.send("Emulation.setDeviceMetricsOverride",{width:390,height:844,deviceScaleFactor:1,mobile:true});
  const mobile=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),box=h.getBoundingClientRect();return {width:window.innerWidth,x:box.x,right:box.right,scroll:h.scrollWidth,client:h.clientWidth,dir:h.dir};})()");
  assert("390px RTL lab host without horizontal overflow",mobile.x>=-1&&mobile.right<=mobile.width+2&&mobile.scroll<=mobile.client+2,JSON.stringify(mobile));
+ await cdp.send("Emulation.setDeviceMetricsOverride",{width:320,height:700,deviceScaleFactor:1,mobile:true});
+ await cdp.js("document.documentElement.style.fontSize='200%'");
+ const reflow=await cdp.js("(()=>{const host=document.querySelector('.v3-lab-surface');const outer=host.getBoundingClientRect(),nested=host.querySelector('.v3-lab-independent-host'),inner=nested.getBoundingClientRect();return {viewport:window.innerWidth,hostX:outer.x,hostRight:outer.right,hostScroll:host.scrollWidth,hostClient:host.clientWidth,nestedX:inner.x,nestedRight:inner.right,rootFont:getComputedStyle(document.documentElement).fontSize};})()");
+ assert("320px viewport at 200% root text size preserves host reflow",reflow.hostX>=-1&&reflow.hostRight<=reflow.viewport+1&&reflow.hostScroll<=reflow.hostClient+2&&reflow.nestedX>=reflow.hostX&&reflow.nestedRight<=reflow.hostRight+2&&reflow.rootFont==="32px",JSON.stringify(reflow));
+ await cdp.js("document.documentElement.style.fontSize=''");
  await cdp.send("Emulation.clearDeviceMetricsOverride");
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"no-preference"}]});
  const normal=await cdp.js("getComputedStyle(document.querySelector('.v3-lab-surface')).getPropertyValue('--bui-v3-motion-duration-fast').trim()");
