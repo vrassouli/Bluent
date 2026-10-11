@@ -47,6 +47,18 @@ Actual source inspected: `src/Bluent.UI/Components/ButtonComponent/Button.razor.
 
 The **third Penpot board** illustrates eight specifically Bluent-relevant scenarios: **Danger, Circular/Square, Toggle/Selected, Link/Href, Badge, Compound/SecondaryText, Dropdown, Split**. The drawings are editable source-native shapes and text but **not executable controls, published variants, functioning menus or API acceptance**. Each case must be implemented and demonstrated under its own component issue before Bluent v3 final approval.
 
+## Source/API baseline regression guard
+
+An executable source inventory checker was added as `scripts/quality/check_v3_button_api_baseline.py`:
+
+```powershell
+python scripts/quality/check_v3_button_api_baseline.py
+```
+
+It verifies the **existing** six `ButtonAppearance` values, three sizes, three shapes, 20 declared Button public parameters and six source-render mechanisms (link, split, popover, icon, badge, secondary text). The checker currently exits successfully: **0 missing baseline members**. It is a **textual presence check only**; it does **not** establish that future v3 components behave correctly, or that a method and event binding is backward compatible. Source/API mismatches after intentional approved migration require explicit checker and migration-document updates.
+
+**Attempted visual parity board:** a separate Penpot page was planned to place exact Fluent and Bluent Button examples side by side for measurable review. The Penpot plugin browser tab suspended before the operation completed, so **no successfully created/verified comparison board is claimed**. The existing individually exported Fluent upstream and Bluent native Button matrix boards remain available. A comparison must use the same button label and layout to interpret width/height differences fairly.
+
 ## Full-parity and accessibility gates still open
 
 1. Source Fluent 2 upstream Button offers **150 variant combinations** (2 layouts × 3 sizes × 5 states × 5 styles). Our **25 appearance/state** and **6 size/layout** native families cover *two complementary 2-axis slices*, **not 31 unique combinations of the upstream 150-product Cartesian space**. Other axes and their cross-interactions are not implemented yet.
