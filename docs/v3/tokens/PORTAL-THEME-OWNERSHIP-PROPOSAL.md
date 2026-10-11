@@ -34,3 +34,6 @@ All implementation remains on `v3/issue-418-design-tokens` / Draft PR #500 targe
 
 ## Runtime trial after the decision board
 See [the executable opt-in prototype and exact API limitations](PORTAL-THEME-SCOPE-PREVIEW.md). The first three D2 implementation steps were exercised with a minimal mode/direction/density value snapshot; the tentative brand/owner ID and independently scoped brand CSS remain **unimplemented**. Dialog captures explicit show-time context; Popover follows its nearest CascadingValue through a private surface refresh. A no-scope Dialog does not emit v3 attributes. Reduced-motion animation zero still permits Dialog closing. 82/82 Chrome checks pass, but the original no-scope behavior still receives the legacy root theme. Preserve this before/after distinction in issue comments and future reviews.
+
+## Later concurrent-brand proof
+The optional Brand field and source-backed CSS described at BRAND-SCOPES-PREVIEW.md now demonstrate 126/126 actual browser checks with concurrent Excel and Word palettes and independently branded Dialog/Popover portals. Unscoped legacy controls still use the document-wide stylesheet. No general public API or accessibility approval is implied.

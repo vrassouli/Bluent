@@ -1,3 +1,5 @@
+CURRENT CHECKPOINT: see BRAND-SCOPES-PREVIEW.md for 126/126 browser checks, 40/40 NUnit checks and Penpot page 34. Older figures below document historical baselines, not the present status. The multi-brand CSS remains opt-in research only.
+
 > **2026-10-11 latest implementation checkpoint:** The original D2/D5 failure observations below are **historical pre-fix baselines**. An additive opt-in runtime prototype now transfers a per-item mode/direction/density snapshot into both global Dialog and Popover. The current [prototype guide](PORTAL-THEME-SCOPE-PREVIEW.md) records **83/83 actual Chrome/Blazor assertions** and **26/26 NUnit tests**, including real multi-host isolation, reduced motion and unscoped v2 fallback. The final API and independent brand scopes are NOT approved. The prior "still-unfixed" statements below refer to the **unscoped baseline and earlier commits**, not the current opted-in demo.
 # #418 — Blazor runtime and D2 portal ownership checkpoint
 

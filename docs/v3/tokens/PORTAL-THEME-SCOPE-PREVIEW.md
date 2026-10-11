@@ -8,7 +8,7 @@ Editable Penpot **Bluent v3 Design System**: file `b64f6665-c9ab-80b5-8008-c4ac9
 
 ## Experimental C# surface
 
-`PortalThemeScope` is an immutable value-equality record: validated `Mode` (`light`/`dark`), `Direction` (`ltr`/`rtl`), `Density` (`comfortable`/`compact`), and `UseV3Tokens`. It **does not resolve Brand per host**; the existing ten brand style bundles are document-wide.
+`PortalThemeScope` is an immutable value-equality record: validated `Mode` (`light`/`dark`), `Direction` (`ltr`/`rtl`), `Density` (`comfortable`/`compact`), and `UseV3Tokens`. It now accepts an optional validated Brand. The opt-in research stylesheet overrides the 49 brand-changing source variables within each host, enabling concurrent different brands. See BRAND-SCOPES-PREVIEW.md.
 
 **Popover:** provide the nearest Blazor `CascadingValue<PortalThemeScope>` from the actual owner; when that host changes, the existing registered Popover updates only its own detached service surface.
 
@@ -43,7 +43,7 @@ _ = dialogService.ShowAsync<MyDialogContent>(
 
 Run `dotnet build Bluent.sln --configuration Release --no-restore`, `dotnet test Bluent.sln --configuration Release --no-build`, `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore`, and `node scripts/quality/probe_v3_blazor_runtime.mjs`. Published SSR assets: `pwsh -NoProfile -File scripts/quality/probe_v3_ssr_publish.ps1 -Port 5108`.
 
-**83/83 Chrome/real Blazor WASM checks passed:** 20 actual brand/Light-Dark Button colors, 20 primary opaque foreground/background numeric contrasts (minimum **5.552:1**, not general WCAG compliance), 20 root-token isolation checks and 22 runtime checks. The latter cover mode/RTL/density/keyboard, two concurrent opposite-mode Dialogs, nested independent Popovers, live Popover theme change, unscoped legacy Dialog, motion `0s` and actual close/removal of a scoped Dialog, and forced-colors role propagation without leakage. Six new NUnit cases bring the suite to **26/26**.
+**Previous 83/83 browser checks, now expanded to 126/126 with concurrent brands:** 20 actual brand/Light-Dark Button colors, 20 primary opaque foreground/background numeric contrasts (minimum **5.552:1**, not general WCAG compliance), 20 root-token isolation checks and 22 runtime checks. The latter cover mode/RTL/density/keyboard, two concurrent opposite-mode Dialogs, nested independent Popovers, live Popover theme change, unscoped legacy Dialog, motion `0s` and actual close/removal of a scoped Dialog, and forced-colors role propagation without leakage. Six new NUnit cases bring the suite to **40/40**.
 
 ## Remaining acceptance
 
@@ -52,3 +52,6 @@ Run `dotnet build Bluent.sln --configuration Release --no-restore`, `dotnet test
 - Do not merge into `Dev`, publish stable NuGet, or mark #418 Done. To revert consumer use, omit the scope and research CSS; the old rendering path is intact.
 
 **Additional reflow smoke:** Chrome emulates a 320px viewport with 200% root font size (32px) while the main host is RTL and contains an independent nested theme owner. Neither host overflows horizontally. This is one browser reflow sample, not complete WCAG zoom certification.
+
+## Latest multi-brand checkpoint
+See BRAND-SCOPES-PREVIEW.md for Penpot page 34 and 126/126 Chrome checks with Excel/Light and Word/Dark simultaneously, two branded portals, 49 source-varying custom properties, and 40/40 NUnit tests. This remains a research-only opt-in API and stylesheet.

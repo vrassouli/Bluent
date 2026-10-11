@@ -3,6 +3,7 @@
     var context = _contexts[index];
 
     <div class="dialog-wrapper" style="--dialog-stack-index: @index"
+         data-bui-brand="@context.Config.ThemeScope?.Brand"
          data-bui-theme="@context.Config.ThemeScope?.Mode"
          data-bui-v3-tokens="@(context.Config.ThemeScope?.UseV3Tokens == true ? "" : null)"
          data-density="@context.Config.ThemeScope?.Density"

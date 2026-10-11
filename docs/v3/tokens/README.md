@@ -110,3 +110,6 @@ The [nine-check interactive WASM/Chrome proof, SSR smoke and D2 Penpot decision 
 
 ## Opt-in portal theme prototype — actual runtime implementation
 [The scope prototype guide](PORTAL-THEME-SCOPE-PREVIEW.md) documents the proposed C# PortalThemeScope/SetThemeScope/CascadingValue contract, real Blazor ownership propagation and v2 no-scope fallback. Actual Dev01 Chrome passes **83/83** assertions and NUnit **26/26**; the original D2/D5 defects are fixed **only in the opted-in research path**. Brand-isolated simultaneous apps, native High Contrast/AT, interactive SSR, final API/Skills and full Penpot approval are **still pending**. It is not in current NuGet/CSS packages. The earlier findings above are preserved as historical pre-fix evidence.
+
+## Concurrent brand-scoped owners
+See BRAND-SCOPES-PREVIEW.md for the source-based 10-brand, 2-mode CSS generator, Penpot page 34 and 126/126 real Blazor Chrome tests. All 450 variable declarations are parsed per theme, but only 49 brand-varying variables are overridden for each opted-in host (980 declarations across 20 combinations). NUnit tests: 40/40. Legacy, stable and default bundles are unchanged. Older browser-count checkpoints above are retained for traceability.

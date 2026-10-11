@@ -40,6 +40,42 @@ public class PortalThemeScopeTests
         Assert.That(new PortalThemeScope("light", useV3Tokens: false).UseV3Tokens, Is.False);
     }
 
+    [TestCase("default")]
+    [TestCase("excel")]
+    [TestCase("office")]
+    [TestCase("outlook")]
+    [TestCase("powerapps")]
+    [TestCase("powerbi")]
+    [TestCase("powerpoint")]
+    [TestCase("stream")]
+    [TestCase("teams")]
+    [TestCase("word")]
+    public void SupportedSourceBrandsAreAccepted(string brand)
+    {
+        var scope = new PortalThemeScope("dark", brand: brand);
+        Assert.That(scope.Brand, Is.EqualTo(brand));
+    }
+
+    [Test]
+    public void BrandIsPartOfImmutableScopeValue()
+    {
+        var excel = new PortalThemeScope("light", brand: "excel");
+        var word = new PortalThemeScope("light", brand: "word");
+        Assert.Multiple(() =>
+        {
+            Assert.That(excel, Is.Not.EqualTo(word));
+            Assert.That(new PortalThemeScope("dark").Brand, Is.Null);
+        });
+    }
+
+    [TestCase("fake")]
+    [TestCase("EXCEL")]
+    [TestCase("unknown")]
+    public void UnsupportedBrandIsRejected(string brand)
+    {
+        Assert.That(() => new PortalThemeScope("dark", brand: brand),
+                    Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
     [TestCase("system", "ltr", "comfortable")]
     [TestCase("dark", "auto", "comfortable")]
     [TestCase("dark", "ltr", "very-small")]
