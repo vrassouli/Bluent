@@ -45,6 +45,7 @@ The original imported Penpot file `Microsoft Fluent 2 Web (Community)` is a **re
 | `23 · Button resize stress laboratory` | `e31294c6-7c55-805f-8008-c5aa0da135fb` | `e31294c6-7c55-805f-8008-c5aaa288cc59` | **18 linked native Button instances**, six controls × natural/wide/compact, constraints-verified |
 | `24 · Button equal-content comparison` | `e31294c6-7c55-805f-8008-c5af6658c671` | `e31294c6-7c55-805f-8008-c5afb988d983` | **10 source + 10 independent local comparison fixture instances** with exact same copy/geometry and locally duplicated vector icon paths |
 | `25 · Button Persian RTL typography` | `e31294c6-7c55-805f-8008-c5b0bae3546a` | `e31294c6-7c55-805f-8008-c5b10a9aeae4` | **6 local direction/size fixture instances**, Persian label and mirrored icon, three sizes |
+| `26 · Library handoff and import risk` | `e31294c6-7c55-805f-8008-c5b8b435dc3f` | `e31294c6-7c55-805f-8008-c5b8cdab04d6` | **Import-fidelity evidence, source-to-Razor/CSS handoff, and explicit review dependencies**, with editorial board PNG inspected |
 
 The original design boards, all **five extended foundation boards**, the **25-instance linked Fluent Button reference board**, and the **five new Input/Checkbox/Dialog/DataGrid-cell/Switch reference boards** were exported to PNG and visually inspected through the connected Penpot tool; **this is design-artifact inspection, not runtime parity or CI screenshot regression validation**. Shapes are editable native Penpot boards, rectangles and text layers, not flattened illustration imports.
 
@@ -123,11 +124,22 @@ Two further **project-owned Penpot design-test pages** were created, bringing th
 
 These are **16 additional reusable design testing variants** beyond the original 65 core variants, not 16 implemented C# components or fully Fluent-parity states. The last saved Penpot version **`Bluent v3 · #419 exact Button source comparison and Persian RTL 2026-10-11`** corresponds to observed revision **157**. The comprehensive native-core alignment check was rerun over **27 authored boards / 781 visible text layers, 1059 geometric checks / 0 errors**; the previous 25-board/990-check result remains historical evidence.
 
-## 13. Design and code contract: acceptance gates
+## 13. Import-fidelity findings and design-to-code handoff
+
+The owned Penpot file now contains **27 editable pages**, with a new source-owned handoff and import-risk review board. Exported PNG reviewed. Four key findings from the [actual import-fidelity assessment](PENPOT-IMPORT-FIDELITY.md):
+
+1. The imported Microsoft Fluent 2 source is truly connected (**124 reusable assets, 134 linked reference instances**) and can be inspected. **Lossless original Figma-to-Penpot import has not been demonstrated**; exact source Figma nodes, interactions, fonts and layout properties were not exhaustively compared.
+2. **Source variant switching discrepancy was reproduced:** locally authored Primary/Rest → Hover updated immediately and after the next live read; imported Fluent source's equivalent `switchVariant` call returned without an error but remained Primary/Rest on the next read. Both temporary test instances were removed. This is a reproducible connected-plugin observation, not proof that the source Penpot UI cannot change variants.
+3. Source **Segoe UI** font availability and interactive/semantic Blazor behavior require separate approval. Visual draft uses Inter for reference comparison and Noto Sans Arabic for Persian RTL specimens. These are not shipped font decisions.
+4. Complete draft handoff and consumer risks are in [Razor/CSS component and acceptance contract](DESIGN-TO-RAZOR-HANDOFF.md) and the [M01–M12 v2 migration-impact ledger](MIGRATION-IMPACT-LEDGER.md). The 65 core design variants and 16 experimental test fixtures are still visually static, not production Blazor components.
+
+At named Penpot recovery version **`Bluent v3 · #419 import fidelity and design-to-code handoff review 2026-10-11`** (observed revision **167**), the expanded live alignment audit reported **28 authored boards, 807 visible text frames, 1085 geometry checks / 0 errors**. The earlier controlled Button **233/0**, Persian RTL **98/0** and responsive Button **145/0** audits also all passed again at revision 167.
+
+## 14. Design and code contract: acceptance gates
 
 - **Backlog → Ready → In progress:** #419 was first moved to **Ready**, verified, then to **In progress**, verified on actual GitHub Project #5; user supplied and connected the required editable file. A **draft** #417 token-contract crosswalk is the research input; the final ADR is still pending.
 - **Source of truth:** local Bluent-native design artifact IDs above; original imported Fluent remains read-only; prior Figma #417 research remains draft and must be reviewed/synchronized if authoring a final ADR in the new Penpot file.
-- **Before Review:** the upstream library is now linked and one Button was instantiated and visually inspected; extend checks to **variant switching**, fonts/icons/layout fidelity and state matrix; enrich own foundations with typography, brand palette, density, RTL, high contrast, reduced motion, responsive/layout patterns and accessibility; document actual design-to-code mapping/constraints.
+- **Before Review:** upstream reference variants and local assets have been linked and measured; native and upstream switchVariant behavior has been reproduced and documented, source font limitations identified, default Light/Dark draft token mechanism demonstrated, and source→native→Razor/CSS handoff plus migration impact recorded. Reviewer must accept the **explicit loss/gap ledger**, not a claim of lossless import, full Fluent parity or final #417/#418 architecture.
 - **Before Done:** PR reviewed/accepted with evidence, migration implications, docs/Skills/demo/test plans, passed required CI and merge into `bluent-v3` **only**. Keep #419 **In progress** meanwhile.
 - **Non-regression guardrail:** never merge any v3 work into `Dev`, publish stable NuGet, or mutate the imported Fluent or unrelated PuyaStudio Penpot file.
 

@@ -10,8 +10,8 @@
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "url": null,
     "approval": "pending",
-    "lastSeenRevision": 157,
-    "savedDraftVersionLabel": "Bluent v3 · #419 exact Button source comparison and Persian RTL 2026-10-11"
+    "lastSeenRevision": 167,
+    "savedDraftVersionLabel": "Bluent v3 · #419 import fidelity and design-to-code handoff review 2026-10-11"
   },
   "externalReference": {
     "fileName": "Microsoft Fluent 2 Web (Community)",
@@ -353,6 +353,12 @@
       "name": "25 · Button Persian RTL typography",
       "id": "e31294c6-7c55-805f-8008-c5b0bae3546a",
       "boardId": "e31294c6-7c55-805f-8008-c5b10a9aeae4"
+    },
+    {
+      "key": "design-handoff-import-review",
+      "name": "26 · Library handoff and import risk",
+      "id": "e31294c6-7c55-805f-8008-c5b8b435dc3f",
+      "boardId": "e31294c6-7c55-805f-8008-c5b8cdab04d6"
     }
   ],
   "tokens": {
@@ -637,19 +643,19 @@
     "status": "passed-at-observed-revision",
     "scope": "actual project-owned Penpot source variants, linked previews, original prototypes, editable API sketches and root #419 board text bounds",
     "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
-    "revision": 157,
+    "revision": 167,
     "report": "docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md",
     "executablePenpotScript": "scripts/quality/penpot_v3_alignment_audit.js",
     "nativeVariantsInspected": 65,
     "linkedNativePreviewsVerified": 65,
-    "authoredRootBoardsScanned": 27,
-    "authoredVisibleTextFramesScanned": 781,
-    "geometricChecks": 1059,
+    "authoredRootBoardsScanned": 28,
+    "authoredVisibleTextFramesScanned": 807,
+    "geometricChecks": 1085,
     "errors": 0,
     "initialVerticalAndOverflowFlags": 37,
     "correctedBoardTextOverflows": 1,
     "imagesVisuallyReviewed": true,
-    "namedVersion": "Bluent v3 · #419 exact Button source comparison and Persian RTL 2026-10-11",
+    "namedVersion": "Bluent v3 · #419 import fidelity and design-to-code handoff review 2026-10-11",
     "limitations": [
       "not a live CI/screenshot regression suite",
       "not typography optical accuracy",
@@ -680,7 +686,7 @@
     "script": "scripts/quality/penpot_v3_button_parity_audit.js",
     "report": "docs/v3/design/BUTTON-PARITY-REVIEW.md",
     "pngVisuallyReviewed": true,
-    "revision": 157
+    "revision": 167
   },
   "buttonResizeAudit": {
     "status": "source-constraint-geometry-verified; NOT runtime-responsive-approved",
@@ -696,7 +702,7 @@
     "script": "scripts/quality/penpot_v3_button_resize_audit.js",
     "report": "docs/v3/design/BUTTON-RESIZE-REVIEW.md",
     "pngVisuallyReviewed": true,
-    "revision": 157
+    "revision": 167
   },
   "controlledButtonFidelityAudit": {
     "status": "controlled native Penpot layout parity verified; Segoe UI font pending",
@@ -718,7 +724,7 @@
     "script": "scripts/quality/penpot_v3_equal_content_button_audit.js",
     "report": "docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md",
     "pngVisuallyReviewed": true,
-    "revision": 157
+    "revision": 167
   },
   "persianButtonRtlAudit": {
     "status": "Persian RTL visual geometry passed, not runtime approved",
@@ -743,6 +749,28 @@
     "script": "scripts/quality/penpot_v3_button_persian_rtl_audit.js",
     "report": "docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md",
     "pngVisuallyReviewed": true,
-    "revision": 157
+    "revision": 167
+  },
+  "designLibraryHandoff": {
+    "status": "draft research complete; reviewer acceptance pending",
+    "pageId": "e31294c6-7c55-805f-8008-c5b8b435dc3f",
+    "boardId": "e31294c6-7c55-805f-8008-c5b8cdab04d6",
+    "revision": 167,
+    "sourceFluentComponentCount": 124,
+    "sourceReferenceInstances": 134,
+    "sourceButtonVariants": 150,
+    "coreLocalFamilies": 5,
+    "coreLocalVariants": 65,
+    "experimentalFixtureFamilies": 2,
+    "experimentalVariants": 16,
+    "sourceVariantSwitchObservedUnchanged": true,
+    "ownedVariantSwitchObservedWorking": true,
+    "originalFigmaImportProvenLossless": false,
+    "originalFluentLibraryModified": false,
+    "report": "docs/v3/design/PENPOT-IMPORT-FIDELITY.md",
+    "handoff": "docs/v3/design/DESIGN-TO-RAZOR-HANDOFF.md",
+    "migrationImpact": "docs/v3/design/MIGRATION-IMPACT-LEDGER.md",
+    "pngVisuallyReviewed": true,
+    "reviewApproved": false
   }
 }

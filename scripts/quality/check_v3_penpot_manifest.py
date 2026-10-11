@@ -43,8 +43,8 @@ def main() -> int:
         errors.append("Imported Button needs actual link/visual evidence")
     if upstream.get("sharedLibraryPublicationPending"):
         errors.append("Upstream linked library was already available after sync")
-    if len(data["pages"]) != 26:
-        errors.append("Penpot workspace should track twenty-six design pages")
+    if len(data["pages"]) != 27:
+        errors.append("Penpot workspace should track twenty-seven design pages")
     all_ids: list[str] = []
     for page in data["pages"]:
         valid_id(f"{page['key']} page", page["id"])
@@ -78,7 +78,7 @@ def main() -> int:
         errors.append("Penpot token counts must total 49 in the extended draft")
     if data["tokens"].get("totalEntries") != 49 or not data["tokens"].get("modesLinkSharedSetsVerified"):
         errors.append("Expanded token-mode contract or shared-set toggle evidence missing")
-    if data["designSource"].get("lastSeenRevision", 0) < 157:
+    if data["designSource"].get("lastSeenRevision", 0) < 167:
         errors.append("Saved extended Penpot research version missing")
     if data["evidence"].get("extendedBoardsVisuallyInspected") != 5:
         errors.append("Five new foundation boards were not all reviewed")
@@ -228,9 +228,9 @@ def main() -> int:
     for field, expected in {
         "nativeVariantsInspected": 65,
         "linkedNativePreviewsVerified": 65,
-        "authoredRootBoardsScanned": 27,
-        "authoredVisibleTextFramesScanned": 781,
-        "geometricChecks": 1059,
+        "authoredRootBoardsScanned": 28,
+        "authoredVisibleTextFramesScanned": 807,
+        "geometricChecks": 1085,
         "errors": 0,
         "initialVerticalAndOverflowFlags": 37,
         "correctedBoardTextOverflows": 1,
@@ -322,6 +322,35 @@ def main() -> int:
         persian.get("directions") != ["LTR", "RTL"] or
         persian.get("browserInteractionApproved") is not False):
         errors.append("Persian Button RTL visual geometry evidence is incomplete")
+    handoff = data.get("designLibraryHandoff", {})
+    for field in ("pageId", "boardId"):
+        valid_id(f"design handoff {field}", handoff.get(field))
+    board = next((p for p in data["pages"] if p["id"] == handoff.get("pageId")), None)
+    if board is None or board.get("boardId") != handoff.get("boardId"):
+        errors.append("Missing native Penpot design-handoff review board")
+    if handoff.get("revision") != data["designSource"].get("lastSeenRevision"):
+        errors.append("Design handoff requires latest Penpot revision")
+    for name, value in {
+        "sourceFluentComponentCount": 124,
+        "sourceReferenceInstances": 134,
+        "sourceButtonVariants": 150,
+        "coreLocalFamilies": 5,
+        "coreLocalVariants": 65,
+        "experimentalFixtureFamilies": 2,
+        "experimentalVariants": 16,
+    }.items():
+        if handoff.get(name) != value:
+            errors.append(f"Design handoff has inconsistent {name}")
+    for flag in ("sourceVariantSwitchObservedUnchanged", "ownedVariantSwitchObservedWorking", "pngVisuallyReviewed"):
+        if handoff.get(flag) is not True:
+            errors.append(f"Penpot review must record observed {flag}")
+    for flag in ("originalFigmaImportProvenLossless", "originalFluentLibraryModified", "reviewApproved"):
+        if handoff.get(flag) is not False:
+            errors.append(f"Penpot research must not claim {flag}")
+    for field in ("report", "handoff", "migrationImpact"):
+        relative = handoff.get(field)
+        if not relative or not (ROOT / relative).is_file():
+            errors.append(f"Missing #419 design handoff / import-migration artifact: {field}")
     if data["guardrails"].get("integrationBranch") != "bluent-v3":
         errors.append("Integration branch must remain bluent-v3")
     if not data["guardrails"].get("stableDevUntouched"):

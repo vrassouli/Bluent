@@ -79,6 +79,12 @@ After the project-owned equal-content Button fidelity board and Persian RTL dire
 
 The **new** controlled reference test fixtures (10 owned variants with 10 imported source counterpart links) have an independent [233-check live audit](BUTTON-CONTROLLED-FIDELITY-AND-RTL.md); the six Persian RTL test fixtures have another **98-check live audit**, both with zero geometry errors. This distinction avoids claiming the core scanner tests product interactions or all 81 local design variants under the same semantics.
 
+## Updated source-layout and handoff board quality (revision 167)
+
+The import-fidelity and design-to-Razor handoff board adds a further editable source-owned Penpot page, `26 · Library handoff and import risk`. After saving named revision **167**, the live source-variant and authored board audit was run again with **28 project-owned boards, 807 visible text layers, and 1085 geometry checks / 0 errors**. The controlled equal-copy Fluent Button script remained **233/0**, the Persian RTL sample script **98/0**, and native Button resizing **145/0**.
+
+Separate scratch-instance switching tests verified the native Bluent Button switches from Primary/Rest to Primary/Hover, while the connected imported Fluent Button failed to update its source ID using the same supported `switchVariant` API. Both temporary instances were removed. The full reproducible observation and non-lossless-import caveats are documented in [the Penpot import-fidelity assessment](PENPOT-IMPORT-FIDELITY.md), and consumer impact in [the design migration ledger](MIGRATION-IMPACT-LEDGER.md).
+
 ## What this does *not* establish
 
 A zero-failure geometry audit proves only the checked **Penpot frame geometry**, not precise optical centering across OS font renderers. It also does **not** certify:
