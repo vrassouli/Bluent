@@ -1,33 +1,44 @@
 @page "/v3/styling-lab"
 @namespace Bluent.UI.Demo.Pages.Scenarios
+@using Bluent.UI.Services.Abstractions
+@inject IDialogService DialogService
 
-<PageTitle>v3 CSS architecture experiment | Bluent</PageTitle>
+<PageTitle>v3 opt-in tokens and theme ownership experiment | Bluent</PageTitle>
+<HeadContent>
+    <link rel="stylesheet" href="_content/Bluent.UI.Demo.Pages/v3/issue-418.opt-in.preview.css" />
+</HeadContent>
 
 <main class="v3-lab">
-    <h1>v3 styling lab — issue #417</h1>
-    <p>This isolated experiment uses existing public Bluent controls. It previews scoped tokens; it is not a new public component or an approved Fluent parity claim.</p>
+    <h1>v3 styling lab — issues #417 and #418</h1>
+    <p>This v3-branch demo uses real Bluent controls and opt-in, unpublished CSS.
+       Token names and system-color mappings are research candidates, not an approved v3 component API.</p>
     <div class="v3-lab-controls">
         <Button Text="@(_dark ? "Switch to light" : "Switch to dark")" OnClick="() => _dark = !_dark" />
         <Button Text="@(_rtl ? "Switch to LTR" : "Switch to RTL")" OnClick="() => _rtl = !_rtl" />
         <Button Text="@(_compact ? "Comfortable density" : "Compact density")" OnClick="() => _compact = !_compact" />
     </div>
 
-    <section class="v3-lab-surface" data-bui-theme="@(_dark ? "dark" : "light")"
+    <section class="v3-lab-surface" data-bui-v3-tokens data-bui-theme="@(_dark ? "dark" : "light")"
              data-density="@(_compact ? "compact" : "comfortable")"
-             dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 token experiment">
-        <h2>Button / Field / Overlay</h2>
-        <p>Use Tab and Shift+Tab to inspect focus, then change direction and theme.</p>
+             dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 opt-in token experiment">
+        <h2>Real Button / TextField / Overlay</h2>
+        <p>Use Tab and Shift+Tab to inspect focus. Switch Light/Dark and LTR/RTL to compare computed colors.</p>
         <div class="v3-lab-actions">
-            <Button Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
+            <Button id="v3-token-action" Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
             <Button Text="Disabled" disabled />
-            <Button Text="Preview overlay" OnClick="() => _overlayOpen = true" />
+            <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
+            <Button Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
         </div>
         <div class="v3-lab-field">
             <label for="v3-experiment-name">Name</label>
             <TextField id="v3-experiment-name" @bind-Value="_name" placeholder="Example name" />
-            <span class="v3-lab-hint">This existing TextField receives experiment-only CSS aliases.</span>
+            <span class="v3-lab-hint">This is a real Bluent TextField styled through the unpublished, scoped alias bridge.</span>
         </div>
         <p role="status" aria-live="polite">@_message</p>
+        <p class="v3-lab-hint">
+            Service-hosted dialogs are rendered by the layout's global container, outside this page-local theme.
+            The dialog button intentionally reproduces that D2 ownership gap; it does not claim theme propagation.
+        </p>
         @if (_overlayOpen)
         {
             <Overlay OnClick="() => _overlayOpen = false" />
@@ -52,5 +63,11 @@
         _message = string.IsNullOrWhiteSpace(_name)
             ? "Enter a name to preview feedback."
             : $"Preview saved for {_name}.";
+    }
+
+    private void ShowServiceDialog()
+    {
+        _ = DialogService.ShowMessageBoxAsync("v3 theme ownership probe",
+            "This service-hosted dialog is outside the nested v3 theme host. Theme propagation is not yet implemented.");
     }
 }

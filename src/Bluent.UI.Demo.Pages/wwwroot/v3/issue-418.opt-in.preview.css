@@ -1,0 +1,60 @@
+/* #418 DEMO-ONLY CSS. Generated from docs/v3/tokens sources; not the shipping Bluent.UI theme/asset contract. */
+
+/* AUTO-GENERATED #418 PREVIEW — source-backed token alias mapping.
+   Not part of Bluent 2.x bundle; no CSS is enabled without explicit opt-in.
+   This is a v3 research preview, NOT an approved public token naming API.
+   Regenerate: python scripts/quality/generate_v3_token_preview.py */
+[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme] {
+  /* semantic: aliases only; legacy variables are never overwritten. */
+  --bui-v3-surface-default: var(--colorNeutralBackground1);
+  --bui-v3-text-primary: var(--colorNeutralForeground1);
+  --bui-v3-action-background: var(--colorBrandBackground);
+  --bui-v3-action-foreground: var(--colorBrandForeground1);
+  --bui-v3-action-on-brand: var(--colorNeutralForegroundOnBrand);
+  --bui-v3-border-default: var(--colorNeutralStroke1);
+  --bui-v3-border-strong: var(--colorNeutralStrokeAccessible);
+  --bui-v3-status-danger: var(--colorStatusDangerForeground1);
+  --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
+  --bui-v3-surface-disabled: var(--colorNeutralBackgroundDisabled);
+  --bui-v3-border-focus: var(--colorBrandBackground);
+  --bui-v3-text-danger-accessible: var(--colorPaletteRedForeground1);
+  /* component: aliases only; legacy variables are never overwritten. */
+  --bui-v3-button-background-primary: var(--bui-v3-action-background);
+  --bui-v3-button-foreground-primary: var(--bui-v3-action-on-brand);
+  --bui-v3-button-foreground-default: var(--bui-v3-text-primary);
+  --bui-v3-text-field-background: var(--bui-v3-surface-default);
+  --bui-v3-text-field-stroke: var(--bui-v3-border-strong);
+  --bui-v3-checkbox-checked-fill: var(--bui-v3-action-background);
+  --bui-v3-switch-checked-track: var(--bui-v3-action-background);
+  --bui-v3-badge-danger-foreground: var(--bui-v3-status-danger);
+  --bui-v3-badge-danger-text-accessible: var(--bui-v3-text-danger-accessible);
+}
+
+/* #418 research-only opt-in accessibility overlay.
+   Design: Penpot Bluent v3 page 32, board acf5f619-7d81-80da-8008-c5ef2f9a3158.
+   Must be loaded AFTER issue-418-opt-in.preview.css. Not bundled or released.
+   This proposal is not a component accessibility certification. */
+[data-bui-v3-tokens][data-bui-theme],
+[data-bui-v3-tokens] [data-bui-theme] {
+  --bui-v3-motion-duration-fast: 150ms;
+}
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-theme],
+  [data-bui-v3-tokens] [data-bui-theme] {
+    --bui-v3-surface-default: Canvas;
+    --bui-v3-text-primary: CanvasText;
+    --bui-v3-action-background: ButtonFace;
+    --bui-v3-action-on-brand: ButtonText;
+    --bui-v3-border-strong: ButtonText;
+    --bui-v3-border-focus: Highlight;
+    --bui-v3-text-disabled: GrayText;
+    --bui-v3-surface-disabled: Canvas;
+    --bui-v3-text-danger-accessible: CanvasText;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-bui-v3-tokens][data-bui-theme],
+  [data-bui-v3-tokens] [data-bui-theme] {
+    --bui-v3-motion-duration-fast: 0ms;
+  }
+}

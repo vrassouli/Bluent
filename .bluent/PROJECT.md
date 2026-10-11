@@ -109,3 +109,6 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 
 - #419 / PR #499: completed, independently re-audited at Penpot revision 224 (1085 geometry checks, zero errors), merged exclusively into bluent-v3 as 1b4ed97. Its historical design-stage notes above remain for provenance; full runtime/component parity is not claimed.
 - #418 / PR #500: In progress / Draft. Separate opt-in forced-colors/reduced-motion CSS research overlay and Chrome fixture map to Penpot page 32; six scenarios pass. Non-reduced 150ms and real Blazor keyboard/AT/portal behavior remain unverified. Details: docs/v3/tokens/ACCESSIBILITY-MEDIA-PROBE.md.
+
+
+- 2026-10-11 (#418): Real Blazor WASM Chrome/CDP opt-in token demo now passes 9/9 checks (Button, TextField, interactive Light/Dark+RTL, motion, forced-colors roles, keyboard Tab focus, reproduced D2 detached Dialog gap). Published SSR static asset smoke 4/4. Correct Penpot design file gained D2 proposal page acf5f619-7d81-80da-8008-c5fec09d9837 / board acf5f619-7d81-80da-8008-c5fec0b7ec61. Details: docs/v3/tokens/BLZ-RUNTIME-PORTAL-AUDIT.md. D2 runtime fix not yet implemented; PR #500 stays Draft; v2 Dev/NuGet unaffected.

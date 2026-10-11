@@ -92,9 +92,13 @@ The [design and runtime acceptance distinctions](HIGH-CONTRAST-MOTION-DESIGN.md)
 - **Full token coverage:** typography stacks for Windows/macOS/Persian (Segoe UI vs Inter, Noto Sans Arabic candidate), density, elevation, corners, high contrast/forced-colors, motion/reduced-motion and true RTL/LTR logical dimensions. The 48 color token specimens are only the first independently checked slice; #419 has earlier draft spacing/typography/motion sets.
 - **Portal and nested theme ownership:** D2's real Dialog/Popover host-context behavior remains unimplemented; token aliasing alone does not move a DOM portal into its correct Theme ancestry.
 - **Actual component consumption:** the CSS is deliberately opt-in research and not yet imported by final Blazor v3 component code. Test real disabled/focus/error/hover, modes, SSR, keyboard, zoom and screen readers, with nonbreaking CSS variable precedence.
-- **Quality & migration:** full browser/reflow/forced-colors evidence, documentation/Skills, exhaustive demo, build/pack/SSR validations and [#424](https://github.com/vrassouli/Bluent/issues/424) migration notes before Review/Done. #419 Penpot PR remains under separate acceptance review.
+- **Quality & migration:** full browser/reflow/forced-colors evidence, documentation/Skills, exhaustive demo, build/pack/SSR validations and [#424](https://github.com/vrassouli/Bluent/issues/424) migration notes before Review/Done. #419 design-library PR #499 has been merged into bluent-v3; #418 remains independently in progress.
 
 **Isolation:** work on branch `v3/issue-418-design-tokens` based on `bluent-v3`; stable `Dev` and published NuGet untouched. The architecture D1–D5 is accepted; the *exact v3 token vocabulary and complete brand themes have not yet been approved*.
 
 ## Browser emulation checkpoint
 The [scoped accessibility policy overlay](issue-418-accessibility.preview.css) and [six-scenario Chrome probe](ACCESSIBILITY-MEDIA-PROBE.md) exercise forced-colors and reduced-motion at research scope only; keyboard focus and non-reduced motion remain open. This is not shipped CSS.
+
+
+## Real Blazor runtime and detached Dialog checkpoint
+The [nine-check interactive WASM/Chrome proof, SSR smoke and D2 Penpot decision map](BLZ-RUNTIME-PORTAL-AUDIT.md) exercise scoped candidate tokens in real Bluent controls and document the **reproduced, still-unfixed** global service Dialog theme ownership gap. Preview CSS stays opt-in and demo-only.

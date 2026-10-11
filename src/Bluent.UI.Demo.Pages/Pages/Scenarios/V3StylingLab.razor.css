@@ -13,10 +13,10 @@
     margin-block: 14px;
 }
 .v3-lab-surface {
-    --v3-lab-surface: var(--colorNeutralBackground1, #fff);
-    --v3-lab-text: var(--colorNeutralForeground1, #242424);
+    --v3-lab-surface: var(--bui-v3-surface-default, var(--colorNeutralBackground1, #fff));
+    --v3-lab-text: var(--bui-v3-text-primary, var(--colorNeutralForeground1, #242424));
     --v3-lab-border: var(--colorNeutralStroke1, #999);
-    --v3-lab-focus: var(--colorBrandStroke1, #0f6cbd);
+    --v3-lab-focus: var(--bui-v3-border-focus, var(--colorBrandStroke1, #0f6cbd));
     --v3-lab-control-height: 40px;
     --v3-lab-radius: var(--borderRadiusMedium, 4px);
     --v3-lab-scrim: rgb(0 0 0 / 48%);
@@ -72,4 +72,17 @@
 }
 @media (prefers-reduced-motion: reduce) {
     .v3-lab-surface ::deep .bui-button { transition: none; }
+}
+
+/* #418: real Bluent controls consume research aliases only inside the opt-in lab. */
+.v3-lab-surface ::deep #v3-token-action {
+    background-color: var(--bui-v3-button-background-primary, var(--colorBrandBackground));
+    color: var(--bui-v3-button-foreground-primary, var(--colorNeutralForegroundOnBrand));
+}
+.v3-lab-field ::deep .bui-field {
+    background-color: var(--bui-v3-text-field-background, var(--colorNeutralBackground1));
+    border-color: var(--bui-v3-text-field-stroke, var(--colorNeutralStrokeAccessible));
+}
+.v3-lab-surface ::deep .bui-overlay {
+    animation-duration: var(--bui-v3-motion-duration-fast, var(--durationGentle, 250ms));
 }
