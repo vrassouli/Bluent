@@ -15,6 +15,7 @@
   --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
   --bui-v3-surface-disabled: var(--colorNeutralBackgroundDisabled);
   --bui-v3-border-focus: var(--colorBrandBackground);
+  --bui-v3-text-danger-accessible: var(--colorPaletteRedForeground1);
   /* component: aliases only; legacy variables are never overwritten. */
   --bui-v3-button-background-primary: var(--bui-v3-action-background);
   --bui-v3-button-foreground-primary: var(--bui-v3-action-on-brand);
@@ -24,4 +25,5 @@
   --bui-v3-checkbox-checked-fill: var(--bui-v3-action-background);
   --bui-v3-switch-checked-track: var(--bui-v3-action-background);
   --bui-v3-badge-danger-foreground: var(--bui-v3-status-danger);
+  --bui-v3-badge-danger-text-accessible: var(--bui-v3-text-danger-accessible);
 }

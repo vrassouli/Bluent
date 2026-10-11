@@ -25,19 +25,23 @@ def check_one(chrome: str, directory: Path, brand: str, mode: str, data: dict, p
 .sample { color:var(--bui-v3-button-foreground-primary); background:var(--bui-v3-button-background-primary);
 border:1px solid var(--bui-v3-border-strong) }
 .disabled { color:var(--bui-v3-text-disabled);background:var(--bui-v3-surface-disabled) }
+.danger-candidate { color:var(--bui-v3-badge-danger-text-accessible);background:var(--bui-v3-surface-default) }
 """
     text = f"""<!doctype html><html><meta charset="utf-8">
 <style>{original}</style><style>{preview}</style><style>{css_style}</style>
 <body data-bui-theme="{mode}" data-bui-v3-tokens>
 <button class="sample" id="sample">Source-aligned Brand</button>
 <div id="disabled" class="disabled">Disabled</div>
+<div id="danger-candidate" class="danger-candidate">Danger text candidate</div>
 <output id="token-result">PENDING</output>
 <script>
 let s=getComputedStyle(document.getElementById('sample'));
 let d=getComputedStyle(document.getElementById('disabled'));
+let danger=getComputedStyle(document.getElementById('danger-candidate'));
 document.getElementById('token-result').textContent=JSON.stringify({{
 bg:s.backgroundColor,fg:s.color,border:s.borderTopColor,
-disabledFg:d.color,disabledBg:d.backgroundColor
+disabledFg:d.color,disabledBg:d.backgroundColor,
+dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor
 }});
 </script></body></html>"""
     file = directory / f"brand-{brand}-{mode}.html"
@@ -62,6 +66,8 @@ disabledFg:d.color,disabledBg:d.backgroundColor
         "border": rgb(tokens["bluent.semantic.border.strong"]),
         "disabledFg": rgb(tokens["bluent.semantic.text.disabled"]),
         "disabledBg": rgb(tokens["bluent.semantic.surface.disabled"]),
+        "dangerCandidateFg": rgb(tokens["bluent.component.badge.dangerTextAccessible"]),
+        "dangerCandidateBg": rgb(tokens["bluent.semantic.surface.default"]),
     }
     discrepancies = {k: {"expected":v,"observed":actual.get(k)}
                      for k, v in expect.items() if actual.get(k) != v}
