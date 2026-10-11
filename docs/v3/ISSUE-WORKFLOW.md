@@ -2,6 +2,10 @@
 
 **Mandatory** for every issue under [Epic #416](https://github.com/vrassouli/Bluent/issues/416). The **Status field in [Bluent Project #5](https://github.com/users/vrassouli/projects/5)** is the authoritative issue workflow state (not labels, branch names, nor GitHub open/closed alone).
 
+## Design-first gate: Penpot preferred, Figma permitted
+
+**Every Epic #416 task must use a verifiable design artifact**, per [PENPOT-WORKFLOW.md](PENPOT-WORKFLOW.md). Use **Penpot first** when the correct Bluent v3 file is connected. When disconnected or connected to an unrelated file, use **Figma as the approved fallback** without creating an artificial blocker. The provided Microsoft Fluent 2 Web Community kit is a reference; put Bluent decisions in the separate editable v3 working file. Design-dependent implementation follows design review. Review/Done require a concrete Penpot **or Figma** file/page/node and evidence of design-to-code parity. For a library-creation task, the design artifact is the deliverable rather than a prior prerequisite.
+
 ## Normal flow
 
 ```text
@@ -13,10 +17,10 @@ Each step is **explicit**. Do not skip directly from Backlog to In progress/Done
 | Status | Meaning | Transition gate |
 | --- | --- | --- |
 | **Backlog** | Known scope, not yet approved for implementation | New open issues begin here, automatically via GitHub Project where configured; ensure every v3 issue appears in Project #5 |
-| **Ready** | Approved and independently implementable | Acceptance criteria, priority/scope, known dependencies and required design/architecture are sufficiently clear; no outstanding approval questions or real blockers |
+| **Ready** | Approved and independently implementable | Acceptance criteria, priority/scope, known dependencies and required Penpot/Figma design/architecture work are sufficiently clear; no outstanding approval questions or real blockers |
 | **In progress** | Implementation/design/docs task actively underway | Must come from Ready; create `v3/issue-<number>-<slug>` task branch from `bluent-v3`, identify owner; record meaningful work |
-| **Review** | Ready for acceptance | PR targeting **`bluent-v3`** open and reviewable, tests/CI and required component documentation, Penpot references, demo, Skills, migration coverage and known limitations attached (as applicable) |
-| **Done** | Accepted and integrated | Review accepted, required checks/DoD satisfied, PR merged **into `bluent-v3` only**, Epic #416 checklist updated; then close issue and mark Done |
+| **Review** | Ready for acceptance | PR targeting **`bluent-v3`** open and reviewable, tests/CI and the real Penpot or Figma design references/decision record, design parity evidence, required component documentation, demo, Skills, migration coverage and known limitations attached (as applicable) |
+| **Done** | Accepted and integrated | Review accepted, design-tool/code parity accepted, required checks/DoD satisfied, PR merged **into `bluent-v3` only**, Epic #416 checklist updated; then close issue and mark Done |
 
 ## Exceptional states
 

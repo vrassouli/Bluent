@@ -1,0 +1,119 @@
+# Bluent v3 — browser cascade and real overlay theme evidence (#417)
+
+> **Status:** verified exploratory QA, not approved v3 behavior or a Fluent 2 parity assertion. Design reference is the **existing draft D2/D3 Figma board** [`14:3`](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3). No new Penpot/Figma artwork was created in this phase because Figma's Starter MCP quota was reached and the connected Penpot file belongs to PuyaStudio Runner; neither unrelated file nor original Fluent community kit was modified.
+
+## 1. Native CSS cascade regression model (real Chrome)
+
+Run from repository root:
+
+```powershell
+python scripts/quality/probe_v3_css_cascade.py
+```
+
+This self-contained test writes a temporary HTML fixture, runs a local headless Chrome instance, extracts `getComputedStyle` results, and deletes the fixture. It does **not** load Bluent components or change the library CSS.
+
+| Assertion | Browser-observed | Expected | Outcome |
+| --- | --- | --- | --- |
+| Ordinary unlayered declaration vs layered declaration | green `rgb(0,128,0)` | unlayered wins | Passed |
+| Layered `!important` vs unlayered `!important` | red `rgb(255,0,0)` | layered wins | Passed |
+| First vs subsequent explicit layer for `!important` | blue `rgb(0,0,255)` | earlier important layer wins | Passed |
+| Nested `[data-bui-theme=dark]` foreground | white `rgb(255,255,255)` | inherits dark local variable | Passed |
+| Simulated out-of-tree portal foreground | `rgb(36,36,36)` | inherits light/global variable | Passed |
+
+**Total: 5/5.** This demonstrates why a blind global `@layer` conversion can invert consumer CSS override behavior. It does **not** prove actual Bluent selectors or CSS specificity compatibility; these need a separate opt-in integration comparison.
+
+## 2. Actual Bluent DialogContainer experiment (Debug WASM)
+
+Run the **existing** Debug demo locally (port is configurable):
+
+```powershell
+dotnet run --project src/Bluent.UI.Demo --configuration Debug --no-build --no-launch-profile --urls http://127.0.0.1:5080
+```
+
+Then, with Node 22+ and Chrome installed:
+
+```powershell
+node scripts/quality/probe_v3_dialog_theme.mjs http://127.0.0.1:5080
+```
+
+The standalone Node script launches isolated headless Chrome, talks to the Chrome DevTools protocol (built-in `WebSocket`; no Playwright/npm dependency), waits for the existing `/components/dialogs` page, sets **only the page content** to `data-bui-theme=dark`, clicks the **actual Bluent** `Show default dialog` button, and measures real DOM ancestry and computed tokens. This is a QA-only browser DOM change, **not** a product code change.
+
+| Observation | Actual Chrome output |
+| --- | --- |
+| Root `html` theme | `light` |
+| Scoped `.page-content` theme | `dark` |
+| Scoped `--colorNeutralBackground1` | `#292929` |
+| Dialog `--colorNeutralBackground1` | `#fff` (same color as `#ffffff`) |
+| Dialog computed background | `rgb(255,255,255)` |
+| Dialog inside the scoped `.page-content` | **false** |
+| Dialog's overlay inside the scoped `.page-content` | **false** |
+
+**Runtime behavior reproduced.** This is a scope limitation, not necessarily a defect for applications that use only a single global theme. Source inspection explains the result:
+
+- `src/Bluent.UI.Demo.Pages/Layout/MainLayout.razor` renders `<Containers/>` **after** the `.page` body; it is not a child of `.page-content`.
+- `src/Bluent.UI/Components/ContainersComponent/Containers.razor` includes the singleton `DialogContainer`.
+- `src/Bluent.UI/Components/DialogComponent/DialogContainer.razor` renders `.dialog-wrapper`, `Overlay` and `Dialog` at that shared container location. The service event is wired in `DialogContainer.razor.cs`.
+- `src/Bluent.UI.Scripts/src/Theme/Theme.ts` sets global `data-bui-theme` on `document.documentElement`; existing theme scoping is `[data-bui-theme=light|dark]`. The service call does not currently carry a scoped theme context in this verified path.
+
+**Draft decision D2:** before committing to nested theme support, evaluate (a) explicitly passing a typed theme/brand context to overlay host/services, (b) per-scope overlay hosts and layering contexts, and (c) retaining global-only theme semantics with clear documentation. Do not automatically copy computed custom properties, change the public service API, or move host containers without design/API review.
+
+## 3. Real media-preference observations (Debug styling lab)
+
+In the same isolated Chrome session, the Node script navigates to the existing `/v3/styling-lab`, uses DevTools media emulation and measures real Bluent elements.
+
+| Simulated preference | Observed computed behavior | Interpretation |
+| --- | --- | --- |
+| `prefers-reduced-motion: reduce` | query matches; **lab Button** transition duration `0s` | Its demo-only scoped CSS has a reduced-motion rule |
+| `prefers-reduced-motion: reduce` | **real `.bui-overlay`** animation `fade-in`, duration **`0.25s`** | Overlay motion is **not suppressed** by the current demo rule. This is a concrete accessibility follow-up, not acceptable as completed reduced-motion support |
+| `forced-colors: active` | query matches; Button background `rgb(0,0,0)`, text `rgb(255,255,255)`, surface background `rgb(0,0,0)` | Browser applied forced colors to these samples. Does **not** establish contrast, focus-outline visibility, or complete high-contrast support |
+
+**Further current Chrome evidence (2026-10-10):** after closing the overlay under forced-colors, the probe focuses the lab TextField and dispatches an actual **Shift+Tab** key event. The preceding **Preview overlay** button became active, matched `:focus-visible`, and had a computed **2px solid rgb(26,235,255)** outline. The same probe measured a ~40px high Button at desktop, a ~38px high TextField, and ~32px Button in compact mode at a **390px** viewport, with document-wide scroll width also **390px**. This demonstrates one correct forced-colors keyboard path and absence of document horizontal overflow in that scenario, **not** complete accessibility/responsiveness.
+
+The recorded `passed` from `probe_v3_dialog_theme.mjs` asserts only the **observed existing theme separation**; it must **not** be interpreted as an acceptance pass for nested themes, high contrast, keyboard behavior or reduced motion.
+
+## 4. Repeatable Release/Production SSR publish + static assets smoke (2026-10-11)
+
+A new **Windows Dev01-only** PowerShell probe is in [`scripts/quality/probe_v3_ssr_publish.ps1`](../../../scripts/quality/probe_v3_ssr_publish.ps1):
+
+```powershell
+pwsh -NoProfile -File scripts/quality/probe_v3_ssr_publish.ps1 -Port 5098
+```
+
+The script creates a unique temporary output, runs `dotnet publish src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj -c Release --no-restore`, launches the **published** DLL in `ASPNETCORE_ENVIRONMENT=Production`, requests real localhost endpoints with `HttpClient` and checks **HTTP 200, MIME and nonempty payload markers**, then stops the smoke server and deletes temporary artifacts.
+
+**Critical harness/runtime distinction observed during development:** initially the published DLL was launched while the process's current directory was the **repository root**, not the published output directory. The static CSS file physically existed at `wwwroot/_content/Bluent.UI/bluent.ui.components.min.css` with **117,963 bytes**, but the HTTP endpoint returned **200 with Content-Length: 0 and no Content-Type** (both HttpClient and curl agreed). This was a **reproducible content-root launch misconfiguration**, not proof that the CSS bundle was empty or incorrectly generated. Set `Start-Process -WorkingDirectory $out` so the host's content root points to the Release publish output. No change to existing Bluent production code was necessary.
+
+**Final verified smoke run** after fixing launch working directory:
+
+| Real local Production HTTP request | Status | MIME | Observed characters |
+| --- | ---: | --- | ---: |
+| `GET /v3/styling-lab` | 200 | `text/html` | **30,612** |
+| `GET /_content/Bluent.UI/bluent.ui.components.min.css` | 200 | `text/css` | **117,963** |
+| `GET /_framework/blazor.web.js` | 200 | `text/javascript` | **200,645** |
+
+**Result: 3/3 verified.** This is actual Release-published **Production static-asset** evidence, not remote deployment, interactive SSR hydration, form/keyboard tests, theme-mode acceptance or proof every RCL asset/brand loads. CSSM-09's requirement to run this exact script before bundle/order migration is documented in [the compatibility ledger](css-migration-impact-ledger.md). Preserve the current `MapStaticAssets()` and bundling model pending approved CSS ADR.
+
+## 5. Real compiled Bluent CSS + representative consumer override experiment
+
+**Executable:** [`scripts/quality/probe_v3_consumer_css_overrides.py`](../../../scripts/quality/probe_v3_consumer_css_overrides.py). This headless-Chrome probe embeds the **actual** current default theme CSS (**166,423 bytes**) and components CSS (**117,963 bytes**) directly into a temporary HTML fixture; no synthetic replacement of Bluent's `.bui-button` rules is used.
+
+| Scenario | Actual computed `border-top-left-radius` | Interpretation |
+| --- | --- | --- |
+| Base Bluent `.bui-button` | **4px** | Current `--borderRadiusMedium` token |
+| Application `.case-consumer .bui-button {border-radius:13px}` (unlayered) | **13px** | Consumer's ordinary local override works against current compiled Bluent CSS |
+| Application overrides `--borderRadiusMedium:14px` | **14px** | Token-value override works through current Button CSS variable consumption |
+| Proposed `@layer bluent-v3-proposal { .case-layer .bui-button {border-radius:19px} }` | **4px** | Existing unlayered Bluent rule wins even against a more specific *normal* layered rule |
+| Proposed layered `border-radius:7px !important` versus unlayered consumer `13px !important` | **7px** | Important layered rule outranks unlayered consumer important override |
+| Nested `data-bui-theme="dark"` | **4px** and background **rgb(41,41,41)** | Current nested theme background works for an element **inside** the scoped subtree; does not fix service-hosted Dialog outside subtree |
+
+**Observed 7/7 checks, 0 failures.** This is stronger than an abstract native CSS cascade sample because both authentic generated Bluent bundles participate in the same rendered document. Still, the fixture uses **representative Button selectors**; it does not enumerate all real consumers, dynamic utilities, `!important` origins, styling engines, portal ancestors or third-party CSS. **D3 remains a proposal**: opt-in `@layer` only after migration/compatibility acceptance.
+
+## 6. Decisions and remaining acceptance
+
+1. **D2 confirmed risk:** Shared DialogContainer lives outside a locally themed page, and actual Dialog does not inherit its theme. Decide desired app/global vs nested scope contract in the next design-tool review; once approved, implement separately under the appropriate foundation/component issue.
+2. **D3 confirmed browser behavior:** ordinary vs `!important` cascade ordering changes under `@layer`. Keep current unlayered CSS until a consumer-style precedence migration suite demonstrates safe adoption.
+3. **Reduced-motion follow-up:** establish component-level motion policy in the v3 design spec; test overlay/dialog/drawer/popover animations, rather than claiming the lab Button's rule solves it.
+4. **Forced-colors follow-up:** check actual focus visibility, border distinguishability, control states, hover and disabled under forced-color emulation and assistive input. A black/white screenshot is insufficient for WCAG compliance claims.
+5. **Design-tool gate:** Figma MCP returned `You've reached the Figma MCP tool call limit on the Starter plan` when trying to inspect/update the design. At the time of the first probe, Penpot pointed to **PuyaStudio Runner**; this was a historical connection limitation. **Update (2026-10-11):** the independent [Bluent v3 Design System Penpot file](https://github.com/vrassouli/Bluent/pull/499) was subsequently created on the dedicated #419 task branch with linked Fluent reference, source-owned draft variant families and handoff evidence. Its design PR is in Review; it does **not** constitute approval of the final #417 styling ADR or #418 token schema. Continue only source/runtime validation and documentation that corresponds to the already recorded [D2/D3 Figma architecture board](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3). Future design revisions and ADR sign-off must wait until an authorized Bluent Penpot session or available Figma quota.
+
+No changes to released Bluent 2.x API/CSS/assets or NuGet have been made; all experiments are in `v3/issue-417-css-architecture` targeting `bluent-v3`. Keep GitHub Project Status **In progress** while independently actionable tests remain; do not move to Review without design approval.
