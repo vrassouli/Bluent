@@ -164,3 +164,14 @@
 .v3-lab-focus-actions ::deep .bui-button {
     max-width: 100%;
 }
+
+/* #418 contrast proof only: existing Fluent source focus stroke, never default.
+   Gate the alternative so unapproved Penpot focus tokens stay unchanged. */
+.v3-lab-surface[data-bui-v3-focus-contrast-candidate] {
+    --v3-lab-focus: var(--colorStrokeFocus2);
+}
+@media (forced-colors: active) {
+    .v3-lab-surface[data-bui-v3-focus-contrast-candidate] {
+        --v3-lab-focus: Highlight;
+    }
+}

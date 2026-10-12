@@ -561,7 +561,40 @@ try {
  await sleep(300);
  const toggleAfterSpace=await cdp.js("(() => {const b=document.querySelector('#v3-selected-transparent');return {stillFocused:document.activeElement===b,selected:b.classList.contains('toggled'),ariaPressed:b.getAttribute('aria-pressed'),focusVisible:b.matches(':focus-visible')};})()");
  assert("keyboard Space activates existing nullable Toggled Button",toggleAfterSpace.stillFocused&&!toggleAfterSpace.selected&&toggleAfterSpace.focusVisible,JSON.stringify(toggleAfterSpace));
- console.log("Selected Button native Space toggle baseline:",JSON.stringify(toggleAfterSpace)); if(interactiveServer){
+ console.log("Selected Button native Space toggle baseline:",JSON.stringify(toggleAfterSpace));
+ // #418: real scoped CSS Focus-visible across 10 source brands × Light/Dark.
+ // This tests an actual keyboard-focused Button, not a faux :focus-visible
+ // class. Re-scope only the opt-in lab; restore Blazor-owned attributes after.
+ const focusScopeBefore=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');return {brand:h.getAttribute('data-bui-brand'),mode:h.getAttribute('data-bui-theme')};})()");
+ await cdp.js("document.querySelector('#v3-focus-start').focus()");
+ const keyboardFocusStart=await matrixTab();
+ assert("20-way scope probe starts on real keyboard-focused Button",keyboardFocusStart.id==="v3-focus-default"&&keyboardFocusStart.visible,JSON.stringify(keyboardFocusStart));
+ const focusThemeSamples=[];
+ const candidateFocusSamples=[];
+ for(const brand of Object.keys(matrix))for(const mode of ["light","dark"]){
+   const got=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.dataset.buiBrand='"+brand+"';h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b),hs=getComputedStyle(h);return {brand:h.dataset.buiBrand,mode:h.dataset.buiTheme,focused:document.activeElement===b,focusVisible:b.matches(':focus-visible'),outlineStyle:s.outlineStyle,outlineWidth:parseFloat(s.outlineWidth),outlineColor:s.outlineColor,surfaceColor:hs.backgroundColor,rootBrand:document.documentElement.getAttribute('data-bui-brand')};})()");
+   const ratio=contrast(got.outlineColor,got.surfaceColor);
+   focusThemeSamples.push({...got,ratio});
+   assert("scoped keyboard focus ring persists "+brand+"/"+mode,got.focused&&got.focusVisible&&got.outlineStyle!=="none"&&got.outlineWidth>=2&&got.outlineColor!=="rgba(0, 0, 0, 0)",JSON.stringify(got));
+
+   // Explicitly opt in to the *existing* Fluent focus2 source token for an
+   // alternate design candidate. Do not change the default focus token.
+   const candidate=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={focusVisible:b.matches(':focus-visible'),outlineColor:s.outlineColor,outlineWidth:parseFloat(s.outlineWidth),strokeSource:getComputedStyle(h).getPropertyValue('--colorStrokeFocus2').trim(),surfaceColor:getComputedStyle(h).backgroundColor};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
+   const candidateRatio=contrast(candidate.outlineColor,candidate.surfaceColor);
+   candidateFocusSamples.push({brand,mode,ratio:candidateRatio,source:candidate.strokeSource});
+   assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3,JSON.stringify({candidate,ratio:candidateRatio}));
+ }
+ await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+(focusScopeBefore.brand===null?"h.removeAttribute('data-bui-brand');":"h.setAttribute('data-bui-brand','"+focusScopeBefore.brand+"');")+"h.setAttribute('data-bui-theme','"+focusScopeBefore.mode+"');})()");
+ const under3=focusThemeSamples.filter(x=>x.ratio<3);
+ if(under3.length)openAccessibilityGaps.push("Scoped Focus ring-to-surface contrast below 3:1 in "+under3.map(x=>x.brand+"/"+x.mode).join(",")+"; #418 candidate token approval required");
+ console.log("Focus-ring scoped brand/mode contrast audit:",JSON.stringify({samples:focusThemeSamples.length,lowContrast:under3.map(x=>({brand:x.brand,mode:x.mode,ratio:+x.ratio.toFixed(2)})),minRatio:+Math.min(...focusThemeSamples.map(x=>x.ratio)).toFixed(2)}));
+ console.log("Opt-in Fluent focus2 candidate contrast:",JSON.stringify({samples:candidateFocusSamples.length,minRatio:+Math.min(...candidateFocusSamples.map(x=>x.ratio)).toFixed(2),lowContrast:candidateFocusSamples.filter(x=>x.ratio<3)}));
+
+ // Native system colors must override even the candidate source contrast.
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
+ const candidateForced=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={forced:matchMedia('(forced-colors: active)').matches,focused:b.matches(':focus-visible'),varValue:getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim(),color:s.outlineColor,width:parseFloat(s.outlineWidth)};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
+ assert("explicit Fluent focus candidate uses system Highlight in forced colors",candidateForced.forced&&candidateForced.focused&&candidateForced.varValue.toLowerCase()==="highlight"&&candidateForced.width>=2&&candidateForced.color!=="rgba(0, 0, 0, 0)",JSON.stringify(candidateForced));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]}); if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
    await cdp.js("document.querySelector('#v3-show-route-exit-modal')?.click()");
