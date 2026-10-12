@@ -484,7 +484,37 @@ try {
  assert("forced-colors focus leaves Button face and Persian label/icon geometry stable",["w","h","tw","th","iw","ih"].every(k=>Math.abs(focusGeometry[k]-contrastFocus[k])<0.5),JSON.stringify({before:focusGeometry,forced:contrastFocus}));
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  console.log("Real Button focus decoration geometry:",JSON.stringify({before:focusGeometry,keyboard:returnedFocus,forcedColors:contrastFocus}));
- if(interactiveServer){
+ // #418 / #501: native Tab/Shift+Tab focus for six existing Bluent appearances.
+ const appearanceIds=["v3-focus-default","v3-focus-primary","v3-focus-danger","v3-focus-outline","v3-focus-subtle","v3-focus-transparent"];
+ const appearanceGeometry=await cdp.js("(() => Object.fromEntries([...document.querySelectorAll('.v3-lab-focus-actions > .bui-button')].map(b=>{const r=b.getBoundingClientRect();return [b.id,{w:r.width,h:r.height}]})))()");
+ const matrixTab=async(shift=false)=>{
+   const modifiers=shift?8:0;
+   await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9,modifiers});
+   await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9,modifiers});
+   return await cdp.js("(() => {const e=document.activeElement,s=getComputedStyle(e),r=e.getBoundingClientRect();return {id:e.id,visible:e.matches(':focus-visible'),width:parseFloat(s.outlineWidth),style:s.outlineStyle,color:s.outlineColor,w:r.width,h:r.height};})()");
+ };
+ await cdp.js("document.querySelector('#v3-focus-start').focus()");
+ for(const id of appearanceIds){
+   const state=await matrixTab();
+   assert("real keyboard focus traverses appearance "+id,state.id===id&&state.visible&&state.width>=2&&state.style!=="none",JSON.stringify(state));
+   const original=appearanceGeometry[id];
+   assert("appearance focus adds no layout shift "+id,original&&Math.abs(state.w-original.w)<0.5&&Math.abs(state.h-original.h)<0.5,JSON.stringify({state,original}));
+ }
+ const afterDisabled=await matrixTab();
+ const disabledMatrix=await cdp.js("(() => {const b=document.querySelector('#v3-focus-disabled');return {disabled:b.disabled,focused:document.activeElement===b,ring:b.matches(':focus-visible')};})()");
+ assert("Tab skips disabled appearance and reaches end sentinel",afterDisabled.id==="v3-focus-end"&&disabledMatrix.disabled&&!disabledMatrix.focused&&!disabledMatrix.ring,JSON.stringify({afterDisabled,disabledMatrix}));
+ const reverse=await matrixTab(true);
+ assert("Shift+Tab skips disabled appearance and returns to Transparent",reverse.id==="v3-focus-transparent"&&reverse.visible,JSON.stringify(reverse));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
+ await cdp.js("document.querySelector('#v3-focus-start').focus()");
+ const forcedAppearance=[];
+ for(const id of appearanceIds){
+   const state=await matrixTab();
+   forcedAppearance.push(state);
+   assert("forced-color keyboard focus remains visible "+id,state.id===id&&state.visible&&state.width>=2&&state.style!=="none"&&state.color!=="rgba(0, 0, 0, 0)",JSON.stringify(state));
+ }
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ console.log("Existing Button appearance keyboard matrix:",JSON.stringify({normal:appearanceIds,disabledSkip:afterDisabled.id,reverse:reverse.id,forced:forcedAppearance.map(s=>({id:s.id,color:s.color,width:s.width}))})); if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
    await cdp.js("document.querySelector('#v3-show-route-exit-modal')?.click()");

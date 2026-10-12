@@ -149,3 +149,18 @@
         border-color: CanvasText;
     }
 }
+/* #418/#501 opt-in-only research matrix; existing Button styles untouched. */
+.v3-lab-focus-matrix {
+    max-width: 100%;
+    min-width: 0;
+    margin-block: 24px;
+}
+.v3-lab-focus-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.v3-lab-focus-actions ::deep .bui-button {
+    max-width: 100%;
+}
