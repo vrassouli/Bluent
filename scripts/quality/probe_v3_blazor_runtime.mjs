@@ -446,6 +446,19 @@ try {
  const freeAfterUnmount=await cdp.js("(()=>({active:document.activeElement?.id,dialogs:document.querySelectorAll('.bui-dialog[data-bui-v3-keyboard-bound]').length}))()");
  assert("after repeated Dialog teardown Tab remains normal and no modal is registered",
    freeAfterUnmount.dialogs===0&&freeAfterUnmount.active!=="v3-mount-lifecycle-modal",JSON.stringify(freeAfterUnmount));
+ // #418 / #501 focus modality regression: a real pointer action must not
+ // retain the keyboard-only :focus-visible ring, while the next Tab must.
+ const pointerTarget=await cdp.js("(() => { const b=document.querySelector('#v3-fa-button');b.scrollIntoView({block:'center',inline:'center'});const r=b.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,visible:r.width>0&&r.height>0};})()");
+ assert("pointer focus target is a rendered Button",pointerTarget.visible,JSON.stringify(pointerTarget));
+ await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:pointerTarget.x,y:pointerTarget.y});
+ await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",x:pointerTarget.x,y:pointerTarget.y,button:"left",clickCount:1});
+ await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",x:pointerTarget.x,y:pointerTarget.y,button:"left",clickCount:1});
+ const pointerFocus=await cdp.js("(() => {const b=document.querySelector('#v3-fa-button');return {active:document.activeElement===b,focusVisible:b.matches(':focus-visible'),outlineStyle:getComputedStyle(b).outlineStyle};})()");
+ assert("real mouse click does not show keyboard-only Button focus ring",pointerFocus.active&&!pointerFocus.focusVisible,JSON.stringify(pointerFocus));
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ const restoredKeyFocus=await cdp.js("(() => {const e=document.activeElement;return {id:e?.id,keyboardVisible:e?.matches(':focus-visible'),insideLab:!!e?.closest('.v3-lab-surface'),outline:getComputedStyle(e).outlineWidth};})()");
+ assert("Tab after mouse click restores keyboard focus-visible ring",restoredKeyFocus.insideLab&&restoredKeyFocus.keyboardVisible&&parseFloat(restoredKeyFocus.outline)>=2,JSON.stringify(restoredKeyFocus));
  if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
