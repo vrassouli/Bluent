@@ -181,3 +181,7 @@ The [#418 page-local navigation/awaiting Dialog audit](D5-ROUTE-LOCAL-DIALOG-DIS
 
 ## D5 native VoiceOver progress (2026-10-12)
 [MacBook3 VoiceOver spoken-caption evidence](D5-VOICEOVER-OBSERVATIONS.md) now verifies real Safari VoiceOver reading of an active Dialog context and its dynamic Persian h2 name. The VoiceOver Caption Panel actually displayed the Persian name, web dialog role and heading level 2 after the user-facing Bluent Button was activated with a native VoiceOver command. This is a **partial native VoiceOver pass**, not full VoiceOver/WCAG signoff: full description traversal, closure/focus return and Popover composites still open.
+
+
+## D5 Persian-first Dialog / localized Close gate (2026-10-12)
+[Penpot-designed Persian-first Dialog audit](D5-PERSIAN-VOICEOVER-CLOSE-AUDIT.md): native editable Penpot page \`6519bd63-6e0d-802b-8008-c6ddeb6733bd\`, board \`6519bd63-6e0d-802b-8008-c6ddeb872846\` (26 shapes, zero bounds issues, exported PNG visually reviewed). Real opt-in Blazor Dialog has initial Persian h2, visible mixed-direction Persian aria-describedby, localized \`بستن پنجره\` close name and initial/return focus. Chrome/Edge real WASM **198/198 each**, published Server **201/201 each**, NUnit **60/60**, SSR **4/4**, Release zero warnings/errors. New Safari W3C assertions are authored but **not executed** because Safari currently reports Allow Remote Automation disabled. Native spoken VoiceOver Persian description and Close focus-return also **not verified**; previous native dynamic-heading caption evidence remains valid.
