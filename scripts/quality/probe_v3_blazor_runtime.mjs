@@ -499,6 +499,21 @@ try {
    assert("real keyboard focus traverses appearance "+id,state.id===id&&state.visible&&state.width>=2&&state.style!=="none",JSON.stringify(state));
    const original=appearanceGeometry[id];
    assert("appearance focus adds no layout shift "+id,original&&Math.abs(state.w-original.w)<0.5&&Math.abs(state.h-original.h)<0.5,JSON.stringify({state,original}));
+   // A pointer hovering over a keyboard-focused button must not erase the
+   // keyboard modality. Measure whichever icon is actually painted.
+   const center=await cdp.js("(() => {const b=document.querySelector('#"+id+"');b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()");
+   await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:center.x,y:center.y});
+   const hovered=await cdp.js("(() => {const b=document.querySelector('#"+id+"'),r=b.getBoundingClientRect(),v=[...b.querySelectorAll('.bui-icon')].find(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>8),i=v?.getBoundingClientRect(),t=b.querySelector('.text')?.getBoundingClientRect(),s=getComputedStyle(b);return {id:b.id,hover:b.matches(':hover'),focus:document.activeElement===b,focusVisible:b.matches(':focus-visible'),ring:parseFloat(s.outlineWidth),w:r.width,h:r.height,iconW:i?.width,iconH:i?.height,iconInFace:!!i&&i.left>=r.left-1&&i.right<=r.right+1&&i.top>=r.top-1&&i.bottom<=r.bottom+1,textVertical:t?Math.abs((t.top+t.bottom-r.top-r.bottom)/2):null,iconVertical:i?Math.abs((i.top+i.bottom-r.top-r.bottom)/2):null};})()");
+   assert("keyboard focus-visible survives real pointer hover "+id,hovered.hover&&hovered.focus&&hovered.focusVisible&&hovered.ring>=2,JSON.stringify(hovered));
+   assert("hover/focus keeps visible icon and label centered with no face shift "+id,hovered.iconW>=10&&hovered.iconH>=10&&hovered.iconInFace&&hovered.textVertical<=2&&hovered.iconVertical<=2&&Math.abs(hovered.w-original.w)<0.5&&Math.abs(hovered.h-original.h)<0.5,JSON.stringify(hovered));
+   await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:0,y:0});
+   // Real keyboard-pressed combination (Space while Tab-focused), not a
+   // programmatic :active CSS toggle. Release before advancing to next Tab.
+   await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:" ",code:"Space",windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+   const pressed=await cdp.js("(() => {const b=document.querySelector('#"+id+"'),r=b.getBoundingClientRect(),s=getComputedStyle(b),i=[...b.querySelectorAll('.bui-icon')].find(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>8)?.getBoundingClientRect();return {id:b.id,active:b.matches(':active'),focusVisible:b.matches(':focus-visible'),outline:s.outlineWidth,iconW:i?.width,iconH:i?.height,w:r.width,h:r.height};})()");
+   await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:" ",code:"Space",windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+   assert("keyboard Space-pressed state preserves focus-visible "+id,pressed.active&&pressed.focusVisible&&parseFloat(pressed.outline)>=2,JSON.stringify(pressed));
+   assert("keyboard pressed visible icon and face remain stable "+id,pressed.iconW>=10&&pressed.iconH>=10&&Math.abs(pressed.w-original.w)<0.5&&Math.abs(pressed.h-original.h)<0.5,JSON.stringify(pressed));
  }
  const afterDisabled=await matrixTab();
  const disabledMatrix=await cdp.js("(() => {const b=document.querySelector('#v3-focus-disabled');return {disabled:b.disabled,focused:document.activeElement===b,ring:b.matches(':focus-visible')};})()");
@@ -514,7 +529,39 @@ try {
    assert("forced-color keyboard focus remains visible "+id,state.id===id&&state.visible&&state.width>=2&&state.style!=="none"&&state.color!=="rgba(0, 0, 0, 0)",JSON.stringify(state));
  }
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
- console.log("Existing Button appearance keyboard matrix:",JSON.stringify({normal:appearanceIds,disabledSkip:afterDisabled.id,reverse:reverse.id,forced:forcedAppearance.map(s=>({id:s.id,color:s.color,width:s.width}))})); if(interactiveServer){
+ console.log("Existing Button appearance keyboard matrix:",JSON.stringify({normal:appearanceIds,disabledSkip:afterDisabled.id,reverse:reverse.id,forced:forcedAppearance.map(s=>({id:s.id,color:s.color,width:s.width}))}));
+ // Selected is an independent toggle visual state, NOT keyboard focus.
+ // Exercise its real CSS and focus ring together without changing public API.
+ const selectedIds=appearanceIds.map(x=>x.replace("v3-focus-","v3-selected-"));
+ const selectedGeometry=await cdp.js("(() => Object.fromEntries([...document.querySelectorAll('.v3-lab-focus-actions .bui-button.toggled')].map(b=>{const r=b.getBoundingClientRect();return [b.id,{w:r.width,h:r.height}]})))()");
+ await cdp.js("document.querySelector('#v3-selected-start').focus()");
+ const selectedSemantics=[];
+ for(const id of selectedIds){
+   const state=await matrixTab();
+   const selected=await cdp.js("(() => {const b=document.querySelector('#"+id+"'),r=b.getBoundingClientRect(),s=getComputedStyle(b),i=[...b.querySelectorAll('.bui-icon')].find(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>8),v=i?.getBoundingClientRect();return {id:b.id,selected:b.classList.contains('toggled'),focusVisible:b.matches(':focus-visible'),ring:parseFloat(s.outlineWidth),iconClass:i?.className,iconWidth:v?.width,iconHeight:v?.height,iconInside:!!v&&v.left>=r.left-1&&v.right<=r.right+1&&v.top>=r.top-1&&v.bottom<=r.bottom+1,ariaPressed:b.getAttribute('aria-pressed'),w:r.width,h:r.height};})()");
+   selectedSemantics.push({id,ariaPressed:selected.ariaPressed});
+   const original=selectedGeometry[id];
+   assert("selected visual state and keyboard focus coexist "+id,state.id===id&&selected.selected&&selected.focusVisible&&selected.ring>=2,JSON.stringify(selected));
+   assert("selected focused icon stays measurable with no layout shift "+id,selected.iconWidth>=10&&selected.iconHeight>=10&&selected.iconInside&&original&&Math.abs(original.w-selected.w)<0.5&&Math.abs(original.h-selected.h)<0.5,JSON.stringify({selected,original}));
+ }
+ // One selected + hovered + keyboard-focused example. Mouse movement is
+ // deliberately not a click, so it must not mutate toggle/keyboard modality.
+ const selectedPrimaryPos=await cdp.js("(() => {const b=document.querySelector('#v3-selected-transparent');b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
+ await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:selectedPrimaryPos.x,y:selectedPrimaryPos.y});
+ const combinedSelected=await cdp.js("(() => {const b=document.querySelector('#v3-selected-transparent'),r=b.getBoundingClientRect(),s=getComputedStyle(b),i=[...b.querySelectorAll('.bui-icon')].find(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>8)?.getBoundingClientRect();return {hover:b.matches(':hover'),selected:b.classList.contains('toggled'),focus:b.matches(':focus-visible'),outline:parseFloat(s.outlineWidth),iconW:i?.width,w:r.width,h:r.height};})()");
+ assert("selected plus hovered plus keyboard focus coexist",combinedSelected.hover&&combinedSelected.selected&&combinedSelected.focus&&combinedSelected.outline>=2&&combinedSelected.iconW>=10,JSON.stringify(combinedSelected));
+ await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:0,y:0});
+ if(selectedSemantics.some(x=>x.ariaPressed!=="true"))openAccessibilityGaps.push("Button Toggled=true is visually selected but does not expose aria-pressed=true; #428 migration/a11y gate");
+ console.log("Selected Button focus semantics audit:",JSON.stringify(selectedSemantics));
+
+ // Baseline behavior only: an unbound nullable Toggled parameter changes its
+ // CSS-selected state on Space key activation. Do not infer accessibility from it.
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:" ",code:"Space",windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:" ",code:"Space",windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ await sleep(300);
+ const toggleAfterSpace=await cdp.js("(() => {const b=document.querySelector('#v3-selected-transparent');return {stillFocused:document.activeElement===b,selected:b.classList.contains('toggled'),ariaPressed:b.getAttribute('aria-pressed'),focusVisible:b.matches(':focus-visible')};})()");
+ assert("keyboard Space activates existing nullable Toggled Button",toggleAfterSpace.stillFocused&&!toggleAfterSpace.selected&&toggleAfterSpace.focusVisible,JSON.stringify(toggleAfterSpace));
+ console.log("Selected Button native Space toggle baseline:",JSON.stringify(toggleAfterSpace)); if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
    await cdp.js("document.querySelector('#v3-show-route-exit-modal')?.click()");
