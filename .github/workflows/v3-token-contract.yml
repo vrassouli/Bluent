@@ -1,0 +1,51 @@
+name: Bluent v3 Token Contract
+
+on:
+  pull_request:
+    branches:
+      - bluent-v3
+    paths:
+      - ".github/workflows/v3-token-contract.yml"
+      - "scripts/quality/generate_v3_token_preview.py"
+      - "scripts/quality/generate_v3_scoped_brands.py"
+      - "scripts/quality/v3_theme_css_parser.py"
+      - "scripts/quality/test_v3_theme_css_parser.py"
+      - "scripts/quality/audit_v3_token_preview_contrast.py"
+      - "scripts/quality/check_v3_typography_source_contract.py"
+      - "src/Bluent.UI/Styles/Themes/**"
+      - "docs/v3/tokens/issue-418-*"
+  push:
+    branches:
+      - v3/issue-418-design-tokens
+    paths:
+      - ".github/workflows/v3-token-contract.yml"
+      - "scripts/quality/generate_v3_token_preview.py"
+      - "scripts/quality/generate_v3_scoped_brands.py"
+      - "scripts/quality/v3_theme_css_parser.py"
+      - "scripts/quality/test_v3_theme_css_parser.py"
+      - "scripts/quality/audit_v3_token_preview_contrast.py"
+      - "scripts/quality/check_v3_typography_source_contract.py"
+      - "src/Bluent.UI/Styles/Themes/**"
+      - "docs/v3/tokens/issue-418-*"
+
+permissions:
+  contents: read
+
+jobs:
+  token-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout v3 task branch
+        uses: actions/checkout@v4
+      - name: Set up Python 3
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reject malformed source CSS or drifted preview
+        run: |
+          python -m unittest discover -s scripts/quality -p 'test_v3_theme_css_parser.py' -v
+          python scripts/quality/generate_v3_token_preview.py --check
+          python scripts/quality/generate_v3_scoped_brands.py --check
+          python scripts/quality/check_v3_typography_source_contract.py
+          python scripts/quality/audit_v3_token_preview_contrast.py

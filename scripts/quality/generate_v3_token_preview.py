@@ -10,38 +10,23 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
+
+from v3_theme_css_parser import read_theme_variables
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "docs/v3/tokens/issue-418-token-schema.preview.json"
 CSS_OUT = ROOT / "docs/v3/tokens/issue-418-opt-in.preview.css"
 MATRIX_OUT = ROOT / "docs/v3/tokens/issue-418-brand-matrix.preview.json"
 THEME_DIR = ROOT / "src/Bluent.UI/Styles/Themes"
-DECL_RE = re.compile(r"(?<![A-Za-z0-9_-])(--[\w-]+)\s*:\s*([^;{}]+)\s*;")
-
-
 def load_source_tokens(path: Path, names: list[str]) -> dict[str, str]:
-    if not path.is_file():
-        raise ValueError(f"Missing emitted CSS: {path.relative_to(ROOT)}")
-    raw = path.read_text(encoding="utf-8")
-    entries: dict[str, list[str]] = {}
-    for key, value in DECL_RE.findall(raw):
-        if key in names:
-            entries.setdefault(key, []).append(value.strip())
-    found: dict[str, str] = {}
-    for name in names:
-        values = entries.get(name, [])
-        if not values:
-            raise ValueError(f"Missing source variable {name}: {path.name}")
-        # Never silently choose a value if a future Sass build emits
-        # contradictory declarations of the same variable in one mode.
-        if len({x.lower() for x in values}) > 1:
-            raise ValueError(f"Conflicting source values for {name}: {path.name}: {values}")
-        found[name] = values[-1]
-    return found
-
+    mode = path.stem.rsplit("-", 1)[-1]
+    values = read_theme_variables(path, mode)
+    missing = sorted(set(names) - values.keys())
+    if missing:
+        raise ValueError(f"Missing source variable(s) {missing}: {path.name}")
+    return {name: values[name] for name in names}
 
 def contract(manifest: dict) -> tuple[str, dict]:
     if manifest.get("issue") != 418:

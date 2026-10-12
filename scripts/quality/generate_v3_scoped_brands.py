@@ -11,33 +11,16 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 from pathlib import Path
+
+from v3_theme_css_parser import read_theme_variables
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "docs/v3/tokens/issue-418-token-schema.preview.json"
 THEMES = ROOT / "src/Bluent.UI/Styles/Themes"
 OUTPUT = ROOT / "docs/v3/tokens/issue-418-brand-scopes.preview.css"
-SELECTOR_RE = re.compile(r"\[data-bui-theme=(light|dark)\]\s*\{([^{}]*)\}", re.S)
-DECL_RE = re.compile(r"(--[\w-]+)\s*:\s*([^;{}]+)\s*;")
-
-
 def read_source(brand: str, mode: str) -> dict[str, str]:
-    file = THEMES / f"theme-{brand}-{mode}.css"
-    content = file.read_text(encoding="utf-8")
-    matches = SELECTOR_RE.findall(content)
-    selected = [body for name, body in matches if name == mode]
-    if len(selected) != 1 or len(matches) != 1:
-        raise ValueError(f"Unexpected selector or multiple blocks: {file}")
-    values: dict[str, str] = {}
-    for key, value in DECL_RE.findall(selected[0]):
-        if key in values and values[key].lower() != value.lower():
-            raise ValueError(f"Conflicting source variable: {file.name} {key}")
-        values[key] = value.strip()
-    if not values:
-        raise ValueError(f"No variables in {file}")
-    return values
-
+    return read_theme_variables(THEMES / f"theme-{brand}-{mode}.css", mode)
 
 def generate() -> tuple[str, dict]:
     source = json.loads(SCHEMA.read_text(encoding="utf-8"))
