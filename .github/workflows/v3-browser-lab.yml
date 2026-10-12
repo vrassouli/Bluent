@@ -14,15 +14,9 @@ on:
       - "src/Bluent.UI/Components/ButtonComponent/**"
       - "src/Bluent.UI/Components/DialogComponent/**"
       - "src/Bluent.UI/Components/PopoverComponent/**"
-  push:
-    branches: [v3/issue-418-design-tokens]
-    paths:
-      - ".github/workflows/v3-browser-lab.yml"
-      - "scripts/quality/probe_v3_blazor_runtime.mjs"
-      - "docs/v3/tokens/issue-418-*"
-      - "src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3*"
-      - "src/Bluent.UI.Demo.SSR/**"
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: read
 

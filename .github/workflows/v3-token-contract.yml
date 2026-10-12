@@ -1,6 +1,7 @@
 name: Bluent v3 Token Contract
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - bluent-v3
@@ -14,20 +15,9 @@ on:
       - "scripts/quality/check_v3_typography_source_contract.py"
       - "src/Bluent.UI/Styles/Themes/**"
       - "docs/v3/tokens/issue-418-*"
-  push:
-    branches:
-      - v3/issue-418-design-tokens
-    paths:
-      - ".github/workflows/v3-token-contract.yml"
-      - "scripts/quality/generate_v3_token_preview.py"
-      - "scripts/quality/generate_v3_scoped_brands.py"
-      - "scripts/quality/v3_theme_css_parser.py"
-      - "scripts/quality/test_v3_theme_css_parser.py"
-      - "scripts/quality/audit_v3_token_preview_contrast.py"
-      - "scripts/quality/check_v3_typography_source_contract.py"
-      - "src/Bluent.UI/Styles/Themes/**"
-      - "docs/v3/tokens/issue-418-*"
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: read
 

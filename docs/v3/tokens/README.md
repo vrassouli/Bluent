@@ -217,6 +217,10 @@ The same real-user-modality test now performs pointer focus followed by Tab and 
 
 ## Dedicated real-browser v3 CI (draft #418)
 
-The opt-in browser research probe also has a [v3-only Windows GitHub Actions matrix](../../../.github/workflows/v3-browser-lab.yml): Chrome/Edge times Blazor WebAssembly/published InteractiveServer. Each job installs .NET 10 and Node 24, restores the solution, builds the actual Debug WASM demo, and runs the same CDP test used on Dev01, with a temporary browser profile and no production deployment. It retains failure logs for a short period. The workflow runs on the **v3 task-branch push** and **pull requests targeting bluent-v3** when relevant research/demo/theme files change; there is no trigger on stable Dev and no NuGet publication action. GitHub-hosted runner success must be inspected separately; local Dev01 pass is not CI evidence.
+The opt-in browser research probe also has a [v3-only Windows GitHub Actions matrix](../../../.github/workflows/v3-browser-lab.yml): Chrome/Edge times Blazor WebAssembly/published InteractiveServer. Each job installs .NET 10 and Node 24, restores the solution, builds the actual Debug WASM demo, and runs the same CDP test used on Dev01, with a temporary browser profile and no production deployment. It retains failure logs for a short period. The workflow runs on **pull requests targeting bluent-v3** when relevant research/demo/theme files change, or by manual dispatch; there is no trigger on stable Dev and no NuGet publication action. GitHub-hosted runner success must be inspected separately; local Dev01 pass is not CI evidence.
 
 This is not native Windows High Contrast, screen-reader testing or final #501 Penpot design acceptance.
+
+## Avoid duplicate browser CI work
+
+The draft v3 source/contract workflow and Windows browser matrix now run automatically on PR changes to bluent-v3 only, or by manual dispatch. Previously the same head commit generated simultaneous push and pull_request executions, duplicating the expensive four-way Windows matrix. Both workflows now use PR-head concurrency with cancel-in-progress for superseded commits. No changes to protected Dev/release workflows. GitHub-hosted final results must still be checked independently.
