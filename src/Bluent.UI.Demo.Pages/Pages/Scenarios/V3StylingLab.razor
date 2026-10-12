@@ -48,6 +48,7 @@
             }
             <Button id="v3-show-custom-fragment" Text="Show custom named fragment (no header)" OnClick="ShowCustomNamedFragment" />
             <Button id="v3-show-live-title" Text="Show Dialog with live changing heading" OnClick="ShowLiveTitleDialog" />
+            <Button id="v3-show-persian-dialog" Text="آزمایش توضیح فارسی و بستن پنجره" OnClick="ShowPersianAccessibleDialog" />
             <Button id="v3-show-initial-focus-modal" Text="Show modal focused on last action" OnClick="() => ShowInitialFocusModal(false)" />
             <Button id="v3-show-invalid-focus-modal" Text="Show modal with external focus target" OnClick="() => ShowInitialFocusModal(true)" />
             <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
@@ -201,6 +202,19 @@
                 .SetModalKeyboardNavigation()
                 .SetInitialFocusTargetId("v3-live-title-field")
                 .SetReturnFocusTargetId("v3-show-live-title"));
+    }
+    private void ShowPersianAccessibleDialog()
+    {
+        // Isolated D5 native VoiceOver research fixture, not a public API.
+        var scope = CurrentScope;
+        _ = DialogService.ShowAsync<V3DynamicTitleContent>(
+            "بررسی درخواست مرخصی", null,
+            config => config.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("بررسی درخواست مرخصی", "بستن پنجره")
+                .SetAccessibleDescription("برای تأیید درخواست مرخصی شماره ABC-123، اطلاعات را بررسی کنید؛ سپس پنجره را ببندید.")
+                .SetModalKeyboardNavigation()
+                .SetInitialFocusTargetId("v3-live-title-field")
+                .SetReturnFocusTargetId("v3-show-persian-dialog"));
     }
     private void ShowRouteExitModal()
     {

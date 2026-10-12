@@ -404,6 +404,24 @@ try {
  await sendModalKey("Escape");
  const liveClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-live-title'"),"dynamic heading modal close and return",16000);
  assert("live-title Dialog Escape restores launcher and tears down overlay",liveClosed);
+ // D5: Persian-first text, explicit localized close action, and live AX text.
+ // Unlike the English-heading demo, both name and description start Persian.
+ await cdp.js("document.querySelector('#v3-show-persian-dialog')?.click()");
+ const faDialog=await until(()=>cdp.js("(()=>{const d=document.querySelector('.dialog-wrapper .bui-dialog'),h=d?.querySelector('h2.title');if(!h||!d.hasAttribute('data-bui-v3-keyboard-bound'))return null;const ref=d.getAttribute('aria-describedby'),p=ref&&d.querySelector('#'+ref),close=d.querySelector('button[aria-label=\"بستن پنجره\"]');return {name:h.textContent.trim(),id:h.id,labelledBy:d.getAttribute('aria-labelledby'),description:p?.textContent.trim(),descRef:ref,descVisible:!!p&&p.getClientRects().length>0,descCount:ref?document.querySelectorAll('#'+ref).length:0,close:!!close,focused:document.activeElement?.id};})()"),"real Persian-heading Dialog rendered",20000);
+ const expectedFaDescription="برای تأیید درخواست مرخصی شماره ABC-123، اطلاعات را بررسی کنید؛ سپس پنجره را ببندید.";
+ assert("fully Persian Dialog heading linked and initial TextField focus",
+   faDialog.name==="بررسی درخواست مرخصی"&&faDialog.id===faDialog.labelledBy&&faDialog.focused==="v3-live-title-field",JSON.stringify(faDialog));
+ assert("Persian explanation is visible and uniquely referenced by aria-describedby",
+   faDialog.descVisible&&faDialog.descCount===1&&faDialog.description===expectedFaDescription,JSON.stringify(faDialog));
+ const faDocument=await cdp.send("DOM.getDocument",{depth:1});
+ const faNode=await cdp.send("DOM.querySelector",{nodeId:faDocument.root.nodeId,selector:".dialog-wrapper .bui-dialog"});
+ const faAxTree=await cdp.send("Accessibility.getPartialAXTree",{nodeId:faNode.nodeId,fetchRelatives:false});
+ const faAx=faAxTree.nodes?.find(x=>x.role?.value==="dialog");
+ assert("Chromium AX computes Persian accessible name and description",
+   faAx?.name?.value===faDialog.name&&faAx?.description?.value===expectedFaDescription,JSON.stringify({name:faAx?.name?.value,description:faAx?.description?.value}));
+ await cdp.js("document.querySelector('.dialog-wrapper button[aria-label=\"بستن پنجره\"]')?.click()");
+ const faClosed=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-persian-dialog'"),"localized Close button dismissal and return",19000);
+ assert("localized Persian Close button is actionable and restores launcher",faDialog.close&&faClosed);
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  // D5 lifecycle: remove an opt-in Dialog component from a live Blazor
  // render tree, without calling Close(). Check actual global keydown count.

@@ -103,6 +103,29 @@ def run(driver, base):
         check("dynamic title Dialog restores focus",
               wait("return !document.querySelector('.dialog-wrapper') && document.activeElement?.id==='v3-show-live-title'",
                    "dynamic close"))
+        # D5 Persian-first VoiceOver fixture, browser/WebKit semantics only.
+        # Native VoiceOver spoken captions must be checked independently.
+        click("#v3-show-persian-dialog")
+        persian = wait("""let d=document.querySelector('.dialog-wrapper .bui-dialog'),h=d?.querySelector('h2.title');
+            if(!h||!d.hasAttribute('data-bui-v3-keyboard-bound'))return null;
+            let ref=d.getAttribute('aria-describedby'),p=ref&&d.querySelector('#'+ref);
+            return {title:h.textContent.trim(),hId:h.id,label:d.getAttribute('aria-labelledby'),
+                    desc:p?.textContent.trim(),descVisible:!!p&&p.getClientRects().length>0,
+                    descCount:ref?document.querySelectorAll('#'+ref).length:0,
+                    close:!!d.querySelector('button[aria-label="بستن پنجره"]'),
+                    focus:document.activeElement?.id};""", "Persian-first named Dialog")
+        check("Persian accessible heading linked to visible h2",
+              persian["title"] == "بررسی درخواست مرخصی" and persian["hId"] == persian["label"])
+        check("Persian visible description has unique, valid IDREF",
+              persian["descVisible"] and persian["descCount"] == 1 and
+              persian["desc"] == "برای تأیید درخواست مرخصی شماره ABC-123، اطلاعات را بررسی کنید؛ سپس پنجره را ببندید.")
+        check("Localized Persian close action and actual field initial focus",
+              persian["close"] and persian["focus"] == "v3-live-title-field")
+        click('button[aria-label="بستن پنجره"]')
+        check("Clicking localized Persian Close restores caller focus",
+              wait("return !document.querySelector('.dialog-wrapper') &&"
+                   "document.activeElement?.id==='v3-show-persian-dialog'",
+                   "Persian accessible Close and focus return"))
         for i in range(3):
             click("#v3-mount-lifecycle-modal")
             wait("return !!document.querySelector('.bui-dialog[data-bui-v3-keyboard-bound] [data-v3-lifecycle-modal]')",
