@@ -40,3 +40,7 @@ The source-owned Penpot file now has two additive draft Focus candidate TokenSet
 ## Latest live verification (2026-10-13)
 
 Read [native token bridge update](../../../docs/v3/design/BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md). Both Dark and Light were verified as **real rendered native stroke values** on 6 enabled variants. A separate Light read-only run passed **71/71**, 12 linked strokes, 40 TokenSets/205 tokens. A later repeat Dark toggle froze the browser; **restore Light once Penpot reconnects**. Earlier notes calling Dark unverified are historical, not the current tested conclusion. These remain **not approved** public v3 tokens.
+
+### Final recovery addendum
+
+2026-10-13 final UI-state recovery: after the later Dark toggle suspended the plugin, the correct Penpot file connected again and the existing Light · Draft Mode theme was explicitly toggled active. The tool returned activeModes: [Light · Draft] and the exact Bluent v3 Design System file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000. Thus **the final default-Light restoration is now confirmed**. The earlier separate real six-variant Light and Dark readbacks and 71/71 Light audit remain the recorded actual stroke evidence; the last restore call verified the active theme, not a new screenshot or repeat of the 71-check suite. Public token signoff and native screen-reader/OS conformance remain open.

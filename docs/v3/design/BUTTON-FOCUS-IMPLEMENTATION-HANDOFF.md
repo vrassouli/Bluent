@@ -37,3 +37,7 @@ The five actual native Focus Visible Button variants and separate native Danger 
 ## Native design token validation update (2026-10-13)
 
 The connection reopened and real Penpot **Dark and Light** rendered Focus colors were verified on all six actual enabled native Button variants, followed by **71/71 Light native binding assertions**, zero failures, 12/12 stroke bindings and a live recount of **40 sets / 205 tokens**. See [native Penpot evidence](BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md). The original Dark evidence blocker is thus resolved, but the UI was later switched back to Dark during an additional audit attempt and the plugin froze; **restoring Light remains a pending housekeeping step on reconnection**. Approval of final public token names and actual OS/AT testing is a separate gate.
+
+### Final recovery addendum
+
+2026-10-13 final UI-state recovery: after the later Dark toggle suspended the plugin, the correct Penpot file connected again and the existing Light · Draft Mode theme was explicitly toggled active. The tool returned activeModes: [Light · Draft] and the exact Bluent v3 Design System file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000. Thus **the final default-Light restoration is now confirmed**. The earlier separate real six-variant Light and Dark readbacks and 71/71 Light audit remain the recorded actual stroke evidence; the last restore call verified the active theme, not a new screenshot or repeat of the 71-check suite. Public token signoff and native screen-reader/OS conformance remain open.
