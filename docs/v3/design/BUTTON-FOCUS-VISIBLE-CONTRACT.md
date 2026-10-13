@@ -122,3 +122,5 @@ Observed actual gap: toggled Button lacks `aria-pressed`, to be implemented and 
 ### 2026-10-13 page-07 and #501 visual alignment repair
 
 The visual baseline was corrected in live Penpot after user review: page-07 Persian RTL and LTR text boxes align to their Button/Input vertical centers, and the page-38 outer/contrast Focus vectors now use identical 3px/1px offsets from the actual face/border on **52** focus specimens. See [Button alignment repair and reproducible live audit](BUTTON-FOCUS-ALIGNMENT-REPAIR.md). The original 25-state native family and Focus Off/Disabled states remain unchanged. This is an independent design correction, **not acceptance** of the #418 focus stroke semantic choice or released production CSS.
+
+The page-20 native Button Size×Layout sources and #418 page-35 Persian disabled/reflow examples were also geometrically re-centered in Penpot after inspecting the original sources. Page-19 native Button and page-25 Persian RTL labels were already centered. Review and repeatable audit: [alignment repair](BUTTON-FOCUS-ALIGNMENT-REPAIR.md) and `penpot_v3_button_typography_alignment_audit.js`.

@@ -36,4 +36,22 @@ Existing source-linked components were **not detached or recreated**; the ring v
 
 ## Latest live audit
 
-Awaiting next reliable connected Penpot run (the edit and visual exports above were directly performed).
+**VERIFIED live in the actual Penpot plugin on 2026-10-13**, after original edits and after subsequent source Button Size×Layout corrections:
+- `penpot_v3_button_focus_alignment_audit.js`: **469/469 structural checks, 52/52 Focus ring pairs, five page-07 labels and four Split focus targets; `pass=true`, `failures=[]`**. The audit was run a second time after editing the native page-20 components and still passed.
+- `penpot_v3_button_focus_special_audit.js` (updated expected outer/gap geometry): **105/105 checks, `pass=true`, `failures=[]`**, including the independent Danger native Focus family and Split inset rings.
+- `penpot_v3_button_typography_alignment_audit.js`: **215/215 checks, 50 aligned source/review specimens, `pass=true`, `failures=[]`**, covering native Button pages 19, 20 and 25, plus design surfaces 07, 34 and 35.
+- Exported and visually inspected real Penpot PNGs **after** changes on page 07, page 20 native Size×Layout family, page 35 Persian reflow, and the page-38 Light/Dark, interaction-state, size/RTL, Danger/Split and native Appearance×Focus boards.
+
+All reported counts are actual execution results; they verify geometric consistency, not unreviewed glyph optical alignment, final #418 focus color contrast, native OS Focus/Zoom or WCAG/AT compliance.
+
+## Follow-up: canonical Button source typography and #418 Persian reflow
+
+The user's page-07 observation is not necessarily confined to that one example. A read-only inspection of the actual connected Penpot Button source showed:
+
+- **Page 19**, `19 · Bluent Button native variants`: 25 source variants already use text boxes exactly aligned to the face height with native `verticalAlign=center`. **No source changes made**.
+- **Page 25**, `25 · Button Persian RTL typography`: all six source RTL/LTR×size variants already geometrically center the Persian label. **No changes made**.
+- **Page 20**, `20 · Bluent Button sizes and layout`: all six genuine Size×Layout native source variants had glyph `+` text boxes with inconsistent vertical center; for Small and Medium icon-only, the glyph's *box* also extended horizontally beyond the actual Button face. Fixed the existing native source components in Penpot: glyph y/height now exactly equals the Face y/height and native vertical alignment is Center; in Icon-only layouts the glyph width is capped to the Face and centered horizontally. Icon+label `Caption` boxes also match the Face height/vertical center. **Outside explanatory captions for Icon-only are deliberately untouched**. A real PNG export of the six native source variants was visually inspected after the correction. No variants were replaced or detached.
+- **Page 34**, `34 · Concurrent brand-scoped theme hosts · #418`: both light/dark Button labels already have the exact Button height/y and center alignment. No changes needed.
+- **Page 35**, `35 · Persian validation states and reflow · #418`: the two Persian Disabled Button labels and the long two-line Persian Reflow Button label had fractional vertical center offsets of 0.203125px / 0.796875px. Re-anchored their text boxes to each actual Button face with native `verticalAlign=center`. A real PNG export was visually reviewed; multi-line Persian content remains visible.
+
+The repeatable independent **read-only** `scripts/quality/penpot_v3_button_typography_alignment_audit.js` checks the source native Button variants on pages 19/20/25 and page-07/34/35 review surfaces, plus icon-only horizontal containment and all source variant counts. **Do not claim a live pass until actually executed in the connected Penpot plugin.** This is a structural/typographic box alignment review only: the final preferred Persian font, optical glyph baseline and browser-rendered font shaping still require further approval and visual QA.
