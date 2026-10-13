@@ -83,3 +83,22 @@ The connected, project-owned `Bluent v3 Design System` file was opened and edite
 **Still open for #501 / #428:** native Danger, Square/Circular and compound/split review specimens and keyboard behavior, #418 focus-ring contrast/token decision (the original ring is low contrast across 10 Dark brand modes), cross-platform a11y/assistive-technology verification, and full v3 Button demo/docs/migration implementation. Known `Toggled`-without-`aria-pressed` gap remains under #428; this Penpot design does not repair that runtime semantic issue. Keep #501 **In progress** and PR #502 **Draft**, targeting `bluent-v3` only; `Dev`/2.x/NuGet unchanged.
 
 Repeatable connected-design read-only check: `scripts/quality/penpot_v3_button_focus_matrix_audit.js`.
+
+## 2026-10-13 follow-up — Danger, shapes, compound and split focus designs
+
+**Editable Penpot board created and visually inspected:** page `38 · Button Focus Visible states · #501` (`535db143-a732-807e-8008-c64d2fb91b9a`) in project-owned file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, board **`cd054205-a525-80d8-8008-c8513c9cdb13`**, caption `#501 · Danger, shape and split Focus Visible`. Actual export PNG was inspected **after** fixing wrong Split sample labels, ensuring all four focus-target captions are correct.
+
+Source of the design was **inspected, not guessed**:
+- Existing `ButtonAppearance` is `Default / Primary / Danger / Outline / Subtle / Transparent`, `ButtonShape` is `Rounded / Circular / Square`; `Button` exposes `Text` and `SecondaryText`.
+- Existing `Button.razor` builds Split as two separate Bluent Buttons inside `ButtonGroup` when both `OnClick` and `Dropdown` are supplied. The group CSS removes *interior* radii and mirrors outside corners in RTL.
+- The native Penpot page `21 · Button Bluent-specific API anatomy` (`e31294c6-7c55-805f-8008-c5912770e8ab`) provides the current Danger `190×45/r6`, Circular `46×45/r23`, Compound `244×45/r6` and Split illustrations; the new review board was **redrawn with native editable Text and Rectangle shapes after confirming those source geometries**. They are **not linked component instances**; do not misrepresent them as authored variants or the final source of truth for runtime CSS.
+
+New review examples:
+- Danger / Rounded: `Delete record`, red `#B42330`, dual-stroke focus candidate, no content-bound change;
+- Circular (icon-only) and Square (icon-only), both measured `46×45`, radius 23 versus 0 and separate dual-stroke rings;
+- Compound `Save changes` / `Saved to workspace` with a two-line, source-consistent face and focus outside the overall compound button;
+- **Split**: four independent examples—LTR Main focus, LTR Menu focus, RTL Main focus, RTL Menu focus. Two separate focus targets, each drawn as its own part of an adjacent `136+44` review pair; normal outside rounded corners and **zero inner corner radius** per existing ButtonGroup CSS. Inset double-stroke focus was selected as an **experimental strategy to avoid obscuring the sibling action**, not a final approved token, CSS implementation or WCAG assertion. Normal DOM tab order and popup semantics still require a real browser probe.
+
+**Repeatable evidence:** `scripts/quality/penpot_v3_button_focus_special_audit.js` executed **inside live Penpot**, returning `pass=true`, **96 geometry/shape checks, 0 failures**. The separately established #419 25-state family and #501 10-variant focus family are unchanged. `node --check` confirmed the audit script is syntactically valid; it needs a real connected Penpot context to execute. The board was visually exported to PNG and reviewed.
+
+**Unresolved gates:** connect candidate ring values to accepted #418 focus tokens/contrast across 10 brand Light/Dark hosts; run real FocusVisible/keyboard Tab, Shift+Tab, Enter, Space and browser keyboard flow per button and Split target; verify forced colors, zoom and screen reader semantics; finish #428 demo, Skills and migration. New specialized examples are editable *design concepts*, not native library variants or release-ready Blazor changes. Keep #501 **In progress**, PR #502 **Draft**, target `bluent-v3` only; `Dev`/2.x/NuGet unchanged.
