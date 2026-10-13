@@ -2,6 +2,14 @@
 
 **2026-10-13 · Reviewer decision required, not an accepted public API.** Epic #416, opt-in research [PR #500](https://github.com/vrassouli/Bluent/pull/500), native Button design [#501](https://github.com/vrassouli/Bluent/issues/501). The shipped version 2.x and its CSS are unaffected.
 
+## 2026-10-13 explicit maintainer review — brand Button ring / underline-only TextField
+
+The maintainer tested the interactive three-way preview and prefers the **existing brand-colored Button focus outline**, not either black/white Focus2 proposal. Brand focus remains the default; Focus2 simple and double-ring stay opt-in design experiments, **not a public default or approved production API**. Double-ring is relabeled Focus2 دولایه (آزمایشی), not پیشنهادی. The visual preference **does not resolve** the previously measured 1.94–2.15:1 ring/surface contrast in tested Dark brand modes; a brand-faithful accessible alternative must still be designed and approved before release.
+
+The maintainer rejected the full rectangular focus outline around TextField because the actual library has an existing animated, brand-colored 2px bottom underline. The styling lab previously applied one focus rule to both Button and Field; it now applies the full ring **only to Buttons** and lets fields retain their native focus-within pseudo-element underline. In forced-colors the field underline receives OS Highlight, but no additional frame. Neither core Bluent Field styles nor released NuGet changed.
+
+Real Chromium WASM tests measured normal Light, Dark and emulated Forced Colors: field outline-style none, fully extended underline transform, solid visible 2px bottom stroke, with 592/592 full browser assertions passing after the new state-changing field checks were moved to the end of the suite. Native OS/AT and final brand-dark contrast approval remain separate gates. D1/D2 below now concern the **unselected Focus2 research alternatives**, not the default visual direction.
+
 ## What is proven
 
 | Subject | Actual repeatable evidence |
@@ -16,9 +24,9 @@
 
 ## Decisions to explicitly accept or revise
 
-**D1 — Semantic source and naming.** Candidate uses existing Fluent-like `--colorStrokeFocus2` as the accessible outer ring across all 20 tested brand/modes; neutral dark gets white, light gets black. **Accept or revise** before removing the suffix `-candidate` or integrating the token in a production Button selector. Names in this document are *experiment names*, not public contract. Retain the existing brand-focus variable for backward compatibility. If a differentiated focus ring is desired on colored/translucent surfaces, specify separate source/semantic roles and test those backgrounds before adoption.
+**D1 — Semantic source and naming (unselected research alternative).** Candidate uses existing Fluent-like `--colorStrokeFocus2` as the accessible outer ring across all 20 tested brand/modes; neutral dark gets white, light gets black. **Accept or revise** before removing the suffix `-candidate` or integrating the token in a production Button selector. Names in this document are *experiment names*, not public contract. Retain the existing brand-focus variable for backward compatibility. If a differentiated focus ring is desired on colored/translucent surfaces, specify separate source/semantic roles and test those backgrounds before adoption.
 
-**D2 — Two-stroke geometry and pointer/keyboard semantics.** Proposed separate 2px outer + 1px contrast gap, outer at 1px outline-offset and shadow gap painted without changing Button box dimensions. Only `:focus-visible` should show keyboard ring, and Disabled must not show a misleading keyboard focus specimen. For Split/adjacent buttons, a separately approved inset variant is required to avoid obscuring the sibling button. **Accept or revise** as the v3 Focus primitive, not an unconditional global CSS change.
+**D2 — Two-stroke geometry and pointer/keyboard semantics (unselected research alternative).** Proposed separate 2px outer + 1px contrast gap, outer at 1px outline-offset and shadow gap painted without changing Button box dimensions. Only `:focus-visible` should show keyboard ring, and Disabled must not show a misleading keyboard focus specimen. For Split/adjacent buttons, a separately approved inset variant is required to avoid obscuring the sibling button. **Accept or revise** as the v3 Focus primitive, not an unconditional global CSS change.
 
 **D3 — Forced colors and color roles.** Under actual OS forced-colors mode, the focus ring should paint with a valid **system color** such as `Highlight` and must not rely on nonpainted box shadows. Browser emulation has been tested; real Windows high contrast and assistive-technology review remains a separate user acceptance gate. **Accept or revise** system-color and contrast-gap mapping.
 
@@ -39,7 +47,7 @@ Open the **WebAssembly demo on Dev01** at `http://127.0.0.1:5080/v3/styling-lab`
 
 - **فعلی (رنگ برند)** — existing default candidate, no experimental Focus2 opt-in.
 - **Focus2 ساده** — source-backed high-contrast single outline candidate.
-- **Focus2 دولایه (پیشنهادی)** — separate 2px outer ring and canvas-colored 1px inner gap with corrected symmetric face offsets and overlap z-index.
+- **Focus2 دولایه (آزمایشی)** — separate 2px outer ring and canvas-colored 1px inner gap with corrected symmetric face offsets and overlap z-index.
 
 Choose a preview, use **Tab** (not only pointer click) to keyboard-focus the six appearance buttons, then use top-level **Switch to dark/light** and **Switch to RTL/LTR** to compare. A live status sentence identifies the chosen preview. These controls are an opt-in demo affordance, *not* a public shipping Button property or token approval. The keyboard reviewer selection itself is exercised by the real Chromium CDP test and reset to baseline before the existing focus/browser matrix.
 

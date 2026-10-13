@@ -252,3 +252,7 @@ Connected Penpot native follow-up: both Light and Dark showed the correct actual
 ### Final recovery addendum
 
 2026-10-13 final UI-state recovery: after the later Dark toggle suspended the plugin, the correct Penpot file connected again and the existing Light · Draft Mode theme was explicitly toggled active. The tool returned activeModes: [Light · Draft] and the exact Bluent v3 Design System file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000. Thus **the final default-Light restoration is now confirmed**. The earlier separate real six-variant Light and Dark readbacks and 71/71 Light audit remain the recorded actual stroke evidence; the last restore call verified the active theme, not a new screenshot or repeat of the 71-check suite. Public token signoff and native screen-reader/OS conformance remain open.
+
+## Focus reviewer decision (2026-10-13)
+
+Maintainer preference: **brand-colored Button focus ring** is the default, and **TextField keeps only its native animated bottom underline**. The Styling Lab no longer frames TextFields; emulated forced colors maintains an OS-highlight underline. Local Chromium suite: **592/592 pass**. Focus2 remains an unapproved comparison and brand-dark focus contrast still needs work. See [TextField design review](TEXTFIELD-FOCUS-REVIEW.md).

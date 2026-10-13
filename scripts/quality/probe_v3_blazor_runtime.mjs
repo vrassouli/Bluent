@@ -59,6 +59,9 @@ try {
  assert("Blazor Button plus opt-in CSS",initial.opted&&initial.asset&&!!initial.color,JSON.stringify(initial));
  const field=await cdp.js("(()=>{const f=document.querySelector('.v3-lab-field .bui-field'),input=document.querySelector('#v3-experiment-name');return f&&input&&{background:getComputedStyle(f).backgroundColor,border:getComputedStyle(f).borderTopColor};})()");
  assert("real Blazor TextField under alias bridge",field&&!!field.background&&!!field.border,JSON.stringify(field));
+
+
+
  const stateSemantics=await cdp.js("(()=>{const disabled=document.querySelector('#v3-disabled-button'),input=document.querySelector('#v3-invalid-field'),label=document.querySelector('label[for=v3-invalid-field]'),hint=document.querySelector('#v3-invalid-description'),field=input?.closest('.bui-field');return {disabled:disabled?.disabled,disabledTabIndex:disabled?.tabIndex,invalid:input?.getAttribute('aria-invalid'),described:input?.getAttribute('aria-describedby')===hint?.id,label:label?.textContent?.trim(),border:field&&getComputedStyle(field).borderTopColor,normalBorder:getComputedStyle(document.querySelector('.v3-lab-field .bui-field')).borderTopColor,danger:getComputedStyle(field).getPropertyValue('--colorStatusDangerBorder2').trim(),text:hint?.textContent?.trim()};})()");
  assert("disabled Bluent Button is natively disabled",stateSemantics.disabled===true&&stateSemantics.disabledTabIndex===0,JSON.stringify(stateSemantics));
  const disabledFocus=await cdp.js("(()=>{const b=document.querySelector('#v3-disabled-button');b.focus();return {focused:document.activeElement===b,disabled:b.disabled}})()");
@@ -817,6 +820,32 @@ try {
  }
  console.log("Focus2 actual screenshot top/bottom paint parity:",
    JSON.stringify({samples:paintSamples.length,failures:paintSamples.filter(x=>!x.topMatches||!x.bottomMatches)}));
+ // User review #418: don't frame TextField with a Button-style outline.
+ // Its actual Fluent/Bluent :focus-within::after underline is the visible
+ // focus indicator. Verify it survives Light/Dark and emulated forced colors.
+ const fieldFocusModes=[];
+ for(const mode of ["light","dark"]){
+   await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';document.getElementById('v3-experiment-name').focus();})()");
+   await new Promise(resolve=>setTimeout(resolve,350)); // let genuine underline animation settle
+   const observed=await cdp.js("(() => {const input=document.getElementById('v3-experiment-name'),f=input.closest('.bui-field'),s=getComputedStyle(f),u=getComputedStyle(f,'::after'),b=document.getElementById('v3-token-action'),bs=getComputedStyle(b);return {mode:document.querySelector('.v3-lab-surface').dataset.buiTheme,focused:document.activeElement===input,within:f.matches(':focus-within'),outerOutline:s.outlineStyle,outerWidth:parseFloat(s.outlineWidth),underlineWidth:parseFloat(u.borderBottomWidth),underlineStyle:u.borderBottomStyle,underlineColor:u.borderBottomColor,underlineTransform:u.transform,buttonFocusRule:bs.getPropertyValue('--v3-lab-focus').trim()};})()");
+   fieldFocusModes.push(observed);
+   assert("TextField uses only native bottom focus stroke, no extra frame "+mode,
+     observed.mode===mode&&observed.focused&&observed.within&&
+     (observed.outerOutline==="none"||observed.outerWidth===0)&&
+     observed.underlineWidth>=2&&observed.underlineStyle==="solid"&&
+     !observed.underlineTransform.includes("matrix(0,")&&
+     observed.underlineColor!=="rgba(0, 0, 0, 0)",JSON.stringify(observed));
+ }
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
+ const forcedField=await cdp.js("(() => {const input=document.getElementById('v3-experiment-name'),f=input.closest('.bui-field'),s=getComputedStyle(f),u=getComputedStyle(f,'::after');return {forced:matchMedia('(forced-colors: active)').matches,within:f.matches(':focus-within'),outline:s.outlineStyle,width:parseFloat(s.outlineWidth),underlineColor:u.borderBottomColor,underlineStyle:u.borderBottomStyle,underlineWidth:parseFloat(u.borderBottomWidth),underlineTransform:u.transform};})()");
+ assert("forced-colors TextField keeps own visible underline without an outer ring",
+   forcedField.forced&&forcedField.within&&(forcedField.outline==="none"||forcedField.width===0)&&
+   forcedField.underlineStyle==="solid"&&forcedField.underlineWidth>=2&&
+   forcedField.underlineColor!=="rgba(0, 0, 0, 0)"&&
+   !forcedField.underlineTransform.includes("matrix(0,"),JSON.stringify(forcedField));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ await cdp.js("(() => {document.getElementById('v3-experiment-name').blur();document.querySelector('.v3-lab-surface').dataset.buiTheme='light';})()");
+ console.log("Native TextField underline-only focus (user review):",JSON.stringify({normal:fieldFocusModes,forced:forcedField}));
  if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.

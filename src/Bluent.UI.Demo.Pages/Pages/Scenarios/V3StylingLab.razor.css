@@ -34,10 +34,18 @@
     min-height: var(--v3-lab-control-height);
     transition-duration: var(--durationFaster, 100ms);
 }
-.v3-lab-surface ::deep .bui-button:focus-visible,
-.v3-lab-surface ::deep .bui-field:focus-within {
+/* Buttons need a keyboard focus ring. Real Bluent fields already expose their
+   own animated, brand-colored bottom stroke; don't add a second frame. */
+.v3-lab-surface ::deep .bui-button:focus-visible {
     outline: 2px solid var(--v3-lab-focus);
     outline-offset: 2px;
+}
+/* The regular field underline remains the focus indicator even when
+   the OS overrides colors and disables ornamental effects. */
+@media (forced-colors: active) {
+    .v3-lab-surface ::deep .bui-field:focus-within::after {
+        border-bottom-color: Highlight;
+    }
 }
 .v3-lab-field {
     display: flex;
