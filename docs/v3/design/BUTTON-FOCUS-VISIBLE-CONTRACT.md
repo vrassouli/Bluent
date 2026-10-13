@@ -66,3 +66,20 @@ A correctly named Penpot page and an empty board **are only placeholders**, not 
 
 **Still open for #501:** tie ring colors/strokes to approved #418 semantic tokens (current light/dark black/white values are design candidates); actual Dark theme, forced-colors/high-contrast, Hover+Focus / Selected+Focus / Pressed+Focus, Danger and alternate sizes/shapes/RTL, and real Blazor keyboard/browser/demo evidence under #428. Do not mark this issue Done merely because the 10 focus variants exist.
 
+
+## 2026-10-13 live Penpot extension — interaction, size and RTL focus
+
+The connected, project-owned `Bluent v3 Design System` file was opened and edited on the **correct** page `38 · Button Focus Visible states · #501` (`535db143-a732-807e-8008-c64d2fb91b9a`).
+
+**Editable native review boards, actually created and visually exported:**
+
+- **Focus × interaction** `cd054205-a525-80d8-8008-c84dc7f13d55`: 5 appearances (Primary, Secondary, Outline, Subtle, Transparent) × 4 interaction states (Hover, Pressed, Selected, Disabled) = **20 linked live Penpot component instances** of the existing `Appearance × State` family from page 19. For the 15 enabled examples, there are **30 separate editable ring rectangles** (outer stroke + contrast gap); the 5 Disabled examples deliberately have **zero rings**. The underlying instances retain their original dimensions and native state visuals.
+- **Sizes, icon-only, Persian direction** `cd054205-a525-80d8-8008-c84ea8fb870b`: **6 linked native** Small/Medium/Large × Icon-and-label/Icon-only component instances from page 20, plus **6 linked native** LTR/RTL × Small/Medium/Large Persian instances from page 25; every specimen has an editable outer and gap stroke fitted against the exact existing component **Face** / **Button face** shape (24 additional ring rectangles).
+- The two boards were each exported as actual Penpot PNGs and visually inspected. Focus strokes are visually distinct from the underlying selected/pressed/hover states; Persian icon order visibly mirrors between directions. They are **design evidence**, not runtime browser snapshots.
+- Live API read-back on 2026-10-13 verified: **20 interaction source links, 30 interaction rings, 5 Disabled without rings, 12 additional size/RTL source links, 24 additional rings, 0 validation issues**. The original page-19 family still has **25 native state variants**; the separate page-38 Appearance × Focus native family still has **10 variants**. Source variants were not overwritten or detached.
+
+**Scope boundaries:** The existing 10 Appearance × Focus combinations are reusable **native variants**. The new combined-state and size/RTL boards are **linked, editable preview compositions**, not new multi-axis native variants nor production CSS. Ring colors are literal draft black/white visual candidates, not approved `#418` semantic tokens. Unlike the first rest-family preview, these source-linked examples demonstrate concurrent visual states and responsive/Persian designs. They do **not** certify WCAG, OS forced-colors, browser focus behavior or all text optical metrics.
+
+**Still open for #501 / #428:** native Danger, Square/Circular and compound/split review specimens and keyboard behavior, #418 focus-ring contrast/token decision (the original ring is low contrast across 10 Dark brand modes), cross-platform a11y/assistive-technology verification, and full v3 Button demo/docs/migration implementation. Known `Toggled`-without-`aria-pressed` gap remains under #428; this Penpot design does not repair that runtime semantic issue. Keep #501 **In progress** and PR #502 **Draft**, targeting `bluent-v3` only; `Dev`/2.x/NuGet unchanged.
+
+Repeatable connected-design read-only check: `scripts/quality/penpot_v3_button_focus_matrix_audit.js`.
