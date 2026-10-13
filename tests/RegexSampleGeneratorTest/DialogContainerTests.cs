@@ -169,6 +169,31 @@ public class DialogContainerTests
     }
 
     [Test]
+    public async Task LegacyDialogWithoutV3OptInKeepsOriginalUnnamedAndNoKeyboardAttributes()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            _ = services.GetRequiredService<IDialogService>().ShowAsync(TextContent("Legacy default behavior"));
+            await container.QuiescenceTask;
+
+            var html = container.ToHtmlString();
+            Assert.Multiple(() =>
+            {
+                Assert.That(html, Does.Contain("Legacy default behavior"));
+                Assert.That(html, Does.Not.Contain("role=\"dialog\""));
+                Assert.That(html, Does.Not.Contain("aria-modal=\"true\""));
+                Assert.That(html, Does.Not.Contain("aria-labelledby="));
+                Assert.That(html, Does.Not.Contain("aria-describedby="));
+                Assert.That(html, Does.Not.Contain("data-bui-v3-keyboard-modal"));
+                Assert.That(html, Does.Not.Contain("bui-v3-dialog-description"));
+            });
+        });
+    }
+
+    [Test]
     public async Task LegacyDialogHasNoImplicitDescriptionMarkup()
     {
         await using var services = CreateServices();

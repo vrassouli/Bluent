@@ -38,3 +38,11 @@ The `check_v3_nuget_boundary.py` script is deterministic, uses Python stdlib and
 New proposed **`.github/workflows/v3-local-pack-boundary.yml`** runs *only* as a v3 `bluent-v3` PR or manual workflow, with read-only repository permissions. The workflow builds one `Bluent.UI` package **locally inside its Windows GitHub runner temp folder**, runs the negative controls plus read-only package validator, and **has no NuGet publish/push, artifact upload, signing or release step**. Do not call the CI pass before its actual GitHub Actions verdict for the pushed commit.
 
 The separate production-host published-SSR smoke also passed locally using `scripts/quality/probe_v3_ssr_publish.ps1`, with four HTTP 200 validations: `/v3/styling-lab`, `/_content/Bluent.UI/bluent.ui.components.min.css`, `/_content/Bluent.UI.Demo.Pages/v3/issue-418.opt-in.preview.css`, and `/_framework/blazor.web.js`. The smoke starts and stops its own temporary Production host and does not deploy.
+
+## Additional opt-out backward-compatibility gate (2026-10-13)
+
+PR #500 includes isolated, opt-in v3 prototype code paths in actual Dialog, Popover and JavaScript library internals. The absence of a stable NuGet **publication** is not, by itself, proof that their default behavior is unchanged once integrated into a future v3 package.
+
+A new real `HtmlRenderer` + `IDialogService` regression test named `LegacyDialogWithoutV3OptInKeepsOriginalUnnamedAndNoKeyboardAttributes` verifies that an unnamed, non-opted-in service Dialog does **not** acquire v3 role=dialog, aria-modal, aria-labelledby, aria-describedby, keyboard-modal data attributes or experimental description markup. This is an explicit negative assertion against behavioral/API feature leakage, not just a default-property unit test.
+
+Dev01 actual result: the focused new test **1/1 passed**, and the entire affected .NET test project **61/61 passed**, Release configuration. The `.github/workflows/v3-local-pack-boundary.yml` isolated Windows runner now independently restores/runs this test project **before** building/inspecting the local (unpublished) NuGet package, and the workflow path filters include test source updates. CI must be checked on the new commit. Prior browser/other negative regression gates remain independent; this test is not a blanket v2 ABI compatibility certification.

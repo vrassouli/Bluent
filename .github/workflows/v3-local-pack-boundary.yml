@@ -11,6 +11,7 @@ on:
       - "scripts/quality/test_v3_nuget_boundary.py"
       - "src/Bluent.UI/**"
       - "src/Bluent.Core/**"
+      - "tests/RegexSampleGeneratorTest/**"
       - "docs/v3/tokens/NUGET-PACK-BOUNDARY-AUDIT.md"
 
 permissions:
@@ -34,6 +35,14 @@ jobs:
           python-version: "3.12"
       - name: Verify package boundary negative controls
         run: python -m unittest discover -s scripts/quality -p test_v3_nuget_boundary.py -v
+      - name: Verify legacy Dialog opt-out and v3 service compatibility
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet restore tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Restore test project failed" }
+          dotnet test tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj --configuration Release --no-restore --nologo --logger "console;verbosity=minimal"
+          if ($LASTEXITCODE -ne 0) { throw "Legacy/Dialog opt-in compatibility unit tests failed" }
       - name: Build the package locally without publishing
         shell: pwsh
         run: |
