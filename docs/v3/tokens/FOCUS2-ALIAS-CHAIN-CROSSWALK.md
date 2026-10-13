@@ -30,3 +30,18 @@ The original semantic `bluent.semantic.border.focus` / `--bui-v3-border-focus` r
 ## Migration and rollback
 
 No consumer migration is required while the candidate remains opt-in and unreleased. To revert this experiment remove the **three additive preview-only** tokens, regenerate the draft CSS/matrix and remove the associated browser contract test. Do **not** remove or rename `--bui-v3-border-focus`; existing nonopted-in styles must continue rendering identically. No changes in `Dev`, stable NuGet, or production deployments.
+
+## Real source-owned Penpot native token follow-through (2026-10-13)
+
+The same **draft** source→semantic→Button ring alias names were also created as actual editable native Penpot TokenSets in the project-owned `Bluent v3 Design System` file (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`), not merely drawn in a static diagram:
+
+| Mode | Candidate TokenSet ID | Source Focus2 |
+| --- | --- | --- |
+| Light | `5d7c31da-9e95-80b3-8008-c899a1590197` | `#000000` |
+| Dark | `5d7c31da-9e95-80b3-8008-c899a1719fcf` | `#FFFFFF` |
+
+Each set holds five actual native tokens: three for the source/semantic/Button outer ring plus two **Penpot-specific** aliases for the surface-colored contrast gap. Both were attached to their respective *existing* Light/Dark Mode themes and **twelve** actual `strokeColor` properties were bound on the five enabled native Button Appearance×Focus variants plus Danger (two strokes each). Light source/semantic/component alias resolution and stroke binding were verified in the connected Penpot plugin. The plugin **froze after toggling Dark and disconnected before the Dark readback and default-Light restore**, so those two checks remain unverified and must not be treated as passed. The committed repeatable connected-design audit and exact IDs are documented in #501 [native token bridge](../design/BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md).
+
+**Historical Penpot inventory updates:** before this experiment the file had 38 sets / 195 native tokens; these additive research sets bring its candidate inventory to **40 sets / 205 tokens**, pending a subsequent connected-file recount. Earlier 38/195 checkpoint counts in historical documents describe their original observation and should not be confused with the latest candidate state.
+
+The two Penpot contrast-gap alias names **are not in the 35-token CSS generator schema** because no final public CSS gap alias is approved. The extra Penpot-specific bindings must not be promoted to shipping CSS without explicit #418/#501 design acceptance.

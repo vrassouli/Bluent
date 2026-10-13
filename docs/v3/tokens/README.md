@@ -244,3 +244,5 @@ The [real-browser focus contrast review](FOCUS-RING-CONTRAST-CANDIDATE.md) compa
 ## 2026-10-13 Focus2 source-to-Button research alias
 
 The candidate high-contrast Focus Ring path is now present in the **opt-in-only** generator: `--colorStrokeFocus2` → `--bui-v3-focus-ring-strong-candidate` → `--bui-v3-button-focus-outer-candidate`. See [source-to-component crosswalk and browser checks](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). Do not replace the existing `--bui-v3-border-focus` or treat this candidate as a released public token contract.
+
+**Connected Penpot follow-through:** two additive native Focus2 research TokenSets and twelve actual vector stroke bindings now exist for the #501 Button Focus Visible family. Light native resolution verified; Dark readback and Light restoration remain pending because Penpot disconnected. [Native IDs and limitations](FOCUS2-ALIAS-CHAIN-CROSSWALK.md).
