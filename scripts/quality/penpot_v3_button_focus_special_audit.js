@@ -56,5 +56,22 @@ const original=penpotUtils.getPageByName("19 · Bluent Button native variants").
 const focusFamily=p.root.children.find(s=>s.isVariantContainer?.());
 ok(original?.variants?.variantComponents()?.length===25,"Original #419 25 variants changed");
 ok(focusFamily?.variants?.variantComponents()?.length===10,"Focus family 10 variants changed");
+const dangerNative=p.getShapeById("cd054205-a525-80d8-8008-c853b7ac86f0");
+ok(!!dangerNative?.isVariantContainer?.(),"Missing native Danger Focus family");
+const dangerComponents=dangerNative?.variants?.variantComponents()||[];
+ok(dangerNative?.variants?.properties?.join("|")==="Focus" && dangerComponents.length===2,"Danger Focus family axes/size");
+const off=dangerComponents.find(c=>c.variantProps.Focus==="Off")?.mainInstance();
+const vis=dangerComponents.find(c=>c.variantProps.Focus==="Visible")?.mainInstance();
+ok(!!off&&!!vis,"Native Danger Off/Visible missing");
+const relative=(root,name)=>{const s=root?.children?.find(x=>x.name===name);return s?[s.x-root.x,s.y-root.y,s.width,s.height]:null;};
+const f0=relative(off,"Danger face"),f1=relative(vis,"Danger face"),t0=relative(off,"Danger label"),t1=relative(vis,"Danger label");
+ok(!!f0&&!!f1&&f0.every((v,i)=>close(v,f1[i])),"Danger native Face reflow");
+ok(!!t0&&!!t1&&t0.every((v,i)=>close(v,t1[i])),"Danger native Text reflow");
+ok(off?.children?.filter(x=>x.name.startsWith("Focus ")).length===0,"Native Danger Off has focus decoration");
+ok(vis?.children?.filter(x=>x.name.startsWith("Focus ")).length===2,"Native Danger Visible missing two strokes");
+const visFace=vis?.children?.find(x=>x.name==="Danger face");
+const visOuter=vis?.children?.find(x=>x.name==="Focus Outer"),visGap=vis?.children?.find(x=>x.name==="Focus Contrast gap");
+ok(visFace&&visOuter&&close(visOuter.x,visFace.x-6)&&close(visOuter.y,visFace.y-6)&&close(visOuter.width,visFace.width+12),"Native Danger outer ring geometry");
+ok(visFace&&visGap&&close(visGap.x,visFace.x-3)&&close(visGap.y,visFace.y-3)&&close(visGap.width,visFace.width+6),"Native Danger contrast ring geometry");
 return {issue:501,file:penpot.currentFile.id,page:p.id,board:b.id,checks,failures:issues,pass:issues.length===0,
   scope:"Editable Penpot geometric design audit, not browser/AT/forced-colors compliance"};

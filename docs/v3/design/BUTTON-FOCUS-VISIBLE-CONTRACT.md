@@ -102,3 +102,13 @@ New review examples:
 **Repeatable evidence:** `scripts/quality/penpot_v3_button_focus_special_audit.js` executed **inside live Penpot**, returning `pass=true`, **96 geometry/shape checks, 0 failures**. The separately established #419 25-state family and #501 10-variant focus family are unchanged. `node --check` confirmed the audit script is syntactically valid; it needs a real connected Penpot context to execute. The board was visually exported to PNG and reviewed.
 
 **Unresolved gates:** connect candidate ring values to accepted #418 focus tokens/contrast across 10 brand Light/Dark hosts; run real FocusVisible/keyboard Tab, Shift+Tab, Enter, Space and browser keyboard flow per button and Split target; verify forced colors, zoom and screen reader semantics; finish #428 demo, Skills and migration. New specialized examples are editable *design concepts*, not native library variants or release-ready Blazor changes. Keep #501 **In progress**, PR #502 **Draft**, target `bluent-v3` only; `Dev`/2.x/NuGet unchanged.
+
+### Native Danger Focus mini-family (same session, after source-geometry board)
+
+Added a **separate genuine project-owned Penpot VariantContainer** `DRAFT · Danger / Focus (standalone)` (`cd054205-a525-80d8-8008-c853b7ac86f0`) on the same #501 page. Its native **Focus** axis contains:
+- **Off**: `cd054205-a525-80d8-8008-c853a461f58f`, main instance `cd054205-a525-80d8-8008-c85397afb1c1`, editable Danger face + centered text;
+- **Visible**: `cd054205-a525-80d8-8008-c853ac80bf98`, main instance `cd054205-a525-80d8-8008-c85397ea5b0c`, the same face/text plus two separately editable ring strokes.
+
+Created these from **new native Penpot Boards and library components**, then combined into a true variant container; did not modify the original #419 25-variant family or the separate #501 10-variant Fluent-Appearance × Focus family. A real PNG export of the 2-variant Danger family was visually inspected, including the added ring around the Visible example.
+
+The audit was extended to inspect **actual variant axis/tuples and normalized geometry**: source face and label bounds match between Off/Visible (no layout shift), exactly two rings exist only in Visible, and the outer/gap sizes match the Button face. Re-executed inside the live Penpot plugin: **105 checks, zero failures, `pass=true`**. This remains a **standalone DRAFT** native family, not integrated into a final all-appearances API or approved focus token system. Colors are literal visual candidates; the #418 token and browser conformance gates still apply.
