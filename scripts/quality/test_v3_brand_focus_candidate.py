@@ -54,6 +54,14 @@ class BrandFocusSourceTests(unittest.TestCase):
             self.assertFalse(r["hoverReviewRequired"], r["brand"])
             self.assertGreaterEqual(r["candidateHoverContrast"], 3.0, r["brand"])
 
+    def test_enhanced_same_brand_candidate_clears_both_normal_and_hover_hosts(self):
+        rows = [r for r in self.result["cases"] if r["mode"] == "dark"]
+        self.assertEqual(len(rows), 10)
+        for r in rows:
+            self.assertGreaterEqual(r["enhancedContrast"], 3, r["brand"])
+            self.assertGreaterEqual(r["enhancedHoverContrast"], 3, r["brand"])
+            self.assertNotEqual(r["brandForeground2"].lower(), r["currentBrand"].lower())
+
     def test_contrast_math_and_scope(self):
         self.assertAlmostEqual(contrast("#000000", "#FFFFFF"), 21, places=7)
         self.assertAlmostEqual(contrast("#292929", "#292929"), 1, places=7)

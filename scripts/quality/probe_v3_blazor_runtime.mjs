@@ -102,17 +102,22 @@ try {
    const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");
    if(swap!=="ok"){assert("brand asset "+brand,false,String(swap));continue;}
    for(const mode of ["light","dark"]) {
-     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,sourceCompound:getComputedStyle(h).getPropertyValue('--colorCompoundBrandStroke').trim(),sourceSurface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),brandCandidate:(() => {h.setAttribute('data-bui-v3-focus-brand-candidate','');const v=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()};})()");
+     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,sourceBrand:getComputedStyle(h).getPropertyValue('--colorBrandBackground').trim(),sourceEnhanced:getComputedStyle(h).getPropertyValue('--colorBrandForeground2').trim(),sourceSurface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),sourceHover:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1Hover').trim(),brandCandidate:(() => {h.setAttribute('data-bui-v3-focus-brand-candidate','');const v=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()};})()");
      const expected=hexRgb(modes[mode].tokens["bluent.color.brandBackground"]);
      combos.push({brand,mode,match:sample.button===expected,button:sample.button,expected});
      assert("brand "+brand+" "+mode+" on real Button",sample.button===expected,JSON.stringify(sample));
      assert("Word nested host independent of global stylesheet "+brand+" "+mode,sample.nestedWord===hexRgb(matrix.word.dark.tokens["bluent.color.brandBackground"]),sample.nestedWord);
      assert("primary Button text/source contrast "+brand+" "+mode,contrast(sample.button,sample.text)>=4.5,contrast(sample.button,sample.text).toFixed(3)+":1");
-     assert("brand-preserving focus candidate against native neutral host "+brand+" "+mode,
-       sample.brandCandidate.toLowerCase()===sample.sourceCompound.toLowerCase()&&
-       contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface))>=3,
-       JSON.stringify({brand,mode,focus:sample.brandCandidate,source:sample.sourceCompound,
-                       surface:sample.sourceSurface,ratio:contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface))}));
+     const expectedBrandFocus=mode==="dark"?sample.sourceEnhanced:sample.sourceBrand;
+     assert("brand-focus preview matches emitted source role "+brand+" "+mode,
+       sample.brandCandidate.toLowerCase()===expectedBrandFocus.toLowerCase(),
+       JSON.stringify({brand,mode,focus:sample.brandCandidate,source:expectedBrandFocus}));
+     assert("brand-preserving focus candidate on normal AND hover neutral hosts "+brand+" "+mode,
+       contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface))>=3&&
+       contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceHover))>=3,
+       JSON.stringify({brand,mode,focus:sample.brandCandidate,normal:sample.sourceSurface,
+                       hover:sample.sourceHover,normalRatio:contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface)),
+                       hoverRatio:contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceHover))}));
      assert("opt-in alias not leaked to root "+brand+" "+mode,sample.root==="",sample.root);
    }
  }

@@ -16,7 +16,9 @@ on:
       - "scripts/quality/audit_v3_brand_focus_candidate.py"
       - "scripts/quality/test_v3_brand_focus_candidate.py"
       - "scripts/quality/penpot_v3_field_brand_focus_review_audit.js"
+      - "scripts/quality/penpot_v3_brand_hover_host_audit.js"
       - "docs/v3/tokens/BRANDED-FOCUS-PENPOT-PAGE07-REVIEW.md"
+      - "docs/v3/tokens/BRANDED-FOCUS-HOVER-CANDIDATE.md"
       - "scripts/quality/check_v3_typography_source_contract.py"
       - "src/Bluent.UI/Styles/Themes/**"
       - "docs/v3/tokens/issue-418-*"
@@ -51,3 +53,4 @@ jobs:
           python -m unittest discover -s scripts/quality -p 'test_v3_brand_focus_candidate.py' -v
           python scripts/quality/audit_v3_brand_focus_candidate.py
           node --check scripts/quality/penpot_v3_field_brand_focus_review_audit.js
+          node --check scripts/quality/penpot_v3_brand_hover_host_audit.js

@@ -182,12 +182,15 @@
     max-width: 100%;
 }
 
-/* #418 user-preferred brand ring: isolated preview of the already emitted
-   Fluent compound-brand stroke (matches native TextField underline source).
+/* #418 user-preferred brand ring: isolated preview of the brighter, existing
+   Fluent brandForeground2 on Dark; native TextField underline stays unchanged.
    Default Button focus remains untouched; no public token/API promotion.
    Do not treat neutral-host contrast as proof on all filled surfaces. */
-.v3-lab-surface[data-bui-v3-focus-brand-candidate] {
-    --v3-lab-focus: var(--colorCompoundBrandStroke, var(--colorBrandBackground, #0f6cbd));
+/* Light keeps the selected original brand ring exactly as-is. Only the
+   experimental Dark preview uses the brighter source role approved for
+   research by the page-07 normal+hover comparison board. */
+.v3-lab-surface[data-bui-theme="dark"][data-bui-v3-focus-brand-candidate] {
+    --v3-lab-focus: var(--colorBrandForeground2, var(--colorCompoundBrandStroke, #0f6cbd));
 }
 @media (forced-colors: active) {
     .v3-lab-surface[data-bui-v3-focus-brand-candidate] {

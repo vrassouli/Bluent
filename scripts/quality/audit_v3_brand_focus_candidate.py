@@ -8,7 +8,7 @@ import json
 from audit_v3_token_preview_contrast import contrast
 from generate_v3_token_preview import THEME_DIR, load_source_tokens
 
-SOURCE_NAMES = ["--colorNeutralBackground1", "--colorNeutralBackground1Hover", "--colorBrandBackground", "--colorCompoundBrandStroke"]
+SOURCE_NAMES = ["--colorNeutralBackground1", "--colorNeutralBackground1Hover", "--colorBrandBackground", "--colorCompoundBrandStroke", "--colorBrandForeground2"]
 
 
 def audit():
@@ -24,6 +24,9 @@ def audit():
             candidate_ratio = contrast(candidate, surface)
             hover_surface = vals["--colorNeutralBackground1Hover"]
             candidate_hover_ratio = contrast(candidate, hover_surface)
+            enhanced = vals["--colorBrandForeground2"]
+            enhanced_ratio = contrast(enhanced, surface)
+            enhanced_hover_ratio = contrast(enhanced, hover_surface)
             if mode == "light":
                 if current_ratio < 3:
                     problems.append(f"{brand}/light current brand below 3:1: {current_ratio:.3f}")
@@ -34,6 +37,8 @@ def audit():
                     problems.append(f"{brand}/dark baseline changed: audit the selection")
                 if candidate_ratio < 3:
                     problems.append(f"{brand}/dark compound candidate below 3:1: {candidate_ratio:.3f}")
+                if enhanced_ratio < 3 or enhanced_hover_ratio < 3:
+                    problems.append(f"{brand}/dark brandForeground2 fails normal/hover hosts: {enhanced_ratio:.3f}/{enhanced_hover_ratio:.3f}")
             cases.append({
                 "brand": brand, "mode": mode, "neutralHost": surface,
                 "currentBrand": current, "currentContrast": round(current_ratio, 3),
@@ -42,6 +47,9 @@ def audit():
                 "hoverHost": hover_surface,
                 "candidateHoverContrast": round(candidate_hover_ratio, 3),
                 "hoverReviewRequired": candidate_hover_ratio < 3,
+                "brandForeground2": enhanced,
+                "enhancedContrast": round(enhanced_ratio, 3),
+                "enhancedHoverContrast": round(enhanced_hover_ratio, 3),
             })
     brands = {r["brand"] for r in cases}
     if len(cases) != 20 or len(brands) != 10:
