@@ -747,7 +747,61 @@ try {
  assert("two-layer candidate degrades safely to Highlight single outline in forced colors",
    dblForced.forced&&dblForced.visible&&dblForced.token.toLowerCase()==="highlight"
    &&dblForced.width>=2&&dblForced.offset===1&&dblForced.shadow==="none",JSON.stringify(dblForced));
- await cdp.send("Emulation.setEmulatedMedia",{features:[]}); if(interactiveServer){
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ // #418/#501: computed outline geometry is insufficient if a following action
+ // row paints OVER the bottom edge. Sample the *actual screenshot pixels* of
+ // real keyboard-focused Blazor Buttons. Decode Chromium's viewport PNG in
+ // the existing browser with Image/canvas (no external image packages).
+ const paintSamples=[],paintOriginal=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');return {brand:h.getAttribute('data-bui-brand'),mode:h.getAttribute('data-bui-theme')};})()");
+ await cdp.send("Emulation.setDeviceMetricsOverride",{width:1400,height:900,deviceScaleFactor:1,mobile:false});
+ try {
+   await cdp.js("document.querySelector('#v3-focus-start').focus()");
+   const start=await matrixTab();
+   assert("screenshot Focus2 starts on real keyboard-focused native Button",
+     start.id==="v3-focus-default"&&start.visible,JSON.stringify(start));
+   for(const mode of ["light","dark"]){
+     const style=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');"+
+       "h.dataset.buiBrand='default';h.dataset.buiTheme='"+mode+"';"+
+       "h.setAttribute('data-bui-v3-focus-double-ring-candidate','');"+
+       "const b=document.querySelector('#v3-focus-default');b.scrollIntoView({behavior:'instant',block:'center'});"+
+       "const s=getComputedStyle(b);return {keyboard:document.activeElement===b&&b.matches(':focus-visible'),"+
+       "outline:s.outlineColor,width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),"+
+       "position:s.position,zIndex:s.zIndex};})()");
+     await sleep(80);
+     const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
+     const pixels=await cdp.js("(async()=>{const im=new Image();"+
+       "im.src='data:image/png;base64,"+shot.data+"';await im.decode();"+
+       "const c=document.createElement('canvas');c.width=im.width;c.height=im.height;"+
+       "const ctx=c.getContext('2d');ctx.drawImage(im,0,0);"+
+       "const b=document.querySelector('#v3-focus-default'),r=b.getBoundingClientRect(),"+
+       "x=Math.round(r.left+r.width/2),ty=Math.round(r.top-2),by=Math.round(r.bottom+2);"+
+       "const pix=y=>Array.from(ctx.getImageData(x,y,1,1).data).slice(0,3);"+
+       "const color=getComputedStyle(b).outlineColor,"+
+       "expected=Array.from(color.matchAll(/[0-9]+/g),m=>Number(m[0])).slice(0,3);"+
+       "return {x,ty,by,expected,top:pix(ty),bottom:pix(by)};})()");
+     const topMatches=pixels.top.every((v,i)=>v===pixels.expected[i]),
+       bottomMatches=pixels.bottom.every((v,i)=>v===pixels.expected[i]);
+     const observation={mode,topMatches,bottomMatches,top:pixels.top,
+       bottom:pixels.bottom,expected:pixels.expected,stacking:style.zIndex,
+       keyboard:style.keyboard};
+     paintSamples.push(observation);
+     assert("actual painted Focus2 outer ring visible above AND below row "+mode,
+       style.keyboard&&style.width===2&&style.offset===1&&style.position==="relative"&&
+       Number(style.zIndex)>=1&&topMatches&&bottomMatches,JSON.stringify(observation));
+   }
+ } finally {
+   await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');"+
+     "h.removeAttribute('data-bui-v3-focus-double-ring-candidate');"+
+     (paintOriginal.brand===null?"h.removeAttribute('data-bui-brand');":
+       "h.setAttribute('data-bui-brand','"+paintOriginal.brand+"');")+
+     (paintOriginal.mode===null?"h.removeAttribute('data-bui-theme');":
+       "h.setAttribute('data-bui-theme','"+paintOriginal.mode+"');")+
+     "})()");
+   await cdp.send("Emulation.clearDeviceMetricsOverride");
+ }
+ console.log("Focus2 actual screenshot top/bottom paint parity:",
+   JSON.stringify({samples:paintSamples.length,failures:paintSamples.filter(x=>!x.topMatches||!x.bottomMatches)}));
+ if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
    await cdp.js("document.querySelector('#v3-show-route-exit-modal')?.click()");
@@ -769,7 +823,7 @@ try {
  }
  const passCount=checks.filter(x=>x.pass).length;
  const browserLabel=/msedge|edge/i.test(chromePath)?"Edge":"Chrome";
- const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,doubleRingViewportSamples:doubleNarrowStress.length,doubleRingViewportFailures:doubleNarrowStress.filter(x=>!x.pass).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
+ const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,doubleRingViewportSamples:doubleNarrowStress.length,doubleRingViewportFailures:doubleNarrowStress.filter(x=>!x.pass).length,paintedFocusSamples:paintSamples.length,paintedFocusFailures:paintSamples.filter(x=>!x.topMatches||!x.bottomMatches).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;

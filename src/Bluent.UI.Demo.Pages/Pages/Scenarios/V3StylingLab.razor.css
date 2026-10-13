@@ -187,6 +187,9 @@
 .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] ::deep .bui-button:focus-visible {
     outline-offset: 1px;
     box-shadow: 0 0 0 1px var(--v3-lab-surface);
+    /* Keep the ring painted above tightly stacked subsequent action rows. */
+    position: relative;
+    z-index: 1;
 }
 @media (forced-colors: active) {
     .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] {
