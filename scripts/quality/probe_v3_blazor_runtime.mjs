@@ -30,9 +30,16 @@ try {
  // its own working directory, exactly as the verified SSR smoke does.
  if(interactiveServer) {
    const published=join(dir,"published-ssr");
-   execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
+   // Cold Windows CI Release publish exceeded the former 120s timeout.
+   try {
+     execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
      "--configuration","Release","--no-restore","--nologo","--verbosity","quiet","--output",published],
-     {cwd,windowsHide:true,stdio:"pipe",timeout:120000});
+     {cwd,windowsHide:true,stdio:"pipe",timeout:300000});
+   } catch (e) {
+     throw Error("InteractiveServer publish failed before browser checks: "+(e.code||e.message)
+       +"; stderr="+String(e.stderr||"").slice(-3000)
+       +"; stdout="+String(e.stdout||"").slice(-2000));
+   }
    app=start("dotnet",["Bluent.UI.Demo.SSR.dll"],published,{
      ...process.env,ASPNETCORE_ENVIRONMENT:"Production",ASPNETCORE_URLS:origin
    });
@@ -584,6 +591,20 @@ try {
    const candidate=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={focusVisible:b.matches(':focus-visible'),outlineColor:s.outlineColor,outlineWidth:parseFloat(s.outlineWidth),strokeSource:getComputedStyle(h).getPropertyValue('--colorStrokeFocus2').trim(),surfaceColor:getComputedStyle(h).backgroundColor};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
    const candidateRatio=contrast(candidate.outlineColor,candidate.surfaceColor);
    candidateFocusSamples.push({brand,mode,ratio:candidateRatio,source:candidate.strokeSource});
+   // Independent opt-in two-layer browser treatment, aligned with the
+   // *unapproved* Light/Dark Penpot geometry board. No shipping CSS changes.
+   const doubleRing=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),b=document.querySelector('#v3-focus-default'),r=b.getBoundingClientRect();"+
+     "h.setAttribute('data-bui-v3-focus-double-ring-candidate','');const s=getComputedStyle(b),after=b.getBoundingClientRect();"+
+     "const got={focused:document.activeElement===b,visible:b.matches(':focus-visible'),color:s.outlineColor,"+
+     "width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),shadow:s.boxShadow,"+
+     "scope:getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim(),bg:getComputedStyle(h).backgroundColor,"+
+     "stable:Math.abs(r.width-after.width)<.1&&Math.abs(r.height-after.height)<.1&&Math.abs(r.x-after.x)<.1};"+
+     "h.removeAttribute('data-bui-v3-focus-double-ring-candidate');return got;})()");
+   const doubleContrast=contrast(doubleRing.color,doubleRing.bg);
+   assert("Penpot-inspired opt-in two-layer focus candidate "+brand+"/"+mode,
+     doubleRing.focused&&doubleRing.visible&&doubleRing.width>=2&&doubleRing.offset===5
+     &&doubleRing.shadow!=="none"&&doubleContrast>=3&&doubleRing.stable,
+     JSON.stringify({doubleRing,ratio:doubleContrast}));
    assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3,JSON.stringify({candidate,ratio:candidateRatio}));
  }
  await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+(focusScopeBefore.brand===null?"h.removeAttribute('data-bui-brand');":"h.setAttribute('data-bui-brand','"+focusScopeBefore.brand+"');")+"h.setAttribute('data-bui-theme','"+focusScopeBefore.mode+"');})()");
@@ -693,6 +714,10 @@ try {
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
  const candidateForced=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={forced:matchMedia('(forced-colors: active)').matches,focused:b.matches(':focus-visible'),varValue:getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim(),color:s.outlineColor,width:parseFloat(s.outlineWidth)};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
  assert("explicit Fluent focus candidate uses system Highlight in forced colors",candidateForced.forced&&candidateForced.focused&&candidateForced.varValue.toLowerCase()==="highlight"&&candidateForced.width>=2&&candidateForced.color!=="rgba(0, 0, 0, 0)",JSON.stringify(candidateForced));
+ const dblForced=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-double-ring-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b),val=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();const got={forced:matchMedia('(forced-colors: active)').matches,visible:b.matches(':focus-visible'),token:val,outline:s.outlineColor,width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),shadow:s.boxShadow};h.removeAttribute('data-bui-v3-focus-double-ring-candidate');return got;})()");
+ assert("two-layer candidate degrades safely to Highlight single outline in forced colors",
+   dblForced.forced&&dblForced.visible&&dblForced.token.toLowerCase()==="highlight"
+   &&dblForced.width>=2&&dblForced.offset===2&&dblForced.shadow==="none",JSON.stringify(dblForced));
  await cdp.send("Emulation.setEmulatedMedia",{features:[]}); if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.

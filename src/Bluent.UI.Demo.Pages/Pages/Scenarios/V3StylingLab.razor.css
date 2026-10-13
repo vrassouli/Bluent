@@ -175,3 +175,24 @@
         --v3-lab-focus: Highlight;
     }
 }
+
+/* #418 / Penpot board cd054205-a525-80d8-8008-c87438620de4:
+   second, independent opt-in-only double-ring experiment.
+   Outer 2px outline is separated by a canvas-colored 4px spacer;
+   neither stroke changes Button face dimensions. Still unapproved. */
+.v3-lab-surface[data-bui-v3-focus-double-ring-candidate] {
+    --v3-lab-focus: var(--colorStrokeFocus2);
+}
+.v3-lab-surface[data-bui-v3-focus-double-ring-candidate] ::deep .bui-button:focus-visible {
+    outline-offset: 5px;
+    box-shadow: 0 0 0 4px var(--v3-lab-surface);
+}
+@media (forced-colors: active) {
+    .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] {
+        --v3-lab-focus: Highlight;
+    }
+    .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] ::deep .bui-button:focus-visible {
+        box-shadow: none;
+        outline-offset: 2px;
+    }
+}
