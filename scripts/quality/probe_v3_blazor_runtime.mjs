@@ -611,6 +611,18 @@ try {
    focusThemeSamples.push({...got,ratio});
    assert("scoped keyboard focus ring persists "+brand+"/"+mode,got.focused&&got.focusVisible&&got.outlineStyle!=="none"&&got.outlineWidth>=2&&got.outlineColor!=="rgba(0, 0, 0, 0)",JSON.stringify(got));
 
+   // Actual keyboard-focused same-brand Dark CSS outline candidate:
+   // prove that the computed outlineColor resolves the intended existing source,
+   // remains visible without changing the Button, and is contrasted against
+   // BOTH researched neutral host backgrounds. Not a universal UI guarantee.
+   const brandRing=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),b=document.querySelector('#v3-focus-default');h.setAttribute('data-bui-v3-focus-brand-candidate','');const bs=getComputedStyle(b),hs=getComputedStyle(h);const v={visible:b.matches(':focus-visible'),color:bs.outlineColor,width:parseFloat(bs.outlineWidth),normal:hs.backgroundColor,hover:hs.getPropertyValue('--colorNeutralBackground1Hover').trim(),lightRole:hs.getPropertyValue('--colorBrandBackground').trim(),darkRole:hs.getPropertyValue('--colorBrandForeground2').trim()};h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()");
+   const desiredRole=mode==="dark"?brandRing.darkRole:brandRing.lightRole;
+   const computedNormal=contrast(brandRing.color,brandRing.normal);
+   const computedHover=contrast(brandRing.color,hexToRgb(brandRing.hover));
+   assert("real keyboard-focused branded outline CSS on normal+hover hosts "+brand+"/"+mode,
+     brandRing.visible&&brandRing.width>=2&&
+     brandRing.color===hexToRgb(desiredRole)&&computedNormal>=3&&computedHover>=3,
+     JSON.stringify({brand,mode,...brandRing,expected:desiredRole,computedNormal,computedHover}));
    // Explicitly opt in to the *existing* Fluent focus2 source token for an
    // alternate design candidate. Do not change the default focus token.
    const candidate=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={focusVisible:b.matches(':focus-visible'),outlineColor:s.outlineColor,outlineWidth:parseFloat(s.outlineWidth),strokeSource:getComputedStyle(h).getPropertyValue('--colorStrokeFocus2').trim(),semanticAlias:getComputedStyle(h).getPropertyValue('--bui-v3-focus-ring-strong-candidate').trim(),componentAlias:getComputedStyle(h).getPropertyValue('--bui-v3-button-focus-outer-candidate').trim(),surfaceColor:getComputedStyle(h).backgroundColor};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");

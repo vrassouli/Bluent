@@ -36,3 +36,9 @@ Actual Chrome + Blazor WebAssembly CDP run after this change: **633/633 checks p
 ## Blocking unknowns for a release
 
 These comparisons concern 2 selected adjacent neutral-host colors only. They do not establish 3:1 focus contrast on filled, pressed, selected, translucent, gradient, image-backed, or complex overlay surfaces; native Windows Contrast Themes, accessible modality and zoom/AT acceptance are not yet verified. The new Fluent color role is therefore **not approved as a universal Button focus ring**. A reviewer must inspect these other host contexts, then explicitly choose the final semantic focus role and revisit the published TokenSet/Component API. Preserve original v2/stable NuGet and the bluent-v3 integration-branch isolation until acceptance.
+
+## Keyboard-focused DOM / computed-outline verification (2026-10-13)
+
+An additional 20 real browser regressions were added after the first 633/633 suite: the probe navigates to an actual Bluent Button with keyboard focus-visible, switches among all ten branded Light/Dark sources in the opt-in host, enables the new branded alternative and reads the actual focused Button's computed outlineColor/width rather than only a container custom property. It confirms that the computed ring is 2px, resolves the original brand source role in Light or existing brandForeground2 in Dark, and calculates 3:1-or-better contrast with both examined neutral normal and Hover source colors. Complete Chrome/WASM Blazor CDP result: **653/653 passed**, zero errors.
+
+This verifies computed styles and real keyboard-focused DOM across those 20 host combinations. It does **not** establish actual painted-pixel contrast at every outline edge, or native Windows Contrast Themes, screen-reader/AT behavior, all filled states, or a universal public API contract. No default Button or TextField styles were changed.
