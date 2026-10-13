@@ -627,12 +627,63 @@ try {
      }
  } finally {
    await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.style.removeProperty('zoom');"+
-     "h.removeAttribute('data-bui-v3-focus-contrast-candidate');h.dir='rtl';})()");
+     "h.removeAttribute('data-bui-v3-focus-contrast-candidate');h.dir='rtl';document.querySelector('#v3-focus-default')?.focus();})()");
    await cdp.send("Emulation.clearDeviceMetricsOverride");
  }
  console.log("v3 focus candidate CSS-zoom/RTL stress:",
    JSON.stringify({samples:zoomStress.length,issues:zoomStress.filter(s=>
      !s.zoomApplied||!s.stable||!s.focus||!s.textInside||!s.iconInside||s.clipped||s.ratio<3)}));
+ // Actual narrow CSS viewport layout (not browser UI zoom). Every original
+ // Button appearance is exercised while the Focus2 preview candidate is on.
+ // 10 brands x 2 modes x 2 directions x 2 viewport widths; 6 native Buttons
+ // per sample (480 individual rendered-button geometry observations).
+ const narrowStress=[],appearanceNames=["default","primary","danger","outline","subtle","transparent"];
+ try {
+   for(const width of [320,400]){
+     await cdp.send("Emulation.setDeviceMetricsOverride",
+       {width,height:800,deviceScaleFactor:1,mobile:false});
+     for(const brand of Object.keys(matrix))for(const mode of ["light","dark"])
+       for(const direction of ["ltr","rtl"]){
+         const observed=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+
+           "h.dataset.buiBrand='"+brand+"';h.dataset.buiTheme='"+mode+"';h.dir='"+direction+"';"+
+           "h.removeAttribute('style');h.setAttribute('data-bui-v3-focus-contrast-candidate','');"+
+           "const names=['default','primary','danger','outline','subtle','transparent'];"+
+           "const buttons=names.map(n=>{const b=document.querySelector('#v3-focus-'+n);"+
+           "b.focus();const r=b.getBoundingClientRect(),text=b.querySelector('.text'),tr=text?.getBoundingClientRect(),"+
+           "icon=[...b.querySelectorAll('.bui-icon')].find(x=>getComputedStyle(x).display!=='none'&&x.getBoundingClientRect().width>8),"+
+           "ir=icon?.getBoundingClientRect(),s=getComputedStyle(b);return {name:n,visible:b.matches(':focus-visible'),"+
+           "outline:parseFloat(s.outlineWidth),style:s.outlineStyle,color:s.outlineColor,"+
+           "x:r.x,y:r.y,w:r.width,h:r.height,tx:tr?.x,ty:tr?.y,tw:tr?.width,th:tr?.height,"+
+           "ix:ir?.x,iy:ir?.y,iw:ir?.width,ih:ir?.height,"+
+           "overflow:!!text&&(text.scrollWidth>text.clientWidth+1)};});"+
+           "return {viewport:document.documentElement.clientWidth,innerWidth:window.innerWidth,background:getComputedStyle(h).backgroundColor,"+
+           "direction:h.dir,brand:h.dataset.buiBrand,mode:h.dataset.buiTheme,buttons};})()");
+         const detail=observed.buttons.map(b=>{
+           const textFit=Number.isFinite(b.tx)&&Number.isFinite(b.tw)&&b.tx>=b.x-1
+             &&b.tx+b.tw<=b.x+b.w+1&&b.ty>=b.y-1&&b.ty+b.th<=b.y+b.h+1;
+           const iconFit=Number.isFinite(b.ix)&&Number.isFinite(b.iw)&&b.ix>=b.x-1
+             &&b.ix+b.iw<=b.x+b.w+1&&b.iy>=b.y-1&&b.iy+b.ih<=b.y+b.h+1;
+           const inViewport=b.x>=-1&&b.x+b.w<=observed.viewport+1;
+           const ratio=contrast(b.color,observed.background);
+           return {name:b.name,textFit,iconFit,inViewport,focus:b.visible&&b.style==="solid"&&b.outline>=2,clipped:b.overflow,contrast:ratio};
+         });
+         const sample={brand,mode,direction,width,viewport:observed.viewport,
+           passed:detail.every(b=>b.textFit&&b.iconFit&&b.inViewport&&b.focus&&!b.clipped&&b.contrast>=3),
+           buttons:detail};
+         narrowStress.push(sample);
+         assert("focus2 actual narrow viewport "+brand+"/"+mode+"/"+direction+"/"+width,
+           sample.passed&&Math.abs(observed.innerWidth-width)<=1&&observed.viewport<=width&&observed.viewport>=width-20,
+           sample.passed&&Math.abs(observed.innerWidth-width)<=1&&observed.viewport<=width&&observed.viewport>=width-20?"6 native appearances OK":JSON.stringify({sample,innerWidth:observed.innerWidth}));
+       }
+   }
+ } finally {
+   await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+
+     "h.removeAttribute('data-bui-v3-focus-contrast-candidate');h.dir='rtl';document.querySelector('#v3-focus-default')?.focus();})()");
+   await cdp.send("Emulation.clearDeviceMetricsOverride");
+ }
+ console.log("v3 focus candidate actual narrow viewport stress:",
+   JSON.stringify({samples:narrowStress.length,buttonObservations:narrowStress.length*appearanceNames.length,
+     failed:narrowStress.filter(s=>!s.passed)}));
  const under3=focusThemeSamples.filter(x=>x.ratio<3);
  if(under3.length)openAccessibilityGaps.push("Scoped Focus ring-to-surface contrast below 3:1 in "+under3.map(x=>x.brand+"/"+x.mode).join(",")+"; #418 candidate token approval required");
  console.log("Focus-ring scoped brand/mode contrast audit:",JSON.stringify({samples:focusThemeSamples.length,lowContrast:under3.map(x=>({brand:x.brand,mode:x.mode,ratio:+x.ratio.toFixed(2)})),minRatio:+Math.min(...focusThemeSamples.map(x=>x.ratio)).toFixed(2)}));
@@ -664,7 +715,7 @@ try {
  }
  const passCount=checks.filter(x=>x.pass).length;
  const browserLabel=/msedge|edge/i.test(chromePath)?"Edge":"Chrome";
- const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
+ const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;

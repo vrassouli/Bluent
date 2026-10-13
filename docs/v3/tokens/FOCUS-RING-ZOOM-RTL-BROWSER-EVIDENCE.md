@@ -65,3 +65,7 @@ The opt-in Focus2 ring is toggled on/off **without losing keyboard focus**, comp
 2. True browser zoom at 200% and 400%, actual narrow viewports, Firefox/Safari, OS/assistive-technology verification, native Windows High Contrast review, and visual snapshots.
 3. The #428 Button rewrite remains **Backlog** until ready gates are met; `aria-pressed` for `Toggled` is a known runtime issue to fix there.
 4. All current v3 changes remain on the isolated #418 task branch and draft PR #500 targeting `bluent-v3`, not `Dev` or v2 NuGet.
+
+## 2026-10-13 — real narrow CSS viewport and Penpot candidate update
+
+The same CDP suite now covers **320/400 CSS pixel viewports** with real Blazor Buttons in all six appearances and 10 brands × Light/Dark × LTR/RTL: 80 narrow viewport scenarios per host, 480 individual Button observations per host. See [detailed design and browser evidence](FOCUS-RING-NARROW-VIEWPORT-EVIDENCE.md). A real editable Penpot Light/Dark Focus2 design board was created and its export reviewed; it intentionally remains **unapproved** and its two-stroke geometry does not yet match the single-stroke browser research CSS. Native browser zoom remains unverified; neither CSS zoom nor CDP viewport resizing is a substitute.
