@@ -13,8 +13,8 @@ function ring(prefix,face,style) {
   const o=get(prefix+" / outer"),g=get(prefix+" / contrast");
   if (!o||!g||!face) return;
   if(style==="outer"){
-    ok(close(o.x,face.x-6)&&close(o.y,face.y-6)&&close(o.width,face.width+12)&&close(o.height,face.height+12),prefix+" outer misfit");
-    ok(close(g.x,face.x-3)&&close(g.y,face.y-3)&&close(g.width,face.width+6)&&close(g.height,face.height+6),prefix+" gap misfit");
+    ok(close(o.x,face.x-3)&&close(o.y,face.y-3)&&close(o.width,face.width+6)&&close(o.height,face.height+6),prefix+" outer misfit");
+    ok(close(g.x,face.x-1)&&close(g.y,face.y-1)&&close(g.width,face.width+2)&&close(g.height,face.height+2),prefix+" gap misfit");
   } else {
     ok(o.x>=face.x&&o.y>=face.y&&o.x+o.width<=face.x+face.width&&o.y+o.height<=face.y+face.height,prefix+" outer ring overlaps adjacent action");
     ok(g.x>=face.x&&g.y>=face.y&&g.x+g.width<=face.x+face.width&&g.y+g.height<=face.y+face.height,prefix+" contrast ring overlaps adjacent action");
@@ -71,7 +71,7 @@ ok(off?.children?.filter(x=>x.name.startsWith("Focus ")).length===0,"Native Dang
 ok(vis?.children?.filter(x=>x.name.startsWith("Focus ")).length===2,"Native Danger Visible missing two strokes");
 const visFace=vis?.children?.find(x=>x.name==="Danger face");
 const visOuter=vis?.children?.find(x=>x.name==="Focus Outer"),visGap=vis?.children?.find(x=>x.name==="Focus Contrast gap");
-ok(visFace&&visOuter&&close(visOuter.x,visFace.x-6)&&close(visOuter.y,visFace.y-6)&&close(visOuter.width,visFace.width+12),"Native Danger outer ring geometry");
-ok(visFace&&visGap&&close(visGap.x,visFace.x-3)&&close(visGap.y,visFace.y-3)&&close(visGap.width,visFace.width+6),"Native Danger contrast ring geometry");
+ok(visFace&&visOuter&&close(visOuter.x,visFace.x-3)&&close(visOuter.y,visFace.y-3)&&close(visOuter.width,visFace.width+6),"Native Danger outer ring geometry");
+ok(visFace&&visGap&&close(visGap.x,visFace.x-1)&&close(visGap.y,visFace.y-1)&&close(visGap.width,visFace.width+2),"Native Danger contrast ring geometry");
 return {issue:501,file:penpot.currentFile.id,page:p.id,board:b.id,checks,failures:issues,pass:issues.length===0,
   scope:"Editable Penpot geometric design audit, not browser/AT/forced-colors compliance"};
