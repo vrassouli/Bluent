@@ -478,6 +478,22 @@ try {
  const restoredKeyFocus=await cdp.js("(() => {const e=document.activeElement;return {id:e?.id,keyboardVisible:e?.matches(':focus-visible'),insideLab:!!e?.closest('.v3-lab-surface'),outline:getComputedStyle(e).outlineWidth};})()");
  assert("Tab after mouse click restores keyboard focus-visible ring",restoredKeyFocus.insideLab&&restoredKeyFocus.keyboardVisible&&parseFloat(restoredKeyFocus.outline)>=2,JSON.stringify(restoredKeyFocus));
 
+ // #418 reviewer UX: preview choices are visible clickable Bluent Buttons,
+ // not DevTools-only attributes. Always return to Baseline for the remaining
+ // scope/brand/keyboard matrix to keep earlier regression expectations stable.
+ for(const [id,expected,other] of [
+   ["baseline",null,null],
+   ["focus2","data-bui-v3-focus-contrast-candidate","data-bui-v3-focus-double-ring-candidate"],
+   ["double","data-bui-v3-focus-double-ring-candidate","data-bui-v3-focus-contrast-candidate"],
+   ["baseline",null,null]
+ ]){
+   await cdp.js("document.getElementById('v3-focus-preview-"+id+"').click()");
+   await new Promise(resolve=>setTimeout(resolve,85));
+   const ui=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');return {single:h.hasAttribute('data-bui-v3-focus-contrast-candidate'),double:h.hasAttribute('data-bui-v3-focus-double-ring-candidate'),text:document.querySelector('.v3-lab-focus-matrix [role=status]')?.textContent?.trim(),buttons:document.querySelectorAll('.v3-lab-focus-preview-controls .bui-button').length};})()");
+   assert("interactive Focus2 reviewer selector "+id,
+     ui.buttons===3 && (id==="baseline"?(!ui.single&&!ui.double):(id==="focus2"?(ui.single&&!ui.double):(!ui.single&&ui.double))) && ui.text?.length>20,
+     JSON.stringify(ui));
+ }
  // #418 / #501 research gate: focus decoration must not resize the same
  // native Button face. Test a real Shift+Tab return after an actual click.
  const focusGeometry = await cdp.js("(() => {const b=document.querySelector('#v3-fa-button'),r=b.getBoundingClientRect(),t=b.querySelector('.text')?.getBoundingClientRect(),i=[...b.querySelectorAll('.bui-icon')].find(e=>getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>8&&e.getBoundingClientRect().height>8)?.getBoundingClientRect();return {w:r.width,h:r.height,tw:t?.width,th:t?.height,iw:i?.width,ih:i?.height,visible:b.matches(':focus-visible'),outline:getComputedStyle(b).outlineWidth};})()");

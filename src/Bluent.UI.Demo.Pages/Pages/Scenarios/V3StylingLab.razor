@@ -23,6 +23,8 @@
     <CascadingValue Value="CurrentScope">
     <section class="v3-lab-surface" data-bui-v3-tokens data-bui-brand="@_mainBrand" data-bui-theme="@(_dark ? "dark" : "light")"
              data-density="@(_compact ? "compact" : "comfortable")"
+             data-bui-v3-focus-contrast-candidate="@(_focusPreview == FocusPreviewMode.Focus2 ? "" : null)"
+             data-bui-v3-focus-double-ring-candidate="@(_focusPreview == FocusPreviewMode.DoubleRing ? "" : null)"
              dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 opt-in token experiment">
         <h2>Real Button / TextField / Overlay</h2>
         <p>Use Tab and Shift+Tab to inspect focus. Switch Light/Dark and LTR/RTL to compare computed colors.</p>
@@ -105,6 +107,25 @@
         <section class="v3-lab-focus-matrix" aria-label="Opt-in Bluent Button focus research matrix" lang="fa" dir="rtl">
             <h3>پیش‌نمایش آزمایشی Focus دکمه‌ها — #418 / #501</h3>
             <p>ترتیب کیبورد: پیش‌نیاز، شش ظاهر فعلی Bluent، دکمه غیرفعال، سپس مقصد بعدی. حلقه‌ها طرح نهایی تأییدشده نیستند.</p>
+            <div class="v3-lab-focus-preview-controls" role="group" aria-label="انتخاب حلقه فوکوس آزمایشی">
+                <Button id="v3-focus-preview-baseline" Text="فعلی (رنگ برند)"
+                        Appearance="@(_focusPreview == FocusPreviewMode.Baseline ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.Baseline" />
+                <Button id="v3-focus-preview-focus2" Text="Focus2 ساده"
+                        Appearance="@(_focusPreview == FocusPreviewMode.Focus2 ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.Focus2" />
+                <Button id="v3-focus-preview-double" Text="Focus2 دولایه (پیشنهادی)"
+                        Appearance="@(_focusPreview == FocusPreviewMode.DoubleRing ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.DoubleRing" />
+            </div>
+            <p class="v3-lab-hint" role="status">
+                @(_focusPreview switch
+                {
+                    FocusPreviewMode.Focus2 => "Focus2 ساده: حلقه ۲ پیکسلی مشکی در Light یا سفید در Dark؛ بدون فاصله داخلی دولایه.",
+                    FocusPreviewMode.DoubleRing => "Focus2 دولایه: حلقه بیرونی ۲ پیکسل با فاصله ۱ پیکسل و جداکننده هم‌رنگ سطح. برای دیدنش با Tab روی دکمه‌های زیر حرکت کن.",
+                    _ => "حالت فعلی: حلقه با رنگ برند. یکی از گزینه‌های Focus2 را انتخاب کن، سپس با Tab بین دکمه‌های زیر حرکت کن."
+                })
+            </p>
             <div class="v3-lab-focus-actions">
                 <Button id="v3-focus-start" Text="شروع مسیر کیبورد" />
                 <Button id="v3-focus-default" Text="معمولی" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Default" />
@@ -171,6 +192,8 @@
     private string? _name;
     private string _message = "No action yet";
     private string? _mainBrand;
+    private enum FocusPreviewMode { Baseline, Focus2, DoubleRing }
+    private FocusPreviewMode _focusPreview = FocusPreviewMode.Baseline;
     private bool _dark;
     private bool _rtl;
     private bool _compact;

@@ -32,3 +32,15 @@
 - When the reviewer approves the decisions, update the canonical token schema, demo/Skill/migration contract and #418/PR before advancing to Review or promoting names to public API.
 
 **Reviewer response requested:** approve or propose edits to **D1 / D2 / D3 / D4**. Technical implementation can then be moved out of draft research under the correct v3 task branch.
+
+## Direct interactive review (2026-10-13)
+
+Open the **WebAssembly demo on Dev01** at `http://127.0.0.1:5080/v3/styling-lab` **while the local demo host is running** (not a published public URL). Scroll to the Persian section headed `پیش‌نمایش آزمایشی Focus دکمه‌ها — #418 / #501`. Three actual Bluent buttons now switch the preview on the real Button appearance matrix:
+
+- **فعلی (رنگ برند)** — existing default candidate, no experimental Focus2 opt-in.
+- **Focus2 ساده** — source-backed high-contrast single outline candidate.
+- **Focus2 دولایه (پیشنهادی)** — separate 2px outer ring and canvas-colored 1px inner gap with corrected symmetric face offsets and overlap z-index.
+
+Choose a preview, use **Tab** (not only pointer click) to keyboard-focus the six appearance buttons, then use top-level **Switch to dark/light** and **Switch to RTL/LTR** to compare. A live status sentence identifies the chosen preview. These controls are an opt-in demo affordance, *not* a public shipping Button property or token approval. The keyboard reviewer selection itself is exercised by the real Chromium CDP test and reset to baseline before the existing focus/browser matrix.
+
+**Direct test evidence:** Dev01 Debug WASM host was built with **0 warnings / 0 errors**; the actual Chromium real-Blazor CDP suite including four newly added clickable selector checks passed **589/589** with 0 failures. This proves that the Lab selector swaps experimental DOM attributes via a real Blazor render without disturbing existing browser tests; it does **not** approve the final token names or prove actual native OS/screen-reader behavior.

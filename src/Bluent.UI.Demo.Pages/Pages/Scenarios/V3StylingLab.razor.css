@@ -164,6 +164,15 @@
 .v3-lab-focus-actions ::deep .bui-button {
     max-width: 100%;
 }
+.v3-lab-focus-preview-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block: 12px;
+}
+.v3-lab-focus-preview-controls ::deep .bui-button {
+    max-width: 100%;
+}
 
 /* #418 contrast proof only: additive source -> semantic -> Button token chain, never default.
    Gate the alternative so unapproved Penpot focus tokens stay unchanged. */
