@@ -26,6 +26,7 @@ def check_one(chrome: str, directory: Path, brand: str, mode: str, data: dict, p
 border:1px solid var(--bui-v3-border-strong) }
 .disabled { color:var(--bui-v3-text-disabled);background:var(--bui-v3-surface-disabled) }
 .danger-candidate { color:var(--bui-v3-badge-danger-text-accessible);background:var(--bui-v3-surface-default) }
+.focus-candidate { outline:2px solid var(--bui-v3-button-focus-outer-candidate);outline-offset:1px }
 """
     text = f"""<!doctype html><html><meta charset="utf-8">
 <style>{original}</style><style>{preview}</style><style>{css_style}</style>
@@ -33,15 +34,17 @@ border:1px solid var(--bui-v3-border-strong) }
 <button class="sample" id="sample">Source-aligned Brand</button>
 <div id="disabled" class="disabled">Disabled</div>
 <div id="danger-candidate" class="danger-candidate">Danger text candidate</div>
+<button id="focus-candidate" class="focus-candidate">Focus candidate</button>
 <output id="token-result">PENDING</output>
 <script>
 let s=getComputedStyle(document.getElementById('sample'));
 let d=getComputedStyle(document.getElementById('disabled'));
 let danger=getComputedStyle(document.getElementById('danger-candidate'));
+let focus=getComputedStyle(document.getElementById('focus-candidate'));
 document.getElementById('token-result').textContent=JSON.stringify({{
 bg:s.backgroundColor,fg:s.color,border:s.borderTopColor,
 disabledFg:d.color,disabledBg:d.backgroundColor,
-dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor
+dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor,focusCandidateColor:focus.outlineColor,focusCandidateWidth:focus.outlineWidth,focusCandidateOffset:focus.outlineOffset
 }});
 </script></body></html>"""
     file = directory / f"brand-{brand}-{mode}.html"
@@ -68,6 +71,9 @@ dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor
         "disabledBg": rgb(tokens["bluent.semantic.surface.disabled"]),
         "dangerCandidateFg": rgb(tokens["bluent.component.badge.dangerTextAccessible"]),
         "dangerCandidateBg": rgb(tokens["bluent.semantic.surface.default"]),
+        "focusCandidateColor":rgb(tokens["bluent.component.button.focusOuterCandidate"]),
+        "focusCandidateWidth":"2px",
+        "focusCandidateOffset":"1px",
     }
     discrepancies = {k: {"expected":v,"observed":actual.get(k)}
                      for k, v in expect.items() if actual.get(k) != v}

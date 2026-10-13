@@ -160,6 +160,14 @@
           "light": "#BC2F32",
           "dark": "#E37D80"
         }
+      },
+      {
+        "name": "bluent.source.focusStroke2",
+        "css": "--colorStrokeFocus2",
+        "default": {
+          "light": "#000000",
+          "dark": "#FFFFFF"
+        }
       }
     ],
     "semantic": [
@@ -222,6 +230,11 @@
         "name": "bluent.semantic.text.dangerAccessible",
         "alias": "bluent.source.paletteRedForeground1",
         "css": "--bui-v3-text-danger-accessible"
+      },
+      {
+        "name": "bluent.semantic.focusRing.strongCandidate",
+        "alias": "bluent.source.focusStroke2",
+        "css": "--bui-v3-focus-ring-strong-candidate"
       }
     ],
     "component": [
@@ -269,6 +282,11 @@
         "name": "bluent.component.badge.dangerTextAccessible",
         "alias": "bluent.semantic.text.dangerAccessible",
         "css": "--bui-v3-badge-danger-text-accessible"
+      },
+      {
+        "name": "bluent.component.button.focusOuterCandidate",
+        "alias": "bluent.semantic.focusRing.strongCandidate",
+        "css": "--bui-v3-button-focus-outer-candidate"
       }
     ]
   },
@@ -278,6 +296,7 @@
     "No stylesheet is added to the current global CSS bundle under this experimental issue phase.",
     "The only approved architecture is ADR #417 D1-D5; exact token vocabulary is a draft.",
     "The twenty native Brand×Mode preview themes are selectable and actually resolve source/semantic/component values; they use a separate preview namespace and require coordinated Light/Dark Mode selection, not production alias integration.",
-    "Danger text contrast candidate is additive/opt-in; legacy status-danger mappings and stable CSS are not changed, and text/AT acceptance remains required."
+    "Danger text contrast candidate is additive/opt-in; legacy status-danger mappings and stable CSS are not changed, and text/AT acceptance remains required.",
+    "The extra Focus2 aliases are experimental and additive; legacy --bui-v3-border-focus is preserved for compatibility, with no default Button CSS change."
   ]
 }

@@ -70,6 +70,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#1267B4",
@@ -82,6 +83,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#1267B4",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#1267B4",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -90,7 +92,8 @@
           "bluent.component.checkbox.checkedFill": "#1267B4",
           "bluent.component.switch.checkedTrack": "#1267B4",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -107,6 +110,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#18599B",
@@ -119,6 +123,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#18599B",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#18599B",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -127,7 +132,8 @@
           "bluent.component.checkbox.checkedFill": "#18599B",
           "bluent.component.switch.checkedTrack": "#18599B",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -146,6 +152,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#11783F",
@@ -158,6 +165,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#11783F",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#11783F",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -166,7 +174,8 @@
           "bluent.component.checkbox.checkedFill": "#11783F",
           "bluent.component.switch.checkedTrack": "#11783F",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -183,6 +192,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#146938",
@@ -195,6 +205,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#146938",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#146938",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -203,7 +214,8 @@
           "bluent.component.checkbox.checkedFill": "#146938",
           "bluent.component.switch.checkedTrack": "#146938",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -222,6 +234,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#B53406",
@@ -234,6 +247,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#B53406",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#B53406",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -242,7 +256,8 @@
           "bluent.component.checkbox.checkedFill": "#B53406",
           "bluent.component.switch.checkedTrack": "#B53406",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -259,6 +274,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#9C2F09",
@@ -271,6 +287,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#9C2F09",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#9C2F09",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -279,7 +296,8 @@
           "bluent.component.checkbox.checkedFill": "#9C2F09",
           "bluent.component.switch.checkedTrack": "#9C2F09",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -298,6 +316,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#1267B5",
@@ -310,6 +329,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#1267B5",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#1267B5",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -318,7 +338,8 @@
           "bluent.component.checkbox.checkedFill": "#1267B5",
           "bluent.component.switch.checkedTrack": "#1267B5",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -335,6 +356,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#18599C",
@@ -347,6 +369,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#18599C",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#18599C",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -355,7 +378,8 @@
           "bluent.component.checkbox.checkedFill": "#18599C",
           "bluent.component.switch.checkedTrack": "#18599C",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -374,6 +398,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#8D4D8B",
@@ -386,6 +411,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#8D4D8B",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#8D4D8B",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -394,7 +420,8 @@
           "bluent.component.checkbox.checkedFill": "#8D4D8B",
           "bluent.component.switch.checkedTrack": "#8D4D8B",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -411,6 +438,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#823C81",
@@ -423,6 +451,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#823C81",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#823C81",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -431,7 +460,8 @@
           "bluent.component.checkbox.checkedFill": "#823C81",
           "bluent.component.switch.checkedTrack": "#823C81",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -450,6 +480,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#7A6519",
@@ -462,6 +493,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#7A6519",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#7A6519",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -470,7 +502,8 @@
           "bluent.component.checkbox.checkedFill": "#7A6519",
           "bluent.component.switch.checkedTrack": "#7A6519",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -487,6 +520,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#6B5818",
@@ -499,6 +533,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#6B5818",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#6B5818",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -507,7 +542,8 @@
           "bluent.component.checkbox.checkedFill": "#6B5818",
           "bluent.component.switch.checkedTrack": "#6B5818",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -526,6 +562,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#B0391A",
@@ -538,6 +575,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#B0391A",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#B0391A",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -546,7 +584,8 @@
           "bluent.component.checkbox.checkedFill": "#B0391A",
           "bluent.component.switch.checkedTrack": "#B0391A",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -563,6 +602,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#983318",
@@ -575,6 +615,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#983318",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#983318",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -583,7 +624,8 @@
           "bluent.component.checkbox.checkedFill": "#983318",
           "bluent.component.switch.checkedTrack": "#983318",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -602,6 +644,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#BD1D49",
@@ -614,6 +657,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#BD1D49",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#BD1D49",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -622,7 +666,8 @@
           "bluent.component.checkbox.checkedFill": "#BD1D49",
           "bluent.component.switch.checkedTrack": "#BD1D49",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -639,6 +684,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#A41B3F",
@@ -651,6 +697,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#A41B3F",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#A41B3F",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -659,7 +706,8 @@
           "bluent.component.checkbox.checkedFill": "#A41B3F",
           "bluent.component.switch.checkedTrack": "#A41B3F",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -678,6 +726,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#5659BA",
@@ -690,6 +739,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#5659BA",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#5659BA",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -698,7 +748,8 @@
           "bluent.component.checkbox.checkedFill": "#5659BA",
           "bluent.component.switch.checkedTrack": "#5659BA",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -715,6 +766,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#4B4D9F",
@@ -727,6 +779,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#4B4D9F",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#4B4D9F",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -735,7 +788,8 @@
           "bluent.component.checkbox.checkedFill": "#4B4D9F",
           "bluent.component.switch.checkedTrack": "#4B4D9F",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     },
@@ -754,6 +808,7 @@
           "bluent.source.foregroundDisabled": "#bdbdbd",
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
+          "bluent.source.focusStroke2": "#000000",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#2F61C1",
@@ -766,6 +821,7 @@
           "bluent.semantic.surface.disabled": "#f0f0f0",
           "bluent.semantic.border.focus": "#2F61C1",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
+          "bluent.semantic.focusRing.strongCandidate": "#000000",
           "bluent.component.button.backgroundPrimary": "#2F61C1",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -774,7 +830,8 @@
           "bluent.component.checkbox.checkedFill": "#2F61C1",
           "bluent.component.switch.checkedTrack": "#2F61C1",
           "bluent.component.badge.dangerForeground": "#b10e1c",
-          "bluent.component.badge.dangerTextAccessible": "#bc2f32"
+          "bluent.component.badge.dangerTextAccessible": "#bc2f32",
+          "bluent.component.button.focusOuterCandidate": "#000000"
         }
       },
       "dark": {
@@ -791,6 +848,7 @@
           "bluent.source.foregroundDisabled": "#5c5c5c",
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
+          "bluent.source.focusStroke2": "#ffffff",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#1A54B0",
@@ -803,6 +861,7 @@
           "bluent.semantic.surface.disabled": "#141414",
           "bluent.semantic.border.focus": "#1A54B0",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
+          "bluent.semantic.focusRing.strongCandidate": "#ffffff",
           "bluent.component.button.backgroundPrimary": "#1A54B0",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -811,7 +870,8 @@
           "bluent.component.checkbox.checkedFill": "#1A54B0",
           "bluent.component.switch.checkedTrack": "#1A54B0",
           "bluent.component.badge.dangerForeground": "#dc626d",
-          "bluent.component.badge.dangerTextAccessible": "#e37d80"
+          "bluent.component.badge.dangerTextAccessible": "#e37d80",
+          "bluent.component.button.focusOuterCandidate": "#ffffff"
         }
       }
     }

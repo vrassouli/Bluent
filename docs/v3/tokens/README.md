@@ -240,3 +240,7 @@ The expanded [Button state-interaction report](BUTTON-FOCUS-INTERACTION-MATRIX.m
 ## Focus ring contrast across all brands (2026-10-12)
 
 The [real-browser focus contrast review](FOCUS-RING-CONTRAST-CANDIDATE.md) compared ring and adjacent host surface for the 10 brands x Light/Dark. The existing opt-in brand-stroke ring is under 3:1 on **all ten Dark modes** (1.94-2.15:1). A separately gated, **not-default** candidate reuses the existing Fluent --colorStrokeFocus2 token (#000 Light / #fff Dark), achieving >=14.55:1 across 20 computed browser samples and preserving OS Highlight during forced-colors emulation. Local Chrome/Edge WASM 320/320 each and published InteractiveServer 323/323 each; one Server attempt failed before a full successful rerun (cause undetermined). Native Penpot ring geometry/approval, OS AT and WCAG remain open. No shipping component colors changed.
+
+## 2026-10-13 Focus2 source-to-Button research alias
+
+The candidate high-contrast Focus Ring path is now present in the **opt-in-only** generator: `--colorStrokeFocus2` → `--bui-v3-focus-ring-strong-candidate` → `--bui-v3-button-focus-outer-candidate`. See [source-to-component crosswalk and browser checks](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). Do not replace the existing `--bui-v3-border-focus` or treat this candidate as a released public token contract.

@@ -34,7 +34,7 @@ The [versioned #418 draft schema](issue-418-token-schema.preview.json) adds thre
 
 The previous `bluent.semantic.status.danger` and `bluent.component.badge.dangerForeground` aliases remain **unchanged** for backward-compatible traceability. This makes the safe-text option explicit rather than silently changing Danger color semantics across non-text surfaces.
 
-The deterministic [generator](../../../scripts/quality/generate_v3_token_preview.py) now covers **11 source + 12 semantic + 9 component = 32 logical tokens** for each of the 20 brand/mode combinations. [CSS candidate output](issue-418-opt-in.preview.css) is still outside the v2 bundle, never overrides `--color*` or `--fui-*`, and only applies under `[data-bui-v3-tokens]`. The browser [computed-style probe](../../../scripts/quality/probe_v3_token_preview.py) now includes rendered candidate text and its neutral background: **20 modes × 7 checks = 140/140 passing**.
+The deterministic [generator](../../../scripts/quality/generate_v3_token_preview.py) now covers **12 source + 13 semantic + 10 component = 35 logical tokens** for each of the 20 brand/mode combinations. [CSS candidate output](issue-418-opt-in.preview.css) is still outside the v2 bundle, never overrides `--color*` or `--fui-*`, and only applies under `[data-bui-v3-tokens]`. The browser [computed-style probe](../../../scripts/quality/probe_v3_token_preview.py) now includes rendered candidate text and its neutral background: **20 modes × 10 checks = 200/200 passing**.
 
 ## Still open, not bypassed
 
@@ -42,3 +42,5 @@ The deterministic [generator](../../../scripts/quality/generate_v3_token_preview
 - Visual mode and alpha-blending tests, focus visibility, Windows/Persian font metrics, page-level RTL, screen-reader/live-region reporting, zoom/reflow and theme/portal ancestry.
 - Real compiled Blazor Badge/Alert/Dialog consumption and preserving old public API. This research does not implement or change runtime Badge, `Danger` Button style or source CSS.
 - Reviewer approval of final token naming and intended consumers. Continue #418 in **In progress** / PR **Draft** until full architecture/token acceptance tests are satisfied, merge only to `bluent-v3`.
+
+**2026-10-13 #418 amendment:** The 35-token count and 200/200 browser results include a *separate, opt-in* Focus2 source → semantic candidate → Button candidate alias chain; [crosswalk](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). The legacy brand Focus alias remains unchanged. Historical 32-token/140-check test snapshots elsewhere describe the earlier checkpoint, not the current generated inventory.
