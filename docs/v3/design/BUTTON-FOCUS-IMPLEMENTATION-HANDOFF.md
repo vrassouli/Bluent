@@ -33,3 +33,7 @@ Reusable workflow details: [native contract](BUTTON-FOCUS-VISIBLE-CONTRACT.md), 
 ## 2026-10-13 actual token-bound Native variants (draft)
 
 The five actual native Focus Visible Button variants and separate native Danger Focus Visible are now linked to **independent Penpot Light/Dark candidate TokenSets**, with twelve live `strokeColor` property bindings. See [native TokenSet IDs and explicitly pending Dark readback](BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md). The Light theme/source/semantic/component value and visible shape binding were verified live. The connected Penpot tab suspended immediately after a Dark theme toggle, so **do not claim the Dark mode or subsequent Light restore have been verified** until the plugin can be focused and the read-only audit run again. The opt-in #418 CSS proposal remains unapproved.
+
+## Native design token validation update (2026-10-13)
+
+The connection reopened and real Penpot **Dark and Light** rendered Focus colors were verified on all six actual enabled native Button variants, followed by **71/71 Light native binding assertions**, zero failures, 12/12 stroke bindings and a live recount of **40 sets / 205 tokens**. See [native Penpot evidence](BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md). The original Dark evidence blocker is thus resolved, but the UI was later switched back to Dark during an additional audit attempt and the plugin froze; **restoring Light remains a pending housekeeping step on reconnection**. Approval of final public token names and actual OS/AT testing is a separate gate.

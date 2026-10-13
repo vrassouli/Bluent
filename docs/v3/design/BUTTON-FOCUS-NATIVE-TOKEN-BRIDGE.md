@@ -46,3 +46,11 @@ On the same task branch, `.github/workflows/v3-button-focus-contract.yml` separa
 The already-pushed #418 opt-in schema now uses `--colorStrokeFocus2` → `--bui-v3-focus-ring-strong-candidate` → `--bui-v3-button-focus-outer-candidate`; the real Blazor Styling Lab consumes the same candidate via a guarded opt-in attribute, and the CSS generator/demo asset synchronization is now checked by CI. The native Penpot gap alias is separately linked to the existing native surface token, not to a published CSS component alias.
 
 Neither #418 nor #501 should move to Done without a real design acceptance, required real OS/accessibility verification and their approved, accepted integration into `bluent-v3`. No work touches `Dev` / stable 2.x or publishes NuGet.
+
+## 2026-10-13 live Light/Dark verification after reconnection
+
+**Former Dark readback blocker resolved:** The correct Penpot file reconnected and the already-active `Dark · Draft` theme was inspected live. **Six of six** enabled native appearances (five original + separate Danger) returned outer `#FFFFFF` and gap `#292929`, native outer/gap token bindings intact and 2px/1px stroke widths; computed result `pass=true`. Switched successfully to `Light · Draft`: all six variants returned `#000000` outer and `#FFFFFF` gap, same bindings, `pass=true`. Then ran a detailed native read-only contract audit in Light: **71/71 passed**, zero failures, **12 actual stroke bindings**, 40 real TokenSets and 205 native tokens.
+
+**Separate later connection issue:** Another attempt to run the full 71-check audit in Dark toggled Dark successfully but the tab immediately froze. Therefore although **both modes' rendered values were already verified**, this last Dark-mode toggle has not yet been returned to default Light. On the next live Penpot connection, restore `Light · Draft` and check it remains active. Do not mistake this pending UI state restoration for a failure of the earlier verified Dark semantics.
+
+These values remain candidate/nonproduction until design reviewer accepts their semantics and any remaining OS/AT accessibility evidence. The actual reusable read-only script remains `scripts/quality/penpot_v3_button_focus_token_binding_audit.js`. This follow-up supersedes only the earlier 'Dark unverified' paragraph; the originating diagnostic timeline remains for traceability.

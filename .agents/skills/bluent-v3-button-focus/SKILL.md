@@ -36,3 +36,7 @@ Use this skill only when designing, implementing, reviewing or testing the **fut
 ## Native token binding follow-up
 
 The source-owned Penpot file now has two additive draft Focus candidate TokenSets, and twelve real outer/gap stroke bindings on the five enabled Appearance×Focus variants plus Danger. Read [the token-bridge audit](../../../docs/v3/design/BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md); verify Dark and restore Light in the connected plugin before claiming the theme-switch gate is done. Draft names are **not approved** production CSS or component API.
+
+## Latest live verification (2026-10-13)
+
+Read [native token bridge update](../../../docs/v3/design/BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md). Both Dark and Light were verified as **real rendered native stroke values** on 6 enabled variants. A separate Light read-only run passed **71/71**, 12 linked strokes, 40 TokenSets/205 tokens. A later repeat Dark toggle froze the browser; **restore Light once Penpot reconnects**. Earlier notes calling Dark unverified are historical, not the current tested conclusion. These remain **not approved** public v3 tokens.
