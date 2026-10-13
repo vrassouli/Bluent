@@ -32,3 +32,7 @@ Use this skill only when designing, implementing, reviewing or testing the **fut
 - Real existing Blazor WebAssembly keyboard probe: run `node scripts/quality/probe_v3_button_focus_runtime.mjs http://127.0.0.1:5080` while `Bluent.UI.Demo` is running on that URL; expect 17/17 in Chrome and Edge. Do not run it against Static SSR and call that InteractiveServer.
 - For a real v3 implementation, run the larger #418 browser/contrast matrix in WASM and **published InteractiveServer**, and obtain native OS high contrast/AT and actual browser UI zoom evidence. Test with screenshots too—computed outline geometry alone missed a lower ring being covered by a following row.
 - Do not mark #501 Done before design review/approval and accepted PR integration into `bluent-v3`. Never touch stable `Dev` or publish a NuGet release just to satisfy a prototype test.
+
+## Native token binding follow-up
+
+The source-owned Penpot file now has two additive draft Focus candidate TokenSets, and twelve real outer/gap stroke bindings on the five enabled Appearance×Focus variants plus Danger. Read [the token-bridge audit](../../../docs/v3/design/BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md); verify Dark and restore Light in the connected plugin before claiming the theme-switch gate is done. Draft names are **not approved** production CSS or component API.

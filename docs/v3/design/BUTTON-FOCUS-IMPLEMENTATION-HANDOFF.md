@@ -29,3 +29,7 @@ The connected Penpot plugin was used to run design audits: **469/469**, **105/10
 Outstanding for signoff: native semantic TokenSet binding of the chosen accessible Focus color for all designs; user/maintainer acceptance of the semantic/color decision; actual browser zoom and native assistive technology/high contrast review; and the full #428 component implementation. Those are **explicit unfulfilled conditions**, not solved by a green CI. PR #502 targets only `bluent-v3`, no stable `Dev` merge and no NuGet publication.
 
 Reusable workflow details: [native contract](BUTTON-FOCUS-VISIBLE-CONTRACT.md), [alignment repair](BUTTON-FOCUS-ALIGNMENT-REPAIR.md), and [browser evidence](BUTTON-FOCUS-BROWSER-EVIDENCE.md). Skill: `.agents/skills/bluent-v3-button-focus/SKILL.md`.
+
+## 2026-10-13 actual token-bound Native variants (draft)
+
+The five actual native Focus Visible Button variants and separate native Danger Focus Visible are now linked to **independent Penpot Light/Dark candidate TokenSets**, with twelve live `strokeColor` property bindings. See [native TokenSet IDs and explicitly pending Dark readback](BUTTON-FOCUS-NATIVE-TOKEN-BRIDGE.md). The Light theme/source/semantic/component value and visible shape binding were verified live. The connected Penpot tab suspended immediately after a Dark theme toggle, so **do not claim the Dark mode or subsequent Light restore have been verified** until the plugin can be focused and the read-only audit run again. The opt-in #418 CSS proposal remains unapproved.
