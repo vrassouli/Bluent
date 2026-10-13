@@ -596,14 +596,14 @@ try {
    const doubleRing=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),b=document.querySelector('#v3-focus-default'),r=b.getBoundingClientRect();"+
      "h.setAttribute('data-bui-v3-focus-double-ring-candidate','');const s=getComputedStyle(b),after=b.getBoundingClientRect();"+
      "const got={focused:document.activeElement===b,visible:b.matches(':focus-visible'),color:s.outlineColor,"+
-     "width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),shadow:s.boxShadow,"+
+     "width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),shadow:s.boxShadow,shadowSpread:Number(s.boxShadow.match(/(-?[0-9.]+)px\\s*$/)?.[1]),"+
      "scope:getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim(),bg:getComputedStyle(h).backgroundColor,"+
      "stable:Math.abs(r.width-after.width)<.1&&Math.abs(r.height-after.height)<.1&&Math.abs(r.x-after.x)<.1};"+
      "h.removeAttribute('data-bui-v3-focus-double-ring-candidate');return got;})()");
    const doubleContrast=contrast(doubleRing.color,doubleRing.bg);
    assert("Penpot-inspired opt-in two-layer focus candidate "+brand+"/"+mode,
-     doubleRing.focused&&doubleRing.visible&&doubleRing.width>=2&&doubleRing.offset===5
-     &&doubleRing.shadow!=="none"&&doubleContrast>=3&&doubleRing.stable,
+     doubleRing.focused&&doubleRing.visible&&doubleRing.width>=2&&doubleRing.offset===1&&doubleRing.width+doubleRing.offset===3
+     &&doubleRing.shadow!=="none"&&doubleRing.shadowSpread===1&&doubleRing.shadow.includes(doubleRing.bg)&&doubleContrast>=3&&doubleRing.stable,
      JSON.stringify({doubleRing,ratio:doubleContrast}));
    assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3,JSON.stringify({candidate,ratio:candidateRatio}));
  }
@@ -658,7 +658,7 @@ try {
  // Button appearance is exercised while the Focus2 preview candidate is on.
  // 10 brands x 2 modes x 2 directions x 2 viewport widths; 6 native Buttons
  // per sample (480 individual rendered-button geometry observations).
- const narrowStress=[],appearanceNames=["default","primary","danger","outline","subtle","transparent"];
+ const doubleNarrowStress=[],narrowStress=[],appearanceNames=["default","primary","danger","outline","subtle","transparent"];
  try {
    for(const width of [320,400]){
      await cdp.send("Emulation.setDeviceMetricsOverride",
@@ -695,6 +695,34 @@ try {
          assert("focus2 actual narrow viewport "+brand+"/"+mode+"/"+direction+"/"+width,
            sample.passed&&Math.abs(observed.innerWidth-width)<=1&&observed.viewport<=width&&observed.viewport>=width-20,
            sample.passed&&Math.abs(observed.innerWidth-width)<=1&&observed.viewport<=width&&observed.viewport>=width-20?"6 native appearances OK":JSON.stringify({sample,innerWidth:observed.innerWidth}));
+         // #418/#501: exact 3px outer / 1px inner Penpot-aligned focus
+         // geometry across all six real Blazor appearances and BOTH
+         // directions on a genuine 320/400px viewport. This second
+         // attribute stays experimental and is removed before the next case.
+         const doubleNarrow=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+
+           "const names=['default','primary','danger','outline','subtle','transparent'];"+
+           "const buttons=names.map(n=>document.querySelector('#v3-focus-'+n));"+
+           "const before=buttons.map(b=>b.getBoundingClientRect());"+
+           "h.removeAttribute('data-bui-v3-focus-contrast-candidate');"+
+           "h.setAttribute('data-bui-v3-focus-double-ring-candidate','');"+
+           "const bg=getComputedStyle(h).backgroundColor;"+
+           "const observations=buttons.map((b,i)=>{b.focus();const s=getComputedStyle(b),r=b.getBoundingClientRect(),"+
+           "shadow=s.boxShadow,spread=parseFloat(shadow.match(/(-?[0-9.]+)px\\s*$/)?.[1]),"+
+           "w=parseFloat(s.outlineWidth),off=parseFloat(s.outlineOffset);"+
+           "return {name:names[i],focus:b.matches(':focus-visible'),width:w,offset:off,"+
+           "edge:w+off,spread,color:s.outlineColor,shadowBg:shadow.includes(bg),"+
+           "stable:Math.abs(r.width-before[i].width)<.2&&Math.abs(r.height-before[i].height)<.2};});"+
+           "h.removeAttribute('data-bui-v3-focus-double-ring-candidate');"+
+           "h.setAttribute('data-bui-v3-focus-contrast-candidate','');"+
+           "document.querySelector('#v3-focus-default').focus();"+
+           "return {bg,observations};})()");
+         const doubleItems=doubleNarrow.observations.map(o=>({...o,
+           contrast:contrast(o.color,doubleNarrow.bg)}));
+         const doublePass=doubleItems.every(o=>o.focus&&o.width===2&&o.offset===1
+           &&o.edge===3&&o.spread===1&&o.shadowBg&&o.stable&&o.contrast>=3);
+         doubleNarrowStress.push({brand,mode,direction,width,pass:doublePass});
+         assert("Penpot #501 3px/1px ring on six native Buttons "+brand+"/"+mode+"/"+direction+"/"+width,
+           doublePass, doublePass?"six ring geometries match":JSON.stringify(doubleItems));
        }
    }
  } finally {
@@ -705,6 +733,7 @@ try {
  console.log("v3 focus candidate actual narrow viewport stress:",
    JSON.stringify({samples:narrowStress.length,buttonObservations:narrowStress.length*appearanceNames.length,
      failed:narrowStress.filter(s=>!s.passed)}));
+ console.log("Exact #501 Penpot 3px/1px ring geometry across six Buttons:",JSON.stringify({samples:doubleNarrowStress.length,buttonObservations:doubleNarrowStress.length*appearanceNames.length,failures:doubleNarrowStress.filter(s=>!s.pass)}));
  const under3=focusThemeSamples.filter(x=>x.ratio<3);
  if(under3.length)openAccessibilityGaps.push("Scoped Focus ring-to-surface contrast below 3:1 in "+under3.map(x=>x.brand+"/"+x.mode).join(",")+"; #418 candidate token approval required");
  console.log("Focus-ring scoped brand/mode contrast audit:",JSON.stringify({samples:focusThemeSamples.length,lowContrast:under3.map(x=>({brand:x.brand,mode:x.mode,ratio:+x.ratio.toFixed(2)})),minRatio:+Math.min(...focusThemeSamples.map(x=>x.ratio)).toFixed(2)}));
@@ -717,7 +746,7 @@ try {
  const dblForced=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-double-ring-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b),val=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();const got={forced:matchMedia('(forced-colors: active)').matches,visible:b.matches(':focus-visible'),token:val,outline:s.outlineColor,width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),shadow:s.boxShadow};h.removeAttribute('data-bui-v3-focus-double-ring-candidate');return got;})()");
  assert("two-layer candidate degrades safely to Highlight single outline in forced colors",
    dblForced.forced&&dblForced.visible&&dblForced.token.toLowerCase()==="highlight"
-   &&dblForced.width>=2&&dblForced.offset===2&&dblForced.shadow==="none",JSON.stringify(dblForced));
+   &&dblForced.width>=2&&dblForced.offset===1&&dblForced.shadow==="none",JSON.stringify(dblForced));
  await cdp.send("Emulation.setEmulatedMedia",{features:[]}); if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
@@ -740,7 +769,7 @@ try {
  }
  const passCount=checks.filter(x=>x.pass).length;
  const browserLabel=/msedge|edge/i.test(chromePath)?"Edge":"Chrome";
- const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
+ const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,doubleRingViewportSamples:doubleNarrowStress.length,doubleRingViewportFailures:doubleNarrowStress.filter(x=>!x.pass).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;

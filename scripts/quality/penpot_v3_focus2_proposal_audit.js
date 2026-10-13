@@ -17,11 +17,19 @@ for(const [mode,bg,ring,gap] of [["Light","#FFFFFF","#000000","#FFFFFF"],["Dark"
  assert(face.fills?.[0]?.fillColor?.toUpperCase()==="#0F6CBD",mode+" example button");
  assert(label.type==="text"&&label.characters==="Primary action",mode+" label");
  assert(outer.strokes?.[0]?.strokeColor?.toUpperCase()===ring&&outer.strokes?.[0]?.strokeWidth===2,mode+" stroke");
- assert(inner.strokes?.[0]?.strokeColor?.toUpperCase()===gap&&inner.strokes?.[0]?.strokeWidth===2,mode+" contrast gap");
- assert(Math.abs(outer.x-(face.x-7))<.01&&Math.abs(outer.y-(face.y-7))<.01&&Math.abs(outer.width-(face.width+14))<.01&&Math.abs(outer.height-(face.height+14))<.01,mode+" outer ring bounds");
- assert(Math.abs(inner.x-(face.x-4))<.01&&Math.abs(inner.y-(face.y-4))<.01&&Math.abs(inner.width-(face.width+8))<.01&&Math.abs(inner.height-(face.height+8))<.01,mode+" gap ring bounds");
+ assert(inner.strokes?.[0]?.strokeColor?.toUpperCase()===gap&&inner.strokes?.[0]?.strokeWidth===1,mode+" contrast gap");
+ assert(Math.abs(outer.x-(face.x-3))<.01&&Math.abs(outer.y-(face.y-3))<.01&&Math.abs(outer.width-(face.width+6))<.01&&Math.abs(outer.height-(face.height+6))<.01,mode+" outer ring bounds");
+ assert(Math.abs(inner.x-(face.x-1))<.01&&Math.abs(inner.y-(face.y-1))<.01&&Math.abs(inner.width-(face.width+2))<.01&&Math.abs(inner.height-(face.height+2))<.01,mode+" gap ring bounds");
  assert(label.x>=face.x&&label.x+label.width<=face.x+face.width&&label.y>=face.y&&label.y+label.height<=face.y+face.height,mode+" text fits");
  assert(outer.type==="rectangle"&&inner.type==="rectangle",mode+" rings not native editable vectors");
+ assert(outer.strokes?.[0]?.strokeAlignment==="inner"&&inner.strokes?.[0]?.strokeAlignment==="inner",
+   mode+" expected inside-aligned Penpot vector strokes");
+ assert(Math.abs(outer.x+outer.width/2-face.x-face.width/2)<.01
+   &&Math.abs(outer.y+outer.height/2-face.y-face.height/2)<.01,mode+" outer not centered");
+ assert(Math.abs(inner.x+inner.width/2-face.x-face.width/2)<.01
+   &&Math.abs(inner.y+inner.height/2-face.y-face.height/2)<.01,mode+" inner not centered");
+ assert(outer.borderRadius===face.borderRadius+3&&inner.borderRadius===face.borderRadius+1,
+   mode+" ring corners not source driven");
 }
 assert(b.name.endsWith("unapproved"),"Proposal must be explicitly unapproved");
 return {file:penpot.currentFile.id,page:p.id,board:b.id,checks,failures:errors,pass:errors.length===0,
