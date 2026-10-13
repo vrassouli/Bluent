@@ -588,7 +588,7 @@ try {
 
    // Explicitly opt in to the *existing* Fluent focus2 source token for an
    // alternate design candidate. Do not change the default focus token.
-   const candidate=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={focusVisible:b.matches(':focus-visible'),outlineColor:s.outlineColor,outlineWidth:parseFloat(s.outlineWidth),strokeSource:getComputedStyle(h).getPropertyValue('--colorStrokeFocus2').trim(),surfaceColor:getComputedStyle(h).backgroundColor};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
+   const candidate=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={focusVisible:b.matches(':focus-visible'),outlineColor:s.outlineColor,outlineWidth:parseFloat(s.outlineWidth),strokeSource:getComputedStyle(h).getPropertyValue('--colorStrokeFocus2').trim(),semanticAlias:getComputedStyle(h).getPropertyValue('--bui-v3-focus-ring-strong-candidate').trim(),componentAlias:getComputedStyle(h).getPropertyValue('--bui-v3-button-focus-outer-candidate').trim(),surfaceColor:getComputedStyle(h).backgroundColor};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
    const candidateRatio=contrast(candidate.outlineColor,candidate.surfaceColor);
    candidateFocusSamples.push({brand,mode,ratio:candidateRatio,source:candidate.strokeSource});
    // Independent opt-in two-layer browser treatment, aligned with the
@@ -605,7 +605,7 @@ try {
      doubleRing.focused&&doubleRing.visible&&doubleRing.width>=2&&doubleRing.offset===1&&doubleRing.width+doubleRing.offset===3
      &&doubleRing.shadow!=="none"&&doubleRing.shadowSpread===1&&doubleRing.shadow.includes(doubleRing.bg)&&doubleContrast>=3&&doubleRing.stable,
      JSON.stringify({doubleRing,ratio:doubleContrast}));
-   assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3,JSON.stringify({candidate,ratio:candidateRatio}));
+   assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3&&candidate.semanticAlias===candidate.strokeSource&&candidate.componentAlias===candidate.strokeSource,JSON.stringify({candidate,ratio:candidateRatio}));
  }
  await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+(focusScopeBefore.brand===null?"h.removeAttribute('data-bui-brand');":"h.setAttribute('data-bui-brand','"+focusScopeBefore.brand+"');")+"h.setAttribute('data-bui-theme','"+focusScopeBefore.mode+"');})()");
  // #418: browser CSS zoom is a layout stress approximation, NOT actual

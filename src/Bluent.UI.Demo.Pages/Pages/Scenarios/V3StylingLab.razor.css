@@ -165,10 +165,10 @@
     max-width: 100%;
 }
 
-/* #418 contrast proof only: existing Fluent source focus stroke, never default.
+/* #418 contrast proof only: additive source -> semantic -> Button token chain, never default.
    Gate the alternative so unapproved Penpot focus tokens stay unchanged. */
 .v3-lab-surface[data-bui-v3-focus-contrast-candidate] {
-    --v3-lab-focus: var(--colorStrokeFocus2);
+    --v3-lab-focus: var(--bui-v3-button-focus-outer-candidate, var(--colorStrokeFocus2));
 }
 @media (forced-colors: active) {
     .v3-lab-surface[data-bui-v3-focus-contrast-candidate] {
@@ -182,7 +182,7 @@
    outside the Button border; inner canvas spacer starts 1px outside.
    neither stroke changes Button face dimensions. Still unapproved. */
 .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] {
-    --v3-lab-focus: var(--colorStrokeFocus2);
+    --v3-lab-focus: var(--bui-v3-button-focus-outer-candidate, var(--colorStrokeFocus2));
 }
 .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] ::deep .bui-button:focus-visible {
     outline-offset: 1px;

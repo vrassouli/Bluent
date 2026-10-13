@@ -47,3 +47,5 @@ The explicit **[proposed theme ownership contract](PORTAL-THEME-OWNERSHIP-PROPOS
 
 ### D5 detached portal motion regression
 The live Chrome probe explicitly enables prefers-reduced-motion: reduce **while the global Popover and Dialog are open**, reads computed transition/animation durations and confirms that both are still **nonzero**. These extra two assertions pass by **reproducing the accessibility gap**, not by certifying or correcting it. The v3 opt-in local Overlay does correctly report 0s in the same run; its policy does not automatically cross the global service-host boundary. Future portal-owner implementation must address both style scope and motion.
+
+**2026-10-13 guard:** The Focus2 source/semantic/Button candidate alias chain is now copied into the Demo.Pages-only CSS by `sync_v3_token_demo_asset.py`. Browser and token-contract CI workflows use `--check` to prevent stale compiled demo aliases. No production/legacy CSS is touched; see [Focus2 crosswalk](FOCUS2-ALIAS-CHAIN-CROSSWALK.md).

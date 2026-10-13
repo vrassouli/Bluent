@@ -9,6 +9,7 @@ on:
       - ".github/workflows/v3-browser-lab.yml"
       - "scripts/quality/probe_v3_blazor_runtime.mjs"
       - "docs/v3/tokens/issue-418-*"
+      - "src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css"
       - "src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3*"
       - "src/Bluent.UI.Demo.SSR/**"
       - "src/Bluent.UI/Components/ButtonComponent/**"
@@ -44,6 +45,8 @@ jobs:
           node-version: "24"
       - name: Restore only (no NuGet publishing)
         run: dotnet restore Bluent.sln --nologo
+      - name: Verify the generated demo CSS is synced
+        run: python scripts/quality/sync_v3_token_demo_asset.py --check
       - name: Build real Blazor WASM host in Debug
         run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore --nologo -warnaserror
       - name: Select installed browser and interactive render mode
