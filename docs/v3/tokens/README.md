@@ -256,3 +256,5 @@ Connected Penpot native follow-up: both Light and Dark showed the correct actual
 ## Focus reviewer decision (2026-10-13)
 
 Maintainer preference: **brand-colored Button focus ring** is the default, and **TextField keeps only its native animated bottom underline**. The Styling Lab no longer frames TextFields; emulated forced colors maintains an OS-highlight underline. Local Chromium suite: **592/592 pass**. Focus2 remains an unapproved comparison and brand-dark focus contrast still needs work. See [TextField design review](TEXTFIELD-FOCUS-REVIEW.md).
+
+Branded Dark focus latest research: The opt-in Styling Lab has an experimental fourth brand-preserving preview. The Chrome/WASM browser suite passed 613/613. Although the brighter emitted compound-brand stroke passes 3:1 on the ordinary neutral Dark surface, it fails on Dark NeutralBackground1Hover in all 10 brands (2.65–2.91:1). See BRANDED-FOCUS-PENPOT-PAGE07-REVIEW.md. No approved/public Button focus change.

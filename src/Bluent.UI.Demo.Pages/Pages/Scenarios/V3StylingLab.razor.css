@@ -182,6 +182,19 @@
     max-width: 100%;
 }
 
+/* #418 user-preferred brand ring: isolated preview of the already emitted
+   Fluent compound-brand stroke (matches native TextField underline source).
+   Default Button focus remains untouched; no public token/API promotion.
+   Do not treat neutral-host contrast as proof on all filled surfaces. */
+.v3-lab-surface[data-bui-v3-focus-brand-candidate] {
+    --v3-lab-focus: var(--colorCompoundBrandStroke, var(--colorBrandBackground, #0f6cbd));
+}
+@media (forced-colors: active) {
+    .v3-lab-surface[data-bui-v3-focus-brand-candidate] {
+        --v3-lab-focus: Highlight;
+    }
+}
+
 /* #418 contrast proof only: additive source -> semantic -> Button token chain, never default.
    Gate the alternative so unapproved Penpot focus tokens stay unchanged. */
 .v3-lab-surface[data-bui-v3-focus-contrast-candidate] {

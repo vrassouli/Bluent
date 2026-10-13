@@ -93,6 +93,7 @@ try {
  // than synthetic CSS fixtures. It modifies only this temporary browser tab.
  const matrix=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-brand-matrix.preview.json"),"utf8")).brands;
  const hexRgb=v=>{const m=/^#([a-f0-9]{6})$/i.exec(v);if(!m)throw Error("Unexpected hex "+v);const x=m[1];return "rgb("+[0,2,4].map(i=>parseInt(x.slice(i,i+2),16)).join(", ")+")";};
+ const hexToRgb=v=>{const full=/^#[a-f0-9]{3}$/i.test(v)?"#"+[...v.slice(1)].map(c=>c+c).join(""):v;return hexRgb(full);};
  const rgbParts=v=>[...v.matchAll(/[0-9]+/g)].slice(0,3).map(x=>Number(x[0]));
  const luminance=v=>{const [r,g,b]=rgbParts(v).map(n=>{const c=n/255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b;};
  const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);};
@@ -101,12 +102,17 @@ try {
    const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");
    if(swap!=="ok"){assert("brand asset "+brand,false,String(swap));continue;}
    for(const mode of ["light","dark"]) {
-     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor};})()");
+     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,sourceCompound:getComputedStyle(h).getPropertyValue('--colorCompoundBrandStroke').trim(),sourceSurface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),brandCandidate:(() => {h.setAttribute('data-bui-v3-focus-brand-candidate','');const v=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()};})()");
      const expected=hexRgb(modes[mode].tokens["bluent.color.brandBackground"]);
      combos.push({brand,mode,match:sample.button===expected,button:sample.button,expected});
      assert("brand "+brand+" "+mode+" on real Button",sample.button===expected,JSON.stringify(sample));
      assert("Word nested host independent of global stylesheet "+brand+" "+mode,sample.nestedWord===hexRgb(matrix.word.dark.tokens["bluent.color.brandBackground"]),sample.nestedWord);
      assert("primary Button text/source contrast "+brand+" "+mode,contrast(sample.button,sample.text)>=4.5,contrast(sample.button,sample.text).toFixed(3)+":1");
+     assert("brand-preserving focus candidate against native neutral host "+brand+" "+mode,
+       sample.brandCandidate.toLowerCase()===sample.sourceCompound.toLowerCase()&&
+       contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface))>=3,
+       JSON.stringify({brand,mode,focus:sample.brandCandidate,source:sample.sourceCompound,
+                       surface:sample.sourceSurface,ratio:contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface))}));
      assert("opt-in alias not leaked to root "+brand+" "+mode,sample.root==="",sample.root);
    }
  }
@@ -484,18 +490,13 @@ try {
  // #418 reviewer UX: preview choices are visible clickable Bluent Buttons,
  // not DevTools-only attributes. Always return to Baseline for the remaining
  // scope/brand/keyboard matrix to keep earlier regression expectations stable.
- for(const [id,expected,other] of [
-   ["baseline",null,null],
-   ["focus2","data-bui-v3-focus-contrast-candidate","data-bui-v3-focus-double-ring-candidate"],
-   ["double","data-bui-v3-focus-double-ring-candidate","data-bui-v3-focus-contrast-candidate"],
-   ["baseline",null,null]
- ]){
+ for(const id of ["baseline","brand","focus2","double","baseline"]){
    await cdp.js("document.getElementById('v3-focus-preview-"+id+"').click()");
    await new Promise(resolve=>setTimeout(resolve,85));
-   const ui=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');return {single:h.hasAttribute('data-bui-v3-focus-contrast-candidate'),double:h.hasAttribute('data-bui-v3-focus-double-ring-candidate'),text:document.querySelector('.v3-lab-focus-matrix [role=status]')?.textContent?.trim(),buttons:document.querySelectorAll('.v3-lab-focus-preview-controls .bui-button').length};})()");
-   assert("interactive Focus2 reviewer selector "+id,
-     ui.buttons===3 && (id==="baseline"?(!ui.single&&!ui.double):(id==="focus2"?(ui.single&&!ui.double):(!ui.single&&ui.double))) && ui.text?.length>20,
-     JSON.stringify(ui));
+   const ui=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');return {brand:h.hasAttribute('data-bui-v3-focus-brand-candidate'),single:h.hasAttribute('data-bui-v3-focus-contrast-candidate'),double:h.hasAttribute('data-bui-v3-focus-double-ring-candidate'),text:document.querySelector('.v3-lab-focus-matrix [role=status]')?.textContent?.trim(),buttons:document.querySelectorAll('.v3-lab-focus-preview-controls .bui-button').length};})()");
+   assert("interactive brand-first reviewer selector "+id,
+     ui.buttons===4&&ui.brand===(id==="brand")&&ui.single===(id==="focus2")&&
+     ui.double===(id==="double")&&ui.text?.length>20,JSON.stringify(ui));
  }
  // #418 / #501 research gate: focus decoration must not resize the same
  // native Button face. Test a real Shift+Tab return after an actual click.

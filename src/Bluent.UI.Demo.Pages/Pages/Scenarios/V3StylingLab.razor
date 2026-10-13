@@ -23,6 +23,7 @@
     <CascadingValue Value="CurrentScope">
     <section class="v3-lab-surface" data-bui-v3-tokens data-bui-brand="@_mainBrand" data-bui-theme="@(_dark ? "dark" : "light")"
              data-density="@(_compact ? "compact" : "comfortable")"
+             data-bui-v3-focus-brand-candidate="@(_focusPreview == FocusPreviewMode.BrandedContrast ? "" : null)"
              data-bui-v3-focus-contrast-candidate="@(_focusPreview == FocusPreviewMode.Focus2 ? "" : null)"
              data-bui-v3-focus-double-ring-candidate="@(_focusPreview == FocusPreviewMode.DoubleRing ? "" : null)"
              dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 opt-in token experiment">
@@ -111,6 +112,9 @@
                 <Button id="v3-focus-preview-baseline" Text="فعلی (رنگ برند)"
                         Appearance="@(_focusPreview == FocusPreviewMode.Baseline ? ButtonAppearance.Primary : ButtonAppearance.Default)"
                         OnClick="() => _focusPreview = FocusPreviewMode.Baseline" />
+                <Button id="v3-focus-preview-brand" Text="برند پرکنتراست (آزمایشی)"
+                        Appearance="@(_focusPreview == FocusPreviewMode.BrandedContrast ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.BrandedContrast" />
                 <Button id="v3-focus-preview-focus2" Text="Focus2 ساده"
                         Appearance="@(_focusPreview == FocusPreviewMode.Focus2 ? ButtonAppearance.Primary : ButtonAppearance.Default)"
                         OnClick="() => _focusPreview = FocusPreviewMode.Focus2" />
@@ -121,6 +125,7 @@
             <p class="v3-lab-hint" role="status">
                 @(_focusPreview switch
                 {
+                    FocusPreviewMode.BrandedContrast => "رنگ برند پرکنتراست: در Light مثل حالت فعلی و در Dark رنگ روشن‌تر همان برند، با توکن Fluent colorCompoundBrandStroke؛ آزمایشی است و روی پس‌زمینه Hover هنوز احتمال کمبود کنتراست دارد.",
                     FocusPreviewMode.Focus2 => "Focus2 ساده: حلقه ۲ پیکسلی مشکی در Light یا سفید در Dark؛ بدون فاصله داخلی دولایه.",
                     FocusPreviewMode.DoubleRing => "Focus2 دولایه: حلقه بیرونی ۲ پیکسل با فاصله ۱ پیکسل و جداکننده هم‌رنگ سطح. برای دیدنش با Tab روی دکمه‌های زیر حرکت کن.",
                     _ => "حالت فعلی: حلقه با رنگ برند. یکی از گزینه‌های Focus2 را انتخاب کن، سپس با Tab بین دکمه‌های زیر حرکت کن."
@@ -192,7 +197,7 @@
     private string? _name;
     private string _message = "No action yet";
     private string? _mainBrand;
-    private enum FocusPreviewMode { Baseline, Focus2, DoubleRing }
+    private enum FocusPreviewMode { Baseline, BrandedContrast, Focus2, DoubleRing }
     private FocusPreviewMode _focusPreview = FocusPreviewMode.Baseline;
     private bool _dark;
     private bool _rtl;

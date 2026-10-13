@@ -8,7 +8,7 @@ import json
 from audit_v3_token_preview_contrast import contrast
 from generate_v3_token_preview import THEME_DIR, load_source_tokens
 
-SOURCE_NAMES = ["--colorNeutralBackground1", "--colorBrandBackground", "--colorCompoundBrandStroke"]
+SOURCE_NAMES = ["--colorNeutralBackground1", "--colorNeutralBackground1Hover", "--colorBrandBackground", "--colorCompoundBrandStroke"]
 
 
 def audit():
@@ -22,6 +22,8 @@ def audit():
             candidate = vals["--colorCompoundBrandStroke"]
             current_ratio = contrast(current, surface)
             candidate_ratio = contrast(candidate, surface)
+            hover_surface = vals["--colorNeutralBackground1Hover"]
+            candidate_hover_ratio = contrast(candidate, hover_surface)
             if mode == "light":
                 if current_ratio < 3:
                     problems.append(f"{brand}/light current brand below 3:1: {current_ratio:.3f}")
@@ -37,12 +39,15 @@ def audit():
                 "currentBrand": current, "currentContrast": round(current_ratio, 3),
                 "existingCompoundBrandStroke": candidate,
                 "candidateContrast": round(candidate_ratio, 3),
+                "hoverHost": hover_surface,
+                "candidateHoverContrast": round(candidate_hover_ratio, 3),
+                "hoverReviewRequired": candidate_hover_ratio < 3,
             })
     brands = {r["brand"] for r in cases}
     if len(cases) != 20 or len(brands) != 10:
         problems.append(f"Expected ten brands x two modes; found {len(brands)} / {len(cases)}")
     return {"pass": not problems,
-            "classification": "Numerical opt-in source research on opaque neutral host only; not a public Button token approval",
+            "classification": "Numerical opt-in source research on neutral and hover hosts (hover gaps disclosed); not a public Button token approval",
             "cases": cases, "errors": problems}
 
 

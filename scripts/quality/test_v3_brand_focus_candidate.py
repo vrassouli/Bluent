@@ -38,6 +38,22 @@ class BrandFocusSourceTests(unittest.TestCase):
             self.assertGreaterEqual(r["candidateContrast"], 3, r["brand"])
             self.assertNotEqual(r["currentBrand"].lower(), r["existingCompoundBrandStroke"].lower())
 
+    def test_candidate_cannot_claim_dark_hover_background_conformance(self):
+        dark = [r for r in self.result["cases"] if r["mode"] == "dark"]
+        self.assertEqual(len(dark), 10)
+        # This records the known gap, not a UI accessibility pass.
+        for r in dark:
+            self.assertTrue(r["hoverReviewRequired"], r["brand"])
+            self.assertLess(r["candidateHoverContrast"], 3.0, r["brand"])
+            self.assertGreater(r["candidateHoverContrast"], 2.5, r["brand"])
+
+    def test_light_candidate_on_hover_neutral(self):
+        light = [r for r in self.result["cases"] if r["mode"] == "light"]
+        self.assertEqual(len(light), 10)
+        for r in light:
+            self.assertFalse(r["hoverReviewRequired"], r["brand"])
+            self.assertGreaterEqual(r["candidateHoverContrast"], 3.0, r["brand"])
+
     def test_contrast_math_and_scope(self):
         self.assertAlmostEqual(contrast("#000000", "#FFFFFF"), 21, places=7)
         self.assertAlmostEqual(contrast("#292929", "#292929"), 1, places=7)
