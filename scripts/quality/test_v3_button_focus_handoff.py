@@ -39,6 +39,27 @@ class HandoffContract(unittest.TestCase):
         for expected in ("aria-pressed", "Static SSR", "InteractiveServer", "17/17"):
             self.assertIn(expected,docs)
 
+    def test_maintainer_brand_focus_selection_is_documented_and_auditable(self):
+        text=(DESIGN/"BUTTON-FOCUS-BRAND-REVIEW.md").read_text(encoding="utf-8")
+        audit=(SCRIPT/"penpot_v3_button_brand_review_audit.js").read_text(encoding="utf-8")
+        for value in (
+            "94a03b1b-8cb6-8091-8008-c8b9bae47e45",
+            "bluent.semantic.border.focus",
+            "TextField",
+            "#1267B4", "#18599B", "2px", "3px",
+            "contrast", "Focus2",
+        ):
+            self.assertIn(value,text)
+        for value in (
+            "94a03b1b-8cb6-8091-8008-c8b9bae47e45",
+            "FIELD FOCUS INDICATOR · BOTTOM ONLY",
+            "BRAND FOCUS · SINGLE OUTLINE",
+            'ring.tokens?.strokeColor==="bluent.semantic.border.focus"',
+            "variantComponents()?.length===10",
+        ):
+            self.assertIn(value,audit)
+        self.assertIn("1.94–2.15",text)
+        self.assertIn("**not** a claim",text)
     def test_handoff_skill_does_not_claim_final_approval(self):
         skill=(ROOT/".agents"/"skills"/"bluent-v3-button-focus"/"SKILL.md").read_text(encoding="utf-8")
         for expected in ("#418", "#428", "#501", "Penpot", "not approved"):

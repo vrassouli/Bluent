@@ -8,6 +8,7 @@ on:
     paths:
       - ".github/workflows/v3-button-focus-contract.yml"
       - "scripts/quality/penpot_v3_button_focus*.js"
+      - "scripts/quality/penpot_v3_button_brand_review_audit.js"
       - "scripts/quality/penpot_v3_button_typography_alignment_audit.js"
       - "scripts/quality/probe_v3_button_focus_runtime.mjs"
       - "scripts/quality/test_v3_button_focus_handoff.py"
@@ -40,6 +41,8 @@ jobs:
             node --check $_.FullName
             if ($LASTEXITCODE -ne 0) { throw "Invalid Penpot read-only audit: $($_.Name)" }
           }
+          node --check scripts/quality/penpot_v3_button_brand_review_audit.js
+          if ($LASTEXITCODE -ne 0) { throw "Invalid brand Button + underline-only TextField Penpot audit" }
           node --check scripts/quality/penpot_v3_button_typography_alignment_audit.js
           if ($LASTEXITCODE -ne 0) { throw "Invalid typography Penpot audit" }
           node --check scripts/quality/probe_v3_button_focus_runtime.mjs
