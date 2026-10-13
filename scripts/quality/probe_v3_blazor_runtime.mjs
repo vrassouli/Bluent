@@ -227,6 +227,8 @@ try {
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"no-preference"}]});
  const normal=await cdp.js("getComputedStyle(document.querySelector('.v3-lab-surface')).getPropertyValue('--bui-v3-motion-duration-fast').trim()");
  assert("non-reduced duration 150ms",normal==="150ms",normal);
+ const normalMotion=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),p=document.querySelector('#v3-popover-trigger_surface');return {reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,token:getComputedStyle(h).getPropertyValue('--bui-v3-motion-duration-fast').trim(),popoverTransition:getComputedStyle(p).transitionDuration};})()");
+ assert("real Blazor Popover has normal-motion transition when no-preference is active",!normalMotion.reduced&&normalMotion.token==="150ms"&&normalMotion.popoverTransition.split(",").some(x=>parseFloat(x)>0),JSON.stringify(normalMotion));
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Preview local overlay'))?.click()");
  const overlay=await until(()=>cdp.js("(()=>{const o=document.querySelector('.v3-lab-surface .bui-overlay');return o&&getComputedStyle(o).animationDuration;})()"),"real overlay",26000);
