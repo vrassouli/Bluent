@@ -9,6 +9,7 @@ on:
       - ".github/workflows/v3-button-focus-contract.yml"
       - "scripts/quality/penpot_v3_button_focus*.js"
       - "scripts/quality/penpot_v3_button_brand_review_audit.js"
+      - "scripts/quality/penpot_v3_button_host_context_audit.js"
       - "scripts/quality/penpot_v3_button_danger_selected_audit.js"
       - "scripts/quality/penpot_v3_button_typography_alignment_audit.js"
       - "scripts/quality/probe_v3_button_focus_runtime.mjs"
@@ -43,6 +44,8 @@ jobs:
             node --check $_.FullName
             if ($LASTEXITCODE -ne 0) { throw "Invalid Penpot read-only audit: $($_.Name)" }
           }
+          node --check scripts/quality/penpot_v3_button_host_context_audit.js
+          if ($LASTEXITCODE -ne 0) { throw "Invalid native 10-host context design audit" }
           node --check scripts/quality/penpot_v3_button_brand_review_audit.js
           node --check scripts/quality/penpot_v3_button_danger_selected_audit.js
           if ($LASTEXITCODE -ne 0) { throw "Invalid Danger state native Penpot audit" }
