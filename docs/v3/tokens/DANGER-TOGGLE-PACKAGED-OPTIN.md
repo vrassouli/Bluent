@@ -38,3 +38,11 @@ Local Chromium-based real Blazor WebAssembly tests: Chrome 843/843 and Edge 843/
 NuGet local-only pack of Bluent.UI.1.0.0.nupkg was inspected by scripts/quality/check_v3_nuget_boundary.py: PASS, includes the new reviewed v3 CSS plus the already approved Dialog JS, all ten old theme assets, no unexpected v3 files. No package was uploaded or published. Package checker still rejects demo-only token CSS and unknown v3 scripts/styles; a missing reviewed CSS file is also an explicit regression failure. Generated wwwroot CSS needed explicit Git staging because the existing .gitignore ignores generic wwwroot CSS.
 
 Original public Button CSS still has the unfixed state until a distinct v3 Button implementation issue is approved. #428 Button rewrite remains Backlog; #501 is design Review. This opt-in preview addresses #418 foundation research only. Full native Windows accessibility/AT acceptance and universal Button palette approval are NOT implied by source/browser/package checks.
+
+## 2026-10-14 stricter package-to-source integrity gate
+
+The v3 package boundary checker now verifies **byte-for-byte identity** between staticwebassets/v3/danger-toggle.opt-in.preview.css inside the local-only Bluent.UI nupkg and the authoritative source at src/Bluent.UI/wwwroot/v3/danger-toggle.opt-in.preview.css at the same source revision. Merely finding a ZIP member by name is insufficient. A missing, stale, empty or intentionally modified packaged stylesheet fails. The restriction on other unreviewed v3 assets remains unchanged; the ten legacy themed bundles and opt-in Dialog JS are still mandatory.
+
+The NuGet-boundary negative-control suite added a tampered-stylesheet test and passed **7/7**. The already-built local Bluent.UI.1.0.0.nupkg passed the stricter read-only validator: optInDangerCssPresent=true, optInDangerCssSourceIdentical=true, all ten legacy themes retained and no unauthorized assets. The local full v3 source suite passed **40/40**.
+
+This is not a NuGet upload or stable release, does not select a public Button default, and does not establish native OS accessibility certification. Real Chrome/Edge browser checks remain separate.

@@ -26,7 +26,12 @@ class NugetBoundaryTests(unittest.TestCase):
             package = Path(folder) / "Bluent.UI.test.nupkg"
             with ZipFile(package, "w") as archive:
                 for name in sorted(names):
-                    archive.writestr(name, b"research test fixture only")
+                    content = (
+                        (ROOT / "src/Bluent.UI/wwwroot/v3/danger-toggle.opt-in.preview.css").read_bytes()
+                        if name == "staticwebassets/v3/danger-toggle.opt-in.preview.css"
+                        else b"research test fixture only"
+                    )
+                    archive.writestr(name, content)
             result = subprocess.run(
                 [sys.executable, str(CHECK), str(package)],
                 cwd=ROOT, text=True, stdout=subprocess.PIPE,
@@ -41,6 +46,7 @@ class NugetBoundaryTests(unittest.TestCase):
         self.assertTrue(data["pass"])
         self.assertTrue(data["optInDialogDependencyPresent"])
         self.assertTrue(data["optInDangerCssPresent"])
+        self.assertTrue(data["optInDangerCssSourceIdentical"])
 
     def test_missing_legacy_theme_is_rejected(self):
         rc, data = self.run_probe(BASE - {"staticwebassets/bluent.ui.theme.word.min.css"})
@@ -57,6 +63,27 @@ class NugetBoundaryTests(unittest.TestCase):
         self.assertNotEqual(rc, 0)
         self.assertFalse(data["optInDangerCssPresent"])
         self.assertIn("Danger toggle stylesheet missing", " ".join(data["errors"]))
+
+    def test_tampered_opt_in_danger_css_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            package = Path(folder) / "Bluent.UI.test.nupkg"
+            with ZipFile(package, "w") as archive:
+                for name in sorted(BASE):
+                    archive.writestr(
+                        name,
+                        b"/* empty, stale, or tampered stylesheet */"
+                        if name == "staticwebassets/v3/danger-toggle.opt-in.preview.css"
+                        else b"research test fixture only",
+                    )
+            result = subprocess.run(
+                [sys.executable, str(CHECK), str(package)],
+                cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+            )
+            self.assertFalse(result.stderr, result.stderr)
+            data = json.loads(result.stdout)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse(data["optInDangerCssSourceIdentical"])
+            self.assertIn("differs from reviewed source bytes", " ".join(data["errors"]))
 
     def test_design_only_css_preview_is_rejected(self):
         rc, data = self.run_probe(BASE | {"staticwebassets/v3/issue-418.opt-in.preview.css"})

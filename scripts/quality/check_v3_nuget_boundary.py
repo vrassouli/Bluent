@@ -51,6 +51,24 @@ def main() -> int:
         errors.append("Opt-in v3 Dialog JS is missing but actual Dialog code imports it")
     if DANGER_CSS not in members:
         errors.append("Scoped v3 Danger toggle stylesheet missing from Bluent.UI package")
+    # The *content* of the opted-in CSS is a security/compatibility boundary.
+    # A present but empty/stale/tampered CSS member is not evidence that a
+    # NuGet consumer receives the same Penpot-audited file as the v3 lab.
+    source_danger_css = (
+        Path(__file__).resolve().parents[2]
+        / "src/Bluent.UI/wwwroot/v3/danger-toggle.opt-in.preview.css"
+    )
+    danger_css_identical = False
+    if DANGER_CSS in members and source_danger_css.is_file() and pkg.is_file():
+        with ZipFile(pkg) as archive:
+            danger_css_identical = (
+                archive.read(DANGER_CSS) == source_danger_css.read_bytes()
+            )
+        if not danger_css_identical:
+            errors.append("Packaged v3 Danger toggle CSS differs from reviewed source bytes")
+    elif DANGER_CSS in members:
+        errors.append("Reviewed v3 Danger toggle CSS source missing")
+
     unexpected = sorted(
         n for n in members
         if any(marker in n.lower() for marker in BROWSER_PREVIEW_NAMES)
@@ -76,6 +94,7 @@ def main() -> int:
         "legacyBundlesPresent": not missing,
         "optInDialogDependencyPresent": DIALOG_JS in members,
         "optInDangerCssPresent": DANGER_CSS in members,
+        "optInDangerCssSourceIdentical": danger_css_identical,
         "demoOnlyCssOrUnexpectedV3Assets": unexpected,
         "zipMemberCount": len(members),
         "errors": errors,
