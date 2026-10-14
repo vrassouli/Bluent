@@ -751,6 +751,22 @@ try {
      JSON.stringify({brand,mode,adaptive}));
    hostReviewMatrix.push({brand,mode,baselineFailed:unconditional.filter(x=>!x.passes).length,adaptedPass:adaptive.filter(x=>x.passes).length});
 
+   // #418 approved focus token preview: test actual GENERATED opt-in CSS
+   // against five mounted Blazor host cards, not only generator source math.
+   // Explicit host and theme required; restore DOM and check outside scope.
+   const hostAlias=await cdp.js("(() => {\n const root=document.querySelector('.v3-lab-surface');\n const cards=[...document.querySelectorAll('.v3-lab-focus-host-review .v3-lab-focus-host-card')];\n const previous=cards.map(card=>({card,theme:card.getAttribute('data-bui-theme'),kind:card.getAttribute('data-bui-v3-focus-host'),outline:card.style.outlineColor}));\n const outside=document.createElement('div');\n outside.setAttribute('data-bui-theme',root.dataset.buiTheme);\n outside.setAttribute('data-bui-v3-focus-host','neutral');\n outside.style.outlineColor='var(--bui-v3-focus-host-ring-candidate, #ff00ff)';\n document.body.appendChild(outside);\n let rows=[],outOfScope;\n try{\n   for(const card of cards){\n     const kind=card.dataset.v3FocusHost;\n     card.setAttribute('data-bui-theme',root.dataset.buiTheme);\n     card.setAttribute('data-bui-v3-focus-host',kind);\n     card.style.outlineColor='var(--bui-v3-focus-host-ring-candidate, #ff00ff)';\n     const cs=getComputedStyle(card);\n     rows.push({kind, ring:cs.outlineColor,host:cs.backgroundColor,\n      brand:cs.getPropertyValue('--colorBrandBackground').trim(),\n      enhanced:cs.getPropertyValue('--colorBrandForeground2').trim(),\n      inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim()});\n   }\n   outOfScope=getComputedStyle(outside).outlineColor;\n }finally{\n   outside.remove();\n   for(const {card,theme,kind,outline} of previous){\n     if(theme===null)card.removeAttribute('data-bui-theme');else card.setAttribute('data-bui-theme',theme);\n     if(kind===null)card.removeAttribute('data-bui-v3-focus-host');else card.setAttribute('data-bui-v3-focus-host',kind);\n     card.style.outlineColor=outline;\n   }\n }\n return {rows,outOfScope};\n})()");
+   const ringOutcomes=hostAlias.rows.map(x=>{
+     const selected=(x.kind==="neutral"||
+       (x.kind==="inverted"&&mode==="dark"))?x.enhanced:x.inverse;
+     const chosen=x.kind==="neutral"&&mode==="light"?x.brand:selected;
+     return {...x,sourceMatches:x.ring===hexToRgb(chosen),
+       contrast:contrast(x.ring,x.host)};
+   });
+   assert("generated opt-in focus host token on real Blazor cards "+brand+"/"+mode,
+     ringOutcomes.length===5&&ringOutcomes.every(x=>x.sourceMatches&&x.contrast>=3)
+       &&hostAlias.outOfScope==="rgb(255, 0, 255)",
+     JSON.stringify({ringOutcomes,unopted:hostAlias.outOfScope}));
+
    // #418 design-first colored-host test, from real page-07 Penpot source
    // boards. Temporarily recolor the ACTUAL surrounding Blazor host while
    // the keyboard-focused Button stays mounted. Contrast vs container, not

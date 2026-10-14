@@ -298,5 +298,25 @@
     "The twenty native Brand×Mode preview themes are selectable and actually resolve source/semantic/component values; they use a separate preview namespace and require coordinated Light/Dark Mode selection, not production alias integration.",
     "Danger text contrast candidate is additive/opt-in; legacy status-danger mappings and stable CSS are not changed, and text/AT acceptance remains required.",
     "The extra Focus2 aliases are experimental and additive; legacy --bui-v3-border-focus is preserved for compatibility, with no default Button CSS change."
-  ]
+  ],
+  "focusHostPreview": {
+    "status": "Maintainer-approved host-color choice; opt-in candidate CSS name, NOT final public Button API",
+    "penpotBoardId": "f4136a9a-101d-8004-8008-ca2956fe05f9",
+    "hostAttribute": "data-bui-v3-focus-host",
+    "outputCssVariable": "--bui-v3-focus-host-ring-candidate",
+    "light": {
+      "neutral": "--colorBrandBackground",
+      "brand": "--colorNeutralForegroundOnBrand",
+      "brandHover": "--colorNeutralForegroundOnBrand",
+      "danger": "--colorNeutralForegroundOnBrand",
+      "inverted": "--colorNeutralForegroundOnBrand"
+    },
+    "dark": {
+      "neutral": "--colorBrandForeground2",
+      "brand": "--colorNeutralForegroundOnBrand",
+      "brandHover": "--colorNeutralForegroundOnBrand",
+      "danger": "--colorNeutralForegroundOnBrand",
+      "inverted": "--colorBrandForeground2"
+    }
+  }
 }

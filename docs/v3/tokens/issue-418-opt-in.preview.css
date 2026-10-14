@@ -29,3 +29,52 @@
   --bui-v3-badge-danger-text-accessible: var(--bui-v3-text-danger-accessible);
   --bui-v3-button-focus-outer-candidate: var(--bui-v3-focus-ring-strong-candidate);
 }
+/* APPROVED VISUAL host-role choice; candidate token ONLY in explicit v3 opt-in scopes.
+   data-bui-theme must be declared on the same focus host, including nested hosts.
+   Not a Button rule: consumers may bind outline-color separately after API review. */
+[data-bui-v3-tokens][data-bui-theme="light"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-theme="light"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandBackground);
+}
+[data-bui-v3-tokens][data-bui-theme="light"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-theme="light"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="light"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-theme="light"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="light"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-theme="light"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="light"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-theme="light"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="dark"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-theme="dark"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+[data-bui-v3-tokens][data-bui-theme="dark"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-theme="dark"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="dark"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-theme="dark"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="dark"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-theme="dark"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-theme="dark"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-theme="dark"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-theme][data-bui-v3-focus-host],
+  [data-bui-v3-tokens] [data-bui-theme][data-bui-v3-focus-host] {
+    --bui-v3-focus-host-ring-candidate: Highlight;
+  }
+}

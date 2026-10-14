@@ -93,6 +93,69 @@ def contract(manifest: dict) -> tuple[str, dict]:
             target_css = target["css"]
             css.append(f"  {item['css']}: var({target_css});")
     css.append("}")
+    # Approved visual host-role choice, still an explicitly opted-in preview.
+    # Require the context AND current mode on the host itself: otherwise an
+    # inherited Light selector can leak into a nested Dark theme host.
+    focus = manifest["focusHostPreview"]
+    host_attribute = "data-bui-v3-focus-host"
+    focus_variable = "--bui-v3-focus-host-ring-candidate"
+    contexts = ("neutral", "brand", "brandHover", "danger", "inverted")
+    host_roles = {
+        "neutral":"--colorNeutralBackground1",
+        "brand":"--colorBrandBackground",
+        "brandHover":"--colorBrandBackgroundHover",
+        "danger":"--colorPaletteRedBackground3",
+        "inverted":"--colorNeutralBackgroundInverted",
+    }
+    approved = {
+        "light":{
+            "neutral":"--colorBrandBackground",
+            "brand":"--colorNeutralForegroundOnBrand",
+            "brandHover":"--colorNeutralForegroundOnBrand",
+            "danger":"--colorNeutralForegroundOnBrand",
+            "inverted":"--colorNeutralForegroundOnBrand",
+        },
+        "dark":{
+            "neutral":"--colorBrandForeground2",
+            "brand":"--colorNeutralForegroundOnBrand",
+            "brandHover":"--colorNeutralForegroundOnBrand",
+            "danger":"--colorNeutralForegroundOnBrand",
+            "inverted":"--colorBrandForeground2",
+        },
+    }
+    if focus.get("hostAttribute") != host_attribute or focus.get("outputCssVariable") != focus_variable:
+        raise ValueError("Unreviewed focus context attribute or public token name")
+    if focus.get("penpotBoardId") != "f4136a9a-101d-8004-8008-ca2956fe05f9":
+        raise ValueError("Focus mapping lacks the approved owned Penpot board")
+    if {k:focus[k] for k in ("light","dark")} != approved:
+        raise ValueError("Approved focus host-role mapping changed: new Penpot acceptance required")
+    # Verify every source value actually exists for all 10 brands and Light/Dark,
+    # then reject candidate if its ring contrasts <3 with the surrounding host.
+    from audit_v3_token_preview_contrast import contrast
+    for brand in manifest["supportedBrands"]:
+        for mode in manifest["modes"]:
+            color = load_source_tokens(THEME_DIR / f"theme-{brand}-{mode}.css",
+                list(set(host_roles.values()) | set(approved[mode].values())))
+            for context in contexts:
+                ratio = contrast(color[approved[mode][context]], color[host_roles[context]])
+                if ratio < 3:
+                    raise ValueError(f"Approved focus contrast drift: {brand}/{mode}/{context}={ratio:.3f}")
+    css.append("/* APPROVED VISUAL host-role choice; candidate token ONLY in explicit v3 opt-in scopes.")
+    css.append("   data-bui-theme must be declared on the same focus host, including nested hosts.")
+    css.append("   Not a Button rule: consumers may bind outline-color separately after API review. */")
+    for mode in ("light", "dark"):
+        for context in contexts:
+            part = f'[data-bui-theme="{mode}"][{host_attribute}="{context}"]'
+            css.append(f'[data-bui-v3-tokens]{part},')
+            css.append(f'[data-bui-v3-tokens] {part} {{')
+            css.append(f"  {focus_variable}: var({approved[mode][context]});")
+            css.append("}")
+    css.append("@media (forced-colors: active) {")
+    css.append(f"  [data-bui-v3-tokens][data-bui-theme][{host_attribute}],")
+    css.append(f"  [data-bui-v3-tokens] [data-bui-theme][{host_attribute}] {{")
+    css.append(f"    {focus_variable}: Highlight;")
+    css.append("  }")
+    css.append("}")
     return "\n".join(css) + "\n", {
         "status": manifest["status"],
         "schema": "docs/v3/tokens/issue-418-token-schema.preview.json",
