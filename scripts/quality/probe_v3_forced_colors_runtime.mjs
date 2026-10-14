@@ -62,15 +62,25 @@ try{
  await until(()=>cdp.js("!!(document.querySelector('.v3-lab-surface')&&document.getElementById('v3-experiment-name')&&document.getElementById('v3-fa-button'))"),"Blazor components mounted");
  await sleep(1500);
  for(const mode of ["light","dark"]){
-  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+  const hostPreference=await cdp.js("matchMedia('(prefers-reduced-motion: reduce)').matches");
+  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-reduced-motion",value:"no-preference"}]});
   await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+mode+"'; document.getElementById('v3-experiment-name').blur(); document.getElementById('v3-fa-button').blur();");
   await sleep(120);
-  const baseline=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.getElementById('v3-fa-button');return {forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,mode:h.dataset.buiTheme,action:getComputedStyle(h).getPropertyValue('--bui-v3-action-background').trim(),faceWidth:b.getBoundingClientRect().width,faceHeight:b.getBoundingClientRect().height};})()");
-  check(mode+" normal CSS media baseline",!baseline.forced&&baseline.mode===mode&&baseline.action.length>0,baseline);
+  const baseline=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.getElementById('v3-fa-button');return {forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,mode:h.dataset.buiTheme,action:getComputedStyle(h).getPropertyValue('--bui-v3-action-background').trim(),motion:getComputedStyle(h).getPropertyValue('--bui-v3-motion-duration-fast').trim(),faceWidth:b.getBoundingClientRect().width,faceHeight:b.getBoundingClientRect().height};})()");
+  check(mode+" normal CSS media baseline",!baseline.forced&&!baseline.reduced&&baseline.mode===mode&&baseline.action.length>0&&baseline.motion==="150ms",baseline);
+  // Exercise reduced motion INDEPENDENTLY from forced colors, with an explicit
+  // no-preference control. CI hosts can themselves prefer reduced motion.
+  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-reduced-motion",value:"reduce"}]});
+  const onlyReduced=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');return {forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,motion:getComputedStyle(h).getPropertyValue('--bui-v3-motion-duration-fast').trim(),action:getComputedStyle(h).getPropertyValue('--bui-v3-action-background').trim()};})()");
+  check(mode+" reduced-motion only, no forced colors",!onlyReduced.forced&&onlyReduced.reduced&&onlyReduced.motion==="0ms"&&onlyReduced.action===baseline.action,onlyReduced);
+  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-reduced-motion",value:"no-preference"}]});
   // Start from keyboard modality, not pointer focus.
   await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
   await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
   await cdp.js("document.getElementById('v3-fa-button').focus()");
+  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-reduced-motion",value:"no-preference"}]});
+  const onlyForced=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.getElementById('v3-fa-button'),r=b.getBoundingClientRect(),s=getComputedStyle(h);return {forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,motion:s.getPropertyValue('--bui-v3-motion-duration-fast').trim(),action:s.getPropertyValue('--bui-v3-action-background').trim(),focus:s.getPropertyValue('--bui-v3-border-focus').trim(),focusVisible:b.matches(':focus-visible'),w:r.width,h:r.height};})()");
+  check(mode+" forced colors only, without reduced motion",onlyForced.forced&&!onlyForced.reduced&&onlyForced.motion==="150ms"&&onlyForced.action==="ButtonFace"&&onlyForced.focus==="Highlight"&&onlyForced.focusVisible&&onlyForced.w===baseline.faceWidth&&onlyForced.h===baseline.faceHeight,onlyForced);
   await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-reduced-motion",value:"reduce"}]});
   const button=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.getElementById('v3-fa-button'),s=getComputedStyle(b),root=getComputedStyle(h),r=b.getBoundingClientRect();return {forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,focused:document.activeElement===b,visible:b.matches(':focus-visible'),outline:s.outlineStyle,width:parseFloat(s.outlineWidth),color:s.outlineColor,action:root.getPropertyValue('--bui-v3-action-background').trim(),focus:root.getPropertyValue('--bui-v3-border-focus').trim(),motion:root.getPropertyValue('--bui-v3-motion-duration-fast').trim(),faceWidth:r.width,faceHeight:r.height};})()");
   check(mode+" browser media emulation activated",button.forced&&button.reduced,button);
@@ -81,10 +91,13 @@ try{
   await sleep(200);
   const field=await cdp.js("(()=>{const i=document.getElementById('v3-experiment-name'),f=i.closest('.bui-field'),s=getComputedStyle(f),u=getComputedStyle(f,'::after');return {forced:matchMedia('(forced-colors: active)').matches,focused:document.activeElement===i,within:f.matches(':focus-within'),outline:s.outlineStyle,outlineWidth:parseFloat(s.outlineWidth),underlineStyle:u.borderBottomStyle,underlineWidth:parseFloat(u.borderBottomWidth),underlineColor:u.borderBottomColor,transform:u.transform};})()");
   check(mode+" focused TextField uses underline, never an extra outer ring",field.forced&&field.focused&&field.within&&(field.outline==="none"||field.outlineWidth===0)&&field.underlineStyle==="solid"&&field.underlineWidth>=2&&field.underlineColor!=="rgba(0, 0, 0, 0)"&&!field.transform.includes("matrix(0,"),field);
-  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-reduced-motion",value:"no-preference"}]});
   await cdp.js("document.getElementById('v3-experiment-name').blur()");
-  const reset=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.getElementById('v3-fa-button');return {forced:matchMedia('(forced-colors: active)').matches,mode:h.dataset.buiTheme,action:getComputedStyle(h).getPropertyValue('--bui-v3-action-background').trim(),faceWidth:b.getBoundingClientRect().width,faceHeight:b.getBoundingClientRect().height};})()");
-  check(mode+" forced colors reset without leaking into next scenario",!reset.forced&&reset.mode===mode&&reset.action===baseline.action&&reset.faceWidth===baseline.faceWidth&&reset.faceHeight===baseline.faceHeight,{baseline,reset});
+  const reset=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),b=document.getElementById('v3-fa-button');return {forced:matchMedia('(forced-colors: active)').matches,mode:h.dataset.buiTheme,action:getComputedStyle(h).getPropertyValue('--bui-v3-action-background').trim(),motion:getComputedStyle(h).getPropertyValue('--bui-v3-motion-duration-fast').trim(),faceWidth:b.getBoundingClientRect().width,faceHeight:b.getBoundingClientRect().height};})()");
+  check(mode+" forced colors reset without leaking into next scenario",!reset.forced&&reset.mode===mode&&reset.action===baseline.action&&reset.motion==="150ms"&&reset.faceWidth===baseline.faceWidth&&reset.faceHeight===baseline.faceHeight,{baseline,reset});
+  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+  const restoredHostPreference=await cdp.js("matchMedia('(prefers-reduced-motion: reduce)').matches");
+  check(mode+" original host motion preference restored",restoredHostPreference===hostPreference,{hostPreference,restoredHostPreference});
  }
  console.log(JSON.stringify({scope:"Real Blazor WASM, isolated Chrome/Edge CDP emulation; NOT native OS/AT certification",checks:results.length,passed:results.filter(r=>r.ok).length,results},null,2));
 }catch(e){console.error(JSON.stringify({failure:String(e),checks:results.length,results},null,2));process.exitCode=1;}
