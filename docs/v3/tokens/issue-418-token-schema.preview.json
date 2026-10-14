@@ -317,6 +317,7 @@
       "brandHover": "--colorNeutralForegroundOnBrand",
       "danger": "--colorNeutralForegroundOnBrand",
       "inverted": "--colorBrandForeground2"
-    }
+    },
+    "modeAttribute": "data-bui-v3-focus-mode"
   }
 }

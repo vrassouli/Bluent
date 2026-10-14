@@ -39,16 +39,17 @@ class FocusHostTokenContractTests(unittest.TestCase):
         focus=self.schema["focusHostPreview"]
         self.assertEqual(focus["penpotBoardId"],"f4136a9a-101d-8004-8008-ca2956fe05f9")
         self.assertEqual(focus["hostAttribute"],"data-bui-v3-focus-host")
+        self.assertEqual(focus["modeAttribute"],"data-bui-v3-focus-mode")
         self.assertEqual(focus["outputCssVariable"],VAR)
         for mode in ("light","dark"):
             self.assertEqual(tuple(focus[mode]),HOST_CHOICES)
             for host in HOST_CHOICES:
-                fragment=('[data-bui-v3-tokens] [data-bui-theme="'+mode+'"]'
+                fragment=('[data-bui-v3-tokens] [data-bui-v3-focus-mode="'+mode+'"]'
                           '[data-bui-v3-focus-host="'+host+'"]')
                 self.assertIn(fragment,self.css)
                 self.assertIn(VAR+": var("+focus[mode][host]+");",self.css)
         self.assertIn("@media (forced-colors: active)",self.css)
-        self.assertIn("data-bui-theme must be declared on the same focus host",self.css)
+        self.assertIn("data-bui-v3-focus-mode must be explicit on the host",self.css)
 
     def test_source_host_color_contrast_all_hundred_cases(self):
         focus=self.schema["focusHostPreview"]
@@ -71,7 +72,8 @@ class FocusHostTokenContractTests(unittest.TestCase):
             contract(tampered)
 
     def test_forbid_silent_unapproved_public_name_or_host_attribute(self):
-        for field,value in (("outputCssVariable","--colorStrokeFocus2"),
+        for field,value in (("modeAttribute","data-bui-theme"),
+                            ("outputCssVariable","--colorStrokeFocus2"),
                             ("hostAttribute","data-some-inferred-background")):
             tampered=copy.deepcopy(self.schema)
             tampered["focusHostPreview"][field]=value
@@ -84,7 +86,8 @@ class FocusHostTokenContractTests(unittest.TestCase):
         css=(SCHEMA.parents[3]/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8-sig")
         for kind in HOST_CHOICES:
             self.assertIn('data-v3-focus-host="'+kind+'" data-bui-v3-focus-host="'+kind+'"',razor)
-        self.assertEqual(razor.count('data-bui-theme="@(_dark ? "dark" : "light")"'),6) # root + five explicit host cards
+        self.assertEqual(razor.count('data-bui-theme="@(_dark ? "dark" : "light")"'),1) # real product Theme only on root
+        self.assertEqual(razor.count('data-bui-v3-focus-mode="@(_dark ? "dark" : "light")"'),5)
         approved=css.split('/* The approved focus comes from the generated, opt-in schema only.',1)[1].split('/* 320 CSS px',1)[0]
         self.assertIn('--v3-lab-focus: var(--bui-v3-focus-host-ring-candidate);',approved)
         self.assertNotIn('--colorNeutralForegroundOnBrand',approved)

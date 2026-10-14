@@ -98,6 +98,7 @@ def contract(manifest: dict) -> tuple[str, dict]:
     # inherited Light selector can leak into a nested Dark theme host.
     focus = manifest["focusHostPreview"]
     host_attribute = "data-bui-v3-focus-host"
+    mode_attribute = "data-bui-v3-focus-mode"
     focus_variable = "--bui-v3-focus-host-ring-candidate"
     contexts = ("neutral", "brand", "brandHover", "danger", "inverted")
     host_roles = {
@@ -123,7 +124,7 @@ def contract(manifest: dict) -> tuple[str, dict]:
             "inverted":"--colorBrandForeground2",
         },
     }
-    if focus.get("hostAttribute") != host_attribute or focus.get("outputCssVariable") != focus_variable:
+    if focus.get("hostAttribute") != host_attribute or focus.get("modeAttribute") != mode_attribute or focus.get("outputCssVariable") != focus_variable:
         raise ValueError("Unreviewed focus context attribute or public token name")
     if focus.get("penpotBoardId") != "f4136a9a-101d-8004-8008-ca2956fe05f9":
         raise ValueError("Focus mapping lacks the approved owned Penpot board")
@@ -141,18 +142,18 @@ def contract(manifest: dict) -> tuple[str, dict]:
                 if ratio < 3:
                     raise ValueError(f"Approved focus contrast drift: {brand}/{mode}/{context}={ratio:.3f}")
     css.append("/* APPROVED VISUAL host-role choice; candidate token ONLY in explicit v3 opt-in scopes.")
-    css.append("   data-bui-theme must be declared on the same focus host, including nested hosts.")
+    css.append("   data-bui-v3-focus-mode must be explicit on the host; inherited product theme is untouched.")
     css.append("   Not a Button rule: consumers may bind outline-color separately after API review. */")
     for mode in ("light", "dark"):
         for context in contexts:
-            part = f'[data-bui-theme="{mode}"][{host_attribute}="{context}"]'
+            part = f'[{mode_attribute}="{mode}"][{host_attribute}="{context}"]'
             css.append(f'[data-bui-v3-tokens]{part},')
             css.append(f'[data-bui-v3-tokens] {part} {{')
             css.append(f"  {focus_variable}: var({approved[mode][context]});")
             css.append("}")
     css.append("@media (forced-colors: active) {")
-    css.append(f"  [data-bui-v3-tokens][data-bui-theme][{host_attribute}],")
-    css.append(f"  [data-bui-v3-tokens] [data-bui-theme][{host_attribute}] {{")
+    css.append(f"  [data-bui-v3-tokens][{mode_attribute}][{host_attribute}],")
+    css.append(f"  [data-bui-v3-tokens] [{mode_attribute}][{host_attribute}] {{")
     css.append(f"    {focus_variable}: Highlight;")
     css.append("  }")
     css.append("}")
