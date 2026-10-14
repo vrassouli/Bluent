@@ -172,6 +172,32 @@
 .v3-lab-focus-actions ::deep .bui-button {
     max-width: 100%;
 }
+/* #418/#501 readability regression: the inherited Danger + Toggled style
+   combines a very pale red background with white OnBrand text in Light
+   (actual default theme #fdf6f6 + #fff). Repair only the opt-in v3 lab
+   specimen until the Button v3 source state contract is design-approved.
+   These are existing Fluent palette roles, including Hover and Pressed. */
+.v3-lab-focus-matrix ::deep .bui-button.danger.toggled {
+    background-color: var(--colorPaletteRedBackground1);
+    color: var(--colorPaletteRedForeground2);
+}
+.v3-lab-focus-matrix ::deep .bui-button.danger.toggled:hover {
+    background-color: var(--colorPaletteRedBackground2);
+    color: var(--colorPaletteRedForeground2);
+}
+.v3-lab-focus-matrix ::deep .bui-button.danger.toggled:hover:active {
+    background-color: var(--colorPaletteRedBackground3);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+@media (forced-colors: active) {
+    .v3-lab-focus-matrix ::deep .bui-button.danger.toggled,
+    .v3-lab-focus-matrix ::deep .bui-button.danger.toggled:hover,
+    .v3-lab-focus-matrix ::deep .bui-button.danger.toggled:hover:active {
+        background-color: ButtonFace;
+        color: ButtonText;
+        border-color: ButtonText;
+    }
+}
 .v3-lab-focus-preview-controls {
     display: flex;
     flex-wrap: wrap;

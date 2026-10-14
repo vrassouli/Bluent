@@ -593,6 +593,26 @@ try {
  assert("selected plus hovered plus keyboard focus coexist",combinedSelected.hover&&combinedSelected.selected&&combinedSelected.focus&&combinedSelected.outline>=2&&combinedSelected.iconW>=10,JSON.stringify(combinedSelected));
  await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:0,y:0});
  if(selectedSemantics.some(x=>x.ariaPressed!=="true"))openAccessibilityGaps.push("Button Toggled=true is visually selected but does not expose aria-pressed=true; #428 migration/a11y gate");
+ // #418 reported unreadable Danger "selected" label when visually not
+ // active/focused. The control starts Toggled=true; exercise real Blazor
+ // click to toggle OFF and BACK ON, in both source modes, without losing the
+ // selected state needed by subsequent keyboard regression.
+ const currentDangerTheme=await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme");
+ for(const theme of ["light","dark"]){
+   await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+theme+"'");
+   const before=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b);return {on:b.classList.contains('toggled'),color:s.color,background:s.backgroundColor};})()");
+   await cdp.js("document.querySelector('#v3-selected-danger').click()");
+   await sleep(110);
+   const off=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b);return {on:b.classList.contains('toggled'),color:s.color,background:s.backgroundColor};})()");
+   await cdp.js("document.querySelector('#v3-selected-danger').click()");
+   await sleep(110);
+   const restored=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b);return {on:b.classList.contains('toggled'),color:s.color,background:s.backgroundColor};})()");
+   assert("real Danger toggle on/off restores readable foreground "+theme,
+     before.on&&!off.on&&restored.on&&contrast(before.color,before.background)>=4.5&&
+     contrast(off.color,off.background)>=4.5&&contrast(restored.color,restored.background)>=4.5,
+     JSON.stringify({theme,before,off,restored,ratios:[before,off,restored].map(x=>contrast(x.color,x.background))}));
+ }
+ await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+currentDangerTheme+"'");
  console.log("Selected Button focus semantics audit:",JSON.stringify(selectedSemantics));
 
  // Baseline behavior only: an unbound nullable Toggled parameter changes its
@@ -603,6 +623,33 @@ try {
  const toggleAfterSpace=await cdp.js("(() => {const b=document.querySelector('#v3-selected-transparent');return {stillFocused:document.activeElement===b,selected:b.classList.contains('toggled'),ariaPressed:b.getAttribute('aria-pressed'),focusVisible:b.matches(':focus-visible')};})()");
  assert("keyboard Space activates existing nullable Toggled Button",toggleAfterSpace.stillFocused&&!toggleAfterSpace.selected&&toggleAfterSpace.focusVisible,JSON.stringify(toggleAfterSpace));
  console.log("Selected Button native Space toggle baseline:",JSON.stringify(toggleAfterSpace));
+ // Reproduce real :hover / :active pointer states on the selected Danger
+ // button. A previous contrast-only fix can regress on Hover because legacy
+ // Danger:hover replaces the pale selected background with dark orange.
+ for(const theme of ["light","dark"]){
+   await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+theme+"'");
+   const center=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger');b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
+   await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:center.x,y:center.y});
+   const hoverDanger=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),h=getComputedStyle(document.querySelector('.v3-lab-surface'));return {selected:b.classList.contains('toggled'),hover:b.matches(':hover'),color:s.color,background:s.backgroundColor,expectedColor:h.getPropertyValue('--colorPaletteRedForeground2').trim(),expectedBackground:h.getPropertyValue('--colorPaletteRedBackground2').trim()};})()");
+   assert("real Danger selected Hover is readable "+theme,hoverDanger.selected&&hoverDanger.hover&&
+     hoverDanger.color===hexToRgb(hoverDanger.expectedColor)&&hoverDanger.background===hexToRgb(hoverDanger.expectedBackground)&&
+     contrast(hoverDanger.color,hoverDanger.background)>=4.5,JSON.stringify(hoverDanger));
+   await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",x:center.x,y:center.y,button:"left",clickCount:1});
+   const pressedDanger=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),h=getComputedStyle(document.querySelector('.v3-lab-surface'));return {selected:b.classList.contains('toggled'),pressed:b.matches(':active'),color:s.color,background:s.backgroundColor,expectedColor:h.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),expectedBackground:h.getPropertyValue('--colorPaletteRedBackground3').trim()};})()");
+   await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",x:center.x,y:center.y,button:"left",clickCount:1});
+   await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:0,y:0});
+   await sleep(110);
+   const afterClick=await cdp.js("document.querySelector('#v3-selected-danger').classList.contains('toggled')");
+   if(!afterClick){await cdp.js("document.querySelector('#v3-selected-danger').click()");await sleep(110);}
+   assert("real Danger selected Pressed is readable and can restore "+theme,pressedDanger.selected&&pressedDanger.pressed&&
+     pressedDanger.color===hexToRgb(pressedDanger.expectedColor)&&pressedDanger.background===hexToRgb(pressedDanger.expectedBackground)&&
+     contrast(pressedDanger.color,pressedDanger.background)>=4.5&&
+     await cdp.js("document.querySelector('#v3-selected-danger').classList.contains('toggled')"),
+     JSON.stringify({pressedDanger,contrast:contrast(pressedDanger.color,pressedDanger.background),afterClick}));
+ }
+ await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+currentDangerTheme+"'");
+
+
  // #418 genuine interactive reviewer toggle; return it to the brand baseline.
  for(const expected of ["brand","adaptive","brand"]){
    if(expected==="adaptive"||(expected==="brand"&&
@@ -659,6 +706,17 @@ try {
        x.outlineStyle==="solid"&&x.stable&&x.color===hexToRgb(desiredRole)&&x.backdropRatio>=3&&x.hoverRatio>=3),
      JSON.stringify({brand,mode,buttons:appearanceData}));
    appearanceFocusReport.push({brand,mode,buttons:appearanceData});
+   // #418 reported unreadable selected Danger in Light: assert the ACTUAL
+   // Bluent Button foreground and background resolve existing Fluent red
+   // semantic roles, with >=4.5:1 for ordinary text, across all 10 brands
+   // and BOTH modes. This test is non-hovered/selected, not focus-dependent.
+   const dangerSelected=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),hs=getComputedStyle(document.querySelector('.v3-lab-surface'));return {toggled:b.classList.contains('toggled'),hover:b.matches(':hover'),fg:s.color,bg:s.backgroundColor,redText:hs.getPropertyValue('--colorPaletteRedForeground2').trim(),redBg:hs.getPropertyValue('--colorPaletteRedBackground1').trim()};})()");
+   assert("real selected Danger label readable "+brand+"/"+mode,
+     dangerSelected.toggled&&!dangerSelected.hover&&
+     dangerSelected.fg===hexToRgb(dangerSelected.redText)&&dangerSelected.bg===hexToRgb(dangerSelected.redBg)&&
+     contrast(dangerSelected.fg,dangerSelected.bg)>=4.5,
+     JSON.stringify({brand,mode,...dangerSelected,ratio:contrast(dangerSelected.fg,dangerSelected.bg)}));
+
    // #418 actual five Bluent Button host cards; CSS is opt-in-only research.
    const review=await cdp.js("(() => {const section=document.querySelector('.v3-lab-focus-host-review'),previous=section.getAttribute('data-v3-focus-host-mode'),ids=['neutral','brand','brandHover','danger','inverted'],rows=[];try {for(const design of ['brand','adaptive']){section.setAttribute('data-v3-focus-host-mode',design);for(const name of ids){const card=section.querySelector('[data-v3-focus-host='+name+']'),b=card?.querySelector('.bui-button');b.focus();const bs=getComputedStyle(b),cs=getComputedStyle(card);rows.push({design,name,visible:b.matches(':focus-visible'),width:parseFloat(bs.outlineWidth),offset:parseFloat(bs.outlineOffset),ring:bs.outlineColor,host:cs.backgroundColor,ringSource:cs.getPropertyValue('--v3-lab-focus').trim(),inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),brand:cs.getPropertyValue('--colorBrandBackground').trim(),enhanced:cs.getPropertyValue('--colorBrandForeground2').trim()});}}}finally{if(previous===null)section.removeAttribute('data-v3-focus-host-mode');else section.setAttribute('data-v3-focus-host-mode',previous);document.querySelector('#v3-focus-default').focus();}return rows;})()");
    const enhancedSource=mode==="dark"?review[0].enhanced:review[0].brand;
