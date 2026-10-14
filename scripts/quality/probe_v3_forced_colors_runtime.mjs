@@ -99,6 +99,46 @@ try{
   const restoredHostPreference=await cdp.js("matchMedia('(prefers-reduced-motion: reduce)').matches");
   check(mode+" original host motion preference restored",restoredHostPreference===hostPreference,{hostPreference,restoredHostPreference});
  }
+
+ // Cross-brand dual-media matrix: the initial two-mode checks above also exercise
+ // TextField and keyboard geometry. This separate sweep checks that every emitted
+ // brand keeps the opt-in motion/forced-color invariants independently. Derive
+ // brand names from the generator schema; never silently hardcode fewer brands.
+ const brands=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-token-schema.preview.json"),"utf8")).supportedBrands;
+ const expectedBrands=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-brand-matrix.preview.json"),"utf8")).brands;
+ check("ten declared source brands",brands.length===10&&new Set(brands).size===10,{brands});
+ const mediaCases=[
+  {name:"normal",forced:"none",motion:"no-preference",ms:"150ms"},
+  {name:"reduced only",forced:"none",motion:"reduce",ms:"0ms"},
+  {name:"forced only",forced:"active",motion:"no-preference",ms:"150ms"},
+  {name:"forced and reduced",forced:"active",motion:"reduce",ms:"0ms"}
+ ];
+ for(const brand of brands)for(const mode of ["light","dark"]){
+  await cdp.js(`(()=>{const h=document.querySelector(".v3-lab-surface");h.dataset.buiBrand=${JSON.stringify(brand)};h.dataset.buiTheme=${JSON.stringify(mode)};document.getElementById("v3-experiment-name").blur();document.getElementById("v3-fa-button").blur();})()`);
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+  await cdp.js('document.getElementById("v3-fa-button").focus()');
+  const expected=expectedBrands[brand]?.[mode]?.tokens["bluent.color.brandBackground"];
+  check(brand+"/"+mode+" generated theme entry exists",typeof expected==="string"&&expected.startsWith("#"),{expected});
+  let baseline;
+  for(const media of mediaCases){
+   await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:media.forced},{name:"prefers-reduced-motion",value:media.motion}]});
+   const got=await cdp.js('(()=>{const h=document.querySelector(".v3-lab-surface"),b=document.getElementById("v3-fa-button"),s=getComputedStyle(h),r=b.getBoundingClientRect();return {brand:h.dataset.buiBrand,mode:h.dataset.buiTheme,forced:matchMedia("(forced-colors: active)").matches,reduced:matchMedia("(prefers-reduced-motion: reduce)").matches,source:s.getPropertyValue("--colorBrandBackground").trim(),action:s.getPropertyValue("--bui-v3-action-background").trim(),focus:s.getPropertyValue("--bui-v3-border-focus").trim(),motion:s.getPropertyValue("--bui-v3-motion-duration-fast").trim(),visible:b.matches(":focus-visible"),width:r.width,height:r.height};})()');
+   if(media.name==="normal")baseline=got;
+   const forced=media.forced==="active",reduced=media.motion==="reduce";
+   check(brand+"/"+mode+" "+media.name+" opt-in media contract",
+    got.brand===brand&&got.mode===mode&&got.forced===forced&&got.reduced===reduced&&
+    got.motion===media.ms&&got.source.toLowerCase()===expected.toLowerCase()&&got.width>0&&got.height>0&&
+    (forced?(got.action==="ButtonFace"&&got.focus==="Highlight"&&got.visible):
+            (got.action===baseline.action&&got.source===baseline.source))&&
+    (!baseline||(got.width===baseline.width&&got.height===baseline.height)),
+    got);
+  }
+  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-reduced-motion",value:"no-preference"}]});
+  const restored=await cdp.js('(()=>{const h=document.querySelector(".v3-lab-surface"),s=getComputedStyle(h);return {action:s.getPropertyValue("--bui-v3-action-background").trim(),source:s.getPropertyValue("--colorBrandBackground").trim(),motion:s.getPropertyValue("--bui-v3-motion-duration-fast").trim(),forced:matchMedia("(forced-colors: active)").matches,reduced:matchMedia("(prefers-reduced-motion: reduce)").matches};})()');
+  check(brand+"/"+mode+" per-host media reset",!restored.forced&&!restored.reduced&&restored.motion==="150ms"&&restored.action===baseline.action&&restored.source===baseline.source,restored);
+ }
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  console.log(JSON.stringify({scope:"Real Blazor WASM, isolated Chrome/Edge CDP emulation; NOT native OS/AT certification",checks:results.length,passed:results.filter(r=>r.ok).length,results},null,2));
 }catch(e){console.error(JSON.stringify({failure:String(e),checks:results.length,results},null,2));process.exitCode=1;}
 finally{
