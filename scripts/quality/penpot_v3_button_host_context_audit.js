@@ -9,7 +9,7 @@ let checks = 0;
 const check = (condition, description) => { checks++; if (!condition) errors.push(description); };
 const close = (a, b) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a-b)<0.02;
 check(!!page && page.name.includes("Button Focus Visible"), "correct page");
-check(board?.type === "board" && board.name.startsWith("RESEARCH · Host-aware branded Focus"), "actual editable board");
+check(board?.type === "board" && board.name.startsWith("APPROVED DESIGN · Host-aware branded Focus"), "actual editable board");
 if (!board) return {pass:false,checks,errors};
 check(board.children.length === 85, "85 editable shapes");
 check(close(board.width,2040)&&close(board.height,1070), "board bounds");
@@ -33,8 +33,8 @@ for(const mode of modes)for(let i=0;i<kinds.length;i++){
  check(metric?.characters?.includes(ratio.toFixed(2))&&metric?.characters?.includes("PASS"),key+" truthful metric");
  results.push({case:key,contrast:+ratio.toFixed(3),ring:rc,host:hc});
 }
-check(board.children.some(s=>s.name==="Scope"&&s.characters?.includes("DESIGN PROPOSAL")),"not approved public API");
-check(board.children.some(s=>s.name==="Footer"&&s.characters?.includes("underline-only")),"TextField underline retained");
+check(board.children.some(s=>s.name==="Scope"&&s.characters?.includes("APPROVED: Brand ring on Neutral")),"maintainer-approved contextual brand/inverse visual mapping");
+check(board.children.some(s=>s.name==="Scope"&&s.characters?.includes("TextField: underline only.")),"TextField underline-only kept");
 check(!!page.getShapeById("94a03b1b-8cb6-8091-8008-c8b9bae47e45"),"selected board intact");
 check(!!page.getShapeById("6f4f48b4-7b1e-800e-8008-c9bc0d7c44fa"),"Danger selected intact");
 return {pass:errors.length===0,checks,failures:errors,boardId:board.id,editableShapes:board.children.length,examples:results};

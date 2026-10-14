@@ -76,16 +76,16 @@ class HandoffContract(unittest.TestCase):
         self.assertIn("Danger selection review",
             (DESIGN/"BUTTON-FOCUS-IMPLEMENTATION-HANDOFF.md").read_text(encoding="utf-8"))
 
-    def test_native_host_context_research_is_reproducible_and_explicitly_unapproved(self):
+    def test_approved_host_context_design_is_reproducible_without_claiming_public_api_release(self):
         review=(DESIGN/"BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md").read_text(encoding="utf-8")
         audit=(SCRIPT/"penpot_v3_button_host_context_audit.js").read_text(encoding="utf-8")
         for expected in (
             "f4136a9a-101d-8004-8008-ca2956fe05f9",
             "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
             "78/78", "85 native", "100/100", "3.103:1",
-            "not yet a public token/API decision",
+            "maintainer-approved",
             "underline", "colorNeutralForegroundOnBrand",
-            "NOT approved",
+            "APPROVED",
         ):
             self.assertIn(expected.lower(), review.lower())
         for expected in (
@@ -93,7 +93,7 @@ class HandoffContract(unittest.TestCase):
             "color",
             "Neutral", "BrandHover", "Danger", "Inverted",
             "2px", "3px", "contrast", "errors",
-            "DESIGN PROPOSAL",
+            "APPROVED: Brand ring on Neutral",
         ):
             self.assertIn(expected, audit)
         self.assertIn("page.getShapeById", audit)

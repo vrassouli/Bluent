@@ -45,3 +45,9 @@ The connection reopened and real Penpot **Dark and Light** rendered Focus colors
 ## 2026-10-14 selected Danger readability from #418
 
 The user-reported unreadable Light Danger.Toggled label is separately documented in [Danger selection review](BUTTON-DANGER-SELECTED-REVIEW-HANDOFF.md): actual Penpot page07 source board 94a03b1b-8cb6-8091-8008-c986fd01b85f, live audit 61/61, and the package-scoped opt-in v3 prototype under #418 PR #500 (Chrome/Edge 843/843). Selected, Hover and Pressed are orthogonal to keyboard Focus Visible; this does not approve public Button default changes. #428 remains Backlog.
+
+## 2026-10-14 — Approved host-aware keyboard Focus visual decision
+
+The maintainer explicitly **approved** the host-dependent treatment shown in editable Penpot page-38 board f4136a9a-101d-8004-8008-ca2956fe05f9, now titled APPROVED DESIGN · Host-aware branded Focus · Light / Dark 5 surfaces · #418 #501. On Neutral hosts retain the **single branded** ring; on Brand / Brand Hover / Danger use inverse colorNeutralForegroundOnBrand; on Inverted use inverse for Light and colorBrandForeground2 for Dark. **TextField has the existing animated bottom underline only**, no outer rectangular ring. Keep keyboard focus-visible behavior, disabled exclusion, no label/icon shifts, and Fluent forced-colors Highlight fallback. Details: [approved design mapping](BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md).
+
+This **supersedes** earlier notes suggesting user visual approval is pending. Native Windows contrast themes, assistive tech, real browser zoom, transparency/images/nested theme hosts, production Button implementation, and final semantic token/API signoff remain with #418/#428. Accepted visual design is **not** universal accessibility certification. #501 design artifacts can be accepted separately from component runtime work.
