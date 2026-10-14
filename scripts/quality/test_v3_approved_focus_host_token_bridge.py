@@ -79,5 +79,18 @@ class FocusHostTokenContractTests(unittest.TestCase):
                 contract(tampered)
 
 
+    def test_real_blazor_host_cards_declare_generated_token_roles(self):
+        razor=(SCHEMA.parents[3]/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor").read_text(encoding="utf-8-sig")
+        css=(SCHEMA.parents[3]/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8-sig")
+        for kind in HOST_CHOICES:
+            self.assertIn('data-v3-focus-host="'+kind+'" data-bui-v3-focus-host="'+kind+'"',razor)
+        self.assertEqual(razor.count('data-bui-theme="@(_dark ? "dark" : "light")"'),6) # root + five explicit host cards
+        approved=css.split('/* The approved focus comes from the generated, opt-in schema only.',1)[1].split('/* 320 CSS px',1)[0]
+        self.assertIn('--v3-lab-focus: var(--bui-v3-focus-host-ring-candidate);',approved)
+        self.assertNotIn('--colorNeutralForegroundOnBrand',approved)
+        self.assertNotIn('--colorBrandForeground2',approved)
+        self.assertNotIn('--colorBrandBackground',approved)
+
+
 if __name__=="__main__":
     unittest.main()

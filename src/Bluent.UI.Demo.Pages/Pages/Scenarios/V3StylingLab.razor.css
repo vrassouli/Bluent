@@ -202,10 +202,10 @@
     }
 }
 
-/* #418 Penpot page-07 host-context research:
-   Native Bluent Buttons, FIVE emitted Fluent host colors.
-   The reviewer must opt in explicitly. Neither source role is shipped as
-   public Button CSS; the user's brand-ring default is unchanged. */
+/* #418 #501 APPROVED Penpot host-color visuals. The real Blazor review
+   consumes the same explicit generated opt-in semantic candidate as the
+   source-to-CSS contract; never infer surrounding host from Button fill.
+   This demo rule is NOT a general/public Button API. */
 .v3-lab-focus-host-review {
     max-width: 100%;
     min-width: 0;
@@ -251,12 +251,10 @@
     background: var(--colorNeutralBackgroundInverted);
     color: var(--colorNeutralForegroundInverted);
 }
-/* Explicit research mode only; DO NOT infer from the Button's Appearance. */
-.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="brand"],
-.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="brandHover"],
-.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="danger"],
-.v3-lab-surface[data-bui-theme="light"] .v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="inverted"] {
-    --v3-lab-focus: var(--colorNeutralForegroundOnBrand, #fff);
+/* The approved focus comes from the generated, opt-in schema only.
+   The comparison baseline below intentionally keeps historical brand color. */
+.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card {
+    --v3-lab-focus: var(--bui-v3-focus-host-ring-candidate);
 }
 /* 320 CSS px / 200% root text: real Persian+English Button text must
    wrap inside the card instead of widening the entire token host. */

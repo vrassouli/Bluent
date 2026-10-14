@@ -652,10 +652,10 @@ try {
 
  // Default must really be the *approved* choice before clicking any toggle.
  // This is a mounted Blazor state assertion, not a CSS override.
- const approvedInitial=await cdp.js("(() => {const section=document.querySelector('.v3-lab-focus-host-review');return {mode:section?.dataset.v3FocusHostMode,count:section?.querySelectorAll('.v3-lab-focus-host-card .bui-button').length,status:section?.querySelector('[role=status]')?.textContent?.trim()};})()");
+ const approvedInitial=await cdp.js("(() => {const section=document.querySelector('.v3-lab-focus-host-review');return {mode:section?.dataset.v3FocusHostMode,count:section?.querySelectorAll('.v3-lab-focus-host-card .bui-button').length,status:section?.querySelector('[role=status]')?.textContent?.trim(),declarative:[...section.querySelectorAll('.v3-lab-focus-host-card')].every(card=>card.dataset.buiV3FocusHost===card.dataset.v3FocusHost&&card.dataset.buiTheme===document.querySelector('.v3-lab-surface').dataset.buiTheme)};})()");
  assert("approved host-aware Focus is initial mounted Blazor choice",
    approvedInitial.mode==="adaptive"&&approvedInitial.count===5&&
-   approvedInitial.status?.includes("طرح تأییدشده"),JSON.stringify(approvedInitial));
+   approvedInitial.status?.includes("طرح تأییدشده")&&approvedInitial.declarative,JSON.stringify(approvedInitial));
  // #418 approved host-aware mapping is the default; compare with brand-only diagnostic and return to approved mapping.
  for(const expected of ["adaptive","brand","adaptive"]){
    const currentMode=await cdp.js("document.querySelector('.v3-lab-focus-host-review')?.dataset.v3FocusHostMode");
@@ -679,7 +679,7 @@ try {
  const focusThemeSamples=[];
  const candidateFocusSamples=[];
  for(const brand of Object.keys(matrix))for(const mode of ["light","dark"]){
-   const got=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.dataset.buiBrand='"+brand+"';h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b),hs=getComputedStyle(h);return {brand:h.dataset.buiBrand,mode:h.dataset.buiTheme,focused:document.activeElement===b,focusVisible:b.matches(':focus-visible'),outlineStyle:s.outlineStyle,outlineWidth:parseFloat(s.outlineWidth),outlineColor:s.outlineColor,surfaceColor:hs.backgroundColor,rootBrand:document.documentElement.getAttribute('data-bui-brand')};})()");
+   const got=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.dataset.buiBrand='"+brand+"';h.dataset.buiTheme='"+mode+"';document.querySelectorAll('.v3-lab-focus-host-card').forEach(c=>c.dataset.buiTheme='"+mode+"');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b),hs=getComputedStyle(h);return {brand:h.dataset.buiBrand,mode:h.dataset.buiTheme,focused:document.activeElement===b,focusVisible:b.matches(':focus-visible'),outlineStyle:s.outlineStyle,outlineWidth:parseFloat(s.outlineWidth),outlineColor:s.outlineColor,surfaceColor:hs.backgroundColor,rootBrand:document.documentElement.getAttribute('data-bui-brand')};})()");
    const ratio=contrast(got.outlineColor,got.surfaceColor);
    focusThemeSamples.push({...got,ratio});
    assert("scoped keyboard focus ring persists "+brand+"/"+mode,got.focused&&got.focusVisible&&got.outlineStyle!=="none"&&got.outlineWidth>=2&&got.outlineColor!=="rgba(0, 0, 0, 0)",JSON.stringify(got));
@@ -754,16 +754,19 @@ try {
    // #418 approved focus token preview: test actual GENERATED opt-in CSS
    // against five mounted Blazor host cards, not only generator source math.
    // Explicit host and theme required; restore DOM and check outside scope.
-   const hostAlias=await cdp.js("(() => {\n const root=document.querySelector('.v3-lab-surface');\n const cards=[...document.querySelectorAll('.v3-lab-focus-host-review .v3-lab-focus-host-card')];\n const previous=cards.map(card=>({card,theme:card.getAttribute('data-bui-theme'),kind:card.getAttribute('data-bui-v3-focus-host'),outline:card.style.outlineColor}));\n const outside=document.createElement('div');\n outside.setAttribute('data-bui-theme',root.dataset.buiTheme);\n outside.setAttribute('data-bui-v3-focus-host','neutral');\n outside.style.outlineColor='var(--bui-v3-focus-host-ring-candidate, #ff00ff)';\n document.body.appendChild(outside);\n let rows=[],outOfScope;\n try{\n   for(const card of cards){\n     const kind=card.dataset.v3FocusHost;\n     card.setAttribute('data-bui-theme',root.dataset.buiTheme);\n     card.setAttribute('data-bui-v3-focus-host',kind);\n     card.style.outlineColor='var(--bui-v3-focus-host-ring-candidate, #ff00ff)';\n     const cs=getComputedStyle(card);\n     rows.push({kind, ring:cs.outlineColor,host:cs.backgroundColor,\n      brand:cs.getPropertyValue('--colorBrandBackground').trim(),\n      enhanced:cs.getPropertyValue('--colorBrandForeground2').trim(),\n      inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim()});\n   }\n   outOfScope=getComputedStyle(outside).outlineColor;\n }finally{\n   outside.remove();\n   for(const {card,theme,kind,outline} of previous){\n     if(theme===null)card.removeAttribute('data-bui-theme');else card.setAttribute('data-bui-theme',theme);\n     if(kind===null)card.removeAttribute('data-bui-v3-focus-host');else card.setAttribute('data-bui-v3-focus-host',kind);\n     card.style.outlineColor=outline;\n   }\n }\n return {rows,outOfScope};\n})()");
+   const hostAlias=await cdp.js("(() => {\n const root=document.querySelector('.v3-lab-surface');\n const cards=[...document.querySelectorAll('.v3-lab-focus-host-review .v3-lab-focus-host-card')];\n const outside=document.createElement('div');\n outside.setAttribute('data-bui-theme',root.dataset.buiTheme);\n outside.setAttribute('data-bui-v3-focus-host','neutral');\n outside.style.outlineColor='var(--bui-v3-focus-host-ring-candidate, #ff00ff)';\n document.body.appendChild(outside);\n const rows=[];\n try {\n   const base=getComputedStyle(root);\n   for(const card of cards) {\n     const kind=card.dataset.v3FocusHost;\n     const b=card.querySelector('.bui-button');\n     b.focus();\n     const cs=getComputedStyle(card),bs=getComputedStyle(b);\n     rows.push({\n       kind,kindAttribute:card.getAttribute('data-bui-v3-focus-host'),\n       theme:card.dataset.buiTheme,rootTheme:root.dataset.buiTheme,\n       visible:b.matches(':focus-visible'),width:parseFloat(bs.outlineWidth),\n       ring:bs.outlineColor,host:cs.backgroundColor,\n       brand:cs.getPropertyValue('--colorBrandBackground').trim(),\n       enhanced:cs.getPropertyValue('--colorBrandForeground2').trim(),\n       inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),\n       rootBrand:base.getPropertyValue('--colorBrandBackground').trim(),\n       rootEnhanced:base.getPropertyValue('--colorBrandForeground2').trim(),\n       rootInverse:base.getPropertyValue('--colorNeutralForegroundOnBrand').trim()\n     });\n   }\n   return {rows,outOfScope:getComputedStyle(outside).outlineColor};\n } finally {\n   outside.remove();\n   document.querySelector('#v3-focus-default').focus();\n }\n})()");
    const ringOutcomes=hostAlias.rows.map(x=>{
      const selected=(x.kind==="neutral"||
        (x.kind==="inverted"&&mode==="dark"))?x.enhanced:x.inverse;
      const chosen=x.kind==="neutral"&&mode==="light"?x.brand:selected;
      return {...x,sourceMatches:x.ring===hexToRgb(chosen),
+       actualRazorHost:x.kindAttribute===x.kind && x.theme===mode && x.rootTheme===mode,
+       inheritedSource:x.brand===x.rootBrand && x.enhanced===x.rootEnhanced
+         && x.inverse===x.rootInverse,
        contrast:contrast(x.ring,x.host)};
    });
    assert("generated opt-in focus host token on real Blazor cards "+brand+"/"+mode,
-     ringOutcomes.length===5&&ringOutcomes.every(x=>x.sourceMatches&&x.contrast>=3)
+     ringOutcomes.length===5&&ringOutcomes.every(x=>x.sourceMatches&&x.actualRazorHost&&x.inheritedSource&&x.visible&&x.width>=2&&x.contrast>=3)
        &&hostAlias.outOfScope==="rgb(255, 0, 255)",
      JSON.stringify({ringOutcomes,unopted:hostAlias.outOfScope}));
 
