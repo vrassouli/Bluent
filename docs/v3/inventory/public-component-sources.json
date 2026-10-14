@@ -15,7 +15,8 @@
   },
   "retrievalFamiliesTotal": 66,
   "nonComponentFamilyExceptions": {
-    "Tooltip": 456
+    "Tooltip": 456,
+    "Overflow": 472
   },
   "rawSourceCandidates": 140,
   "components": [
@@ -984,16 +985,16 @@
       "markupName": "Overflow",
       "source": "src/Bluent.UI/Components/OverflowComponent/Overflow.razor",
       "sourceKind": "razor",
-      "classification": "public-candidate",
-      "exceptionReason": null,
+      "classification": "abstract-public-api",
+      "exceptionReason": "Public abstract Razor base. Consumer documentation explicitly prohibits <Overflow> markup; use concrete overflow-aware descendants.",
       "consumerInfrastructure": false,
       "familyIssue": 472,
       "family": "Overflow",
-      "componentIssue": 472,
+      "componentIssue": null,
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "routing": "review-or-split-required"
     },
     {
       "package": "Bluent.UI",

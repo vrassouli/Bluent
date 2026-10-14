@@ -6,6 +6,7 @@ on:
       - ".github/workflows/v3-public-inventory.yml"
       - "scripts/quality/audit_v3_public_inventory.py"
       - "scripts/quality/test_v3_public_inventory.py"
+      - "scripts/quality/test_v3_compiled_contract.py"
       - "scripts/quality/v3_compiled_inventory/**"
       - "docs/components/inventory.md"
       - "docs/v3/inventory/**"
@@ -48,7 +49,9 @@ jobs:
           dotnet build src/Bluent.UI.Charts/Bluent.UI.Charts.csproj -c Release -v quiet
           dotnet build src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj -c Release -v quiet
           dotnet build src/Bluent.UI.Utilities/Bluent.UI.Utilities.csproj -c Release -v quiet
-      - name: Guard every compiled public CLR type
-        run: dotnet run --project scripts/quality/v3_compiled_inventory/V3CompiledInventory.csproj -c Release -- .
+      - name: Guard exported CLR types and frozen declared component API
+        run: dotnet run --project scripts/quality/v3_compiled_inventory/V3CompiledInventory.csproj -c Release -- . --check-contracts
+      - name: Prove signature drift fails while JSON formatting remains irrelevant
+        run: python3 scripts/quality/test_v3_compiled_contract.py -v
       - name: Scope disclaimer
-        run: echo "CLR export and source routes only; not public parameter-signature, runtime, visual or AT approval."
+        run: echo "Declared public properties, methods, fields and base types only; inherited member signatures, runtime, visual and AT signoff require separate gates."

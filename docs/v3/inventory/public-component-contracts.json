@@ -1,0 +1,2609 @@
+{
+  "Scope": "Declared CLR API baseline only; inherited members summarized by base type, not flattened; no runtime/AT certification",
+  "Components": {
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Chart": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Chart",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Charts.Components.ChartJs",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "MergeOrderedLists(System.Collections.Generic.IEnumerable\u00601\u003CSystem.Collections.IEnumerable\u003E):System.Collections.Generic.List\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Colors": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Colors",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Chart": "Bluent.UI.Charts.Components.ChartJs | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Dataset\u00602": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Dataset\u00602",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Charts.Components.Dataset",
+      "IsAbstract": false,
+      "Properties": {
+        "BackgroundColor": "String | get=True set=True | ParameterAttribute",
+        "BorderColor": "String | get=True set=True | ParameterAttribute",
+        "BorderRadius": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "BorderSkipped": "Boolean | get=True set=True | ParameterAttribute",
+        "BorderWidth": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Chart": "Bluent.UI.Charts.Components.Chart | get=True set=True | CascadingParameterAttribute",
+        "ChartType": "Bluent.UI.Charts.Components.ChartType | get=True set=True | ParameterAttribute",
+        "Data": "System.Collections.Generic.IEnumerable\u00601\u003CSystem.Collections.Generic.KeyValuePair\u00602\u003C!0,!1\u003E\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "FillTarget": "System.Nullable\u00601\u003CBluent.UI.Charts.ChartJs.FillTarget\u003E | get=True set=True | ParameterAttribute",
+        "Label": "String | get=True set=True | ParameterAttribute",
+        "Smooth": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Gauge": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Gauge",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Colors": "System.Collections.Generic.Dictionary\u00602\u003CDouble,String\u003E | get=True set=True | ParameterAttribute",
+        "DialClass": "String | get=True set=True | ParameterAttribute",
+        "DisableAnimation": "Boolean | get=True set=True | ParameterAttribute",
+        "EndAngle": "Int32 | get=True set=True | ParameterAttribute",
+        "FormatValue": "System.Func\u00602\u003CDouble,System.Threading.Tasks.Task\u00601\u003CString\u003E\u003E | get=True set=True | ParameterAttribute",
+        "GaugeClass": "String | get=True set=True | ParameterAttribute",
+        "HideValue": "Boolean | get=True set=True | ParameterAttribute",
+        "Max": "Double | get=True set=True | ParameterAttribute",
+        "Min": "Double | get=True set=True | ParameterAttribute",
+        "Radius": "Int32 | get=True set=True | ParameterAttribute",
+        "StartAngle": "Int32 | get=True set=True | ParameterAttribute",
+        "Value": "Double | get=True set=True | ParameterAttribute",
+        "ValueClass": "String | get=True set=True | ParameterAttribute",
+        "ValueDialClass": "String | get=True set=True | ParameterAttribute",
+        "ViewBox": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetLabelAsync(Double):System.Threading.Tasks.Task\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Legend": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Legend",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Chart": "Bluent.UI.Charts.Components.ChartJs | get=True set=True | CascadingParameterAttribute",
+        "Display": "Boolean | get=True set=True | ParameterAttribute",
+        "Position": "Bluent.UI.Charts.ChartJs.Position | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Subtitle": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Subtitle",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Bottom": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Chart": "Bluent.UI.Charts.Components.ChartJs | get=True set=True | CascadingParameterAttribute",
+        "Display": "Boolean | get=True set=True | ParameterAttribute",
+        "Family": "String | get=True set=True | ParameterAttribute",
+        "Left": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Right": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Size": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Style": "String | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Top": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Weight": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Title": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Title",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Bottom": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Chart": "Bluent.UI.Charts.Components.ChartJs | get=True set=True | CascadingParameterAttribute",
+        "Display": "Boolean | get=True set=True | ParameterAttribute",
+        "Family": "String | get=True set=True | ParameterAttribute",
+        "Left": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Right": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Size": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Style": "String | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Top": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Weight": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Tooltip": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Tooltip",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Chart": "Bluent.UI.Charts.Components.ChartJs | get=True set=True | CascadingParameterAttribute",
+        "Enabled": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.XScale": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.XScale",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Charts.Components.Scale",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.YScale": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.YScale",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Charts.Components.Scale",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Circle": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Circle",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Canvas": "Bluent.UI.Diagrams.Components.DrawingCanvas | get=True set=True | CascadingParameterAttribute",
+        "Cx": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Cy": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Fill": "String | get=True set=True | ParameterAttribute",
+        "R": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Stroke": "String | get=True set=True | ParameterAttribute",
+        "StrokeWidth": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.CursorLocation": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.CursorLocation",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Canvas": "Bluent.UI.Diagrams.Components.DrawingCanvas | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Diagram": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Diagram",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Diagrams.Components.DrawingCanvas",
+      "IsAbstract": false,
+      "Properties": {
+        "ConnectorMarkerEnd": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "DiagramElements": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.Diagram.IDiagramElement\u003E | get=True set=False | ",
+        "SelectedElements": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.IDrawingShape\u003E | get=True set=False | "
+      },
+      "Methods": [
+        "AddDiagramElement(Bluent.UI.Diagrams.Elements.Diagram.IDiagramElement):Void | generic=0",
+        "CanContain():Boolean | generic=1",
+        "CanContain(System.Type):Boolean | generic=0",
+        "GetElementContainer(Bluent.UI.Diagrams.Elements.Diagram.IDiagramElement):Bluent.UI.Diagrams.Elements.Diagram.IDiagramContainer | generic=0",
+        "GetElementsAt(Bluent.UI.Diagrams.Elements.DiagramPoint):System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.Diagram.IDiagramShape\u003E | generic=0",
+        "RemoveDiagramElement(Bluent.UI.Diagrams.Elements.Diagram.IDiagramElement):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.DrawingCanvas": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.DrawingCanvas",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "AllowDelete": "Boolean | get=True set=True | ParameterAttribute",
+        "AllowDrag": "Boolean | get=True set=True | ParameterAttribute",
+        "AllowOptions": "Boolean | get=True set=True | ParameterAttribute",
+        "AllowPan": "Boolean | get=True set=True | ParameterAttribute",
+        "AllowScale": "Boolean | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "CommandManager": "Bluent.Core.CommandManager | get=True set=True | ParameterAttribute",
+        "Defs": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Elements": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.IDrawingShape\u003E | get=True set=False | ",
+        "OnSelectionChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.IDrawingShape\u003E\u003E | get=True set=True | ParameterAttribute",
+        "OnToolOperationCompleted": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Scale": "Double | get=True set=False | ",
+        "SelectedElements": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.IDrawingShape\u003E | get=True set=False | ",
+        "Selection": "Bluent.Core.SelectionMode | get=True set=True | ParameterAttribute",
+        "SelectionPadding": "Double | get=True set=True | ParameterAttribute",
+        "SnapSize": "Int32 | get=True set=True | ParameterAttribute",
+        "Tool": "Bluent.UI.Diagrams.Tools.ITool | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "ClearSelection():Void | generic=0",
+        "DeselectElement(Bluent.UI.Diagrams.Elements.IDrawingShape):Void | generic=0",
+        "DiagramToScreen(Bluent.UI.Diagrams.Elements.DiagramPoint):Bluent.UI.Diagrams.Elements.ScreenPoint | generic=0",
+        "ExecuteCommand(Bluent.Core.ICommand):Void | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "ResetPan():Void | generic=0",
+        "ResetScale():Void | generic=0",
+        "ScreenToDiagram(Bluent.UI.Diagrams.Elements.ScreenPoint):Bluent.UI.Diagrams.Elements.DiagramPoint | generic=0",
+        "ScreenToDiagram(Bluent.UI.Diagrams.Elements.ScreenPoint,System.Nullable\u00601\u003CInt32\u003E):Bluent.UI.Diagrams.Elements.DiagramPoint | generic=0",
+        "SelectElement(Bluent.UI.Diagrams.Elements.IDrawingShape,Boolean):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.ElementHost": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Internals.ElementHost",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Canvas": "Bluent.UI.Diagrams.Components.DrawingCanvas | get=True set=True | CascadingParameterAttribute",
+        "Element": "Bluent.UI.Diagrams.Elements.IDrawingShape | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.ElementSelection": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Internals.ElementSelection",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Canvas": "Bluent.UI.Diagrams.Components.DrawingCanvas | get=True set=True | CascadingParameterAttribute",
+        "Element": "Bluent.UI.Diagrams.Elements.IDrawingShape | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.PointUpdater": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Internals.PointUpdater",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Fill": "String | get=True set=True | ParameterAttribute",
+        "PointerDown": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | get=True set=True | ParameterAttribute",
+        "Size": "Double | get=True set=True | ParameterAttribute",
+        "Stroke": "String | get=True set=True | ParameterAttribute",
+        "StrokeWidth": "Double | get=True set=True | ParameterAttribute",
+        "UpdatablePoint": "Bluent.UI.Diagrams.Elements.Abstractions.UpdatablePoint | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.SelectionOptionsContainer": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Internals.SelectionOptionsContainer",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Pan": "Bluent.UI.Diagrams.Elements.Distance2D | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Scale": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Shape": "Bluent.UI.Diagrams.Elements.IDrawingShape | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Line": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Line",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Canvas": "Bluent.UI.Diagrams.Components.DrawingCanvas | get=True set=True | CascadingParameterAttribute",
+        "Fill": "String | get=True set=True | ParameterAttribute",
+        "Stroke": "String | get=True set=True | ParameterAttribute",
+        "StrokeWidth": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute",
+        "X1": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "X2": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Y1": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Y2": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Rect": {
+      "Package": "Bluent.UI.Diagrams",
+      "Type": "Bluent.UI.Diagrams.Components.Rect",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Canvas": "Bluent.UI.Diagrams.Components.DrawingCanvas | get=True set=True | CascadingParameterAttribute",
+        "Fill": "String | get=True set=True | ParameterAttribute",
+        "Height": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Rx": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute",
+        "Ry": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute",
+        "Stroke": "String | get=True set=True | ParameterAttribute",
+        "StrokeWidth": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute",
+        "Width": "Double | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "X": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute",
+        "Y": "System.Nullable\u00601\u003CDouble\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.AppBusyIndicator": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.AppBusyIndicator",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Style": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.HierarchyItemBrowser": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.HierarchyItemBrowser",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CancelButtonTitle": "String | get=True set=True | ParameterAttribute",
+        "CreateButtonTitle": "String | get=True set=True | ParameterAttribute",
+        "DefaultFileName": "String | get=True set=True | ParameterAttribute",
+        "Dialog": "Bluent.UI.Components.Dialog | get=True set=True | CascadingParameterAttribute",
+        "EmptyMessage": "String | get=True set=True | ParameterAttribute",
+        "GetHierarchyItems": "Bluent.UI.Utilities.ReadHierarchyItemsDelegate | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "HideCancel": "Boolean | get=True set=True | ParameterAttribute",
+        "ItemIcon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "LabelTitle": "String | get=True set=True | ParameterAttribute",
+        "MustExist": "Boolean | get=True set=True | ParameterAttribute",
+        "OnCancel": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnCreateRootItem": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Utilities.HierarchyPathSelection\u003E | get=True set=True | ParameterAttribute",
+        "OnDeleteItem": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Utilities.HierarchyPathSelection\u003E | get=True set=True | ParameterAttribute",
+        "OnRenameItem": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.ValueTuple\u00602\u003CBluent.UI.Utilities.HierarchyPathSelection,String\u003E\u003E | get=True set=True | ParameterAttribute",
+        "OnSelect": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Utilities.HierarchyItemSelection\u003E | get=True set=True | ParameterAttribute",
+        "RootItemExpandedIcon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "RootItemIcon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "RootTitle": "String | get=True set=True | ParameterAttribute",
+        "SelectButtonTitle": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "RefreshAsync():System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.HierarchyTreeBrowser": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.HierarchyTreeBrowser",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "GetHierarchyItems": "Bluent.UI.Utilities.ReadHierarchyItemsDelegate | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "ItemIcon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "ItemOptions": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003CBluent.UI.Utilities.HierarchyItem\u003E | get=True set=True | ParameterAttribute",
+        "OnItemDeselected": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnItemSelected": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Utilities.HierarchyItemSelection\u003E | get=True set=True | ParameterAttribute",
+        "OnPathSelected": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Utilities.HierarchyPathSelection\u003E | get=True set=True | ParameterAttribute",
+        "RootItemExpandedIcon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "RootItemIcon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "RootOnly": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "AddItem(Bluent.UI.Utilities.HierarchyTreeItem):Void | generic=0",
+        "IsSelected(Bluent.UI.Utilities.HierarchyTreeItem):Boolean | generic=0",
+        "OnItemClicked(Bluent.UI.Utilities.HierarchyTreeItem):System.Threading.Tasks.Task | generic=0",
+        "RefreshAsync():System.Threading.Tasks.Task | generic=0",
+        "RemoveItem(Bluent.UI.Utilities.HierarchyTreeItem):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.HierarchyTreeItem": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.HierarchyTreeItem",
+      "Classification": "internal-composite-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "IsSelected": "Boolean | get=True set=False | ",
+        "Item": "Bluent.UI.Utilities.HierarchyItem | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Options": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003CBluent.UI.Utilities.HierarchyItem\u003E | get=True set=True | ParameterAttribute",
+        "ParentItem": "Bluent.UI.Utilities.HierarchyTreeItem | get=True set=True | CascadingParameterAttribute",
+        "Path": "String | get=True set=False | ",
+        "TreeBrowser": "Bluent.UI.Utilities.HierarchyTreeBrowser | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.MdiTab": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.MdiTab",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Class": "String | get=True set=True | ParameterAttribute",
+        "CommandManager": "Bluent.Core.CommandManager | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "ComponentType": "System.Type | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Document": "Bluent.UI.Utilities.Abstractions.IMdiDocument | get=True set=False | ",
+        "Parameters": "System.Collections.Generic.Dictionary\u00602\u003CString,Object\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Parent": "Bluent.UI.Utilities.MdiTabList | get=True set=True | CascadingParameterAttribute",
+        "Popover": "Bluent.UI.Components.Popover | get=True set=True | CascadingParameterAttribute",
+        "TabId": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.MdiTabList": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.MdiTabList",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Class": "String | get=True set=True | ParameterAttribute",
+        "EmptyContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "TabChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Utilities.Abstractions.IMdiTab\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Add(Bluent.UI.Utilities.Abstractions.IMdiTab):Void | generic=0",
+        "CloseTab(Bluent.UI.Utilities.Abstractions.IMdiTab):System.Threading.Tasks.Task | generic=0",
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "Remove(Bluent.UI.Utilities.Abstractions.IMdiTab):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.MdiTabToolbarItem": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.MdiTabToolbarItem",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Document": "Bluent.UI.Utilities.Abstractions.IMdiDocument | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.RedoToolbarButton": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.RedoToolbarButton",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CommandManager": "Bluent.Core.CommandManager | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute",
+        "Tooltip": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.SaveToolbarButton": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.SaveToolbarButton",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CommandManager": "Bluent.Core.CommandManager | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "OnSave": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute",
+        "Tooltip": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI.Utilities::Bluent.UI.Utilities.UndoToolbarButton": {
+      "Package": "Bluent.UI.Utilities",
+      "Type": "Bluent.UI.Utilities.UndoToolbarButton",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CommandManager": "Bluent.Core.CommandManager | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute",
+        "Tooltip": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Accordion": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Accordion",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "HeaderAction": "Bluent.UI.Components.AccordionHeaderAction | get=True set=True | ParameterAttribute",
+        "Multiple": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.AccordionPanel": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.AccordionPanel",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Accordion": "Bluent.UI.Components.Accordion | get=True set=True | CascadingParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "CollapsedClasses": "String | get=True set=True | ParameterAttribute",
+        "CollapsedHeaderClasses": "String | get=True set=True | ParameterAttribute",
+        "DeferredLoading": "Boolean | get=True set=True | ParameterAttribute",
+        "Expanded": "Boolean | get=True set=True | ParameterAttribute",
+        "ExpandedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "ExpandedClasses": "String | get=True set=True | ParameterAttribute",
+        "ExpandedHeaderClasses": "String | get=True set=True | ParameterAttribute",
+        "Header": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "HeaderAction": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "HeaderIcon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "PanelClasses": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Collapse():Void | generic=0",
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "Expand():Void | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "GetHeaderClasses():String | generic=0",
+        "Toggle():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ActionCard": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ActionCard",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "DeferredLoading": "Boolean | get=True set=True | ParameterAttribute",
+        "Description": "String | get=True set=True | ParameterAttribute",
+        "DescriptionContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "HeaderAction": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "IconContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "IsExpanded": "Boolean | get=True set=True | ParameterAttribute",
+        "IsExpandedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ActionCardGroup": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ActionCardGroup",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.AudioCapture": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.AudioCapture",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.ButtonAppearance | get=True set=True | ParameterAttribute",
+        "CaptureEnded": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CByte[]\u003E | get=True set=True | ParameterAttribute",
+        "CaptureStarted": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Format": "String | get=True set=True | ParameterAttribute",
+        "Icon": "Bluent.UI.Icons.IconDefinition | get=True set=True | ParameterAttribute",
+        "NotAvailable": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "NotSupported": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "OnAudioCaptured(Byte[]):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Avatar": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Avatar",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "AutoColor": "Boolean | get=True set=True | ParameterAttribute",
+        "Color": "System.Nullable\u00601\u003CBluent.UI.Components.ColorPalette\u003E | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "ImageSource": "String | get=True set=True | ParameterAttribute",
+        "Initials": "String | get=True set=True | ParameterAttribute",
+        "InitialsSeperator": "String | get=True set=True | ParameterAttribute",
+        "Name": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Popover": "Bluent.UI.Components.Popover | get=True set=True | CascadingParameterAttribute",
+        "Shape": "Bluent.UI.Components.AvatarShape | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.AvatarSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Badge": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Badge",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "AnimateShadow": "Boolean | get=True set=True | ParameterAttribute",
+        "Appearance": "Bluent.UI.Components.BadgeAppearance | get=True set=True | ParameterAttribute",
+        "Color": "Bluent.UI.Components.BadgeColor | get=True set=True | ParameterAttribute",
+        "DropShadow": "Boolean | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Shape": "Bluent.UI.Components.BadgeShape | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.BadgeSize | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.BluentDynamicComponent": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.BluentDynamicComponent",
+      "Classification": "infrastructure-review",
+      "BaseType": "System.Object",
+      "IsAbstract": false,
+      "Properties": {
+        "Instance": "Object | get=True set=False | ",
+        "OnComponentCaptured": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
+        "Parameters": "System.Collections.Generic.IDictionary\u00602\u003CString,Object\u003E | get=True set=True | ParameterAttribute",
+        "Type": "System.Type | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Attach(Microsoft.AspNetCore.Components.RenderHandle):Void | generic=0",
+        "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Breadcrumb": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Breadcrumb",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.BreadcrumbSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.BreadcrumbItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.BreadcrumbItem",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Target": "String | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Button": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Button",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.ButtonAppearance | get=True set=True | ParameterAttribute",
+        "Badge": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "BadgeHorizontalPosition": "Bluent.UI.Enums.HorizontalSides | get=True set=True | ParameterAttribute",
+        "BadgeVerticalPosition": "Bluent.UI.Enums.VerticalSides | get=True set=True | ParameterAttribute",
+        "Compact": "Boolean | get=True set=True | ParameterAttribute",
+        "Dropdown": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "DropdownPlacement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute",
+        "Overflow": "Bluent.UI.Components.Overflow | get=True set=True | CascadingParameterAttribute",
+        "ParentPopover": "Bluent.UI.Components.Popover | get=True set=True | CascadingParameterAttribute",
+        "Rotated": "Boolean | get=True set=True | ParameterAttribute",
+        "SecondaryText": "String | get=True set=True | ParameterAttribute",
+        "Shape": "Bluent.UI.Components.ButtonShape | get=True set=True | ParameterAttribute",
+        "ShowDropdownIndicator": "Boolean | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.ButtonSize | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute",
+        "TextClass": "String | get=True set=True | ParameterAttribute",
+        "Toggled": "System.Nullable\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "ToggledChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "RefreshPopoverSurface():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ButtonGroup": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ButtonGroup",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Calendar\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Calendar\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Culture": "System.Globalization.CultureInfo | get=True set=True | ParameterAttribute",
+        "DateClass": "System.Func\u00602\u003CSystem.DateOnly,String\u003E | get=True set=True | ParameterAttribute",
+        "Max": "System.Nullable\u00601\u003CSystem.DateTime\u003E | get=True set=True | ParameterAttribute",
+        "Min": "System.Nullable\u00601\u003CSystem.DateTime\u003E | get=True set=True | ParameterAttribute",
+        "Mode": "Bluent.UI.Components.CalendarMode | get=True set=True | ParameterAttribute",
+        "MonthChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.DateOnly\u003E | get=True set=True | ParameterAttribute",
+        "Popover": "Bluent.UI.Components.Popover | get=True set=True | CascadingParameterAttribute",
+        "SelectedDate": "!0 | get=True set=True | ParameterAttribute",
+        "SelectedDateChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Card": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Card",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.CardAppearance | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.CardOrientation | get=True set=True | ParameterAttribute",
+        "Selected": "Boolean | get=True set=True | ParameterAttribute",
+        "SelectedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.CardSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.CardContent": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.CardContent",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.CardFloatingAction": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.CardFloatingAction",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.CardFooter": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.CardFooter",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.CardHeader": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.CardHeader",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Action": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ContextualAction": "Boolean | get=True set=True | ParameterAttribute",
+        "Description": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Header": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Image": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.CardPreview": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.CardPreview",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Logo": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Checkbox\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Checkbox\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentInputComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "Circular": "Boolean | get=True set=True | ParameterAttribute",
+        "IndeterminateLabel": "String | get=True set=True | ParameterAttribute",
+        "Label": "String | get=True set=True | ParameterAttribute",
+        "LabelPosition": "Bluent.UI.Components.LabelPosition | get=True set=True | ParameterAttribute",
+        "Required": "String | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.CheckboxSize | get=True set=True | ParameterAttribute",
+        "UncheckedLabel": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Toggle():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Containers": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Containers",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DataGridColumn\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DataGridColumn\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CellClasses": "System.Func\u00602\u003C!0,System.Collections.Generic.IEnumerable\u00601\u003CString\u003E\u003E | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "DataGrid": "Bluent.UI.Components.DataGrid\u00601\u003C!0\u003E | get=True set=True | CascadingParameterAttribute",
+        "Field": "System.Linq.Expressions.Expression\u00601\u003CSystem.Func\u00602\u003C!0,Object\u003E\u003E | get=True set=True | ParameterAttribute",
+        "Format": "String | get=True set=True | ParameterAttribute",
+        "Freezed": "Boolean | get=True set=True | ParameterAttribute",
+        "Header": "String | get=True set=True | ParameterAttribute",
+        "HeaderClasses": "System.Func\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003CString\u003E\u003E | get=True set=True | ParameterAttribute",
+        "Width": "Double | get=True set=True | ParameterAttribute",
+        "Wrap": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DataGridComponent.Internal.DataGridCell\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DataGridComponent.Internal.DataGridCell\u00601",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Column": "Bluent.UI.Components.DataGridColumn\u00601\u003C!0\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Item": "!0 | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DataGridComponent.Internal.DataGridRow\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DataGridComponent.Internal.DataGridRow\u00601",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Columns": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Components.DataGridColumn\u00601\u003C!0\u003E\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Item": "!0 | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DataGrid\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DataGrid\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Columns": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ItemsProvider": "Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderDelegate\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "RowSize": "Int32 | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "RefreshAsync():System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DataList\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DataList\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.ItemsList",
+      "IsAbstract": false,
+      "Properties": {
+        "EmptyContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ItemKey": "System.Func\u00602\u003C!0,Object\u003E | get=True set=True | ParameterAttribute",
+        "ItemTemplate": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003C!0\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Items": "System.Collections.Generic.ICollection\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "ItemsProvider": "Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderDelegate\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "ItemsSize": "Single | get=True set=True | ParameterAttribute",
+        "PlaceHolder": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003CMicrosoft.AspNetCore.Components.Web.Virtualization.PlaceholderContext\u003E | get=True set=True | ParameterAttribute",
+        "SelectedData": "System.Collections.Generic.List\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "SelectedDataChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.List\u00601\u003C!0\u003E\u003E | get=True set=True | ParameterAttribute",
+        "SelectedItem": "!0 | get=True set=True | ParameterAttribute",
+        "SelectedItemChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "RefreshDataAsync():System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DataPager": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DataPager",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ButtonShape": "Bluent.UI.Components.ButtonShape | get=True set=True | ParameterAttribute",
+        "FirstButtonIcon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "FirstPageText": "String | get=True set=True | ParameterAttribute",
+        "LastButtonIcon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "LastPageText": "String | get=True set=True | ParameterAttribute",
+        "MaxPageButtons": "Int32 | get=True set=True | ParameterAttribute",
+        "NextButtonIcon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "NextPageText": "String | get=True set=True | ParameterAttribute",
+        "Page": "Int32 | get=True set=True | ParameterAttribute",
+        "PageChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "PageCount": "Int32 | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "PageQueryParameter": "String | get=True set=True | ParameterAttribute",
+        "PreviousButtonIcon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "PreviousPageText": "String | get=True set=True | ParameterAttribute",
+        "ShowFirstPage": "Boolean | get=True set=True | ParameterAttribute",
+        "ShowLastPage": "Boolean | get=True set=True | ParameterAttribute",
+        "ShowNextPage": "Boolean | get=True set=True | ParameterAttribute",
+        "ShowPreviousPage": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DateFieldComponent.Internal.DateFieldPicker\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DateFieldComponent.Internal.DateFieldPicker\u00601",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ButtonSize": "Bluent.UI.Components.ButtonSize | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Culture": "System.Globalization.CultureInfo | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "IsDisabled": "Boolean | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Max": "System.Nullable\u00601\u003CSystem.DateTime\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Min": "System.Nullable\u00601\u003CSystem.DateTime\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Mode": "Bluent.UI.Components.CalendarMode | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "OnDatePicked": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!0\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Value": "!0 | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DateField\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DateField\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "Culture": "System.Globalization.CultureInfo | get=True set=True | ParameterAttribute",
+        "DateClass": "System.Func\u00602\u003CSystem.DateTime,String\u003E | get=True set=True | ParameterAttribute",
+        "DisplayCalendar": "Boolean | get=True set=True | ParameterAttribute",
+        "Max": "System.Nullable\u00601\u003CSystem.DateTime\u003E | get=True set=True | ParameterAttribute",
+        "Min": "System.Nullable\u00601\u003CSystem.DateTime\u003E | get=True set=True | ParameterAttribute",
+        "Mode": "Bluent.UI.Components.CalendarMode | get=True set=True | ParameterAttribute",
+        "ParsingErrorMessage": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Dialog": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Dialog",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "OnClose": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.DialogSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Close(Object):Void | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DialogComponent.DialogContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DialogComponent.DialogContainer",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DialogComponent.DialogDefaultContent": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DialogComponent.DialogDefaultContent",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Actions": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Components.DialogComponent.DialogAction\u003E | get=True set=True | ParameterAttribute",
+        "ContentComponentType": "System.Type | get=True set=True | ParameterAttribute",
+        "ContentParameters": "System.Collections.Generic.IDictionary\u00602\u003CString,Object\u003E | get=True set=True | ParameterAttribute",
+        "Dialog": "Bluent.UI.Components.Dialog | get=True set=True | CascadingParameterAttribute",
+        "ShowCloseButton": "Boolean | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DialogComponent.MessageBoxDefaultContent": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DialogComponent.MessageBoxDefaultContent",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Message": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DockBar": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DockBar",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "DisplayTitle": "Boolean | get=True set=True | ParameterAttribute",
+        "DockName": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute",
+        "RotateItems": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DockContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DockContainer",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "DefaultSize": "Int32 | get=True set=True | ParameterAttribute",
+        "DockMode": "Bluent.UI.Components.DockMode | get=True set=True | ParameterAttribute",
+        "DockName": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "SplitPanel": "Bluent.UI.Components.SplitPanelComponent.Internal.SplitPanel | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DockPanel": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DockPanel",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "DockName": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "HeaderContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "MoreActionsContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Activate():Void | generic=0",
+        "Dispose():Void | generic=0",
+        "SetDockName(String):Void | generic=0",
+        "SetStateHasChanged():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Drawer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Drawer",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Breakpoint": "System.Nullable\u00601\u003CBluent.UI.Components.Breakpoints\u003E | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "OnClose": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
+        "Position": "Bluent.UI.Components.DrawerPosition | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.DrawerSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Close(Object):Void | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "Open():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DrawerComponent.DrawerContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DrawerComponent.DrawerContainer",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DrawerContent": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DrawerContent",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ContentComponentType": "System.Type | get=True set=True | ParameterAttribute",
+        "ContentParameters": "System.Collections.Generic.IDictionary\u00602\u003CString,Object\u003E | get=True set=True | ParameterAttribute",
+        "Drawer": "Bluent.UI.Components.Drawer | get=True set=True | CascadingParameterAttribute",
+        "ShowDismissButton": "Boolean | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DropdownList\u00602": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DropdownList\u00602",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "DropdownPlacement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
+        "EmptyContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "EmptyDisplayText": "String | get=True set=True | ParameterAttribute",
+        "FilterPlaceholder": "String | get=True set=True | ParameterAttribute",
+        "HideClear": "Boolean | get=True set=True | ParameterAttribute",
+        "HideFilter": "Boolean | get=True set=True | ParameterAttribute",
+        "ItemContent": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "ItemProvider": "System.Func\u00602\u003C!1,!0\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "ItemSize": "Single | get=True set=True | ParameterAttribute",
+        "ItemText": "System.Func\u00602\u003C!0,String\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "ItemValue": "System.Func\u00602\u003C!0,!1\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "ItemsProvider": "Bluent.UI.Components.FilteredItemsProviderDelegate\u00601\u003C!0\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "MaxHeight": "Int32 | get=True set=True | ParameterAttribute",
+        "Placeholder": "Microsoft.AspNetCore.Components.RenderFragment\u00601\u003CMicrosoft.AspNetCore.Components.Web.Virtualization.PlaceholderContext\u003E | get=True set=True | ParameterAttribute",
+        "SelectedItemChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "SelectedItemsChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003C!0\u003E\u003E | get=True set=True | ParameterAttribute",
+        "Value": "!1 | get=True set=True | ParameterAttribute",
+        "ValueChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!1\u003E | get=True set=True | ParameterAttribute",
+        "Values": "System.Collections.Generic.IEnumerable\u00601\u003C!1\u003E | get=True set=True | ParameterAttribute",
+        "ValuesChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003C!1\u003E\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.DropdownSelect\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.DropdownSelect\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CanClear": "Boolean | get=True set=True | ParameterAttribute",
+        "ClearOption": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "Dropdown": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "DropdownPlacement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
+        "EmptyMessage": "String | get=True set=True | ParameterAttribute",
+        "Options": "System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Components.DropdownOption\u00601\u003C!0\u003E\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "Close():Void | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "Refresh():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.FileSelect": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.FileSelect",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Accept": "String | get=True set=True | ParameterAttribute",
+        "AllowRemove": "Boolean | get=True set=True | ParameterAttribute",
+        "Appearance": "Bluent.UI.Components.ButtonAppearance | get=True set=True | ParameterAttribute",
+        "Disabled": "Boolean | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "MaxFiles": "Int32 | get=True set=True | ParameterAttribute",
+        "OnChange": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Components.FileSelectComponent.SelectedFile\u003E\u003E | get=True set=True | ParameterAttribute",
+        "OnFileRemoved": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.FileSelectComponent.SelectedFile\u003E | get=True set=True | ParameterAttribute",
+        "OnFileSelected": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.FileSelectComponent.SelectedFile\u003E | get=True set=True | ParameterAttribute",
+        "Shape": "Bluent.UI.Components.ButtonShape | get=True set=True | ParameterAttribute",
+        "ShowFileInfo": "Boolean | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Clear():Void | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "GetIcon(String):Bluent.UI.Icons.IconDefinition | generic=0",
+        "Remove(Bluent.UI.Components.FileSelectComponent.SelectedFile):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Icon": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Icon",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Value": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Variant": "Bluent.UI.Icons.IconVariant | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ItemsList": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ItemsList",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "SelectedItemsChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Components.ListItem\u003E\u003E | get=True set=True | ParameterAttribute",
+        "SelectionMode": "Bluent.Core.SelectionMode | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Label": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Label",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ForExpression": "System.Linq.Expressions.Expression\u00601\u003CSystem.Func\u00601\u003CObject\u003E\u003E | get=True set=True | ParameterAttribute",
+        "Info": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Required": "Bluent.UI.Components.LabelRequiredState | get=True set=True | ParameterAttribute",
+        "RequiredSymbol": "String | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.LabelSize | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Link": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Link",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.LinkAppearance | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ListItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ListItem",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "AccordionPanel": "Bluent.UI.Components.AccordionPanel | get=True set=True | CascadingParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Data": "Object | get=True set=True | ParameterAttribute",
+        "DndContext": "Bluent.UI.Components.DndContext | get=True set=True | CascadingParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "List": "Bluent.UI.Components.ItemsList | get=True set=True | CascadingParameterAttribute",
+        "Match": "Microsoft.AspNetCore.Components.Routing.NavLinkMatch | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Selected": "Boolean | get=True set=True | ParameterAttribute",
+        "SelectedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MaskedField": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MaskedField",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003CString\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "ArabicToPersianConversion": "Boolean | get=True set=True | ParameterAttribute",
+        "AsciiDigits": "Boolean | get=True set=True | ParameterAttribute",
+        "Mask": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MasterContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MasterContainer",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Breakpoint": "Bluent.UI.Components.Breakpoints | get=True set=True | ParameterAttribute",
+        "DetailPanel": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "DrawerHeader": "String | get=True set=True | ParameterAttribute",
+        "MasterPanel": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "MasterWidth": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "OnClose": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
+        "OpenDetails": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MediaQuery": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MediaQuery",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "DomHelper": "Bluent.UI.Services.Abstractions.IDomHelper | get=True set=True | ",
+        "OnChange": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.Breakpoints\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Menu": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Menu",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Items": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Placement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
+        "Trigger": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MenuDivider": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MenuDivider",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MenuItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MenuItem",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Checked": "Boolean | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Data": "Object | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "MenuList": "Bluent.UI.Components.MenuList | get=True set=True | CascadingParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Popover": "Bluent.UI.Components.Popover | get=True set=True | CascadingParameterAttribute",
+        "Title": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MenuItemGroup": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MenuItemGroup",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MenuList": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MenuList",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.MessageBar": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.MessageBar",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Actions": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Dismissable": "Boolean | get=True set=True | ParameterAttribute",
+        "Dismissed": "Boolean | get=True set=True | ParameterAttribute",
+        "DismissedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Multiline": "Boolean | get=True set=True | ParameterAttribute",
+        "OnDismiss": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Type": "Bluent.UI.Components.MessageBarType | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.NavItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.NavItem",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "AutoCloseDrawer": "Boolean | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Expanded": "Boolean | get=True set=True | ParameterAttribute",
+        "ExpandedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Match": "Microsoft.AspNetCore.Components.Routing.NavLinkMatch | get=True set=True | ParameterAttribute",
+        "Options": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.NavList": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.NavList",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "CollapsedWidth": "String | get=True set=True | ParameterAttribute",
+        "Compact": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.NumericField\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.NumericField\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "Format": "String | get=True set=True | ParameterAttribute",
+        "GainFocus": "Boolean | get=True set=True | ParameterAttribute",
+        "Max": "!0 | get=True set=True | ParameterAttribute",
+        "MaximumErrorMessage": "String | get=True set=True | ParameterAttribute",
+        "Min": "!0 | get=True set=True | ParameterAttribute",
+        "MinimumErrorMessage": "String | get=True set=True | ParameterAttribute",
+        "OnBlur": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnFocus": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OverflowErrorMessage": "String | get=True set=True | ParameterAttribute",
+        "ParsingErrorMessage": "String | get=True set=True | ParameterAttribute",
+        "Step": "!0 | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.OtpField": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.OtpField",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003CString\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "AutoSubmit": "Boolean | get=True set=True | ParameterAttribute",
+        "Length": "Int32 | get=True set=True | ParameterAttribute",
+        "Password": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Overflow": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Overflow",
+      "Classification": "abstract-public-api",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": true,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Overlay": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Overlay",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Popover": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Popover",
+      "Classification": "public-candidate",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.PopoverAppearance | get=True set=True | ParameterAttribute",
+        "DisplayArrow": "Boolean | get=True set=True | ParameterAttribute",
+        "HideEvents": "String | get=True set=True | ParameterAttribute",
+        "KeepSurface": "Boolean | get=True set=True | ParameterAttribute",
+        "Offset": "Int32 | get=True set=True | ParameterAttribute",
+        "Padding": "Int32 | get=True set=True | ParameterAttribute",
+        "Placement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
+        "SameWidth": "Boolean | get=True set=True | ParameterAttribute",
+        "Surface": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "Trigger": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "TriggerEvents": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Close():Void | generic=0",
+        "Dispose():Void | generic=0",
+        "RefreshSurface(Boolean):Void | generic=0",
+        "SetTrigger(Bluent.Core.IBluentComponent):Void | generic=0",
+        "Show():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PopoverComponent.PopoverContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PopoverComponent.PopoverContainer",
+      "Classification": "infrastructure-review",
+      "BaseType": "Bluent.UI.Components.PopoverComponent.PopoverContainerBase\u00601\u003CBluent.UI.Services.Abstractions.IPopoverService\u003E",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PopoverComponent.PopoverContainerBase\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PopoverComponent.PopoverContainerBase\u00601",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "HideSurface(Bluent.UI.Components.PopoverSettings):Void | generic=0",
+        "RenderSurface(Bluent.UI.Components.PopoverSettings):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PopoverComponent.PopoverSurface": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PopoverComponent.PopoverSurface",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Context": "Bluent.UI.Components.PopoverComponent.PopoverContext | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ProgressBar": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ProgressBar",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Color": "Bluent.UI.Components.ProgressBarColor | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Indeterminate": "Boolean | get=True set=True | ParameterAttribute",
+        "Message": "String | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.ProgressBarSize | get=True set=True | ParameterAttribute",
+        "Value": "Single | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditor",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Categorize": "Boolean | get=True set=True | ParameterAttribute",
+        "CommandManager": "Bluent.Core.CommandManager | get=True set=True | ParameterAttribute",
+        "EditorRootObject": "Object | get=True set=True | ParameterAttribute",
+        "LabelWidth": "Int32 | get=True set=True | ParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "PropertyUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "AddToCollection(Object,Object):Void | generic=0",
+        "CreateSetPropertyValueCommand(Object,!!0,System.Linq.Expressions.Expression\u00601\u003CSystem.Func\u00601\u003C!!0\u003E\u003E):Bluent.UI.Components.PropertyEditorComponent.SetPropertyCommand | generic=1",
+        "CreateSetPropertyValueCommand(Object,Object,System.Reflection.PropertyInfo[]):Bluent.UI.Components.PropertyEditorComponent.SetPropertyCommand | generic=0",
+        "Do(Bluent.Core.ICommand):Void | generic=0",
+        "GetAddToCollectionCommand(System.Collections.Generic.ICollection\u00601\u003C!!0\u003E,!!0):Bluent.UI.Components.PropertyEditorComponent.AddToCollectionCommand | generic=1",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "GetRemoveFromCollectionCommand(System.Collections.Generic.ICollection\u00601\u003C!!0\u003E,!!0):Bluent.UI.Components.PropertyEditorComponent.RemoveFromCollectionCommand | generic=1",
+        "RemoveFromCollection(Object,Object):Void | generic=0",
+        "ReorderCollection(System.Collections.IEnumerable,Object,Int32):Void | generic=0",
+        "SetPropertyValue(Object,!!0,System.Linq.Expressions.Expression\u00601\u003CSystem.Func\u00601\u003C!!0\u003E\u003E):Void | generic=1",
+        "SetPropertyValue(Object,Object,System.Reflection.PropertyInfo[]):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.BoolPropertyEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.BoolPropertyEditor",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.ComplexTypeEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.ComplexTypeEditor",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.EnumPropertyEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.EnumPropertyEditor",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.EnumerableEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.EnumerableEditor",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.NumericPropertyEditor\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.NumericPropertyEditor\u00601",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.PropertyDescription": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.PropertyDescription",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.PropertyEditorItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.PropertyEditorItem",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "LabelWidth": "Int32 | get=True set=True | ParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "IsSimpleType(System.Type):Boolean | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.RegisteredPropertyTypeEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.RegisteredPropertyTypeEditor",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "LabelWidth": "Int32 | get=True set=True | ParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.TextPropertyEditor": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.PropertyEditorComponent.Internal.TextPropertyEditor",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Editor": "Bluent.UI.Components.PropertyEditor | get=True set=True | CascadingParameterAttribute",
+        "Object": "Object | get=True set=True | ParameterAttribute",
+        "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute",
+        "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.RadioGroup\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.RadioGroup\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentInputComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ItemsLabelPosition": "Bluent.UI.Components.LabelPosition | get=True set=True | ParameterAttribute",
+        "Label": "String | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Radio\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Radio\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Label": "String | get=True set=True | ParameterAttribute",
+        "RadioGroup": "Bluent.UI.Components.RadioGroup\u00601\u003C!0\u003E | get=True set=True | CascadingParameterAttribute",
+        "Value": "!0 | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.RangeSlider\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.RangeSlider\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Max": "!0 | get=True set=True | ParameterAttribute",
+        "Min": "!0 | get=True set=True | ParameterAttribute",
+        "ThumbSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Value": "Bluent.UI.Components.ValueRange\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute",
+        "ValueChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.ValueRange\u00601\u003C!0\u003E\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.SelectField\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.SelectField\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Skeleton": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Skeleton",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Shape": "Bluent.UI.Components.SkeletonShape | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Slider\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Slider\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Max": "!0 | get=True set=True | ParameterAttribute",
+        "Min": "!0 | get=True set=True | ParameterAttribute",
+        "ThumbSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Value": "!0 | get=True set=True | ParameterAttribute",
+        "ValueChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003C!0\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Spacer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Spacer",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Spinner": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Spinner",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.SpinnerAppearance | get=True set=True | ParameterAttribute",
+        "Label": "String | get=True set=True | ParameterAttribute",
+        "LabelPosition": "Bluent.UI.Components.SpinnerLabelPosition | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.SpinnerSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.SplitPanelComponent.Internal.PanelResizer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.SplitPanelComponent.Internal.PanelResizer",
+      "Classification": "internal-path-review",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Container": "Bluent.UI.Components.SplitPanelContainer | get=True set=True | CascadingParameterAttribute",
+        "Floating": "Boolean | get=True set=True | ParameterAttribute",
+        "Size": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "SplitArea": "Bluent.UI.Components.SplitPanelComponent.Internal.SplitArea | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.SplitPanelComponent.Internal.SplitPanel": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.SplitPanelComponent.Internal.SplitPanel",
+      "Classification": "internal-path-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Container": "Bluent.UI.Components.SplitPanelContainer | get=True set=True | CascadingParameterAttribute",
+        "Floating": "Boolean | get=True set=True | ParameterAttribute",
+        "Size": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "SplitArea": "Bluent.UI.Components.SplitPanelComponent.Internal.SplitArea | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "ResetSize():Void | generic=0",
+        "SetAllowResize(Boolean):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.SplitPanelContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.SplitPanelContainer",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Bottom": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "BottomMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "BottomResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "Center": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "End": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "EndMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "EndResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "EndSide": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "EndSideMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "EndSideResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "Footer": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "FooterMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "FooterResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "Header": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "HeaderMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "HeaderResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "Start": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "StartMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "StartResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "StartSide": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "StartSideMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "StartSideResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute",
+        "Top": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "TopMaxSize": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "TopResizeMode": "Bluent.UI.Components.ResizeMode | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
+        "SetSize(Bluent.UI.Components.SplitPanelComponent.Internal.SplitArea,Int32):Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Stack": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Stack",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Fill": "Boolean | get=True set=True | ParameterAttribute",
+        "HorizontalAlignment": "Bluent.UI.Components.StackAlignment | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute",
+        "Overflow": "Bluent.UI.Components.StackOverflow | get=True set=True | ParameterAttribute",
+        "Reverse": "Boolean | get=True set=True | ParameterAttribute",
+        "VerticalAlignment": "Bluent.UI.Components.StackAlignment | get=True set=True | ParameterAttribute",
+        "Wrap": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Switch": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Switch",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.Checkbox\u00601\u003CBoolean\u003E",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Tab": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Tab",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.OverflowItemComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Actions": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Data": "Object | get=True set=True | ParameterAttribute",
+        "DeferredLoading": "Boolean | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Match": "Microsoft.AspNetCore.Components.Routing.NavLinkMatch | get=True set=True | ParameterAttribute",
+        "MenuLabel": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute",
+        "Popover": "Bluent.UI.Components.Popover | get=True set=True | CascadingParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TabList": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TabList",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.Overflow",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.TabListAppearance | get=True set=True | ParameterAttribute",
+        "EmptyContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "OnTabAdded": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "SelectedIndex": "Int32 | get=True set=True | ParameterAttribute",
+        "SelectedIndexChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.TabListSize | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TabListComponent.TabListTabItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TabListComponent.TabListTabItem",
+      "Classification": "internal-composite-review",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Actions": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Data": "Object | get=True set=True | ParameterAttribute",
+        "DeferredLoading": "Boolean | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Match": "Microsoft.AspNetCore.Components.Routing.NavLinkMatch | get=True set=True | ParameterAttribute",
+        "MenuLabel": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute",
+        "TabList": "Bluent.UI.Components.Overflow | get=True set=True | CascadingParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Tag": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Tag",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Dismissable": "Boolean | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnDismiss": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TextField": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TextField",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003CString\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "ArabicToPersianConversion": "Boolean | get=True set=True | ParameterAttribute",
+        "AsciiDigits": "Boolean | get=True set=True | ParameterAttribute",
+        "DigitOnly": "Boolean | get=True set=True | ParameterAttribute",
+        "GainFocus": "Boolean | get=True set=True | ParameterAttribute",
+        "ResizeTextarea": "Boolean | get=True set=True | ParameterAttribute",
+        "Rows": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TileLayout": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TileLayout",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CellGap": "String | get=True set=True | ParameterAttribute",
+        "CellMinWidth": "String | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TimeField\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TimeField\u00601",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentFieldComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": false,
+      "Properties": {
+        "Culture": "System.Globalization.CultureInfo | get=True set=True | ParameterAttribute",
+        "ParsingErrorMessage": "String | get=True set=True | ParameterAttribute",
+        "Seconds": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Toast": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Toast",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Duration": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "OnClose": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
+        "Placement": "Bluent.UI.Components.ToastPlacement | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Close(Object):Void | generic=0",
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ToastComponent.ToastContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ToastComponent.ToastContainer",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ToastComponent.ToastDefaultContent": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ToastComponent.ToastDefaultContent",
+      "Classification": "infrastructure-review",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "DismissTitle": "String | get=True set=True | ParameterAttribute",
+        "Intend": "Bluent.UI.Components.ToastIntend | get=True set=True | ParameterAttribute",
+        "Message": "String | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | ParameterAttribute",
+        "Toast": "Bluent.UI.Components.Toast | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Toolbar": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Toolbar",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.Overflow",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ToolbarButton": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ToolbarButton",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.OverflowItemComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.ToolbarButtonAppearance | get=True set=True | ParameterAttribute",
+        "Dropdown": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "DropdownPlacement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "MenuLabel": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "ShowDropdownIndicator": "Boolean | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute",
+        "TextClass": "String | get=True set=True | ParameterAttribute",
+        "Toggled": "System.Nullable\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "ToggledChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ToolbarComponent.ToolbarButtonItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ToolbarComponent.ToolbarButtonItem",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "Appearance": "Bluent.UI.Components.ToolbarButtonAppearance | get=True set=True | ParameterAttribute",
+        "Dropdown": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "MenuLabel": "String | get=True set=True | ParameterAttribute",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.ToolbarDivider": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.ToolbarDivider",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.OverflowItemComponentBase",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TooltipComponent.TooltipContainer": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TooltipComponent.TooltipContainer",
+      "Classification": "infrastructure-review",
+      "BaseType": "Bluent.UI.Components.PopoverComponent.PopoverContainerBase\u00601\u003CBluent.UI.Services.Abstractions.ITooltipService\u003E",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TooltipComponent.TooltipSurface": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TooltipComponent.TooltipSurface",
+      "Classification": "infrastructure-review",
+      "BaseType": "Bluent.UI.Components.PopoverComponent.PopoverSurface",
+      "IsAbstract": false,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Tree": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Tree",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "CanDrag": "System.Func\u00602\u003CObject,Boolean\u003E | get=True set=True | ParameterAttribute",
+        "CanDrop": "System.Func\u00603\u003CObject,Object,Boolean\u003E | get=True set=True | ParameterAttribute",
+        "CanReorder": "System.Func\u00602\u003CObject,Boolean\u003E | get=True set=True | ParameterAttribute",
+        "CheckboxMode": "Bluent.UI.Components.TreeCheckboxMode | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "CircularCheckboxes": "Boolean | get=True set=True | ParameterAttribute",
+        "Draggable": "Boolean | get=True set=True | ParameterAttribute",
+        "Items": "System.Collections.Generic.IReadOnlyList\u00601\u003CBluent.UI.Components.TreeItem\u003E | get=True set=False | ",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.TreeItem\u003E | get=True set=True | ParameterAttribute",
+        "OnInsertAfter": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.DndContext\u003E | get=True set=True | ParameterAttribute",
+        "OnItemDrop": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.DndContext\u003E | get=True set=True | ParameterAttribute",
+        "Orderable": "Boolean | get=True set=True | ParameterAttribute",
+        "SharedContext": "Bluent.UI.Components.DndContext | get=True set=True | CascadingParameterAttribute",
+        "ToggleCheckStateOnClick": "Boolean | get=True set=True | ParameterAttribute",
+        "ToggleSubItemsOnClick": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.TreeItem": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.TreeItem",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Data": "Object | get=True set=True | ParameterAttribute",
+        "DisableCheckBox": "Boolean | get=True set=True | ParameterAttribute",
+        "DndContext": "Bluent.UI.Components.DndContext | get=True set=True | CascadingParameterAttribute",
+        "DragData": "System.Func\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
+        "Expandable": "Boolean | get=True set=True | ParameterAttribute",
+        "Expanded": "Boolean | get=True set=True | ParameterAttribute",
+        "ExpandedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "ExpandedIcon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "Href": "String | get=True set=True | ParameterAttribute",
+        "Icon": "System.Nullable\u00601\u003CBluent.UI.Icons.IconDefinition\u003E | get=True set=True | ParameterAttribute",
+        "IsChecked": "System.Nullable\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute",
+        "IsCheckedChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Nullable\u00601\u003CBoolean\u003E\u003E | get=True set=True | ParameterAttribute",
+        "ItemTemplate": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Items": "System.Collections.Generic.IReadOnlyList\u00601\u003CBluent.UI.Components.TreeItem\u003E | get=True set=False | ",
+        "OnClick": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "ParentItem": "Bluent.UI.Components.TreeItem | get=True set=True | CascadingParameterAttribute",
+        "Target": "String | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | ParameterAttribute",
+        "Tree": "Bluent.UI.Components.Tree | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.Wizard": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.Wizard",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "AllowNext": "Boolean | get=True set=True | ParameterAttribute",
+        "AllowPrevious": "Boolean | get=True set=True | ParameterAttribute",
+        "CanCancel": "Boolean | get=True set=True | ParameterAttribute",
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "CurrentStep": "Int32 | get=True set=True | ParameterAttribute",
+        "CurrentStepChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "DisplayNavigationButtons": "Boolean | get=True set=True | ParameterAttribute",
+        "DisplayStepTitles": "Boolean | get=True set=True | ParameterAttribute",
+        "LabelCancel": "String | get=True set=True | ParameterAttribute",
+        "LabelDone": "String | get=True set=True | ParameterAttribute",
+        "LabelNext": "String | get=True set=True | ParameterAttribute",
+        "LabelPrevious": "String | get=True set=True | ParameterAttribute",
+        "NavigateOnStepClick": "Boolean | get=True set=True | ParameterAttribute",
+        "OnCancel": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnDone": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnNext": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "OnPrevious": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute",
+        "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute",
+        "StepTitleClass": "String | get=True set=True | ParameterAttribute",
+        "SubmitWhenDone": "Boolean | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.WizardStep": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.WizardStep",
+      "Classification": "public-candidate",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": false,
+      "Properties": {
+        "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "DeferredLoading": "Boolean | get=True set=True | ParameterAttribute",
+        "Index": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute",
+        "IndexChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Nullable\u00601\u003CInt32\u003E\u003E | get=True set=True | ParameterAttribute",
+        "Title": "String | get=True set=True | ParameterAttribute",
+        "Wizard": "Bluent.UI.Components.Wizard | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
+      ],
+      "Fields": {}
+    }
+  }
+}

@@ -112,8 +112,17 @@ class InventoryTests(unittest.TestCase):
             self.assertEqual(matches[0]["exceptionReason"], reason)
             self.assertIsNone(matches[0]["componentIssue"])
 
+    def test_abstract_overflow_is_not_direct_consumer_markup(self):
+        row = next(r for r in self.rows if r["markupName"] == "Overflow")
+        self.assertEqual(row["classification"], "abstract-public-api")
+        self.assertEqual(row["familyIssue"], 472)
+        self.assertIsNone(row["componentIssue"])
+        self.assertIn("abstract", row["exceptionReason"])
+        docs = (ROOT / "docs/components/overflow.md").read_text(encoding="utf-8")
+        self.assertIn("Do not generate", docs)
+
     def test_tooltip_retrieval_family_is_not_a_fake_component(self):
-        self.assertEqual(self.payload["nonComponentFamilyExceptions"], {"Tooltip": 456})
+        self.assertEqual(self.payload["nonComponentFamilyExceptions"], {"Tooltip": 456, "Overflow": 472})
         self.assertTrue(
             all(row["family"] != "Tooltip" for row in self.rows
                 if row["classification"] == "public-candidate")
@@ -131,7 +140,7 @@ class InventoryTests(unittest.TestCase):
         for path in consumer_files:
             content = path.read_text(encoding="utf-8-sig")
             tags.update(re.findall(r"<([A-Z][a-zA-Z0-9]*)(?=[\\s/>])", content))
-        excluded = [r for r in self.rows if r["classification"] != "public-candidate"]
+        excluded = [r for r in self.rows if r["classification"] not in {"public-candidate", "abstract-public-api"}]
         leaked = [(r["markupName"], r["classification"]) for r in excluded if r["markupName"] in tags]
         self.assertEqual(
             leaked, [],
@@ -142,7 +151,7 @@ class InventoryTests(unittest.TestCase):
     def test_snapshot_drift(self):
         self.assertEqual(json.loads(audit.OUT.read_text(encoding="utf-8")), self.payload)
         self.assertEqual(self.payload["penpot"]["pageId"], "44b12572-0104-807e-8008-ca032a4746f0")
-        self.assertEqual(sum(r["routing"] == "sole-family-provisional" for r in self.rows), 43)
+        self.assertEqual(sum(r["routing"] == "sole-family-provisional" for r in self.rows), 42)
         self.assertTrue(all(r["verification"] == "source-candidate" for r in self.rows))
         self.assertTrue(all(r["componentIssue"] == r["familyIssue"] for r in self.rows if r["routing"] == "sole-family-provisional"))
 

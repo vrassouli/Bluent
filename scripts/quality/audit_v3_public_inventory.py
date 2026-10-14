@@ -131,8 +131,12 @@ FAMILY_PRIMARY_COMPONENTS = {
     'ToolbarButtons': 'SaveToolbarButton',
 }
 
-# Tooltip is a service-backed inherited capability, not standalone markup.
-NON_COMPONENT_FAMILIES = {"Tooltip": 456}
+# Both exported CLR symbols remain API contracts, but neither can be
+# instantiated as a standalone consumer markup component.
+ABSTRACT_API_COMPONENTS = {
+    "Overflow": "Public abstract Razor base. Consumer documentation explicitly prohibits <Overflow> markup; use concrete overflow-aware descendants.",
+}
+NON_COMPONENT_FAMILIES = {"Tooltip": 456, "Overflow": 472}
 
 CLASS_PATTERN = re.compile(
     r"\bpublic\s+(?P<modifiers>(?:sealed\s+|partial\s+|abstract\s+)*)"
@@ -198,6 +202,7 @@ def census():
         internal_path = any(part.lower() in {"internal", "internals"} for part in path.parts)
         kind = ("internal-path-review" if internal_path else
                 "internal-composite-review" if name in NON_CONSUMER_COMPONENTS else
+                "abstract-public-api" if name in ABSTRACT_API_COMPONENTS else
                 "infrastructure-review" if name in INFRASTRUCTURE_NAMES else
                 "public-candidate")
         items.append({
@@ -206,7 +211,7 @@ def census():
             "source": relative,
             "sourceKind": source_kind,
             "classification": kind,
-            "exceptionReason": NON_CONSUMER_COMPONENTS.get(name),
+            "exceptionReason": NON_CONSUMER_COMPONENTS.get(name) or ABSTRACT_API_COMPONENTS.get(name),
             "consumerInfrastructure": name in {"Containers", "DockBar", "DockContainer", "DrawerContent"},
             "familyIssue": ISSUES.get(family),
             "family": family,
