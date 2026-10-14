@@ -28,3 +28,12 @@ No public Button SCSS was edited. Forced-colors uses system ButtonFace/ButtonTex
 - Separate #428 Backlog aria-pressed gap remains open; this is a visual readability fix, not a semantic accessibility feature.
 
 Issue #418 remains In progress; PR #500 stays Draft against bluent-v3; no Dev/2.x/NuGet change.
+## 2026-10-14 update: canonical Penpot visual parity unblocked
+
+The correct canonical Bluent v3 Design System Penpot file (b64f6665-c9ab-80b5-8008-c4ac99d9d000) was subsequently reconnected. On page 07 Accessibility & RTL (07c521b9-e441-80bd-8008-c4b24ce6f58c), created an actual native EDITABLE research board named REVIEW · Danger toggled contrast across Light and Dark · #418, ID 94a03b1b-8cb6-8091-8008-c986fd01b85f. Board size 1510×825 with 60 real Penpot vector/text shapes. The earlier wrong-file/Figma-quota issue is **resolved for this design**.
+
+Board contains eight emitted Fluent theme source color combinations (selected ON/OFF/Hover/Pressed in Light/Dark) with centered RTL Persian Button labels; ratios range from 4.93:1 to 10.09:1. A comparative BAD original Light state showing white text on very pale red remains visible at 1.07:1. The actual Penpot PNG was exported and visually reviewed.
+
+A read-only LIVE Penpot native auditor checked 61/61 items: design identities, exact source colors, RTL text direction and centering in both axes, label bounds and PASS/FAIL contrast captions. **61/61 PASS, zero failures.** Reproduce with scripts/quality/penpot_v3_danger_toggle_contrast_audit.js inside the connected Penpot plugin. Node CI only checks script syntax, not live Penpot geometry.
+
+This is the SOURCE-OWNED research design specimen and implementation parity review, NOT approval of public v3 Button state tokens. The CSS correction remains inside the v3 opt-in Styling Lab; stable v2 and NuGet untouched.
