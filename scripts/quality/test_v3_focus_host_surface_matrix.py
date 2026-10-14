@@ -5,6 +5,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from audit_v3_focus_host_surface_matrix import audit
+from audit_v3_token_preview_contrast import contrast
 
 
 class FocusHostSurfaceTests(unittest.TestCase):
@@ -38,6 +39,29 @@ class FocusHostSurfaceTests(unittest.TestCase):
                 self.assertEqual(d["inverseFailures"], 0, f"{mode}/{context}")
                 self.assertGreaterEqual(d["inverse"][0], 3)
         self.assertEqual(self.report["summary"]["dark/inverted"]["inverseFailures"], 10)
+
+    def test_contextual_source_role_proposal_passes_all_100_opaque_host_cases(self):
+        # Research map, NOT approved component CSS/public semantic API.
+        # Keep the maintainer-selected brand ring on neutral hosts.
+        def proposal(case):
+            return (case["ring"] if case["hostContext"] == "neutral"
+                    or (case["hostContext"] == "inverted" and case["mode"] == "dark")
+                    else case["inverse"])
+        outcomes = [contrast(proposal(c), c["host"]) for c in self.report["cases"]]
+        self.assertEqual(len(outcomes), 100)
+        self.assertGreaterEqual(min(outcomes), 3.0,
+            "Contextual host proposal regressed against an emitted Fluent theme")
+        self.assertEqual(sum(value < 3 for value in outcomes), 0)
+        # Neither unconditional brand nor unconditional OnBrand works.
+        self.assertGreater(sum(c["ringToHost"] < 3 for c in self.report["cases"]), 0)
+        self.assertGreater(sum(c["inverseToHost"] < 3 for c in self.report["cases"]), 0)
+
+    def test_dark_inverted_requires_brand_not_white_inverse(self):
+        inverted = [c for c in self.report["cases"]
+                    if c["mode"] == "dark" and c["hostContext"] == "inverted"]
+        self.assertEqual(len(inverted), 10)
+        self.assertTrue(all(contrast(c["ring"], c["host"]) >= 3 for c in inverted))
+        self.assertTrue(all(contrast(c["inverse"], c["host"]) < 3 for c in inverted))
 
     def test_scope_guards_against_button_face_confusion(self):
         label = self.report["classification"]
