@@ -650,10 +650,16 @@ try {
  await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+currentDangerTheme+"'");
 
 
- // #418 genuine interactive reviewer toggle; return it to the brand baseline.
- for(const expected of ["brand","adaptive","brand"]){
-   if(expected==="adaptive"||(expected==="brand"&&
-       (await cdp.js("document.querySelector('.v3-lab-focus-host-review')?.dataset.v3FocusHostMode"))==="adaptive"))
+ // Default must really be the *approved* choice before clicking any toggle.
+ // This is a mounted Blazor state assertion, not a CSS override.
+ const approvedInitial=await cdp.js("(() => {const section=document.querySelector('.v3-lab-focus-host-review');return {mode:section?.dataset.v3FocusHostMode,count:section?.querySelectorAll('.v3-lab-focus-host-card .bui-button').length,status:section?.querySelector('[role=status]')?.textContent?.trim()};})()");
+ assert("approved host-aware Focus is initial mounted Blazor choice",
+   approvedInitial.mode==="adaptive"&&approvedInitial.count===5&&
+   approvedInitial.status?.includes("طرح تأییدشده"),JSON.stringify(approvedInitial));
+ // #418 approved host-aware mapping is the default; compare with brand-only diagnostic and return to approved mapping.
+ for(const expected of ["adaptive","brand","adaptive"]){
+   const currentMode=await cdp.js("document.querySelector('.v3-lab-focus-host-review')?.dataset.v3FocusHostMode");
+   if(currentMode!==expected)
      await cdp.js("document.getElementById('v3-focus-host-toggle').click()");
    await sleep(100);
    const actual=await cdp.js("(() => {const s=document.querySelector('.v3-lab-focus-host-review');return {mode:s?.dataset.v3FocusHostMode,count:s?.querySelectorAll('.v3-lab-focus-host-card .bui-button').length,status:s?.querySelector('[role=status]')?.textContent?.trim()};})()");
