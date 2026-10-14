@@ -120,7 +120,7 @@ try{
   await cdp.js('document.getElementById("v3-fa-button").focus()');
   const expected=expectedBrands[brand]?.[mode]?.tokens["bluent.color.brandBackground"];
   check(brand+"/"+mode+" generated theme entry exists",typeof expected==="string"&&expected.startsWith("#"),{expected});
-  let baseline;
+  let baseline,baselineField;
   for(const media of mediaCases){
    await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:media.forced},{name:"prefers-reduced-motion",value:media.motion}]});
    const got=await cdp.js('(()=>{const h=document.querySelector(".v3-lab-surface"),b=document.getElementById("v3-fa-button"),s=getComputedStyle(h),r=b.getBoundingClientRect();return {brand:h.dataset.buiBrand,mode:h.dataset.buiTheme,forced:matchMedia("(forced-colors: active)").matches,reduced:matchMedia("(prefers-reduced-motion: reduce)").matches,source:s.getPropertyValue("--colorBrandBackground").trim(),action:s.getPropertyValue("--bui-v3-action-background").trim(),focus:s.getPropertyValue("--bui-v3-border-focus").trim(),motion:s.getPropertyValue("--bui-v3-motion-duration-fast").trim(),visible:b.matches(":focus-visible"),width:r.width,height:r.height};})()');
@@ -133,6 +133,22 @@ try{
             (got.action===baseline.action&&got.source===baseline.source))&&
     (!baseline||(got.width===baseline.width&&got.height===baseline.height)),
     got);
+   // The selected TextField focus indicator is the animated bottom underline,
+   // never an added rectangular frame. Validate it for all branded media pairs.
+   await cdp.js('document.getElementById("v3-experiment-name").focus()');
+   await sleep(260); // preserve the original 2.x animated-underline timing
+   const fieldCase=await cdp.js('(()=>{const i=document.getElementById("v3-experiment-name"),f=i.closest(".bui-field"),o=getComputedStyle(f),u=getComputedStyle(f,"::after"),r=f.getBoundingClientRect();const colorProbe=document.createElement("span");colorProbe.style.color="Highlight";document.body.appendChild(colorProbe);const systemHighlight=getComputedStyle(colorProbe).color;colorProbe.remove();return {focused:document.activeElement===i,within:f.matches(":focus-within"),outline:o.outlineStyle,outlineWidth:parseFloat(o.outlineWidth),underline:u.borderBottomStyle,underlineWidth:parseFloat(u.borderBottomWidth),underlineColor:u.borderBottomColor,systemHighlight,transform:u.transform,faceWidth:r.width,faceHeight:r.height,forced:matchMedia("(forced-colors: active)").matches};})()');
+   if(media.name==="normal")baselineField=fieldCase;
+   check(brand+"/"+mode+" "+media.name+" TextField underline-only focus",
+     fieldCase.focused&&fieldCase.within&&fieldCase.forced===forced&&
+     (fieldCase.outline==="none"||fieldCase.outlineWidth===0)&&
+     fieldCase.underline==="solid"&&fieldCase.underlineWidth>=2&&
+     fieldCase.underlineColor!=="rgba(0, 0, 0, 0)"&&
+     (!forced||fieldCase.underlineColor===fieldCase.systemHighlight)&&
+     !fieldCase.transform.includes("matrix(0,")&&
+     fieldCase.faceWidth===baselineField.faceWidth&&
+     fieldCase.faceHeight===baselineField.faceHeight,fieldCase);
+   await cdp.js('document.getElementById("v3-fa-button").focus()');
   }
   await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-reduced-motion",value:"no-preference"}]});
   const restored=await cdp.js('(()=>{const h=document.querySelector(".v3-lab-surface"),s=getComputedStyle(h);return {action:s.getPropertyValue("--bui-v3-action-background").trim(),source:s.getPropertyValue("--colorBrandBackground").trim(),motion:s.getPropertyValue("--bui-v3-motion-duration-fast").trim(),forced:matchMedia("(forced-colors: active)").matches,reduced:matchMedia("(prefers-reduced-motion: reduce)").matches};})()');
