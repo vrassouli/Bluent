@@ -198,6 +198,114 @@
     }
 }
 
+/* #418 Penpot page-07 host-context research:
+   Native Bluent Buttons, FIVE emitted Fluent host colors.
+   The reviewer must opt in explicitly. Neither source role is shipped as
+   public Button CSS; the user's brand-ring default is unchanged. */
+.v3-lab-focus-host-review {
+    max-width: 100%;
+    min-width: 0;
+    margin-block: 24px;
+}
+.v3-lab-focus-host-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 16px;
+    margin-block: 16px;
+}
+.v3-lab-focus-host-card {
+    --v3-lab-focus: var(--colorBrandBackground, #0f6cbd);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+    min-height: 130px;
+    padding: 20px;
+    border-radius: var(--borderRadiusMedium, 6px);
+    background: var(--colorNeutralBackground1);
+    color: var(--colorNeutralForeground1);
+    border: 1px solid var(--colorNeutralStroke1);
+}
+.v3-lab-surface[data-bui-theme="dark"] .v3-lab-focus-host-card {
+    --v3-lab-focus: var(--colorBrandForeground2, #6ca2dc);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="brand"] {
+    background: var(--colorBrandBackground);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="brandHover"] {
+    background: var(--colorBrandBackgroundHover);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="danger"] {
+    background: var(--colorPaletteRedBackground3);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="inverted"] {
+    background: var(--colorNeutralBackgroundInverted);
+    color: var(--colorNeutralForegroundInverted);
+}
+/* Explicit research mode only; DO NOT infer from the Button's Appearance. */
+.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="brand"],
+.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="brandHover"],
+.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="danger"],
+.v3-lab-surface[data-bui-theme="light"] .v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card[data-v3-focus-host="inverted"] {
+    --v3-lab-focus: var(--colorNeutralForegroundOnBrand, #fff);
+}
+/* 320 CSS px / 200% root text: real Persian+English Button text must
+   wrap inside the card instead of widening the entire token host. */
+.v3-lab-focus-host-review,
+.v3-lab-focus-host-grid,
+.v3-lab-focus-host-card {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+.v3-lab-focus-host-review h3,
+.v3-lab-focus-host-review p {
+    overflow-wrap: anywhere;
+}
+/* In Persian RTL at 320px/200% the interactive comparison launcher has
+   an intrinsic label width. Never let it push past its parent host. */
+.v3-lab-focus-host-review ::deep #v3-focus-host-toggle {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-focus-host-review ::deep #v3-focus-host-toggle .text,
+.v3-lab-focus-host-review ::deep #v3-focus-host-toggle .text > div {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-focus-host-card ::deep .bui-button {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-focus-host-card ::deep .bui-button > .text {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+@media (forced-colors: active) {
+    .v3-lab-focus-host-card {
+        background: Canvas;
+        color: CanvasText;
+        border-color: CanvasText;
+        --v3-lab-focus: Highlight;
+    }
+    .v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card {
+        --v3-lab-focus: Highlight;
+    }
+}
+
 /* #418 contrast proof only: additive source -> semantic -> Button token chain, never default.
    Gate the alternative so unapproved Penpot focus tokens stay unchanged. */
 .v3-lab-surface[data-bui-v3-focus-contrast-candidate] {

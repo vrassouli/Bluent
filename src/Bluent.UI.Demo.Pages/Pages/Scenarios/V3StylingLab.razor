@@ -153,6 +153,45 @@
                 <Button id="v3-selected-end" Text="پایان دکمه‌های انتخاب‌شده" />
             </div>
         </section>
+        @* #418 source-owned Penpot page-07 context comparison. Demo ONLY:
+           5 existing Fluent host colors; real Bluent Button, no new API. *@
+        <section class="v3-lab-focus-host-review" lang="fa" dir="@(_rtl ? "rtl" : "ltr")"
+                 aria-labelledby="v3-focus-host-title"
+                 data-v3-focus-host-mode="@(_hostFocusAdaptive ? "adaptive" : "brand")">
+            <h3 id="v3-focus-host-title">پژوهش حلقهٔ فوکوس روی زمینه‌های مختلف — #418</h3>
+            <p>با Tab روی دکمه‌های واقعی حرکت کن. اینجا رنگ حلقه بر اساس <strong>زمینهٔ بیرون دکمه</strong> بررسی می‌شود، نه رنگ خود دکمه.</p>
+            <Button id="v3-focus-host-toggle"
+                    Text="@(_hostFocusAdaptive ? "مقایسه با رنگ ثابت برند" : "نمایش حالت سازگار با زمینه (آزمایشی)")"
+                    OnClick="() => _hostFocusAdaptive = !_hostFocusAdaptive" />
+            <p id="v3-focus-host-status" class="v3-lab-hint" role="status">
+                @(_hostFocusAdaptive
+                    ? "آزمایشی: رنگ برند برای زمینه‌های خنثی؛ رنگ معکوس برای زمینه‌های رنگی؛ زمینهٔ Inverted بر اساس Light/Dark. هنوز API عمومی نیست."
+                    : "مبنای مقایسه: رنگ برند (Light) یا رنگ روشن‌تر همان برند (Dark)، بدون توجه به زمینه. این حالت عمداً در بعضی زمینه‌ها کم‌کنتراست است.")
+            </p>
+            <div class="v3-lab-focus-host-grid" aria-label="پنج زمینهٔ واقعی Fluent">
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="neutral">
+                    <strong>Neutral</strong>
+                    <Button id="v3-focus-host-neutral" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="brand">
+                    <strong>Brand</strong>
+                    <Button id="v3-focus-host-brand" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="brandHover">
+                    <strong>Brand Hover</strong>
+                    <Button id="v3-focus-host-brandHover" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="danger">
+                    <strong>Danger</strong>
+                    <Button id="v3-focus-host-danger" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="inverted">
+                    <strong>Inverted</strong>
+                    <Button id="v3-focus-host-inverted" Text="ثبت / Submit" />
+                </div>
+            </div>
+            <p class="v3-lab-hint">محدودهٔ مطالعه: ۱۰ برند، Light/Dark، زمینه‌های سادهٔ Fluent. سطوح نیمه‌شفاف، تصویر، فشار دکمه، Windows Contrast Themes و ابزارهای کمکی هنوز تأیید نشده‌اند.</p>
+        </section>
         <section class="v3-lab-typography" lang="fa" dir="rtl" aria-label="Persian and mixed-direction typography QA">
             <h3>آزمون تایپوگرافی و راست‌به‌چپ</h3>
             <p id="v3-fa-paragraph">گزارش‌های حضور و غیاب — درخواست مأموریت ۱۴۰۵/۰۷/۱۹</p>
@@ -199,6 +238,7 @@
     private string? _mainBrand;
     private enum FocusPreviewMode { Baseline, BrandedContrast, Focus2, DoubleRing }
     private FocusPreviewMode _focusPreview = FocusPreviewMode.Baseline;
+    private bool _hostFocusAdaptive; // Research only: user-controlled, never default/public CSS.
     private bool _dark;
     private bool _rtl;
     private bool _compact;

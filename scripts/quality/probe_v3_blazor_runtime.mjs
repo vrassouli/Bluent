@@ -596,6 +596,16 @@ try {
  const toggleAfterSpace=await cdp.js("(() => {const b=document.querySelector('#v3-selected-transparent');return {stillFocused:document.activeElement===b,selected:b.classList.contains('toggled'),ariaPressed:b.getAttribute('aria-pressed'),focusVisible:b.matches(':focus-visible')};})()");
  assert("keyboard Space activates existing nullable Toggled Button",toggleAfterSpace.stillFocused&&!toggleAfterSpace.selected&&toggleAfterSpace.focusVisible,JSON.stringify(toggleAfterSpace));
  console.log("Selected Button native Space toggle baseline:",JSON.stringify(toggleAfterSpace));
+ // #418 genuine interactive reviewer toggle; return it to the brand baseline.
+ for(const expected of ["brand","adaptive","brand"]){
+   if(expected==="adaptive"||(expected==="brand"&&
+       (await cdp.js("document.querySelector('.v3-lab-focus-host-review')?.dataset.v3FocusHostMode"))==="adaptive"))
+     await cdp.js("document.getElementById('v3-focus-host-toggle').click()");
+   await sleep(100);
+   const actual=await cdp.js("(() => {const s=document.querySelector('.v3-lab-focus-host-review');return {mode:s?.dataset.v3FocusHostMode,count:s?.querySelectorAll('.v3-lab-focus-host-card .bui-button').length,status:s?.querySelector('[role=status]')?.textContent?.trim()};})()");
+   assert("real Blazor host-focus reviewer choice "+expected,
+     actual.mode===expected&&actual.count===5&&actual.status?.length>40,JSON.stringify(actual));
+ }
  // #418: real scoped CSS Focus-visible across 10 source brands × Light/Dark.
  // This tests an actual keyboard-focused Button, not a faux :focus-visible
  // class. Re-scope only the opt-in lab; restore Blazor-owned attributes after.
@@ -604,6 +614,7 @@ try {
  const keyboardFocusStart=await matrixTab();
  assert("20-way scope probe starts on real keyboard-focused Button",keyboardFocusStart.id==="v3-focus-default"&&keyboardFocusStart.visible,JSON.stringify(keyboardFocusStart));
  const appearanceFocusReport=[];
+ const hostReviewMatrix=[];
  const coloredHostReport=[];
  const focusThemeSamples=[];
  const candidateFocusSamples=[];
@@ -641,6 +652,22 @@ try {
        x.outlineStyle==="solid"&&x.stable&&x.color===hexToRgb(desiredRole)&&x.backdropRatio>=3&&x.hoverRatio>=3),
      JSON.stringify({brand,mode,buttons:appearanceData}));
    appearanceFocusReport.push({brand,mode,buttons:appearanceData});
+   // #418 actual five Bluent Button host cards; CSS is opt-in-only research.
+   const review=await cdp.js("(() => {const section=document.querySelector('.v3-lab-focus-host-review'),previous=section.getAttribute('data-v3-focus-host-mode'),ids=['neutral','brand','brandHover','danger','inverted'],rows=[];try {for(const design of ['brand','adaptive']){section.setAttribute('data-v3-focus-host-mode',design);for(const name of ids){const card=section.querySelector('[data-v3-focus-host='+name+']'),b=card?.querySelector('.bui-button');b.focus();const bs=getComputedStyle(b),cs=getComputedStyle(card);rows.push({design,name,visible:b.matches(':focus-visible'),width:parseFloat(bs.outlineWidth),offset:parseFloat(bs.outlineOffset),ring:bs.outlineColor,host:cs.backgroundColor,ringSource:cs.getPropertyValue('--v3-lab-focus').trim(),inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),brand:cs.getPropertyValue('--colorBrandBackground').trim(),enhanced:cs.getPropertyValue('--colorBrandForeground2').trim()});}}}finally{if(previous===null)section.removeAttribute('data-v3-focus-host-mode');else section.setAttribute('data-v3-focus-host-mode',previous);document.querySelector('#v3-focus-default').focus();}return rows;})()");
+   const enhancedSource=mode==="dark"?review[0].enhanced:review[0].brand;
+   const contextDetails=review.map(x=>{const ratio=contrast(x.ring,x.host),selected=x.design==="adaptive"&&(x.name==="brand"||x.name==="brandHover"||x.name==="danger"||(x.name==="inverted"&&mode==="light"))?x.inverse:enhancedSource;return {...x,ratio,expectedColor:hexToRgb(selected),passes:ratio>=3,correctSource:x.ring===hexToRgb(selected)};});
+   const unconditional=contextDetails.filter(x=>x.design==="brand");
+   const adaptive=contextDetails.filter(x=>x.design==="adaptive");
+   const expectedBaselineFailed=mode==="light"?4:3;
+   assert("five native host cards reveal expected same-brand failures "+brand+"/"+mode,
+     unconditional.length===5&&unconditional.every(x=>x.visible&&x.width>=2&&x.offset===2&&x.correctSource)&&
+     unconditional.filter(x=>!x.passes).length===expectedBaselineFailed,
+     JSON.stringify({brand,mode,unconditional}));
+   assert("explicit context-aware focus passes all five emitted host roles "+brand+"/"+mode,
+     adaptive.length===5&&adaptive.every(x=>x.visible&&x.width>=2&&x.offset===2&&x.correctSource&&x.passes),
+     JSON.stringify({brand,mode,adaptive}));
+   hostReviewMatrix.push({brand,mode,baselineFailed:unconditional.filter(x=>!x.passes).length,adaptedPass:adaptive.filter(x=>x.passes).length});
+
    // #418 design-first colored-host test, from real page-07 Penpot source
    // boards. Temporarily recolor the ACTUAL surrounding Blazor host while
    // the keyboard-focused Button stays mounted. Contrast vs container, not
@@ -680,6 +707,7 @@ try {
      JSON.stringify({doubleRing,ratio:doubleContrast}));
    assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3&&candidate.semanticAlias===candidate.strokeSource&&candidate.componentAlias===candidate.strokeSource,JSON.stringify({candidate,ratio:candidateRatio}));
  }
+ console.log("Interactive contextual focus host matrix:",JSON.stringify({groups:hostReviewMatrix.length,baselineFailures:hostReviewMatrix.reduce((sum,row)=>sum+row.baselineFailed,0),adaptedSuccess:hostReviewMatrix.reduce((sum,row)=>sum+row.adaptedPass,0),rows:hostReviewMatrix.filter(x=>x.brand==="default")}));
  console.log("Browser actual filled HOST source contrast:",JSON.stringify({total:coloredHostReport.length,
     selectedFailures:coloredHostReport.filter(x=>x.selectedRatio<3).length,
     inverseFailures:coloredHostReport.filter(x=>x.inverseRatio<3).length,
