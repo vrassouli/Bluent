@@ -13,6 +13,7 @@ on:
       - "scripts/quality/probe_v3_button_focus_runtime.mjs"
       - "scripts/quality/test_v3_button_focus_handoff.py"
       - "docs/v3/design/BUTTON-FOCUS*"
+      - "docs/v3/design/BUTTON-DANGER-SELECTED-REVIEW-HANDOFF.md"
       - ".agents/skills/bluent-v3-button-focus/**"
 
 permissions:

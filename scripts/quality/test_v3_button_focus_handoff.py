@@ -60,6 +60,17 @@ class HandoffContract(unittest.TestCase):
             self.assertIn(value,audit)
         self.assertIn("1.94–2.15",text)
         self.assertIn("**not** a claim",text)
+    def test_selected_danger_has_independent_review_contract(self):
+        review=(DESIGN/"BUTTON-DANGER-SELECTED-REVIEW-HANDOFF.md").read_text(encoding="utf-8")
+        for expected in ("94a03b1b-8cb6-8091-8008-c986fd01b85f","61/61",
+                         "535db143-a732-807e-8008-c64f10ae5f75",
+                         "colorPaletteRedForeground2", "data-bui-v3-danger-toggle",
+                         "843/843", "Backlog", "NOT approval"):
+            self.assertIn(expected,review)
+        self.assertIn("orthogonal",review.lower())
+        self.assertIn("Danger selection review",
+            (DESIGN/"BUTTON-FOCUS-IMPLEMENTATION-HANDOFF.md").read_text(encoding="utf-8"))
+
     def test_handoff_skill_does_not_claim_final_approval(self):
         skill=(ROOT/".agents"/"skills"/"bluent-v3-button-focus"/"SKILL.md").read_text(encoding="utf-8")
         for expected in ("#418", "#428", "#501", "Penpot", "not approved"):

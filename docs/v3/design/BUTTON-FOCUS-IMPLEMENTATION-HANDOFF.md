@@ -41,3 +41,7 @@ The connection reopened and real Penpot **Dark and Light** rendered Focus colors
 ### Final recovery addendum
 
 2026-10-13 final UI-state recovery: after the later Dark toggle suspended the plugin, the correct Penpot file connected again and the existing Light · Draft Mode theme was explicitly toggled active. The tool returned activeModes: [Light · Draft] and the exact Bluent v3 Design System file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000. Thus **the final default-Light restoration is now confirmed**. The earlier separate real six-variant Light and Dark readbacks and 71/71 Light audit remain the recorded actual stroke evidence; the last restore call verified the active theme, not a new screenshot or repeat of the 71-check suite. Public token signoff and native screen-reader/OS conformance remain open.
+
+## 2026-10-14 selected Danger readability from #418
+
+The user-reported unreadable Light Danger.Toggled label is separately documented in [Danger selection review](BUTTON-DANGER-SELECTED-REVIEW-HANDOFF.md): actual Penpot page07 source board 94a03b1b-8cb6-8091-8008-c986fd01b85f, live audit 61/61, and the package-scoped opt-in v3 prototype under #418 PR #500 (Chrome/Edge 843/843). Selected, Hover and Pressed are orthogonal to keyboard Focus Visible; this does not approve public Button default changes. #428 remains Backlog.
