@@ -1,0 +1,88 @@
+name: Bluent v3 Button Focus Design Contract
+
+# Dedicated #501 design task, not a v2 build or publication workflow.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-button-focus-contract.yml"
+      - "scripts/quality/penpot_v3_button_focus*.js"
+      - "scripts/quality/penpot_v3_button_brand_review_audit.js"
+      - "scripts/quality/penpot_v3_button_host_context_audit.js"
+      - "scripts/quality/penpot_v3_button_danger_selected_audit.js"
+      - "scripts/quality/penpot_v3_button_typography_alignment_audit.js"
+      - "scripts/quality/probe_v3_button_focus_runtime.mjs"
+      - "scripts/quality/test_v3_button_focus_handoff.py"
+      - "docs/v3/design/BUTTON-FOCUS*"
+      - "docs/v3/design/BUTTON-DANGER-SELECTED-REVIEW-HANDOFF.md"
+      - ".agents/skills/bluent-v3-button-focus/**"
+
+permissions:
+  contents: read
+
+jobs:
+  button-focus-contract:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check design audit source syntax and handoff integrity
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          Get-ChildItem scripts/quality -Filter "penpot_v3_button_focus*.js" | ForEach-Object {
+            node --check $_.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Invalid Penpot read-only audit: $($_.Name)" }
+          }
+          node --check scripts/quality/penpot_v3_button_host_context_audit.js
+          if ($LASTEXITCODE -ne 0) { throw "Invalid native 10-host context design audit" }
+          node --check scripts/quality/penpot_v3_button_brand_review_audit.js
+          node --check scripts/quality/penpot_v3_button_danger_selected_audit.js
+          if ($LASTEXITCODE -ne 0) { throw "Invalid Danger state native Penpot audit" }
+          if ($LASTEXITCODE -ne 0) { throw "Invalid brand Button + underline-only TextField Penpot audit" }
+          node --check scripts/quality/penpot_v3_button_typography_alignment_audit.js
+          if ($LASTEXITCODE -ne 0) { throw "Invalid typography Penpot audit" }
+          node --check scripts/quality/probe_v3_button_focus_runtime.mjs
+          if ($LASTEXITCODE -ne 0) { throw "Invalid Blazor CDP keyboard probe" }
+          python -m unittest discover -s scripts/quality -p test_v3_button_focus_handoff.py -v
+          if ($LASTEXITCODE -ne 0) { throw "Design handoff contract failed" }
+      - name: Run real native Blazor Button keyboard probes in Chrome and Edge
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet restore src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Demo restore failed" }
+          dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Demo build failed" }
+          $server = Start-Process dotnet -PassThru -WindowStyle Hidden -ArgumentList @(
+            "run", "--project", "src/Bluent.UI.Demo/Bluent.UI.Demo.csproj",
+            "--no-build", "--no-launch-profile", "--urls", "http://127.0.0.1:5080")
+          try {
+            $ready = $false
+            for ($i=0; $i -lt 120; $i++) {
+              try {
+                $response = Invoke-WebRequest "http://127.0.0.1:5080/components/buttons" -TimeoutSec 3
+                if ([int]$response.StatusCode -eq 200) { $ready = $true; break }
+              } catch { }
+              Start-Sleep -Seconds 1
+            }
+            if (-not $ready) { throw "Interactive WebAssembly Button host did not start" }
+            $env:CHROME_PATH = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+            node scripts/quality/probe_v3_button_focus_runtime.mjs http://127.0.0.1:5080
+            if ($LASTEXITCODE -ne 0) { throw "Chrome real keyboard Button test failed" }
+            $env:CHROME_PATH = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+            node scripts/quality/probe_v3_button_focus_runtime.mjs http://127.0.0.1:5080
+            if ($LASTEXITCODE -ne 0) { throw "Edge real keyboard Button test failed" }
+          } finally {
+            Stop-Process -Id $server.Id -Force -ErrorAction SilentlyContinue
+          }
