@@ -299,10 +299,9 @@
         background: Canvas;
         color: CanvasText;
         border-color: CanvasText;
-        --v3-lab-focus: Highlight;
-    }
-    .v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card {
-        --v3-lab-focus: Highlight;
+        /* System contrast source must beat theme-specific and adaptive
+           research custom-property declarations in either mode. */
+        --v3-lab-focus: Highlight !important;
     }
 }
 

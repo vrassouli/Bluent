@@ -34,3 +34,9 @@ The first new run exposed a REAL responsive regression: the extra Persian mode-t
 ## Remaining acceptance limits
 
 The contextual mode is only tested on five opaque Fluent hosts. Still unresolved: filled selected/pressed nested surfaces, transparency, gradients, photo backgrounds, high contrast native OS/AT, real browser zoom/pixel coverage, and a user-approved public semantic focus-token contract. Do NOT ship a default universal white ring; it fails Dark Inverted. Do NOT ship a universal same-brand ring; it fails colored Brand and Danger hosts. No Dev/stable v2 merge or NuGet release is authorized. #418 remains In progress, PR #500 remains Draft pending approval.
+
+## 2026-10-14 forced-colors media emulation regression
+
+The initial forced-colors CDP check detected an actual CSS cascade issue introduced by the study cards. In Chromium emulated forced-colors, the card-local source-role rule with stronger Dark/adaptive specificity sometimes won over the generic system Highlight fallback, leaving normal brand source colors in the focus outline token. The existing accessibility assertion was NOT suppressed: after reproducing the red test, demo-scoped CSS now uses the system Highlight custom-property with explicit importance **inside the five research cards only**. No component library or released stylesheet was altered.
+
+An independent **20-case media emulation test** covers 5 actual Bluent Button host cards x Light/Dark x both fixed/adaptive review modes and checks the card-local computed custom-property resolves to system Highlight. Complete Chrome/WebAssembly browser suite passed **797/797** after the correction (the previous fully green suite was 796/796). This is **CSS media emulation**, NOT certified Windows Contrast Themes, painted-pixel proof or native screen-reader/AT validation.

@@ -257,6 +257,13 @@ try {
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-reduced-motion",value:"reduce"}]});
  const forced=await cdp.js("(()=>{const c=getComputedStyle(document.querySelector('.v3-lab-surface'));return {enabled:matchMedia('(forced-colors: active)').matches,action:c.getPropertyValue('--bui-v3-action-background').trim(),focus:c.getPropertyValue('--bui-v3-border-focus').trim()};})()");
  assert("forced-colors aliases on real Blazor host",forced.enabled&&forced.action.toLowerCase()==="buttonface"&&forced.focus.toLowerCase()==="highlight",JSON.stringify(forced));
+ // #418 new five-card opt-in research must not override system Highlight
+ // even under the Dark theme's more-specific brand focus research selector.
+ const contextForced=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),section=document.querySelector('.v3-lab-focus-host-review'),oldTheme=h.getAttribute('data-bui-theme'),oldMode=section.getAttribute('data-v3-focus-host-mode'),rows=[];try {for(const theme of ['light','dark']){h.setAttribute('data-bui-theme',theme);for(const review of ['brand','adaptive']){section.setAttribute('data-v3-focus-host-mode',review);for(const card of section.querySelectorAll('.v3-lab-focus-host-card')){const cs=getComputedStyle(card);rows.push({theme,review,host:card.dataset.v3FocusHost,focus:cs.getPropertyValue('--v3-lab-focus').trim(),background:cs.backgroundColor,forced:matchMedia('(forced-colors: active)').matches});}}}}finally{if(oldTheme===null)h.removeAttribute('data-bui-theme');else h.setAttribute('data-bui-theme',oldTheme);if(oldMode===null)section.removeAttribute('data-v3-focus-host-mode');else section.setAttribute('data-v3-focus-host-mode',oldMode);}return rows;})()");
+ assert("system Highlight owns all five review hosts under forced colors light/dark and both modes",
+   contextForced.length===20&&contextForced.every(x=>x.forced&&x.focus.toLowerCase()==="highlight"),
+   JSON.stringify(contextForced.filter(x=>x.focus.toLowerCase()!=="highlight")));
+
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  await cdp.js("document.querySelector('.v3-lab-surface .bui-overlay')?.click()");
  await until(()=>cdp.js("!document.querySelector('.v3-lab-surface .bui-overlay')"),"dismiss overlay",24000);
