@@ -22,6 +22,8 @@ using var doc = JsonDocument.Parse(File.ReadAllText(manifest));
 var provider = new ApiSignatureProvider();
 var packageTypes = new Dictionary<string, Dictionary<string, List<(bool Public, bool Abstract, ApiComponent Component)>>>(StringComparer.Ordinal);
 var components = new SortedDictionary<string, ApiComponent>(StringComparer.Ordinal);
+// Index exported base types not included among the 140 source candidates.
+var exportedTypes = new SortedDictionary<string, ApiComponent>(StringComparer.Ordinal);
 int missing = 0, exported = 0, reviewedExported = 0, total = 0;
 
 foreach (var candidate in doc.RootElement.GetProperty("components").EnumerateArray())
@@ -74,15 +76,44 @@ foreach (var candidate in doc.RootElement.GetProperty("components").EnumerateArr
     components.Add($"{package}::{entry.Type}", entry);
 }
 
+// Inspect Bluent.Core for inherited BluentComponentBase.
+if (!packageTypes.ContainsKey("Bluent.Core"))
+    packageTypes.Add("Bluent.Core", ReadPackage("Bluent.Core"));
+
+// Traverse owned public component base declarations, preserving metadata
+// generic arity while stripping instantiated type arguments for resolution.
+var sharedBaseContracts = new SortedDictionary<string, ApiComponent>(StringComparer.Ordinal);
+var baseChain = new Stack<string>(components.Values.Select(c => c.BaseType));
+var seenBases = new HashSet<string>(StringComparer.Ordinal);
+while (baseChain.Count > 0)
+{
+    string baseDefinition = baseChain.Pop().Split('<')[0];
+    if (!seenBases.Add(baseDefinition)) continue;
+    var matches = exportedTypes.Where(t => t.Key.EndsWith("::" + baseDefinition, StringComparison.Ordinal)).ToList();
+    if (matches.Count > 1)
+    {
+        Console.Error.WriteLine($"AMBIGUOUS OWNED BASE TYPE: {baseDefinition} in {string.Join(", ", matches.Select(m => m.Key))}");
+        missing++;
+        continue;
+    }
+    if (matches.Count != 1) continue; // Framework/external inheritance not snapshotted.
+    var entry = matches[0];
+    if (!components.ContainsKey(entry.Key))
+        sharedBaseContracts[entry.Key] = entry.Value with { Classification = "shared-public-base" };
+    baseChain.Push(entry.Value.BaseType);
+}
+
 Console.WriteLine($"CLR metadata #494: {total} source candidates, {exported} public-candidate CLR exports, {reviewedExported} review CLR exports, {missing} missing/ambiguous/hidden");
 if (missing != 0) return 1;
-var contract = new ApiContract("Declared CLR API baseline only; inherited members summarized by base type, not flattened; no runtime/AT certification", components);
+var contract = new ApiContract(
+    "Declared component API and traversed Bluent-owned public base declarations; generic substitutions and framework inheritance not flattened; no runtime/AT certification",
+    components, sharedBaseContracts);
 string expected = JsonSerializer.Serialize(contract, new JsonSerializerOptions { WriteIndented = true }) + "\n";
 if (write)
 {
     Directory.CreateDirectory(Path.GetDirectoryName(contractsPath)!);
     File.WriteAllText(contractsPath, expected);
-    Console.WriteLine($"WROTE contract: {components.Count} components, {components.Values.Sum(c => c.Properties.Count)} declared properties, {components.Values.Sum(c => c.Methods.Count)} declared public methods, {components.Values.Sum(c => c.Fields.Count)} declared public fields. {contractsPath}");
+    Console.WriteLine($"WROTE contract: {components.Count} components, {sharedBaseContracts.Count} shared owned public ancestors, {components.Values.Sum(c => c.Properties.Count)} declared component properties, {sharedBaseContracts.Values.Sum(c => c.Properties.Count)} shared-base properties, {components.Values.Sum(c => c.Constructors.Count)} constructors, {components.Values.Sum(c => c.Events.Count)} CLR events. {contractsPath}");
     return 0;
 }
 if (!File.Exists(contractsPath))
@@ -103,6 +134,10 @@ if (!JsonElement.DeepEquals(beforeDocument.RootElement, expectedDocument.RootEle
         .Where(k => !JsonElement.DeepEquals(JsonSerializer.SerializeToElement(components[k]), JsonSerializer.SerializeToElement(before[k])))
         .ToList();
     Console.Error.WriteLine($"BREAKING/UNREVIEWED component contract drift: -{removed.Count}, +{added.Count}, changed={changed.Count}");
+    if (!JsonElement.DeepEquals(
+            beforeDocument.RootElement.GetProperty("SharedBaseContracts"),
+            expectedDocument.RootElement.GetProperty("SharedBaseContracts")))
+        Console.Error.WriteLine("  SHARED BASE CONTRACTS CHANGED (inherited component API risk)");
     foreach (var key in removed.Take(8)) Console.Error.WriteLine("  REMOVED " + key);
     foreach (var key in added.Take(8)) Console.Error.WriteLine("  ADDED " + key);
     foreach (var key in changed.Take(12))
@@ -117,7 +152,7 @@ if (!JsonElement.DeepEquals(beforeDocument.RootElement, expectedDocument.RootEle
     Console.Error.WriteLine("Do NOT silently regenerate snapshot; review as a deliberate migration/API decision first.");
     return 1;
 }
-Console.WriteLine($"API contract PASS: {components.Count} fully qualified public CLR types, {components.Values.Sum(c => c.Properties.Count)} declared public properties, {components.Values.Sum(c => c.Methods.Count)} declared public methods, {components.Values.Sum(c => c.Fields.Count)} declared public fields.");
+Console.WriteLine($"API contract PASS: {components.Count} fully qualified public CLR types, {sharedBaseContracts.Count} shared owned public bases, {components.Values.Sum(c => c.Properties.Count)} declared component properties, {sharedBaseContracts.Values.Sum(c => c.Properties.Count)} shared inherited-base property declarations.");
 return 0;
 
 Dictionary<string, List<(bool Public, bool Abstract, ApiComponent Component)>> ReadPackage(string package)
@@ -138,6 +173,8 @@ Dictionary<string, List<(bool Public, bool Abstract, ApiComponent Component)>> R
         var properties = new SortedDictionary<string, string>(StringComparer.Ordinal);
         var methods = new SortedSet<string>(StringComparer.Ordinal);
         var fields = new SortedDictionary<string, string>(StringComparer.Ordinal);
+        var constructors = new SortedSet<string>(StringComparer.Ordinal);
+        var events = new SortedDictionary<string, string>(StringComparer.Ordinal);
         if (isPublic)
         {
             foreach (var ph in type.GetProperties())
@@ -157,10 +194,24 @@ Dictionary<string, List<(bool Public, bool Abstract, ApiComponent Component)>> R
             foreach (var mh in type.GetMethods())
             {
                 var method = reader.GetMethodDefinition(mh);
-                if ((method.Attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public ||
-                    (method.Attributes & MethodAttributes.SpecialName) != 0) continue;
+                if ((method.Attributes & MethodAttributes.MemberAccessMask) != MethodAttributes.Public) continue;
                 var signature = method.DecodeSignature(provider, null);
+                if (reader.GetString(method.Name) == ".ctor")
+                {
+                    constructors.Add($"({string.Join(",", signature.ParameterTypes)})");
+                    continue;
+                }
+                if ((method.Attributes & MethodAttributes.SpecialName) != 0) continue;
                 methods.Add($"{reader.GetString(method.Name)}({string.Join(",", signature.ParameterTypes)}):{signature.ReturnType} | generic={signature.GenericParameterCount}");
+            }
+            foreach (var eh in type.GetEvents())
+            {
+                var ev = reader.GetEventDefinition(eh);
+                var access = ev.GetAccessors();
+                bool addPublic = IsPublic(access.Adder), removePublic = IsPublic(access.Remover);
+                if (!addPublic && !removePublic) continue;
+                events[reader.GetString(ev.Name)] =
+                    $"{TypeName(ev.Type)} | add={addPublic} remove={removePublic}";
             }
             foreach (var fh in type.GetFields())
             {
@@ -169,7 +220,9 @@ Dictionary<string, List<(bool Public, bool Abstract, ApiComponent Component)>> R
                 fields[reader.GetString(field.Name)] = field.DecodeSignature(provider, null);
             }
         }
-        var item = new ApiComponent(package, fullName, "", baseName, (type.Attributes & TypeAttributes.Abstract) != 0, properties, methods.ToList(), fields);
+        var item = new ApiComponent(package, fullName, "", baseName, (type.Attributes & TypeAttributes.Abstract) != 0,
+            properties, methods.ToList(), fields, constructors.ToList(), events);
+        if (isPublic) exportedTypes[$"{package}::{fullName}"] = item;
         string simpleName = name.Split((char)96)[0];
         if (!result.TryGetValue(simpleName, out var list))
         {
@@ -204,5 +257,9 @@ Dictionary<string, List<(bool Public, bool Abstract, ApiComponent Component)>> R
 
 internal sealed record ApiComponent(
     string Package, string Type, string Classification, string BaseType, bool IsAbstract,
-    SortedDictionary<string,string> Properties, List<string> Methods, SortedDictionary<string,string> Fields);
-internal sealed record ApiContract(string Scope, SortedDictionary<string,ApiComponent> Components);
+    SortedDictionary<string,string> Properties, List<string> Methods, SortedDictionary<string,string> Fields,
+    List<string> Constructors, SortedDictionary<string,string> Events);
+internal sealed record ApiContract(
+    string Scope,
+    SortedDictionary<string,ApiComponent> Components,
+    SortedDictionary<string,ApiComponent> SharedBaseContracts);

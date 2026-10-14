@@ -45,6 +45,7 @@ jobs:
           dotnet-version: '10.0.x'
       - name: Build shipped Bluent library components
         run: |
+          dotnet build src/Bluent.Core/Bluent.Core.csproj -c Release -v quiet
           dotnet build src/Bluent.UI/Bluent.UI.csproj -c Release -v quiet
           dotnet build src/Bluent.UI.Charts/Bluent.UI.Charts.csproj -c Release -v quiet
           dotnet build src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj -c Release -v quiet

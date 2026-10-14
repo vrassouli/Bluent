@@ -1,5 +1,5 @@
 {
-  "Scope": "Declared CLR API baseline only; inherited members summarized by base type, not flattened; no runtime/AT certification",
+  "Scope": "Declared component API and traversed Bluent-owned public base declarations; generic substitutions and framework inheritance not flattened; no runtime/AT certification",
   "Components": {
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Chart": {
       "Package": "Bluent.UI.Charts",
@@ -14,7 +14,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "MergeOrderedLists(System.Collections.Generic.IEnumerable\u00601\u003CSystem.Collections.IEnumerable\u003E):System.Collections.Generic.List\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Colors": {
       "Package": "Bluent.UI.Charts",
@@ -28,7 +32,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Dataset\u00602": {
       "Package": "Bluent.UI.Charts",
@@ -52,7 +60,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Gauge": {
       "Package": "Bluent.UI.Charts",
@@ -81,7 +93,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetLabelAsync(Double):System.Threading.Tasks.Task\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Legend": {
       "Package": "Bluent.UI.Charts",
@@ -97,7 +113,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Subtitle": {
       "Package": "Bluent.UI.Charts",
@@ -121,7 +141,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Title": {
       "Package": "Bluent.UI.Charts",
@@ -145,7 +169,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.Tooltip": {
       "Package": "Bluent.UI.Charts",
@@ -160,7 +188,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.XScale": {
       "Package": "Bluent.UI.Charts",
@@ -170,7 +202,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Charts::Bluent.UI.Charts.Components.YScale": {
       "Package": "Bluent.UI.Charts",
@@ -180,7 +216,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Circle": {
       "Package": "Bluent.UI.Diagrams",
@@ -200,7 +240,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.CursorLocation": {
       "Package": "Bluent.UI.Diagrams",
@@ -214,7 +258,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Diagram": {
       "Package": "Bluent.UI.Diagrams",
@@ -235,7 +283,14 @@
         "GetElementsAt(Bluent.UI.Diagrams.Elements.DiagramPoint):System.Collections.Generic.IEnumerable\u00601\u003CBluent.UI.Diagrams.Elements.Diagram.IDiagramShape\u003E | generic=0",
         "RemoveDiagramElement(Bluent.UI.Diagrams.Elements.Diagram.IDiagramElement):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {
+        "DiagramElementAdded": "System.EventHandler\u00601\u003CBluent.UI.Diagrams.Elements.Diagram.IDiagramElement\u003E | add=True remove=True",
+        "DiagramElementRemoved": "System.EventHandler\u00601\u003CBluent.UI.Diagrams.Elements.Diagram.IDiagramElement\u003E | add=True remove=True"
+      }
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.DrawingCanvas": {
       "Package": "Bluent.UI.Diagrams",
@@ -274,7 +329,23 @@
         "ScreenToDiagram(Bluent.UI.Diagrams.Elements.ScreenPoint,System.Nullable\u00601\u003CInt32\u003E):Bluent.UI.Diagrams.Elements.DiagramPoint | generic=0",
         "SelectElement(Bluent.UI.Diagrams.Elements.IDrawingShape,Boolean):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {
+        "KeyDown": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.KeyboardEventArgs\u003E | add=True remove=True",
+        "KeyUp": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.KeyboardEventArgs\u003E | add=True remove=True",
+        "MouseWheel": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.WheelEventArgs\u003E | add=True remove=True",
+        "PointerCancel": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerDown": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerEnter": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerLeave": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerMove": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerOut": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerOver": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True",
+        "PointerUp": "System.EventHandler\u00601\u003CMicrosoft.AspNetCore.Components.Web.PointerEventArgs\u003E | add=True remove=True"
+      }
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.ElementHost": {
       "Package": "Bluent.UI.Diagrams",
@@ -289,7 +360,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.ElementSelection": {
       "Package": "Bluent.UI.Diagrams",
@@ -304,7 +379,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.PointUpdater": {
       "Package": "Bluent.UI.Diagrams",
@@ -321,7 +400,11 @@
         "UpdatablePoint": "Bluent.UI.Diagrams.Elements.Abstractions.UpdatablePoint | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Internals.SelectionOptionsContainer": {
       "Package": "Bluent.UI.Diagrams",
@@ -337,7 +420,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Line": {
       "Package": "Bluent.UI.Diagrams",
@@ -358,7 +445,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Diagrams::Bluent.UI.Diagrams.Components.Rect": {
       "Package": "Bluent.UI.Diagrams",
@@ -381,7 +472,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.AppBusyIndicator": {
       "Package": "Bluent.UI.Utilities",
@@ -395,7 +490,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.HierarchyItemBrowser": {
       "Package": "Bluent.UI.Utilities",
@@ -428,7 +527,11 @@
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
         "RefreshAsync():System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.HierarchyTreeBrowser": {
       "Package": "Bluent.UI.Utilities",
@@ -454,7 +557,11 @@
         "RefreshAsync():System.Threading.Tasks.Task | generic=0",
         "RemoveItem(Bluent.UI.Utilities.HierarchyTreeItem):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.HierarchyTreeItem": {
       "Package": "Bluent.UI.Utilities",
@@ -473,7 +580,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.MdiTab": {
       "Package": "Bluent.UI.Utilities",
@@ -494,7 +605,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.MdiTabList": {
       "Package": "Bluent.UI.Utilities",
@@ -513,7 +628,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "Remove(Bluent.UI.Utilities.Abstractions.IMdiTab):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.MdiTabToolbarItem": {
       "Package": "Bluent.UI.Utilities",
@@ -527,7 +646,11 @@
       "Methods": [
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.RedoToolbarButton": {
       "Package": "Bluent.UI.Utilities",
@@ -543,7 +666,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.SaveToolbarButton": {
       "Package": "Bluent.UI.Utilities",
@@ -560,7 +687,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI.Utilities::Bluent.UI.Utilities.UndoToolbarButton": {
       "Package": "Bluent.UI.Utilities",
@@ -576,7 +707,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Accordion": {
       "Package": "Bluent.UI",
@@ -592,7 +727,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.AccordionPanel": {
       "Package": "Bluent.UI",
@@ -623,7 +762,11 @@
         "GetHeaderClasses():String | generic=0",
         "Toggle():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ActionCard": {
       "Package": "Bluent.UI",
@@ -648,7 +791,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ActionCardGroup": {
       "Package": "Bluent.UI",
@@ -662,7 +809,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.AudioCapture": {
       "Package": "Bluent.UI",
@@ -684,7 +835,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "OnAudioCaptured(Byte[]):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Avatar": {
       "Package": "Bluent.UI",
@@ -708,7 +863,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Badge": {
       "Package": "Bluent.UI",
@@ -729,7 +888,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.BluentDynamicComponent": {
       "Package": "Bluent.UI",
@@ -747,7 +910,11 @@
         "Attach(Microsoft.AspNetCore.Components.RenderHandle):Void | generic=0",
         "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Breadcrumb": {
       "Package": "Bluent.UI",
@@ -762,7 +929,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.BreadcrumbItem": {
       "Package": "Bluent.UI",
@@ -779,7 +950,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Button": {
       "Package": "Bluent.UI",
@@ -815,7 +990,11 @@
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
         "RefreshPopoverSurface():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ButtonGroup": {
       "Package": "Bluent.UI",
@@ -829,7 +1008,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Calendar\u00601": {
       "Package": "Bluent.UI",
@@ -851,7 +1034,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Card": {
       "Package": "Bluent.UI",
@@ -872,7 +1059,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.CardContent": {
       "Package": "Bluent.UI",
@@ -886,7 +1077,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.CardFloatingAction": {
       "Package": "Bluent.UI",
@@ -900,7 +1095,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.CardFooter": {
       "Package": "Bluent.UI",
@@ -914,7 +1113,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.CardHeader": {
       "Package": "Bluent.UI",
@@ -932,7 +1135,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.CardPreview": {
       "Package": "Bluent.UI",
@@ -947,7 +1154,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Checkbox\u00601": {
       "Package": "Bluent.UI",
@@ -967,7 +1178,11 @@
       "Methods": [
         "Toggle():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Containers": {
       "Package": "Bluent.UI",
@@ -977,7 +1192,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DataGridColumn\u00601": {
       "Package": "Bluent.UI",
@@ -1000,7 +1219,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DataGridComponent.Internal.DataGridCell\u00601": {
       "Package": "Bluent.UI",
@@ -1013,7 +1236,11 @@
         "Item": "!0 | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DataGridComponent.Internal.DataGridRow\u00601": {
       "Package": "Bluent.UI",
@@ -1026,7 +1253,11 @@
         "Item": "!0 | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DataGrid\u00601": {
       "Package": "Bluent.UI",
@@ -1044,7 +1275,11 @@
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
         "RefreshAsync():System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DataList\u00601": {
       "Package": "Bluent.UI",
@@ -1068,7 +1303,11 @@
       "Methods": [
         "RefreshDataAsync():System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DataPager": {
       "Package": "Bluent.UI",
@@ -1099,7 +1338,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DateFieldComponent.Internal.DateFieldPicker\u00601": {
       "Package": "Bluent.UI",
@@ -1118,7 +1361,11 @@
         "Value": "!0 | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DateField\u00601": {
       "Package": "Bluent.UI",
@@ -1136,7 +1383,11 @@
         "ParsingErrorMessage": "String | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Dialog": {
       "Package": "Bluent.UI",
@@ -1153,7 +1404,11 @@
         "Close(Object):Void | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DialogComponent.DialogContainer": {
       "Package": "Bluent.UI",
@@ -1165,7 +1420,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DialogComponent.DialogDefaultContent": {
       "Package": "Bluent.UI",
@@ -1182,7 +1441,11 @@
         "Title": "String | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DialogComponent.MessageBoxDefaultContent": {
       "Package": "Bluent.UI",
@@ -1194,7 +1457,11 @@
         "Message": "String | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DockBar": {
       "Package": "Bluent.UI",
@@ -1212,7 +1479,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DockContainer": {
       "Package": "Bluent.UI",
@@ -1232,7 +1503,11 @@
         "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
         "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DockPanel": {
       "Package": "Bluent.UI",
@@ -1254,7 +1529,11 @@
         "SetDockName(String):Void | generic=0",
         "SetStateHasChanged():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Drawer": {
       "Package": "Bluent.UI",
@@ -1274,7 +1553,11 @@
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
         "Open():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DrawerComponent.DrawerContainer": {
       "Package": "Bluent.UI",
@@ -1286,7 +1569,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DrawerContent": {
       "Package": "Bluent.UI",
@@ -1303,7 +1590,11 @@
         "Title": "String | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DropdownList\u00602": {
       "Package": "Bluent.UI",
@@ -1334,7 +1625,11 @@
         "ValuesChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CSystem.Collections.Generic.IEnumerable\u00601\u003C!1\u003E\u003E | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.DropdownSelect\u00601": {
       "Package": "Bluent.UI",
@@ -1355,7 +1650,11 @@
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
         "Refresh():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.FileSelect": {
       "Package": "Bluent.UI",
@@ -1383,7 +1682,11 @@
         "GetIcon(String):Bluent.UI.Icons.IconDefinition | generic=0",
         "Remove(Bluent.UI.Components.FileSelectComponent.SelectedFile):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Icon": {
       "Package": "Bluent.UI",
@@ -1398,7 +1701,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ItemsList": {
       "Package": "Bluent.UI",
@@ -1414,7 +1721,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Label": {
       "Package": "Bluent.UI",
@@ -1433,7 +1744,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Link": {
       "Package": "Bluent.UI",
@@ -1450,7 +1765,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ListItem": {
       "Package": "Bluent.UI",
@@ -1476,7 +1795,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MaskedField": {
       "Package": "Bluent.UI",
@@ -1490,7 +1813,11 @@
         "Mask": "String | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MasterContainer": {
       "Package": "Bluent.UI",
@@ -1510,7 +1837,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MediaQuery": {
       "Package": "Bluent.UI",
@@ -1523,7 +1854,11 @@
         "OnChange": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBluent.UI.Components.Breakpoints\u003E | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Menu": {
       "Package": "Bluent.UI",
@@ -1539,7 +1874,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MenuDivider": {
       "Package": "Bluent.UI",
@@ -1551,7 +1890,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MenuItem": {
       "Package": "Bluent.UI",
@@ -1574,7 +1917,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MenuItemGroup": {
       "Package": "Bluent.UI",
@@ -1589,7 +1936,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MenuList": {
       "Package": "Bluent.UI",
@@ -1603,7 +1954,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.MessageBar": {
       "Package": "Bluent.UI",
@@ -1625,7 +1980,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.NavItem": {
       "Package": "Bluent.UI",
@@ -1648,7 +2007,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.NavList": {
       "Package": "Bluent.UI",
@@ -1664,7 +2027,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.NumericField\u00601": {
       "Package": "Bluent.UI",
@@ -1688,7 +2055,11 @@
       "Methods": [
         "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.OtpField": {
       "Package": "Bluent.UI",
@@ -1704,7 +2075,11 @@
       "Methods": [
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Overflow": {
       "Package": "Bluent.UI",
@@ -1719,7 +2094,9 @@
       "Methods": [
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Overlay": {
       "Package": "Bluent.UI",
@@ -1734,7 +2111,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Popover": {
       "Package": "Bluent.UI",
@@ -1762,7 +2143,11 @@
         "SetTrigger(Bluent.Core.IBluentComponent):Void | generic=0",
         "Show():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PopoverComponent.PopoverContainer": {
       "Package": "Bluent.UI",
@@ -1772,7 +2157,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PopoverComponent.PopoverContainerBase\u00601": {
       "Package": "Bluent.UI",
@@ -1786,7 +2175,11 @@
         "HideSurface(Bluent.UI.Components.PopoverSettings):Void | generic=0",
         "RenderSurface(Bluent.UI.Components.PopoverSettings):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PopoverComponent.PopoverSurface": {
       "Package": "Bluent.UI",
@@ -1798,7 +2191,11 @@
         "Context": "Bluent.UI.Components.PopoverComponent.PopoverContext | get=True set=True | EditorRequiredAttribute,ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ProgressBar": {
       "Package": "Bluent.UI",
@@ -1817,7 +2214,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditor": {
       "Package": "Bluent.UI",
@@ -1846,7 +2247,11 @@
         "SetPropertyValue(Object,!!0,System.Linq.Expressions.Expression\u00601\u003CSystem.Func\u00601\u003C!!0\u003E\u003E):Void | generic=1",
         "SetPropertyValue(Object,Object,System.Reflection.PropertyInfo[]):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.BoolPropertyEditor": {
       "Package": "Bluent.UI",
@@ -1861,7 +2266,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.ComplexTypeEditor": {
       "Package": "Bluent.UI",
@@ -1876,7 +2285,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.EnumPropertyEditor": {
       "Package": "Bluent.UI",
@@ -1891,7 +2304,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.EnumerableEditor": {
       "Package": "Bluent.UI",
@@ -1906,7 +2323,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.NumericPropertyEditor\u00601": {
       "Package": "Bluent.UI",
@@ -1921,7 +2342,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.PropertyDescription": {
       "Package": "Bluent.UI",
@@ -1933,7 +2358,11 @@
         "Property": "System.Reflection.PropertyInfo | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.PropertyEditorItem": {
       "Package": "Bluent.UI",
@@ -1950,7 +2379,11 @@
       "Methods": [
         "IsSimpleType(System.Type):Boolean | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.RegisteredPropertyTypeEditor": {
       "Package": "Bluent.UI",
@@ -1966,7 +2399,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.PropertyEditorComponent.Internal.TextPropertyEditor": {
       "Package": "Bluent.UI",
@@ -1981,7 +2418,11 @@
         "ValueUpdated": "Microsoft.AspNetCore.Components.EventCallback | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.RadioGroup\u00601": {
       "Package": "Bluent.UI",
@@ -1996,7 +2437,11 @@
         "Orientation": "Bluent.UI.Components.Orientation | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Radio\u00601": {
       "Package": "Bluent.UI",
@@ -2013,7 +2458,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.RangeSlider\u00601": {
       "Package": "Bluent.UI",
@@ -2034,7 +2483,11 @@
         "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
         "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.SelectField\u00601": {
       "Package": "Bluent.UI",
@@ -2046,7 +2499,11 @@
         "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Skeleton": {
       "Package": "Bluent.UI",
@@ -2060,7 +2517,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Slider\u00601": {
       "Package": "Bluent.UI",
@@ -2081,7 +2542,11 @@
         "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
         "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Spacer": {
       "Package": "Bluent.UI",
@@ -2093,7 +2558,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Spinner": {
       "Package": "Bluent.UI",
@@ -2110,7 +2579,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.SplitPanelComponent.Internal.PanelResizer": {
       "Package": "Bluent.UI",
@@ -2129,7 +2602,11 @@
         "OnPointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
         "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.SplitPanelComponent.Internal.SplitPanel": {
       "Package": "Bluent.UI",
@@ -2148,7 +2625,11 @@
         "ResetSize():Void | generic=0",
         "SetAllowResize(Boolean):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.SplitPanelContainer": {
       "Package": "Bluent.UI",
@@ -2190,7 +2671,11 @@
         "OnPointerUp(Microsoft.AspNetCore.Components.Web.PointerEventArgs):System.Threading.Tasks.Task | generic=0",
         "SetSize(Bluent.UI.Components.SplitPanelComponent.Internal.SplitArea,Int32):Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Stack": {
       "Package": "Bluent.UI",
@@ -2211,7 +2696,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Switch": {
       "Package": "Bluent.UI",
@@ -2221,7 +2710,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Tab": {
       "Package": "Bluent.UI",
@@ -2246,7 +2739,11 @@
       "Methods": [
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TabList": {
       "Package": "Bluent.UI",
@@ -2266,7 +2763,11 @@
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
         "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TabListComponent.TabListTabItem": {
       "Package": "Bluent.UI",
@@ -2292,7 +2793,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Tag": {
       "Package": "Bluent.UI",
@@ -2310,7 +2815,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TextField": {
       "Package": "Bluent.UI",
@@ -2327,7 +2836,11 @@
         "Rows": "System.Nullable\u00601\u003CInt32\u003E | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TileLayout": {
       "Package": "Bluent.UI",
@@ -2343,7 +2856,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TimeField\u00601": {
       "Package": "Bluent.UI",
@@ -2357,7 +2874,11 @@
         "Seconds": "Boolean | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Toast": {
       "Package": "Bluent.UI",
@@ -2376,7 +2897,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ToastComponent.ToastContainer": {
       "Package": "Bluent.UI",
@@ -2388,7 +2913,11 @@
       "Methods": [
         "Dispose():Void | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ToastComponent.ToastDefaultContent": {
       "Package": "Bluent.UI",
@@ -2404,7 +2933,11 @@
         "Toast": "Bluent.UI.Components.Toast | get=True set=True | CascadingParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Toolbar": {
       "Package": "Bluent.UI",
@@ -2416,7 +2949,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ToolbarButton": {
       "Package": "Bluent.UI",
@@ -2439,7 +2976,11 @@
         "ToggledChanged": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CBoolean\u003E | get=True set=True | ParameterAttribute"
       },
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ToolbarComponent.ToolbarButtonItem": {
       "Package": "Bluent.UI",
@@ -2458,7 +2999,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.ToolbarDivider": {
       "Package": "Bluent.UI",
@@ -2468,7 +3013,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TooltipComponent.TooltipContainer": {
       "Package": "Bluent.UI",
@@ -2478,7 +3027,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TooltipComponent.TooltipSurface": {
       "Package": "Bluent.UI",
@@ -2488,7 +3041,11 @@
       "IsAbstract": false,
       "Properties": {},
       "Methods": [],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Tree": {
       "Package": "Bluent.UI",
@@ -2516,7 +3073,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.TreeItem": {
       "Package": "Bluent.UI",
@@ -2550,7 +3111,11 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.Wizard": {
       "Package": "Bluent.UI",
@@ -2583,7 +3148,11 @@
       "Methods": [
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
     },
     "Bluent.UI::Bluent.UI.Components.WizardStep": {
       "Package": "Bluent.UI",
@@ -2603,7 +3172,147 @@
         "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
-      "Fields": {}
+      "Fields": {},
+      "Constructors": [
+        "()"
+      ],
+      "Events": {}
+    }
+  },
+  "SharedBaseContracts": {
+    "Bluent.Core::Bluent.Core.BluentComponentBase": {
+      "Package": "Bluent.Core",
+      "Type": "Bluent.Core.BluentComponentBase",
+      "Classification": "shared-public-base",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": true,
+      "Properties": {
+        "AdditionalAttributes": "System.Collections.Generic.Dictionary\u00602\u003CString,Object\u003E | get=True set=True | ParameterAttribute",
+        "Class": "String | get=True set=True | ParameterAttribute",
+        "Id": "String | get=True set=False | ",
+        "Style": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0",
+        "SetStateHasChanged():Void | generic=0"
+      ],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.ChartJs": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.ChartJs",
+      "Classification": "shared-public-base",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": true,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Dataset": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Dataset",
+      "Classification": "shared-public-base",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": true,
+      "Properties": {},
+      "Methods": [],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI.Charts::Bluent.UI.Charts.Components.Scale": {
+      "Package": "Bluent.UI.Charts",
+      "Type": "Bluent.UI.Charts.Components.Scale",
+      "Classification": "shared-public-base",
+      "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
+      "IsAbstract": true,
+      "Properties": {
+        "Chart": "Bluent.UI.Charts.Components.ChartJs | get=True set=True | CascadingParameterAttribute",
+        "Display": "Boolean | get=True set=True | ParameterAttribute",
+        "Text": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "Dispose():Void | generic=0"
+      ],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.BluentFieldComponentBase\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.BluentFieldComponentBase\u00601",
+      "Classification": "shared-public-base",
+      "BaseType": "Bluent.UI.Components.BluentInputComponentBase\u00601\u003C!0\u003E",
+      "IsAbstract": true,
+      "Properties": {
+        "BindValueEvent": "String | get=True set=True | ParameterAttribute",
+        "EndAddon": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "Size": "Bluent.UI.Components.FieldSize | get=True set=True | ParameterAttribute",
+        "StartAddon": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.BluentInputComponentBase\u00601": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.BluentInputComponentBase\u00601",
+      "Classification": "shared-public-base",
+      "BaseType": "Microsoft.AspNetCore.Components.Forms.InputBase\u00601\u003C!0\u003E",
+      "IsAbstract": true,
+      "Properties": {
+        "Class": "String | get=True set=True | ParameterAttribute",
+        "Element": "System.Nullable\u00601\u003CMicrosoft.AspNetCore.Components.ElementReference\u003E | get=True set=True | ",
+        "Field": "Microsoft.AspNetCore.Components.Forms.FieldIdentifier | get=True set=False | ",
+        "Id": "String | get=True set=False | ",
+        "Style": "String | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView):System.Threading.Tasks.Task | generic=0"
+      ],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.BluentUiComponentBase": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.BluentUiComponentBase",
+      "Classification": "shared-public-base",
+      "BaseType": "Bluent.Core.BluentComponentBase",
+      "IsAbstract": true,
+      "Properties": {
+        "DisplayTooltipArrow": "Boolean | get=True set=True | ParameterAttribute",
+        "Tooltip": "String | get=True set=True | ParameterAttribute",
+        "TooltipAppearance": "Bluent.UI.Components.PopoverAppearance | get=True set=True | ParameterAttribute",
+        "TooltipContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "TooltipPlacement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute"
+      },
+      "Methods": [
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0"
+      ],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
+    },
+    "Bluent.UI::Bluent.UI.Components.OverflowItemComponentBase": {
+      "Package": "Bluent.UI",
+      "Type": "Bluent.UI.Components.OverflowItemComponentBase",
+      "Classification": "shared-public-base",
+      "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
+      "IsAbstract": true,
+      "Properties": {
+        "Overflow": "Bluent.UI.Components.Overflow | get=True set=True | CascadingParameterAttribute",
+        "RenderContext": "Bluent.UI.Components.OverflowComponent.OverflowRenderContext | get=True set=True | CascadingParameterAttribute"
+      },
+      "Methods": [],
+      "Fields": {},
+      "Constructors": [],
+      "Events": {}
     }
   }
 }
