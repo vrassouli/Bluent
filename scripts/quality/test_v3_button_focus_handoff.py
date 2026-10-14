@@ -68,6 +68,10 @@ class HandoffContract(unittest.TestCase):
                          "843/843", "Backlog", "NOT approval"):
             self.assertIn(expected,review)
         self.assertIn("orthogonal",review.lower())
+        self.assertIn("6f4f48b4-7b1e-800e-8008-c9bc0d7c44fa", review)
+        self.assertIn("NOT YET VERIFIED", review)
+        self.assertIn("6f4f48b4-7b1e-800e-8008-c9bc0d7c44fa",
+                      (SCRIPT/"penpot_v3_button_danger_selected_audit.js").read_text(encoding="utf-8"))
         self.assertIn("Danger selection review",
             (DESIGN/"BUTTON-FOCUS-IMPLEMENTATION-HANDOFF.md").read_text(encoding="utf-8"))
 

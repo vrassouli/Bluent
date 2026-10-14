@@ -23,4 +23,16 @@ Real Chrome and Edge WebAssembly browser matrices each passed 843/843; tests ver
 
 The user reported a readability defect during Button review, and the opt-in research prototype + native page07 palette now address that defect for evaluation. This is NOT approval of the final public Button state contract, true native OS/AT, or universal all-surface conformance. Keep #501 in Review. Final code migration and aria-pressed belong to #428 AFTER that issue has progressed from Backlog to Ready by the project workflow; do not advance it autonomously.
 
-No new page38 Penpot artifact was successfully added in this follow-up. The Penpot tab suspended mid-attempt; a stray empty candidate board may need cleanup from page00 Start here once connected. The authoritative page07 design is already real and verified. No stable Dev/2.x merge or NuGet release.
+The later page-38 design addendum below supersedes the earlier no-board checkpoint. The empty candidate on page 00 was positively removed; the correct page-38 source-owned research board was created, but its combined live audit is still pending after a browser suspension. No stable Dev/2.x merge or NuGet release.
+## 2026-10-14 actual page-38 design follow-up
+
+The canonical Penpot Bluent v3 Design System was reconnected during this review. First, the accidental empty draft board 6f4f48b4-7b1e-800e-8008-c9ba336a0e38 on page 00 Start here was VERIFIED EMPTY and removed; removal was read back as true.
+
+On the CORRECT page 38 Button Focus Visible states (#501), ID 535db143-a732-807e-8008-c64d2fb91b9a, an ADDITIVE native editable review board was then created:
+
+- Board: REVIEW · Danger selected contrast × Focus Visible · #501
+- ID: 6f4f48b4-7b1e-800e-8008-c9bc0d7c44fa
+- 51 editable native shapes created and counted by Penpot, 8 specimens covering Light/Dark × OFF/ON/Hover/Pressed. Focus Off and Focus Visible are deliberately independent of selected state; four specimens render the 2px outer focus outline at 3px bounds. Persian text is drawn centered within actual Button faces using the source-owned existing Fluent color values.
+- Explicit sourceBoard Penpot plugin data points to the canonical #418 page-07 board 94a03b1b-8cb6-8091-8008-c986fd01b85f (61/61 prior verified Penpot audit).
+
+IMPORTANT: the plugin suspended IMMEDIATELY BEFORE running the new combined page-38 audit, so **the 51-shape creation is verified, but full shape/color/contrast/RTL/geometry readback is NOT YET VERIFIED**. Reproduce it after opening the connected Bluent Penpot tab using scripts/quality/penpot_v3_button_danger_selected_audit.js. Node syntax checks on CI are not a substitute for live execution. The existing #501 Focus family and #418 original palette board remain intact; this is an additional design review reference, not public Button approval.
