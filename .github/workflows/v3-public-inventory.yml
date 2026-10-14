@@ -1,0 +1,58 @@
+name: Bluent v3 Public Component Census
+on:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-public-inventory.yml"
+      - "scripts/quality/audit_v3_public_inventory.py"
+      - "scripts/quality/test_v3_public_inventory.py"
+      - "scripts/quality/test_v3_compiled_contract.py"
+      - "scripts/quality/v3_compiled_inventory/**"
+      - "docs/components/inventory.md"
+      - "docs/v3/inventory/**"
+      - "src/Bluent.UI/Components/**"
+      - "src/Bluent.UI.Charts/Components/**"
+      - "src/Bluent.UI.Diagrams/Components/**"
+      - "src/Bluent.UI.Utilities/**"
+  workflow_dispatch:
+
+jobs:
+  source-census:
+    name: Source and family snapshot
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Public source census drift
+        run: python3 scripts/quality/audit_v3_public_inventory.py --check
+      - name: Classification and parser tests
+        run: python3 -m unittest discover -s scripts/quality -p 'test_v3_public_inventory.py' -v
+      - name: Evidence disclaimer
+        run: echo "Source candidate and family snapshot only; no API/runtime/visual signoff."
+
+
+  compiled-clr:
+    name: Compiled CLR export baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build shipped Bluent library components
+        run: |
+          dotnet build src/Bluent.Core/Bluent.Core.csproj -c Release -v quiet
+          dotnet build src/Bluent.UI/Bluent.UI.csproj -c Release -v quiet
+          dotnet build src/Bluent.UI.Charts/Bluent.UI.Charts.csproj -c Release -v quiet
+          dotnet build src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj -c Release -v quiet
+          dotnet build src/Bluent.UI.Utilities/Bluent.UI.Utilities.csproj -c Release -v quiet
+      - name: Guard exported CLR types and frozen declared component API
+        run: dotnet run --project scripts/quality/v3_compiled_inventory/V3CompiledInventory.csproj -c Release -- . --check-contracts
+      - name: Prove signature drift fails while JSON formatting remains irrelevant
+        run: python3 scripts/quality/test_v3_compiled_contract.py -v
+      - name: Scope disclaimer
+        run: echo "Declared public properties, methods, fields and base types only; inherited member signatures, runtime, visual and AT signoff require separate gates."
