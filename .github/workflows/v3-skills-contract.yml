@@ -1,0 +1,41 @@
+name: Bluent v3 Skill Routing Contract
+
+# Separate branch-only v3 work, not a stable NuGet release.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-skills-contract.yml"
+      - ".agents/skills/bluent-v3/**"
+      - "docs/v3/README.md"
+      - "docs/v3/skills/**"
+      - "scripts/quality/check_v3_skill_contract.py"
+      - "scripts/quality/test_v3_skill_contract.py"
+
+permissions:
+  contents: read
+
+jobs:
+  v3-skills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout v3 branch with diff base
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate version-aware router and references
+        run: python scripts/quality/check_v3_skill_contract.py
+      - name: Run negative-control tests
+        run: python -m unittest discover -s scripts/quality -p "test_v3_skill_contract.py" -v
+      - name: Validate repository Markdown links
+        run: python scripts/quality/check_markdown_links.py
+      - name: Ensure stable consumer Skill coverage remains valid
+        run: python scripts/quality/check_consumer_skill.py
+      - name: Ensure v3 changes do not modify legacy 2.x Skill files
+        run: git diff --exit-code origin/bluent-v3...HEAD -- .agents/skills/bluent/

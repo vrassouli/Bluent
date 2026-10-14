@@ -144,13 +144,13 @@ Primary source root: `src/Bluent.UI.Utilities/`
 
 | Package | Retrieval families | Source-verified references | Runtime-verified references |
 | --- | ---: | ---: | ---: |
-| `Bluent.UI` | 57 | 57 | 1 |
+| `Bluent.UI` | 58 | 58 | 1 |
 | `Bluent.UI.Charts` | 2 | 2 | 0 |
 | `Bluent.UI.Diagrams` | 2 | 2 | 0 |
 | `Bluent.UI.Utilities` | 4 | 4 | 0 |
-| **Total** | **65** | **65** | **1** |
+| **Total** | **66** | **66** | **1** |
 
-All 65 currently tracked consumer retrieval families now have source-verified canonical references. Dialog retains its separately recorded runtime verification. Public helper/configuration/service types are intentionally grouped with the component/workflow that consumes them instead of inflating the retrieval index with one row per CLR type.
+All 66 currently tracked consumer retrieval families have source-verified canonical references (including Dialog, whose stronger Runtime verified row implies source verification). Dialog retains its separately recorded runtime verification. Public helper/configuration/service types are intentionally grouped with the component/workflow that consumes them instead of inflating the retrieval index with one row per CLR type.
 
 ## Prioritization
 
