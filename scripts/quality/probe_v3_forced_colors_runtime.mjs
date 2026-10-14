@@ -133,6 +133,15 @@ try{
             (got.action===baseline.action&&got.source===baseline.source))&&
     (!baseline||(got.width===baseline.width&&got.height===baseline.height)),
     got);
+   // #418 accepted host-aware opt-in mapping: test the generated candidate
+   // in actual Blazor during all four media states for 10 brands x two themes.
+   // A forced-colors alias must be the SYSTEM Highlight, not an over-specific
+   // theme OnBrand role. Temporarily annotate the REAL Danger host; restore it.
+   const approvedHost=await cdp.js("(() => {\n const card=document.querySelector('.v3-lab-focus-host-card[data-v3-focus-host=\"danger\"]');\n const parent=document.querySelector('.v3-lab-surface');\n const oldTheme=card.getAttribute('data-bui-theme');\n const oldRole=card.getAttribute('data-bui-v3-focus-host');\n try {\n   card.setAttribute('data-bui-theme',parent.dataset.buiTheme);\n   card.setAttribute('data-bui-v3-focus-host','danger');\n   const styles=getComputedStyle(card);\n   return {\n     mode:parent.dataset.buiTheme,\n     forced:matchMedia('(forced-colors: active)').matches,\n     ring:styles.getPropertyValue('--bui-v3-focus-host-ring-candidate').trim(),\n     onBrand:styles.getPropertyValue('--colorNeutralForegroundOnBrand').trim()\n   };\n } finally {\n   if(oldTheme===null)card.removeAttribute('data-bui-theme'); else card.setAttribute('data-bui-theme',oldTheme);\n   if(oldRole===null)card.removeAttribute('data-bui-v3-focus-host'); else card.setAttribute('data-bui-v3-focus-host',oldRole);\n }\n})()");
+   check(brand+"/"+mode+" "+media.name+" approved explicit Danger-host focus token",
+     approvedHost.mode===mode&&approvedHost.forced===forced&&
+     approvedHost.ring===(forced?"Highlight":approvedHost.onBrand),
+     approvedHost);
    // The selected TextField focus indicator is the animated bottom underline,
    // never an added rectangular frame. Validate it for all branded media pairs.
    await cdp.js('document.getElementById("v3-experiment-name").focus()');

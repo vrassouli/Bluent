@@ -1,6 +1,6 @@
 # #418 — Focus2 design token acceptance decision record (DRAFT)
 
-**2026-10-13 · Reviewer decision required, not an accepted public API.** Epic #416, opt-in research [PR #500](https://github.com/vrassouli/Bluent/pull/500), native Button design [#501](https://github.com/vrassouli/Bluent/issues/501). The shipped version 2.x and its CSS are unaffected.
+**2026-10-14 · Maintainer visual host-color decision APPROVED; final public token/host API and native OS/AT acceptance still pending.** Epic #416, opt-in research [PR #500](https://github.com/vrassouli/Bluent/pull/500), native Button design [#501](https://github.com/vrassouli/Bluent/issues/501). The shipped version 2.x and its CSS are unaffected.
 
 ## Current governing visual decision (2026-10-14)
 
@@ -8,7 +8,7 @@
 
 **Actual editable design provenance:** Bluent v3 Design System Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. The separate selected-review board on #501 page38 is `94a03b1b-8cb6-8091-8008-c8b9bae47e45`; #418 page07 host-context research boards are `94a03b1b-8cb6-8091-8008-c96c96ea484f` and `94a03b1b-8cb6-8091-8008-c96d09329a0b`. These are separate from the Focus2 experimental native variants. Do not overwrite or silently promote either family.
 
-**What still needs a technical/maintainer decision before a reusable public focus token ships:** the semantic naming and the *explicit host-background context contract*. Research mapping across 10 brands × Light/Dark × five opaque surrounding hosts uses existing emitted roles:
+**Accepted visual semantics vs outstanding public API:** The maintainer approved the host-color choice described below. The **public semantic token name**, the proposed CSS host-annotation attribute and adoption by #428 remain a separate unapproved implementation/API decision. The approved visual mapping uses emitted roles for 10 brands × Light/Dark × five opaque surrounding hosts:
 
 | Surrounding host | Light candidate | Dark candidate |
 | --- | --- | --- |
@@ -17,7 +17,7 @@
 | Inverted | `colorNeutralForegroundOnBrand` | `colorBrandForeground2` |
 | Forced colors (CSS emulation only) | system `Highlight` | system `Highlight` |
 
-This **per-host mapping is still a demo-only, opt-in candidate**, not automatic context detection, a public CSS attribute or a universally accessible fallback. The user-selected visual direction must not be replaced with one unconditional white/black ring. The five-host candidate passed **100/100 limited numerical comparisons**; the unconditional ring retained **70 recorded below-3:1 findings**. Translucency, images, pressed/selected nested hosts, screen reader/native Windows Contrast Themes and real browser zoom still need separate acceptance; see [contextual live review](CONTEXTUAL-BRANDED-FOCUS-LIVE-REVIEW.md).
+The **visual per-host mapping is APPROVED**. Its generated **opt-in preview property/attribute names remain candidates**: this is not automatic background detection, a public CSS attribute or a universally accessible fallback. Source-to-CSS handoff: [approved host token crosswalk](FOCUS-HOST-TOKEN-CROSSWALK.md), Penpot page 38 board f4136a9a-101d-8004-8008-ca2956fe05f9. The user-selected visual direction must not be replaced with one unconditional white/black ring. The five-host candidate passed **100/100 limited numerical comparisons**; the unconditional ring retained **70 recorded below-3:1 findings**. Translucency, images, pressed/selected nested hosts, screen reader/native Windows Contrast Themes and real browser zoom still need separate acceptance; see [contextual live review](CONTEXTUAL-BRANDED-FOCUS-LIVE-REVIEW.md).
 
 **Current regression evidence:** the independent real-Blazor WASM media probe covers 10 brands × Light/Dark × four CSS media combinations; Chrome **219/219** and Edge **219/219** locally on Dev01. It tests the chosen underline-only Field focus in **80 distinct contexts**, including exact computed `Highlight` color and no outer frame, and tests Button keyboard focus/system colors. [Full evidence](FOUNDATION-AUDIT.md). This is not final OS/AT/WCAG certification. Public CSS/TokenSet semantics, full #428 implementation, migration and release remain unapproved; keep #418 In progress / PR #500 Draft / stable Dev unchanged.
 
@@ -60,7 +60,7 @@ Real Chromium WASM tests measured normal Light, Dark and emulated Forced Colors:
 - No changes to `Dev`, any released v2.x NuGet, or protection rules; any merge within the project must target `bluent-v3`, and the epic final release requires its own explicit approval.
 - When the reviewer approves the decisions, update the canonical token schema, demo/Skill/migration contract and #418/PR before advancing to Review or promoting names to public API.
 
-**Reviewer response requested:** approve or propose edits to **D1 / D2 / D3 / D4**. Technical implementation can then be moved out of draft research under the correct v3 task branch.
+**Reviewer state after 2026-10-14:** the existing brand focus + host-context **visual** choice is settled; **do not request another D1/D2 Focus2 visual selection**. D1/D2 are historical unselected experiments. D3 needs real OS forced-colors/AT evidence and D4 needs explicit final public token/API scope, later component migration and compatibility acceptance; those are separate from this confirmed visual treatment.
 
 ## Direct interactive review (2026-10-13)
 
