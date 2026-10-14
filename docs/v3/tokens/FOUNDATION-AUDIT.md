@@ -35,3 +35,11 @@ Recovery version `Bluent v3 · #418 20 brands contrast and foundations audited 2
 - Final token names/types/values, generator integration and component adoption require a separate acceptance step; keep #418 In progress, PR #500 Draft, stable `Dev`/NuGet intact.
 
 Related evidence: [10-brand opt-in CSS](README.md), [Danger contrast candidate](CONTRAST-AUDIT.md), [Penpot source-to-Razor handoff on #419 branch](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/DESIGN-TO-RAZOR-HANDOFF.md).
+
+## 2026-10-14 independent real-Blazor media regression
+
+The previous all-in-one browser laboratory already tested emulated forced-colors in several places. An additional experimental media toggle previously disturbed later UI-state tests and was reverted. To prevent this class of test interference, a **separate short-lived browser process** now runs `scripts/quality/probe_v3_forced_colors_runtime.mjs` against the actual Blazor WebAssembly styling-lab route. It does not share a browser session, emulation settings, or DOM state with the comprehensive CDP suite.
+
+The standalone test checks the two actual source-derived default modes (Light/Dark). For each mode it verifies native Button keyboard `:focus-visible` and geometry, emulated CSS system-color tokens (ButtonFace/Highlight), reduced-motion token resolution, focused TextField's **bottom underline without an added outer frame**, and exact baseline restoration after media reset. The local Dev01 Chrome run passed **12/12 assertions**. GitHub's existing Chrome/Edge WASM matrix gains the standalone test as an additional step; browser CI result must be read from the PR after push, not inferred from local success.
+
+**Scope limit:** CDP `Emulation.setEmulatedMedia` is a browser emulation result, NOT Windows High Contrast, a screen-reader session, an approved final semantic token API, or full multi-brand/OS conformance. No released 2.x assets or public Button defaults changed.

@@ -8,6 +8,7 @@ on:
     paths:
       - ".github/workflows/v3-browser-lab.yml"
       - "scripts/quality/probe_v3_blazor_runtime.mjs"
+      - "scripts/quality/probe_v3_forced_colors_runtime.mjs"
       - "docs/v3/tokens/issue-418-*"
       - "src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css"
       - "src/Bluent.UI/wwwroot/v3/danger-toggle.opt-in.preview.css"
@@ -79,11 +80,22 @@ jobs:
           $exitCode = $LASTEXITCODE
           Get-Content $log -Tail 110
           exit $exitCode
+      - name: Verify forced colors independently in a fresh Blazor browser
+        if: matrix.render_mode == 'WASM'
+        shell: pwsh
+        run: |
+          $log = Join-Path $env:RUNNER_TEMP "bluent-v3-forced-colors.log"
+          node scripts/quality/probe_v3_forced_colors_runtime.mjs *> $log
+          $exitCode = $LASTEXITCODE
+          Get-Content $log -Tail 100
+          exit $exitCode
       - name: Save browser evidence on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: v3-browser-${{ matrix.browser }}-${{ matrix.render_mode }}-failure
-          path: ${{ runner.temp }}/bluent-v3-real-browser.log
+          path: |
+            ${{ runner.temp }}/bluent-v3-real-browser.log
+            ${{ runner.temp }}/bluent-v3-forced-colors.log
           if-no-files-found: ignore
           retention-days: 5
