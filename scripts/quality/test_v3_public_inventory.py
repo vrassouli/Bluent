@@ -148,6 +148,40 @@ class InventoryTests(unittest.TestCase):
             "Reclassify with an independent issue or document an explicit exception.",
         )
 
+    def test_all_review_exceptions_have_actual_family_owners_and_rationale(self):
+        excluded = [r for r in self.rows if r["classification"] != "public-candidate"]
+        self.assertEqual(len(excluded), 34)
+        for entry in excluded:
+            self.assertTrue(entry["exceptionReason"], entry["markupName"])
+            self.assertIn(entry["reviewOwnerIssue"], {420, *range(428, 494)}, entry["markupName"])
+            self.assertIsNone(entry["componentIssue"])
+            self.assertTrue((ROOT / entry["documentationRoute"]).is_file())
+            self.assertTrue((ROOT / entry["skillRoute"]).is_file())
+        self.assertEqual(
+            next(x for x in excluded if x["markupName"] == "BluentDynamicComponent")["reviewOwnerIssue"],
+            420,
+        )
+
+    def test_tooltip_service_containers_route_to_tooltip_not_chart(self):
+        for name in ("TooltipContainer", "TooltipSurface"):
+            row = next(x for x in self.rows if x["markupName"] == name)
+            self.assertEqual(row["family"], "Tooltip")
+            self.assertEqual(row["reviewOwnerIssue"], 456)
+            self.assertEqual(row["documentationRoute"], "docs/components/tooltip.md")
+
+    def test_all_public_components_have_planned_doc_demo_skill_and_design_routes(self):
+        public = [r for r in self.rows if r["classification"] == "public-candidate"]
+        self.assertEqual(len(public), 106)
+        for row in public:
+            self.assertIsNotNone(row["componentIssue"], row["markupName"])
+            self.assertTrue((ROOT / row["documentationRoute"]).is_file())
+            self.assertTrue(row["demoRoute"], row["markupName"])
+            self.assertTrue(row["skillRoute"], row["markupName"])
+            self.assertTrue(row["designRoute"], row["markupName"])
+            # A planned route does not pass runtime/design parity; keep it explicit.
+            self.assertEqual(row["skillRoute"], "pending-per-component-skill")
+            self.assertEqual(row["designRoute"], "penpot-component-design-pending")
+
     def test_snapshot_drift(self):
         self.assertEqual(json.loads(audit.OUT.read_text(encoding="utf-8")), self.payload)
         self.assertEqual(self.payload["penpot"]["pageId"], "44b12572-0104-807e-8008-ca032a4746f0")

@@ -35,7 +35,7 @@ FAMILIES = (
 ISSUES = {name: 428 + i for i, name in enumerate(FAMILIES)}
 assert len(ISSUES) == 66 and ISSUES["ToolbarButtons"] == 493
 ALIASES = {
-    "CheckBox": "Checkbox", "Radio": "RadioGroup", "SplitPanelContainer": "SplitPanel",
+    "CheckBox": "Checkbox", "TooltipContainer": "Tooltip", "TooltipSurface": "Tooltip", "Radio": "RadioGroup", "SplitPanelContainer": "SplitPanel",
     "ItemsList": "List", "ListItem": "List", "Tab": "TabList",
     "TabListTabItem": "TabList", "Containers": "Dialog", "MasterContainer": "Dialog",
     "DrawingCanvas": "Diagram", "Circle": "Shapes", "Line": "Shapes",
@@ -248,6 +248,22 @@ def census():
             issue, usage, evidence_kind = None, None, None
         item["consumerExample"] = usage
         item["evidenceKind"] = evidence_kind
+        if item["classification"] != "public-candidate" and not item["exceptionReason"]:
+            item["exceptionReason"] = {
+                "infrastructure-review": (
+                    "Exported infrastructure/service renderer; no direct canonical "
+                    "consumer markup example. Preserve public CLR API; owning issue "
+                    "reviews standalone API eligibility before migration."
+                ),
+                "internal-path-review": (
+                    "Exported type under Internal/Internals; no direct canonical "
+                    "demo/docs markup. Preserve public CLR API; owning family "
+                    "must review independent API eligibility."
+                ),
+            }[item["classification"]]
+        item["reviewOwnerIssue"] = (
+            item["familyIssue"] if item["familyIssue"] is not None else 420
+        ) if item["classification"] != "public-candidate" else None
         primary = (item["classification"] == "public-candidate" and
                    FAMILY_PRIMARY_COMPONENTS.get(item["family"]) == item["markupName"])
         item["componentIssue"] = (
@@ -260,6 +276,21 @@ def census():
             "family-primary-provisional" if primary else
             "review-or-split-required"
         )
+    # Future docs/demo/skill routes are obligations, not invented finished artifacts.
+    family_docs = {}
+    for line in INVENTORY.read_text(encoding="utf-8-sig").splitlines():
+        if not line.startswith("| [") or "](" not in line:
+            continue
+        label = line.split("[", 1)[1].split("](", 1)[0]
+        link = line.split("](", 1)[1].split(")", 1)[0]
+        if link.endswith(".md"):
+            family_docs[label] = "docs/components/" + link
+    for item in items:
+        doc_path = family_docs.get(item["family"])
+        item["documentationRoute"] = doc_path if doc_path and (ROOT / doc_path).is_file() else "docs/v3/inventory/README.md"
+        item["demoRoute"] = item["consumerExample"] if item["evidenceKind"] == "markup" else "pending-per-component-demo"
+        item["skillRoute"] = "pending-per-component-skill" if item["classification"] == "public-candidate" else ".agents/skills/bluent-v3-inventory/SKILL.md"
+        item["designRoute"] = "penpot-component-design-pending" if item["classification"] == "public-candidate" else "Penpot #494 source ownership decision"
     items.sort(key=lambda x: (x["package"], x["source"], x["markupName"]))
     return items
 

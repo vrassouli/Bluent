@@ -34,7 +34,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/accordion.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -50,7 +55,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Accordions.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/accordion.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Accordions.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -66,7 +76,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/action-card.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -82,7 +97,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/ActionCards.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/action-card.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/ActionCards.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -98,7 +118,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/audio-capture.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -114,7 +139,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/avatar.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -130,7 +160,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/badge.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -138,7 +173,7 @@
       "source": "src/Bluent.UI/Components/BluentDynamicComponent.cs",
       "sourceKind": "csharp",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": null,
       "family": null,
@@ -146,7 +181,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 420,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -162,7 +202,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/breadcrumb.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -178,7 +223,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Breadcrumbs.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/breadcrumb.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Breadcrumbs.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -194,7 +244,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/button.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -210,7 +265,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/button-group.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -226,7 +286,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/calendar.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -242,7 +307,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/card.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -258,7 +328,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/card.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -274,7 +349,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/card.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -290,7 +370,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/card.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -306,7 +391,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/card.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -322,7 +412,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/card.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -338,7 +433,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/checkbox.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -354,7 +454,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Layout/MainLayout.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/dialog.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Layout/MainLayout.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -370,7 +475,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/data-grid.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -386,7 +496,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/data-grid.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/data-grid.md",
+      "demoRoute": "docs/components/data-grid.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -394,7 +509,7 @@
       "source": "src/Bluent.UI/Components/DataGridComponent/Internal/DataGridCell.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 474,
       "family": "DataGrid",
@@ -402,7 +517,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 474,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/data-grid.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -410,7 +530,7 @@
       "source": "src/Bluent.UI/Components/DataGridComponent/Internal/DataGridRow.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 474,
       "family": "DataGrid",
@@ -418,7 +538,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 474,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/data-grid.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -434,7 +559,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/data-list.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -450,7 +580,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/data-pager.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -466,7 +601,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/date-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -474,7 +614,7 @@
       "source": "src/Bluent.UI/Components/DateFieldComponent/Internal/DateFieldPicker.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 438,
       "family": "DateField",
@@ -482,7 +622,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 438,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/date-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -498,7 +643,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/dialog.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -506,7 +656,7 @@
       "source": "src/Bluent.UI/Components/DialogComponent/DialogContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 459,
       "family": "Dialog",
@@ -514,7 +664,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 459,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/dialog.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -522,7 +677,7 @@
       "source": "src/Bluent.UI/Components/DialogComponent/DialogDefaultContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 459,
       "family": "Dialog",
@@ -530,7 +685,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 459,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/dialog.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -538,7 +698,7 @@
       "source": "src/Bluent.UI/Components/DialogComponent/MessageBoxDefaultContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 459,
       "family": "Dialog",
@@ -546,7 +706,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 459,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/dialog.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -562,7 +727,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/dock-panel.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -578,7 +748,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/dock-panel.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -594,7 +769,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/dock-panel.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -610,7 +790,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/drawer.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -618,7 +803,7 @@
       "source": "src/Bluent.UI/Components/DrawerComponent/DrawerContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 460,
       "family": "Drawer",
@@ -626,7 +811,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 460,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/drawer.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -642,7 +832,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Drawers.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/drawer.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Drawers.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -658,7 +853,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/dropdown-list.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -674,7 +874,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/dropdown-select.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -690,7 +895,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/file-select.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -706,7 +916,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/icon.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -722,7 +937,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/label.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -738,7 +958,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/link.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -754,7 +979,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/list.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -770,7 +1000,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/list.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/list.md",
+      "demoRoute": "docs/components/list.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -786,7 +1021,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/masked-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -802,7 +1042,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": "source-only",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/dialog.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -818,7 +1063,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/media-query.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -834,7 +1084,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/menu.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -850,7 +1105,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/menu.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -866,7 +1126,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/menu.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -882,7 +1147,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/menu.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -898,7 +1168,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/menu.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -914,7 +1189,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/message-bar.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -930,7 +1210,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/nav-list.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/nav-list.md",
+      "demoRoute": "docs/components/nav-list.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -946,7 +1231,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/nav-list.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -962,7 +1252,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/numeric-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -978,7 +1273,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/otp-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -994,7 +1294,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 472,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/overflow.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1010,7 +1315,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/overlay.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1026,7 +1336,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/popover.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1034,7 +1349,7 @@
       "source": "src/Bluent.UI/Components/PopoverComponent/PopoverContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 457,
       "family": "Popover",
@@ -1042,7 +1357,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 457,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/popover.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1050,7 +1370,7 @@
       "source": "src/Bluent.UI/Components/PopoverComponent/PopoverContainerBase.cs",
       "sourceKind": "csharp",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 457,
       "family": "Popover",
@@ -1058,7 +1378,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 457,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/popover.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1066,7 +1391,7 @@
       "source": "src/Bluent.UI/Components/PopoverComponent/PopoverSurface.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 457,
       "family": "Popover",
@@ -1074,7 +1399,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 457,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/popover.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1090,7 +1420,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/progress-bar.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1098,7 +1433,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/BoolPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1106,7 +1441,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1114,7 +1454,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/ComplexTypeEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1122,7 +1462,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1130,7 +1475,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/EnumPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1138,7 +1483,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1146,7 +1496,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/EnumerableEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1154,7 +1504,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1162,7 +1517,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/NumericPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1170,7 +1525,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1178,7 +1538,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/PropertyDescription.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1186,7 +1546,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1194,7 +1559,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/PropertyEditorItem.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1202,7 +1567,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1210,7 +1580,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/RegisteredPropertyTypeEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1218,7 +1588,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1226,7 +1601,7 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/TextPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 483,
       "family": "PropertyEditor",
@@ -1234,7 +1609,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 483,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1250,7 +1630,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/property-editor.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1266,7 +1651,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/radio-group.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/radio-group.md",
+      "demoRoute": "docs/components/radio-group.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1282,7 +1672,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/radio-group.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1298,7 +1693,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/range-slider.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1314,7 +1714,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/select-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1330,7 +1735,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/skeleton.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1346,7 +1756,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/slider.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1362,7 +1777,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/spacer.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1378,7 +1798,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/spinner.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1386,7 +1811,7 @@
       "source": "src/Bluent.UI/Components/SplitPanelComponent/Internal/PanelResizer.cs",
       "sourceKind": "csharp",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 480,
       "family": "SplitPanel",
@@ -1394,7 +1819,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 480,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/split-panel.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1402,7 +1832,7 @@
       "source": "src/Bluent.UI/Components/SplitPanelComponent/Internal/SplitPanel.cs",
       "sourceKind": "csharp",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 480,
       "family": "SplitPanel",
@@ -1410,7 +1840,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 480,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/split-panel.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1426,7 +1861,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/split-panel.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1442,7 +1882,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/stack.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1458,7 +1903,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/switch.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1474,7 +1924,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/tab-list.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/tab-list.md",
+      "demoRoute": "docs/components/tab-list.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1490,7 +1945,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/tab-list.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1506,7 +1966,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 465,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/tab-list.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1522,7 +1987,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/tag.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1538,7 +2008,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/text-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1554,7 +2029,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/tile-layout.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1570,7 +2050,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/time-field.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1586,7 +2071,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/toast.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1594,7 +2084,7 @@
       "source": "src/Bluent.UI/Components/ToastComponent/ToastContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 470,
       "family": "Toast",
@@ -1602,7 +2092,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 470,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/toast.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1610,7 +2105,7 @@
       "source": "src/Bluent.UI/Components/ToastComponent/ToastDefaultContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 470,
       "family": "Toast",
@@ -1618,7 +2113,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 470,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/toast.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1634,7 +2134,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/toolbar.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1650,7 +2155,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/toolbar.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1666,7 +2176,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": "source-only",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/toolbar.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1682,7 +2197,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/toolbar.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1690,15 +2210,20 @@
       "source": "src/Bluent.UI/Components/TooltipComponent/TooltipContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
-      "familyIssue": 486,
-      "family": "Chart",
+      "familyIssue": 456,
+      "family": "Tooltip",
       "componentIssue": null,
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 456,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/tooltip.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1706,15 +2231,20 @@
       "source": "src/Bluent.UI/Components/TooltipComponent/TooltipSurface.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
-      "familyIssue": 486,
-      "family": "Chart",
+      "familyIssue": 456,
+      "family": "Tooltip",
       "componentIssue": null,
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 456,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/tooltip.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI",
@@ -1730,7 +2260,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/tree.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1746,7 +2281,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/tree.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/tree.md",
+      "demoRoute": "docs/components/tree.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1762,7 +2302,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/wizard.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI",
@@ -1778,7 +2323,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/wizard.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/wizard.md",
+      "demoRoute": "docs/components/wizard.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1794,7 +2344,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1810,7 +2365,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1826,7 +2386,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1842,7 +2407,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/gauge.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1858,7 +2428,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/chart.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "docs/components/chart.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1874,7 +2449,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1890,7 +2470,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/chart.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "docs/components/chart.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1906,7 +2491,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1922,7 +2512,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1938,7 +2533,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/chart.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "docs/components/chart.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1954,7 +2554,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1962,7 +2567,7 @@
       "source": "src/Bluent.UI.Diagrams/Components/CursorLocation.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported infrastructure/service renderer; no direct canonical consumer markup example. Preserve public CLR API; owning issue reviews standalone API eligibility before migration.",
       "consumerInfrastructure": false,
       "familyIssue": 488,
       "family": "Diagram",
@@ -1970,7 +2575,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 488,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1986,7 +2596,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2002,7 +2617,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/DrawingCanvases.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Components/DrawingCanvases.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2010,7 +2630,7 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/ElementHost.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 488,
       "family": "Diagram",
@@ -2018,7 +2638,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 488,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2026,7 +2651,7 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/ElementSelection.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 488,
       "family": "Diagram",
@@ -2034,7 +2659,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 488,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2042,7 +2672,7 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/PointUpdater.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 488,
       "family": "Diagram",
@@ -2050,7 +2680,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 488,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2058,7 +2693,7 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/SelectionOptionsContainer.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
-      "exceptionReason": null,
+      "exceptionReason": "Exported type under Internal/Internals; no direct canonical demo/docs markup. Preserve public CLR API; owning family must review independent API eligibility.",
       "consumerInfrastructure": false,
       "familyIssue": 488,
       "family": "Diagram",
@@ -2066,7 +2701,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 488,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2082,7 +2722,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/diagram-shapes.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "docs/components/diagram-shapes.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -2098,7 +2743,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/diagram-shapes.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/v3/inventory/README.md",
+      "demoRoute": "docs/components/diagram-shapes.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2114,7 +2764,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "sole-family-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "sole-family-provisional",
+      "documentationRoute": "docs/components/app-busy-indicator.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2130,7 +2785,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/hierarchy-utilities.md",
       "evidenceKind": "documented-type",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/hierarchy-utilities.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2146,7 +2806,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/hierarchy-utilities.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2162,7 +2827,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "review-or-split-required"
+      "reviewOwnerIssue": 491,
+      "routing": "review-or-split-required",
+      "documentationRoute": "docs/components/hierarchy-utilities.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": ".agents/skills/bluent-v3-inventory/SKILL.md",
+      "designRoute": "Penpot #494 source ownership decision"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2178,7 +2848,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/mdi-tabs.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2194,7 +2869,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/mdi-tabs.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2210,7 +2890,12 @@
       "verification": "source-candidate",
       "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/mdi-tabs.md",
+      "demoRoute": "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2226,7 +2911,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/toolbar-buttons.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/toolbar-buttons.md",
+      "demoRoute": "docs/components/toolbar-buttons.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2242,7 +2932,12 @@
       "verification": "source-candidate",
       "consumerExample": null,
       "evidenceKind": null,
-      "routing": "family-primary-provisional"
+      "reviewOwnerIssue": null,
+      "routing": "family-primary-provisional",
+      "documentationRoute": "docs/components/toolbar-buttons.md",
+      "demoRoute": "pending-per-component-demo",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -2258,7 +2953,12 @@
       "verification": "source-candidate",
       "consumerExample": "docs/components/toolbar-buttons.md",
       "evidenceKind": "markup",
-      "routing": "dedicated-source-routed"
+      "reviewOwnerIssue": null,
+      "routing": "dedicated-source-routed",
+      "documentationRoute": "docs/components/toolbar-buttons.md",
+      "demoRoute": "docs/components/toolbar-buttons.md",
+      "skillRoute": "pending-per-component-skill",
+      "designRoute": "penpot-component-design-pending"
     }
   ]
 }

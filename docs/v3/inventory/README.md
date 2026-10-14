@@ -21,7 +21,12 @@ Five previously omitted consumer-facing CLR components now have standalone issue
 
 **Compiled CLR finding:** real Release binaries and an independent PE metadata inspection proved **all 140 classes are exported as public types**, including the 34 review-classified exceptions. Thus Internal folder names and library-only usage do NOT mean the CLR API is private or safe to remove without migration approval. The new compiled job preserves exported type presence/visibility, but does NOT certify component semantics, parameter signatures or runtime/visual/AT quality.
 
-The source gate checks that excluded candidates are not directly used in canonical demo/docs markup, while all public candidates have unique GitHub issue ownership, and dedicated issue evidence paths still resolve. Exceptions TabListTabItem (created by Tab) and HierarchyTreeItem (recursive browser renderer) remain public CLR types pending policy review. Tooltip family #456 remains an inherited cross-component service capability rather than invented standalone wrapper.
+The source gate checks that excluded candidates are not directly used in canonical demo/docs markup, while all public candidates have unique GitHub issue ownership, and dedicated issue evidence paths still resolve. ALL 34 review-classified exported CLR types now have an explicit exception rationale, a responsible family/architecture issue, and checked documentation/Skill-review paths. The reasons are classification hypotheses based on source paths and no direct canonical consumer markup, NOT permission to hide/delete the exported CLR APIs. Missing reason, owner or documentation fails CI.
+
+Every one of 106 public-candidate rows also tracks source-documentation path and demo/Skill/design routes. Values pending-per-component-demo, pending-per-component-skill and penpot-component-design-pending mean FUTURE acceptance work under the corresponding component implementation issue, NOT completed evidence.
+
+OWNERSHIP FIX: TooltipContainer and TooltipSurface are in Bluent.UI/Components/TooltipComponent and belong to the shared Tooltip family #456, NOT Charts #486. Distinct Bluent.UI.Charts.Components.Tooltip is still in Charts. BluentDynamicComponent, with no consumer markup example and public IComponent implementation, is assigned to architecture #420 for API/hosting compatibility review.
+ Exceptions TabListTabItem (created by Tab) and HierarchyTreeItem (recursive browser renderer) remain public CLR types pending policy review. Tooltip family #456 remains an inherited cross-component service capability rather than invented standalone wrapper.
 
 
 ## Compiled component API contract snapshot
