@@ -2,6 +2,27 @@
 
 **2026-10-13 · Reviewer decision required, not an accepted public API.** Epic #416, opt-in research [PR #500](https://github.com/vrassouli/Bluent/pull/500), native Button design [#501](https://github.com/vrassouli/Bluent/issues/501). The shipped version 2.x and its CSS are unaffected.
 
+## Current governing visual decision (2026-10-14)
+
+**Selected by the maintainer and no longer awaiting another choice:** use a **single, brand-colored keyboard `:focus-visible` outline for Button** as the preferred visual direction on neutral hosts; **TextField keeps its own animated 2px bottom underline, with no extra rectangular outline**. The black/white Focus2 single and double-stroke vector families on #501 Penpot page38 are deliberately retained as **unselected opt-in research comparisons**, not the shipping v3 default. Do **not** infer the default from the older D1/D2 research alternatives below.
+
+**Actual editable design provenance:** Bluent v3 Design System Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`. The separate selected-review board on #501 page38 is `94a03b1b-8cb6-8091-8008-c8b9bae47e45`; #418 page07 host-context research boards are `94a03b1b-8cb6-8091-8008-c96c96ea484f` and `94a03b1b-8cb6-8091-8008-c96d09329a0b`. These are separate from the Focus2 experimental native variants. Do not overwrite or silently promote either family.
+
+**What still needs a technical/maintainer decision before a reusable public focus token ships:** the semantic naming and the *explicit host-background context contract*. Research mapping across 10 brands × Light/Dark × five opaque surrounding hosts uses existing emitted roles:
+
+| Surrounding host | Light candidate | Dark candidate |
+| --- | --- | --- |
+| Neutral | `colorBrandBackground` | `colorBrandForeground2` |
+| Brand, BrandHover, Danger | `colorNeutralForegroundOnBrand` | `colorNeutralForegroundOnBrand` |
+| Inverted | `colorNeutralForegroundOnBrand` | `colorBrandForeground2` |
+| Forced colors (CSS emulation only) | system `Highlight` | system `Highlight` |
+
+This **per-host mapping is still a demo-only, opt-in candidate**, not automatic context detection, a public CSS attribute or a universally accessible fallback. The user-selected visual direction must not be replaced with one unconditional white/black ring. The five-host candidate passed **100/100 limited numerical comparisons**; the unconditional ring retained **70 recorded below-3:1 findings**. Translucency, images, pressed/selected nested hosts, screen reader/native Windows Contrast Themes and real browser zoom still need separate acceptance; see [contextual live review](CONTEXTUAL-BRANDED-FOCUS-LIVE-REVIEW.md).
+
+**Current regression evidence:** the independent real-Blazor WASM media probe covers 10 brands × Light/Dark × four CSS media combinations; Chrome **219/219** and Edge **219/219** locally on Dev01. It tests the chosen underline-only Field focus in **80 distinct contexts**, including exact computed `Highlight` color and no outer frame, and tests Button keyboard focus/system colors. [Full evidence](FOUNDATION-AUDIT.md). This is not final OS/AT/WCAG certification. Public CSS/TokenSet semantics, full #428 implementation, migration and release remain unapproved; keep #418 In progress / PR #500 Draft / stable Dev unchanged.
+
+**Decision-history interpretation:** D1/D2 below describe *unselected Focus2 experiments*, and are retained only for research traceability. D3/D4 are the outstanding native system-color/compatibility acceptance gates—not a request to re-decide the user's already selected Button/TextField appearance.
+
 ## 2026-10-13 explicit maintainer review — brand Button ring / underline-only TextField
 
 The maintainer tested the interactive three-way preview and prefers the **existing brand-colored Button focus outline**, not either black/white Focus2 proposal. Brand focus remains the default; Focus2 simple and double-ring stay opt-in design experiments, **not a public default or approved production API**. Double-ring is relabeled Focus2 دولایه (آزمایشی), not پیشنهادی. The visual preference **does not resolve** the previously measured 1.94–2.15:1 ring/surface contrast in tested Dark brand modes; a brand-faithful accessible alternative must still be designed and approved before release.
