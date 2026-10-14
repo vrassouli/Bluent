@@ -8,3 +8,4 @@ Razor and concrete C# renderables count. Abstract bases do not. Dataset<TKey,TVa
 
 See docs/v3/inventory/README.md.
 
+Dedicated child issue routes, source/demo evidence only: AccordionPanel #507, DataGridColumn #508, Chart Dataset #509, DrawingCanvas #510. Public runtime and final design acceptance still pending.

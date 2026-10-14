@@ -36,9 +36,9 @@
       "classification": "public-candidate",
       "familyIssue": 469,
       "family": "Accordion",
-      "componentIssue": null,
+      "componentIssue": 507,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -288,9 +288,9 @@
       "classification": "public-candidate",
       "familyIssue": 474,
       "family": "DataGrid",
-      "componentIssue": null,
+      "componentIssue": 508,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -1368,9 +1368,9 @@
       "classification": "public-candidate",
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 509,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1500,9 +1500,9 @@
       "classification": "public-candidate",
       "familyIssue": 488,
       "family": "Diagram",
-      "componentIssue": null,
+      "componentIssue": 510,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Diagrams",

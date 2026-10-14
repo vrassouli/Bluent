@@ -57,6 +57,13 @@ INFRASTRUCTURE_NAMES = {
     "TooltipContainer", "TooltipSurface", "ToastContainer", "ToastDefaultContent",
     "BluentDynamicComponent", "CursorLocation",
 }
+# Dedicated component issues with consumer syntax verified against docs/demo source.
+EXPLICIT_COMPONENT_ISSUES = {
+    ("Bluent.UI", "AccordionPanel"): 507,
+    ("Bluent.UI", "DataGridColumn"): 508,
+    ("Bluent.UI.Charts", "Dataset"): 509,
+    ("Bluent.UI.Diagrams", "DrawingCanvas"): 510,
+}
 CLASS_PATTERN = re.compile(
     r"\bpublic\s+(?P<modifiers>(?:sealed\s+|partial\s+|abstract\s+)*)"
     r"class\s+(?P<name>[A-Za-z_]\w*)"
@@ -139,8 +146,10 @@ def census():
     for item in items:
         single = (item["classification"] == "public-candidate" and
                   counts[item["family"]] == 1 and item["familyIssue"] is not None)
-        item["componentIssue"] = item["familyIssue"] if single else None
-        item["routing"] = "sole-family-provisional" if single else "review-or-split-required"
+        explicit = EXPLICIT_COMPONENT_ISSUES.get((item["package"], item["markupName"]))
+        item["componentIssue"] = explicit if explicit is not None else item["familyIssue"] if single else None
+        item["routing"] = ("dedicated-source-routed" if explicit is not None else
+                           "sole-family-provisional" if single else "review-or-split-required")
     items.sort(key=lambda x: (x["package"], x["source"], x["markupName"]))
     return items
 
@@ -202,7 +211,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-

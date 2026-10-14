@@ -48,6 +48,13 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(len(ids), len(set(ids)))
         self.assertTrue(all(r["familyIssue"] in range(428, 494) for r in self.rows if r["classification"] == "public-candidate"))
 
+    def test_four_dedicated_component_issue_routes(self):
+        for (package, name), issue in audit.EXPLICIT_COMPONENT_ISSUES.items():
+            matches = [r for r in self.rows if r["package"] == package and r["markupName"] == name]
+            self.assertEqual(len(matches), 1, (package, name))
+            self.assertEqual(matches[0]["componentIssue"], issue)
+            self.assertEqual(matches[0]["routing"], "dedicated-source-routed")
+        self.assertEqual(len(set(audit.EXPLICIT_COMPONENT_ISSUES.values())), 4)
     def test_snapshot_drift(self):
         self.assertEqual(json.loads(audit.OUT.read_text(encoding="utf-8")), self.payload)
         self.assertEqual(self.payload["penpot"]["pageId"], "44b12572-0104-807e-8008-ca032a4746f0")
@@ -58,6 +65,3 @@ class InventoryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-
-
