@@ -603,6 +603,8 @@ try {
  await cdp.js("document.querySelector('#v3-focus-start').focus()");
  const keyboardFocusStart=await matrixTab();
  assert("20-way scope probe starts on real keyboard-focused Button",keyboardFocusStart.id==="v3-focus-default"&&keyboardFocusStart.visible,JSON.stringify(keyboardFocusStart));
+ const appearanceFocusReport=[];
+ const coloredHostReport=[];
  const focusThemeSamples=[];
  const candidateFocusSamples=[];
  for(const brand of Object.keys(matrix))for(const mode of ["light","dark"]){
@@ -623,6 +625,40 @@ try {
      brandRing.visible&&brandRing.width>=2&&
      brandRing.color===hexToRgb(desiredRole)&&computedNormal>=3&&computedHover>=3,
      JSON.stringify({brand,mode,...brandRing,expected:desiredRole,computedNormal,computedHover}));
+   // Real native six-appearance matrix: read each actual Bluent Button
+   // focused with keyboard modality under the new experimental brand ring.
+   // The focus outline is OFFSET 2px outside the Button border, so contrast
+   // vs its own filled Primary/Danger face is diagnostic, not a false WCAG
+   // failure. The adjacent host surface is the relevant tested backdrop.
+   const appearanceBrandFocus=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),hs=getComputedStyle(h),names=['default','primary','danger','outline','subtle','transparent'];const sample=names.map(name=>{const b=document.querySelector('#v3-focus-'+name);b.focus();const r=b.getBoundingClientRect();const before={x:r.x,y:r.y,w:r.width,h:r.height};h.setAttribute('data-bui-v3-focus-brand-candidate','');const s=getComputedStyle(b),a=b.getBoundingClientRect();const out={name,focusVisible:b.matches(':focus-visible'),width:parseFloat(s.outlineWidth),offset:parseFloat(s.outlineOffset),color:s.outlineColor,faceColor:s.backgroundColor,outlineStyle:s.outlineStyle,stable:Math.abs(before.x-a.x)<.1&&Math.abs(before.y-a.y)<.1&&Math.abs(before.w-a.width)<.1&&Math.abs(before.h-a.height)<.1};h.removeAttribute('data-bui-v3-focus-brand-candidate');return out;});document.querySelector('#v3-focus-default').focus();return {host:hs.backgroundColor,hover:hs.getPropertyValue('--colorNeutralBackground1Hover').trim(),buttons:sample};})()");
+   const appearanceData=appearanceBrandFocus.buttons.map(b=>({...b,
+     backdropRatio:contrast(b.color,appearanceBrandFocus.host),
+     hoverRatio:contrast(b.color,hexToRgb(appearanceBrandFocus.hover)),
+     faceOpaque:b.faceColor.startsWith("rgb("),
+     faceRatio:b.faceColor.startsWith("rgb(")?contrast(b.color,b.faceColor):null}));
+   assert("brand-colored focus all six native appearances on normal and hover neutral hosts "+brand+"/"+mode,
+     appearanceData.length===6&&appearanceData.every(x=>x.focusVisible&&x.width>=2&&x.offset===2&&
+       x.outlineStyle==="solid"&&x.stable&&x.color===hexToRgb(desiredRole)&&x.backdropRatio>=3&&x.hoverRatio>=3),
+     JSON.stringify({brand,mode,buttons:appearanceData}));
+   appearanceFocusReport.push({brand,mode,buttons:appearanceData});
+   // #418 design-first colored-host test, from real page-07 Penpot source
+   // boards. Temporarily recolor the ACTUAL surrounding Blazor host while
+   // the keyboard-focused Button stays mounted. Contrast vs container, not
+   // the Button face; no public Button API or shipped style is changed.
+   const coloredHosts=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface'),b=document.querySelector('#v3-focus-default');const previous=h.getAttribute('style');const roles=[['brand','--colorBrandBackground'],['brandHover','--colorBrandBackgroundHover'],['danger','--colorPaletteRedBackground3'],['inverted','--colorNeutralBackgroundInverted']];const results=[];h.setAttribute('data-bui-v3-focus-brand-candidate','');try {for(const [name,role] of roles){const host=getComputedStyle(h).getPropertyValue(role).trim();h.style.backgroundColor=host;const current={focus:b.matches(':focus-visible'),ring:getComputedStyle(b).outlineColor,host:getComputedStyle(h).backgroundColor,width:parseFloat(getComputedStyle(b).outlineWidth)};h.style.setProperty('--v3-lab-focus','var(--colorNeutralForegroundOnBrand)');const inverse={ring:getComputedStyle(b).outlineColor,host:getComputedStyle(h).backgroundColor};h.style.removeProperty('--v3-lab-focus');results.push({name,role,current,inverse});}}finally{h.removeAttribute('data-bui-v3-focus-brand-candidate');if(previous===null)h.removeAttribute('style');else h.setAttribute('style',previous);}return results;})()");
+   for(const observed of coloredHosts){
+     const selectedRatio=contrast(observed.current.ring,observed.current.host);
+     const inverseRatio=contrast(observed.inverse.ring,observed.inverse.host);
+     const expectedSelectedFail=observed.name!=="inverted"||mode==="light";
+     const expectedInverseFail=observed.name==="inverted"&&mode==="dark";
+     assert("real focused Button in colored host "+brand+"/"+mode+"/"+observed.name,
+       observed.current.focus&&observed.current.width>=2&&
+       (expectedSelectedFail?selectedRatio<3:selectedRatio>=3)&&
+       (expectedInverseFail?inverseRatio<3:inverseRatio>=3),
+       JSON.stringify({brand,mode,...observed,selectedRatio,inverseRatio}));
+     coloredHostReport.push({brand,mode,name:observed.name,selectedRatio,inverseRatio});
+   }
+
    // Explicitly opt in to the *existing* Fluent focus2 source token for an
    // alternate design candidate. Do not change the default focus token.
    const candidate=await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');h.setAttribute('data-bui-v3-focus-contrast-candidate','');const b=document.querySelector('#v3-focus-default'),s=getComputedStyle(b);const got={focusVisible:b.matches(':focus-visible'),outlineColor:s.outlineColor,outlineWidth:parseFloat(s.outlineWidth),strokeSource:getComputedStyle(h).getPropertyValue('--colorStrokeFocus2').trim(),semanticAlias:getComputedStyle(h).getPropertyValue('--bui-v3-focus-ring-strong-candidate').trim(),componentAlias:getComputedStyle(h).getPropertyValue('--bui-v3-button-focus-outer-candidate').trim(),surfaceColor:getComputedStyle(h).backgroundColor};h.removeAttribute('data-bui-v3-focus-contrast-candidate');return got;})()");
@@ -644,6 +680,11 @@ try {
      JSON.stringify({doubleRing,ratio:doubleContrast}));
    assert("existing Fluent focus2 contrast candidate >= 3:1 "+brand+"/"+mode,candidate.focusVisible&&candidate.outlineWidth>=2&&candidateRatio>=3&&candidate.semanticAlias===candidate.strokeSource&&candidate.componentAlias===candidate.strokeSource,JSON.stringify({candidate,ratio:candidateRatio}));
  }
+ console.log("Browser actual filled HOST source contrast:",JSON.stringify({total:coloredHostReport.length,
+    selectedFailures:coloredHostReport.filter(x=>x.selectedRatio<3).length,
+    inverseFailures:coloredHostReport.filter(x=>x.inverseRatio<3).length,
+    examples:coloredHostReport.filter(x=>x.brand==="default").map(x=>({mode:x.mode,host:x.name,selected:+x.selectedRatio.toFixed(2),inverse:+x.inverseRatio.toFixed(2)}))}));
+ console.log("Branded real Button appearance focus contrast:",JSON.stringify({samples:appearanceFocusReport.length,faces:appearanceFocusReport.flatMap(x=>x.buttons).filter(b=>b.faceOpaque).length,filledFaceBelow3:appearanceFocusReport.flatMap(x=>x.buttons).filter(b=>b.faceRatio!==null&&b.faceRatio<3).map(b=>({name:b.name,ratio:+b.faceRatio.toFixed(2)})).slice(0,20),hostFailures:appearanceFocusReport.flatMap(x=>x.buttons).filter(b=>b.backdropRatio<3||b.hoverRatio<3)}));
  await cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');"+(focusScopeBefore.brand===null?"h.removeAttribute('data-bui-brand');":"h.setAttribute('data-bui-brand','"+focusScopeBefore.brand+"');")+"h.setAttribute('data-bui-theme','"+focusScopeBefore.mode+"');})()");
  // #418: browser CSS zoom is a layout stress approximation, NOT actual
  // desktop page zoom or an assistive-technology certification.

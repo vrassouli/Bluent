@@ -17,6 +17,10 @@ on:
       - "scripts/quality/test_v3_brand_focus_candidate.py"
       - "scripts/quality/penpot_v3_field_brand_focus_review_audit.js"
       - "scripts/quality/penpot_v3_brand_hover_host_audit.js"
+      - "scripts/quality/audit_v3_focus_host_surface_matrix.py"
+      - "scripts/quality/test_v3_focus_host_surface_matrix.py"
+      - "scripts/quality/penpot_v3_focus_context_hosts_audit.js"
+      - "docs/v3/tokens/FOCUS-HOST-CONTEXT-REVIEW.md"
       - "docs/v3/tokens/BRANDED-FOCUS-PENPOT-PAGE07-REVIEW.md"
       - "docs/v3/tokens/BRANDED-FOCUS-HOVER-CANDIDATE.md"
       - "scripts/quality/check_v3_typography_source_contract.py"
@@ -54,3 +58,6 @@ jobs:
           python scripts/quality/audit_v3_brand_focus_candidate.py
           node --check scripts/quality/penpot_v3_field_brand_focus_review_audit.js
           node --check scripts/quality/penpot_v3_brand_hover_host_audit.js
+          python -m unittest discover -s scripts/quality -p 'test_v3_focus_host_surface_matrix.py' -v
+          python scripts/quality/audit_v3_focus_host_surface_matrix.py
+          node --check scripts/quality/penpot_v3_focus_context_hosts_audit.js
