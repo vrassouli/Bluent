@@ -3,7 +3,7 @@
 
 Does not pack, sign, upload, publish, edit binaries, or touch Dev/v2.
 The v3 opt-in Dialog runtime *must* carry its imported JS dependency;
-the v3 Styling Lab CSS comes from Demo.Pages and must NOT ship in UI.
+the v3 Styling Lab token CSS comes from Demo.Pages and must NOT ship in UI.\nThe single opt-in, source-reviewed Danger toggle stylesheet MAY ship with the v3\nbranch package ONLY; stable v2 assets are unchanged.
 """
 from __future__ import annotations
 import argparse
@@ -17,6 +17,7 @@ BRANDS = (
     "powerbi", "powerpoint", "stream", "teams", "word",
 )
 DIALOG_JS = "staticwebassets/v3/issue-418-dialog-focus.preview.js"
+DANGER_CSS = "staticwebassets/v3/danger-toggle.opt-in.preview.css"
 BROWSER_PREVIEW_NAMES = (
     "issue-418.opt-in.preview.css",
     "issue-418-opt-in.preview.css",
@@ -48,10 +49,12 @@ def main() -> int:
         errors.append(f"Missing legacy CSS bundle/theme assets: {missing}")
     if DIALOG_JS not in members:
         errors.append("Opt-in v3 Dialog JS is missing but actual Dialog code imports it")
+    if DANGER_CSS not in members:
+        errors.append("Scoped v3 Danger toggle stylesheet missing from Bluent.UI package")
     unexpected = sorted(
         n for n in members
         if any(marker in n.lower() for marker in BROWSER_PREVIEW_NAMES)
-        or (n.startswith("staticwebassets/v3/") and n != DIALOG_JS)
+        or (n.startswith("staticwebassets/v3/") and n not in (DIALOG_JS, DANGER_CSS))
     )
     if unexpected:
         errors.append(f"Demo-only/unapproved assets crossed library package boundary: {unexpected}")
@@ -72,6 +75,7 @@ def main() -> int:
         "legacyThemeCount": len(BRANDS),
         "legacyBundlesPresent": not missing,
         "optInDialogDependencyPresent": DIALOG_JS in members,
+        "optInDangerCssPresent": DANGER_CSS in members,
         "demoOnlyCssOrUnexpectedV3Assets": unexpected,
         "zipMemberCount": len(members),
         "errors": errors,

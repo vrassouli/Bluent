@@ -50,14 +50,35 @@ class DangerToggledContrastTests(unittest.TestCase):
                                       token(css, "colorNeutralForegroundOnBrand"))
                     self.assertLess(before, 4.5, f"{source.name} original white-on-pale bug unexpectedly changed")
 
-    def test_change_is_only_opt_in_styling_lab_not_public_component_css(self):
-        css = (ROOT / "src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8")
-        self.assertIn(".v3-lab-focus-matrix ::deep .bui-button.danger.toggled", css)
-        self.assertIn(".v3-lab-focus-matrix ::deep .bui-button.danger.toggled:hover", css)
-        self.assertIn(".v3-lab-focus-matrix ::deep .bui-button.danger.toggled:hover:active", css)
-        self.assertIn("color: var(--colorPaletteRedForeground2);", css)
-        self.assertIn("background-color: var(--colorPaletteRedBackground2);", css)
-        self.assertIn("color: ButtonText;", css)
+    def test_v3_package_opt_in_contract_not_global_css(self):
+        src = (ROOT / "src/Bluent.UI/wwwroot/v3/danger-toggle.opt-in.preview.css").read_text(encoding="utf-8")
+        razor = (ROOT / "src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor").read_text(encoding="utf-8")
+        lab_css = (ROOT / "src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8")
+        for state in (
+            "[data-bui-v3-danger-toggle] .bui-button.danger.toggled {",
+            "[data-bui-v3-danger-toggle] .bui-button.danger.toggled:hover {",
+            "[data-bui-v3-danger-toggle] .bui-button.danger.toggled:hover:active {",
+        ):
+            self.assertIn(state, src)
+        for role in (
+            "--colorPaletteRedBackground1",
+            "--colorPaletteRedBackground2",
+            "--colorPaletteRedBackground3",
+            "--colorPaletteRedForeground2",
+            "--colorNeutralForegroundOnBrand",
+            "background-color: ButtonFace;",
+            "color: ButtonText;",
+        ):
+            self.assertIn(role, src)
+        self.assertIn('href="_content/Bluent.UI/v3/danger-toggle.opt-in.preview.css"', razor)
+        self.assertIn('class="v3-lab-focus-matrix" data-bui-v3-danger-toggle', razor)
+        self.assertNotIn(".v3-lab-focus-matrix ::deep .bui-button.danger.toggled", lab_css)
+        self.assertNotIn("[data-bui-v3-danger-toggle]", (ROOT / "src/Bluent.UI/Styles/Components/_button.scss").read_text(encoding="utf-8"))
+
+    def test_unmodified_legacy_danger_css_still_contains_known_old_state(self):
+        legacy = (ROOT / "src/Bluent.UI/Styles/Components/_button.scss").read_text(encoding="utf-8")
+        self.assertIn("background-color: var(--colorPaletteRedBackground1);", legacy)
+        self.assertIn("color: var(--colorNeutralForegroundOnBrand);", legacy)
 
 
 if __name__ == "__main__":

@@ -711,6 +711,18 @@ try {
    // semantic roles, with >=4.5:1 for ordinary text, across all 10 brands
    // and BOTH modes. This test is non-hovered/selected, not focus-dependent.
    const dangerSelected=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),hs=getComputedStyle(document.querySelector('.v3-lab-surface'));return {toggled:b.classList.contains('toggled'),hover:b.matches(':hover'),fg:s.color,bg:s.backgroundColor,redText:hs.getPropertyValue('--colorPaletteRedForeground2').trim(),redBg:hs.getPropertyValue('--colorPaletteRedBackground1').trim()};})()");
+   // The source of this v3 Danger fix must be a published Bluent.UI
+   // static web asset, NOT a duplicate local demo component stylesheet.
+   // Removing the explicit opt-in must restore the legacy appearance, and
+   // replacing it must restore readable text without component re-mounting.
+   const packagedDanger=await cdp.js("(() => {const root=document.querySelector('.v3-lab-focus-matrix'),button=document.querySelector('#v3-selected-danger'),head=[...document.querySelectorAll('link[rel=stylesheet]')].find(l=>l.href.includes('/_content/Bluent.UI/v3/danger-toggle.opt-in.preview.css'));const before=getComputedStyle(button);const active={bg:before.backgroundColor,fg:before.color};const wasEnabled=root.hasAttribute('data-bui-v3-danger-toggle');try{root.removeAttribute('data-bui-v3-danger-toggle');const legacy=getComputedStyle(button);return {asset:!!head&&!!head.sheet,enabled:wasEnabled,active,legacy:{bg:legacy.backgroundColor,fg:legacy.color}};}finally{if(wasEnabled)root.setAttribute('data-bui-v3-danger-toggle','');}})()");
+   assert("packaged Bluent.UI CSS opted in with no leakage "+brand+"/"+mode,
+     packagedDanger.asset&&packagedDanger.enabled&&
+     packagedDanger.active.bg===hexToRgb(dangerSelected.redBg)&&
+     packagedDanger.active.fg===hexToRgb(dangerSelected.redText)&&
+     packagedDanger.legacy.bg===packagedDanger.active.bg&&
+     (mode!=="light"||contrast(packagedDanger.legacy.fg,packagedDanger.legacy.bg)<4.5),
+     JSON.stringify({brand,mode,...packagedDanger}));
    assert("real selected Danger label readable "+brand+"/"+mode,
      dangerSelected.toggled&&!dangerSelected.hover&&
      dangerSelected.fg===hexToRgb(dangerSelected.redText)&&dangerSelected.bg===hexToRgb(dangerSelected.redBg)&&

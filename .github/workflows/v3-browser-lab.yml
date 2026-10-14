@@ -10,6 +10,7 @@ on:
       - "scripts/quality/probe_v3_blazor_runtime.mjs"
       - "docs/v3/tokens/issue-418-*"
       - "src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css"
+      - "src/Bluent.UI/wwwroot/v3/danger-toggle.opt-in.preview.css"
       - "src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3*"
       - "src/Bluent.UI.Demo.SSR/**"
       - "src/Bluent.UI/Components/ButtonComponent/**"

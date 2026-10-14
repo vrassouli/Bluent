@@ -16,6 +16,7 @@ BASE = {
       ("default", "excel", "office", "outlook", "powerapps",
        "powerbi", "powerpoint", "stream", "teams", "word")),
     "staticwebassets/v3/issue-418-dialog-focus.preview.js",
+    "staticwebassets/v3/danger-toggle.opt-in.preview.css",
 }
 
 
@@ -39,6 +40,7 @@ class NugetBoundaryTests(unittest.TestCase):
         self.assertEqual(rc, 0)
         self.assertTrue(data["pass"])
         self.assertTrue(data["optInDialogDependencyPresent"])
+        self.assertTrue(data["optInDangerCssPresent"])
 
     def test_missing_legacy_theme_is_rejected(self):
         rc, data = self.run_probe(BASE - {"staticwebassets/bluent.ui.theme.word.min.css"})
@@ -49,6 +51,12 @@ class NugetBoundaryTests(unittest.TestCase):
         rc, data = self.run_probe(BASE - {"staticwebassets/v3/issue-418-dialog-focus.preview.js"})
         self.assertNotEqual(rc, 0)
         self.assertFalse(data["optInDialogDependencyPresent"])
+
+    def test_missing_reviewed_v3_danger_css_is_rejected(self):
+        rc, data = self.run_probe(BASE - {"staticwebassets/v3/danger-toggle.opt-in.preview.css"})
+        self.assertNotEqual(rc, 0)
+        self.assertFalse(data["optInDangerCssPresent"])
+        self.assertIn("Danger toggle stylesheet missing", " ".join(data["errors"]))
 
     def test_design_only_css_preview_is_rejected(self):
         rc, data = self.run_probe(BASE | {"staticwebassets/v3/issue-418.opt-in.preview.css"})
