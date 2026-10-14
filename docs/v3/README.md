@@ -18,6 +18,7 @@
 - **Architecture:** [D1–D5 styling boundaries](architecture/ADR-0001-styling-boundaries.md), [CSS audit](architecture/css-architecture-audit.md), [current theme/API crosswalk](architecture/theme-contract-crosswalk.md) and [runtime probe record](architecture/css-runtime-probes.md).
 - **Design:** [Owned Penpot file and IDs](design/BLUENT-V3-PENPOT.md), [reference/import fidelity](design/PENPOT-IMPORT-FIDELITY.md), [component anatomy matrices](design/COMPONENT-REFERENCE-MATRICES.md) and [design-to-Razor handoff](design/DESIGN-TO-RAZOR-HANDOFF.md).
 - **Components:** [Source-verified 2.x family inventory](../components/inventory.md), [family reference authoring contract](COMPONENT-REFERENCE-TEMPLATE.md). Publish a v3-specific component page only when its own issue can support the claims.
+- **Skills:** [Version-aware development router and authoring rules](skills/README.md), with no assumption that every existing 2.x family is migrated.
 - **Quality:** [Issue status and acceptance rules](ISSUE-WORKFLOW.md), [Penpot/Figma work rules](PENPOT-WORKFLOW.md) and the actual CI evidence linked from each component/foundation PR.
 - **Migration:** [2.x consumer impact ledger](design/MIGRATION-IMPACT-LEDGER.md) and [branch/release isolation rules](BRANCHING.md). API changes must remain proposals until accepted.
 
