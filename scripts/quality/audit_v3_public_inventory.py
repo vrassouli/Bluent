@@ -55,15 +55,78 @@ INFRASTRUCTURE_NAMES = {
     "MessageBoxDefaultContent", "DockContainer", "DockBar",
     "DrawerContainer", "DrawerContent", "PopoverContainer", "PopoverSurface",
     "TooltipContainer", "TooltipSurface", "ToastContainer", "ToastDefaultContent",
-    "BluentDynamicComponent", "CursorLocation",
+    "BluentDynamicComponent", "CursorLocation", "PopoverContainerBase",
 }
 # Dedicated component issues with consumer syntax verified against docs/demo source.
-EXPLICIT_COMPONENT_ISSUES = {
-    ("Bluent.UI", "AccordionPanel"): 507,
-    ("Bluent.UI", "DataGridColumn"): 508,
-    ("Bluent.UI.Charts", "Dataset"): 509,
-    ("Bluent.UI.Diagrams", "DrawingCanvas"): 510,
+EXPLICIT_COMPONENT_ROUTES = {
+    ('Bluent.UI', 'AccordionPanel'): (507, 'src/Bluent.UI.Demo.Pages/Pages/Components/Accordions.razor', 'markup'),
+    ('Bluent.UI', 'DataGridColumn'): (508, 'docs/components/data-grid.md', 'markup'),
+    ('Bluent.UI.Charts', 'Dataset'): (509, 'src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor', 'markup'),
+    ('Bluent.UI.Diagrams', 'DrawingCanvas'): (510, 'src/Bluent.UI.Demo.Pages/Pages/Components/DrawingCanvases.razor', 'markup'),
+    ('Bluent.UI', 'BreadcrumbItem'): (511, 'src/Bluent.UI.Demo.Pages/Pages/Components/Breadcrumbs.razor', 'markup'),
+    ('Bluent.UI', 'CardHeader'): (512, 'src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor', 'markup'),
+    ('Bluent.UI', 'CardContent'): (513, 'src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor', 'markup'),
+    ('Bluent.UI', 'CardFooter'): (514, 'src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor', 'markup'),
+    ('Bluent.UI', 'CardPreview'): (515, 'src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor', 'markup'),
+    ('Bluent.UI', 'CardFloatingAction'): (516, 'src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor', 'markup'),
+    ('Bluent.UI', 'MenuItem'): (517, 'src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor', 'markup'),
+    ('Bluent.UI', 'NavItem'): (518, 'docs/components/nav-list.md', 'markup'),
+    ('Bluent.UI', 'Radio'): (519, 'docs/components/radio-group.md', 'markup'),
+    ('Bluent.UI', 'TreeItem'): (520, 'docs/components/tree.md', 'markup'),
+    ('Bluent.UI', 'WizardStep'): (521, 'docs/components/wizard.md', 'markup'),
+    ('Bluent.UI', 'ToolbarButton'): (522, 'src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor', 'markup'),
+    ('Bluent.UI', 'Tab'): (523, 'docs/components/tab-list.md', 'markup'),
+    ('Bluent.UI', 'ListItem'): (524, 'docs/components/list.md', 'markup'),
+    ('Bluent.UI', 'ActionCardGroup'): (525, 'src/Bluent.UI.Demo.Pages/Pages/Components/ActionCards.razor', 'markup'),
+    ('Bluent.UI', 'MenuDivider'): (526, 'src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor', 'markup'),
+    ('Bluent.UI', 'MenuItemGroup'): (527, 'src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor', 'markup'),
+    ('Bluent.UI', 'ToolbarButtonItem'): (528, None, 'source-only'),
+    ('Bluent.UI', 'ToolbarDivider'): (529, 'src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor', 'markup'),
+    ('Bluent.UI.Charts', 'Colors'): (530, 'src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor', 'markup'),
+    ('Bluent.UI.Charts', 'Legend'): (531, 'docs/components/chart.md', 'markup'),
+    ('Bluent.UI.Charts', 'Subtitle'): (532, 'src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor', 'markup'),
+    ('Bluent.UI.Charts', 'Title'): (533, 'docs/components/chart.md', 'markup'),
+    ('Bluent.UI.Charts', 'Tooltip'): (534, 'src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor', 'markup'),
+    ('Bluent.UI.Charts', 'XScale'): (535, 'src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor', 'markup'),
+    ('Bluent.UI.Charts', 'YScale'): (536, 'docs/components/chart.md', 'markup'),
+    ('Bluent.UI.Diagrams', 'Line'): (537, 'docs/components/diagram-shapes.md', 'markup'),
+    ('Bluent.UI.Diagrams', 'Rect'): (538, 'docs/components/diagram-shapes.md', 'markup'),
+    ('Bluent.UI.Utilities', 'HierarchyItemBrowser'): (539, 'docs/components/hierarchy-utilities.md', 'documented-type'),
+    ('Bluent.UI.Utilities', 'MdiTabList'): (540, 'src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor', 'markup'),
+    ('Bluent.UI.Utilities', 'MdiTabToolbarItem'): (541, 'src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor', 'markup'),
+    ('Bluent.UI.Utilities', 'RedoToolbarButton'): (542, 'docs/components/toolbar-buttons.md', 'markup'),
+    ('Bluent.UI.Utilities', 'UndoToolbarButton'): (543, 'docs/components/toolbar-buttons.md', 'markup'),
 }
+NON_CONSUMER_COMPONENTS = {
+    "TabListTabItem": "Renderer instantiated from public Tab via RenderTreeBuilder; no consumer tag examples",
+    "HierarchyTreeItem": "Recursive renderer instantiated by HierarchyTreeBrowser; consumers use browser",
+}
+
+FAMILY_PRIMARY_COMPONENTS = {
+    'Accordion': 'Accordion',
+    'ActionCard': 'ActionCard',
+    'Breadcrumb': 'Breadcrumb',
+    'Card': 'Card',
+    'DataGrid': 'DataGrid',
+    'List': 'ItemsList',
+    'MenuList': 'MenuList',
+    'NavList': 'NavList',
+    'RadioGroup': 'RadioGroup',
+    'TabList': 'TabList',
+    'Toolbar': 'Toolbar',
+    'Tree': 'Tree',
+    'Wizard': 'Wizard',
+    'Chart': 'Chart',
+    'Shapes': 'Circle',
+    'Diagram': 'Diagram',
+    'Hierarchy': 'HierarchyTreeBrowser',
+    'MdiTab': 'MdiTab',
+    'ToolbarButtons': 'SaveToolbarButton',
+}
+
+# Tooltip is a service-backed inherited capability, not standalone markup.
+NON_COMPONENT_FAMILIES = {"Tooltip": 456}
+
 CLASS_PATTERN = re.compile(
     r"\bpublic\s+(?P<modifiers>(?:sealed\s+|partial\s+|abstract\s+)*)"
     r"class\s+(?P<name>[A-Za-z_]\w*)"
@@ -127,6 +190,7 @@ def census():
         family = family_for(package, path.relative_to(ROOT), name)
         internal_path = any(part.lower() in {"internal", "internals"} for part in path.parts)
         kind = ("internal-path-review" if internal_path else
+                "internal-composite-review" if name in NON_CONSUMER_COMPONENTS else
                 "infrastructure-review" if name in INFRASTRUCTURE_NAMES else
                 "public-candidate")
         items.append({
@@ -135,6 +199,7 @@ def census():
             "source": relative,
             "sourceKind": source_kind,
             "classification": kind,
+            "exceptionReason": NON_CONSUMER_COMPONENTS.get(name),
             "familyIssue": ISSUES.get(family),
             "family": family,
             "componentIssue": None,  # #494 must split and verify, no fake ownership
@@ -146,10 +211,42 @@ def census():
     for item in items:
         single = (item["classification"] == "public-candidate" and
                   counts[item["family"]] == 1 and item["familyIssue"] is not None)
-        explicit = EXPLICIT_COMPONENT_ISSUES.get((item["package"], item["markupName"]))
-        item["componentIssue"] = explicit if explicit is not None else item["familyIssue"] if single else None
-        item["routing"] = ("dedicated-source-routed" if explicit is not None else
-                           "sole-family-provisional" if single else "review-or-split-required")
+        route = EXPLICIT_COMPONENT_ROUTES.get((item["package"], item["markupName"]))
+        if route is not None:
+            issue, usage, evidence_kind = route
+            if evidence_kind not in {"markup", "documented-type", "source-only"}:
+                raise ValueError(f"Unknown consumer evidence kind for #{issue}")
+            if evidence_kind == "source-only":
+                if usage is not None:
+                    raise ValueError(f"#{issue} source-only route must have no evidence path")
+            else:
+                if usage is None or not (ROOT / usage).is_file():
+                    raise ValueError(f"#{issue} missing consumer evidence file: {usage}")
+                evidence = (ROOT / usage).read_text(encoding="utf-8-sig")
+                pattern = (r"<" + re.escape(item["markupName"]) + r"(?=[\s/>])"
+                           if evidence_kind == "markup" else
+                           r"\b" + re.escape(item["markupName"]) + r"\b")
+                if not re.search(pattern, evidence):
+                    raise ValueError(
+                        f"dedicated issue #{issue} evidence for "
+                        f"{item['markupName']} missing in {usage}"
+                    )
+        else:
+            issue, usage, evidence_kind = None, None, None
+        item["consumerExample"] = usage
+        item["evidenceKind"] = evidence_kind
+        primary = (item["classification"] == "public-candidate" and
+                   FAMILY_PRIMARY_COMPONENTS.get(item["family"]) == item["markupName"])
+        item["componentIssue"] = (
+            issue if issue is not None else
+            item["familyIssue"] if (single or primary) else None
+        )
+        item["routing"] = (
+            "dedicated-source-routed" if issue is not None else
+            "sole-family-provisional" if single else
+            "family-primary-provisional" if primary else
+            "review-or-split-required"
+        )
     items.sort(key=lambda x: (x["package"], x["source"], x["markupName"]))
     return items
 
@@ -172,6 +269,15 @@ def families_from_docs():
 def payload():
     items = census()
     counts = families_from_docs()
+    present_families = {
+        item["family"] for item in items
+        if item["classification"] == "public-candidate"
+    }
+    missing = set(ISSUES) - present_families
+    if missing != set(NON_COMPONENT_FAMILIES):
+        raise ValueError(
+            f"unexpected retrieval families without public component candidates: {missing}"
+        )
     return {
         "issue": 494,
         "status": "source-candidate-only; NOT public API/markup or runtime verified",
@@ -183,6 +289,7 @@ def payload():
         },
         "retrievalFamilies": counts,
         "retrievalFamiliesTotal": sum(counts.values()),
+        "nonComponentFamilyExceptions": NON_COMPONENT_FAMILIES,
         "rawSourceCandidates": len(items),
         "components": items,
     }

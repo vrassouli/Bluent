@@ -14,6 +14,9 @@
     "Bluent.UI.Utilities": 4
   },
   "retrievalFamiliesTotal": 66,
+  "nonComponentFamilyExceptions": {
+    "Tooltip": 456
+  },
   "rawSourceCandidates": 140,
   "components": [
     {
@@ -22,11 +25,14 @@
       "source": "src/Bluent.UI/Components/AccordionComponent/Accordion.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 469,
       "family": "Accordion",
-      "componentIssue": null,
+      "componentIssue": 469,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -34,10 +40,13 @@
       "source": "src/Bluent.UI/Components/AccordionComponent/AccordionPanel.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 469,
       "family": "Accordion",
       "componentIssue": 507,
       "verification": "source-candidate",
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Accordions.razor",
+      "evidenceKind": "markup",
       "routing": "dedicated-source-routed"
     },
     {
@@ -46,11 +55,14 @@
       "source": "src/Bluent.UI/Components/ActionCardComponent/ActionCard.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 453,
       "family": "ActionCard",
-      "componentIssue": null,
+      "componentIssue": 453,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -58,11 +70,14 @@
       "source": "src/Bluent.UI/Components/ActionCardComponent/ActionCardGroup.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 453,
       "family": "ActionCard",
-      "componentIssue": null,
+      "componentIssue": 525,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/ActionCards.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -70,10 +85,13 @@
       "source": "src/Bluent.UI/Components/AudioCaptureComponent/AudioCapture.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 485,
       "family": "AudioCapture",
       "componentIssue": 485,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -82,10 +100,13 @@
       "source": "src/Bluent.UI/Components/AvatarComponent/Avatar.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 446,
       "family": "Avatar",
       "componentIssue": 446,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -94,10 +115,13 @@
       "source": "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 445,
       "family": "Badge",
       "componentIssue": 445,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -106,10 +130,13 @@
       "source": "src/Bluent.UI/Components/BluentDynamicComponent.cs",
       "sourceKind": "csharp",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": null,
       "family": null,
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -118,11 +145,14 @@
       "source": "src/Bluent.UI/Components/BreadcrumbComponent/Breadcrumb.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 467,
       "family": "Breadcrumb",
-      "componentIssue": null,
+      "componentIssue": 467,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -130,11 +160,14 @@
       "source": "src/Bluent.UI/Components/BreadcrumbComponent/BreadcrumbItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 467,
       "family": "Breadcrumb",
-      "componentIssue": null,
+      "componentIssue": 511,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Breadcrumbs.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -142,10 +175,13 @@
       "source": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 428,
       "family": "Button",
       "componentIssue": 428,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -154,10 +190,13 @@
       "source": "src/Bluent.UI/Components/ButtonGroupComponent/ButtonGroup.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 451,
       "family": "ButtonGroup",
       "componentIssue": 451,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -166,10 +205,13 @@
       "source": "src/Bluent.UI/Components/CalendarComponent/Calendar.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 478,
       "family": "Calendar",
       "componentIssue": 478,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -178,11 +220,14 @@
       "source": "src/Bluent.UI/Components/CardComponent/Card.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 452,
       "family": "Card",
-      "componentIssue": null,
+      "componentIssue": 452,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -190,11 +235,14 @@
       "source": "src/Bluent.UI/Components/CardComponent/CardContent.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 452,
       "family": "Card",
-      "componentIssue": null,
+      "componentIssue": 513,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -202,11 +250,14 @@
       "source": "src/Bluent.UI/Components/CardComponent/CardFloatingAction.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 452,
       "family": "Card",
-      "componentIssue": null,
+      "componentIssue": 516,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -214,11 +265,14 @@
       "source": "src/Bluent.UI/Components/CardComponent/CardFooter.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 452,
       "family": "Card",
-      "componentIssue": null,
+      "componentIssue": 514,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -226,11 +280,14 @@
       "source": "src/Bluent.UI/Components/CardComponent/CardHeader.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 452,
       "family": "Card",
-      "componentIssue": null,
+      "componentIssue": 512,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -238,11 +295,14 @@
       "source": "src/Bluent.UI/Components/CardComponent/CardPreview.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 452,
       "family": "Card",
-      "componentIssue": null,
+      "componentIssue": 515,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -250,10 +310,13 @@
       "source": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 434,
       "family": "Checkbox",
       "componentIssue": 434,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -262,10 +325,13 @@
       "source": "src/Bluent.UI/Components/ContainersComponent/Containers.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 459,
       "family": "Dialog",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -274,11 +340,14 @@
       "source": "src/Bluent.UI/Components/DataGridComponent/DataGrid.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 474,
       "family": "DataGrid",
-      "componentIssue": null,
+      "componentIssue": 474,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -286,10 +355,13 @@
       "source": "src/Bluent.UI/Components/DataGridComponent/DataGridColumn.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 474,
       "family": "DataGrid",
       "componentIssue": 508,
       "verification": "source-candidate",
+      "consumerExample": "docs/components/data-grid.md",
+      "evidenceKind": "markup",
       "routing": "dedicated-source-routed"
     },
     {
@@ -298,10 +370,13 @@
       "source": "src/Bluent.UI/Components/DataGridComponent/Internal/DataGridCell.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 474,
       "family": "DataGrid",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -310,10 +385,13 @@
       "source": "src/Bluent.UI/Components/DataGridComponent/Internal/DataGridRow.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 474,
       "family": "DataGrid",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -322,10 +400,13 @@
       "source": "src/Bluent.UI/Components/DataListComponent/DataList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 475,
       "family": "DataList",
       "componentIssue": 475,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -334,10 +415,13 @@
       "source": "src/Bluent.UI/Components/DataPagerComponent/DataPager.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 476,
       "family": "DataPager",
       "componentIssue": 476,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -346,10 +430,13 @@
       "source": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 438,
       "family": "DateField",
       "componentIssue": 438,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -358,10 +445,13 @@
       "source": "src/Bluent.UI/Components/DateFieldComponent/Internal/DateFieldPicker.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 438,
       "family": "DateField",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -370,10 +460,13 @@
       "source": "src/Bluent.UI/Components/DialogComponent/Dialog.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 459,
       "family": "Dialog",
       "componentIssue": 459,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -382,10 +475,13 @@
       "source": "src/Bluent.UI/Components/DialogComponent/DialogContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 459,
       "family": "Dialog",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -394,10 +490,13 @@
       "source": "src/Bluent.UI/Components/DialogComponent/DialogDefaultContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 459,
       "family": "Dialog",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -406,10 +505,13 @@
       "source": "src/Bluent.UI/Components/DialogComponent/MessageBoxDefaultContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 459,
       "family": "Dialog",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -418,10 +520,13 @@
       "source": "src/Bluent.UI/Components/DockPanelComponent/DockBar.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 482,
       "family": "DockPanel",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -430,10 +535,13 @@
       "source": "src/Bluent.UI/Components/DockPanelComponent/DockContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 482,
       "family": "DockPanel",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -442,10 +550,13 @@
       "source": "src/Bluent.UI/Components/DockPanelComponent/DockPanel.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 482,
       "family": "DockPanel",
       "componentIssue": 482,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -454,10 +565,13 @@
       "source": "src/Bluent.UI/Components/DrawerComponent/Drawer.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 460,
       "family": "Drawer",
       "componentIssue": 460,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -466,10 +580,13 @@
       "source": "src/Bluent.UI/Components/DrawerComponent/DrawerContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 460,
       "family": "Drawer",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -478,10 +595,13 @@
       "source": "src/Bluent.UI/Components/DrawerComponent/DrawerContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 460,
       "family": "Drawer",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -490,10 +610,13 @@
       "source": "src/Bluent.UI/Components/DropdownListComponent/DropdownList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 464,
       "family": "DropdownList",
       "componentIssue": 464,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -502,10 +625,13 @@
       "source": "src/Bluent.UI/Components/DropdownSelectComponent/DropdownSelect.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 463,
       "family": "DropdownSelect",
       "componentIssue": 463,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -514,10 +640,13 @@
       "source": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 444,
       "family": "FileSelect",
       "componentIssue": 444,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -526,10 +655,13 @@
       "source": "src/Bluent.UI/Components/IconComponent/Icon.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 429,
       "family": "Icon",
       "componentIssue": 429,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -538,10 +670,13 @@
       "source": "src/Bluent.UI/Components/LabelComponent/Label.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 430,
       "family": "Label",
       "componentIssue": 430,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -550,10 +685,13 @@
       "source": "src/Bluent.UI/Components/LinkComponent/Link.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 431,
       "family": "Link",
       "componentIssue": 431,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -562,11 +700,14 @@
       "source": "src/Bluent.UI/Components/ListComponent/ItemsList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 468,
       "family": "List",
-      "componentIssue": null,
+      "componentIssue": 468,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -574,11 +715,14 @@
       "source": "src/Bluent.UI/Components/ListComponent/ListItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 468,
       "family": "List",
-      "componentIssue": null,
+      "componentIssue": 524,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/list.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -586,10 +730,13 @@
       "source": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 440,
       "family": "MaskedField",
       "componentIssue": 440,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -598,10 +745,13 @@
       "source": "src/Bluent.UI/Components/MasterContainer/MasterContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 459,
       "family": "Dialog",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -610,10 +760,13 @@
       "source": "src/Bluent.UI/Components/MediaQueryComponent/MediaQuery.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 484,
       "family": "MediaQuery",
       "componentIssue": 484,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -622,10 +775,13 @@
       "source": "src/Bluent.UI/Components/MenuComponent/Menu.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 461,
       "family": "Menu",
       "componentIssue": 461,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -634,11 +790,14 @@
       "source": "src/Bluent.UI/Components/MenuListComponent/MenuDivider.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 462,
       "family": "MenuList",
-      "componentIssue": null,
+      "componentIssue": 526,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -646,11 +805,14 @@
       "source": "src/Bluent.UI/Components/MenuListComponent/MenuItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 462,
       "family": "MenuList",
-      "componentIssue": null,
+      "componentIssue": 517,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -658,11 +820,14 @@
       "source": "src/Bluent.UI/Components/MenuListComponent/MenuItemGroup.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 462,
       "family": "MenuList",
-      "componentIssue": null,
+      "componentIssue": 527,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -670,11 +835,14 @@
       "source": "src/Bluent.UI/Components/MenuListComponent/MenuList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 462,
       "family": "MenuList",
-      "componentIssue": null,
+      "componentIssue": 462,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -682,10 +850,13 @@
       "source": "src/Bluent.UI/Components/MessageBarComponent/MessageBar.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 471,
       "family": "MessageBar",
       "componentIssue": 471,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -694,11 +865,14 @@
       "source": "src/Bluent.UI/Components/NavListComponent/NavItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 466,
       "family": "NavList",
-      "componentIssue": null,
+      "componentIssue": 518,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/nav-list.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -706,11 +880,14 @@
       "source": "src/Bluent.UI/Components/NavListComponent/NavList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 466,
       "family": "NavList",
-      "componentIssue": null,
+      "componentIssue": 466,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -718,10 +895,13 @@
       "source": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 433,
       "family": "NumericField",
       "componentIssue": 433,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -730,10 +910,13 @@
       "source": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 441,
       "family": "OtpField",
       "componentIssue": 441,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -742,10 +925,13 @@
       "source": "src/Bluent.UI/Components/OverflowComponent/Overflow.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 472,
       "family": "Overflow",
       "componentIssue": 472,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -754,10 +940,13 @@
       "source": "src/Bluent.UI/Components/OverlayComponent/Overlay.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 458,
       "family": "Overlay",
       "componentIssue": 458,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -766,11 +955,14 @@
       "source": "src/Bluent.UI/Components/PopoverComponent/Popover.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 457,
       "family": "Popover",
-      "componentIssue": null,
+      "componentIssue": 457,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "sole-family-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -778,10 +970,13 @@
       "source": "src/Bluent.UI/Components/PopoverComponent/PopoverContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 457,
       "family": "Popover",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -789,11 +984,14 @@
       "markupName": "PopoverContainerBase",
       "source": "src/Bluent.UI/Components/PopoverComponent/PopoverContainerBase.cs",
       "sourceKind": "csharp",
-      "classification": "public-candidate",
+      "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 457,
       "family": "Popover",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -802,10 +1000,13 @@
       "source": "src/Bluent.UI/Components/PopoverComponent/PopoverSurface.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 457,
       "family": "Popover",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -814,10 +1015,13 @@
       "source": "src/Bluent.UI/Components/ProgressBarComponent/ProgressBar.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 449,
       "family": "ProgressBar",
       "componentIssue": 449,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -826,10 +1030,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/BoolPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -838,10 +1045,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/ComplexTypeEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -850,10 +1060,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/EnumPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -862,10 +1075,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/EnumerableEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -874,10 +1090,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/NumericPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -886,10 +1105,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/PropertyDescription.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -898,10 +1120,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/PropertyEditorItem.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -910,10 +1135,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/RegisteredPropertyTypeEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -922,10 +1150,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/Internal/TextPropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -934,10 +1165,13 @@
       "source": "src/Bluent.UI/Components/PropertyEditorComponent/PropertyEditor.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 483,
       "family": "PropertyEditor",
       "componentIssue": 483,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -946,11 +1180,14 @@
       "source": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 436,
       "family": "RadioGroup",
-      "componentIssue": null,
+      "componentIssue": 519,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/radio-group.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -958,11 +1195,14 @@
       "source": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 436,
       "family": "RadioGroup",
-      "componentIssue": null,
+      "componentIssue": 436,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -970,10 +1210,13 @@
       "source": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 443,
       "family": "RangeSlider",
       "componentIssue": 443,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -982,10 +1225,13 @@
       "source": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 437,
       "family": "SelectField",
       "componentIssue": 437,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -994,10 +1240,13 @@
       "source": "src/Bluent.UI/Components/SkeletonComponent/Skeleton.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 450,
       "family": "Skeleton",
       "componentIssue": 450,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1006,10 +1255,13 @@
       "source": "src/Bluent.UI/Components/SliderComponent/Slider.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 442,
       "family": "Slider",
       "componentIssue": 442,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1018,10 +1270,13 @@
       "source": "src/Bluent.UI/Components/SpacerComponent/Spacer.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 454,
       "family": "Spacer",
       "componentIssue": 454,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1030,10 +1285,13 @@
       "source": "src/Bluent.UI/Components/SpinnerComponent/Spinner.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 448,
       "family": "Spinner",
       "componentIssue": 448,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1042,10 +1300,13 @@
       "source": "src/Bluent.UI/Components/SplitPanelComponent/Internal/PanelResizer.cs",
       "sourceKind": "csharp",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 480,
       "family": "SplitPanel",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1054,10 +1315,13 @@
       "source": "src/Bluent.UI/Components/SplitPanelComponent/Internal/SplitPanel.cs",
       "sourceKind": "csharp",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 480,
       "family": "SplitPanel",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1066,10 +1330,13 @@
       "source": "src/Bluent.UI/Components/SplitPanelComponent/SplitPanelContainer.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 480,
       "family": "SplitPanel",
       "componentIssue": 480,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1078,10 +1345,13 @@
       "source": "src/Bluent.UI/Components/StackComponent/Stack.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 455,
       "family": "Stack",
       "componentIssue": 455,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1090,10 +1360,13 @@
       "source": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 435,
       "family": "Switch",
       "componentIssue": 435,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1102,11 +1375,14 @@
       "source": "src/Bluent.UI/Components/TabListComponent/Tab.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 465,
       "family": "TabList",
-      "componentIssue": null,
+      "componentIssue": 523,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/tab-list.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -1114,22 +1390,28 @@
       "source": "src/Bluent.UI/Components/TabListComponent/TabList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 465,
       "family": "TabList",
-      "componentIssue": null,
+      "componentIssue": 465,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
       "markupName": "TabListTabItem",
       "source": "src/Bluent.UI/Components/TabListComponent/TabListTabItem.razor",
       "sourceKind": "razor",
-      "classification": "public-candidate",
+      "classification": "internal-composite-review",
+      "exceptionReason": "Renderer instantiated from public Tab via RenderTreeBuilder; no consumer tag examples",
       "familyIssue": 465,
       "family": "TabList",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1138,10 +1420,13 @@
       "source": "src/Bluent.UI/Components/TagComponent/Tag.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 447,
       "family": "Tag",
       "componentIssue": 447,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1150,10 +1435,13 @@
       "source": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 432,
       "family": "TextField",
       "componentIssue": 432,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1162,10 +1450,13 @@
       "source": "src/Bluent.UI/Components/TileLayoutComponent/TileLayout.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 481,
       "family": "TileLayout",
       "componentIssue": 481,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1174,10 +1465,13 @@
       "source": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 439,
       "family": "TimeField",
       "componentIssue": 439,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1186,10 +1480,13 @@
       "source": "src/Bluent.UI/Components/ToastComponent/Toast.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 470,
       "family": "Toast",
       "componentIssue": 470,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1198,10 +1495,13 @@
       "source": "src/Bluent.UI/Components/ToastComponent/ToastContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 470,
       "family": "Toast",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1210,10 +1510,13 @@
       "source": "src/Bluent.UI/Components/ToastComponent/ToastDefaultContent.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 470,
       "family": "Toast",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1222,11 +1525,14 @@
       "source": "src/Bluent.UI/Components/ToolbarComponent/Toolbar.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 473,
       "family": "Toolbar",
-      "componentIssue": null,
+      "componentIssue": 473,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -1234,11 +1540,14 @@
       "source": "src/Bluent.UI/Components/ToolbarComponent/ToolbarButton.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 473,
       "family": "Toolbar",
-      "componentIssue": null,
+      "componentIssue": 522,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -1246,11 +1555,14 @@
       "source": "src/Bluent.UI/Components/ToolbarComponent/ToolbarButtonItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 473,
       "family": "Toolbar",
-      "componentIssue": null,
+      "componentIssue": 528,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": "source-only",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -1258,11 +1570,14 @@
       "source": "src/Bluent.UI/Components/ToolbarComponent/ToolbarDivider.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 473,
       "family": "Toolbar",
-      "componentIssue": null,
+      "componentIssue": 529,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -1270,10 +1585,13 @@
       "source": "src/Bluent.UI/Components/TooltipComponent/TooltipContainer.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1282,10 +1600,13 @@
       "source": "src/Bluent.UI/Components/TooltipComponent/TooltipSurface.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1294,11 +1615,14 @@
       "source": "src/Bluent.UI/Components/TreeComponent/Tree.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 477,
       "family": "Tree",
-      "componentIssue": null,
+      "componentIssue": 477,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -1306,11 +1630,14 @@
       "source": "src/Bluent.UI/Components/TreeComponent/TreeItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 477,
       "family": "Tree",
-      "componentIssue": null,
+      "componentIssue": 520,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/tree.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI",
@@ -1318,11 +1645,14 @@
       "source": "src/Bluent.UI/Components/WizardComponent/Wizard.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 479,
       "family": "Wizard",
-      "componentIssue": null,
+      "componentIssue": 479,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI",
@@ -1330,11 +1660,14 @@
       "source": "src/Bluent.UI/Components/WizardComponent/WizardStep.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 479,
       "family": "Wizard",
-      "componentIssue": null,
+      "componentIssue": 521,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/wizard.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1342,11 +1675,14 @@
       "source": "src/Bluent.UI.Charts/Components/Chart.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 486,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1354,11 +1690,14 @@
       "source": "src/Bluent.UI.Charts/Components/Colors.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 530,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1366,10 +1705,13 @@
       "source": "src/Bluent.UI.Charts/Components/Dataset.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
       "componentIssue": 509,
       "verification": "source-candidate",
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "evidenceKind": "markup",
       "routing": "dedicated-source-routed"
     },
     {
@@ -1378,10 +1720,13 @@
       "source": "src/Bluent.UI.Charts/Components/Gauge.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 487,
       "family": "Gauge",
       "componentIssue": 487,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1390,11 +1735,14 @@
       "source": "src/Bluent.UI.Charts/Components/Legend.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 531,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/chart.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1402,11 +1750,14 @@
       "source": "src/Bluent.UI.Charts/Components/Subtitle.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 532,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1414,11 +1765,14 @@
       "source": "src/Bluent.UI.Charts/Components/Title.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 533,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/chart.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1426,11 +1780,14 @@
       "source": "src/Bluent.UI.Charts/Components/Tooltip.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 534,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1438,11 +1795,14 @@
       "source": "src/Bluent.UI.Charts/Components/XScale.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 535,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Charts",
@@ -1450,11 +1810,14 @@
       "source": "src/Bluent.UI.Charts/Components/YScale.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 486,
       "family": "Chart",
-      "componentIssue": null,
+      "componentIssue": 536,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/chart.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1462,11 +1825,14 @@
       "source": "src/Bluent.UI.Diagrams/Components/Circle.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 489,
       "family": "Shapes",
-      "componentIssue": null,
+      "componentIssue": 489,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1474,10 +1840,13 @@
       "source": "src/Bluent.UI.Diagrams/Components/CursorLocation.razor",
       "sourceKind": "razor",
       "classification": "infrastructure-review",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1486,11 +1855,14 @@
       "source": "src/Bluent.UI.Diagrams/Components/Diagram.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
-      "componentIssue": null,
+      "componentIssue": 488,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1498,10 +1870,13 @@
       "source": "src/Bluent.UI.Diagrams/Components/DrawingCanvas.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
       "componentIssue": 510,
       "verification": "source-candidate",
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Components/DrawingCanvases.razor",
+      "evidenceKind": "markup",
       "routing": "dedicated-source-routed"
     },
     {
@@ -1510,10 +1885,13 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/ElementHost.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1522,10 +1900,13 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/ElementSelection.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1534,10 +1915,13 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/PointUpdater.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1546,10 +1930,13 @@
       "source": "src/Bluent.UI.Diagrams/Components/Internals/SelectionOptionsContainer.razor",
       "sourceKind": "razor",
       "classification": "internal-path-review",
+      "exceptionReason": null,
       "familyIssue": 488,
       "family": "Diagram",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1558,11 +1945,14 @@
       "source": "src/Bluent.UI.Diagrams/Components/Line.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 489,
       "family": "Shapes",
-      "componentIssue": null,
+      "componentIssue": 537,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/diagram-shapes.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Diagrams",
@@ -1570,11 +1960,14 @@
       "source": "src/Bluent.UI.Diagrams/Components/Rect.cs",
       "sourceKind": "csharp",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 489,
       "family": "Shapes",
-      "componentIssue": null,
+      "componentIssue": 538,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/diagram-shapes.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1582,10 +1975,13 @@
       "source": "src/Bluent.UI.Utilities/AppBusyIndicator.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 490,
       "family": "AppBusyIndicator",
       "componentIssue": 490,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "sole-family-provisional"
     },
     {
@@ -1594,11 +1990,14 @@
       "source": "src/Bluent.UI.Utilities/Hierarchy/HierarchyItemBrowser.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 491,
       "family": "Hierarchy",
-      "componentIssue": null,
+      "componentIssue": 539,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/hierarchy-utilities.md",
+      "evidenceKind": "documented-type",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1606,22 +2005,28 @@
       "source": "src/Bluent.UI.Utilities/Hierarchy/HierarchyTreeBrowser.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 491,
       "family": "Hierarchy",
-      "componentIssue": null,
+      "componentIssue": 491,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI.Utilities",
       "markupName": "HierarchyTreeItem",
       "source": "src/Bluent.UI.Utilities/Hierarchy/HierarchyTreeItem.razor",
       "sourceKind": "razor",
-      "classification": "public-candidate",
+      "classification": "internal-composite-review",
+      "exceptionReason": "Recursive renderer instantiated by HierarchyTreeBrowser; consumers use browser",
       "familyIssue": 491,
       "family": "Hierarchy",
       "componentIssue": null,
       "verification": "source-candidate",
+      "consumerExample": null,
+      "evidenceKind": null,
       "routing": "review-or-split-required"
     },
     {
@@ -1630,11 +2035,14 @@
       "source": "src/Bluent.UI.Utilities/MdiTab/MdiTab.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 492,
       "family": "MdiTab",
-      "componentIssue": null,
+      "componentIssue": 492,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1642,11 +2050,14 @@
       "source": "src/Bluent.UI.Utilities/MdiTab/MdiTabList.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 492,
       "family": "MdiTab",
-      "componentIssue": null,
+      "componentIssue": 540,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1654,11 +2065,14 @@
       "source": "src/Bluent.UI.Utilities/MdiTab/MdiTabToolbarItem.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 492,
       "family": "MdiTab",
-      "componentIssue": null,
+      "componentIssue": 541,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1666,11 +2080,14 @@
       "source": "src/Bluent.UI.Utilities/ToolbarButtons/RedoToolbarButton.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 493,
       "family": "ToolbarButtons",
-      "componentIssue": null,
+      "componentIssue": 542,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/toolbar-buttons.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1678,11 +2095,14 @@
       "source": "src/Bluent.UI.Utilities/ToolbarButtons/SaveToolbarButton.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 493,
       "family": "ToolbarButtons",
-      "componentIssue": null,
+      "componentIssue": 493,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": null,
+      "evidenceKind": null,
+      "routing": "family-primary-provisional"
     },
     {
       "package": "Bluent.UI.Utilities",
@@ -1690,11 +2110,14 @@
       "source": "src/Bluent.UI.Utilities/ToolbarButtons/UndoToolbarButton.razor",
       "sourceKind": "razor",
       "classification": "public-candidate",
+      "exceptionReason": null,
       "familyIssue": 493,
       "family": "ToolbarButtons",
-      "componentIssue": null,
+      "componentIssue": 543,
       "verification": "source-candidate",
-      "routing": "review-or-split-required"
+      "consumerExample": "docs/components/toolbar-buttons.md",
+      "evidenceKind": "markup",
+      "routing": "dedicated-source-routed"
     }
   ]
 }
