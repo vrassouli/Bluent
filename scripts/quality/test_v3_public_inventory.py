@@ -56,8 +56,8 @@ class InventoryTests(unittest.TestCase):
             self.assertEqual(matches[0]["routing"], "dedicated-source-routed")
             self.assertEqual(matches[0]["consumerExample"], example)
             self.assertEqual(matches[0]["evidenceKind"], kind)
-        self.assertEqual(len(audit.EXPLICIT_COMPONENT_ROUTES), 37)
-        self.assertEqual(len({value[0] for value in audit.EXPLICIT_COMPONENT_ROUTES.values()}), 37)
+        self.assertEqual(len(audit.EXPLICIT_COMPONENT_ROUTES), 42)
+        self.assertEqual(len({value[0] for value in audit.EXPLICIT_COMPONENT_ROUTES.values()}), 42)
     def test_one_component_owns_each_multitag_family_parent(self):
         for family, name in audit.FAMILY_PRIMARY_COMPONENTS.items():
             matching = [r for r in self.rows if r["family"] == family and r["markupName"] == name]
@@ -65,7 +65,7 @@ class InventoryTests(unittest.TestCase):
             owner = matching[0]
             self.assertEqual(owner["componentIssue"], audit.ISSUES[family])
             self.assertEqual(owner["routing"], "family-primary-provisional")
-        self.assertEqual(len(audit.FAMILY_PRIMARY_COMPONENTS), 19)
+        self.assertEqual(len(audit.FAMILY_PRIMARY_COMPONENTS), 22)
 
     def test_infrastructure_base_never_becomes_public_tag(self):
         matches = [row for row in self.rows if row["markupName"] == "PopoverContainerBase"]
@@ -83,6 +83,20 @@ class InventoryTests(unittest.TestCase):
                        if kind == "markup" else
                        r"\b" + __import__("re").escape(name) + r"\b")
             self.assertRegex(text, pattern)
+
+    def test_documented_consumer_infrastructure_never_excluded(self):
+        expected = {"Containers": 544, "DockBar": 545, "DockContainer": 546, "DrawerContent": 547}
+        for name, issue in expected.items():
+            matching = [r for r in self.rows if r["package"] == "Bluent.UI" and r["markupName"] == name]
+            self.assertEqual(len(matching), 1)
+            self.assertTrue(matching[0]["consumerInfrastructure"])
+            self.assertEqual(matching[0]["classification"], "public-candidate")
+            self.assertEqual(matching[0]["componentIssue"], issue)
+            self.assertEqual(matching[0]["evidenceKind"], "markup")
+        master = next(r for r in self.rows if r["markupName"] == "MasterContainer")
+        self.assertEqual(master["classification"], "public-candidate")
+        self.assertEqual(master["componentIssue"], 548)
+        self.assertEqual(master["evidenceKind"], "source-only")
 
     def test_every_public_candidate_has_exactly_one_issue(self):
         public = [r for r in self.rows if r["classification"] == "public-candidate"]
@@ -107,10 +121,28 @@ class InventoryTests(unittest.TestCase):
         tip = (ROOT / "docs/components/tooltip.md").read_text(encoding="utf-8")
         self.assertIn("there is not a normal consumer-facing", tip)
 
+    def test_no_excluded_candidate_used_directly_by_consumer_markup(self):
+        import re
+        consumer_files = [
+            *sorted((ROOT / "src/Bluent.UI.Demo.Pages").rglob("*.razor")),
+            *sorted((ROOT / "docs/components").glob("*.md")),
+        ]
+        tags = set()
+        for path in consumer_files:
+            content = path.read_text(encoding="utf-8-sig")
+            tags.update(re.findall(r"<([A-Z][a-zA-Z0-9]*)(?=[\\s/>])", content))
+        excluded = [r for r in self.rows if r["classification"] != "public-candidate"]
+        leaked = [(r["markupName"], r["classification"]) for r in excluded if r["markupName"] in tags]
+        self.assertEqual(
+            leaked, [],
+            "Consumer-facing markup cannot be silently excluded as infrastructure. "
+            "Reclassify with an independent issue or document an explicit exception.",
+        )
+
     def test_snapshot_drift(self):
         self.assertEqual(json.loads(audit.OUT.read_text(encoding="utf-8")), self.payload)
         self.assertEqual(self.payload["penpot"]["pageId"], "44b12572-0104-807e-8008-ca032a4746f0")
-        self.assertEqual(sum(r["routing"] == "sole-family-provisional" for r in self.rows), 46)
+        self.assertEqual(sum(r["routing"] == "sole-family-provisional" for r in self.rows), 43)
         self.assertTrue(all(r["verification"] == "source-candidate" for r in self.rows))
         self.assertTrue(all(r["componentIssue"] == r["familyIssue"] for r in self.rows if r["routing"] == "sole-family-provisional"))
 

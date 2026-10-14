@@ -51,9 +51,8 @@ ALIASES = {
     "Title": "Chart", "Tooltip": "Chart",
 }
 INFRASTRUCTURE_NAMES = {
-    "Containers", "MasterContainer", "DialogContainer", "DialogDefaultContent",
-    "MessageBoxDefaultContent", "DockContainer", "DockBar",
-    "DrawerContainer", "DrawerContent", "PopoverContainer", "PopoverSurface",
+    "DialogContainer", "DialogDefaultContent", "MessageBoxDefaultContent",
+    "DrawerContainer", "PopoverContainer", "PopoverSurface",
     "TooltipContainer", "TooltipSurface", "ToastContainer", "ToastDefaultContent",
     "BluentDynamicComponent", "CursorLocation", "PopoverContainerBase",
 }
@@ -96,6 +95,11 @@ EXPLICIT_COMPONENT_ROUTES = {
     ('Bluent.UI.Utilities', 'MdiTabToolbarItem'): (541, 'src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor', 'markup'),
     ('Bluent.UI.Utilities', 'RedoToolbarButton'): (542, 'docs/components/toolbar-buttons.md', 'markup'),
     ('Bluent.UI.Utilities', 'UndoToolbarButton'): (543, 'docs/components/toolbar-buttons.md', 'markup'),
+    ('Bluent.UI', 'Containers'): (544, 'src/Bluent.UI.Demo.Pages/Layout/MainLayout.razor', 'markup'),
+    ('Bluent.UI', 'DockBar'): (545, 'src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor', 'markup'),
+    ('Bluent.UI', 'DockContainer'): (546, 'src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor', 'markup'),
+    ('Bluent.UI', 'DrawerContent'): (547, 'src/Bluent.UI.Demo.Pages/Pages/Components/Drawers.razor', 'markup'),
+    ('Bluent.UI', 'MasterContainer'): (548, None, 'source-only'),
 }
 NON_CONSUMER_COMPONENTS = {
     "TabListTabItem": "Renderer instantiated from public Tab via RenderTreeBuilder; no consumer tag examples",
@@ -103,6 +107,9 @@ NON_CONSUMER_COMPONENTS = {
 }
 
 FAMILY_PRIMARY_COMPONENTS = {
+    'Dialog': 'Dialog',
+    'Drawer': 'Drawer',
+    'DockPanel': 'DockPanel',
     'Accordion': 'Accordion',
     'ActionCard': 'ActionCard',
     'Breadcrumb': 'Breadcrumb',
@@ -200,6 +207,7 @@ def census():
             "sourceKind": source_kind,
             "classification": kind,
             "exceptionReason": NON_CONSUMER_COMPONENTS.get(name),
+            "consumerInfrastructure": name in {"Containers", "DockBar", "DockContainer", "DrawerContent"},
             "familyIssue": ISSUES.get(family),
             "family": family,
             "componentIssue": None,  # #494 must split and verify, no fake ownership
