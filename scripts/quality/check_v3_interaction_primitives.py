@@ -17,7 +17,7 @@ LEGACY_ASYNC_VOID={
 }
 LEGACY_BROAD_CATCH_MAX={
     "BluentTheme.cs":1,
-    "DataGridInterop.cs":1,"OptFieldInterop.cs":1,
+"OptFieldInterop.cs":1,
     "DomHelper.cs":4,
 }
 ASYNC_VOID=re.compile(r"\basync\s+void\s+([A-Za-z_]\w*)\s*\(")

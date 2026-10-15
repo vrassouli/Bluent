@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops.Abstractions;
+using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
 namespace Bluent.UI.Interops;
@@ -32,18 +32,37 @@ internal class DataGridInterop :  IAsyncDisposable
     {
         try
         {
-            if (_reference != null)
-                await _reference.DisposeAsync();
-
-            if (_module != null)
-                await _module.DisposeAsync();
-
-            if (_handlerReference != null)
-                _handlerReference.Dispose();
+            try
+            {
+                if (_reference is not null)
+                    await _reference.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+                // Circuit disconnection during teardown is expected.
+            }
         }
-        catch (Exception)
+        finally
         {
-            // swallow!
+            try
+            {
+                try
+                {
+                    if (_module is not null)
+                        await _module.DisposeAsync();
+                }
+                catch (JSDisconnectedException)
+                {
+                    // The imported JS module may already be disconnected.
+                }
+            }
+            finally
+            {
+                _handlerReference?.Dispose();
+                _handlerReference = null;
+                _reference = null;
+                _module = null;
+            }
         }
     }
 

@@ -14,7 +14,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
-**#420 interop progress (2026-10-15):** real v3 task-branch changes replace AudioCapture.Stop/Overflow.Init fire-and-forget with awaited Task lifecycle and independently cleaned up JS handles; remaining 3 async void / 7 broad catches. Real compiled-DLL fake-JS harness 47 pass; component real browser/AT and Popover event semantics remain open. See ADR-0002 / draft PR.
+**#420 interop progress (2026-10-15):** real v3 task-branch changes replace AudioCapture.Stop/Overflow.Init fire-and-forget with awaited Task lifecycle and independently cleaned up JS handles; remaining 3 async void / 6 broad catches. Real compiled-DLL fake-JS harness 55 pass; component real browser/AT and Popover event semantics remain open. See ADR-0002 / draft PR.
 
 **#420 interaction foundations (2026-10-15, In progress):** [Proposed ADR-0002](../docs/v3/architecture/ADR-0002-interaction-primitives.md) source-audits legacy async void/Exception swallow in interops (five methods, eleven broad catches) and supplies a compiled existing-public-API Blazor form sample. JS lifecycle, focus restore, portalled overlays and component API contract still need a real dedicated design-tool artifact and runtime/AT signoff. No production APIs changed on this task branch.
 
@@ -110,3 +110,6 @@ As of 2026-10-10, Issue [#419](https://github.com/vrassouli/Bluent/issues/419) i
 This draft does **not** approve the #417 styling ADR, implement the #418 CSS/token migration or satisfy full Fluent UI/design parity. No public v2/v3 component code, stable assets, `Dev`, published NuGet or deployment is modified. Complete library coverage, visual/interaction parity, accessibility, font/icon checks and design review remain before #419 reaches Review/Done.
 
 2026-10-15 additional #420 v3-only Popover lifecycle fix: child + module + DotNetObjectReference Dispose independent and all five PopoverService event subscriptions released in finally under both disconnect and unexpected JS errors. 47 compiled fake-JS lifecycle assertions passed; synchronous Popover service callback API still awaiting design/browser tests. No stable Dev/v2 public merge.
+
+
+2026-10-15 #420 DataGrid follow-up: internal JS child/module and callback disposal independent under errors, DataGrid component base cleanup from finally, real compiled DataGrid<string> harness checks added (55 cumulative); 3 async void/6 broad catches still tracked, no v2 release.

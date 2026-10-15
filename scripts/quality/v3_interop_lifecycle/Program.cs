@@ -21,7 +21,8 @@ internal static class Program
             await OverflowDisposeAfterDisconnectionAndUnexpectedError();
             await OtpDisposeIndependentResources();
             await PopoverDisposalAndContainerUnsubscription();
-            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover interop lifecycle assertions against compiled Bluent.UI");
+            await DataGridJsAndComponentCleanup();
+            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover/DataGrid interop lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
         catch (Exception ex)
@@ -74,6 +75,17 @@ internal static class Program
     {
         var method=interop.GetType().GetMethod("GetModuleAsync",BindingFlags.Instance|BindingFlags.NonPublic)!;
         await (Task)method.Invoke(interop,null)!;
+    }
+
+    private static (object Interop,DataGrid<string> Component) CreateDataGrid(FakeRuntime js)
+    {
+        var component=new DataGrid<string>();
+        Type type=component.GetType();
+        type.GetProperty("JsRuntime",BindingFlags.Instance|BindingFlags.NonPublic)!
+            .SetValue(component,js);
+        type.GetMethod("OnInitialized",BindingFlags.Instance|BindingFlags.NonPublic)!
+            .Invoke(component,null);
+        return (Field<object>(component,"_interop")!,component);
     }
 
     private static Task InvokeTask(object instance,string method,params object?[] args)
@@ -332,6 +344,47 @@ internal static class Program
         return count;
     }
 
+    private static async Task DataGridJsAndComponentCleanup()
+    {
+        var normal=new FakeRuntime();
+        var (interop,component)=CreateDataGrid(normal);
+        Assert(normal.ImportCount==0,"DataGrid module lazily loaded");
+        await InvokeTask(interop,"Initialize");
+        Assert(normal.ImportCount==1&&normal.Module.CreateCount==1,
+            "Real DataGrid component initializes interop lazily");
+        normal.Handle.DisposeFailure=new JSDisconnectedException("DataGrid disconnected");
+        await Dispose(component);
+        Assert(normal.Handle.DisposeCount==1&&normal.Module.DisposeCount==1,
+            "DataGrid module cleanup reached after child disconnect");
+        Assert(Field<object>(interop,"_handlerReference") is null,
+            "DataGrid callback reference released");
+        await Dispose(component);
+        Assert(normal.Handle.DisposeCount==1&&normal.Module.DisposeCount==1,
+            "DataGrid repeated component disposal does not touch JS again");
+
+        var failed=new FakeRuntime();
+        var (failedInterop,failedComponent)=CreateDataGrid(failed);
+        await InvokeTask(failedInterop,"Initialize");
+        failed.Handle.DisposeFailure=new JSException("DataGrid disposal unexpected");
+        try
+        {
+            await Dispose(failedComponent);
+            throw new InvalidOperationException("DataGrid unexpected disposal error was hidden");
+        }
+        catch(JSException)
+        {
+            Assert(failed.Module.DisposeCount==1,
+                "DataGrid module disposed after child JS exception");
+            Assert(Field<object>(failedInterop,"_handlerReference") is null,
+                "DataGrid callback released after JS exception");
+        }
+
+        var lazy=new FakeRuntime();
+        var (_,neverRendered)=CreateDataGrid(lazy);
+        await Dispose(neverRendered);
+        Assert(lazy.ImportCount==0,"DataGrid pre-render dispose must not import JS");
+    }
+
 }
 
 internal sealed class FakeRuntime: IJSRuntime
@@ -362,7 +415,7 @@ internal sealed class FakeModule(FakeJsHandle handle): IJSObjectReference
         => InvokeAsync<TValue>(identifier,CancellationToken.None,args);
     public ValueTask<TValue> InvokeAsync<TValue>(string identifier,CancellationToken cancellationToken,object?[]? args)
     {
-        if(identifier is not ("AudioCapture.create" or "Overflow.create" or "OtpField.create" or "Popover.create"))
+        if(identifier is not ("AudioCapture.create" or "Overflow.create" or "OtpField.create" or "Popover.create" or "DataGrid.create"))
             throw new InvalidOperationException("Unexpected JS module: "+identifier);
         CreateCount++;
         return new ValueTask<TValue>((TValue)(object)handle);

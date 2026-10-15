@@ -16,8 +16,20 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertEqual(len(result["AudioCaptureInterop.cs"]["legacyAsyncVoid"]),0)
         self.assertEqual(result["AudioCaptureInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertTrue(result["DataGridInterop.cs"]["hasDotNetObjectReference"])
+        self.assertEqual(result["DataGridInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],1)
         self.assertEqual(result["PopoverInterop.cs"]["legacyBroadExceptionCatches"],0)
+
+    def test_datagrid_disposal_keeps_base_cleanup_on_js_error(self):
+        interop=self.source["DataGridInterop.cs"]
+        component=(__import__("pathlib").Path(__file__).resolve().parents[2]/
+                   "src/Bluent.UI/Components/DataGridComponent/DataGrid.razor.cs").read_text(encoding="utf-8-sig")
+        self.assertNotIn("catch (Exception)",interop)
+        self.assertIn("catch (JSDisconnectedException)",interop)
+        self.assertIn("_handlerReference?.Dispose();",interop)
+        self.assertIn("_handlerReference = null;",interop)
+        self.assertIn("finally",component)
+        self.assertIn("await base.DisposeAsync();",component)
 
     def test_popover_disposal_unsubscribes_even_if_js_throws(self):
         interop=self.source["PopoverInterop.cs"]
