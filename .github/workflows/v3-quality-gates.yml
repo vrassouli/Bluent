@@ -1,0 +1,120 @@
+name: Bluent v3 Baseline Quality Gate
+# Always on each v3 pull request. Does NOT publish any NuGet package.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+concurrency:
+  group: v3-baseline-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  evidence-contracts:
+    name: Evidence policy / source and docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate required v3 quality workflow and fail-closed negative controls
+        run: |
+          python scripts/quality/check_v3_quality_gate_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_quality_gate_contract.py' -v
+      - name: Validate component docs and Skills
+        run: |
+          python scripts/quality/check_v3_docs_contract.py
+          python scripts/quality/check_v3_skill_contract.py
+          python scripts/quality/check_consumer_skill.py
+          python scripts/quality/check_markdown_links.py
+      - name: Reject invalid workflow YAML or changed-line whitespace
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          ruby -e 'require "yaml"; Dir[".github/workflows/*.{yml,yaml}"].each { |f| YAML.parse_file(f); puts "Parsed #{f}" }'
+          if [[ -n "$BASE_SHA" ]]; then
+            git diff --check "$BASE_SHA"...HEAD
+          else
+            git diff --check HEAD^ HEAD
+          fi
+
+  release-build-test-pack:
+    name: Release build / tests / five-package validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Restore solution and repo tools
+        run: |
+          dotnet tool restore
+          dotnet restore Bluent.sln
+      - name: Build complete solution with warnings treated as errors
+        run: dotnet build Bluent.sln --configuration Release --no-restore -warnaserror
+      - name: Compile canonical consumer examples
+        run: bash scripts/quality/check_task_examples.sh
+      - name: Execute all solution tests
+        run: dotnet test Bluent.sln --configuration Release --no-build --no-restore
+      - name: Validate release tooling without releasing
+        run: python -m unittest discover -s scripts/release -p 'test_release_tools.py' -v
+      - name: Exercise real SSR accessibility smoke (not full browser or AT)
+        shell: bash
+        run: |
+          ASPNETCORE_ENVIRONMENT=Development dotnet run             --project src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj             --configuration Release --no-build --no-launch-profile             --urls http://127.0.0.1:5054 > "$RUNNER_TEMP/bluent-v3-ssr.log" 2>&1 &
+          host_pid=$!
+          trap 'kill "$host_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..45}; do
+            if curl --fail --silent http://127.0.0.1:5054/compatibility/static > /dev/null; then break; fi
+            if [[ "$attempt" == "45" ]]; then cat "$RUNNER_TEMP/bluent-v3-ssr.log"; exit 1; fi
+            sleep 1
+          done
+          python scripts/quality/check_rendered_accessibility.py http://127.0.0.1:5054
+      - name: Preserve SSR diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-ssr-failure-${{ github.sha }}
+          path: ${{ runner.temp }}/bluent-v3-ssr.log
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Pack and inspect five public libraries, NEVER publish
+        shell: bash
+        env:
+          VALIDATION_VERSION: 0.0.0-ci.${{ github.run_number }}
+        run: |
+          mkdir -p artifacts/v3-packages artifacts/v3-evidence
+          projects=(
+            src/Bluent.Core/Bluent.Core.csproj
+            src/Bluent.UI/Bluent.UI.csproj
+            src/Bluent.UI.Charts/Bluent.UI.Charts.csproj
+            src/Bluent.UI.Diagrams/Bluent.UI.Diagrams.csproj
+            src/Bluent.UI.Utilities/Bluent.UI.Utilities.csproj
+          )
+          for project in "${projects[@]}"; do
+            dotnet pack "$project" --configuration Release --no-build --no-restore \
+              --output artifacts/v3-packages \
+              -p:PackageVersion="$VALIDATION_VERSION" \
+              -p:RepositoryCommit="${{ github.sha }}" \
+              -p:ContinuousIntegrationBuild=true
+          done
+          python scripts/release/release_tools.py validate-packages \
+            --directory artifacts/v3-packages \
+            --version "$VALIDATION_VERSION" \
+            --commit "${{ github.sha }}" \
+            --report artifacts/v3-evidence/package-validation.json
+      - name: Preserve package validation metadata, not binary packages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-package-validation-${{ github.sha }}
+          path: artifacts/v3-evidence/package-validation.json
+          if-no-files-found: ignore
+          retention-days: 7

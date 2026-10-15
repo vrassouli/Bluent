@@ -14,6 +14,8 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
+**#425 baseline quality gates (2026-10-15, In progress):** [evidence classification and CI matrix](../docs/v3/quality/EVIDENCE-AND-GATES.md) on isolated v3/issue-425-quality-gates. New path-unfiltered PR quality workflow requires full Release build/tests, five-package CI-only validation with SHA report, docs/Skills guards and real SSR accessibility smoke; signed-off visual/OS-AT/browser matrix is explicitly **not** claimed. It also updates vulnerable SSR WebAssembly.Server 10.0.7 to patched 10.0.13, without touching stable Dev. Browser test integration from unmerged #418 remains a follow-up dependency; design-tool-specific #425 gate board is not yet available due temporary Penpot/Figma tool restrictions. Do not mark Review/Done from source-only QA.
+
 **GitHub workflow:** [Backlog → Ready → In progress → Review → Done](../docs/v3/ISSUE-WORKFLOW.md). No task automatically merges to `Dev` before the complete v3 epic is accepted and separately authorized.
 
 ## Current Phase
