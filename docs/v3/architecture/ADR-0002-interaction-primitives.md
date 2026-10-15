@@ -19,9 +19,11 @@ Canonical editable Bluent v3 Penpot file: b64f6665-c9ab-80b5-8008-c4ac99d9d000. 
 
 ## Actual source debt and regression boundary
 
-In six internal interop files plus DomHelper, the baseline has **five async void methods**: AudioCaptureInterop.Stop, OverflowInterop.Init and CheckOverflow, PopoverInterop.SetPopover and ShowSurface. Across these seven files, **eleven catch(Exception)** clauses already exist. In some DisposeAsync paths, cleanup operations share a single try block: an earlier throw could skip remaining resource disposal. This is a **source-risk finding only**, not an observed production memory leak or tested keyboard failure.
+The original baseline had **five async void methods** and **eleven blanket catch(Exception) clauses**. Two source debts now have real v3-only fixes: AudioCaptureInterop.Stop was replaced by awaited StopAsync from the actual Button click handler, and OverflowInterop.Init by InitAsync awaited from the real OnAfterRenderAsync lifecycle. Both DisposeAsync paths now attempt every JS handle even if earlier cleanup throws, catching only expected JSDisconnectedException; Audio's managed callback reference is released in finally. **Remaining source debt: three async void methods** (Popover SetPopover/ShowSurface and Overflow CheckOverflow) and **nine blanket catches** (other interops and DomHelper). These are NOT claimed fixed.
 
-Check [source guard](../../../scripts/quality/check_v3_interaction_primitives.py) plus [negative controls](../../../scripts/quality/test_v3_interaction_primitives.py). The source guard freezes these known debts by exact filename/method and count: new async void or broad Exception catches fail, while removing old debt is allowed; files that own DotNetObjectReference must contain a disposal call. Static checks do not certify that disposal works at runtime.
+[Real compiled assembly harness](../../../scripts/quality/v3_interop_lifecycle/Program.cs) instantiates the actual internal interop types via reflection and tests them with controlled fake IJSRuntime / IJSObjectReference objects. **28 real .NET assertions pass**: lazy import, awaited unfinished JS stop/init, error propagation, expected circuit shutdown, attempt of remaining Dispose handles after failed child, repeated Dispose, and dispose before use. This is materially stronger than source-only checks, but is **mocked JavaScript**, not Chrome/Edge lifecycle or native AT evidence. No public parameters or consumer callback signatures were changed.
+
+Check [source guard](../../../scripts/quality/check_v3_interaction_primitives.py) plus [negative controls](../../../scripts/quality/test_v3_interaction_primitives.py). The source guard freezes the reduced outstanding debts by exact filename/method and count: new async void or broad Exception catches fail, while removing old debt is allowed; files that own DotNetObjectReference must contain a disposal call. Static checks do not certify that disposal works at runtime.
 
 ## Compilable existing-API sample
 
@@ -31,5 +33,5 @@ Check [source guard](../../../scripts/quality/check_v3_interaction_primitives.py
 
 1. Create and review an actual editable #420 interaction flow covering controlled binding, focus trap/restore, JS reference ownership, overlays, RTL, high contrast and disposal errors.
 2. Test real Chrome/Edge WASM/Server keyboard, Escape, focus return, JS module teardown/disconnect and nested themes. Source checks do not substitute for runtime checks.
-3. Refactor legacy async void and broad catches only with reviewed caller API and tests, not by changing stable 2.x or silently rethrowing into event handlers.
+3. Popover service event handlers and protected Overflow CheckOverflow still need an explicit awaited event/override contract; no unsafe fire-and-forget shortcut. Finish broad catch remediation with lifecycle and browser evidence.
 4. Update migration ledger for any approved public API change, and link #425 per-component CI evidence. Keep #420 In progress until real design and test acceptance, then seek Review.

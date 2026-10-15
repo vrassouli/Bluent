@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops.Abstractions;
+using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
 namespace Bluent.UI.Interops;
@@ -35,20 +35,41 @@ internal class AudioCaptureInterop : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
+        // Each resource must be attempted independently. Even if the JS proxy
+        // disconnects or throws, the managed DotNetObjectReference is released.
         try
         {
-            if (_audioCaptureReference != null)
-                await _audioCaptureReference.DisposeAsync();
-
-            if (_module != null)
-                await _module.DisposeAsync();
-
-            if (_handlerReference != null)
-                _handlerReference.Dispose();
+            try
+            {
+                if (_audioCaptureReference is not null)
+                    await _audioCaptureReference.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+                // Circuit shutdown is expected; do not mask unrelated JS errors.
+            }
         }
-        catch (Exception)
+        finally
         {
-            // swallow!
+            try
+            {
+                try
+                {
+                    if (_module is not null)
+                        await _module.DisposeAsync();
+                }
+                catch (JSDisconnectedException)
+                {
+                    // The remote module may already be disconnected.
+                }
+            }
+            finally
+            {
+                _handlerReference?.Dispose();
+                _handlerReference = null;
+                _audioCaptureReference = null;
+                _module = null;
+            }
         }
     }
 
@@ -58,17 +79,10 @@ internal class AudioCaptureInterop : IAsyncDisposable
         return await module.InvokeAsync<bool>("isSupported");
     }
 
-    public async void Stop()
+    public async Task StopAsync()
     {
-        try
-        {
-            var module = await GetModuleAsync();
-            await module.InvokeVoidAsync("stop");
-        }
-        catch
-        {
-            // swallow!
-        }
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("stop");
     }
 
     public async Task<bool> RecordAsync()

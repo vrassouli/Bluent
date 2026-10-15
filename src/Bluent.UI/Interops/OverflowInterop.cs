@@ -1,4 +1,4 @@
-﻿using Microsoft.JSInterop;
+using Microsoft.JSInterop;
 
 namespace Bluent.UI.Interops;
 
@@ -17,30 +17,45 @@ internal class OverflowInterop : IAsyncDisposable
     {
         try
         {
-            if (_overflowReference != null)
+            if (_overflowReference is not null)
                 await _overflowReference.DisposeAsync();
-
-            if (_module != null)
-                await _module.DisposeAsync();
         }
-        catch (Exception)
+        catch (JSDisconnectedException)
         {
-            // swallow
+            // Expected when the Blazor circuit disconnects during teardown.
+        }
+        finally
+        {
+            try
+            {
+                if (_module is not null)
+                    await _module.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+                // The module can already be disconnected.
+            }
+            finally
+            {
+                _overflowReference = null;
+                _module = null;
+            }
         }
     }
 
-    public async void Init(string id)
+    public async Task InitAsync(string id)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("init", id);
     }
 
+    // Still called from a protected synchronous Overflow member. Its
+    // lifecycle/consumer API transition is tracked separately under #420.
     public async void CheckOverflow()
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("checkOverflow");
     }
-
 
     private async Task<IJSObjectReference> GetModuleAsync()
     {

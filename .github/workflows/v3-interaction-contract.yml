@@ -8,6 +8,7 @@ on:
       - "scripts/quality/check_v3_interaction_primitives.py"
       - "scripts/quality/test_v3_interaction_primitives.py"
       - "scripts/quality/test_v3_interaction_sample.py"
+      - "scripts/quality/v3_interop_lifecycle/**"
       - "docs/v3/architecture/ADR-0002-interaction-primitives.md"
       - "src/Bluent.UI/Interops/**"
       - "src/Bluent.UI/Services/DomHelper.cs"
@@ -36,5 +37,9 @@ jobs:
         run: |
           dotnet restore samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj
           dotnet build samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj --configuration Release --no-restore -warnaserror
+      - name: Actual compiled DLL mocked-JS lifecycle tests
+        run: |
+          dotnet restore scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj
+          dotnet run --project scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj --configuration Release --no-restore
       - name: Evidence boundary
-        run: echo "Source and build only; no runtime focus/ARIA/AT conformance claim."
+        run: echo "Source + build + mocked JS .NET lifetime only; not real browser/OS/AT."

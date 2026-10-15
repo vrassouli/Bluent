@@ -12,14 +12,13 @@ INTEROPS=ROOT/"src/Bluent.UI/Interops"
 DOM_HELPER=ROOT/"src/Bluent.UI/Services/DomHelper.cs"
 
 LEGACY_ASYNC_VOID={
-    "AudioCaptureInterop.cs":frozenset({"Stop"}),
-    "OverflowInterop.cs":frozenset({"Init","CheckOverflow"}),
+    "OverflowInterop.cs":frozenset({"CheckOverflow"}),
     "PopoverInterop.cs":frozenset({"SetPopover","ShowSurface"}),
 }
 LEGACY_BROAD_CATCH_MAX={
-    "AudioCaptureInterop.cs":1,"BluentTheme.cs":1,
+    "BluentTheme.cs":1,
     "DataGridInterop.cs":1,"OptFieldInterop.cs":2,
-    "OverflowInterop.cs":1,"PopoverInterop.cs":1,
+    "PopoverInterop.cs":1,
     "DomHelper.cs":4,
 }
 ASYNC_VOID=re.compile(r"\basync\s+void\s+([A-Za-z_]\w*)\s*\(")

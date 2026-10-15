@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops;
+using Bluent.UI.Interops;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -23,14 +23,14 @@ public abstract partial class Overflow
 
     protected string GetOverflowId() => $"{Id}_overflow";
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (RendererInfo.IsInteractive)
         {
             if (firstRender)
             {
                 _interop = new OverflowInterop(JsRuntime);
-                _interop.Init(GetOverflowId());
+                await _interop.InitAsync(GetOverflowId());
             }
             else
             {
@@ -38,7 +38,7 @@ public abstract partial class Overflow
             }
         }
 
-        base.OnAfterRender(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public override async ValueTask DisposeAsync()
