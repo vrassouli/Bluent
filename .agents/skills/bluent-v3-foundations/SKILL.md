@@ -98,3 +98,12 @@ to catch future source serialization regressions. A prior Edge/Server
 GitHub CI failure occurred after 869/869 successful browser checks solely
 in Windows PowerShell owned-browser cleanup; hardened asynchronous
 bounded cleanup still rejects leftover processes.
+
+2026-10-16 system-font continuity has a versioned testable snapshot at
+docs/v3/tokens/issue-418-system-font-continuity.json. Run
+python scripts/quality/audit_v3_system_font_continuity.py and the seven
+negative tests. Enforce 20 CSS brand/mode font stacks and preserve three
+preexisting Fluent System Icon fonts while rejecting new text fonts.
+The CI snapshot is not live Penpot readback and does not certify native
+glyph optics or assistive tech. Safe rollback:
+docs/v3/tokens/SYSTEM-FONT-CONTINUITY-AND-ROLLBACK.md.

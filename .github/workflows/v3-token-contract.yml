@@ -34,6 +34,8 @@ on:
       - "docs/v3/tokens/BRANDED-FOCUS-PENPOT-PAGE07-REVIEW.md"
       - "docs/v3/tokens/BRANDED-FOCUS-HOVER-CANDIDATE.md"
       - "scripts/quality/check_v3_typography_source_contract.py"
+      - "scripts/quality/audit_v3_system_font_continuity.py"
+      - "scripts/quality/test_v3_system_font_continuity.py"
       - "src/Bluent.UI/Styles/Themes/**"
       - "docs/v3/tokens/issue-418-*"
       - "scripts/quality/sync_v3_token_demo_asset.py"
@@ -63,6 +65,8 @@ jobs:
           python scripts/quality/sync_v3_token_demo_asset.py --check
           python scripts/quality/generate_v3_scoped_brands.py --check
           python scripts/quality/check_v3_typography_source_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_system_font_continuity.py' -v
+          python scripts/quality/audit_v3_system_font_continuity.py
           python scripts/quality/audit_v3_token_preview_contrast.py
           python -m unittest discover -s scripts/quality -p 'test_v3_brand_focus_candidate.py' -v
           python scripts/quality/audit_v3_brand_focus_candidate.py

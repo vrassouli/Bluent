@@ -232,3 +232,12 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   GitHub Edge/Server browser CI 869/869 assertions passed; only owned
   browser cleanup powershell.exe ETIMEDOUT, now hardened using asynchronous
   bounded verification with a single scoped CIM enumeration.
+
+- 2026-10-16 #418 approved system-font continuity is an executable
+  v1 source+asset contract: issue-418-system-font-continuity.json,
+  audit_v3_system_font_continuity.py and 7 negative-control Python tests.
+  CI Token Contract now checks all 20 CSS theme variants and excludes
+  added text font binaries, while allowing three legacy Fluent icon
+  font files. New migration/rollback instructions distinguish live Penpot
+  readback from CI manifest; native Persian glyph/AT still unapproved.
+  Stable Dev/NuGet font assets unchanged.

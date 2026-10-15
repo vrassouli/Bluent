@@ -9,15 +9,16 @@ It was exported and visually reviewed; eight size-token bindings pass.
 This resolves the *missing editable board* subtask, NOT the human approval
 of the final font stack, glyph shaping, native OS Contrast Themes or AT.
 See [the updated typography research evidence](PERSIAN-TYPOGRAPHY-RESEARCH.md).
-An independent native Penpot font-family serialization defect also remains:
-unquoted Segoe UI resolves to Segoe,UI; quoted multiword family resolves
-correctly in an isolated experiment (which was removed after testing).
-**This is not a runtime CSS issue; the existing CSS source correctly quotes
-multiword family names.** Do not change the original #419 draft token
-without review.
+The earlier Penpot multiword family defect is now **corrected with
+maintainer approval**: the original draft token stores the quoted Segoe UI
+family and resolves to exactly Segoe UI. Existing CSS already quoted it;
+no runtime font was changed. See the machine-testable system font
+continuity and rollback policy for current, separate CI and design checks.
 
 
-**Date:** 2026-10-11. **Status:** measured source contract and opt-in browser research only, **not approved final font/token values**. The original Penpot accessibility decisions remain at file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `acf5f619-7d81-80da-8008-c5ef1089ac94`. A separate editable Persian typography page is **not yet available**: the connected Penpot tab was suspended and the authorized Figma fallback returned a Starter-plan MCP quota limitation.
+**Date:** 2026-10-11. **Status:** measured source contract and opt-in browser research only, **not approved final font/token values**. The original Penpot accessibility decisions remain at file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `acf5f619-7d81-80da-8008-c5ef1089ac94`. *Historical 2026-10-11 limitation*: an editable Persian typography page
+was unavailable at that time; this is resolved by the page-42 Penpot
+research board described above.
 
 **Decision 2026-10-16:** Keep the existing Segoe UI-first system-font
 stack; do **not** bundle new fonts. Penpot's original draft multiword

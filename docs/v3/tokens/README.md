@@ -2,6 +2,10 @@
 
 **Status:** In progress · **2026-10-11** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
 
+The accepted interim system-font continuity, real CSS/asset regression
+checks and [safe rollback steps](SYSTEM-FONT-CONTINUITY-AND-ROLLBACK.md)
+are documented, with final native Persian glyph/AT acceptance still open.
+
 The draft [editable Persian typography/fallback acceptance study](PERSIAN-TYPOGRAPHY-RESEARCH.md) is now in the correct Penpot Bluent file (page 42 / board e775e67c-d9da-804b-8008-cb84059cbdab): eight native size-token links, not final font approval.
 
 ## Real design location and scope
