@@ -1,6 +1,10 @@
 # Bluent v3 Interaction Primitives · #420
 
 
+LATEST 2026-10-15 #420: Real Popover SCSS now respects prefers-reduced-motion, zeroing transition/delay. Tracked compiled components.css and shipped components.min.css have the same rule. CI rebuilds pinned Sass@1.93.2 and rejects stale CSS output along with tracked JS bundles. A real no-arrow Blazor fixture checks DisplayArrow=false, finite geometry and Runtime.exceptionThrown for otherwise hidden JavaScript errors. Actual Dev01 Chrome/Edge x WASM/Server **27/27 per mode = 108/108** on shipped styles incl real computed reduced-motion CSS under emulation, RTL/forced-colors emulation, zero motion Escape, rapid reopen, focus LIFO, independent width/geometry and optional arrow. PNG/JSON are not native Windows Contrast or AT certification. #420 In progress and Draft pending canonical Penpot maintainer signoff, native OS/AT and broader overlays.
+
+
+
 LATEST 2026-10-15 #420 transient hide fix: Popover pending hide completion now owned per trigger ID, with cancellable transitionend listener and computed CSS-duration fallback, instant zero-second completion, reopening cancels stale callback, disposal clears all. Actual live Chrome/Edge x Server/WASM **23 checks per mode = 92/92**: two simultaneous SameWidth Popovers, topmost Escape/focus, reduced-motion/forced-colors browser emulation in RTL with zero-second transition, 700ms interrupted hide and rapid reopen without stale cleanup. Separate emulated-contrast PNG + JSON per mode. Rebuilt ESM/global bundles and maps synced to Bluent.UI assets. Source contract rejects missing no-animation/rapid-reopen guards and includes two negative tests. Browser emulation does NOT certify native Windows Contrast Themes or AT; #420 Penpot draft still needs reviewer approval; do not merge stable Dev or release v2.
 
 

@@ -2851,6 +2851,14 @@
   transition-property: opacity, transform;
   transition-duration: var(--durationSlower);
   transition-timing-function: var(--curveDecelerateMid);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bui-popover-surface {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
+.bui-popover-surface {
   opacity: 0;
 }
 .bui-popover-surface.right, .bui-popover-surface.right-start, .bui-popover-surfaceright-end {
@@ -4714,5 +4722,3 @@
 .rtl .bui-wizard > .content > .panels.backward > .step.current > .content, [dir=rtl] .bui-wizard > .content > .panels.backward > .step.current > .content {
   animation-name: slide-in-right, fade-in;
 }
-
-/*# sourceMappingURL=components.css.map */

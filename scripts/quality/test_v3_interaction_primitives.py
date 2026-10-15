@@ -89,6 +89,10 @@ class InteropSourceContractTests(unittest.TestCase):
             "rapid reopen cancels pending hide",
             "old hide completion cannot conceal reopened Popover",
             "RTL with reduced-motion and forced-colors browser emulation enabled",
+            "shipped Popover CSS naturally honors OS prefers-reduced-motion",
+            "public DisplayArrow false opens actual Popover",
+            "optional arrow positioning works without arrow DOM",
+            "Popover positioning emits no unhandled JavaScript exceptions",
         ):
             self.assertIn(fragment,probe)
 
@@ -97,6 +101,9 @@ class InteropSourceContractTests(unittest.TestCase):
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")
         probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
         for item in ("check_v3_popover_js_bundle.py", "test_v3_popover_js_bundle.py",
+                     'src/Bluent.UI/Styles/Components/_popover.scss',
+                     "npx --yes sass@1.93.2",
+                     "src/Bluent.UI/wwwroot/bluent.ui.components.min.css",
                      "npm --prefix src/Bluent.UI.Scripts run build",
                      "git diff --exit-code -- src/Bluent.UI.Scripts/dist/",
                      "real-popover-browser:","browser: [Chrome, Edge]",

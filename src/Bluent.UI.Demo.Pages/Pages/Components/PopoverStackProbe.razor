@@ -23,6 +23,15 @@
             <div>Second stack surface</div>
         </Surface>
     </Popover>
+    @* Optional arrow branch must position correctly without an arrow DOM node. *@
+    <Popover KeepSurface="true" DisplayArrow="false" Placement="Placement.RightStart">
+        <Trigger>
+            <Button Text="No-arrow trigger" />
+        </Trigger>
+        <Surface>
+            <div>No-arrow RTL surface</div>
+        </Surface>
+    </Popover>
 </section>
 
 @code {

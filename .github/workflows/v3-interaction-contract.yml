@@ -16,6 +16,9 @@ on:
       - "src/Bluent.UI.Scripts/dist/**"
       - "src/Bluent.UI.Scripts/package-lock.json"
       - "src/Bluent.UI/wwwroot/bluent.ui*.js*"
+      - "src/Bluent.UI/Styles/Components/_popover.scss"
+      - "src/Bluent.UI/Styles/Components/components.css"
+      - "src/Bluent.UI/wwwroot/bluent.ui.components.min.css"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/PopoverStackProbe.razor"
       - "src/Bluent.UI.Demo.SSR/Components/Pages/PopoverStackInteractiveServerProbe.razor"
@@ -43,6 +46,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - name: Rebuild tracked Popover Sass for reduced motion from source
+        run: |
+          npm --prefix src/Bluent.UI ci --ignore-scripts --no-audit --no-fund
+          npx --yes sass@1.93.2 --silence-deprecation=import,global-builtin,color-functions,legacy-js-api --no-source-map src/Bluent.UI/Styles/Components/components.scss src/Bluent.UI/Styles/Components/components.css
+          git diff --exit-code -- src/Bluent.UI/Styles/Components/components.css
       - name: Verify reproducible TypeScript ESM/global bundles shipped by Bluent.UI
         run: |
           npm --prefix src/Bluent.UI.Scripts ci --ignore-scripts --no-audit --no-fund
@@ -57,6 +65,10 @@ jobs:
         run: |
           dotnet restore samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj
           dotnet build samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj --configuration Release --no-restore -warnaserror
+      - name: Reject stale published minified Popover CSS
+        run: |
+          python scripts/quality/check_v3_popover_js_bundle.py
+          git diff --exit-code -- src/Bluent.UI/wwwroot/bluent.ui.components.min.css
       - name: Actual compiled DLL mocked-JS lifecycle tests
         run: |
           dotnet restore scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj

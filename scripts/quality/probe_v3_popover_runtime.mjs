@@ -22,8 +22,8 @@ function result(name,ok,details){checks.push({name,pass:!!ok,details});if(!ok)er
 function launch(exe,args,cwd=root,env=process.env){const p=spawn(exe,args,{cwd,env,windowsHide:true,stdio:["ignore","pipe","pipe"]});let tail="";for(const x of [p.stdout,p.stderr])x.on("data",v=>tail=(tail+String(v)).slice(-6500));p.tail=()=>tail;return p;}
 async function until(fn,name,timeout=80000){const end=Date.now()+timeout;let last="";while(Date.now()<end){try{const x=await fn();if(x)return x;}catch(e){last=String(e);}await wait(300);}throw Error("Timeout "+name+": "+last);}
 class CDP {
- constructor(url){this.ws=new WebSocket(url);this.next=0;this.pending=new Map();}
- async open(){await new Promise((done,fail)=>{this.ws.addEventListener("open",done,{once:true});this.ws.addEventListener("error",fail,{once:true});});this.ws.addEventListener("message",event=>{const x=JSON.parse(String(event.data)),p=this.pending.get(x.id);if(!p)return;clearTimeout(p.timer);this.pending.delete(x.id);x.error?p.reject(Error(JSON.stringify(x.error))):p.resolve(x.result||{});});}
+ constructor(url){this.ws=new WebSocket(url);this.next=0;this.pending=new Map();this.runtimeExceptions=[];}
+ async open(){await new Promise((done,fail)=>{this.ws.addEventListener("open",done,{once:true});this.ws.addEventListener("error",fail,{once:true});});this.ws.addEventListener("message",event=>{const x=JSON.parse(String(event.data));if(x.method==="Runtime.exceptionThrown"){this.runtimeExceptions.push(x.params.exceptionDetails.exception?.description||x.params.exceptionDetails.text);return;}const p=this.pending.get(x.id);if(!p)return;clearTimeout(p.timer);this.pending.delete(x.id);x.error?p.reject(Error(JSON.stringify(x.error))):p.resolve(x.result||{});});}
  send(method,params={}){const id=++this.next;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{this.pending.delete(id);reject(Error("Timeout "+method));},22000);this.pending.set(id,{resolve,reject,timer});this.ws.send(JSON.stringify({id,method,params}));});}
  async js(expr){const r=await this.send("Runtime.evaluate",{expression:expr,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result?.value;}
  close(){this.ws?.close();}
@@ -84,6 +84,10 @@ try{
  ]});
  const emulated=await cdp.js("(()=>{document.documentElement.dir='rtl';return {reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,forced:matchMedia('(forced-colors: active)').matches,dir:document.documentElement.dir};})()");
  result("RTL with reduced-motion and forced-colors browser emulation enabled",emulated.reduced&&emulated.forced&&emulated.dir==='rtl',emulated);
+ // Check the ACTUAL shipped CSS, before manually forcing any transition
+ // duration. A Reduce Motion host must not require inline overrides.
+ const naturalReducedMotion=await cdp.js("(()=>{const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));if(!s)return {ok:false,reason:'missing surface'};const style=getComputedStyle(s);const durations=style.transitionDuration.split(',').map(x=>x.trim());return {ok:durations.every(x=>parseFloat(x)===0),duration:style.transitionDuration,delay:style.transitionDelay};})()");
+ result("shipped Popover CSS naturally honors OS prefers-reduced-motion",naturalReducedMotion.ok,naturalReducedMotion);
  const zeroMotion=await until(async()=>{
   await cdp.js("(()=>{const surface=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));if(surface){surface.style.transitionDuration='0s';surface.style.transitionDelay='0s';}const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");
@@ -173,6 +177,18 @@ try{
  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
  const bottomClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('First stack trigger'));const surfaces=[...document.querySelectorAll('.bui-popover-surface')];const first=surfaces.find(x=>x.textContent.includes('First stack surface'));const second=surfaces.find(x=>x.textContent.includes('Second stack surface'));return !!(b&&first&&!first.classList.contains('show')&&second&&!second.classList.contains('show')&&document.activeElement===b);})()"),"second Escape closes remaining surface",9000);
  result("second Escape closes remaining and focuses first trigger",bottomClosed);
+ // The public DisplayArrow=false option must not feed a missing arrow element
+ // into the floating geometry middleware or leave invalid positioning.
+ const noArrowShown=await until(async()=>{
+  await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('No-arrow trigger'));b?.click();return !!b;})()");
+  return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('No-arrow RTL surface'))");
+ },"real no-arrow optional middleware popover",12000);
+ result("public DisplayArrow false opens actual Popover",noArrowShown);
+ const noArrowGeometry=await until(()=>cdp.js("(()=>{const s=[...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('No-arrow RTL surface'));if(!s)return false;const st=getComputedStyle(s);const r=s.getBoundingClientRect();return !s.querySelector('.arrow')&&Number.isFinite(r.x)&&Number.isFinite(r.y)&&r.width>0&&r.height>0&&st.position==='absolute';})()"),"no-arrow geometry finite and DOM has no arrow",8000);
+ result("optional arrow positioning works without arrow DOM",noArrowGeometry);
+ await wait(750);
+ result("Popover positioning emits no unhandled JavaScript exceptions",
+   cdp.runtimeExceptions.length===0,cdp.runtimeExceptions.slice(0,6));
  const stackShot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
  writeFileSync(join(evidence,"popover-stack-"+brand+".png"),Buffer.from(stackShot.data,"base64"));
 }catch(e){errors.push(String(e.stack||e));}

@@ -8,6 +8,7 @@ keyboard or native assistive technology verification.
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -53,6 +54,18 @@ def check_implementation_typescript(src:str)->None:
         if term not in src:
             raise BundleContractError("Missing popover Escape/focus contract: "+term)
 
+def check_popover_reduced_motion_style(authored: str, compiled: str, minified: str) -> None:
+    if "@media (prefers-reduced-motion: reduce)" not in authored:
+        raise BundleContractError("Missing Popover authored OS reduced motion media query")
+    if "transition-duration: 0s;" not in authored or "transition-delay: 0s;" not in authored:
+        raise BundleContractError("Popover authored reduced motion must disable transition and delay")
+    pattern = r"@media\(prefers-reduced-motion:reduce\)\{\.bui-popover-surface\{transition-duration:0s;transition-delay:0s;?\}\}"
+    for origin, css in (("Sass compiled components.css", compiled),
+                        ("Published components.min.css", minified)):
+        normalized = re.sub(r"\s+", "", css)
+        if not re.search(pattern, normalized):
+            raise BundleContractError(f"{origin}: missing rendered Popover reduced-motion declaration")
+
 def main()->None:
     cli=argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--dist",type=Path,default=ROOT/"src/Bluent.UI.Scripts/dist")
@@ -60,7 +73,11 @@ def main()->None:
     args=cli.parse_args()
     check_implementation_typescript((ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig"))
     same_generated_assets(args.dist,args.wwwroot)
-    print("PASS #420 Popover TS Escape/Focus source; 4 ESM/global JS bundles and maps match shipped static web assets")
+    check_popover_reduced_motion_style(
+        (ROOT/"src/Bluent.UI/Styles/Components/_popover.scss").read_text(encoding="utf-8-sig"),
+        (ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8-sig"),
+        (ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8-sig"))
+    print("PASS #420 Popover TS/JS and Sass reduced motion source: 4 ESM/global JS+maps and component CSS match shipped assets")
 
 if __name__=="__main__":
     main()

@@ -1,4 +1,4 @@
-﻿.bui-popover {
+.bui-popover {
   width: max-content;
 }
 
@@ -23,6 +23,15 @@
   transition-property: opacity, transform;
   transition-duration: var(--durationSlower);
   transition-timing-function: var(--curveDecelerateMid);
+
+  // Respect the OS/browser Reduce Motion preference automatically. JS hide
+  // lifecycle also supports a true zero-duration transition without relying
+  // on transitionend, so no invisible focusable surface is left behind.
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+
   opacity: 0;
 
   &.right, &.right-start, &right-end {
