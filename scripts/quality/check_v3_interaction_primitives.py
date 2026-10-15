@@ -11,17 +11,9 @@ ROOT=Path(__file__).resolve().parents[2]
 INTEROPS=ROOT/"src/Bluent.UI/Interops"
 DOM_HELPER=ROOT/"src/Bluent.UI/Services/DomHelper.cs"
 
-LEGACY_ASYNC_VOID={
-    "OverflowInterop.cs":frozenset({"CheckOverflow"}),
-    "PopoverInterop.cs":frozenset({"SetPopover","ShowSurface"}),
-}
-LEGACY_BROAD_CATCH_MAX={
-    "OptFieldInterop.cs":1,
-}
-LEGACY_UNTYPED_CATCH_MAX={
-    "DataGridInterop.cs":1,
-    "PopoverInterop.cs":1,
-}
+LEGACY_ASYNC_VOID={}
+LEGACY_BROAD_CATCH_MAX={}
+LEGACY_UNTYPED_CATCH_MAX={}
 ASYNC_VOID=re.compile(r"\basync\s+void\s+([A-Za-z_]\w*)\s*\(")
 BROAD_CATCH=re.compile(r"catch\s*\(\s*Exception\s*\)")
 UNTYPED_CATCH=re.compile(r"\bcatch\s*\{")
@@ -71,7 +63,12 @@ def main()->None:
             print(name+": async void="+",".join(row["legacyAsyncVoid"])+
                   " broad Exception catch="+str(row["legacyBroadExceptionCatches"])+
                   " bare catch="+str(row["legacyUntypedCatches"]))
-    print("WARNING: existing async void and blanket catch debts remain; not runtime/AT validation")
+    remaining=sum(bool(row["legacyAsyncVoid"]) or bool(row["legacyBroadExceptionCatches"])
+                  or bool(row["legacyUntypedCatches"]) for row in result.values())
+    if remaining:
+        print("WARNING: legacy async void/blanket-catch source debts remain; NOT runtime/AT certification")
+    else:
+        print("PASS: zero async void / typed Exception catch / bare catch in reviewed Interops + DomHelper (SOURCE-only)")
 
 if __name__=="__main__":
     main()

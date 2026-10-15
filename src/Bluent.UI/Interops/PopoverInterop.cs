@@ -67,20 +67,13 @@ internal class PopoverInterop : IAsyncDisposable
         }
     }
 
-    public async void SetPopover(PopoverSettings settings)
+    public async Task SetPopoverAsync(PopoverSettings settings)
     {
-        try
-        {
-            var module = await GetModuleAsync();
-            await module.InvokeVoidAsync("setPopover", settings);
-        }
-        catch
-        {
-            // swallow!
-        }
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("setPopover", settings);
     }
 
-    public async void ShowSurface(PopoverSettings settings)
+    public async Task ShowSurfaceAsync(PopoverSettings settings)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("showSurface", settings);

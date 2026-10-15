@@ -9,6 +9,8 @@ on:
       - "scripts/quality/test_v3_interaction_primitives.py"
       - "scripts/quality/test_v3_interaction_sample.py"
       - "scripts/quality/v3_interop_lifecycle/**"
+      - "scripts/quality/probe_v3_popover_runtime.mjs"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor"
       - "docs/v3/architecture/ADR-0002-interaction-primitives.md"
       - "src/Bluent.UI/Interops/**"
       - "src/Bluent.UI/Services/DomHelper.cs"
@@ -42,4 +44,51 @@ jobs:
           dotnet restore scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj
           dotnet run --project scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj --configuration Release --no-restore
       - name: Evidence boundary
-        run: echo "Source + build + mocked JS .NET lifetime only; not real browser/OS/AT."
+        run: echo "Source + build + mocked JS .NET lifetime; browser checked in separate Windows jobs. Not native OS/AT."
+
+
+  real-popover-browser:
+    name: Real Popover / ${{ matrix.browser }} / WASM
+    runs-on: windows-latest
+    timeout-minutes: 26
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [Chrome, Edge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Restore Blazor WebAssembly demo
+        run: dotnet restore src/Bluent.UI.Demo/Bluent.UI.Demo.csproj
+      - name: Build interactive demo with localhost base href
+        run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore -warnaserror
+      - name: Select real installed Chrome or Edge
+        shell: pwsh
+        run: |
+          if ("${{ matrix.browser }}" -eq "Chrome") {
+            $candidates = @('C:\Program Files\Google\Chrome\Application\chrome.exe','C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
+          } else {
+            $candidates = @('C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe','C:\Program Files\Microsoft\Edge\Application\msedge.exe')
+          }
+          $selected = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $selected) { throw "Browser missing: ${{ matrix.browser }}" }
+          "CHROME_PATH=$selected" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Real trigger, dynamic content, manual Show and Close
+        shell: pwsh
+        env:
+          BLUENT_V3_BROWSER_NAME: ${{ matrix.browser }}
+          BLUENT_V3_EVIDENCE_DIR: ${{ runner.temp }}/v3-popover-evidence
+        run: node scripts/quality/probe_v3_popover_runtime.mjs
+      - name: Preserve screenshot and exact-commit JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-popover-${{ matrix.browser }}-${{ github.sha }}
+          path: ${{ runner.temp }}/v3-popover-evidence
+          if-no-files-found: error
+          retention-days: 7

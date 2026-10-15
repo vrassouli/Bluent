@@ -51,9 +51,10 @@ internal class OptFieldInterop : IAsyncDisposable
             var module = await GetModuleAsync();
             await module.InvokeVoidAsync("init", id);
         }
-        catch (Exception)
+        catch (JSDisconnectedException)
         {
-            // swallow!
+            // Expected if the interactive circuit closes during initialization.
+            // Unexpected JavaScript failures are not silently ignored.
         }
     }
 

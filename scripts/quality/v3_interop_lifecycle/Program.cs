@@ -28,6 +28,9 @@ internal static class Program
             await DataGridJsAndComponentCleanup();
             await DomHelperPointerLifetimeChecks();
             await ThemeModuleLifetimeChecks();
+            await InitializationExceptionsAreObservable();
+            await OverflowCheckAwaitsActualJs();
+            await PopoverCommandsAwaitedInServiceOrder();
             Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover/DataGrid/DomHelper/BluentTheme interop lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
@@ -525,6 +528,171 @@ internal static class Program
         Assert(unused.ImportCount==0,"DomHelper dispose-before-register does not import JS");
     }
 
+    private static object CreatePopoverQueue()
+    {
+        Type type=typeof(AudioCapture).Assembly.GetType("Bluent.UI.Interops.PopoverCommandQueue",throwOnError:true)!;
+        return Activator.CreateInstance(type,nonPublic:true)!;
+    }
+
+    private static void AddPopoverCommand(object queue,bool show,PopoverSettings settings)
+        => queue.GetType().GetMethod("Enqueue")!.Invoke(queue,[show,settings]);
+
+    private static int QueuedPopoverActions(object queue)
+        => (int)queue.GetType().GetProperty("Count")!.GetValue(queue)!;
+
+    private static Task DrainPopoverCommands(object queue,Func<bool,PopoverSettings,Task> execute)
+        => (Task)queue.GetType().GetMethod("DrainAsync")!.Invoke(queue,[execute])!;
+
+    private static async Task PopoverCommandsAwaitedInServiceOrder()
+    {
+        var js=new FakeRuntime();
+        var (interop,container,service)=CreatePopover(js);
+        var queue=CreatePopoverQueue();
+        var a=new PopoverSettings("trigger-a",Placement.Bottom,6,5);
+        var b=new PopoverSettings("trigger-b",Placement.Top,6,5);
+        var gate=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        js.Handle.PopoverSetGate=gate;
+        AddPopoverCommand(queue,false,a);
+        AddPopoverCommand(queue,true,a);
+        AddPopoverCommand(queue,false,b);
+        Assert(QueuedPopoverActions(queue)==3,
+            "Popover commands preserve original service notification count");
+        Func<bool,PopoverSettings,Task> execute=(show,settings)=>
+            InvokeTask(interop,show?"ShowSurfaceAsync":"SetPopoverAsync",settings);
+
+        Task first=DrainPopoverCommands(queue,execute);
+        Assert(js.Handle.PopoverCalls.Count==1&&js.Handle.PopoverCalls[0]=="setPopover:trigger-a",
+            "Popover starts Set before Show while awaiting real JS");
+        Assert(!first.IsCompleted,"Popover queue waits for pending JS Set");
+        Task overlapping=DrainPopoverCommands(queue,execute);
+        await overlapping;
+        Assert(js.Handle.PopoverCalls.Count==1,"overlapping renderer drain cannot reorder commands");
+        gate.SetResult();
+        await first;
+        Assert(js.Handle.PopoverCalls.SequenceEqual(new[]{
+            "setPopover:trigger-a","showSurface:trigger-a","setPopover:trigger-b"}),
+            "Popover Set/Show commands execute strictly in FIFO order");
+        Assert(QueuedPopoverActions(queue)==0,"successful queue drain consumes all commands");
+        await Dispose(container);
+        Assert(EventSubscriptions(service)==0,
+            "real Popover container unsubscribes after queued operations");
+
+        var broken=new FakeRuntime();
+        var (faulty,brokenContainer,_)=CreatePopover(broken);
+        var retries=CreatePopoverQueue();
+        broken.Handle.PopoverFailureOn="setPopover";
+        AddPopoverCommand(retries,false,a);
+        AddPopoverCommand(retries,true,a);
+        await ExpectJsException(DrainPopoverCommands(retries,(show,settings)=>
+            InvokeTask(faulty,show?"ShowSurfaceAsync":"SetPopoverAsync",settings)),
+            "Unexpected Popover JS Set error surfaces through awaited queue");
+        Assert(QueuedPopoverActions(retries)==1,
+            "Popover error retains subsequent command for explicit recovery");
+        broken.Handle.PopoverFailureOn=null;
+        await DrainPopoverCommands(retries,(show,settings)=>
+            InvokeTask(faulty,show?"ShowSurfaceAsync":"SetPopoverAsync",settings));
+        Assert(broken.Handle.PopoverCalls.Last()=="showSurface:trigger-a",
+            "after error, queued Show can resume in explicit follow-up drain");
+        Assert(QueuedPopoverActions(retries)==0,"Popover recovery empties queue");
+        await Dispose(brokenContainer);
+
+        var cleared=CreatePopoverQueue();
+        AddPopoverCommand(cleared,false,a);
+        cleared.GetType().GetMethod("Clear")!.Invoke(cleared,null);
+        Assert(QueuedPopoverActions(cleared)==0,"Disposed/disconnected Popover clears pending work");
+    }
+
+    private static async Task OverflowCheckAwaitsActualJs()
+    {
+        var pending=new FakeRuntime();
+        var interop=CreateOverflowInterop(pending);
+        var gate=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        pending.Handle.CheckOverflowGate=gate;
+        Task check=InvokeTask(interop,"CheckOverflowAsync");
+        Assert(pending.Handle.CheckOverflowCount==1,"Overflow check JS call started");
+        Assert(!check.IsCompleted,"Overflow check awaits unfinished JS");
+        gate.SetResult();
+        await check;
+        Assert(check.IsCompletedSuccessfully,"Overflow JS check awaited successfully");
+        await Dispose(interop);
+
+        var failed=new FakeRuntime();
+        var broken=CreateOverflowInterop(failed);
+        failed.Handle.CheckOverflowFailure=new JSException("overflow JS error");
+        await ExpectJsException(InvokeTask(broken,"CheckOverflowAsync"),
+            "Overflow check exposes unexpected JS failure to Blazor lifecycle");
+        await Dispose(broken);
+
+        var lost=new FakeRuntime();
+        var disconnected=CreateOverflowInterop(lost);
+        lost.Handle.CheckOverflowFailure=new JSDisconnectedException("circuit disconnected");
+        try
+        {
+            await InvokeTask(disconnected,"CheckOverflowAsync");
+            throw new InvalidOperationException("Overflow check unexpectedly hid circuit disconnection");
+        }
+        catch(JSDisconnectedException)
+        {
+            Assert(true,"Overflow JS disconnection remains observable to lifecycle/error boundary");
+        }
+        await Dispose(disconnected);
+    }
+
+    private static async Task InitializationExceptionsAreObservable()
+    {
+        // OtpField init is awaited by OnAfterRenderAsync. Circuit shutdown is
+        // expected and harmless, but an unexpected JS runtime error MUST be seen.
+        var otpDisconnect=new FakeRuntime();
+        var disconnectedOtp=CreateOtpInterop(otpDisconnect);
+        otpDisconnect.Handle.InitFailure=new JSDisconnectedException("circuit gone");
+        await InvokeTask(disconnectedOtp,"InitializeAsync","otp-disconnected");
+        Assert(otpDisconnect.Handle.InitCount==1,"OTP initialization attempted on disconnected circuit");
+        await Dispose(disconnectedOtp);
+        Assert(otpDisconnect.Module.DisposeCount==1,"OTP init disconnect still permits cleanup");
+
+        var otpFailure=new FakeRuntime();
+        var brokenOtp=CreateOtpInterop(otpFailure);
+        otpFailure.Handle.InitFailure=new JSException("OTP broken JS module");
+        await ExpectJsException(InvokeTask(brokenOtp,"InitializeAsync","otp-error"),
+            "unexpected OTP initialization JS exception must be observable");
+        await Dispose(brokenOtp);
+        Assert(otpFailure.Module.DisposeCount==1,"OTP unexpected init failure still allows cleanup");
+
+        // DataGrid initialization creates the interop callback proxy; a failed
+        // module import or proxy creation is no longer silently swallowed.
+        var gridDisconnect=new FakeRuntime();
+        var interruptedGrid=CreateDataGrid(gridDisconnect);
+        gridDisconnect.Module.CreateFailure=new JSDisconnectedException("circuit gone");
+        await InvokeTask(interruptedGrid.Interop,"Initialize");
+        Assert(gridDisconnect.Module.CreateCount==1,"DataGrid attempted init during circuit shutdown");
+        await Dispose(interruptedGrid.Component);
+        Assert(gridDisconnect.Module.DisposeCount==1,"DataGrid expected disconnect cleanup");
+
+        var gridFailure=new FakeRuntime();
+        var brokenGrid=CreateDataGrid(gridFailure);
+        gridFailure.Module.CreateFailure=new JSException("DataGrid proxy failed");
+        await ExpectJsException(InvokeTask(brokenGrid.Interop,"Initialize"),
+            "unexpected DataGrid JS initialization failure must be observable");
+        await Dispose(brokenGrid.Component);
+        Assert(gridFailure.Module.DisposeCount==1,"DataGrid unexpected initialization error still cleans up");
+        Assert(Field<object>(brokenGrid.Interop,"_handlerReference") is null,
+            "DataGrid unexpected proxy initialization failure releases callback at dispose");
+    }
+
+    private static async Task ExpectJsException(Task task,string message)
+    {
+        try
+        {
+            await task;
+        }
+        catch(JSException)
+        {
+            Assert(true,message);
+            return;
+        }
+        throw new InvalidOperationException("ASSERTION FAILED: "+message);
+    }
+
     private static async Task ThemeModuleLifetimeChecks()
     {
         var neverUsed=new FakeRuntime();
@@ -590,6 +758,7 @@ internal sealed class FakeModule(FakeJsHandle handle): IJSObjectReference
     public int CreateCount {get;private set;}
     public int DisposeCount {get;private set;}
     public Exception? DisposeFailure {get;set;}
+    public Exception? CreateFailure {get;set;}
     public string? FailureOn {get;set;}
     public object? LastRegisterReference {get;private set;}
     public int PointerCalls {get;private set;}
@@ -601,6 +770,7 @@ internal sealed class FakeModule(FakeJsHandle handle): IJSObjectReference
         if(identifier is not ("AudioCapture.create" or "Overflow.create" or "OtpField.create" or "Popover.create" or "DataGrid.create" or "DomHelper.create"))
             throw new InvalidOperationException("Unexpected JS module: "+identifier);
         CreateCount++;
+        if(CreateFailure is not null)throw CreateFailure;
         return new ValueTask<TValue>((TValue)(object)handle);
     }
     public ValueTask DisposeAsync() {DisposeCount++;if(DisposeFailure is not null)throw DisposeFailure;return ValueTask.CompletedTask;}
@@ -611,6 +781,10 @@ internal sealed class FakeJsHandle: IJSObjectReference
     public int StopCount {get;private set;}
     public int InitCount {get;private set;}
     public TaskCompletionSource? InitGate {get;set;}
+    public Exception? InitFailure {get;set;}
+    public TaskCompletionSource? CheckOverflowGate {get;set;}
+    public Exception? CheckOverflowFailure {get;set;}
+    public int CheckOverflowCount {get;private set;}
     public int DisposeCount {get;private set;}
     public TaskCompletionSource? StopGate {get;set;}
     public Exception? StopFailure {get;set;}
@@ -618,6 +792,9 @@ internal sealed class FakeJsHandle: IJSObjectReference
     public string? FailureOn {get;set;}
     public object? LastRegisterReference {get;private set;}
     public int PointerCalls {get;private set;}
+    public TaskCompletionSource? PopoverSetGate {get;set;}
+    public string? PopoverFailureOn {get;set;}
+    public List<string> PopoverCalls {get;} = new();
 
     public ValueTask<TValue> InvokeAsync<TValue>(string identifier,object?[]? args)
         => InvokeAsync<TValue>(identifier,CancellationToken.None,args);
@@ -627,12 +804,29 @@ internal sealed class FakeJsHandle: IJSObjectReference
         {
             InitCount++;
             if(InitGate is not null)await InitGate.Task.WaitAsync(cancellationToken);
+            if(InitFailure is not null)throw InitFailure;
+        }
+        else if(identifier=="checkOverflow")
+        {
+            CheckOverflowCount++;
+            if(CheckOverflowGate is not null)await CheckOverflowGate.Task.WaitAsync(cancellationToken);
+            if(CheckOverflowFailure is not null)throw CheckOverflowFailure;
         }
         else if(identifier=="stop")
         {
             StopCount++;
             if(StopGate is not null)await StopGate.Task.WaitAsync(cancellationToken);
             if(StopFailure is not null)throw StopFailure;
+        }
+        else if(identifier is "setPopover" or "showSurface")
+        {
+            var settings=args?[0] as PopoverSettings
+                ?? throw new InvalidOperationException("Popover settings required");
+            PopoverCalls.Add(identifier+":"+settings.TriggerId);
+            if(identifier=="setPopover" && PopoverSetGate is not null)
+                await PopoverSetGate.Task.WaitAsync(cancellationToken);
+            if(PopoverFailureOn==identifier)
+                throw new JSException("simulated Popover "+identifier+" failure");
         }
         else if(identifier is "registerPointerMoveHandler" or "unregisterPointerMoveHandler"
              or "registerPointerUpHandler" or "unregisterPointerUpHandler")

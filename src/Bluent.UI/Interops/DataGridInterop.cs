@@ -70,12 +70,13 @@ internal class DataGridInterop :  IAsyncDisposable
     {
         try
         {
-            var module = await GetModuleAsync();
-            //await module.InvokeVoidAsync("init");
+            // Creating the proxy registers this DataGrid's managed callback.
+            await GetModuleAsync();
         }
-        catch
+        catch (JSDisconnectedException)
         {
-            // swallow!
+            // The interactive server circuit may have disconnected.
+            // Unexpected import/JS failures must remain observable.
         }
     }
 

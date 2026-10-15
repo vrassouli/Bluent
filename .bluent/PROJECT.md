@@ -122,3 +122,6 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 
 
 2026-10-15 Penpot correctly connected to canonical Bluent v3 file b64f6665-c9ab-80b5-8008-c4ac99d9d000: new editable #420 interaction/lifetime draft page ed5216bd-3d5b-8015-8008-cb247e27efb4, board ed5216bd-3d5b-8015-8008-cb247e906204 with 51 source-owned shapes and four flow sections. This resolves a missing draft board but NOT maintainer design signoff or real Chrome/Edge overlay/AT acceptance. Do not declare #420 Done merely from a board.
+
+
+2026-10-15 newest #420 source checkpoint: zero remaining async void / catch(Exception) / catch{} across the eight audited Bluent.UI Interops + DomHelper files, down from 5 typed async void, 11 typed broad catches plus two bare catches originally. Public sync IPopoverService and protected Overflow.CheckOverflow retained; private Popover ordered JS queue and deferred Overflow checks awaited in Blazor render lifecycle. Actual compiled DLL fake JS 115 assertions, source guard 18 Python tests, real Dev01 interactive WASM Popover Chrome 7/7 and Edge 7/7 incl manual Show and Close. Dedicated Chrome/Edge Windows CI jobs added to draft #420 PR. Penpot reviewer acceptance, Server-mode Popover keyboard/focus return and native OS/AT remain open before Review/Done.

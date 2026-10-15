@@ -1,5 +1,8 @@
 # Bluent v3 Interaction Primitives · #420
 
+
+CURRENT 2026-10-15 (older checkpoints below are historical): zero async void/typed catch(Exception)/bare catch across the eight audited UI Interops + DomHelper files. Public IPopoverService and protected Overflow.CheckOverflow signatures remain unchanged. Private Set/Show Popover FIFO is executed sequentially with await in OnAfterRenderAsync, Overflow CheckOverflowAsync is awaited during render. Compiled real Bluent.UI fake JS harness: 115 assertions; Python source guard: 18 tests; local real WASM Popover in Chrome 7/7, Edge 7/7 with PNG/JSON. Dedicated Windows Chrome/Edge Popover browser jobs now in #420 draft PR. Maintainer Penpot design acceptance, real Server-mode Popover, focus return/RTL and native OS/AT tests still pending; no public v2/NuGet release.
+
 Read docs/v3/architecture/ADR-0002-interaction-primitives.md, AGENTS.md and the v3 workflow and branching contracts before changing any component.
 
 This issue is PROPOSED / In progress, not approved public Blazor API. The #417 architecture and #501 Focus board are reference sources. A new source-owned editable #420 board now exists in canonical Penpot Bluent v3 Design System: page ed5216bd-3d5b-8015-8008-cb247e27efb4 and board ed5216bd-3d5b-8015-8008-cb247e906204 (51 native shapes in four flows). This draft still REQUIRES visual inspection and maintainer approval; it is not public API, actual browser or native OS/AT compliance. Figma fallback X6Ima16GAyuk7dVUjGgIkt is limited.

@@ -10,6 +10,7 @@ public abstract partial class Overflow
 {
     private OverflowInterop? _interop;
     private Popover? _overflowPopover;
+    private bool _checkOverflowOnNextRender;
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -38,6 +39,15 @@ public abstract partial class Overflow
             }
         }
 
+        // The protected synchronous CheckOverflow() contract is preserved.
+        // Actual JS invocation is awaited during the interactive render cycle,
+        // after the DOM has its latest dimensions.
+        if (RendererInfo.IsInteractive && _checkOverflowOnNextRender && _interop is not null)
+        {
+            _checkOverflowOnNextRender = false;
+            await _interop.CheckOverflowAsync();
+        }
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -58,6 +68,7 @@ public abstract partial class Overflow
 
     protected void CheckOverflow()
     {
-        _interop?.CheckOverflow();
+        _checkOverflowOnNextRender = true;
+        StateHasChanged();
     }
 }

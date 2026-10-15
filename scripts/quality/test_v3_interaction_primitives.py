@@ -10,17 +10,17 @@ class InteropSourceContractTests(unittest.TestCase):
 
     def test_current_interop_legacy_debt_is_frozen(self):
         result=audit(self.source)
-        self.assertEqual(len(result["PopoverInterop.cs"]["legacyAsyncVoid"]),2)
-        self.assertEqual(len(result["OverflowInterop.cs"]["legacyAsyncVoid"]),1)
+        self.assertEqual(len(result["PopoverInterop.cs"]["legacyAsyncVoid"]),0)
+        self.assertEqual(len(result["OverflowInterop.cs"]["legacyAsyncVoid"]),0)
         self.assertEqual(result["OverflowInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertEqual(len(result["AudioCaptureInterop.cs"]["legacyAsyncVoid"]),0)
         self.assertEqual(result["AudioCaptureInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertTrue(result["DataGridInterop.cs"]["hasDotNetObjectReference"])
         self.assertEqual(result["DataGridInterop.cs"]["legacyBroadExceptionCatches"],0)
-        self.assertEqual(result["DataGridInterop.cs"]["legacyUntypedCatches"],1)
-        self.assertEqual(result["PopoverInterop.cs"]["legacyUntypedCatches"],1)
+        self.assertEqual(result["DataGridInterop.cs"]["legacyUntypedCatches"],0)
+        self.assertEqual(result["PopoverInterop.cs"]["legacyUntypedCatches"],0)
         self.assertEqual(result["BluentTheme.cs"]["legacyBroadExceptionCatches"],0)
-        self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],1)
+        self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertEqual(result["PopoverInterop.cs"]["legacyBroadExceptionCatches"],0)
 
     def test_domhelper_pointer_refs_released_at_unregister_and_dispose(self):
@@ -46,6 +46,43 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("finally",component)
         self.assertIn("await base.DisposeAsync();",component)
 
+    def test_no_fire_and_forget_or_blanket_catches_remain_in_reviewed_interops(self):
+        result=audit(self.source)
+        for name,row in result.items():
+            with self.subTest(file=name):
+                self.assertEqual(row["legacyAsyncVoid"],[])
+                self.assertEqual(row["legacyBroadExceptionCatches"],0)
+                self.assertEqual(row["legacyUntypedCatches"],0)
+
+    def test_real_popover_browser_ci_and_artifact_gate_present(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for item in ("real-popover-browser:","browser: [Chrome, Edge]",
+                     "windows-latest","probe_v3_popover_runtime.mjs",
+                     "if: always()","actions/upload-artifact@v4"):
+            self.assertIn(item,workflow)
+        for item in ("dynamic surface rendered","manual Popover Show",
+                     "manual Popover Close","Page.captureScreenshot","Runtime.evaluate"):
+            self.assertIn(item,probe)
+
+    def test_popover_events_are_synchronously_queued_then_awaited_after_render(self):
+        interop=self.source["PopoverInterop.cs"]
+        container=(__import__("pathlib").Path(__file__).resolve().parents[2]/
+                   "src/Bluent.UI/Components/PopoverComponent/PopoverContainerBase.cs").read_text(encoding="utf-8-sig")
+        queue=(__import__("pathlib").Path(__file__).resolve().parents[2]/
+               "src/Bluent.UI/Interops/PopoverCommandQueue.cs").read_text(encoding="utf-8-sig")
+        self.assertIn("public async Task SetPopoverAsync",interop)
+        self.assertIn("public async Task ShowSurfaceAsync",interop)
+        self.assertIn("_interopCommands.Enqueue(false,",container)
+        self.assertIn("_interopCommands.Enqueue(true,",container)
+        self.assertIn("protected override async Task OnAfterRenderAsync",container)
+        self.assertIn("await _interopCommands.DrainAsync",container)
+        self.assertIn("await execute(command.Show, command.Settings);",queue)
+        self.assertIn("if (_draining)",queue)
+        self.assertNotIn("async void",interop)
+        self.assertNotIn("catch {",interop)
+
     def test_popover_disposal_unsubscribes_even_if_js_throws(self):
         interop=self.source["PopoverInterop.cs"]
         component=(__import__("pathlib").Path(__file__).resolve().parents[2]/
@@ -65,7 +102,7 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("finally",interop)
         self.assertIn("_reference = null;",interop)
         self.assertIn("_module = null;",interop)
-        self.assertEqual(interop.count("catch (Exception)"),1)
+        self.assertEqual(interop.count("catch (Exception)"),0)
         self.assertIn("public async Task InitializeAsync(string id)",interop)
 
     def test_overflow_initialization_awaited_in_interactive_render_lifecycle(self):
@@ -77,6 +114,12 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("protected override async Task OnAfterRenderAsync(bool firstRender)",consumer)
         self.assertIn("await _interop.InitAsync(GetOverflowId());",consumer)
         self.assertIn("await base.OnAfterRenderAsync(firstRender);",consumer)
+        self.assertIn("await _interop.CheckOverflowAsync();",consumer)
+        self.assertIn("_checkOverflowOnNextRender = true;",consumer)
+        self.assertIn("StateHasChanged();",consumer)
+        self.assertIn("public async Task CheckOverflowAsync()",interop)
+        self.assertIn('await module.InvokeVoidAsync("checkOverflow");',interop)
+        self.assertNotIn("async void",interop)
         self.assertIn("finally",consumer)
         self.assertIn("await base.DisposeAsync();",consumer)
         self.assertNotIn("protected override void OnAfterRender(",consumer)

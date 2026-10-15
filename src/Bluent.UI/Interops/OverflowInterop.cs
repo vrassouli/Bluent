@@ -49,9 +49,7 @@ internal class OverflowInterop : IAsyncDisposable
         await module.InvokeVoidAsync("init", id);
     }
 
-    // Still called from a protected synchronous Overflow member. Its
-    // lifecycle/consumer API transition is tracked separately under #420.
-    public async void CheckOverflow()
+    public async Task CheckOverflowAsync()
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("checkOverflow");

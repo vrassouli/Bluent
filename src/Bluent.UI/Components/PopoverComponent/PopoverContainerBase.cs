@@ -14,6 +14,8 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
 {
     protected List<PopoverContext> Contexts { get; } = [];
     private PopoverInterop? _interop;
+    private readonly PopoverCommandQueue _interopCommands = new();
+    private bool _disposed;
 
     [Inject] private TPopoverService Service { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
@@ -57,9 +59,32 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
         base.OnInitialized();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_disposed && RendererInfo.IsInteractive && _interop is not null)
+        {
+            try
+            {
+                // The synchronous service notifications are serialized here,
+                // with JS work actually awaited in the Blazor render lifecycle.
+                await _interopCommands.DrainAsync((show, settings) =>
+                    show ? _interop.ShowSurfaceAsync(settings) : _interop.SetPopoverAsync(settings));
+            }
+            catch (JSDisconnectedException)
+            {
+                // A terminated circuit cannot process queued browser actions.
+                _interopCommands.Clear();
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
     public async ValueTask DisposeAsync()
     {
         // Subscriptions must be removed even if a JS disposal operation fails.
+        _disposed = true;
+        _interopCommands.Clear();
         try
         {
             if (_interop is not null)
@@ -85,24 +110,29 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
             Contexts.Remove(existing);
 
         Contexts.Add(args.Context);
-        _interop?.SetPopover(args.Context.Config.Settings);
+        if (_disposed)
+            return;
+
+        _interopCommands.Enqueue(false, args.Context.Config.Settings);
 
         if (args.Context.Config.KeepSurface)
-        {
             args.Context.Config.Visible = false;
-            StateHasChanged();
-        }
+
+        // Scheduling a render is synchronous service work, not fire-and-forget
+        // JavaScript. OnAfterRenderAsync drains and awaits the queued JS calls.
+        if (RendererInfo.IsInteractive)
+            _ = InvokeAsync(StateHasChanged);
     }
 
     private void PopoverOnShowSurface(object? sender, ShowPopoverSurfaceEventArgs args)
     {
-        //Console.WriteLine($"PopoverOnShowSurface ({GetType()})");
-
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
-        if (context != null)
-            _interop?.ShowSurface(context.Config.Settings);
-        //else
-        //    Console.WriteLine($"Config not found for triggerId: {args.TriggerId} ({GetType()})");
+        if (context is not null && !_disposed)
+        {
+            _interopCommands.Enqueue(true, context.Config.Settings);
+            if (RendererInfo.IsInteractive)
+                _ = InvokeAsync(StateHasChanged);
+        }
     }
 
     private void PopoverOnHideSurface(object? sender, HidePopoverSurfaceEventArgs args)
