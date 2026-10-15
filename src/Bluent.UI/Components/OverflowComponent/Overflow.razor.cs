@@ -45,15 +45,15 @@ public abstract partial class Overflow
     {
         try
         {
-            if (_interop != null)
+            if (_interop is not null)
                 await _interop.DisposeAsync();
         }
-        catch (JSDisconnectedException)
+        finally
         {
-            // swallow
+            // Base tooltip/UI resources must be released even if the JS proxy
+            // fails unexpectedly. The interop handles expected disconnections.
+            await base.DisposeAsync();
         }
-        
-        await base.DisposeAsync();
     }
 
     protected void CheckOverflow()

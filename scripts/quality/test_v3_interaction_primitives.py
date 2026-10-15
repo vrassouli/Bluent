@@ -19,8 +19,21 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertEqual(result["DataGridInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertEqual(result["DataGridInterop.cs"]["legacyUntypedCatches"],1)
         self.assertEqual(result["PopoverInterop.cs"]["legacyUntypedCatches"],1)
+        self.assertEqual(result["BluentTheme.cs"]["legacyBroadExceptionCatches"],0)
         self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],1)
         self.assertEqual(result["PopoverInterop.cs"]["legacyBroadExceptionCatches"],0)
+
+    def test_domhelper_pointer_refs_released_at_unregister_and_dispose(self):
+        helper=self.source["DomHelper.cs"]
+        self.assertIn("Dictionary<string, DotNetObjectReference<IPointerMoveEventHandler>>",helper)
+        self.assertIn("Dictionary<string, DotNetObjectReference<IPointerUpEventHandler>>",helper)
+        self.assertIn("_pointerMoveReferences.Remove(handler.Id, out var reference)",helper)
+        self.assertIn("_pointerUpReferences.Remove(handler.Id, out var reference)",helper)
+        self.assertIn("_pointerMoveReferences.Clear();",helper)
+        self.assertIn("_pointerUpReferences.Clear();",helper)
+        self.assertIn("catch (JSDisconnectedException)",helper)
+        self.assertNotIn("catch (Exception)",helper)
+        self.assertEqual(self.source["DomHelper.cs"].count("async void"),0)
 
     def test_datagrid_disposal_keeps_base_cleanup_on_js_error(self):
         interop=self.source["DataGridInterop.cs"]
@@ -64,6 +77,8 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("protected override async Task OnAfterRenderAsync(bool firstRender)",consumer)
         self.assertIn("await _interop.InitAsync(GetOverflowId());",consumer)
         self.assertIn("await base.OnAfterRenderAsync(firstRender);",consumer)
+        self.assertIn("finally",consumer)
+        self.assertIn("await base.DisposeAsync();",consumer)
         self.assertNotIn("protected override void OnAfterRender(",consumer)
         self.assertNotIn("async void Init",interop)
         self.assertIn("catch (JSDisconnectedException)",interop)

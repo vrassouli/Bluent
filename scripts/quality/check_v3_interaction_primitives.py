@@ -16,9 +16,7 @@ LEGACY_ASYNC_VOID={
     "PopoverInterop.cs":frozenset({"SetPopover","ShowSurface"}),
 }
 LEGACY_BROAD_CATCH_MAX={
-    "BluentTheme.cs":1,
-"OptFieldInterop.cs":1,
-    "DomHelper.cs":4,
+    "OptFieldInterop.cs":1,
 }
 LEGACY_UNTYPED_CATCH_MAX={
     "DataGridInterop.cs":1,

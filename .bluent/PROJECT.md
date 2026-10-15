@@ -116,3 +116,9 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 
 
 2026-10-15 #420 source guard now protects both typed catch(Exception) (6) and bare catch{} (2) across real Interops, instead of missing the two untyped DataGrid/Popover error swallows. 14 negative/positive Python tests, with 55 real compiled mocked-JS assertions. Browser/OS-AT, public event semantics remain outstanding.
+
+
+2026-10-15 #420 actual pointer/Theme fixes on v3/issue-420-interaction-primitives: DomHelper pointer callbacks now keyed by ID and disposed promptly at Unregister/replacement/failure; independently cleans JS module/proxy and all pointers on teardown; BluentTheme only swallows expected disconnection, Overflow always invokes base Dispose in finally. Compiled Bluent.UI harness 89 real .NET fake-JS assertions, source debt 3 async void/1 typed broad catch/2 untyped catch; full browser pointer/Popover focus and Penpot #420 signoff still pending. #425 PR #549 independently passes Chrome/Edge Server/WASM in actual GitHub CI, but not a substitute for #420 component acceptance.
+
+
+2026-10-15 Penpot correctly connected to canonical Bluent v3 file b64f6665-c9ab-80b5-8008-c4ac99d9d000: new editable #420 interaction/lifetime draft page ed5216bd-3d5b-8015-8008-cb247e27efb4, board ed5216bd-3d5b-8015-8008-cb247e906204 with 51 source-owned shapes and four flow sections. This resolves a missing draft board but NOT maintainer design signoff or real Chrome/Edge overlay/AT acceptance. Do not declare #420 Done merely from a board.
