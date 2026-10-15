@@ -82,6 +82,46 @@ class V3QualityContractTests(unittest.TestCase):
         with self.assertRaisesRegex(QualityContractError,"accessibility-tree"):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
 
+    def test_browser_startup_retry_requires_real_three_attempts(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                                   original.replace("attempt<=3","attempt<=1"))
+
+    def test_browser_startup_failures_must_remain_visible(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                                   original.replace('if(!target)throw Error','if(!target)console.log'))
+
+    def test_browser_startup_diagnostics_must_be_artifacted(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                                   original.replace('browserStartupAttempts,checks,errors','checks,errors'))
+
+    def test_windows_chrome_zero_exit_is_not_treated_as_browser_failure(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        # A launcher can exit 0 while its detached browser writes the CDP
+        # port later. This is the proven root of the Chrome startup regression.
+        altered=original.replace("candidate.exitCode!==null&&candidate.exitCode!==0",
+                                 "candidate.exitCode!==null")
+        with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_browser_cleanup_must_target_only_owned_profile(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace("cleanupOwnedBrowserProcesses(work)",
+                                  "cleanupOwnedBrowserProcesses(tmpdir())")
+        with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_browser_cleanup_failures_must_fail_job(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace("if(cleanupError)errors.push","if(cleanupError)console.log")
+        with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
     def test_no_false_accessibility_claim(self):
         with self.assertRaisesRegex(QualityContractError,"certification"):
             check(self.quality,self.document.replace("Not an accessibility certification.",""))

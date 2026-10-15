@@ -16,14 +16,48 @@ const dest=resolve(process.env.BLUENT_V3_EVIDENCE_DIR||join(root,"artifacts/v3-b
 mkdirSync(dest,{recursive:true});
 const host="http://127.0.0.1:"+(mode==="Server"?"5268":"5269");
 const url=host+"/compatibility/"+(mode==="Server"?"server":"webassembly");
-let app,browser,cdp;const checks=[],errors=[];
+let app,browser,cdp;const checks=[],errors=[],browserStartupAttempts=[],cleanupAttempts=[];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function assert(label,value,notes){checks.push({label,pass:!!value,notes});if(!value)errors.push(label+" "+JSON.stringify(notes));}
 function spawnTracked(cmd,args,cwd=root,env=process.env) {
  const p=spawn(cmd,args,{cwd,env,windowsHide:true,stdio:["ignore","pipe","pipe"]});
  let tail="";for(const stream of [p.stdout,p.stderr])stream.on("data",b=>tail=(tail+String(b)).slice(-6500));
- p.tail=()=>tail;return p;
+ p.tail=()=>tail;
+ // A missing executable or a rejected Windows process launch emits an async
+ // "error" event. Preserve it as evidence instead of crashing before JSON.
+ p.spawnError=null;
+ p.on("error",e=>{p.spawnError=String(e);tail=(tail+" launch error: "+String(e)).slice(-6500);});
+ return p;
 }
+// Chrome/Edge can relaunch or detach its Windows browser process while the
+// original spawn() launcher exits with code 0. A child.kill() is insufficient:
+// old headless processes then consume resources and block later DevTools ports.
+// Clean ONLY this test invocation's generated temporary browser profiles.
+function cleanupOwnedBrowserProcesses(profileRoot){
+ if(process.platform!=="win32")return {supported:false};
+ if(!profileRoot.includes("bluent-v3-425-"))
+  throw Error("Refusing browser cleanup outside unique v3 #425 test profile");
+ const ps=[
+  "$root=$env:BLUENT_V3_425_OWNED_PROFILE",
+  "if(-not $root -or $root.IndexOf('bluent-v3-425-') -lt 0){throw 'Unsafe browser cleanup scope'}",
+  "$items=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" |",
+  "Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
+  "$killed=0",
+  "foreach($item in $items){try{Stop-Process -Id $item.ProcessId -Force -ErrorAction Stop;$killed++}catch{}}",
+  "Start-Sleep -Milliseconds 250",
+  "$remaining=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" |",
+  "Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
+  "Write-Output \"killed=$killed remaining=$($remaining.Count)\"",
+  "if($remaining.Count -gt 0){exit 17}"
+ ].join("\n");
+ try{
+  return {supported:true,output:execFileSync("powershell.exe",
+   ["-NoProfile","-NonInteractive","-Command",ps],
+   {env:{...process.env,BLUENT_V3_425_OWNED_PROFILE:profileRoot},
+    windowsHide:true,encoding:"utf8",timeout:22000}).trim()};
+ }catch(e){return {supported:true,error:String(e.stderr||e.message).slice(-2200)};}
+}
+
 async function until(fn,label,ms=110000) {
  const end=Date.now()+ms;let last="";
  while(Date.now()<end){try{const r=await fn();if(r)return r;}catch(e){last=String(e);}await wait(300);}
@@ -63,22 +97,55 @@ try {
  app=spawnTracked("dotnet",["Bluent.UI.Demo.SSR.dll"],publish,
   {...process.env,ASPNETCORE_ENVIRONMENT:"Production",ASPNETCORE_URLS:host});
  await until(async()=>{
-  if(app.exitCode!==null)throw Error("Host stopped "+app.tail());
+  if(app.spawnError)return "HOST_SPAWN_FAILED";
+  if(app.exitCode!==null)return "HOST_EXITED";
   return (await fetch(url,{signal:AbortSignal.timeout(1400)})).ok;
  },"published Blazor app");
- const userData=join(work,"browser");
- browser=spawnTracked(browserPath,["--headless=new","--no-sandbox","--disable-gpu","--disable-extensions","--no-first-run",
-  "--remote-debugging-port=0","--remote-allow-origins=*","--user-data-dir="+userData,"about:blank"]);
- const port=await until(()=>{
-  const f=join(userData,"DevToolsActivePort");
-  if(existsSync(f))return readFileSync(f,"utf8").split(/\r?\n/)[0];
-  if(browser.exitCode!==null)throw Error("Browser launcher exited before DevTools port was written: "+browser.tail());
-  return null;
- },"CDP startup",45000);
- const target=await until(async()=>{
-  const list=await (await fetch("http://127.0.0.1:"+port+"/json/list")).json();
-  return list.find(x=>x.type==="page"&&x.webSocketDebuggerUrl);
- },"CDP tab");
+ if(app.spawnError||app.exitCode!==null)
+  throw Error("Published Blazor host did not start: "+app.tail());
+ // A Windows hosted runner can intermittently fail to start a Chromium
+ // DevTools port on its first launch. Retry ONLY browser startup (never test
+ // assertions) with isolated profiles and retain every failure reason in JSON.
+ // If all attempts fail the job still fails, closed and with diagnostics.
+ let target=null;
+ for(let attempt=1;attempt<=3;attempt++){
+  const userData=join(work,"browser-"+attempt);
+  const candidate=spawnTracked(browserPath,["--headless=new","--no-sandbox","--disable-gpu","--disable-extensions","--no-first-run",
+   "--disable-background-networking","--remote-debugging-port=0","--remote-allow-origins=*",
+   "--user-data-dir="+userData,"about:blank"]);
+  try{
+   const port=await until(()=>{
+    const f=join(userData,"DevToolsActivePort");
+    if(existsSync(f))return readFileSync(f,"utf8").split(/\r?\n/)[0];
+    if(candidate.spawnError)return "FAILED_TO_SPAWN";
+    // Chrome on Windows can exit launcher 0 before its detached browser
+    // writes DevToolsActivePort seconds later. Keep waiting on exit 0.
+    if(candidate.exitCode!==null&&candidate.exitCode!==0)return "FAILED_NONZERO_EXIT";
+
+    return null;
+   },"CDP startup attempt "+attempt,33000);
+   if(port==="FAILED_TO_SPAWN"||port==="FAILED_NONZERO_EXIT")
+    throw Error("Browser launcher failed: "+candidate.tail());
+   target=await until(async()=>{
+    const list=await (await fetch("http://127.0.0.1:"+port+"/json/list",{signal:AbortSignal.timeout(1800)})).json();
+    return list.find(x=>x.type==="page"&&x.webSocketDebuggerUrl);
+   },"live CDP target attempt "+attempt,18000);
+   browser=candidate;
+   browserStartupAttempts.push({attempt,result:"connected"});
+   break;
+  }catch(e){
+   browserStartupAttempts.push({
+    attempt,result:"failed",reason:String(e),browserTail:candidate.tail(),
+    spawnError:candidate.spawnError,exitCode:candidate.exitCode,
+    hadDevToolsPort:existsSync(join(userData,"DevToolsActivePort"))
+   });
+   if(candidate.exitCode===null)candidate.kill();
+   cleanupAttempts.push({phase:"failed-launch",attempt,...cleanupOwnedBrowserProcesses(userData)});
+   await wait(700);
+  }
+ }
+ if(!target)throw Error("All 3 actual Chromium DevTools startup attempts failed: "+
+   JSON.stringify(browserStartupAttempts).slice(-6500));
  cdp=new CDP(target.webSocketDebuggerUrl);
  await cdp.open();await cdp.send("Page.enable");await cdp.send("Runtime.enable");
  await cdp.send("Page.navigate",{url});
@@ -139,9 +206,16 @@ try {
 } catch(e){errors.push(String(e.stack||e));}
 finally{
  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),
-  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",checks,errors},null,2));
+  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",browserStartupAttempts,checks,errors},null,2));
  cdp?.close();
  for(const p of [browser,app])if(p&&p.exitCode===null)p.kill();
+ cleanupAttempts.push({phase:"final",...cleanupOwnedBrowserProcesses(work)});
+ const cleanupError=cleanupAttempts.find(x=>x.error);
+ if(cleanupError)errors.push("Owned browser cleanup failed: "+JSON.stringify(cleanupError));
+ // Write again to preserve actual cleanup evidence, not just test assertions.
+ writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),
+  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",
+   browserStartupAttempts,cleanupAttempts,checks,errors},null,2));
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:300});}catch{}
  console.log("Blazor "+mode+" "+browserName+": "+checks.filter(x=>x.pass).length+"/"+checks.length+" checks, "+errors.length+" errors");
  for(const error of errors)console.error("FAIL",error);

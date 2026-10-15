@@ -81,6 +81,22 @@ def check_browser_contract(workflow:str, probe:str)->None:
                   "AX tree maps live counter DOM node to status role",
                   "rtl-emulated-contrast.png"):
         need(token in probe,"missing actual browser accessibility-tree evidence: "+token)
+    # The runner startup can fail transiently before ANY Blazor/browser
+    # assertion. Retry only creating the actual browser DevTools connection;
+    # never retry or suppress any app/AX/keyboard/visual assertion.
+    for term in ("for(let attempt=1;attempt<=3;attempt++)",
+                 "browserStartupAttempts.push",
+                 'result:"failed"',
+                 'if(!target)throw Error',
+                 "if(errors.length)process.exitCode=1",
+                 "candidate.kill()",
+                 "browserStartupAttempts,checks,errors",
+                 "candidate.exitCode!==null&&candidate.exitCode!==0",
+                 "cleanupOwnedBrowserProcesses(userData)",
+                 "cleanupOwnedBrowserProcesses(work)",
+                 "BLUENT_V3_425_OWNED_PROFILE",
+                 "if(cleanupError)errors.push"):
+        need(term in probe,"browser startup retry must fail closed and retain diagnostics: "+term)
     for forbidden in ("continue-on-error: true","dotnet nuget push","gh release create"):
         need(forbidden not in workflow,"browser gate must fail-closed and must never publish: "+forbidden)
 

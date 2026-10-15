@@ -1,6 +1,12 @@
 # Bluent v3 Quality Gates · #425
 
 
+VERIFIED 2026-10-15 correction: After awaiting Chrome DevTools despite launcher exit 0 and cleaning exclusively run-owned QA profiles, real Dev01 Chrome/Edge x Server/WASM = **15/15 each, 60/60 total** (actual Button/TextField/AX/Tab/screenshot assertions). Each JSON reports successful first attempt and browser cleanup **remaining=0**; process scan confirms ZERO leftover #425 QA browsers. 22 fail-closed Python QA tests pass. New GitHub PR head still requires independent CI; historical Chrome/WASM failed gate remains recorded. Native OS/AT and approved Penpot parity remain open.
+
+
+LATEST 2026-10-15 #425 Chrome runner hardening: required Chrome/WASM GitHub CI failed during DevTools port startup (zero assertions; not product regression evidence). Dev01 had 193 orphan browser QA processes from previous #425 runs; targeted cleanup of **only** generated #425 profile Chromium restored resources without touching user Chrome. Standalone real Chrome startup showed a Windows launcher exit 0 while the detached browser writes DevToolsActivePort ~3.5 seconds later. Do not treat launcher exit 0 as failure: await CDP port; retry only startup up to 3 isolated profiles; retain attempt/cleanup details in fail-closed JSON and reclaim browser descendants using specific per-run profile command lines. Tests deliberately remove the zero-exit wait/cleanup safety and expect failure. CI latest head must still complete; do not claim native Windows Contrast/AT or approved Penpot board, do not mark Done.
+
+
 LATEST 2026-10-15 #425: Always-on Windows Chrome/Edge x InteractiveServer/WASM browser probe now verifies **actual Chromium Accessibility.getFullAXTree**, not just DOM labels: named Button Increment, named TextField Bound value and exact backendDOMNodeId mapping of live counter to status role. Chrome Server 15/15, Edge Server 15/15, Chrome WASM 15/15, Edge WASM 15/15 = **60/60 actual local assertions**. Six responsive PNGs plus extra browser-emulated RTL forced-colors/reduced-motion screenshot and JSON per mode. 16 Python contract tests including 2 negative AX tree/DOM mapping controls. This does NOT substitute for native Windows Contrast/real named screen-reader AT or reviewed Penpot screenshot parity. #425 remains Draft/In progress; no stable Dev merge/NuGet publish. Exact new GitHub CI HEAD must be checked separately.
 
 This task stays on v3/issue-425-quality-gates, targeting bluent-v3 only. Stable Dev, released v2 packages and NuGet publication must remain untouched.
