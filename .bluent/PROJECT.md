@@ -218,3 +218,5 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   Dev01 Chrome/InteractiveServer new policy 869/869 passed; real Segoe UI
   50 glyphs reported. See docs/v3/tokens/PERSIAN-TYPOGRAPHY-RESEARCH.md.
   The original failed job stays failed historically; next exact-head CI required.
+
+- 2026-10-15 #418 reconnected correct Penpot Bluent v3 file; new page 42 / board e775e67c-d9da-804b-8008-cb84059cbdab (revision 377). Native research board contains 29 editable shapes, eight token-bound bilingual size specimens, zero bounds overflow; actual PNG exported and visually reviewed. Added repeatable read-only Penpot validation script, documentation and Skill. The fonts Inter/Noto Sans Arabic remain Penpot preview only; runtime font fallback/AT/reviewer signoff not approved. No CSS/public API, stable Dev or NuGet changes.

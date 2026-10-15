@@ -83,3 +83,5 @@ scripts/quality/v3_persian_font_evidence.mjs, run its five Node negative
 controls and report semantic-layout-only separately from actual
 platform-glyph-observed. The CI failure on 075f98f4 was one real
 unavailable telemetry result; do not retroactively label it green.
+
+2026-10-15 #418 native font research board: file b64f6665-c9ab-80b5-8008-c4ac99d9d000, page 42 e775e67c-d9da-804b-8008-cb84059cbdab, board e775e67c-d9da-804b-8008-cb8405b790a5, revision 377. Run scripts/quality/penpot_v3_persian_font_evidence_audit.js as a read-only Penpot execute_code body: expect 8/8 native LTR+RTL size-token bindings and 29 visible research shapes with zero bounds overflow. Inter/Noto Sans Arabic are Penpot draft specimen fonts ONLY, not approved fallback or release dependencies. Real browser font telemetry is not optical glyph acceptance; do not modify PuyaStudio Runner or stable Dev.

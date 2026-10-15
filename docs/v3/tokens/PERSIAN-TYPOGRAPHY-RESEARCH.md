@@ -90,3 +90,38 @@ The dedicated Node policy test is part of the v3 Browser Lab workflow on
 every matrix job, with source paths explicitly triggering the workflow.
 A previously failing CI run must not be relabeled green; check the new
 commit's exact GitHub Actions result independently.
+
+## 2026-10-15 — Native editable Penpot font acceptance study
+
+The correct Penpot tab was reactivated on VHD-PC4; confirmed the authoritative
+Bluent v3 Design System file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000.
+The concurrently open PuyaStudio Runner project was NOT edited.
+
+- Native page: 42 · Persian font evidence and acceptance · #418, ID
+  e775e67c-d9da-804b-8008-cb84059cbdab.
+- Independent editable board: #418 · Persian font evidence and approval matrix
+  · DRAFT, ID e775e67c-d9da-804b-8008-cb8405b790a5;
+  observed revision 377, 1500 x 1120 px, 29 editable shapes.
+- Eight real native text-size token links: four Latin/LTR and four
+  Persian/RTL at 12, 14, 16 and 20px. Sizes 12/16/20 use
+  bluent.type.size.200/.400/.500. The body 14px case binds to semantic
+  bluent.semantic.type.bodySize. Source line-height pairs shown:
+  12/16, 14/20, 16/22, 20/28.
+- Actual exported PNG visually inspected: both language columns and three
+  research/acceptance columns visible, Persian right-aligned, bilingual ID
+  and ZWNJ example present; no Penpot shape bounds overflow detected.
+- Font measurements are reported, not silently selected: the source CSS
+  begins with Segoe UI; Dev01 Chrome Server reported Segoe UI (50 glyphs),
+  prior WASM reported Tahoma (50 glyphs), and Windows CI may omit CDP
+  font-family telemetry. Inter and Noto Sans Arabic are ONLY Penpot preview
+  fonts, not proposed runtime dependencies or distributed font files.
+- Still require maintainer review of final font-family stacks, glyph
+  shaping/optical baseline on actual target hosts, native Windows Contrast
+  Themes, screen readers, 200/400% reflow and final token/API migration.
+  This research board does NOT authorize merging to stable Dev or shipping.
+
+Repeatable read-only design-source audit:
+scripts/quality/penpot_v3_persian_font_evidence_audit.js
+(run its body via Penpot execute_code in the correct file).
+First live readback: 8/8 passes; 29 shapes, zero bounds overflow.
+This is editable design evidence, NOT final typography/AT certification.
