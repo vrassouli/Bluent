@@ -1,0 +1,67 @@
+@page "/tasks/v3-interaction-conventions"
+
+<PageTitle>v3 interaction contract sample</PageTitle>
+
+<h1>Interaction and form binding contract (v3 draft)</h1>
+<p>This compiles the current public Blazor binding conventions. It is not a new component API.</p>
+
+<EditForm EditContext="_context" OnValidSubmit="SaveAsync">
+    <DataAnnotationsValidator />
+    <div class="example-field">
+        <label for="v3-customer-name">Customer name</label>
+        <TextField id="v3-customer-name"
+                   @bind-Value="_draft.Customer"
+                   BindValueEvent="oninput"
+                   autocomplete="name" />
+        <ValidationMessage For="() => _draft.Customer" />
+    </div>
+
+    <div class="example-field">
+        <Checkbox @bind-Value="_draft.Accepted" Label="I confirm the details" />
+        <ValidationMessage For="() => _draft.Accepted" />
+    </div>
+
+    <Button Text="Save customer"
+            type="submit"
+            disabled="@_busy"
+            aria-busy="@_busy"
+            Appearance="ButtonAppearance.Primary" />
+</EditForm>
+
+<p role="status" aria-live="polite">@_status</p>
+
+@code {
+    private readonly Draft _draft = new();
+    private EditContext _context = default!;
+    private bool _busy;
+    private string _status = "Waiting for valid input.";
+
+    protected override void OnInitialized() => _context = new EditContext(_draft);
+
+    private async Task SaveAsync()
+    {
+        if (_busy)
+            return;
+
+        _busy = true;
+        _status = "Saving...";
+        try
+        {
+            await Task.Yield();
+            _status = $"Saved {_draft.Customer}.";
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private sealed class Draft
+    {
+        [Required, StringLength(80, MinimumLength = 2)]
+        public string Customer { get; set; } = string.Empty;
+
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Confirmation required.")]
+        public bool Accepted { get; set; }
+    }
+}

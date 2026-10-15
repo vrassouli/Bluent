@@ -1,0 +1,40 @@
+name: Bluent v3 Interaction Source Contract
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-interaction-contract.yml"
+      - "scripts/quality/check_v3_interaction_primitives.py"
+      - "scripts/quality/test_v3_interaction_primitives.py"
+      - "scripts/quality/test_v3_interaction_sample.py"
+      - "docs/v3/architecture/ADR-0002-interaction-primitives.md"
+      - "src/Bluent.UI/Interops/**"
+      - "src/Bluent.UI/Services/DomHelper.cs"
+      - "src/Bluent.UI/Components/**"
+      - "samples/Bluent.TaskExamples/**"
+permissions:
+  contents: read
+jobs:
+  source-and-consumer-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Source-only JS lifetime debt regression
+        run: |
+          python scripts/quality/check_v3_interaction_primitives.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_interaction_primitives.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_interaction_sample.py' -v
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Compile current public binding and EditContext sample
+        run: |
+          dotnet restore samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj
+          dotnet build samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj --configuration Release --no-restore -warnaserror
+      - name: Evidence boundary
+        run: echo "Source and build only; no runtime focus/ARIA/AT conformance claim."
