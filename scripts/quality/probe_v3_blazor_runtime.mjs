@@ -23,6 +23,23 @@ class CDP {
  async js(expression){const r=await this.send("Runtime.evaluate",{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result?.value;}
  close(){this.ws?.close();}
 }
+// Reclaim only this probe's unique temporary Chromium profile. A successful
+// Windows detached browser is no longer owned by Node's spawn PID alone.
+function cleanupOwnedBrowser(){
+ if(process.platform!=="win32")return;
+ if(!dir.includes("bluent-v3-418-cdp-"))throw Error("Refusing unscoped browser cleanup");
+ const ps=[
+   "$root=$env:BLUENT_V3_418_OWNED_PROFILE",
+   "if(-not $root -or $root.IndexOf('bluent-v3-418-cdp-') -lt 0){throw 'Unsafe profile scope'}",
+   "$processes=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
+   "foreach($p in $processes){Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue}",
+   "Start-Sleep -Milliseconds 150",
+   "$remaining=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
+   "if($remaining.Count -gt 0){throw ('QA browser leftovers: '+$remaining.Count)}"
+ ].join("\n");
+ execFileSync("powershell.exe",["-NoProfile","-NonInteractive","-Command",ps],
+   {env:{...process.env,BLUENT_V3_418_OWNED_PROFILE:dir},windowsHide:true,timeout:22000,stdio:"pipe"});
+}
 let cdp, app;
 try {
  // ASP.NET Core 10 Development static asset endpoints can be unavailable in
@@ -49,7 +66,10 @@ try {
  }
  await until(async()=>{if(app.exitCode!==null)throw Error(app.tail());return (await fetch(origin+route,{signal:AbortSignal.timeout(1100)})).ok;},"WASM server",85000);
  const browser=start(chromePath,["--headless=new","--disable-gpu","--no-sandbox","--disable-extensions","--no-first-run","--remote-debugging-port=0","--remote-allow-origins=*","--user-data-dir="+dir,"about:blank"]);
- const port=await until(()=>{if(browser.exitCode!==null)throw Error(browser.tail());const p=join(dir,"DevToolsActivePort");return existsSync(p)?readFileSync(p,"utf8").split(/\r?\n/)[0]:null;},"Chrome CDP");
+ const port=await until(()=>{// Windows Chrome/Edge can exit the launcher with code 0 while its
+   // detached browser writes DevToolsActivePort later. Do not misclassify
+   // that successful detach as a browser failure.
+   if(browser.exitCode!==null&&browser.exitCode!==0)throw Error(browser.tail());const p=join(dir,"DevToolsActivePort");return existsSync(p)?readFileSync(p,"utf8").split(/\r?\n/)[0]:null;},"Chrome CDP");
  const target=await until(async()=>{const r=await fetch("http://127.0.0.1:"+port+"/json/list");return (await r.json()).find(t=>t.type==="page"&&t.webSocketDebuggerUrl);},"Chrome target");
  cdp=new CDP(target.webSocketDebuggerUrl);await cdp.open();await cdp.send("Page.enable");await cdp.send("Runtime.enable");await cdp.send("Log.enable");await cdp.send("Network.enable");
  await cdp.send("Page.navigate",{url:origin+route});
@@ -1035,6 +1055,67 @@ try {
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  await cdp.js("(() => {document.getElementById('v3-experiment-name').blur();document.querySelector('.v3-lab-surface').dataset.buiTheme='light';})()");
  console.log("Native TextField underline-only focus (user review):",JSON.stringify({normal:fieldFocusModes,forced:forcedField}));
+
+ // #418: Unlike the synthetic data-attribute palette sweeps above, these are
+ // REAL Blazor EventCallback clicks followed by Razor rerenders. The focus
+ // host alias must inherit the actual parent Excel/default palette; nested
+ // Word remains independent in the opposite mode. Test no accidental nested
+ // product data-bui-theme (the 2026-10-15 regression).
+ if(!interactiveServer){
+   // Prior probes intentionally mutate only DOM attributes. Those values
+   // are NOT Blazor state; derive state from Razor-rendered control labels.
+   const readBlazor=()=>cdp.js("(() => {const brandLabel=document.querySelector('#v3-lab-switch-brand')?.textContent?.trim(),themeLabel=document.querySelector('#v3-lab-switch-theme')?.textContent?.trim();return {mode:themeLabel?.includes('Switch to light')?'dark':'light',brand:brandLabel?.includes('Clear main brand')?'excel':null,brandLabel,themeLabel};})()");
+   const initialBlazor=await readBlazor();
+   // Earlier source-matrix tests deliberately edit DOM-only attributes,
+   // leaving some values out of sync with Razor's last render tree.
+   // Toggle each real Blazor control away AND back once. Each property gets
+   // a genuine diff, so the host is back under declarative Razor ownership.
+   for(const [button,property] of [["#v3-lab-switch-brand","brand"],["#v3-lab-switch-theme","mode"]]){
+     await cdp.js("document.querySelector("+JSON.stringify(button)+").click()");
+     await until(async()=>(await readBlazor())[property]!==initialBlazor[property],
+       "Blazor resync away "+property,12000);
+     await cdp.js("document.querySelector("+JSON.stringify(button)+").click()");
+     await until(async()=>(await readBlazor())[property]===initialBlazor[property],
+       "Blazor resync return "+property,12000);
+   }
+   async function chooseBlazor(mode,brand){
+     let state=await readBlazor();
+     if((state.brand||null)!==(brand||null)){
+       await cdp.js("document.querySelector('#v3-lab-switch-brand').click()");
+       await until(async()=>((await readBlazor()).brand||null)===(brand||null),"Blazor brand rerender",12000);
+       state=await readBlazor();
+     }
+     if(state.mode!==mode){
+       await cdp.js("document.querySelector('#v3-lab-switch-theme').click()");
+       await until(async()=>((await readBlazor()).mode===mode),"Blazor theme rerender",12000);
+     }
+     await until(()=>cdp.js("(()=>{const r=document.querySelector('.v3-lab-surface'),m=r?.dataset.buiTheme,b=r?.getAttribute('data-bui-brand');return m==="+JSON.stringify(mode)+"&&(b||null)==="+(brand?JSON.stringify(brand):"null")+";})()"),"Razor DOM agrees with Blazor controls "+(brand||"default")+"/"+mode,12000);
+   }
+   try{
+     for(const brand of ["excel",null])for(const mode of ["light","dark"]){
+       await chooseBlazor(mode,brand);
+       const actual=await cdp.js("(() => {const root=document.querySelector('.v3-lab-surface'),rs=getComputedStyle(root),nested=document.querySelector('.v3-lab-independent-host'),review=document.querySelector('.v3-lab-focus-host-review'),cards=[...review.querySelectorAll('.v3-lab-focus-host-card')];return {mode:root.dataset.buiTheme,brand:root.getAttribute('data-bui-brand'),rootSource:rs.getPropertyValue('--colorBrandBackground').trim(),nestedMode:nested.dataset.buiTheme,nestedBrand:nested.dataset.buiBrand,nestedFace:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,review:review.dataset.v3FocusHostMode,rows:cards.map(card=>{const b=card.querySelector('.bui-button');b.focus();const cs=getComputedStyle(card),bs=getComputedStyle(b);return {kind:card.dataset.v3FocusHost,role:card.dataset.buiV3FocusHost,focusMode:card.dataset.buiV3FocusMode,productTheme:card.hasAttribute('data-bui-theme'),source:cs.getPropertyValue('--colorBrandBackground').trim(),light:cs.getPropertyValue('--colorBrandBackground').trim(),dark:cs.getPropertyValue('--colorBrandForeground2').trim(),inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),ring:bs.outlineColor,host:cs.backgroundColor,visible:b.matches(':focus-visible')};})};})()");
+       const wantedBrand=brand||"default",other=mode==="dark"?"light":"dark";
+       const expectedSource=matrix[wantedBrand][mode].tokens["bluent.color.brandBackground"];
+       const rows=actual.rows.map(row=>{
+         const token=(row.kind==="neutral")?(mode==="dark"?row.dark:row.light):
+           (row.kind==="inverted"&&mode==="dark"?row.dark:row.inverse);
+         return {...row,expected:hexToRgb(token),ratio:contrast(row.ring,row.host)};
+       });
+       const passed=actual.mode===mode&&(actual.brand||null)===(brand||null)&&
+         actual.rootSource.toLowerCase()===expectedSource.toLowerCase()&&
+         actual.nestedBrand==="word"&&actual.nestedMode===other&&
+         actual.nestedFace===hexRgb(matrix.word[other].tokens["bluent.color.brandBackground"])&&
+         actual.review==="adaptive"&&rows.length===5&&rows.every(row=>
+           row.kind===row.role&&row.focusMode===mode&&!row.productTheme&&
+           row.source===actual.rootSource&&row.visible&&row.ring===row.expected&&row.ratio>=3);
+       assert("Blazor UI click: independent brand/theme Focus hosts "+wantedBrand+"/"+mode,
+         passed,passed?"five real focus rings and nested Word pass":JSON.stringify({actual,rows}));
+     }
+   }finally{
+     await chooseBlazor(initialBlazor.mode,initialBlazor.brand);
+   }
+ }
  if(interactiveServer){
    // Actual route-local service Dialog and a genuine cross-route navigation.
    // The dialog's pending task is separately asserted in HtmlRenderer NUnit.
@@ -1062,4 +1143,4 @@ try {
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;
 }catch(e){console.error("Probe error: "+String(e));if(interactiveServer&&app)console.error("SSR APP LOG: "+app.tail());if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
-finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{rmSync(dir,{recursive:true,force:true});}catch{}}
+finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{cleanupOwnedBrowser();}catch(e){console.error("Owned temporary QA browser cleanup failed: "+String(e));process.exitCode=1;}try{rmSync(dir,{recursive:true,force:true});}catch{}}

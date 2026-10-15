@@ -44,3 +44,12 @@ v3 Danger readable palette: use actual scoped Bluent.UI asset at wwwroot/v3/dang
 
 
 2026-10-15 nested theme isolation correction: do NOT add data-bui-theme directly to each v3 Focus test card: global theme-[brand]-[mode] CSS would override the outer selected brand with default source colors. The explicit private focus-mode attribute data-bui-v3-focus-mode co-located with data-bui-v3-focus-host selects only the approved candidate ring; actual Blazor product data-bui-theme remains at the outer opt-in host. Generated schema/CSS and real Chrome/Edge tests must preserve source role inheritance across all ten selected brands and both modes. This is private/demo opt-in, not released API.
+
+2026-10-15 #418 real-state regression: never confuse direct DOM palette
+attribute mutation with Blazor _dark/_mainBrand state. Resynchronize using
+actual controls before testing real EventCallback theme/brand rerender and
+five focus host rings plus independent nested Word. Local Dev01 Chrome/Edge
+WASM 868/868 each. A Windows Chromium launcher may exit 0 before its
+detached browser creates DevToolsActivePort. Wait for the port, and
+clean only this run's unique bluent-v3-418-cdp- temp-profile processes.
+See docs/v3/tokens/FOCUS-HOST-TOKEN-CROSSWALK.md. No OS/AT/API signoff.

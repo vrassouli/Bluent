@@ -176,3 +176,14 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - 2026-10-12 #418/#501: added real browser Focus+Hover and Focus+Space-Pressed tests across six current Bluent Button appearances and six Toggled=true Selected+Focus fixtures, with a representative selected+hover+focus and keyboard Space toggle baseline. Chrome+Edge WASM 278/278; Server 281/281. Confirmed important baseline defect: nullable Toggled visual state is NOT mapped to aria-pressed on any of six Buttons, openly reported by probe as unresolved #428 accessibility gate. No shipped Button code changed. See docs/v3/tokens/BUTTON-FOCUS-INTERACTION-MATRIX.md.
 
 - 2026-10-12 #418/#501: real focused Button CSS adjacent surface contrast audited across 10 brands x 2 modes. Current ring <3:1 in all 10 dark modes (1.94-2.15); explicit opt-in candidate using existing Fluent --colorStrokeFocus2 passes 20/20 with minimum 14.55, forced-colors Highlight retained. Dev01 Chrome/Edge WASM 320/320 and Server 323/323; one initial Chrome Server attempt failed but rerun succeeded, reliability not certified. Both original dark contrast deficit and #428 missing aria-pressed remain machine-reported accessibility gaps. Source docs/v3/tokens/FOCUS-RING-CONTRAST-CANDIDATE.md. No default/shipping style change.
+
+- 2026-10-15 #418 added real EventCallback theme/brand rerender coverage
+  (Excel/default x Light/Dark, five native focused Buttons per case and
+  independent Word scope). Earlier direct-DOM test mutations are explicitly
+  resynchronized via Blazor controls. Windows CDP launcher now tolerates
+  a detached exit-0 Chromium process and cleans only unique QA profiles.
+  Local Dev01 Chrome and Edge WASM: 868/868 each, zero failures.
+  Release -warnaserror build 0 errors/warnings, six contract tests and
+  token generator check pass. Approved Penpot #501 reference unchanged.
+  #418 In progress; exact-head CI, native Windows contrast/AT and final
+  public API acceptance still pending.

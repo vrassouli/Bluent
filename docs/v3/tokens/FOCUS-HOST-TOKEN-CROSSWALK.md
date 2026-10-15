@@ -47,3 +47,32 @@ The new CDP Browser Lab asserts **actual Razor-owned host role/focus-only mode**
 ### 2026-10-15 nested brand inheritance fix
 
 In the first demo wiring pass, each card used data-bui-theme directly. The emitted Fluent source stylesheet has global selectors such as [data-bui-theme=light] which would reinitialize color roles on every nested card, potentially replacing its inherited brand-scoped source palette. The reviewed **opt-in preview** now uses a distinct **data-bui-v3-focus-mode** attribute, colocated with data-bui-v3-focus-host, while the actual product Theme stays on the outer Blazor opt-in host. This avoids accidentally turning every Button Focus host into a new global theme root. Updated schema/generator, six negative/positive tests, synchronized preview assets, and both standalone forced-colors and broader browser probes protect the distinction. No public API approval implied; verify CI on the latest commit before accepting browser parity.
+
+### 2026-10-15: Blazor-owned theme/brand interaction acceptance probe
+
+In addition to source and DOM-only palette sweeps, the real browser probe
+now drives the actual V3StylingLab Blazor controls to switch **Excel/default ×
+Light/Dark** (4 live cases). For each case, it checks all five native Button
+host cards: the approved generated focus-host candidate resolves to the
+expected source role; the keyboard focus outline is visible; contrast
+against the parent host is at least 3:1; and every card inherits the parent
+product palette without declaring its own product theme. The independent
+Word component stays in its opposite mode. This proves real Blazor
+rerender behavior rather than assuming that changing raw DOM attributes
+also changes Razor component state. The probe first resynchronizes prior
+DOM-only test mutations via actual Blazor control toggles.
+
+The Windows CDP launcher now correctly accepts a detached Chromium launcher
+that exited 0 before DevToolsActivePort appears, and reclaims only browsers
+with the unique probe-owned temporary profile. A launch failure or
+failed cleanup still fails the test, never skips assertions. Local Dev01
+Chrome WASM: **868/868**, Edge WASM: **868/868**, no failed checks.
+Release -warnaserror build: 0 errors/warnings; six focus-host Python
+contract tests and token generator drift check passed; Release solution
+test invocation passed, observing 61 tests in RegexSampleGeneratorTest.
+GitHub Actions still require verification on the new SHA.
+
+Design reference unchanged: approved Bluent v3 Penpot page 38, board
+f4136a9a-101d-8004-8008-ca2956fe05f9. This does not constitute native
+OS contrast, AT, genuine browser UI zoom, opaque/gradient host universality,
+final public API, or v3 release acceptance.

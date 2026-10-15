@@ -15,10 +15,10 @@
     <p>This v3-branch demo uses real Bluent controls and opt-in, unpublished CSS.
        Token names and system-color mappings are research candidates, not an approved v3 component API.</p>
     <div class="v3-lab-controls">
-        <Button Text="@(_dark ? "Switch to light" : "Switch to dark")" OnClick="() => _dark = !_dark" />
+        <Button id="v3-lab-switch-theme" Text="@(_dark ? "Switch to light" : "Switch to dark")" OnClick="() => _dark = !_dark" />
         <Button Text="@(_rtl ? "Switch to LTR" : "Switch to RTL")" OnClick="() => _rtl = !_rtl" />
         <Button Text="@(_compact ? "Comfortable density" : "Compact density")" OnClick="() => _compact = !_compact" />
-        <Button Text="@(_mainBrand == "excel" ? "Clear main brand" : "Set main brand Excel")" OnClick="ToggleMainBrand" />
+        <Button id="v3-lab-switch-brand" Text="@(_mainBrand == "excel" ? "Clear main brand" : "Set main brand Excel")" OnClick="ToggleMainBrand" />
     </div>
 
     <CascadingValue Value="CurrentScope">

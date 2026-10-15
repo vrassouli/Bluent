@@ -86,6 +86,14 @@ class FocusHostTokenContractTests(unittest.TestCase):
         css=(SCHEMA.parents[3]/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8-sig")
         for kind in HOST_CHOICES:
             self.assertIn('data-v3-focus-host="'+kind+'" data-bui-v3-focus-host="'+kind+'"',razor)
+        self.assertIn('id="v3-lab-switch-theme"', razor)
+        self.assertIn('id="v3-lab-switch-brand"', razor)
+        browser=(SCHEMA.parents[3]/"scripts/quality/probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn('Blazor UI click: independent brand/theme Focus hosts',browser)
+        self.assertIn('!row.productTheme',browser)
+        self.assertIn('browser.exitCode!==null&&browser.exitCode!==0',browser)
+        self.assertIn('BLUENT_V3_418_OWNED_PROFILE',browser)
+        self.assertIn('cleanupOwnedBrowser();',browser)
         self.assertEqual(razor.count('data-bui-theme="@(_dark ? "dark" : "light")"'),1) # real product Theme only on root
         self.assertEqual(razor.count('data-bui-v3-focus-mode="@(_dark ? "dark" : "light")"'),5)
         approved=css.split('/* The approved focus comes from the generated, opt-in schema only.',1)[1].split('/* 320 CSS px',1)[0]
