@@ -66,12 +66,18 @@ class InteropSourceContractTests(unittest.TestCase):
         root=__import__("pathlib").Path(__file__).resolve().parents[2]
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")
         probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
-        for item in ("real-popover-browser:","browser: [Chrome, Edge]",
+        for item in ("check_v3_popover_js_bundle.py", "test_v3_popover_js_bundle.py",
+                     "npm --prefix src/Bluent.UI.Scripts run build",
+                     "git diff --exit-code -- src/Bluent.UI.Scripts/dist/",
+                     "real-popover-browser:","browser: [Chrome, Edge]",
                      "render_mode: [WASM, Server]",
                      "windows-latest","probe_v3_popover_runtime.mjs",
                      "if: always()","actions/upload-artifact@v4"):
             self.assertIn(item,workflow)
-        for item in ("dynamic surface rendered","manual Popover Show",
+        for item in ("Escape closes popover and restores exact trigger focus",
+                     "outside click dismisses without moving focus to trigger",
+                     "trigger reopens popover after Escape",
+                     "dynamic surface rendered","manual Popover Show",
                      "popover-server","ASPNETCORE_ENVIRONMENT","Production",
                      "manual Popover Close","Page.captureScreenshot","Runtime.evaluate"):
             self.assertIn(item,probe)
@@ -100,6 +106,7 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("catch (JSDisconnectedException)",interop)
         self.assertIn("_handlerReference?.Dispose();",interop)
         self.assertIn("_handlerReference = null;",interop)
+        self.assertIn('await _popoverReference.InvokeVoidAsync("dispose");',interop)
         self.assertNotIn("catch (Exception)",interop)
         self.assertIn("finally",component)
         self.assertIn("service.OnSetTrigger -= PopoverOnSet;",component)

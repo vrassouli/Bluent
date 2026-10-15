@@ -36,7 +36,19 @@ internal class PopoverInterop : IAsyncDisposable
             try
             {
                 if (_popoverReference is not null)
-                    await _popoverReference.DisposeAsync();
+                {
+                    try
+                    {
+                        // JSObjectReference.DisposeAsync frees the proxy, but
+                        // DOES NOT call the JS object's own cleanup method.
+                        // Detach document and trigger listeners first.
+                        await _popoverReference.InvokeVoidAsync("dispose");
+                    }
+                    finally
+                    {
+                        await _popoverReference.DisposeAsync();
+                    }
+                }
             }
             catch (JSDisconnectedException)
             {

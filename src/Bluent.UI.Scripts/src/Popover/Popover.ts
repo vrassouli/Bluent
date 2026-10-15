@@ -6,39 +6,111 @@ export class Popover {
     private _triggerResizeObserver: ResizeObserver;
     private _surfaceResizeObserver: ResizeObserver;
     private _cleanupAutoUpdate: (() => void) | null;
+    // Non-modal popovers use Escape to dismiss only the most recently opened
+    // surface. Only Escape returns focus to its trigger; an outside click does not.
+    private readonly _openSurfaces: PopoverSettings[] = [];
+    private readonly _triggerHandlers = new Map<string, Array<{ target: Element; event: string; listener: EventListener }>>();
+    private readonly _documentClickHandlers = new Map<string, EventListener>();
+    private _disposed = false;
+    private readonly _onDocumentKeyDown = (event: KeyboardEvent): void => {
+        if (event.key !== 'Escape' || event.defaultPrevented)
+            return;
+
+        const current = this._openSurfaces[this._openSurfaces.length - 1];
+        if (!current)
+            return;
+
+        const surface = this.getSurface(current);
+        if (!surface?.classList.contains('show'))
+            return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        this.hideSurface(current);
+        (this.getTrigger(current) as HTMLElement | null)?.focus();
+    };
 
     constructor(dotNetRef: any) {
         this._dotNetRef = dotNetRef;
     }
 
     setPopover(settings: PopoverSettings) {
+        if (this._disposed)
+            return;
+        // Rebinding must not accumulate handlers on the same trigger across
+        // Blazor redraws or reuse of an existing ID.
+        this.unbindTrigger(settings.triggerId);
         const trigger = this.getTrigger(settings);
+        const handlers: Array<{ target: Element; event: string; listener: EventListener }> = [];
         if (trigger) {
             if (settings.triggerEvents) {
                 settings.triggerEvents.forEach((triggerEvent) => {
-                    trigger.addEventListener(triggerEvent, () => {
+                    const listener: EventListener = () => {
                         const surface = <HTMLElement>this.getSurface(settings);
                         if (surface) {
-                            this.showSurface(settings);
+                            void this.showSurface(settings);
                         }
                         else {
-                            this.renderSurface(settings);
+                            void this.renderSurface(settings);
                         }
-                    });
+                    };
+                    trigger.addEventListener(triggerEvent, listener);
+                    handlers.push({ target: trigger, event: triggerEvent, listener });
                 });
             }
 
             if (settings.hideEvents) {
                 settings.hideEvents.forEach((hideEvent) => {
-                    trigger.addEventListener(hideEvent, () => {
-                        this.hideSurface(settings);
-                    });
+                    const listener: EventListener = () => this.hideSurface(settings);
+                    trigger.addEventListener(hideEvent, listener);
+                    handlers.push({ target: trigger, event: hideEvent, listener });
                 });
             }
         }
+        this._triggerHandlers.set(settings.triggerId, handlers);
+    }
+
+    private unbindTrigger(triggerId: string): void {
+        const handlers = this._triggerHandlers.get(triggerId) || [];
+        for (const { target, event, listener } of handlers)
+            target.removeEventListener(event, listener);
+        this._triggerHandlers.delete(triggerId);
+    }
+
+    private installOutsideClick(settings: PopoverSettings): void {
+        this.unbindOutsideClick(settings.triggerId);
+        const listener: EventListener = (event: Event) =>
+            this.onDocumentClicked(settings, event as PointerEvent);
+        this._documentClickHandlers.set(settings.triggerId, listener);
+        document.addEventListener('click', listener, { once: true });
+    }
+
+    private unbindOutsideClick(triggerId: string): void {
+        const listener = this._documentClickHandlers.get(triggerId);
+        if (listener)
+            document.removeEventListener('click', listener);
+        this._documentClickHandlers.delete(triggerId);
+    }
+
+    public dispose(): void {
+        if (this._disposed)
+            return;
+        this._disposed = true;
+        for (const id of Array.from(this._triggerHandlers.keys()))
+            this.unbindTrigger(id);
+        for (const id of Array.from(this._documentClickHandlers.keys()))
+            this.unbindOutsideClick(id);
+        document.removeEventListener('keydown', this._onDocumentKeyDown);
+        this._openSurfaces.length = 0;
+        this._triggerResizeObserver?.disconnect();
+        this._surfaceResizeObserver?.disconnect();
+        this._cleanupAutoUpdate?.();
+        this._cleanupAutoUpdate = null;
     }
 
     public async showSurface(settings: PopoverSettings) {
+        if (this._disposed)
+            return;
         let surface = <HTMLElement>this.getSurface(settings);
 
         if (!surface) {
@@ -64,7 +136,14 @@ export class Popover {
 
         if (!surface.classList.contains('show'))
             surface.classList.add('show');
-        document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+        this.installOutsideClick(settings);
+
+        const alreadyOpen = this._openSurfaces.findIndex(x => x.triggerId === settings.triggerId);
+        if (alreadyOpen >= 0)
+            this._openSurfaces.splice(alreadyOpen, 1);
+        if (this._openSurfaces.length === 0)
+            document.addEventListener('keydown', this._onDocumentKeyDown);
+        this._openSurfaces.push(settings);
 
         // Register automatic updates on scroll/resize/mutations for correct positioning
         const trigger = this.getTrigger(settings) as HTMLElement;
@@ -142,12 +221,15 @@ export class Popover {
     }
 
     private onDocumentClicked(settings: PopoverSettings, args: PointerEvent) {
+        this._documentClickHandlers.delete(settings.triggerId);
+        if (this._disposed)
+            return;
         var trigger = this.getTrigger(settings);
         var surface = this.getSurface(settings);
 
         if (trigger && surface) {
             if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target) || args.defaultPrevented) {
-                document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+                this.installOutsideClick(settings);
             }
             else {
                 this.hideSurface(settings);
@@ -160,6 +242,13 @@ export class Popover {
     // }
 
     private hideSurface(settings: PopoverSettings) {
+        const index = this._openSurfaces.findIndex(x => x.triggerId === settings.triggerId);
+        if (index >= 0)
+            this._openSurfaces.splice(index, 1);
+        if (this._openSurfaces.length === 0)
+            document.removeEventListener('keydown', this._onDocumentKeyDown);
+        this.unbindOutsideClick(settings.triggerId);
+
         const surface = <HTMLElement>this.getSurface(settings);
         if (surface) {
             surface.addEventListener("transitionend", (event) => {
@@ -218,4 +307,3 @@ export class Popover {
         return new Popover(dotNetRef);
     }
 }
-

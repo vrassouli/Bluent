@@ -128,3 +128,6 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 
 
 2026-10-15 newest #420 interactive Server verification: dedicated SSR QA-only /compatibility/popover-server with real InteractiveServer Popovers + Containers, real Chrome and Edge both 7/7. With real standalone WebAssembly Chrome/Edge each 7/7 the Popover matrix is 28/28 on Dev01; QA harness launches real Release-published Production SSR and Debug-root WASM as appropriate, four GitHub Windows CI jobs configured. No public component API change. Browser focus restoration/Escape, native Contrast Themes/screen reader and maintainer Penpot design parity remain open; #420 Draft until acceptance.
+
+
+2026-10-15 #420 latest focus/JS lifecycle: Escape closes topmost non-modal Popover and restores trigger focus; outside click does not steal focus. Explicit JS Popover.dispose removes trigger/click/keyboard listeners, ResizeObservers and Floating UI updater; real C# PopoverInterop calls it before proxy disposal. Full Chrome/Edge x WASM/Server local matrix 40/40 real interactions; compiled fake-JS .NET 123 assertions; 19 source Python tests. Static webpack ESM/global outputs and maps mirrored to Bluent.UI wwwroot; new npm CI builds and checks reproducibility. Still Draft/In progress until canonical Penpot approval, other overlays and native Windows Contrast/AT acceptance.

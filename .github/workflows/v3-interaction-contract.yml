@@ -10,6 +10,12 @@ on:
       - "scripts/quality/test_v3_interaction_sample.py"
       - "scripts/quality/v3_interop_lifecycle/**"
       - "scripts/quality/probe_v3_popover_runtime.mjs"
+      - "scripts/quality/check_v3_popover_js_bundle.py"
+      - "scripts/quality/test_v3_popover_js_bundle.py"
+      - "src/Bluent.UI.Scripts/src/Popover/**"
+      - "src/Bluent.UI.Scripts/dist/**"
+      - "src/Bluent.UI.Scripts/package-lock.json"
+      - "src/Bluent.UI/wwwroot/bluent.ui*.js*"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor"
       - "docs/v3/architecture/ADR-0002-interaction-primitives.md"
       - "src/Bluent.UI/Interops/**"
@@ -32,6 +38,16 @@ jobs:
           python scripts/quality/check_v3_interaction_primitives.py
           python -m unittest discover -s scripts/quality -p 'test_v3_interaction_primitives.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_interaction_sample.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Verify reproducible TypeScript ESM/global bundles shipped by Bluent.UI
+        run: |
+          npm --prefix src/Bluent.UI.Scripts ci --ignore-scripts --no-audit --no-fund
+          npm --prefix src/Bluent.UI.Scripts run build
+          python scripts/quality/check_v3_popover_js_bundle.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_popover_js_bundle.py' -v
+          git diff --exit-code -- src/Bluent.UI.Scripts/dist/
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"

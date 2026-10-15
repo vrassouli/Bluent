@@ -36,7 +36,7 @@ try{
     execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
       "--configuration","Release","--no-restore","--nologo","--output",published,"-v","quiet"],
       {cwd:root,windowsHide:true,timeout:300000,stdio:"pipe"});
-   } catch(e){throw Error("SSR publish failed: "+String(e.stderr||e.message).slice(-3800));}
+   } catch(e){throw Error("SSR publish failed: "+String(e.stderr||e.stdout||e.message).slice(-6000));}
    app=launch("dotnet",["Bluent.UI.Demo.SSR.dll"],published,
      {...process.env,ASPNETCORE_ENVIRONMENT:"Production",ASPNETCORE_URLS:origin});
   } else {
@@ -58,7 +58,24 @@ try{
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");
  },"default KeepSurface trigger opens",17000);
  result("KeepSurface trigger opens actual Popover",opened);
- await cdp.js("document.body.click()");
+ // Escape is an actual browser keyboard event, not JS-dispatched synthetic
+ // KeyboardEvent: it closes only the active surface and restores trigger focus.
+ await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.focus();return !!b;})()");
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const escapeClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));const surface=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));return !!(b&&surface&&!surface.classList.contains('show')&&document.activeElement===b);})()"),"Escape dismisses and returns focus",9000);
+ result("Escape closes popover and restores exact trigger focus",escapeClosed);
+ const reopened=await until(async()=>{
+  await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
+  return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");
+ },"popover can reopen after Escape",13000);
+ result("trigger reopens popover after Escape",reopened);
+ // Outside click closes without stealing focus from another already-focused control.
+ const noFocusTheft=await until(async()=>{
+  await cdp.js("(()=>{const x=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'))[1];x?.focus();document.body.click();return !!x;})()");
+  return cdp.js("(()=>{const b=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'))[1];const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));return !!(b&&s&&!s.classList.contains('show')&&document.activeElement===b);})()");
+ },"outside click leaves user focus untouched",10000);
+ result("outside click dismisses without moving focus to trigger",noFocusTheft);
  const second=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'))[1];b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('Click to switch content.'))");

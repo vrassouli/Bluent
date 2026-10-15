@@ -353,6 +353,8 @@ internal static class Program
             "Popover module disposed despite child JS disconnection");
         Assert(Field<object>(interop,"_handlerReference") is null,
             "Popover managed callback disposed");
+        Assert(normal.Handle.PopoverDisposeCallCount==1,
+            "real Popover DisposeAsync invokes JS listener cleanup exactly once");
         Assert(EventSubscriptions(service)==0,
             "All service events unsubscribed after JS disconnect");
 
@@ -372,11 +374,40 @@ internal static class Program
                 "Popover managed callback released after unexpected JS failure");
             Assert(EventSubscriptions(failedService)==0,
                 "All five Popover service handlers unsubscribed even when DisposeAsync fails");
+            Assert(unexpected.Handle.PopoverDisposeCallCount==1,
+                "JS listener cleanup attempted even on unexpected JS proxy disposal failure");
         }
+        // A JS-side listener cleanup failure must not skip disposal of the
+        // underlying JS proxy, module, .NET callback or Blazor service events.
+        var jsCleanupFailed=new FakeRuntime();
+        var (jsCleanupInterop,jsCleanupContainer,jsCleanupService)=CreatePopover(jsCleanupFailed);
+        await InitializePopoverInterop(jsCleanupInterop);
+        jsCleanupFailed.Handle.PopoverFailureOn="dispose";
+        try
+        {
+            await Dispose(jsCleanupContainer);
+            throw new InvalidOperationException("Popover JavaScript listener cleanup failure was hidden");
+        }
+        catch(JSException)
+        {
+            Assert(jsCleanupFailed.Handle.PopoverDisposeCallCount==1,
+                "Popover requested JavaScript listener cleanup before releasing proxy");
+            Assert(jsCleanupFailed.Handle.DisposeCount==1,
+                "JavaScript proxy released even if JS-side dispose throws");
+            Assert(jsCleanupFailed.Module.DisposeCount==1,
+                "JavaScript module cleanup still attempted after JS-side dispose throws");
+            Assert(Field<object>(jsCleanupInterop,"_handlerReference") is null,
+                "Managed Popover callback released when JS-side dispose throws");
+            Assert(EventSubscriptions(jsCleanupService)==0,
+                "All Popover service events unsubscribed when JS-side dispose throws");
+        }
+
         var unused=new FakeRuntime();
         var (_,noUseContainer,noUseService)=CreatePopover(unused);
         await Dispose(noUseContainer);
         Assert(unused.ImportCount==0,"Popover unused Dispose does not import module");
+        Assert(unused.Handle.PopoverDisposeCallCount==0,
+            "Unused Popover never invokes JS cleanup");
         Assert(EventSubscriptions(noUseService)==0,
             "Unused Popover still unsubscribes service handlers");
     }
@@ -792,6 +823,7 @@ internal sealed class FakeJsHandle: IJSObjectReference
     public string? FailureOn {get;set;}
     public object? LastRegisterReference {get;private set;}
     public int PointerCalls {get;private set;}
+    public int PopoverDisposeCallCount {get;private set;}
     public TaskCompletionSource? PopoverSetGate {get;set;}
     public string? PopoverFailureOn {get;set;}
     public List<string> PopoverCalls {get;} = new();
@@ -817,6 +849,12 @@ internal sealed class FakeJsHandle: IJSObjectReference
             StopCount++;
             if(StopGate is not null)await StopGate.Task.WaitAsync(cancellationToken);
             if(StopFailure is not null)throw StopFailure;
+        }
+        else if(identifier=="dispose")
+        {
+            PopoverDisposeCallCount++;
+            if(PopoverFailureOn=="dispose")
+                throw new JSException("simulated Popover JS listener cleanup failure");
         }
         else if(identifier is "setPopover" or "showSurface")
         {

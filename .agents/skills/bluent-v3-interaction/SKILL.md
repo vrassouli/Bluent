@@ -1,6 +1,9 @@
 # Bluent v3 Interaction Primitives · #420
 
 
+LATEST 2026-10-15 #420: Real Escape closes topmost Popover and restores trigger focus, outside click does not steal focus. JS trigger/document listeners and ResizeObservers/FloatingUI updates are cleaned in Popover.dispose(), which C# calls before proxy DisposeAsync. Local Chrome/Edge x WASM/Server **40/40 real browser checks**, compiled Bluent.UI fake-JS **123 assertions** including explicit dispose; 19 source tests and four JS asset consistency tests. ESM/global JS/maps are matched to shipped Bluent.UI wwwroot and CI now rebuilds webpack with npm ci and rejects stale tracked bundles. Remaining: native Windows Contrast/AT, other overlays' modal focus behavior and user-approved canonical Penpot board; do NOT mark Done or publish stable v2.
+
+
 CURRENT 2026-10-15 (older checkpoints below are historical): zero async void/typed catch(Exception)/bare catch across the eight audited UI Interops + DomHelper files. Public IPopoverService and protected Overflow.CheckOverflow signatures remain unchanged. Private Set/Show Popover FIFO is executed sequentially with await in OnAfterRenderAsync, Overflow CheckOverflowAsync is awaited during render. Compiled real Bluent.UI fake JS harness: 115 assertions; Python source guard: 18 tests; local real Popover WASM Chrome 7/7 + Edge 7/7, real InteractiveServer Chrome 7/7 + Edge 7/7 = **28/28** interactive checks with PNG/JSON. Dedicated Windows 4-job Chrome/Edge × Server/WASM Popover CI now in #420 Draft PR. Maintainer Penpot design acceptance, focus return/keyboard Escape/RTL, native OS/AT and reviewer visual parity still pending; no public v2/NuGet release.
 
 Read docs/v3/architecture/ADR-0002-interaction-primitives.md, AGENTS.md and the v3 workflow and branching contracts before changing any component.
