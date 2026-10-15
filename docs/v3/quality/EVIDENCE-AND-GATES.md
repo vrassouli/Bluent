@@ -25,7 +25,16 @@ The new .github/workflows/v3-quality-gates.yml runs on ALL pull requests into bl
 
 The first independent quality workflow also starts a **real Blazor SSR server**, waits for its static compatibility endpoint, runs check_rendered_accessibility.py, and retains a server log on failure. This is a real rendered SSR smoke, not keyboard/AT certification.
 
-The four-job **Chrome + Edge x WASM + Server browser lab is currently on the unmerged #418 task PR #500**, not on bluent-v3. This #425 branch deliberately does not copy that work or pretend it already exists. Once #418 merges, follow up under #425 to remove that browser workflow's path filter and make the four render-mode smoke jobs mandatory on *every* v3 PR. Even then, **component-specific** demos and interactive state/ARIA tests remain separately required, beyond baseline smoke. A generic green CI is not all components meeting WCAG 2.2 AA.
+### Independent real-browser baseline on every v3 PR
+
+The new .github/workflows/v3-compatibility-browsers.yml is unfiltered for every PR targeting bluent-v3: **Chrome + Edge x InteractiveServer + InteractiveWebAssembly** on Windows GitHub runners (four independent jobs; fail-fast disabled). This is independent of the unmerged #418 task PR #500, exercising the existing source-owned Bluent compatibility routes.
+
+The dependency-free Node 24 [CDP browser smoke](../../../scripts/quality/probe_v3_compatibility_runtime.mjs) publishes the real SSR/WebAssembly app, opens each installed browser, waits for the interactive renderer, clicks a real Bluent Button and checks EventCallback, types into an actual TextField and checks binding, checks native input focus and Tab exit, and captures six PNG screenshots at 320/768/1280 across Light/Dark and RTL/LTR. It verifies forced-colors/reduced-motion *browser emulation only*. Windows CI preserves 6 images and exact-SHA JSON report for each mode even on success, not a NuGet release.
+
+**Dev01 local real browser tests 2026-10-15:** Chrome Server 12/12, Chrome WebAssembly 12/12, Edge Server 12/12, Edge WebAssembly 12/12 = **48/48 assertions**, 24 PNGs and four JSON evidence reports. These are LOCAL runs; actual new GitHub CI HEAD requires independent verification. Two first-pass test-only errors (returning an HTMLInputElement by value to CDP and comparing short WASM against actual WebAssembly renderer label) were corrected; all four real browser runs then passed.
+
+Screenshot capture does NOT equal reviewed visual regression acceptance. Native Windows Contrast Themes, screen-reader/assistive-tech and WCAG 2.2 AA certification are not proven by CSS media emulation. Rich #418 ten-brand focus/danger visual parity remains separate and unmerged. Component-specific state/ARIA/keyboard suites still belong to each component issue.
+
 
 ## Still required for actual component Review / Done
 
@@ -41,4 +50,4 @@ Each PR must record exact SHA, affected components and packages, source design p
 
 The initial actual #425 Release build rejected two NU1903 high-severity advisories (GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4) on Microsoft.AspNetCore.Components.WebAssembly.Server **10.0.7**. The patched 10.0.13 package was released 2026-10-13. Only the SSR-host PackageReference was upgraded to **10.0.13** on this isolated v3 task branch; no consumer library API or stable 2.x package references were changed. Restore + full Release -warnaserror build now pass with zero warnings/errors. The quality contract has a real XML parser and a negative test to reject regressions back to 10.0.12 or lower. Official reference: https://github.com/advisories/GHSA-qjpx-jqm5-h2c4 .
 
-Local scope on initial #425 branch: 20 .NET solution tests passed, 4 rendered SSR routes passed the focused accessibility smoke, and all five CI-version NuGet packages passed release_tools package-ID/version/commit checks with a local report under a temporary directory. **This is not actual GitHub runner success** until the new PR jobs run. The Chrome/Edge real-browser jobs on unmerged #418 remain a separate integration dependency.
+Local scope on initial #425 branch: 20 .NET solution tests passed, 4 rendered SSR routes passed the focused accessibility smoke, and all five CI-version NuGet packages passed release_tools package-ID/version/commit checks with a local report under a temporary directory. **This is not actual GitHub runner success** until the new PR jobs run. Independent Chrome/Edge x Server/WASM compatibility browser baseline now exists; the richer #418 ten-brand focus browser lab and native OS/AT remain separate.

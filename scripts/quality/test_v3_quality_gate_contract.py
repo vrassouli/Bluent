@@ -1,7 +1,7 @@
 """Explicit negative controls proving v3 quality policy fails closed."""
 from __future__ import annotations
 import unittest
-from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,check,check_server_patch,QualityContractError
+from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,check,check_server_patch,check_browser_contract,QualityContractError
 
 class V3QualityContractTests(unittest.TestCase):
     @classmethod
@@ -47,6 +47,28 @@ class V3QualityContractTests(unittest.TestCase):
         self.assertIn('Version="10.0.13"',original)
         with self.assertRaisesRegex(QualityContractError,"at least patched"):
             check_server_patch(original.replace('Version="10.0.13"','Version="10.0.12"'))
+
+    def test_real_browser_matrix_contract(self):
+        check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                               BROWSER_PROBE.read_text(encoding="utf-8-sig"))
+
+    def test_browser_job_must_run_on_every_pr(self):
+        current=BROWSERS.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"cannot skip"):
+            check_browser_contract(current.replace("branches: [bluent-v3]",
+                 "branches: [bluent-v3]\n    paths: [src/**]",1),
+                 BROWSER_PROBE.read_text(encoding="utf-8-sig"))
+
+    def test_browser_job_requires_both_engines_and_render_modes(self):
+        current=BROWSERS.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"browser matrix"):
+            check_browser_contract(current.replace("browser: [Chrome, Edge]","browser: [Chrome]"),
+                                   BROWSER_PROBE.read_text(encoding="utf-8-sig"))
+
+    def test_browser_probe_must_capture_screenshots(self):
+        with self.assertRaisesRegex(QualityContractError,"screenshot contract"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                                   BROWSER_PROBE.read_text(encoding="utf-8-sig").replace("Page.captureScreenshot","Page.ignore"))
 
     def test_no_false_accessibility_claim(self):
         with self.assertRaisesRegex(QualityContractError,"certification"):
