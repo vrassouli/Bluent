@@ -42,7 +42,13 @@ def check_implementation_typescript(src:str)->None:
               "this.unbindOutsideClick(id)",
               "this._autoUpdates.get(triggerId)?.()",
               "this._triggerResizeObservers.get(triggerId)?.disconnect()",
-              "this._surfaceResizeObservers.get(triggerId)?.disconnect()")
+              "this._surfaceResizeObservers.get(triggerId)?.disconnect()",
+              "private readonly _pendingHides",
+              "this.cancelPendingHide(settings.triggerId)",
+              "if (duration <= 0)",
+              "window.setTimeout(complete,",
+              "event.target === surface",
+              "surface.classList.contains('show') && !this._disposed")
     for term in required:
         if term not in src:
             raise BundleContractError("Missing popover Escape/focus contract: "+term)

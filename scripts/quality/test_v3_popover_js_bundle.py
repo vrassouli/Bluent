@@ -33,5 +33,15 @@ class PopoverBundleGateTests(unittest.TestCase):
         with self.assertRaisesRegex(BundleContractError,"Escape/focus"):
             check_implementation_typescript(authored.replace("event.key !== 'Escape'","event.key !== 'Delete'"))
 
+    def test_no_motion_transition_completion_cannot_be_dropped(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"transition|focus"):
+            check_implementation_typescript(authored.replace("if (duration <= 0)", "if (duration < 0)"))
+
+    def test_rapid_reopen_must_cancel_stale_hide(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"transition|focus"):
+            check_implementation_typescript(authored.replace("this.cancelPendingHide(settings.triggerId)", "this.skipPendingHide(settings.triggerId)"))
+
 if __name__=="__main__":
     unittest.main()

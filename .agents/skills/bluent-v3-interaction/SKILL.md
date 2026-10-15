@@ -1,6 +1,9 @@
 # Bluent v3 Interaction Primitives · #420
 
 
+LATEST 2026-10-15 #420 transient hide fix: Popover pending hide completion now owned per trigger ID, with cancellable transitionend listener and computed CSS-duration fallback, instant zero-second completion, reopening cancels stale callback, disposal clears all. Actual live Chrome/Edge x Server/WASM **23 checks per mode = 92/92**: two simultaneous SameWidth Popovers, topmost Escape/focus, reduced-motion/forced-colors browser emulation in RTL with zero-second transition, 700ms interrupted hide and rapid reopen without stale cleanup. Separate emulated-contrast PNG + JSON per mode. Rebuilt ESM/global bundles and maps synced to Bluent.UI assets. Source contract rejects missing no-animation/rapid-reopen guards and includes two negative tests. Browser emulation does NOT certify native Windows Contrast Themes or AT; #420 Penpot draft still needs reviewer approval; do not merge stable Dev or release v2.
+
+
 LATEST 2026-10-15 #420 multi-instance check: Real Bluent Popover JS geometry ownership (trigger/surface ResizeObservers, MutationObserver and Floating UI autoUpdate) is now per triggerId instead of shared singleton fields; hiding one does not stop other surfaces. Real shared Blazor QA fixture opens two SameWidth Popovers concurrently; waits for OnAfterRenderAsync interactive marker and sends OpenBoth once (duplicate clicks caused false race in initial test). Actual Chrome/Edge x Server/WASM 17/17 each = 68/68 browser checks for stacking, LIFO Escape focus and independent resizing, alongside prior click/Set/Show. This is scoped Popover proof, not native Windows Contrast/AT/Fluent parity. Reviewer acceptance of canonical #420 Penpot board still pending.
 
 

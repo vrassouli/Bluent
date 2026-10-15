@@ -13,6 +13,11 @@ export class Popover {
     private readonly _openSurfaces: PopoverSettings[] = [];
     private readonly _triggerHandlers = new Map<string, Array<{ target: Element; event: string; listener: EventListener }>>();
     private readonly _documentClickHandlers = new Map<string, EventListener>();
+    // CSS transitionend can be absent (0-duration/reduced motion) or arrive
+    // after a new Show. Hide completions are owned/cancellable per surface.
+    private readonly _pendingHides = new Map<string, {
+        surface: HTMLElement; listener: EventListener; timer: number;
+    }>();
     private _disposed = false;
     private readonly _onDocumentKeyDown = (event: KeyboardEvent): void => {
         if (event.key !== 'Escape' || event.defaultPrevented)
@@ -103,6 +108,7 @@ export class Popover {
         for (const id of Array.from(this._documentClickHandlers.keys()))
             this.unbindOutsideClick(id);
         document.removeEventListener('keydown', this._onDocumentKeyDown);
+        this._pendingHides.forEach((_pending, id) => this.cancelPendingHide(id));
         this._openSurfaces.length = 0;
         // The library intentionally compiles TypeScript to ES5, so avoid
         // spreading Map iterators (which requires downlevelIteration).
@@ -117,6 +123,8 @@ export class Popover {
     public async showSurface(settings: PopoverSettings) {
         if (this._disposed)
             return;
+        // A previous closing animation must never hide a reopened surface.
+        this.cancelPendingHide(settings.triggerId);
         let surface = <HTMLElement>this.getSurface(settings);
 
         if (!surface) {
@@ -245,6 +253,34 @@ export class Popover {
     //     this.updatePosition(settings);
     // }
 
+    private cancelPendingHide(triggerId: string): void {
+        const pending = this._pendingHides.get(triggerId);
+        if (!pending)
+            return;
+        pending.surface.removeEventListener('transitionend', pending.listener);
+        window.clearTimeout(pending.timer);
+        this._pendingHides.delete(triggerId);
+    }
+
+    private static transitionMilliseconds(surface: HTMLElement): number {
+        // A computed CSS duration may be 0s under forced/reduced motion and
+        // transitionend is not guaranteed to fire. Follow the longest track.
+        const computed = window.getComputedStyle(surface);
+        const times = (value: string): number[] => value.split(',').map(raw => {
+            const term = raw.trim();
+            const numeric = parseFloat(term) || 0;
+            return term.endsWith('ms') ? numeric : numeric * 1000;
+        });
+        const durations = times(computed.transitionDuration);
+        const delays = times(computed.transitionDelay);
+        const count = Math.max(durations.length, delays.length);
+        let maximum = 0;
+        for (let i = 0; i < count; i++)
+            maximum = Math.max(maximum,
+                durations[i % durations.length] + delays[i % delays.length]);
+        return maximum;
+    }
+
     private hideSurface(settings: PopoverSettings) {
         const index = this._openSurfaces.findIndex(x => x.triggerId === settings.triggerId);
         if (index >= 0)
@@ -254,19 +290,39 @@ export class Popover {
         this.unbindOutsideClick(settings.triggerId);
 
         const surface = <HTMLElement>this.getSurface(settings);
-        if (surface) {
-            surface.addEventListener("transitionend", (event) => {
+        if (!surface) {
+            this.cleanupGeometry(settings.triggerId, true);
+            return;
+        }
+        if (!surface.classList.contains('show')) {
+            if (!this._pendingHides.has(settings.triggerId))
                 this.doHideSurface(settings, surface);
-            }, { once: true });
+            return;
+        }
 
-            if (surface.classList.contains('show'))
-                surface.classList.remove('show');
-            else
-                this.doHideSurface(settings, surface);
-        }
-        else {
+        this.cancelPendingHide(settings.triggerId);
+        const duration = Popover.transitionMilliseconds(surface);
+        surface.classList.remove('show');
+        if (duration <= 0) {
             this.doHideSurface(settings, surface);
+            return;
         }
+        const complete = () => {
+            // Do not dismiss a surface which has been reopened.
+            this.cancelPendingHide(settings.triggerId);
+            if (!surface.classList.contains('show') && !this._disposed)
+                this.doHideSurface(settings, surface);
+        };
+        const listener: EventListener = event => {
+            if (event.target === surface &&
+                (['opacity', 'transform'].includes((event as TransitionEvent).propertyName)))
+                complete();
+        };
+        surface.addEventListener('transitionend', listener);
+        // Fallback for detached DOM, interrupted transitions and browsers that
+        // do not deliver transitionend. The timer is cancelled upon reopen.
+        const timer = window.setTimeout(complete, Math.ceil(duration) + 80);
+        this._pendingHides.set(settings.triggerId, { surface, listener, timer });
     }
 
     private doHideSurface(settings: PopoverSettings, surface: HTMLElement) {

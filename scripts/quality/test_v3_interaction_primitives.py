@@ -85,6 +85,10 @@ class InteropSourceContractTests(unittest.TestCase):
             "first SameWidth ResizeObserver remains active with second open",
             "first Escape closes only topmost and focuses second trigger",
             "second Escape closes remaining and focuses first trigger",
+            "zero-duration Escape hides surface without transitionend",
+            "rapid reopen cancels pending hide",
+            "old hide completion cannot conceal reopened Popover",
+            "RTL with reduced-motion and forced-colors browser emulation enabled",
         ):
             self.assertIn(fragment,probe)
 

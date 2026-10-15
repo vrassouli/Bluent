@@ -76,6 +76,45 @@ try{
   return cdp.js("(()=>{const b=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'))[1];const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));return !!(b&&s&&!s.classList.contains('show')&&document.activeElement===b);})()");
  },"outside click leaves user focus untouched",10000);
  result("outside click dismisses without moving focus to trigger",noFocusTheft);
+ // Zero-duration styles simulate a real accessible reduced-motion host where
+ // transitionend will never fire. The surface must still become fully hidden.
+ await cdp.send("Emulation.setEmulatedMedia",{features:[
+  {name:"prefers-reduced-motion",value:"reduce"},
+  {name:"forced-colors",value:"active"}
+ ]});
+ const emulated=await cdp.js("(()=>{document.documentElement.dir='rtl';return {reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,forced:matchMedia('(forced-colors: active)').matches,dir:document.documentElement.dir};})()");
+ result("RTL with reduced-motion and forced-colors browser emulation enabled",emulated.reduced&&emulated.forced&&emulated.dir==='rtl',emulated);
+ const zeroMotion=await until(async()=>{
+  await cdp.js("(()=>{const surface=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));if(surface){surface.style.transitionDuration='0s';surface.style.transitionDelay='0s';}const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
+  return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");
+ },"reduced-motion/zero-duration popover opens",14000);
+ result("zero-duration RTL Popover opens",zeroMotion);
+ const contrastShot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
+ writeFileSync(join(evidence,"popover-rtl-emulated-contrast-"+brand+".png"),Buffer.from(contrastShot.data,"base64"));
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const zeroHidden=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));return !!(s&&s.classList.contains('hidden')&&!s.classList.contains('show')&&document.activeElement===b);})()"),"no-transition Escape fully hides surface and restores focus",7000);
+ result("zero-duration Escape hides surface without transitionend",zeroHidden);
+ // Closing during a longer transition and immediately reopening should cancel
+ // the old transitionend listener/timer. No stale completion may hide it later.
+ const rapidOpened=await until(async()=>{
+  await cdp.js("(()=>{const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));if(s){s.style.transitionDuration='0.7s';s.style.transitionDelay='0s';}const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
+  return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(x=>x.textContent.includes('This is a sample content.'))");
+ },"long-transition reopen before fast close",13000);
+ result("long-animation Popover opens",rapidOpened);
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const reopenedFast=await until(async()=>{
+  await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
+  return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(x=>x.textContent.includes('This is a sample content.'))");
+ },"immediate reopen during pending hide animation",11000);
+ result("rapid reopen cancels pending hide",reopenedFast);
+ await new Promise(done=>setTimeout(done,1100));
+ const stableOpen=await cdp.js("(()=>{const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));return !!(s&&s.classList.contains('show')&&!s.classList.contains('hidden'));})()");
+ result("old hide completion cannot conceal reopened Popover",stableOpen);
+ await cdp.js("(()=>{const s=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));if(s){s.style.transitionDuration='0s';s.style.transitionDelay='0s';}document.body.click();return true;})()");
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
+ await cdp.js("document.documentElement.dir='ltr'");
  const second=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'))[1];b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('Click to switch content.'))");
