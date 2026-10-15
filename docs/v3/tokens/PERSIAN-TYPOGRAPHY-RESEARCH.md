@@ -101,7 +101,8 @@ The concurrently open PuyaStudio Runner project was NOT edited.
   e775e67c-d9da-804b-8008-cb84059cbdab.
 - Independent editable board: #418 · Persian font evidence and approval matrix
   · DRAFT, ID e775e67c-d9da-804b-8008-cb8405b790a5;
-  observed revision 377, 1500 x 1120 px, 29 editable shapes.
+  observed revision 386 after adding the token-format warning,
+  1500 x 1120 px, 30 editable shapes.
 - Eight real native text-size token links: four Latin/LTR and four
   Persian/RTL at 12, 14, 16 and 20px. Sizes 12/16/20 use
   bluent.type.size.200/.400/.500. The body 14px case binds to semantic
@@ -123,5 +124,34 @@ The concurrently open PuyaStudio Runner project was NOT edited.
 Repeatable read-only design-source audit:
 scripts/quality/penpot_v3_persian_font_evidence_audit.js
 (run its body via Penpot execute_code in the correct file).
-First live readback: 8/8 passes; 29 shapes, zero bounds overflow.
+First live readback: 8/8 passes (original 29 shapes);
+second verified state: 30 shapes, zero bounds overflow.
 This is editable design evidence, NOT final typography/AT certification.
+
+### Discovered real Penpot fontFamilies serialization mismatch (rev. 386)
+
+Read the original draft #419 token named bluent.type.family.base from
+bluent-v3/draft/typography. Its raw native font-family value is
+["Segoe UI"], but its active resolvedValueString is **Segoe,UI**, not
+the CSS font-family **Segoe UI**. The Penpot plugin cannot resolve
+a locally installed Segoe UI font (Inter and Noto Sans Arabic preview
+fonts are available instead).
+
+Confirmed the source-token format issue through isolated, temporary,
+REMOVED-after-use #418 TokenSets in the actual connected Penpot file:
+
+- Unquoted raw Segoe UI -> **Segoe,UI** (two families; incorrect).
+- Quoted raw "Segoe UI" -> **Segoe UI** (one multiword family; correct).
+- Unquoted raw Segoe UI, Tahoma, sans-serif ->
+  **Segoe,UI,Tahoma,sans-serif** (incorrect first family).
+
+The temporary research TokenSets were **removed**, and no original
+#419 typography token was changed. The real page-42 board now has a
+visible red defect annotation; the read-only Penpot audit reports the
+current source serialization and requires that this unresolved issue
+remain disclosed. A correct multiword family literal is the known
+format repair **after typography approval**; it does not decide
+which family stack should ship or whether browser fonts are installed.
+Do not interpret the 8/8 text *size* bindings as validation of the
+font-family source value. Review owner: #418; #419 historical draft
+set retained as source evidence. The final font-token gate is OPEN.
