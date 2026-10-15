@@ -1094,9 +1094,19 @@ try {
    try{
      for(const brand of ["excel",null])for(const mode of ["light","dark"]){
        await chooseBlazor(mode,brand);
-       const actual=await cdp.js("(() => {const root=document.querySelector('.v3-lab-surface'),rs=getComputedStyle(root),nested=document.querySelector('.v3-lab-independent-host'),review=document.querySelector('.v3-lab-focus-host-review'),cards=[...review.querySelectorAll('.v3-lab-focus-host-card')];return {mode:root.dataset.buiTheme,brand:root.getAttribute('data-bui-brand'),rootSource:rs.getPropertyValue('--colorBrandBackground').trim(),nestedMode:nested.dataset.buiTheme,nestedBrand:nested.dataset.buiBrand,nestedFace:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,review:review.dataset.v3FocusHostMode,rows:cards.map(card=>{const b=card.querySelector('.bui-button');b.focus();const cs=getComputedStyle(card),bs=getComputedStyle(b);return {kind:card.dataset.v3FocusHost,role:card.dataset.buiV3FocusHost,focusMode:card.dataset.buiV3FocusMode,productTheme:card.hasAttribute('data-bui-theme'),source:cs.getPropertyValue('--colorBrandBackground').trim(),light:cs.getPropertyValue('--colorBrandBackground').trim(),dark:cs.getPropertyValue('--colorBrandForeground2').trim(),inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),ring:bs.outlineColor,host:cs.backgroundColor,visible:b.matches(':focus-visible')};})};})()");
+       const actual=await cdp.js("(() => {const root=document.querySelector('.v3-lab-surface'),rs=getComputedStyle(root),nested=document.querySelector('.v3-lab-independent-host'),review=document.querySelector('.v3-lab-focus-host-review'),cards=[...review.querySelectorAll('.v3-lab-focus-host-card')];return {mode:root.dataset.buiTheme,brand:root.getAttribute('data-bui-brand'),rootSource:rs.getPropertyValue('--colorBrandBackground').trim(),nestedMode:nested.dataset.buiTheme,nestedBrand:nested.dataset.buiBrand,nestedFace:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,nestedFocus:(()=>{const card=document.querySelector('.v3-lab-independent-focus-host'),b=document.querySelector('#v3-nested-word-focus');b.focus();const c=getComputedStyle(card),button=getComputedStyle(b),owner=getComputedStyle(nested);return {role:card.dataset.buiV3FocusHost,mode:card.dataset.buiV3FocusMode,ownProductTheme:card.hasAttribute('data-bui-theme'),source:c.getPropertyValue('--colorBrandBackground').trim(),ownerSource:owner.getPropertyValue('--colorBrandBackground').trim(),enhanced:c.getPropertyValue('--colorBrandForeground2').trim(),ownerEnhanced:owner.getPropertyValue('--colorBrandForeground2').trim(),host:c.backgroundColor,ring:button.outlineColor,visible:b.matches(':focus-visible'),width:parseFloat(button.outlineWidth)};})(),review:review.dataset.v3FocusHostMode,rows:cards.map(card=>{const b=card.querySelector('.bui-button');b.focus();const cs=getComputedStyle(card),bs=getComputedStyle(b);return {kind:card.dataset.v3FocusHost,role:card.dataset.buiV3FocusHost,focusMode:card.dataset.buiV3FocusMode,productTheme:card.hasAttribute('data-bui-theme'),source:cs.getPropertyValue('--colorBrandBackground').trim(),light:cs.getPropertyValue('--colorBrandBackground').trim(),dark:cs.getPropertyValue('--colorBrandForeground2').trim(),inverse:cs.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),ring:bs.outlineColor,host:cs.backgroundColor,visible:b.matches(':focus-visible')};})};})()");
        const wantedBrand=brand||"default",other=mode==="dark"?"light":"dark";
        const expectedSource=matrix[wantedBrand][mode].tokens["bluent.color.brandBackground"];
+       const nestedFocus=actual.nestedFocus;
+       const expectedWordSource=matrix.word[other].tokens["bluent.color.brandBackground"];
+       const expectedWordRing=other==="dark"?nestedFocus.ownerEnhanced:nestedFocus.ownerSource;
+       const nestedPass=nestedFocus.role==="neutral"&&nestedFocus.mode===other&&
+         !nestedFocus.ownProductTheme&&
+         nestedFocus.source===nestedFocus.ownerSource&&nestedFocus.enhanced===nestedFocus.ownerEnhanced&&
+         nestedFocus.source.toLowerCase()===expectedWordSource.toLowerCase()&&
+         nestedFocus.visible&&nestedFocus.width>=2&&
+         nestedFocus.ring===hexToRgb(expectedWordRing)&&
+         contrast(nestedFocus.ring,nestedFocus.host)>=3;
        const rows=actual.rows.map(row=>{
          const token=(row.kind==="neutral")?(mode==="dark"?row.dark:row.light):
            (row.kind==="inverted"&&mode==="dark"?row.dark:row.inverse);
@@ -1106,7 +1116,7 @@ try {
          actual.rootSource.toLowerCase()===expectedSource.toLowerCase()&&
          actual.nestedBrand==="word"&&actual.nestedMode===other&&
          actual.nestedFace===hexRgb(matrix.word[other].tokens["bluent.color.brandBackground"])&&
-         actual.review==="adaptive"&&rows.length===5&&rows.every(row=>
+         actual.review==="adaptive"&&nestedPass&&rows.length===5&&rows.every(row=>
            row.kind===row.role&&row.focusMode===mode&&!row.productTheme&&
            row.source===actual.rootSource&&row.visible&&row.ring===row.expected&&row.ratio>=3);
        assert("Blazor UI click: independent brand/theme Focus hosts "+wantedBrand+"/"+mode,

@@ -96,6 +96,14 @@
                 <h3>Independent nested Word brand host</h3>
                 <p>Word brand; opposite mode and direction, without modifying its Excel parent.</p>
                 <Button id="v3-nested-brand-action" Text="Word primary action" Appearance="ButtonAppearance.Primary" />
+                @* Real mounted nested Word focus host: approved neutral-context role,
+                   independent from the outer Excel/default theme, without
+                   reapplying product data-bui-theme on this local card. *@
+                <div class="v3-lab-independent-focus-host"
+                     data-bui-v3-focus-host="neutral"
+                     data-bui-v3-focus-mode="@AlternateScope.Mode">
+                    <Button id="v3-nested-word-focus" Text="Word keyboard focus" />
+                </div>
                 <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
                     <Trigger>
                         <Button id="v3-independent-popover-trigger" Text="Show other host popover" />

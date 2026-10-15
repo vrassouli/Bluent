@@ -105,6 +105,32 @@
     max-width: 440px;
 }
 
+/* #418: approved neutral-host Focus alias must resolve within the nested,
+   independent Word source palette. Demo fixture only; no Button API change. */
+.v3-lab-independent-focus-host {
+    --v3-lab-focus: var(--bui-v3-focus-host-ring-candidate);
+    background: var(--colorNeutralBackground1);
+    color: var(--colorNeutralForeground1);
+    border: 1px solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium, 6px);
+    padding: 12px;
+    min-width: 0;
+    max-width: 100%;
+    margin-block: 12px;
+}
+.v3-lab-independent-focus-host ::deep .bui-button {
+    max-width: 100%;
+    min-width: 0;
+}
+@media (forced-colors: active) {
+    .v3-lab-independent-focus-host {
+        --v3-lab-focus: Highlight;
+        background: Canvas;
+        color: CanvasText;
+        border-color: CanvasText;
+    }
+}
+
 /* #418 research reflow: a real 320 CSS-pixel viewport, not a virtual 980px
    mobile layout viewport. No component library CSS is changed. */
 .v3-lab,

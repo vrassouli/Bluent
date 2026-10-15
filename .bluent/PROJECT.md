@@ -187,3 +187,12 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   token generator check pass. Approved Penpot #501 reference unchanged.
   #418 In progress; exact-head CI, native Windows contrast/AT and final
   public API acceptance still pending.
+
+- 2026-10-15 #418 real nested Word Focus fixture added inside an independently
+  owned Word Light/Dark product theme host. Approved neutral Focus alias is
+  computed from Word's own source brand/mode rather than Excel/default parent.
+  Browser UI clicks verify five parent focus cards and Word focused Button,
+  opposite host modes; Chrome/Edge WASM 868/868 local each. Debug build zero
+  warnings/errors, six Focus token contract tests passed. Opt-in demo only;
+  original Penpot accepted design unchanged, no public Button API or stable
+  Dev/NuGet modifications. See Focus host token crosswalk.

@@ -53,3 +53,12 @@ WASM 868/868 each. A Windows Chromium launcher may exit 0 before its
 detached browser creates DevToolsActivePort. Wait for the port, and
 clean only this run's unique bluent-v3-418-cdp- temp-profile processes.
 See docs/v3/tokens/FOCUS-HOST-TOKEN-CROSSWALK.md. No OS/AT/API signoff.
+
+2026-10-15 nested theme QA: the approved generated Focus host token must use
+the nearest independently owned product brand/mode, not its surrounding outer
+host. The v3 Styling Lab has an actual Word Button under the independent Word
+host, with explicit neutral host role and AlternateScope.Mode; never reapply
+the global product data-bui-theme on the focus card itself. Browser asserts
+Word's real computed brandBackground/brandForeground2 token versus focused
+outline while the outer Excel/default Light/Dark state changes via real Blazor
+controls. See docs/v3/tokens/FOCUS-HOST-TOKEN-CROSSWALK.md. Not public API.

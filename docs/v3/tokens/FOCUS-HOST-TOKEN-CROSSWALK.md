@@ -76,3 +76,28 @@ Design reference unchanged: approved Bluent v3 Penpot page 38, board
 f4136a9a-101d-8004-8008-ca2956fe05f9. This does not constitute native
 OS contrast, AT, genuine browser UI zoom, opaque/gradient host universality,
 final public API, or v3 release acceptance.
+
+### 2026-10-15: Second independently owned brand/mode Focus host
+
+A real nested **Word** opt-in host now contains its own keyboard-focusable
+Bluent Button in the actual v3 Styling Lab. The child focus fixture sets
+neutral host role and the Blazor-owned AlternateScope.Mode, but deliberately
+does not create another global product theme root. Its candidate ring is
+consumed exclusively through the generated opt-in alias, while its background
+and source colors inherit the nested Word theme. This is a private demo
+fixture, not a new public component or auto-detection API.
+
+The existing EventCallback browser checks now verify both the five primary
+Focus contexts and Word's real independently mounted focused Button on each
+Excel/default x Light/Dark main-host state. Tests assert Word source inheritance,
+the mode-specific Fluent token, 2px+ actual focus-visible stroke and at least
+3:1 host contrast; the independent mode remains opposite to its parent. The
+source brand matrix omits colorBrandForeground2, so the Dark ring expectation
+comes from the real Word owner computed source token, not an invented matrix key.
+
+Local Dev01 browser results: Chrome WASM **868/868** and Edge WASM **868/868**,
+zero failures including the four stricter multi-owner assertions. Debug
+solution build succeeded with zero errors/warnings; six Python contract
+tests and JS syntax validation passed. Exact new-head CI must be verified
+after push. The accepted Penpot branded Focus host-role design is unchanged.
+Browser-computed CSS does not certify native Windows Contrast Themes or AT.
