@@ -101,3 +101,42 @@ solution build succeeded with zero errors/warnings; six Python contract
 tests and JS syntax validation passed. Exact new-head CI must be verified
 after push. The accepted Penpot branded Focus host-role design is unchanged.
 Browser-computed CSS does not certify native Windows Contrast Themes or AT.
+
+### 2026-10-15: Detached Word Popover Focus boundary, with real keyboard modality
+
+In the real v3 Styling Lab, a second **Word-owned Focus host** now lives inside
+the independent service-hosted Popover. The Popover is rendered outside the
+normal component subtree in the global container, so the local Razor-scoped
+CSS does not automatically reach it. A single narrowly qualified opt-in CSS
+fixture in Demo.Pages (issue-418-portal-focus.opt-in.preview.css) applies
+only under a v3-tokens ancestor and the exact demo-only portal fixture, not to
+the public Bluent Button API or legacy styling. The generated approved host
+variable provides its ring; the actual Word Popover data-bui-brand / product
+mode remains the source of truth. Both parent Excel/default and the independent
+Word host retain their own theme. The fixture's explicit neutral host role and
+focus-only mode never reapply data-bui-theme to the focus card.
+
+The actual CDP probe opens the Word Popover, delivers genuine keyboard input
+before focus (programmatic focus following a pointer click is not necessarily
+focus-visible), checks computed source ownership, 2px/2px outline, color match
+and minimum 3:1 against the immediate host. It then switches emulated
+forced-colors and verifies system Highlight, while restoring media state
+before closing the Popover. The test uses an actual mounted Bluent Button,
+not a CSS clone or fake focus-visible class.
+
+An existing Browser Lab reliability flaw was exposed during stress: rapid
+palette mutations sampled mid-transition colors and produced timing-dependent
+false failures. The source-brand, independent-host, danger toggle/hover/pressed
+and legacy CSS opt-out checks now wait for real terminal computed source colors.
+Animations remain enabled and are not bypassed. The test fails if the correct
+real rendered color cannot be reached. This improves QA reliability; it does
+not certify actual pixels, native Windows Contrast Themes, AT, all consumer
+portal types or the eventual public focus-host contract.
+
+Local Dev01 **Chrome/WebAssembly 870/870** and **Edge/WebAssembly 870/870** checks passed after this change, zero failures.
+Release -warnaserror build passed with zero warnings/errors, six focus-host contract tests, token preview generator --check, and 61 observed .NET tests passed.
+Previous commit a3c2db3e completed 5/5 GitHub workflow checks; the next
+commit must be independently checked. The accepted Focus design is still
+Penpot Bluent v3, page 38, board
+f4136a9a-101d-8004-8008-ca2956fe05f9. No design approval is inferred
+for new public API semantics.

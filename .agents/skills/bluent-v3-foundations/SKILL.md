@@ -62,3 +62,15 @@ the global product data-bui-theme on the focus card itself. Browser asserts
 Word's real computed brandBackground/brandForeground2 token versus focused
 outline while the outer Excel/default Light/Dark state changes via real Blazor
 controls. See docs/v3/tokens/FOCUS-HOST-TOKEN-CROSSWALK.md. Not public API.
+
+2026-10-15 detached Popover Focus boundary: the DOM-owned Word Popover is
+rendered into a global container, so use an explicitly opt-in, narrowly
+demo-scoped selector for its real mounted Bluent Button. Source ring token
+must inherit the Popover's own Word product theme, never the surrounding
+Excel/default component host. Real keyboard modality is required before
+testing focus-visible; simple programmatic focus after a mouse click is
+not equivalent. Restore emulated forced-colors after asserting Highlight.
+For browser palette QA, wait until computed CSS transition colors settle
+to actual Fluent token source roles; immediate reads are nondeterministic. Dev01 Chrome/Edge WASM each passed
+870/870 after this hardening. See docs/v3/tokens/FOCUS-HOST-TOKEN-CROSSWALK.md.
+No shipping API approval.

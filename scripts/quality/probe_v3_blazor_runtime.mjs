@@ -114,6 +114,13 @@ try {
  const matrix=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-brand-matrix.preview.json"),"utf8")).brands;
  const hexRgb=v=>{const m=/^#([a-f0-9]{6})$/i.exec(v);if(!m)throw Error("Unexpected hex "+v);const x=m[1];return "rgb("+[0,2,4].map(i=>parseInt(x.slice(i,i+2),16)).join(", ")+")";};
  const hexToRgb=v=>{const full=/^#[a-f0-9]{3}$/i.test(v)?"#"+[...v.slice(1)].map(c=>c+c).join(""):v;return hexRgb(full);};
+ // Compare the final painted Button CSS against the Fluent source roles.
+ // Browser transitions may otherwise expose intermediate colors as false QA failures.
+ const waitDangerRole=async(fgRole,bgRole,label)=>{
+   const expected=await cdp.js("(()=>{const s=getComputedStyle(document.querySelector('.v3-lab-surface'));return {fg:s.getPropertyValue("+JSON.stringify(fgRole)+").trim(),bg:s.getPropertyValue("+JSON.stringify(bgRole)+").trim()};})()");
+   await until(()=>cdp.js("(()=>{const s=getComputedStyle(document.querySelector('#v3-selected-danger'));return s.color==="+JSON.stringify(hexToRgb(expected.fg))+"&&s.backgroundColor==="+JSON.stringify(hexToRgb(expected.bg))+";})()"),
+     "settled Danger color "+label,7500);
+ };
  const rgbParts=v=>[...v.matchAll(/[0-9]+/g)].slice(0,3).map(x=>Number(x[0]));
  const luminance=v=>{const [r,g,b]=rgbParts(v).map(n=>{const c=n/255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b;};
  const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);};
@@ -122,8 +129,14 @@ try {
    const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");
    if(swap!=="ok"){assert("brand asset "+brand,false,String(swap));continue;}
    for(const mode of ["light","dark"]) {
-     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme='"+mode+"';const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,sourceBrand:getComputedStyle(h).getPropertyValue('--colorBrandBackground').trim(),sourceEnhanced:getComputedStyle(h).getPropertyValue('--colorBrandForeground2').trim(),sourceSurface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),sourceHover:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1Hover').trim(),brandCandidate:(() => {h.setAttribute('data-bui-v3-focus-brand-candidate','');const v=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()};})()");
      const expected=hexRgb(modes[mode].tokens["bluent.color.brandBackground"]);
+     await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+mode+"'");
+     // Source tokens swap synchronously; the *painted* Button color can still
+     // be mid-transition. Poll for the actual computed terminal color instead
+     // of sampling an arbitrary animation frame (flaky on busy Windows CI).
+     await until(()=>cdp.js("getComputedStyle(document.querySelector('#v3-token-action')).backgroundColor==="+JSON.stringify(expected)),
+       "brand Button transition "+brand+"/"+mode,6500);
+     const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,sourceBrand:getComputedStyle(h).getPropertyValue('--colorBrandBackground').trim(),sourceEnhanced:getComputedStyle(h).getPropertyValue('--colorBrandForeground2').trim(),sourceSurface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),sourceHover:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1Hover').trim(),brandCandidate:(() => {h.setAttribute('data-bui-v3-focus-brand-candidate','');const v=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()};})()");
      combos.push({brand,mode,match:sample.button===expected,button:sample.button,expected});
      assert("brand "+brand+" "+mode+" on real Button",sample.button===expected,JSON.stringify(sample));
      assert("Word nested host independent of global stylesheet "+brand+" "+mode,sample.nestedWord===hexRgb(matrix.word.dark.tokens["bluent.color.brandBackground"]),sample.nestedWord);
@@ -149,14 +162,19 @@ try {
  // live Word Dark host. The document stylesheet remains the default brand.
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Set main brand Excel'))?.click()");
  await until(()=>cdp.js("document.querySelector('.v3-lab-surface')?.dataset.buiBrand==='excel'"),"Blazor Excel brand toggle",16000);
+ await until(()=>cdp.js("getComputedStyle(document.querySelector('#v3-token-action')).backgroundColor==="+JSON.stringify(hexRgb(matrix.excel.light.tokens["bluent.color.brandBackground"]))),
+   "Excel main Button settled after Blazor toggle",6500);
  const concurrent=await cdp.js("(()=>{const main=document.querySelector('.v3-lab-surface'),nested=document.querySelector('.v3-lab-independent-host'),root=document.documentElement;return {mainBrand:main.dataset.buiBrand,nestedBrand:nested.dataset.buiBrand,mainBg:getComputedStyle(document.querySelector('#v3-token-action')).backgroundColor,nestedBg:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,rootBrand:getComputedStyle(root).getPropertyValue('--colorBrandBackground').trim(),mainHover:getComputedStyle(main).getPropertyValue('--colorBrandBackgroundHover').trim(),nestedHover:getComputedStyle(nested).getPropertyValue('--colorBrandBackgroundHover').trim()};})()");
  assert("simultaneous Excel Light and Word Dark host Button colors",concurrent.mainBrand==="excel"&&concurrent.nestedBrand==="word"&&concurrent.mainBg===hexRgb(matrix.excel.light.tokens["bluent.color.brandBackground"])&&concurrent.nestedBg===hexRgb(matrix.word.dark.tokens["bluent.color.brandBackground"])&&concurrent.mainHover.toLowerCase()!==concurrent.nestedHover.toLowerCase(),JSON.stringify(concurrent));
  // Swap 20 nested source-brand/mode combinations while the surrounding
  // Excel/Light host remains intact. Does not change the global stylesheet.
  const pairs=[];
  for(const [brand,modes] of Object.entries(matrix))for(const mode of ["light","dark"]) {
-    const got=await cdp.js("(()=>{const n=document.querySelector('.v3-lab-independent-host');n.dataset.buiBrand='"+brand+"';n.dataset.buiTheme='"+mode+"';return {nested:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,main:getComputedStyle(document.querySelector('#v3-token-action')).backgroundColor,root:getComputedStyle(document.documentElement).getPropertyValue('--colorBrandBackground').trim()};})()");
     const expected=hexRgb(modes[mode].tokens["bluent.color.brandBackground"]);
+    await cdp.js("(()=>{const n=document.querySelector('.v3-lab-independent-host');n.dataset.buiBrand='"+brand+"';n.dataset.buiTheme='"+mode+"';})()");
+    await until(()=>cdp.js("getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor==="+JSON.stringify(expected)),
+      "nested Word/brand Button transition "+brand+"/"+mode,6500);
+    const got=await cdp.js("(()=>{const n=document.querySelector('.v3-lab-independent-host');return {nested:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,main:getComputedStyle(document.querySelector('#v3-token-action')).backgroundColor,root:getComputedStyle(document.documentElement).getPropertyValue('--colorBrandBackground').trim()};})()");
     const good=got.nested===expected&&got.main===hexRgb(matrix.excel.light.tokens["bluent.color.brandBackground"]);
     pairs.push({brand,mode,good});
     assert("concurrent host isolated "+brand+" "+mode,good,JSON.stringify(got)+" expected nested "+expected);
@@ -199,6 +217,35 @@ try {
  await cdp.js("document.querySelector('#v3-independent-popover-trigger')?.click()");
  const secondary=await until(()=>cdp.js("(()=>{const x=document.querySelector('[data-v3-independent-popover-probe]');if(!x)return null;const s=x.closest('.bui-popover-surface');if(!s || s.classList.contains('hidden'))return null;return {mode:s.dataset.buiTheme,dir:s.dir,hasOptIn:s.hasAttribute('data-bui-v3-tokens'),brand:s.dataset.buiBrand,background:getComputedStyle(s).backgroundColor,sourceBrand:getComputedStyle(s).getPropertyValue('--colorBrandBackground').trim(),main:document.querySelector('#v3-popover-trigger_surface')?.dataset.buiTheme};})()"),"independent nested Popover",20000);
  assert("nested independent Popover has Light/LTR, parent Dark",secondary.mode==="light"&&secondary.dir==="ltr"&&secondary.brand==="word"&&hexRgb(secondary.sourceBrand)===hexRgb(matrix.word.light.tokens["bluent.color.brandBackground"])&&secondary.main==="dark"&&secondary.hasOptIn,JSON.stringify(secondary));
+
+ // #418 nested source ownership ACROSS the actual detached Popover boundary:
+ // the mounted Bluent Button gets the explicit approved neutral host alias,
+ // not the outer Excel parent's tokens or an invented CSS-only clone.
+ // Real CDP keyboard input restores keyboard modality after the pointer
+ // click on the Popover trigger. DOM .focus() alone is not :focus-visible.
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"ArrowLeft",code:"ArrowLeft",windowsVirtualKeyCode:37,nativeVirtualKeyCode:37});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"ArrowLeft",code:"ArrowLeft",windowsVirtualKeyCode:37,nativeVirtualKeyCode:37});
+ const nestedPortalFocus=await cdp.js("(()=>{const button=document.querySelector('#v3-word-popover-focus'),fixture=button?.closest('[data-v3-portal-focus-fixture]'),surface=button?.closest('.bui-popover-surface');button?.focus();const f=fixture&&getComputedStyle(fixture),b=button&&getComputedStyle(button),owner=surface&&getComputedStyle(surface);return {loaded:[...document.styleSheets].some(s=>s.href?.includes('issue-418-portal-focus.opt-in.preview.css')),outside:!!surface&&!surface.closest('.v3-lab-surface'),hasOptIn:surface?.hasAttribute('data-bui-v3-tokens'),brand:surface?.dataset.buiBrand,mode:surface?.dataset.buiTheme,kind:fixture?.dataset.buiV3FocusHost,focusMode:fixture?.dataset.buiV3FocusMode,ownProductTheme:fixture?.hasAttribute('data-bui-theme'),inheritedSource:f?.getPropertyValue('--colorBrandBackground').trim(),ownerSource:owner?.getPropertyValue('--colorBrandBackground').trim(),lightRingSource:owner?.getPropertyValue('--colorBrandBackground').trim(),darkRingSource:owner?.getPropertyValue('--colorBrandForeground2').trim(),alias:f?.getPropertyValue('--bui-v3-focus-host-ring-candidate').trim(),ring:b?.outlineColor,outlineWidth:parseFloat(b?.outlineWidth),outlineOffset:parseFloat(b?.outlineOffset),outlineStyle:b?.outlineStyle,background:f?.backgroundColor,focusVisible:button?.matches(':focus-visible')};})()");
+ const pRingExpected=nestedPortalFocus.mode==="dark"?nestedPortalFocus.darkRingSource:nestedPortalFocus.lightRingSource;
+ assert("approved generated neutral Focus alias survives real Word Popover portal",
+   nestedPortalFocus.loaded&&nestedPortalFocus.outside&&nestedPortalFocus.hasOptIn&&
+   nestedPortalFocus.brand==="word"&&nestedPortalFocus.mode==="light"&&
+   nestedPortalFocus.kind==="neutral"&&nestedPortalFocus.focusMode==="light"&&
+   !nestedPortalFocus.ownProductTheme&&
+   nestedPortalFocus.inheritedSource===nestedPortalFocus.ownerSource&&
+   nestedPortalFocus.alias===pRingExpected&&
+   nestedPortalFocus.ring===hexToRgb(pRingExpected)&&
+   nestedPortalFocus.focusVisible&&nestedPortalFocus.outlineStyle==="solid"&&
+   nestedPortalFocus.outlineWidth===2&&nestedPortalFocus.outlineOffset===2&&
+   contrast(nestedPortalFocus.ring,nestedPortalFocus.background)>=3,
+   JSON.stringify(nestedPortalFocus));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
+ const wordPortalForced=await cdp.js("(()=>{const button=document.querySelector('#v3-word-popover-focus'),fixture=button?.closest('[data-v3-portal-focus-fixture]');const b=button&&getComputedStyle(button),c=fixture&&getComputedStyle(fixture);return {forced:matchMedia('(forced-colors: active)').matches,visible:button?.matches(':focus-visible'),ring:b?.outlineColor,width:parseFloat(b?.outlineWidth),token:c?.getPropertyValue('--bui-v3-focus-host-ring-candidate').trim(),systemHighlight:getComputedStyle(document.querySelector('#v3-token-action')).getPropertyValue('--colorStrokeFocus2').trim()};})()");
+ assert("Word detached Popover Focus uses system Highlight in forced-colors",
+   wordPortalForced.forced&&wordPortalForced.visible&&wordPortalForced.width===2&&
+   wordPortalForced.token==="Highlight"&&wordPortalForced.ring!=="rgba(0, 0, 0, 0)",
+   JSON.stringify(wordPortalForced));
+ await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  await cdp.js("document.querySelector('#v3-independent-popover-trigger')?.click()");
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
  const popMotion=await cdp.js("getComputedStyle(document.querySelector('#v3-popover-trigger_surface')).transitionDuration");
@@ -620,12 +667,13 @@ try {
  const currentDangerTheme=await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme");
  for(const theme of ["light","dark"]){
    await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+theme+"'");
+   await waitDangerRole('--colorPaletteRedForeground2','--colorPaletteRedBackground1',theme+'/initial');
    const before=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b);return {on:b.classList.contains('toggled'),color:s.color,background:s.backgroundColor};})()");
    await cdp.js("document.querySelector('#v3-selected-danger').click()");
-   await sleep(110);
+   await waitDangerRole('--colorNeutralForegroundOnBrand','--colorPaletteRedBackground3',theme+'/off');
    const off=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b);return {on:b.classList.contains('toggled'),color:s.color,background:s.backgroundColor};})()");
    await cdp.js("document.querySelector('#v3-selected-danger').click()");
-   await sleep(110);
+   await waitDangerRole('--colorPaletteRedForeground2','--colorPaletteRedBackground1',theme+'/restored');
    const restored=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b);return {on:b.classList.contains('toggled'),color:s.color,background:s.backgroundColor};})()");
    assert("real Danger toggle on/off restores readable foreground "+theme,
      before.on&&!off.on&&restored.on&&contrast(before.color,before.background)>=4.5&&
@@ -650,11 +698,13 @@ try {
    await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+theme+"'");
    const center=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger');b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
    await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:center.x,y:center.y});
+   await waitDangerRole('--colorPaletteRedForeground2','--colorPaletteRedBackground2',theme+'/hover');
    const hoverDanger=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),h=getComputedStyle(document.querySelector('.v3-lab-surface'));return {selected:b.classList.contains('toggled'),hover:b.matches(':hover'),color:s.color,background:s.backgroundColor,expectedColor:h.getPropertyValue('--colorPaletteRedForeground2').trim(),expectedBackground:h.getPropertyValue('--colorPaletteRedBackground2').trim()};})()");
    assert("real Danger selected Hover is readable "+theme,hoverDanger.selected&&hoverDanger.hover&&
      hoverDanger.color===hexToRgb(hoverDanger.expectedColor)&&hoverDanger.background===hexToRgb(hoverDanger.expectedBackground)&&
      contrast(hoverDanger.color,hoverDanger.background)>=4.5,JSON.stringify(hoverDanger));
    await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",x:center.x,y:center.y,button:"left",clickCount:1});
+   await waitDangerRole('--colorNeutralForegroundOnBrand','--colorPaletteRedBackground3',theme+'/pressed');
    const pressedDanger=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),h=getComputedStyle(document.querySelector('.v3-lab-surface'));return {selected:b.classList.contains('toggled'),pressed:b.matches(':active'),color:s.color,background:s.backgroundColor,expectedColor:h.getPropertyValue('--colorNeutralForegroundOnBrand').trim(),expectedBackground:h.getPropertyValue('--colorPaletteRedBackground3').trim()};})()");
    await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",x:center.x,y:center.y,button:"left",clickCount:1});
    await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:0,y:0});
@@ -736,12 +786,15 @@ try {
    // Bluent Button foreground and background resolve existing Fluent red
    // semantic roles, with >=4.5:1 for ordinary text, across all 10 brands
    // and BOTH modes. This test is non-hovered/selected, not focus-dependent.
-   const dangerSelected=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),hs=getComputedStyle(document.querySelector('.v3-lab-surface'));return {toggled:b.classList.contains('toggled'),hover:b.matches(':hover'),fg:s.color,bg:s.backgroundColor,redText:hs.getPropertyValue('--colorPaletteRedForeground2').trim(),redBg:hs.getPropertyValue('--colorPaletteRedBackground1').trim()};})()");
+   let dangerSelected=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),hs=getComputedStyle(document.querySelector('.v3-lab-surface'));return {toggled:b.classList.contains('toggled'),hover:b.matches(':hover'),fg:s.color,bg:s.backgroundColor,redText:hs.getPropertyValue('--colorPaletteRedForeground2').trim(),redBg:hs.getPropertyValue('--colorPaletteRedBackground1').trim()};})()");
+   await until(()=>cdp.js("(()=>{const s=getComputedStyle(document.querySelector('#v3-selected-danger'));return s.backgroundColor==="+JSON.stringify(hexToRgb(dangerSelected.redBg))+"&&s.color==="+JSON.stringify(hexToRgb(dangerSelected.redText))+";})()"),
+     "selected Danger painted state transition "+brand+"/"+mode,6500);
+   dangerSelected=await cdp.js("(() => {const b=document.querySelector('#v3-selected-danger'),s=getComputedStyle(b),hs=getComputedStyle(document.querySelector('.v3-lab-surface'));return {toggled:b.classList.contains('toggled'),hover:b.matches(':hover'),fg:s.color,bg:s.backgroundColor,redText:hs.getPropertyValue('--colorPaletteRedForeground2').trim(),redBg:hs.getPropertyValue('--colorPaletteRedBackground1').trim()};})()");
    // The source of this v3 Danger fix must be a published Bluent.UI
    // static web asset, NOT a duplicate local demo component stylesheet.
    // Removing the explicit opt-in must restore the legacy appearance, and
    // replacing it must restore readable text without component re-mounting.
-   const packagedDanger=await cdp.js("(() => {const root=document.querySelector('.v3-lab-focus-matrix'),button=document.querySelector('#v3-selected-danger'),head=[...document.querySelectorAll('link[rel=stylesheet]')].find(l=>l.href.includes('/_content/Bluent.UI/v3/danger-toggle.opt-in.preview.css'));const before=getComputedStyle(button);const active={bg:before.backgroundColor,fg:before.color};const wasEnabled=root.hasAttribute('data-bui-v3-danger-toggle');try{root.removeAttribute('data-bui-v3-danger-toggle');const legacy=getComputedStyle(button);return {asset:!!head&&!!head.sheet,enabled:wasEnabled,active,legacy:{bg:legacy.backgroundColor,fg:legacy.color}};}finally{if(wasEnabled)root.setAttribute('data-bui-v3-danger-toggle','');}})()");
+   const packagedDanger=await cdp.js("(async() => {const root=document.querySelector('.v3-lab-focus-matrix'),button=document.querySelector('#v3-selected-danger'),head=[...document.querySelectorAll('link[rel=stylesheet]')].find(l=>l.href.includes('/_content/Bluent.UI/v3/danger-toggle.opt-in.preview.css'));const before=getComputedStyle(button);const active={bg:before.backgroundColor,fg:before.color};const wasEnabled=root.hasAttribute('data-bui-v3-danger-toggle');try{root.removeAttribute('data-bui-v3-danger-toggle');await new Promise(resolve=>setTimeout(resolve,400));const legacy=getComputedStyle(button);return {asset:!!head&&!!head.sheet,enabled:wasEnabled,active,legacy:{bg:legacy.backgroundColor,fg:legacy.color}};}finally{if(wasEnabled)root.setAttribute('data-bui-v3-danger-toggle','');}})()");
    assert("packaged Bluent.UI CSS opted in with no leakage "+brand+"/"+mode,
      packagedDanger.asset&&packagedDanger.enabled&&
      packagedDanger.active.bg===hexToRgb(dangerSelected.redBg)&&
@@ -1090,6 +1143,10 @@ try {
        await until(async()=>((await readBlazor()).mode===mode),"Blazor theme rerender",12000);
      }
      await until(()=>cdp.js("(()=>{const r=document.querySelector('.v3-lab-surface'),m=r?.dataset.buiTheme,b=r?.getAttribute('data-bui-brand');return m==="+JSON.stringify(mode)+"&&(b||null)==="+(brand?JSON.stringify(brand):"null")+";})()"),"Razor DOM agrees with Blazor controls "+(brand||"default")+"/"+mode,12000);
+     const outerExpected=hexRgb(matrix[brand||"default"][mode].tokens["bluent.color.brandBackground"]);
+     const wordExpected=hexRgb(matrix.word[mode==="dark"?"light":"dark"].tokens["bluent.color.brandBackground"]);
+     await until(()=>cdp.js("(()=>({outer:getComputedStyle(document.querySelector('#v3-token-action')).backgroundColor,word:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor}))()").then(v=>v.outer===outerExpected&&v.word===wordExpected),
+       "Razor rerender painted host roles "+(brand||"default")+"/"+mode,7500);
    }
    try{
      for(const brand of ["excel",null])for(const mode of ["light","dark"]){

@@ -8,6 +8,7 @@
 <HeadContent>
     <link rel="stylesheet" href="_content/Bluent.UI.Demo.Pages/v3/issue-418.opt-in.preview.css" />
     <link rel="stylesheet" href="_content/Bluent.UI/v3/danger-toggle.opt-in.preview.css" />
+    <link rel="stylesheet" href="_content/Bluent.UI.Demo.Pages/v3/issue-418-portal-focus.opt-in.preview.css" />
 </HeadContent>
 
 <main class="v3-lab">
@@ -110,6 +111,13 @@
                     </Trigger>
                     <Surface>
                         <span data-v3-independent-popover-probe>Independent host portal</span>
+                        @* The service-hosted Popover is outside this Razor-scoped DOM.
+                           Explicit neutral Focus role remains owned by Word, not Excel. *@
+                        <div data-v3-portal-focus-fixture
+                             data-bui-v3-focus-host="neutral"
+                             data-bui-v3-focus-mode="@AlternateScope.Mode">
+                            <Button id="v3-word-popover-focus" Text="Word portal keyboard focus" />
+                        </div>
                     </Surface>
                 </Popover>
             </section>

@@ -196,3 +196,13 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   warnings/errors, six Focus token contract tests passed. Opt-in demo only;
   original Penpot accepted design unchanged, no public Button API or stable
   Dev/NuGet modifications. See Focus host token crosswalk.
+
+- 2026-10-15 #418 detached Word Popover Focus QA: opt-in Demo.Pages-only CSS
+  for the real Word-owned Button in an actual global detached Popover; tests
+  verify inherited source tokens, keyboard-generated focus-visible, 2px
+  outline / 2px offset, >=3:1 host contrast, and forced-colors Highlight.
+  The probe also waits for actual completed CSS transitions instead of
+  sampling arbitrary in-flight brand/danger colors. Chrome WASM and Edge
+  WASM each 870/870, zero failures. Release -warnaserror build 0 warnings/errors,
+  six focus contract tests, token check and 61 .NET tests passed. Penpot approved Focus source unchanged; public Button API,
+  native OS/AT and stable Dev/NuGet untouched. See Focus host crosswalk.
