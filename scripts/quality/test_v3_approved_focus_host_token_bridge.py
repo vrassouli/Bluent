@@ -106,6 +106,13 @@ class FocusHostTokenContractTests(unittest.TestCase):
         self.assertIn('browser.exitCode!==null&&browser.exitCode!==0',browser)
         self.assertIn('BLUENT_V3_418_OWNED_PROFILE',browser)
         self.assertIn('cleanupOwnedBrowser();',browser)
+        self.assertIn('assessPersianFontEvidence(actualFonts,fontLayout)',browser)
+        self.assertIn('fontEvidence.pass',browser)
+        self.assertIn('persianFontEvidenceLevel:fontEvidence.evidenceLevel',browser)
+        self.assertIn('fontEvidence.gap',browser)
+        policy=(SCHEMA.parents[3]/"scripts/quality/v3_persian_font_evidence.mjs").read_text(encoding="utf-8")
+        self.assertIn('semanticLayout&&(telemetered||unavailable)',policy)
+        self.assertIn('actual Persian font/glyph visual acceptance remains unverified',policy)
         self.assertEqual(razor.count('data-bui-theme="@(_dark ? "dark" : "light")"'),1) # real product Theme only on root
         self.assertEqual(razor.count('data-bui-v3-focus-mode="@(_dark ? "dark" : "light")"'),5)
         approved=css.split('/* The approved focus comes from the generated, opt-in schema only.',1)[1].split('/* 320 CSS px',1)[0]

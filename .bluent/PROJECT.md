@@ -206,3 +206,15 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   WASM each 870/870, zero failures. Release -warnaserror build 0 warnings/errors,
   six focus contract tests, token check and 61 .NET tests passed. Penpot approved Focus source unchanged; public Button API,
   native OS/AT and stable Dev/NuGet untouched. See Focus host crosswalk.
+
+- 2026-10-15 #418 exact CI diagnostic: Chrome/Server on 075f98f4 failed one
+  CDP platform-Persian-font-family assertion (empty glyph-family telemetry),
+  while Dev01 real Chrome/Server ran 869/869. Added typed standalone
+  fail-closed font-evidence policy and 5 positive/negative Node tests.
+  Browser now reports either genuine positive glyph telemetry or explicit
+  semantic-layout-only evidence with an unresolved native-font visual
+  acceptance gap, never inferred font-family proof. CI runs these tests
+  independently on all browser matrix jobs; no font files imported.
+  Dev01 Chrome/InteractiveServer new policy 869/869 passed; real Segoe UI
+  50 glyphs reported. See docs/v3/tokens/PERSIAN-TYPOGRAPHY-RESEARCH.md.
+  The original failed job stays failed historically; next exact-head CI required.

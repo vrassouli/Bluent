@@ -56,3 +56,37 @@ Repeated the identical 139-assertion browser script with CHROME_PATH set to the 
 
 ## Connected editable Penpot board (2026-10-11)
 Penpot MCP connection resumed. Created and PNG-reviewed actual native page #35 Persian validation states and reflow in the exact Bluent v3 Design System, page 916ee53e-8991-8009-8008-c61c0754ce9d, board 916ee53e-8991-8009-8008-c61c075e54cc. The 44 native elements stay within their board (geometry checked after edits; final PNG re-exported and visually reviewed) and schematically show Light/Dark Persian invalid TextField, disabled Button, 320px constrained wrapped long label and semantic status notes. The draft uses locally available Noto Sans Arabic *for an editable comparison preview only*. Existing CSS --fontFamilyBase remains Segoe UI-first; no production font files or font changes are introduced. Separate Dialog/Popover D5 defects are in D5-PORTAL-ACCESSIBILITY-AUDIT.md.
+
+## 2026-10-15 CI/CDP Persian platform-font telemetry classification
+
+The full **Chrome / published InteractiveServer** GitHub Actions run on
+head 075f98f4 reached **868/869 successful assertions**. Its sole failure
+was the CDP CSS.getPlatformFontsForNode returning an **empty list** on
+the hosted Windows CI runner, while the identical real Server interaction
+probe passed **869/869 on Dev01**. No evidence currently proves whether
+the CI browser lacked Persian font coverage or whether this platform-font
+instrumentation was simply unavailable; do not assert the text rendered
+correctly from the fact that its DOM exists.
+
+A separate deterministic, fail-closed evidence policy is now implemented in
+scripts/quality/v3_persian_font_evidence.mjs and guarded by five Node
+positive/negative tests in test_v3_persian_font_evidence.mjs.
+The real browser always requests actual platform-font glyph data. If a
+nonempty family with positive glyph counts is present **and** the Persian
+semantic/layout contract passes, evidence level is platform-glyph-observed.
+If the browser reports an **empty** platform-font array, the test instead
+requires visible nonzero Persian paragraph text/layout, correct semantic
+lang=fa, RTL, ZWNJ and font-family CSS; it records
+semantic-layout-only and an explicit unresolved font/glyph **visual
+acceptance gap** in the JSON outcome. Malformed partial font telemetry
+does **not** qualify for this fallback; neither does invisible, empty,
+incorrectly directed, zero-sized or missing semantic text.
+This does not download or redistribute fonts, override the browser font
+stack, or silently claim WCAG/AT/Persian shaping approval.
+
+Dev01 rerun with the new policy: actual **Chrome / published InteractiveServer 869/869** passed, and genuine **Segoe UI / 50 platform glyphs** were reported with evidence level platform-glyph-observed. The prior GitHub CI failure is still an independent failed execution, not retroactively green.
+
+The dedicated Node policy test is part of the v3 Browser Lab workflow on
+every matrix job, with source paths explicitly triggering the workflow.
+A previously failing CI run must not be relabeled green; check the new
+commit's exact GitHub Actions result independently.

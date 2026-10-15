@@ -74,3 +74,12 @@ For browser palette QA, wait until computed CSS transition colors settle
 to actual Fluent token source roles; immediate reads are nondeterministic. Dev01 Chrome/Edge WASM each passed
 870/870 after this hardening. See docs/v3/tokens/FOCUS-HOST-TOKEN-CROSSWALK.md.
 No shipping API approval.
+
+2026-10-15 Persian font acceptance: Windows GitHub CI can return an empty
+CSS.getPlatformFontsForNode array even while DOM typography/layout
+assertions pass. Never claim glyph/fallback-family visual acceptance
+from computed CSS/DOM alone. Use fail-closed policy
+scripts/quality/v3_persian_font_evidence.mjs, run its five Node negative
+controls and report semantic-layout-only separately from actual
+platform-glyph-observed. The CI failure on 075f98f4 was one real
+unavailable telemetry result; do not retroactively label it green.
