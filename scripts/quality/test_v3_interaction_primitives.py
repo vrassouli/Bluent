@@ -54,15 +54,25 @@ class InteropSourceContractTests(unittest.TestCase):
                 self.assertEqual(row["legacyBroadExceptionCatches"],0)
                 self.assertEqual(row["legacyUntypedCatches"],0)
 
+    def test_real_interactive_server_popover_uses_same_demo_and_scoped_containers(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        razor=(root/"src/Bluent.UI.Demo.SSR/Components/Pages/PopoverInteractiveServerProbe.razor").read_text(encoding="utf-8-sig")
+        self.assertIn('@page "/compatibility/popover-server"',razor)
+        self.assertIn("@rendermode InteractiveServer",razor)
+        self.assertIn("<Containers />",razor)
+        self.assertIn("<Popovers />",razor)
+
     def test_real_popover_browser_ci_and_artifact_gate_present(self):
         root=__import__("pathlib").Path(__file__).resolve().parents[2]
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")
         probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
         for item in ("real-popover-browser:","browser: [Chrome, Edge]",
+                     "render_mode: [WASM, Server]",
                      "windows-latest","probe_v3_popover_runtime.mjs",
                      "if: always()","actions/upload-artifact@v4"):
             self.assertIn(item,workflow)
         for item in ("dynamic surface rendered","manual Popover Show",
+                     "popover-server","ASPNETCORE_ENVIRONMENT","Production",
                      "manual Popover Close","Page.captureScreenshot","Runtime.evaluate"):
             self.assertIn(item,probe)
 

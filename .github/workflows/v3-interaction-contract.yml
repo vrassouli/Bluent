@@ -48,13 +48,15 @@ jobs:
 
 
   real-popover-browser:
-    name: Real Popover / ${{ matrix.browser }} / WASM
+    name: Real Popover / ${{ matrix.browser }} / ${{ matrix.render_mode }}
     runs-on: windows-latest
-    timeout-minutes: 26
+    timeout-minutes: 35
     strategy:
       fail-fast: false
+      max-parallel: 2
       matrix:
         browser: [Chrome, Edge]
+        render_mode: [WASM, Server]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -63,10 +65,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Restore Blazor WebAssembly demo
-        run: dotnet restore src/Bluent.UI.Demo/Bluent.UI.Demo.csproj
-      - name: Build interactive demo with localhost base href
+      - name: Restore both render-mode dependencies
+        run: dotnet restore Bluent.sln
+      - name: Build WebAssembly demo with localhost base href
+        if: matrix.render_mode == 'WASM'
         run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore -warnaserror
+      # Server mode publishes SSR in Production inside the JS probe.
       - name: Select real installed Chrome or Edge
         shell: pwsh
         run: |
@@ -81,6 +85,7 @@ jobs:
       - name: Real trigger, dynamic content, manual Show and Close
         shell: pwsh
         env:
+          BLUENT_V3_RENDER_MODE: ${{ matrix.render_mode }}
           BLUENT_V3_BROWSER_NAME: ${{ matrix.browser }}
           BLUENT_V3_EVIDENCE_DIR: ${{ runner.temp }}/v3-popover-evidence
         run: node scripts/quality/probe_v3_popover_runtime.mjs
@@ -88,7 +93,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: v3-popover-${{ matrix.browser }}-${{ github.sha }}
+          name: v3-popover-${{ matrix.browser }}-${{ matrix.render_mode }}-${{ github.sha }}
           path: ${{ runner.temp }}/v3-popover-evidence
           if-no-files-found: error
           retention-days: 7

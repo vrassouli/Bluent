@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // #420 actual Popover interaction test; real Chrome/Edge against Blazor WASM.
-import {spawn} from "node:child_process";
+import {spawn,execFileSync} from "node:child_process";
 import {mkdtempSync,existsSync,readFileSync,writeFileSync,rmSync,mkdirSync} from "node:fs";
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
@@ -9,11 +9,14 @@ const root=resolve(fileURLToPath(new URL("../../",import.meta.url)));
 const browserExe=process.env.CHROME_PATH;
 if(!browserExe||!existsSync(browserExe))throw Error("CHROME_PATH must be installed Chrome or Edge");
 const brand=process.env.BLUENT_V3_BROWSER_NAME||"local";
+const mode=process.env.BLUENT_V3_RENDER_MODE||"WASM";
+if(!["WASM","Server"].includes(mode))throw Error("Expected WASM or Server");
 const work=mkdtempSync(join(tmpdir(),"bluent-v3-420-"));
 const evidence=resolve(process.env.BLUENT_V3_EVIDENCE_DIR||join(work,"evidence"));
 mkdirSync(evidence,{recursive:true});
 const origin=process.env.BLUENT_V3_POPOVER_URL||"http://127.0.0.1:5099";
-const url=origin+"/components/popovers";
+const url=origin+(process.env.BLUENT_V3_POPOVER_ROUTE||
+    (mode==="Server"?"/compatibility/popover-server":"/components/popovers"));
 let app,browser,cdp;const checks=[],errors=[];const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function result(name,ok,details){checks.push({name,pass:!!ok,details});if(!ok)errors.push(name+" "+JSON.stringify(details));}
 function launch(exe,args,cwd=root,env=process.env){const p=spawn(exe,args,{cwd,env,windowsHide:true,stdio:["ignore","pipe","pipe"]});let tail="";for(const x of [p.stdout,p.stderr])x.on("data",v=>tail=(tail+String(v)).slice(-6500));p.tail=()=>tail;return p;}
@@ -26,7 +29,22 @@ class CDP {
  close(){this.ws?.close();}
 }
 try{
- if(!process.env.BLUENT_V3_POPOVER_URL)app=launch("dotnet",["run","--project","src/Bluent.UI.Demo/Bluent.UI.Demo.csproj","-c","Debug","--no-build","--no-launch-profile","--urls",origin]);
+ if(!process.env.BLUENT_V3_POPOVER_URL){
+  if(mode==="Server"){
+   const published=join(work,"published-ssr");
+   try {
+    execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
+      "--configuration","Release","--no-restore","--nologo","--output",published,"-v","quiet"],
+      {cwd:root,windowsHide:true,timeout:300000,stdio:"pipe"});
+   } catch(e){throw Error("SSR publish failed: "+String(e.stderr||e.message).slice(-3800));}
+   app=launch("dotnet",["Bluent.UI.Demo.SSR.dll"],published,
+     {...process.env,ASPNETCORE_ENVIRONMENT:"Production",ASPNETCORE_URLS:origin});
+  } else {
+   // Release standalone targets GitHub Pages /Bluent/; Debug hosts at root.
+   app=launch("dotnet",["run","--project","src/Bluent.UI.Demo/Bluent.UI.Demo.csproj",
+     "-c","Debug","--no-build","--no-launch-profile","--urls",origin]);
+  }
+ }
  await until(async()=>{if(app&&app.exitCode!==null)throw Error("Demo exited: "+app.tail());return (await fetch(url,{signal:AbortSignal.timeout(1300)})).ok;},"Demo http host");
  const profile=join(work,"browser");
  browser=launch(browserExe,["--headless=new","--no-sandbox","--disable-gpu","--no-first-run","--disable-extensions","--remote-debugging-port=0","--remote-allow-origins=*","--user-data-dir="+profile,"about:blank"]);
@@ -70,7 +88,7 @@ finally{
  writeFileSync(join(evidence,"popover-"+brand+".json"),JSON.stringify({schema:1,browser:brand,commit:process.env.GITHUB_SHA||"local",checks,errors},null,2));
  cdp?.close();for(const p of [browser,app])if(p&&p.exitCode===null)p.kill();
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:350});}catch{}
- console.log("Real Popover "+brand+": "+checks.filter(x=>x.pass).length+"/"+checks.length+" checks; failures="+errors.length);
+ console.log("Real Popover "+brand+" "+mode+": "+checks.filter(x=>x.pass).length+"/"+checks.length+" checks; failures="+errors.length);
  for(const error of errors)console.error("FAIL",error);
 }
 if(errors.length)process.exitCode=1;
