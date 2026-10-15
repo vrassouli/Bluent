@@ -112,4 +112,7 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 2026-10-15 additional #420 v3-only Popover lifecycle fix: child + module + DotNetObjectReference Dispose independent and all five PopoverService event subscriptions released in finally under both disconnect and unexpected JS errors. 47 compiled fake-JS lifecycle assertions passed; synchronous Popover service callback API still awaiting design/browser tests. No stable Dev/v2 public merge.
 
 
-2026-10-15 #420 DataGrid follow-up: internal JS child/module and callback disposal independent under errors, DataGrid component base cleanup from finally, real compiled DataGrid<string> harness checks added (55 cumulative); 3 async void/6 broad catches still tracked, no v2 release.
+2026-10-15 #420 DataGrid follow-up: internal JS child/module and callback disposal independent under errors, DataGrid component base cleanup from finally, real compiled DataGrid<string> harness checks added (55 cumulative); 3 async void/6 typed broad catches + 2 bare catches still tracked, no v2 release.
+
+
+2026-10-15 #420 source guard now protects both typed catch(Exception) (6) and bare catch{} (2) across real Interops, instead of missing the two untyped DataGrid/Popover error swallows. 14 negative/positive Python tests, with 55 real compiled mocked-JS assertions. Browser/OS-AT, public event semantics remain outstanding.

@@ -20,8 +20,13 @@ LEGACY_BROAD_CATCH_MAX={
 "OptFieldInterop.cs":1,
     "DomHelper.cs":4,
 }
+LEGACY_UNTYPED_CATCH_MAX={
+    "DataGridInterop.cs":1,
+    "PopoverInterop.cs":1,
+}
 ASYNC_VOID=re.compile(r"\basync\s+void\s+([A-Za-z_]\w*)\s*\(")
 BROAD_CATCH=re.compile(r"catch\s*\(\s*Exception\s*\)")
+UNTYPED_CATCH=re.compile(r"\bcatch\s*\{")
 
 class InteractionContractError(ValueError):
     pass
@@ -43,12 +48,16 @@ def audit(sources:dict[str,str])->dict[str,dict]:
         broad=len(BROAD_CATCH.findall(text))
         if broad>LEGACY_BROAD_CATCH_MAX.get(name,0):
             raise InteractionContractError(name+" new blanket Exception catch; use specific exceptions and finally cleanup")
+        untyped=len(UNTYPED_CATCH.findall(text))
+        if untyped>LEGACY_UNTYPED_CATCH_MAX.get(name,0):
+            raise InteractionContractError(name+" new untyped catch block; handle expected errors explicitly")
         has_reference="DotNetObjectReference" in text
         if has_reference and not re.search(r"\.\s*Dispose\s*\(",text):
             raise InteractionContractError(name+" owns DotNetObjectReference but has no disposal call")
         results[name]={
             "legacyAsyncVoid":sorted(observed),
             "legacyBroadExceptionCatches":broad,
+            "legacyUntypedCatches":untyped,
             "hasDotNetObjectReference":has_reference,
             "hasLazyJsModuleTask":"Lazy<Task<IJSObjectReference>>" in text,
         }
@@ -60,9 +69,10 @@ def main()->None:
     result=audit(source_snapshot())
     print("PASS #420 SOURCE-only interop legacy ledger:",len(result),"files")
     for name,row in result.items():
-        if row["legacyAsyncVoid"] or row["legacyBroadExceptionCatches"]:
+        if row["legacyAsyncVoid"] or row["legacyBroadExceptionCatches"] or row["legacyUntypedCatches"]:
             print(name+": async void="+",".join(row["legacyAsyncVoid"])+
-                  " broad catch="+str(row["legacyBroadExceptionCatches"]))
+                  " broad Exception catch="+str(row["legacyBroadExceptionCatches"])+
+                  " bare catch="+str(row["legacyUntypedCatches"]))
     print("WARNING: existing async void and blanket catch debts remain; not runtime/AT validation")
 
 if __name__=="__main__":

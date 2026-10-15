@@ -17,6 +17,8 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertEqual(result["AudioCaptureInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertTrue(result["DataGridInterop.cs"]["hasDotNetObjectReference"])
         self.assertEqual(result["DataGridInterop.cs"]["legacyBroadExceptionCatches"],0)
+        self.assertEqual(result["DataGridInterop.cs"]["legacyUntypedCatches"],1)
+        self.assertEqual(result["PopoverInterop.cs"]["legacyUntypedCatches"],1)
         self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],1)
         self.assertEqual(result["PopoverInterop.cs"]["legacyBroadExceptionCatches"],0)
 
@@ -95,6 +97,18 @@ class InteropSourceContractTests(unittest.TestCase):
         texts=dict(self.source)
         texts["NewInterop.cs"]="internal class NewInterop { void X() { try { } catch (Exception) {} } }"
         with self.assertRaisesRegex(InteractionContractError,"blanket Exception"):
+            audit(texts)
+
+    def test_new_untyped_catch_block_fails_closed(self):
+        texts=dict(self.source)
+        texts["PopoverInterop.cs"] += "\ntry {} catch { /* bad */ }\n"
+        with self.assertRaisesRegex(InteractionContractError,"untyped catch"):
+            audit(texts)
+
+    def test_untyped_catch_in_new_interop_is_not_grandfathered(self):
+        texts=dict(self.source)
+        texts["NewInterop.cs"]="internal class NewInterop {void Run(){try{}catch{}}}"
+        with self.assertRaisesRegex(InteractionContractError,"untyped catch"):
             audit(texts)
 
     def test_new_file_async_void_has_no_legacy_exemption(self):

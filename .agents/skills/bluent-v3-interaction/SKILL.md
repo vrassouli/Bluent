@@ -6,7 +6,7 @@ This issue is PROPOSED / In progress, not approved public Blazor API. The actual
 
 Source audit: python scripts/quality/check_v3_interaction_primitives.py. Unit tests: python -m unittest discover -s scripts/quality -p test_v3_interaction_primitives.py -v and python -m unittest discover -s scripts/quality -p test_v3_interaction_sample.py -v. Compile actual consumer example with dotnet build samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj -c Release -warnaserror.
 
-Original source baseline: five async void methods + eleven broad catch(Exception) sites; after isolated AudioCapture/Overflow fixes **three async void and six broad catches remain**. These are grandfathered source debts ONLY, not accepted lifecycle design or runtime compliance. New async void and broad Exception catches must fail the guard; reducing debt is allowed. Do not refactor shared base or public callback signature before exact API/migration + browser review.
+Original source baseline: five async void methods + eleven broad catch(Exception) sites; after isolated AudioCapture/Overflow fixes **three async void, six typed catch(Exception) and two bare catch{} remain**. These are grandfathered source debts ONLY, not accepted lifecycle design or runtime compliance. New async void and broad Exception catches must fail the guard; reducing debt is allowed. Do not refactor shared base or public callback signature before exact API/migration + browser review.
 
 Working sample V3InteractionConventions.razor uses existing EditContext, TextField and Checkbox two-way binding, Task SaveAsync, disabled+aria-busy, validation messages and live status. It is BUILD evidence only. Actual focus trap/return, JS disconnection/disposal, overlay portals, keyboard/RTL and screen reader behavior still require component-specific runtime tests. Never merge into stable Dev or publish v3 NuGet without separate approval.
 
@@ -21,3 +21,6 @@ Working sample V3InteractionConventions.razor uses existing EditContext, TextFie
 
 
 2026-10-15 DataGrid lifetime: internal DataGridInterop child+module cleanup uses independent finally paths, DotNetObjectReference always disposed, catch expected JSDisconnectedException only. Actual DataGrid<TItem> component DisposeAsync now invokes base.DisposeAsync in finally. Compiled DLL fake-JS harness exercises real DataGrid<string> instance with disconnect, unexpected error, lazy creation and repeated dispose: 55 cumulative checks. Source ledger 3 async void / 6 broad catches. This does not remove DataGrid Initialize catch-all or prove browser/AT behavior.
+
+
+2026-10-15 source audit blind-spot correction: the baseline has 6 typed catch(Exception) and 2 bare catch{} (DataGrid.Initialize and Popover.SetPopover). The guard and 14 Python negative/positive tests now fail on newly introduced untyped catch{} as well as catch(Exception) and async void. This is a static source ledger, not proof of component error UX. Do not erase existing debt without API/behavior approval; remaining 3 async void require consumer event-contract work.
