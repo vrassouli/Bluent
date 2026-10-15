@@ -16,6 +16,16 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertEqual(len(result["AudioCaptureInterop.cs"]["legacyAsyncVoid"]),0)
         self.assertEqual(result["AudioCaptureInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertTrue(result["DataGridInterop.cs"]["hasDotNetObjectReference"])
+        self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],1)
+
+    def test_otp_disposal_is_independent_and_failure_visible(self):
+        interop=self.source["OptFieldInterop.cs"]
+        self.assertIn("catch (JSDisconnectedException)",interop)
+        self.assertIn("finally",interop)
+        self.assertIn("_reference = null;",interop)
+        self.assertIn("_module = null;",interop)
+        self.assertEqual(interop.count("catch (Exception)"),1)
+        self.assertIn("public async Task InitializeAsync(string id)",interop)
 
     def test_overflow_initialization_awaited_in_interactive_render_lifecycle(self):
         interop=self.source["OverflowInterop.cs"]

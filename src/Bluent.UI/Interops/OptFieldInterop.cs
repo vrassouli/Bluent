@@ -18,15 +18,29 @@ internal class OptFieldInterop : IAsyncDisposable
     {
         try
         {
-            if (_reference != null)
+            if (_reference is not null)
                 await _reference.DisposeAsync();
-
-            if (_module != null)
-                await _module.DisposeAsync();
         }
-        catch (Exception)
+        catch (JSDisconnectedException)
         {
-            // swallow!
+            // Expected when the circuit ends during cleanup.
+        }
+        finally
+        {
+            try
+            {
+                if (_module is not null)
+                    await _module.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+                // Module may already be disconnected.
+            }
+            finally
+            {
+                _reference = null;
+                _module = null;
+            }
         }
     }
 

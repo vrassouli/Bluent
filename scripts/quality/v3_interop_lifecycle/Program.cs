@@ -19,7 +19,8 @@ internal static class Program
             await DisposeBeforeInitializationDoesNotImport();
             await OverflowInitActuallyAwaitsJs();
             await OverflowDisposeAfterDisconnectionAndUnexpectedError();
-            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow interop lifecycle assertions against compiled Bluent.UI");
+            await OtpDisposeIndependentResources();
+            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField interop lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
         catch (Exception ex)
@@ -39,6 +40,13 @@ internal static class Program
     private static object CreateOverflowInterop(FakeRuntime js)
     {
         Type type=typeof(AudioCapture).Assembly.GetType("Bluent.UI.Interops.OverflowInterop",throwOnError:true)!;
+        return Activator.CreateInstance(type,BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic,
+            binder:null,args:new object?[]{js},culture:null)!;
+    }
+
+    private static object CreateOtpInterop(FakeRuntime js)
+    {
+        Type type=typeof(AudioCapture).Assembly.GetType("Bluent.UI.Interops.OptFieldInterop",throwOnError:true)!;
         return Activator.CreateInstance(type,BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic,
             binder:null,args:new object?[]{js},culture:null)!;
     }
@@ -192,6 +200,60 @@ internal static class Program
         await Dispose(CreateOverflowInterop(unused));
         Assert(unused.ImportCount==0,"Overflow no import during disposal before first render");
     }
+    private static async Task OtpDisposeIndependentResources()
+    {
+        var js=new FakeRuntime();
+        var interop=CreateOtpInterop(js);
+        await InvokeTask(interop,"InitializeAsync","otp-test");
+        Assert(js.Handle.InitCount==1&&js.Module.CreateCount==1,"OTP JS initialized once");
+        js.Handle.DisposeFailure=new JSDisconnectedException("OTP circuit closed");
+        await Dispose(interop);
+        Assert(js.Handle.DisposeCount==1&&js.Module.DisposeCount==1,
+            "OTP module disposed despite child JS disconnect");
+        Assert(Field<object>(interop,"_reference") is null,"OTP child handle reset");
+        await Dispose(interop);
+        Assert(js.Handle.DisposeCount==1&&js.Module.DisposeCount==1,
+            "OTP DisposeAsync idempotent");
+
+        var unexpected=new FakeRuntime();
+        var other=CreateOtpInterop(unexpected);
+        await InvokeTask(other,"InitializeAsync","otp-unexpected");
+        unexpected.Handle.DisposeFailure=new JSException("OTP child disposal failure");
+        try
+        {
+            await Dispose(other);
+            throw new InvalidOperationException("Unexpected OTP JS error was hidden");
+        }
+        catch(JSException)
+        {
+            Assert(unexpected.Module.DisposeCount==1,
+                "OTP module still disposed after unexpected child failure");
+            Assert(Field<object>(other,"_module") is null,
+                "OTP module handle reset after unexpected child failure");
+        }
+
+        var moduleFail=new FakeRuntime();
+        var affected=CreateOtpInterop(moduleFail);
+        await InvokeTask(affected,"InitializeAsync","otp-module-fail");
+        moduleFail.Module.DisposeFailure=new JSException("module disposal failed");
+        try
+        {
+            await Dispose(affected);
+            throw new InvalidOperationException("Unexpected module error was hidden");
+        }
+        catch(JSException)
+        {
+            Assert(moduleFail.Handle.DisposeCount==1,
+                "OTP child disposed before module failure");
+            Assert(Field<object>(affected,"_reference") is null,
+                "OTP child handle cleared despite module exception");
+        }
+
+        var lazy=new FakeRuntime();
+        await Dispose(CreateOtpInterop(lazy));
+        Assert(lazy.ImportCount==0,"OTP dispose-before-use does not import JS");
+    }
+
 }
 
 internal sealed class FakeRuntime: IJSRuntime
@@ -216,17 +278,18 @@ internal sealed class FakeModule(FakeJsHandle handle): IJSObjectReference
 {
     public int CreateCount {get;private set;}
     public int DisposeCount {get;private set;}
+    public Exception? DisposeFailure {get;set;}
 
     public ValueTask<TValue> InvokeAsync<TValue>(string identifier,object?[]? args)
         => InvokeAsync<TValue>(identifier,CancellationToken.None,args);
     public ValueTask<TValue> InvokeAsync<TValue>(string identifier,CancellationToken cancellationToken,object?[]? args)
     {
-        if(identifier is not ("AudioCapture.create" or "Overflow.create"))
+        if(identifier is not ("AudioCapture.create" or "Overflow.create" or "OtpField.create"))
             throw new InvalidOperationException("Unexpected JS module: "+identifier);
         CreateCount++;
         return new ValueTask<TValue>((TValue)(object)handle);
     }
-    public ValueTask DisposeAsync() {DisposeCount++;return ValueTask.CompletedTask;}
+    public ValueTask DisposeAsync() {DisposeCount++;if(DisposeFailure is not null)throw DisposeFailure;return ValueTask.CompletedTask;}
 }
 
 internal sealed class FakeJsHandle: IJSObjectReference
