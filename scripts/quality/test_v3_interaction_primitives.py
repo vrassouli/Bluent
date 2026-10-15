@@ -17,6 +17,20 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertEqual(result["AudioCaptureInterop.cs"]["legacyBroadExceptionCatches"],0)
         self.assertTrue(result["DataGridInterop.cs"]["hasDotNetObjectReference"])
         self.assertEqual(result["OptFieldInterop.cs"]["legacyBroadExceptionCatches"],1)
+        self.assertEqual(result["PopoverInterop.cs"]["legacyBroadExceptionCatches"],0)
+
+    def test_popover_disposal_unsubscribes_even_if_js_throws(self):
+        interop=self.source["PopoverInterop.cs"]
+        component=(__import__("pathlib").Path(__file__).resolve().parents[2]/
+                   "src/Bluent.UI/Components/PopoverComponent/PopoverContainerBase.cs").read_text(encoding="utf-8-sig")
+        self.assertIn("catch (JSDisconnectedException)",interop)
+        self.assertIn("_handlerReference?.Dispose();",interop)
+        self.assertIn("_handlerReference = null;",interop)
+        self.assertNotIn("catch (Exception)",interop)
+        self.assertIn("finally",component)
+        self.assertIn("service.OnSetTrigger -= PopoverOnSet;",component)
+        self.assertIn("service.OnShowSurface -= PopoverOnShowSurface;",component)
+        self.assertIn("service.OnRefreshSurface -= PopoverOnRefreshSurface;",component)
 
     def test_otp_disposal_is_independent_and_failure_visible(self):
         interop=self.source["OptFieldInterop.cs"]
@@ -84,7 +98,7 @@ class InteropSourceContractTests(unittest.TestCase):
 
     def test_dotnet_reference_requires_source_disposal_call(self):
         texts=dict(self.source)
-        texts["PopoverInterop.cs"]=texts["PopoverInterop.cs"].replace("_handlerReference.Dispose();","/* no disposal */")
+        texts["PopoverInterop.cs"]=texts["PopoverInterop.cs"].replace("_handlerReference?.Dispose();","/* no disposal */")
         with self.assertRaisesRegex(InteractionContractError,"has no disposal"):
             audit(texts)
 

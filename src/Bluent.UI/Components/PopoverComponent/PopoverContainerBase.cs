@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Extensions;
+using Bluent.UI.Extensions;
 using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Interops;
 using Bluent.UI.Services.Abstractions;
@@ -59,16 +59,22 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
 
     public async ValueTask DisposeAsync()
     {
-        if (_interop != null)
-            await _interop.DisposeAsync();
-
-        if (Service is PopoverService service)
+        // Subscriptions must be removed even if a JS disposal operation fails.
+        try
         {
-            service.OnSetTrigger -= PopoverOnSet;
-            service.OnShowSurface -= PopoverOnShowSurface;
-            service.OnHideSurface -= PopoverOnHideSurface;
-            service.OnDestroy -= PopoverOnDestroy;
-            service.OnRefreshSurface -= PopoverOnRefreshSurface;
+            if (_interop is not null)
+                await _interop.DisposeAsync();
+        }
+        finally
+        {
+            if (Service is PopoverService service)
+            {
+                service.OnSetTrigger -= PopoverOnSet;
+                service.OnShowSurface -= PopoverOnShowSurface;
+                service.OnHideSurface -= PopoverOnHideSurface;
+                service.OnDestroy -= PopoverOnDestroy;
+                service.OnRefreshSurface -= PopoverOnRefreshSurface;
+            }
         }
     }
 

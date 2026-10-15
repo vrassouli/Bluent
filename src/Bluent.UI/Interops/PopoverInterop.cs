@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
@@ -33,18 +33,37 @@ internal class PopoverInterop : IAsyncDisposable
     {
         try
         {
-            if (_popoverReference != null)
-                await _popoverReference.DisposeAsync();
-
-            if (_module != null)
-                await _module.DisposeAsync();
-
-            if (_handlerReference != null)
-                _handlerReference.Dispose();
+            try
+            {
+                if (_popoverReference is not null)
+                    await _popoverReference.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+                // The browser connection can disappear during circuit shutdown.
+            }
         }
-        catch (Exception)
+        finally
         {
-            // swallow!
+            try
+            {
+                try
+                {
+                    if (_module is not null)
+                        await _module.DisposeAsync();
+                }
+                catch (JSDisconnectedException)
+                {
+                    // The module may already have disconnected.
+                }
+            }
+            finally
+            {
+                _handlerReference?.Dispose();
+                _handlerReference = null;
+                _popoverReference = null;
+                _module = null;
+            }
         }
     }
 

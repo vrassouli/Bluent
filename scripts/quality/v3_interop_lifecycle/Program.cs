@@ -20,7 +20,8 @@ internal static class Program
             await OverflowInitActuallyAwaitsJs();
             await OverflowDisposeAfterDisconnectionAndUnexpectedError();
             await OtpDisposeIndependentResources();
-            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField interop lifecycle assertions against compiled Bluent.UI");
+            await PopoverDisposalAndContainerUnsubscription();
+            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover interop lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
         catch (Exception ex)
@@ -49,6 +50,30 @@ internal static class Program
         Type type=typeof(AudioCapture).Assembly.GetType("Bluent.UI.Interops.OptFieldInterop",throwOnError:true)!;
         return Activator.CreateInstance(type,BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic,
             binder:null,args:new object?[]{js},culture:null)!;
+    }
+
+    private static (object Interop,object Container,object Service) CreatePopover(FakeRuntime js)
+    {
+        Assembly assembly=typeof(AudioCapture).Assembly;
+        Type serviceType=assembly.GetType("Bluent.UI.Services.PopoverService",throwOnError:true)!;
+        Type containerType=assembly.GetType("Bluent.UI.Components.PopoverComponent.PopoverContainerBase\u00601",throwOnError:true)!
+            .MakeGenericType(serviceType);
+        object service=Activator.CreateInstance(serviceType,nonPublic:true)!;
+        object container=Activator.CreateInstance(containerType)!;
+        containerType.GetProperty("Service",BindingFlags.Instance|BindingFlags.NonPublic)!
+            .SetValue(container,service);
+        containerType.GetProperty("JsRuntime",BindingFlags.Instance|BindingFlags.NonPublic)!
+            .SetValue(container,js);
+        containerType.GetMethod("OnInitialized",BindingFlags.Instance|BindingFlags.NonPublic)!
+            .Invoke(container,null);
+        object interop=Field<object>(container,"_interop")!;
+        return (interop,container,service);
+    }
+
+    private static async Task InitializePopoverInterop(object interop)
+    {
+        var method=interop.GetType().GetMethod("GetModuleAsync",BindingFlags.Instance|BindingFlags.NonPublic)!;
+        await (Task)method.Invoke(interop,null)!;
     }
 
     private static Task InvokeTask(object instance,string method,params object?[] args)
@@ -254,6 +279,59 @@ internal static class Program
         Assert(lazy.ImportCount==0,"OTP dispose-before-use does not import JS");
     }
 
+    private static async Task PopoverDisposalAndContainerUnsubscription()
+    {
+        var normal=new FakeRuntime();
+        var (interop,container,service)=CreatePopover(normal);
+        Assert(EventSubscriptions(service)==5,"all five Popover service events are subscribed");
+        await InitializePopoverInterop(interop);
+        Assert(normal.Module.CreateCount==1,"Popover JS proxy created lazily");
+        normal.Handle.DisposeFailure=new JSDisconnectedException("Popover browser disconnected");
+        await Dispose(container);
+        Assert(normal.Handle.DisposeCount==1&&normal.Module.DisposeCount==1,
+            "Popover module disposed despite child JS disconnection");
+        Assert(Field<object>(interop,"_handlerReference") is null,
+            "Popover managed callback disposed");
+        Assert(EventSubscriptions(service)==0,
+            "All service events unsubscribed after JS disconnect");
+
+        var unexpected=new FakeRuntime();
+        var (failedInterop,failedContainer,failedService)=CreatePopover(unexpected);
+        await InitializePopoverInterop(failedInterop);
+        unexpected.Handle.DisposeFailure=new JSException("Popover child JS exception");
+        try
+        {
+            await Dispose(failedContainer);
+            throw new InvalidOperationException("Expected JS disposal error was hidden");
+        }
+        catch(JSException)
+        {
+            Assert(unexpected.Module.DisposeCount==1,"Popover module cleanup attempted after unexpected child exception");
+            Assert(Field<object>(failedInterop,"_handlerReference") is null,
+                "Popover managed callback released after unexpected JS failure");
+            Assert(EventSubscriptions(failedService)==0,
+                "All five Popover service handlers unsubscribed even when DisposeAsync fails");
+        }
+        var unused=new FakeRuntime();
+        var (_,noUseContainer,noUseService)=CreatePopover(unused);
+        await Dispose(noUseContainer);
+        Assert(unused.ImportCount==0,"Popover unused Dispose does not import module");
+        Assert(EventSubscriptions(noUseService)==0,
+            "Unused Popover still unsubscribes service handlers");
+    }
+
+    private static int EventSubscriptions(object service)
+    {
+        int count=0;
+        foreach(string name in new[]{"OnSetTrigger","OnShowSurface","OnHideSurface","OnDestroy","OnRefreshSurface"})
+        {
+            if(service.GetType().GetField(name,BindingFlags.NonPublic|BindingFlags.Instance)!
+                .GetValue(service) is MulticastDelegate d)
+                count+=d.GetInvocationList().Length;
+        }
+        return count;
+    }
+
 }
 
 internal sealed class FakeRuntime: IJSRuntime
@@ -284,7 +362,7 @@ internal sealed class FakeModule(FakeJsHandle handle): IJSObjectReference
         => InvokeAsync<TValue>(identifier,CancellationToken.None,args);
     public ValueTask<TValue> InvokeAsync<TValue>(string identifier,CancellationToken cancellationToken,object?[]? args)
     {
-        if(identifier is not ("AudioCapture.create" or "Overflow.create" or "OtpField.create"))
+        if(identifier is not ("AudioCapture.create" or "Overflow.create" or "OtpField.create" or "Popover.create"))
             throw new InvalidOperationException("Unexpected JS module: "+identifier);
         CreateCount++;
         return new ValueTask<TValue>((TValue)(object)handle);
