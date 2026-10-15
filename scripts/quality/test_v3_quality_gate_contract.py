@@ -70,6 +70,18 @@ class V3QualityContractTests(unittest.TestCase):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
                                    BROWSER_PROBE.read_text(encoding="utf-8-sig").replace("Page.captureScreenshot","Page.ignore"))
 
+    def test_real_browser_ax_tree_cannot_be_removed(self):
+        altered=BROWSER_PROBE.read_text(encoding="utf-8-sig").replace(
+            "Accessibility.getFullAXTree","Accessibility.getNothing")
+        with self.assertRaisesRegex(QualityContractError,"accessibility-tree"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_ax_role_must_be_mapped_to_real_counter_element(self):
+        altered=BROWSER_PROBE.read_text(encoding="utf-8-sig").replace(
+            "backendDOMNodeId","otherDOMNodeId")
+        with self.assertRaisesRegex(QualityContractError,"accessibility-tree"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
     def test_no_false_accessibility_claim(self):
         with self.assertRaisesRegex(QualityContractError,"certification"):
             check(self.quality,self.document.replace("Not an accessibility certification.",""))

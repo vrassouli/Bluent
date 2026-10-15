@@ -101,6 +101,27 @@ try {
  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9});
  const tab=await cdp.js("(()=>({left:document.activeElement?.id!=='compatibility-input',visible:document.activeElement?.getBoundingClientRect().width>0}))()");
  assert("keyboard Tab leaves input",tab.left&&tab.visible,tab);
+ // Inspect the ACTUAL Chromium accessibility tree, not DOM attributes alone.
+ // This baseline does not substitute for named screen-reader/OS AT testing.
+ await cdp.send("Accessibility.enable");
+ const ax=await cdp.send("Accessibility.getFullAXTree");
+ const exposed=ax.nodes.filter(n=>!n.ignored).map(n=>({
+  role:n.role?.value||"",name:n.name?.value||""
+ }));
+ const axButton=exposed.find(n=>n.role==="button"&&n.name==="Increment");
+ const axField=exposed.find(n=>(n.role==="textbox"||n.role==="text field")&&n.name==="Bound value");
+ // Connect the AX role to the exact counter DOM node by backendNodeId;
+ // AX status nodes are allowed an empty computed name with text children.
+ const documentNode=await cdp.send("DOM.getDocument",{depth:1});
+ const counterDom=await cdp.send("DOM.querySelector",{nodeId:documentNode.root.nodeId,selector:"[data-testid=event-count]"});
+ const counterDescription=await cdp.send("DOM.describeNode",{nodeId:counterDom.nodeId});
+ const axStatus=ax.nodes.find(n=>!n.ignored&&n.backendDOMNodeId===counterDescription.node.backendNodeId&&n.role?.value==="status");
+ assert("AX tree names real Increment button",!!axButton,
+   {match:axButton||null,buttons:exposed.filter(n=>n.role==="button").slice(0,7)});
+ assert("AX tree exposes TextField with Bound value accessible name",!!axField,
+   {match:axField||null,textboxes:exposed.filter(n=>n.role.includes("text")).slice(0,8)});
+ assert("AX tree maps live counter DOM node to status role",!!axStatus,
+   {statusId:counterDescription.node.backendNodeId,matchedRole:axStatus?.role?.value||null});
  const screenshots=[[320,"light","ltr"],[320,"dark","rtl"],[768,"light","rtl"],[768,"dark","ltr"],[1280,"light","ltr"],[1280,"dark","rtl"]];
  for(const [width,theme,direction] of screenshots){
   await cdp.send("Emulation.setDeviceMetricsOverride",{width,height:820,deviceScaleFactor:1,mobile:false});
@@ -113,6 +134,8 @@ try {
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-reduced-motion",value:"reduce"}]});
  const media=await cdp.js("(()=>({forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches}))()");
  assert("forced-colors/reduced-motion emulation",media.forced&&media.reduced,media);
+ const contrastShot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
+ writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+"-rtl-emulated-contrast.png"),Buffer.from(contrastShot.data,"base64"));
 } catch(e){errors.push(String(e.stack||e));}
 finally{
  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),

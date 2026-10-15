@@ -1,5 +1,8 @@
 # Bluent v3 Quality Gates · #425
 
+
+LATEST 2026-10-15 #425: Always-on Windows Chrome/Edge x InteractiveServer/WASM browser probe now verifies **actual Chromium Accessibility.getFullAXTree**, not just DOM labels: named Button Increment, named TextField Bound value and exact backendDOMNodeId mapping of live counter to status role. Chrome Server 15/15, Edge Server 15/15, Chrome WASM 15/15, Edge WASM 15/15 = **60/60 actual local assertions**. Six responsive PNGs plus extra browser-emulated RTL forced-colors/reduced-motion screenshot and JSON per mode. 16 Python contract tests including 2 negative AX tree/DOM mapping controls. This does NOT substitute for native Windows Contrast/real named screen-reader AT or reviewed Penpot screenshot parity. #425 remains Draft/In progress; no stable Dev merge/NuGet publish. Exact new GitHub CI HEAD must be checked separately.
+
 This task stays on v3/issue-425-quality-gates, targeting bluent-v3 only. Stable Dev, released v2 packages and NuGet publication must remain untouched.
 
 ## Source-of-truth

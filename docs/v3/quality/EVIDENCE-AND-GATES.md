@@ -36,6 +36,14 @@ The dependency-free Node 24 [CDP browser smoke](../../../scripts/quality/probe_v
 Screenshot capture does NOT equal reviewed visual regression acceptance. Native Windows Contrast Themes, screen-reader/assistive-tech and WCAG 2.2 AA certification are not proven by CSS media emulation. Rich #418 ten-brand focus/danger visual parity remains separate and unmerged. Component-specific state/ARIA/keyboard suites still belong to each component issue.
 
 
+## Latest real Chromium accessibility-tree baseline (2026-10-15)
+
+The dedicated always-on Chrome + Edge x InteractiveServer + WebAssembly browser probe now requests the **actual browser-computed Accessibility.getFullAXTree** after interacting with the real Blazor compatibility page, not merely checking HTML labels. It requires a Button with accessible role/name **button / Increment**, a TextField with **textbox / Bound value**, and maps the precise live event-count DOM node through Chromium's backend DOM node identity to an **exposed status role**. The status role may correctly have no own computed name while its text is accessible via descendant nodes; no fabricated name requirement is imposed. The existing Button callback increments the counter and the native Tab interaction remains part of each test.
+
+Actual **Dev01 local** results for this new extension: Chrome/Server **15/15**, Edge/Server **15/15**, Chrome/WebAssembly **15/15**, Edge/WebAssembly **15/15** = **60/60 browser assertions**. Each real-browser job now captures the six original responsive Light/Dark/RTL/LTR PNGs plus an extra **browser-emulated RTL forced-colors/reduced-motion PNG**, as well as an exact-commit JSON report. Sixteen Python quality-contract tests include negative controls that remove accessibility-tree verification or sever the status role from its actual DOM element. The new exact GitHub CI commit must be checked independently; earlier 8/8 GitHub green jobs were for the older 48/48 probe.
+
+A Chromium Accessibility Tree confirms these sampled roles/accessible names in those browsers, **NOT** reading order or behavior in NVDA, JAWS, VoiceOver or native Windows Contrast Themes. A browser-emulated contrast image is **NOT** human-approved Fluent 2 visual parity or native OS/AT evidence. The source-owned #425 Penpot design board remains a draft pending maintainer review. Therefore #425 remains In progress/Draft and no v3 or stable package is released.
+
 ## Still required for actual component Review / Done
 
 - The issue-specific source-owned Penpot draft board now exists (exact IDs above). Reviewer must still accept its mapping/state/evidence matrix and confirm actual runtime/component design parity.

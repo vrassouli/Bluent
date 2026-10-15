@@ -74,6 +74,13 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  "forced-colors","prefers-reduced-motion","const screenshots=",
                  "[320,","[768,","[1280,"):
         need(term in probe,"missing actual browser keyboard/render screenshot contract: "+term)
+    for token in ("Accessibility.enable","Accessibility.getFullAXTree",
+                  "backendDOMNodeId","DOM.describeNode",
+                  "AX tree names real Increment button",
+                  "AX tree exposes TextField with Bound value accessible name",
+                  "AX tree maps live counter DOM node to status role",
+                  "rtl-emulated-contrast.png"):
+        need(token in probe,"missing actual browser accessibility-tree evidence: "+token)
     for forbidden in ("continue-on-error: true","dotnet nuget push","gh release create"):
         need(forbidden not in workflow,"browser gate must fail-closed and must never publish: "+forbidden)
 
