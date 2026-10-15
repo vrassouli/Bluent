@@ -40,7 +40,9 @@ def check_implementation_typescript(src:str)->None:
               "public dispose(): void",
               "this.unbindTrigger(id)",
               "this.unbindOutsideClick(id)",
-              "this._cleanupAutoUpdate?.()")
+              "this._autoUpdates.get(triggerId)?.()",
+              "this._triggerResizeObservers.get(triggerId)?.disconnect()",
+              "this._surfaceResizeObservers.get(triggerId)?.disconnect()")
     for term in required:
         if term not in src:
             raise BundleContractError("Missing popover Escape/focus contract: "+term)

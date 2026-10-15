@@ -2,10 +2,12 @@ import { flip, shift, offset, arrow, computePosition, autoUpdate } from '@floati
 import { PopoverSettings } from './PopoverSettings';
 export class Popover {
     private _dotNetRef: any;
-    private _scrollEventHandler: any;
-    private _triggerResizeObserver: ResizeObserver;
-    private _surfaceResizeObserver: ResizeObserver;
-    private _cleanupAutoUpdate: (() => void) | null;
+    // Geometry resources belong to each surface, never to the singleton
+    // Popover JS object hosting potentially many independent overlays.
+    private readonly _triggerResizeObservers = new Map<string, ResizeObserver>();
+    private readonly _surfaceResizeObservers = new Map<string, ResizeObserver>();
+    private readonly _surfaceMutationObservers = new Map<string, MutationObserver>();
+    private readonly _autoUpdates = new Map<string, () => void>();
     // Non-modal popovers use Escape to dismiss only the most recently opened
     // surface. Only Escape returns focus to its trigger; an outside click does not.
     private readonly _openSurfaces: PopoverSettings[] = [];
@@ -102,10 +104,14 @@ export class Popover {
             this.unbindOutsideClick(id);
         document.removeEventListener('keydown', this._onDocumentKeyDown);
         this._openSurfaces.length = 0;
-        this._triggerResizeObserver?.disconnect();
-        this._surfaceResizeObserver?.disconnect();
-        this._cleanupAutoUpdate?.();
-        this._cleanupAutoUpdate = null;
+        // The library intentionally compiles TypeScript to ES5, so avoid
+        // spreading Map iterators (which requires downlevelIteration).
+        const geometryIds = new Set<string>();
+        this._triggerResizeObservers.forEach((_value, id) => geometryIds.add(id));
+        this._surfaceResizeObservers.forEach((_value, id) => geometryIds.add(id));
+        this._surfaceMutationObservers.forEach((_value, id) => geometryIds.add(id));
+        this._autoUpdates.forEach((_value, id) => geometryIds.add(id));
+        geometryIds.forEach(id => this.cleanupGeometry(id, true));
     }
 
     public async showSurface(settings: PopoverSettings) {
@@ -121,12 +127,10 @@ export class Popover {
         if (settings.sameWidth) {
             const trigger = this.getTrigger(settings);
 
-            if (!this._triggerResizeObserver) {
-                this._triggerResizeObserver = new ResizeObserver(() => {
-                    this.setSurfaceWidth(trigger, surface);
-                });
-
-                this._triggerResizeObserver.observe(trigger);
+            if (trigger && !this._triggerResizeObservers.has(settings.triggerId)) {
+                const observer = new ResizeObserver(() => this.setSurfaceWidth(trigger, surface));
+                observer.observe(trigger);
+                this._triggerResizeObservers.set(settings.triggerId, observer);
             }
             this.setSurfaceWidth(trigger, surface);
         }
@@ -145,14 +149,13 @@ export class Popover {
             document.addEventListener('keydown', this._onDocumentKeyDown);
         this._openSurfaces.push(settings);
 
-        // Register automatic updates on scroll/resize/mutations for correct positioning
+        // Reopening replaces ONLY this trigger's updater, never the updater
+        // for another concurrently visible Popover.
         const trigger = this.getTrigger(settings) as HTMLElement;
         if (trigger && surface) {
-            // Ensure previous auto-update (if any) is cleared before adding a new one
-            if (this._cleanupAutoUpdate) {
-                this._cleanupAutoUpdate();
-            }
-            this._cleanupAutoUpdate = autoUpdate(trigger, surface, () => this.updatePosition(settings));
+            this._autoUpdates.get(settings.triggerId)?.();
+            this._autoUpdates.set(settings.triggerId,
+                autoUpdate(trigger, surface, () => this.updatePosition(settings)));
         }
     }
 
@@ -202,21 +205,22 @@ export class Popover {
 
         const surface = <HTMLElement>this.getSurface(settings);
         if (surface) {
-            this._surfaceResizeObserver = new ResizeObserver(() => { this.updatePosition(settings); });
-            this._surfaceResizeObserver.observe(surface);
+            // Dynamic Blazor Surface removal must only clean its own tracked
+            // ResizeObservers/MutationObservers, not sibling Popovers.
+            this.cleanupSurfaceObservers(settings.triggerId);
+            const resize = new ResizeObserver(() => this.updatePosition(settings));
+            resize.observe(surface);
+            this._surfaceResizeObservers.set(settings.triggerId, resize);
 
-            new MutationObserver((mutationList, observer) => {
-                mutationList.forEach(item => {
-                    item.removedNodes.forEach(removedNode => {
-                        if (removedNode == surface) {
-                            // window.removeEventListener('scroll', this._scrollEventHandler);
-
-                            this._surfaceResizeObserver.disconnect();
-                            observer.disconnect();
-                        }
-                    });
+            if (surface.parentElement) {
+                const mutation = new MutationObserver(mutations => {
+                    if (mutations.some(entry =>
+                        Array.from(entry.removedNodes).includes(surface)))
+                        this.cleanupGeometry(settings.triggerId, true);
                 });
-            }).observe(surface.parentElement, { childList: true });
+                mutation.observe(surface.parentElement, { childList: true });
+                this._surfaceMutationObservers.set(settings.triggerId, mutation);
+            }
         }
     }
 
@@ -269,16 +273,25 @@ export class Popover {
         surface?.classList.add('hidden');
         this._dotNetRef.invokeMethodAsync('HideSurface', settings);
 
-        if (this._triggerResizeObserver) {
-            this._triggerResizeObserver.disconnect();
-            this._triggerResizeObserver = null;
-        }
+        // Leave surface observation until removal: hidden KeepSurface
+        // instances retain their DOM, and unrelated surfaces stay active.
+        this.cleanupGeometry(settings.triggerId, false);
+    }
 
-        // De-register auto update/scroll listeners when surface is hidden
-        if (this._cleanupAutoUpdate) {
-            this._cleanupAutoUpdate();
-            this._cleanupAutoUpdate = null;
-        }
+    private cleanupSurfaceObservers(triggerId: string): void {
+        this._surfaceResizeObservers.get(triggerId)?.disconnect();
+        this._surfaceMutationObservers.get(triggerId)?.disconnect();
+        this._surfaceResizeObservers.delete(triggerId);
+        this._surfaceMutationObservers.delete(triggerId);
+    }
+
+    private cleanupGeometry(triggerId: string, removeSurfaceObservers: boolean): void {
+        this._triggerResizeObservers.get(triggerId)?.disconnect();
+        this._triggerResizeObservers.delete(triggerId);
+        this._autoUpdates.get(triggerId)?.();
+        this._autoUpdates.delete(triggerId);
+        if (removeSurfaceObservers)
+            this.cleanupSurfaceObservers(triggerId);
     }
 
     private getTrigger(settings: PopoverSettings) {

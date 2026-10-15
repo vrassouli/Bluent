@@ -100,6 +100,42 @@ try{
  result("rendered surface and input still present",visible.visible>0&&visible.inputs>0,visible);
  const img=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
  writeFileSync(join(evidence,"popover-"+brand+".png"),Buffer.from(img.data,"base64"));
+
+ // A separate real Blazor fixture opens two non-modal surfaces concurrently.
+ // Verify Escape works in LIFO order (topmost only), including trigger focus.
+ const stackUrl=origin+(mode==="Server"?"/compatibility/popover-stack-server":"/components/popover-stack-probe");
+ await cdp.send("Page.navigate",{url:stackUrl});
+ const stackMounted=await until(()=>cdp.js("(()=>{const heading=document.querySelector('h1');const ready=document.querySelector('output[data-popover-probe-ready]');return heading?.textContent==='Popover stack probe'&&ready?.getAttribute('data-popover-probe-ready')==='true'&&[...document.querySelectorAll('button')].some(x=>x.textContent.includes('Open both popovers'));})()"),"interactive Blazor stacked Popover fixture",45000);
+ result("separate real stacked Popover Blazor fixture loaded",stackMounted);
+ // Do not repeatedly click Show while waiting for asynchronous Blazor Server
+ // rendering. Repeated clicks generate overlapping manual Show events and can
+ // cause stale hide animations to race with the next opening.
+ const commandSent=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Open both popovers'));b?.click();return !!b;})()");
+ result("manual stack OpenBoth command delivered once after Blazor interactive readiness",commandSent);
+ const stacked=await until(()=>cdp.js("(()=>{const visible=[...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')];return visible.some(x=>x.textContent.includes('First stack surface'))&&visible.some(x=>x.textContent.includes('Second stack surface'));})()"),"both concurrently open Popover surfaces",24000);
+ result("two Popover surfaces can be open concurrently",stacked);
+ const stackOpened=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
+ writeFileSync(join(evidence,"popover-stack-open-"+brand+".png"),Buffer.from(stackOpened.data,"base64"));
+ // SameWidth must work independently for each surface. The second Popover
+ // must not steal the first one's ResizeObserver when they share a host.
+ const beforeWidths=await cdp.js("(()=>{const buttons=[...document.querySelectorAll('button')];const first=buttons.find(x=>x.textContent.includes('First stack trigger'));const second=buttons.find(x=>x.textContent.includes('Second stack trigger'));const surfaces=[...document.querySelectorAll('.bui-popover-surface.show')];const one=surfaces.find(x=>x.textContent.includes('First stack surface'));const two=surfaces.find(x=>x.textContent.includes('Second stack surface'));return {first:first?.getBoundingClientRect().width,second:second?.getBoundingClientRect().width,one:one?.getBoundingClientRect().width,two:two?.getBoundingClientRect().width};})()");
+ result("independent initial SameWidth matches both trigger widths",
+   Math.abs(beforeWidths.one-beforeWidths.first)<6&&Math.abs(beforeWidths.two-beforeWidths.second)<6,beforeWidths);
+ const firstResized=await until(async()=>{
+  await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('First stack trigger'));if(b)b.style.width='265px';return !!b;})()");
+  return cdp.js("(()=>{const surfaces=[...document.querySelectorAll('.bui-popover-surface.show')];const one=surfaces.find(x=>x.textContent.includes('First stack surface'));const two=surfaces.find(x=>x.textContent.includes('Second stack surface'));return !!(one&&two&&one.getBoundingClientRect().width>245&&Math.abs(two.getBoundingClientRect().width-"+beforeWidths.two+")<6);})()");
+ },"first Popover width changes but second remains unchanged",13000);
+ result("first SameWidth ResizeObserver remains active with second open",firstResized);
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const topClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Second stack trigger'));const surfaces=[...document.querySelectorAll('.bui-popover-surface')];const first=surfaces.find(x=>x.textContent.includes('First stack surface'));const second=surfaces.find(x=>x.textContent.includes('Second stack surface'));return !!(b&&first?.classList.contains('show')&&second&&!second.classList.contains('show')&&document.activeElement===b);})()"),"Escape closes uppermost only",9000);
+ result("first Escape closes only topmost and focuses second trigger",topClosed);
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const bottomClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('First stack trigger'));const surfaces=[...document.querySelectorAll('.bui-popover-surface')];const first=surfaces.find(x=>x.textContent.includes('First stack surface'));const second=surfaces.find(x=>x.textContent.includes('Second stack surface'));return !!(b&&first&&!first.classList.contains('show')&&second&&!second.classList.contains('show')&&document.activeElement===b);})()"),"second Escape closes remaining surface",9000);
+ result("second Escape closes remaining and focuses first trigger",bottomClosed);
+ const stackShot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
+ writeFileSync(join(evidence,"popover-stack-"+brand+".png"),Buffer.from(stackShot.data,"base64"));
 }catch(e){errors.push(String(e.stack||e));}
 finally{
  writeFileSync(join(evidence,"popover-"+brand+".json"),JSON.stringify({schema:1,browser:brand,commit:process.env.GITHUB_SHA||"local",checks,errors},null,2));

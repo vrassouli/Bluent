@@ -62,6 +62,32 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("<Containers />",razor)
         self.assertIn("<Popovers />",razor)
 
+    def test_stack_probe_is_real_shared_blazor_fixture_with_interactive_server_host(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        fixture=(root/"src/Bluent.UI.Demo.Pages/Pages/Components/PopoverStackProbe.razor").read_text(encoding="utf-8-sig")
+        server=(root/"src/Bluent.UI.Demo.SSR/Components/Pages/PopoverStackInteractiveServerProbe.razor").read_text(encoding="utf-8-sig")
+        self.assertIn('data-popover-probe-ready=',fixture)
+        self.assertIn("OnAfterRenderAsync(bool firstRender)",fixture)
+        self.assertIn("private void OpenBoth()",fixture)
+        self.assertEqual(fixture.count('SameWidth="true"'),2)
+        self.assertIn('@rendermode InteractiveServer',server)
+        self.assertIn('<Containers />',server)
+        self.assertIn('<PopoverStackProbe />',server)
+
+    def test_real_stack_browser_probe_enforces_lifo_and_independent_resize(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for fragment in (
+            "interactive Blazor stacked Popover fixture",
+            "manual stack OpenBoth command delivered once",
+            "two Popover surfaces can be open concurrently",
+            "independent initial SameWidth matches both trigger widths",
+            "first SameWidth ResizeObserver remains active with second open",
+            "first Escape closes only topmost and focuses second trigger",
+            "second Escape closes remaining and focuses first trigger",
+        ):
+            self.assertIn(fragment,probe)
+
     def test_real_popover_browser_ci_and_artifact_gate_present(self):
         root=__import__("pathlib").Path(__file__).resolve().parents[2]
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")

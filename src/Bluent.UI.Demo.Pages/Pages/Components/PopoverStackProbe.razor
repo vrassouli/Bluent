@@ -1,0 +1,48 @@
+@page "/components/popover-stack-probe"
+@namespace Bluent.UI.Demo.Pages.Components
+
+@* v3 #420 test-only scenario: two non-modal Popovers opened in one
+   render. Escape must dismiss only the topmost and return focus in LIFO order. *@
+<h1>Popover stack probe</h1>
+<output data-popover-probe-ready="@(_ready ? "true" : "false")">@(_ready ? "Ready" : "Preparing")</output>
+<Button Text="Open both popovers" OnClick="OpenBoth" />
+<section>
+    <Popover @ref="_first" KeepSurface="true" SameWidth="true" TriggerEvents="@(null)">
+        <Trigger>
+            <Button Text="First stack trigger" />
+        </Trigger>
+        <Surface>
+            <div>First stack surface</div>
+        </Surface>
+    </Popover>
+    <Popover @ref="_second" KeepSurface="true" SameWidth="true" TriggerEvents="@(null)">
+        <Trigger>
+            <Button Text="Second stack trigger" />
+        </Trigger>
+        <Surface>
+            <div>Second stack surface</div>
+        </Surface>
+    </Popover>
+</section>
+
+@code {
+    private Popover? _first;
+    private Popover? _second;
+    private bool _ready;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _ready = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
+
+    private void OpenBoth()
+    {
+        _first?.Show();
+        _second?.Show();
+    }
+}

@@ -16,6 +16,14 @@ On Dev01 with both ESM/global webpack artifacts rebuilt and copied into Bluent.U
 
 The static-web-asset guard check_v3_popover_js_bundle.py verifies all four tracked webpack ESM/global JS and map artifacts match Bluent.UI wwwroot. Four new positive/negative source tests reject stale/missing bundles or missing focus semantics. On PR, CI runs npm ci and webpack build, compares generated dist with tracked files and refuses stale assets. The four Windows browser jobs cover Chrome/Edge by Server/WASM. This is scoped Popover evidence, NOT complete native OS/AT, Fluent visual parity, RTL overlays, other components' focus traps or design-review approval.
 
+## 2026-10-15 independent multi-Popover geometry and LIFO focus test
+
+A second real source-owned, v3-QA-only fixture now mounts **two concurrent nonmodal Popovers** with SameWidth enabled, using the actual Bluent components and an independent Blazor Server host route. The renderer exposes a readiness marker from OnAfterRenderAsync so the test waits until event handlers are interactive; it sends the OpenBoth command **exactly once**, rather than racing duplicate actions while the circuit is starting. That distinction caught a flaky test-only issue on Edge/Server without weakening the underlying behavioral assertions.
+
+An actual implementation defect was corrected in the source TypeScript Popover: its trigger ResizeObserver, surface ResizeObserver, MutationObserver and Floating UI automatic-positioning cleanup previously used **single shared members** even though one Popover JS owner can manage several open surfaces. Resources are now separately keyed by trigger ID and disposed only with their matching surface. Hiding one Popover no longer deactivates another Popover's resize/position observers. ES5 compilation compatibility is preserved.
+
+**Real Dev01 Chrome/Edge x WebAssembly/InteractiveServer: 17/17 checks per combination, total 68/68** after the last changes. The additional seven checks per mode cover real stack fixture readiness, one-time open command, concurrent surfaces, independent SameWidth widths, first trigger resizing while the second width remains unchanged, then Escape closing the topmost and restoring focus to the second trigger, followed by Escape closing the remaining surface and focusing the first trigger. Each mode has real PNG/JSON evidence, including a screenshot of both open surfaces. The actual canonical Penpot #420 editable board remains DRAFT pending maintainer review; this is not native Windows Contrast Theme or named screen-reader acceptance. The GitHub CI exact new SHA must separately finish before being reported as green.
+
 ## Component state and semantics proposals
 
 | Domain | Proposed rule | Current source/reference |

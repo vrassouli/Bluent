@@ -1,6 +1,9 @@
 # Bluent v3 Interaction Primitives · #420
 
 
+LATEST 2026-10-15 #420 multi-instance check: Real Bluent Popover JS geometry ownership (trigger/surface ResizeObservers, MutationObserver and Floating UI autoUpdate) is now per triggerId instead of shared singleton fields; hiding one does not stop other surfaces. Real shared Blazor QA fixture opens two SameWidth Popovers concurrently; waits for OnAfterRenderAsync interactive marker and sends OpenBoth once (duplicate clicks caused false race in initial test). Actual Chrome/Edge x Server/WASM 17/17 each = 68/68 browser checks for stacking, LIFO Escape focus and independent resizing, alongside prior click/Set/Show. This is scoped Popover proof, not native Windows Contrast/AT/Fluent parity. Reviewer acceptance of canonical #420 Penpot board still pending.
+
+
 LATEST 2026-10-15 #420: Real Escape closes topmost Popover and restores trigger focus, outside click does not steal focus. JS trigger/document listeners and ResizeObservers/FloatingUI updates are cleaned in Popover.dispose(), which C# calls before proxy DisposeAsync. Local Chrome/Edge x WASM/Server **40/40 real browser checks**, compiled Bluent.UI fake-JS **123 assertions** including explicit dispose; 19 source tests and four JS asset consistency tests. ESM/global JS/maps are matched to shipped Bluent.UI wwwroot and CI now rebuilds webpack with npm ci and rejects stale tracked bundles. Remaining: native Windows Contrast/AT, other overlays' modal focus behavior and user-approved canonical Penpot board; do NOT mark Done or publish stable v2.
 
 

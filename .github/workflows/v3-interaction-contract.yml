@@ -17,6 +17,8 @@ on:
       - "src/Bluent.UI.Scripts/package-lock.json"
       - "src/Bluent.UI/wwwroot/bluent.ui*.js*"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/PopoverStackProbe.razor"
+      - "src/Bluent.UI.Demo.SSR/Components/Pages/PopoverStackInteractiveServerProbe.razor"
       - "docs/v3/architecture/ADR-0002-interaction-primitives.md"
       - "src/Bluent.UI/Interops/**"
       - "src/Bluent.UI/Services/DomHelper.cs"
