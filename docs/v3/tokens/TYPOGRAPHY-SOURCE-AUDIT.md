@@ -1,5 +1,22 @@
 # #418 · Existing typography token and error-state research
 
+**Update 2026-10-15:** The formerly unavailable native editable
+Persian/Latin research board now EXISTS in the correct Penpot Bluent v3
+Design System file: page 42
+(e775e67c-d9da-804b-8008-cb84059cbdab), board
+(e775e67c-d9da-804b-8008-cb8405b790a5).
+It was exported and visually reviewed; eight size-token bindings pass.
+This resolves the *missing editable board* subtask, NOT the human approval
+of the final font stack, glyph shaping, native OS Contrast Themes or AT.
+See [the updated typography research evidence](PERSIAN-TYPOGRAPHY-RESEARCH.md).
+An independent native Penpot font-family serialization defect also remains:
+unquoted Segoe UI resolves to Segoe,UI; quoted multiword family resolves
+correctly in an isolated experiment (which was removed after testing).
+**This is not a runtime CSS issue; the existing CSS source correctly quotes
+multiword family names.** Do not change the original #419 draft token
+without review.
+
+
 **Date:** 2026-10-11. **Status:** measured source contract and opt-in browser research only, **not approved final font/token values**. The original Penpot accessibility decisions remain at file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `acf5f619-7d81-80da-8008-c5ef1089ac94`. A separate editable Persian typography page is **not yet available**: the connected Penpot tab was suspended and the authorized Figma fallback returned a Starter-plan MCP quota limitation.
 
 ## Verifiable source typography inventory
@@ -26,7 +43,7 @@ The updated Chrome/CDP test passes **144/144 in both actual WebAssembly and publ
 
 ## Remaining formal acceptance gates
 
-- Author, inspect and approve an actual Persian/Latin typography board in the correct editable Penpot file (or an approved editable Figma fallback); choose fallback policy, source mappings and a typography scale without guessing fonts or redistributing font files.
+- The editable Persian/Latin typography board has been authored, exported and inspected in the **correct Penpot file**. Still required: explicitly approve the fallback-family policy, resolve the native multiword font-token formatting defect, review optical glyph/shaping and line heights on actual systems, and accept the typography scale without assuming preview fonts are runtime fonts or redistributing files.
 - Accessibility evaluation on actual devices, including screen-reader error descriptions, forced-color native OS rendering, focus navigation across real overlays, optical glyph baseline, 200/400% text and zoom across complete applications.
 - Component-specific invalid/disabled/focus/hover visuals and design approval, real cross-engine browsers, and a migration/Skills contract. The scoped demo error styles are **not** an approved public TextField API or shipped CSS.
 - PR #500 remains Draft targeting `bluent-v3`; do not merge v3 work to `Dev` or publish the stable NuGet package.
