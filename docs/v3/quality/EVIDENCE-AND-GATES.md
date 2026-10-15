@@ -4,7 +4,7 @@
 
 ## Actual design-tool provenance (not fabricated)
 
-The canonical, real editable Bluent v3 Design System Penpot file is b64f6665-c9ab-80b5-8008-c4ac99d9d000. Existing tested design-evidence exemplars are page 38 Button Focus board f4136a9a-101d-8004-8008-ca2956fe05f9 (previously 78/78 native-shape checks) and page 39 component inventory board 44b12572-0104-807e-8008-ca035bbc8ca7. These are verified **reference designs, not a dedicated #425 gate diagram or #425 design signoff**. On 2026-10-15 the Penpot plugin was frozen. Figma fallback design file https://www.figma.com/design/X6Ima16GAyuk7dVUjGgIkt was created for #420/#425, but the first write was denied by Starter rate limits; it is not claimed to contain a finished diagram. Final #425 Review is pending a genuine editable issue-specific QA flow and reviewer acceptance.
+The canonical editable Bluent v3 Design System Penpot file is b64f6665-c9ab-80b5-8008-c4ac99d9d000. A dedicated REAL editable #425 QA flow board was created in the correct connected file on 2026-10-15: page 41 / Quality gates and acceptance / #425 ID ed5216bd-3d5b-8015-8008-cb25572ebb61, board #425 / Required CI matrix and evidence policy ID ed5216bd-3d5b-8015-8008-cb2557357776 (44 native editable shapes). The actual board was exported to PNG and visually inspected; three CI lanes and four evidence levels are present. This is a **DRAFT QA architecture design, NOT user/maintainer approval of pixel parity or native OS/AT compliance**. Earlier reference boards are #501 Focus f4136a9a-101d-8004-8008-ca2956fe05f9 and #494 inventory 44b12572-0104-807e-8008-ca035bbc8ca7. Figma fallback https://www.figma.com/design/X6Ima16GAyuk7dVUjGgIkt hit Starter rate limits; Penpot later reconnected and was used. Reviewer signoff and genuine accepted visual baseline/AT tests still remain before Done.
 
 ## Evidence levels must remain distinct
 
@@ -38,7 +38,7 @@ Screenshot capture does NOT equal reviewed visual regression acceptance. Native 
 
 ## Still required for actual component Review / Done
 
-- An authoritative editable Penpot/Figma issue design board with explicit source/behavior mapping, reviewed state matrix and parity.
+- The issue-specific source-owned Penpot draft board now exists (exact IDs above). Reviewer must still accept its mapping/state/evidence matrix and confirm actual runtime/component design parity.
 - Per-component exhaustive public parameters, correct binding/validation, selected/loading/disabled, keyboard & ARIA semantics, labels and restored focus, overlays and JS cleanup.
 - **Visual verified** screenshot comparisons across 320/768/1280 widths, Light/Dark, RTL/LTR and Persian typography, with stable baselines and reviewed diffs.
 - **Native OS/AT verified** tests with real Contrast Themes and named screen readers. Save platform/browser/AT versions and exceptions.
@@ -51,3 +51,6 @@ Each PR must record exact SHA, affected components and packages, source design p
 The initial actual #425 Release build rejected two NU1903 high-severity advisories (GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4) on Microsoft.AspNetCore.Components.WebAssembly.Server **10.0.7**. The patched 10.0.13 package was released 2026-10-13. Only the SSR-host PackageReference was upgraded to **10.0.13** on this isolated v3 task branch; no consumer library API or stable 2.x package references were changed. Restore + full Release -warnaserror build now pass with zero warnings/errors. The quality contract has a real XML parser and a negative test to reject regressions back to 10.0.12 or lower. Official reference: https://github.com/advisories/GHSA-qjpx-jqm5-h2c4 .
 
 Local scope on initial #425 branch: 20 .NET solution tests passed, 4 rendered SSR routes passed the focused accessibility smoke, and all five CI-version NuGet packages passed release_tools package-ID/version/commit checks with a local report under a temporary directory. **This is not actual GitHub runner success** until the new PR jobs run. Independent Chrome/Edge x Server/WASM compatibility browser baseline now exists; the richer #418 ten-brand focus browser lab and native OS/AT remain separate.
+
+
+2026-10-15 GitHub CI evidence on #425 PR #549 SHA 45b1a3006c9f37b1adb4881ce87d619b1aa36240: **Chrome/Server, Chrome/WASM, Edge/Server and Edge/WASM all PASS in Windows GitHub Actions**, plus Release build/test/pack, evidence policy, docs and Skills PASS. The new board exists as an editable design but does not waive native screen-reader/Windows Contrast Themes, reviewed screenshot-diff baseline or component-specific exhaustive coverage. New docs-only commit will rerun all these gates.
