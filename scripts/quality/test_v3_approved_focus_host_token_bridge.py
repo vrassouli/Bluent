@@ -81,6 +81,23 @@ class FocusHostTokenContractTests(unittest.TestCase):
                 contract(tampered)
 
 
+    def test_qa_browser_cleanup_stays_scoped_async_and_fail_closed(self):
+        # Windows GitHub CI Edge/Server passed 869/869 before synchronous
+        # Powershell cleanup timed out.  Prevent reintroducing that flake.
+        browser=(SCHEMA.parents[3]/"scripts/quality/probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn('async function cleanupOwnedBrowser()',browser)
+        self.assertIn('await execFileAsync("powershell.exe"',browser)
+        self.assertIn('await cleanupOwnedBrowser();',browser)
+        self.assertIn('timeout:65000',browser)
+        self.assertIn('BLUENT_V3_418_OWNED_PROFILE:dir',browser)
+        self.assertIn("if(!dir.includes(\"bluent-v3-418-cdp-\"))",browser)
+        self.assertIn("QA browser leftovers:",browser)
+        self.assertIn('process.exitCode=1;',browser)
+        # One slow process inventory, then verify exactly those owned PIDs.
+        self.assertEqual(browser.count('Get-CimInstance Win32_Process -Filter'),1)
+        self.assertIn('Get-Process -Id $_.ProcessId',browser)
+        self.assertNotIn('execFileSync("powershell.exe"',browser)
+
     def test_real_blazor_host_cards_declare_generated_token_roles(self):
         razor=(SCHEMA.parents[3]/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor").read_text(encoding="utf-8-sig")
         css=(SCHEMA.parents[3]/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8-sig")

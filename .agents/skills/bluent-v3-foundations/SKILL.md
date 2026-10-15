@@ -87,3 +87,14 @@ unavailable telemetry result; do not retroactively label it green.
 2026-10-15 #418 native font research board: file b64f6665-c9ab-80b5-8008-c4ac99d9d000, page 42 e775e67c-d9da-804b-8008-cb84059cbdab, board e775e67c-d9da-804b-8008-cb8405b790a5, revision 377. Run scripts/quality/penpot_v3_persian_font_evidence_audit.js as a read-only Penpot execute_code body: expect 8/8 native LTR+RTL size-token bindings and 29 visible research shapes with zero bounds overflow. Inter/Noto Sans Arabic are Penpot draft specimen fonts ONLY, not approved fallback or release dependencies. Real browser font telemetry is not optical glyph acceptance; do not modify PuyaStudio Runner or stable Dev.
 
 2026-10-15 Penpot fontFamilies QA caveat: #419 original draft token bluent.type.family.base with bare Segoe UI resolves to Segoe,UI in Penpot API. A temporary TokenSet verified quoted "Segoe UI" resolves to one correct family, then was deleted. Do NOT infer font stack approval from 8/8 native font-size bindings. Page42 rev386 board contains 30 shapes and a visible source-font warning; repeatable audit also checks current fontSerialization.reviewRequired. Do not overwrite original #419 draft values without design review; do not redistribute fonts. Other native foundation audits: 48 aliases, 60 swatches, 80 native brand-theme values, 40 focus-host source evidence, 29 field focus shapes all passed; known low-contrast source candidates deliberately remain FAIL on research board.
+
+2026-10-16 maintainer decision #418: retain the existing system-font
+Segoe UI-first fallback; package no new font. Corrected the original native
+Penpot draft bluent.type.family.base to the quoted single family "Segoe UI"
+(resolves Segoe UI). The page-42 specimen explicitly records the fixed
+format, NOT native Persian glyph or assistive-technology acceptance.
+Execute scripts/quality/penpot_v3_persian_font_evidence_audit.js read-only
+to catch future source serialization regressions. A prior Edge/Server
+GitHub CI failure occurred after 869/869 successful browser checks solely
+in Windows PowerShell owned-browser cleanup; hardened asynchronous
+bounded cleanup still rejects leftover processes.

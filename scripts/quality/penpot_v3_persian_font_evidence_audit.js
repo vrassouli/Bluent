@@ -28,14 +28,21 @@ const overflows=penpotUtils.analyzeDescendants(board,(_root,s)=>{
 }).map(x=>x.result);
 errors.push(...overflows.map(n=>"Out-of-board: "+n));
 if(board.children.length!==30)errors.push("Unexpected shape count: "+board.children.length);
-const font=penpotUtils.findTokenByName("bluent.type.family.base");
+// Approved interim contract: retain existing system-font stack, correctly
+// quote multiword Penpot family. This does NOT approve Persian glyph optics.
+const font=penpot.library.local.tokens.sets
+ .find(s=>s.name==="bluent-v3/draft/typography")?.tokens
+ .find(t=>t.name==="bluent.type.family.base");
+const quoted=Array.isArray(font?.value)&&font.value.length===1&&
+ font.value[0]==='\"Segoe UI\"';
 const observedFontSerialization={raw:font?.value,resolved:font?.resolvedValueString,
-  reviewRequired:font?.resolvedValueString!=="Segoe UI"};
-const note=board.children.find(s=>s.name==="Font family quoting defect / review required");
-if(observedFontSerialization.reviewRequired&&!note?.characters.includes("Segoe,UI"))
- errors.push("Known multiword font token serialization defect must be disclosed on board");
-if(!observedFontSerialization.reviewRequired&&note?.characters.includes("Segoe,UI"))
- errors.push("Stale font-family defect label: source token has been corrected");
+ quotedValuePreserved:quoted,reviewRequired:!(quoted&&font.resolvedValueString==="Segoe UI")};
+const note=board.children.find(s=>s.name==="Font family quoting fix / source value verified");
+if(observedFontSerialization.reviewRequired)
+ errors.push("Multiword Segoe UI source was not correctly quoted/resolved");
+if(!note?.characters.includes("TOKEN FORMAT FIXED")||
+   !note?.characters.includes("Persian glyph/AT approval remains OPEN"))
+ errors.push("Board missing verified format-fix evidence or native glyph/AT caveat");
 
 if(!board.children.find(s=>s.name==="Eyebrow")?.characters.includes("NOT APPROVED"))
  errors.push("Draft/not-approved disclosure missing");

@@ -155,3 +155,27 @@ which family stack should ship or whether browser fonts are installed.
 Do not interpret the 8/8 text *size* bindings as validation of the
 font-family source value. Review owner: #418; #419 historical draft
 set retained as source evidence. The final font-token gate is OPEN.
+
+### 2026-10-16 — Approved system-stack continuity; Penpot serialization fixed
+
+The maintainer approved **retaining the existing Segoe UI-first system-font
+fallback stack for v3**, without adding, bundling or distributing font files.
+This interim continuity contract does **not** certify Persian glyph optical
+appearance, final fallback behavior or assistive-technology acceptance.
+
+Updated the original native Penpot source token (in the existing
+bluent-v3/draft/typography set): bluent.type.family.base now stores the
+quoted multiword literal "Segoe UI" as its single family entry. Actual
+Penpot readback resolved to exactly **Segoe UI**, not Segoe,UI.
+No other original token was changed. Page 42 now records the fixed
+serialization on its 30-shape native board while declaring Persian glyph/
+AT approval STILL OPEN. The read-only Penpot audit fails on source regression
+or disappearance of that acceptance caveat.
+
+The existing shipped typography CSS source already quotes multiword
+font-family names and retains its existing system fallbacks. No public CSS,
+NuGet asset or font dependency has been modified. Eight independent
+Persian/Latin *font-size* links still pass but are not an optical baseline
+or real-device glyph shaping guarantee. Windows Contrast Themes, named
+screen readers, 200/400% reflow and public v3 typography contract
+acceptance remain separate gates.

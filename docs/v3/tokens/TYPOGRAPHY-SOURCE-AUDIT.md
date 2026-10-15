@@ -19,6 +19,13 @@ without review.
 
 **Date:** 2026-10-11. **Status:** measured source contract and opt-in browser research only, **not approved final font/token values**. The original Penpot accessibility decisions remain at file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `acf5f619-7d81-80da-8008-c5ef1089ac94`. A separate editable Persian typography page is **not yet available**: the connected Penpot tab was suspended and the authorized Figma fallback returned a Starter-plan MCP quota limitation.
 
+**Decision 2026-10-16:** Keep the existing Segoe UI-first system-font
+stack; do **not** bundle new fonts. Penpot's original draft multiword
+family token has been corrected to the quoted value and verified as
+resolving exactly Segoe UI. This fixes token serialization only; Persian
+glyph optics, final fallback, native OS and AT still need acceptance.
+See the linked Persian typography research evidence.
+
 ## Verifiable source typography inventory
 
 Run `python scripts/quality/check_v3_typography_source_contract.py` from the existing Bluent root. This deliberately imports the **same strict CSS parser** used to generate #418's scoped-brand aliases, reading all 10 emitted source brands × 2 modes. The check currently passes with:

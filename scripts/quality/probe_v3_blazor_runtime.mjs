@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // #418 Chrome/CDP probe for interactive Bluent WASM controls (not AT certification).
 // No third-party packages; source design is Penpot Bluent v3 page 32.
-import {spawn,execFileSync} from "node:child_process";
+import {spawn,execFile,execFileSync} from "node:child_process";
+import {promisify} from "node:util";
+const execFileAsync=promisify(execFile);
 import {mkdtempSync,existsSync,readFileSync,rmSync} from "node:fs";
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
@@ -26,7 +28,7 @@ class CDP {
 }
 // Reclaim only this probe's unique temporary Chromium profile. A successful
 // Windows detached browser is no longer owned by Node's spawn PID alone.
-function cleanupOwnedBrowser(){
+async function cleanupOwnedBrowser(){
  if(process.platform!=="win32")return;
  if(!dir.includes("bluent-v3-418-cdp-"))throw Error("Refusing unscoped browser cleanup");
  const ps=[
@@ -34,12 +36,19 @@ function cleanupOwnedBrowser(){
    "if(-not $root -or $root.IndexOf('bluent-v3-418-cdp-') -lt 0){throw 'Unsafe profile scope'}",
    "$processes=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
    "foreach($p in $processes){Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue}",
-   "Start-Sleep -Milliseconds 150",
-   "$remaining=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
+   "Start-Sleep -Milliseconds 200",
+   // The already selected PIDs are sufficient for bounded post-kill verification.
+   // Avoid a second full CIM process enumeration while Windows CI is under load.
+   "$remaining=@($processes | Where-Object { Get-Process -Id $_.ProcessId -ErrorAction SilentlyContinue })",
    "if($remaining.Count -gt 0){throw ('QA browser leftovers: '+$remaining.Count)}"
  ].join("\n");
- execFileSync("powershell.exe",["-NoProfile","-NonInteractive","-Command",ps],
-   {env:{...process.env,BLUENT_V3_418_OWNED_PROFILE:dir},windowsHide:true,timeout:22000,stdio:"pipe"});
+ // Native CIM inventory is sometimes slower than 22s on crowded Windows
+ // runners despite all 869 browser assertions passing. The former *blocking*
+ // spawnSync timeout made the job red exclusively during browser cleanup.
+ // Wait asynchronously for this exact profile check; never swallow leftovers.
+ await execFileAsync("powershell.exe",["-NoProfile","-NonInteractive","-Command",ps],
+   {env:{...process.env,BLUENT_V3_418_OWNED_PROFILE:dir},
+    windowsHide:true,timeout:65000,maxBuffer:1024*1024});
 }
 let cdp, app;
 try {
@@ -1224,4 +1233,4 @@ try {
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;
 }catch(e){console.error("Probe error: "+String(e));if(interactiveServer&&app)console.error("SSR APP LOG: "+app.tail());if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
-finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{cleanupOwnedBrowser();}catch(e){console.error("Owned temporary QA browser cleanup failed: "+String(e));process.exitCode=1;}try{rmSync(dir,{recursive:true,force:true});}catch{}}
+finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{await cleanupOwnedBrowser();}catch(e){console.error("Owned temporary QA browser cleanup failed: "+String(e));process.exitCode=1;}try{rmSync(dir,{recursive:true,force:true});}catch{}}

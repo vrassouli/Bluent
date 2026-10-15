@@ -222,3 +222,13 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - 2026-10-15 #418 reconnected correct Penpot Bluent v3 file; new page 42 / board e775e67c-d9da-804b-8008-cb84059cbdab (revision 377). Native research board contains 29 editable shapes, eight token-bound bilingual size specimens, zero bounds overflow; actual PNG exported and visually reviewed. Added repeatable read-only Penpot validation script, documentation and Skill. The fonts Inter/Noto Sans Arabic remain Penpot preview only; runtime font fallback/AT/reviewer signoff not approved. No CSS/public API, stable Dev or NuGet changes.
 
 - 2026-10-15 #418 native Penpot fontFamilies raw serialization defect established in Bluent file (rev. 386): original #419 draft Segoe UI resolves Segoe,UI; temporary isolated set proved quoted multiword family resolves Segoe UI and was removed. Research board page42 visibly labels risk (30 shapes); native audit detects source drift and does not claim typography acceptance. Original #419 sets and stable Dev/NuGet untouched. Full native token audits on live file: alias 48/48, 10-brand source matrix 60/60, 20 selectable themes 80/80, focus host 40/40, field Focus 29/29; pre-warning font board 8/8. Focus host audit includes EXPECTED contrast FAIL samples; those are NOT a WCAG pass.
+
+- 2026-10-16 #418 maintainer approved existing Segoe UI-first system fallback
+  and no bundled fonts. Corrected original native Penpot token
+  bluent.type.family.base: quoted multiword source now resolves as Segoe UI,
+  not Segoe,UI; other tokens untouched. Penpot page42 explicitly shows
+  format fix yet retains glyph/AT acceptance gate. Read-only Penpot audit
+  now fails on serialization regression. Also confirmed previous
+  GitHub Edge/Server browser CI 869/869 assertions passed; only owned
+  browser cleanup powershell.exe ETIMEDOUT, now hardened using asynchronous
+  bounded verification with a single scoped CIM enumeration.
