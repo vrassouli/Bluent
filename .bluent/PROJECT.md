@@ -215,3 +215,18 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   Chrome/Server 54/54 and Edge/WASM 54/54 runtime tests PASS.
   Exact new SHA CI and migration-timing acceptance pending;
   Penpot visual/native OS AT approval still open.
+
+- 2026-10-16 #420 Penpot design readability defect repaired
+  on the REAL editable file/page40 board: overlapping/outside-
+  board appended notes organized under section05 as five
+  white-backed native editable cards. Penpot revision408,
+  shapeCount62, 13/13 true live geometry checks and direct
+  PNG export human review passed. No component visual parity
+  approval implied. Consumer timing-migration review added
+  at docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md;
+  actual M13-M17 row risks appended to source migration ledger.
+  Public parameter APIs unchanged but Calendar callback timing
+  and Popover ARIA/lifecycle observable behavior need consumer
+  review before v3 release. Exact prior implementation HEAD
+  ee798e95 had GitHub 9/9 successful checks; newer docs-only
+  task branch CI must be independently verified.

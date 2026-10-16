@@ -8,6 +8,37 @@ class InteropSourceContractTests(unittest.TestCase):
     def setUpClass(cls):
         cls.source=source_snapshot()
 
+    def test_issue420_migration_review_tracks_behavior_not_just_api(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        doc=(root/"docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md").read_text(encoding="utf-8-sig")
+        ledger=(root/"docs/v3/design/MIGRATION-IMPACT-LEDGER.md").read_text(encoding="utf-8-sig")
+        adr=(root/"docs/v3/architecture/ADR-0002-interaction-primitives.md").read_text(encoding="utf-8-sig")
+        for name in ("Calendar MonthChanged on navigation",
+                     "external SelectedDate", "same-month",
+                     "MonthSelect and YearSelect", "Popover click accessibility",
+                     "Popover focus and lifetime", "Native Windows Contrast Themes",
+                     "Narrator/NVDA", "ee798e95c145046716960b8b54a2c2ae192d71fe"):
+            self.assertIn(name,doc)
+        for i in range(13,18):
+            self.assertIn("M"+str(i)+" - ",ledger)
+        self.assertIn("INTERACTION-CONSUMER-MIGRATION-REVIEW.md",adr)
+        self.assertIn("13/13 geometry checks PASS",adr)
+        self.assertIn("62",adr)
+
+    def test_issue420_migration_sample_preserves_existing_public_calendar_api(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        doc=(root/"docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md").read_text(encoding="utf-8-sig")
+        calendar=(root/"src/Bluent.UI/Components/CalendarComponent/Calendar.razor.cs").read_text(encoding="utf-8-sig")
+        self.assertIn('MonthChanged="OnMonthChangedAsync"',doc)
+        self.assertIn('TValue="DateTime?"',doc)
+        self.assertIn("EventCallback<DateOnly> MonthChanged",calendar)
+        self.assertIn("EventCallback<TValue> SelectedDateChanged",calendar)
+        self.assertIn("ChangeViewDateAsync",calendar)
+        self.assertIn("OnParametersSetAsync",calendar)
+        self.assertNotIn("new Calendar properties",doc.lower())
+
     def test_current_interop_legacy_debt_is_frozen(self):
         result=audit(self.source)
         self.assertEqual(len(result["PopoverInterop.cs"]["legacyAsyncVoid"]),0)

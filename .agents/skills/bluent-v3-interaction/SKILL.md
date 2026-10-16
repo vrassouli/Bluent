@@ -129,3 +129,19 @@ still needed. Real compiled .NET 150 assertions, Chrome
 InteractiveServer 54/54, Edge WASM 54/54 with actual four
 Calendar cases pending/release/complete. GitHub CI and
 native AT/Penpot visual approval are separate gates.
+
+2026-10-16 #420 design-artifact and consumer migration QA:
+canonical Penpot page40 board
+ed5216bd-3d5b-8015-8008-cb247e906204 revision408 now
+has 62 native editable shapes after an actual export exposed
+overlap of appended notes and clipping outside board. Reflowed
+section 05 into five separate white-backed research cards
+and reran 13/13 live editable Penpot geometry checks, then
+re-exported and visually inspected. The new
+docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md
+and M13-M17 in docs/v3/design/MIGRATION-IMPACT-LEDGER.md
+distinguish publicly unchanged Calendar/Popover parameters
+from actual async callback-timing, ARIA and cleanup differences.
+Exact task HEAD ee798e95 passed nine GitHub gates; Penpot
+board legibility is NOT maintainer signoff, and native Windows
+Contrast Themes/AT remain open.
