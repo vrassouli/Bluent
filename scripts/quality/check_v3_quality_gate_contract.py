@@ -105,6 +105,17 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  "result.elements.every(e=>e.exists&&e.width>0&&e.x>=-1&&e.right<=321)",
                  "CSS 200/400 percent text scaling no horizontal clipping"):
         need(term in probe,"actual 200/400% mobile text reflow evidence required: "+term)
+    for term in ("keyboard Tab focuses actual Bluent Increment button",
+                 "keyboard Tab enables native Button focus-visible modality",
+                 "Enter invokes actual Bluent Button callback exactly once",
+                 "real pointer targets editable field label before Button",
+                 "pointer click transfers native focus to TextField",
+                 "real pointer hit test targets Increment button",
+                 "real pointer activates Bluent Button exactly once",
+                 "real pointer does not masquerade as keyboard Button focus-visible",
+                 "Input.dispatchMouseEvent", "document.elementFromPoint",
+                 "window.scrollTo({top:0,left:0,behavior:'instant'})"):
+        need(term in probe,"native keyboard/pointer modality regression gate: "+term)
     # The runner startup can fail transiently before ANY Blazor/browser
     # assertion. Retry only creating the actual browser DevTools connection;
     # never retry or suppress any app/AX/keyboard/visual assertion.

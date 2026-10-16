@@ -234,3 +234,54 @@ Pending acceptance remains target-device native browser zoom,
 Windows Text Size/Contrast Themes, named screen readers and
 maintainer-approved design screenshot parity. #425 stays
 In progress and PR #549 Draft until those gates pass.
+
+## 2026-10-16 actual keyboard versus pointer modality QA
+
+The correct editable Penpot Bluent v3 Design System file
+b64f6665-c9ab-80b5-8008-c4ac99d9d000, page 41
+ed5216bd-3d5b-8015-8008-cb25572ebb61, board
+ed5216bd-3d5b-8015-8008-cb2557357776 now has a draft,
+source-owned keyboard/pointer QA annotation
+e775e67c-d9da-804b-8008-cccf3d59fdca.
+The annotation's actual Penpot textBounds fit its native box.
+This is NOT design approval or native OS/AT acceptance.
+
+The real browser harness extends the earlier 43 to **51
+assertions per browser/render mode**, preserving the existing
+Blazor UI, screenshots, AX tree and static asset checks.
+It dispatches CDP Tab from real Bluent TextField to Button,
+checks the exact focused Button and :focus-visible; dispatches
+a real native Enter keyDown (with carriage-return text) plus
+keyUp and verifies exactly one Blazor OnClick callback.
+It then clicks the native TextField label using real pointer
+events to switch input modality, hit-tests the Button with
+document.elementFromPoint, clicks it with real mouse input
+and checks both a single callback and *absence* of keyboard
+:focus-visible.
+
+The initial Chrome/InteractiveServer run **FAILED 42/49**
+because clicking the already keyboard-focused Button can
+legitimately preserve :focus-visible, and its scroll had
+moved the H1 out of the screenshot viewport (six false
+contrast/geometry failures). Corrected the TEST HARNESS,
+not component behavior: true pointer modality transition
+via label, and explicit scroll-to-top before the viewport
+contrast/screenshot grid. Both independent local Dev01 runs
+then PASSED: **Chrome/InteractiveServer 51/51** and
+**Edge/WebAssembly 51/51**, zero errors each. The PNG,
+responsive RTL, text-size reflow, emulated forced-colors,
+computed AX roles, and isolated browser cleanup remain
+mandatory.
+
+**36/36 Python quality contract tests PASS**, including
+four new negative controls that fail on removal of the
+Enter path, pointer modality assertion, pointer hit-test
+or scroll reset. Exact-HEAD GitHub CI in the full four-way
+Chrome/Edge x Server/WASM matrix remains to be checked.
+
+This establishes a basic keyboard/pointer *pseudo-class
+behavior* in an existing native Bluent Button, NOT the
+final brand-colored Fluent 2 focus ring, TextField underline
+visual parity, browser zoom, real Windows Contrast Themes,
+a named screen reader, or WCAG certification.
+Issue #425 stays In progress / PR #549 Draft.

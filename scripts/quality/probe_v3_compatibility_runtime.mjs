@@ -182,8 +182,46 @@ try {
  assert("native input focus",focus);
  await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9});
  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9});
- const tab=await cdp.js("(()=>({left:document.activeElement?.id!=='compatibility-input',visible:document.activeElement?.getBoundingClientRect().width>0}))()");
+ const tab=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent?.trim()==='Increment');return {left:document.activeElement?.id!=='compatibility-input',visible:document.activeElement?.getBoundingClientRect().width>0,incrementFocused:document.activeElement===b,focusVisible:b?.matches(':focus-visible')};})()");
  assert("keyboard Tab leaves input",tab.left&&tab.visible,tab);
+ assert("keyboard Tab focuses actual Bluent Increment button",tab.incrementFocused,tab);
+ assert("keyboard Tab enables native Button focus-visible modality",tab.focusVisible===true,tab);
+ // Use genuine CDP keyboard events: keyDown must include text for Chromium's
+ // native button Enter activation; JS .click() would conceal broken behavior.
+ const enterBefore=await cdp.js("Number(document.querySelector('[data-testid=event-count]')?.textContent?.match(/\\d+/)?.[0]||-1)");
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Enter",code:"Enter",text:"\r",unmodifiedText:"\r",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Enter",code:"Enter",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ const enterAfter=await until(async()=>{const n=await cdp.js("Number(document.querySelector('[data-testid=event-count]')?.textContent?.match(/\\d+/)?.[0]||-1)");return n===enterBefore+1?n:null;},"real native Enter invokes one Blazor callback",9000);
+ assert("Enter invokes actual Bluent Button callback exactly once",enterAfter===enterBefore+1,{enterBefore,enterAfter});
+ // Pointer modality must first leave the keyboard-focused Button. A
+ // mouse click on the *same already-keyboard-focused Button* may legitimately
+ // retain focus-visible per browser heuristics; that is not a defect.
+ await cdp.js("document.querySelector('label[for=compatibility-input]').scrollIntoView({block:'center',behavior:'instant'})");
+ await wait(150);
+ const labelHit=await cdp.js("(()=>{const l=document.querySelector('label[for=compatibility-input]'),r=l.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('label')===l}})()");
+ assert("real pointer targets editable field label before Button",labelHit.hit===true,labelHit);
+ if(!labelHit.hit)throw Error("Unsafe pointer target on field label");
+ await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",button:"left",x:labelHit.x,y:labelHit.y,clickCount:1});
+ await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",button:"left",x:labelHit.x,y:labelHit.y,clickCount:1});
+ const fieldPointerFocus=await cdp.js("document.activeElement?.id==='compatibility-input'");
+ assert("pointer click transfers native focus to TextField",fieldPointerFocus);
+ // A real pointer click must not inherit the old keyboard-only state.
+ // Use hit testing to avoid navigating elsewhere after a scroll.
+ await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent?.trim()==='Increment');b.scrollIntoView({block:'center',behavior:'instant'})})()");
+ await wait(200);
+ const pointer=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent?.trim()==='Increment'),r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('button')===b}})()");
+ assert("real pointer hit test targets Increment button",pointer.hit===true,pointer);
+ if(!pointer.hit)throw Error("Unsafe pointer target in live keyboard QA");
+ await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",button:"left",x:pointer.x,y:pointer.y,clickCount:1});
+ await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",button:"left",x:pointer.x,y:pointer.y,clickCount:1});
+ const pointerAfter=await until(async()=>{const n=await cdp.js("Number(document.querySelector('[data-testid=event-count]')?.textContent?.match(/\\d+/)?.[0]||-1)");return n===enterBefore+2?n:null;},"real pointer Blazor callback",9000);
+ const pointerModality=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent?.trim()==='Increment');return {active:document.activeElement===b,focusVisible:b?.matches(':focus-visible')}})()");
+ assert("real pointer activates Bluent Button exactly once",pointerAfter===enterBefore+2,{enterBefore,pointerAfter});
+ assert("real pointer does not masquerade as keyboard Button focus-visible",pointerModality.active&&pointerModality.focusVisible===false,pointerModality);
+ // Keep the later viewport/contrast screenshot grid independent of
+ // scroll introduced by the keyboard/pointer fixture.
+ await cdp.js("window.scrollTo({top:0,left:0,behavior:'instant'})");
+ await wait(180);
  // Inspect the ACTUAL Chromium accessibility tree, not DOM attributes alone.
  // This baseline does not substitute for named screen-reader/OS AT testing.
  await cdp.send("Accessibility.enable");

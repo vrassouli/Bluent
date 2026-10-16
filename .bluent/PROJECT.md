@@ -181,3 +181,5 @@ positive tests, 8 Node PNG tests. Final GitHub matrix pending exact SHA.
   Three fail-closed contract tests cover both levels, overflow,
   and responsive padding. Native Windows OS/AT and visual signoff
   still separately pending; no public library or stable changes.
+
+- 2026-10-16 #425 real Button keyboard/pointer modality QA: correct Penpot page41 native annotation e775e67c-d9da-804b-8008-cccf3d59fdca; Tab to native Button, focus-visible, genuine Enter single callback, pointer-mode transition via TextField label, hit-tested pointer click, viewport scroll reset. Initial red run 42/49 exposed two test-harness assumptions; corrected without weakening application checks. Live Chrome/Server 51/51, Edge/WASM 51/51; 36 Python source tests PASS. Other two modes exact-HEAD CI pending. Design parity/native AT remains OPEN; no public product API change or stable merge.

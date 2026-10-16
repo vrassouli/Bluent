@@ -187,6 +187,36 @@ class V3QualityContractTests(unittest.TestCase):
             check_compatibility_host_theme(
                 original.replace("padding: min(2rem, 4vw)","padding: 2rem"))
 
+    def test_native_enter_button_callback_cannot_be_skipped(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace(
+            "Enter invokes actual Bluent Button callback exactly once",
+            "fake Enter success")
+        with self.assertRaisesRegex(QualityContractError,"keyboard/pointer modality"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_pointer_does_not_inherit_keyboard_focus_visible(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace(
+            "real pointer does not masquerade as keyboard Button focus-visible",
+            "fake pointer modality")
+        with self.assertRaisesRegex(QualityContractError,"keyboard/pointer modality"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_pointer_hit_validation_cannot_be_removed(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace("document.elementFromPoint","document.querySelector")
+        with self.assertRaisesRegex(QualityContractError,"keyboard/pointer modality"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_after_keyboard_pointer_screenshot_must_reset_scroll(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace(
+            "window.scrollTo({top:0,left:0,behavior:'instant'})",
+            "window.scrollTo(0,999)")
+        with self.assertRaisesRegex(QualityContractError,"keyboard/pointer modality"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
     def test_no_false_accessibility_claim(self):
         with self.assertRaisesRegex(QualityContractError,"certification"):
             check(self.quality,self.document.replace("Not an accessibility certification.",""))

@@ -90,3 +90,20 @@ then restores the prior fontSize. Initial Chrome/Server 400% failed
 to min(2rem,4vw), final Chrome/Server 43/43 with scrollWidth305 at
 both scales. This is NOT native browser zoom, Windows Text Size,
 OS Contrast Themes, named screen-reader or per-component WCAG proof.
+
+## Keyboard/pointer modality and screenshot isolation (#425)
+
+The real Chromium test in scripts/quality/probe_v3_compatibility_runtime.mjs
+must prove Tab-to-native-Button, focus-visible keyboard modality,
+genuine Enter triggers exactly one Blazor callback, and *actual
+pointer modality* by clicking TextField label before a real Button
+click. Do not fail merely because clicking an already keyboard-focused
+Button retains :focus-visible; that is valid browser behavior.
+Hit-test pointer targets using document.elementFromPoint.
+Reset page scroll before 320/768/1280 screenshot/contrast checks.
+Negative controls protect the assertions in
+scripts/quality/test_v3_quality_gate_contract.py.
+Penpot QA native note e775e67c-d9da-804b-8008-cccf3d59fdca
+in canonical page 41; local Dev01 Chrome/Server and Edge/WASM
+each 51/51. Still pending independent 4-way CI and native
+Contrast Themes/AT, visual ring and TextField underline approval.
