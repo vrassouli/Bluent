@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "issue": 421,
+  "status": "pilot_incomplete",
+  "designSource": {
+    "platform": "Penpot",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "pageId": "e775e67c-d9da-804b-8008-cc7c2dd7ecf7",
+    "boards": [
+      "e775e67c-d9da-804b-8008-cc7c2dec1d15",
+      "e775e67c-d9da-804b-8008-cc7c2e40c7d2"
+    ],
+    "approval": "pending"
+  },
+  "note": "Four pilot families. Actual CDP runtime covered Button/Icon only; Label/Link have compiled/source samples only. Not exhaustive.",
+  "families": [
+    {
+      "id": "button",
+      "family": "Button",
+      "existingDemoRoute": "/components/buttons",
+      "labRoute": "/component-lab",
+      "scenarioId": "button-actions",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text",
+        "Appearance",
+        "OnClick",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: representative lab smoke 9/9 (2026-10-16)"
+      ],
+      "remaining": "All public appearances, sizes, shapes, icon and compound, toggle/binding, Href, loading, RTL, light/dark, high-contrast, keyboard focus, browser modes and source coverage."
+    },
+    {
+      "id": "icon",
+      "family": "Icon",
+      "existingDemoRoute": "/components/icons",
+      "labRoute": "/component-lab",
+      "scenarioId": "icon-basic",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: representative lab smoke 9/9 (2026-10-16)"
+      ],
+      "remaining": "All available icon variants, external/custom SVG/image, sizes and colors, RTL and accessibility labeling."
+    },
+    {
+      "id": "label",
+      "family": "Label",
+      "existingDemoRoute": "/components/labels",
+      "labRoute": "/component-lab",
+      "scenarioId": "label-basic",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [],
+      "remaining": "Form association and requirement/error/disabled semantics across input components and locales."
+    },
+    {
+      "id": "link",
+      "family": "Link",
+      "existingDemoRoute": "/components/links",
+      "labRoute": "/component-lab",
+      "scenarioId": "link-basic",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text",
+        "Href"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [],
+      "remaining": "Disabled click suppression, external target/rel, security/accessibility, keyboard semantics and RTL."
+    }
+  ]
+}

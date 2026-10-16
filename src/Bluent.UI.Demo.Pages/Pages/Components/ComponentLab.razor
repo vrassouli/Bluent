@@ -1,0 +1,184 @@
+@page "/component-lab"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<PageTitle>Component Lab · Bluent v3</PageTitle>
+
+<main class="component-lab">
+    <header class="lab-heading">
+        <div>
+            <span class="lab-eyebrow">Bluent v3 · Work in progress</span>
+            <h1>Component Lab</h1>
+            <p>Search existing Bluent families, experiment with live controls, and track evidence before a component is accepted for v3.</p>
+        </div>
+        <span class="lab-state">Pilot · not v3 acceptance</span>
+    </header>
+
+    <section class="lab-filter" aria-label="Component catalog search">
+        <label for="lab-search">Search components</label>
+        <input id="lab-search" type="search" @bind="_search" @bind:event="oninput"
+               placeholder="Button, Icon, Label..." autocomplete="off" />
+        <p role="status">@Filtered.Count available catalog entries. This is a pilot index, not the exhaustive 66-component coverage ledger.</p>
+        <div class="lab-catalog" aria-label="Pilot family choices">
+            @foreach (var family in Filtered)
+            {
+                <button type="button" class="lab-family @(_selected == family.Id ? "selected" : "")"
+                        aria-pressed="@(_selected == family.Id)"
+                        @onclick="() => Select(family.Id)">
+                    <span>@family.Title</span>
+                    <small>@family.Coverage</small>
+                </button>
+            }
+        </div>
+        @if (Filtered.Count == 0)
+        {
+            <p role="status">No matching family in this pilot catalog.</p>
+        }
+    </section>
+
+    <section class="lab-controls" aria-label="Live preview controls">
+        <div>
+            <label for="lab-direction">Direction</label>
+            <select id="lab-direction" @bind="_direction">
+                <option value="ltr">Left to right</option>
+                <option value="rtl">Right to left</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-viewport">Preview width</label>
+            <select id="lab-viewport" @bind="_viewport">
+                <option value="wide">Fluid</option>
+                <option value="narrow">Mobile (320px)</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-density">Spacing density</label>
+            <select id="lab-density" @bind="_density">
+                <option value="normal">Default</option>
+                <option value="compact">Compact</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-contrast">Canvas</label>
+            <select id="lab-contrast" @bind="_contrast">
+                <option value="light">Light backdrop</option>
+                <option value="dark">Dark backdrop</option>
+            </select>
+        </div>
+        <p class="lab-controls-note">Canvas changes affect only this sample backdrop; they do not switch Bluent's global theme or certify its token mapping.</p>
+    </section>
+
+    <section class="lab-stage" aria-label="Component live scenario">
+        <div class="lab-stage-heading">
+            <div>
+                <h2>@Selected.Title · @Selected.Scenario</h2>
+                <p>@Selected.Description</p>
+            </div>
+            <a href="@Selected.Href">Full existing demo <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="lab-canvas @(_viewport == "narrow" ? "narrow" : "") @(_density == "compact" ? "compact" : "")"
+             data-lab-canvas="@_contrast" dir="@_direction">
+            @if (_selected == "button")
+            {
+                <div class="lab-examples">
+                    <Button Text="Continue" Appearance="ButtonAppearance.Primary"
+                            OnClick="() => _clickCount++" />
+                    <Button Text="Secondary" Appearance="ButtonAppearance.Outline"
+                            OnClick="() => _clickCount++" />
+                    <Button Text="Unavailable" disabled />
+                </div>
+                <p role="status">Completed clicks: @_clickCount</p>
+            }
+            else if (_selected == "icon")
+            {
+                <div class="lab-examples">
+                    <Icon Value="@FluentIcons.Settings" />
+                    <Icon Value="@FluentIcons.Save" />
+                    <Icon Value="@FluentIcons.Search" />
+                </div>
+            }
+            else if (_selected == "label")
+            {
+                <div class="lab-examples">
+                    <Label Text="Customer name" />
+                </div>
+            }
+            else if (_selected == "link")
+            {
+                <div class="lab-examples">
+                    <Link Text="Read documentation" Href="getting-started" />
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="lab-source" aria-label="Razor example and evidence">
+        <div class="lab-source-heading">
+            <h2>Razor example</h2>
+            <button type="button" @onclick="CopySourceAsync">Copy source</button>
+        </div>
+        <pre tabindex="0"><code>@Selected.Razor</code></pre>
+        <p aria-live="polite">@_copyStatus</p>
+        <h3>Coverage classification</h3>
+        <p>@Selected.Coverage. This pilot checks a representative live scenario; it does not claim complete public API, themes, accessibility or render-mode coverage.</p>
+        <p>Existing API reference: <a href="@Selected.Href">@Selected.Title demo</a>. Source-owned matrix: <code>docs/v3/quality/COMPONENT-LAB-COVERAGE.json</code>.</p>
+    </section>
+</main>
+
+@code {
+    private sealed record Family(string Id, string Title, string Href, string Scenario,
+        string Description, string Razor, string Coverage);
+
+    private static readonly Family[] Families =
+    [
+        new("button", "Button", "components/buttons", "Actions and disabled state",
+            "The current public Button in a keyboard-operable action group.",
+            "<Button Text=\"Continue\" Appearance=\"ButtonAppearance.Primary\" />",
+            "Representative runnable scenario only"),
+        new("icon", "Icon", "components/icons", "Icons",
+            "Strongly typed existing Fluent icons.",
+            "<Icon Value=\"@FluentIcons.Settings\" />",
+            "Representative runnable scenario only"),
+        new("label", "Label", "components/labels", "Accessible label",
+            "The existing Label component, not the final v3 form-field accessibility audit.",
+            "<Label Text=\"Customer name\" />",
+            "Representative runnable scenario only"),
+        new("link", "Link", "components/links", "Navigation",
+            "The current public Link component in a normal navigation context.",
+            "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
+            "Representative runnable scenario only")
+    ];
+
+    private string _search = "";
+    private string _selected = "button";
+    private string _direction = "ltr";
+    private string _viewport = "wide";
+    private string _density = "normal";
+    private string _contrast = "light";
+    private string _copyStatus = "";
+    private int _clickCount;
+
+    private List<Family> Filtered => Families.Where(x =>
+        x.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) ||
+        x.Scenario.Contains(_search, StringComparison.OrdinalIgnoreCase)).ToList();
+    private Family Selected => Families.First(x => x.Id == _selected);
+    private void Select(string id)
+    {
+        _selected = id;
+        _copyStatus = "";
+    }
+
+    private async Task CopySourceAsync()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("navigator.clipboard.writeText", Selected.Razor);
+            _copyStatus = "Razor source copied.";
+        }
+        catch (JSException)
+        {
+            _copyStatus = "Clipboard unavailable. Select and copy the source from the code block.";
+        }
+    }
+}

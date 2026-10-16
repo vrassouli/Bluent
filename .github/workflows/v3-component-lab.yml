@@ -1,0 +1,45 @@
+name: v3 Component Lab Pilot
+
+on:
+  push:
+    branches:
+      - v3/issue-421-component-lab
+    paths:
+      - ".github/workflows/v3-component-lab.yml"
+      - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/probe_v3_component_lab.mjs"
+      - "scripts/quality/run_v3_component_lab.ps1"
+      - "src/Bluent.UI.Demo*/**"
+      - "src/Bluent.UI/**"
+      - "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
+  pull_request:
+    branches:
+      - bluent-v3
+    paths:
+      - ".github/workflows/v3-component-lab.yml"
+      - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/probe_v3_component_lab.mjs"
+      - "scripts/quality/run_v3_component_lab.ps1"
+      - "src/Bluent.UI.Demo*/**"
+      - "src/Bluent.UI/**"
+      - "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
+
+jobs:
+  chrome-wasm-pilot:
+    name: Real Component Lab / Chrome / WebAssembly
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore current application and source API
+        run: dotnet restore Bluent.sln --verbosity quiet
+      - name: Validate honest source and coverage mapping
+        run: python scripts/quality/check_v3_component_lab.py
+      - name: Build current interactive WebAssembly app
+        run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore -v quiet
+      - name: Run owned real Chrome / WASM scenario
+        shell: pwsh
+        run: ./scripts/quality/run_v3_component_lab.ps1
