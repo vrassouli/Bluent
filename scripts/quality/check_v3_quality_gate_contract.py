@@ -81,6 +81,14 @@ def check_browser_contract(workflow:str, probe:str)->None:
                   "AX tree maps live counter DOM node to status role",
                   "rtl-emulated-contrast.png"):
         need(token in probe,"missing actual browser accessibility-tree evidence: "+token)
+    for term in ('node --test scripts/quality/test_v3_png_evidence.mjs',
+                 'Exercise real Blazor interactions and capture screenshot evidence'):
+        need(term in workflow,"browser PNG evidence integrity contract is required: "+term)
+    for term in ('inspectV3Png(bytes,{width,height:820})',
+                 'inspectV3Png(contrastBytes,{width:1280,height:820})',
+                 'imageEvidence.push','uniqueSampleColors',
+                 '7 distinct screenshots captured for intended scenarios'):
+        need(term in probe,"browser PNG evidence integrity contract is required: "+term)
     # The runner startup can fail transiently before ANY Blazor/browser
     # assertion. Retry only creating the actual browser DevTools connection;
     # never retry or suppress any app/AX/keyboard/visual assertion.
@@ -90,7 +98,7 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  'if(!target)throw Error',
                  "if(errors.length)process.exitCode=1",
                  "candidate.kill()",
-                 "browserStartupAttempts,checks,errors",
+                 "browserStartupAttempts,imageEvidence,checks,errors",
                  "candidate.exitCode!==null&&candidate.exitCode!==0",
                  "cleanupOwnedBrowserProcesses(userData)",
                  "cleanupOwnedBrowserProcesses(work)",

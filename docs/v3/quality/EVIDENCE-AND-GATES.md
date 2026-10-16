@@ -78,3 +78,55 @@ Local scope on initial #425 branch: 20 .NET solution tests passed, 4 rendered SS
 
 
 2026-10-15 GitHub CI evidence on #425 PR #549 SHA 45b1a3006c9f37b1adb4881ce87d619b1aa36240: **Chrome/Server, Chrome/WASM, Edge/Server and Edge/WASM all PASS in Windows GitHub Actions**, plus Release build/test/pack, evidence policy, docs and Skills PASS. The new board exists as an editable design but does not waive native screen-reader/Windows Contrast Themes, reviewed screenshot-diff baseline or component-specific exhaustive coverage. New docs-only commit will rerun all these gates.
+
+## 2026-10-16 — Screenshot integrity gate, not visual approval
+
+**Editable design evidence:** canonical Bluent v3 Design System Penpot,
+quality page 41 (ed5216bd-3d5b-8015-8008-cb25572ebb61), board
+ed5216bd-3d5b-8015-8008-cb2557357776. Its browser lane now explicitly
+calls for checking image dimensions/nonblank pixels and separately
+requires human visual approval; the original source board is DRAFT.
+
+The four real-browser jobs now exercise the dependency-free PNG byte
+validator scripts/quality/inspect_v3_png_evidence.mjs on EACH screenshot
+produced by mounted Blazor:
+- Full PNG signature, chunk boundaries and CRCs, IHDR, IEND, inflate
+  and scanline filter decoding must all be valid.
+- Every screenshot must have exactly the expected viewport dimensions,
+  8-bit RGB or RGBA data and nonuniform reconstructed pixel colors.
+- Six 320/768/1280 Light/Dark RTL/LTR scenarios plus a separate
+  browser-emulated forced-colors/reduced-motion scenario are required.
+  The seven SHA-256 digests must not all repeat the same image.
+- Per-run evidence JSON now carries seven image records with scenario,
+  dimensions, byte length, SHA-256, pixel sample count, and distinct
+  sampled colors. Invalid, empty, truncated or uniform screenshots
+  fail the actual browser job, not merely a source-check.
+- Eight independent Node fixture tests guard success and intentional
+  failures from wrong dimensions, CRC drift, invalid rows and truncation.
+  The existing source-quality policy also rejects bypassing PNG checks,
+  deleting image evidence or skipping negative controls in CI.
+
+**Classification:** valid-nonblank-png-only-not-approved-visual-parity
+means real image artifact integrity, NOT alignment to approved Penpot
+pixels, correct typography/color/RTL, native Windows Contrast Themes,
+or named assistive technology behavior. No golden baseline has yet been
+approved by a human reviewer. Screenshot-diff acceptance and real AT
+remain OPEN gates. No changes to stable v2/Dev or NuGet publishing.
+
+**Dev01 four actual rendered browser runs with the new PNG integrity
+policy:** Chrome/InteractiveServer **23/23**, Edge/InteractiveServer
+**23/23**, Chrome/WebAssembly **23/23** and Edge/WebAssembly **23/23**:
+**92/92 real browser assertions, zero errors**. All **28 real PNGs**
+passed format/CRC/scanline, viewport and nonblank checks; seven
+distinct SHA-256 hashes *within each job*. Four JSON reports were
+read independently: each has 7 image evidence records, minimum
+32 distinct sampled pixel colors per file, and the final
+test-scoped browser cleanup reported **remaining=0** (Chrome/Server
+killed 4, Edge/Server killed 4, Chrome/WASM killed 4, Edge/WASM killed
+6). Correct tested viewports: 320/768/1280 x 820.
+No visual Golden baseline or native OS/AT result has been approved.
+**These are local Dev01 results only** until the exact new PR head
+GitHub browser matrix finishes.
+
+Exact local real Blazor and GitHub CI results must be recorded against
+the task-branch SHA; an image fixture test alone never proves runtime.

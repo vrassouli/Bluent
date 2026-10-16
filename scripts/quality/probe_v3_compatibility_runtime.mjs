@@ -5,6 +5,7 @@ import {mkdtempSync,existsSync,readFileSync,writeFileSync,mkdirSync,rmSync} from
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
+import {inspectV3Png} from "./inspect_v3_png_evidence.mjs";
 const root=resolve(fileURLToPath(new URL("../../",import.meta.url)));
 const mode=process.env.BLUENT_V3_RENDER_MODE||"Server";
 if(!["Server","WASM"].includes(mode))throw Error("Expected Server or WASM");
@@ -16,7 +17,7 @@ const dest=resolve(process.env.BLUENT_V3_EVIDENCE_DIR||join(root,"artifacts/v3-b
 mkdirSync(dest,{recursive:true});
 const host="http://127.0.0.1:"+(mode==="Server"?"5268":"5269");
 const url=host+"/compatibility/"+(mode==="Server"?"server":"webassembly");
-let app,browser,cdp;const checks=[],errors=[],browserStartupAttempts=[],cleanupAttempts=[];
+let app,browser,cdp;const checks=[],errors=[],browserStartupAttempts=[],cleanupAttempts=[],imageEvidence=[];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function assert(label,value,notes){checks.push({label,pass:!!value,notes});if(!value)errors.push(label+" "+JSON.stringify(notes));}
 function spawnTracked(cmd,args,cwd=root,env=process.env) {
@@ -196,17 +197,35 @@ try {
   assert("responsive "+width+" "+theme+" "+direction,result.w===width&&result.main&&result.heading&&result.dir===direction&&result.theme===theme,result);
   await wait(150);
   const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
-  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+"-"+width+"-"+theme+"-"+direction+".png"),Buffer.from(shot.data,"base64"));
+  const filename=mode.toLowerCase()+"-"+browserName+"-"+width+"-"+theme+"-"+direction+".png";
+  const bytes=Buffer.from(shot.data,"base64");
+  writeFileSync(join(dest,filename),bytes);
+  // Validate actual PNG pixels, not just a screenshot name or CDP success.
+  // This is artifact integrity only; not human accepted Penpot/pixel parity.
+  const inspection=inspectV3Png(bytes,{width,height:820});
+  imageEvidence.push({filename,theme,direction,...inspection});
+  assert("PNG evidence integrity "+width+" "+theme+" "+direction,
+    inspection.uniqueSampleColors>=4,inspection);
  }
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-reduced-motion",value:"reduce"}]});
  const media=await cdp.js("(()=>({forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches}))()");
  assert("forced-colors/reduced-motion emulation",media.forced&&media.reduced,media);
  const contrastShot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
- writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+"-rtl-emulated-contrast.png"),Buffer.from(contrastShot.data,"base64"));
+ const contrastFilename=mode.toLowerCase()+"-"+browserName+"-rtl-emulated-contrast.png";
+ const contrastBytes=Buffer.from(contrastShot.data,"base64");
+ writeFileSync(join(dest,contrastFilename),contrastBytes);
+ const contrastEvidence=inspectV3Png(contrastBytes,{width:1280,height:820});
+ imageEvidence.push({filename:contrastFilename,theme:"dark",direction:"rtl",
+   emulatedForcedColors:true,emulatedReducedMotion:true,...contrastEvidence});
+ assert("browser-emulated contrast PNG evidence integrity",contrastEvidence.uniqueSampleColors>=4,contrastEvidence);
+ assert("7 distinct screenshots captured for intended scenarios",
+   imageEvidence.length===7&&new Set(imageEvidence.map(x=>x.sha256)).size===7,
+   {count:imageEvidence.length,unique:new Set(imageEvidence.map(x=>x.sha256)).size});
+
 } catch(e){errors.push(String(e.stack||e));}
 finally{
  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),
-  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",browserStartupAttempts,checks,errors},null,2));
+  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",browserStartupAttempts,imageEvidence,checks,errors},null,2));
  cdp?.close();
  for(const p of [browser,app])if(p&&p.exitCode===null)p.kill();
  cleanupAttempts.push({phase:"final",...cleanupOwnedBrowserProcesses(work)});
@@ -215,7 +234,7 @@ finally{
  // Write again to preserve actual cleanup evidence, not just test assertions.
  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),
   JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",
-   browserStartupAttempts,cleanupAttempts,checks,errors},null,2));
+   browserStartupAttempts,cleanupAttempts,imageEvidence,checks,errors},null,2));
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:300});}catch{}
  console.log("Blazor "+mode+" "+browserName+": "+checks.filter(x=>x.pass).length+"/"+checks.length+" checks, "+errors.length+" errors");
  for(const error of errors)console.error("FAIL",error);

@@ -119,3 +119,21 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 
 
 2026-10-15 #425 latest verified Dev01 AFTER Windows detached-Chrome startup and owned-browser cleanup fix: four real Chrome/Edge x Server/WASM combinations 15/15 each, 60/60 total. JSON evidence reports 1 connected launch per case and successful final cleanup remaining=0; independent process inventory shows ZERO stray #425 QA Chrome/Edge processes. 22 fail-closed Python contract tests PASS. Latest GitHub CI still requires exact-head verification; historical Chrome/WASM failure not waived. Native Windows Contrast/AT and approved Penpot design parity pending; #425 In progress PR Draft, v3-only.
+
+2026-10-16 #425 Penpot quality page41 has a DRAFT note distinguishing
+PNG byte integrity from human visual acceptance. Added the real-browser
+PNG validator with CRC, viewport size, scanline decode, nonblank color
+sampling and SHA256 evidence; 8 independent Node tests and fail-closed
+Python contract checks. 7 actual PNG artifacts per browser job are now
+validated and stored in JSON. Does not authorize visual signoff or native
+OS Contrast Theme/AT conformance. #425 remains In progress/PR Draft.
+
+2026-10-16 #425 full Dev01 real Chrome/Edge x InteractiveServer/WASM
+reruns on new PNG evidence integrity gate: 23/23 per job = 92/92,
+28 captured PNG images, four JSON reports independently inspected,
+seven distinct SHA-256 per job, min 32 rendered sampled colors,
+zero assertion/cleanup errors and zero orphan browser processes.
+Native Penpot page41 board now 45 editable shapes; quality evidence
+label explicitly separates valid image artifacts from design approval.
+Exact GitHub CI HEAD and native Windows screen-reader/Contrast Themes
+remain separate required gates.

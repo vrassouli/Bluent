@@ -98,7 +98,7 @@ class V3QualityContractTests(unittest.TestCase):
         original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
         with self.assertRaisesRegex(QualityContractError,"startup retry"):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
-                                   original.replace('browserStartupAttempts,checks,errors','checks,errors'))
+                                   original.replace('browserStartupAttempts,imageEvidence,checks,errors','checks,errors'))
 
     def test_windows_chrome_zero_exit_is_not_treated_as_browser_failure(self):
         original=BROWSER_PROBE.read_text(encoding="utf-8-sig")

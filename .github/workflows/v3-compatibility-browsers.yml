@@ -33,6 +33,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - name: Verify PNG integrity policy with positive and negative image fixtures
+        run: node --test scripts/quality/test_v3_png_evidence.mjs
       - name: Restore solution
         run: dotnet restore Bluent.sln --nologo
       - name: Select real installed browser

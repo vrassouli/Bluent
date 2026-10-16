@@ -28,3 +28,21 @@ See docs/v3/quality/EVIDENCE-AND-GATES.md for detailed evidence levels and CI co
 
 
 2026-10-15 exact GitHub CI for #425 PR #549 SHA 45b1a300 passed all 4 Windows browser jobs and all other quality/docs/Skills jobs; separate real Penpot #425 editable source board page ed5216bd-3d5b-8015-8008-cb25572ebb61 board ed5216bd-3d5b-8015-8008-cb2557357776 exported and inspected. DRAFT board is not reviewer approval, and screenshot capture is not reviewed baseline or screen reader conformance. Pending new PR HEAD CI and genuine acceptance.
+
+2026-10-16 #425: native quality design Penpot page41, board
+ed5216bd-3d5b-8015-8008-cb2557357776 now records image artifact
+integrity as a separate gate from reviewer-approved pixel parity.
+Real Blazor browser harness uses inspect_v3_png_evidence.mjs and 8
+Node negative/positive fixtures to require 7 valid PNG images per job,
+exact viewport dimensions, nonblank pixel variation, distinct digests,
+and JSON evidence including SHA256. Do not call this human-accepted
+visual regression, real Windows OS Contrast Theme, or screen-reader
+certification. Issue/PR remain In progress/Draft until signoff.
+
+2026-10-16 #425 Dev01 confirmed the NEW PNG artifact integrity policy
+on actual Blazor Chrome and Edge across Server and WebAssembly:
+23/23 each (92/92 total), 28 real PNGs with valid dimensions and
+nonblank pixel variation, seven unique image SHA256s per job, four
+JSON reports, test-owned cleanup remaining=0. This is runtime +
+image artifact integrity, **not** approved design pixel diff or
+native OS/AT. Read exact head CI independently.
