@@ -65,6 +65,19 @@ try {
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas [role=status]')?.textContent?.includes('1')"));
  check('actual Blazor OnClick event increments visible count',clicked);
+ // Existing-API Button variant explorer: prove real Appearance, Size and
+ // Shape parameter rebinding, not merely select state in a static mock.
+ const variantDefaults=await js("(()=>{const ids=['lab-button-appearance','lab-button-size','lab-button-shape'];return ids.map(id=>document.getElementById(id)?.value)})()");
+ check('live Button explorer uses source-backed default enum values',
+  JSON.stringify(variantDefaults)===JSON.stringify(['Outline','Medium','Rounded']),variantDefaults);
+ await js("(()=>{for(const [id,value] of [['lab-button-appearance','Danger'],['lab-button-size','Large'],['lab-button-shape','Square']]){const x=document.getElementById(id);x.value=value;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
+ const variantUpdated=await poll(()=>js("(()=>{const btn=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent.includes('Secondary'));return !!btn&&['danger','large','square'].every(x=>btn.classList.contains(x))})()"),14000);
+ check('real Bluent Button responds to dynamic Danger/Large/Square parameters',variantUpdated);
+ const variantSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('generated Razor example matches all three selected Button values',
+   variantSource?.includes('ButtonAppearance.Danger')&&
+   variantSource?.includes('ButtonSize.Large')&&variantSource?.includes('ButtonShape.Square'),variantSource);
+
  await js("(()=>{const el=document.querySelector('#lab-search');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(el,'Icon');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filtered=await poll(()=>js("document.querySelectorAll('button.lab-family').length===1 && document.querySelector('button.lab-family')?.textContent.includes('Icon')"));
  check('live Blazor search filters to matching Icon family',filtered);

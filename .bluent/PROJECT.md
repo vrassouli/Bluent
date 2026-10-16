@@ -153,3 +153,14 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   verified or added to accepted CI/coverage. Detailed evidence:
   docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md.
   Existing NU1903 advisories not hidden.
+- 2026-10-16 #421 existing-API Button explorer: Penpot page42
+  desktop/mobile draft source shapes already cover the selector concept.
+  Actual Blazor Appearance/Size/Shape selectors and code example now
+  change dynamically. Dev01 Chrome/WASM 20/20 and Edge/WASM 20/20,
+  including queue and mobile checks; browser cleanup remaining 0.
+  The four families are PILOTS only; 62 others remain queued.
+  SSR Production Published still HTTP200 without interactivity:
+  window.Blazor undefined, app.css 404. Do not claim Server passed.
+  Existing NU1903 10.0.7 high-severity advisories unsuppressed.
+  Release build 0 errors/2 warnings, -warnaserror failed correctly.
+  PR #551 Draft, issue #421 In progress, Dev stable untouched.

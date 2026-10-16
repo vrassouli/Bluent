@@ -53,3 +53,5 @@ GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4.
 They are not suppressed; remediation requires independent testing.
 
 No stable Dev merge, v3 release or NuGet publish was authorized.
+
+After Button explorer: Real Chrome and Edge WASM each passed 20/20. The independent SSR Production Published route again served HTTP 200 but remained prerendered-only; window.Blazor undefined, app.css 404, no interactive callback. Server has ZERO acceptance evidence. NU1903 advisories remain visible.

@@ -40,7 +40,7 @@ def check() -> int:
         assert modes[0].startswith("Chrome/WebAssembly Dev01:")
         assert modes[1].startswith("Edge/WebAssembly Dev01:")
         for mode in modes:
-            assert "shared browser smoke 17/17" in mode
+            assert "shared browser smoke 20/20" in mode
             if entry["id"] in ("button", "icon"):
                 assert "interactive controls observed" in mode
             else:
@@ -52,6 +52,19 @@ def check() -> int:
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
         assert f'new("{entry["id"]}", "{entry["family"]}"' in source
         assert entry["scenarioId"] and entry["propertiesDemonstrated"] and entry["remaining"]
+    # Real existing-API Button enum selectors and synchronized Razor source.
+    for token in ('id="lab-button-appearance"', 'id="lab-button-size"',
+                  'id="lab-button-shape"', 'Enum.GetValues<ButtonAppearance>()',
+                  'Enum.GetValues<ButtonSize>()', 'Enum.GetValues<ButtonShape>()',
+                  'Appearance="@_buttonAppearance"', 'Size="@_buttonSize"',
+                  'Shape="@_buttonShape"', 'ActiveRazor'):
+        assert token in source, f"Button runtime explorer/source missing: {token}"
+    assert all(x in data["families"][0]["propertiesDemonstrated"]
+               for x in ("Appearance", "Size", "Shape"))
+    for proof in ("live Button explorer uses source-backed default enum values",
+                  "real Bluent Button responds to dynamic Danger/Large/Square parameters",
+                  "generated Razor example matches all three selected Button values"):
+        assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
     generated=(ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabFamilyQueue.g.cs")
     assert generated.is_file() and generated.read_text(encoding="utf-8-sig")==generated_ui_queue()
     assert "#nullable enable" in generated.read_text(encoding="utf-8")

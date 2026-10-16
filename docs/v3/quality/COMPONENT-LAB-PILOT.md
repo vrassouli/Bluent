@@ -124,3 +124,30 @@ Build after generator fix: Demo.Pages Debug 0 errors/warnings;
 full Release solution 0 errors with two existing NU1903 warnings
 for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7.
 Do not suppress or call those advisories clean.
+
+## 2026-10-16: Button actual public enum explorer (DRAFT)
+
+The original source-owned Penpot page42 desktop/mobile boards contain
+editable Button existing-API variant explorer notes. The live Blazor
+sample now binds Appearance, Size and Shape of the existing Button and
+updates the copied Razor example from exactly the same selected values.
+
+Real Dev01 Chrome/WebAssembly 20/20 and Edge/WebAssembly 20/20 passed,
+including initial Outline/Medium/Rounded, changing the Button to
+Danger/Large/Square, confirming real CSS classes and updated Razor,
+all four pilot specimens, the 66-family queue and mobile reflow.
+Owned browser cleanup returned remaining=0 in both runs.
+Only four of 66 families have representative pilots; no family
+claims complete public API or approved Fluent 2 design parity.
+
+Production-published SSR mode independently returned HTTP 200 for the
+Component Lab page but failed interactive hydration: data-lab-interactive
+remained false, window.Blazor was undefined, and app.css was HTTP 404.
+SSR is not accepted. This is a separate host/bootstrap issue and not
+proof that the actual shared Button code failed.
+
+The existing SSR dependency Microsoft.AspNetCore.Components.WebAssembly.Server
+10.0.7 has two high-severity NU1903 advisories:
+GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4.
+Release build succeeded with 2 warnings; -warnaserror fails and the
+advisories are NOT suppressed or counted as zero warnings.

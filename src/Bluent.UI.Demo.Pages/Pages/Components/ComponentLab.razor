@@ -84,10 +84,41 @@
                 <div class="lab-examples">
                     <Button Text="Continue" Appearance="ButtonAppearance.Primary"
                             OnClick="() => _clickCount++" />
-                    <Button Text="Secondary" Appearance="ButtonAppearance.Outline"
+                    <Button Text="Secondary" Appearance="@_buttonAppearance"
+                            Size="@_buttonSize" Shape="@_buttonShape"
                             OnClick="() => _clickCount++" />
                     <Button Text="Unavailable" disabled />
                 </div>
+                <fieldset class="lab-button-variants" aria-label="Live Button variant explorer">
+                    <legend>Button public API variants · exploratory, not approved v3 parity</legend>
+                    <div>
+                        <label for="lab-button-appearance">Appearance</label>
+                        <select id="lab-button-appearance" @bind="_buttonAppearance">
+                            @foreach (var appearance in Enum.GetValues<ButtonAppearance>())
+                            {
+                                <option value="@appearance">@appearance</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lab-button-size">Size</label>
+                        <select id="lab-button-size" @bind="_buttonSize">
+                            @foreach (var size in Enum.GetValues<ButtonSize>())
+                            {
+                                <option value="@size">@size</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lab-button-shape">Shape</label>
+                        <select id="lab-button-shape" @bind="_buttonShape">
+                            @foreach (var shape in Enum.GetValues<ButtonShape>())
+                            {
+                                <option value="@shape">@shape</option>
+                            }
+                        </select>
+                    </div>
+                </fieldset>
                 <p role="status">Completed clicks: @_clickCount</p>
             }
             else if (_selected == "icon")
@@ -118,7 +149,7 @@
             <h2>Razor example</h2>
             <button type="button" @onclick="CopySourceAsync">Copy source</button>
         </div>
-        <pre tabindex="0"><code>@Selected.Razor</code></pre>
+        <pre tabindex="0"><code>@ActiveRazor</code></pre>
         <p aria-live="polite">@_copyStatus</p>
         <h3>Coverage classification</h3>
         <p>@Selected.Coverage. This pilot checks a representative live scenario; it does not claim complete public API, themes, accessibility or render-mode coverage.</p>
@@ -199,6 +230,10 @@
             item.Issue.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 .Contains(_queueSearch, StringComparison.OrdinalIgnoreCase)).ToList();
 
+    private ButtonAppearance _buttonAppearance = ButtonAppearance.Outline;
+    private ButtonSize _buttonSize = ButtonSize.Medium;
+    private ButtonShape _buttonShape = ButtonShape.Rounded;
+
     private string _search = "";
     private string _selected = "button";
     private string _direction = "ltr";
@@ -212,6 +247,9 @@
         x.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) ||
         x.Scenario.Contains(_search, StringComparison.OrdinalIgnoreCase)).ToList();
     private Family Selected => Families.First(x => x.Id == _selected);
+    private string ActiveRazor => _selected == "button"
+        ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />"
+        : Selected.Razor;
     private void Select(string id)
     {
         _selected = id;
@@ -222,7 +260,7 @@
     {
         try
         {
-            await JS.InvokeVoidAsync("navigator.clipboard.writeText", Selected.Razor);
+            await JS.InvokeVoidAsync("navigator.clipboard.writeText", ActiveRazor);
             _copyStatus = "Razor source copied.";
         }
         catch (JSException)

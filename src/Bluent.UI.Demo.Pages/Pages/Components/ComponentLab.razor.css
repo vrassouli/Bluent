@@ -42,3 +42,12 @@
 .lab-queue-row :is(a,button):focus-visible { outline:2px solid var(--colorStrokeFocus2,#116bac); outline-offset:2px; }
 @media(max-width:690px) { .lab-queue-row { grid-template-columns:1fr auto; } .lab-queue-row span { grid-column:1 / -1; grid-row:2; } }
 @media(max-width:380px) { .lab-queue-row { grid-template-columns:1fr; } .lab-queue-row span { grid-column:auto;grid-row:auto; } }
+
+
+/* Issue #421: existing Button public-API explorer, not Fluent 2 v3 acceptance. */
+.lab-button-variants { display:flex; align-items:end; gap:.75rem; flex-wrap:wrap; margin-top:1rem; padding:.7rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.45rem; }
+.lab-button-variants legend { font-size:.82rem; padding-inline:.4rem; }
+.lab-button-variants > div { flex:1 1 9rem; min-width:0; }
+.lab-button-variants label { display:block; margin-bottom:.25rem; font-size:.82rem; }
+.lab-button-variants select { width:100%; min-width:0; padding:.4rem .6rem; border-radius:.35rem; border:1px solid var(--colorNeutralStroke1,#8e99aa); background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+.lab-button-variants select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
