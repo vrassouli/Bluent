@@ -356,5 +356,23 @@ class InteropSourceContractTests(unittest.TestCase):
         with self.assertRaisesRegex(InteractionContractError,"has no disposal"):
             audit(texts)
 
+
+    def test_issue420_penpot_native_textbounds_audit_is_fail_closed(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        source=(root/"scripts/quality/penpot_v3_420_textbounds_audit.js").read_text(encoding="utf-8")
+        for key in ("b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+                    "ed5216bd-3d5b-8015-8008-cb247e27efb4",
+                    "ed5216bd-3d5b-8015-8008-cb247e906204",
+                    "penpot.currentFile", "penpotUtils.findShapeById",
+                    "penpotUtils.findShapes", "textBounds.height", "textBounds.width",
+                    "board.children.length!==63", "labels.length!==37",
+                    "clipped.length", "missing.length"):
+            self.assertIn(key,source)
+        self.assertNotIn("resize(",source, "read-only audit must never mutate Penpot")
+        adr=(root/"docs/v3/architecture/ADR-0002-interaction-primitives.md").read_text(encoding="utf-8-sig")
+        self.assertIn("37/37",adr)
+        self.assertIn("30 of 37",adr)
+
 if __name__=="__main__":
     unittest.main()

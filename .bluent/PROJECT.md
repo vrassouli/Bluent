@@ -232,3 +232,5 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   GitHub 9/9 successful checks. Finalized Penpot revision409
   background repair is a separate docs-only follow-up whose
   exact-head CI still requires independent verification.
+
+- 2026-10-16 #420 actual source-owned Penpot board page40 native textBounds follow-up: 63 real editable shapes, 37 text elements, **30 had 1-2px height deficit** despite previous 14/14 placement audit. Enlarged height only (<=3px), re-read **37/37 fitting**, no text beyond board. New repeatable read-only live Penpot audit scripts/quality/penpot_v3_420_textbounds_audit.js. Measurement fix, NOT visual reviewer approval or native AT. #420 In progress; PR #550 Draft; no public API/stable release.

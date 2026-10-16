@@ -146,3 +146,16 @@ from actual async callback-timing, ARIA and cleanup differences.
 Exact task HEAD ee798e95 passed nine GitHub gates; Penpot
 board legibility is NOT maintainer signoff, and native Windows
 Contrast Themes/AT remain open.
+
+## Penpot #420 native text-bound geometry safeguard (2026-10-16)
+
+After any edits to the source-owned page40 board
+ed5216bd-3d5b-8015-8008-cb247e906204, run
+scripts/quality/penpot_v3_420_textbounds_audit.js in the
+**actual connected Bluent v3 Design System Penpot plugin**.
+The older 14/14 board-placement audit overlooked 30 native
+Text boxes 1-2px too short for textBounds; 30 height-only
+changes now give 37/37 fitting read-back (63 native shapes).
+This is read-only repeatable design integrity QA, **not**
+human visual parity or screen-reader certification. Keep
+#420 In progress until acceptance and preserve 2.x isolation.

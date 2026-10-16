@@ -399,3 +399,33 @@ the v3 implementation; consumer migration review should
 consider applications that depended on the old fire-and-forget
 completion timing. This is not native OS/AT, full WCAG,
 Penpot parity or global v3 release acceptance.
+
+## 2026-10-16 live source-owned Penpot #420 native text geometry audit
+
+The actual connected Bluent v3 Design System Penpot source file
+b64f6665-c9ab-80b5-8008-c4ac99d9d000, page
+ed5216bd-3d5b-8015-8008-cb247e27efb4 and editable board
+ed5216bd-3d5b-8015-8008-cb247e906204 were inspected through
+Penpot's plugin API. The board now contains **63 editable shapes
+and 37 native text elements**. Before this change **30 of 37** text
+elements had textBounds heights **1-2px greater than their box height**.
+This is a measurable sizing shortage, NOT by itself proof of visually
+clipped glyphs. The old design export/14-geometry-check gate did not
+examine textBounds, revealing a blind spot.
+
+On the actual active Penpot page, 30 existing Text shapes were
+resized **in height only**, adding at most 3px and retaining their
+x/y, width, font, text, native ownership, component relationships,
+and surrounding section/card geometry. After live re-read, **37/37
+native text boxes fit their textBounds** with tolerance 0.5px,
+zero missing named section/step labels, and no text-box bottom
+beyond the parent board. The repeatable **read-only** source audit
+is scripts/quality/penpot_v3_420_textbounds_audit.js; execute it
+in the connected Penpot plugin, not Node. It fails closed on the
+wrong file, missing board, altered source shape counts or overflow.
+
+No React/Blazor/CSS/JS/public API changes, stable Dev changes,
+or NuGet publication followed. This does **not** mean human-approved
+Penpot/code visual parity, browser/native Windows Contrast Theme,
+NVDA/JAWS/Narrator or complete interaction accessibility. #420
+remains In progress, PR #550 Draft.
