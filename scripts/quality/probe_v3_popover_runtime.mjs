@@ -52,6 +52,25 @@ class CDP {
  async js(expr){const r=await this.send("Runtime.evaluate",{expression:expr,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result?.value;}
  close(){this.ws?.close();}
 }
+// Chromium Accessibility domain is the browser's actual accessibility tree,
+// NOT equivalent to a named OS screen reader or spoken-output certification.
+async function triggerAxEvidence(cdp){
+ const obj=await cdp.send("Runtime.evaluate",{
+  expression:"[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'))"
+ });
+ if(!obj.result?.objectId)throw Error("Popover trigger has no CDP remote object");
+ const tree=await cdp.send("Accessibility.getPartialAXTree",{
+  objectId:obj.result.objectId,fetchRelatives:false
+ });
+ const node=tree.nodes?.find(n=>!n.ignored&&n.role?.value==="button");
+ if(!node)throw Error("Popover trigger absent from browser accessibility tree");
+ const attr=name=>node.properties?.find(x=>x.name===name)?.value;
+ return {role:node.role?.value,name:node.name?.value,
+  focusable:attr("focusable")?.value,focused:attr("focused")?.value??false,
+  expanded:attr("expanded")?.value,
+  controls:attr("controls")?.value,
+  controlsTargetIds:attr("controls")?.relatedNodes?.map(x=>x.idref)||[]};
+}
 try{
  if(!process.env.BLUENT_V3_POPOVER_URL){
   if(mode==="Server"){
@@ -87,6 +106,11 @@ try{
  },"closed click disclosure ARIA initialized by real Blazor",13000);
  result("closed click-trigger Popover advertises aria-expanded=false without dangling aria-controls",
    initialDisclosure.expanded==='false'&&initialDisclosure.controls===null,initialDisclosure);
+ const axInitiallyClosed=await triggerAxEvidence(cdp);
+ result("Chromium AX tree exposes labeled focusable button as collapsed",
+   axInitiallyClosed.role==="button"&&axInitiallyClosed.name==="Popover trigger"&&
+   axInitiallyClosed.focusable===true&&axInitiallyClosed.expanded===false&&
+   axInitiallyClosed.controlsTargetIds.length===0,axInitiallyClosed);
  const opened=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");
@@ -96,6 +120,11 @@ try{
  result("opened Popover announces expanded and references real visible surface",
    openedDisclosure.expanded==='true'&&!!openedDisclosure.surface&&
    openedDisclosure.controls===openedDisclosure.surface,openedDisclosure);
+ const axOpened=await triggerAxEvidence(cdp);
+ result("Chromium AX tree exposes expanded trigger and valid controlled surface",
+   axOpened.role==="button"&&axOpened.expanded===true&&
+   axOpened.controls===openedDisclosure.surface&&
+   axOpened.controlsTargetIds.includes(openedDisclosure.surface),axOpened);
  // Escape is an actual browser keyboard event, not JS-dispatched synthetic
  // KeyboardEvent: it closes only the active surface and restores trigger focus.
  await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.focus();return !!b;})()");
@@ -106,6 +135,11 @@ try{
  const closedDisclosure=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));return {expanded:b?.getAttribute('aria-expanded'),controls:b?.getAttribute('aria-controls')}})()");
  result("Escape synchronizes aria-expanded=false and removes stale aria-controls",
    closedDisclosure.expanded==='false'&&closedDisclosure.controls===null,closedDisclosure);
+ const axAfterEscape=await triggerAxEvidence(cdp);
+ result("Chromium AX tree reports collapsed focused trigger after Escape",
+   axAfterEscape.role==="button"&&axAfterEscape.expanded===false&&
+   axAfterEscape.focused===true&&axAfterEscape.controlsTargetIds.length===0,
+   axAfterEscape);
  const reopened=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");

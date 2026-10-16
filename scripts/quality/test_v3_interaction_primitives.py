@@ -157,6 +157,28 @@ class InteropSourceContractTests(unittest.TestCase):
                       "cleanupAttempts,errors"):
             self.assertIn(token,probe)
 
+    def test_popover_browser_ax_tree_is_measured_not_inferred_from_dom(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for token in ("Accessibility.getPartialAXTree",
+                      "objectId:obj.result.objectId",
+                      "fetchRelatives:false",
+                      "Chromium AX tree exposes labeled focusable button as collapsed",
+                      "Chromium AX tree exposes expanded trigger and valid controlled surface",
+                      "Chromium AX tree reports collapsed focused trigger after Escape",
+                      'axAfterEscape.focused===true',
+                      'axOpened.controlsTargetIds.includes(openedDisclosure.surface)'):
+            self.assertIn(token,probe)
+
+    def test_popover_browser_ax_tree_must_not_be_reduced_to_dom_checks(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        self.assertIn('const tree=await cdp.send("Accessibility.getPartialAXTree"',probe)
+        self.assertEqual(probe.count("const axInitiallyClosed=await triggerAxEvidence(cdp);"),1)
+        self.assertEqual(probe.count("const axOpened=await triggerAxEvidence(cdp);"),1)
+        self.assertEqual(probe.count("const axAfterEscape=await triggerAxEvidence(cdp);"),1)
+        self.assertNotIn("AX_RESEARCH_",probe)
+
     def test_popover_disposal_unsubscribes_even_if_js_throws(self):
         interop=self.source["PopoverInterop.cs"]
         component=(__import__("pathlib").Path(__file__).resolve().parents[2]/

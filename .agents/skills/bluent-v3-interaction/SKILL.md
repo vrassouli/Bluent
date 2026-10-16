@@ -91,3 +91,15 @@ reported killed=7 remaining=0; no unrelated browser profiles.
 Compiled fake-JS 127 assertions, interaction source Python 22
 and bundle source Python 13. Native OS/AT and maintainer Penpot
 acceptance remain OPEN.
+
+2026-10-16 #420 Chromium browser accessibility tree evidence:
+correct live Penpot page40 board ed5216bd-3d5b-8015-8008-cb247e906204
+now has 54 editable shapes, last a DRAFT AX verification
+requirement. Actual real Blazor CDP harness calls Chromium
+Accessibility.getPartialAXTree with the rendered trigger
+remote-object ID, checking accessible button role/name,
+focusable and collapsed initially, expanded and controls
+relationship to the actual surface while open, focused/collapsed
+and no stale relation after Escape. Chrome/Server 36/36
+passed. Neither real native OS Contrast Themes nor spoken
+Narrator/NVDA nor maintainer design acceptance proven.

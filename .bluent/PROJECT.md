@@ -180,3 +180,13 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   assertions, source Python 22+13. Owned-profile cleanup remaining
   zero. Penpot page40 draft not yet approved; native Windows/AT
   evidence pending. PR #550 Draft; issue In progress.
+
+- 2026-10-16 #420 promoted Popover browser accessibility
+  evidence beyond DOM-only: correct editable Penpot page40
+  board has 54th DRAFT research note; Chromium CDP AX tree
+  now checked before open, while expanded, and after Escape.
+  Actual accessible button role/name/focusable, true related
+  visible surface idrefList, and restored focused/closed
+  state verified in real Chrome/Server 36/36 (3 new AX checks).
+  2 additional Python source guards. Native Windows UIA/
+  Narrator/NVDA and approved Penpot parity remain OPEN.

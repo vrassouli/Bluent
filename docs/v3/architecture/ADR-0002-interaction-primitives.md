@@ -222,3 +222,43 @@ an awaited, bounded Windows PowerShell process inventory, and
 stores cleanup evidence/failures. Unrelated Chrome/Edge processes
 are never targeted; failure to remove QA-owned processes is not
 silently ignored.
+
+## 2026-10-16 — Chromium accessibility tree disclosure verification (research)
+
+**Actual design source:** connected editable Bluent v3 Design System
+file b64f6665-c9ab-80b5-8008-c4ac99d9d000, page 40
+ed5216bd-3d5b-8015-8008-cb247e27efb4, board
+ed5216bd-3d5b-8015-8008-cb247e906204; a 54th editable
+research note explicitly requires independently inspecting the
+browser accessibility tree. This is source-owned design evidence,
+not maintainer approval.
+
+Existing live checks inspected DOM aria-expanded, aria-controls
+and real Escape/focus; this new test uses actual Chromium
+Accessibility.getPartialAXTree, supplied with the rendered
+trigger's CDP remote object ID, for three state transitions.
+No AX values are reconstructed from DOM attribute strings.
+
+**Observed on Dev01 real Chrome/InteractiveServer:**
+- Initially closed: nonignored button, accessible name
+  Popover trigger, focusable=true, expanded=false, and no
+  controls relation.
+- While open: same button has expanded=true, with a controls
+  idrefList whose related target is the live surface's actual
+  runtime-generated ID.
+- After keyboard Escape: expanded=false, focused=true and no
+  stale controls relation.
+
+Three additional fail-closed live AX checks run per browser
+matrix job, with two Python source guards requiring the
+CDP accessibility domain, remote-object mapping, true related
+target and focused Escape state. Initial Chrome/Server browser
+**36/36** PASS (previously 33/33); independent new-head
+matrix must be checked separately.
+
+**Evidence boundary:** Chromium AX propagation is closer to
+what assistive technology consumes, but does NOT certify native
+Windows UI Automation interaction, spoken Narrator/NVDA output,
+OS Contrast Themes, maintainer-approved Penpot visual parity
+or whole-library WCAG conformance. #420 stays In progress.
+No public Blazor component API or stable branch was changed.
