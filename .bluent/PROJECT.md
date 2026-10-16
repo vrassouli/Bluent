@@ -219,8 +219,8 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - 2026-10-16 #420 Penpot design readability defect repaired
   on the REAL editable file/page40 board: overlapping/outside-
   board appended notes organized under section05 as five
-  white-backed native editable cards. Penpot revision408,
-  shapeCount62, 13/13 true live geometry checks and direct
+  white-backed native editable cards. Penpot revision409,
+  shapeCount63, 14/14 true live geometry checks and direct
   PNG export human review passed. No component visual parity
   approval implied. Consumer timing-migration review added
   at docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md;
@@ -228,5 +228,7 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   Public parameter APIs unchanged but Calendar callback timing
   and Popover ARIA/lifecycle observable behavior need consumer
   review before v3 release. Exact prior implementation HEAD
-  ee798e95 had GitHub 9/9 successful checks; newer docs-only
-  task branch CI must be independently verified.
+  ee798e95 and follow-up docs/design HEAD cca7aac0 both had
+  GitHub 9/9 successful checks. Finalized Penpot revision409
+  background repair is a separate docs-only follow-up whose
+  exact-head CI still requires independent verification.

@@ -23,8 +23,8 @@ class InteropSourceContractTests(unittest.TestCase):
         for i in range(13,18):
             self.assertIn("M"+str(i)+" - ",ledger)
         self.assertIn("INTERACTION-CONSUMER-MIGRATION-REVIEW.md",adr)
-        self.assertIn("13/13 geometry checks PASS",adr)
-        self.assertIn("62",adr)
+        self.assertIn("14/14 geometry checks PASS",adr)
+        self.assertIn("63",adr)
 
     def test_issue420_migration_sample_preserves_existing_public_calendar_api(self):
         from pathlib import Path

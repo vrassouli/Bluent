@@ -9,8 +9,14 @@ ed5216bd-3d5b-8015-8008-cb247e27efb4, board
 ed5216bd-3d5b-8015-8008-cb247e906204. Visually exported and reviewed
 on 2026-10-16: appended research notes previously overlapped the
 footer, other notes and board boundary. Five source-owned QA notes
-now use separate white-backed rows under section 05. This verifies
-**layout legibility**, not maintainer visual acceptance.
+now use separate white-backed rows under section 05. A source-owned
+pale-neutral full-coverage background shape also closes a
+transparent margin that made the original title unreadable
+in dark-mode PNG previews. Final native Penpot revision 409
+has 63 editable shapes; 14/14 independently evaluated
+geometry and backdrop rules PASS and a new board PNG was
+visually inspected. This verifies **layout legibility**,
+not maintainer visual acceptance.
 
 ## Consumer behavior changes
 

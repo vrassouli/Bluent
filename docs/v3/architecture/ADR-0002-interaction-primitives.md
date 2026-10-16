@@ -316,20 +316,24 @@ untouched, PR #550 still Draft and #420 In progress.
 **Authoritative editable design**, verified in the correctly
 connected Bluent v3 Penpot file b64f6665-c9ab-80b5-8008-c4ac99d9d000:
 page40 ed5216bd-3d5b-8015-8008-cb247e27efb4, board
-ed5216bd-3d5b-8015-8008-cb247e906204, revision **408**.
+ed5216bd-3d5b-8015-8008-cb247e906204, revision **409**.
 An actual PNG export of the 56-shape draft exposed overlapping
 appended QA text, footer collision and the last note outside the
 original board. Corrected it **inside Penpot**, not merely in
 documentation: section 05 research heading, five independently
 readable editable white-backed rows, compact accurate labels,
 separate typography and enlarged board. The finished board now
-contains **62** editable shapes. Independently verified in the
-live Penpot API: **13/13 geometry checks PASS** (original footer
+contains **63** editable shapes. Independently verified in the
+live Penpot API: **14/14 geometry checks PASS** (original footer
 below section 04 does not overlap section 05; header/row geometry;
 each text fits its source-owned card; five cards are nonoverlapping,
-and the last card fits the board). A fresh PNG export was
-human-inspected and confirmed readable, including Calendar and
-Popover sections. This is **design-artifact visual QA** only; not
+and the last card fits the board). The board originally
+contained child labels beyond its filled boundaries, so a
+**native editable pale-neutral export backdrop was added behind
+all existing children**, bringing the original title/footer
+into the same visible light surface. A fresh PNG export
+was human-inspected and confirmed readable, including the
+header, Calendar and Popover sections. This is **design-artifact visual QA** only; not
 approved final rendered component parity or native Windows/AT.
 
 Consumer-facing v3 changes and behavior migration impact are

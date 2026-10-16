@@ -132,11 +132,12 @@ native AT/Penpot visual approval are separate gates.
 
 2026-10-16 #420 design-artifact and consumer migration QA:
 canonical Penpot page40 board
-ed5216bd-3d5b-8015-8008-cb247e906204 revision408 now
-has 62 native editable shapes after an actual export exposed
+ed5216bd-3d5b-8015-8008-cb247e906204 revision409 now
+has 63 native editable shapes after an actual export exposed
 overlap of appended notes and clipping outside board. Reflowed
-section 05 into five separate white-backed research cards
-and reran 13/13 live editable Penpot geometry checks, then
+section 05 into five separate white-backed research cards.
+A native source-owned neutral export backdrop now covers the
+formerly transparent title/footer margins; reran 14/14 live editable Penpot geometry checks, then
 re-exported and visually inspected. The new
 docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md
 and M13-M17 in docs/v3/design/MIGRATION-IMPACT-LEDGER.md
