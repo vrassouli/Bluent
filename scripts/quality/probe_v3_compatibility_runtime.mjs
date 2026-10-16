@@ -242,6 +242,29 @@ try {
   assert("PNG evidence integrity "+width+" "+theme+" "+direction,
     inspection.uniqueSampleColors>=4,inspection);
  }
+ // #425 REAL CSS text-scaling reflow. This is NOT browser zoom or
+ // system text scaling; the test never changes global Windows settings.
+ const originalRootSize=await cdp.js("document.documentElement.style.fontSize");
+ try{
+  for(const percent of [200,400]){
+   await cdp.send("Emulation.setDeviceMetricsOverride",
+     {width:320,height:820,deviceScaleFactor:1,mobile:false});
+   const result=await cdp.js("(()=>{document.documentElement.style.fontSize='"+percent+"%';"+
+     "const sel=['h1','#compatibility-input','[data-testid=event-count]',"+
+     "'a','[data-testid=popover-trigger]','[data-testid=tooltip-trigger]'];"+
+     "const elements=sel.map(name=>{const e=document.querySelector(name),r=e?.getBoundingClientRect();"+
+     "return {name,exists:!!e,x:r?.x,right:r?.right,width:r?.width};});"+
+     "return {viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,"+
+     "rootFontSize:getComputedStyle(document.documentElement).fontSize,elements};})()");
+   const reflow=result.viewport===320&&result.scrollWidth<=321&&
+     result.elements.every(e=>e.exists&&e.width>0&&e.x>=-1&&e.right<=321);
+   assert("CSS 200/400 percent text scaling no horizontal clipping "+percent,reflow,result);
+  }
+ }finally{
+  await cdp.js("document.documentElement.style.fontSize="+JSON.stringify(originalRootSize));
+  await cdp.send("Emulation.setDeviceMetricsOverride",
+    {width:1280,height:820,deviceScaleFactor:1,mobile:false});
+ }
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-reduced-motion",value:"reduce"}]});
  const media=await cdp.js("(()=>({forced:matchMedia('(forced-colors: active)').matches,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches}))()");
  assert("forced-colors/reduced-motion emulation",media.forced&&media.reduced,media);

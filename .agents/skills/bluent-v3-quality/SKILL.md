@@ -80,3 +80,13 @@ fragments for the SAME visual row; source contract requires
 deduplication by line top before comparing distinct row overlap.
 29 Python quality tests and 8 PNG fixture tests pass. Do not claim
 other render modes/engines in the new state until exact CI.
+
+2026-10-16 #425: editable Penpot QA page41 46th DRAFT shape asks
+for 200% and 400% CSS text-size reflow on mobile. The real browser
+temporarily changes document root fontSize to 200/400% (32/64px),
+checks six key controls within a 320px viewport and scrollWidth<=321,
+then restores the prior fontSize. Initial Chrome/Server 400% failed
+(361px horizontal scroll; 42/43), fixed DEMO-ONLY sample host padding
+to min(2rem,4vw), final Chrome/Server 43/43 with scrollWidth305 at
+both scales. This is NOT native browser zoom, Windows Text Size,
+OS Contrast Themes, named screen-reader or per-component WCAG proof.

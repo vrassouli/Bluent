@@ -169,3 +169,15 @@ Same-line duplicate CDP Range text fragments now normalized prior
 to checking distinct line overlap, with fail-closed source regression.
 Penpot QA page41 board 45 layers, revision 395; 29 Python negative/
 positive tests, 8 Node PNG tests. Final GitHub matrix pending exact SHA.
+
+- 2026-10-16 #425 editable Penpot quality board (page41,
+  ed5216bd-3d5b-8015-8008-cb2557357776) adds 46th DRAFT shape for
+  200/400% CSS text-scaling reflow, not native browser zoom.
+  Real Chrome/Server at 320px: root 200% passed (305px scroll),
+  root 400% FAILED (361px horizontal scroll). Changed ONLY the
+  isolated demo CompatibilityLayout padding from 2rem to
+  min(2rem,4vw), then real Chrome/Server 43/43 checks PASS with
+  scrollWidth305px at BOTH scales, zero errors/QA browser leftovers.
+  Three fail-closed contract tests cover both levels, overflow,
+  and responsive padding. Native Windows OS/AT and visual signoff
+  still separately pending; no public library or stable changes.

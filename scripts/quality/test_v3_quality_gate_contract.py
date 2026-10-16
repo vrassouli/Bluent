@@ -169,6 +169,24 @@ class V3QualityContractTests(unittest.TestCase):
         with self.assertRaisesRegex(QualityContractError,"mobile RTL text/link"):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
 
+    def test_browser_reflow_must_check_both_200_and_400_percent(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        changed=original.replace("[200,400]","[200]")
+        with self.assertRaisesRegex(QualityContractError,"200/400% mobile text reflow"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),changed)
+
+    def test_browser_reflow_must_reject_horizontal_scroll(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        changed=original.replace("result.scrollWidth<=321","result.scrollWidth>0")
+        with self.assertRaisesRegex(QualityContractError,"200/400% mobile text reflow"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),changed)
+
+    def test_compatibility_host_padding_must_not_scale_into_viewport(self):
+        original=COMPAT_LAYOUT.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"sample host contrast"):
+            check_compatibility_host_theme(
+                original.replace("padding: min(2rem, 4vw)","padding: 2rem"))
+
     def test_no_false_accessibility_claim(self):
         with self.assertRaisesRegex(QualityContractError,"certification"):
             check(self.quality,self.document.replace("Not an accessibility certification.",""))

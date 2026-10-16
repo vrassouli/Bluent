@@ -100,6 +100,11 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  "rows.every((row,i)=>i===0||row.top>=rows[i-1].bottom-.8)",
                  "list.findIndex(item=>Math.abs(item.top-row.top)<.5)===i"):
         need(term in probe,"mobile RTL text/link readability gate required: "+term)
+    for term in ("for(const percent of [200,400])",
+                 "result.scrollWidth<=321",
+                 "result.elements.every(e=>e.exists&&e.width>0&&e.x>=-1&&e.right<=321)",
+                 "CSS 200/400 percent text scaling no horizontal clipping"):
+        need(term in probe,"actual 200/400% mobile text reflow evidence required: "+term)
     # The runner startup can fail transiently before ANY Blazor/browser
     # assertion. Retry only creating the actual browser DevTools connection;
     # never retry or suppress any app/AX/keyboard/visual assertion.
@@ -130,7 +135,7 @@ def check_compatibility_host_theme(layout_source:str)->None:
     # dark-theme screenshots can show white-on-white invisible headings.
     for prop in ("background-color: var(--colorNeutralBackground1)",
                  "color: var(--colorNeutralForeground1)",
-                 "min-height: 100vh"):
+                 "min-height: 100vh", "padding: min(2rem, 4vw)"):
         need(prop in layout_source,
              "sample host contrast surface must follow Fluent theme: "+prop)
 

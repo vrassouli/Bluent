@@ -194,3 +194,43 @@ The NEW exact-head GitHub Chrome+Edge x Server+WASM matrix must be
 checked separately; these results cannot be projected to the other
 two new-state combinations without that CI run. Visual/pixel
 acceptance and true OS Contrast Themes/AT are still OPEN.
+
+## 2026-10-16 — CSS text-size reflow and evidence limits
+
+Design-first source: the correct editable Penpot Bluent v3 Design System
+file b64f6665-c9ab-80b5-8008-c4ac99d9d000, quality page 41
+ed5216bd-3d5b-8015-8008-cb25572ebb61, source board
+ed5216bd-3d5b-8015-8008-cb2557357776. A new DRAFT 46th editable
+shape describes the 200/400% text scaling reflow requirement while
+explicitly distinguishing CSS root text size from native browser zoom.
+
+On a REAL Dev01 Chrome/InteractiveServer browser, the 320 CSS-pixel
+viewport initially passed root font size 200% (computed 32px,
+document scroll width 305px) but FAILED at 400% (computed 64px,
+document scroll width 361px). The existing test-fixture layout
+used 2rem padding that grew to 128px on each side, starving the
+mobile viewport of readable room. This was a genuine test
+failure (42/43), not a CI flake.
+
+Fixed ONLY independent compatibility sample host padding from
+2rem to min(2rem, 4vw): desktop maximum retained, tiny viewport
+padding remains proportional to viewport width. The next actual
+Chrome/InteractiveServer rerun passed 43/43 assertions: 200%
+AND 400% returned scroll width 305px, no tested title/input/
+status/link/popover/tooltip trigger outside the viewport, zero
+errors and owned browser cleanup remaining=0.
+
+The browser probe uses document root inline fontSize 200%/400%
+with real Chromium layout. It restores the previous inline value
+and viewport in a finally block. This is a source-controlled
+experimental CSS text-size reflow test, NOT OS-wide text size,
+browser zoom, or proof of full WCAG/assistive technology.
+Three negative controls prevent deleting either percentage,
+suppressing horizontal-overflow failures or reinstating
+nonresponsive compatibility host padding. Public Bluent CSS,
+component API, NuGet and frozen Dev are untouched.
+
+Pending acceptance remains target-device native browser zoom,
+Windows Text Size/Contrast Themes, named screen readers and
+maintainer-approved design screenshot parity. #425 stays
+In progress and PR #549 Draft until those gates pass.
