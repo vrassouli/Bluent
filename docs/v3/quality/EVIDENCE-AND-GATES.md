@@ -128,5 +128,69 @@ No visual Golden baseline or native OS/AT result has been approved.
 **These are local Dev01 results only** until the exact new PR head
 GitHub browser matrix finishes.
 
+### Detected false-positive Dark/RTL screenshot semantics
+
+Actual 320px screenshots were inspected (not merely their PNG bytes).
+The existing compatibility *test host* rendered its heading/text using
+the dark-theme foreground while the surrounding host surface was
+still white. The images passed PNG integrity but the dark RTL heading
+was invisible (white-on-white). This is a verified screenshot artifact
+and an error in the **compatibility sample/layout**, not proof that a
+public Bluent component itself is broken.
+
+The independent v3 compatibility layout now paints its MAIN surface
+with existing Fluent source CSS variables colorNeutralBackground1 and
+colorNeutralForeground1, retaining original child components and event
+binding. A subsequent direct screenshot inspection exposed **wrapped
+heading line overlap** and a default browser-blue link with inadequate
+contrast on the dark host in the **same QA fixture**, even after making
+its background correct. Only the compatibility sample now adds
+heading line-height 1.3 and safe word wrapping, and a semantically
+source-backed colorNeutralForeground2Link NavLink foreground. No
+public Bluent component or v2 theme styles were modified. The real browser screenshot matrix measures the heading's
+computed foreground vs the painted main background, demanding a
+**numeric ratio at least 4.5:1** and in-viewport heading geometry in
+every one of the six Light/Dark LTR/RTL 320/768/1280 states. This is
+a **specific measured pairing**, not whole-product WCAG conformance.
+The real browser also measures computed link-to-painted-host contrast,
+requires at least **4.5:1**, and checks actual multi-line h1 Range
+client rectangles have no vertical overlap in the six sample
+viewports. Chromium may report *duplicate fragments on the very same
+single visual line* (observed at 768px and 1280px); the browser check
+deduplicates by line top within half a pixel before comparing distinct
+lines, preventing a false regression while preserving real 320px
+overlap detection. Twelve more browser assertions per job guard this
+visibly discovered 320px RTL case. Seven negative/source contract controls
+reject removing the host surface, heading line-height, link token,
+or any of these browser checks.
+
+Native editable Penpot QA page 41 board now documents foreground/
+background contrast as an evidence-integrity gate alongside PNG
+validity, while explicitly keeping human visual acceptance separate.
+These checks cannot certify all semantic contrast pairs, native OS
+Contrast Themes or named assistive-technology behavior.
+
 Exact local real Blazor and GitHub CI results must be recorded against
 the task-branch SHA; an image fixture test alone never proves runtime.
+
+**New focused live Dev01 rereview after fixing the scoped host,
+mobile heading and neutral link:** actual Chrome/InteractiveServer
+**41/41** and Edge/WebAssembly **41/41** assertions passed, both with
+zero errors and complete PNG/cleanup evidence. On the real Chrome
+Server 320px Light and Dark specimens, computed heading-to-host
+contrast was respectively **15.52:1** and **14.55:1**; link-to-host
+contrast was **10.05:1** and **10.01:1**, all above the explicit
+4.5:1 *pair-specific* threshold. The genuine 320px Dark RTL image
+was re-exported and inspected: visible text on the dark painted
+surface, corrected multi-line heading spacing and legible link.
+The independent 768/1280 line-fragment comparison correctly
+deduplicates same-line Chromium text fragment rectangles; this
+avoids false overlap failures while preserving narrow actual row
+overlap detection. The policy has **29** passing Python source
+tests plus **8** PNG image fixture tests.
+
+Two focused real browser combinations are **local** evidence only.
+The NEW exact-head GitHub Chrome+Edge x Server+WASM matrix must be
+checked separately; these results cannot be projected to the other
+two new-state combinations without that CI run. Visual/pixel
+acceptance and true OS Contrast Themes/AT are still OPEN.

@@ -19,6 +19,21 @@ const host="http://127.0.0.1:"+(mode==="Server"?"5268":"5269");
 const url=host+"/compatibility/"+(mode==="Server"?"server":"webassembly");
 let app,browser,cdp;const checks=[],errors=[],browserStartupAttempts=[],cleanupAttempts=[],imageEvidence=[];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
+// CSS-computed text vs opaque host surface, narrow scoped test of contrast
+// in THIS sample host; not universal WCAG or native OS/AT certification.
+function headingHostContrast(foreground,background){
+ const rgb=x=>{
+  const n=String(x).match(/\d+(?:\.\d+)?/g)?.map(Number)||[];
+  return n.length===3||n.length===4&&n[3]===1?n.slice(0,3):null;
+ };
+ const a=rgb(foreground),b=rgb(background);
+ if(!a||!b)return 0;
+ const lum=v=>v.map(n=>n/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4)
+  .reduce((x,y,i)=>x+y*[.2126,.7152,.0722][i],0);
+ const l1=lum(a),l2=lum(b);
+ return (Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);
+}
+
 function assert(label,value,notes){checks.push({label,pass:!!value,notes});if(!value)errors.push(label+" "+JSON.stringify(notes));}
 function spawnTracked(cmd,args,cwd=root,env=process.env) {
  const p=spawn(cmd,args,{cwd,env,windowsHide:true,stdio:["ignore","pipe","pipe"]});
@@ -193,8 +208,28 @@ try {
  const screenshots=[[320,"light","ltr"],[320,"dark","rtl"],[768,"light","rtl"],[768,"dark","ltr"],[1280,"light","ltr"],[1280,"dark","rtl"]];
  for(const [width,theme,direction] of screenshots){
   await cdp.send("Emulation.setDeviceMetricsOverride",{width,height:820,deviceScaleFactor:1,mobile:false});
-  const result=await cdp.js("(()=>{const h=document.documentElement;h.dataset.buiTheme='"+theme+"';h.dir='"+direction+"';return {w:innerWidth,dir:h.dir,theme:h.dataset.buiTheme,heading:!!document.querySelector('h1'),main:!!document.querySelector('main')}})()");
+  const result=await cdp.js("(()=>{const h=document.documentElement;h.dataset.buiTheme='"+theme+"';h.dir='"+direction+"';"+
+   "const title=document.querySelector('h1'),main=document.querySelector('main'),box=title?.getBoundingClientRect(),"+
+   "link=document.querySelector('a[href=\"/compatibility/static\"]'),range=document.createRange();"+
+   "if(title)range.selectNodeContents(title);"+
+   "const rows=title?[...range.getClientRects()].map(r=>({top:r.top,bottom:r.bottom})):[];"+
+   "return {w:innerWidth,dir:h.dir,theme:h.dataset.buiTheme,heading:!!title,main:!!main,"+
+   "color:title?getComputedStyle(title).color:null,surface:main?getComputedStyle(main).backgroundColor:null,"+
+   "linkColor:link?getComputedStyle(link).color:null,titleRows:rows,"+
+   "headingBox:box?{x:box.x,y:box.y,w:box.width,h:box.height}:null};})()");
   assert("responsive "+width+" "+theme+" "+direction,result.w===width&&result.main&&result.heading&&result.dir===direction&&result.theme===theme,result);
+  const ratio=headingHostContrast(result.color,result.surface),r=result.headingBox;
+  assert("compatibility host foreground-to-surface contrast "+width+" "+theme+" "+direction,
+    ratio>=4.5&&r&&r.x>=-1&&r.y>=-1&&r.x+r.w<=width+1&&r.y<820,
+    {ratio,foreground:result.color,background:result.surface,rect:r});
+  const linkRatio=headingHostContrast(result.linkColor,result.surface);
+  assert("compatibility link text to host contrast "+width+" "+theme+" "+direction,
+    linkRatio>=4.5,
+    {ratio:linkRatio,foreground:result.linkColor,background:result.surface});
+  const rows=(result.titleRows||[]).filter((row,i,list)=>list.findIndex(item=>Math.abs(item.top-row.top)<.5)===i);
+  assert("multiline mobile heading does not overlap "+width+" "+theme+" "+direction,
+    rows.length>=1&&rows.every((row,i)=>i===0||row.top>=rows[i-1].bottom-.8),
+    {rows});
   await wait(150);
   const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
   const filename=mode.toLowerCase()+"-"+browserName+"-"+width+"-"+theme+"-"+direction+".png";

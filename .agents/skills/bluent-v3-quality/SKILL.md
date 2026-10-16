@@ -46,3 +46,37 @@ nonblank pixel variation, seven unique image SHA256s per job, four
 JSON reports, test-owned cleanup remaining=0. This is runtime +
 image artifact integrity, **not** approved design pixel diff or
 native OS/AT. Read exact head CI independently.
+
+2026-10-16 #425 second visual QA gate: human inspection of 320px
+Dark/RTL compatibility screenshots exposed invisible heading text:
+foreground followed dark theme but test MAIN surface stayed white.
+Only the v3 Interactive CompatibilityLayout uses existing
+colorNeutralBackground1 / colorNeutralForeground1; public Bluent
+theme CSS and component APIs unchanged. Actual CDP screenshot
+matrix now tests six computed heading/main contrast pairs >=4.5:1
+with in-viewport heading bounds. Two negative policy tests ensure
+host color paint and contrast assertion are not silently dropped.
+This is narrow test-fixture accessibility evidence, NOT whole-system
+WCAG/native OS/screen-reader approval.
+
+2026-10-16 extra screenshot visual inspection in 320px Dark/RTL
+revealed collision of wrapped heading text and a low-contrast
+browser-default blue NavLink on the correct dark sample background.
+The isolated compatibility **fixture only** now uses a heading
+line-height of 1.3 with anywhere wrap, and the existing Fluent
+NeutralForeground2Link color token for the link. The live browser
+samples must check native Range glyph-row nonoverlap and link-to-main
+contrast >=4.5:1 for six viewport/theme/direction settings, in
+addition to main heading contrast. Five more source-negative tests
+guard these rules, not whole-component WCAG or OS/AT approval.
+
+2026-10-16 narrow RTL readability parity reruns AFTER host and
+heading/link fix: real Dev01 Chrome/Server 41/41, Edge/WASM 41/41,
+zero errors. Actual Chrome/Server 320px computed heading contrast:
+Light 15.52:1, Dark 14.55:1; link contrast Light 10.05:1,
+Dark 10.01:1. Observed 320px Dark RTL screenshot now has readable
+headings without overlap. Chromium Range may return duplicate
+fragments for the SAME visual row; source contract requires
+deduplication by line top before comparing distinct row overlap.
+29 Python quality tests and 8 PNG fixture tests pass. Do not claim
+other render modes/engines in the new state until exact CI.

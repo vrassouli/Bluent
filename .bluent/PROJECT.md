@@ -137,3 +137,35 @@ Native Penpot page41 board now 45 editable shapes; quality evidence
 label explicitly separates valid image artifacts from design approval.
 Exact GitHub CI HEAD and native Windows screen-reader/Contrast Themes
 remain separate required gates.
+
+2026-10-16 #425 screenshot *visual inspection* surfaced a real
+compatibility fixture defect: dark RTL captures had effectively
+invisible heading/paragraph text (light background behind white
+dark-theme text) despite passing PNG validity. Fixed demo-only
+CompatibilityLayout MAIN with existing Fluent neutral background/
+foreground variables. Six source-sampled real screenshot states
+now require computed heading-to-host contrast >=4.5 and in-viewport
+heading bounds; two negative policy tests preserve this gate.
+No public Bluent styling altered; native OS/AT and accepted Penpot
+visual diff still unresolved.
+
+2026-10-16 #425 further inspection of real Chrome 320px Dark/RTL
+PNG showed collided multi-line h1 and low-contrast default blue
+NavLink after fixing host background. Scoped ONLY the
+Interactive Client compatibility fixture to line-height 1.3,
+anywhere heading wrapping and colorNeutralForeground2Link.
+Browser now verifies heading fragment nonoverlap + link contrast
+>=4.5 for six responsive cases; four additional policy negative
+controls were added (quality contract 29 tests). Stable UI styling
+and public library APIs unchanged; human design/OS AT still open.
+
+2026-10-16 #425 final local focused Dark/RTL sample QA:
+Chrome/InteractiveServer **41/41** and Edge/WebAssembly **41/41**
+true browser checks with zero errors. Real 320px light/dark computed
+heading/main contrast 15.52/14.55; NavLink/main 10.05/10.01.
+Human-inspected new Dark RTL mobile screenshot is visibly readable
+with corrected heading wraps and link, but NOT design-approved.
+Same-line duplicate CDP Range text fragments now normalized prior
+to checking distinct line overlap, with fail-closed source regression.
+Penpot QA page41 board 45 layers, revision 395; 29 Python negative/
+positive tests, 8 Node PNG tests. Final GitHub matrix pending exact SHA.

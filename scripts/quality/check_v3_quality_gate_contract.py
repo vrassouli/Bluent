@@ -10,6 +10,8 @@ DOCUMENT=ROOT/"docs/v3/quality/EVIDENCE-AND-GATES.md"
 BROWSERS=ROOT/".github/workflows/v3-compatibility-browsers.yml"
 BROWSER_PROBE=ROOT/"scripts/quality/probe_v3_compatibility_runtime.mjs"
 SSR_PROJ=ROOT/"src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj"
+COMPAT_LAYOUT=ROOT/"src/Bluent.UI.Demo.Interactive.Client/Layout/CompatibilityLayout.razor"
+COMPAT_PROBE=ROOT/"src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"
 
 class QualityContractError(ValueError):
     pass
@@ -89,6 +91,15 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  'imageEvidence.push','uniqueSampleColors',
                  '7 distinct screenshots captured for intended scenarios'):
         need(term in probe,"browser PNG evidence integrity contract is required: "+term)
+    for term in ("headingHostContrast(result.color,result.surface)",
+                 "compatibility host foreground-to-surface contrast",
+                 "ratio>=4.5","headingBox"):
+        need(term in probe,"real theme host contrast and viewport geometry required: "+term)
+    for term in ("linkRatio>=4.5","compatibility link text to host contrast",
+                 "multiline mobile heading does not overlap",
+                 "rows.every((row,i)=>i===0||row.top>=rows[i-1].bottom-.8)",
+                 "list.findIndex(item=>Math.abs(item.top-row.top)<.5)===i"):
+        need(term in probe,"mobile RTL text/link readability gate required: "+term)
     # The runner startup can fail transiently before ANY Blazor/browser
     # assertion. Retry only creating the actual browser DevTools connection;
     # never retry or suppress any app/AX/keyboard/visual assertion.
@@ -108,6 +119,21 @@ def check_browser_contract(workflow:str, probe:str)->None:
     for forbidden in ("continue-on-error: true","dotnet nuget push","gh release create"):
         need(forbidden not in workflow,"browser gate must fail-closed and must never publish: "+forbidden)
 
+def check_compatibility_probe_text(probe_source:str)->None:
+    for required in ("line-height: 1.3", "overflow-wrap: anywhere",
+                     "color: var(--colorNeutralForeground2Link)"):
+        need(required in probe_source,
+             "mobile RTL sample must protect heading/link readability: "+required)
+
+def check_compatibility_host_theme(layout_source:str)->None:
+    # The host must paint a themed surface behind themed text; otherwise
+    # dark-theme screenshots can show white-on-white invisible headings.
+    for prop in ("background-color: var(--colorNeutralBackground1)",
+                 "color: var(--colorNeutralForeground1)",
+                 "min-height: 100vh"):
+        need(prop in layout_source,
+             "sample host contrast surface must follow Fluent theme: "+prop)
+
 def check_server_patch(project_xml:str)->None:
     root=ET.fromstring(project_xml)
     reference=[p for p in root.findall(".//PackageReference")
@@ -124,6 +150,8 @@ def main()->None:
     check(QUALITY.read_text(encoding="utf-8-sig"),
           DOCUMENT.read_text(encoding="utf-8-sig"))
     check_server_patch(SSR_PROJ.read_text(encoding="utf-8-sig"))
+    check_compatibility_host_theme(COMPAT_LAYOUT.read_text(encoding="utf-8-sig"))
+    check_compatibility_probe_text(COMPAT_PROBE.read_text(encoding="utf-8-sig"))
     check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),BROWSER_PROBE.read_text(encoding="utf-8-sig"))
     print("PASS: all-v3-PR source/build/pack/SSR + browser Chrome/Edge x Server/WASM + patched SSR server")
 

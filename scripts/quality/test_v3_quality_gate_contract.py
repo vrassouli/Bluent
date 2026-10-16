@@ -1,7 +1,7 @@
 """Explicit negative controls proving v3 quality policy fails closed."""
 from __future__ import annotations
 import unittest
-from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,check,check_server_patch,check_browser_contract,QualityContractError
+from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,COMPAT_LAYOUT,COMPAT_PROBE,check,check_server_patch,check_browser_contract,check_compatibility_host_theme,check_compatibility_probe_text,QualityContractError
 
 class V3QualityContractTests(unittest.TestCase):
     @classmethod
@@ -120,6 +120,53 @@ class V3QualityContractTests(unittest.TestCase):
         original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
         altered=original.replace("if(cleanupError)errors.push","if(cleanupError)console.log")
         with self.assertRaisesRegex(QualityContractError,"startup retry"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_dark_sample_host_cannot_lose_painted_surface(self):
+        original=COMPAT_LAYOUT.read_text(encoding="utf-8-sig")
+        check_compatibility_host_theme(original)
+        with self.assertRaisesRegex(QualityContractError,"sample host contrast"):
+            check_compatibility_host_theme(
+                original.replace("background-color: var(--colorNeutralBackground1)",
+                                 "background-color: transparent"))
+
+    def test_browser_theme_contrast_assertion_cannot_be_removed(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"real theme host contrast"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                original.replace("ratio>=4.5","ratio>=0"))
+    def test_multiline_heading_lineheight_cannot_be_removed(self):
+        original=COMPAT_PROBE.read_text(encoding="utf-8-sig")
+        check_compatibility_probe_text(original)
+        with self.assertRaisesRegex(QualityContractError,"mobile RTL sample"):
+            check_compatibility_probe_text(original.replace("line-height: 1.3","line-height: 0.7"))
+
+    def test_link_theme_token_cannot_be_removed(self):
+        original=COMPAT_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"mobile RTL sample"):
+            check_compatibility_probe_text(original.replace(
+                "color: var(--colorNeutralForeground2Link)","color: blue"))
+
+    def test_browser_must_check_real_link_contrast(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"mobile RTL text/link"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                original.replace("linkRatio>=4.5","linkRatio>=0"))
+
+    def test_browser_must_check_title_fragment_overlap(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"mobile RTL text/link"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                original.replace(
+                    "rows.every((row,i)=>i===0||row.top>=rows[i-1].bottom-.8)",
+                    "rows.length>0"))
+
+    def test_browser_heading_fragments_need_distinct_visual_lines(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        altered=original.replace(
+            "list.findIndex(item=>Math.abs(item.top-row.top)<.5)===i",
+            "true")
+        with self.assertRaisesRegex(QualityContractError,"mobile RTL text/link"):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
 
     def test_no_false_accessibility_claim(self):
