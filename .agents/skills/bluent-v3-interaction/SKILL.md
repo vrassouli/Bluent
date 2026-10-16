@@ -103,3 +103,16 @@ relationship to the actual surface while open, focused/collapsed
 and no stale relation after Escape. Chrome/Server 36/36
 passed. Neither real native OS Contrast Themes nor spoken
 Narrator/NVDA nor maintainer design acceptance proven.
+
+2026-10-16 #420 draft Penpot page40 board revision402
+with 55 editable shapes defines awaited Calendar month/year
+events. Calendar used 2 private async void Razor event handlers
+(now Task) and 2 unreachable ChangeEventArgs async void
+methods (deleted). Public Calendar API unchanged. Compiled
+real DLL 139 assertions including controlled pending consumer
+EventCallback tasks and propagated exceptions, MonthSelect
+and YearSelect. Common QA-only real Blazor CalendarAsyncProbe
+with InteractiveServer and WASM routes waits for first actual
+interactive OnAfterRender before click. Chrome Server 46/46
+after QA prerender hydration race fix. Other browser modes,
+native OS/AT and design acceptance require independent checks.

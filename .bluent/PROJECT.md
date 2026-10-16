@@ -190,3 +190,15 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   state verified in real Chrome/Server 36/36 (3 new AX checks).
   2 additional Python source guards. Native Windows UIA/
   Narrator/NVDA and approved Penpot parity remain OPEN.
+
+- 2026-10-16 #420 Calendar private async event debt:
+  Penpot page40 board revision402/55 editable DRAFT shapes.
+  Month/year selection handlers now Task instead of async void,
+  two unused ChangeEventArgs async void handlers removed.
+  No public API/CSS change; compiled interop + Calendar tests
+  total 139 real assertions, proving awaiting and exception
+  propagation with delayed callbacks for both modes. Actual
+  Blazor QA-only CalendarAsyncProbe and Server wrapper use
+  interactive hydration readiness; Chrome Server 46/46 after
+  fixing prerender QA premature-click race. UIA, OS AT, design
+  review and exact-head CI remain separately pending.

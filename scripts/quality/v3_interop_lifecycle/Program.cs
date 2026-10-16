@@ -3,6 +3,7 @@ using Bluent.UI.Components;
 using Bluent.Core;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components;
 using System.Collections;
 using Microsoft.JSInterop;
 
@@ -32,7 +33,8 @@ internal static class Program
             await OverflowCheckAwaitsActualJs();
             await PopoverCommandsAwaitedInServiceOrder();
             await PopoverSingleChildDestroyDoesNotAffectSiblings();
-            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover/DataGrid/DomHelper/BluentTheme interop lifecycle assertions against compiled Bluent.UI");
+            await CalendarAsyncSelectionCallbacksAreActuallyAwaited();
+            Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover/DataGrid/DomHelper/BluentTheme/Calendar event lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
         catch (Exception ex)
@@ -574,6 +576,60 @@ internal static class Program
 
     private static Task DrainPopoverCommands(object queue,Func<bool,PopoverSettings,Task> execute)
         => (Task)queue.GetType().GetMethod("DrainAsync")!.Invoke(queue,[execute])!;
+
+    // Task-returning private Calendar handlers are invoked by Blazor's
+    // real @onclick Razor lambdas; ensure callbacks remain in that Task.
+    private static async Task CalendarAsyncSelectionCallbacksAreActuallyAwaited()
+    {
+        foreach (var item in new[]{
+            (Mode:CalendarMode.MonthSelect, Handler:"OnMonthSelected"),
+            (Mode:CalendarMode.YearSelect, Handler:"OnYearSelected")})
+        {
+            var calendar=new Calendar<DateTime?>();
+            calendar.GetType().GetProperty("Mode")!.SetValue(calendar,item.Mode);
+            // Avoid a renderer-only MonthChanged notification here; this
+            // probe intentionally isolates awaited SelectedDateChanged.
+            var target=new DateTime(2026,1,1);
+            calendar.GetType().GetField("_viewDate",
+                BindingFlags.Instance|BindingFlags.NonPublic)!
+                .SetValue(calendar,target);
+            var gate=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            var calls=0;
+            calendar.GetType().GetProperty("SelectedDateChanged")!.SetValue(calendar,
+                EventCallback.Factory.Create<DateTime?>(
+                new object(),async (DateTime? value)=>{
+                    calls++;
+                    Assert(value.HasValue&&value.Value.Year==2026,
+                        item.Handler+" supplies selected date to consumer");
+                    await gate.Task;
+                }));
+            var method=calendar.GetType().GetMethod(item.Handler,
+                BindingFlags.Instance|BindingFlags.NonPublic)!;
+            Assert(method.ReturnType==typeof(Task),
+                item.Handler+" returns Task (Blazor can await it)");
+            var inFlight=(Task)method.Invoke(calendar,[target])!;
+            Assert(calls==1,item.Handler+" invokes consumer callback");
+            Assert(!inFlight.IsCompleted,
+                item.Handler+" remains pending until async consumer finishes");
+            gate.SetResult();
+            await inFlight.WaitAsync(TimeSpan.FromSeconds(4));
+            Assert(inFlight.IsCompletedSuccessfully,
+                item.Handler+" completes after awaited consumer");
+            calendar.GetType().GetProperty("SelectedDateChanged")!.SetValue(calendar,
+                EventCallback.Factory.Create<DateTime?>(
+                new object(),async (DateTime? _) => {
+                    await Task.Yield();
+                    throw new InvalidOperationException("calendar-selected-test-error");
+                }));
+            var failed=(Task)method.Invoke(calendar,[target])!;
+            try{
+                await failed.WaitAsync(TimeSpan.FromSeconds(4));
+                throw new Exception("Expected calendar callback failure to propagate");
+            }catch(InvalidOperationException ex) when(ex.Message=="calendar-selected-test-error"){
+                Assert(true,item.Handler+" does not silently lose async callback exceptions");
+            }
+        }
+    }
 
     private static void AddPopoverDestroy(object queue,PopoverSettings settings)
         => queue.GetType().GetMethod("EnqueueDestroy")!.Invoke(queue,[settings]);

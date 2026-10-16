@@ -179,6 +179,30 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertEqual(probe.count("const axAfterEscape=await triggerAxEvidence(cdp);"),1)
         self.assertNotIn("AX_RESEARCH_",probe)
 
+    def test_calendar_selection_handlers_use_awaitable_blazor_callbacks(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        calendar=(root/"src/Bluent.UI/Components/CalendarComponent/Calendar.razor.cs").read_text(encoding="utf-8-sig")
+        markup=(root/"src/Bluent.UI/Components/CalendarComponent/Calendar.razor").read_text(encoding="utf-8-sig")
+        fixture=(root/"src/Bluent.UI.Demo.Pages/Pages/Components/CalendarAsyncProbe.razor").read_text(encoding="utf-8-sig")
+        host=(root/"src/Bluent.UI.Demo.SSR/Components/Pages/CalendarAsyncInteractiveServerProbe.razor").read_text(encoding="utf-8-sig")
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for method in ("OnMonthSelected(DateTime monthStart)","OnYearSelected(DateTime yearStart)"):
+            self.assertIn("private async Task "+method,calendar)
+            self.assertNotIn("async void "+method,calendar)
+        self.assertNotIn("async void",calendar,
+            "Calendar private event callbacks should never fire-and-forget")
+        for token in ('@onclick="()=>OnMonthSelected(monthStart)"',
+                      '@onclick="()=>OnYearSelected(yearStart)"'):
+            self.assertIn(token,markup)
+        for token in ('MonthSelectedAsync','YearSelectedAsync',
+                      'TaskCompletionSource','await _monthGate.Task','await _yearGate.Task'):
+            self.assertIn(token,fixture)
+        self.assertIn('<CalendarAsyncProbe />',host)
+        for token in ("real Calendar MonthSelect and YearSelect fixture mounted",
+                      "Calendar callback finishes after awaited release",
+                      "for(const kind of [\"month\",\"year\"])"):
+            self.assertIn(token,probe)
+
     def test_popover_disposal_unsubscribes_even_if_js_throws(self):
         interop=self.source["PopoverInterop.cs"]
         component=(__import__("pathlib").Path(__file__).resolve().parents[2]/

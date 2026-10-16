@@ -172,33 +172,7 @@ public partial class Calendar<TValue>
         _transitionClass = "up";
     }
 
-    private async void OnYearChanged(ChangeEventArgs args)
-    {
-        if (int.TryParse(args.Value?.ToString(), out var year))
-        {
-            ViewDate = ViewDate.SetYear(year, Culture);
-
-            if (Mode == CalendarMode.MonthSelect)
-            {
-                await OnSelectDate(ViewDate);
-            }
-        }
-    }
-
-    private async void OnMonthChanged(ChangeEventArgs args)
-    {
-        if (int.TryParse(args.Value?.ToString(), out var year))
-        {
-            ViewDate = ViewDate.SetMonth(year, Culture);
-
-            if (Mode == CalendarMode.MonthSelect)
-            {
-                await OnSelectDate(ViewDate);
-            }
-        }
-    }
-
-    private async void OnMonthSelected(DateTime monthStart)
+    private async Task OnMonthSelected(DateTime monthStart)
     {
         ViewDate = monthStart;
 
@@ -211,7 +185,7 @@ public partial class Calendar<TValue>
             _viewMode = CalendarMode.DaySelect;
         }
     }
-    private async void OnYearSelected(DateTime yearStart)
+    private async Task OnYearSelected(DateTime yearStart)
     {
         ViewDate = yearStart;
 

@@ -262,3 +262,51 @@ Windows UI Automation interaction, spoken Narrator/NVDA output,
 OS Contrast Themes, maintainer-approved Penpot visual parity
 or whole-library WCAG conformance. #420 stays In progress.
 No public Blazor component API or stable branch was changed.
+
+## 2026-10-16 - Calendar events await consumer callback lifetime (research)
+
+Real editable design source: Bluent v3 Penpot file
+b64f6665-c9ab-80b5-8008-c4ac99d9d000, page40
+ed5216bd-3d5b-8015-8008-cb247e27efb4 and board
+ed5216bd-3d5b-8015-8008-cb247e906204, revision 402.
+Board now has 55 editable shapes; latest draft defines
+task-awaited private Calendar month/year selection handlers
+and exception propagation. Not yet accepted design parity.
+
+**Actual source fix:** Calendar OnMonthSelected and OnYearSelected
+were private async void handlers bound to Razor onclick lambdas.
+Both now return Task and are awaited by Blazor event machinery.
+The two unused private ChangeEventArgs async void handlers,
+OnYearChanged and OnMonthChanged(ChangeEventArgs), had no call
+sites in Razor/C# and were deleted. There were no public
+parameter, EventCallback, CSS or component template changes.
+The unrelated synchronous ViewDate setter notification
+OnMonthChanged() still deserves a separate review.
+
+**Compiled evidence:** In the real Bluent.UI assembly both
+private methods now return Task. A compiled .NET test injects
+an EventCallback with a pending TaskCompletionSource for
+MonthSelect and YearSelect, verifies the selection Task stays
+incomplete until released, then separately asserts async
+consumer InvalidOperationException propagates. The compiled
+lifecycle test now passes 139 assertions (up from 127).
+The test uses a non-component callback receiver so it does
+not confuse missing renderer handles with product behavior.
+
+**Real browser fixture:** QA-only CalendarAsyncProbe in shared
+Blazor pages exposes actual Calendar MonthSelect/YearSelect,
+a held callback and a release button for each mode. A
+dedicated SSR InteractiveServer wrapper hosts the same fixture.
+The first direct Chrome/Server test clicked during static
+prerender, before interactive event handlers were attached:
+its pending indicator did not change. QA readiness now comes
+from OnAfterRenderAsync(firstRender), not prerender-only DOM,
+and actual Chrome/InteractiveServer passed 46/46 browser
+checks including both pending and completion transitions.
+The separate Edge/WASM result and exact-head four-browser
+GitHub matrix require independent checking.
+
+No native Windows UI Automation, OS Contrast Themes,
+Narrator/NVDA spoken output or maintainer Penpot acceptance
+is established by this event callback fix. Stable 2.x remains
+untouched, PR #550 still Draft and #420 In progress.

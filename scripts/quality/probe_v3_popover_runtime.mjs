@@ -278,6 +278,27 @@ try{
    cdp.runtimeExceptions.length===0,cdp.runtimeExceptions.slice(0,6));
  const stackShot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
  writeFileSync(join(evidence,"popover-stack-"+brand+".png"),Buffer.from(stackShot.data,"base64"));
+
+ // Real generic Blazor event contract: Calendar month/year handlers must
+ // keep parent async SelectedDateChanged callbacks observable and awaited.
+ const calUrl=origin+(mode==="Server"?"/compatibility/calendar-async-server":
+   "/components/calendar-async-probe");
+ await cdp.send("Page.navigate",{url:calUrl});
+ const calReady=await until(()=>cdp.js("(()=>document.querySelector('h1')?.textContent==='Calendar async event probe'&&document.querySelector('output[data-calendar-probe-ready]')?.textContent==='Ready'&&document.querySelectorAll('.bui-calendar').length===2&&document.querySelector('output[data-calendar-probe-ready]')?.getAttribute('data-calendar-probe-ready')==='true')()"),"real Calendar async mode fixture mounted",75000);
+ result("real Calendar MonthSelect and YearSelect fixture mounted",calReady);
+ for(const kind of ["month","year"]){
+  const selector="section[data-calendar-kind='"+kind+"']";
+  const clicked=await cdp.js("(()=>{const b=document.querySelector("+JSON.stringify(selector+" .bui-calendar .grid button")+");if(!b)return false;b.click();return true})()");
+  result("real "+kind+" Calendar selection dispatched",clicked);
+  const pending=await until(()=>cdp.js("document.querySelector("+JSON.stringify(selector+" output[data-calendar-status]")+")?.textContent==='pending'"),kind+" Calendar async callback pending",12500);
+  result("real "+kind+" Calendar async callback reports pending",pending);
+  const released=await cdp.js("(()=>{const b=[...document.querySelectorAll("+JSON.stringify(selector+" button")+ ")].find(x=>x.textContent.includes('Release "+kind+" callback'));if(!b)return false;b.click();return true})()");
+  result("real "+kind+" Calendar pending callback released by user control",released);
+  const completed=await until(()=>cdp.js("document.querySelector("+JSON.stringify(selector+" output[data-calendar-status]")+")?.textContent==='completed'"),kind+" Calendar async callback completed",12500);
+  result("real "+kind+" Calendar callback finishes after awaited release",completed);
+ }
+ result("Calendar async selection emits no JavaScript runtime exceptions",
+   cdp.runtimeExceptions.length===0,cdp.runtimeExceptions.slice(0,5));
 }catch(e){errors.push(String(e.stack||e));}
 finally{
  cdp?.close();for(const p of [browser,app])if(p&&p.exitCode===null)p.kill();
