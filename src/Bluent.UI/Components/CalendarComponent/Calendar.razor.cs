@@ -12,6 +12,7 @@ public partial class Calendar<TValue>
     private TValue _selectedDate = default!;
     private string _transitionClass = "up";
     private DateTime _viewDate = DateTime.Today;
+    private DateOnly? _pendingParameterMonthChanged;
 
     [Parameter] public TValue SelectedDate { get; set; } = default!;
     [Parameter] public EventCallback<TValue> SelectedDateChanged { get; set; }
@@ -23,20 +24,20 @@ public partial class Calendar<TValue>
     [Parameter] public DateTime? Min { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
 
+    // Keep the property synchronous and side-effect-free. UI event callbacks
+    // must be awaited by their event handlers, not scheduled from a setter.
     private DateTime ViewDate
     {
         get => _viewDate;
-        set
-        {
-            if (_viewDate != value)
-            {
-                var prevViewDate = _viewDate;
-                _viewDate = value;
+        set => _viewDate = value;
+    }
 
-                if (prevViewDate.GetMonthStart() != _viewDate.GetMonthStart())
-                    OnMonthChanged();
-            }
-        }
+    private async Task ChangeViewDateAsync(DateTime value)
+    {
+        var previousMonth = ViewDate.GetMonthStart();
+        ViewDate = value;
+        if (previousMonth != ViewDate.GetMonthStart())
+            await MonthChanged.InvokeAsync(DateOnly.FromDateTime(ViewDate));
     }
 
     private int DaysInMonth => Culture.Calendar.GetDaysInMonth(Culture.Calendar.GetYear(ViewDate), Culture.Calendar.GetMonth(ViewDate));
@@ -65,6 +66,7 @@ public partial class Calendar<TValue>
 
     protected override void OnParametersSet()
     {
+        var previousMonth = ViewDate.GetMonthStart();
         if (!IsNullable && Equals(SelectedDate, default))
         {
             SetSelectedDate(DateTime.Today);
@@ -86,7 +88,21 @@ public partial class Calendar<TValue>
             _viewMode = Mode;
         }
 
+        if (previousMonth != ViewDate.GetMonthStart())
+            _pendingParameterMonthChanged = DateOnly.FromDateTime(ViewDate);
+
         base.OnParametersSet();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        // Consume before awaiting: parent callbacks may synchronously set
+        // parameters again; duplicate notifications must not be queued.
+        var month = _pendingParameterMonthChanged;
+        _pendingParameterMonthChanged = null;
+        if (month is DateOnly changedMonth)
+            await MonthChanged.InvokeAsync(changedMonth);
     }
 
     protected override void OnInitialized()
@@ -126,55 +142,52 @@ public partial class Calendar<TValue>
         }
     }
 
-    private void OnGoToToday()
-    {
-        ViewDate = DateTime.Today;
-    }
+    private Task OnGoToToday() => ChangeViewDateAsync(DateTime.Today);
 
     private async Task OnClearSelection()
     {
         await OnSelectDate(null);
     }
 
-    private void OnPreviousMonth()
+    private async Task OnPreviousMonth()
     {
-        ViewDate = MonthStart.AddMonths(-1, Culture);
+        await ChangeViewDateAsync(MonthStart.AddMonths(-1, Culture));
         _transitionClass = "down";
     }
 
-    private void OnNextMonth()
+    private async Task OnNextMonth()
     {
-        ViewDate = MonthStart.AddMonths(1, Culture);
+        await ChangeViewDateAsync(MonthStart.AddMonths(1, Culture));
         _transitionClass = "up";
     }
 
-    private void OnPreviousYear()
+    private async Task OnPreviousYear()
     {
-        ViewDate = MonthStart.AddYears(-1, Culture);
+        await ChangeViewDateAsync(MonthStart.AddYears(-1, Culture));
         _transitionClass = "down";
     }
 
-    private void OnNextYear()
+    private async Task OnNextYear()
     {
-        ViewDate = MonthStart.AddYears(1, Culture);
+        await ChangeViewDateAsync(MonthStart.AddYears(1, Culture));
         _transitionClass = "up";
     }
 
-    private void OnPreviousYearRange()
+    private async Task OnPreviousYearRange()
     {
-        ViewDate = MonthStart.AddYears(-13, Culture);
+        await ChangeViewDateAsync(MonthStart.AddYears(-13, Culture));
         _transitionClass = "down";
     }
 
-    private void OnNextYearRange()
+    private async Task OnNextYearRange()
     {
-        ViewDate = MonthStart.AddYears(13, Culture);
+        await ChangeViewDateAsync(MonthStart.AddYears(13, Culture));
         _transitionClass = "up";
     }
 
     private async Task OnMonthSelected(DateTime monthStart)
     {
-        ViewDate = monthStart;
+        await ChangeViewDateAsync(monthStart);
 
         if (Mode == CalendarMode.MonthSelect)
         {
@@ -187,7 +200,7 @@ public partial class Calendar<TValue>
     }
     private async Task OnYearSelected(DateTime yearStart)
     {
-        ViewDate = yearStart;
+        await ChangeViewDateAsync(yearStart);
 
         if (Mode == CalendarMode.YearSelect)
         {
@@ -215,10 +228,4 @@ public partial class Calendar<TValue>
         await OnSelectDate(ViewDate);
     }
 
-    private void OnMonthChanged()
-    {
-        var date = DateOnly.FromDateTime(ViewDate);
-
-        InvokeAsync(() => MonthChanged.InvokeAsync(date));
-    }
 }

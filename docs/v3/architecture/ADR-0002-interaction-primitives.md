@@ -310,3 +310,56 @@ No native Windows UI Automation, OS Contrast Themes,
 Narrator/NVDA spoken output or maintainer Penpot acceptance
 is established by this event callback fix. Stable 2.x remains
 untouched, PR #550 still Draft and #420 In progress.
+
+## 2026-10-16 - Calendar MonthChanged no longer escapes its Task lifetime (draft)
+
+**Design-first traceability:** authoritative editable Penpot
+Bluent v3 Design System file b64f6665-c9ab-80b5-8008-c4ac99d9d000,
+page 40 ed5216bd-3d5b-8015-8008-cb247e27efb4, issue board
+ed5216bd-3d5b-8015-8008-cb247e906204, revision 403, 56
+native editable DRAFT shapes. The newest contract explicitly
+covers navigation, external SelectedDate parameter changes,
+awaitable callback completion and no same-month double send.
+Maintainer design acceptance is separate.
+
+**Old bug:** Calendar.ViewDate synchronous setter called
+OnMonthChanged() which scheduled an InvokeAsync EventCallback
+without returning or awaiting its Task. This included both
+navigation and external parent parameter updates; failures
+could bypass the initiating caller, and ordering relative to
+SelectedDateChanged was undefined.
+
+**New internal path:** setter now only stores the new date.
+All seven date-navigation actions are Task-returning and await
+ChangeViewDateAsync, which awaits MonthChanged only if the
+month boundary actually changed. Month/year selection handlers
+also await ChangeViewDateAsync before their existing
+SelectedDateChanged behavior. Parent-supplied SelectedDate
+changes detected by OnParametersSet queue a single DateOnly;
+OnParametersSetAsync consumes that value **before awaiting**
+the consumer MonthChanged callback. A repeated parameter set
+with the same month does not emit a second notification.
+No Calendar public parameter, EventCallback signature, Razor
+markup, CSS/theme, or v2 branch API changed.
+
+**Real executable proof:** compiled actual Bluent.UI Calendar
+tests hold a consumer EventCallback behind a TaskCompletionSource.
+Navigation remains pending until released, exceptions propagate,
+and within-month changes do not emit duplicates. External
+SelectedDate changes are independently observed, awaited,
+and not duplicated on repeated parameter assignment.
+Real CLR interop/Calendar harness **150/150 assertions PASS**.
+The existing shared QA-only CalendarAsyncProbe now has
+MonthSelect, YearSelect, navigation and external parameter
+scenarios, all with pending/release/completed output and
+first *interactive* OnAfterRender readiness. Actual Dev01
+Chrome/InteractiveServer **54/54** and Edge/WebAssembly
+**54/54** passed, zero failures. Independent exact-head GitHub
+Chrome+Edge x WASM/Server CI remains required before green
+claims on the new commit.
+
+**Limit:** callback behavioral ordering is now explicit in
+the v3 implementation; consumer migration review should
+consider applications that depended on the old fire-and-forget
+completion timing. This is not native OS/AT, full WCAG,
+Penpot parity or global v3 release acceptance.

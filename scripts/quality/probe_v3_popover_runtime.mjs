@@ -284,7 +284,7 @@ try{
  const calUrl=origin+(mode==="Server"?"/compatibility/calendar-async-server":
    "/components/calendar-async-probe");
  await cdp.send("Page.navigate",{url:calUrl});
- const calReady=await until(()=>cdp.js("(()=>document.querySelector('h1')?.textContent==='Calendar async event probe'&&document.querySelector('output[data-calendar-probe-ready]')?.textContent==='Ready'&&document.querySelectorAll('.bui-calendar').length===2&&document.querySelector('output[data-calendar-probe-ready]')?.getAttribute('data-calendar-probe-ready')==='true')()"),"real Calendar async mode fixture mounted",75000);
+ const calReady=await until(()=>cdp.js("(()=>document.querySelector('h1')?.textContent==='Calendar async event probe'&&document.querySelector('output[data-calendar-probe-ready]')?.textContent==='Ready'&&document.querySelectorAll('.bui-calendar').length===4&&document.querySelector('output[data-calendar-probe-ready]')?.getAttribute('data-calendar-probe-ready')==='true')()"),"real Calendar async mode fixture mounted",75000);
  result("real Calendar MonthSelect and YearSelect fixture mounted",calReady);
  for(const kind of ["month","year"]){
   const selector="section[data-calendar-kind='"+kind+"']";
@@ -296,6 +296,22 @@ try{
   result("real "+kind+" Calendar pending callback released by user control",released);
   const completed=await until(()=>cdp.js("document.querySelector("+JSON.stringify(selector+" output[data-calendar-status]")+")?.textContent==='completed'"),kind+" Calendar async callback completed",12500);
   result("real "+kind+" Calendar callback finishes after awaited release",completed);
+ }
+ // MonthChanged must be Task-awaited both for interactive navigation
+ // and when parent supplies a new SelectedDate through OnParametersSetAsync.
+ for(const kind of ["navigation","external"]){
+  const selector="section[data-calendar-kind='"+kind+"']";
+  const selectorToClick=kind==="navigation"
+   ? selector+" .bui-calendar .header .nav button:nth-child(2)"
+   : selector+" button";
+  const fired=await cdp.js("(()=>{let b;if("+JSON.stringify(kind)+"==='navigation')b=document.querySelector("+JSON.stringify(selectorToClick)+");else b=[...document.querySelectorAll("+JSON.stringify(selector+" button")+")].find(x=>x.textContent.includes('Change external SelectedDate'));if(!b)return false;b.click();return true})()");
+  result("real "+kind+" MonthChanged dispatched",fired);
+  const pending=await until(()=>cdp.js("document.querySelector("+JSON.stringify(selector+" output[data-calendar-status]")+")?.textContent==='pending'"),kind+" MonthChanged pending",15000);
+  result("real "+kind+" MonthChanged awaiting consumer callback",pending);
+  const released=await cdp.js("(()=>{const b=[...document.querySelectorAll("+JSON.stringify(selector+" button")+")].find(x=>x.textContent.includes("+JSON.stringify("Release "+kind+" callback")+"));if(!b)return false;b.click();return true})()");
+  result("real "+kind+" MonthChanged release sent",released);
+  const completed=await until(()=>cdp.js("document.querySelector("+JSON.stringify(selector+" output[data-calendar-status]")+")?.textContent==='completed'"),kind+" MonthChanged completed",15000);
+  result("real "+kind+" MonthChanged completes after awaited release",completed);
  }
  result("Calendar async selection emits no JavaScript runtime exceptions",
    cdp.runtimeExceptions.length===0,cdp.runtimeExceptions.slice(0,5));

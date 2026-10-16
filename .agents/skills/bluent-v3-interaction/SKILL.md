@@ -116,3 +116,16 @@ with InteractiveServer and WASM routes waits for first actual
 interactive OnAfterRender before click. Chrome Server 46/46
 after QA prerender hydration race fix. Other browser modes,
 native OS/AT and design acceptance require independent checks.
+
+2026-10-16 #420 Penpot page40 board revised 403 / 56 DRAFT
+editable shapes for Calendar MonthChanged Task contract:
+ViewDate setter side-effect-free, all 7 navigation actions
+Task-returning/awaited, external SelectedDate update queued
+from OnParametersSet to OnParametersSetAsync with consume-
+before-await, same-month no duplicate. Existing public
+EventCallback<DateOnly> MonthChanged unchanged; old async
+completion timing differs and consumer migration review
+still needed. Real compiled .NET 150 assertions, Chrome
+InteractiveServer 54/54, Edge WASM 54/54 with actual four
+Calendar cases pending/release/complete. GitHub CI and
+native AT/Penpot visual approval are separate gates.

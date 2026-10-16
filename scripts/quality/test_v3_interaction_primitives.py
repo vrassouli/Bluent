@@ -203,6 +203,24 @@ class InteropSourceContractTests(unittest.TestCase):
                       "for(const kind of [\"month\",\"year\"])"):
             self.assertIn(token,probe)
 
+    def test_calendar_month_changed_must_be_awaited_from_all_real_event_sources(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        calendar=(root/"src/Bluent.UI/Components/CalendarComponent/Calendar.razor.cs").read_text(encoding="utf-8-sig")
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        fixture=(root/"src/Bluent.UI.Demo.Pages/Pages/Components/CalendarAsyncProbe.razor").read_text(encoding="utf-8-sig")
+        self.assertNotIn("InvokeAsync(() => MonthChanged.InvokeAsync",calendar)
+        self.assertIn("private async Task ChangeViewDateAsync(DateTime value)",calendar)
+        self.assertIn("await MonthChanged.InvokeAsync(DateOnly.FromDateTime(ViewDate));",calendar)
+        self.assertIn("protected override async Task OnParametersSetAsync()",calendar)
+        self.assertIn("await MonthChanged.InvokeAsync(changedMonth);",calendar)
+        for name in ("OnGoToToday","OnPreviousMonth","OnNextMonth",
+                     "OnPreviousYear","OnNextYear","OnPreviousYearRange","OnNextYearRange"):
+            self.assertIn("Task "+name+"(",calendar)
+        for name in ("month","year","navigation","external"):
+            self.assertIn('data-calendar-kind="'+name+'"',fixture)
+        self.assertIn('for(const kind of ["navigation","external"])',probe)
+        self.assertIn("MonthChanged completes after awaited release",probe)
+
     def test_popover_disposal_unsubscribes_even_if_js_throws(self):
         interop=self.source["PopoverInterop.cs"]
         component=(__import__("pathlib").Path(__file__).resolve().parents[2]/

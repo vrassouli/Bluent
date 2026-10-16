@@ -34,6 +34,7 @@ internal static class Program
             await PopoverCommandsAwaitedInServiceOrder();
             await PopoverSingleChildDestroyDoesNotAffectSiblings();
             await CalendarAsyncSelectionCallbacksAreActuallyAwaited();
+            await CalendarMonthChangedAwaitsNavigationAndExternalParameters();
             Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover/DataGrid/DomHelper/BluentTheme/Calendar event lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
@@ -629,6 +630,77 @@ internal static class Program
                 Assert(true,item.Handler+" does not silently lose async callback exceptions");
             }
         }
+    }
+
+    private static async Task CalendarMonthChangedAwaitsNavigationAndExternalParameters()
+    {
+        var calendar=new Calendar<DateTime?>();
+        var type=calendar.GetType();
+        var flags=BindingFlags.Instance|BindingFlags.NonPublic;
+        type.GetField("_viewDate",flags)!.SetValue(calendar,new DateTime(2026,1,15));
+        type.GetProperty("Culture")!.SetValue(calendar,
+            System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+        var started=0;
+        var gate=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        type.GetProperty("MonthChanged")!.SetValue(calendar,
+            EventCallback.Factory.Create<DateOnly>(new object(),async (DateOnly date)=>{
+                started++;
+                Assert(date==new DateOnly(2026,2,1),
+                    "navigation callback reports correct next-month DateOnly");
+                await gate.Task;
+            }));
+        var nav=(Task)type.GetMethod("OnNextMonth",flags)!.Invoke(calendar,null)!;
+        Assert(started==1,"MonthChanged dispatches once on navigation");
+        Assert(!nav.IsCompleted,"month navigation awaits pending MonthChanged");
+        gate.SetResult();
+        await nav.WaitAsync(TimeSpan.FromSeconds(4));
+        Assert(nav.IsCompletedSuccessfully,"navigation completes after callback release");
+        var same=(Task)type.GetMethod("ChangeViewDateAsync",flags)!
+            .Invoke(calendar,[new DateTime(2026,2,18)])!;
+        await same.WaitAsync(TimeSpan.FromSeconds(4));
+        Assert(started==1,"moving within the same month sends no duplicate callback");
+
+        type.GetProperty("MonthChanged")!.SetValue(calendar,
+            EventCallback.Factory.Create<DateOnly>(new object(),async (DateOnly _) => {
+                await Task.Yield();
+                throw new InvalidOperationException("calendar-month-nav-error");
+            }));
+        var failed=(Task)type.GetMethod("OnPreviousMonth",flags)!.Invoke(calendar,null)!;
+        try {
+            await failed.WaitAsync(TimeSpan.FromSeconds(4));
+            throw new Exception("Expected MonthChanged async navigation exception");
+        } catch(InvalidOperationException ex) when(ex.Message=="calendar-month-nav-error"){
+            Assert(true,"month navigation propagates consumer async failure");
+        }
+
+        // External SelectedDate parameters must also await the event during
+        // OnParametersSetAsync and must not re-announce the same month.
+        var parent=new Calendar<DateTime?>();
+        var pt=parent.GetType();
+        pt.GetField("_viewDate",flags)!.SetValue(parent,new DateTime(2026,1,10));
+        pt.GetProperty("Culture")!.SetValue(parent,
+            System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+        var externalGate=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var reported=0;
+        pt.GetProperty("SelectedDate")!.SetValue(parent,(DateTime?)new DateTime(2026,4,7));
+        pt.GetProperty("MonthChanged")!.SetValue(parent,
+            EventCallback.Factory.Create<DateOnly>(new object(),async (DateOnly date)=>{
+                reported++;
+                Assert(date==new DateOnly(2026,4,7),
+                    "external parameter reports exact newly viewed DateOnly");
+                await externalGate.Task;
+            }));
+        pt.GetMethod("OnParametersSet",flags)!.Invoke(parent,null);
+        var param=(Task)pt.GetMethod("OnParametersSetAsync",flags)!.Invoke(parent,null)!;
+        Assert(reported==1,"external parameter change invokes month callback once");
+        Assert(!param.IsCompleted,"OnParametersSetAsync awaits external callback");
+        externalGate.SetResult();
+        await param.WaitAsync(TimeSpan.FromSeconds(4));
+        Assert(param.IsCompletedSuccessfully,"parameter callback completes after consumer release");
+        pt.GetMethod("OnParametersSet",flags)!.Invoke(parent,null);
+        await ((Task)pt.GetMethod("OnParametersSetAsync",flags)!.Invoke(parent,null)!)
+            .WaitAsync(TimeSpan.FromSeconds(4));
+        Assert(reported==1,"parent repeat parameters do not duplicate MonthChanged");
     }
 
     private static void AddPopoverDestroy(object queue,PopoverSettings settings)

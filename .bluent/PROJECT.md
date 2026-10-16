@@ -202,3 +202,16 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   interactive hydration readiness; Chrome Server 46/46 after
   fixing prerender QA premature-click race. UIA, OS AT, design
   review and exact-head CI remain separately pending.
+
+- 2026-10-16 #420 Calendar MonthChanged Task ordering:
+  Penpot page40 board revision403 / 56 native editable DRAFT.
+  Old ViewDate setter scheduled MonthChanged with detached
+  InvokeAsync, unsafe for exceptions and ordering. Setter now
+  side-effect-free; date nav 7 actions await ChangeViewDateAsync,
+  selection handlers await it; external SelectedDate changes
+  notify once via OnParametersSetAsync, consumed before await.
+  No same-month double notification, public API unchanged.
+  Compiled real DLL 150 assertions, source Python 26/26,
+  Chrome/Server 54/54 and Edge/WASM 54/54 runtime tests PASS.
+  Exact new SHA CI and migration-timing acceptance pending;
+  Penpot visual/native OS AT approval still open.
