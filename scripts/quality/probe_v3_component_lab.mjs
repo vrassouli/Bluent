@@ -109,6 +109,19 @@ try {
  await send('Emulation.clearDeviceMetricsOverride');
  const source=await js("(()=>({text:document.querySelector('.lab-source pre code')?.textContent,buttons:document.querySelectorAll('.lab-source button').length,heading:document.querySelector('.lab-source h2')?.textContent}))()");
  check('copyable Razor source visible in native code block',source.text?.includes('<Link')&&source.buttons===1,source);
+
+ // Exercise the actual Copy source click, not just the presence of a decorative control.
+ // Scroll into view and dispatch real CDP pointer events to grant user activation.
+ await js("document.querySelector('.lab-source button')?.scrollIntoView({block:'center',behavior:'instant'})");
+ await wait(350); // Let layout / scroll settle before deriving CDP viewport coordinates.
+ const copyPos=await js("(()=>{const b=document.querySelector('.lab-source button'),r=b.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('button')===b}})()");
+ check('CDP Copy source pointer target is the actual visible button',copyPos.hit===true,copyPos);
+ if(!copyPos.hit)throw Error('Copy source target cannot be safely clicked');
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:copyPos.x,y:copyPos.y,button:'left',clickCount:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:copyPos.x,y:copyPos.y,button:'left',clickCount:1});
+ const copied=await poll(()=>js("document.querySelector('.lab-source [aria-live=polite]')?.textContent?.trim()==='Razor source copied.'"),9000);
+ check('real pointer activation completes Razor Copy source interop',copied);
+
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
  check('canonical 66 candidate rows are visible; only four have live pilots',
   allQueue.count===66&&allQueue.pilots===4&&allQueue.queued===62&&
@@ -121,6 +134,23 @@ try {
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas [role=status]')?.textContent.includes('1')"),12000);
  check('source queue opens actual previously tested Button specimen',launchPilot);
+
+ // A real keyboard dispatch tests the native Button and Blazor EventCallback,
+ // rather than programmatically calling element.click() a second time.
+ await js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Continue'));b?.focus()})()");
+ const focusOnButton=await js("document.activeElement?.classList.contains('bui-button') && document.activeElement?.textContent.includes('Continue')");
+ check('enabled Bluent Button receives native keyboard focus',focusOnButton);
+ const keyboardBefore=await js("document.querySelector('.lab-canvas [role=status]')?.textContent?.trim()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ await wait(350);
+ const keyboardAfter=await js("document.querySelector('.lab-canvas [role=status]')?.textContent?.trim()");
+ check('real Enter key activates native Bluent Button exactly once',
+   keyboardBefore==='Completed clicks: 1' && keyboardAfter==='Completed clicks: 2',
+   {before:keyboardBefore,after:keyboardAfter});
+ const disabledButton=await js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Unavailable'));if(!b)return null;const nativeDisabled=b.disabled;b.focus();return {disabled:nativeDisabled,focusStayedElsewhere:document.activeElement!==b}})()");
+ check('disabled Bluent Button cannot receive native focus',disabledButton?.disabled===true&&disabledButton?.focusStayedElsewhere===true,disabledButton);
+
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===66"),12000);
  await send('Emulation.setDeviceMetricsOverride',{width:320,height:760,deviceScaleFactor:1,mobile:false});

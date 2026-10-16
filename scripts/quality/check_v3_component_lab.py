@@ -42,7 +42,7 @@ def check() -> int:
         assert modes[2].startswith("Chrome/Server Dev01:")
         assert modes[3].startswith("Edge/Server Dev01:")
         for i,mode in enumerate(modes):
-            assert "shared browser smoke 22/22" in mode
+            assert "shared browser smoke 27/27" in mode
             if entry["id"] in ("button", "icon"):
                 assert "interactive controls observed" in mode
             else:
@@ -118,6 +118,11 @@ def check() -> int:
     assert "-WorkingDirectory $hostDirectory" in owner
     assert "framework JavaScript and stylesheet requests have no HTTP failures" in probe
     assert "browser reports no unhandled JavaScript exceptions" in probe
+    for behavior in ("real pointer activation completes Razor Copy source interop",
+                     "enabled Bluent Button receives native keyboard focus",
+                     "real Enter key activates native Bluent Button exactly once",
+                     "disabled Bluent Button cannot receive native focus"):
+        assert behavior in probe, f"missing real-browser interaction gate: {behavior}"
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")

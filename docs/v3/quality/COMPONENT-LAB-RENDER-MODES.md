@@ -75,3 +75,42 @@ Only **four representative pilots** are verified, not 66 complete component
 APIs, visual acceptance, named screen readers, or native Windows contrast.
 Existing WebAssembly.Server 10.0.7 NU1903 advisories remain unsuppressed.
 Stable Dev and existing NuGet releases were not touched.
+
+## 2026-10-16 interactive QA follow-up: 27 checks in each real mode
+
+The previous commit aac0d057 has **two separate passing GitHub Actions
+runs**: 38946521658 and 38946530029. Each exercised four Chrome/Edge x
+WebAssembly/published InteractiveServer jobs; **8/8 jobs passed**. Those
+results are exact to the previous commit and are not reused for the new head.
+
+Five new real-browser checks extend the prior 22 to **27 per mode**:
+- CDP pointer hit-testing checks the Copy source button is really under the
+  pointer, after an instant scroll; an earlier unsynchronized scroll clicked
+  the demo sidebar and navigated away (test-harness bug, not a component failure).
+- Dispatch genuine CDP mousePressed/mouseReleased events on Copy source.
+  Its Blazor handler calls navigator.clipboard.writeText and the browser
+  confirms the success message; clipboard bytes were not independently
+  read back, so this is not exhaustive clipboard permission coverage.
+- Focus an enabled native Bluent Button and assert DOM focus.
+- Dispatch real CDP Enter with Windows virtual key and carriage-return text
+  and assert the Blazor click count changes exactly once (1 to 2).
+  Sending a keyDown without text failed to activate browser-native Enter
+  behavior; the CDP keyboard event was incomplete.
+- The native disabled Button must remain unfocusable and carry disabled=true.
+
+Actual local Windows Dev01: **Chrome/WASM 27/27, Edge/WASM 27/27,
+Chrome/published InteractiveServer 27/27, Edge/published InteractiveServer
+27/27**. Total **108/108** browser assertions, with separate disposable
+browser profiles and no remaining owned processes (remaining=0 in each).
+The 66-family source queue still has **only four representative pilots**,
+not complete per-property/event/state interactive demos.
+
+Canonical source-owned Penpot file b64f6665-c9ab-80b5-8008-c4ac99d9d000,
+page e775e67c-d9da-804b-8008-cc7c2dd7ecf7, desktop board
+e775e67c-d9da-804b-8008-cc7c2dec1d15: updated the existing evidence
+label e775e67c-d9da-804b-8008-cc7c2e2aaca2 and QA annotation
+e775e67c-d9da-804b-8008-cca7916d286e with honest local runtime scope.
+Live Penpot textBounds checks found no overflow (16/35px and 37/54px).
+This is a design annotation update, **not** maintainer approval, visual
+parity review, native Windows Contrast Themes or named AT testing.
+The new SHA's GitHub CI remains pending until actually run.
