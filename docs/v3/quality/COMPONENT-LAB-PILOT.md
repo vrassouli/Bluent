@@ -84,3 +84,43 @@ native Windows contrast, Server/Blazor interactivity matrix, approved
 Penpot design-to-code parity, visual snapshots and maintained Skills.
 This pilot does NOT authorize changing #428 Button to In progress until
 its own prerequisite approval gates and Ready transition are met.
+
+## 2026-10-16: Canonical 66-family queue in actual Component Lab (DRAFT)
+
+The correct editable Penpot Bluent v3 Design System page42
+(e775e67c-d9da-804b-8008-cc7c2dd7ecf7) has source-owned
+desktop and mobile queue cards, on native boards
+e775e67c-d9da-804b-8008-cc7c2dec1d15 and
+e775e67c-d9da-804b-8008-cc7c2e40c7d2.
+Native Penpot bounds/fit checks PASSED 2/2, revision426.
+The design is draft, NOT formally accepted visual parity.
+
+The actual Blazor Component Lab now displays/filter-searches exactly
+66 source-candidate families, issues #428-#493. Four families
+(Button, Icon, Label, Link) have one runnable pilot sample each.
+All 62 others are explicitly Queued; queued entries have an issue
+link but NO fabricated runnable preview. This source queue is NOT
+a complete migrated component family census or full public API demo.
+
+Source: docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json,
+generated from canonical issue #494 source candidates.
+Run python scripts/quality/generate_v3_component_lab_ui_queue.py
+to regenerate ComponentLabFamilyQueue.g.cs from the JSON.
+Use --check and scripts/quality/check_v3_component_lab.py to reject
+stale generated UI rows and false acceptance, not hand-maintained
+parallel catalogs.
+
+ACTUAL Dev01: Chrome/WebAssembly **17/17**, Edge/WebAssembly
+**17/17** browser checks passed, owned browser cleanup remaining=0.
+The four additional checks covered 66 rendered rows (4 live,
+62 queued), #432 filtered queued TextField without fake preview,
+#428 filtered Button pilot launch, and 320px width with 66 rows
+and no document overflow. Prior 13 interactive specimens/RTL/
+controls checks also passed again. Other Blazor render modes,
+native Windows Narrator/NVDA/Contrast Themes, 100% API states
+and maintainer design acceptance remain OUTSTANDING.
+
+Build after generator fix: Demo.Pages Debug 0 errors/warnings;
+full Release solution 0 errors with two existing NU1903 warnings
+for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7.
+Do not suppress or call those advisories clean.

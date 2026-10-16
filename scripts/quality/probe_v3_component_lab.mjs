@@ -86,6 +86,26 @@ try {
  await send('Emulation.clearDeviceMetricsOverride');
  const source=await js("(()=>({text:document.querySelector('.lab-source pre code')?.textContent,buttons:document.querySelectorAll('.lab-source button').length,heading:document.querySelector('.lab-source h2')?.textContent}))()");
  check('copyable Razor source visible in native code block',source.text?.includes('<Link')&&source.buttons===1,source);
+ const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
+ check('canonical 66 candidate rows are visible; only four have live pilots',
+  allQueue.count===66&&allQueue.pilots===4&&allQueue.queued===62&&
+  allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
+ await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Queued')&&!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
+ check('issue 432 search finds queued TextField without fake demo control',filteredQueue);
+ await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas [role=status]')?.textContent.includes('1')"),12000);
+ check('source queue opens actual previously tested Button specimen',launchPilot);
+ await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===66"),12000);
+ await send('Emulation.setDeviceMetricsOverride',{width:320,height:760,deviceScaleFactor:1,mobile:false});
+ const queuedMobile=await js("(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth,rows:document.querySelectorAll('.lab-queue-row').length}))()");
+ check('full 66-family queue reflows without document overflow at 320px',
+  queuedMobile.width<=321&&queuedMobile.rows===66,queuedMobile);
+ await send('Emulation.clearDeviceMetricsOverride');
+
 } catch(e){
  console.log('QA: runtime error '+String(e));
  try{

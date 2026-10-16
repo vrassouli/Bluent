@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from generate_v3_component_lab_queue import payload as expected_full_queue
+from generate_v3_component_lab_ui_queue import render as generated_ui_queue
 
 ROOT = Path(__file__).resolve().parents[2]
 LAB = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor"
@@ -39,7 +40,7 @@ def check() -> int:
         assert modes[0].startswith("Chrome/WebAssembly Dev01:")
         assert modes[1].startswith("Edge/WebAssembly Dev01:")
         for mode in modes:
-            assert "shared browser smoke 13/13" in mode
+            assert "shared browser smoke 17/17" in mode
             if entry["id"] in ("button", "icon"):
                 assert "interactive controls observed" in mode
             else:
@@ -51,6 +52,14 @@ def check() -> int:
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
         assert f'new("{entry["id"]}", "{entry["family"]}"' in source
         assert entry["scenarioId"] and entry["propertiesDemonstrated"] and entry["remaining"]
+    generated=(ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabFamilyQueue.g.cs")
+    assert generated.is_file() and generated.read_text(encoding="utf-8-sig")==generated_ui_queue()
+    assert "#nullable enable" in generated.read_text(encoding="utf-8")
+    for token in ("Component implementation queue", 'id="lab-queue-search"',
+                  "ComponentLabFamilyQueue.All.Where", "Live pilot · incomplete",
+                  "Queued · no lab scenario", "https://github.com/vrassouli/Bluent/issues/"):
+        assert token in source, token
+    assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
     assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 4
@@ -69,7 +78,11 @@ def check() -> int:
                     "native accessible markup",
                     "markup.tag==='label'",
                     "markup.tag==='a'",
-                    "mobile 320px viewport has no unintended horizontal document clipping"):
+                    "mobile 320px viewport has no unintended horizontal document clipping",
+                    "canonical 66 candidate rows are visible; only four have live pilots",
+                    "issue 432 search finds queued TextField without fake demo control",
+                    "source queue opens actual previously tested Button specimen",
+                    "full 66-family queue reflows without document overflow at 320px"):
         assert literal in probe, f"real-browser probe regression: {literal}"
     flow=(ROOT/".github/workflows/v3-component-lab.yml").read_text(encoding="utf-8-sig")
     owner=(ROOT/"scripts/quality/run_v3_component_lab.ps1").read_text(encoding="utf-8-sig")

@@ -28,3 +28,17 @@
 @media(max-width:760px) { .lab-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:440px) { .lab-controls { grid-template-columns:minmax(0,1fr); } .lab-heading h1 { font-size:1.7rem; } .lab-family { width:100%; } }
 @media(prefers-reduced-motion:reduce) { .component-lab * { scroll-behavior:auto; transition:none; } }
+
+.lab-queue { padding:clamp(1rem,2vw,1.5rem); border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.8rem; background:var(--colorNeutralBackground1,#fff); min-width:0; }
+.lab-queue-heading { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:1rem; }
+.lab-queue-heading h2 { margin:0; }
+.lab-queue label { display:block; font-weight:600; margin-block:.8rem .35rem; }
+.lab-queue input { box-sizing:border-box; width:100%; min-width:0; padding:.65rem .75rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:inherit; }
+.lab-queue-count { font-size:.85rem; color:var(--colorNeutralForeground3,#56667a); }
+.lab-queue-list { display:grid; gap:.4rem; max-height:25rem; overflow-y:auto; padding-inline-end:.35rem; }
+.lab-queue-row { display:grid; grid-template-columns:minmax(6.5rem,1fr) minmax(10rem,1.1fr) auto auto; gap:.65rem; align-items:center; border:1px solid var(--colorNeutralStroke2,#d5dce5); padding:.7rem .8rem; border-radius:.5rem; }
+.lab-queue-row span { color:var(--colorNeutralForeground3,#526273); font-size:.85rem; }
+.lab-queue-row a, .lab-queue-row button { text-decoration:underline; text-underline-offset:.15rem; border:0; background:none; padding:.3rem .1rem; text-align:start; color:var(--colorBrandForegroundLink,#116bac); cursor:pointer; font:inherit; font-size:.88rem; }
+.lab-queue-row :is(a,button):focus-visible { outline:2px solid var(--colorStrokeFocus2,#116bac); outline-offset:2px; }
+@media(max-width:690px) { .lab-queue-row { grid-template-columns:1fr auto; } .lab-queue-row span { grid-column:1 / -1; grid-row:2; } }
+@media(max-width:380px) { .lab-queue-row { grid-template-columns:1fr; } .lab-queue-row span { grid-column:auto;grid-row:auto; } }

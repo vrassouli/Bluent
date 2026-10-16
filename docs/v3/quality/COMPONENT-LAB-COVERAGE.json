@@ -12,7 +12,7 @@
     ],
     "approval": "pending"
   },
-  "note": "All four pilot specimens observed in actual Chrome AND Edge/WebAssembly (each whole-lab smoke 13/13). Button/Icon live interactions; Label/Link native rendered markup. Not Server modes, complete API, AT or theme parity.",
+  "note": "All four specimens plus 66-candidate work queue observed in actual Chrome and Edge WebAssembly (17/17 checks each). Only four representative pilot examples; not full API, server modes, native AT, or Fluent 2 acceptance.",
   "families": [
     {
       "id": "button",
@@ -29,8 +29,8 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); interactive controls observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); interactive controls observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); interactive controls observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); interactive controls observed"
       ],
       "remaining": "All public appearances, sizes, shapes, icon and compound, toggle/binding, Href, loading, RTL, light/dark, high-contrast, keyboard focus, browser modes and source coverage."
     },
@@ -46,8 +46,8 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); interactive controls observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); interactive controls observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); interactive controls observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); interactive controls observed"
       ],
       "remaining": "All available icon variants, external/custom SVG/image, sizes and colors, RTL and accessibility labeling."
     },
@@ -63,8 +63,8 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); native rendered markup observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); native rendered markup observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); native rendered markup observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); native rendered markup observed"
       ],
       "remaining": "Form association and requirement/error/disabled semantics across input components and locales."
     },
@@ -81,8 +81,8 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); native rendered markup observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 13/13 (2026-10-16); native rendered markup observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); native rendered markup observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 17/17 (2026-10-16); native rendered markup observed"
       ],
       "remaining": "Disabled click suppression, external target/rel, security/accessibility, keyboard semantics and RTL."
     }

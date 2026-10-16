@@ -124,3 +124,19 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   visual parity, browser-mode and native OS acceptance. The
   queue is NOT complete component implementation or release
   proof. Source paths/issue mapping now guarded by CI.
+
+
+- 2026-10-16 #421: canonical 66 source families now actually
+  integrated in the Component Lab screen. Machine-generated
+  C# queue mirrors #494 candidate sources; 4 representative
+  live pilots, 62 queued entries with real #428-#493 GitHub
+  issue links, searchable by family or issue number. Penpot
+  original page42 desktop/mobile boards include draft queue
+  cards; live Penpot 2/2 geometry check passed (rev426).
+  Chrome/WASM 17/17 and Edge/WASM 17/17 real UI browser tests
+  pass queue rendering, search #432 vs #428, pilot launch and
+  narrow 320px reflow; owned browser cleanups remaining zero.
+  Consumer/public API, all 66 complete demos, design approval,
+  Server render modes and native AT NOT accepted. Full
+  solution Release build 0 errors, existing two NU1903
+  advisories from WASM.Server 10.0.7. #421 PR remains Draft.

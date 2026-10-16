@@ -124,6 +124,35 @@
         <p>@Selected.Coverage. This pilot checks a representative live scenario; it does not claim complete public API, themes, accessibility or render-mode coverage.</p>
         <p>Existing API reference: <a href="@Selected.Href">@Selected.Title demo</a>. Source-owned matrix: <code>docs/v3/quality/COMPONENT-LAB-COVERAGE.json</code>.</p>
     </section>
+
+    <section class="lab-queue" aria-label="Canonical component work queue">
+        <div class="lab-queue-heading">
+            <h2>Component implementation queue</h2>
+            <p><strong>66</strong> source candidates · <strong>4</strong> live pilot specimens ·
+               <strong>62</strong> not yet demonstrated</p>
+        </div>
+        <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
+           “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
+        <label for="lab-queue-search">Find a family or issue</label>
+        <input id="lab-queue-search" type="search" autocomplete="off" @bind="_queueSearch" @bind:event="oninput"
+               placeholder="TextField, Button, 432..." />
+        <p role="status" class="lab-queue-count">@FilteredQueue.Count of 66 source candidates shown</p>
+        <div class="lab-queue-list" aria-label="Families and implementation status">
+            @foreach (var item in FilteredQueue)
+            {
+                <div class="lab-queue-row">
+                    <strong>@item.Name</strong>
+                    <span>@(item.PilotId is null ? "Queued · no lab scenario" : "Live pilot · incomplete")</span>
+                    @if (item.PilotId is not null)
+                    {
+                        <button type="button" @onclick="() => Select(item.PilotId)">View pilot</button>
+                    }
+                    <a href="@($"https://github.com/vrassouli/Bluent/issues/{item.Issue}")"
+                       target="_blank" rel="noopener noreferrer">Issue #@item.Issue</a>
+                </div>
+            }
+        </div>
+    </section>
 </main>
 
 @code {
@@ -149,6 +178,13 @@
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
             "Representative runnable scenario only")
     ];
+
+    private string _queueSearch = "";
+    private List<ComponentLabFamilyQueue.Item> FilteredQueue =>
+        ComponentLabFamilyQueue.All.Where(item =>
+            item.Name.Contains(_queueSearch, StringComparison.OrdinalIgnoreCase) ||
+            item.Issue.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                .Contains(_queueSearch, StringComparison.OrdinalIgnoreCase)).ToList();
 
     private string _search = "";
     private string _selected = "button";
