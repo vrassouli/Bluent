@@ -164,3 +164,5 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   Existing NU1903 10.0.7 high-severity advisories unsuppressed.
   Release build 0 errors/2 warnings, -warnaserror failed correctly.
   PR #551 Draft, issue #421 In progress, Dev stable untouched.
+
+- 2026-10-16 #421 Component Lab pilot: local Dev01 actual Chrome/Edge x WebAssembly/published InteractiveServer = **22/22 per browser/mode** (88 live browser checks in four isolated runs). Production publish host bootstrap fixed by setting process working directory to published content root; nonexistent SSR app.css request removed; strengthened fail-closed runtime JS/CSS/exception checks. Automatic GitHub Actions matrix now requests four jobs (exact SHA result not yet asserted). Four representative live pilots / 66-family source queue, not API coverage or completed component acceptance. QA-owned Chromium remaining=0 all modes. Preexisting SSR 10.0.7 NU1903 high-severity advisories remain unsuppressed. PR #551 Draft to bluent-v3 only; stable Dev/NuGet unchanged.

@@ -36,11 +36,13 @@ def check() -> int:
     for entry in data["families"]:
         assert entry["classification"] == "representative_only"
         modes=entry["renderModesVerified"]
-        assert len(modes)==2, "both actual local browsers must be evidenced"
+        assert len(modes)==4, "Chrome/Edge x WASM/Server pilot evidence required"
         assert modes[0].startswith("Chrome/WebAssembly Dev01:")
         assert modes[1].startswith("Edge/WebAssembly Dev01:")
-        for mode in modes:
-            assert "shared browser smoke 20/20" in mode
+        assert modes[2].startswith("Chrome/Server Dev01:")
+        assert modes[3].startswith("Edge/Server Dev01:")
+        for i,mode in enumerate(modes):
+            assert "shared browser smoke 22/22" in mode
             if entry["id"] in ("button", "icon"):
                 assert "interactive controls observed" in mode
             else:
@@ -104,16 +106,19 @@ def check() -> int:
     assert owner.count("Name='chrome.exe' OR Name='msedge.exe'")==2
     assert "remaining=$($remaining.Count)" in owner
     assert "browserName=/msedge/i.test(chrome)?'Edge':'Chrome';" in probe
-    # Actual Server bootstrap remains unproven, never claim acceptance.
+    # Actual published Server pilot verified; not full component acceptance.
     server=(ROOT/"src/Bluent.UI.Demo.SSR/Components/Pages/ComponentLabServerProbe.razor").read_text(encoding="utf-8-sig")
     notes=(ROOT/"docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md").read_text(encoding="utf-8-sig")
     assert '@rendermode InteractiveServer' in server and '<ComponentLab />' in server
     assert 'data-lab-interactive=' in source and 'OnAfterRenderAsync' in source
     assert 'BLUENT_V3_LAB_MODE' in probe and "renderMode==='Server'" in probe
     assert '[ValidateSet("WebAssembly", "Server")]' in owner
-    assert '-Mode Server' in notes and 'NOT accepted: InteractiveServer' in notes
-    assert all("Server" not in mode for entry in data["families"] for mode in entry["renderModesVerified"])
-    assert "browser-wasm-pilot:" in flow and "browser-server-pilot:" not in flow
+    assert '-Mode Server' in notes and '## Verified pilot: InteractiveServer' in notes
+    assert all("Server" in entry["renderModesVerified"][i] for entry in data["families"] for i in (2,3))
+    assert "-WorkingDirectory $hostDirectory" in owner
+    assert "framework JavaScript and stylesheet requests have no HTTP failures" in probe
+    assert "browser reports no unhandled JavaScript exceptions" in probe
+    assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")
     return 0

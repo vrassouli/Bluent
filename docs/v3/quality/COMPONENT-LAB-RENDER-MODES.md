@@ -22,7 +22,7 @@ queue search, and responsive 320px nonoverflow. Prior exact-head
 GitHub Chrome/Edge WebAssembly on 13036b0f succeeded. New HEAD
 needs independent CI evidence before claiming success.
 
-## NOT accepted: InteractiveServer
+## Earlier failed InteractiveServer attempt (historical)
 
 The QA-only route /compatibility/component-lab-server is an
 InteractiveServer wrapper hosting the SAME shared ComponentLab.
@@ -55,3 +55,23 @@ They are not suppressed; remediation requires independent testing.
 No stable Dev merge, v3 release or NuGet publish was authorized.
 
 After Button explorer: Real Chrome and Edge WASM each passed 20/20. The independent SSR Production Published route again served HTTP 200 but remained prerendered-only; window.Blazor undefined, app.css 404, no interactive callback. Server has ZERO acceptance evidence. NU1903 advisories remain visible.
+
+## Verified pilot: InteractiveServer (local Dev01, 2026-10-16)
+
+The QA published host was launched from the repository directory rather than
+its isolated publish directory. ASP.NET Core returned HTTP 200 for framework
+JavaScript without a usable payload, so the browser never hydrated. The
+PowerShell runner now specifies the correct publish WorkingDirectory.
+The host also no longer requests nonexistent app.css (previously HTTP 404).
+
+- Chrome/Server: 22/22 actual live checks for shared ComponentLab, click,
+  appearance/size/shape binding, queue search, RTL and 320px reflow, cleanup=0.
+- Edge/Server: 22/22 live checks including no required JS/CSS HTTP failures
+  and no unhandled JavaScript exceptions, cleanup=0.
+- Chrome/Edge WebAssembly: 22/22 each with the new asset/JS checks.
+- All four local modes now pass 22/22 independently; exact-head GitHub CI remains pending.
+
+Only **four representative pilots** are verified, not 66 complete component
+APIs, visual acceptance, named screen readers, or native Windows contrast.
+Existing WebAssembly.Server 10.0.7 NU1903 advisories remain unsuppressed.
+Stable Dev and existing NuGet releases were not touched.

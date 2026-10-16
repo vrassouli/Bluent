@@ -33,14 +33,15 @@ on:
       - "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
 
 jobs:
-  browser-wasm-pilot:
-    name: Real Component Lab / ${{ matrix.browser }} / WebAssembly
+  browser-lab-pilot:
+    name: Real Component Lab / ${{ matrix.browser }} / ${{ matrix.mode }}
     runs-on: windows-latest
     timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
         browser: [Chrome, Edge]
+        mode: [WebAssembly, Server]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -51,11 +52,12 @@ jobs:
       - name: Validate honest source and coverage mapping
         run: python scripts/quality/check_v3_component_lab.py
       - name: Build current interactive WebAssembly app
+        if: matrix.mode == 'WebAssembly'
         run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore -v quiet
-      - name: Run owned real ${{ matrix.browser }} / WASM scenario
+      - name: Run owned real ${{ matrix.browser }} / ${{ matrix.mode }} scenario
         shell: pwsh
         run: |
           if ('${{ matrix.browser }}' -eq 'Edge') {
             $env:CHROME_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
           }
-          ./scripts/quality/run_v3_component_lab.ps1
+          ./scripts/quality/run_v3_component_lab.ps1 -Mode '${{ matrix.mode }}'

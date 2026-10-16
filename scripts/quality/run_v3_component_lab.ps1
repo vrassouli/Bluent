@@ -34,7 +34,10 @@ try {
         $arguments = @("run", "--project", $project, "-c", $config,
                        "--no-build", "--no-launch-profile", "--urls", $BaseUrl)
     }
-    $server = Start-Process dotnet -ArgumentList $arguments -PassThru -WindowStyle Hidden -RedirectStandardOutput $log -RedirectStandardError $errLog
+    # Published ASP.NET Core static-web-asset endpoints resolve relative to the host content root.
+    # Launch from the publish directory, not the repository root, or bootstrap assets may be empty.
+    $hostDirectory = if($Mode -eq "Server") { $published } else { $repo }
+    $server = Start-Process dotnet -WorkingDirectory $hostDirectory -ArgumentList $arguments -PassThru -WindowStyle Hidden -RedirectStandardOutput $log -RedirectStandardError $errLog
     $ready = $false
     for($i = 0; $i -lt 90; $i++) {
         if($server.HasExited) { throw "QA $Mode host exited unexpectedly" }

@@ -12,7 +12,7 @@
     ],
     "approval": "pending"
   },
-  "note": "Four representative pilots of 66, not full API coverage. Actual Chrome and Edge WebAssembly smoke each passed 20/20, including a live Button Appearance/Size/Shape explorer. InteractiveServer is blocked by a published-host bootstrap/assets failure and NOT accepted.",
+  "note": "Four representative pilot families of 66, NOT full API coverage. Actual Chrome/Edge WebAssembly 22/22 each on Dev01; published Chrome Server 22/22 and Edge Server 22/22 after content root correction. Full component parity, native OS/AT, and exact SHA CI are pending.",
   "families": [
     {
       "id": "button",
@@ -31,10 +31,12 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); interactive controls observed; Button Appearance/Size/Shape explorer exercised",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); interactive controls observed; Button Appearance/Size/Shape explorer exercised"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed; Button Appearance/Size/Shape explorer exercised",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed; Button Appearance/Size/Shape explorer exercised",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "Exhaustive combinations of Appearance/Size/Shape, icon/compound, toggle/binding, Href, loading, RTL, light/dark tokens, high contrast, keyboard focus, Server render mode, and full public API/source mapping."
+      "remaining": "Exhaustive combinations of Appearance/Size/Shape, icon/compound, toggle/binding, Href, loading, RTL, light/dark tokens, high contrast, keyboard focus, complete Server scenarios, and full public API/source mapping."
     },
     {
       "id": "icon",
@@ -48,8 +50,10 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); interactive controls observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); interactive controls observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
       "remaining": "All available icon variants, external/custom SVG/image, sizes and colors, RTL and accessibility labeling."
     },
@@ -65,8 +69,10 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); native rendered markup observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); native rendered markup observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root"
       ],
       "remaining": "Form association and requirement/error/disabled semantics across input components and locales."
     },
@@ -83,8 +89,10 @@
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); native rendered markup observed",
-        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 20/20 (2026-10-16); native rendered markup observed"
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 22/22 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root"
       ],
       "remaining": "Disabled click suppression, external target/rel, security/accessibility, keyboard semantics and RTL."
     }

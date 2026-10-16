@@ -57,7 +57,7 @@ try {
  await send('Page.enable');await send('Runtime.enable');await send('Network.enable');
  await send('Page.navigate',{url:base+labRoute});console.log('QA: page navigation initiated');
  const ready=await poll(async()=>js("document.querySelector('h1')?.textContent==='Component Lab' && [...document.querySelectorAll('button')].some(x=>x.textContent==='Continue') && !!document.querySelector('input#lab-search') && document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),renderMode==="Server"?55000:20000);
- check('real WebAssembly Component Lab hydrated with live Bluent Button',!!ready);
+ check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
  check('four pilot families and four functional controls rendered',initial.catalog.length===4&&initial.controls===4,initial);
@@ -128,6 +128,12 @@ try {
  check('full 66-family queue reflows without document overflow at 320px',
   queuedMobile.width<=321&&queuedMobile.rows===66,queuedMobile);
  await send('Emulation.clearDeviceMetricsOverride');
+ const missingRequiredAssets=runtimeSignals.filter(x=>x.type==='HTTP' && x.status>=400 &&
+   /\/_framework\/|\/_content\/|\.(?:css|js)(?:[?#]|$)/i.test(x.url||''));
+ check('framework JavaScript and stylesheet requests have no HTTP failures',
+   missingRequiredAssets.length===0,missingRequiredAssets);
+ const uncaught=runtimeSignals.filter(x=>x.type==='Runtime.exceptionThrown');
+ check('browser reports no unhandled JavaScript exceptions',uncaught.length===0,uncaught);
 
 } catch(e){
  console.log('QA: runtime error '+String(e));
