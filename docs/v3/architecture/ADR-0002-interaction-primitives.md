@@ -111,3 +111,51 @@ BluentTheme.DisposeAsync now suppresses only expected JSDisconnectedException, c
 The compiled Bluent.UI fake-JS lifecycle harness was expanded from 55 to **89 actual .NET assertions** across seven owners (AudioCapture, Overflow, OtpField, Popover, DataGrid, DomHelper, BluentTheme). For DomHelper it tests pointer register, repeat ID replacement, normal and exceptional Unregister, failed registration, circuit disconnect, unexpected JS dispose, duplicate Dispose, no-import before use and **actual DotNetObjectReference.Value throwing after Dispose**. Theme tests cover lazy import, circuit loss, unexpected JS error propagation and cleanup. Source audit now passes 15 positive/negative checks. Actual Chrome/Edge baseline CI for #425 PR #549 passed in all four Server/WebAssembly combinations, **but it is a separate general CompatibilityProbe**, not yet an end-to-end pointer/Popover focus-return interaction test on #420 HEAD.
 
 **Remaining signoff blockers:** authoritative issue-specific #420 Penpot board/reviewer decision; full browser-level pointer drag/unregister, overlay focus restoration/Escape, high contrast RTL and native OS/AT behavior; synchronous Popover/Overflow event API/migration review; remaining three async void plus OtpField Initialize and DataGrid/Popover bare catches. Do not merge/close #420 merely because mocked .NET and independent baseline browser jobs are green.
+
+## 2026-10-16 — Generic click Popover disclosure ARIA (draft)
+
+The **actual** Bluent v3 Design System Penpot file
+b64f6665-c9ab-80b5-8008-c4ac99d9d000, page 40
+ed5216bd-3d5b-8015-8008-cb247e27efb4, board
+ed5216bd-3d5b-8015-8008-cb247e906204 now includes an
+editable source-owned **DRAFT** disclosure state proposal.
+
+On the existing v3 task branch, an ordinary click-triggered
+generic nonmodal Popover now advertises aria-expanded=false on
+initial binding, aria-expanded=true when its actual surface opens,
+and a correct aria-controls reference to that visible surface.
+Escape and outside click synchronize false and clear controls.
+Only missing attributes are owned by the library; existing
+consumer-provided aria-expanded/aria-controls are never overwritten.
+Rebinding or disposal removes only library-owned ARIA state, and
+hover/focus Tooltip triggers do not get disclosure ARIA.
+
+We do **not** assign generic role=menu, role=dialog, or
+aria-haspopup to an arbitrary Popover; the same primitive wraps
+menus, tooltips, dropdowns, and consumer content with different
+semantics. This is a scoped fix for real click disclosures, not a
+new public Blazor parameter or a universal overlay semantics API.
+Existing public signatures and stable 2.x remain unchanged.
+
+Source policy checks require conditional click-only binding,
+respect for consumer-supplied attributes, show/hide synchronization,
+and per-trigger cleanup when the JavaScript object is rebound or
+disposed. Separate individual Blazor Popover removal versus global
+container teardown still merits its own lifecycle acceptance check.
+
+**Verified on real Dev01** after rebuilding/mirroring production
+ESM/global scripts and source maps: Chrome/InteractiveServer 30/30,
+Edge/WebAssembly 30/30, zero assertion failures. The first direct
+initial-state sample was briefly ahead of async Blazor/JS hydration,
+so the test now waits for actual aria-expanded=false to be bound
+instead of manufacturing state, then confirms true and the exact
+aria-controls surface ID while open and false/no stale controls after
+a real CDP Escape keyboard event. Both runs passed; 12 bundle source
+negative/positive tests, 21 interaction source tests, Release Build
+zero warnings/errors and 20 .NET tests passed. Remaining two browser
+combinations must be checked by the new exact-head GitHub CI, not
+inferred from these local samples.
+
+Native Windows Narrator/NVDA speech output, real Contrast Themes,
+author-supplied ARIA attributes in a live consumer and maintainer
+Penpot parity remain **separate unapproved acceptance gates**.

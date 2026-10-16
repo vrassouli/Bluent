@@ -49,7 +49,14 @@ def check_implementation_typescript(src:str)->None:
               "if (duration <= 0)",
               "window.setTimeout(complete,",
               "event.target === surface",
-              "surface.classList.contains('show') && !this._disposed")
+              "surface.classList.contains('show') && !this._disposed",
+              "settings.triggerEvents?.includes('click')",
+              "!trigger.hasAttribute('aria-expanded')",
+              "!trigger.hasAttribute('aria-controls')",
+              "this.bindDisclosure(settings, trigger)",
+              "this.setDisclosureExpanded(settings, true)",
+              "this.setDisclosureExpanded(settings, false)",
+              "this._managedTriggerAria.delete(triggerId)")
     for term in required:
         if term not in src:
             raise BundleContractError("Missing popover Escape/focus contract: "+term)

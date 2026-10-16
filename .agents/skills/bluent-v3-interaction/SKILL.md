@@ -46,3 +46,26 @@ Working sample V3InteractionConventions.razor uses existing EditContext, TextFie
 
 
 2026-10-15 real InteractiveServer Popover acceptance advance: QA-only server route /compatibility/popover-server with @rendermode InteractiveServer and a scoped Containers host renders the same Popovers demo. Dev01 real Chrome Server 7/7 + Edge Server 7/7; WASM Chrome 7/7 + Edge 7/7; 28/28 total. CI now real Chrome/Edge x WASM/Server matrix (four Windows jobs). Server probe must run Release-published SSR in Production to avoid dev-only missing _content CSS asset paths. Built-in probe self-start for both Server and WASM locally verified. This is real user interaction, not Focus Restoration, keyboard Escape, native OS Contrast/AT or maintainer Penpot signoff.
+
+2026-10-16 #420: canonical Penpot page40 board
+ed5216bd-3d5b-8015-8008-cb247e906204 now has a DRAFT
+generic click-Popover disclosure ARIA decision. The JS Popover
+auto-manages aria-expanded=false/true and aria-controls only for
+click triggers and only where author markup did not set those
+attributes. Rebind/dispose removes library-owned attributes, Escape
+and outside click synchronize state; hover/focus Tooltip triggers
+are not given disclosure semantics. No generic aria-haspopup,
+role=menu/dialog or new public API. Check real Blazor CDP open/close
+DOM + existing focus tests and regenerated ESM/global static assets.
+Native Windows screen reader and visual approval remain open.
+
+2026-10-16 #420 actual Chrome/InteractiveServer and Edge/WebAssembly
+real Blazor Popover script smoke each PASS 30/30 including initial
+aria-expanded=false after real JS hydration, open true and aria-controls
+equal visible surface ID, Escape closed false/no dangling aria-controls
+and focus return. Built/mirrored ESM/global and sourcemaps; 12
+source bundle tests, 21 interaction source tests, Release 0 errors/
+warnings, .NET 20/20. Click triggers only, never blanket tooltips.
+Individual Blazor child removal/Dispose versus container JS lifecycle
+is NOT yet a certified acceptance scenario. Native OS/AT and Penpot
+review remain open.

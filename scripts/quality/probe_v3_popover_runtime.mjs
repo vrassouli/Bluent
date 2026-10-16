@@ -53,11 +53,23 @@ try{
  cdp=new CDP(tab.webSocketDebuggerUrl);await cdp.open();await cdp.send("Page.enable");await cdp.send("Runtime.enable");await cdp.send("Page.navigate",{url});
  const mounted=await until(()=>cdp.js("(()=>{const a=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'));return document.querySelector('h1')?.textContent==='Popover'&&a.length>=3;})()"),"Blazor WASM popover demo",85000);
  result("real interactive Popover page mounted",mounted);
+ // On InteractiveServer the child Popover may mount before its JS service
+ // finishes binding. Wait for real Blazor/interop hydration, never fake ARIA.
+ const initialDisclosure=await until(async()=>{
+  const a=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));return {expanded:b?.getAttribute('aria-expanded'),controls:b?.getAttribute('aria-controls')}})()");
+  return a.expanded==='false'&&a.controls===null?a:false;
+ },"closed click disclosure ARIA initialized by real Blazor",13000);
+ result("closed click-trigger Popover advertises aria-expanded=false without dangling aria-controls",
+   initialDisclosure.expanded==='false'&&initialDisclosure.controls===null,initialDisclosure);
  const opened=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");
  },"default KeepSurface trigger opens",17000);
  result("KeepSurface trigger opens actual Popover",opened);
+ const openedDisclosure=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));const s=[...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'));return {expanded:b?.getAttribute('aria-expanded'),controls:b?.getAttribute('aria-controls'),surface:s?.id}})()");
+ result("opened Popover announces expanded and references real visible surface",
+   openedDisclosure.expanded==='true'&&!!openedDisclosure.surface&&
+   openedDisclosure.controls===openedDisclosure.surface,openedDisclosure);
  // Escape is an actual browser keyboard event, not JS-dispatched synthetic
  // KeyboardEvent: it closes only the active surface and restores trigger focus.
  await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.focus();return !!b;})()");
@@ -65,6 +77,9 @@ try{
  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
  const escapeClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));const surface=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('This is a sample content.'));return !!(b&&surface&&!surface.classList.contains('show')&&document.activeElement===b);})()"),"Escape dismisses and returns focus",9000);
  result("Escape closes popover and restores exact trigger focus",escapeClosed);
+ const closedDisclosure=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));return {expanded:b?.getAttribute('aria-expanded'),controls:b?.getAttribute('aria-controls')}})()");
+ result("Escape synchronizes aria-expanded=false and removes stale aria-controls",
+   closedDisclosure.expanded==='false'&&closedDisclosure.controls===null,closedDisclosure);
  const reopened=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");

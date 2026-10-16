@@ -12,6 +12,34 @@ export class Popover {
     // surface. Only Escape returns focus to its trigger; an outside click does not.
     private readonly _openSurfaces: PopoverSettings[] = [];
     private readonly _triggerHandlers = new Map<string, Array<{ target: Element; event: string; listener: EventListener }>>();
+    // Only generic click-trigger disclosures own ARIA state. Hover/focus
+    // Tooltip triggers and author-supplied ARIA attributes remain untouched.
+    private readonly _managedTriggerAria = new Map<string, {
+        trigger: Element; expanded: boolean; controls: boolean;
+    }>();
+    private bindDisclosure(settings: PopoverSettings, trigger: Element): void {
+        if (!settings.triggerEvents?.includes('click'))
+            return;
+        const expanded = !trigger.hasAttribute('aria-expanded');
+        const controls = !trigger.hasAttribute('aria-controls');
+        if (expanded)
+            trigger.setAttribute('aria-expanded', 'false');
+        this._managedTriggerAria.set(settings.triggerId, { trigger, expanded, controls });
+    }
+    private setDisclosureExpanded(settings: PopoverSettings, visible: boolean): void {
+        const entry = this._managedTriggerAria.get(settings.triggerId);
+        if (!entry || this.getTrigger(settings) !== entry.trigger)
+            return;
+        if (entry.expanded)
+            entry.trigger.setAttribute('aria-expanded', visible ? 'true' : 'false');
+        if (entry.controls) {
+            if (visible)
+                entry.trigger.setAttribute('aria-controls', settings.triggerId + '_surface');
+            else if (entry.trigger.getAttribute('aria-controls') === settings.triggerId + '_surface')
+                entry.trigger.removeAttribute('aria-controls');
+        }
+    }
+
     private readonly _documentClickHandlers = new Map<string, EventListener>();
     // CSS transitionend can be absent (0-duration/reduced motion) or arrive
     // after a new Show. Hide completions are owned/cancellable per surface.
@@ -50,6 +78,7 @@ export class Popover {
         const trigger = this.getTrigger(settings);
         const handlers: Array<{ target: Element; event: string; listener: EventListener }> = [];
         if (trigger) {
+            this.bindDisclosure(settings, trigger);
             if (settings.triggerEvents) {
                 settings.triggerEvents.forEach((triggerEvent) => {
                     const listener: EventListener = () => {
@@ -82,6 +111,16 @@ export class Popover {
         for (const { target, event, listener } of handlers)
             target.removeEventListener(event, listener);
         this._triggerHandlers.delete(triggerId);
+        const managed = this._managedTriggerAria.get(triggerId);
+        if (managed) {
+            if (managed.expanded && ['true', 'false'].includes(
+                managed.trigger.getAttribute('aria-expanded') || ''))
+                managed.trigger.removeAttribute('aria-expanded');
+            if (managed.controls &&
+                managed.trigger.getAttribute('aria-controls') === triggerId + '_surface')
+                managed.trigger.removeAttribute('aria-controls');
+            this._managedTriggerAria.delete(triggerId);
+        }
     }
 
     private installOutsideClick(settings: PopoverSettings): void {
@@ -143,6 +182,7 @@ export class Popover {
             this.setSurfaceWidth(trigger, surface);
         }
         surface.classList.remove('hidden');
+        this.setDisclosureExpanded(settings, true);
 
         this.updatePosition(settings);
 
@@ -288,6 +328,7 @@ export class Popover {
         if (this._openSurfaces.length === 0)
             document.removeEventListener('keydown', this._onDocumentKeyDown);
         this.unbindOutsideClick(settings.triggerId);
+        this.setDisclosureExpanded(settings, false);
 
         const surface = <HTMLElement>this.getSurface(settings);
         if (!surface) {

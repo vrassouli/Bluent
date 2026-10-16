@@ -140,3 +140,19 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 
 
 2026-10-15 #420 latest: real Popover SCSS now honors prefers-reduced-motion reduce, Sass components.css and shipped Bluent.UI components.min.css tracked; Sass@1.93.2/webpack reproducibility enforced in #420 CI. Public DisplayArrow=false exercised in real Blazor, finite geometry + Runtime.exceptionThrown monitoring proves no hidden JS errors in tested scenarios. Dev01 Chrome/Edge x WebAssembly/InteractiveServer **27/27 each = 108/108** browser checks: computed CSS zero-duration under simulated OS reduced motion, RTL forced-colors browser emulation, 700ms rapid reopen, stacked focus and independent width. Browser emulation does NOT prove native Windows Contrast or screen-reader compliance. Exact new GitHub CI to check; Penpot #420 draft not yet reviewer-approved; v3-only branch, no Dev/v2 NuGet release.
+
+- 2026-10-16 #420 Penpot page40 draft board
+  ed5216bd-3d5b-8015-8008-cb247e906204 gained click-only
+  nonmodal Popover disclosure semantics proposal. TypeScript
+  setPopover/show/hide/unbind/dispose now manages absent
+  aria-expanded and aria-controls only for click trigger;
+  preserves consumer author attrs, leaves hover/focus Tooltips
+  untouched and does not prescribe generic menu/dialog roles.
+  Rebuilt/mirrored ESM+global JS/maps to Bluent.UI wwwroot;
+  Real Dev01 Chrome/InteractiveServer 30/30 and Edge/WASM
+  30/30 browser checks, actual initial false after awaiting
+  Blazor/JS hydration, true+controls while open and false/no
+  controls after Escape; 12 bundle tests, 21 source contract
+  tests, Build Release 0 warning/error and .NET 20/20.
+  Other browser modes, per-child teardown and native OS/AT
+  reviewer signoff still pending; stable 2.x untouched.

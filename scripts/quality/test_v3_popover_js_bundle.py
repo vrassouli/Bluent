@@ -63,5 +63,26 @@ class PopoverBundleGateTests(unittest.TestCase):
         with self.assertRaisesRegex(BundleContractError,"transition|focus"):
             check_implementation_typescript(authored.replace("this.cancelPendingHide(settings.triggerId)", "this.skipPendingHide(settings.triggerId)"))
 
+    def test_disclosure_scope_must_not_touch_hover_tooltips(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "settings.triggerEvents?.includes('click')",
+                "settings.triggerEvents?.includes('mouseenter')"))
+
+    def test_disclosure_must_preserve_author_supplied_attributes(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "!trigger.hasAttribute('aria-expanded')",
+                "trigger.hasAttribute('aria-expanded')"))
+
+    def test_disclosure_cleanup_cannot_be_dropped(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "this._managedTriggerAria.delete(triggerId)",
+                "this._managedTriggerAria.clear()"))
+
 if __name__=="__main__":
     unittest.main()
