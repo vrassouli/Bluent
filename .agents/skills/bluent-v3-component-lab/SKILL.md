@@ -21,3 +21,13 @@ Do not turn sample contrast into a global theme claim.
 Do not invent new Bluent public API for demos.
 Known existing 10.0.7 Microsoft.AspNetCore.Components.WebAssembly.Server
 security advisories NU1903 must not be suppressed or called clean.
+
+2026-10-16: Generate the 66-family complete work queue (NOT
+demo acceptance) with python scripts/quality/generate_v3_component_lab_queue.py
+--write; run python scripts/quality/check_v3_component_lab.py
+for fail-closed source and issue mapping to canonical #494 and #428-#493.
+The generated JSON is docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json.
+A candidate component source or existing markup demo alone does not
+prove comprehensive public API, design parity, native accessibility
+or browser coverage. Initial Lab has four pilot families, with only
+Button/Icon real Chrome/WebAssembly interaction evidence.

@@ -115,3 +115,12 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   Release solution build 0 errors but 2 known NU1903 advisories in
   existing WebAssembly.Server 10.0.7. #421 work remains partial;
   #428 Button remains Backlog pending approved foundation gates.
+
+- 2026-10-16 #421 canonical 66-family tracking QUEUE added
+  at docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json,
+  generated from exact #494 candidate manifest (issue #428-#493).
+  Four pilot scenarios exist, two actual Chrome/WASM interaction
+  verified. All 66 families still need per-API full demos,
+  visual parity, browser-mode and native OS acceptance. The
+  queue is NOT complete component implementation or release
+  proof. Source paths/issue mapping now guarded by CI.

@@ -7,6 +7,9 @@ on:
     paths:
       - ".github/workflows/v3-component-lab.yml"
       - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/generate_v3_component_lab_queue.py"
+      - "docs/v3/inventory/public-component-sources.json"
+      - "docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
       - "scripts/quality/probe_v3_component_lab.mjs"
       - "scripts/quality/run_v3_component_lab.ps1"
       - "src/Bluent.UI.Demo*/**"
@@ -18,6 +21,9 @@ on:
     paths:
       - ".github/workflows/v3-component-lab.yml"
       - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/generate_v3_component_lab_queue.py"
+      - "docs/v3/inventory/public-component-sources.json"
+      - "docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
       - "scripts/quality/probe_v3_component_lab.mjs"
       - "scripts/quality/run_v3_component_lab.ps1"
       - "src/Bluent.UI.Demo*/**"

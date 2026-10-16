@@ -49,7 +49,28 @@ WebAssembly.Server version 10.0.7: GHSA-g27p-qf6j-c96c and
 GHSA-qjpx-jqm5-h2c4. Do not call this a zero-warning build. The
 security dependency update belongs in a separately scoped issue.
 
-Still missing: entire 66-family inventory, per-public-property/event
+## Canonical family work queue (NOT complete demo coverage)
+
+A generated 66-family work queue now exists at
+docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json. Each family is
+mapped to its component issue #428 through #493, candidate source
+paths from the real #494 public source census, and grounded existing
+documentation/example paths when found. Four pilot families have
+source-runnable specimens, and only Button/Icon were actually tested
+in Chrome/WebAssembly. Every family remains **unaccepted** for complete
+public API, design parity, browser matrix and comprehensive demos.
+
+Regenerate and validate following a canonical source census update:
+
+    python scripts/quality/generate_v3_component_lab_queue.py --write
+    python scripts/quality/check_v3_component_lab.py
+
+The source guard compares the generated queue to the current #494
+source inventory, ensures all paths exist, preserves 66 issue mapping
+and rejects false claims that any full family has been accepted.
+It is a complete TRACKING QUEUE, not a complete 66-family lab.
+
+Still missing: complete interactive demos for 66 families, per-public-property/event
 example traceability, actual app Light/Dark/brands, named OS AT,
 native Windows contrast, Chrome/Edge x Server/WASM matrix, approved
 Penpot design-to-code parity, visual snapshots and maintained Skills.

@@ -2,12 +2,14 @@
 """Source-backed pilot coverage contract. Does not claim complete component validation."""
 import json
 from pathlib import Path
+from generate_v3_component_lab_queue import payload as expected_full_queue
 
 ROOT = Path(__file__).resolve().parents[2]
 LAB = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor"
 STYLE = LAB.with_suffix(".razor.css")
 MENU = ROOT / "src/Bluent.UI.Demo.Pages/Layout/Side.razor"
 LEDGER = ROOT / "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
+QUEUE = ROOT / "docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
 
 
 def check() -> int:
@@ -44,6 +46,20 @@ def check() -> int:
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
         assert f'new("{entry["id"]}", "{entry["family"]}"' in source
         assert entry["scenarioId"] and entry["propertiesDemonstrated"] and entry["remaining"]
+    queue = json.loads(QUEUE.read_text(encoding="utf-8"))
+    assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 4
+    assert queue["familiesWithRealBrowserSpecimen"] == 2
+    assert queue["apiCoverageComplete"] is False
+    assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
+    assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
+                   item["browserMatrixAccepted"] or item["apiPropertiesEventsMapped"]
+                   for item in queue["families"])
+    for item in queue["families"]:
+        assert all((ROOT / f).is_file() for f in item["candidateSourceFiles"])
+        assert all((ROOT / f).is_file() for f in item["existingDocumentationFiles"])
+        assert all((ROOT / f).is_file() for f in item["existingConsumerExampleFiles"])
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")
     return 0
 
