@@ -90,6 +90,30 @@ class NugetBoundaryTests(unittest.TestCase):
         self.assertNotEqual(rc, 0)
         self.assertIn("issue-418.opt-in.preview.css", str(data["errors"]))
 
+    def test_only_preexisting_icon_fonts_are_allowed(self):
+        icons = {
+            "staticwebassets/fonts/icons/FluentSystemIcons-Resizable.ttf",
+            "staticwebassets/fonts/icons/FluentSystemIcons-Resizable.woff",
+            "staticwebassets/fonts/icons/FluentSystemIcons-Resizable.woff2",
+        }
+        rc, result = self.run_probe(BASE | icons)
+        self.assertEqual(rc, 0, result)
+        self.assertEqual(result["unapprovedFontAssets"], [])
+        self.assertEqual(set(result["allowedLegacyIconFontsPresent"]), icons)
+
+    def test_new_font_binary_in_any_archive_directory_is_rejected(self):
+        for name in (
+            "staticwebassets/fonts/PersianBody.woff2",
+            "staticwebassets/extra/BrandFont.otf",
+            "contentFiles/any/net10.0/wwwroot/Another.ttf",
+            "staticwebassets/fonts/icons/UnknownIcon.woff",
+        ):
+            with self.subTest(name=name):
+                rc, result = self.run_probe(BASE | {name})
+                self.assertNotEqual(rc, 0)
+                self.assertIn(name, result["unapprovedFontAssets"])
+                self.assertIn("Unexpected bundled text/unapproved font", str(result["errors"]))
+
     def test_unreviewed_v3_component_js_is_rejected(self):
         rc, data = self.run_probe(BASE | {"staticwebassets/v3/button-experiment.js"})
         self.assertNotEqual(rc, 0)

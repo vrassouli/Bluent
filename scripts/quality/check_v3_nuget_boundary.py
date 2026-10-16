@@ -28,6 +28,18 @@ EXPECTED_LEGACY = {
     "staticwebassets/bluent.ui.components.min.css",
     *(f"staticwebassets/bluent.ui.theme.{b}.min.css" for b in BRANDS),
 }
+# Preserve original Fluent icon assets and fail on new text fonts in ANY
+# NuGet directory, not just wwwroot/fonts in the source tree.
+FONT_SUFFIXES = {".woff", ".woff2", ".ttf", ".otf", ".eot"}
+ALLOWED_ICON_FONTS = {
+    f"staticwebassets/fonts/icons/FluentSystemIcons-Resizable.{ext}"
+    for ext in ("woff", "woff2", "ttf")
+}
+def unexpected_packaged_font_assets(members: set[str]) -> list[str]:
+    return sorted(n for n in members
+        if Path(n.lower()).suffix in FONT_SUFFIXES
+        and n not in ALLOWED_ICON_FONTS)
+
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
@@ -76,6 +88,10 @@ def main() -> int:
     )
     if unexpected:
         errors.append(f"Demo-only/unapproved assets crossed library package boundary: {unexpected}")
+    unapproved_fonts = unexpected_packaged_font_assets(members)
+    if unapproved_fonts:
+        errors.append("Unexpected bundled text/unapproved font assets in NuGet: "
+                      + str(unapproved_fonts))
 
     # Source-to-package contract: the JS must be gated behind a dedicated
     # opt-in modal or explicit focus target, not auto-imported for v2 Dialogs.
@@ -96,6 +112,8 @@ def main() -> int:
         "optInDangerCssPresent": DANGER_CSS in members,
         "optInDangerCssSourceIdentical": danger_css_identical,
         "demoOnlyCssOrUnexpectedV3Assets": unexpected,
+        "unapprovedFontAssets": unapproved_fonts,
+        "allowedLegacyIconFontsPresent": sorted(members & ALLOWED_ICON_FONTS),
         "zipMemberCount": len(members),
         "errors": errors,
     }

@@ -241,3 +241,8 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   font files. New migration/rollback instructions distinguish live Penpot
   readback from CI manifest; native Persian glyph/AT still unapproved.
   Stable Dev/NuGet font assets unchanged.
+
+- 2026-10-16 #418 NuGet package font boundary now rejects all new font
+  binaries regardless of zip directory, allows three historical Fluent
+  icon assets, and has 9/9 NuGet negative/positive source tests.
+  Separate source and package asset checks prevent silent font bundling.

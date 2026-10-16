@@ -32,7 +32,10 @@ From repository root:
 These enforce 20 CSS source stacks and the three existing Fluent System
 Icons font binaries. They fail if new body-text font binaries appear under
 the Bluent.UI static font resource tree, but must NOT delete the three
-existing icon fonts. Seven positive/negative controls cover source drift,
+existing icon fonts. A second independent guard inspects the locally
+built NuGet ZIP and rejects new text/unknown icon font binaries in ANY
+archive directory. It allows the three original icon font filenames
+where present without inventing missing legacy files. Seven positive/negative controls cover source drift,
 missing theme, bad Penpot expected serialization, added text fonts, missing
 icons and unsupported accessibility approval.
 

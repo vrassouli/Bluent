@@ -46,3 +46,15 @@ PR #500 includes isolated, opt-in v3 prototype code paths in actual Dialog, Popo
 A new real `HtmlRenderer` + `IDialogService` regression test named `LegacyDialogWithoutV3OptInKeepsOriginalUnnamedAndNoKeyboardAttributes` verifies that an unnamed, non-opted-in service Dialog does **not** acquire v3 role=dialog, aria-modal, aria-labelledby, aria-describedby, keyboard-modal data attributes or experimental description markup. This is an explicit negative assertion against behavioral/API feature leakage, not just a default-property unit test.
 
 Dev01 actual result: the focused new test **1/1 passed**, and the entire affected .NET test project **61/61 passed**, Release configuration. The `.github/workflows/v3-local-pack-boundary.yml` isolated Windows runner now independently restores/runs this test project **before** building/inspecting the local (unpublished) NuGet package, and the workflow path filters include test source updates. CI must be checked on the new commit. Prior browser/other negative regression gates remain independent; this test is not a blanket v2 ABI compatibility certification.
+
+### 2026-10-16 — Actual NuGet font boundary
+
+In addition to the source CSS font-family policy, the local NuGet
+validator now rejects every extra WOFF, WOFF2, TTF, OTF and EOT archive
+member, in any directory, while allowing only the historical three
+Fluent System Icons font filenames in their original location when
+present. This closes the loophole of introducing a text font in an
+unexpected package directory. Positive and negative fixtures check
+legacy icon retention and four alternative font injection paths.
+It does not change or publish the NuGet package and does not establish
+native Persian glyph or AT accessibility.
