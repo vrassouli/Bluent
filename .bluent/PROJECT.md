@@ -140,3 +140,16 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   Server render modes and native AT NOT accepted. Full
   solution Release build 0 errors, existing two NU1903
   advisories from WASM.Server 10.0.7. #421 PR remains Draft.
+
+- 2026-10-16 #421 render-mode QA follow-up: page42 desktop/mobile
+  native Penpot boards now describe the draft Server mode gate.
+  Component Lab OnAfterRenderAsync hydration marker added; real
+  Dev01 Chrome WebAssembly 17/17 passed again (66-family queue
+  and four real pilot specimens intact). Added QA-only SSR
+  shared-component wrapper and isolated Publish-mode runner.
+  Actual Dev01 SSR page HTTP200 but no interactivity; dev host
+  missing asset files, published host window.Blazor undefined,
+  data-lab-interactive=false, app.css HTTP404. Server is NOT
+  verified or added to accepted CI/coverage. Detailed evidence:
+  docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md.
+  Existing NU1903 advisories not hidden.

@@ -5,7 +5,7 @@
 
 <PageTitle>Component Lab · Bluent v3</PageTitle>
 
-<main class="component-lab">
+<main class="component-lab" data-lab-interactive="@(_interactive ? "true" : "false")">
     <header class="lab-heading">
         <div>
             <span class="lab-eyebrow">Bluent v3 · Work in progress</span>
@@ -178,6 +178,19 @@
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
             "Representative runnable scenario only")
     ];
+
+    // A prerendered InteractiveServer page is NOT yet interactive.
+    // The real browser probe waits for OnAfterRender before clicking.
+    private bool _interactive;
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactive = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
 
     private string _queueSearch = "";
     private List<ComponentLabFamilyQueue.Item> FilteredQueue =>

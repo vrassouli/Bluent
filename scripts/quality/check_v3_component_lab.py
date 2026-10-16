@@ -91,6 +91,16 @@ def check() -> int:
     assert owner.count("Name='chrome.exe' OR Name='msedge.exe'")==2
     assert "remaining=$($remaining.Count)" in owner
     assert "browserName=/msedge/i.test(chrome)?'Edge':'Chrome';" in probe
+    # Actual Server bootstrap remains unproven, never claim acceptance.
+    server=(ROOT/"src/Bluent.UI.Demo.SSR/Components/Pages/ComponentLabServerProbe.razor").read_text(encoding="utf-8-sig")
+    notes=(ROOT/"docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md").read_text(encoding="utf-8-sig")
+    assert '@rendermode InteractiveServer' in server and '<ComponentLab />' in server
+    assert 'data-lab-interactive=' in source and 'OnAfterRenderAsync' in source
+    assert 'BLUENT_V3_LAB_MODE' in probe and "renderMode==='Server'" in probe
+    assert '[ValidateSet("WebAssembly", "Server")]' in owner
+    assert '-Mode Server' in notes and 'NOT accepted: InteractiveServer' in notes
+    assert all("Server" not in mode for entry in data["families"] for mode in entry["renderModesVerified"])
+    assert "browser-wasm-pilot:" in flow and "browser-server-pilot:" not in flow
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")
     return 0

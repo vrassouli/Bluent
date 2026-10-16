@@ -8,10 +8,12 @@ import {join} from 'node:path';
 import {setTimeout as wait} from 'node:timers/promises';
 
 const base=(process.argv[2]||'http://127.0.0.1:5279').replace(/\/$/,'');
+const renderMode=process.env.BLUENT_V3_LAB_MODE==='Server'?'Server':'WebAssembly';
+const labRoute=renderMode==='Server'?'/compatibility/component-lab-server':'/component-lab';
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const browserName=/msedge/i.test(chrome)?'Edge':'Chrome';
 const profile=await mkdtemp(join(tmpdir(),'bluent-v3-421-lab-'));
-const checks=[],errors=[],pending=new Map(); let browser,ws,seq=0;
+const checks=[],errors=[],pending=new Map(),runtimeSignals=[]; let browser,ws,seq=0;
 const check=(name,pass,detail)=>{console.log('QA CHECK '+(pass?'PASS ':'FAIL ')+name);checks.push({name,pass:!!pass,detail});if(!pass)errors.push(name);};
 const poll=async(fn,timeoutMs=70000)=>{
  const end=Date.now()+timeoutMs;
@@ -43,10 +45,18 @@ try {
  ws.addEventListener('message',e=>{
   const m=JSON.parse(e.data),p=pending.get(m.id);
   if(p){pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result||{});}
+  if(m.method==='Runtime.exceptionThrown'||m.method==='Runtime.consoleAPICalled'){
+    const text=m.method==='Runtime.exceptionThrown' ? m.params?.exceptionDetails?.text:
+      m.params?.args?.map(x=>x.value||x.description||'').join(' ');
+    runtimeSignals.push({type:m.method,text:String(text).slice(0,320)});
+  }
+  if(m.method==='Network.responseReceived'&&m.params?.response?.status>=400)
+    runtimeSignals.push({type:'HTTP',status:m.params.response.status,url:m.params.response.url});
+  if(m.method==='Network.loadingFailed')runtimeSignals.push({type:'Network',detail:m.params?.errorText});
  });
- await send('Page.enable');await send('Runtime.enable');
- await send('Page.navigate',{url:base+'/component-lab'});console.log('QA: page navigation initiated');
- const ready=await poll(async()=>js("document.querySelector('h1')?.textContent==='Component Lab' && [...document.querySelectorAll('button')].some(x=>x.textContent==='Continue') && !!document.querySelector('input#lab-search')"),16000);
+ await send('Page.enable');await send('Runtime.enable');await send('Network.enable');
+ await send('Page.navigate',{url:base+labRoute});console.log('QA: page navigation initiated');
+ const ready=await poll(async()=>js("document.querySelector('h1')?.textContent==='Component Lab' && [...document.querySelectorAll('button')].some(x=>x.textContent==='Continue') && !!document.querySelector('input#lab-search') && document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),renderMode==="Server"?55000:20000);
  check('real WebAssembly Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
@@ -109,8 +119,8 @@ try {
 } catch(e){
  console.log('QA: runtime error '+String(e));
  try{
-  const page=await js("(()=>({url:location.href,title:document.title,ready:document.readyState,h1:[...document.querySelectorAll('h1')].map(x=>x.textContent),body:document.body?.innerText?.slice(0,900),scripts:[...document.scripts].map(x=>x.src).slice(-5)}))()");
-  console.log('QA: failure DOM evidence '+JSON.stringify(page));
+  const page=await js("(()=>({url:location.href,title:document.title,ready:document.readyState,interactive:document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive'),blazorLoaded:typeof window.Blazor,blazorStarted:window.Blazor?.isStarted,h1:[...document.querySelectorAll('h1')].map(x=>x.textContent),body:document.body?.innerText?.slice(0,450),scripts:[...document.scripts].map(x=>x.src).slice(-5)}))()");
+  console.log('QA: failure DOM evidence '+JSON.stringify(page));console.log('QA: browser runtime signals '+JSON.stringify(runtimeSignals.slice(-22)));
  }catch(err){console.log('QA: failure DOM readback unavailable '+String(err))}
  errors.push('runtime: '+String(e.message||e));
 }
@@ -124,7 +134,7 @@ finally {
  // root termination. The outer PowerShell test owner reaps only its
  // bluent-v3-421-lab-* processes and profiles, after evidence is printed.
 }
-const report=JSON.stringify({issue:421,environment:'actual headless '+browserName+'/Blazor WASM',url:base,passed:checks.filter(x=>x.pass).length,total:checks.length,checks,errors},null,2);
+const report=JSON.stringify({issue:421,environment:'actual headless '+browserName+'/Blazor '+renderMode,url:base,passed:checks.filter(x=>x.pass).length,total:checks.length,checks,errors},null,2);
 // A failed Windows Chromium process teardown must not hide a completed
 // browser test report. Flush the result, then let the owned-process
 // PowerShell runner reap only its temporary Chrome children.
