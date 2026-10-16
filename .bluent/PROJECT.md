@@ -156,3 +156,27 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   tests, Build Release 0 warning/error and .NET 20/20.
   Other browser modes, per-child teardown and native OS/AT
   reviewer signoff still pending; stable 2.x untouched.
+
+- 2026-10-16 #420 single-child Popover Dispose previously removed
+  its C# Context but JS singleton per-trigger handlers, observers
+  and ARIA lingered until full container Dispose. An ordered
+  internal Set/Show/Destroy queue now invokes JS destroyPopover
+  for exactly that trigger after Blazor render. JS releases its
+  own transition, outside-click, geometry, stack and managed ARIA.
+  Compiled fake-JS tests 127/127; source tests 21+12 PASS.
+  QA-only stacked fixture removes FIRST through a button inside
+  SECOND surface; Chrome/InteractiveServer 33/33 live browser
+  checks show surviving sibling remains open and Escape restores
+  focus. Native Penpot draft page40 now 53 shapes. Browser QA
+  cleanup additionally scopes Windows process termination to
+  unique bluent-v3-420 temp profile and fails on orphan resources.
+  Native Windows OS/AT + maintainer design acceptance still open.
+
+- 2026-10-16 #420 final real browser child removal: Chrome/Edge x
+  Server/WASM passed 33/33 each, total 132/132, zero failures.
+  Prior Edge WASM test failed because --no-build served stale Debug
+  Razor without Remove button; actual CDP DOM exposed it, fixed
+  harness to always build latest Debug. Compiled DLL fake JS 127
+  assertions, source Python 22+13. Owned-profile cleanup remaining
+  zero. Penpot page40 draft not yet approved; native Windows/AT
+  evidence pending. PR #550 Draft; issue In progress.

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // #420 actual Popover interaction test; real Chrome/Edge against Blazor WASM.
-import {spawn,execFileSync} from "node:child_process";
+import {spawn,execFile,execFileSync} from "node:child_process";
+import {promisify} from "node:util";
+const execFileAsync=promisify(execFile);
 import {mkdtempSync,existsSync,readFileSync,writeFileSync,rmSync,mkdirSync} from "node:fs";
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
@@ -17,9 +19,31 @@ mkdirSync(evidence,{recursive:true});
 const origin=process.env.BLUENT_V3_POPOVER_URL||"http://127.0.0.1:5099";
 const url=origin+(process.env.BLUENT_V3_POPOVER_ROUTE||
     (mode==="Server"?"/compatibility/popover-server":"/components/popovers"));
-let app,browser,cdp;const checks=[],errors=[];const wait=ms=>new Promise(r=>setTimeout(r,ms));
+let app,browser,cdp;const checks=[],errors=[],cleanupAttempts=[];const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function result(name,ok,details){checks.push({name,pass:!!ok,details});if(!ok)errors.push(name+" "+JSON.stringify(details));}
 function launch(exe,args,cwd=root,env=process.env){const p=spawn(exe,args,{cwd,env,windowsHide:true,stdio:["ignore","pipe","pipe"]});let tail="";for(const x of [p.stdout,p.stderr])x.on("data",v=>tail=(tail+String(v)).slice(-6500));p.tail=()=>tail;return p;}
+async function cleanupOnlyOwnedBrowserProfiles(profileRoot){
+ if(process.platform!=="win32")return {supported:false};
+ if(!profileRoot.includes("bluent-v3-420-"))
+  throw Error("Refusing browser cleanup outside temporary #420 QA profile");
+ const ps=[
+  "$root=$env:BLUENT_V3_420_OWNED_PROFILE",
+  "if(-not $root -or $root.IndexOf('bluent-v3-420-') -lt 0){throw 'Unsafe QA scope'}",
+  "$items=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" |",
+  "Where-Object { $_.CommandLine -and $_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0 })",
+  "$killed=0",
+  "foreach($item in $items){try{Stop-Process -Id $item.ProcessId -Force -ErrorAction Stop;$killed++}catch{}}",
+  "Start-Sleep -Milliseconds 400",
+  "$remaining=@($items | Where-Object { Get-Process -Id $_.ProcessId -ErrorAction SilentlyContinue })",
+  "Write-Output \"killed=$killed remaining=$($remaining.Count)\"",
+  "if($remaining.Count -gt 0){exit 17}"
+ ].join("\n");
+ const {stdout}=await execFileAsync("powershell.exe",
+  ["-NoProfile","-NonInteractive","-Command",ps],
+  {env:{...process.env,BLUENT_V3_420_OWNED_PROFILE:profileRoot},
+   windowsHide:true,timeout:65000,maxBuffer:1024*1024});
+ return {supported:true,output:stdout.trim()};
+}
 async function until(fn,name,timeout=80000){const end=Date.now()+timeout;let last="";while(Date.now()<end){try{const x=await fn();if(x)return x;}catch(e){last=String(e);}await wait(300);}throw Error("Timeout "+name+": "+last);}
 class CDP {
  constructor(url){this.ws=new WebSocket(url);this.next=0;this.pending=new Map();this.runtimeExceptions=[];}
@@ -41,8 +65,10 @@ try{
      {...process.env,ASPNETCORE_ENVIRONMENT:"Production",ASPNETCORE_URLS:origin});
   } else {
    // Release standalone targets GitHub Pages /Bluent/; Debug hosts at root.
+   // Build current Debug output on every actual WASM QA run. --no-build can
+   // silently serve stale Razor fixture pages after a Release-only build.
    app=launch("dotnet",["run","--project","src/Bluent.UI.Demo/Bluent.UI.Demo.csproj",
-     "-c","Debug","--no-build","--no-launch-profile","--urls",origin]);
+     "-c","Debug","--no-launch-profile","--urls",origin]);
   }
  }
  await until(async()=>{if(app&&app.exitCode!==null)throw Error("Demo exited: "+app.tail());return (await fetch(url,{signal:AbortSignal.timeout(1300)})).ok;},"Demo http host");
@@ -192,6 +218,18 @@ try{
  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
  const bottomClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('First stack trigger'));const surfaces=[...document.querySelectorAll('.bui-popover-surface')];const first=surfaces.find(x=>x.textContent.includes('First stack surface'));const second=surfaces.find(x=>x.textContent.includes('Second stack surface'));return !!(b&&first&&!first.classList.contains('show')&&second&&!second.classList.contains('show')&&document.activeElement===b);})()"),"second Escape closes remaining surface",9000);
  result("second Escape closes remaining and focuses first trigger",bottomClosed);
+ // Reopen both, remove the first Blazor child while BOTH are active, and
+ // prove that its JS teardown preserves sibling overlay and Escape focus.
+ await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Open both popovers'));b?.click();return !!b;})()");
+ const childRemovalReady=await until(()=>cdp.js("(()=>{const surfaces=[...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')];return surfaces.some(x=>x.textContent.includes('First stack surface'))&&surfaces.some(x=>x.textContent.includes('Second stack surface'));})()"),"both overlays re-open for child removal",18000);
+ result("both Popovers reopened before one Blazor child is destroyed",childRemovalReady);
+ await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Remove first popover'));b?.click();return !!b;})()");
+ const removedOne=await until(()=>cdp.js("(()=>{const buttons=[...document.querySelectorAll('button')];const first=buttons.some(x=>x.textContent.includes('First stack trigger'));const second=buttons.some(x=>x.textContent.includes('Second stack trigger'));const surfaces=[...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')];return !first&&second&&surfaces.some(x=>x.textContent.includes('Second stack surface'))&&!surfaces.some(x=>x.textContent.includes('First stack surface'));})()"),"Blazor child removal retains sibling surface",18000);
+ result("destroying one live Popover leaves sibling visible and usable",removedOne);
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const siblingClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Second stack trigger'));const surface=[...document.querySelectorAll('.bui-popover-surface')].find(x=>x.textContent.includes('Second stack surface'));return !!(b&&surface&&!surface.classList.contains('show')&&document.activeElement===b);})()"),"sibling Escape after child destroy",11000);
+ result("remaining Popover retains Escape-to-trigger-focus after sibling removal",siblingClosed);
  // The public DisplayArrow=false option must not feed a missing arrow element
  // into the floating geometry middleware or leave invalid positioning.
  const noArrowShown=await until(async()=>{
@@ -208,8 +246,13 @@ try{
  writeFileSync(join(evidence,"popover-stack-"+brand+".png"),Buffer.from(stackShot.data,"base64"));
 }catch(e){errors.push(String(e.stack||e));}
 finally{
- writeFileSync(join(evidence,"popover-"+brand+".json"),JSON.stringify({schema:1,browser:brand,commit:process.env.GITHUB_SHA||"local",checks,errors},null,2));
  cdp?.close();for(const p of [browser,app])if(p&&p.exitCode===null)p.kill();
+ try{cleanupAttempts.push(await cleanupOnlyOwnedBrowserProfiles(work));}
+ catch(e){const detail=String(e.stderr||e.message||e).slice(-1100);
+  cleanupAttempts.push({error:detail});errors.push("Owned QA browser cleanup failed: "+detail);}
+ writeFileSync(join(evidence,"popover-"+brand+".json"),
+  JSON.stringify({schema:1,browser:brand,commit:process.env.GITHUB_SHA||"local",
+   checks,cleanupAttempts,errors},null,2));
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:350});}catch{}
  console.log("Real Popover "+brand+" "+mode+": "+checks.filter(x=>x.pass).length+"/"+checks.length+" checks; failures="+errors.length);
  for(const error of errors)console.error("FAIL",error);

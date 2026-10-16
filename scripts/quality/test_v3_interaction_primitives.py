@@ -130,11 +130,32 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("_interopCommands.Enqueue(false,",container)
         self.assertIn("_interopCommands.Enqueue(true,",container)
         self.assertIn("protected override async Task OnAfterRenderAsync",container)
-        self.assertIn("await _interopCommands.DrainAsync",container)
+        self.assertIn("await _interopCommands.DrainWithDestroyAsync",container)
+        self.assertIn("_interopCommands.EnqueueDestroy(context.Config.Settings);",container)
+        self.assertIn("triggerId => _interop.DestroyPopoverAsync(triggerId)",container)
+        self.assertIn('await _popoverReference.InvokeVoidAsync("destroyPopover", triggerId);',interop)
+        self.assertIn("public void EnqueueDestroy",queue)
+        self.assertIn("public Task DrainWithDestroyAsync",queue)
         self.assertIn("await execute(command.Show, command.Settings);",queue)
         self.assertIn("if (_draining)",queue)
         self.assertNotIn("async void",interop)
         self.assertNotIn("catch {",interop)
+
+    def test_real_wasm_probe_rebuilds_latest_razor_fixture(self):
+        root=__import__("pathlib").Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        source=(root/"src/Bluent.UI.Demo.Pages/Pages/Components/PopoverStackProbe.razor").read_text(encoding="utf-8-sig")
+        for token in ("-c","Debug","--no-launch-profile","--urls"):
+            self.assertIn(token,probe)
+        self.assertNotIn('"-c","Debug","--no-build"',probe,
+            "WASM probe must not run stale Debug fixtures")
+        for token in ("Remove first popover","_showFirst = false","@if (_showFirst)"):
+            self.assertIn(token,source)
+        for token in ("destroying one live Popover leaves sibling visible and usable",
+                      "remaining Popover retains Escape-to-trigger-focus after sibling removal",
+                      "cleanupOnlyOwnedBrowserProfiles(work)",
+                      "cleanupAttempts,errors"):
+            self.assertIn(token,probe)
 
     def test_popover_disposal_unsubscribes_even_if_js_throws(self):
         interop=self.source["PopoverInterop.cs"]

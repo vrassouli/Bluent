@@ -84,5 +84,12 @@ class PopoverBundleGateTests(unittest.TestCase):
                 "this._managedTriggerAria.delete(triggerId)",
                 "this._managedTriggerAria.clear()"))
 
+    def test_popover_single_child_cleanup_cannot_be_replaced_with_global_dispose(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        changed=authored.replace("public destroyPopover(triggerId: string)",
+                                  "public destroyAll(): void")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(changed)
+
 if __name__=="__main__":
     unittest.main()

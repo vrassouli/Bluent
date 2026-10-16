@@ -31,6 +31,7 @@ internal static class Program
             await InitializationExceptionsAreObservable();
             await OverflowCheckAwaitsActualJs();
             await PopoverCommandsAwaitedInServiceOrder();
+            await PopoverSingleChildDestroyDoesNotAffectSiblings();
             Console.WriteLine($"PASS: {_assertions} executed AudioCapture/Overflow/OtpField/Popover/DataGrid/DomHelper/BluentTheme interop lifecycle assertions against compiled Bluent.UI");
             return 0;
         }
@@ -574,6 +575,48 @@ internal static class Program
     private static Task DrainPopoverCommands(object queue,Func<bool,PopoverSettings,Task> execute)
         => (Task)queue.GetType().GetMethod("DrainAsync")!.Invoke(queue,[execute])!;
 
+    private static void AddPopoverDestroy(object queue,PopoverSettings settings)
+        => queue.GetType().GetMethod("EnqueueDestroy")!.Invoke(queue,[settings]);
+
+    private static Task DrainPopoverWithDestroy(object queue,
+        Func<bool,PopoverSettings,Task> execute,Func<string,Task> destroy)
+        => (Task)queue.GetType().GetMethod("DrainWithDestroyAsync")!
+           .Invoke(queue,[execute,destroy])!;
+
+    private static async Task PopoverSingleChildDestroyDoesNotAffectSiblings()
+    {
+        var js=new FakeRuntime();
+        var (interop,container,_)=CreatePopover(js);
+        var queue=CreatePopoverQueue();
+        var a=new PopoverSettings("trigger-a",Placement.Bottom,6,5);
+        var b=new PopoverSettings("trigger-b",Placement.Top,6,5);
+        AddPopoverCommand(queue,false,a);
+        AddPopoverCommand(queue,false,b);
+        AddPopoverCommand(queue,true,a);
+        AddPopoverCommand(queue,true,b);
+        AddPopoverDestroy(queue,a);
+        Func<bool,PopoverSettings,Task> execute=(show,settings)=>
+            InvokeTask(interop,show?"ShowSurfaceAsync":"SetPopoverAsync",settings);
+        Func<string,Task> destroy=id=>InvokeTask(interop,"DestroyPopoverAsync",id);
+        await DrainPopoverWithDestroy(queue,execute,destroy);
+        Assert(js.Handle.PopoverCalls.SequenceEqual(new[]{
+            "setPopover:trigger-a","setPopover:trigger-b",
+            "showSurface:trigger-a","showSurface:trigger-b",
+            "destroyPopover:trigger-a"}),
+            "child Popover JS teardown occurs after queued operations and not sibling");
+        Assert(QueuedPopoverActions(queue)==0,"child destroy queue is drained");
+        AddPopoverCommand(queue,true,b);
+        await DrainPopoverWithDestroy(queue,execute,destroy);
+        Assert(js.Handle.PopoverCalls.Last()=="showSurface:trigger-b",
+            "sibling Popover remains callable after child destruction");
+        await Dispose(container);
+        var unused=new FakeRuntime();
+        var (lazy,unusedContainer,_)=CreatePopover(unused);
+        await InvokeTask(lazy,"DestroyPopoverAsync","never-bound");
+        Assert(unused.ImportCount==0,"destroy before JS bind does not import");
+        await Dispose(unusedContainer);
+    }
+
     private static async Task PopoverCommandsAwaitedInServiceOrder()
     {
         var js=new FakeRuntime();
@@ -855,6 +898,14 @@ internal sealed class FakeJsHandle: IJSObjectReference
             PopoverDisposeCallCount++;
             if(PopoverFailureOn=="dispose")
                 throw new JSException("simulated Popover JS listener cleanup failure");
+        }
+        else if(identifier=="destroyPopover")
+        {
+            var id=args?[0] as string
+                ?? throw new InvalidOperationException("Popover trigger ID required");
+            PopoverCalls.Add("destroyPopover:"+id);
+            if(PopoverFailureOn==identifier)
+                throw new JSException("simulated child Popover destroy failure");
         }
         else if(identifier is "setPopover" or "showSurface")
         {

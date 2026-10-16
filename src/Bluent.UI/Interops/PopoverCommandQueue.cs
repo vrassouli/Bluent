@@ -9,17 +9,30 @@ namespace Bluent.UI.Interops;
 /// </summary>
 internal sealed class PopoverCommandQueue
 {
-    private readonly Queue<(bool Show, PopoverSettings Settings)> _pending = new();
+    private readonly Queue<(bool Show, PopoverSettings Settings, bool Destroy)> _pending = new();
     private bool _draining;
 
     public int Count => _pending.Count;
 
     public void Enqueue(bool show, PopoverSettings settings) =>
-        _pending.Enqueue((show, settings));
+        _pending.Enqueue((show, settings, false));
+
+    public void EnqueueDestroy(PopoverSettings settings) =>
+        _pending.Enqueue((false, settings, true));
 
     public void Clear() => _pending.Clear();
 
-    public async Task DrainAsync(Func<bool, PopoverSettings, Task> execute)
+    // Keep the previous DrainAsync API for existing internal callers/fake
+    // JS lifecycle tests. Destruction is a separately named ordered drain.
+    public Task DrainAsync(Func<bool, PopoverSettings, Task> execute) =>
+        DrainCoreAsync(execute, _ => throw new InvalidOperationException(
+            "Popover child destroy requires a JS destroy callback."));
+
+    public Task DrainWithDestroyAsync(Func<bool, PopoverSettings, Task> execute,
+        Func<string, Task> destroy) => DrainCoreAsync(execute, destroy);
+
+    private async Task DrainCoreAsync(Func<bool, PopoverSettings, Task> execute,
+        Func<string, Task> destroy)
     {
         if (_draining)
             return;
@@ -28,7 +41,12 @@ internal sealed class PopoverCommandQueue
         try
         {
             while (_pending.TryDequeue(out var command))
-                await execute(command.Show, command.Settings);
+            {
+                if (command.Destroy)
+                    await destroy(command.Settings.TriggerId);
+                else
+                    await execute(command.Show, command.Settings);
+            }
         }
         finally
         {

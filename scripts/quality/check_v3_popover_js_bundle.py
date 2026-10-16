@@ -56,7 +56,10 @@ def check_implementation_typescript(src:str)->None:
               "this.bindDisclosure(settings, trigger)",
               "this.setDisclosureExpanded(settings, true)",
               "this.setDisclosureExpanded(settings, false)",
-              "this._managedTriggerAria.delete(triggerId)")
+              "this._managedTriggerAria.delete(triggerId)",
+              "public destroyPopover(triggerId: string)",
+              "this.cleanupGeometry(triggerId, true)",
+              "this.unbindTrigger(triggerId)")
     for term in required:
         if term not in src:
             raise BundleContractError("Missing popover Escape/focus contract: "+term)

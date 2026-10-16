@@ -138,6 +138,25 @@ export class Popover {
         this._documentClickHandlers.delete(triggerId);
     }
 
+    // A single Blazor child Popover may be destroyed while the shared
+    // container and sibling surfaces remain alive. This is NOT dispose().
+    public destroyPopover(triggerId: string): void {
+        if (this._disposed)
+            return;
+        const index = this._openSurfaces.findIndex(x => x.triggerId === triggerId);
+        if (index >= 0)
+            this._openSurfaces.splice(index, 1);
+        if (this._openSurfaces.length === 0)
+            document.removeEventListener('keydown', this._onDocumentKeyDown);
+        this.cancelPendingHide(triggerId);
+        this.unbindOutsideClick(triggerId);
+        const surface = document.getElementById(triggerId + '_surface');
+        surface?.classList.remove('show');
+        surface?.classList.add('hidden');
+        this.cleanupGeometry(triggerId, true);
+        this.unbindTrigger(triggerId);
+    }
+
     public dispose(): void {
         if (this._disposed)
             return;

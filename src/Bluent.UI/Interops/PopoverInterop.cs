@@ -91,6 +91,14 @@ internal class PopoverInterop : IAsyncDisposable
         await module.InvokeVoidAsync("showSurface", settings);
     }
 
+    public async Task DestroyPopoverAsync(string triggerId)
+    {
+        // A child can be disposed before JS was ever instantiated.
+        // Do not import/create a module just to remove a nonexistent binding.
+        if (_popoverReference is not null)
+            await _popoverReference.InvokeVoidAsync("destroyPopover", triggerId);
+    }
+
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)

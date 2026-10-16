@@ -67,8 +67,9 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
             {
                 // The synchronous service notifications are serialized here,
                 // with JS work actually awaited in the Blazor render lifecycle.
-                await _interopCommands.DrainAsync((show, settings) =>
-                    show ? _interop.ShowSurfaceAsync(settings) : _interop.SetPopoverAsync(settings));
+                await _interopCommands.DrainWithDestroyAsync((show, settings) =>
+                    show ? _interop.ShowSurfaceAsync(settings) : _interop.SetPopoverAsync(settings),
+                    triggerId => _interop.DestroyPopoverAsync(triggerId));
             }
             catch (JSDisconnectedException)
             {
@@ -146,9 +147,14 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
         if (context != null)
+        {
             Contexts.Remove(context);
+            if (!_disposed)
+                _interopCommands.EnqueueDestroy(context.Config.Settings);
+        }
 
-        StateHasChanged();
+        if (!_disposed && RendererInfo.IsInteractive)
+            _ = InvokeAsync(StateHasChanged);
     }
 
     private void PopoverOnRefreshSurface(object? sender, RefreshPopoverSurfaceEventArgs args)

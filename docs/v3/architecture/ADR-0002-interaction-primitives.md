@@ -159,3 +159,66 @@ inferred from these local samples.
 Native Windows Narrator/NVDA speech output, real Contrast Themes,
 author-supplied ARIA attributes in a live consumer and maintainer
 Penpot parity remain **separate unapproved acceptance gates**.
+
+## 2026-10-16 — Per-child Popover teardown without sibling listener loss (draft)
+
+Native editable Penpot Bluent v3 Design System file
+b64f6665-c9ab-80b5-8008-c4ac99d9d000, interaction page40
+ed5216bd-3d5b-8015-8008-cb247e27efb4, board
+ed5216bd-3d5b-8015-8008-cb247e906204 gained a **53rd
+DRAFT** source-owned shape documenting asynchronous child removal
+without disrupting sibling overlays. Human design approval remains
+separate.
+
+**Actual lifetime gap:** C# Popover.Dispose invoked the service
+Destroy event, and PopoverContainer removed its Blazor Context,
+but until global Container disposal the JS singleton still retained
+per-trigger click/outside listeners, ResizeObserver/Floating UI
+resources, pending hide callbacks and managed ARIA state.
+
+**Scoped correction:** The existing synchronous service API is
+preserved. The internal PopoverCommandQueue now supports an ordered
+Destroy command alongside Set/Show, drained from OnAfterRenderAsync
+using an awaited JS interop call. DestroyPopoverAsync never creates
+a JS module solely to delete an unbound trigger. The JS
+destroyPopover(triggerId) cancels only that trigger's pending
+transition, removes its document and trigger listeners, clears
+only its geometry observers/updater and managed ARIA, removes its
+open-stack entry and leaves all siblings intact. Global Popover
+dispose remains separate. No public Blazor parameters, service
+signatures, stable CSS or v2 branch were changed.
+
+A compiled real-DLL fake-JS test now checks FIFO Set/Show/Destroy
+ordering, continuing to Show the sibling after destroying the
+first, and no JS import on destroy-before-bind. **127 real
+compiled interop lifecycle assertions** passed on Dev01 (prior
+123), plus 21 interaction source checks and 12 Popover JS
+bundle tests. ESM/global production scripts/maps were rebuilt
+and mirrored to Bluent.UI wwwroot. The source checks now pass
+22 interaction and 13 JS-bundle Python tests; negative tests
+cover child cleanup and current WASM Debug build freshness.
+
+A QA-only PopoverStackProbe now puts "Remove first popover"
+**inside the second popup's actual Surface**: a control *outside*
+both surfaces rightfully closes them both due to standard outside
+click logic and cannot test teardown independence. The real Blazor
+fixture opens both, removes only first while both are open, then
+uses real CDP Escape to close the still-open sibling and checks
+trigger focus. On Dev01 all FOUR real browser/mode combinations
+passed 33/33 checks each (total 132/132): Chrome/InteractiveServer,
+Edge/InteractiveServer, Chrome/WebAssembly and Edge/WebAssembly.
+The first Edge/WebAssembly child-removal check accidentally served an
+old Debug Razor fixture because harness used --no-build after only
+a Release build. Real CDP DOM showed the Remove button absent.
+WASM harness now builds its current Debug app; rerun passed 33/33
+without weakening child removal assertion. No JS runtime errors
+observed in tested scenarios. This does NOT certify native
+Windows Contrast Themes, Narrator/NVDA speech output or accepted
+Penpot design-to-code parity.
+
+The real browser QA harness also now cleans browser processes
+strictly scoped to its ephemeral "bluent-v3-420-" profile using
+an awaited, bounded Windows PowerShell process inventory, and
+stores cleanup evidence/failures. Unrelated Chrome/Edge processes
+are never targeted; failure to remove QA-owned processes is not
+silently ignored.

@@ -69,3 +69,25 @@ warnings, .NET 20/20. Click triggers only, never blanket tooltips.
 Individual Blazor child removal/Dispose versus container JS lifecycle
 is NOT yet a certified acceptance scenario. Native OS/AT and Penpot
 review remain open.
+
+2026-10-16 #420 child JS teardown: Penpot draft page40 board
+ed5216bd-3d5b-8015-8008-cb247e906204 (53 shapes) specifies
+independent Popover Destroy. C# Popover service callback enqueues
+an awaited destroy after Set/Show; JS destroyPopover(triggerId)
+cancels only one pending hide, outside click, click handlers,
+ResizeObservers, Floating UI and managed ARIA; sibling remains
+functional. Compiled fake-JS test 127 assertions, source Python
+21+12 PASS, local real Chrome/Server 33/33 with live removal of
+first Blazor child from inside second surface and Escape focus
+on survivor. Browser harness performs fail-closed cleanup scoped
+to its ephemeral temp profile. Design acceptance/native AT pending.
+
+2026-10-16 #420 final four-mode child-removal matrix: Chrome/Server,
+Edge/Server, Chrome/WASM and Edge/WASM each 33/33 real assertions,
+total 132/132, zero browser test failures. WASM probe now builds
+its Debug Blazor fixture (previous --no-build served stale Razor
+page with no Remove button). Fresh Chrome/Edge WASM QA cleanup
+reported killed=7 remaining=0; no unrelated browser profiles.
+Compiled fake-JS 127 assertions, interaction source Python 22
+and bundle source Python 13. Native OS/AT and maintainer Penpot
+acceptance remain OPEN.
