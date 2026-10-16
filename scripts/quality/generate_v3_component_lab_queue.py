@@ -39,11 +39,11 @@ def payload():
             if x.get("consumerExample") and (ROOT / x["consumerExample"]).is_file()
         })
         specimen = specimens.get(family)
-        # Browser probe switches Button/Icon; Label/Link are compiled
-        # fixtures only. A matching demo file by itself is NOT evidence.
+        # Browser-proven pilot: Button/Icon interaction, Label/Link native
+        # rendered markup. No full public-API or AT acceptance inferred.
         sample_level = (
             "chrome_wasm_interaction_observed" if family in ("Button", "Icon")
-            else "lab_source_and_build_only" if specimen
+            else "chrome_wasm_native_markup_observed" if family in ("Label", "Link")
             else "no_component_lab_scenario"
         )
         entries.append({
@@ -74,7 +74,7 @@ def payload():
         "sourceManifestScope": census["status"],
         "familyCount": len(entries),
         "familiesWithRepresentativeLabScenario": len(specimens),
-        "familiesWithRealBrowserSpecimen": 2,
+        "familiesWithRealBrowserSpecimen": 4,
         "apiCoverageComplete": False,
         "note": (
             "This is a complete 66-family WORK QUEUE sourced from the #494 census, "
@@ -96,7 +96,7 @@ def main():
         TARGET.write_text(desired, encoding="utf-8")
     elif not TARGET.is_file() or TARGET.read_text(encoding="utf-8") != desired:
         raise SystemExit("Component Lab family work queue is missing or stale. Review #494 data and regenerate.")
-    print("Component Lab family queue: 66/66 mapped to issues; 4 pilots, 2 browser specimens, ZERO complete API acceptance.")
+    print("Component Lab family queue: 66/66 mapped to issues; 4 pilots, 4 browser specimens, ZERO complete API acceptance.")
 
 
 if __name__ == "__main__":

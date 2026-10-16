@@ -9,6 +9,7 @@ import {setTimeout as wait} from 'node:timers/promises';
 
 const base=(process.argv[2]||'http://127.0.0.1:5279').replace(/\/$/,'');
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const browserName=/msedge/i.test(chrome)?'Edge':'Chrome';
 const profile=await mkdtemp(join(tmpdir(),'bluent-v3-421-lab-'));
 const checks=[],errors=[],pending=new Map(); let browser,ws,seq=0;
 const check=(name,pass,detail)=>{console.log('QA CHECK '+(pass?'PASS ':'FAIL ')+name);checks.push({name,pass:!!pass,detail});if(!pass)errors.push(name);};
@@ -60,6 +61,20 @@ try {
  await js("document.querySelector('button.lab-family')?.click()");
  const switched=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.includes('Icon') && document.querySelectorAll('.lab-canvas .bui-icon').length>=3"));
  check('catalog selection renders real Bluent Icon specimens',switched);
+ // Exercise BOTH source-only pilot families before granting runtime evidence.
+ for(const family of ['Label','Link']){
+  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,"+JSON.stringify(family)+");x.dispatchEvent(new Event('input',{bubbles:true}));})()");
+  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes("+JSON.stringify(family)+")"));
+  await js("document.querySelector('button.lab-family')?.click()");
+  const selected=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith("+JSON.stringify(family)+")"));
+  check('real '+family+' catalog family selected through interactive Blazor search',selected);
+  const markup=await js("(()=>{const canvas=document.querySelector('.lab-canvas');if("+JSON.stringify(family)+"==='Label'){const x=canvas?.querySelector('label');return {tag:x?.tagName?.toLowerCase(),text:x?.textContent?.trim(),className:x?.className};}const a=canvas?.querySelector('a.bui-link');return {tag:a?.tagName?.toLowerCase(),text:a?.textContent?.trim(),href:a?.getAttribute('href')};})()");
+  check('actual Bluent '+family+' specimen emits native accessible markup',
+   family==='Label'
+    ? markup.tag==='label'&&markup.text==='Customer name'
+    : markup.tag==='a'&&markup.text==='Read documentation'&&markup.href==='getting-started',
+   markup);
+ }
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===4"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
@@ -70,7 +85,7 @@ try {
  check('mobile 320px viewport has no unintended horizontal document clipping',narrow.scrollWidth<=321,narrow);
  await send('Emulation.clearDeviceMetricsOverride');
  const source=await js("(()=>({text:document.querySelector('.lab-source pre code')?.textContent,buttons:document.querySelectorAll('.lab-source button').length,heading:document.querySelector('.lab-source h2')?.textContent}))()");
- check('copyable Razor source visible in native code block',source.text?.includes('<Icon')&&source.buttons===1,source);
+ check('copyable Razor source visible in native code block',source.text?.includes('<Link')&&source.buttons===1,source);
 } catch(e){
  console.log('QA: runtime error '+String(e));
  try{
@@ -89,7 +104,7 @@ finally {
  // root termination. The outer PowerShell test owner reaps only its
  // bluent-v3-421-lab-* processes and profiles, after evidence is printed.
 }
-const report=JSON.stringify({issue:421,environment:'actual headless Chrome/Blazor WASM',url:base,passed:checks.filter(x=>x.pass).length,total:checks.length,checks,errors},null,2);
+const report=JSON.stringify({issue:421,environment:'actual headless '+browserName+'/Blazor WASM',url:base,passed:checks.filter(x=>x.pass).length,total:checks.length,checks,errors},null,2);
 // A failed Windows Chromium process teardown must not hide a completed
 // browser test report. Flush the result, then let the owned-process
 // PowerShell runner reap only its temporary Chrome children.

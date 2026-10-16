@@ -34,11 +34,16 @@ def check() -> int:
     assert "max-width:320px" in css and "prefers-reduced-motion:reduce" in css
     for entry in data["families"]:
         assert entry["classification"] == "representative_only"
-        if entry["id"] in ("button", "icon"):
-            assert entry["renderModesVerified"] == ["Chrome/WebAssembly Dev01: representative lab smoke 9/9 (2026-10-16)"]
-        else:
-            assert not entry["renderModesVerified"], "do not claim unexercised Label/Link runtime"
-
+        modes=entry["renderModesVerified"]
+        assert len(modes)==2, "both actual local browsers must be evidenced"
+        assert modes[0].startswith("Chrome/WebAssembly Dev01:")
+        assert modes[1].startswith("Edge/WebAssembly Dev01:")
+        for mode in modes:
+            assert "shared browser smoke 13/13" in mode
+            if entry["id"] in ("button", "icon"):
+                assert "interactive controls observed" in mode
+            else:
+                assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
         demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / (entry["family"] + "s.razor")
@@ -49,7 +54,7 @@ def check() -> int:
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
     assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 4
-    assert queue["familiesWithRealBrowserSpecimen"] == 2
+    assert queue["familiesWithRealBrowserSpecimen"] == 4
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -59,7 +64,21 @@ def check() -> int:
         assert all((ROOT / f).is_file() for f in item["candidateSourceFiles"])
         assert all((ROOT / f).is_file() for f in item["existingDocumentationFiles"])
         assert all((ROOT / f).is_file() for f in item["existingConsumerExampleFiles"])
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 pilots, ZERO complete components")
+    probe=(ROOT / "scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    for literal in ("for(const family of ['Label','Link'])",
+                    "native accessible markup",
+                    "markup.tag==='label'",
+                    "markup.tag==='a'",
+                    "mobile 320px viewport has no unintended horizontal document clipping"):
+        assert literal in probe, f"real-browser probe regression: {literal}"
+    flow=(ROOT/".github/workflows/v3-component-lab.yml").read_text(encoding="utf-8-sig")
+    owner=(ROOT/"scripts/quality/run_v3_component_lab.ps1").read_text(encoding="utf-8-sig")
+    assert "browser: [Chrome, Edge]" in flow
+    assert "matrix.browser" in flow and "msedge.exe" in flow
+    assert owner.count("Name='chrome.exe' OR Name='msedge.exe'")==2
+    assert "remaining=$($remaining.Count)" in owner
+    assert "browserName=/msedge/i.test(chrome)?'Edge':'Chrome';" in probe
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")
     return 0
 

@@ -35,14 +35,14 @@ finally {
     }
     # Cleanup is deliberately limited to disposable browser profiles
     # created by this #421 QA probe. Never target users' Chrome sessions.
-    $owned = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" |
+    $owned = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" |
         Where-Object { $_.CommandLine -and
                        $_.CommandLine.Contains("bluent-v3-421-lab-") })
     foreach($process in $owned) {
         Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
     }
     Start-Sleep -Milliseconds 350
-    $remaining = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" |
+    $remaining = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" |
         Where-Object { $_.CommandLine -and
                        $_.CommandLine.Contains("bluent-v3-421-lab-") })
     Write-Output "QA browser cleanup: owned=$($owned.Count), remaining=$($remaining.Count)"

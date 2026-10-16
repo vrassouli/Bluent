@@ -31,10 +31,14 @@ on:
       - "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
 
 jobs:
-  chrome-wasm-pilot:
-    name: Real Component Lab / Chrome / WebAssembly
+  browser-wasm-pilot:
+    name: Real Component Lab / ${{ matrix.browser }} / WebAssembly
     runs-on: windows-latest
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [Chrome, Edge]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -46,6 +50,10 @@ jobs:
         run: python scripts/quality/check_v3_component_lab.py
       - name: Build current interactive WebAssembly app
         run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore -v quiet
-      - name: Run owned real Chrome / WASM scenario
+      - name: Run owned real ${{ matrix.browser }} / WASM scenario
         shell: pwsh
-        run: ./scripts/quality/run_v3_component_lab.ps1
+        run: |
+          if ('${{ matrix.browser }}' -eq 'Edge') {
+            $env:CHROME_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+          }
+          ./scripts/quality/run_v3_component_lab.ps1
