@@ -119,3 +119,26 @@ authoritative Penpot/native OS AT reviewer signoff,
 no public alpha host API, no stable Dev/NuGet merge.
 See docs/v3/tokens/FOCUS-ALPHA-HOST-AUDIT.md and
 Figma DRAFT board 38:2.
+
+## Real Bluent alpha host Forced Colors (2026-10-17)
+
+The v3 Styling Lab demonstrates real Bluent Button
+variants for explicit translucent Brand-host research.
+CDP physically Tabs through BOTH Buttons in 20 source
+brand/mode scenarios, validating keyboard focus-visible,
+actual emitted ring, 2px outline/2px gap and source
+composite contrast, while preserving 10 Light branded
+alpha-host contrast failures. Four real CDP Tab samples
+under Chromium forced-colors:active emulation (both
+buttons, both themes) require resolved Highlight for
+focus outline and Canvas + CanvasText system surfaces,
+not manual black/white/brand overrides. The probe
+MUST restore its saved original data-bui-theme, not
+hardcode Light, because subsequent Dialog/host-owner
+checks depend on the original state. Five fail-closed
+Python tests enforce runtime native keyboard/system
+color and dynamic theme restoration (20 total alpha
+source tests). Local Chrome/WASM and Edge/WASM real Blazor 942/942 each
+PASS. Do not infer real OS/native AT/WCAG certification,
+nor replace accepted opaque branded Button focus or
+TextField underline, public CSS, stable Dev/NuGet.

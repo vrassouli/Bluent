@@ -384,6 +384,34 @@ try {
    contextForced.length===20&&contextForced.every(x=>x.forced&&x.focus.toLowerCase()==="highlight"),
    JSON.stringify(contextForced.filter(x=>x.focus.toLowerCase()!=="highlight")));
 
+ // #418 alpha-host research: under forced-colors BOTH source-based brand
+ // and proposed Focus2 samples must defer to the actual OS/system Highlight,
+ // never ship a black/white/branded override that bypasses that system mode.
+ // Probe both Light/Dark source owners using trusted native Tab events and
+ // actual Bluent Buttons (not a synthetic CSS-only focus fixture).
+ const alphaForcedOriginalTheme=await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme");
+ const alphaForcedRows=[];
+ const systemRoles=await cdp.js("(()=>{const ref=document.createElement('span');ref.style.color='Highlight';ref.style.backgroundColor='Canvas';ref.style.border='1px solid CanvasText';document.body.appendChild(ref);const s=getComputedStyle(ref),colors={highlight:s.color,canvas:s.backgroundColor,canvasText:s.borderTopColor};ref.remove();return colors;})()");
+ for(const theme of ["light","dark"]){
+   await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme="+JSON.stringify(theme));
+   await cdp.js("document.querySelector('#v3-alpha-focus-start')?.focus()");
+   for(const kind of ["brand","focus2"]){
+     await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+     await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+     const sample=await cdp.js("(()=>{const kind="+JSON.stringify(kind)+",id=kind==='brand'?'v3-alpha-brand-button':'v3-alpha-focus2-button';const b=document.getElementById(id),card=b.closest('[data-v3-alpha-ring]'),bs=getComputedStyle(b),cs=getComputedStyle(card),under=getComputedStyle(document.querySelector('.v3-lab-alpha-focus-underlay')),overlay=getComputedStyle(document.querySelector('.v3-lab-alpha-focus-overlay'));return {theme:document.querySelector('.v3-lab-surface').dataset.buiTheme,kind,forced:matchMedia('(forced-colors: active)').matches,focused:document.activeElement===b,focusVisible:b.matches(':focus-visible'),ring:bs.outlineColor,style:bs.outlineStyle,width:bs.outlineWidth,offset:bs.outlineOffset,token:cs.getPropertyValue('--v3-lab-focus').trim(),under:under.backgroundColor,over:overlay.backgroundColor,border:under.borderTopColor};})()");
+     alphaForcedRows.push(sample);
+   }
+ }
+ await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme="+JSON.stringify(alphaForcedOriginalTheme));
+ assert("real alpha Bluent Focus uses system Highlight for BOTH candidates in forced-colors Light/Dark",
+   alphaForcedRows.length===4&&alphaForcedRows.every(x=>x.forced&&x.focused&&x.focusVisible&&
+      x.token.toLowerCase()==="highlight"&&x.ring===systemRoles.highlight&&x.style==="solid"&&
+      x.width==="2px"&&x.offset==="2px"),
+   JSON.stringify({systemRoles,rows:alphaForcedRows}));
+ assert("real alpha source backdrops yield Canvas and visible CanvasText border under forced-colors",
+   alphaForcedRows.length===4&&alphaForcedRows.every(x=>x.under===systemRoles.canvas&&
+       x.over===systemRoles.canvas&&x.border===systemRoles.canvasText),
+   JSON.stringify({systemRoles,rows:alphaForcedRows}));
  await cdp.send("Emulation.setEmulatedMedia",{features:[]});
  await cdp.js("document.querySelector('.v3-lab-surface .bui-overlay')?.click()");
  await until(()=>cdp.js("!document.querySelector('.v3-lab-surface .bui-overlay')"),"dismiss overlay",24000);

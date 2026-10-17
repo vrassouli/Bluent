@@ -5,7 +5,7 @@ from collections import Counter
 from pathlib import Path
 import unittest
 from unittest.mock import patch
-from audit_v3_focus_alpha_hosts import audit, composite, rgba, rgb_hex
+from audit_v3_focus_alpha_hosts import audit, composite, rgba, rgb_hex, check_alpha_forced_browser_source
 from generate_v3_token_preview import THEME_DIR
 
 
@@ -118,6 +118,50 @@ class FocusAlphaHostsTests(unittest.TestCase):
         self.assertIn("alphaFocus2.focused&&alphaFocus2.visible",probe)
         self.assertIn("candidateRatio>=3",probe)
         self.assertIn("brandedRatio<3",probe)
+
+    def test_real_blazor_alpha_forced_colors_source_gate(self):
+        from pathlib import Path
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        check_alpha_forced_browser_source(probe)
+
+    def test_forced_alpha_weakening_native_keyboard_is_rejected(self):
+        from pathlib import Path
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        broken=probe.replace('alphaForcedRows.push(sample)','/* removed */')
+        with self.assertRaisesRegex(ValueError,"browser gate missing"):
+            check_alpha_forced_browser_source(broken)
+
+    def test_forced_alpha_real_native_keyboard_removed_is_rejected(self):
+        from pathlib import Path
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        start=probe.index("const alphaForcedOriginalTheme=")
+        end=probe.index('await cdp.send("Emulation.setEmulatedMedia",{features:[]});',start)
+        block=probe[start:end]
+        self.assertIn("Input.dispatchKeyEvent",block)
+        broken=probe[:start]+block.replace("Input.dispatchKeyEvent","Runtime.evaluate")+probe[end:]
+        with self.assertRaisesRegex(ValueError,"browser gate missing"):
+            check_alpha_forced_browser_source(broken)
+
+    def test_forced_alpha_weakening_system_highlight_is_rejected(self):
+        from pathlib import Path
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        broken=probe.replace('x.ring===systemRoles.highlight','x.ring!==""')
+        with self.assertRaisesRegex(ValueError,"browser gate missing"):
+            check_alpha_forced_browser_source(broken)
+
+    def test_forced_alpha_missing_canvastext_border_is_rejected(self):
+        from pathlib import Path
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        broken=probe.replace('x.border===systemRoles.canvasText','true')
+        with self.assertRaisesRegex(ValueError,"browser gate missing"):
+            check_alpha_forced_browser_source(broken)
+
+    def test_forced_alpha_theme_restoration_cannot_be_hardcoded(self):
+        from pathlib import Path
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        broken=probe.replace('JSON.stringify(alphaForcedOriginalTheme)',"'light'")
+        with self.assertRaisesRegex(ValueError,"browser gate missing"):
+            check_alpha_forced_browser_source(broken)
 
     def test_no_false_acceptance_of_zero_opacity_or_non_rgba(self):
         for value in ("transparent","rgb(255, 255, 255)",

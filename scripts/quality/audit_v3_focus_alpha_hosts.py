@@ -44,6 +44,43 @@ def composite(source: str, underlay: str) -> str:
     return "#" + "".join(f"{v:02X}" for v in blended)
 
 
+# Runtime test-hardening contract. Keep this separate from the strict
+# 80-case source audit so a removal of real keyboard/system-color checks
+# cannot make the source-only diagnostic look like OS accessibility proof.
+_ALPHA_FORCED_BROWSER_REQUIREMENTS = (
+    "const alphaForcedOriginalTheme=",
+    "const alphaForcedRows=[]",
+    "for(const theme of [\"light\",\"dark\"])",
+    "for(const kind of [\"brand\",\"focus2\"])",
+    "Input.dispatchKeyEvent",
+    "alphaForcedRows.push(sample)",
+    "alphaForcedRows.length===4",
+    'x.token.toLowerCase()==="highlight"',
+    "x.ring===systemRoles.highlight",
+    'x.width==="2px"&&x.offset==="2px"',
+    "x.under===systemRoles.canvas",
+    "x.over===systemRoles.canvas",
+    "x.border===systemRoles.canvasText",
+    'JSON.stringify(alphaForcedOriginalTheme)',
+    "real alpha Bluent Focus uses system Highlight for BOTH candidates",
+    "real alpha source backdrops yield Canvas and visible CanvasText border",
+)
+
+
+def check_alpha_forced_browser_source(source: str) -> None:
+    """Fail closed if native Chromium/Blazor forced-color proof is weakened."""
+    start = source.find("const alphaForcedOriginalTheme=")
+    end = source.find('await cdp.send("Emulation.setEmulatedMedia",{features:[]});', start)
+    if start < 0 or end < start:
+        raise ValueError("alpha forced-colors browser gate missing: scoped media block")
+    actual_forced_block = source[start:end]
+    missing = [fragment for fragment in _ALPHA_FORCED_BROWSER_REQUIREMENTS
+               if fragment not in actual_forced_block]
+    if missing:
+        raise ValueError("alpha forced-colors browser gate missing: "
+                         + ", ".join(missing))
+
+
 def audit() -> dict:
     cases = []
     errors = []

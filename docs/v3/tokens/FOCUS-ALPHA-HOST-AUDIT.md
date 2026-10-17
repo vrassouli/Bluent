@@ -198,3 +198,43 @@ raster/AA focus visibility, native Windows Contrast Themes,
 named assistive technology, actual app image-backed/gradient
 alpha hosts, or WCAG conformance. It does not release #428
 Backlog or complete #418. Stable Dev/NuGet remain untouched.
+
+## 2026-10-17 — native keyboard and Chromium Forced Colors on actual Bluent Buttons
+
+Prior alpha source and isolated HTML research was not actual Bluent
+Button keyboard proof. The v3-only Styling Lab now hosts genuine
+Bluent Buttons with side-by-side opt-in Brand and Focus2 ring visual
+alternatives on colorNeutralBackgroundAlpha over colorBrandBackground.
+Existing approved branded rings on OPAQUE hosts and TextField
+underline focus are unchanged, as are public component APIs.
+
+The 10-brand by Light/Dark real Blazor probe uses actual CDP Tab events
+to reach BOTH real Bluent Buttons; it verifies focus-visible, real
+2px outline plus 2px gap, exact emitted ring source, analytic
+visible alpha host composite, candidate contrast >=3:1, and reproduces
+the branded alternative's ten failing Light host cases. This is
+computed CSS plus source contrast, NOT pixel/raster evidence.
+
+New forced-colors guard: Chromium CDP emulates forced-colors:active
+and executes four real keyboard samples (Brand/Focus2 in Light/Dark).
+Actual resolved focus outline colors must equal the browser's OS
+Highlight source; alpha overlay and underlay must become Canvas and
+their border CanvasText. The outline remains 2px solid with 2px gap.
+No alpha override may defeat system colors.
+
+The probe saves and restores the EXACT previous host theme.
+Initial red rerun discovered a wrong hardcoded Light restoration
+which disturbed unrelated Dialog owner tests. After correcting it,
+Dev01 Chrome/WebAssembly full real suite PASSED 942/942, zero failures.
+Six new fail-closed source QA cases ensure the actual runtime probe
+retains native Tab input, OS system role checks and original theme
+restoration. 20/20 Python alpha source tests PASS.
+Independent local Edge/WebAssembly also PASSED 942/942, zero failures; exact-head GitHub CI in four browser/render modes remains separately required.
+
+These are Chromium forced-colors EMULATION observations, NOT named
+Windows Contrast Themes, screen reader tests, actual pixel focus
+ring, arbitrary image/gradient alpha hosts or final WCAG acceptance.
+The candidate remains strictly demo-only and unapproved,
+and the original Penpot opaque design remains untouched.
+Keep #418 In progress, PR #500 Draft targeting bluent-v3 and
+#428 Backlog; stable Dev and NuGet remain unchanged.
