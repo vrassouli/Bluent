@@ -110,11 +110,22 @@ try{
  const motionNormal=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return false;const x=getComputedStyle(e);return {duration:x.animationDuration,name:x.animationName,delay:x.animationDelay};})()"),"normal Blazor Overlay mounted",14000);
  result("real default Overlay retains authored fade animation",
    motionNormal.name.includes("fade-in")&&parseFloat(motionNormal.duration)>.05,motionNormal);
+
+ // Only a real, hit-tested native pointer event proves the actual
+ // Blazor Overlay's OnClick handler. A synthetic DOM .click() bypasses
+ // hit-testing and may hide lifecycle/hydration races.
  const closeOverlay=async()=>{
-  await cdp.js("(()=>{document.querySelector('.bui-overlay')?.click();return true;})()");
-  return until(()=>cdp.js("document.querySelector('.bui-overlay')===null"),"Blazor Overlay click closes actual backdrop",13000);
- };
- await closeOverlay();
+  const point=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return null;const r=e.getBoundingClientRect(),w=innerWidth,h=innerHeight;for(const [fx,fy] of [[.5,.5],[.2,.7],[.8,.7],[.5,.8]]){const x=Math.round(r.left+r.width*fx),y=Math.round(r.top+r.height*fy);if(x<=2||x>=w-2||y<=2||y>=h-2)continue;if(document.elementFromPoint(x,y)===e)return {x,y};}return null;})()"),"unobstructed real Overlay pointer target",13000);
+  await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:point.x,y:point.y,button:"none",buttons:0});
+  await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",x:point.x,y:point.y,button:"left",buttons:1,clickCount:1});
+  await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",x:point.x,y:point.y,button:"left",buttons:0,clickCount:1});
+  try{
+   return await until(()=>cdp.js("document.querySelector('.bui-overlay')===null"),"native CDP Overlay click closes actual backdrop",13000);
+  }catch(e){
+   const diagnostic=await cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return {removed:true};const s=getComputedStyle(e),r=e.getBoundingClientRect();return {removed:false,html:e.outerHTML.slice(0,500),animation:s.animation,opacity:s.opacity,pointerEvents:s.pointerEvents,rect:{x:r.x,y:r.y,width:r.width,height:r.height},hit:document.elementFromPoint(innerWidth/2,innerHeight/2)?.outerHTML.slice(0,220),readyState:document.readyState}})()").catch(error=>String(error));
+   throw Error("Real Overlay pointer click was not handled: "+String(e)+"; diagnostic="+JSON.stringify(diagnostic));
+  }
+ }; await closeOverlay();
  await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
  await openOverlay();
  const motionReduced=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return false;const st=getComputedStyle(e);return {duration:st.animationDuration,delay:st.animationDelay,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches};})()"),"reduced motion real Blazor Overlay mounted",14000);

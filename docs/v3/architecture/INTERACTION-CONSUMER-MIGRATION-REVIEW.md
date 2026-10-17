@@ -128,3 +128,31 @@ docs/v3/architecture/FOUNDATION-INTEGRATION-REHEARSAL-418-420.md
 at local Dev01 commit c5611192 (clarified in a79657c1), not a
 published remote source file. Do not call these source tests native
 screen-reader acceptance or full Penpot parity.
+## 2026-10-18: Native pointer verification for the Overlay reduced-motion QA gate
+
+The earlier browser test dismissed the actual Bluent Overlay using the
+synthetic DOM API Element.click(), which does not verify real pointer
+hit-testing. The test has been upgraded to require an actual rendered
+Overlay backdrop under a safe viewport point via elementFromPoint,
+then send exactly one native Chrome DevTools Protocol pointer sequence:
+mouseMoved, mousePressed and mouseReleased. Its Blazor OnClick callback
+must remove the actual Overlay element without synthetic retries.
+If no unobstructed hit target is found, the test fails. If the native
+click is not handled within the timeout, the test fails with the live
+Overlay CSS/DOM/pointer diagnostic, rather than silently retrying clicks.
+The three existing modes (normal, prefers-reduced-motion and normal
+restored) are all exercised with the same real pointer contract.
+
+Independent Dev01 task-branch tests using the revised probe:
+Chrome/WASM 61/61, Chrome/production-published InteractiveServer 61/61,
+Edge/WASM 61/61, Edge/production-published InteractiveServer 61/61:
+244/244 on passing runs, all JS errors=[], all QA browser-profile
+cleanup remaining=0. Actual report JSON files were separately inspected
+for each mode; a new negative Python source guard rejects reintroduction
+of the synthetic Overlay element click.
+
+This strengthens evidence, but does NOT establish root cause of the
+previous infrequent Overlay hydration/callback timeouts. It does not
+change the Overlay component or public API. The earlier red attempts
+remain part of the reported investigation, and native Windows AT
+approval is still pending before #420 can enter Review.

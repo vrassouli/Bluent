@@ -127,6 +127,22 @@ class InteropSourceContractTests(unittest.TestCase):
         ):
             self.assertIn(fragment,probe)
 
+    def test_overlay_backdrop_requires_a_real_pointer_click(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for item in (
+            "unobstructed real Overlay pointer target",
+            "document.elementFromPoint(x,y)===e",
+            "Input.dispatchMouseEvent",
+            'type:"mousePressed"',
+            'type:"mouseReleased"',
+            'clickCount:1',
+            "native CDP Overlay click closes actual backdrop",
+            "Real Overlay pointer click was not handled:",
+        ):
+            self.assertIn(item,probe)
+        self.assertNotIn("document.querySelector('.bui-overlay')?.click()",probe)
     def test_real_popover_browser_ci_and_artifact_gate_present(self):
         root=__import__("pathlib").Path(__file__).resolve().parents[2]
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")
