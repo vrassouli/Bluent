@@ -94,3 +94,37 @@ aria-haspopup or modal Tab trap for arbitrary nonmodal Popovers.
 
 #420 stays In progress, PR #550 remains Draft against bluent-v3.
 No merge to Dev, no stable package publication.
+
+## 2026-10-18: #418 / #420 Popover integration compatibility proposal
+
+Maintainer acceptance is still required; this is NOT a released v3
+public parameter and does not alter current Popover C# API.
+
+In the isolated four-foundation integration rehearsal, an actual #418
+Blazor browser run exposed a semantics collision: explicitly opted-in
+KeepSurface Popovers on the #418 branch need stable aria-controls for
+their already-mounted surface, even when collapsed. The #420 ordinary
+click-trigger contract instead removes aria-controls when closed to
+avoid a dangling relationship. The pre-#420 expectation that ordinary
+non-opted click triggers never had any ARIA is incompatible with the
+intended #420 new auto-managed disclosure behavior.
+
+The #420 task branch now guards the optional #418
+accessibleTriggerState using a private TypeScript intersection type.
+With #418 not merged, all ordinary behavior remains as before this
+compatibility patch: click trigger owns only missing aria-expanded and
+aria-controls, controls is present only while open; authored values
+are preserved. When the explicit #418 flag is present after approved
+foundation integration, that opted-in trigger can keep aria-controls
+while collapsed, and Escape from elsewhere inside the owning modal is
+not intercepted by the child Popover.
+
+This is a PROPOSED v3 migration behavior requiring owner review.
+Integration browser evidence for the final combined source exists in
+the isolated Dev01 scratch worktree; the task branch can only test its
+currently available C# and TS public surface until #418 is integrated.
+The scratch document is
+docs/v3/architecture/FOUNDATION-INTEGRATION-REHEARSAL-418-420.md
+at local Dev01 commit c5611192 (clarified in a79657c1), not a
+published remote source file. Do not call these source tests native
+screen-reader acceptance or full Penpot parity.

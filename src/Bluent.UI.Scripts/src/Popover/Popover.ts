@@ -15,16 +15,30 @@ export class Popover {
     // Only generic click-trigger disclosures own ARIA state. Hover/focus
     // Tooltip triggers and author-supplied ARIA attributes remain untouched.
     private readonly _managedTriggerAria = new Map<string, {
-        trigger: Element; expanded: boolean; controls: boolean;
+        trigger: Element; expanded: boolean; controls: boolean; persistentControls: boolean;
     }>();
+
+    // #418's opt-in flag is not yet declared in the #420 branch's public
+    // PopoverSettings type. This private, read-only compatibility guard
+    // preserves the current #420 contract until the foundation lands.
+    private isOptInDisclosure(settings: PopoverSettings): boolean {
+        return (settings as PopoverSettings & { accessibleTriggerState?: boolean })
+            .accessibleTriggerState === true;
+    }
     private bindDisclosure(settings: PopoverSettings, trigger: Element): void {
-        if (!settings.triggerEvents?.includes('click'))
+        if (!this.isOptInDisclosure(settings) && !settings.triggerEvents?.includes('click'))
             return;
         const expanded = !trigger.hasAttribute('aria-expanded');
         const controls = !trigger.hasAttribute('aria-controls');
         if (expanded)
             trigger.setAttribute('aria-expanded', 'false');
-        this._managedTriggerAria.set(settings.triggerId, { trigger, expanded, controls });
+        // Explicit #418 opt-in with mounted KeepSurface retains its IDREF
+        // when collapsed. Ordinary #420 click disclosures expose controls
+        // only while open, so no stale reference is left in the DOM.
+        const persistentControls = this.isOptInDisclosure(settings);
+        if (controls && persistentControls)
+            trigger.setAttribute('aria-controls', settings.triggerId + '_surface');
+        this._managedTriggerAria.set(settings.triggerId, { trigger, expanded, controls, persistentControls });
     }
     private setDisclosureExpanded(settings: PopoverSettings, visible: boolean): void {
         const entry = this._managedTriggerAria.get(settings.triggerId);
@@ -33,7 +47,7 @@ export class Popover {
         if (entry.expanded)
             entry.trigger.setAttribute('aria-expanded', visible ? 'true' : 'false');
         if (entry.controls) {
-            if (visible)
+            if (visible || entry.persistentControls)
                 entry.trigger.setAttribute('aria-controls', settings.triggerId + '_surface');
             else if (entry.trigger.getAttribute('aria-controls') === settings.triggerId + '_surface')
                 entry.trigger.removeAttribute('aria-controls');
@@ -48,7 +62,7 @@ export class Popover {
     }>();
     private _disposed = false;
     private readonly _onDocumentKeyDown = (event: KeyboardEvent): void => {
-        if (event.key !== 'Escape' || event.defaultPrevented)
+        if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing || event.repeat)
             return;
 
         const current = this._openSurfaces[this._openSurfaces.length - 1];
@@ -59,6 +73,15 @@ export class Popover {
         if (!surface?.classList.contains('show'))
             return;
 
+        // When an opt-in Popover is hosted inside an owning Modal,
+        // unrelated Escape events must reach that Modal. A focused
+        // child trigger or its active surface still dismisses first.
+        if (this.isOptInDisclosure(current)) {
+            const trigger = this.getTrigger(current);
+            const target = event.target as Node | null;
+            if (!target || !(trigger?.contains(target) || surface.contains(target)))
+                return;
+        }
         event.preventDefault();
         event.stopPropagation();
         this.hideSurface(current);

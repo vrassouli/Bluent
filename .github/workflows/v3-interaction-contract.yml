@@ -7,6 +7,7 @@ on:
       - ".github/workflows/v3-interaction-contract.yml"
       - "scripts/quality/check_v3_interaction_primitives.py"
       - "scripts/quality/test_v3_interaction_primitives.py"
+      - "scripts/quality/test_v3_popover_foundation_compatibility.py"
       - "scripts/quality/test_v3_interaction_sample.py"
       - "scripts/quality/v3_interop_lifecycle/**"
       - "scripts/quality/probe_v3_popover_runtime.mjs"
@@ -42,6 +43,7 @@ jobs:
         run: |
           python scripts/quality/check_v3_interaction_primitives.py
           python -m unittest discover -s scripts/quality -p 'test_v3_interaction_primitives.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_popover_foundation_compatibility.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_interaction_sample.py' -v
       - uses: actions/setup-node@v4
         with:
