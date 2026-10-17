@@ -151,7 +151,16 @@ def check_native_site_zoom_source(probe:str)->None:
                  "record.initialMetrics=state", "record.metrics=state", "const renderMode=url.endsWith",
                  '"-"+renderMode+".png"', '"-"+renderMode+".json"',
                  "documentOverflowPx", "remaining=", "cleanupOwned(folder)",
-                 'process.exitCode=2', "record.errors.push"):
+                 'process.exitCode=2', "record.errors.push",
+                 "Input.dispatchMouseEvent", "Input.dispatchKeyEvent",
+                 "document.elementFromPoint", "document.activeElement?.id==='compatibility-input'",
+                 "matches(':focus-visible')", "actualButton:document.activeElement===b",
+                 "real native field label is pointer-hittable at site zoom",
+                 "real zoom label mouse click focuses the exact native TextField",
+                 "Tab from zoomed form focuses actual Bluent Button with focus-visible",
+                 "keyboard-focused Button is scrolled fully into native zoom viewport",
+                 "real Enter at native site zoom invokes exactly one Blazor callback",
+                 "await wait(140)", "settled===actual"):
         need(term in probe,"real browser persisted site zoom evidence missing: "+term)
     for forbidden in ("Emulation.setDeviceMetricsOverride","Emulation.setPageScaleFactor",
                       "document.documentElement.style.fontSize","--force-device-scale-factor",

@@ -136,3 +136,37 @@ wait for layout to settle and do NOT hide defects with CSS overflow.
 Route any persistent failure to #486, which has correction evidence.
 This does not verify system text size/contrast or named AT and
 is NOT reviewer accepted visual Fluent 2 parity.
+
+## Native 200%/400% zoom actual keyboard/pointer tests (#425)
+
+Real native Chrome/Edge persisted per-site zoom,
+not CSS text scaling/CDP device-metrics emulation,
+now validates actual form operability at BOTH zoom
+levels. Label is scrolled and hit-tested with
+document.elementFromPoint, actual CDP mousePressed
+and mouseReleased focuses exact native input,
+native CDP Tab must reach Button with focus-visible
+and place its full bounding rectangle in the
+narrowed viewport; actual CDP Enter must invoke
+EXACTLY one live Blazor event, stable after settle.
+Scroll resets to top for screenshot. Run these for
+Chrome/Edge and InteractiveServer/WebAssembly.
+Fail-closed source tests reject fake pointer,
+synthetic keyboard, removed focus-visible and
+weakened exactly-once callback. Current local
+Chrome/published Server 72/72; native Zoom200 and
+Zoom400 10/10 each, zero final overflow/JS errors/
+owned profile processes. Named OS AT and visual
+Penpot parity still require separate review.
+
+- 2026-10-17 final independent Dev01 Edge/WebAssembly
+  actual Zoom200 10/10 (viewport/scroll 628/620)
+  and Zoom400 10/10 (314/310), zero settled
+  document overflow and owned Chromium remaining=0.
+  The entire Edge/WASM parent suite **72/72 real
+  checks PASS**, zero runtime errors. Combined with
+  independent Chrome/Production-published Server
+  **72/72 PASS**, these are 144/144 local assertions.
+  New-head GitHub CI in all four modes is still
+  independently required; no native Windows OS AT
+  or reviewer-approved visual parity is claimed.

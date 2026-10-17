@@ -1,6 +1,7 @@
 """Explicit negative controls proving v3 quality policy fails closed."""
 from __future__ import annotations
 import unittest
+from pathlib import Path
 from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,COMPAT_LAYOUT,COMPAT_PROBE,check,check_server_patch,check_browser_contract,check_compatibility_host_theme,check_compatibility_probe_text,check_native_site_zoom_source,QualityContractError
 
 class V3QualityContractTests(unittest.TestCase):
@@ -233,6 +234,30 @@ class V3QualityContractTests(unittest.TestCase):
         from pathlib import Path
         source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
         bad=source.replace("state.documentScrollWidth-state.viewportWidth","0")
+        with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_rejects_fake_pointer_label_activation(self):
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source.replace("Input.dispatchMouseEvent","Runtime.evaluate")
+        with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_rejects_keyboard_script_click_substitute(self):
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source.replace("Input.dispatchKeyEvent","Runtime.evaluate")
+        with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_rejects_missing_actual_focus_visible(self):
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source.replace("matches(':focus-visible')","matches(':focus')")
+        with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_rejects_enter_exact_once_removed(self):
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source.replace("settled===actual","settled>=actual")
         with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
             check_native_site_zoom_source(bad)
 

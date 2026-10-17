@@ -187,3 +187,17 @@ positive tests, 8 Node PNG tests. Final GitHub matrix pending exact SHA.
 - 2026-10-17 #425: Real Chromium site Zoom200/Zoom400 through isolated native per-host zoom preferences. Synthetic CDP shortcut and privileged built-in extension route rejected; no unsafe OS input to unfocusable headful window. Existing source-owned Penpot #425 page41 zoom QA annotation referenced, tab suspended/no design approval. True published Bluent Server research: Chrome 200 632/624, 400 316/312 CSS viewport/scroll; Edge 200 628/620, 400 314/310; actual DPR 2/4 and root CSS 16px. Transient 300px Chart.js canvas during first render correctly distinguished from settled resize, #486 initial persistent defect claim corrected. New probe_v3_native_site_zoom.mjs integrated into all four #425 browser jobs (+11 checks, +2 PNGs per job), hard fail on any settled overflow. Local Chrome/Server parent 62/62 and 41 Python quality contract tests pass; rest and exact-head CI pending. No stable release or native OS/AT signoff.
 
 - 2026-10-17 #425 complete Dev01 integrated local 4-way matrix with new actual site zoom 200/400: Chrome/Server 62/62, Chrome/WASM 62/62, Edge/Server 62/62, Edge/WASM 62/62 = **248/248**, 0 errors, clean browser profiles. Added browser-plus-render-mode-specific native Zoom PNG/JSON names to prevent screenshot evidence overwrite. Source contract 41/41 PASS; exact new-commit GitHub Actions still separate/pending, no signoff on native OS/AT or Penpot pixel parity.
+
+- 2026-10-17 #425 real native Chromium site Zoom200/Zoom400 keyboard operability: actual hit-tested native Label mouse click focuses bound TextField, physical Tab brings focus-visible to real Button, focus box in viewport, native Enter invokes exactly one Blazor callback, restore scroll before PNG. Local Chrome/production-published Server **72/72 PASS** including 10/10 at each Zoom200 (viewport 632/scroll624) and Zoom400 (316/312), zero overflow/errors/browser leftovers; Python negative source contracts 45/45. Original Penpot QA board page41 remains DRAFT, no design mutation; other modes/new-head CI/native Windows/AT pending; stable Dev/NuGet untouched.
+
+- 2026-10-17 final independent Dev01 Edge/WebAssembly
+  actual Zoom200 10/10 (viewport/scroll 628/620)
+  and Zoom400 10/10 (314/310), zero settled
+  document overflow and owned Chromium remaining=0.
+  The entire Edge/WASM parent suite **72/72 real
+  checks PASS**, zero runtime errors. Combined with
+  independent Chrome/Production-published Server
+  **72/72 PASS**, these are 144/144 local assertions.
+  New-head GitHub CI in all four modes is still
+  independently required; no native Windows OS AT
+  or reviewer-approved visual parity is claimed.

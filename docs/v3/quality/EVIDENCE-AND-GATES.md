@@ -365,3 +365,64 @@ PNGs are kept distinct. A subsequent small evidence-integrity fix
 now keys native screenshot/JSON filenames by **browser and render
 mode**, preventing local Server/WASM artifacts from overwriting one
 another; exact-head CI must confirm this latest version separately.
+
+## 2026-10-17 actual native site Zoom 200%/400% keyboard operability
+
+Authoritative editable design reference remains Penpot
+Bluent v3 Design System file b64f6665-c9ab-80b5-8008-c4ac99d9d000,
+Quality page41 ed5216bd-3d5b-8015-8008-cb25572ebb61,
+board ed5216bd-3d5b-8015-8008-cb2557357776, zoom/AT
+boundary shape e775e67c-d9da-804b-8008-cc3b60b6d9ee.
+No new design tool edits or visual acceptance are claimed.
+
+Existing real Chromium persisted per-host site-zoom tests
+prove Zoom 200% and 400% native DPR, shrunken CSS viewport,
+unchanged root CSS font, actual layout and no settled
+horizontal document overflow plus PNGs. Layout alone
+does NOT prove zoomed controls are usable.
+
+Added five actual CDP browser checks for EACH factor:
+scroll live TextField label into view and require actual
+document.elementFromPoint native hit test; physical CDP
+mousePressed/mouseReleased activates Label; check the
+exact associated Blazor input receives focus; native
+CDP Tab must focus real Bluent Increment Button with
+focus-visible, and the focused button bounds must remain
+fully within zoom viewport; native CDP Enter including
+text and virtual key codes triggers EXACTLY ONE live
+Blazor callback, including an extra settled count check.
+Restore scroll before unchanged PNG capture. Thus +10
+real assertions to the existing 62-check per-mode job.
+Neither CSS font scaling, JS click/KeyboardEvent, nor
+CDP Emulation fake device metrics is used for zoom.
+
+Four new source negative tests remove genuine pointer,
+native keyboard, focus-visible, or exactly-once callback.
+Complete Python source contract 45/45 PASS on Dev01.
+
+Fresh published real Dev01 Chrome/InteractiveServer:
+**72/72 actual browser checks PASS**; genuine site
+Zoom200 10/10 (viewport/scroll 632/624) and
+Zoom400 10/10 (316/312); zero settled overflow, JS
+errors or owned browser process leftovers. Other
+render modes and new-head GitHub CI are separate and
+should not be inferred from this local result.
+
+This proves representative browser zoom and input
+operability, not WCAG 2.2 AA certification, named
+screen readers, native Windows OS Text Size/Contrast
+Themes, or reviewer-approved design parity. #425
+stays In progress / PR #549 Draft; target bluent-v3,
+never stable Dev or NuGet.
+
+- 2026-10-17 final independent Dev01 Edge/WebAssembly
+  actual Zoom200 10/10 (viewport/scroll 628/620)
+  and Zoom400 10/10 (314/310), zero settled
+  document overflow and owned Chromium remaining=0.
+  The entire Edge/WASM parent suite **72/72 real
+  checks PASS**, zero runtime errors. Combined with
+  independent Chrome/Production-published Server
+  **72/72 PASS**, these are 144/144 local assertions.
+  New-head GitHub CI in all four modes is still
+  independently required; no native Windows OS AT
+  or reviewer-approved visual parity is claimed.

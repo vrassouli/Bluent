@@ -137,6 +137,44 @@ for(const factor of [2,4]){
   check("entire app document has no horizontal overflow at native site zoom",
    overflow<=1,
    {overflow,offenders:state.offenders,knownIssue:"#486"});
+  // Real zoom a11y interaction probe (not device-metrics emulation):
+  // hit-test and ACTUALLY click the native associated field label,
+  // verify the exact bound field is focused, then navigate with Tab.
+  // A successful layout screenshot alone cannot prove usable keyboard
+  // interactions when site zoom reduces the CSS viewport to ~315px.
+  await cdp.js("(()=>{const e=document.querySelector('label[for=compatibility-input]');e?.scrollIntoView({block:'center',behavior:'instant'});return !!e})()");
+  await wait(175);
+  const labelHit=await cdp.js("(()=>{const e=document.querySelector('label[for=compatibility-input]'),r=e?.getBoundingClientRect();if(!r)return null;const x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('label')===e,visible:x>=0&&y>=0&&x<innerWidth&&y<innerHeight}})()");
+  check("real native field label is pointer-hittable at site zoom",
+    !!labelHit?.hit&&!!labelHit?.visible,labelHit);
+  if(!labelHit?.hit||!labelHit.visible)throw Error("Unsafe zoom field label hit target");
+  await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",button:"left",clickCount:1,x:labelHit.x,y:labelHit.y});
+  await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",button:"left",clickCount:1,x:labelHit.x,y:labelHit.y});
+  const labelFocus=await until(()=>cdp.js("document.activeElement?.id==='compatibility-input'"),"real native zoom label focuses bound field",9000);
+  check("real zoom label mouse click focuses the exact native TextField",labelFocus);
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+  const keyboard=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent?.trim()==='Increment');return {actualButton:document.activeElement===b,focusVisible:b?.matches(':focus-visible'),rect:b?{left:b.getBoundingClientRect().left,right:b.getBoundingClientRect().right,top:b.getBoundingClientRect().top,bottom:b.getBoundingClientRect().bottom}:null,viewport:{width:innerWidth,height:innerHeight}}})()"),"zoom native Tab reaches actual Bluent Button",9000);
+  check("Tab from zoomed form focuses actual Bluent Button with focus-visible",
+    keyboard.actualButton===true&&keyboard.focusVisible===true,keyboard);
+  const buttonRect=keyboard.rect;
+  check("keyboard-focused Button is scrolled fully into native zoom viewport",
+    !!buttonRect&&buttonRect.left>=-1&&buttonRect.right<=keyboard.viewport.width+1&&
+    buttonRect.top>=-1&&buttonRect.bottom<=keyboard.viewport.height+1,
+    keyboard);
+  if(!keyboard.actualButton||!keyboard.focusVisible)throw Error("Native zoom keyboard traversal failed");
+  const getCount=()=>cdp.js("Number(document.querySelector('[data-testid=event-count]')?.textContent?.match(/\\d+/)?.[0]??-1)");
+  const prior=await getCount();
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Enter",code:"Enter",text:"\r",unmodifiedText:"\r",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Enter",code:"Enter",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+  const actual=await until(async()=>{const n=await getCount();return n===prior+1?n:null;},"actual native Enter invokes one zoom Blazor callback",12000);
+  await wait(140);
+  const settled=await getCount();
+  check("real Enter at native site zoom invokes exactly one Blazor callback",
+    actual===prior+1&&settled===actual,{prior,actual,settled});
+  // Existing deterministic screenshot/viewport evidence must stay at top.
+  await cdp.js("window.scrollTo({top:0,left:0,behavior:'instant'})");
+  await wait(150);
   const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
   const bytes=Buffer.from(shot.data,"base64");
   const png=bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]));
