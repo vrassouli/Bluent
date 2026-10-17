@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 
 public class DialogConfiguration
 {
@@ -10,4 +10,21 @@ public class DialogConfiguration
 
     public bool Modal { get; }
     public DialogSize Size { get; }
+
+    /// <summary>Experimental #418 opt-in theme context for detached portals.</summary>
+    public PortalThemeScope? ThemeScope { get; init; }
+    /// <summary>Opt-in accessible name for a v3 owned dialog. Null leaves existing v2 behavior unchanged.</summary>
+    public string? AccessibleName { get; init; }
+    /// <summary>Localized text alternative for the dismiss icon.</summary>
+    public string? CloseButtonLabel { get; init; }
+    /// <summary>Optional explicit launcher ID for opt-in focus restoration when the last Dialog closes.</summary>
+    public string? ReturnFocusTargetId { get; init; }
+    /// <summary>Explicit opt-in v3 modal keyboard navigation. False preserves legacy behavior.</summary>
+    public bool EnableModalKeyboard { get; init; }
+    /// <summary>Draft #418 opt-in initial focus element ID, scoped to the Dialog subtree.</summary>
+    public string? InitialFocusTargetId { get; init; }
+    /// <summary>Internal #418 draft: only the standard title-bearing overload owns a verified heading.</summary>
+    internal bool UseStandardTitleHeading { get; init; }
+    /// <summary>Opt-in visible description announced through Dialog aria-describedby.</summary>
+    public string? AccessibleDescription { get; init; }
 }

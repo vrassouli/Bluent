@@ -1,0 +1,11 @@
+@namespace Bluent.UI.Demo.Pages.Scenarios
+@inject NavigationManager Navigation
+
+<section data-v3-route-exit-dialog>
+    <p>The route-local Dialog host will be disposed without calling Close().</p>
+    <Button id="v3-dialog-route-leave" Text="Navigate away with Dialog still open" OnClick="Leave" />
+</section>
+
+@code {
+    private void Leave() => Navigation.NavigateTo("/v3/route-after-dialog");
+}

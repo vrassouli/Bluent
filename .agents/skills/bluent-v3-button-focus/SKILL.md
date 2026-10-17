@@ -56,3 +56,118 @@ The maintainer tested actual Styling Lab and explicitly prefers **existing brand
 2026-10-14 live editable Penpot #501 context study: correct Bluent v3 file/page38 board f4136a9a-101d-8004-8008-ca2956fe05f9, 85 editable child shapes, 10 Light/Dark x Neutral/Brand/BrandHover/Danger/Inverted specimens; PNG actually exported/inspected; scripts/quality/penpot_v3_button_host_context_audit.js executed in live Penpot PASS 78/78 native identity/stroke/contrast/caption checks. Actual emitted theme source #418 independently checked 100 brand/mode/host combinations for contextual mapping PASS 100/100, minimum 3.103. The selected single BRAND Button ring remains on neutral surfaces; TextField underline only. Inverse/fallback on colored/inverted hosts is a RESEARCH PROPOSAL, NOT publicly approved token/component API. See docs/v3/design/BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md. Do not claim full accessibility/native OS/AT/real zoom or mark Done until explicit design approval and integration criteria.
 
 2026-10-14 explicit maintainer design approval: page38 Penpot context board f4136a9a-101d-8004-8008-ca2956fe05f9 now marked APPROVED DESIGN. Selected rule: BRAND single Button focus ring on Neutral; inverse OnBrand ring on Brand / BrandHover / Danger; Light Inverted inverse / Dark Inverted brandedForeground2; original animated TextField bottom underline only, no extra rectangular focus ring. New read-only native audit checks board approval and 10 concrete examples. This approval resolves the VISUAL host-dependent treatment decision; it does NOT by itself certify OS Contrast Themes, AT, all nested/transparent/gradient hosts or final production #428 implementation. Review docs/v3/design/BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md.
+
+## Translucent host risk — #418
+
+The accepted source-owned OPAQUE Focus host-role contract
+does not safely cover colorNeutralBackgroundAlpha.
+Actual ten-brand Light/Dark emitted CSS compositing
+shows 10/80 scenarios in which BOTH brand and inverse
+white rings have less than 3:1 contrast. All ten are
+Light with 50%-white Alpha above Brand background.
+Default composed #89B3DA, ring 2.627, white 2.205.
+Use audit_v3_focus_alpha_hosts.py and its nine
+source regression tests plus the real native Chrome/
+Edge probe_v3_focus_alpha_hosts_browser.mjs, which
+compares 80 computed CSS cases per browser with no
+leaked processes. CI includes both source and browser
+checks. These are NOT actual raster/OS AT or approved
+public Focus API. Retain maintainer-selected branded
+Button ring on approved opaque hosts and underline-only
+TextField focus; refer to FOCUS-ALPHA-HOST-AUDIT.md
+before designing nonopaque hosts for #428. Stable
+Dev/NuGet untouched.
+
+## Focus2 alpha-host alternative — bounded research
+
+Existing Fluent Focus2 token black Light/white Dark,
+source-backed >=8.511:1 on 80/80 real alpha composites,
+vs 10/80 dual failure for brand and white. 12
+test_v3_focus_alpha_hosts.py tests reject source
+palette drift even if all 20 themes are present.
+Isolated Chrome/Edge each 80/80 real computed CSS
+checks of both alpha/opaque backgrounds AND 2px
+Focus2 outlineColor/outlineOffset, browser cleanup
+remaining=0. Native Figma editable research DRAFT:
+https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=38-2 .
+No production Bluent Button proof, OS AT, pixel
+contrast or user/Penpot signoff. Restricted to a
+possible future explicit alpha-only host, NOT normal
+opaque brand focus, public CSS, or TextField outline.
+#418 In progress, #428 Backlog; stable Dev/NuGet frozen.
+
+## 2026-10-17: real mounted Bluent alpha Focus2 specimen
+
+Live task-only /v3/styling-lab section has actual Bluent
+Button specimens with keyboard entry/exit sentinels.
+The local Blazor stylesheet alone provides the Brand
+underlay + RGBA alpha surface and compares approved
+Branded focus to DRAFT explicit Focus2 source focus.
+The shipped Button API / CSS and accepted opaque host
+mapping remain unchanged; TextField still uses underline.
+The real CDP probe gained 70 per-browser assertions
+covering 10 brands x Light/Dark, real native Tab between
+the two actual Buttons, :focus-visible, 2px outline/offset,
+source-resolved ring and composited rgba host contrast,
+plus 10 Light baseline failures. Minified theme CSS
+can expose #000/#fff instead of authored #000000/#FFFFFF:
+normalize computed RGB rather than raw source strings.
+Chrome/Edge WASM each 940/940; Chrome/Edge published Server
+each 939/939, all 0 fail, aggregate 3758/3758 local.
+14 alpha source guards also passed. No actual
+authoritative Penpot/native OS AT reviewer signoff,
+no public alpha host API, no stable Dev/NuGet merge.
+See docs/v3/tokens/FOCUS-ALPHA-HOST-AUDIT.md and
+Figma DRAFT board 38:2.
+
+## Real Bluent alpha host Forced Colors (2026-10-17)
+
+The v3 Styling Lab demonstrates real Bluent Button
+variants for explicit translucent Brand-host research.
+CDP physically Tabs through BOTH Buttons in 20 source
+brand/mode scenarios, validating keyboard focus-visible,
+actual emitted ring, 2px outline/2px gap and source
+composite contrast, while preserving 10 Light branded
+alpha-host contrast failures. Four real CDP Tab samples
+under Chromium forced-colors:active emulation (both
+buttons, both themes) require resolved Highlight for
+focus outline and Canvas + CanvasText system surfaces,
+not manual black/white/brand overrides. The probe
+MUST restore its saved original data-bui-theme, not
+hardcode Light, because subsequent Dialog/host-owner
+checks depend on the original state. Five fail-closed
+Python tests enforce runtime native keyboard/system
+color and dynamic theme restoration (20 total alpha
+source tests). Local Chrome/WASM and Edge/WASM real Blazor 942/942 each
+PASS. Do not infer real OS/native AT/WCAG certification,
+nor replace accepted opaque branded Button focus or
+TextField underline, public CSS, stable Dev/NuGet.
+
+## Alpha Focus raster evidence on actual Bluent Buttons (#418)
+
+A real native Tab from the Styling Lab keyboard sentinel
+focuses genuine Bluent Brand/Focus2 research Buttons.
+Page.captureScreenshot PNG is decoded by browser Image +
+Canvas/getImageData. The solid painted ring segment 3-4px
+outside a Button face must match the computed 2px outline
+color; the painted background 11px outside must match
+the real RGBA-over-Brand host within channel tolerance.
+Focus2 screenshot pixel contrast must be >=3:1;
+known risky Light Brand sample must stay below 3:1.
+Checks run Brand/Focus2 x Light/Dark on actual
+Chrome/Edge and WASM/production-published Server.
+Initial Chrome/WASM 950/950 real browser PASS.
+Source alpha tests 22/22 include screenshot gate source
+contracts. This is bounded screenshot evidence, not
+all brands/ring corners/Windows OS AT or Penpot visual
+certification. No global Focus2 or TextField ring,
+stable Dev/NuGet modification.
+
+- Independent local Dev01 **Edge/WebAssembly** actual Blazor
+  950/950 PASS (including four screenshot Focus2/Brand
+  pixel comparisons), zero failed assertions. Together
+  Chrome/WASM and Edge/WASM are **1900/1900** real local
+  browser checks. The forthcoming exact-head
+  GitHub CI must verify both production-published
+  Server jobs and independent Windows browser jobs;
+  no native OS/AT or Penpot acceptance inferred.

@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
@@ -61,6 +61,19 @@ internal class PopoverInterop : IAsyncDisposable
         }
     }
 
+    // #418 draft: only owners that explicitly opted into document Escape
+    // listeners need JS cleanup on Blazor component removal/navigation.
+    public async Task UnregisterOptInEscapeAsync(string triggerId)
+    {
+        if (_popoverReference is null)
+            return;
+        try
+        {
+            await _popoverReference.InvokeVoidAsync("unregisterOptInEscapeByTriggerId", triggerId);
+        }
+        catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
+    }
     public async void ShowSurface(PopoverSettings settings)
     {
         var module = await GetModuleAsync();
