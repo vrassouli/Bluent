@@ -119,6 +119,35 @@ class FocusAlphaHostsTests(unittest.TestCase):
         self.assertIn("candidateRatio>=3",probe)
         self.assertIn("brandedRatio<3",probe)
 
+    @staticmethod
+    def _alpha_pixel_block():
+        probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
+        start=probe.index("// #418: screenshot PIXELS of the actual Bluent Button alpha-host focus")
+        end=probe.index(" } finally {",start)
+        return probe[start:end]
+
+    def test_real_blazor_alpha_raster_pixel_evidence_present(self):
+        block=self._alpha_pixel_block()
+        for term in ("Page.captureScreenshot","getImageData",
+                     "v3-alpha-focus-start","v3-alpha-brand-button",
+                     "v3-alpha-focus2-button","candidates.some(Boolean)",
+                     "bgMatching","ringContrast>=3","ringContrast<3",
+                     'Input.dispatchKeyEvent'):
+            with self.subTest(term=term):
+                if term=="Input.dispatchKeyEvent":
+                    self.assertIn("matrixTab()",block)
+                else:
+                    self.assertIn(term,block)
+
+    def test_real_blazor_raster_not_css_only(self):
+        block=self._alpha_pixel_block()
+        self.assertIn("const alphaPaintPixels=[]",block)
+        self.assertIn("ctx.getImageData",block)
+        self.assertIn("shot.data",block)
+        self.assertIn("pixels.ring",block)
+        self.assertIn("pixels.host",block)
+        self.assertIn("composited",block)
+
     def test_real_blazor_alpha_forced_colors_source_gate(self):
         from pathlib import Path
         probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")

@@ -1152,6 +1152,51 @@ try {
        style.keyboard&&style.width===2&&style.offset===1&&style.position==="relative"&&
        Number(style.zIndex)>=1&&topMatches&&bottomMatches,JSON.stringify(observation));
    }
+ // #418: screenshot PIXELS of the actual Bluent Button alpha-host focus,
+ // not just computed CSS or the separate native HTML candidate.
+ // The outer ring is 2px with offset 2px: a point 3px outside its
+ // side intersects a full-intensity segment away from rounded corners.
+ // Compare independently to the ACTUAL background pixel on the host.
+ const alphaPaintPixels=[];
+ await cdp.js("document.querySelector('.v3-lab-surface').removeAttribute('data-bui-v3-focus-double-ring-candidate')");
+ for(const mode of ["light","dark"]){
+   await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');h.dataset.buiTheme="+JSON.stringify(mode)+";const b=document.querySelector('#v3-alpha-focus-start');b.scrollIntoView({behavior:'instant',block:'center'});b.focus()})()");
+   await sleep(110);
+   for(const kind of ["brand","focus2"]){
+     const actualTab=await matrixTab();
+     const expectedId=kind==="brand"?"v3-alpha-brand-button":"v3-alpha-focus2-button";
+     assert("alpha screenshot begins on actual native Tab-focused Bluent Button "+kind+"/"+mode,
+       actualTab.id===expectedId&&actualTab.visible,JSON.stringify(actualTab));
+     const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
+     const pixels=await cdp.js("(async()=>{const im=new Image();im.src='data:image/png;base64,"+shot.data+"';await im.decode();"+
+       "const c=document.createElement('canvas');c.width=im.width;c.height=im.height;"+
+       "const ctx=c.getContext('2d');ctx.drawImage(im,0,0);"+
+       "const b=document.getElementById("+JSON.stringify(expectedId)+"),r=b.getBoundingClientRect(),s=getComputedStyle(b),"+
+       "a=getComputedStyle(document.querySelector('.v3-lab-alpha-focus-overlay')),u=getComputedStyle(document.querySelector('.v3-lab-alpha-focus-underlay'));"+
+       "const y=Math.round(r.top+r.height/2),x=Math.round(r.left),read=(px,py)=>Array.from(ctx.getImageData(px,py,1,1).data).slice(0,3);"+
+       "const expected=Array.from(s.outlineColor.matchAll(/[0-9]+/g),m=>Number(m[0])).slice(0,3);"+
+       "return {mode:"+JSON.stringify(mode)+",kind:"+JSON.stringify(kind)+",w:im.width,h:im.height,"+
+       "x,y,expected,ring:[read(x-4,y),read(x-3,y)],host:read(x-11,y),alpha:a.backgroundColor,underlay:u.backgroundColor,"+
+       "width:s.outlineWidth,offset:s.outlineOffset,keyboard:b.matches(':focus-visible')};})()");
+     const candidates=pixels.ring.map(row=>row.every((v,i)=>Math.abs(v-pixels.expected[i])<=4));
+     const alphaRgb=pixels.alpha.match(/[0-9.]+/g).map(Number);
+     const baseRgb=rgbParts(pixels.underlay);
+     const composited=baseRgb.map((v,i)=>Math.floor(alphaRgb[i]*alphaRgb[3]+v*(1-alphaRgb[3])+0.5));
+     const bgMatching=pixels.host.every((v,i)=>Math.abs(v-composited[i])<=7);
+     const ringContrast=contrast("rgb("+pixels.ring[candidates.indexOf(true)===-1?0:candidates.indexOf(true)].join(", ")+")",
+       "rgb("+pixels.host.join(", ")+")");
+     const proof={mode,kind,...pixels,candidates,composited,bgMatching,ringContrast};
+     alphaPaintPixels.push(proof);
+     assert("actual Bluent screenshot alpha Focus ring and host pixels "+kind+"/"+mode,
+       pixels.keyboard&&pixels.width==="2px"&&pixels.offset==="2px"&&
+       candidates.some(Boolean)&&bgMatching&&
+       (kind==="focus2"?ringContrast>=3:mode==="light"?ringContrast<3:ringContrast>0),
+       JSON.stringify(proof));
+   }
+ }
+ console.log("Actual Bluent alpha-host raster ring samples:",
+   JSON.stringify({samples:alphaPaintPixels.length,failures:alphaPaintPixels.filter(s=>
+     !s.candidates.some(Boolean)||!s.bgMatching)}));
  } finally {
    await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');"+
      "h.removeAttribute('data-bui-v3-focus-double-ring-candidate');"+

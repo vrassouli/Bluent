@@ -254,3 +254,14 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - 2026-10-17 #418 actual Bluent alpha-focus candidate demo: task-only Styling Lab now mounts two real Bluent Buttons on Brand-overlaid-with-actual-colorNeutralBackgroundAlpha, one branded ring and one Focus2 candidate, with keyboard entry/exit sentinels; page-local CSS, RTL Persian, forced-colors system Highlight fallback. Existing real CDP Blazor browser matrix expanded +70 checks/mode: 10 brands x Light/Dark native Tab, 2px focus-visible ring brand/Focus2 source ownership and measured alpha-composed HOST contrast, plus ten known Branded <3:1 Light risk reproductions. First test failed only hex minification (#000/#fff vs authored #000000/#FFFFFF), normalized RGB comparison corrected; Dev01 final Chrome/WASM 940/940, Edge/WASM 940/940, Chrome/published Server 939/939, Edge/published Server 939/939, aggregate 3,758/3,758 actual browser PASS. 14 alpha source tests and v3 docs PASS. Figma draft board 38:2 remains research; Penpot production design/OS AT not approved; #418 In progress/#428 Backlog, stable Dev/NuGet untouched, exact SHA CI pending.
 
 - 2026-10-17 #418 real Bluent alpha-host keyboard/Forced Colors gate: native CDP Tab through branded and Focus2 actual demo Buttons for 20 brand/theme contexts; Chromium forced-colors:active emulation checks real Highlight outline 2px + 2px gap, Canvas alpha/underlay and CanvasText border for both samples in Light/Dark. First browser run found test-state bug hardcoding Light, fixed by saving/restoring actual previous theme. Chrome/WASM and Edge/WASM actual Blazor 942/942 EACH PASS; 20/20 fail-closed Python source tests PASS. Only demo opt-in; no approved Penpot/product CSS, real native OS/AT or stable Dev/NuGet release, CI pending, #418 In progress, PR #500 Draft.
+
+- 2026-10-17 #418 real Bluent alpha screenshot pixels: enhanced four-mode native keyboard browser probe with actual PNG Page.captureScreenshot and in-browser Image/Canvas getImageData, painted outer ring and nearby alpha-composited host pixels, Focus2 screenshot >=3:1 vs known Light Brand <3:1, four samples per job (Brand/Focus2 x Light/Dark). Initial local Chrome/WASM **950/950 PASS**, zero failures, 22/22 source alpha tests. Edge/Server and exact-head GitHub CI pending; no approved production public CSS, Penpot, Windows AT, stable Dev/NuGet changes.
+
+- Independent local Dev01 **Edge/WebAssembly** actual Blazor
+  950/950 PASS (including four screenshot Focus2/Brand
+  pixel comparisons), zero failed assertions. Together
+  Chrome/WASM and Edge/WASM are **1900/1900** real local
+  browser checks. The forthcoming exact-head
+  GitHub CI must verify both production-published
+  Server jobs and independent Windows browser jobs;
+  no native OS/AT or Penpot acceptance inferred.

@@ -238,3 +238,50 @@ The candidate remains strictly demo-only and unapproved,
 and the original Penpot opaque design remains untouched.
 Keep #418 In progress, PR #500 Draft targeting bluent-v3 and
 #428 Backlog; stable Dev and NuGet remain unchanged.
+
+## 2026-10-17 — actual painted screenshot pixels from a Bluent Button
+
+Source-host contrast and real computed CSS do not guarantee that the
+Focus ring is actually painted over the alpha host in a real viewport.
+The v3 Blazor browser probe now reads actual screenshot PNG pixels from
+the ACTUAL opt-in Bluent Button fixture in Styling Lab, not the isolated
+native HTML color demonstration. The native entry sentinel plus true CDP
+Tab changes focus to Brand then Focus2, with focus-visible modality.
+For both Light and Dark under the Default brand, a fixed DPR=1
+1400x900 viewport captures the actual Chrome screenshot. The PNG is
+decoded with browser Image/Canvas/getImageData. A mid-side pixel 3-4
+physical pixels to the left of the button face must equal the actual
+2px outline color, and a second pixel 11px outside must equal the
+source-composited RGBA-over-Brand visible HOST to within a bounded
+per-channel tolerance. The actual screenshot ring-to-host ratio must
+be >=3:1 for the candidate, and the old Light brand candidate remains
+<3:1 in the known risky context.
+
+Thus four real screenshot pixel assertions are added per browser job,
+covering Brand/Focus2 x Light/Dark. This is stronger than simply reading
+getComputedStyle, but it is still only a narrow central-solid-segment
+pixel sample, not raster proof for every corner, ten brand scenes,
+arbitrary imagery, nested alpha, native OS Contrast Themes, named AT,
+or human approval of the original Penpot visual.
+
+Initial Dev01 real Chrome/WebAssembly complete Blazor probe 950/950
+PASS including four new PNG pixel assertions and prior two
+double-ring screenshot assertions. Source alpha regression tests
+22/22 PASS with fail-closed checks requiring true captureScreenshot,
+Image/Canvas/getImageData, native keyboard, both Bluent button ids
+and actual pixel-derived ring/host comparison. Edge and published Server
+and exact-head CI require independent validation.
+
+The existing approved brand Focus on opaque neutral hosts and the
+TextField bottom underline remain untouched. The alternative remains
+a DRAFT opt-in Styling Lab prototype, with no public Button CSS/API,
+stable Dev/NuGet release, or v3 production approval. #418 In progress.
+
+- Independent local Dev01 **Edge/WebAssembly** actual Blazor
+  950/950 PASS (including four screenshot Focus2/Brand
+  pixel comparisons), zero failed assertions. Together
+  Chrome/WASM and Edge/WASM are **1900/1900** real local
+  browser checks. The forthcoming exact-head
+  GitHub CI must verify both production-published
+  Server jobs and independent Windows browser jobs;
+  no native OS/AT or Penpot acceptance inferred.

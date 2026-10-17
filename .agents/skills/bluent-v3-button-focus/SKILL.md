@@ -142,3 +142,32 @@ source tests). Local Chrome/WASM and Edge/WASM real Blazor 942/942 each
 PASS. Do not infer real OS/native AT/WCAG certification,
 nor replace accepted opaque branded Button focus or
 TextField underline, public CSS, stable Dev/NuGet.
+
+## Alpha Focus raster evidence on actual Bluent Buttons (#418)
+
+A real native Tab from the Styling Lab keyboard sentinel
+focuses genuine Bluent Brand/Focus2 research Buttons.
+Page.captureScreenshot PNG is decoded by browser Image +
+Canvas/getImageData. The solid painted ring segment 3-4px
+outside a Button face must match the computed 2px outline
+color; the painted background 11px outside must match
+the real RGBA-over-Brand host within channel tolerance.
+Focus2 screenshot pixel contrast must be >=3:1;
+known risky Light Brand sample must stay below 3:1.
+Checks run Brand/Focus2 x Light/Dark on actual
+Chrome/Edge and WASM/production-published Server.
+Initial Chrome/WASM 950/950 real browser PASS.
+Source alpha tests 22/22 include screenshot gate source
+contracts. This is bounded screenshot evidence, not
+all brands/ring corners/Windows OS AT or Penpot visual
+certification. No global Focus2 or TextField ring,
+stable Dev/NuGet modification.
+
+- Independent local Dev01 **Edge/WebAssembly** actual Blazor
+  950/950 PASS (including four screenshot Focus2/Brand
+  pixel comparisons), zero failed assertions. Together
+  Chrome/WASM and Edge/WASM are **1900/1900** real local
+  browser checks. The forthcoming exact-head
+  GitHub CI must verify both production-published
+  Server jobs and independent Windows browser jobs;
+  no native OS/AT or Penpot acceptance inferred.
