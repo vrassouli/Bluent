@@ -12,7 +12,7 @@
     ],
     "approval": "pending"
   },
-  "note": "Four representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate.",
+  "note": "Four representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate. 2026-10-17 incremental EXISTING-API Button Lab specimens for Toggled/ToggledChanged (two native CDP Enter events + exact callback count) and Href native anchor, with synchronized Razor source. New exact-head 32-check four-mode CI is pending; 27/27 entries are historical proof, not claims about new specimens. Toggle aria-pressed/AT remains unapproved #428 work.",
   "families": [
     {
       "id": "button",
@@ -27,7 +27,10 @@
         "OnClick",
         "disabled",
         "Size",
-        "Shape"
+        "Shape",
+        "Toggled",
+        "ToggledChanged",
+        "Href"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
@@ -36,7 +39,16 @@
         "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
         "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "Exhaustive combinations of Appearance/Size/Shape, icon/compound, toggle/binding, Href, loading, RTL, light/dark tokens, high contrast, keyboard focus, complete Server scenarios, and full public API/source mapping."
+      "remaining": "Complete source/public API matrix remains open: icon/compound/Badge, Compact/Rotated/Orientation, dropdown/split, disabled anchor semantics, toggle ARIA pressed parity and parent-state rerender behavior, Href targets/rel, loading, RTL/brand modes, native high contrast/screen reader, complete design and migration review. New toggle/link specimens do NOT make Button exhaustive.",
+      "incremental20261017Evidence": {
+        "kind": "actual-local-browser; representative-only, not design or AT signoff",
+        "Chrome/Server": "32/32 actual Dev01 published InteractiveServer browser assertions after status selector fix; cleanup remaining=0",
+        "Edge/WebAssembly": "32/32 actual Dev01 freshly compiled WebAssembly browser assertions after fresh-build runner fix and self-contained Razor source; cleanup remaining=0",
+        "Chrome/WebAssembly": "New 32-check exact-head CI pending; historic 27/27 remains separate",
+        "Edge/Server": "New 32-check exact-head CI pending; historic 27/27 remains separate",
+        "accessibilityGap": "Existing public toggled Button observed aria-pressed=null in real Edge/WASM: route review to #428, do not claim accessible toggle parity",
+        "designReview": "Existing Penpot page42 Component Lab DRAFT; no new design edit or signoff"
+      }
     },
     {
       "id": "icon",

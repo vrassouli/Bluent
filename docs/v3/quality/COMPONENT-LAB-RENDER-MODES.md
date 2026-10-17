@@ -114,3 +114,48 @@ Live Penpot textBounds checks found no overflow (16/35px and 37/54px).
 This is a design annotation update, **not** maintainer approval, visual
 parity review, native Windows Contrast Themes or named AT testing.
 The new SHA's GitHub CI remains pending until actually run.
+
+## 2026-10-17 Button ToggledChanged and Href source-backed pilots
+
+The existing public Button Component Lab now includes a native Blazor
+toggle button with Toggled and ToggledChanged and a real Button Href
+rendered as an HTML anchor. A real Chromium CDP Enter twice checks
+the parent callback counts 1/2 and the actual toggled CSS class
+turns on/off. Another check proves the link specimen is an A with
+an actual href, not a fake Button onclick. The copied Razor snippet
+now uses dynamic Toggle binding and includes the required @code
+method, so it is not a stale literal false-value example.
+Five new real-browser checks raise the shared matrix from 27 to
+32 per environment. Still a PILOT, not Button completion.
+
+Two initial RED local smoke runs identified defects IN THE HARNESS:
+- Chrome/Server first click selector matched the new Toggle status
+  rather than the original completed-click counter, because
+  the selector used the first role=status element. Added separate
+  lab-click-status and lab-toggle-status selectors; rerun passed.
+- Edge/WebAssembly first launched old Debug binary using --no-build,
+  producing the previous 3 specimens instead of 5. The self-owned
+  runner now ALWAYS builds CURRENT Debug Razor before launching
+  WebAssembly. Eliminated duplicate CI job prebuild. On fresh source
+  the Edge/WASM run passed.
+Actual Dev01 current-source evidence: Chrome/Production-published
+InteractiveServer 32/32 and Edge/WebAssembly 32/32, no errors,
+disposable QA browsers remaining=0. The final copied-source handler
+change was included in the latest Edge/WASM passing run. Other
+two combinations require new exact-head CI; historical 27/27 evidence
+for all four modes is retained with its original dated scope.
+
+IMPORTANT: Real Edge/WASM observed Button Toggle aria-pressed=null
+even while the toggled CSS class and callback work. This is a
+preexisting ARIA accessibility gap to review in #428, not a reason
+to mark Toggle Accessible, Button Done, or WCAG compliant.
+Other Button capabilities and complete 66-family demo coverage
+are still missing.
+
+Canonical editable Penpot Bluent v3 Design System file ID
+b64f6665-c9ab-80b5-8008-c4ac99d9d000, page42 ID
+e775e67c-d9da-804b-8008-cc7c2dd7ecf7 supplies the original
+Lab concept. No new Penpot review/edit/approval in this step;
+the connected tab had been frozen. Stable Dev and v2/NuGet
+are untouched. The existing high-severity WebAssembly.Server
+10.0.7 NU1903 advisories remain unsuppressed.

@@ -49,3 +49,25 @@ real Blazor browser checks, including queue count, issue
 Source checker refuses stale generated UI, missing queue
 markers and any completeDemoAcceptance source flag.
 No full-component v3 or Windows-native AT claims.
+
+## Button Toggled and Href public-API specimens (#421, 2026-10-17)
+
+Representative Button Lab specimens now cover Toggled/ToggledChanged
+with parent-owned bool and two native CDP Enter events, exactly
+one callback for each toggle transition, as well as Href
+rendering a native anchor. The Razor copy preview must use a
+dynamic binding and a self-contained @code event handler.
+
+Use distinct lab-click-status and lab-toggle-status to avoid
+reading the wrong first role=status element. For WebAssembly,
+the source-owning run_v3_component_lab.ps1 runner MUST build the
+current Razor app before running with --no-build, or it can
+silently test stale local Debug DLLs. CI should not duplicate
+that self-owned source build.
+
+Observed current public toggle Button lacks aria-pressed in
+real Edge/WASM: #428 design-first semantics/AT remains required.
+Actual Chrome/Server and Edge/WASM current-source local 32/32;
+the other two need exact-head CI. Four pilots across 66
+source families: NEVER call this full API or visual acceptance.
+No stable Dev or v2.x NuGet release.

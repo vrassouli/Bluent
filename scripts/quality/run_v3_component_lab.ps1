@@ -31,6 +31,11 @@ try {
         $env:ASPNETCORE_ENVIRONMENT = "Production"
         $arguments = @($entry, "--urls", $BaseUrl)
     } else {
+        # Always rebuild current source. A previous no-build launch could
+        # silently test stale Razor/Component Lab fixtures on local Dev01.
+        # CI also uses this self-contained source-owning runner.
+        & dotnet build $project --configuration $config --no-restore --nologo --verbosity quiet
+        if($LASTEXITCODE -ne 0) { throw "Current WebAssembly demo build failed" }
         $arguments = @("run", "--project", $project, "-c", $config,
                        "--no-build", "--no-launch-profile", "--urls", $BaseUrl)
     }

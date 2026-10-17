@@ -51,9 +51,6 @@ jobs:
         run: dotnet restore Bluent.sln --verbosity quiet
       - name: Validate honest source and coverage mapping
         run: python scripts/quality/check_v3_component_lab.py
-      - name: Build current interactive WebAssembly app
-        if: matrix.mode == 'WebAssembly'
-        run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore -v quiet
       - name: Run owned real ${{ matrix.browser }} / ${{ matrix.mode }} scenario
         shell: pwsh
         run: |

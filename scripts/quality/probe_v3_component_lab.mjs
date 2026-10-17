@@ -61,9 +61,9 @@ try {
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
  check('four pilot families and four functional controls rendered',initial.catalog.length===4&&initial.controls===4,initial);
- check('real library Button elements rendered, not image/mock',initial.runnable===3,initial);
+ check('real library Button elements rendered, not image/mock',initial.runnable===5,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
- const clicked=await poll(()=>js("document.querySelector('.lab-canvas [role=status]')?.textContent?.includes('1')"));
+ const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
  check('actual Blazor OnClick event increments visible count',clicked);
  // Existing-API Button variant explorer: prove real Appearance, Size and
  // Shape parameter rebinding, not merely select state in a static mock.
@@ -77,6 +77,33 @@ try {
  check('generated Razor example matches all three selected Button values',
    variantSource?.includes('ButtonAppearance.Danger')&&
    variantSource?.includes('ButtonSize.Large')&&variantSource?.includes('ButtonShape.Square'),variantSource);
+
+ // Two missing existing public Button contracts: controlled Toggled/
+ // ToggledChanged and Href. This is source-backed lab coverage, NOT a new
+ // v3 implementation or proof of ARIA toggle parity.
+ const toggleBefore=await js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Pin selection'));const status=document.querySelector('.lab-toggle-status');return {nativeButton:b?.tagName==='BUTTON',toggled:b?.classList.contains('toggled'),text:status?.textContent?.trim(),ariaPressed:b?.getAttribute('aria-pressed')}})()");
+ check('public Toggled Button starts untoggled with zero EventCallback notifications',
+  toggleBefore.nativeButton&&toggleBefore.toggled===false&&toggleBefore.text==='Pinned: no; change callbacks: 0',toggleBefore);
+ // CDP Enter (not synthetic dispatchEvent) exercises Button ClickHandler
+ // and the public ToggledChanged EventCallback<bool> in actual Blazor.
+ await js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Pin selection'));b?.focus()})()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ const toggleOn=await poll(()=>js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Pin selection'));const status=document.querySelector('.lab-toggle-status');return b?.classList.contains('toggled')&&status?.textContent?.trim()==='Pinned: yes; change callbacks: 1'})()"),14000);
+ check('native keyboard Enter sets public Toggled state and invokes ToggledChanged once',toggleOn);
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ const toggleOff=await poll(()=>js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Pin selection'));const status=document.querySelector('.lab-toggle-status');return !!b&&!b.classList.contains('toggled')&&status?.textContent?.trim()==='Pinned: no; change callbacks: 2'})()"),14000);
+ check('native second Enter reverts Toggled state with exactly second callback',toggleOff);
+ const navigation=await js("(()=>{const b=[...document.querySelectorAll('.lab-canvas .bui-button')].find(x=>x.textContent?.includes('Open guide'));return {tag:b?.tagName,href:b?.getAttribute('href'),appearance:b?.classList.contains('subtle'),role:b?.getAttribute('role')}})()");
+ check('public Button Href renders native anchor with a real destination',
+   navigation.tag==='A'&&navigation.href==='getting-started'&&navigation.appearance===true,navigation);
+ const expandedSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable source reflects existing Button toggle callback and Href contracts',
+   expandedSource?.includes('ToggledChanged="ButtonToggledAsync"')&&
+   expandedSource?.includes('Toggled="@_buttonToggled"')&&
+   expandedSource?.includes('private Task ButtonToggledAsync(bool toggled)')&&
+   expandedSource?.includes('Href="getting-started"'),expandedSource);
 
  await js("(()=>{const el=document.querySelector('#lab-search');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(el,'Icon');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filtered=await poll(()=>js("document.querySelectorAll('button.lab-family').length===1 && document.querySelector('button.lab-family')?.textContent.includes('Icon')"));
@@ -132,7 +159,7 @@ try {
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
  await js("document.querySelector('.lab-queue-row button')?.click()");
- const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas [role=status]')?.textContent.includes('1')"),12000);
+ const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas .lab-click-status')?.textContent.includes('1')"),12000);
  check('source queue opens actual previously tested Button specimen',launchPilot);
 
  // A real keyboard dispatch tests the native Button and Blazor EventCallback,
@@ -140,11 +167,11 @@ try {
  await js("(()=>{const b=[...document.querySelectorAll('.lab-canvas button.bui-button')].find(x=>x.textContent?.includes('Continue'));b?.focus()})()");
  const focusOnButton=await js("document.activeElement?.classList.contains('bui-button') && document.activeElement?.textContent.includes('Continue')");
  check('enabled Bluent Button receives native keyboard focus',focusOnButton);
- const keyboardBefore=await js("document.querySelector('.lab-canvas [role=status]')?.textContent?.trim()");
+ const keyboardBefore=await js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.trim()");
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
  await wait(350);
- const keyboardAfter=await js("document.querySelector('.lab-canvas [role=status]')?.textContent?.trim()");
+ const keyboardAfter=await js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.trim()");
  check('real Enter key activates native Bluent Button exactly once',
    keyboardBefore==='Completed clicks: 1' && keyboardAfter==='Completed clicks: 2',
    {before:keyboardBefore,after:keyboardAfter});

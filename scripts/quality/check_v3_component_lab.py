@@ -59,13 +59,21 @@ def check() -> int:
                   'id="lab-button-shape"', 'Enum.GetValues<ButtonAppearance>()',
                   'Enum.GetValues<ButtonSize>()', 'Enum.GetValues<ButtonShape>()',
                   'Appearance="@_buttonAppearance"', 'Size="@_buttonSize"',
-                  'Shape="@_buttonShape"', 'ActiveRazor'):
+                  'Shape="@_buttonShape"', 'ActiveRazor',
+                  'Toggled="@_buttonToggled"', 'ToggledChanged="ButtonToggledAsync"',
+                  'Href="getting-started"', 'class="lab-click-status"',
+                  'class="lab-toggle-status"', 'private Task ButtonToggledAsync(bool toggled)'):
         assert token in source, f"Button runtime explorer/source missing: {token}"
     assert all(x in data["families"][0]["propertiesDemonstrated"]
-               for x in ("Appearance", "Size", "Shape"))
+               for x in ("Appearance", "Size", "Shape", "Toggled", "ToggledChanged", "Href"))
     for proof in ("live Button explorer uses source-backed default enum values",
                   "real Bluent Button responds to dynamic Danger/Large/Square parameters",
-                  "generated Razor example matches all three selected Button values"):
+                  "generated Razor example matches all three selected Button values",
+                  "public Toggled Button starts untoggled with zero EventCallback notifications",
+                  "native keyboard Enter sets public Toggled state and invokes ToggledChanged once",
+                  "native second Enter reverts Toggled state with exactly second callback",
+                  "public Button Href renders native anchor with a real destination",
+                  "copyable source reflects existing Button toggle callback and Href contracts"):
         assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
     generated=(ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabFamilyQueue.g.cs")
     assert generated.is_file() and generated.read_text(encoding="utf-8-sig")==generated_ui_queue()
@@ -116,6 +124,9 @@ def check() -> int:
     assert '-Mode Server' in notes and '## Verified pilot: InteractiveServer' in notes
     assert all("Server" in entry["renderModesVerified"][i] for entry in data["families"] for i in (2,3))
     assert "-WorkingDirectory $hostDirectory" in owner
+    assert "dotnet build $project --configuration $config --no-restore" in owner,         "WASM runner must rebuild current Razor fixtures, never serve stale Debug binaries"
+    assert owner.index("dotnet build $project --configuration") < owner.index("Start-Process dotnet"),         "WASM QA build must precede host process startup"
+
     assert "framework JavaScript and stylesheet requests have no HTTP failures" in probe
     assert "browser reports no unhandled JavaScript exceptions" in probe
     for behavior in ("real pointer activation completes Razor Copy source interop",

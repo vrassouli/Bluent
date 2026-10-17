@@ -88,7 +88,12 @@
                             Size="@_buttonSize" Shape="@_buttonShape"
                             OnClick="() => _clickCount++" />
                     <Button Text="Unavailable" disabled />
+                    <Button Text="Pin selection" Toggled="@_buttonToggled"
+                            ToggledChanged="ButtonToggledAsync" />
+                    <Button Text="Open guide" Href="getting-started"
+                            Appearance="ButtonAppearance.Subtle" />
                 </div>
+                <p role="status" class="lab-toggle-status">Pinned: @(_buttonToggled ? "yes" : "no"); change callbacks: @_toggleEvents</p>
                 <fieldset class="lab-button-variants" aria-label="Live Button variant explorer">
                     <legend>Button public API variants · exploratory, not approved v3 parity</legend>
                     <div>
@@ -119,7 +124,7 @@
                         </select>
                     </div>
                 </fieldset>
-                <p role="status">Completed clicks: @_clickCount</p>
+                <p role="status" class="lab-click-status">Completed clicks: @_clickCount</p>
             }
             else if (_selected == "icon")
             {
@@ -230,6 +235,15 @@
             item.Issue.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 .Contains(_queueSearch, StringComparison.OrdinalIgnoreCase)).ToList();
 
+    private bool _buttonToggled;
+    private int _toggleEvents;
+    private Task ButtonToggledAsync(bool toggled)
+    {
+        _buttonToggled = toggled;
+        _toggleEvents++;
+        return Task.CompletedTask;
+    }
+
     private ButtonAppearance _buttonAppearance = ButtonAppearance.Outline;
     private ButtonSize _buttonSize = ButtonSize.Medium;
     private ButtonShape _buttonShape = ButtonShape.Rounded;
@@ -247,8 +261,13 @@
         x.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) ||
         x.Scenario.Contains(_search, StringComparison.OrdinalIgnoreCase)).ToList();
     private Family Selected => Families.First(x => x.Id == _selected);
+    // The copied public-API sample includes the callback backing code.
+    // Its binding must stay dynamic (NOT a snapshot Toggled="false").
     private string ActiveRazor => _selected == "button"
-        ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />"
+        ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />\n" +
+          "<Button Text=\"Pin selection\" Toggled=\"@_buttonToggled\" ToggledChanged=\"ButtonToggledAsync\" />\n" +
+          "<Button Text=\"Open guide\" Href=\"getting-started\" Appearance=\"ButtonAppearance.Subtle\" />\n" +
+          "@code {\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n}"
         : Selected.Razor;
     private void Select(string id)
     {
