@@ -1,4 +1,4 @@
-@page "/v3/styling-lab"
+﻿@page "/v3/styling-lab"
 @namespace Bluent.UI.Demo.Pages.Scenarios
 @using Bluent.UI.Services.Abstractions
 @using Bluent.UI.Demo.Pages.Pages.Components.DialogComponents
@@ -208,6 +208,32 @@
                 </div>
             </div>
             <p class="v3-lab-hint">محدودهٔ مطالعه: ۱۰ برند، Light/Dark، زمینه‌های سادهٔ Fluent. سطوح نیمه‌شفاف، تصویر، فشار دکمه، Windows Contrast Themes و ابزارهای کمکی هنوز تأیید نشده‌اند.</p>
+        </section>
+        @* #418 Figma DRAFT 38:2, a real Bluent Button research fixture.
+           No shipping component API / CSS, no automatic alpha-host role. *@
+        <section class="v3-lab-alpha-focus-review" lang="fa"
+                 aria-label="Explicit alpha-host-only Focus2 contrast experiment">
+            <h3>بررسی فوکوس دکمه روی زمینهٔ نیمه‌شفاف — تحقیق #418</h3>
+            <p>هر دو دکمه واقعی Bluent هستند. با Tab از «شروع» به رنگ برند
+               و سپس Focus2 برو. این گزینه فقط برای زمینهٔ نیمه‌شفاف بررسی می‌شود،
+               نه برای تمام دکمه‌ها یا TextField.</p>
+            <Button id="v3-alpha-focus-start" Text="شروع آزمون فوکوس" />
+            <div class="v3-lab-alpha-focus-underlay">
+                <div class="v3-lab-alpha-focus-overlay">
+                    <div class="v3-lab-alpha-focus-card" data-v3-alpha-ring="brand">
+                        <strong>رنگ برند فعلی · تحقیق</strong>
+                        <Button id="v3-alpha-brand-button" Text="ثبت درخواست" />
+                    </div>
+                    <div class="v3-lab-alpha-focus-card" data-v3-alpha-ring="focus2">
+                        <strong>Focus2 مخصوص Alpha · پیش‌نویس</strong>
+                        <Button id="v3-alpha-focus2-button" Text="ثبت درخواست" />
+                    </div>
+                </div>
+            </div>
+            <Button id="v3-alpha-focus-end" Text="پایان آزمون" />
+            <p class="v3-lab-hint">مقایسهٔ آزمایشی؛ کنتراست حداقل ۸٫۵۱:۱
+               در ۸۰ حالت توکن منبع به معنی تأیید عمومی محصول، دسترس‌پذیری
+               واقعی سیستم‌عامل یا طرح نهایی نیست.</p>
         </section>
         <section class="v3-lab-typography" lang="fa" dir="rtl" aria-label="Persian and mixed-direction typography QA">
             <h3>آزمون تایپوگرافی و راست‌به‌چپ</h3>

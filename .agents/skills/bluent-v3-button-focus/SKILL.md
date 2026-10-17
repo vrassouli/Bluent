@@ -95,3 +95,27 @@ contrast or user/Penpot signoff. Restricted to a
 possible future explicit alpha-only host, NOT normal
 opaque brand focus, public CSS, or TextField outline.
 #418 In progress, #428 Backlog; stable Dev/NuGet frozen.
+
+## 2026-10-17: real mounted Bluent alpha Focus2 specimen
+
+Live task-only /v3/styling-lab section has actual Bluent
+Button specimens with keyboard entry/exit sentinels.
+The local Blazor stylesheet alone provides the Brand
+underlay + RGBA alpha surface and compares approved
+Branded focus to DRAFT explicit Focus2 source focus.
+The shipped Button API / CSS and accepted opaque host
+mapping remain unchanged; TextField still uses underline.
+The real CDP probe gained 70 per-browser assertions
+covering 10 brands x Light/Dark, real native Tab between
+the two actual Buttons, :focus-visible, 2px outline/offset,
+source-resolved ring and composited rgba host contrast,
+plus 10 Light baseline failures. Minified theme CSS
+can expose #000/#fff instead of authored #000000/#FFFFFF:
+normalize computed RGB rather than raw source strings.
+Chrome/Edge WASM each 940/940; Chrome/Edge published Server
+each 939/939, all 0 fail, aggregate 3758/3758 local.
+14 alpha source guards also passed. No actual
+authoritative Penpot/native OS AT reviewer signoff,
+no public alpha host API, no stable Dev/NuGet merge.
+See docs/v3/tokens/FOCUS-ALPHA-HOST-AUDIT.md and
+Figma DRAFT board 38:2.

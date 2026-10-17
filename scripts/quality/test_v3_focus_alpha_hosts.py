@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from pathlib import Path
 import unittest
 from unittest.mock import patch
 from audit_v3_focus_alpha_hosts import audit, composite, rgba, rgb_hex
@@ -84,6 +85,39 @@ class FocusAlphaHostsTests(unittest.TestCase):
         self.assertFalse(result["passedResearchContract"])
         self.assertTrue(any("Focus2 palette source drift: default/light" in e
                             for e in result["errors"]),result["errors"])
+
+    def test_real_blazor_alpha_specimen_and_isolated_scope_are_preserved(self):
+        root=Path(__file__).resolve().parents[2]
+        razor=(root/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor").read_text(encoding="utf-8-sig")
+        css=(root/"src/Bluent.UI.Demo.Pages/Pages/Scenarios/V3StylingLab.razor.css").read_text(encoding="utf-8")
+        for name in ("v3-alpha-focus-start","v3-alpha-brand-button",
+                     "v3-alpha-focus2-button","v3-alpha-focus-end"):
+            self.assertIn(name,razor)
+        self.assertIn('<Button id="v3-alpha-focus2-button"',razor)
+        self.assertIn('data-v3-alpha-ring="focus2"',razor)
+        self.assertIn(".v3-lab-alpha-focus-card[data-v3-alpha-ring=\"focus2\"]",css)
+        self.assertIn("--v3-lab-focus: var(--colorStrokeFocus2)",css)
+        self.assertIn("background: var(--colorNeutralBackgroundAlpha)",css)
+        self.assertIn("background: var(--colorBrandBackground)",css)
+        self.assertIn(".v3-lab-alpha-focus-card ::deep .bui-button",css)
+        self.assertIn("@media (forced-colors: active)",css)
+        self.assertNotIn("alpha-focus", (root/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8"))
+
+    def test_real_blazor_probe_requires_native_tabs_and_exact_focus_targets(self):
+        p=Path(__file__).resolve().parents[0]/"probe_v3_blazor_runtime.mjs"
+        probe=p.read_text(encoding="utf-8")
+        self.assertIn('await cdp.send("Input.dispatchKeyEvent"',probe)
+        self.assertIn('v3-alpha-brand-button',probe)
+        self.assertIn('v3-alpha-focus2-button',probe)
+        for gate in ("actual Bluent alpha-host branded ring Tab focus ",
+                     "actual Bluent alpha-host Focus2 keyboard ring from source ",
+                     "real Bluent explicit alpha Focus2 computed host contrast ",
+                     "real Bluent branded ring alpha risk reproduced "):
+            self.assertIn(gate,probe)
+        self.assertIn("alphaBrand.focused&&alphaBrand.visible",probe)
+        self.assertIn("alphaFocus2.focused&&alphaFocus2.visible",probe)
+        self.assertIn("candidateRatio>=3",probe)
+        self.assertIn("brandedRatio<3",probe)
 
     def test_no_false_acceptance_of_zero_opacity_or_non_rgba(self):
         for value in ("transparent","rgb(255, 255, 255)",

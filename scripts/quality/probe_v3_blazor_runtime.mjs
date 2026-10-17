@@ -174,6 +174,37 @@ try {
                        hover:sample.sourceHover,normalRatio:contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceSurface)),
                        hoverRatio:contrast(hexToRgb(sample.brandCandidate),hexToRgb(sample.sourceHover))}));
      assert("opt-in alias not leaked to root "+brand+" "+mode,sample.root==="",sample.root);
+     // #418 genuine Bluent Button (not HTML mock) on an explicit alpha host.
+     // Two actual native Tabs sample the keyboard modality in each brand/mode.
+     const alphaTab=async()=>{
+       await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+       await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+     };
+     await cdp.js("document.querySelector('#v3-alpha-focus-start')?.focus()");
+     await alphaTab();
+     const alphaBrand=await cdp.js("(()=>{const b=document.querySelector('#v3-alpha-brand-button'),s=b&&getComputedStyle(b),u=document.querySelector('.v3-lab-alpha-focus-underlay'),a=document.querySelector('.v3-lab-alpha-focus-overlay');return {focused:document.activeElement===b,visible:b?.matches(':focus-visible'),ring:s?.outlineColor,width:s?.outlineWidth,offset:s?.outlineOffset,underlay:u&&getComputedStyle(u).backgroundColor,alpha:a&&getComputedStyle(a).backgroundColor};})()");
+     assert("actual Bluent alpha-host branded ring Tab focus "+brand+"/"+mode,
+       alphaBrand.focused&&alphaBrand.visible&&alphaBrand.width==="2px"&&
+       alphaBrand.offset==="2px"&&alphaBrand.ring===hexToRgb(expectedBrandFocus),
+       JSON.stringify(alphaBrand));
+     await alphaTab();
+     const alphaFocus2=await cdp.js("(()=>{const b=document.querySelector('#v3-alpha-focus2-button'),s=b&&getComputedStyle(b),host=document.querySelector('.v3-lab-surface');return {focused:document.activeElement===b,visible:b?.matches(':focus-visible'),ring:s?.outlineColor,width:s?.outlineWidth,offset:s?.outlineOffset,source:host&&getComputedStyle(host).getPropertyValue('--colorStrokeFocus2').trim()};})()");
+     assert("actual Bluent alpha-host Focus2 keyboard ring from source "+brand+"/"+mode,
+       alphaFocus2.focused&&alphaFocus2.visible&&alphaFocus2.width==="2px"&&
+       alphaFocus2.offset==="2px"&&
+       alphaFocus2.ring===(mode==="light"?"rgb(0, 0, 0)":"rgb(255, 255, 255)")&&
+       alphaFocus2.ring===hexToRgb(alphaFocus2.source),
+       JSON.stringify(alphaFocus2));
+     const alphaRgba=alphaBrand.alpha.match(/[0-9.]+/g).map(Number);
+     const alphaUnder=rgbParts(alphaBrand.underlay);
+     const alphaPainted="rgb("+alphaUnder.map((u,i)=>Math.floor(alphaRgba[i]*alphaRgba[3]+u*(1-alphaRgba[3])+0.5)).join(", ")+")";
+     const candidateRatio=contrast(alphaFocus2.ring,alphaPainted);
+     const brandedRatio=contrast(alphaBrand.ring,alphaPainted);
+     assert("real Bluent explicit alpha Focus2 computed host contrast "+brand+"/"+mode,
+       Number.isFinite(candidateRatio)&&candidateRatio>=3&&alphaRgba.length===4,
+       JSON.stringify({alphaPainted,candidateRatio,brandedRatio}));
+     if(mode==="light")assert("real Bluent branded ring alpha risk reproduced "+brand+"/"+mode,
+       brandedRatio<3,JSON.stringify({brandedRatio,alphaPainted,baseline:alphaBrand.ring}));
    }
  }
  // Restore the initial stylesheet and mode before using Blazor's real event

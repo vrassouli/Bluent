@@ -368,3 +368,59 @@
         outline-offset: 1px;
     }
 }
+
+/* #418 — actual Bluent Button, research-only explicit translucent host.
+   Source-backed Figma DRAFT board 38:2; never ship as Button CSS API.
+   Maintain selected brand ring on all pre-existing opaque host fixtures. */
+.v3-lab-alpha-focus-review {
+    max-width: 100%;
+    min-width: 0;
+    margin-block: 24px;
+}
+.v3-lab-alpha-focus-underlay {
+    background: var(--colorBrandBackground);
+    padding: 18px;
+    border-radius: var(--borderRadiusMedium, 6px);
+    margin-block: 12px;
+}
+.v3-lab-alpha-focus-overlay {
+    background: var(--colorNeutralBackgroundAlpha);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 20px;
+    min-width: 0;
+    padding: 24px;
+    border-radius: var(--borderRadiusMedium, 6px);
+}
+.v3-lab-alpha-focus-card {
+    --v3-lab-focus: var(--colorBrandBackground);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 18px;
+    box-sizing: border-box;
+    min-width: 0;
+}
+.v3-lab-surface[data-bui-theme="dark"] .v3-lab-alpha-focus-card[data-v3-alpha-ring="brand"] {
+    --v3-lab-focus: var(--colorBrandForeground2);
+}
+.v3-lab-alpha-focus-card[data-v3-alpha-ring="focus2"] {
+    --v3-lab-focus: var(--colorStrokeFocus2);
+}
+.v3-lab-alpha-focus-card ::deep .bui-button {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+}
+@media (forced-colors: active) {
+    .v3-lab-alpha-focus-underlay,
+    .v3-lab-alpha-focus-overlay {
+        background: Canvas;
+        border: 1px solid CanvasText;
+    }
+    .v3-lab-alpha-focus-card {
+        --v3-lab-focus: Highlight !important;
+    }
+}
