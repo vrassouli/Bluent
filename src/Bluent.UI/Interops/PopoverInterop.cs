@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
@@ -33,38 +33,70 @@ internal class PopoverInterop : IAsyncDisposable
     {
         try
         {
-            if (_popoverReference != null)
-                await _popoverReference.DisposeAsync();
-
-            if (_module != null)
-                await _module.DisposeAsync();
-
-            if (_handlerReference != null)
-                _handlerReference.Dispose();
+            try
+            {
+                if (_popoverReference is not null)
+                {
+                    try
+                    {
+                        // JSObjectReference.DisposeAsync frees the proxy, but
+                        // DOES NOT call the JS object's own cleanup method.
+                        // Detach document and trigger listeners first.
+                        await _popoverReference.InvokeVoidAsync("dispose");
+                    }
+                    finally
+                    {
+                        await _popoverReference.DisposeAsync();
+                    }
+                }
+            }
+            catch (JSDisconnectedException)
+            {
+                // The browser connection can disappear during circuit shutdown.
+            }
         }
-        catch (Exception)
+        finally
         {
-            // swallow!
+            try
+            {
+                try
+                {
+                    if (_module is not null)
+                        await _module.DisposeAsync();
+                }
+                catch (JSDisconnectedException)
+                {
+                    // The module may already have disconnected.
+                }
+            }
+            finally
+            {
+                _handlerReference?.Dispose();
+                _handlerReference = null;
+                _popoverReference = null;
+                _module = null;
+            }
         }
     }
 
-    public async void SetPopover(PopoverSettings settings)
+    public async Task SetPopoverAsync(PopoverSettings settings)
     {
-        try
-        {
-            var module = await GetModuleAsync();
-            await module.InvokeVoidAsync("setPopover", settings);
-        }
-        catch
-        {
-            // swallow!
-        }
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("setPopover", settings);
     }
 
-    public async void ShowSurface(PopoverSettings settings)
+    public async Task ShowSurfaceAsync(PopoverSettings settings)
     {
         var module = await GetModuleAsync();
         await module.InvokeVoidAsync("showSurface", settings);
+    }
+
+    public async Task DestroyPopoverAsync(string triggerId)
+    {
+        // A child can be disposed before JS was ever instantiated.
+        // Do not import/create a module just to remove a nonexistent binding.
+        if (_popoverReference is not null)
+            await _popoverReference.InvokeVoidAsync("destroyPopover", triggerId);
     }
 
     private async Task<IJSObjectReference> GetModuleAsync()

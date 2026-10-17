@@ -8,3 +8,13 @@
   animation-timing-function: var(--curveEasyEase);
   animation-fill-mode: both;
 }
+
+
+// D5 (#417) / shared overlay primitive (#420):
+// A motion-reduced host must not animate Dialog backdrops.
+@media (prefers-reduced-motion: reduce) {
+  .bui-overlay {
+    animation-duration: 0s;
+    animation-delay: 0s;
+  }
+}

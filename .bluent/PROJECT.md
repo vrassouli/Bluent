@@ -14,6 +14,16 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
+**#420 Overlay fixture readiness (2026-10-18):** The previous openOverlay polling test emitted repeated synthetic Button clicks before event hydration. The actual Razor test fixture now signals first interactive OnAfterRender, and both opening and closing the Overlay use exactly one browser CDP mouse gesture each after hit testing; no click retries. Each Chrome/Edge x WASM/published Server combination retested 61/61, JS errors=[] and owned profile cleanup=0. This is a test fidelity fix; historical sporadic race root cause is not fully proven.
+
+**#420 real pointer QA follow-up (2026-10-18):** The source-owned Popover/Overlay smoke test now dismisses the actual Overlay via a single CDP mouseMoved/Pressed/Released sequence only after real DOM hit testing, rather than synthetic Element.click(). A regression guard prevents falling back to DOM click. Four independent browser/Blazor host modes PASS 61/61 each, 244/244, 0 QA-owned browser processes remaining. This tests actual pointer interaction; the root cause of previous transient Overlay callback/interactive hydration timeouts is still open. Public component code and API untouched.
+
+**#420 compatibility continuation (2026-10-18, In progress):** Real task branch PR #550 now includes private TS-only reconciliation preparing for #418 opt-in Popover ARIA semantics: ordinary click triggers retain ephemeral aria-controls, while future explicitly opted-in mounted surfaces may keep a stable reference; nested Dialog Escape is scoped to the active child. No new public C# API or 2.x surface. Dedicated 4-test regression contract is wired into v3 interaction CI, actual Chrome/Edge x WASM/production-published Server Popover browser checks each passed 61/61 on this task branch (244/244); Dev01 Release warn-as-error build passed and observed 20 .NET tests. An earlier Chrome/Server run timed out on Overlay close under reduced motion; independent rerun passed, root cause remains unresolved. Do not infer native OS/AT or design approval. Integration lab previously confirmed both #418 and #420 together with deeper browser checks; the real PR remains Draft until final review and #418 acceptance.
+
+**#420 interop progress (2026-10-15):** real v3 task-branch changes replace AudioCapture.Stop/Overflow.Init fire-and-forget with awaited Task lifecycle and independently cleaned up JS handles; remaining 3 async void / 6 broad catches. Real compiled-DLL fake-JS harness 55 pass; component real browser/AT and Popover event semantics remain open. See ADR-0002 / draft PR.
+
+**#420 interaction foundations (2026-10-15, In progress):** [Proposed ADR-0002](../docs/v3/architecture/ADR-0002-interaction-primitives.md) source-audits legacy async void/Exception swallow in interops (five methods, eleven broad catches) and supplies a compiled existing-public-API Blazor form sample. JS lifecycle, focus restore, portalled overlays and component API contract still need a real dedicated design-tool artifact and runtime/AT signoff. No production APIs changed on this task branch.
+
 **GitHub workflow:** [Backlog → Ready → In progress → Review → Done](../docs/v3/ISSUE-WORKFLOW.md). No task automatically merges to `Dev` before the complete v3 epic is accepted and separately authorized.
 
 ## Current Phase
@@ -104,3 +114,145 @@ The prior detailed relaunch/Sprint 0–4 project record is preserved verbatim in
 As of 2026-10-10, Issue [#419](https://github.com/vrassouli/Bluent/issues/419) is **In progress** in GitHub Project #5, after its explicit `Backlog → Ready → In progress` transitions. Dedicated branch: `v3/issue-419-penpot-library`, **base `bluent-v3` only**. The maintainer created a separate Penpot `Bluent v3 Design System` file; twenty-seven native editable design pages (including foundation, brand, RTL, source reference and Button API anatomy), **134 verified upstream Fluent reference instances**, **four original local reusable draft components**, plus **five core native variant families / 65 unique variants and 65 linked local preview instances**, plus **two separate test-fixture families / 16 linked comparison and Persian RTL variants**, draft Light/Dark themes, **seven draft token sets / 49 entries**, and a local reusable primary Button prototype now exist. An actual linked imported Fluent 2 Button reference instance was verified and visually inspected, while the original community file remained unchanged. See [Penpot workspace contract](../docs/v3/design/BLUENT-V3-PENPOT.md), [extended foundations](../docs/v3/design/FOUNDATION-EXTENSIONS.md), [form/grid component references](../docs/v3/design/COMPONENT-REFERENCE-MATRICES.md), [local component drafts](../docs/v3/design/LOCAL-COMPONENT-DRAFTS.md), [native variant families](../docs/v3/design/NATIVE-CONTROL-VARIANTS.md), [native Button states/size/API design](../docs/v3/design/NATIVE-BUTTON-VARIANTS.md), [alignment audit + live Penpot gate](../docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md), [actual imported/native Button comparison](../docs/v3/design/BUTTON-PARITY-REVIEW.md), [controlled copy/icon fidelity and Persian RTL](../docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md), [verified import-fidelity risk assessment](../docs/v3/design/PENPOT-IMPORT-FIDELITY.md), [source-to-Razor/CSS handoff contract](../docs/v3/design/DESIGN-TO-RAZOR-HANDOFF.md), [migration impact ledger](../docs/v3/design/MIGRATION-IMPACT-LEDGER.md), [native resize constraints lab](../docs/v3/design/BUTTON-RESIZE-REVIEW.md), [Button v2 API baseline checker](../scripts/quality/check_v3_button_api_baseline.py), [source-backed FC1–FC6 design gates](../docs/v3/design/FORM-CONTROL-DESIGN-GATES.md) and [machine-readable IDs](../docs/v3/design/penpot-workspace.manifest.json).
 
 This draft does **not** approve the #417 styling ADR, implement the #418 CSS/token migration or satisfy full Fluent UI/design parity. No public v2/v3 component code, stable assets, `Dev`, published NuGet or deployment is modified. Complete library coverage, visual/interaction parity, accessibility, font/icon checks and design review remain before #419 reaches Review/Done.
+
+2026-10-15 additional #420 v3-only Popover lifecycle fix: child + module + DotNetObjectReference Dispose independent and all five PopoverService event subscriptions released in finally under both disconnect and unexpected JS errors. 47 compiled fake-JS lifecycle assertions passed; synchronous Popover service callback API still awaiting design/browser tests. No stable Dev/v2 public merge.
+
+
+2026-10-15 #420 DataGrid follow-up: internal JS child/module and callback disposal independent under errors, DataGrid component base cleanup from finally, real compiled DataGrid<string> harness checks added (55 cumulative); 3 async void/6 typed broad catches + 2 bare catches still tracked, no v2 release.
+
+
+2026-10-15 #420 source guard now protects both typed catch(Exception) (6) and bare catch{} (2) across real Interops, instead of missing the two untyped DataGrid/Popover error swallows. 14 negative/positive Python tests, with 55 real compiled mocked-JS assertions. Browser/OS-AT, public event semantics remain outstanding.
+
+
+2026-10-15 #420 actual pointer/Theme fixes on v3/issue-420-interaction-primitives: DomHelper pointer callbacks now keyed by ID and disposed promptly at Unregister/replacement/failure; independently cleans JS module/proxy and all pointers on teardown; BluentTheme only swallows expected disconnection, Overflow always invokes base Dispose in finally. Compiled Bluent.UI harness 89 real .NET fake-JS assertions, source debt 3 async void/1 typed broad catch/2 untyped catch; full browser pointer/Popover focus and Penpot #420 signoff still pending. #425 PR #549 independently passes Chrome/Edge Server/WASM in actual GitHub CI, but not a substitute for #420 component acceptance.
+
+
+2026-10-15 Penpot correctly connected to canonical Bluent v3 file b64f6665-c9ab-80b5-8008-c4ac99d9d000: new editable #420 interaction/lifetime draft page ed5216bd-3d5b-8015-8008-cb247e27efb4, board ed5216bd-3d5b-8015-8008-cb247e906204 with 51 source-owned shapes and four flow sections. This resolves a missing draft board but NOT maintainer design signoff or real Chrome/Edge overlay/AT acceptance. Do not declare #420 Done merely from a board.
+
+
+2026-10-15 newest #420 source checkpoint: zero remaining async void / catch(Exception) / catch{} across the eight audited Bluent.UI Interops + DomHelper files, down from 5 typed async void, 11 typed broad catches plus two bare catches originally. Public sync IPopoverService and protected Overflow.CheckOverflow retained; private Popover ordered JS queue and deferred Overflow checks awaited in Blazor render lifecycle. Actual compiled DLL fake JS 115 assertions, source guard 18 Python tests, real Dev01 interactive WASM Popover Chrome 7/7 and Edge 7/7 incl manual Show and Close. Dedicated Chrome/Edge Windows CI jobs added to draft #420 PR. Penpot reviewer acceptance, Server-mode Popover keyboard/focus return and native OS/AT remain open before Review/Done.
+
+
+2026-10-15 newest #420 interactive Server verification: dedicated SSR QA-only /compatibility/popover-server with real InteractiveServer Popovers + Containers, real Chrome and Edge both 7/7. With real standalone WebAssembly Chrome/Edge each 7/7 the Popover matrix is 28/28 on Dev01; QA harness launches real Release-published Production SSR and Debug-root WASM as appropriate, four GitHub Windows CI jobs configured. No public component API change. Browser focus restoration/Escape, native Contrast Themes/screen reader and maintainer Penpot design parity remain open; #420 Draft until acceptance.
+
+
+2026-10-15 #420 latest focus/JS lifecycle: Escape closes topmost non-modal Popover and restores trigger focus; outside click does not steal focus. Explicit JS Popover.dispose removes trigger/click/keyboard listeners, ResizeObservers and Floating UI updater; real C# PopoverInterop calls it before proxy disposal. Full Chrome/Edge x WASM/Server local matrix 40/40 real interactions; compiled fake-JS .NET 123 assertions; 19 source Python tests. Static webpack ESM/global outputs and maps mirrored to Bluent.UI wwwroot; new npm CI builds and checks reproducibility. Still Draft/In progress until canonical Penpot approval, other overlays and native Windows Contrast/AT acceptance.
+
+
+2026-10-15 latest #420 per-surface geometry correction: replaced singleton JS ResizeObservers/MutationObserver/Floating UI cleanup with per-triggerId Map resources, so multiple simultaneous Popovers do not disable each other's updates. Added real QA stack fixture with two SameWidth overlays and SSR host; browser waits for interactive ready and fires OpenBoth once. Dev01 Chrome/Edge × InteractiveServer/WASM **68/68 real browser checks** verify stack, LIFO Escape focus and independent ResizeObserver while sibling stays open, plus earlier show/hide/keyboard. Snapshots/JSON produced; new exact GitHub SHA requires independent CI. Original #420 Penpot draft remains awaiting maintainer approval, and native Windows Contrast/AT/other overlays remain separate.
+
+
+2026-10-15 #420 newest transition/reduced-motion milestone: real Popover hide depended only on transitionend, so zero-duration/interruptions could skip hidden state and delayed close could conceal a reopened surface. Cancellable per-triggerId transition listener + computed-duration fallback and instant zero-second completion now prevent both, clearing on JS dispose. Dev01 actual Chrome/Edge x WASM/Server **23/23 each = 92/92**: RTL forced-colors/reduced-motion browser emulation, 700ms interrupted animation, LIFO keyboard/focus and independent resizing, additional PNG/JSON evidence. Source bundle gate extended with two negative tests, ESM/global/static assets rebuilt. This is not native Windows Contrast/AT or reviewer-approved Penpot visual parity; #420 stays In progress PR Draft, v3 only.
+
+
+2026-10-15 #420 latest: real Popover SCSS now honors prefers-reduced-motion reduce, Sass components.css and shipped Bluent.UI components.min.css tracked; Sass@1.93.2/webpack reproducibility enforced in #420 CI. Public DisplayArrow=false exercised in real Blazor, finite geometry + Runtime.exceptionThrown monitoring proves no hidden JS errors in tested scenarios. Dev01 Chrome/Edge x WebAssembly/InteractiveServer **27/27 each = 108/108** browser checks: computed CSS zero-duration under simulated OS reduced motion, RTL forced-colors browser emulation, 700ms rapid reopen, stacked focus and independent width. Browser emulation does NOT prove native Windows Contrast or screen-reader compliance. Exact new GitHub CI to check; Penpot #420 draft not yet reviewer-approved; v3-only branch, no Dev/v2 NuGet release.
+
+- 2026-10-16 #420 Penpot page40 draft board
+  ed5216bd-3d5b-8015-8008-cb247e906204 gained click-only
+  nonmodal Popover disclosure semantics proposal. TypeScript
+  setPopover/show/hide/unbind/dispose now manages absent
+  aria-expanded and aria-controls only for click trigger;
+  preserves consumer author attrs, leaves hover/focus Tooltips
+  untouched and does not prescribe generic menu/dialog roles.
+  Rebuilt/mirrored ESM+global JS/maps to Bluent.UI wwwroot;
+  Real Dev01 Chrome/InteractiveServer 30/30 and Edge/WASM
+  30/30 browser checks, actual initial false after awaiting
+  Blazor/JS hydration, true+controls while open and false/no
+  controls after Escape; 12 bundle tests, 21 source contract
+  tests, Build Release 0 warning/error and .NET 20/20.
+  Other browser modes, per-child teardown and native OS/AT
+  reviewer signoff still pending; stable 2.x untouched.
+
+- 2026-10-16 #420 single-child Popover Dispose previously removed
+  its C# Context but JS singleton per-trigger handlers, observers
+  and ARIA lingered until full container Dispose. An ordered
+  internal Set/Show/Destroy queue now invokes JS destroyPopover
+  for exactly that trigger after Blazor render. JS releases its
+  own transition, outside-click, geometry, stack and managed ARIA.
+  Compiled fake-JS tests 127/127; source tests 21+12 PASS.
+  QA-only stacked fixture removes FIRST through a button inside
+  SECOND surface; Chrome/InteractiveServer 33/33 live browser
+  checks show surviving sibling remains open and Escape restores
+  focus. Native Penpot draft page40 now 53 shapes. Browser QA
+  cleanup additionally scopes Windows process termination to
+  unique bluent-v3-420 temp profile and fails on orphan resources.
+  Native Windows OS/AT + maintainer design acceptance still open.
+
+- 2026-10-16 #420 final real browser child removal: Chrome/Edge x
+  Server/WASM passed 33/33 each, total 132/132, zero failures.
+  Prior Edge WASM test failed because --no-build served stale Debug
+  Razor without Remove button; actual CDP DOM exposed it, fixed
+  harness to always build latest Debug. Compiled DLL fake JS 127
+  assertions, source Python 22+13. Owned-profile cleanup remaining
+  zero. Penpot page40 draft not yet approved; native Windows/AT
+  evidence pending. PR #550 Draft; issue In progress.
+
+- 2026-10-16 #420 promoted Popover browser accessibility
+  evidence beyond DOM-only: correct editable Penpot page40
+  board has 54th DRAFT research note; Chromium CDP AX tree
+  now checked before open, while expanded, and after Escape.
+  Actual accessible button role/name/focusable, true related
+  visible surface idrefList, and restored focused/closed
+  state verified in real Chrome/Server 36/36 (3 new AX checks).
+  2 additional Python source guards. Native Windows UIA/
+  Narrator/NVDA and approved Penpot parity remain OPEN.
+
+- 2026-10-16 #420 Calendar private async event debt:
+  Penpot page40 board revision402/55 editable DRAFT shapes.
+  Month/year selection handlers now Task instead of async void,
+  two unused ChangeEventArgs async void handlers removed.
+  No public API/CSS change; compiled interop + Calendar tests
+  total 139 real assertions, proving awaiting and exception
+  propagation with delayed callbacks for both modes. Actual
+  Blazor QA-only CalendarAsyncProbe and Server wrapper use
+  interactive hydration readiness; Chrome Server 46/46 after
+  fixing prerender QA premature-click race. UIA, OS AT, design
+  review and exact-head CI remain separately pending.
+
+- 2026-10-16 #420 Calendar MonthChanged Task ordering:
+  Penpot page40 board revision403 / 56 native editable DRAFT.
+  Old ViewDate setter scheduled MonthChanged with detached
+  InvokeAsync, unsafe for exceptions and ordering. Setter now
+  side-effect-free; date nav 7 actions await ChangeViewDateAsync,
+  selection handlers await it; external SelectedDate changes
+  notify once via OnParametersSetAsync, consumed before await.
+  No same-month double notification, public API unchanged.
+  Compiled real DLL 150 assertions, source Python 26/26,
+  Chrome/Server 54/54 and Edge/WASM 54/54 runtime tests PASS.
+  Exact new SHA CI and migration-timing acceptance pending;
+  Penpot visual/native OS AT approval still open.
+
+- 2026-10-16 #420 Penpot design readability defect repaired
+  on the REAL editable file/page40 board: overlapping/outside-
+  board appended notes organized under section05 as five
+  white-backed native editable cards. Penpot revision409,
+  shapeCount63, 14/14 true live geometry checks and direct
+  PNG export human review passed. No component visual parity
+  approval implied. Consumer timing-migration review added
+  at docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md;
+  actual M13-M17 row risks appended to source migration ledger.
+  Public parameter APIs unchanged but Calendar callback timing
+  and Popover ARIA/lifecycle observable behavior need consumer
+  review before v3 release. Exact prior implementation HEAD
+  ee798e95 and follow-up docs/design HEAD cca7aac0 both had
+  GitHub 9/9 successful checks. Finalized Penpot revision409
+  background repair is a separate docs-only follow-up whose
+  exact-head CI still requires independent verification.
+
+- 2026-10-16 #420 actual source-owned Penpot board page40 native textBounds follow-up: 63 real editable shapes, 37 text elements, **30 had 1-2px height deficit** despite previous 14/14 placement audit. Enlarged height only (<=3px), re-read **37/37 fitting**, no text beyond board. New repeatable read-only live Penpot audit scripts/quality/penpot_v3_420_textbounds_audit.js. Measurement fix, NOT visual reviewer approval or native AT. #420 In progress; PR #550 Draft; no public API/stable release.
+
+- 2026-10-17 #420 Popover RightEnd fix: public Placement.RightEnd was emitted as right-end but Sass missing dot yielded dead .bui-popover-surfaceright-end selector; corrected authored/compiled/published CSS (Sass 1.93.2), added real public demo, 3 browser interactions and 4 source negative/positive tests (17/17 PASS). Initial Chrome/Server 56/57 test-only display:none computed-transform blind spot corrected with a temporary display override and exact restoration. Real Chrome/published InteractiveServer 57/57 PASS zero failures. Exact new-head four-browser CI pending; no public API change or stable merge, source-owned Penpot #420 board remains DRAFT.
+
+- 2026-10-17 #420 Overlay reduced-motion D5 defect: real .bui-overlay had normal ~250ms fade under browser prefers-reduced-motion:reduce. Task-only Sass override zeros animation duration/delay only under reduced motion; compiled and minified assets synced with Sass 1.93.2. Added optional actual Blazor Overlay fixture and browser checks normal/reduced/restored plus click removal. Source contract with 21 positive/negative cases PASS. First Server browser run prematurely clicked SSR static markup and timed out; harness updated to retry until Blazor event handlers hydrate. New browser/CI evidence pending. No stable Dev/NuGet or public API changes.
+
+- 2026-10-17 final Dev01 local Chrome/Production-published
+  InteractiveServer browser probe **61/61 PASS**, failures=0.
+  First prematurely checked prerender static content before
+  interactivity (1/1 with timeout); retry on real Blazor
+  hydration yielded 60/61 with a first-paint normal
+  CSS/media baseline inconsistency; explicit Chromium
+  no-preference media baseline then proved normal fade,
+  Reduced Motion 0s duration/delay, and restored normal
+  fade, all with real Overlay OnClick removal: 61/61.
+  Other render modes and exact latest GitHub SHA remain
+  separately verified, not inferred from this result.

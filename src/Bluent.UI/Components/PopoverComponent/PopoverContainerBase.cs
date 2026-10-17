@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Extensions;
+using Bluent.UI.Extensions;
 using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Interops;
 using Bluent.UI.Services.Abstractions;
@@ -14,6 +14,8 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
 {
     protected List<PopoverContext> Contexts { get; } = [];
     private PopoverInterop? _interop;
+    private readonly PopoverCommandQueue _interopCommands = new();
+    private bool _disposed;
 
     [Inject] private TPopoverService Service { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
@@ -57,18 +59,48 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
         base.OnInitialized();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_disposed && RendererInfo.IsInteractive && _interop is not null)
+        {
+            try
+            {
+                // The synchronous service notifications are serialized here,
+                // with JS work actually awaited in the Blazor render lifecycle.
+                await _interopCommands.DrainWithDestroyAsync((show, settings) =>
+                    show ? _interop.ShowSurfaceAsync(settings) : _interop.SetPopoverAsync(settings),
+                    triggerId => _interop.DestroyPopoverAsync(triggerId));
+            }
+            catch (JSDisconnectedException)
+            {
+                // A terminated circuit cannot process queued browser actions.
+                _interopCommands.Clear();
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
     public async ValueTask DisposeAsync()
     {
-        if (_interop != null)
-            await _interop.DisposeAsync();
-
-        if (Service is PopoverService service)
+        // Subscriptions must be removed even if a JS disposal operation fails.
+        _disposed = true;
+        _interopCommands.Clear();
+        try
         {
-            service.OnSetTrigger -= PopoverOnSet;
-            service.OnShowSurface -= PopoverOnShowSurface;
-            service.OnHideSurface -= PopoverOnHideSurface;
-            service.OnDestroy -= PopoverOnDestroy;
-            service.OnRefreshSurface -= PopoverOnRefreshSurface;
+            if (_interop is not null)
+                await _interop.DisposeAsync();
+        }
+        finally
+        {
+            if (Service is PopoverService service)
+            {
+                service.OnSetTrigger -= PopoverOnSet;
+                service.OnShowSurface -= PopoverOnShowSurface;
+                service.OnHideSurface -= PopoverOnHideSurface;
+                service.OnDestroy -= PopoverOnDestroy;
+                service.OnRefreshSurface -= PopoverOnRefreshSurface;
+            }
         }
     }
 
@@ -79,24 +111,29 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
             Contexts.Remove(existing);
 
         Contexts.Add(args.Context);
-        _interop?.SetPopover(args.Context.Config.Settings);
+        if (_disposed)
+            return;
+
+        _interopCommands.Enqueue(false, args.Context.Config.Settings);
 
         if (args.Context.Config.KeepSurface)
-        {
             args.Context.Config.Visible = false;
-            StateHasChanged();
-        }
+
+        // Scheduling a render is synchronous service work, not fire-and-forget
+        // JavaScript. OnAfterRenderAsync drains and awaits the queued JS calls.
+        if (RendererInfo.IsInteractive)
+            _ = InvokeAsync(StateHasChanged);
     }
 
     private void PopoverOnShowSurface(object? sender, ShowPopoverSurfaceEventArgs args)
     {
-        //Console.WriteLine($"PopoverOnShowSurface ({GetType()})");
-
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
-        if (context != null)
-            _interop?.ShowSurface(context.Config.Settings);
-        //else
-        //    Console.WriteLine($"Config not found for triggerId: {args.TriggerId} ({GetType()})");
+        if (context is not null && !_disposed)
+        {
+            _interopCommands.Enqueue(true, context.Config.Settings);
+            if (RendererInfo.IsInteractive)
+                _ = InvokeAsync(StateHasChanged);
+        }
     }
 
     private void PopoverOnHideSurface(object? sender, HidePopoverSurfaceEventArgs args)
@@ -110,9 +147,14 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
         if (context != null)
+        {
             Contexts.Remove(context);
+            if (!_disposed)
+                _interopCommands.EnqueueDestroy(context.Config.Settings);
+        }
 
-        StateHasChanged();
+        if (!_disposed && RendererInfo.IsInteractive)
+            _ = InvokeAsync(StateHasChanged);
     }
 
     private void PopoverOnRefreshSurface(object? sender, RefreshPopoverSurfaceEventArgs args)
