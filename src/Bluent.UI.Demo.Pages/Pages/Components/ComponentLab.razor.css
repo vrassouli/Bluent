@@ -51,3 +51,9 @@
 .lab-button-variants label { display:block; margin-bottom:.25rem; font-size:.82rem; }
 .lab-button-variants select { width:100%; min-width:0; padding:.4rem .6rem; border-radius:.35rem; border:1px solid var(--colorNeutralStroke1,#8e99aa); background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
 .lab-button-variants select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
+/* Existing Button advanced API specimens, source-linked pilot only. */
+.lab-advanced-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:1rem; }
+.lab-advanced-group { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.55rem; padding:.8rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-advanced-label { font-size:.79rem; font-weight:600; color:var(--colorNeutralForeground3,#56667a); }
+.lab-menu-status { font-size:.82rem; margin:0; }
+@media(max-width:600px) { .lab-advanced-actions { grid-template-columns:minmax(0,1fr); } }

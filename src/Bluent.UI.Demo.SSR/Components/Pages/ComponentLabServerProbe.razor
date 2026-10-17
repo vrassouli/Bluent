@@ -6,3 +6,7 @@
 @* #421: exactly the same source-owned real Blazor component lab.
    Explicit InteractiveServer mode; no second mock/demo implementation. *@
 <ComponentLab />
+@* The shared WASM MainLayout already hosts these; this isolated
+   InteractiveServer page must own its Popover/Tooltip services within
+   the SAME interactive render boundary for Dropdown/MenuList tests. *@
+<Containers />

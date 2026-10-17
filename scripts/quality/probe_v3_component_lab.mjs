@@ -61,7 +61,7 @@ try {
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
  check('four pilot families and four functional controls rendered',initial.catalog.length===4&&initial.controls===4,initial);
- check('real library Button elements rendered, not image/mock',initial.runnable===5,initial);
+ check('real library Button elements rendered, not image/mock',initial.runnable===7,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
  check('actual Blazor OnClick event increments visible count',clicked);
@@ -104,6 +104,46 @@ try {
    expandedSource?.includes('Toggled="@_buttonToggled"')&&
    expandedSource?.includes('private Task ButtonToggledAsync(bool toggled)')&&
    expandedSource?.includes('Href="getting-started"'),expandedSource);
+
+
+ // Advanced existing-API Button fixtures are NOT final v3 component parity.
+ const badge=await js("(()=>{const b=[...document.querySelectorAll('.lab-advanced-actions button.bui-button')].find(e=>e.textContent?.includes('Notifications'));const n=b?.querySelector('.badge-wrapper.bottom.end .bui-badge');return {exists:!!b,compound:b?.classList.contains('compound'),compact:b?.classList.contains('compact'),badged:b?.classList.contains('badged'),detail:b?.querySelector('.secondary-text')?.textContent?.trim(),number:n?.textContent?.trim()}})()");
+ check('native Button Compact Compound Badge and end/bottom positions render',
+  badge.exists&&badge.compound&&badge.compact&&badge.badged&&badge.detail==='Recent activity'&&badge.number==='3',badge);
+ const trigger=await js("(()=>{const b=[...document.querySelectorAll('.lab-advanced-actions button.bui-button')].find(e=>e.textContent?.includes('More actions'));if(!b)return null;b.focus();return {tag:b.tagName,focused:document.activeElement===b,indicator:!!b.querySelector('.dropdown-icon')}})()");
+ check('existing Dropdown Button exposes native focusable indicator trigger',
+  trigger?.tag==='BUTTON'&&trigger.focused&&trigger.indicator,trigger);
+ const pressEnter=async()=>{
+  await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+  await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ };
+ await pressEnter();
+ const opened=await poll(()=>js("!![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(e=>e.textContent?.includes('Export report')&&e.textContent?.includes('Share summary'))"),16000);
+ check('native keyboard Enter opens actual Dropdown MenuList with two choices',opened);
+ const selectMenu=async name=>{
+  const lookup="(()=>{const s=[...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(e=>e.textContent?.includes("+JSON.stringify(name)+"));return [...s?.querySelectorAll('.menu-item')||[]].find(e=>e.querySelector('.title')?.textContent?.trim()==="+JSON.stringify(name)+")})()";
+  await js("(()=>{const e="+lookup+";e?.scrollIntoView({block:'center',behavior:'instant'})})()");
+  await wait(250);
+  const position=await js("(()=>{const e="+lookup+";if(!e)return {hit:false};const r=e.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('.menu-item')===e}})()");
+  check('CDP pointer hit tests actual '+name+' menu action',position.hit===true,position);
+  if(!position.hit)throw Error('Unsafe menu click target '+name);
+  await send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',x:position.x,y:position.y,clickCount:1});
+  await send('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',x:position.x,y:position.y,clickCount:1});
+ };
+ await selectMenu('Export report');
+ const exportResult=await poll(()=>js("document.querySelector('.lab-menu-status')?.textContent?.trim()==='Menu choice: Export report; callbacks: 1'"),13000);
+ check('real Export report menu click invokes exactly one Blazor callback',exportResult);
+ await js("(()=>{const b=[...document.querySelectorAll('.lab-advanced-actions button.bui-button')].find(e=>e.textContent?.includes('More actions'));b?.focus()})()");
+ await pressEnter();
+ await poll(()=>js("!![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(e=>e.textContent?.includes('Share summary'))"),15000);
+ await selectMenu('Share summary');
+ const shareResult=await poll(()=>js("document.querySelector('.lab-menu-status')?.textContent?.trim()==='Menu choice: Share summary; callbacks: 2'"),13000);
+ check('real Share summary menu click invokes exactly a second callback',shareResult);
+ const sourceAdvanced=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable Razor includes badge/menu source and backing event handlers',
+  sourceAdvanced?.includes('SecondaryText="Recent activity"')&&sourceAdvanced?.includes('BadgeHorizontalPosition="HorizontalSides.End"')&&
+  sourceAdvanced?.includes('DropdownPlacement="Placement.BottomEnd"')&&
+  sourceAdvanced?.includes('private Task ChooseExportAsync()')&&sourceAdvanced?.includes('private Task ChooseShareAsync()'),sourceAdvanced);
 
  await js("(()=>{const el=document.querySelector('#lab-search');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(el,'Icon');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filtered=await poll(()=>js("document.querySelectorAll('button.lab-family').length===1 && document.querySelector('button.lab-family')?.textContent.includes('Icon')"));

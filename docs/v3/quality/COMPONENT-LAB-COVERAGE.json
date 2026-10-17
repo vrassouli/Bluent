@@ -12,7 +12,7 @@
     ],
     "approval": "pending"
   },
-  "note": "Four representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate. 2026-10-17 incremental EXISTING-API Button Lab specimens for Toggled/ToggledChanged (two native CDP Enter events + exact callback count) and Href native anchor, with synchronized Razor source. New exact-head 32-check four-mode CI is pending; 27/27 entries are historical proof, not claims about new specimens. Toggle aria-pressed/AT remains unapproved #428 work.",
+  "note": "Four representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate. 2026-10-17 incremental EXISTING-API Button Lab specimens for Toggled/ToggledChanged (two native CDP Enter events + exact callback count) and Href native anchor, with synchronized Razor source. New exact-head 32-check four-mode CI is pending; 27/27 entries are historical proof, not claims about new specimens. Toggle aria-pressed/AT remains unapproved #428 work. 2026-10-17 advanced current API pilot: Badge/Compound/Compact and Dropdown/BottomEnd with two real menu callbacks, 40/40 Edge/WASM actual local, remaining three new-head CI pending; 16/20 declared Button params represented in Lab (plus disabled AdditionalAttributes); NOT full API or design parity. 2026-10-17 local Chrome/published InteractiveServer 40/40 also passed after adding same-interactive-boundary PopoverContainer to SERVER-ONLY test host; no stable library change.",
   "families": [
     {
       "id": "button",
@@ -30,7 +30,15 @@
         "Shape",
         "Toggled",
         "ToggledChanged",
-        "Href"
+        "Href",
+        "SecondaryText",
+        "Compact",
+        "Badge",
+        "BadgeHorizontalPosition",
+        "BadgeVerticalPosition",
+        "Dropdown",
+        "ShowDropdownIndicator",
+        "DropdownPlacement"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
@@ -39,7 +47,7 @@
         "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
         "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "Complete source/public API matrix remains open: icon/compound/Badge, Compact/Rotated/Orientation, dropdown/split, disabled anchor semantics, toggle ARIA pressed parity and parent-state rerender behavior, Href targets/rel, loading, RTL/brand modes, native high contrast/screen reader, complete design and migration review. New toggle/link specimens do NOT make Button exhaustive.",
+      "remaining": "Four declared Button parameters NOT yet in Lab: TextClass, Icon, Rotated and Orientation. Additional unaccepted scenarios: split button (OnClick plus Dropdown), disabled anchor semantics, accessible toggle aria-pressed and pressed focus, menu keyboard and native AT semantics, grouping, icon-only labels, all appearance/size combinations, real theme contrast/RTL, visual Fluent 2 parity, migration and final reviewer acceptance. 16/20 public parameters sampled plus disabled AdditionalAttributes does not mean exhaustive coverage.",
       "incremental20261017Evidence": {
         "kind": "actual-local-browser; representative-only, not design or AT signoff",
         "Chrome/Server": "32/32 actual Dev01 published InteractiveServer browser assertions after status selector fix; cleanup remaining=0",
@@ -47,7 +55,8 @@
         "Chrome/WebAssembly": "New 32-check exact-head CI pending; historic 27/27 remains separate",
         "Edge/Server": "New 32-check exact-head CI pending; historic 27/27 remains separate",
         "accessibilityGap": "Existing public toggled Button observed aria-pressed=null in real Edge/WASM: route review to #428, do not claim accessible toggle parity",
-        "designReview": "Existing Penpot page42 Component Lab DRAFT; no new design edit or signoff"
+        "designReview": "Existing canonical Penpot Component Lab page42 board is source-owned DRAFT, currently disconnected; no new board change or design acceptance claimed. Advanced API variants reuse existing source-owned live scenario layout.",
+        "advanced20261017": "Current source local Edge/WebAssembly 40/40 and Chrome/production-published InteractiveServer 40/40 real browser checks. Fixed Server-only missing interactive PopoverContainer in compatibility page; neither error reflected a core Button API change. 320px scroll and exact two MenuItem callbacks passed in both. Chrome/WebAssembly and Edge/Server on exact-head GitHub CI still pending."
       }
     },
     {

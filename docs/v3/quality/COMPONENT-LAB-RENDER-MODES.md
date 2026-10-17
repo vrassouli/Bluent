@@ -159,3 +159,83 @@ Lab concept. No new Penpot review/edit/approval in this step;
 the connected tab had been frozen. Stable Dev and v2/NuGet
 are untouched. The existing high-severity WebAssembly.Server
 10.0.7 NU1903 advisories remain unsuppressed.
+
+## 2026-10-17 advanced existing Button API: Compound / Badge / Dropdown
+
+Source-owned Component Lab remains a PILOT in the original
+editable Penpot Bluent v3 Design System page42
+e775e67c-d9da-804b-8008-cc7c2dd7ecf7,
+desktop board e775e67c-d9da-804b-8008-cc7c2dec1d15.
+This increment reuses the existing source-owned live Button
+scenario instead of implementing #428 or claiming a new
+Fluent 2 Button design. Penpot is currently disconnected,
+so no new design-tool edit/reviewer acceptance occurred.
+
+Added to the real public Button sample and its copyable Razor:
+- Compound Notifications Button with SecondaryText,
+  Compact=true and a real child Badge with End/Bottom
+  positioning. Native DOM assertions validate compound,
+  compact, badged, badge-wrapper.bottom.end, actual bui-badge,
+  and the secondary text.
+- More actions native Dropdown Button using public
+  ShowDropdownIndicator and DropdownPlacement.BottomEnd,
+  MenuList with two MenuItems and parent EventCallback status.
+  Real CDP Enter opens the surface; real pointer input
+  hit-tests each actual menu row, selects Export report, then
+  reopens to select Share summary. Assert 1 then 2 actual
+  Blazor callback notifications and exact visible labels.
+- Responsive two-column sample grouping (one column at small
+  viewports) scoped exclusively to Component Lab CSS.
+  No production component API or styling changes.
+- Synchronized source snippet with the real Badge and MenuList
+  hierarchy and two menu callbacks plus existing Toggle.
+
+Declared public Button API contains 20 Parameter properties.
+This representative lab now samples 16 of those 20
+(plus disabled via AdditionalAttributes). TextClass, Icon,
+Rotated and Orientation are NOT yet represented as interactive
+Button specimens here. Compound/Dropdown demos do NOT
+cover split Button, menu native AT semantics, high contrast,
+visual Fluent 2 parity, migration or reviewer acceptance.
+The existing toggled Button aria-pressed=null debt belongs
+to #428 design-first review.
+
+First local Dev01 Edge/WebAssembly run, freshly built from
+current source: 40/40 actual browser assertions, 0 errors,
+15 owned QA browser processes and 0 remaining, including
+new dropdown keyboard/pointer tests and 320px mobile check.
+Other modes and final copied source must be checked at
+their own source revision before claiming new-head success.
+Four pilot families / 66 source candidates, zero fully
+accepted migrated components. No stable Dev or NuGet release.
+
+### Server runtime boundary correction and independent browser evidence
+
+The first Chrome/InteractiveServer runtime of advanced Button
+specimens passed all initial Button controls and Badge checks,
+but **timed out waiting for the Dropdown**. Root cause:
+the isolated compatibility Server page used a minimal layout
+without any PopoverContainer, whereas the full WebAssembly
+MainLayout already had a Containers host. Popover trigger
+events therefore had no surface container to render into,
+despite the Button/Popover being correctly formed. This was
+a **test-host fixture defect**, not a product Dropdown fix.
+
+Corrected ONLY
+src/Bluent.UI.Demo.SSR/Components/Pages/ComponentLabServerProbe.razor,
+placing the existing Bluent Containers component INSIDE
+the InteractiveServer render boundary alongside ComponentLab.
+The source contract now rejects removing this container
+again. The subsequent real **Chrome/Production-published
+InteractiveServer passed 40/40**, zero errors, owned
+browser remaining=0. The Edge/WebAssembly independently
+passed **40/40**, zero errors, remaining=0. Both verified
+native CDP Enter for opening the Dropdown, hit-tested
+pointer clicks on Export then Share, and callback counts
+exactly one then two. The other two combinations and
+exact-current-SHA GitHub CI must still be checked separately.
+
+This restores test-host parity and is NOT a claim that
+v3 Button design, menu semantics, focus management, RTL
+contrast and named assistive-technology testing have
+been fully accepted.

@@ -71,3 +71,36 @@ Actual Chrome/Server and Edge/WASM current-source local 32/32;
 the other two need exact-head CI. Four pilots across 66
 source families: NEVER call this full API or visual acceptance.
 No stable Dev or v2.x NuGet release.
+
+## Existing Button Badge and Dropdown advanced API pilot
+
+Component Lab #421 now shows a real Compound+Compact Button
+with Badge End/Bottom and a native Dropdown Button with
+ShowDropdownIndicator and DropdownPlacement.BottomEnd.
+Do not implement #428 from this pilot while #428 is Backlog.
+The browser smoke must use a native CDP Enter to open the
+real Popover and verify actual hit-tested pointer input
+on MenuItem Export report and Share summary, resulting in
+exactly 1 and 2 Blazor parent callback notifications.
+Copyable Razor must include nested Badge/MenuList markup
+and matching callback source, rather than dummy handlers.
+Current Penpot page42 board is authoritative DRAFT,
+not an accepted Fluent 2 Button design or AT/ARIA review.
+Current local Edge/WASM actual 40/40; other modes need
+exact-head independent CI. 16 of 20 native Button public
+parameters sampled, NOT full acceptance. The observed
+aria-pressed=null toggle gap remains a #428 issue.
+
+### Server-only Popover host parity
+
+The actual Chrome/InteractiveServer advanced Dropdown test
+first timed out because
+src/Bluent.UI.Demo.SSR/Components/Pages/ComponentLabServerProbe.razor
+rendered ComponentLab with the minimal CompatibilityLayout,
+which did NOT contain Bluent Containers; WASM's MainLayout did.
+The isolated Server probe now also renders Containers within
+the SAME InteractiveServer subtree, and check_v3_component_lab.py
+guards this. Do not add duplicate global containers to the
+normal WASM MainLayout or treat a missing SSR test container
+as a core Button API defect. Local Chrome/Server + Edge/WASM
+both 40/40, independent exact-head CI still needed.

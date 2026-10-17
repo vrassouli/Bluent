@@ -1,5 +1,6 @@
 @page "/component-lab"
 @namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Enums
 @using Microsoft.JSInterop
 @inject IJSRuntime JS
 
@@ -94,6 +95,32 @@
                             Appearance="ButtonAppearance.Subtle" />
                 </div>
                 <p role="status" class="lab-toggle-status">Pinned: @(_buttonToggled ? "yes" : "no"); change callbacks: @_toggleEvents</p>
+                <div class="lab-advanced-actions" aria-label="Current Button advanced API examples">
+                    <div class="lab-advanced-group">
+                        <span class="lab-advanced-label">Compound and Badge</span>
+                        <Button Text="Notifications" SecondaryText="Recent activity" Compact="true"
+                                BadgeHorizontalPosition="HorizontalSides.End"
+                                BadgeVerticalPosition="VerticalSides.Bottom">
+                            <Badge>
+                                <Badge Text="3" Size="BadgeSize.Small" />
+                            </Badge>
+                        </Button>
+                    </div>
+                    <div class="lab-advanced-group">
+                        <span class="lab-advanced-label">Dropdown actions</span>
+                        <Button Text="More actions" ShowDropdownIndicator="true"
+                                DropdownPlacement="Placement.BottomEnd">
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Export report" OnClick="ChooseExportAsync" />
+                                    <MenuItem Title="Share summary" OnClick="ChooseShareAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p role="status" class="lab-menu-status">Menu choice: @_lastMenuChoice; callbacks: @_menuEvents</p>
+                    </div>
+                </div>
+
                 <fieldset class="lab-button-variants" aria-label="Live Button variant explorer">
                     <legend>Button public API variants · exploratory, not approved v3 parity</legend>
                     <div>
@@ -235,6 +262,11 @@
             item.Issue.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 .Contains(_queueSearch, StringComparison.OrdinalIgnoreCase)).ToList();
 
+    private string _lastMenuChoice = "none";
+    private int _menuEvents;
+    private Task ChooseExportAsync() { _lastMenuChoice = "Export report"; _menuEvents++; return Task.CompletedTask; }
+    private Task ChooseShareAsync() { _lastMenuChoice = "Share summary"; _menuEvents++; return Task.CompletedTask; }
+
     private bool _buttonToggled;
     private int _toggleEvents;
     private Task ButtonToggledAsync(bool toggled)
@@ -267,7 +299,9 @@
         ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />\n" +
           "<Button Text=\"Pin selection\" Toggled=\"@_buttonToggled\" ToggledChanged=\"ButtonToggledAsync\" />\n" +
           "<Button Text=\"Open guide\" Href=\"getting-started\" Appearance=\"ButtonAppearance.Subtle\" />\n" +
-          "@code {\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n}"
+          "<Button Text=\"Notifications\" SecondaryText=\"Recent activity\" Compact=\"true\" BadgeHorizontalPosition=\"HorizontalSides.End\" BadgeVerticalPosition=\"VerticalSides.Bottom\"><Badge><Badge Text=\"3\" Size=\"BadgeSize.Small\" /></Badge></Button>\n" +
+          "<Button Text=\"More actions\" ShowDropdownIndicator=\"true\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Export report\" OnClick=\"ChooseExportAsync\" /><MenuItem Title=\"Share summary\" OnClick=\"ChooseShareAsync\" /></MenuList></Dropdown></Button>\n" +
+          "@code {\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n    private string _lastMenuChoice = \"none\";\n    private int _menuEvents;\n    private Task ChooseExportAsync() { _lastMenuChoice = \"Export report\"; _menuEvents++; return Task.CompletedTask; }\n    private Task ChooseShareAsync() { _lastMenuChoice = \"Share summary\"; _menuEvents++; return Task.CompletedTask; }\n}"
         : Selected.Razor;
     private void Select(string id)
     {

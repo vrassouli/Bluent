@@ -62,10 +62,21 @@ def check() -> int:
                   'Shape="@_buttonShape"', 'ActiveRazor',
                   'Toggled="@_buttonToggled"', 'ToggledChanged="ButtonToggledAsync"',
                   'Href="getting-started"', 'class="lab-click-status"',
-                  'class="lab-toggle-status"', 'private Task ButtonToggledAsync(bool toggled)'):
+                  'class="lab-toggle-status"', 'private Task ButtonToggledAsync(bool toggled)',
+                  'SecondaryText="Recent activity"', 'Compact="true"',
+                  'BadgeHorizontalPosition="HorizontalSides.End"',
+                  'BadgeVerticalPosition="VerticalSides.Bottom"',
+                  'ShowDropdownIndicator="true"', 'DropdownPlacement="Placement.BottomEnd"',
+                  'MenuItem Title="Export report"', 'MenuItem Title="Share summary"',
+                  'class="lab-menu-status"', 'private Task ChooseExportAsync()',
+                  'private Task ChooseShareAsync()'):
         assert token in source, f"Button runtime explorer/source missing: {token}"
     assert all(x in data["families"][0]["propertiesDemonstrated"]
-               for x in ("Appearance", "Size", "Shape", "Toggled", "ToggledChanged", "Href"))
+               for x in ("Appearance", "Size", "Shape", "Toggled", "ToggledChanged", "Href",
+                         "SecondaryText", "Compact", "Badge", "BadgeHorizontalPosition",
+                         "BadgeVerticalPosition", "Dropdown", "ShowDropdownIndicator",
+                         "DropdownPlacement"))
+    assert len(data["families"][0]["propertiesDemonstrated"])==17, "16 of 20 native [Parameter] plus disabled additional attribute"
     for proof in ("live Button explorer uses source-backed default enum values",
                   "real Bluent Button responds to dynamic Danger/Large/Square parameters",
                   "generated Razor example matches all three selected Button values",
@@ -73,7 +84,13 @@ def check() -> int:
                   "native keyboard Enter sets public Toggled state and invokes ToggledChanged once",
                   "native second Enter reverts Toggled state with exactly second callback",
                   "public Button Href renders native anchor with a real destination",
-                  "copyable source reflects existing Button toggle callback and Href contracts"):
+                  "copyable source reflects existing Button toggle callback and Href contracts",
+                  "native Button Compact Compound Badge and end/bottom positions render",
+                  "existing Dropdown Button exposes native focusable indicator trigger",
+                  "native keyboard Enter opens actual Dropdown MenuList with two choices",
+                  "real Export report menu click invokes exactly one Blazor callback",
+                  "real Share summary menu click invokes exactly a second callback",
+                  "copyable Razor includes badge/menu source and backing event handlers"):
         assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
     generated=(ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabFamilyQueue.g.cs")
     assert generated.is_file() and generated.read_text(encoding="utf-8-sig")==generated_ui_queue()
@@ -118,6 +135,7 @@ def check() -> int:
     server=(ROOT/"src/Bluent.UI.Demo.SSR/Components/Pages/ComponentLabServerProbe.razor").read_text(encoding="utf-8-sig")
     notes=(ROOT/"docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md").read_text(encoding="utf-8-sig")
     assert '@rendermode InteractiveServer' in server and '<ComponentLab />' in server
+    assert '<Containers />' in server, "InteractiveServer Lab must host Popover/Tooltip in the same interactive render boundary"
     assert 'data-lab-interactive=' in source and 'OnAfterRenderAsync' in source
     assert 'BLUENT_V3_LAB_MODE' in probe and "renderMode==='Server'" in probe
     assert '[ValidateSet("WebAssembly", "Server")]' in owner
