@@ -2826,6 +2826,12 @@
   animation-fill-mode: both;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .bui-overlay {
+    animation-duration: 0s;
+    animation-delay: 0s;
+  }
+}
 .bui-popover {
   width: max-content;
 }

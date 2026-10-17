@@ -87,6 +87,14 @@ def check_popover_right_end_style(authored: str, compiled: str, minified: str) -
             raise BundleContractError(f"Popover {label} RightEnd transform selector missing or stale")
 
 
+def check_overlay_reduced_motion_style(authored: str, compiled: str, published: str) -> None:
+    """Require actual v3 overlay motion suppression in source AND shipped CSS."""
+    if not re.search(r"@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{\s*\.bui-overlay\s*\{\s*animation-duration:\s*0s;\s*animation-delay:\s*0s", authored):
+        raise BundleContractError("authored Bluent Overlay lacks reduced-motion animation override")
+    for label,css in (("compiled",compiled),("published",published)):
+        if not re.search(r"@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{\s*\.bui-overlay\s*\{\s*animation-duration:\s*0s;\s*animation-delay:\s*0s",css):
+            raise BundleContractError(label+" Overlay lacks shipped reduced-motion animation override")
+
 def main()->None:
     cli=argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--dist",type=Path,default=ROOT/"src/Bluent.UI.Scripts/dist")
@@ -99,6 +107,8 @@ def main()->None:
     minified = (ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8-sig")
     check_popover_reduced_motion_style(authored, compiled, minified)
     check_popover_right_end_style(authored, compiled, minified)
+    overlay_authored = (ROOT/"src/Bluent.UI/Styles/Components/_overlay.scss").read_text(encoding="utf-8-sig")
+    check_overlay_reduced_motion_style(overlay_authored, compiled, minified)
     print("PASS #420 Popover TS/JS and Sass reduced motion source: 4 ESM/global JS+maps and component CSS match shipped assets")
 
 if __name__=="__main__":

@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from check_v3_popover_js_bundle import (ROOT,NAMES,BundleContractError,
-    same_generated_assets,check_implementation_typescript,check_popover_reduced_motion_style,check_popover_right_end_style)
+    same_generated_assets,check_implementation_typescript,check_popover_reduced_motion_style,check_popover_right_end_style,check_overlay_reduced_motion_style)
 
 class PopoverBundleGateTests(unittest.TestCase):
     def test_checked_in_bundle_and_source_are_consistent(self):
@@ -15,6 +15,30 @@ class PopoverBundleGateTests(unittest.TestCase):
         compiled=(ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8-sig")
         minified=(ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8-sig")
         check_popover_reduced_motion_style(authored,compiled,minified)
+
+    def test_overlay_reduced_motion_in_author_source_compiled_published(self):
+        authored=(ROOT/"src/Bluent.UI/Styles/Components/_overlay.scss").read_text(encoding="utf-8")
+        compiled=(ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8")
+        published=(ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8")
+        check_overlay_reduced_motion_style(authored,compiled,published)
+
+    def test_overlay_missing_authored_reduced_motion_is_rejected(self):
+        a="@media (prefers-reduced-motion: reduce){.bui-overlay{animation-duration: 0s;animation-delay: 0s;}}"
+        c="@media (prefers-reduced-motion:reduce){.bui-overlay{animation-duration:0s;animation-delay:0s}}"
+        with self.assertRaisesRegex(BundleContractError,"authored"):
+            check_overlay_reduced_motion_style(a.replace("reduce","no-preference"),c,c)
+
+    def test_overlay_stale_compiled_reduced_motion_is_rejected(self):
+        a="@media (prefers-reduced-motion: reduce){.bui-overlay{animation-duration: 0s;animation-delay: 0s;}}"
+        c="@media (prefers-reduced-motion:reduce){.bui-overlay{animation-duration:0s;animation-delay:0s}}"
+        with self.assertRaisesRegex(BundleContractError,"compiled"):
+            check_overlay_reduced_motion_style(a,c.replace("0s","0.25s"),c)
+
+    def test_overlay_stale_published_reduced_motion_is_rejected(self):
+        a="@media (prefers-reduced-motion: reduce){.bui-overlay{animation-duration: 0s;animation-delay: 0s;}}"
+        c="@media (prefers-reduced-motion:reduce){.bui-overlay{animation-duration:0s;animation-delay:0s}}"
+        with self.assertRaisesRegex(BundleContractError,"published"):
+            check_overlay_reduced_motion_style(a,c,c.replace("0s","0.25s"))
 
     def test_popover_right_end_valid_in_all_three_authoritative_assets(self):
         authored=(ROOT/"src/Bluent.UI/Styles/Components/_popover.scss").read_text(encoding="utf-8")

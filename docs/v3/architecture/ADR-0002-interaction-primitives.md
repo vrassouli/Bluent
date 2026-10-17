@@ -466,3 +466,56 @@ actual Popover behavior, NOT human-approved full Fluent visual
 parity, native Windows Contrast Themes, named screen-reader AT or
 full design signoff. #420 remains In progress/PR Draft. No stable
 Dev/v2.x changes or NuGet release.
+
+## 2026-10-17 — shared Overlay reduced-motion D5 regression
+
+Upstream accepted ADR-0001 D5 recorded that the actual
+Blazor Dialog backdrop .bui-overlay animated for the
+source-durationGentle interval (roughly 250ms) even in
+prefers-reduced-motion: reduce, despite the Popover
+surface honoring no-motion. This concrete motion
+accessibility gap is in the shared Overlay primitive.
+
+The #420 task branch preserves normal fade, overlay
+stacking and all current public parameters. It adds
+a narrowly scoped CSS media override zeroing both
+animation-duration and animation-delay only while
+prefers-reduced-motion: reduce is active. Authored
+_overlay.scss, compiled components.css and shipped
+bluent.ui.components.min.css are synchronized with
+the pinned Sass 1.93.2 toolchain. All stable Dev,
+v2 CSS, published NuGet and public API remain unchanged.
+
+The real shared Popovers demo gains an opt-in Blazor
+Overlay specimen that renders only upon a click and
+removes itself on its own real OnClick handler.
+The browser probe checks normal animation positive,
+reduced media animation duration/delay zero,
+restoration of normal duration and actual Blazor
+overlay dismissal after each mode. The Server
+wrapper may hydrate later than its static markup:
+the test waits for actual interactive handler readiness
+rather than treating premature static markup clicks as
+a product failure. These use shipped computed CSS
+without inline style overrides, not just a Sass check.
+Four negative/positive source tests reject missing or
+stale reduced-motion rule in authored, compiled or
+shipped CSS.
+
+This closes one specific documented D5 policy defect,
+NOT the entire native Windows Reduce Motion UI,
+assistive-technology signoff, Fluent visual parity or
+all dialogs/backdrops. Keep #420 In progress/PR Draft
+until human design acceptance and remaining gates.
+
+- 2026-10-17 final Dev01 local Chrome/Production-published
+  InteractiveServer browser probe **61/61 PASS**, failures=0.
+  First prematurely checked prerender static content before
+  interactivity (1/1 with timeout); retry on real Blazor
+  hydration yielded 60/61 with a first-paint normal
+  CSS/media baseline inconsistency; explicit Chromium
+  no-preference media baseline then proved normal fade,
+  Reduced Motion 0s duration/delay, and restored normal
+  fade, all with real Overlay OnClick removal: 61/61.
+  Other render modes and exact latest GitHub SHA remain
+  separately verified, not inferred from this result.

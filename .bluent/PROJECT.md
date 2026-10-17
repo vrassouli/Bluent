@@ -236,3 +236,17 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - 2026-10-16 #420 actual source-owned Penpot board page40 native textBounds follow-up: 63 real editable shapes, 37 text elements, **30 had 1-2px height deficit** despite previous 14/14 placement audit. Enlarged height only (<=3px), re-read **37/37 fitting**, no text beyond board. New repeatable read-only live Penpot audit scripts/quality/penpot_v3_420_textbounds_audit.js. Measurement fix, NOT visual reviewer approval or native AT. #420 In progress; PR #550 Draft; no public API/stable release.
 
 - 2026-10-17 #420 Popover RightEnd fix: public Placement.RightEnd was emitted as right-end but Sass missing dot yielded dead .bui-popover-surfaceright-end selector; corrected authored/compiled/published CSS (Sass 1.93.2), added real public demo, 3 browser interactions and 4 source negative/positive tests (17/17 PASS). Initial Chrome/Server 56/57 test-only display:none computed-transform blind spot corrected with a temporary display override and exact restoration. Real Chrome/published InteractiveServer 57/57 PASS zero failures. Exact new-head four-browser CI pending; no public API change or stable merge, source-owned Penpot #420 board remains DRAFT.
+
+- 2026-10-17 #420 Overlay reduced-motion D5 defect: real .bui-overlay had normal ~250ms fade under browser prefers-reduced-motion:reduce. Task-only Sass override zeros animation duration/delay only under reduced motion; compiled and minified assets synced with Sass 1.93.2. Added optional actual Blazor Overlay fixture and browser checks normal/reduced/restored plus click removal. Source contract with 21 positive/negative cases PASS. First Server browser run prematurely clicked SSR static markup and timed out; harness updated to retry until Blazor event handlers hydrate. New browser/CI evidence pending. No stable Dev/NuGet or public API changes.
+
+- 2026-10-17 final Dev01 local Chrome/Production-published
+  InteractiveServer browser probe **61/61 PASS**, failures=0.
+  First prematurely checked prerender static content before
+  interactivity (1/1 with timeout); retry on real Blazor
+  hydration yielded 60/61 with a first-paint normal
+  CSS/media baseline inconsistency; explicit Chromium
+  no-preference media baseline then proved normal fade,
+  Reduced Motion 0s duration/delay, and restored normal
+  fade, all with real Overlay OnClick removal: 61/61.
+  Other render modes and exact latest GitHub SHA remain
+  separately verified, not inferred from this result.

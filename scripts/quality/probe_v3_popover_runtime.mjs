@@ -98,6 +98,38 @@ try{
  cdp=new CDP(tab.webSocketDebuggerUrl);await cdp.open();await cdp.send("Page.enable");await cdp.send("Runtime.enable");await cdp.send("Page.navigate",{url});
  const mounted=await until(()=>cdp.js("(()=>{const a=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'));return document.querySelector('h1')?.textContent==='Popover'&&a.length>=3;})()"),"Blazor WASM popover demo",85000);
  result("real interactive Popover page mounted",mounted);
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"no-preference"}]});
+ // D5 baseline defect: an actual Blazor Overlay / Dialog backdrop
+ // previously animated for 250 ms even with prefers-reduced-motion.
+ // Probe the COMPILED/SHIPPED CSS on the real component in both modes.
+ const openOverlay=()=>until(async()=>{
+  const state=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent==='Open motion overlay');if(!b)return {trigger:false};b.click();return {trigger:true,overlay:!!document.querySelector('.bui-overlay')};})()");
+  return state.trigger && await cdp.js("!!document.querySelector('.bui-overlay')");
+ },"real Blazor Overlay (wait for interactive event hydration)",26000);
+ await openOverlay();
+ const motionNormal=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return false;const x=getComputedStyle(e);return {duration:x.animationDuration,name:x.animationName,delay:x.animationDelay};})()"),"normal Blazor Overlay mounted",14000);
+ result("real default Overlay retains authored fade animation",
+   motionNormal.name.includes("fade-in")&&parseFloat(motionNormal.duration)>.05,motionNormal);
+ const closeOverlay=async()=>{
+  await cdp.js("(()=>{document.querySelector('.bui-overlay')?.click();return true;})()");
+  return until(()=>cdp.js("document.querySelector('.bui-overlay')===null"),"Blazor Overlay click closes actual backdrop",13000);
+ };
+ await closeOverlay();
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"reduce"}]});
+ await openOverlay();
+ const motionReduced=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return false;const st=getComputedStyle(e);return {duration:st.animationDuration,delay:st.animationDelay,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches};})()"),"reduced motion real Blazor Overlay mounted",14000);
+ result("actual Blazor Overlay honors reduced-motion in SHIPPED CSS",
+   motionReduced.reduced&&motionReduced.duration.split(',').every(x=>parseFloat(x)===0)&&
+   motionReduced.delay.split(',').every(x=>parseFloat(x)===0),motionReduced);
+ await closeOverlay();
+ await cdp.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-motion",value:"no-preference"}]});
+ await openOverlay();
+ const motionRestored=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return false;return {duration:getComputedStyle(e).animationDuration,normal:!matchMedia('(prefers-reduced-motion: reduce)').matches};})()"),"restored normal motion real Blazor Overlay mounted",14000);
+ result("exiting reduced-motion restores original Overlay fade animation",
+   motionRestored.normal&&parseFloat(motionRestored.duration)>.05,motionRestored);
+ await closeOverlay();
+ result("actual Blazor Overlay closes after all three media scenarios",
+   await cdp.js("document.querySelector('.bui-overlay')===null"));
  // #420 regression: the publicly-supported RightEnd placement class is
  // emitted as right-end, and its ACTUAL shipped CSS must apply the
  // -10px entry transform before .show overrides it to zero.

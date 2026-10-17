@@ -179,3 +179,35 @@ set transform inline or claim hidden computed none means an
 application failure. Chrome/published InteractiveServer
 57/57 PASS. Full four-mode CI is still separate.
 Keep Penpot review and native AT acceptance separate.
+
+## Shared Overlay animation / Reduced Motion (#420)
+
+Accepted ADR D5: overlay backdrops must not continue
+durationGentle fade in OS prefers-reduced-motion: reduce.
+In task-owned v3 Sass _overlay.scss, override only
+animation-duration and animation-delay to 0s under
+the reduced-motion media query, while preserving
+the normal fade, public overlay API, z-index and
+backdrop color. Rebuild compiled components.css and
+shipped min CSS. Run positive/negative 21-case
+test_v3_popover_js_bundle.py contract and actual
+probe_v3_popover_runtime.mjs against Chrome/Edge in
+both WASM and published Server: the opt-in genuine
+Blazor Overlay is opened/removed by real handlers,
+computed animation checked in normal, reduced, and
+restored browser media. SSR prerender may display a
+button before hydration; wait/retry for interactive
+handlers. Browser media emulation != native Windows
+motion/AT acceptance. No Dev/NuGet merge.
+
+- 2026-10-17 final Dev01 local Chrome/Production-published
+  InteractiveServer browser probe **61/61 PASS**, failures=0.
+  First prematurely checked prerender static content before
+  interactivity (1/1 with timeout); retry on real Blazor
+  hydration yielded 60/61 with a first-paint normal
+  CSS/media baseline inconsistency; explicit Chromium
+  no-preference media baseline then proved normal fade,
+  Reduced Motion 0s duration/delay, and restored normal
+  fade, all with real Overlay OnClick removal: 61/61.
+  Other render modes and exact latest GitHub SHA remain
+  separately verified, not inferred from this result.

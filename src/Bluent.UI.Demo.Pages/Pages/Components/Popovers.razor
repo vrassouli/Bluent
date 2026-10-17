@@ -6,6 +6,17 @@
     <div class="w-100 w-md-50 m-auto">
         <h1>Popover</h1>
 
+        @* #420 actual Blazor Overlay used for reduced-motion gate.
+           Hidden until requested, so it cannot occlude normal popover demos. *@
+        <h3>Overlay reduced-motion regression</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Button Text="Open motion overlay" OnClick="() => _motionOverlayVisible = true" />
+            @if (_motionOverlayVisible)
+            {
+                <Overlay OnClick="() => _motionOverlayVisible = false" />
+            }
+        </section>
+
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
             <Popover KeepSurface="true">
@@ -120,6 +131,7 @@
 </div>
 
 @code {
+    private bool _motionOverlayVisible;
     private string? _popoverCommand;
     private Popover? _manualPopover;
     private TextField? _cmdTextField;
