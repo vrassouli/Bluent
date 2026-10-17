@@ -1,0 +1,557 @@
+﻿@page "/component-lab"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Enums
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<PageTitle>Component Lab · Bluent v3</PageTitle>
+
+<main class="component-lab" data-lab-interactive="@(_interactive ? "true" : "false")">
+    <header class="lab-heading">
+        <div>
+            <span class="lab-eyebrow">Bluent v3 · Work in progress</span>
+            <h1>Component Lab</h1>
+            <p>Search existing Bluent families, experiment with live controls, and track evidence before a component is accepted for v3.</p>
+        </div>
+        <span class="lab-state">Pilot · not v3 acceptance</span>
+    </header>
+
+    <section class="lab-filter" aria-label="Component catalog search">
+        <label for="lab-search">Search components</label>
+        <input id="lab-search" type="search" @bind="_search" @bind:event="oninput"
+               placeholder="Button, Icon, Label..." autocomplete="off" />
+        <p role="status">@Filtered.Count available catalog entries. This is a pilot index, not the exhaustive 66-component coverage ledger.</p>
+        <div class="lab-catalog" aria-label="Pilot family choices">
+            @foreach (var family in Filtered)
+            {
+                <button type="button" class="lab-family @(_selected == family.Id ? "selected" : "")"
+                        aria-pressed="@(_selected == family.Id)"
+                        @onclick="() => Select(family.Id)">
+                    <span>@family.Title</span>
+                    <small>@family.Coverage</small>
+                </button>
+            }
+        </div>
+        @if (Filtered.Count == 0)
+        {
+            <p role="status">No matching family in this pilot catalog.</p>
+        }
+    </section>
+
+    <section class="lab-controls" aria-label="Live preview controls">
+        <div>
+            <label for="lab-direction">Direction</label>
+            <select id="lab-direction" @bind="_direction">
+                <option value="ltr">Left to right</option>
+                <option value="rtl">Right to left</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-viewport">Preview width</label>
+            <select id="lab-viewport" @bind="_viewport">
+                <option value="wide">Fluid</option>
+                <option value="narrow">Mobile (320px)</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-density">Spacing density</label>
+            <select id="lab-density" @bind="_density">
+                <option value="normal">Default</option>
+                <option value="compact">Compact</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-contrast">Canvas</label>
+            <select id="lab-contrast" @bind="_contrast">
+                <option value="light">Light backdrop</option>
+                <option value="dark">Dark backdrop</option>
+            </select>
+        </div>
+        <p class="lab-controls-note">Canvas changes affect only this sample backdrop; they do not switch Bluent's global theme or certify its token mapping.</p>
+    </section>
+
+    <section class="lab-stage" aria-label="Component live scenario">
+        <div class="lab-stage-heading">
+            <div>
+                <h2>@Selected.Title · @Selected.Scenario</h2>
+                <p>@Selected.Description</p>
+            </div>
+            <a href="@Selected.Href">Full existing demo <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="lab-canvas @(_viewport == "narrow" ? "narrow" : "") @(_density == "compact" ? "compact" : "")"
+             data-lab-canvas="@_contrast" dir="@_direction">
+            @if (_selected == "button")
+            {
+                <div class="lab-examples">
+                    <Button Text="Continue" Appearance="ButtonAppearance.Primary"
+                            OnClick="() => _clickCount++" />
+                    <Button Text="Secondary" Appearance="@_buttonAppearance"
+                            Size="@_buttonSize" Shape="@_buttonShape"
+                            OnClick="() => _clickCount++" />
+                    <Button Text="Unavailable" disabled />
+                    <Button Text="Pin selection" Toggled="@_buttonToggled"
+                            ToggledChanged="ButtonToggledAsync" />
+                    <Button Text="Open guide" Href="getting-started"
+                            Appearance="ButtonAppearance.Subtle" />
+                </div>
+                <p role="status" class="lab-toggle-status">Pinned: @(_buttonToggled ? "yes" : "no"); change callbacks: @_toggleEvents</p>
+                <div class="lab-advanced-actions" aria-label="Current Button advanced API examples">
+                    <div class="lab-advanced-group">
+                        <span class="lab-advanced-label">Compound and Badge</span>
+                        <Button Text="Notifications" SecondaryText="Recent activity" Compact="true"
+                                BadgeHorizontalPosition="HorizontalSides.End"
+                                BadgeVerticalPosition="VerticalSides.Bottom">
+                            <Badge>
+                                <Badge Text="3" Size="BadgeSize.Small" />
+                            </Badge>
+                        </Button>
+                    </div>
+                    <div class="lab-advanced-group">
+                        <span class="lab-advanced-label">Dropdown actions</span>
+                        <Button Text="More actions" ShowDropdownIndicator="true"
+                                DropdownPlacement="Placement.BottomEnd">
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Export report" OnClick="ChooseExportAsync" />
+                                    <MenuItem Title="Share summary" OnClick="ChooseShareAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p role="status" class="lab-menu-status">Menu choice: @_lastMenuChoice; callbacks: @_menuEvents</p>
+                    </div>
+                </div>
+
+                <div class="lab-orientation-examples" aria-label="Current Button Icon TextClass Orientation Rotated examples">
+                    <div class="lab-orientation-group">
+                        <span class="lab-advanced-label">Icon, TextClass and Vertical orientation</span>
+                        <Button id="lab-button-vertical" Text="Vertical action"
+                                Icon="@FluentIcons.Settings" TextClass="lab-custom-button-text"
+                                Orientation="Orientation.Vertical" />
+                    </div>
+                    <div class="lab-orientation-group">
+                        <span class="lab-advanced-label">Rotated direction, current API</span>
+                        <Button id="lab-button-rotated" Text="Rotated action"
+                                Icon="@FluentIcons.Search" Rotated="true" />
+                    </div>
+                </div>
+                <fieldset class="lab-button-variants" aria-label="Live Button variant explorer">
+                    <legend>Button public API variants · exploratory, not approved v3 parity</legend>
+                    <div>
+                        <label for="lab-button-appearance">Appearance</label>
+                        <select id="lab-button-appearance" @bind="_buttonAppearance">
+                            @foreach (var appearance in Enum.GetValues<ButtonAppearance>())
+                            {
+                                <option value="@appearance">@appearance</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lab-button-size">Size</label>
+                        <select id="lab-button-size" @bind="_buttonSize">
+                            @foreach (var size in Enum.GetValues<ButtonSize>())
+                            {
+                                <option value="@size">@size</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lab-button-shape">Shape</label>
+                        <select id="lab-button-shape" @bind="_buttonShape">
+                            @foreach (var shape in Enum.GetValues<ButtonShape>())
+                            {
+                                <option value="@shape">@shape</option>
+                            }
+                        </select>
+                    </div>
+                </fieldset>
+                <p role="status" class="lab-click-status">Completed clicks: @_clickCount</p>
+            }
+            else if (_selected == "icon")
+            {
+                <div class="lab-examples">
+                    <Icon Value="@FluentIcons.Settings" />
+                    <Icon Value="@FluentIcons.Save" />
+                    <Icon Value="@FluentIcons.Search" />
+                </div>
+                <div class="lab-api-demo" aria-label="Current Icon API selector">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-icon-value">Fluent Icon</label>
+                            <select id="lab-icon-value" @bind="_iconChoice">
+                                <option value="Settings">Settings</option>
+                                <option value="Search">Search</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-icon-variant">Variant</label>
+                            <select id="lab-icon-variant" @bind="_iconVariant">
+                                @foreach (var variant in Enum.GetValues<IconVariant>())
+                                {
+                                    <option value="@variant">@variant</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-icon-selected">
+                        <Icon Value="@(_iconChoice == "Search" ? FluentIcons.Search : FluentIcons.Settings)"
+                              Variant="@_iconVariant" Class="lab-selected-icon" Style="width:32px;height:32px;" />
+                        <span class="lab-icon-selection">Selected: @_iconChoice / @_iconVariant</span>
+                    </div>
+                    <div class="lab-color-research" aria-label="Opt-in official Fluent color asset research, not a public Color variant">
+                        <div class="lab-color-icons">
+                            <Icon Value="@ComponentLabColorApps.Preview" Class="lab-color-preview-icon" aria-hidden="true" />
+                            <Icon Value="@FluentIcons.Apps" Variant="IconVariant.Filled"
+                                  Class="lab-color-preview-monochrome" aria-hidden="true" />
+                        </div>
+                        <div>
+                            <strong>Apps 20 · Color SVG preview</strong>
+                            <p>Real official gradient asset. Forced colors uses Filled automatically.
+                                This uses the existing FromSvg API; public IconVariant.Color is proposed in #429, not implemented.</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (_selected == "label")
+            {
+                <div class="lab-examples">
+                    <Label Text="Customer name" />
+                </div>
+                <div class="lab-api-demo" aria-label="Current Label API selector">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-label-size">Size</label>
+                            <select id="lab-label-size" @bind="_labelSize">
+                                @foreach (var size in Enum.GetValues<LabelSize>())
+                                {
+                                    <option value="@size">@size</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-label-required">Required</label>
+                            <select id="lab-label-required" @bind="_labelRequired">
+                                @foreach (var state in Enum.GetValues<LabelRequiredState>())
+                                {
+                                    <option value="@state">@state</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-form-example">
+                        <Label Text="Contact email" ForExpression="() => LabEmail" Size="@_labelSize"
+                               Required="@_labelRequired" RequiredSymbol="!" />
+                        <input type="email" id="LabEmail" @bind="LabEmail" placeholder="email@example.com" />
+                    </div>
+                    <div class="lab-form-help">
+                        <Label Text="Email help">
+                            <Info>
+                                <span class="lab-help-copy">Use a work email for contact.</span>
+                            </Info>
+                        </Label>
+                    </div>
+                </div>
+            }
+            else if (_selected == "badge")
+            {
+                <div class="lab-api-demo" aria-label="Current Badge public API explorer">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-badge-appearance">Appearance</label>
+                            <select id="lab-badge-appearance" @bind="_badgeAppearance">
+                                @foreach (var value in Enum.GetValues<BadgeAppearance>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-size">Size</label>
+                            <select id="lab-badge-size" @bind="_badgeSize">
+                                @foreach (var value in Enum.GetValues<BadgeSize>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-shape">Shape</label>
+                            <select id="lab-badge-shape" @bind="_badgeShape">
+                                @foreach (var value in Enum.GetValues<BadgeShape>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-color">Color</label>
+                            <select id="lab-badge-color" @bind="_badgeColor">
+                                @foreach (var value in Enum.GetValues<BadgeColor>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-text">Text</label>
+                            <select id="lab-badge-text" @bind="_badgeText">
+                                <option value="3">3</option>
+                                <option value="Ready">Ready</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-badge-flags" aria-label="Optional Badge capabilities">
+                        <label><input id="lab-badge-icon" type="checkbox" @bind="_badgeHasIcon" /> Icon</label>
+                        <label><input id="lab-badge-shadow" type="checkbox" @bind="_badgeDropShadow" /> DropShadow</label>
+                        <label><input id="lab-badge-animate" type="checkbox" @bind="_badgeAnimateShadow" /> AnimateShadow</label>
+                    </div>
+                    <div class="lab-examples">
+                        <Badge Text="@_badgeText" Appearance="@_badgeAppearance" Size="@_badgeSize"
+                               Shape="@_badgeShape" Color="@_badgeColor"
+                               Icon="@(_badgeHasIcon ? FluentIcons.Settings : null)"
+                               DropShadow="@_badgeDropShadow" AnimateShadow="@_badgeAnimateShadow" />
+                    </div>
+                    <p class="lab-controls-note">Existing Badge public API specimen; visual/AT/forced-colors review for #445 is pending.</p>
+                </div>
+            }
+            else if (_selected == "link")
+            {
+                <div class="lab-api-demo" aria-label="Current Link public API explorer">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-link-appearance">Appearance</label>
+                            <select id="lab-link-appearance" @bind="_linkAppearance">
+                                @foreach (var appearance in Enum.GetValues<LinkAppearance>())
+                                {
+                                    <option value="@appearance">@appearance</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-link-mode">Navigation or action</label>
+                            <select id="lab-link-mode" @bind="_linkMode">
+                                <option value="navigation">Navigation (anchor)</option>
+                                <option value="action">Action (button)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-link-text">Text</label>
+                            <select id="lab-link-text" @bind="_linkText">
+                                <option value="Read documentation">Read documentation</option>
+                                <option value="Review plan">Review plan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-examples">
+                        @if (_linkMode == "navigation")
+                        {
+                            <Link Text="@_linkText" Href="getting-started" Appearance="@_linkAppearance" />
+                        }
+                        else
+                        {
+                            <Link Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
+                        }
+                    </div>
+                    <p role="status" class="lab-link-status">Action callbacks: @_linkEvents</p>
+                    <p class="lab-controls-note">Existing Link API, not final Fluent v3 design or disabled-link accessibility acceptance.</p>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="lab-source" aria-label="Razor example and evidence">
+        <div class="lab-source-heading">
+            <h2>Razor example</h2>
+            <button type="button" @onclick="CopySourceAsync">Copy source</button>
+        </div>
+        <pre tabindex="0"><code>@ActiveRazor</code></pre>
+        <p aria-live="polite">@_copyStatus</p>
+        <h3>Coverage classification</h3>
+        <p>@Selected.Coverage. This pilot checks a representative live scenario; it does not claim complete public API, themes, accessibility or render-mode coverage.</p>
+        <p>Existing API reference: <a href="@Selected.Href">@Selected.Title demo</a>. Source-owned matrix: <code>docs/v3/quality/COMPONENT-LAB-COVERAGE.json</code>.</p>
+    </section>
+
+    <section class="lab-queue" aria-label="Canonical component work queue">
+        <div class="lab-queue-heading">
+            <h2>Component implementation queue</h2>
+            <p><strong>66</strong> source candidates · <strong>5</strong> live pilot specimens ·
+               <strong>61</strong> not yet demonstrated</p>
+        </div>
+        <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
+           “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
+        <label for="lab-queue-search">Find a family or issue</label>
+        <input id="lab-queue-search" type="search" autocomplete="off" @bind="_queueSearch" @bind:event="oninput"
+               placeholder="TextField, Button, 432..." />
+        <p role="status" class="lab-queue-count">@FilteredQueue.Count of 66 source candidates shown</p>
+        <div class="lab-queue-list" aria-label="Families and implementation status">
+            @foreach (var item in FilteredQueue)
+            {
+                <div class="lab-queue-row">
+                    <strong>@item.Name</strong>
+                    <span>@(item.PilotId is null ? "Queued · no lab scenario" : "Live pilot · incomplete")</span>
+                    @if (item.PilotId is not null)
+                    {
+                        <button type="button" @onclick="() => Select(item.PilotId)">View pilot</button>
+                    }
+                    <a href="@($"https://github.com/vrassouli/Bluent/issues/{item.Issue}")"
+                       target="_blank" rel="noopener noreferrer">Issue #@item.Issue</a>
+                </div>
+            }
+        </div>
+    </section>
+</main>
+
+@code {
+    private sealed record Family(string Id, string Title, string Href, string Scenario,
+        string Description, string Razor, string Coverage);
+
+    private static readonly Family[] Families =
+    [
+        new("button", "Button", "components/buttons", "Actions and disabled state",
+            "The current public Button in a keyboard-operable action group.",
+            "<Button Text=\"Continue\" Appearance=\"ButtonAppearance.Primary\" />",
+            "Representative runnable scenario only"),
+        new("icon", "Icon", "components/icons", "Icons",
+            "Strongly typed existing Fluent icons.",
+            "<Icon Value=\"@FluentIcons.Settings\" />",
+            "Representative runnable scenario only"),
+        new("label", "Label", "components/labels", "Accessible label",
+            "The existing Label component, not the final v3 form-field accessibility audit.",
+            "<Label Text=\"Customer name\" />",
+            "Representative runnable scenario only"),
+        new("badge", "Badge", "components/badges", "Status indicators",
+            "The existing Badge variants and optional icon/shadow flags, not production Fluent v3 parity.",
+            "<Badge Text=\"3\" Color=\"BadgeColor.Brand\" />",
+            "Representative runnable scenario only"),
+        new("link", "Link", "components/links", "Navigation",
+            "The current public Link component in a normal navigation context.",
+            "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
+            "Representative runnable scenario only")
+    ];
+
+    // A prerendered InteractiveServer page is NOT yet interactive.
+    // The real browser probe waits for OnAfterRender before clicking.
+    private bool _interactive;
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactive = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
+
+    private BadgeAppearance _badgeAppearance = BadgeAppearance.Filled;
+    private BadgeSize _badgeSize = BadgeSize.Medium;
+    private BadgeShape _badgeShape = BadgeShape.Circular;
+    private BadgeColor _badgeColor = BadgeColor.Brand;
+    private string _badgeText = "3";
+    private bool _badgeHasIcon;
+    private bool _badgeDropShadow;
+    private bool _badgeAnimateShadow;
+
+    private string _linkMode = "navigation";
+    private string _linkText = "Read documentation";
+    private LinkAppearance _linkAppearance = LinkAppearance.Default;
+    private int _linkEvents;
+    private Task LinkClickedAsync() { _linkEvents++; return Task.CompletedTask; }
+
+    private string _iconChoice = "Settings";
+    private IconVariant _iconVariant = IconVariant.Regular;
+    private LabelSize _labelSize = LabelSize.Medium;
+    private LabelRequiredState _labelRequired = LabelRequiredState.Auto;
+    [Required] public string LabEmail { get; set; } = "";
+
+    private string _queueSearch = "";
+    private List<ComponentLabFamilyQueue.Item> FilteredQueue =>
+        ComponentLabFamilyQueue.All.Where(item =>
+            item.Name.Contains(_queueSearch, StringComparison.OrdinalIgnoreCase) ||
+            item.Issue.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                .Contains(_queueSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private string _lastMenuChoice = "none";
+    private int _menuEvents;
+    private Task ChooseExportAsync() { _lastMenuChoice = "Export report"; _menuEvents++; return Task.CompletedTask; }
+    private Task ChooseShareAsync() { _lastMenuChoice = "Share summary"; _menuEvents++; return Task.CompletedTask; }
+
+    private bool _buttonToggled;
+    private int _toggleEvents;
+    private Task ButtonToggledAsync(bool toggled)
+    {
+        _buttonToggled = toggled;
+        _toggleEvents++;
+        return Task.CompletedTask;
+    }
+
+    private ButtonAppearance _buttonAppearance = ButtonAppearance.Outline;
+    private ButtonSize _buttonSize = ButtonSize.Medium;
+    private ButtonShape _buttonShape = ButtonShape.Rounded;
+
+    private string _search = "";
+    private string _selected = "button";
+    private string _direction = "ltr";
+    private string _viewport = "wide";
+    private string _density = "normal";
+    private string _contrast = "light";
+    private string _copyStatus = "";
+    private int _clickCount;
+
+    private List<Family> Filtered => Families.Where(x =>
+        x.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) ||
+        x.Scenario.Contains(_search, StringComparison.OrdinalIgnoreCase)).ToList();
+    private Family Selected => Families.First(x => x.Id == _selected);
+    // The copied public-API sample includes the callback backing code.
+    // Its binding must stay dynamic (NOT a snapshot Toggled="false").
+    private string SelectedIconRazor =>
+        $"<Icon Value=\"@FluentIcons.{_iconChoice}\" Variant=\"IconVariant.{_iconVariant}\" Style=\"width:32px;height:32px;\" />";
+    private string SelectedLabelRazor =>
+        $"<Label Text=\"Contact email\" ForExpression=\"() => LabEmail\" Size=\"LabelSize.{_labelSize}\" Required=\"LabelRequiredState.{_labelRequired}\" RequiredSymbol=\"!\" />\n" +
+        "<input id=\"LabEmail\" type=\"email\" @bind=\"LabEmail\" />\n" +
+        "<Label Text=\"Email help\"><Info>Use a work email for contact.</Info></Label>\n" +
+        "@code {\n    [System.ComponentModel.DataAnnotations.Required]\n    public string LabEmail { get; set; } = \"\";\n}";
+
+    private string SelectedBadgeRazor =>
+        $"<Badge Text=\"{_badgeText}\" Appearance=\"BadgeAppearance.{_badgeAppearance}\" Size=\"BadgeSize.{_badgeSize}\" " +
+        $"Shape=\"BadgeShape.{_badgeShape}\" Color=\"BadgeColor.{_badgeColor}\"" +
+        (_badgeHasIcon ? " Icon=\"@FluentIcons.Settings\"" : "") +
+        $" DropShadow=\"{_badgeDropShadow.ToString().ToLowerInvariant()}\" AnimateShadow=\"{_badgeAnimateShadow.ToString().ToLowerInvariant()}\" />";
+
+    private string SelectedLinkRazor => _linkMode == "navigation"
+        ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
+        : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
+          "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
+
+    private string ActiveRazor => _selected == "badge" ? SelectedBadgeRazor
+        : _selected == "icon" ? SelectedIconRazor
+        : _selected == "link" ? SelectedLinkRazor
+        : _selected == "label" ? SelectedLabelRazor
+        : _selected == "button"
+        ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />\n" +
+          "<Button Text=\"Pin selection\" Toggled=\"@_buttonToggled\" ToggledChanged=\"ButtonToggledAsync\" />\n" +
+          "<Button Text=\"Open guide\" Href=\"getting-started\" Appearance=\"ButtonAppearance.Subtle\" />\n" +
+          "<Button Text=\"Notifications\" SecondaryText=\"Recent activity\" Compact=\"true\" BadgeHorizontalPosition=\"HorizontalSides.End\" BadgeVerticalPosition=\"VerticalSides.Bottom\"><Badge><Badge Text=\"3\" Size=\"BadgeSize.Small\" /></Badge></Button>\n" +
+          "<Button Text=\"More actions\" ShowDropdownIndicator=\"true\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Export report\" OnClick=\"ChooseExportAsync\" /><MenuItem Title=\"Share summary\" OnClick=\"ChooseShareAsync\" /></MenuList></Dropdown></Button>\n" +
+          "<Button Text=\"Vertical action\" Icon=\"@FluentIcons.Settings\" TextClass=\"lab-custom-button-text\" Orientation=\"Orientation.Vertical\" />\n" +
+          "<Button Text=\"Rotated action\" Icon=\"@FluentIcons.Search\" Rotated=\"true\" />\n" +
+          "@code {\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n    private string _lastMenuChoice = \"none\";\n    private int _menuEvents;\n    private Task ChooseExportAsync() { _lastMenuChoice = \"Export report\"; _menuEvents++; return Task.CompletedTask; }\n    private Task ChooseShareAsync() { _lastMenuChoice = \"Share summary\"; _menuEvents++; return Task.CompletedTask; }\n}"
+        : Selected.Razor;
+    private void Select(string id)
+    {
+        _selected = id;
+        _copyStatus = "";
+    }
+
+    private async Task CopySourceAsync()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("navigator.clipboard.writeText", ActiveRazor);
+            _copyStatus = "Razor source copied.";
+        }
+        catch (JSException)
+        {
+            _copyStatus = "Clipboard unavailable. Select and copy the source from the code block.";
+        }
+    }
+}

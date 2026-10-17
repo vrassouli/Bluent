@@ -10,6 +10,9 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **#419 editable design library:** [Review PR #499](https://github.com/vrassouli/Bluent/pull/499) contains an independent project-owned `Bluent v3 Design System` Penpot file and verifiable linked Fluent source/library research. The imported `Microsoft Fluent 2 Web (Community)` remains read-only. [Working Penpot manifest](../docs/v3/design/penpot-workspace.manifest.json): 27 editable pages, 65 core native variants + 16 research fixtures and alignment/RTL/size stress evidence. Issue #419 remains **Review**, not Done; accept/merge only to `bluent-v3` following review.
 
+**#421 Badge continuation (2026-10-17):** Five representative live source-owned families are now present in the 66-family queue. The fifth is real existing Bluent Badge, with all eight declared parameters and synchronized Razor source. Independently on Dev01, Chrome/fresh WebAssembly and Edge/production-published InteractiveServer each passed **77/77 actual CDP assertions**, JS errors=[], QA-owned Chromium remaining=0. The earlier Chrome/WASM CI at b25c2be0 failed because Copy source's real click target appeared at y=4 behind the fixed shell; we added geometry-aware retry preserving actual CDP hit-testing. New-commit four-mode CI is pending; no final Penpot, native OS AT or public Badge v3 acceptance, stable Dev merge or NuGet release.
+**#421 Component Lab pilot:** Draft PR #551 remains In progress targeting bluent-v3 only. On 2026-10-17 the existing Link API (Text, Href, Appearance, OnClick) gained an interactive anchor/button explorer and copyable Razor source. Dev01 actual Chrome/fresh WebAssembly and Edge/production-published InteractiveServer each passed 72/72 CDP checks, browser errors=[], browser cleanup remaining=0; other mode permutations await exact-head CI. Existing Penpot page 42 remains a DRAFT rather than accepted parity. Four of 66 family pilots remain representative-only, 0 accepted v3 components. No library public API changes, Dev merge or NuGet release.
+
 **#418 token system:** Next foundation task after acceptance of D1–D5. Must enter Ready only after design-first, source-to-token mapping and 10-brand Light/Dark/RTL/high-contrast acceptance goals are traceable. Token/brand decisions and implementation require a dedicated `v3/issue-418-...` branch and PR.
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
@@ -104,3 +107,83 @@ The prior detailed relaunch/Sprint 0–4 project record is preserved verbatim in
 As of 2026-10-10, Issue [#419](https://github.com/vrassouli/Bluent/issues/419) is **In progress** in GitHub Project #5, after its explicit `Backlog → Ready → In progress` transitions. Dedicated branch: `v3/issue-419-penpot-library`, **base `bluent-v3` only**. The maintainer created a separate Penpot `Bluent v3 Design System` file; twenty-seven native editable design pages (including foundation, brand, RTL, source reference and Button API anatomy), **134 verified upstream Fluent reference instances**, **four original local reusable draft components**, plus **five core native variant families / 65 unique variants and 65 linked local preview instances**, plus **two separate test-fixture families / 16 linked comparison and Persian RTL variants**, draft Light/Dark themes, **seven draft token sets / 49 entries**, and a local reusable primary Button prototype now exist. An actual linked imported Fluent 2 Button reference instance was verified and visually inspected, while the original community file remained unchanged. See [Penpot workspace contract](../docs/v3/design/BLUENT-V3-PENPOT.md), [extended foundations](../docs/v3/design/FOUNDATION-EXTENSIONS.md), [form/grid component references](../docs/v3/design/COMPONENT-REFERENCE-MATRICES.md), [local component drafts](../docs/v3/design/LOCAL-COMPONENT-DRAFTS.md), [native variant families](../docs/v3/design/NATIVE-CONTROL-VARIANTS.md), [native Button states/size/API design](../docs/v3/design/NATIVE-BUTTON-VARIANTS.md), [alignment audit + live Penpot gate](../docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md), [actual imported/native Button comparison](../docs/v3/design/BUTTON-PARITY-REVIEW.md), [controlled copy/icon fidelity and Persian RTL](../docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md), [verified import-fidelity risk assessment](../docs/v3/design/PENPOT-IMPORT-FIDELITY.md), [source-to-Razor/CSS handoff contract](../docs/v3/design/DESIGN-TO-RAZOR-HANDOFF.md), [migration impact ledger](../docs/v3/design/MIGRATION-IMPACT-LEDGER.md), [native resize constraints lab](../docs/v3/design/BUTTON-RESIZE-REVIEW.md), [Button v2 API baseline checker](../scripts/quality/check_v3_button_api_baseline.py), [source-backed FC1–FC6 design gates](../docs/v3/design/FORM-CONTROL-DESIGN-GATES.md) and [machine-readable IDs](../docs/v3/design/penpot-workspace.manifest.json).
 
 This draft does **not** approve the #417 styling ADR, implement the #418 CSS/token migration or satisfy full Fluent UI/design parity. No public v2/v3 component code, stable assets, `Dev`, published NuGet or deployment is modified. Complete library coverage, visual/interaction parity, accessibility, font/icon checks and design review remain before #419 reaches Review/Done.
+- 2026-10-16 #421 Component Lab entered Ready then In progress in
+  actual Project #5 at maintainer direction to begin component work.
+  Dedicated v3/issue-421-component-lab worktree off bluent-v3
+  2c37dbef. Native Penpot page42 has desktop/mobile draft boards.
+  Actual Blazor searchable four-family pilot with Button/Icon/
+  Label/Link and real controls, Razor source + machine-readable
+  explicitly incomplete coverage file. Real Dev01 Chrome/WASM
+  9/9 passed, width320 scrollWidth320; QA Chrome cleanup remaining=0.
+  Release solution build 0 errors but 2 known NU1903 advisories in
+  existing WebAssembly.Server 10.0.7. #421 work remains partial;
+  #428 Button remains Backlog pending approved foundation gates.
+
+- 2026-10-16 #421 canonical 66-family tracking QUEUE added
+  at docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json,
+  generated from exact #494 candidate manifest (issue #428-#493).
+  Four pilot scenarios exist, two actual Chrome/WASM interaction
+  verified. All 66 families still need per-API full demos,
+  visual parity, browser-mode and native OS acceptance. The
+  queue is NOT complete component implementation or release
+  proof. Source paths/issue mapping now guarded by CI.
+
+
+- 2026-10-16 #421: canonical 66 source families now actually
+  integrated in the Component Lab screen. Machine-generated
+  C# queue mirrors #494 candidate sources; 4 representative
+  live pilots, 62 queued entries with real #428-#493 GitHub
+  issue links, searchable by family or issue number. Penpot
+  original page42 desktop/mobile boards include draft queue
+  cards; live Penpot 2/2 geometry check passed (rev426).
+  Chrome/WASM 17/17 and Edge/WASM 17/17 real UI browser tests
+  pass queue rendering, search #432 vs #428, pilot launch and
+  narrow 320px reflow; owned browser cleanups remaining zero.
+  Consumer/public API, all 66 complete demos, design approval,
+  Server render modes and native AT NOT accepted. Full
+  solution Release build 0 errors, existing two NU1903
+  advisories from WASM.Server 10.0.7. #421 PR remains Draft.
+
+- 2026-10-16 #421 render-mode QA follow-up: page42 desktop/mobile
+  native Penpot boards now describe the draft Server mode gate.
+  Component Lab OnAfterRenderAsync hydration marker added; real
+  Dev01 Chrome WebAssembly 17/17 passed again (66-family queue
+  and four real pilot specimens intact). Added QA-only SSR
+  shared-component wrapper and isolated Publish-mode runner.
+  Actual Dev01 SSR page HTTP200 but no interactivity; dev host
+  missing asset files, published host window.Blazor undefined,
+  data-lab-interactive=false, app.css HTTP404. Server is NOT
+  verified or added to accepted CI/coverage. Detailed evidence:
+  docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md.
+  Existing NU1903 advisories not hidden.
+- 2026-10-16 #421 existing-API Button explorer: Penpot page42
+  desktop/mobile draft source shapes already cover the selector concept.
+  Actual Blazor Appearance/Size/Shape selectors and code example now
+  change dynamically. Dev01 Chrome/WASM 20/20 and Edge/WASM 20/20,
+  including queue and mobile checks; browser cleanup remaining 0.
+  The four families are PILOTS only; 62 others remain queued.
+  SSR Production Published still HTTP200 without interactivity:
+  window.Blazor undefined, app.css 404. Do not claim Server passed.
+  Existing NU1903 10.0.7 high-severity advisories unsuppressed.
+  Release build 0 errors/2 warnings, -warnaserror failed correctly.
+  PR #551 Draft, issue #421 In progress, Dev stable untouched.
+
+- 2026-10-16 #421 Component Lab pilot: local Dev01 actual Chrome/Edge x WebAssembly/published InteractiveServer = **22/22 per browser/mode** (88 live browser checks in four isolated runs). Production publish host bootstrap fixed by setting process working directory to published content root; nonexistent SSR app.css request removed; strengthened fail-closed runtime JS/CSS/exception checks. Automatic GitHub Actions matrix now requests four jobs (exact SHA result not yet asserted). Four representative live pilots / 66-family source queue, not API coverage or completed component acceptance. QA-owned Chromium remaining=0 all modes. Preexisting SSR 10.0.7 NU1903 high-severity advisories remain unsuppressed. PR #551 Draft to bluent-v3 only; stable Dev/NuGet unchanged.
+
+- 2026-10-16 follow-up #421: GitHub Actions previous aac0d057 exact-head runs 38946521658 and 38946530029 completed **8/8 passed**. Strengthened real Chrome/Edge x WebAssembly/published InteractiveServer Component Lab keyboard/clipboard/Button smoke from 22 to **27/27 per mode (108/108 local)**; CDP pointer target validation fixed a test-only animated-scroll sidebar misclick; native Enter includes carriage-return text and asserts exactly one callback; disabled is natively unfocusable; actual Clipboard write returns success. Correct source-owned Penpot page 42 desktop annotations updated without overflow. 4 representative live pilots / 66-family queue, status remains pilot_incomplete, design/AT/API acceptance not claimed. New SHA CI must pass independently; no stable release.
+
+- 2026-10-17 #421 existing-API Button Toggled/ToggledChanged and Href Lab specimens, native CDP Enter double-toggle with exact parent callback count and native A link semantics; fully copied Razor sample includes parent callback code. Real Chrome/Server 32/32 after fixing test-only ambiguous status selector, Edge/WASM 32/32 after runner was changed to build current WASM Razor instead of stale --no-build fixture. 2 current-source environments passed, remaining two exact new SHA CI pending. Existing toggled Button observed aria-pressed=null: preexisting semantic/AT debt for #428, no acceptance claim. Four pilots/66 families and Penpot design remain incomplete, no stable release.
+
+- 2026-10-17 #421 advanced existing public Button pilot: responsive Compound+Compact Notifications Badge End/Bottom and Dropdown BottomEnd with real Export/Share MenuItem callbacks. Native CDP Enter opens Popover, real hit-tested pointer selects actions and counts exact parent callbacks 1/2. Edge freshly built WASM 40/40 PASS, zero errors/browser remaining=0. Existing canonical Penpot Component Lab page42 board DRAFT reused; plugin unavailable, no source design mutation or human acceptance claimed. Coverage now samples 16 of 20 public Button Parameter properties plus disabled AdditionalAttributes; four pilots/66 source families, zero completed. Latest SHA CI and native AT/Fluent parity remain pending. Stable Dev/NuGet untouched.
+
+- 2026-10-17 #421 advanced Button Server renderer parity fix: first Chrome/Server test timed out opening Dropdown because compatibility server page lacked PopoverContainer (normal WASM layout had it). Added Bluent Containers only inside the Server interactive probe, not main app/product; added source guard. Fresh production-published Chrome/Server 40/40 PASS, zero errors/browsers remaining=0; local Edge/WASM also 40/40. Two other modes and exact-head CI still pending, no design/AT approval or stable merge.
+
+- 2026-10-17 #421 Icon/Label current public API explorers: Icon Value Settings/Search and Variant Regular/Filled source-backed dynamic DOM; Label Text/ForExpression/RequiredSymbol/Size/Required/Info six public params sampled using annotated LabEmail + native input association, Auto/NotRequired/Required switching and real Info Popover. Initial Edge/WASM test RED because assumed SVG innerHTML while current Icon renders CSS-class-backed native i, fixed harness to compare actual outerHTML; reran final Edge/WASM 53/53 and Chrome/production-published Server 53/53 PASS, zero errors or owned browser leftovers. Demo-only input focus underline, no full ring. Canonical Penpot page42 DRAFT remains unmodified due disconnected plugin, zero component acceptance; #429/#430 Backlog unaffected, exact four-mode GitHub CI pending; no stable Dev/NuGet.
+
+- 2026-10-17 #421 Color prototype only: audited official MIT @fluentui/svg-icons 1.1.344: 196 color SVGs at 20px, deprecated upstream HCM/dark contrast warnings; source-owned Figma fallback design board 26:3 with three REAL Apps20 vectors. Component Lab previews official Color SVG via existing FromSvg and CSS-only Filled forced-colors fallback. First Edge/WASM real test RED due scoped Blazor CSS isolation hiding neither; demo-only ::deep correction fixed it, **57/57 Edge/WASM real checks PASS**. #429 Backlog tracks future public IconVariant.Color; product/stable/NuGet untouched; new exact-head CI pending.
+
+- 2026-10-17 #421/#429 official Fluent Color Icon prototype decorative a11y: exact real Bluent Color SVG and Filled HCM fallback aria-hidden and natively untabbable, actual Chromium AX ignores visible Color vector, native CDP Tab skips both, emulated forced-colors visible Filled stays decorative with visible adjacent readable title. Four new fail-closed real browser QA checks; local Dev01 Edge/fresh WASM 61/61 and Chrome/published InteractiveServer 61/61 PASS, zero errors and scoped Chromium remaining=0. Public IconVariant.Color STILL NOT implemented, named OS AT and Penpot human visual acceptance pending, exact-head four-mode CI pending, stable Dev/NuGet untouched.
+
+- 2026-10-17 #421 representative Button 20/20 existing C# [Parameter] names now have a live Lab specimen (plus disabled HTML AdditionalAttribute), in four total pilot families of 66; ZERO completed. Added Icon/TextClass/Vertical and Rotated current API Bluent Buttons with computed geometry/class/font/writing mode, real native Tab focus-visible and copyable Razor. Four browser checks raise 61 to 65. Local Chrome/fresh WebAssembly 65/65 and Edge/published Server 65/65 PASS, QA browser cleanup zero. Initial test 64/65 red only due harness seven-vs-nine old count, fixed/retested. Source contract reads real Button.razor.cs [Parameter] set to fail closed on API drift. Existing Penpot page42 DRAFT not edited; #421 In progress/PR #551 Draft, #428 Backlog. No public API/stable Dev/NuGet. New-head GitHub CI pending.
+
+- 2026-10-17 #421 first exact-head browser CI concurrent cold Chrome/WASM run failed before CDP port appeared at hardcoded 20-second startup timeout (no Lab assertions executed); a separate Chrome/WASM plus Edge/WASM on same head each passed 65/65. Hardened only actual DevToolsActivePort launch wait to 60s, retained fail-closed real browser connection and all 65 checks, negative source guard added. Must independently revalidate new SHA; this is NOT a product Button failure or a license to skip failing CI, no stable Dev/NuGet changes.
