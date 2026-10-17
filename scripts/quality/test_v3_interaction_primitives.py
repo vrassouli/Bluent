@@ -143,6 +143,20 @@ class InteropSourceContractTests(unittest.TestCase):
         ):
             self.assertIn(item,probe)
         self.assertNotIn("document.querySelector('.bui-overlay')?.click()",probe)
+    def test_overlay_fixture_uses_hydration_ready_and_one_pointer_opener(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        razor=(root/"src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor").read_text(encoding="utf-8-sig")
+        self.assertIn("data-overlay-probe-ready=",razor)
+        self.assertIn("if (firstRender)",razor)
+        self.assertIn("_motionOverlayProbeReady = true",razor)
+        self.assertIn("interactive Blazor Overlay ready marker",probe)
+        self.assertIn("one native Blazor Overlay pointer opener",probe)
+        self.assertIn("unobstructed Overlay opener pointer target",probe)
+        self.assertIn('const openOverlay=async()=>{',probe)
+        self.assertNotIn('const openOverlay=()=>until(async()=>{',probe)
+        self.assertNotIn("b.click();return {trigger:true",probe)
     def test_real_popover_browser_ci_and_artifact_gate_present(self):
         root=__import__("pathlib").Path(__file__).resolve().parents[2]
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")

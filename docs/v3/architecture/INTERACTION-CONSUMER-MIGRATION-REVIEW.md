@@ -156,3 +156,34 @@ previous infrequent Overlay hydration/callback timeouts. It does not
 change the Overlay component or public API. The earlier red attempts
 remain part of the reported investigation, and native Windows AT
 approval is still pending before #420 can enter Review.
+## 2026-10-18: Fix the Overlay test readiness/click flood
+
+Follow-up investigation found that the original test opener did not only
+wait for hydration: the wait loop invoked the synthetic DOM click on
+the Open motion overlay Button repeatedly every 300ms until Blazor
+responded. That is not a faithful user interaction and may queue stale
+opener callbacks competing with the subsequently tested backdrop close
+event. This is an identified flaw in the **test**, not proof of a
+specific product-side Blazor race.
+
+The source-owned Popovers Razor demo fixture now exposes its interactive
+render readiness only after first OnAfterRender (both WebAssembly and
+InteractiveServer). Once ready, the test hit-tests the actual opener
+Button and sends **one** native CDP mouseMoved/mousePressed/mouseReleased
+sequence; it then separately waits for an actual Overlay DOM element.
+No opener retries or synthetic .click() calls are used. The already
+native-pointer backdrop dismissal remains a single-event gate with
+rich diagnostic failures. Product component API unchanged.
+
+At current task-branch source, independent Dev01 browser evidence:
+Chrome/WASM 61/61, Chrome/published InteractiveServer 61/61, Edge/WASM
+61/61 and Edge/published InteractiveServer 61/61; 244/244 total,
+errors=[], QA browser profile cleanup remaining=0. Additional negative
+contract checks enforce a real Razor hydration signal, exactly-once
+opener behavior and real CDP pointer usage.
+
+This eliminates a known synthetic test-event flood, but intermittent
+Overlay hydration/OnClick timeouts from earlier runs remain historical
+findings until multi-run CI/real consumer evidence establishes whether
+any further root cause exists. No claim of native OS assistive technology
+or full integration acceptance is made.

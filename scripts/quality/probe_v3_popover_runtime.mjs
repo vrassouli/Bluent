@@ -102,11 +102,22 @@ try{
  // D5 baseline defect: an actual Blazor Overlay / Dialog backdrop
  // previously animated for 250 ms even with prefers-reduced-motion.
  // Probe the COMPILED/SHIPPED CSS on the real component in both modes.
- const openOverlay=()=>until(async()=>{
-  const state=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent==='Open motion overlay');if(!b)return {trigger:false};b.click();return {trigger:true,overlay:!!document.querySelector('.bui-overlay')};})()");
-  return state.trigger && await cdp.js("!!document.querySelector('.bui-overlay')");
- },"real Blazor Overlay (wait for interactive event hydration)",26000);
- await openOverlay();
+
+ // A first HTTP-rendered button is not proof that its Blazor event
+ // callback is hydrated. Wait for the fixture's first interactive render
+ // signal, then use exactly ONE native pointer click. The former polling
+ // loop sent repeated synthetic opener clicks and could create late
+ // callbacks racing the next dismissal.
+ const openOverlay=async()=>{
+  await until(()=>cdp.js("document.querySelector('[data-overlay-probe-ready]')?.dataset.overlayProbeReady==='true'"),"interactive Blazor Overlay ready marker",26000);
+  const alreadyOpen=await cdp.js("!!document.querySelector('.bui-overlay')");
+  if(alreadyOpen)throw Error("Overlay was open before exactly-once native pointer opener");
+  const point=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent==='Open motion overlay');if(!b)return null;b.scrollIntoView({block:'center',behavior:'instant'});const r=b.getBoundingClientRect(),x=Math.round(r.left+r.width/2),y=Math.round(r.top+r.height/2);if(x<2||x>innerWidth-2||y<2||y>innerHeight-2)return null;return document.elementFromPoint(x,y)?.closest('button')===b?{x,y}:null;})()"),"unobstructed Overlay opener pointer target",13000);
+  await cdp.send("Input.dispatchMouseEvent",{type:"mouseMoved",x:point.x,y:point.y,button:"none",buttons:0});
+  await cdp.send("Input.dispatchMouseEvent",{type:"mousePressed",x:point.x,y:point.y,button:"left",buttons:1,clickCount:1});
+  await cdp.send("Input.dispatchMouseEvent",{type:"mouseReleased",x:point.x,y:point.y,button:"left",buttons:0,clickCount:1});
+  return until(()=>cdp.js("!!document.querySelector('.bui-overlay')"),"one native Blazor Overlay pointer opener",26000);
+ }; await openOverlay();
  const motionNormal=await until(()=>cdp.js("(()=>{const e=document.querySelector('.bui-overlay');if(!e)return false;const x=getComputedStyle(e);return {duration:x.animationDuration,name:x.animationName,delay:x.animationDelay};})()"),"normal Blazor Overlay mounted",14000);
  result("real default Overlay retains authored fade animation",
    motionNormal.name.includes("fade-in")&&parseFloat(motionNormal.duration)>.05,motionNormal);
