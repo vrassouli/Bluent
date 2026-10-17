@@ -155,3 +155,26 @@ actual Edge/WASM CDP 57/57 PASS with HCM emulation,
 four real gradient IDs and forced-colors restoration.
 Do not claim this is full Color API, production Icon
 implementation, final Penpot parity, or native AT signoff.
+
+## Color Icon decorative accessibility pilot (2026-10-17)
+
+In ComponentLab.Icon, official Color Apps20 SVG
+via current trusted FromSvg and current Filled
+fallback are BOTH decorative Bluent Icon nodes
+with aria-hidden=true. The human-readable text
+is adjacent and must remain exposed. Live real
+CDP browser QA checks visible colored SVG is
+ignored by actual Chromium AX subtree, both
+Icon variants are natively untabbable, a native
+Tab from Variant select bypasses both, and
+emulated forced-colors shows the Filled fallback
+which stays decorative next to visible text.
+Do not confuse this test with actual OS Contrast
+Themes or NVDA/Narrator. New four probes are
+fail-closed in check_v3_component_lab.py and
+must run Chrome/Edge × WASM/published Server.
+Local independent Dev01 Edge/WASM and Chrome/Server
+each 61/61 PASS with zero owned browser profiles.
+This is a source-owned research demo, NOT
+a public IconVariant.Color implementation; #429
+stays Backlog until native design approval.

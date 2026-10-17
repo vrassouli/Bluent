@@ -195,6 +195,10 @@ def check() -> int:
         "public Icon Value dynamically swaps actual CSS or SVG source",
         "public Icon Variant Filled changes actual source class or vector path",
         "Icon copyable Razor tracks current source-owned Value and Variant",
+        "official Color SVG and Filled fallback are decorative aria-hidden and never native tab stops",
+        "actual Chromium accessibility tree ignores the visible decorative Color SVG",
+        "native keyboard Tab bypasses both decorative Icon variants",
+        "visible Filled high-contrast fallback remains decorative with readable adjacent label",
         "Label ForExpression binds native input and detects DataAnnotations Required",
         "native pointer activation of Label focuses its exact form input",
         "Label public Size and NotRequired update actual CSS + no symbol",
@@ -205,6 +209,10 @@ def check() -> int:
         "Label copyable Razor includes nested Info content",
     ):
         assert required_gate in probe, "missing real browser Icon/Label contract: "+required_gate
+    # The prototype Color SVG and monochrome HCM alternate are both purely
+    # decorative; the real Icon title is adjacent text, not duplicate icon names.
+    assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
+    assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")

@@ -172,6 +172,26 @@ try {
  check('genuine MIT Fluent Color SVG renders four scoped gradients; demo explicitly labels API unavailable',
    colorSvg.svg&&colorSvg.paths===4&&colorSvg.ids.length===4&&new Set(colorSvg.ids).size===4&&
    colorSvg.ids.every(id=>id.startsWith('ic_fluent_apps_20_color__'))&&colorSvg.previewLabel&&colorSvg.nativeHcmFallback,colorSvg);
+ // #421/#429 research-only Color SVG has no semantic action. Both visible
+ // Color art AND fallback Filled must be decorative to screen-reader users;
+ // the neighboring human-readable label must remain present.
+ const decorative=await js("(()=>{const c=document.querySelector('.lab-color-preview-icon'),f=document.querySelector('.lab-color-preview-monochrome'),r=document.querySelector('.lab-color-research');return {colorHidden:c?.getAttribute('aria-hidden'),fallbackHidden:f?.getAttribute('aria-hidden'),colorTab:c?.tabIndex,fallbackTab:f?.tabIndex,label:r?.querySelector('strong')?.textContent?.trim()}})()");
+ check('official Color SVG and Filled fallback are decorative aria-hidden and never native tab stops',
+   decorative.colorHidden==='true'&&decorative.fallbackHidden==='true'&&
+   decorative.colorTab===-1&&decorative.fallbackTab===-1&&
+   decorative.label==='Apps 20 · Color SVG preview',decorative);
+ const axDoc=await send('DOM.getDocument',{depth:1});
+ const iconNode=await send('DOM.querySelector',{nodeId:axDoc.root.nodeId,selector:'.lab-color-preview-icon'});
+ const iconTree=await send('Accessibility.getPartialAXTree',{nodeId:iconNode.nodeId,fetchRelatives:false});
+ check('actual Chromium accessibility tree ignores the visible decorative Color SVG',
+   !!iconNode.nodeId&&iconTree.nodes?.[0]?.ignored===true,
+   {nodeId:iconNode.nodeId,ax:iconTree.nodes?.slice(0,2).map(x=>({role:x.role?.value,ignored:x.ignored,reason:x.ignoredReasons}))});
+ await js("document.querySelector('#lab-icon-variant')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ const iconKeyboard=await js("(()=>{const active=document.activeElement;return {id:active?.id,insideDecorative:!!active?.closest('.lab-color-icons'),leftSelect:active?.id!=='lab-icon-variant',visible:active?.matches(':focus-visible')}})()");
+ check('native keyboard Tab bypasses both decorative Icon variants',
+   iconKeyboard.leftSelect&&!iconKeyboard.insideDecorative&&iconKeyboard.visible,iconKeyboard);
  const regularPreview=await js("(()=>({colored:getComputedStyle(document.querySelector('.lab-color-preview-icon')).display,fallback:getComputedStyle(document.querySelector('.lab-color-preview-monochrome')).display}))()");
  check('default OS mode displays true Color SVG and hides monochrome fallback',
    regularPreview.colored!=='none'&&regularPreview.fallback==='none',regularPreview);
@@ -179,6 +199,12 @@ try {
  const hcm=await poll(()=>js("(()=>({forced:matchMedia('(forced-colors: active)').matches,colored:getComputedStyle(document.querySelector('.lab-color-preview-icon')).display,fallback:getComputedStyle(document.querySelector('.lab-color-preview-monochrome')).display}))()"),5000);
  check('Chromium emulated forced-colors media hides gradients and shows Filled source',
    hcm.forced&&hcm.colored==='none'&&hcm.fallback!=='none',hcm);
+ const fallbackA11y=await js("(()=>{const e=document.querySelector('.lab-color-preview-monochrome'),c=document.querySelector('.lab-color-preview-icon'),r=document.querySelector('.lab-color-research');return {forced:matchMedia('(forced-colors: active)').matches,fallbackHidden:e?.getAttribute('aria-hidden'),colorHidden:c?.getAttribute('aria-hidden'),fallbackTab:e?.tabIndex,colorTab:c?.tabIndex,labelVisible:!!r?.querySelector('strong')?.getClientRects()?.length}})()");
+ check('visible Filled high-contrast fallback remains decorative with readable adjacent label',
+   fallbackA11y.forced&&fallbackA11y.fallbackHidden==='true'&&
+   fallbackA11y.colorHidden==='true'&&fallbackA11y.fallbackTab===-1&&
+   fallbackA11y.colorTab===-1&&fallbackA11y.labelVisible,fallbackA11y);
+
  await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'none'}]});
  const restored=await poll(()=>js("(()=>!matchMedia('(forced-colors: active)').matches&&getComputedStyle(document.querySelector('.lab-color-preview-icon')).display!=='none'&&getComputedStyle(document.querySelector('.lab-color-preview-monochrome')).display==='none')()"),5000);
  check('leaving forced-colors restores exact original Color and hides Filled fallback',restored);

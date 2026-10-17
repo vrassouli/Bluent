@@ -335,3 +335,38 @@ gradient ID safety, license/version pins, native OS/AT,
 light/dark contrast, RTL, and package-size tests remain
 design-first future #429 Backlog work, not delivered by this
 probe. No stable Dev, v2.x API, or NuGet changes.
+
+## 2026-10-17 Icon Color research decorative accessibility #421
+
+The existing official MIT Fluent Apps20 Color SVG preview remains
+developer-controlled IconDefinition.FromSvg, **NOT public
+IconVariant.Color**. The CSS-only existing Filled alternative
+remains visible under Chromium forced-colors emulation. Both actual
+Bluent Icon specimens were authored as decorative with aria-hidden;
+their shared visible neighboring text describes the asset.
+
+Added four **genuine browser** gates to the source-owned Icon
+pilot: check the actual DOM of both variants for aria-hidden=true
+and native tabIndex=-1; fetch the Chromium accessibility subtree
+and require the VISIBLE colored SVG to be ignored; send a real
+CDP Tab from the current native Variant select and verify it
+passes both decorative icons (the following focus target receives
+visible keyboard focus); and switch Chromium to emulated
+forced-colors:active to prove the visible Filled fallback stays
+decorative and the adjacent readable Label remains displayed.
+
+**Fresh actual Dev01 independent modes:**
+- Edge/real WebAssembly **61/61 checks PASS**
+- Chrome/production-published InteractiveServer **61/61 PASS**
+- Both contain four new accessibility assertions, errors=[]
+  and scoped Chromium QA profile cleanup remaining=0.
+- Full exact latest GitHub SHA 4-mode CI is STILL independent.
+
+This verifies DOM roles, native Chromium accessibility-tree
+behavior, Tab and emulated system-colors at the actual
+Blazor Icon research fixture, not named NVDA/Narrator,
+native Windows Contrast Themes, gradient pixel contrast,
+complete Color icon catalog, dark/RTL parity or a
+user-accepted public API. Canonical Penpot page42
+design remains DRAFT and was NOT mutated; #421 In
+progress, #429 Backlog, and stable Dev/NuGet untouched.
