@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Source-backed pilot coverage contract. Does not claim complete component validation."""
 import json
+import re
 from pathlib import Path
 from generate_v3_component_lab_queue import payload as expected_full_queue
 from generate_v3_component_lab_ui_queue import render as generated_ui_queue
@@ -114,7 +115,19 @@ def check() -> int:
                          "SecondaryText", "Compact", "Badge", "BadgeHorizontalPosition",
                          "BadgeVerticalPosition", "Dropdown", "ShowDropdownIndicator",
                          "DropdownPlacement"))
-    assert len(data["families"][0]["propertiesDemonstrated"])==17, "16 of 20 native [Parameter] plus disabled additional attribute"
+    assert len(data["families"][0]["propertiesDemonstrated"])==21, "20 of 20 native [Parameter] names plus disabled additional attribute"
+    # Fail closed if the REAL exported Button API changes. Do not freeze a
+    # misleading "20/20" count based solely on the ledger's own entries.
+    actual_button = (ROOT/"src/Bluent.UI/Components/ButtonComponent/Button.razor.cs").read_text(encoding="utf-8-sig")
+    actual_parameters = set(re.findall(
+        r"\[Parameter\]\s+public\s+[^\r\n{]+?\s+(\w+)\s*\{\s*get\s*;",
+        actual_button))
+    represented = set(data["families"][0]["propertiesDemonstrated"])-{"disabled"}
+    assert len(actual_parameters)==20 and represented==actual_parameters, (
+        "Declared public Button parameters drifted from representative Lab scenarios: "
+        +str({"missing":sorted(actual_parameters-represented),
+              "stale":sorted(represented-actual_parameters)}))
+
     for proof in ("live Button explorer uses source-backed default enum values",
                   "real Bluent Button responds to dynamic Danger/Large/Square parameters",
                   "generated Razor example matches all three selected Button values",
@@ -130,6 +143,19 @@ def check() -> int:
                   "real Share summary menu click invokes exactly a second callback",
                   "copyable Razor includes badge/menu source and backing event handlers"):
         assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
+    # Real existing Button API final four parameter-name specimens.
+    for label in ("TextClass", "Icon", "Rotated", "Orientation"):
+        assert label in data["families"][0]["propertiesDemonstrated"], label
+    for needle in ('id="lab-button-vertical"', 'id="lab-button-rotated"',
+                   'TextClass="lab-custom-button-text"', 'Icon="@FluentIcons.Settings"',
+                   'Icon="@FluentIcons.Search"', 'Orientation="Orientation.Vertical"',
+                   'Rotated="true"', 'class="lab-orientation-examples"'):
+        assert needle in source, "Missing native Button API specimen: "+needle
+    for needle in ("real Bluent Button", "native Tab"):
+        assert needle in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
+    for needle in (".lab-orientation-examples", ".lab-custom-button-text"):
+        assert needle in css
+
     generated=(ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabFamilyQueue.g.cs")
     assert generated.is_file() and generated.read_text(encoding="utf-8-sig")==generated_ui_queue()
     assert "#nullable enable" in generated.read_text(encoding="utf-8")

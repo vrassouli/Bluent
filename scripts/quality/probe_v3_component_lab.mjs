@@ -61,7 +61,7 @@ try {
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
  check('four pilot families and four functional controls rendered',initial.catalog.length===4&&initial.controls===4,initial);
- check('real library Button elements rendered, not image/mock',initial.runnable===7,initial);
+ check('real library Button elements rendered, not image/mock',initial.runnable===9,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
  check('actual Blazor OnClick event increments visible count',clicked);
@@ -145,6 +145,30 @@ try {
   sourceAdvanced?.includes('DropdownPlacement="Placement.BottomEnd"')&&
   sourceAdvanced?.includes('private Task ChooseExportAsync()')&&sourceAdvanced?.includes('private Task ChooseShareAsync()'),sourceAdvanced);
 
+ // Complete representative display of existing Button 20/20 [Parameter]
+ // names: Icon, TextClass, Orientation, Rotated. NO final Fluent2 parity.
+ const vertical=await js("(()=>{const b=document.querySelector('#lab-button-vertical'),s=b&&getComputedStyle(b),l=b?.querySelector('.lab-custom-button-text'),ls=l&&getComputedStyle(l),i=b?.querySelector('.bui-icon.icon');return {tag:b?.tagName,vertical:b?.classList.contains('vertical'),layout:s?.flexDirection,icon:!!i,iconClass:i?.className,labelClass:!!l,labelWeight:ls?.fontWeight,bounds:b?{button:b.getBoundingClientRect().width,container:b.parentElement.getBoundingClientRect().width}:null};})()");
+ check('actual Button Icon TextClass and Vertical API render with native flex layout',
+   vertical.tag==='BUTTON'&&vertical.vertical&&vertical.layout==='column'&&vertical.icon&&
+   vertical.labelClass&&Number(vertical.labelWeight)>=700&&vertical.bounds.button<=vertical.bounds.container+2,
+   vertical);
+ const rotated=await js("(()=>{const b=document.querySelector('#lab-button-rotated'),s=b&&getComputedStyle(b),i=b?.querySelector('.bui-icon.icon'),r=b?.getBoundingClientRect(),p=b?.parentElement?.getBoundingClientRect();return {tag:b?.tagName,rotated:b?.classList.contains('rotated'),writing:s?.writingMode,icon:!!i,width:r?.width,parentWidth:p?.width}})()");
+ check('existing Button Rotated API produces actual sideways writing mode and Icon',
+   rotated.tag==='BUTTON'&&rotated.rotated&&rotated.writing?.startsWith('sideways-')&&
+   rotated.icon&&rotated.width>0&&rotated.width<=rotated.parentWidth+2,rotated);
+ await js("document.querySelector('#lab-button-vertical')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ const rotatedKeyboard=await js("(()=>{const b=document.querySelector('#lab-button-rotated');return {focused:document.activeElement===b,keyboard:b?.matches(':focus-visible'),disabled:b?.disabled}})()");
+ check('native Tab traverses Vertical to Rotated Bluent Button with visible focus',
+   rotatedKeyboard.focused&&rotatedKeyboard.keyboard&&!rotatedKeyboard.disabled,rotatedKeyboard);
+ const orientationSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable current Button source includes Icon TextClass Orientation Rotated',
+   orientationSource?.includes('Icon=\"@FluentIcons.Settings\"')&&
+   orientationSource?.includes('TextClass=\"lab-custom-button-text\"')&&
+   orientationSource?.includes('Orientation=\"Orientation.Vertical\"')&&
+   orientationSource?.includes('Icon=\"@FluentIcons.Search\"')&&
+   orientationSource?.includes('Rotated=\"true\"'),orientationSource);
  await js("(()=>{const el=document.querySelector('#lab-search');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(el,'Icon');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filtered=await poll(()=>js("document.querySelectorAll('button.lab-family').length===1 && document.querySelector('button.lab-family')?.textContent.includes('Icon')"));
  check('live Blazor search filters to matching Icon family',filtered);

@@ -178,3 +178,22 @@ each 61/61 PASS with zero owned browser profiles.
 This is a source-owned research demo, NOT
 a public IconVariant.Color implementation; #429
 stays Backlog until native design approval.
+
+## Current Button public API parameter-name coverage 20/20 (#421)
+
+On isolated task branch, the live Lab now covers final
+four declared Button names: Icon, TextClass,
+Orientation=Vertical, Rotated=true. Inspect native
+icons, text-weight change, flex-direction column,
+sideways writing-mode, real Tab focus-visible and
+exact copyable Razor. check_v3_component_lab.py
+must compare ledger names against every actual C#
+Button.razor.cs [Parameter]; count disabled HTML
+AdditionalAttribute separately. Do NOT silently
+claim full API-name coverage if source declaration
+changes. Local Chrome/WASM 65/65 and Edge/published
+Server 65/65 PASS, browser cleanup 0. First attempt
+only failed stale fixture count 7 vs 9, fixed and
+rerun. This is NOT exhaustive permutations,
+Fluent design/user approval, Penpot source mutation,
+public API migration, named OS AT or release readiness.

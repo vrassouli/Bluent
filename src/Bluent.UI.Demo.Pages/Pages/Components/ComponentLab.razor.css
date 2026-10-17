@@ -83,3 +83,32 @@
  .lab-color-research ::deep .lab-color-preview-icon { display:none !important; }
  .lab-color-research ::deep .lab-color-preview-monochrome { display:inline-flex !important; color:ButtonText; background:Canvas; }
 }
+
+/* #421: existing Button API Orientation/Rotated/Icon/TextClass pilot only,
+   not a new Bluent v3 Button design or production styling change. */
+.lab-orientation-examples {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+    margin-block: .75rem;
+    min-width: 0;
+}
+.lab-orientation-group {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .55rem;
+    border: 1px solid var(--colorNeutralStroke2, #d5dce5);
+    padding: .8rem;
+    border-radius: .5rem;
+}
+.lab-orientation-group ::deep #lab-button-vertical .lab-custom-button-text {
+    font-weight: 700;
+}
+.lab-orientation-group ::deep .bui-button {
+    max-width: 100%;
+}
+@media (max-width: 600px) {
+    .lab-orientation-examples { grid-template-columns: minmax(0, 1fr); }
+}

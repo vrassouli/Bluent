@@ -370,3 +370,52 @@ complete Color icon catalog, dark/RTL parity or a
 user-accepted public API. Canonical Penpot page42
 design remains DRAFT and was NOT mutated; #421 In
 progress, #429 Backlog, and stable Dev/NuGet untouched.
+
+## 2026-10-17 — representative Button 20/20 declared parameter-name coverage
+
+Current C# Button.razor.cs exports 20 public [Parameter] names,
+but until now the Component Lab pilot represented only 16 of
+them (plus disabled AdditionalAttribute). It now adds two
+genuine Bluent Button specimens with the four missing names:
+Icon, TextClass, Orientation (Vertical) and Rotated (true).
+Real DOM renders native icon, custom font-weight 700,
+vertical class and flex-direction:column, or a rotated
+class and sideways writing-mode. Actual CDP Tab traverses
+from Vertical to Rotated with focus-visible. The copyable
+Razor sample matches the live source for all four.
+
+A new fail-closed source contract reads actual
+src/Bluent.UI/Components/ButtonComponent/Button.razor.cs,
+extracts every [Parameter] name, and compares it to the
+ledger (excluding only native HTML disabled). This
+forces a new/removed public parameter to invalidate the
+20/20 name-coverage claim until reconciled. Four new real
+browser assertions raise the shared current-source
+suite from 61 to 65 checks per mode. The initial
+Chrome/WASM run failed ONLY because its old fixture
+count expected seven rather than nine real Buttons:
+the four new runtime tests were already green; the
+corrected runner was rerun successfully.
+
+Independent Dev01 evidence:
+- Chrome freshly compiled WebAssembly 65/65 PASS,
+  Chromium owned-process cleanup remaining=0.
+- Edge production-published InteractiveServer 65/65
+  PASS, remaining=0.
+- Canonical queue/source contract 66/66 names
+  referenced, four live pilot families, ZERO accepted.
+- Demo.Pages current C# Debug build PASS.
+- Published Server still shows PREEXISTING 10.0.7
+  NU1903 high-advisory warnings; separate #425
+  quality-branch patch is not merged in #421.
+
+Limits: representative public parameter-name coverage
+does not validate all variants/permutations, public
+accessibility/AT semantics, Fluent 2 visual parity,
+all 66 families, OS-native Contrast Themes or design
+signoff. Canonical Penpot Component Lab page42
+(e775e67c-d9da-804b-8008-cc7c2dd7ecf7) stays
+DRAFT, not edited here. #421 remains In progress
+and PR #551 Draft targeting bluent-v3;
+#428 still Backlog. Stable Dev/NuGet untouched.
+New-head full GitHub browser CI pending.
