@@ -246,3 +246,5 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   binaries regardless of zip directory, allows three historical Fluent
   icon assets, and has 9/9 NuGet negative/positive source tests.
   Separate source and package asset checks prevent silent font bundling.
+
+- 2026-10-17 #418 translucent host Focus audit: 10 brands x Light/Dark x 2 actual RGBA alpha roles x 2 opaque underlays = 80 source scenarios. **10/80 Light Brand underlay/NeutralBackgroundAlpha(.5) have BOTH brand and inverse-white rings below 3:1** (default composed #89B3DA, 2.627/2.205). Nine source Python tests PASS. Actual isolated Chrome CDP computed 80/80 and Edge CDP 80/80 with no errors or leaked processes. Opaque native Penpot design approval unchanged; disconnected plugin so no new source design edit/signoff. New v3-token and v3-browser-workflow gates fail closed; exact-head CI pending. No public CSS/API/stable Dev/NuGet changes.

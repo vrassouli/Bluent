@@ -140,3 +140,17 @@ commit must be independently checked. The accepted Focus design is still
 Penpot Bluent v3, page 38, board
 f4136a9a-101d-8004-8008-ca2956fe05f9. No design approval is inferred
 for new public API semantics.
+
+## 2026-10-17: Explicit translucent host exclusion
+
+The opaque host-role mapping approved in Penpot is NOT
+universal for RGBA hosts. The separate
+[alpha host audit](FOCUS-ALPHA-HOST-AUDIT.md) finds
+10/80 real emitted Fluent source cases (all ten Light
+brands, half-white alpha layer above a brand underlay)
+where BOTH brand and inverse-white ring choices fail
+the 3:1 review threshold. Independent real Chrome and
+Edge computed CSS matched 80/80 cases each. No new
+automatic public host role or workaround is approved
+without native design/AT review. Do not translate this
+diagnostic success into accessibility certification.

@@ -56,3 +56,24 @@ The maintainer tested actual Styling Lab and explicitly prefers **existing brand
 2026-10-14 live editable Penpot #501 context study: correct Bluent v3 file/page38 board f4136a9a-101d-8004-8008-ca2956fe05f9, 85 editable child shapes, 10 Light/Dark x Neutral/Brand/BrandHover/Danger/Inverted specimens; PNG actually exported/inspected; scripts/quality/penpot_v3_button_host_context_audit.js executed in live Penpot PASS 78/78 native identity/stroke/contrast/caption checks. Actual emitted theme source #418 independently checked 100 brand/mode/host combinations for contextual mapping PASS 100/100, minimum 3.103. The selected single BRAND Button ring remains on neutral surfaces; TextField underline only. Inverse/fallback on colored/inverted hosts is a RESEARCH PROPOSAL, NOT publicly approved token/component API. See docs/v3/design/BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md. Do not claim full accessibility/native OS/AT/real zoom or mark Done until explicit design approval and integration criteria.
 
 2026-10-14 explicit maintainer design approval: page38 Penpot context board f4136a9a-101d-8004-8008-ca2956fe05f9 now marked APPROVED DESIGN. Selected rule: BRAND single Button focus ring on Neutral; inverse OnBrand ring on Brand / BrandHover / Danger; Light Inverted inverse / Dark Inverted brandedForeground2; original animated TextField bottom underline only, no extra rectangular focus ring. New read-only native audit checks board approval and 10 concrete examples. This approval resolves the VISUAL host-dependent treatment decision; it does NOT by itself certify OS Contrast Themes, AT, all nested/transparent/gradient hosts or final production #428 implementation. Review docs/v3/design/BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md.
+
+## Translucent host risk — #418
+
+The accepted source-owned OPAQUE Focus host-role contract
+does not safely cover colorNeutralBackgroundAlpha.
+Actual ten-brand Light/Dark emitted CSS compositing
+shows 10/80 scenarios in which BOTH brand and inverse
+white rings have less than 3:1 contrast. All ten are
+Light with 50%-white Alpha above Brand background.
+Default composed #89B3DA, ring 2.627, white 2.205.
+Use audit_v3_focus_alpha_hosts.py and its nine
+source regression tests plus the real native Chrome/
+Edge probe_v3_focus_alpha_hosts_browser.mjs, which
+compares 80 computed CSS cases per browser with no
+leaked processes. CI includes both source and browser
+checks. These are NOT actual raster/OS AT or approved
+public Focus API. Retain maintainer-selected branded
+Button ring on approved opaque hosts and underline-only
+TextField focus; refer to FOCUS-ALPHA-HOST-AUDIT.md
+before designing nonopaque hosts for #428. Stable
+Dev/NuGet untouched.
