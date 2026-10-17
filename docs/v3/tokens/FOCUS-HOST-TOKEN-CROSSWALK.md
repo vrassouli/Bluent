@@ -166,3 +166,28 @@ Native editable Figma design DRAFT board:
 https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=38-2 .
 See FOCUS-ALPHA-HOST-AUDIT.md; this is NOT a global
 Focus2 switch or an approved public alpha host CSS API.
+
+
+### 2026-10-17 — distinguish historical contrast comparison from approved mapping
+
+The full #418 real-Blazor CDP probe includes TWO distinct Focus experiments
+that must not be conflated:
+
+- The historical default Button Focus is intentionally the original
+  unconditional branded ring on the parent Styling Lab. The comparison
+  measures less than 3:1 on ten Dark brand/mode neutral backgrounds.
+  This is the reason host-context adaptation was researched. It is
+  **not** evidence that the approved #501 adaptive Focus rule failed.
+- The separate approved Penpot #501 Focus host mapping uses real
+  data-bui-v3-focus-host and data-bui-v3-focus-mode on five source-owned
+  surrounding hosts. Source-token contract measurements are at least
+  3:1 in 100/100 explicit brand/mode/host cases, and the live browser
+  probe separately asserts the contextual ring color and at least 3:1
+  contrast on those mounted hosts.
+
+The historic low-contrast observation remains visible rather than
+being suppressed. Its diagnostic wording was clarified in the browser
+probe to avoid misreporting it as a failure of the approved adaptive
+design. The public token API, gradients/photo hosts, named AT and native
+Windows Contrast Themes remain unapproved / unverified. This does not
+alter the existing branded Focus in 2.x or implement the future Button.

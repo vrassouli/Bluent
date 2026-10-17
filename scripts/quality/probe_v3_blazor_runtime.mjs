@@ -1098,8 +1098,8 @@ try {
      failed:narrowStress.filter(s=>!s.passed)}));
  console.log("Exact #501 Penpot 3px/1px ring geometry across six Buttons:",JSON.stringify({samples:doubleNarrowStress.length,buttonObservations:doubleNarrowStress.length*appearanceNames.length,failures:doubleNarrowStress.filter(s=>!s.pass)}));
  const under3=focusThemeSamples.filter(x=>x.ratio<3);
- if(under3.length)openAccessibilityGaps.push("Scoped Focus ring-to-surface contrast below 3:1 in "+under3.map(x=>x.brand+"/"+x.mode).join(",")+"; #418 candidate token approval required");
- console.log("Focus-ring scoped brand/mode contrast audit:",JSON.stringify({samples:focusThemeSamples.length,lowContrast:under3.map(x=>({brand:x.brand,mode:x.mode,ratio:+x.ratio.toFixed(2)})),minRatio:+Math.min(...focusThemeSamples.map(x=>x.ratio)).toFixed(2)}));
+ if(under3.length)openAccessibilityGaps.push("Historical unconditional-brand Focus comparison below 3:1 in "+under3.map(x=>x.brand+"/"+x.mode).join(",")+"; not the approved #501 host-adaptive mapping (separately asserted >=3:1), whose public v3 token/API and native AT review remain pending");
+ console.log("Historical nonadaptive brand-focus comparison (NOT approved host-adaptive mapping):",JSON.stringify({samples:focusThemeSamples.length,lowContrast:under3.map(x=>({brand:x.brand,mode:x.mode,ratio:+x.ratio.toFixed(2)})),minRatio:+Math.min(...focusThemeSamples.map(x=>x.ratio)).toFixed(2)}));
  console.log("Opt-in Fluent focus2 candidate contrast:",JSON.stringify({samples:candidateFocusSamples.length,minRatio:+Math.min(...candidateFocusSamples.map(x=>x.ratio)).toFixed(2),lowContrast:candidateFocusSamples.filter(x=>x.ratio<3)}));
 
  // Native system colors must override even the candidate source contrast.
