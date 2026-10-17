@@ -1,7 +1,7 @@
 """Explicit negative controls proving v3 quality policy fails closed."""
 from __future__ import annotations
 import unittest
-from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,COMPAT_LAYOUT,COMPAT_PROBE,check,check_server_patch,check_browser_contract,check_compatibility_host_theme,check_compatibility_probe_text,QualityContractError
+from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,COMPAT_LAYOUT,COMPAT_PROBE,check,check_server_patch,check_browser_contract,check_compatibility_host_theme,check_compatibility_probe_text,check_native_site_zoom_source,QualityContractError
 
 class V3QualityContractTests(unittest.TestCase):
     @classmethod
@@ -216,6 +216,38 @@ class V3QualityContractTests(unittest.TestCase):
             "window.scrollTo(0,999)")
         with self.assertRaisesRegex(QualityContractError,"keyboard/pointer modality"):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),altered)
+
+    def test_native_zoom_source_contract_with_real_saved_preferences(self):
+        from pathlib import Path
+        path=Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs"
+        check_native_site_zoom_source(path.read_text(encoding="utf-8-sig"))
+
+    def test_native_zoom_cannot_replace_saved_browser_preferences_with_emulation(self):
+        from pathlib import Path
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source+"\\nEmulation.setDeviceMetricsOverride"
+        with self.assertRaisesRegex(QualityContractError,"not use emulation"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_must_fail_on_actual_document_overflow(self):
+        from pathlib import Path
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source.replace("state.documentScrollWidth-state.viewportWidth","0")
+        with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_requires_real_png_screenshot(self):
+        from pathlib import Path
+        source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")
+        bad=source.replace("Page.captureScreenshot","Page.fakeScreenshot")
+        with self.assertRaisesRegex(QualityContractError,"site zoom evidence missing"):
+            check_native_site_zoom_source(bad)
+
+    def test_native_zoom_cannot_be_removed_from_standard_real_browser_suite(self):
+        source=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        bad=source.replace("probe_v3_native_site_zoom.mjs","fake-native-zoom.mjs")
+        with self.assertRaisesRegex(QualityContractError,"native 200/400"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),bad)
 
     def test_no_false_accessibility_claim(self):
         with self.assertRaisesRegex(QualityContractError,"certification"):

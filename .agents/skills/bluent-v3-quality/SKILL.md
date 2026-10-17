@@ -107,3 +107,32 @@ Penpot QA native note e775e67c-d9da-804b-8008-cccf3d59fdca
 in canonical page 41; local Dev01 Chrome/Server and Edge/WASM
 each 51/51. Still pending independent 4-way CI and native
 Contrast Themes/AT, visual ring and TextField underline approval.
+
+## Native Chromium site zoom QA, #425 (2026-10-17)
+
+Actual source-owned Penpot draft: Bluent v3 Design System page 41,
+board ed5216bd-3d5b-8015-8008-cb2557357776; browser zoom versus
+native AT boundary shape e775e67c-d9da-804b-8008-cc3b60b6d9ee.
+No design acceptance was granted; Penpot tab was sleeping.
+
+The real reusable probe is
+scripts/quality/probe_v3_native_site_zoom.mjs, which is invoked by
+scripts/quality/probe_v3_compatibility_runtime.mjs while real
+published Bluent is live. Two disposable per-host native Chromium
+site Zoom factors (2 and 4) use persisted per_host_zoom_levels and
+log(factor)/log(1.2). Do NOT replace with CSS font-size, CDP
+device-metric/page-scale emulation, a privileged built-in Chrome
+extension, or an unverified OS keyboard shortcut. Assert DPR,
+changed layout CSS viewport, unchanged root font, actual native
+Bluent components, zero final document overflow and screenshot
+PNG integrity. Browser cleanup is limited to the owned profiles
+and required to finish with remaining=0. Five source regression
+tests guard these contracts and the parent inclusion.
+
+Important: A transient Chart.js intrinsic 300px canvas can
+overflow the zoom400 viewport BEFORE Blazor hydration and resize;
+real settled Chrome/Edge Zoom400 was clean. Record initial state,
+wait for layout to settle and do NOT hide defects with CSS overflow.
+Route any persistent failure to #486, which has correction evidence.
+This does not verify system text size/contrast or named AT and
+is NOT reviewer accepted visual Fluent 2 parity.

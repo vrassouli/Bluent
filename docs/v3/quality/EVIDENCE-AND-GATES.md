@@ -285,3 +285,83 @@ final brand-colored Fluent 2 focus ring, TextField underline
 visual parity, browser zoom, real Windows Contrast Themes,
 a named screen reader, or WCAG certification.
 Issue #425 stays In progress / PR #549 Draft.
+
+## 2026-10-17 — native Chromium per-site Zoom 200% and 400%
+
+The authoritative design source is the editable Penpot Bluent v3 Design
+System file b64f6665-c9ab-80b5-8008-c4ac99d9d000, quality page 41
+ed5216bd-3d5b-8015-8008-cb25572ebb61, board
+ed5216bd-3d5b-8015-8008-cb2557357776. Its pre-existing editable
+Browser zoom and native AT acceptance boundary annotation is
+e775e67c-d9da-804b-8008-cc3b60b6d9ee. This is a draft and
+NOT a human-approved design or native OS/AT signoff. Penpot was
+suspended during this session, so no live design mutation is claimed.
+
+Several potential false-zoom methods were rejected in live research:
+CDP Control-Plus in headless Chrome left DPR and CSS viewport unchanged.
+A browser-extension experiment changed true zoom, but inspection
+revealed the responding worker was a Chrome built-in extension rather
+than the proposed owned extension. Windows also refused to foreground
+an isolated headful Chrome window, so no global keyboard input was
+sent to an unknown window.
+
+A reliable independent native Chromium mechanism was then proven:
+a fresh, private temporary Chrome/Edge profile receives the real
+persisted per-host site-zoom preference before launching the browser,
+with zoom level computed as log(factor)/log(1.2) for factors 2 and 4.
+The schema was checked against an actual Chrome profile after native
+site zoom. No fontSize CSS mutation, privileged extension, DevTools
+Emulation device metrics or fake page-scale command is used.
+
+Reusable probe: scripts/quality/probe_v3_native_site_zoom.mjs.
+It runs inside the existing REAL browser probe while the production
+published Bluent SSR host remains alive. Each of Chrome/Edge and
+InteractiveServer/WebAssembly is exercised at 200% and 400% in separate
+temporary native profiles, with actual DPR=2/4, shrinking CSS viewport,
+unchanged computed 16px root font, heading/TextField/status/Popover
+geometry within that viewport and a hard gate on true document overflow.
+Two actual PNG images and a JSON report are saved per matrix job, and
+browser cleanup must report remaining=0.
+
+One important transient was discovered and separately reported to
+Chart #486: initial canvas intrinsic width 300px could temporarily
+extend past a CSS viewport of 314-316px during hydration, producing
+4-6px overflow. Subsequent real runs proved this was NOT a persistent
+Zoom400 defect: Chart.js/ResizeObserver later resized the canvas to fit.
+The new probe records an early layout snapshot and waits for settled
+hydration and further sizing samples before verdict; no clipping CSS or
+Chart component code changed. The earlier persistent-bug claim was
+explicitly corrected on #486.
+
+Before joining the four-mode parent smoke, published-Server native
+Zoom200/Zoom400 research passed Chrome: viewport/scroll 632/624,
+316/312; Edge: 628/620, 314/310. Both actual DPR values matched
+2 and 4; zero final horizontal overflow or process leftovers.
+The first integrated real Chrome/InteractiveServer run passed 62/62
+checks (previously 51/51): ten native Zoom assertions plus one
+artifact/cleanup cross-check. Two PNGs are added to the existing
+seven images per mode. Exact-head CI for the new code must be
+checked separately from previous commits.
+
+Five new source-contract unit checks ensure the probe uses saved
+site-zoom, checks settled overflow and real PNG capture, and that
+the main four-way runtime suite actually invokes it. Emulated zoom
+is not native zoom. This evidence is still NOT Windows OS Text Size,
+native Contrast Themes, named screen-reader testing, WCAG or
+human-approved screenshot parity. #425 remains In progress,
+PR #549 Draft and stable Dev/NuGet unchanged.
+
+### Local four-renderer matrix and separate evidence filenames
+
+The complete integrated real browser suite on Dev01, at the
+pre-filename-finalization source revision, returned Chrome/Server
+62/62, Chrome/WASM 62/62, Edge/Server 62/62 and Edge/WASM
+62/62: **248/248 actual checks**, zero runtime errors. Each
+entry includes the genuine site Zoom200 and Zoom400 separate
+profile tests. No persistent Zoom400 horizontal overflow was found
+after Chart.js settled, and all owned temporary browsers were
+removed (remaining=0). The original 7 PNGs and the two native-zoom
+PNGs are kept distinct. A subsequent small evidence-integrity fix
+now keys native screenshot/JSON filenames by **browser and render
+mode**, preventing local Server/WASM artifacts from overwriting one
+another; exact-head CI must confirm this latest version separately.

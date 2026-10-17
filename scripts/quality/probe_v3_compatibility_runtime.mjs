@@ -317,6 +317,32 @@ try {
  assert("7 distinct screenshots captured for intended scenarios",
    imageEvidence.length===7&&new Set(imageEvidence.map(x=>x.sha256)).size===7,
    {count:imageEvidence.length,unique:new Set(imageEvidence.map(x=>x.sha256)).size});
+ // #425 NATIVE browser site zoom, not CSS root font scaling or CDP emulated
+ // viewport. Launch two dedicated Chromium profiles with persisted per-host
+ // zoom preferences and run the same actual published Blazor component page.
+ // Any settled horizontal document overflow (including a Chart.js canvas)
+ // remains a HARD failure. Two extra PNGs and JSON per real browser mode.
+ try{
+  const nativeZoomLog=execFileSync(process.execPath,
+   ["scripts/quality/probe_v3_native_site_zoom.mjs"],
+   {cwd:root,env:{...process.env,
+     BLUENT_V3_ZOOM_APP_URL:url,
+     BLUENT_V3_ZOOM_EVIDENCE_DIR:dest,
+     BLUENT_V3_BROWSER_NAME:browserName},
+    windowsHide:true,encoding:"utf8",timeout:180000,maxBuffer:1024*1024});
+  console.log(nativeZoomLog.trim());
+  const zoom=JSON.parse(readFileSync(join(dest,"native-site-zoom-"+browserName+"-"+mode+".json"),"utf8"));
+  for(const entry of zoom.results||[]){
+   for(const test of entry.checks||[]){
+    assert("native site zoom "+entry.factor+"00%: "+test.name,test.pass,test.detail);
+   }
+  }
+  assert("actual Chromium 200/400 native zoom has two PNGs and no settled overflow",
+    zoom.results?.length===2&&zoom.results.every(x=>x.screenshot?.png&&x.screenshot?.bytes>1000&&x.documentOverflowPx<=1&&x.cleanup?.includes("remaining=0")),
+    {results:zoom.results?.map(x=>({factor:x.factor,screenshot:x.screenshot,overflow:x.documentOverflowPx,cleanup:x.cleanup})),errors:zoom.errors});
+ }catch(e){
+  errors.push("Native site zoom runner failed: "+String(e.stderr||e.message).slice(-3800));
+ }
 
 } catch(e){errors.push(String(e.stack||e));}
 finally{

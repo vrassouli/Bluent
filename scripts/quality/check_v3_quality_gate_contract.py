@@ -116,6 +116,14 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  "Input.dispatchMouseEvent", "document.elementFromPoint",
                  "window.scrollTo({top:0,left:0,behavior:'instant'})"):
         need(term in probe,"native keyboard/pointer modality regression gate: "+term)
+    for term in ("probe_v3_native_site_zoom.mjs",
+                 "BLUENT_V3_ZOOM_APP_URL",
+                 "native site zoom ",
+                 "actual Chromium 200/400 native zoom has two PNGs and no settled overflow",
+                 "x.documentOverflowPx<=1",
+                 "x.cleanup?.includes(\"remaining=0\")"):
+        need(term in probe,"real native 200/400 site-zoom gate required: "+term)
+    check_native_site_zoom_source((ROOT/"scripts/quality/probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8-sig"))
     # The runner startup can fail transiently before ANY Blazor/browser
     # assertion. Retry only creating the actual browser DevTools connection;
     # never retry or suppress any app/AX/keyboard/visual assertion.
@@ -134,6 +142,21 @@ def check_browser_contract(workflow:str, probe:str)->None:
         need(term in probe,"browser startup retry must fail closed and retain diagnostics: "+term)
     for forbidden in ("continue-on-error: true","dotnet nuget push","gh release create"):
         need(forbidden not in workflow,"browser gate must fail-closed and must never publish: "+forbidden)
+
+def check_native_site_zoom_source(probe:str)->None:
+    for term in ("per_host_zoom_levels", "Math.log(factor)/Math.log(1.2)",
+                 "for(const factor of [2,4])", "metricExpr",
+                 "state.devicePixelRatio-factor", 'state.rootFont==="16px"',
+                 "state.documentScrollWidth-state.viewportWidth", "Page.captureScreenshot",
+                 "record.initialMetrics=state", "record.metrics=state", "const renderMode=url.endsWith",
+                 '"-"+renderMode+".png"', '"-"+renderMode+".json"',
+                 "documentOverflowPx", "remaining=", "cleanupOwned(folder)",
+                 'process.exitCode=2', "record.errors.push"):
+        need(term in probe,"real browser persisted site zoom evidence missing: "+term)
+    for forbidden in ("Emulation.setDeviceMetricsOverride","Emulation.setPageScaleFactor",
+                      "document.documentElement.style.fontSize","--force-device-scale-factor",
+                      "chrome.tabs.setZoom"):
+        need(forbidden not in probe,"native site-zoom probe must not use emulation, CSS scaling or privileged extension: "+forbidden)
 
 def check_compatibility_probe_text(probe_source:str)->None:
     for required in ("line-height: 1.3", "overflow-wrap: anywhere",
