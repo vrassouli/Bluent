@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 4
+    assert len(data["families"]) == 5
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -40,7 +40,7 @@ def check() -> int:
         assert gate in probe_text, "missing real Link browser gate: " + gate
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 4
+    assert len({entry["id"] for entry in data["families"]}) == 5
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -91,6 +91,9 @@ def check() -> int:
         assert modes[2].startswith("Chrome/Server Dev01:")
         assert modes[3].startswith("Edge/Server Dev01:")
         for i,mode in enumerate(modes):
+            if entry["id"] == "badge":
+                assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
+                continue
             assert "shared browser smoke 27/27" in mode
             if entry["id"] in ("button", "icon"):
                 assert "interactive controls observed" in mode
@@ -125,6 +128,18 @@ def check() -> int:
                          "SecondaryText", "Compact", "Badge", "BadgeHorizontalPosition",
                          "BadgeVerticalPosition", "Dropdown", "ShowDropdownIndicator",
                          "DropdownPlacement"))
+    assert set(data["families"][4]["propertiesDemonstrated"]) == {
+        "Appearance", "Size", "Shape", "Color", "Icon", "Text", "DropShadow", "AnimateShadow"
+    }
+    badge_source = (ROOT/"src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs").read_text(encoding="utf-8-sig")
+    badge_parameters = set(re.findall(
+        r"\[Parameter\]\s+public\s+[^\r\n{]+?\s+(\w+)\s*\{\s*get\s*;",
+        badge_source))
+    badge_represented = set(data["families"][4]["propertiesDemonstrated"])
+    assert len(badge_parameters) == 8 and badge_parameters == badge_represented, (
+        "Badge source public parameter drift: "
+        +str({"missing": sorted(badge_parameters-badge_represented),
+              "stale": sorted(badge_represented-badge_parameters)}))
     assert len(data["families"][0]["propertiesDemonstrated"])==21, "20 of 20 native [Parameter] names plus disabled additional attribute"
     # Fail closed if the REAL exported Button API changes. Do not freeze a
     # misleading "20/20" count based solely on the ledger's own entries.
@@ -181,8 +196,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 4
-    assert queue["familiesWithRealBrowserSpecimen"] == 4
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 5
+    assert queue["familiesWithRealBrowserSpecimen"] == 5
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -193,12 +208,17 @@ def check() -> int:
         assert all((ROOT / f).is_file() for f in item["existingDocumentationFiles"])
         assert all((ROOT / f).is_file() for f in item["existingConsumerExampleFiles"])
     probe=(ROOT / "scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
-    for literal in ("for(const family of ['Label','Link'])",
+    for literal in ("Badge real source component renders default Filled Medium Circular Brand and no icon/shadow",
+                    "Badge actual Appearance Size Shape Color Text parameters rebind source CSS and content",
+                    "Badge Icon DropShadow AnimateShadow are real live rendered public parameters",
+                    "Badge copyable Razor contains all eight actual public parameter names and live enum values",
+                    "Badge AnimateShadow without DropShadow does not emit animated shadow class",
+                    "for(const family of ['Label','Link'])",
                     "native accessible markup",
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows are visible; only four have live pilots",
+                    "canonical 66 candidate rows are visible; only five have live pilots",
                     "issue 432 search finds queued TextField without fake demo control",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
@@ -255,8 +275,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 5 browser pilots, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 5/5 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

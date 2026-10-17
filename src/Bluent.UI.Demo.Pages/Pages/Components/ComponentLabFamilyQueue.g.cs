@@ -23,7 +23,7 @@ internal static class ComponentLabFamilyQueue
         new("Slider", 442, null),
         new("RangeSlider", 443, null),
         new("FileSelect", 444, null),
-        new("Badge", 445, null),
+        new("Badge", 445, "badge"),
         new("Avatar", 446, null),
         new("Tag", 447, null),
         new("Spinner", 448, null),

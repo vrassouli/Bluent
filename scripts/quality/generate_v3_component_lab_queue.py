@@ -43,7 +43,7 @@ def payload():
         # rendered markup. No full public-API or AT acceptance inferred.
         sample_level = (
             "chrome_wasm_interaction_observed" if family in ("Button", "Icon")
-            else "chrome_wasm_native_markup_observed" if family in ("Label", "Link")
+            else "chrome_wasm_native_markup_observed" if family in ("Label", "Link", "Badge")
             else "no_component_lab_scenario"
         )
         entries.append({
@@ -74,7 +74,7 @@ def payload():
         "sourceManifestScope": census["status"],
         "familyCount": len(entries),
         "familiesWithRepresentativeLabScenario": len(specimens),
-        "familiesWithRealBrowserSpecimen": 4,
+        "familiesWithRealBrowserSpecimen": 5,
         "apiCoverageComplete": False,
         "note": (
             "This is a complete 66-family WORK QUEUE sourced from the #494 census, "
@@ -96,7 +96,7 @@ def main():
         TARGET.write_text(desired, encoding="utf-8")
     elif not TARGET.is_file() or TARGET.read_text(encoding="utf-8") != desired:
         raise SystemExit("Component Lab family work queue is missing or stale. Review #494 data and regenerate.")
-    print("Component Lab family queue: 66/66 mapped to issues; 4 pilots, 4 browser specimens, ZERO complete API acceptance.")
+    print("Component Lab family queue: 66/66 mapped to issues; 5 pilots, 5 browser specimens, ZERO complete API acceptance.")
 
 
 if __name__ == "__main__":

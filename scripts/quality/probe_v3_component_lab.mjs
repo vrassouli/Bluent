@@ -63,7 +63,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('four pilot families and four functional controls rendered',initial.catalog.length===4&&initial.controls===4,initial);
+ check('five pilot families and four functional controls rendered',initial.catalog.length===5&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===9,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -305,8 +305,30 @@ try {
      actionSource?.includes('OnClick=\"LinkClickedAsync\"')&&actionSource?.includes('private Task LinkClickedAsync()')&&!actionSource?.includes('Href='),actionSource);
   }
  }
+ // Existing Badge API: native source rendering, not a CSS mock.
+ await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Badge');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Badge')"));
+ await js("document.querySelector('button.lab-family')?.click()");
+ const badgeInitial=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');if(!b)return null;return {text:b.querySelector('.text')?.textContent,classes:[...b.classList],icons:b.querySelectorAll('.bui-icon').length}})()"),12000);
+ check('Badge real source component renders default Filled Medium Circular Brand and no icon/shadow',
+  badgeInitial.text==='3'&&['filled','medium','circular','brand'].every(c=>badgeInitial.classes.includes(c))&&badgeInitial.icons===0&&!badgeInitial.classes.includes('drop-shadow'),badgeInitial);
+ await js("(()=>{for(const [id,value] of [['lab-badge-appearance','Tint'],['lab-badge-size','Large'],['lab-badge-shape','Rounded'],['lab-badge-color','Success'],['lab-badge-text','Ready']]){const e=document.getElementById(id);e.value=value;e.dispatchEvent(new Event('change',{bubbles:true}));}})()");
+ const badgeVariant=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b?.querySelector('.text')?.textContent==='Ready'&&['tint','large','rounded','success'].every(c=>b.classList.contains(c))})()"),12000);
+ check('Badge actual Appearance Size Shape Color Text parameters rebind source CSS and content',badgeVariant);
+ await js("(()=>{for(const id of ['lab-badge-icon','lab-badge-shadow','lab-badge-animate']){const e=document.getElementById(id);e.checked=true;e.dispatchEvent(new Event('change',{bubbles:true}));}})()");
+ const badgeOptional=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return !!b?.querySelector('.bui-icon')&&b.classList.contains('drop-shadow')&&b.classList.contains('animated')})()"),12000);
+ check('Badge Icon DropShadow AnimateShadow are real live rendered public parameters',badgeOptional);
+ const badgeSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('Badge copyable Razor contains all eight actual public parameter names and live enum values',
+  badgeSource?.includes('Text=\"Ready\"')&&badgeSource?.includes('BadgeAppearance.Tint')&&
+  badgeSource?.includes('BadgeSize.Large')&&badgeSource?.includes('BadgeShape.Rounded')&&
+  badgeSource?.includes('BadgeColor.Success')&&badgeSource?.includes('Icon=\"@FluentIcons.Settings\"')&&
+  badgeSource?.includes('DropShadow=\"true\"')&&badgeSource?.includes('AnimateShadow=\"true\"'),badgeSource);
+ await js("(()=>{const e=document.getElementById('lab-badge-shadow');e.checked=false;e.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
+ check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===4"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===5"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -315,23 +337,30 @@ try {
  check('mobile 320px viewport has no unintended horizontal document clipping',narrow.scrollWidth<=321,narrow);
  await send('Emulation.clearDeviceMetricsOverride');
  const source=await js("(()=>({text:document.querySelector('.lab-source pre code')?.textContent,buttons:document.querySelectorAll('.lab-source button').length,heading:document.querySelector('.lab-source h2')?.textContent}))()");
- check('copyable Razor source visible in native code block',source.text?.includes('<Link')&&source.buttons===1,source);
+ check('copyable Razor source visible in native code block',source.text?.includes('<Badge')&&source.buttons===1,source);
 
  // Exercise the actual Copy source click, not just the presence of a decorative control.
  // Scroll into view and dispatch real CDP pointer events to grant user activation.
  await js("document.querySelector('.lab-source button')?.scrollIntoView({block:'center',behavior:'instant'})");
- await wait(350); // Let layout / scroll settle before deriving CDP viewport coordinates.
- const copyPos=await js("(()=>{const b=document.querySelector('.lab-source button'),r=b.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('button')===b}})()");
- check('CDP Copy source pointer target is the actual visible button',copyPos.hit===true,copyPos);
- if(!copyPos.hit)throw Error('Copy source target cannot be safely clicked');
+ // Some hosted Chromium runs finish ancestor scrolling after scrollIntoView,
+ // leaving the button behind a fixed header (observed center y=4). Native
+ // pointer hit testing is mandatory; retry only actual viewport positioning.
+ let copyPos=null;
+ for(let attempt=0;attempt<20;attempt++){
+  copyPos=await js("(()=>{const b=document.querySelector('.lab-source button');if(!b)return null;const r=b.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2,h=innerHeight,margin=Math.min(64,h/4),safe=y>margin&&y<h-margin,hit=!!safe&&document.elementFromPoint(x,y)?.closest('button')===b;if(!hit)window.scrollBy({top:y-h/2,behavior:'instant'});return {x,y,height:h,safe,hit,scrollY:window.scrollY}})()");
+  if(copyPos?.hit)break;
+  await wait(250);
+ }
+ check('CDP Copy source pointer target is the actual visible button',copyPos?.hit===true,copyPos);
+ if(!copyPos?.hit)throw Error('Copy source target cannot be safely clicked');
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:copyPos.x,y:copyPos.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:copyPos.x,y:copyPos.y,button:'left',clickCount:1});
  const copied=await poll(()=>js("document.querySelector('.lab-source [aria-live=polite]')?.textContent?.trim()==='Razor source copied.'"),9000);
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows are visible; only four have live pilots',
-  allQueue.count===66&&allQueue.pilots===4&&allQueue.queued===62&&
+ check('canonical 66 candidate rows are visible; only five have live pilots',
+  allQueue.count===66&&allQueue.pilots===5&&allQueue.queued===61&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Queued')&&!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);

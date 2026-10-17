@@ -252,6 +252,68 @@
                     </div>
                 </div>
             }
+            else if (_selected == "badge")
+            {
+                <div class="lab-api-demo" aria-label="Current Badge public API explorer">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-badge-appearance">Appearance</label>
+                            <select id="lab-badge-appearance" @bind="_badgeAppearance">
+                                @foreach (var value in Enum.GetValues<BadgeAppearance>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-size">Size</label>
+                            <select id="lab-badge-size" @bind="_badgeSize">
+                                @foreach (var value in Enum.GetValues<BadgeSize>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-shape">Shape</label>
+                            <select id="lab-badge-shape" @bind="_badgeShape">
+                                @foreach (var value in Enum.GetValues<BadgeShape>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-color">Color</label>
+                            <select id="lab-badge-color" @bind="_badgeColor">
+                                @foreach (var value in Enum.GetValues<BadgeColor>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-text">Text</label>
+                            <select id="lab-badge-text" @bind="_badgeText">
+                                <option value="3">3</option>
+                                <option value="Ready">Ready</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-badge-flags" aria-label="Optional Badge capabilities">
+                        <label><input id="lab-badge-icon" type="checkbox" @bind="_badgeHasIcon" /> Icon</label>
+                        <label><input id="lab-badge-shadow" type="checkbox" @bind="_badgeDropShadow" /> DropShadow</label>
+                        <label><input id="lab-badge-animate" type="checkbox" @bind="_badgeAnimateShadow" /> AnimateShadow</label>
+                    </div>
+                    <div class="lab-examples">
+                        <Badge Text="@_badgeText" Appearance="@_badgeAppearance" Size="@_badgeSize"
+                               Shape="@_badgeShape" Color="@_badgeColor"
+                               Icon="@(_badgeHasIcon ? FluentIcons.Settings : null)"
+                               DropShadow="@_badgeDropShadow" AnimateShadow="@_badgeAnimateShadow" />
+                    </div>
+                    <p class="lab-controls-note">Existing Badge public API specimen; visual/AT/forced-colors review for #445 is pending.</p>
+                </div>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -312,8 +374,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>4</strong> live pilot specimens ·
-               <strong>62</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>5</strong> live pilot specimens ·
+               <strong>61</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -357,6 +419,10 @@
             "The existing Label component, not the final v3 form-field accessibility audit.",
             "<Label Text=\"Customer name\" />",
             "Representative runnable scenario only"),
+        new("badge", "Badge", "components/badges", "Status indicators",
+            "The existing Badge variants and optional icon/shadow flags, not production Fluent v3 parity.",
+            "<Badge Text=\"3\" Color=\"BadgeColor.Brand\" />",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -375,6 +441,15 @@
         }
         return Task.CompletedTask;
     }
+
+    private BadgeAppearance _badgeAppearance = BadgeAppearance.Filled;
+    private BadgeSize _badgeSize = BadgeSize.Medium;
+    private BadgeShape _badgeShape = BadgeShape.Circular;
+    private BadgeColor _badgeColor = BadgeColor.Brand;
+    private string _badgeText = "3";
+    private bool _badgeHasIcon;
+    private bool _badgeDropShadow;
+    private bool _badgeAnimateShadow;
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -436,12 +511,19 @@
         "<Label Text=\"Email help\"><Info>Use a work email for contact.</Info></Label>\n" +
         "@code {\n    [System.ComponentModel.DataAnnotations.Required]\n    public string LabEmail { get; set; } = \"\";\n}";
 
+    private string SelectedBadgeRazor =>
+        $"<Badge Text=\"{_badgeText}\" Appearance=\"BadgeAppearance.{_badgeAppearance}\" Size=\"BadgeSize.{_badgeSize}\" " +
+        $"Shape=\"BadgeShape.{_badgeShape}\" Color=\"BadgeColor.{_badgeColor}\"" +
+        (_badgeHasIcon ? " Icon=\"@FluentIcons.Settings\"" : "") +
+        $" DropShadow=\"{_badgeDropShadow.ToString().ToLowerInvariant()}\" AnimateShadow=\"{_badgeAnimateShadow.ToString().ToLowerInvariant()}\" />";
+
     private string SelectedLinkRazor => _linkMode == "navigation"
         ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "icon" ? SelectedIconRazor
+    private string ActiveRazor => _selected == "badge" ? SelectedBadgeRazor
+        : _selected == "icon" ? SelectedIconRazor
         : _selected == "link" ? SelectedLinkRazor
         : _selected == "label" ? SelectedLabelRazor
         : _selected == "button"

@@ -112,3 +112,8 @@
 @media (max-width: 600px) {
     .lab-orientation-examples { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* #421: existing Badge optional public flags, demo-only. */
+.lab-badge-flags { display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; }
+.lab-badge-flags label { display:inline-flex; align-items:center; gap:.35rem; }
+.lab-badge-flags input { width:1rem; height:1rem; margin:0; }
