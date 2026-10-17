@@ -28,6 +28,16 @@ def check() -> int:
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
     ]
+    assert data["families"][3]["propertiesDemonstrated"] == ["Text", "Href", "Appearance", "OnClick"]
+    for feature in ('id="lab-link-mode"', 'id="lab-link-appearance"', 'id="lab-link-text"',
+                    'OnClick="LinkClickedAsync"', 'SelectedLinkRazor', 'LinkAppearance'):
+        assert feature in source, "existing-API Link pilot missing: " + feature
+    probe_text = (ROOT / "scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    for gate in ("Link real appearance and text public parameters update native anchor",
+                 "Link without Href emits semantic type=button instead of fake navigation",
+                 "native Enter triggers exactly one live Link OnClick Blazor callback",
+                 "Link action copyable Razor includes real OnClick and handler body"):
+        assert gate in probe_text, "missing real Link browser gate: " + gate
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
     assert len({entry["id"] for entry in data["families"]}) == 4

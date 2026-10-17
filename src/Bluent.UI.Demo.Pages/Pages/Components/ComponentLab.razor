@@ -254,8 +254,44 @@
             }
             else if (_selected == "link")
             {
-                <div class="lab-examples">
-                    <Link Text="Read documentation" Href="getting-started" />
+                <div class="lab-api-demo" aria-label="Current Link public API explorer">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-link-appearance">Appearance</label>
+                            <select id="lab-link-appearance" @bind="_linkAppearance">
+                                @foreach (var appearance in Enum.GetValues<LinkAppearance>())
+                                {
+                                    <option value="@appearance">@appearance</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-link-mode">Navigation or action</label>
+                            <select id="lab-link-mode" @bind="_linkMode">
+                                <option value="navigation">Navigation (anchor)</option>
+                                <option value="action">Action (button)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-link-text">Text</label>
+                            <select id="lab-link-text" @bind="_linkText">
+                                <option value="Read documentation">Read documentation</option>
+                                <option value="Review plan">Review plan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-examples">
+                        @if (_linkMode == "navigation")
+                        {
+                            <Link Text="@_linkText" Href="getting-started" Appearance="@_linkAppearance" />
+                        }
+                        else
+                        {
+                            <Link Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
+                        }
+                    </div>
+                    <p role="status" class="lab-link-status">Action callbacks: @_linkEvents</p>
+                    <p class="lab-controls-note">Existing Link API, not final Fluent v3 design or disabled-link accessibility acceptance.</p>
                 </div>
             }
         </div>
@@ -340,6 +376,12 @@
         return Task.CompletedTask;
     }
 
+    private string _linkMode = "navigation";
+    private string _linkText = "Read documentation";
+    private LinkAppearance _linkAppearance = LinkAppearance.Default;
+    private int _linkEvents;
+    private Task LinkClickedAsync() { _linkEvents++; return Task.CompletedTask; }
+
     private string _iconChoice = "Settings";
     private IconVariant _iconVariant = IconVariant.Regular;
     private LabelSize _labelSize = LabelSize.Medium;
@@ -394,7 +436,13 @@
         "<Label Text=\"Email help\"><Info>Use a work email for contact.</Info></Label>\n" +
         "@code {\n    [System.ComponentModel.DataAnnotations.Required]\n    public string LabEmail { get; set; } = \"\";\n}";
 
+    private string SelectedLinkRazor => _linkMode == "navigation"
+        ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
+        : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
+          "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
+
     private string ActiveRazor => _selected == "icon" ? SelectedIconRazor
+        : _selected == "link" ? SelectedLinkRazor
         : _selected == "label" ? SelectedLabelRazor
         : _selected == "button"
         ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />\n" +

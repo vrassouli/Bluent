@@ -60,7 +60,7 @@
 .lab-api-demo { display:grid; gap:.75rem; margin-top:1rem; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; min-width:0; }
 .lab-api-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
 .lab-api-controls label { display:block; font-size:.83rem; font-weight:600; margin-bottom:.3rem; }
-.lab-api-controls select { box-sizing:border-box; width:100%; min-width:0; padding:.5rem .65rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+.lab-api-controls :is(select, input) { box-sizing:border-box; width:100%; min-width:0; padding:.5rem .65rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
 .lab-api-controls select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
 .lab-form-example input:focus { outline:0; border-bottom:2px solid var(--colorBrandStroke1,#176aa3); }
 .lab-icon-selected { display:flex; align-items:center; gap:.85rem; }

@@ -281,6 +281,28 @@ try {
      helpSource?.includes('<Info>Use a work email for contact.</Info>'),helpSource);
    await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
    await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
+  } else if(family==='Link'){
+   const defaults=await js("(()=>({appearance:document.getElementById('lab-link-appearance')?.value,mode:document.getElementById('lab-link-mode')?.value,text:document.getElementById('lab-link-text')?.value}))()");
+   check('Link explorer starts with navigation anchor and source-backed defaults',
+     defaults.appearance==='Default'&&defaults.mode==='navigation'&&defaults.text==='Read documentation',defaults);
+   await js("(()=>{for(const [id,value] of [['lab-link-appearance','Subtle'],['lab-link-text','Review plan']]){const e=document.getElementById(id);e.value=value;e.dispatchEvent(new Event('change',{bubbles:true}));}})()");
+   const changed=await poll(()=>js("(()=>{const a=document.querySelector('.lab-canvas a.bui-link');return a?.textContent?.trim()==='Review plan'&&a.classList.contains('subtle')&&a.getAttribute('href')==='getting-started'})()"),12000);
+   check('Link real appearance and text public parameters update native anchor',changed);
+   const navSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+   check('Link navigation Razor sample reflects live Appearance/Text/Href',
+     navSource?.includes('Text=\"Review plan\"')&&navSource?.includes('LinkAppearance.Subtle')&&navSource?.includes('Href=\"getting-started\"'),navSource);
+   await js("(()=>{const e=document.getElementById('lab-link-mode');e.value='action';e.dispatchEvent(new Event('change',{bubbles:true}));})()");
+   const button=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas button.bui-link');return b?.tagName==='BUTTON'&&b.getAttribute('type')==='button'&&!b.hasAttribute('href')&&b.textContent?.trim()==='Review plan'})()"),12000);
+   check('Link without Href emits semantic type=button instead of fake navigation',button);
+   const actionFocus=await js("(()=>{const b=document.querySelector('.lab-canvas button.bui-link');b?.focus();return document.activeElement===b})()");
+   check('Link action native button can receive keyboard focus',actionFocus);
+   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+   await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+   const callback=await poll(()=>js("document.querySelector('.lab-link-status')?.textContent?.includes('Action callbacks: 1')"),12000);
+   check('native Enter triggers exactly one live Link OnClick Blazor callback',callback);
+   const actionSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+   check('Link action copyable Razor includes real OnClick and handler body, without navigation Href',
+     actionSource?.includes('OnClick=\"LinkClickedAsync\"')&&actionSource?.includes('private Task LinkClickedAsync()')&&!actionSource?.includes('Href='),actionSource);
   }
  }
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
