@@ -52,6 +52,25 @@ def check() -> int:
     assert ".lab-api-controls" in css and ".lab-form-example input:focus" in css
     assert ".lab-form-example input:focus-visible { outline:" not in css, "native illustrative input must use underline focus, not unwanted full ring"
 
+    # Research fixture only: public Color variant belongs to Backlog #429.
+    color_fixture=(ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabColorApps.cs")
+    fixture=color_fixture.read_text(encoding="utf-8")
+    assert "MIT @fluentui/svg-icons 1.1.344" in fixture
+    assert "IconDefinition.FromSvg" in fixture
+    assert fixture.count("<linearGradient id=") == 4
+    assert "ComponentLabColorApps.Preview" in source
+    assert "public IconVariant.Color is proposed in #429, not implemented" in source
+    assert "@media (forced-colors: active)" in css
+    assert ".lab-color-research ::deep .lab-color-preview-icon" in css
+    assert ".lab-color-research ::deep .lab-color-preview-monochrome" in css
+    assert "Color" not in (ROOT/"src/Bluent.UI/Icons/IconVariant.cs").read_text(encoding="utf-8")
+    for gate in ("genuine MIT Fluent Color SVG renders four scoped gradients; demo explicitly labels API unavailable",
+                 "default OS mode displays true Color SVG and hides monochrome fallback",
+                 "Chromium emulated forced-colors media hides gradients and shows Filled source",
+                 "leaving forced-colors restores exact original Color and hides Filled fallback"):
+        assert gate in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
+
+
     for entry in data["families"]:
         assert entry["classification"] == "representative_only"
         modes=entry["renderModesVerified"]

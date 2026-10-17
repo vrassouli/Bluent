@@ -137,3 +137,21 @@ the current public API demo is more complete.
 Human Penpot/Figma visual parity and native OS/AT
 remains pending; original page42 design stays DRAFT.
 No public source API, stable Dev or NuGet change.
+
+## Research-only official Icon Color SVG (#421; #429 Backlog)
+
+Source-owned Figma fallback design draft file
+JfxkDgSbNr8W0ppUZPQPHc board 26:3 holds actual
+Fluent Apps20 Regular, Filled and Color SVGs. Upstream
+Color is deprecated, has limited coverage and fails
+some HCM/dark accessibility requirements. Component
+Lab renders Color by CURRENT IconDefinition.FromSvg,
+not a public Color variant. Existing Filled source
+shows during forced-colors: active, via Lab-only
+CSS with ::deep selectors necessary for nested
+Blazor Icon component roots. A first RED test saw
+both icons displayed without ::deep; after correction
+actual Edge/WASM CDP 57/57 PASS with HCM emulation,
+four real gradient IDs and forced-colors restoration.
+Do not claim this is full Color API, production Icon
+implementation, final Penpot parity, or native AT signoff.

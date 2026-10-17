@@ -185,6 +185,18 @@
                               Variant="@_iconVariant" Class="lab-selected-icon" Style="width:32px;height:32px;" />
                         <span class="lab-icon-selection">Selected: @_iconChoice / @_iconVariant</span>
                     </div>
+                    <div class="lab-color-research" aria-label="Opt-in official Fluent color asset research, not a public Color variant">
+                        <div class="lab-color-icons">
+                            <Icon Value="@ComponentLabColorApps.Preview" Class="lab-color-preview-icon" aria-hidden="true" />
+                            <Icon Value="@FluentIcons.Apps" Variant="IconVariant.Filled"
+                                  Class="lab-color-preview-monochrome" aria-hidden="true" />
+                        </div>
+                        <div>
+                            <strong>Apps 20 · Color SVG preview</strong>
+                            <p>Real official gradient asset. Forced colors uses Filled automatically.
+                                This uses the existing FromSvg API; public IconVariant.Color is proposed in #429, not implemented.</p>
+                        </div>
+                    </div>
                 </div>
             }
             else if (_selected == "label")

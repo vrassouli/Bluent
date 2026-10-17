@@ -166,6 +166,22 @@ try {
  const iconSource=await js("document.querySelector('.lab-source pre code')?.textContent");
  check('Icon copyable Razor tracks current source-owned Value and Variant',
    iconSource?.includes('FluentIcons.Search')&&iconSource?.includes('IconVariant.Filled'),iconSource);
+ // Color below is a developer-controlled FromSvg PROTOTYPE, not
+ // public IconVariant.Color. Full Color API belongs to Backlog #429.
+ const colorSvg=await js("(()=>{const e=document.querySelector('.lab-color-preview-icon svg'),r=document.querySelector('.lab-color-research');const ids=[...(e?.querySelectorAll('linearGradient[id]')||[])].map(n=>n.id);return {svg:!!e,ids,paths:e?.querySelectorAll('path').length,previewLabel:r?.textContent?.includes('public IconVariant.Color is proposed in #429, not implemented'),nativeHcmFallback:!!document.querySelector('.lab-color-preview-monochrome')};})()");
+ check('genuine MIT Fluent Color SVG renders four scoped gradients; demo explicitly labels API unavailable',
+   colorSvg.svg&&colorSvg.paths===4&&colorSvg.ids.length===4&&new Set(colorSvg.ids).size===4&&
+   colorSvg.ids.every(id=>id.startsWith('ic_fluent_apps_20_color__'))&&colorSvg.previewLabel&&colorSvg.nativeHcmFallback,colorSvg);
+ const regularPreview=await js("(()=>({colored:getComputedStyle(document.querySelector('.lab-color-preview-icon')).display,fallback:getComputedStyle(document.querySelector('.lab-color-preview-monochrome')).display}))()");
+ check('default OS mode displays true Color SVG and hides monochrome fallback',
+   regularPreview.colored!=='none'&&regularPreview.fallback==='none',regularPreview);
+ await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'}]});
+ const hcm=await poll(()=>js("(()=>({forced:matchMedia('(forced-colors: active)').matches,colored:getComputedStyle(document.querySelector('.lab-color-preview-icon')).display,fallback:getComputedStyle(document.querySelector('.lab-color-preview-monochrome')).display}))()"),5000);
+ check('Chromium emulated forced-colors media hides gradients and shows Filled source',
+   hcm.forced&&hcm.colored==='none'&&hcm.fallback!=='none',hcm);
+ await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'none'}]});
+ const restored=await poll(()=>js("(()=>!matchMedia('(forced-colors: active)').matches&&getComputedStyle(document.querySelector('.lab-color-preview-icon')).display!=='none'&&getComputedStyle(document.querySelector('.lab-color-preview-monochrome')).display==='none')()"),5000);
+ check('leaving forced-colors restores exact original Color and hides Filled fallback',restored);
  // Exercise BOTH source-only pilot families before granting runtime evidence.
  for(const family of ['Label','Link']){
   await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,"+JSON.stringify(family)+");x.dispatchEvent(new Event('input',{bubbles:true}));})()");

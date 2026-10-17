@@ -299,3 +299,39 @@ Four representative Lab families/66 source candidate
 components, zero accepted v3 components. #421 still
 In progress, PR #551 Draft, stable Dev and NuGet
 unchanged.
+
+## 2026-10-17 real upstream Icon Color research preview (NOT public API)
+
+An authorized Figma fallback design/architecture DRAFT is available at
+https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=26-3
+(page 26:2, board 26:3). It contains three REAL MIT-licensed
+Fluent Apps20 SVG vectors, Regular/Filled/Color, from npm
+@fluentui/svg-icons 1.1.344. The official package has 196
+assets matching *_20_color.svg, but these cover only a subset
+and Color is deprecated upstream due to Windows HCM/dark
+theme accessibility issues.
+
+Only the Icon PILOT in the live Component Lab gains a Color
+research preview, built with the current safe, trusted developer
+IconDefinition.FromSvg API and the exact official Apps20 color
+gradients (four scoped IDs). It is labeled a research preview
+and explicitly states public IconVariant.Color is not yet
+implemented. This is NOT product Icon source or new API.
+An existing public FluentIcons.Apps Filled source is present
+as a CSS-only native Windows forced-colors alternative.
+
+Initial real Edge/WASM run failed the default/forced-colors
+display tests because CSS isolation selectors did not reach
+the nested Icon child component. Corrected the demo-only CSS
+using .lab-color-research ::deep selectors; not product CSS.
+Rerun Edge/WASM **57/57 real browser assertions PASS**, zero
+JS errors or leaked owned browsers. Tests exercise actual
+native Chromium forced-colors active/none computed display,
+check color SVG gradient IDs and fallback restoration.
+
+Full IconVariant.Color, optional third IconDefinition source,
+Color -> Filled -> Regular fallback, repeated same-SVG
+gradient ID safety, license/version pins, native OS/AT,
+light/dark contrast, RTL, and package-size tests remain
+design-first future #429 Backlog work, not delivered by this
+probe. No stable Dev, v2.x API, or NuGet changes.
