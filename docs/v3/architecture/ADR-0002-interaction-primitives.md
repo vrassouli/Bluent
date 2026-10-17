@@ -429,3 +429,40 @@ or NuGet publication followed. This does **not** mean human-approved
 Penpot/code visual parity, browser/native Windows Contrast Theme,
 NVDA/JAWS/Narrator or complete interaction accessibility. #420
 remains In progress, PR #550 Draft.
+
+## 2026-10-17 Popover RightEnd CSS entry transform — verified regression fix
+
+Design-first scope: canonical editable Bluent v3 Penpot page40, board
+ed5216bd-3d5b-8015-8008-cb247e906204, covers the source-owned
+overlay positioning and focus/keyboard lane. Existing supported public
+Placement.RightEnd is emitted by PopoverSurface.razor as the right-end
+CSS class. This work repairs a manifest implementation defect without
+changing the public API or inventing a new v3 semantic token.
+
+Before fix, authored Sass used ampersand-right-end without the dot;
+the actual compiled and shipped selector was literally
+.bui-popover-surfaceright-end, which cannot match the real element.
+The intended -10px rightward entry translation was absent.
+Changed Sass to ampersand-dot-right-end, rebuilt compiled components.css
+using pinned Sass 1.93.2, and corrected the shipped minified
+bluent.ui.components.min.css. The original reduced-motion behavior and
+placement choices remain unchanged.
+
+Added a real public demo with RightEnd KeepSurface, unique trigger and
+content; integrated three browser checks for correct initial -10px
+computed transform, actual Blazor click/open class and Escape/focus
+return. A hidden KeepSurface reports computed transform as none
+because display:none; initial Chrome/Server test red 56/57 exposed this
+TEST-only oversight. The test now temporarily overrides display
+ONLY, reads the real untouched transform from computed CSS, restores
+the exact original inline display and checks the element remained
+hidden. Latest actual Dev01 Chrome/published InteractiveServer
+browser test PASSED 57/57, zero failures.
+
+Reproducible source and shipped CSS contract:
+check_popover_right_end_style validates authored, compiled and minified
+CSS, with four positive/negative tests, 17/17 PASS. This is tested
+actual Popover behavior, NOT human-approved full Fluent visual
+parity, native Windows Contrast Themes, named screen-reader AT or
+full design signoff. #420 remains In progress/PR Draft. No stable
+Dev/v2.x changes or NuGet release.

@@ -2861,7 +2861,7 @@
 .bui-popover-surface {
   opacity: 0;
 }
-.bui-popover-surface.right, .bui-popover-surface.right-start, .bui-popover-surfaceright-end {
+.bui-popover-surface.right, .bui-popover-surface.right-start, .bui-popover-surface.right-end {
   transform: translateX(-10px);
 }
 .bui-popover-surface.left, .bui-popover-surface.left-start, .bui-popover-surface.left-end {

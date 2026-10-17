@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from check_v3_popover_js_bundle import (ROOT,NAMES,BundleContractError,
-    same_generated_assets,check_implementation_typescript,check_popover_reduced_motion_style)
+    same_generated_assets,check_implementation_typescript,check_popover_reduced_motion_style,check_popover_right_end_style)
 
 class PopoverBundleGateTests(unittest.TestCase):
     def test_checked_in_bundle_and_source_are_consistent(self):
@@ -15,6 +15,30 @@ class PopoverBundleGateTests(unittest.TestCase):
         compiled=(ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8-sig")
         minified=(ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8-sig")
         check_popover_reduced_motion_style(authored,compiled,minified)
+
+    def test_popover_right_end_valid_in_all_three_authoritative_assets(self):
+        authored=(ROOT/"src/Bluent.UI/Styles/Components/_popover.scss").read_text(encoding="utf-8")
+        compiled=(ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8")
+        minified=(ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8")
+        check_popover_right_end_style(authored,compiled,minified)
+
+    def test_regressed_sass_right_end_selector_is_rejected(self):
+        source="&.right-end { transform: translateX(-10px); }"
+        css=".bui-popover-surface.right-end { transform: translateX(-10px); }"
+        with self.assertRaisesRegex(BundleContractError,"Sass"):
+            check_popover_right_end_style(source.replace("&.right-end","&right-end"),css,css)
+
+    def test_compiled_stale_right_end_selector_is_rejected(self):
+        source="&.right-end { transform: translateX(-10px); }"
+        css=".bui-popover-surface.right-end { transform: translateX(-10px); }"
+        with self.assertRaisesRegex(BundleContractError,"compiled"):
+            check_popover_right_end_style(source,css.replace(".bui-popover-surface.right-end",".bui-popover-surfaceright-end"),css)
+
+    def test_published_stale_right_end_selector_is_rejected(self):
+        source="&.right-end { transform: translateX(-10px); }"
+        css=".bui-popover-surface.right-end { transform: translateX(-10px); }"
+        with self.assertRaisesRegex(BundleContractError,"published"):
+            check_popover_right_end_style(source,css,css.replace(".bui-popover-surface.right-end",".bui-popover-surfaceright-end"))
 
     def test_css_source_missing_reduced_motion_is_rejected(self):
         source="@media (prefers-reduced-motion: reduce) {transition-duration: 0s;transition-delay: 0s;}"

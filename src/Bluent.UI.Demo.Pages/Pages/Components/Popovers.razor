@@ -1,4 +1,4 @@
-﻿@page "/components/popovers"
+@page "/components/popovers"
 @using Bluent.UI.Demo.Pages.Pages.Components.PopoverComponents
 @namespace Bluent.UI.Demo.Pages.Components
 
@@ -17,6 +17,20 @@
                     <div>
                         This is a sample content.
                     </div>
+                </Surface>
+            </Popover>
+        </section>
+
+        @* #420 RightEnd placement must retain the CSS entry transform
+           as well as the JS Floating UI placement, in both render modes. *@
+        <h3>RightEnd placement regression</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Popover Placement="Placement.RightEnd" KeepSurface="true">
+                <Trigger>
+                    <Button Text="RightEnd placement trigger" />
+                </Trigger>
+                <Surface>
+                    <p>RightEnd positioning surface</p>
                 </Surface>
             </Popover>
         </section>

@@ -76,6 +76,17 @@ def check_popover_reduced_motion_style(authored: str, compiled: str, minified: s
         if not re.search(pattern, normalized):
             raise BundleContractError(f"{origin}: missing rendered Popover reduced-motion declaration")
 
+def check_popover_right_end_style(authored: str, compiled: str, minified: str) -> None:
+    """Reject malformed Sass nesting and stale RightEnd placement CSS."""
+    if "&.right-end" not in authored or "&right-end" in authored:
+        raise BundleContractError("Popover authored RightEnd Sass nesting is malformed")
+    good = r"\.bui-popover-surface\.right-end"
+    wrong = ".bui-popover-surfaceright-end"
+    for label,css in (("compiled",compiled),("published",minified)):
+        if wrong in css or not re.search(good + r"\s*\{\s*transform\s*:\s*translateX\(-10px\)",css):
+            raise BundleContractError(f"Popover {label} RightEnd transform selector missing or stale")
+
+
 def main()->None:
     cli=argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--dist",type=Path,default=ROOT/"src/Bluent.UI.Scripts/dist")
@@ -83,10 +94,11 @@ def main()->None:
     args=cli.parse_args()
     check_implementation_typescript((ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig"))
     same_generated_assets(args.dist,args.wwwroot)
-    check_popover_reduced_motion_style(
-        (ROOT/"src/Bluent.UI/Styles/Components/_popover.scss").read_text(encoding="utf-8-sig"),
-        (ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8-sig"),
-        (ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8-sig"))
+    authored = (ROOT/"src/Bluent.UI/Styles/Components/_popover.scss").read_text(encoding="utf-8-sig")
+    compiled = (ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf-8-sig")
+    minified = (ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.min.css").read_text(encoding="utf-8-sig")
+    check_popover_reduced_motion_style(authored, compiled, minified)
+    check_popover_right_end_style(authored, compiled, minified)
     print("PASS #420 Popover TS/JS and Sass reduced motion source: 4 ESM/global JS+maps and component CSS match shipped assets")
 
 if __name__=="__main__":

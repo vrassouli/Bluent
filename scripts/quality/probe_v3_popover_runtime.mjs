@@ -98,6 +98,21 @@ try{
  cdp=new CDP(tab.webSocketDebuggerUrl);await cdp.open();await cdp.send("Page.enable");await cdp.send("Runtime.enable");await cdp.send("Page.navigate",{url});
  const mounted=await until(()=>cdp.js("(()=>{const a=[...document.querySelectorAll('button')].filter(x=>x.textContent.includes('Popover trigger'));return document.querySelector('h1')?.textContent==='Popover'&&a.length>=3;})()"),"Blazor WASM popover demo",85000);
  result("real interactive Popover page mounted",mounted);
+ // #420 regression: the publicly-supported RightEnd placement class is
+ // emitted as right-end, and its ACTUAL shipped CSS must apply the
+ // -10px entry transform before .show overrides it to zero.
+ const rightEndInitial=await until(()=>cdp.js("(()=>{const s=document.querySelector('.bui-popover-surface.right-end');if(!s)return null;const prior=s.style.getPropertyValue('display'),priority=s.style.getPropertyPriority('display'),hidden=s.classList.contains('hidden');let x;try{s.style.setProperty('display','block','important');x=new DOMMatrixReadOnly(getComputedStyle(s).transform).m41;}finally{if(prior)s.style.setProperty('display',prior,priority);else s.style.removeProperty('display');}return {placement:s.className,entryTranslateX:x,hidden,restored:getComputedStyle(s).display==='none'};})()"),"real RightEnd Popover source-owned surface",14000);
+ result("RightEnd native Blazor Popover has correct CSS entry transform",
+   rightEndInitial.hidden&&rightEndInitial.restored&&Math.abs(rightEndInitial.entryTranslateX+10)<0.6,rightEndInitial);
+ const rightEndOpened=await until(async()=>{
+   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent==='RightEnd placement trigger');b?.click();return !!b;})()");
+   return cdp.js("(()=>{const s=document.querySelector('.bui-popover-surface.right-end.show:not(.hidden)');return s?.textContent.includes('RightEnd positioning surface')??false;})()");
+ },"RightEnd real Blazor click opens placed surface",13000);
+ result("RightEnd click opens correct native Popover surface",rightEndOpened);
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const rightEndClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent==='RightEnd placement trigger');const s=document.querySelector('.bui-popover-surface.right-end');return !!(b&&s&&!s.classList.contains('show')&&document.activeElement===b);})()"),"RightEnd Escape restores trigger focus",9000);
+ result("RightEnd Escape closes and restores exact trigger focus",rightEndClosed);
  // On InteractiveServer the child Popover may mount before its JS service
  // finishes binding. Wait for real Blazor/interop hydration, never fake ARIA.
  const initialDisclosure=await until(async()=>{

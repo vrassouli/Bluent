@@ -159,3 +159,23 @@ changes now give 37/37 fitting read-back (63 native shapes).
 This is read-only repeatable design integrity QA, **not**
 human visual parity or screen-reader certification. Keep
 #420 In progress until acceptance and preserve 2.x isolation.
+
+## RightEnd Popover CSS and real browser gate (#420, 2026-10-17)
+
+Public Placement.RightEnd emits the CSS class right-end. The
+correct Sass nesting is an ampersand followed by a dot and
+right-end, not ampersand-right-end (missing dot). The latter
+compiles to an incorrect combined selector. Rebuild compiled
+components.css and shipped bluent.ui.components.min.css, and
+run test_v3_popover_js_bundle.py to reject the missing selector
+and stale shipped artifacts. Source-owned public Popovers demo
+now includes a RightEnd KeepSurface specimen.
+The real browser probe confirms initial -10px entry
+translation, Blazor click/open and Escape focus restoration.
+Because the closed KeepSurface is display:none, inspect its
+computed transform using temporary display override ONLY,
+restoring the exact prior inline display immediately. Do not
+set transform inline or claim hidden computed none means an
+application failure. Chrome/published InteractiveServer
+57/57 PASS. Full four-mode CI is still separate.
+Keep Penpot review and native AT acceptance separate.
