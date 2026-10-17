@@ -12,7 +12,8 @@ from generate_v3_token_preview import THEME_DIR, load_source_tokens
 
 SOURCES = ("--colorNeutralBackground1", "--colorBrandBackground",
            "--colorNeutralBackgroundAlpha", "--colorNeutralBackgroundAlpha2",
-           "--colorNeutralForegroundOnBrand", "--colorBrandForeground2")
+           "--colorNeutralForegroundOnBrand", "--colorBrandForeground2",
+           "--colorStrokeFocus2")
 OVERLAYS = ("--colorNeutralBackgroundAlpha", "--colorNeutralBackgroundAlpha2")
 UNDERLAYS = ("--colorNeutralBackground1", "--colorBrandBackground")
 RGBA = re.compile(r"rgba\(\s*(\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0(?:\.\d+)?|1(?:\.0+)?)\s*\)\Z")
@@ -54,6 +55,12 @@ def audit() -> dict:
             neutral_color = source["--colorBrandBackground" if mode == "light"
                                    else "--colorBrandForeground2"]
             inverse_color = source["--colorNeutralForegroundOnBrand"]
+            # Design-only opt-in alternative for explicit alpha hosts.
+            # It is NOT a replacement for the maintainer-approved branded
+            # ring on opaque neutral hosts.
+            focus2 = source["--colorStrokeFocus2"]
+            if focus2.lower() != ("#000000" if mode == "light" else "#ffffff"):
+                errors.append(f"Focus2 palette source drift: {brand}/{mode} {focus2}")
             for overlay in OVERLAYS:
                 for underlay in UNDERLAYS:
                     painted = composite(source[overlay], source[underlay])
@@ -66,6 +73,9 @@ def audit() -> dict:
                         "compositedHost":painted,
                         "ringBrand":neutral_color,"ringInverse":inverse_color,
                         "brandContrast":brand_ratio,"inverseContrast":inverse_ratio,
+                        "focus2Token":"--colorStrokeFocus2",
+                        "focus2Ring":focus2,
+                        "focus2Contrast":round(contrast(focus2, painted),3),
                         "bothBelow3":brand_ratio<3 and inverse_ratio<3,
                         "eitherAtLeast3":max(brand_ratio,inverse_ratio)>=3,
                     })
@@ -84,8 +94,15 @@ def audit() -> dict:
         errors.append("Research assumption changed: expected ten currently unsafe Light alpha-over-brand cases; source/design review required")
     if default_light and not default_light["bothBelow3"]:
         errors.append("The known default/light alpha-over-brand dual-failure is gone; review source redesign")
+    focus2_failures = [c for c in cases if c["focus2Contrast"] < 3]
+    if focus2_failures:
+        errors.append(f"Explicit alpha-only Focus2 candidate no longer meets 3:1 on {len(focus2_failures)} audited hosts")
     return {
         "passedResearchContract":not errors, "cases":cases, "entries":len(cases),
+        "focus2MinimumContrast":min((c["focus2Contrast"] for c in cases),default=0),
+        "focus2Below3":len(focus2_failures),
+        "focus2Source":{"light":"#000000","dark":"#FFFFFF"},
+        "focus2Decision":"DRAFT ALPHA-HOST-ONLY research, never global focus default or approved public CSS",
         "dualFailureCount":count_unsafe,
         "dualFailureByMode":{mode:sum(c["bothBelow3"] for c in cases if c["mode"]==mode)
                              for mode in ("light", "dark")},

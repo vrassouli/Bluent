@@ -77,3 +77,21 @@ Button ring on approved opaque hosts and underline-only
 TextField focus; refer to FOCUS-ALPHA-HOST-AUDIT.md
 before designing nonopaque hosts for #428. Stable
 Dev/NuGet untouched.
+
+## Focus2 alpha-host alternative — bounded research
+
+Existing Fluent Focus2 token black Light/white Dark,
+source-backed >=8.511:1 on 80/80 real alpha composites,
+vs 10/80 dual failure for brand and white. 12
+test_v3_focus_alpha_hosts.py tests reject source
+palette drift even if all 20 themes are present.
+Isolated Chrome/Edge each 80/80 real computed CSS
+checks of both alpha/opaque backgrounds AND 2px
+Focus2 outlineColor/outlineOffset, browser cleanup
+remaining=0. Native Figma editable research DRAFT:
+https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=38-2 .
+No production Bluent Button proof, OS AT, pixel
+contrast or user/Penpot signoff. Restricted to a
+possible future explicit alpha-only host, NOT normal
+opaque brand focus, public CSS, or TextField outline.
+#418 In progress, #428 Backlog; stable Dev/NuGet frozen.

@@ -45,15 +45,20 @@ try{
  for(const [name,cases] of groups){
   const [brand,mode]=name.split("/");
   const css=readFileSync(join(root,"src/Bluent.UI/Styles/Themes/theme-"+brand+"-"+mode+".css"),"utf8");
-  const items=cases.map((c,i)=>'<section style="background:var('+c.underlayToken+')"><div class="alpha" style="background:var('+c.overlayToken+')">Focus fixture '+i+'</div></section>').join("");
+  // This is an isolated TOKENS + computed CSS research fixture. The native
+  // button here is NOT presented as a production Bluent Button component.
+  const items=cases.map((c,i)=>'<section style="background:var('+c.underlayToken+')"><div class="alpha" style="background:var('+c.overlayToken+')"><button class="focus2-candidate" style="outline:2px solid var(--colorStrokeFocus2);outline-offset:2px">Alpha research '+i+'</button></div></section>').join("");
   const path=join(work,"sample-"+brand+"-"+mode+".html");
-  const script='document.getElementById("alpha-data").textContent=JSON.stringify([...document.querySelectorAll(".alpha")].map(e=>({overlay:getComputedStyle(e).backgroundColor,underlay:getComputedStyle(e.parentElement).backgroundColor})))';
+  const script='document.getElementById("alpha-data").textContent=JSON.stringify([...document.querySelectorAll(".alpha")].map(e=>({overlay:getComputedStyle(e).backgroundColor,underlay:getComputedStyle(e.parentElement).backgroundColor,outlineColor:getComputedStyle(e.querySelector(".focus2-candidate")).outlineColor,outlineWidth:getComputedStyle(e.querySelector(".focus2-candidate")).outlineWidth,outlineOffset:getComputedStyle(e.querySelector(".focus2-candidate")).outlineOffset})))';
   writeFileSync(path,'<!doctype html><html><head><meta charset="utf-8"><style>'+css+'</style></head><body data-bui-theme="'+mode+'">'+items+'<output id="alpha-data">pending</output><script>'+script+'</script></body></html>');
   const link=pathToFileURL(path).href;await send("Page.navigate",{url:link});
   const seen=await until(()=>js("(()=>location.href==="+JSON.stringify(link)+"&&document.querySelector('#alpha-data')?.textContent!=='pending'?JSON.parse(document.querySelector('#alpha-data').textContent):null)()"),name,18000);
   if(seen.length!==4)throw Error("Expected four real computed records for "+name);
   for(let i=0;i<seen.length;i++){
-   if(seen[i].overlay!==cases[i].overlayRgba||seen[i].underlay!==rgb(cases[i].underlayColor))
+   if(seen[i].overlay!==cases[i].overlayRgba||
+      seen[i].underlay!==rgb(cases[i].underlayColor)||
+      seen[i].outlineColor!==rgb(cases[i].focus2Ring)||
+      seen[i].outlineWidth!=="2px"||seen[i].outlineOffset!=="2px")
     errors.push({name,i,actual:seen[i],expected:cases[i]});
    count++;
   }
@@ -64,6 +69,9 @@ finally{
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:250})}catch(e){errors.push({profileDeletion:String(e)})}
 }
 const actualBrowser=browser.toLowerCase().includes("msedge")?"Edge":"Chrome";
-const result={browser:actualBrowser,passed:count===80&&errors.length===0&&cleanup.includes("remaining=0"),checked:count,expected:80,dualUnsafeLight:report.dualFailureByMode.light,cleanup,errors,scope:"Real Chrome computed CSS only, not raster pixels/native OS or WCAG certification"};
+const result={browser:actualBrowser,focus2ComputedCssSamples:count,
+ focus2SourceMinContrast:report.focus2MinimumContrast,
+ focus2SourceBelow3:report.focus2Below3,
+ passed:count===80&&errors.length===0&&cleanup.includes("remaining=0"),checked:count,expected:80,dualUnsafeLight:report.dualFailureByMode.light,cleanup,errors,scope:"Real Chrome computed CSS only, not raster pixels/native OS or WCAG certification"};
 console.log("ALPHA_CHROMIUM_CDP "+JSON.stringify(result));
 if(!result.passed)process.exitCode=1;

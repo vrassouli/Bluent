@@ -88,3 +88,52 @@ Keep #418 In progress and PR #500 Draft targeting bluent-v3;
 future #428 Button rewrite remains Backlog. Stable Dev,
 v2 styling, NuGet releases and public Button/TextField
 semantics remain unchanged.
+
+## 2026-10-17 — bounded alpha-host-only Focus2 alternative (research)
+
+The EXISTING Fluent CSS source token colorStrokeFocus2 resolves to
+black in Light and white in Dark for all ten emitted brands. Across the
+same 80 analytic sRGB-composited alpha-host scenarios, this candidate
+has a MINIMUM source contrast of **8.511:1** and **0/80** samples
+below 3:1. Existing approved branded/inverse treatments still have
+10/80 dual failures; those results are NOT silently revised or accepted.
+
+Default Light visible composite #89B3DA: approved opaque-neutral brand
+ring 2.627:1, inverse white 2.205:1, existing Focus2 black 9.524:1.
+The source Focus2 Dark ring is white.
+
+**Design scope remains UNAPPROVED.** This option is considered only
+for a future EXPLICIT transparent/alpha host role. The user's selected
+brand-colored Button Focus ring for neutral OPAQUE hosts is unchanged;
+TextField keeps its animated bottom underline, never a rectangular
+Focus ring. No new public CSS token/attribute, automatic host inference,
+production Button rewrite or stable Dev/NuGet change is delivered.
+
+Editable Figma candidate matrix with ten real Light brand comparisons:
+https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=38-2
+(working-file page 14:2, board 38:2, DRAFT research). Ten native
+editable Brand vs Focus2 ring samples use 2px vector strokes
+with 2px offsets and the actual emitted/composited source colors.
+All ten numeric ratio captions were compared to and corrected against
+the source audit, and the board was exported as PNG and visually checked.
+This is NOT user-approved authoritative Penpot design parity.
+
+Real installed Chrome and Edge browsers each PASS **80/80** independent
+CDP observations for actual emitted background RGBA, actual underlying
+opaque CSS color, and resolved colorStrokeFocus2 OUTLINE COLOR with
+2px width + 2px offset on a NATIVE HTML research element. Cleanup
+reports owned browser processes remaining=0. A CSS/native fixture is
+not equivalent to an actual mounted Bluent Button and does not establish
+pixel raster contrast, forced-colors OS behavior or screen-reader support.
+
+Three new fail-closed unit controls bring alpha-host tests to **12/12**:
+exact all-brand/mode source Focus2, correct default Light contrast,
+and palette-specific source mutation rejection without removing
+actual emitted theme files. The established v3 Token Contract and
+native Browser Lab triggers include these touched source/test paths;
+exact-head CI must independently pass.
+
+The focus candidate still needs named native Windows AT, real rendered
+Button/pixel and RTL acceptance, alpha/gradient/nested host coverage and
+user signoff in authoritative Penpot before any production API decision.
+#418 remains In progress / PR #500 Draft / #428 Backlog.

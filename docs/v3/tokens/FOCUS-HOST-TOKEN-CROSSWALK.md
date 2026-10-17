@@ -154,3 +154,15 @@ Edge computed CSS matched 80/80 cases each. No new
 automatic public host role or workaround is approved
 without native design/AT review. Do not translate this
 diagnostic success into accessibility certification.
+
+### 2026-10-17: Focus2 limited alpha-host research candidate
+
+Existing Fluent Focus2 black Light/white Dark clears >=8.511:1
+on the 80 real-source alpha host composites (0/80 below 3:1);
+approved opaque host Brand and white alternatives fail together
+on 10/80. Both actual Chrome and Edge resolved all 80
+source alpha/underlay and candidate 2px outline CSS samples.
+Native editable Figma design DRAFT board:
+https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=38-2 .
+See FOCUS-ALPHA-HOST-AUDIT.md; this is NOT a global
+Focus2 switch or an approved public alpha host CSS API.
