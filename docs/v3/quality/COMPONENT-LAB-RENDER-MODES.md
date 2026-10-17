@@ -419,3 +419,28 @@ DRAFT, not edited here. #421 remains In progress
 and PR #551 Draft targeting bluent-v3;
 #428 still Backlog. Stable Dev/NuGet untouched.
 New-head full GitHub browser CI pending.
+
+## 2026-10-17 — independent CI Chrome/WASM cold-start hardening
+
+First exact-head push/PR produced EIGHT browser jobs in TWO
+parallel GitHub Actions runs. Independent Chrome/WASM and Edge/WASM
+in the first run each passed 65/65. One Chrome/WASM in the
+second run failed **before any Blazor page/QA assertion**:
+Chrome/Windows cold startup did not produce the genuine
+DevToolsActivePort file within the former **20-second**
+deadline; the probe correctly returned nonzero and
+cleaned its scoped browsers. This is a real CI startup
+time-budget failure, not an application test or a
+reason to misreport the failed run as green.
+
+Increase **ONLY** the Chrome/Edge real DevTools port
+startup wait from 20 seconds to 60 seconds to allow
+cold/slower GitHub hosted Windows infrastructure.
+The production user interaction, DOM checks, explicit
+missing-page failure, 65 real assertions, strict
+DevTools-port existence, and scoped cleanup all
+remain unchanged. Static source contract enforces
+both the 60-second budget and still-required real
+CDP target. A new exact-head independent CI run
+must confirm; no skipped tests, ignored exceptions,
+stable Dev merge or NuGet publish.

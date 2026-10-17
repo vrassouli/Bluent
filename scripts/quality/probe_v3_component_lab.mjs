@@ -35,7 +35,10 @@ try {
  '--disable-extensions','--remote-debugging-port=0','--remote-allow-origins=*',
  '--user-data-dir='+profile,'about:blank'],{stdio:'ignore',windowsHide:true});
  console.log('QA: waiting CDP port');
- const port=await poll(async()=>{const p=await readFile(join(profile,'DevToolsActivePort'),'utf8');return p.trim().split(/\r?\n/)[0]},20000);
+ // Cold/shared Windows runners may need >20s to create DevToolsActivePort.
+ // Keep the actual port/file connection mandatory; never treat a timeout
+ // as a successful browser run or bypass independent CDP interaction checks.
+ const port=await poll(async()=>{const p=await readFile(join(profile,'DevToolsActivePort'),'utf8');return p.trim().split(/\r?\n/)[0]},60000);
  console.log('QA: CDP port '+port);
  const tabs=await(await fetch('http://127.0.0.1:'+port+'/json/list')).json();
  const tab=tabs.find(x=>x.type==='page'&&x.webSocketDebuggerUrl);

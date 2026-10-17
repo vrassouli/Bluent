@@ -143,6 +143,11 @@ def check() -> int:
                   "real Share summary menu click invokes exactly a second callback",
                   "copyable Razor includes badge/menu source and backing event handlers"):
         assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
+    # Actual Chrome/Edge launch must fail closed. Cold Windows CI may need
+    # >20s to start the CDP debug server when 8 parallel jobs compete.
+    browser_probe=(ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
+    assert "'DevToolsActivePort'" in browser_probe and "},60000);" in browser_probe
+    assert "if(!tab)throw Error('Missing temporary Chrome page')" in browser_probe
     # Real existing Button API final four parameter-name specimens.
     for label in ("TextClass", "Icon", "Rotated", "Orientation"):
         assert label in data["families"][0]["propertiesDemonstrated"], label
