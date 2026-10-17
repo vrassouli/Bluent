@@ -239,3 +239,63 @@ This restores test-host parity and is NOT a claim that
 v3 Button design, menu semantics, focus management, RTL
 contrast and named assistive-technology testing have
 been fully accepted.
+
+## 2026-10-17 Icon and Label public-API live explorers
+
+Design provenance: existing editable Bluent v3 Design System
+Penpot file b64f6665-c9ab-80b5-8008-c4ac99d9d000,
+page42 e775e67c-d9da-804b-8008-cc7c2dd7ecf7,
+board e775e67c-d9da-804b-8008-cc7c2dec1d15 is a
+representative Component Lab DRAFT. This update reuses
+the existing component pilot layout to expose actual
+current public API; no new design node/edit was made
+because Penpot session remained disconnected.
+This is not #429 Icon or #430 Label component redesign.
+
+Current Icon.cs has two public Parameter properties,
+Value (IconDefinition) and Variant (Regular/Filled).
+The Lab now uses real controls for Settings/Search
+and Regular/Filled; actual Blazor rerender changes the
+rendered native Icon source and copyable Razor. The
+first browser test was RED because it erroneously
+assumed all Fluent icons have nonempty innerHTML SVG:
+the actual tested icons are CSS-class-backed HTML i
+elements. Changed only the TEST premise to compare
+outerHTML and source classes, then retested green.
+All two declared parameters are sampled, not every
+icon source kind, state, accessibility label, custom
+source, visual Fluent parity or RTL/AT combination.
+
+Current Label has six public Parameter properties:
+Text, ForExpression, RequiredSymbol, Size, Required,
+Info. Lab now demonstrates all six in representative
+examples. An actual annotated model property LabEmail
+is associated to the native email input using a Label
+ForExpression, and real CDP pointer clicking the
+Label focuses that exact input. Real native DOM shows
+Auto required symbol from DataAnnotations attribute,
+hides it in NotRequired mode, restores in Required,
+honors a custom ! symbol and Size Large CSS rebind.
+The additional Info render fragment has a real nested
+Popover and Button trigger: real CDP keyboard Enter
+opens the expected content; copyable Razor contains
+the annotated model and Info content.
+
+The Lab-only illustrative native input uses brand
+bottom-border focus WITHOUT an undesirable full
+rectangular focus ring; no product TextField, Label
+or Icon styling was modified. The prior source-only
+Label and Icon fixtures are preserved for regression.
+Do NOT claim these pilots prove native screen-reader
+AT, Windows Contrast Themes, visual design parity,
+all field/input states or final v3 component DoD.
+
+Final local Dev01 source-owned browser proof:
+Edge/WebAssembly 53/53 PASS; Chrome/production-published
+InteractiveServer 53/53 PASS; zero uncaught JS errors,
+zero owned browser processes left in each mode.
+The exact SHA four-mode CI remains independent.
+Four representative Lab families/66 source candidate
+components, zero accepted v3 components. #421 still
+In progress, PR #551 Draft, stable Dev and NuGet
+unchanged.

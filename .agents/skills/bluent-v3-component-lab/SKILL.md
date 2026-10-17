@@ -104,3 +104,36 @@ guards this. Do not add duplicate global containers to the
 normal WASM MainLayout or treat a missing SSR test container
 as a core Button API defect. Local Chrome/Server + Edge/WASM
 both 40/40, independent exact-head CI still needed.
+
+## Current Icon/Label API explorers (#421, 2026-10-17)
+
+Current Icon.cs has exactly Value and Variant public
+parameters. Live Settings/Search and Regular/Filled
+selectors modify an actual Bluent Icon and synchronized
+Razor source. Do NOT assume its DOM contains inline SVG:
+real Fluent icons in this run use CSS-class-backed i
+elements with empty innerHTML. First browser test RED
+with this incorrect assumption; inspect actual
+outerHTML/source class instead. The corrected 53-check
+Edge/WASM and Chrome/published Server suites passed.
+
+Current Label has six public parameters; all six now
+have representative specimens in Component Lab:
+Text, ForExpression, RequiredSymbol, Size, Required,
+Info. The annotated LabEmail property is actually
+associated with input id LabEmail. CDP hit-tested
+pointer activation must focus the input; Auto
+detects Required annotation, NotRequired hides
+symbol, Required restores custom ! symbol. Info
+fragment opens a real Popover with CDP Enter; the
+same interactive server boundary MUST contain
+Containers/PopoverContainer. Copyable Razor must
+reflect the selected variants, annotated backing
+model and Info content. Demo-only native input
+uses underline focus, never whole focus ring.
+
+Neither #429 nor #430 leaves Backlog just because
+the current public API demo is more complete.
+Human Penpot/Figma visual parity and native OS/AT
+remains pending; original page42 design stays DRAFT.
+No public source API, stable Dev or NuGet change.

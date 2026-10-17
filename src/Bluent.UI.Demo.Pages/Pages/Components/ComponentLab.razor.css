@@ -56,4 +56,16 @@
 .lab-advanced-group { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.55rem; padding:.8rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
 .lab-advanced-label { font-size:.79rem; font-weight:600; color:var(--colorNeutralForeground3,#56667a); }
 .lab-menu-status { font-size:.82rem; margin:0; }
-@media(max-width:600px) { .lab-advanced-actions { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:600px) { .lab-advanced-actions { grid-template-columns:minmax(0,1fr); } }/* #421 existing Icon and Label parameter explorer, no production component restyling. */
+.lab-api-demo { display:grid; gap:.75rem; margin-top:1rem; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; min-width:0; }
+.lab-api-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+.lab-api-controls label { display:block; font-size:.83rem; font-weight:600; margin-bottom:.3rem; }
+.lab-api-controls select { box-sizing:border-box; width:100%; min-width:0; padding:.5rem .65rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+.lab-api-controls select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
+.lab-form-example input:focus { outline:0; border-bottom:2px solid var(--colorBrandStroke1,#176aa3); }
+.lab-icon-selected { display:flex; align-items:center; gap:.85rem; }
+.lab-icon-selection { font-size:.82rem; color:var(--colorNeutralForeground3,#56667a); }
+.lab-form-example { display:grid; gap:.4rem; max-width:25rem; }
+.lab-form-example input { min-width:0; box-sizing:border-box; width:100%; padding:.6rem .7rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+@media(max-width:440px) { .lab-api-controls { grid-template-columns:minmax(0,1fr); } }
+.lab-form-help { display:flex; align-items:center; }

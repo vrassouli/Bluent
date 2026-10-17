@@ -151,6 +151,21 @@ try {
  await js("document.querySelector('button.lab-family')?.click()");
  const switched=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.includes('Icon') && document.querySelectorAll('.lab-canvas .bui-icon').length>=3"));
  check('catalog selection renders real Bluent Icon specimens',switched);
+ // The real Icon class switches actual public Value and Variant enums,
+ // not a static screenshot or merely changed combobox selection.
+ const iconBase=await js("(()=>{const el=document.querySelector('.lab-selected-icon');return {exists:!!el,html:el?.outerHTML,legend:document.querySelector('.lab-icon-selection')?.textContent?.trim(),variant:document.getElementById('lab-icon-variant')?.value}})()");
+ check('native Icon Regular default renders a real library source element',
+   iconBase.exists&&iconBase.legend==='Selected: Settings / Regular'&&iconBase.variant==='Regular'&&iconBase.html?.includes('bui-icon'),iconBase);
+ await js("(()=>{const x=document.getElementById('lab-icon-value');x.value='Search';x.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ const searchIcon=await poll(()=>js("(()=>{const el=document.querySelector('.lab-selected-icon');const text=document.querySelector('.lab-icon-selection')?.textContent?.trim();return text==='Selected: Search / Regular'&&!!el?.outerHTML&&el.outerHTML!=="+JSON.stringify(iconBase.html)+"})()"),12000);
+ check('public Icon Value dynamically swaps actual CSS or SVG source',searchIcon);
+ const regularSearch=await js("document.querySelector('.lab-selected-icon')?.outerHTML");
+ await js("(()=>{const x=document.getElementById('lab-icon-variant');x.value='Filled';x.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ const filledIcon=await poll(()=>js("(()=>{const el=document.querySelector('.lab-selected-icon');const text=document.querySelector('.lab-icon-selection')?.textContent?.trim();return text==='Selected: Search / Filled'&&!!el?.outerHTML&&el.outerHTML!=="+JSON.stringify(regularSearch)+"})()"),12000);
+ check('public Icon Variant Filled changes actual source class or vector path',filledIcon);
+ const iconSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('Icon copyable Razor tracks current source-owned Value and Variant',
+   iconSource?.includes('FluentIcons.Search')&&iconSource?.includes('IconVariant.Filled'),iconSource);
  // Exercise BOTH source-only pilot families before granting runtime evidence.
  for(const family of ['Label','Link']){
   await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,"+JSON.stringify(family)+");x.dispatchEvent(new Event('input',{bubbles:true}));})()");
@@ -164,6 +179,40 @@ try {
     ? markup.tag==='label'&&markup.text==='Customer name'
     : markup.tag==='a'&&markup.text==='Read documentation'&&markup.href==='getting-started',
    markup);
+  if(family==='Label'){
+   const labelBase=await js("(()=>{const x=document.querySelector('.lab-form-example label'),input=document.getElementById('LabEmail');return {tag:x?.tagName,forId:x?.getAttribute('for'),text:x?.textContent?.trim(),required:x?.querySelector('.required')?.textContent?.trim(),input:input?.tagName,mode:document.getElementById('lab-label-required')?.value}})()");
+   check('Label ForExpression binds native input and detects DataAnnotations Required',
+     labelBase.tag==='LABEL'&&labelBase.forId==='LabEmail'&&labelBase.text==='Contact email!'&&labelBase.required==='!'&&labelBase.input==='INPUT'&&labelBase.mode==='Auto',labelBase);
+   const labelHit=await js("(()=>{const e=document.querySelector('.lab-form-example label');e.scrollIntoView({block:'center',behavior:'instant'});const b=e.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('label')===e}})()");
+   check('native Label hit-test reaches the actual associated label',labelHit.hit,labelHit);
+   if(!labelHit.hit)throw Error('Label pointer target not visible');
+   await send('Input.dispatchMouseEvent',{type:'mousePressed',x:labelHit.x,y:labelHit.y,button:'left',clickCount:1});
+   await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:labelHit.x,y:labelHit.y,button:'left',clickCount:1});
+   const focused=await poll(()=>js("document.activeElement===document.getElementById('LabEmail')"),9000);
+   check('native pointer activation of Label focuses its exact form input',focused);
+   await js("(()=>{const a=document.getElementById('lab-label-size'),b=document.getElementById('lab-label-required');a.value='Large';a.dispatchEvent(new Event('change',{bubbles:true}));b.value='NotRequired';b.dispatchEvent(new Event('change',{bubbles:true}))})()");
+   const optional=await poll(()=>js("(()=>{const l=document.querySelector('.lab-form-example label');return l?.classList.contains('large')&&!l.querySelector('.required')&&document.getElementById('lab-label-required')?.value==='NotRequired'})()"),12000);
+   check('Label public Size and NotRequired update actual CSS + no symbol',optional);
+   await js("(()=>{const x=document.getElementById('lab-label-required');x.value='Required';x.dispatchEvent(new Event('change',{bubbles:true}))})()");
+   const required=await poll(()=>js("document.querySelector('.lab-form-example label')?.querySelector('.required')?.textContent?.trim()==='!'"),12000);
+   check('explicit Label Required restores configured symbol',required);
+   const labelSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+   check('Label copyable Razor includes actual ForExpression Size Required and model annotation',
+     labelSource?.includes('ForExpression="() => LabEmail"')&&labelSource?.includes('LabelSize.Large')&&
+     labelSource?.includes('LabelRequiredState.Required')&&labelSource?.includes('System.ComponentModel.DataAnnotations.Required'),labelSource);
+   const helpTrigger=await js("(()=>{const b=document.querySelector('.lab-form-help .bui-label button.bui-button');b?.focus();return {nativeButton:b?.tagName==='BUTTON',focused:document.activeElement===b}})()");
+   check('Label public Info renders a focusable native Popover trigger',
+     helpTrigger.nativeButton&&helpTrigger.focused,helpTrigger);
+   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+   await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+   const infoOpened=await poll(()=>js("!![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(e=>e.textContent?.includes('Use a work email for contact.'))"),14000);
+   check('native keyboard Enter opens actual Label Info Popover content',infoOpened);
+   const helpSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+   check('Label copyable Razor includes nested Info content',
+     helpSource?.includes('<Info>Use a work email for contact.</Info>'),helpSource);
+   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
+   await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
+  }
  }
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===4"));

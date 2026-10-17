@@ -23,6 +23,12 @@ def check() -> int:
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
     assert len(data["families"]) == 4
+    assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
+    assert data["families"][2]["propertiesDemonstrated"] == [
+        "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
+    ]
+    assert all(f["classification"]=="representative_only" for f in data["families"])
+
     assert len({entry["id"] for entry in data["families"]}) == 4
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
@@ -33,6 +39,19 @@ def check() -> int:
         assert feature in source, f"pilot control missing: {feature}"
     assert 'global theme' in source, "canvas preview MUST not impersonate real app theme"
     assert "max-width:320px" in css and "prefers-reduced-motion:reduce" in css
+    for token in ('id="lab-icon-value"', 'id="lab-icon-variant"',
+                  'Enum.GetValues<IconVariant>()', 'Variant="@_iconVariant"',
+                  'Class="lab-selected-icon"', 'SelectedIconRazor',
+                  'id="lab-label-size"', 'id="lab-label-required"',
+                  'Enum.GetValues<LabelSize>()', 'Enum.GetValues<LabelRequiredState>()',
+                  'ForExpression="() => LabEmail"', 'Size="@_labelSize"',
+                  'Required="@_labelRequired"', 'RequiredSymbol="!"',
+                  'id="LabEmail"', '[Required] public string LabEmail',
+                  '<Info>', 'Use a work email for contact.', 'SelectedLabelRazor'):
+        assert token in source, "missing source-backed Icon/Label pilot: "+token
+    assert ".lab-api-controls" in css and ".lab-form-example input:focus" in css
+    assert ".lab-form-example input:focus-visible { outline:" not in css, "native illustrative input must use underline focus, not unwanted full ring"
+
     for entry in data["families"]:
         assert entry["classification"] == "representative_only"
         modes=entry["renderModesVerified"]
@@ -152,6 +171,21 @@ def check() -> int:
                      "real Enter key activates native Bluent Button exactly once",
                      "disabled Bluent Button cannot receive native focus"):
         assert behavior in probe, f"missing real-browser interaction gate: {behavior}"
+    for required_gate in (
+        "native Icon Regular default renders a real library source element",
+        "public Icon Value dynamically swaps actual CSS or SVG source",
+        "public Icon Variant Filled changes actual source class or vector path",
+        "Icon copyable Razor tracks current source-owned Value and Variant",
+        "Label ForExpression binds native input and detects DataAnnotations Required",
+        "native pointer activation of Label focuses its exact form input",
+        "Label public Size and NotRequired update actual CSS + no symbol",
+        "explicit Label Required restores configured symbol",
+        "Label copyable Razor includes actual ForExpression Size Required and model annotation",
+        "Label public Info renders a focusable native Popover trigger",
+        "native keyboard Enter opens actual Label Info Popover content",
+        "Label copyable Razor includes nested Info content",
+    ):
+        assert required_gate in probe, "missing real browser Icon/Label contract: "+required_gate
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 4 browser pilots, ZERO complete components")
     print("Component Lab PILOT contract PASS: 4/4 source-linked families; NOT exhaustive acceptance")
