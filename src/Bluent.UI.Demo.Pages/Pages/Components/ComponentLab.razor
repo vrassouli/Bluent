@@ -427,6 +427,38 @@
                 </div>
                 <p class="lab-controls-note">Existing NumericField only. Full parsing, boundary errors, culture and v3 input accessibility still belong to #433.</p>
             }
+            else if (_selected == "radio")
+            {
+                <div class="lab-radio-grid" aria-label="Existing public RadioGroup choice orientation and disabled states">
+                    <div class="lab-radio-card">
+                        <h3>Single choice</h3>
+                        <RadioGroup @bind-Value="_labRadioChoice" Label="Time preference">
+                            <Radio Id="lab-radio-am" Value="@("Morning")" Label="Morning" />
+                            <Radio Id="lab-radio-pm" Value="@("Afternoon")" Label="Afternoon" />
+                        </RadioGroup>
+                        <p class="lab-radio-status" role="status" lang="en" dir="ltr">Choice: @_labRadioChoice</p>
+                    </div>
+                    <div class="lab-radio-card">
+                        <h3>Vertical, label before</h3>
+                        <RadioGroup @bind-Value="_labRadioOrientation"
+                                    Label="Priority" Orientation="Orientation.Vertical"
+                                    ItemsLabelPosition="LabelPosition.Before">
+                            <Radio Id="lab-radio-high" Value="@("High")" Label="High" />
+                            <Radio Id="lab-radio-low" Value="@("Low")" Label="Low" />
+                        </RadioGroup>
+                        <p class="lab-radio-vertical-status" role="status" lang="en" dir="ltr">Priority: @_labRadioOrientation</p>
+                    </div>
+                    <div class="lab-radio-card">
+                        <h3>Unavailable option</h3>
+                        <RadioGroup @bind-Value="_labRadioRestricted" Label="Availability">
+                            <Radio Id="lab-radio-disabled" Value="@("Closed")" Label="Closed" disabled />
+                            <Radio Id="lab-radio-open" Value="@("Open")" Label="Open" />
+                        </RadioGroup>
+                        <p class="lab-radio-restricted-status" role="status" lang="en" dir="ltr">Availability: @_labRadioRestricted</p>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing RadioGroup/Radio API. Native fieldset/radiogroup semantics and arrow-key interaction are pending #436 acceptance.</p>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -487,8 +519,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>9</strong> live pilot specimens ·
-               <strong>57</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>10</strong> live pilot specimens ·
+               <strong>56</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -552,6 +584,10 @@
             "Current NumericField data binding, format, min/max, focus/blur and native disabled state.",
             "<NumericField @bind-Value=\"_labInteger\" Min=\"1\" Max=\"99\" />",
             "Representative runnable scenario only"),
+        new("radio", "RadioGroup", "components/radios", "Single choice and orientation",
+            "Current RadioGroup and Radio input with Value binding, Orientation, ItemsLabelPosition, and disabled option.",
+            "<RadioGroup @bind-Value=\"_labRadioChoice\"><Radio Value=\"@(\\\"Morning\\\")\" Label=\"Morning\" /></RadioGroup>",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -600,6 +636,11 @@
     private Task NumericFocusedAsync() { _numericFocusCount++; return Task.CompletedTask; }
     private Task NumericBlurredAsync() { _numericBlurCount++; return Task.CompletedTask; }
     private string SelectedNumericRazor => "<NumericField id=\"lab-numeric-live\" @bind-Value=\"_labInteger\" BindValueEvent=\"oninput\" Min=\"1\" Max=\"99\" OnFocus=\"NumericFocusedAsync\" OnBlur=\"NumericBlurredAsync\" />\n<NumericField id=\"lab-numeric-decimal\" @bind-Value=\"_labDecimal\" Format=\"G29\" />\n<NumericField TValue=\"int\" id=\"lab-numeric-disabled\" Value=\"3\" disabled />\n@code { private int _labInteger = 5; private decimal _labDecimal = 12.5m; private Task NumericFocusedAsync() => Task.CompletedTask; private Task NumericBlurredAsync() => Task.CompletedTask; }";
+
+    private string _labRadioChoice = "";
+    private string _labRadioOrientation = "High";
+    private string _labRadioRestricted = "";
+    private string SelectedRadioRazor => "<RadioGroup @bind-Value=\"_labRadioChoice\" Label=\"Time preference\">\n    <Radio Id=\"lab-radio-am\" Value=\"@(\"Morning\")\" Label=\"Morning\" />\n    <Radio Id=\"lab-radio-pm\" Value=\"@(\"Afternoon\")\" Label=\"Afternoon\" />\n</RadioGroup>\n<RadioGroup @bind-Value=\"_labRadioOrientation\" Label=\"Priority\" Orientation=\"Orientation.Vertical\" ItemsLabelPosition=\"LabelPosition.Before\">\n    <Radio Id=\"lab-radio-high\" Value=\"@(\"High\")\" Label=\"High\" />\n    <Radio Id=\"lab-radio-low\" Value=\"@(\"Low\")\" Label=\"Low\" />\n</RadioGroup>\n<RadioGroup @bind-Value=\"_labRadioRestricted\" Label=\"Availability\">\n    <Radio Id=\"lab-radio-disabled\" Value=\"@(\"Closed\")\" Label=\"Closed\" disabled />\n    <Radio Id=\"lab-radio-open\" Value=\"@(\"Open\")\" Label=\"Open\" />\n</RadioGroup>\n@code { private string _labRadioChoice = \"\"; private string _labRadioOrientation = \"High\"; private string _labRadioRestricted = \"\"; }";
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -677,7 +718,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "numeric" ? SelectedNumericRazor
+    private string ActiveRazor => _selected == "radio" ? SelectedRadioRazor
+        : _selected == "numeric" ? SelectedNumericRazor
         : _selected == "switch" ? SelectedSwitchRazor
         : _selected == "checkbox" ? SelectedCheckboxRazor
         : _selected == "textfield" ? SelectedTextFieldRazor

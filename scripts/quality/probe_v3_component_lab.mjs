@@ -66,7 +66,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('nine pilot families and four functional controls rendered',initial.catalog.length===9&&initial.controls===4,initial);
+ check('ten pilot families and four functional controls rendered',initial.catalog.length===10&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -433,7 +433,7 @@ try {
  check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
    tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
  // visual, native AT or product implementation acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Checkbox');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -468,7 +468,7 @@ try {
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
  // but the future #435 semantic switch role and Windows AT are NOT
  // implemented or certified by the #421 source-owned demo.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -502,7 +502,7 @@ try {
  check('generated Switch Razor contains two bind Value models before-label and disabled',
   switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Ninth existing NumericField<T> API pilot from public source: real
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Ninth existing NumericField<T> API pilot from public source: real
  // native text entry and Blazor int binding, callbacks and a separate
  // decimal specimen. #433 stays Backlog; full validation/AT is not done.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'NumericField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -536,7 +536,57 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Existing Badge API: native source rendering, not a CSS mock.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Current public RadioGroup<string> and Radio<string> only;
+ // does not certify future #436 accessible radiogroup/arrow navigation.
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'RadioGroup');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RadioGroup')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const radioReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('RadioGroup')&&!!document.querySelector('#lab-radio-am')"),12000);
+ check('tenth RadioGroup and Radio render current native input family',radioReady);
+ const radioInitial=await js("(()=>{const am=document.getElementById('lab-radio-am'),pm=document.getElementById('lab-radio-pm'),hi=document.getElementById('lab-radio-high'),lo=document.getElementById('lab-radio-low'),d=document.getElementById('lab-radio-disabled'),group=hi?.closest('.bui-radio-group');return {native:[am,pm,hi,lo,d].every(x=>x?.type==='radio'),unselected:!am?.checked&&!pm?.checked,high:hi?.checked,low:!lo?.checked,vertical:group?.classList.contains('vertical'),before:hi?.closest('.bui-radio-box')?.classList.contains('label-before'),disabled:d?.disabled,cards:document.querySelector('.lab-radio-grid')?.children.length}})()");
+ check('RadioGroup current initial selected vertical label-before and disabled states render',
+  radioInitial.native&&radioInitial.unselected&&radioInitial.high&&radioInitial.low&&radioInitial.vertical&&radioInitial.before&&radioInitial.disabled&&radioInitial.cards===3,radioInitial);
+ await js("document.getElementById('lab-radio-am')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ const radioAm=await poll(()=>js("document.querySelector('.lab-radio-status')?.textContent.trim()==='Choice: Morning'&&document.getElementById('lab-radio-am')?.checked&&!document.getElementById('lab-radio-pm')?.checked"),12000);
+ check('native Space selects Morning radio and changes RadioGroup Blazor string binding',radioAm);
+ const radioPmHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-pm]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el?.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
+ check('Afternoon real radio indicator has hit-tested native pointer geometry',radioPmHit.hit,radioPmHit);
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioPmHit.x,y:radioPmHit.y,button:'left',clickCount:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioPmHit.x,y:radioPmHit.y,button:'left',clickCount:1});
+ const radioPm=await poll(()=>js("document.querySelector('.lab-radio-status')?.textContent.trim()==='Choice: Afternoon'&&document.getElementById('lab-radio-pm')?.checked&&!document.getElementById('lab-radio-am')?.checked"),12000);
+ check('native indicator pointer selects Afternoon and unchecks Morning in current RadioGroup',radioPm);
+ const radioLowHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-low]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
+ check('vertical RTL-ready radio indicator is a real pointer target',radioLowHit.hit,radioLowHit);
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioLowHit.x,y:radioLowHit.y,button:'left',clickCount:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioLowHit.x,y:radioLowHit.y,button:'left',clickCount:1});
+ const radioLow=await poll(()=>js("document.querySelector('.lab-radio-vertical-status')?.textContent.trim()==='Priority: Low'&&document.getElementById('lab-radio-low')?.checked&&!document.getElementById('lab-radio-high')?.checked"),12000);
+ check('vertical LabelPosition Before radio changes typed group Value with native pointer',radioLow);
+ const radioDisabled=await js("(()=>{const e=document.getElementById('lab-radio-disabled');e?.focus();return {disabled:e?.disabled,focused:document.activeElement===e,checked:e?.checked,model:document.querySelector('.lab-radio-restricted-status')?.textContent.trim()}})()");
+ check('disabled real radio refuses native focus and leaves bound group unselected',
+   radioDisabled.disabled&&!radioDisabled.focused&&!radioDisabled.checked&&radioDisabled.model==='Availability:',radioDisabled);
+ const radioDisabledHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-disabled]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
+ check('disabled radio indicator pointer hit-test still targets the real option',radioDisabledHit.hit,radioDisabledHit);
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioDisabledHit.x,y:radioDisabledHit.y,button:'left',clickCount:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioDisabledHit.x,y:radioDisabledHit.y,button:'left',clickCount:1});
+ await wait(260);
+ const radioStillOff=await js("(()=>({checked:document.getElementById('lab-radio-disabled')?.checked,status:document.querySelector('.lab-radio-restricted-status')?.textContent.trim()}))()");
+ check('native click on disabled radio indicator never updates Blazor group',!radioStillOff.checked&&radioStillOff.status==='Availability:',radioStillOff);
+ const radioSnippet=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable RadioGroup source has bind Value Orientation LabelPosition and disabled',
+  radioSnippet?.includes('@bind-Value="_labRadioChoice"')&&radioSnippet?.includes('Orientation="Orientation.Vertical"')&&radioSnippet?.includes('ItemsLabelPosition="LabelPosition.Before"')&&radioSnippet?.includes('disabled />'),radioSnippet);
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ const radioNarrow=await js("(()=>{const g=document.querySelector('.lab-radio-grid'),r=[...g.children].map(x=>x.getBoundingClientRect()),b=g.getBoundingClientRect(),s=getComputedStyle(g);return {columns:s.gridTemplateColumns,gap:parseFloat(s.rowGap),within:r.every(x=>x.left>=b.left-1&&x.right<=b.right+1),vertical:r.slice(1).map((x,i)=>x.top-r[i].bottom),canvas:document.querySelector('.lab-canvas').getBoundingClientRect().width}})()");
+ const radioEnglish=await js("(()=>{const g=document.querySelector('.lab-radio-grid'),nodes=[...g.querySelectorAll('p[role=status]')],outer=g.getBoundingClientRect();return nodes.map(x=>{const r=x.getBoundingClientRect(),s=getComputedStyle(x);return {dir:x.dir,lang:x.lang,styleDirection:s.direction,align:s.textAlign,margin:s.marginTop,inside:r.left>=outer.left-1&&r.right<=outer.right+1,text:x.textContent.trim()}})})()");
+ check('RTL Radio English statuses keep LTR punctuation and align right within spaced cards',
+  radioEnglish.length===3&&radioEnglish.every(x=>x.dir==='ltr'&&x.lang==='en'&&x.styleDirection==='ltr'&&['right','end'].includes(x.align)&&x.margin==='0px'&&x.inside),radioEnglish); check('RTL 320px RadioGroup cards have one column and at least 8px real separation',
+  radioNarrow.columns.trim().split(/\s+/).length===1&&radioNarrow.gap>=8&&radioNarrow.vertical.every(x=>x>=8)&&radioNarrow.within&&radioNarrow.canvas<=320,radioNarrow);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Existing Badge API: native source rendering, not a CSS mock.
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Badge');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Badge')"));
  await js("document.querySelector('button.lab-family')?.click()");
@@ -559,7 +609,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -595,8 +645,8 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows include nine incomplete real lab pilots',
-  allQueue.count===66&&allQueue.pilots===9&&allQueue.queued===57&&
+ check('canonical 66 candidate rows include ten incomplete real lab pilots',
+  allQueue.count===66&&allQueue.pilots===10&&allQueue.queued===56&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
@@ -619,7 +669,12 @@ try {
  check('source queue #433 points to incomplete NumericField issue and its live demo',numericQueue);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const numericLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('NumericField')&&!!document.querySelector('#lab-numeric-live')"),12000);
- check('source queue launches ninth real NumericField pilot without completing #433',numericLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ check('source queue launches ninth real NumericField pilot without completing #433',numericLaunch); await js("(()=>{const el=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'436');el.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ const radioQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return rows.length===1&&rows[0].textContent.includes('RadioGroup')&&rows[0].textContent.includes('Live pilot')&&rows[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/436')&&!!rows[0].querySelector('button')})()"),12000);
+ check('queue #436 correctly retains incomplete RadioGroup and runnable pilot link',radioQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const radioLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('RadioGroup')&&!!document.querySelector('#lab-radio-am')"),12000);
+ check('queue launches tenth real RadioGroup pilot without completing product issue',radioLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas .lab-click-status')?.textContent.includes('1')"),12000);

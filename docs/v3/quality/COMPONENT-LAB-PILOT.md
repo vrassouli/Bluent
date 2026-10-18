@@ -652,3 +652,61 @@ Penpot design mockup or an accepted Windows OS AT test.
 #421 remains In progress / Draft; #433 Backlog.
 Nothing merged to protected bluent-v3 or stable Dev and
 no NuGet release.
+## 2026-10-18 — tenth live family: existing RadioGroup and Radio
+
+TENTH source-backed representative-only #421 Component Lab pilot
+is the current public RadioGroup<TValue> and Radio<TValue> API.
+#436 (future Fluent2 radio redesign) remains Backlog and no
+production library code/CSS was modified by this Lab work.
+
+Three real source component cards are padded, spaced and adapt to
+one true column in RTL narrow 320px canvas:
+1. RadioGroup bound to a string, initially no selection. Real
+   native Space selects Morning, updates the Blazor group model.
+   A REAL CDP hit-tested pointer on the Afternoon indicator
+   selects Afternoon and unchecks Morning. Value binding correct.
+2. Vertical Orientation with ItemsLabelPosition.Before, High
+   initially selected; native pointer chooses Low and unchecks
+   High with the rendered group model updated.
+3. Disabled Closed radio plus available Open. Real native
+   focus cannot activate Closed; a hit-tested indicator click
+   cannot change the group model or disabled checked state.
+
+Copyable Razor contains real RadioGroup Value binding, actual
+Radio option values, orientation, label-before, native disabled.
+No mocks or test-only state assignment substituted for actual
+native user interactions.
+
+After inspecting live RTL screenshot, English group status labels
+had incorrect colon direction (Availability). All three status
+texts now declare language en and direction ltr, with scoped
+right alignment in RTL and left alignment in LTR. A native
+browser computed-style geometry check verifies LTR punctuation,
+right alignment, full card containment and no default margins.
+Only Lab demo CSS was changed; library production components
+are untouched.
+
+Independent actual Dev01 Chrome/Edge x WebAssembly and
+production-published InteractiveServer all passed 148/148 strict
+browser checks each (592/592 total), errors=[], QA-owned
+Chromium processes cleanup remaining=0. This includes the final
+bilingual caption correction in all four modes.
+
+[Actual 375px RTL RadioGroup screenshot after native Space](evidence/component-lab-radio-live-rtl-chrome-wasm.png)
+is from hydrated Blazor, with three visibly separated cards
+and correct English punctuation. Not a Penpot mockup/signoff.
+
+Critical unaccepted accessibility work for #436: current
+RadioGroup markup is a div plus plain label/items-list rather
+than demonstrated native fieldset/legend or semantic radiogroup.
+Radio input markup does not explicitly assign a group name.
+Arrow-key traversal, roving tab, name announcements, OS Windows
+screen readers and full Fluent2 RTL/forced-colors/visual parity
+have NOT been tested or approved. The successful current
+Space/pointer tests must not be mistaken for this acceptance.
+
+Source inventory remains 66 families, TEN runnable
+representative-only live scenarios, 56 families without a Lab
+pilot, and ZERO finally accepted exhaustive v3 families.
+#421 In progress/PR Draft; #436 Backlog; no protected
+bluent-v3 or stable Dev merge; no NuGet release.

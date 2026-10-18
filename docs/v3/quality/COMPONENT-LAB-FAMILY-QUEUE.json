@@ -5,8 +5,8 @@
   "sourceInventory": "docs/v3/inventory/public-component-sources.json",
   "sourceManifestScope": "source-candidate-only; NOT public API/markup or runtime verified",
   "familyCount": 66,
-  "familiesWithRepresentativeLabScenario": 9,
-  "familiesWithRealBrowserSpecimen": 9,
+  "familiesWithRepresentativeLabScenario": 10,
+  "familiesWithRealBrowserSpecimen": 10,
   "apiCoverageComplete": false,
   "note": "This is a complete 66-family WORK QUEUE sourced from the #494 census, NOT 66 tested interactive demos or accepted v3 components. Family source candidates are not an authoritative public API census.",
   "families": [
@@ -176,8 +176,8 @@
       "existingConsumerExampleFiles": [
         "docs/components/radio-group.md"
       ],
-      "scenarioId": null,
-      "scenarioEvidence": "no_component_lab_scenario",
+      "scenarioId": "radio-group-choice-orientation-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_radio_native_space_pointer_disabled_observed",
       "apiPropertiesEventsMapped": false,
       "completeDemoAcceptance": false,
       "componentDesignAccepted": false,
