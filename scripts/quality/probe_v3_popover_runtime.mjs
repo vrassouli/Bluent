@@ -288,6 +288,73 @@ try{
  const img=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:false});
  writeFileSync(join(evidence,"popover-"+brand+".png"),Buffer.from(img.data,"base64"));
 
+ // Run the actual shipped ES module against live browser DOM. This exercises
+ // #418 opt-in vs #420 ordinary click disclosure without exposing a premature
+ // C# public API on the #420 branch.
+ const optinRuntime=await cdp.js(`(async()=>{
+  const {Popover}=await import('/_content/Bluent.UI/bluent.ui.js');
+  const result={module:typeof Popover==='function'};
+  const host=document.createElement('section');host.id='v3-interaction-optin-contract';
+  const newPair=(id,existing)=>{
+   const b=document.createElement('button');b.id=id;b.textContent=id;
+   if(existing){b.setAttribute('aria-expanded','author');b.setAttribute('aria-controls','author-surface');}
+   const s=document.createElement('div');s.id=id+'_surface';s.className='bui-popover-surface hidden';s.style.transitionDuration='0s';
+   host.append(b,s);return {b,s};
+  };
+  document.body.appendChild(host);
+  const instance=new Popover({invokeMethodAsync:async()=>{}});
+  const settings=(id,optIn,click)=>({
+   triggerId:id,triggerEvents:click?['click']:[],hideEvents:[],
+   sameWidth:false,offset:0,padding:0,placement:'bottom',accessibleTriggerState:optIn
+  });
+  try{
+   const id='v3_qa_optin_button',pair=newPair(id,false),config=settings(id,true,false);
+   instance.setPopover(config);
+   result.optInInitial=pair.b.getAttribute('aria-expanded')==='false'&&pair.b.getAttribute('aria-controls')===id+'_surface';
+   instance.setDisclosureExpanded(config,true);
+   result.optInOpen=pair.b.getAttribute('aria-expanded')==='true'&&pair.b.getAttribute('aria-controls')===id+'_surface';
+   instance.setDisclosureExpanded(config,false);
+   result.optInClosed=pair.b.getAttribute('aria-expanded')==='false'&&pair.b.getAttribute('aria-controls')===id+'_surface';
+   const modalSibling=document.createElement('button');modalSibling.textContent='outside opt-in popover';host.append(modalSibling);
+   pair.s.classList.add('show');pair.s.classList.remove('hidden');
+   instance._openSurfaces.push(config);
+   document.addEventListener('keydown',instance._onDocumentKeyDown);
+   const unrelatedEscape=new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});
+   modalSibling.dispatchEvent(unrelatedEscape);
+   result.optInEscapeOutside=!unrelatedEscape.defaultPrevented&&pair.s.classList.contains('show');
+   const insideEscape=new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});
+   pair.b.dispatchEvent(insideEscape);
+   result.optInEscapeInside=insideEscape.defaultPrevented&&!pair.s.classList.contains('show')&&document.activeElement===pair.b;
+   instance.destroyPopover(id);
+   const regularId='v3_qa_regular_button',regular=newPair(regularId,false),regularConfig=settings(regularId,false,true);
+   instance.setPopover(regularConfig);
+   result.regularInitial=regular.b.getAttribute('aria-expanded')==='false'&&!regular.b.hasAttribute('aria-controls');
+   instance.setDisclosureExpanded(regularConfig,true);
+   result.regularOpen=regular.b.getAttribute('aria-expanded')==='true'&&regular.b.getAttribute('aria-controls')===regularId+'_surface';
+   instance.setDisclosureExpanded(regularConfig,false);
+   result.regularClosed=regular.b.getAttribute('aria-expanded')==='false'&&!regular.b.hasAttribute('aria-controls');
+   instance.destroyPopover(regularId);
+   const authoredId='v3_qa_authored_button',authored=newPair(authoredId,true),authoredConfig=settings(authoredId,false,true);
+   instance.setPopover(authoredConfig);
+   instance.setDisclosureExpanded(authoredConfig,true);
+   instance.setDisclosureExpanded(authoredConfig,false);
+   result.authorOwned=authored.b.getAttribute('aria-expanded')==='author'&&authored.b.getAttribute('aria-controls')==='author-surface';
+   instance.destroyPopover(authoredId);
+  }finally{instance.dispose();host.remove();}
+  return result;
+ })()`);
+ for(const [name,pass] of [
+  ["compiled Popover ES-module loaded in actual Chromium",optinRuntime.module],
+  ["explicit opt-in ARIA points to mounted surface initially",optinRuntime.optInInitial],
+  ["explicit opt-in expanded ARIA uses stable live controls",optinRuntime.optInOpen],
+  ["explicit opt-in collapsed ARIA preserves mounted controls",optinRuntime.optInClosed],
+  ["nested opt-in Popover leaves outside Escape to parent Modal",optinRuntime.optInEscapeOutside],
+  ["nested opt-in Popover consumes own Escape and restores trigger focus",optinRuntime.optInEscapeInside],
+  ["ordinary click trigger starts collapsed with no dangling controls",optinRuntime.regularInitial],
+  ["ordinary click trigger exposes controls only while expanded",optinRuntime.regularOpen],
+  ["ordinary click trigger removes controls after closing",optinRuntime.regularClosed],
+  ["authored ARIA attributes survive compiled disclosure transitions",optinRuntime.authorOwned],
+ ])result(name,!!pass,pass?undefined:optinRuntime);
  // A separate real Blazor fixture opens two non-modal surfaces concurrently.
  // Verify Escape works in LIFO order (topmost only), including trigger focus.
  const stackUrl=origin+(mode==="Server"?"/compatibility/popover-stack-server":"/components/popover-stack-probe");

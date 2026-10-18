@@ -187,3 +187,38 @@ Overlay hydration/OnClick timeouts from earlier runs remain historical
 findings until multi-run CI/real consumer evidence establishes whether
 any further root cause exists. No claim of native OS assistive technology
 or full integration acceptance is made.
+## 2026-10-18 — actual compiled #418 opt-in / #420 managed ARIA contract in Chromium
+
+The source-only private TypeScript compatibility tests for opt-in mounted
+KeepSurface ARIA now have **ten additional live runtime checks** in the
+existing real Blazor Popover browser probe. After the actual Blazor page
+interacts with current library code, the probe imports the **shipped
+Bluent.UI ESM asset** from /_content/Bluent.UI/bluent.ui.js and constructs
+a separate, temporary source-owned DOM fixture. This does not require
+publishing an unfinished #418 C# public parameter or modifying product
+HTML attributes.
+
+The actual compiled Popover JS is exercised for:
+- Initial, expanded and collapsed aria-expanded/aria-controls values on
+  an explicitly opted-in existing surface.
+- Escape from a sibling (unrelated target) is left to the owning Modal,
+  while Escape from the child trigger dismisses it and restores its focus.
+- An ordinary click-trigger disclosure omits dangling aria-controls
+  when closed and restores the IDREF only while expanded.
+- Consumer-authored aria-expanded/aria-controls remain untouched.
+- Fixture teardown explicitly disposes per-trigger listeners and DOM.
+
+Independent Dev01 source-owned actual browser evidence on this updated
+#420 task branch: Chrome/WASM **71/71**, Chrome/published Server **71/71**,
+Edge/WASM **71/71**, Edge/published Server **71/71**, combined **284/284**.
+All successful runs report errors=[] and QA-owned Chromium process
+cleanup remaining=0. A fail-closed source test requires the compiled
+module import and all behavior assertions. Runtime checks execute the
+compiled JS disclosure/keyboard methods directly with real browser DOM
+and KeyboardEvent, but are NOT a complete Blazor #418 public integration,
+native physical-key or screen-reader certification.
+
+This materially reduces the previous source-only test blind spot.
+#420 remains In progress / Draft until approved #418 integration,
+Penpot design/actual migration behavior acceptance and native Windows
+AT evidence. No product public API or stable Dev/NuGet changes.

@@ -157,6 +157,22 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn('const openOverlay=async()=>{',probe)
         self.assertNotIn('const openOverlay=()=>until(async()=>{',probe)
         self.assertNotIn("b.click();return {trigger:true",probe)
+    def test_actual_compiled_popover_optin_aria_and_escape_runtime(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for item in (
+            "await import('/_content/Bluent.UI/bluent.ui.js')",
+            "new Popover({invokeMethodAsync:async()=>{}})",
+            "explicit opt-in ARIA points to mounted surface initially",
+            "explicit opt-in collapsed ARIA preserves mounted controls",
+            "nested opt-in Popover leaves outside Escape to parent Modal",
+            "nested opt-in Popover consumes own Escape and restores trigger focus",
+            "ordinary click trigger starts collapsed with no dangling controls",
+            "ordinary click trigger removes controls after closing",
+            "authored ARIA attributes survive compiled disclosure transitions",
+        ):
+            self.assertIn(item,probe)
     def test_real_popover_browser_ci_and_artifact_gate_present(self):
         root=__import__("pathlib").Path(__file__).resolve().parents[2]
         workflow=(root/".github/workflows/v3-interaction-contract.yml").read_text(encoding="utf-8-sig")
