@@ -426,3 +426,44 @@ never stable Dev or NuGet.
   New-head GitHub CI in all four modes is still
   independently required; no native Windows OS AT
   or reviewer-approved visual parity is claimed.
+
+## 2026-10-18 — current-head four-Foundation integration evidence (#418/#420/#425/#421)
+
+The #425 task branch now includes an independently audited, **historical,
+local-only** browser evidence manifest at
+FOUNDATION-INTEGRATION-EVIDENCE-2026-10-18.json. It was produced by the
+source-owned audit_v3_foundation_integration_logs.py CLI from **four actual
+Dev01 Chrome/Edge WebAssembly/published-Server deep #418/CDP log files**
+collected on the disposable v3/issue-420-full-integration-rehearsal-local
+worktree. Full source task SHAs are recorded, not inferred from test titles.
+
+The audit requires exactly one complete JSON browser summary per log,
+the expected browser/renderer identity, zero failed assertions and an
+empty runtime errors array. It also rejects process/host failure logs,
+missing or duplicated modes, localhost-port reuse, missing task SHAs,
+truncated output and forged counts. Four current logs:
+- Chrome/WASM 950/950; Chrome/InteractiveServer 949/949.
+- Edge/WASM 950/950; Edge/InteractiveServer 949/949.
+- **3798/3798 verified runtime assertions**, four independent localhost
+  ports and four distinct SHA-256 log digests. Exact task HEADs:
+  #418 30b2f841; #420 6a3c677b; #425 e647dbc7; #421 3b28935a.
+  The log basenames and hashes are in the JSON; the raw temporary
+  Dev01 logs are local evidence, NOT magically downloadable CI artifacts.
+
+The audit's source-owned 7 Python checks include negative controls for
+a wrong browser, truncated JSON, errors, duplicated ports, incomplete
+runs and missing task-head provenance. They are wired into the existing
+every-PR evidence-contracts job. This preserves reproducibility and
+prevents silently equating a stale subset of passing logs with a full
+four-mode current-source test.
+
+**Evidence classification: historical-local-runtime-evidence-only.**
+This does not constitute a merged protected-branch test at a future SHA,
+a new Penpot visual review or acceptance, native Windows Contrast
+Themes, named screen reader AT, full WCAG 2.2 AA certification,
+or a right to publish NuGet. An older intermittent host-disconnect and
+Dialog return-focus timeout remain documented observations; subsequent
+full passing runs and isolated ports do not prove permanent elimination
+of those earlier failures. Maintainer acceptance of #425 board and
+actual screenshot-to-design visual parity are still outstanding;
+#425 stays In progress / PR Draft. No stable Dev changes.
