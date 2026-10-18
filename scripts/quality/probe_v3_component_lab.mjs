@@ -219,6 +219,19 @@ try {
   orientationNarrow.count===2&&orientationNarrow.cols.trim().split(/\s+/).length===1&&orientationNarrow.gap>=10&&orientationNarrow.vertical>=10&&orientationNarrow.inside&&orientationNarrow.preview<=320,orientationNarrow);
  const englishRTL=await js("(()=>{const p=[...document.querySelectorAll('.lab-advanced-actions .lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help)')];return p.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect(),a=e.parentElement.getBoundingClientRect();return {dir:s.direction,align:s.textAlign,lang:e.lang,margin:s.marginTop,inside:r.left>=a.left-1&&r.right<=a.right+1}})})()");
  check('RTL advanced specimen English captions retain LTR punctuation and right alignment',englishRTL.length===7&&englishRTL.every(x=>x.dir==='ltr'&&x.lang==='en'&&['end','right'].includes(x.align)&&x.margin==='0px'&&x.inside),englishRTL);
+ // Compact density is a true canvas-wide layout variant, not only a
+ // reduced gap between the two basic example buttons. Native computed
+ // geometry protects the 8px minimum border separation in 320px RTL.
+ await js("(()=>{const e=document.getElementById('lab-density');e.value='compact';e.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ const compactCards=await js("(()=>{const selectors=['.lab-advanced-actions','.lab-orientation-examples'],rows=selectors.map(sel=>{const g=document.querySelector(sel),c=[...g.children],r=c.map(x=>x.getBoundingClientRect()),style=getComputedStyle(g),card=getComputedStyle(c[0]);return {gap:parseFloat(style.rowGap),vertical:r.slice(1).map((x,i)=>x.top-r[i].bottom),padding:parseFloat(card.paddingTop),contained:r.every(x=>x.left>=g.getBoundingClientRect().left-1&&x.right<=g.getBoundingClientRect().right+1)}});return rows})()");
+ check('RTL 320px compact density reduces advanced and Orientation card spacing without touching',
+   compactCards.length===2&&compactCards.every(x=>x.gap>=7.5&&x.gap<gridMobile.declaredGap&&x.vertical.every(n=>n>=7.5)&&x.padding<=10.1&&x.contained),compactCards);
+ await js("(()=>{const e=document.getElementById('lab-density');e.value='normal';e.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ await poll(()=>js("!document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ const restoredGaps=await js("(()=>['.lab-advanced-actions','.lab-orientation-examples'].map(sel=>parseFloat(getComputedStyle(document.querySelector(sel)).rowGap)))()");
+ check('returning to default density restores full 12px advanced and Orientation gutters',
+   restoredGaps.length===2&&restoredGaps.every(x=>x>=11.5&&x<=12.5),restoredGaps);
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const e=document.getElementById(id);e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000); const englishLTR=await js("([...document.querySelectorAll('.lab-advanced-actions .lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help)')].map(e=>({dir:getComputedStyle(e).direction,align:getComputedStyle(e).textAlign})))");
  check('LTR advanced specimen captions keep natural left text alignment',englishLTR.length===7&&englishLTR.every(x=>x.dir==='ltr'&&['start','left'].includes(x.align)),englishLTR); // Complete representative display of existing Button 20/20 [Parameter]
@@ -259,6 +272,13 @@ try {
  const narrowApi=await js("(()=>{const g=document.querySelector('.lab-api-controls'),children=[...g.children],r=children.map(e=>e.getBoundingClientRect()),outer=g.getBoundingClientRect(),s=getComputedStyle(g);return {count:children.length,cols:s.gridTemplateColumns,gap:parseFloat(s.rowGap),vGap:r[1].top-r[0].bottom,inside:r.every(x=>x.left>=outer.left-1&&x.right<=outer.right+1),canvas:document.querySelector('.lab-canvas')?.getBoundingClientRect().width}})()");
  check('RTL 320px Icon API controls are one full-width column with visible gap',
   narrowApi.count===2&&narrowApi.cols.trim().split(/\s+/).length===1&&narrowApi.gap>=10&&narrowApi.vGap>=10&&narrowApi.inside&&narrowApi.canvas<=320,narrowApi);
+ await js("(()=>{const e=document.getElementById('lab-density');e.value='compact';e.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ const compactApi=await js("(()=>{const g=document.querySelector('.lab-api-controls'),r=[...g.children].map(x=>x.getBoundingClientRect()),gap=parseFloat(getComputedStyle(g).rowGap),padding=parseFloat(getComputedStyle(g.parentElement).paddingTop);return {gap,padding,vertical:r[1].top-r[0].bottom}})()");
+ check('compact RTL 320px Icon API controls keep an 8px gutter with reduced padding',
+   compactApi.gap>=7.5&&compactApi.gap<narrowApi.gap&&compactApi.vertical>=7.5&&compactApi.padding<=10.1,compactApi);
+ await js("(()=>{const e=document.getElementById('lab-density');e.value='normal';e.dispatchEvent(new Event('change',{bubbles:true}))})()");
+ await poll(()=>js("!document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  // The real Icon class switches actual public Value and Variant enums,

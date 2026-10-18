@@ -440,3 +440,35 @@ It is NOT a design mockup, named OS screen-reader evidence, or accepted
 Fluent 2 Penpot parity. It is independent layout QA evidence. The
 existing canonical Penpot Lab page42 is still pending human parity
 review, #421 stays In progress, and #428 Button remains Backlog.
+## 2026-10-18 — Compact density unified across Component Lab specimens
+
+Compact previously narrowed only the lab-examples basic Button gap;
+advanced Button, Orientation/Rotated and Icon API selector grids kept
+full default gutters and padding. That was visually inconsistent.
+
+The task-only Lab CSS now keeps default density unmodified: advanced,
+orientation and API grid gutters remain 12 CSS px at 16px root size.
+Compact reduces all three to 8 CSS px; card internal gap to 6 CSS px,
+card/API panel padding to 10 CSS px. No production Bluent API/styles
+or Button #428 implementation changed.
+
+Three extra fail-closed actual CDP browser checks:
+1. RTL 320px Compact advanced Button and Orientation cards keep
+   8px real border separation with no overlap / outside overflow.
+2. Switching back to Default restores 12px gutters.
+3. Icon API preview controls also keep an 8px gutter with reduced
+   panel padding, without overlap.
+
+Independent real Dev01 Chrome/WebAssembly 97/97 and
+Edge/production-published InteractiveServer 97/97, no failures,
+no unhandled JavaScript, Chromium cleanup remaining=0. Demo
+Pages Debug -warnaserror, source/queue and docs contracts pass.
+
+ACTUAL screenshots from fully hydrated Chrome/WebAssembly in
+RTL narrow-320px Lab canvas, as distinct live density selections:
+- [Default density, 12px grid gutters](evidence/component-lab-advanced-button-density-normal-rtl-320.png)
+- [Compact density, 8px grid gutters](evidence/component-lab-advanced-button-density-compact-rtl-320.png)
+
+Images are current-api browser evidence, NOT mockups, approved
+Penpot/Fluent2 design, named Windows AT or completed v3 components.
+#421 remains In progress and 0/66 families accepted; #428 Backlog.

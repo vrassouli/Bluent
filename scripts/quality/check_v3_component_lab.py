@@ -215,6 +215,15 @@ def check() -> int:
     assert '.lab-canvas.narrow .lab-api-controls { grid-template-columns:minmax(0,1fr); }' in css
     assert 'RTL 320px preview Orientation and Rotated cards stack without overlap' in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
     assert 'RTL 320px Icon API controls are one full-width column with visible gap' in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    assert '.lab-canvas.compact :is(.lab-advanced-actions,.lab-orientation-examples,.lab-api-controls) { gap:.5rem; }' in css
+    assert '.lab-canvas.compact :is(.lab-advanced-group,.lab-orientation-group) { gap:.375rem; padding:.625rem; }' in css
+    assert '.lab-canvas.compact .lab-api-demo { gap:.5rem; padding:.625rem; }' in css
+    for name in (
+        'RTL 320px compact density reduces advanced and Orientation card spacing without touching',
+        'returning to default density restores full 12px advanced and Orientation gutters',
+        'compact RTL 320px Icon API controls keep an 8px gutter with reduced padding',
+    ):
+        assert name in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
     for label in (
         'desktop advanced Button cards have clear grid row and column spacing',
         'RTL narrow preview advanced Button cards retain visible vertical spacing',

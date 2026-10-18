@@ -21,6 +21,11 @@
 .lab-canvas[data-lab-canvas="dark"] { background:#282b32; color:#f7f7f7; }
 .lab-examples { display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; }
 .lab-canvas.compact .lab-examples { gap:.25rem; }
+/* A compact canvas must compact ALL specimen layouts, not only simple
+   actions; keep an 8px gutter so bordered cards never touch. */
+.lab-canvas.compact :is(.lab-advanced-actions,.lab-orientation-examples,.lab-api-controls) { gap:.5rem; }
+.lab-canvas.compact :is(.lab-advanced-group,.lab-orientation-group) { gap:.375rem; padding:.625rem; }
+.lab-canvas.compact .lab-api-demo { gap:.5rem; padding:.625rem; }
 .lab-source-heading { display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
 .lab-source-heading h2 { margin:0; }
 .lab-source button { padding:.5rem .75rem; border:1px solid var(--colorNeutralStroke1,#8c94a0); border-radius:.4rem; background:transparent; color:inherit; cursor:pointer; }
