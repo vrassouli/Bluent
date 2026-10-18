@@ -467,3 +467,34 @@ full passing runs and isolated ports do not prove permanent elimination
 of those earlier failures. Maintainer acceptance of #425 board and
 actual screenshot-to-design visual parity are still outstanding;
 #425 stays In progress / PR Draft. No stable Dev changes.
+## 2026-10-18 — isolate every #425 compatibility host per invocation
+
+Source-level inspection found the standalone #425 Chrome/Edge
+compatibility runner still used fixed ports 5268/5269, even after
+the #418 deep browser runner had eliminated its own shared ports.
+Multiple local invocations could mistakenly reach another QA-owned
+published Blazor host and lose that host during cleanup.
+
+The #425 probe now acquires its own OS-chosen loopback port per run,
+passes the same origin to its production Blazor host, interactive
+browser and nested native 200%/400% Chromium site-zoom child, and
+records hostOrigin in both initial and final evidence JSON. The
+port lease is released before binding ASP.NET Core. The quality source
+contract prevents silently restoring fixed 5268/5269 endpoints.
+This is a host-isolation improvement, not proof of a permanently fixed
+historical intermittent test issue.
+
+Four independent ACTUAL full Dev01 local #425 browser QA runs on
+the new source each passed all 72 assertions (288/288 in total),
+errors=[], browser process cleanup remaining=0:
+- Chrome / published InteractiveServer: origin 127.0.0.1:57523;
+- Chrome / WebAssembly: origin 127.0.0.1:50403;
+- Edge / published InteractiveServer: origin 127.0.0.1:64632;
+- Edge / WebAssembly: origin 127.0.0.1:49898.
+
+All four distinct origins were verified by reading source-owned JSON
+reports, including actual Blazor keyboard/click, native Chromium 200%
+and 400% site zoom, and browser AX source evidence. Emulated forced
+colors and screenshot integrity do not qualify as native Windows
+screen-reader acceptance or accepted Penpot visual parity.
+The exact new task commit remote CI is still a separate gate.

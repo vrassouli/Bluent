@@ -53,6 +53,18 @@ class V3QualityContractTests(unittest.TestCase):
         check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
                                BROWSER_PROBE.read_text(encoding="utf-8-sig"))
 
+    def test_compatibility_browser_host_port_is_isolated_per_run(self):
+        probe=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        for marker in (
+            'import {createServer} from "node:net"',
+            'socket.listen(0,"127.0.0.1"',
+            'socket.close(e=>',
+            'host=await allocateHostOrigin()',
+            'hostOrigin:host||null',
+            'v3 isolated compatibility host origin:',
+        ):
+            self.assertIn(marker,probe)
+        self.assertNotIn('mode==="Server"?"5268":"5269"',probe)
     def test_browser_job_must_run_on_every_pr(self):
         current=BROWSERS.read_text(encoding="utf-8-sig")
         with self.assertRaisesRegex(QualityContractError,"cannot skip"):

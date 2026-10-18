@@ -5,6 +5,7 @@ import {mkdtempSync,existsSync,readFileSync,writeFileSync,mkdirSync,rmSync} from
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
+import {createServer} from "node:net";
 import {inspectV3Png} from "./inspect_v3_png_evidence.mjs";
 const root=resolve(fileURLToPath(new URL("../../",import.meta.url)));
 const mode=process.env.BLUENT_V3_RENDER_MODE||"Server";
@@ -15,8 +16,20 @@ if(!browserPath||!existsSync(browserPath))throw Error("Missing installed CHROME_
 const work=mkdtempSync(join(tmpdir(),"bluent-v3-425-"));
 const dest=resolve(process.env.BLUENT_V3_EVIDENCE_DIR||join(root,"artifacts/v3-browser-evidence"));
 mkdirSync(dest,{recursive:true});
-const host="http://127.0.0.1:"+(mode==="Server"?"5268":"5269");
-const url=host+"/compatibility/"+(mode==="Server"?"server":"webassembly");
+async function allocateHostOrigin(){
+ return new Promise((resolve,reject)=>{
+  const socket=createServer();
+  socket.once("error",reject);
+  socket.listen(0,"127.0.0.1",()=>{
+   const addr=socket.address();
+   const port=addr&&typeof addr==="object"?addr.port:0;
+   if(!port){socket.close();reject(Error("Could not allocate QA loopback port"));return;}
+   socket.close(e=>e?reject(e):resolve("http://127.0.0.1:"+port));
+  });
+ });
+}
+let host,url;
+
 let app,browser,cdp;const checks=[],errors=[],browserStartupAttempts=[],cleanupAttempts=[],imageEvidence=[];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 // CSS-computed text vs opaque host surface, narrow scoped test of contrast
@@ -105,6 +118,9 @@ class CDP {
  close(){this.ws?.close();}
 }
 try {
+ host=await allocateHostOrigin();
+ url=host+"/compatibility/"+(mode==="Server"?"server":"webassembly");
+ console.log("v3 isolated compatibility host origin: "+host);
  const publish=join(work,"app");
  try {
   execFileSync("dotnet",["publish","src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj","-c","Release","--no-restore","--nologo","-v","quiet","--output",publish],
@@ -347,7 +363,7 @@ try {
 } catch(e){errors.push(String(e.stack||e));}
 finally{
  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),
-  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",browserStartupAttempts,imageEvidence,checks,errors},null,2));
+  JSON.stringify({schema:1,mode,browser:browserName,hostOrigin:host||null,commit:process.env.GITHUB_SHA||"local",browserStartupAttempts,imageEvidence,checks,errors},null,2));
  cdp?.close();
  for(const p of [browser,app])if(p&&p.exitCode===null)p.kill();
  cleanupAttempts.push({phase:"final",...cleanupOwnedBrowserProcesses(work)});
@@ -355,7 +371,7 @@ finally{
  if(cleanupError)errors.push("Owned browser cleanup failed: "+JSON.stringify(cleanupError));
  // Write again to preserve actual cleanup evidence, not just test assertions.
  writeFileSync(join(dest,mode.toLowerCase()+"-"+browserName+".json"),
-  JSON.stringify({schema:1,mode,browser:browserName,commit:process.env.GITHUB_SHA||"local",
+  JSON.stringify({schema:1,mode,browser:browserName,hostOrigin:host||null,commit:process.env.GITHUB_SHA||"local",
    browserStartupAttempts,cleanupAttempts,imageEvidence,checks,errors},null,2));
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:300});}catch{}
  console.log("Blazor "+mode+" "+browserName+": "+checks.filter(x=>x.pass).length+"/"+checks.length+" checks, "+errors.length+" errors");
