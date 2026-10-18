@@ -18,11 +18,51 @@ class FoundationInteropCompatibility(unittest.TestCase):
         cls.ts = SRC.read_text(encoding="utf-8-sig")
         cls.settings = SETTINGS.read_text(encoding="utf-8-sig")
 
-    def test_opt_in_is_private_not_a_premature_product_api(self):
+    @staticmethod
+    def validate_opt_in_settings_contract(settings: str):
+        """Both valid lifecycle phases: absent before #418, OPTIONAL after."""
+        import re
+        occurrences = re.findall(r"\baccessibleTriggerState\b", settings)
+        if not occurrences:
+            return "not-yet-integrated"
+        if len(occurrences) != 1 or not re.search(
+            r"(?m)(?:^|[;{])\s*accessibleTriggerState\?:\s*boolean\s*;", settings
+        ):
+            raise AssertionError(
+                "Merged #418 accessibleTriggerState must occur once as an "
+                "optional boolean, never a mandatory or differently typed API"
+            )
+        return "foundation-integrated"
+
+    def test_opt_in_guard_supports_both_foundation_integration_phases(self):
         self.assertIn("private isOptInDisclosure(settings: PopoverSettings): boolean", self.ts)
         self.assertIn("as PopoverSettings & { accessibleTriggerState?: boolean }", self.ts)
         self.assertIn(".accessibleTriggerState === true", self.ts)
-        self.assertNotIn("accessibleTriggerState", self.settings)
+        self.assertIn(
+            self.validate_opt_in_settings_contract(self.settings),
+            ("not-yet-integrated", "foundation-integrated")
+        )
+
+    def test_optional_settings_gate_rejects_mandatory_or_mistyped_contract(self):
+        for invalid in (
+            "accessibleTriggerState: boolean;",
+            "accessibleTriggerState?: string;",
+            "accessibleTriggerState?: boolean;\naccessibleTriggerState?: boolean;",
+        ):
+            with self.assertRaises(AssertionError):
+                self.validate_opt_in_settings_contract(invalid)
+        self.assertEqual(
+            self.validate_opt_in_settings_contract(
+                "export type PopoverSettings={accessibleTriggerState?: boolean;};"
+            ),
+            "foundation-integrated",
+        )
+        self.assertEqual(
+            self.validate_opt_in_settings_contract(
+                "export type PopoverSettings={triggerId: string;};"
+            ),
+            "not-yet-integrated",
+        )
 
     def test_explicit_opt_in_only_preserves_collapsed_surface_idref(self):
         self.assertIn("persistentControls = this.isOptInDisclosure(settings)", self.ts)

@@ -222,3 +222,21 @@ This materially reduces the previous source-only test blind spot.
 #420 remains In progress / Draft until approved #418 integration,
 Penpot design/actual migration behavior acceptance and native Windows
 AT evidence. No product public API or stable Dev/NuGet changes.
+## 2026-10-18: eliminate post-merge false-negative in #418 compatibility CI
+
+An exact-current-head integration rehearsal of PRs #500 + #550 +
+#549 + #551 exposed a true cross-branch quality-gate collision:
+the #420 source test originally asserted that the #418
+accessibleTriggerState setting must *never* exist in PopoverSettings.
+That assertion is correct only before foundation #418 is merged.
+After approved integration, #418 intentionally provides the property.
+
+The compatibility gate now accepts either pre-merge absence or exactly
+one OPTIONAL boolean declaration of accessibleTriggerState, but fails
+closed for a mandatory flag, wrong type or duplicate declaration.
+Private #420 runtime guards, scoped Escape behavior, ARIA IDREF lifecycle,
+and author-defined attributes retain their own independent strict tests.
+
+This is a CI integration-contract correction, NOT public API approval or
+a relaxation of behavioral assertions. The current #420 task branch does
+not add the #418 API; combined foundation source is verified separately.
