@@ -234,3 +234,20 @@ source completed 83/83, errors=[], owned Chrome cleanup remaining=0
 at localhost port 52539. A new exact GitHub Actions run must validate
 the remediation in the same formerly failing CI job. Do not count
 the previous red run as green or mark #421 complete.
+### 2026-10-18 — real 375px RTL mobile Split Button image
+
+The [mobile 375px RTL Split Button and opened secondary menu](evidence/component-lab-split-open-rtl-mobile-chrome-wasm.png)
+is an actual Chrome/WebAssembly CDP screenshot of the hydrated live
+component, not a Penpot mockup. The current lab's RTL direction
+and Narrow viewport controls were set through real Blazor change
+events, then Chromium was resized to 375x850 CSS pixels and native
+Enter opened the secondary menu. In this existing-API implementation
+the primary Send now button appears to the right of the caret button,
+and the opened Schedule send menu overlays part of the live status
+text beneath the split control; this is a concrete spacing/placement
+review reference for eventual #428, not yet an approved bug fix.
+
+The image does not establish Penpot parity or native Windows Screen
+Reader compliance. It does not alter any public Button code, public
+ARIA or product CSS. The #421 browser suite independently enforces
+RTL/narrow behavior and actual Split action callbacks.
