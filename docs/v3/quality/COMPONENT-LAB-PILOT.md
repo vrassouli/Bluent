@@ -192,3 +192,20 @@ Fluent 2 visual parity, disabled/split forms, exhaustive state matrix
 and human approved Penpot page42 design are NOT accepted. Those belong
 to #428 after its foundation Ready gate. Nothing merged to
 bluent-v3/Dev and nothing published to NuGet.
+## 2026-10-18 — actual Split Button visual review specimen
+
+Two actual Chromium screenshots of the interactive and hydrated
+Component Lab on local Dev01 Chrome/WebAssembly are retained as
+UNAPPROVED review evidence:
+[closed Split action](evidence/component-lab-split-closed-chrome-wasm.png)
+and [open menu after native Enter](evidence/component-lab-split-open-chrome-wasm.png).
+
+The images were clipped from the live lab-split-action DOM, not
+rendered mockups. The open image shows keyboard focus on the small
+Split indicator and its real "Schedule send" MenuItem. These images
+DO NOT certify native OS screen reader use, accepted Penpot/Fluent 2
+visual parity, or a final v3 Button implementation. The current
+secondary icon-only trigger has no explicit accessible name in the
+source-generated markup: a #428 design/semantic review item.
+Four separately tested Chrome/Edge x WASM/Server 83/83 runtime passes
+remain independent interaction evidence, not visual certification.
