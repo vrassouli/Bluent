@@ -14,6 +14,10 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
+**#425 real browsers 2026-10-15:** new unfiltered Windows CI matrix Chrome/Edge x Interactive Server/WASM checks actual Blazor EventCallback, TextField binding, keyboard Tab, responsive themes and media emulation; captures six screenshot/JSON evidence artifacts per job. Dev01 actual local 48/48 pass; independent GitHub CI still to verify. Issue-specific design, human visual parity, native OS/AT and ten-brand #418 richer focus lab still open. No stable release or v2 change.
+
+**#425 baseline quality gates (2026-10-15, In progress):** [evidence classification and CI matrix](../docs/v3/quality/EVIDENCE-AND-GATES.md) on isolated v3/issue-425-quality-gates. New path-unfiltered PR quality workflow requires full Release build/tests, five-package CI-only validation with SHA report, docs/Skills guards and real SSR accessibility smoke; signed-off visual/OS-AT/browser matrix is explicitly **not** claimed. It also updates vulnerable SSR WebAssembly.Server 10.0.7 to patched 10.0.13, without touching stable Dev. Browser test integration from unmerged #418 remains a follow-up dependency; design-tool-specific #425 gate board is not yet available due temporary Penpot/Figma tool restrictions. Do not mark Review/Done from source-only QA.
+
 **GitHub workflow:** [Backlog → Ready → In progress → Review → Done](../docs/v3/ISSUE-WORKFLOW.md). No task automatically merges to `Dev` before the complete v3 epic is accepted and separately authorized.
 
 ## Current Phase
@@ -104,3 +108,96 @@ The prior detailed relaunch/Sprint 0–4 project record is preserved verbatim in
 As of 2026-10-10, Issue [#419](https://github.com/vrassouli/Bluent/issues/419) is **In progress** in GitHub Project #5, after its explicit `Backlog → Ready → In progress` transitions. Dedicated branch: `v3/issue-419-penpot-library`, **base `bluent-v3` only**. The maintainer created a separate Penpot `Bluent v3 Design System` file; twenty-seven native editable design pages (including foundation, brand, RTL, source reference and Button API anatomy), **134 verified upstream Fluent reference instances**, **four original local reusable draft components**, plus **five core native variant families / 65 unique variants and 65 linked local preview instances**, plus **two separate test-fixture families / 16 linked comparison and Persian RTL variants**, draft Light/Dark themes, **seven draft token sets / 49 entries**, and a local reusable primary Button prototype now exist. An actual linked imported Fluent 2 Button reference instance was verified and visually inspected, while the original community file remained unchanged. See [Penpot workspace contract](../docs/v3/design/BLUENT-V3-PENPOT.md), [extended foundations](../docs/v3/design/FOUNDATION-EXTENSIONS.md), [form/grid component references](../docs/v3/design/COMPONENT-REFERENCE-MATRICES.md), [local component drafts](../docs/v3/design/LOCAL-COMPONENT-DRAFTS.md), [native variant families](../docs/v3/design/NATIVE-CONTROL-VARIANTS.md), [native Button states/size/API design](../docs/v3/design/NATIVE-BUTTON-VARIANTS.md), [alignment audit + live Penpot gate](../docs/v3/design/ALIGNMENT-QUALITY-AUDIT.md), [actual imported/native Button comparison](../docs/v3/design/BUTTON-PARITY-REVIEW.md), [controlled copy/icon fidelity and Persian RTL](../docs/v3/design/BUTTON-CONTROLLED-FIDELITY-AND-RTL.md), [verified import-fidelity risk assessment](../docs/v3/design/PENPOT-IMPORT-FIDELITY.md), [source-to-Razor/CSS handoff contract](../docs/v3/design/DESIGN-TO-RAZOR-HANDOFF.md), [migration impact ledger](../docs/v3/design/MIGRATION-IMPACT-LEDGER.md), [native resize constraints lab](../docs/v3/design/BUTTON-RESIZE-REVIEW.md), [Button v2 API baseline checker](../scripts/quality/check_v3_button_api_baseline.py), [source-backed FC1–FC6 design gates](../docs/v3/design/FORM-CONTROL-DESIGN-GATES.md) and [machine-readable IDs](../docs/v3/design/penpot-workspace.manifest.json).
 
 This draft does **not** approve the #417 styling ADR, implement the #418 CSS/token migration or satisfy full Fluent UI/design parity. No public v2/v3 component code, stable assets, `Dev`, published NuGet or deployment is modified. Complete library coverage, visual/interaction parity, accessibility, font/icon checks and design review remain before #419 reaches Review/Done.
+
+2026-10-15 #425 design artifact created in canonical Bluent v3 Penpot file b64f6665-c9ab-80b5-8008-c4ac99d9d000: new editable quality gates/evidence policy page ed5216bd-3d5b-8015-8008-cb25572ebb61, board ed5216bd-3d5b-8015-8008-cb2557357776 with 44 shapes; exported and visually inspected. Prior PR #549 SHA 45b1a300 passed all 4 GitHub Chrome/Edge x Server/WASM checks plus build/policy/docs/Skills. Reviewer board signoff, visual diff baseline and true native OS/AT remain distinct TODO before closing #425.
+
+
+2026-10-15 #425 additional real accessibility-tree evidence: browser baseline on Chrome/Edge x Server/WASM now asserts named Button and TextField plus role=status tied to actual updated Blazor counter through Chromium backendDOMNodeId; role status legitimately need not carry its own computed name. All four Dev01 modes 15/15 = 60/60 real assertions, six responsive + one browser-emulated forced-colors RTL screenshots and JSON per mode. New fail-closed browser contract has 16 Python tests including two negative AX tests. This is not native OS Contrast Themes/named screen-reader proof or Penpot reviewer-approved screenshot parity. PR #549 Draft #425 In progress, only bluent-v3.
+
+
+2026-10-15 #425 QA Chrome startup diagnosis (isolated v3 branch): prior GitHub Chrome/WASM job failed before any CDP/Blazor assertion; other 3 browser jobs green. On Dev01 found 193 orphan #425 headless Chromium test processes; cleaned strictly by unique QA profile without touching normal Chrome. Chrome.exe Windows launcher may exit code 0 yet detached browser writes DevToolsActivePort ~3.5s later. Probe now awaits real CDP even after success exit 0, retries only startup (3 isolated profiles), records attempt and per-run process cleanup in fail-closed JSON, and handles detached browser cleanup by unique QA profile rather than parent PID alone. 22 source/negative controls cover startup/cleanup fail-closed behavior. Still must pass actual latest GitHub Chrome/Edge x WASM/Server CI; #425 remains In progress/PR Draft, design board review and native OS/AT pending, no stable Dev/v2 release.
+
+
+2026-10-15 #425 latest verified Dev01 AFTER Windows detached-Chrome startup and owned-browser cleanup fix: four real Chrome/Edge x Server/WASM combinations 15/15 each, 60/60 total. JSON evidence reports 1 connected launch per case and successful final cleanup remaining=0; independent process inventory shows ZERO stray #425 QA Chrome/Edge processes. 22 fail-closed Python contract tests PASS. Latest GitHub CI still requires exact-head verification; historical Chrome/WASM failure not waived. Native Windows Contrast/AT and approved Penpot design parity pending; #425 In progress PR Draft, v3-only.
+
+2026-10-16 #425 Penpot quality page41 has a DRAFT note distinguishing
+PNG byte integrity from human visual acceptance. Added the real-browser
+PNG validator with CRC, viewport size, scanline decode, nonblank color
+sampling and SHA256 evidence; 8 independent Node tests and fail-closed
+Python contract checks. 7 actual PNG artifacts per browser job are now
+validated and stored in JSON. Does not authorize visual signoff or native
+OS Contrast Theme/AT conformance. #425 remains In progress/PR Draft.
+
+2026-10-16 #425 full Dev01 real Chrome/Edge x InteractiveServer/WASM
+reruns on new PNG evidence integrity gate: 23/23 per job = 92/92,
+28 captured PNG images, four JSON reports independently inspected,
+seven distinct SHA-256 per job, min 32 rendered sampled colors,
+zero assertion/cleanup errors and zero orphan browser processes.
+Native Penpot page41 board now 45 editable shapes; quality evidence
+label explicitly separates valid image artifacts from design approval.
+Exact GitHub CI HEAD and native Windows screen-reader/Contrast Themes
+remain separate required gates.
+
+2026-10-16 #425 screenshot *visual inspection* surfaced a real
+compatibility fixture defect: dark RTL captures had effectively
+invisible heading/paragraph text (light background behind white
+dark-theme text) despite passing PNG validity. Fixed demo-only
+CompatibilityLayout MAIN with existing Fluent neutral background/
+foreground variables. Six source-sampled real screenshot states
+now require computed heading-to-host contrast >=4.5 and in-viewport
+heading bounds; two negative policy tests preserve this gate.
+No public Bluent styling altered; native OS/AT and accepted Penpot
+visual diff still unresolved.
+
+2026-10-16 #425 further inspection of real Chrome 320px Dark/RTL
+PNG showed collided multi-line h1 and low-contrast default blue
+NavLink after fixing host background. Scoped ONLY the
+Interactive Client compatibility fixture to line-height 1.3,
+anywhere heading wrapping and colorNeutralForeground2Link.
+Browser now verifies heading fragment nonoverlap + link contrast
+>=4.5 for six responsive cases; four additional policy negative
+controls were added (quality contract 29 tests). Stable UI styling
+and public library APIs unchanged; human design/OS AT still open.
+
+2026-10-16 #425 final local focused Dark/RTL sample QA:
+Chrome/InteractiveServer **41/41** and Edge/WebAssembly **41/41**
+true browser checks with zero errors. Real 320px light/dark computed
+heading/main contrast 15.52/14.55; NavLink/main 10.05/10.01.
+Human-inspected new Dark RTL mobile screenshot is visibly readable
+with corrected heading wraps and link, but NOT design-approved.
+Same-line duplicate CDP Range text fragments now normalized prior
+to checking distinct line overlap, with fail-closed source regression.
+Penpot QA page41 board 45 layers, revision 395; 29 Python negative/
+positive tests, 8 Node PNG tests. Final GitHub matrix pending exact SHA.
+
+- 2026-10-16 #425 editable Penpot quality board (page41,
+  ed5216bd-3d5b-8015-8008-cb2557357776) adds 46th DRAFT shape for
+  200/400% CSS text-scaling reflow, not native browser zoom.
+  Real Chrome/Server at 320px: root 200% passed (305px scroll),
+  root 400% FAILED (361px horizontal scroll). Changed ONLY the
+  isolated demo CompatibilityLayout padding from 2rem to
+  min(2rem,4vw), then real Chrome/Server 43/43 checks PASS with
+  scrollWidth305px at BOTH scales, zero errors/QA browser leftovers.
+  Three fail-closed contract tests cover both levels, overflow,
+  and responsive padding. Native Windows OS/AT and visual signoff
+  still separately pending; no public library or stable changes.
+
+- 2026-10-16 #425 real Button keyboard/pointer modality QA: correct Penpot page41 native annotation e775e67c-d9da-804b-8008-cccf3d59fdca; Tab to native Button, focus-visible, genuine Enter single callback, pointer-mode transition via TextField label, hit-tested pointer click, viewport scroll reset. Initial red run 42/49 exposed two test-harness assumptions; corrected without weakening application checks. Live Chrome/Server 51/51, Edge/WASM 51/51; 36 Python source tests PASS. Other two modes exact-HEAD CI pending. Design parity/native AT remains OPEN; no public product API change or stable merge.
+
+- 2026-10-17 #425: Real Chromium site Zoom200/Zoom400 through isolated native per-host zoom preferences. Synthetic CDP shortcut and privileged built-in extension route rejected; no unsafe OS input to unfocusable headful window. Existing source-owned Penpot #425 page41 zoom QA annotation referenced, tab suspended/no design approval. True published Bluent Server research: Chrome 200 632/624, 400 316/312 CSS viewport/scroll; Edge 200 628/620, 400 314/310; actual DPR 2/4 and root CSS 16px. Transient 300px Chart.js canvas during first render correctly distinguished from settled resize, #486 initial persistent defect claim corrected. New probe_v3_native_site_zoom.mjs integrated into all four #425 browser jobs (+11 checks, +2 PNGs per job), hard fail on any settled overflow. Local Chrome/Server parent 62/62 and 41 Python quality contract tests pass; rest and exact-head CI pending. No stable release or native OS/AT signoff.
+
+- 2026-10-17 #425 complete Dev01 integrated local 4-way matrix with new actual site zoom 200/400: Chrome/Server 62/62, Chrome/WASM 62/62, Edge/Server 62/62, Edge/WASM 62/62 = **248/248**, 0 errors, clean browser profiles. Added browser-plus-render-mode-specific native Zoom PNG/JSON names to prevent screenshot evidence overwrite. Source contract 41/41 PASS; exact new-commit GitHub Actions still separate/pending, no signoff on native OS/AT or Penpot pixel parity.
+
+- 2026-10-17 #425 real native Chromium site Zoom200/Zoom400 keyboard operability: actual hit-tested native Label mouse click focuses bound TextField, physical Tab brings focus-visible to real Button, focus box in viewport, native Enter invokes exactly one Blazor callback, restore scroll before PNG. Local Chrome/production-published Server **72/72 PASS** including 10/10 at each Zoom200 (viewport 632/scroll624) and Zoom400 (316/312), zero overflow/errors/browser leftovers; Python negative source contracts 45/45. Original Penpot QA board page41 remains DRAFT, no design mutation; other modes/new-head CI/native Windows/AT pending; stable Dev/NuGet untouched.
+
+- 2026-10-17 final independent Dev01 Edge/WebAssembly
+  actual Zoom200 10/10 (viewport/scroll 628/620)
+  and Zoom400 10/10 (314/310), zero settled
+  document overflow and owned Chromium remaining=0.
+  The entire Edge/WASM parent suite **72/72 real
+  checks PASS**, zero runtime errors. Combined with
+  independent Chrome/Production-published Server
+  **72/72 PASS**, these are 144/144 local assertions.
+  New-head GitHub CI in all four modes is still
+  independently required; no native Windows OS AT
+  or reviewer-approved visual parity is claimed.
