@@ -757,3 +757,59 @@ ELEVEN live representative pilots, 55 no Lab scenario, and ZERO
 finally accepted complete v3 families. Issue #437 continues
 Backlog; #421 stays In progress and PR Draft. Nothing merged
 into bluent-v3 or stable Dev; NuGet not published.
+## 2026-10-18 — twelfth live family: existing public DateField
+
+TWELFTH current existing API representative-only source-owned
+#421 Component Lab pilot. DateField<TValue> currently renders a
+MaskedField rather than native input[type=date], with a Button
+calendar/Popover as its optional end adornment. The future
+Fluent2 #438 component redesign remains Backlog. NO production
+component/CSS is modified in this Lab branch.
+
+Four real RTL responsive spaced cards exercise:
+1. DateTime DaySelect 2026/10/18 in invariant culture with a
+   visible current Calendar trigger and model status. Genuine
+   native Chromium input editing of final two day digits to 19
+   makes the masked field and Blazor DateTime model update to
+   2026/10/19, without directly mutating the model in JS.
+2. DateTime MonthSelect input 2026/10 with no popup; model
+   displays Month 2026/10.
+3. DateOnly typed DateField 2026/10/18 with no popup.
+4. Native-disabled DateTime 2026/10/18; it rejects focus and
+   preserves value. This uses a separate backing field from
+   the editable DaySelect; initial QA correctly failed when
+   both shared one backing model and the active date change
+   naturally re-rendered the disabled value. The demo model
+   was isolated rather than hiding or weakening the test.
+
+The source-generated Razor contains DateTime/DateOnly, Culture
+Invariant, MonthSelect, DisplayCalendar=false and disabled
+source code, along with independent backing data. Embedded
+RTL canvas is 320px, each card has no horizontal overflow
+and measured border gaps >=8px. English day/month statuses
+retain LTR text direction and right alignment. The real
+375px hydrated Chrome screenshot was inspected and cleanly
+cropped to display only four complete spaced cards.
+
+Actual independent Dev01 Chrome/Edge x WebAssembly and
+published InteractiveServer full current-source matrix:
+**168/168 strict native browser CDP assertions each**, all
+**672/672** combined, no failing checks, JS errors=[] and
+QA-owned Chromium cleanup remaining=0. This verifies
+current existing API behavior only; it does not imply final
+Native OS AT or full calendar selection acceptance.
+
+[Actual RTL DateField screenshot after native day edit](evidence/component-lab-datefield-live-rtl-chrome-wasm.png)
+is real browser evidence, not a Penpot design mockup.
+
+Remaining #438 product scope: real calendar Popover open/pointer/
+keyboard selection, Min/Max/DateClass/validation errors, multiple
+calendar cultures including Iranian/Persian, names and semantics
+with Windows screen readers, forced colors and Fluent2 Penpot
+visual parity. None are finally accepted by this initial pilot.
+
+Source census remains 66 public candidate families; TWELVE
+representative live browser specimens, 54 unrepresented,
+ZERO finally accepted exhaustive v3 component families.
+#421 remains In progress/Draft; #438 remains Backlog.
+No bluent-v3 or stable Dev protected branch merge; no NuGet.
