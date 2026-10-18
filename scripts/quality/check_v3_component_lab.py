@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 5
+    assert len(data["families"]) == 6
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -38,9 +38,41 @@ def check() -> int:
                  "native Enter triggers exactly one live Link OnClick Blazor callback",
                  "Link action copyable Razor includes real OnClick and handler body"):
         assert gate in probe_text, "missing real Link browser gate: " + gate
+    # #421 can introduce a current-API TextField specimen even while
+    # the actual v3 product redesign #432 remains Backlog.
+    assert data["families"][5]["id"] == "textfield"
+    assert data["families"][5]["existingDemoRoute"] == "/components/fields"
+    assert data["families"][5]["classification"] == "representative_only"
+    actual_tf = (ROOT/"src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs").read_text(encoding="utf-8-sig")
+    base_field = (ROOT/"src/Bluent.UI/Components/BluentFieldComponentBase.cs").read_text(encoding="utf-8-sig")
+    assert all(f"public {kind}" in actual_tf for kind in ("int? Rows", "bool ResizeTextarea"))
+    assert 'public string BindValueEvent' in base_field
+    for expected_gate in (
+        "sixth TextField family is a live current Bluent field in filtered catalog",
+        "TextField real input textarea Rows 3 no-resize and native disabled render",
+        "native Chromium text entry updates TextField oninput ValueChanged Blazor binding",
+        "TextField native label focuses current field and disabled input remains unfocusable",
+        "sixth TextField copyable Razor includes live oninput textarea disabled and state",
+        "source queue launches sixth real TextField preview from issue 432",
+    ):
+        assert expected_gate in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    assert set(data["families"][5]["propertiesDemonstrated"]) == {
+        "Value", "ValueChanged", "BindValueEvent", "Rows", "ResizeTextarea", "disabled"
+    }
+    for marker in ('new("textfield", "TextField"', 'class="lab-textfield-grid"',
+                   'id="lab-tf-input"', 'id="lab-tf-notes"', 'id="lab-tf-disabled"',
+                   'BindValueEvent="oninput"', 'Rows="3"', 'ResizeTextarea="false"',
+                   'SelectedTextFieldRazor', '60</strong> not yet demonstrated'):
+        assert marker in source, "Live current TextField specimen contract missing: " + marker
+    assert '.lab-canvas.narrow .lab-textfield-grid' in css
+    assert '.lab-canvas.compact .lab-textfield-card' in css
+    q = (ROOT/"docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json")
+    textfield_queue = next(e for e in json.loads(q.read_text(encoding="utf-8-sig"))["families"]
+                           if e["family"] == "TextField")
+    assert textfield_queue["scenarioId"] == "textfield-input-textarea-disabled"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 5
+    assert len({entry["id"] for entry in data["families"]}) == 6
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -94,6 +126,9 @@ def check() -> int:
             if entry["id"] == "badge":
                 assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
                 continue
+            if entry["id"] == "textfield":
+                assert "TextField native Blazor browser" in mode
+                continue
             assert "shared browser smoke 27/27" in mode
             if entry["id"] in ("button", "icon"):
                 assert "interactive controls observed" in mode
@@ -101,7 +136,8 @@ def check() -> int:
                 assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
-        demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / (entry["family"] + "s.razor")
+        demo_file = "Fields.razor" if entry["id"] == "textfield" else entry["family"] + "s.razor"
+        demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / demo_file
         assert demo_path.exists(), f"missing referenced demo: {demo_path}"
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
         assert f'new("{entry["id"]}", "{entry["family"]}"' in source
@@ -268,8 +304,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 5
-    assert queue["familiesWithRealBrowserSpecimen"] == 5
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 6
+    assert queue["familiesWithRealBrowserSpecimen"] == 6
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -290,8 +326,8 @@ def check() -> int:
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows are visible; only five have live pilots",
-                    "issue 432 search finds queued TextField without fake demo control",
+                    "canonical 66 candidate rows are visible; exactly six have partial live pilots",
+                    "issue 432 search finds current TextField pilot without claiming completion",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
         assert literal in probe, f"real-browser probe regression: {literal}"
@@ -376,8 +412,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 5 browser pilots, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 5/5 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 6 live pilot specimens, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 6/6 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

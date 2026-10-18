@@ -472,3 +472,46 @@ RTL narrow-320px Lab canvas, as distinct live density selections:
 Images are current-api browser evidence, NOT mockups, approved
 Penpot/Fluent2 design, named Windows AT or completed v3 components.
 #421 remains In progress and 0/66 families accepted; #428 Backlog.
+## 2026-10-18 — sixth live family: existing public TextField
+
+A **sixth representative-only existing API** family has a live
+sample. The source is the current public TextField.razor + .razor.cs
+and original demo /components/fields; the v3 redesign #432 remains
+Backlog and this work does NOT change production TextField CSS/API.
+
+The real Component Lab renders three native Bluent states: single-line
+Value/ValueChanged with BindValueEvent=oninput; multiline TextField
+Rows=3 with ResizeTextarea=false (real textarea and no-resize class);
+and a native disabled TextField. Real associated HTML labels focus
+the correct enabled input, and the disabled input remains unfocusable.
+Copyable Razor contains all three actual specimens and the model.
+All three sample cards are visibly separated and responsive in
+RTL 320px Preview, using the established Lab Compact gap.
+
+The source-generated work queue remains 66 families, with SIX live
+representative pilots, 60 not yet demonstrated and **ZERO fully
+accepted final v3 component families**. Current TextField specific
+specialized properties GainFocus, DigitOnly, AsciiDigits, conversion
+of Arabic to Persian, StartAddon and EndAddon, inherited form
+validation, all sizes, themes, native OS screen readers, and full
+focus/RTL/forced-colors matrices are NOT claimed complete.
+
+Actual isolated Dev01 Chromium runs: Chrome and Edge x real
+WebAssembly and production-published InteractiveServer **103/103
+each (412/412 total)**; no QA failures, browser errors=[],
+QA-owned Chrome/Edge processes remaining=0. Real native CDP text
+entry updates the Blazor model and Value status; textarea/native
+disabled render and work-queue launch plus code copy source passed.
+
+The initial browser test had a test harness error: CDP evaluation of
+a raw DOM Element returned no by-value result, so a poll timed out
+even though the actual TextField had rendered. Fixed by explicitly
+converting DOM existence to Boolean, then all four fresh modes
+passed. No false product failure or fake green result claimed.
+
+[View the REAL Chrome 375px RTL TextField live input screenshot](evidence/component-lab-textfield-live-rtl-chrome-wasm.png).
+The screenshot was captured from hydrated Blazor after native typing
+Ada-Live and shows the current input underline, textarea and
+disabled state. It is NOT an approved Fluent2/Penpot parity reference
+or named native Windows assistive-tech evidence. #421 In progress,
+#432 Backlog, no protected v3/Dev merge or NuGet release.

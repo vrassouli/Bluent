@@ -142,3 +142,14 @@
 .lab-badge-flags { display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; }
 .lab-badge-flags label { display:inline-flex; align-items:center; gap:.35rem; }
 .lab-badge-flags input { width:1rem; height:1rem; margin:0; }
+/* Current public TextField Lab pilot only, NOT v3 production field styles. */
+.lab-textfield-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-textfield-card { display:grid; align-content:start; gap:.5rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-textfield-card label { font-size:.85rem; font-weight:600; }
+.lab-textfield-card .bui-text-field { min-width:0; max-width:100%; }
+.lab-textfield-card :is(input,textarea) { min-width:0; max-width:100%; }
+.lab-textfield-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-textfield-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-textfield-grid { gap:.5rem; }
+.lab-canvas.compact .lab-textfield-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-textfield-grid { grid-template-columns:minmax(0,1fr); } }

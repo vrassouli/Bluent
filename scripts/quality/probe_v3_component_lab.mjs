@@ -66,7 +66,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('five pilot families and four functional controls rendered',initial.catalog.length===5&&initial.controls===4,initial);
+ check('six pilot families and four functional controls rendered',initial.catalog.length===6&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -408,7 +408,32 @@ try {
      actionSource?.includes('OnClick=\"LinkClickedAsync\"')&&actionSource?.includes('private Task LinkClickedAsync()')&&!actionSource?.includes('Href='),actionSource);
   }
  }
- // Existing Badge API: native source rendering, not a CSS mock.
+ // Sixth CURRENT-API family: actual Bluent TextField, not a future v3
+ // component. The plain input must bind on native input; multiline and
+ // disabled state must remain real HTML, not a screenshot.
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'TextField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('TextField')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const textFamily=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('TextField')&&!!document.querySelector('.lab-canvas .lab-textfield-grid input#lab-tf-input')"),12000).catch(async error=>{
+  const state=await js("(()=>({heading:document.querySelector('.lab-stage-heading h2')?.textContent,selected:[...document.querySelectorAll('.lab-family.selected')].map(x=>x.textContent),grid:!!document.querySelector('.lab-textfield-grid'),inputs:[...document.querySelectorAll('.lab-textfield-grid input')].map(x=>({id:x.id,outer:x.outerHTML.slice(0,180)})),visibleErrors:[...document.querySelectorAll('#blazor-error-ui,.blazor-error-boundary')].map(x=>x.textContent.slice(0,450)),search:document.getElementById('lab-search')?.value}))()");
+  throw Error("TextField selection/render diagnostic: "+JSON.stringify(state)+"; "+error);
+ });
+ check('sixth TextField family is a live current Bluent field in filtered catalog',!!textFamily);
+ const tfInitial=await js("(()=>{const grid=document.querySelector('.lab-textfield-grid'),input=document.getElementById('lab-tf-input'),area=document.getElementById('lab-tf-notes'),disabled=document.getElementById('lab-tf-disabled');return {cards:grid?.children.length,input:input?.tagName,value:input?.value,area:area?.tagName,rows:area?.rows,noResize:area?.closest('.bui-text-field')?.classList.contains('no-resize'),disabled:disabled?.disabled}})()");
+ check('TextField real input textarea Rows 3 no-resize and native disabled render',
+  tfInitial.cards===3&&tfInitial.input==='INPUT'&&tfInitial.value==='Ada'&&tfInitial.area==='TEXTAREA'&&tfInitial.rows===3&&tfInitial.noResize&&tfInitial.disabled,tfInitial);
+ await js("document.getElementById('lab-tf-input')?.focus()");
+ await send('Input.insertText',{text:'-tested'});
+ const tfLive=await poll(()=>js("document.querySelector('.lab-tf-value')?.textContent?.trim()==='Value: Ada-tested'&&document.getElementById('lab-tf-input')?.value==='Ada-tested'"),12000);
+ check('native Chromium text entry updates TextField oninput ValueChanged Blazor binding',tfLive);
+ const tfLabel=await js("(()=>{const input=document.getElementById('lab-tf-input'),label=document.querySelector('label[for=lab-tf-input]');label?.click();return {label:label?.textContent?.trim(),focused:document.activeElement===input,disabled:document.getElementById('lab-tf-disabled')?.matches(':disabled')}})()");
+ check('TextField native label focuses current field and disabled input remains unfocusable',
+   tfLabel.label==='Live text binding'&&tfLabel.focused&&tfLabel.disabled,tfLabel);
+ const tfCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
+   tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===6"),12000); // Existing Badge API: native source rendering, not a CSS mock.
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Badge');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Badge')"));
  await js("document.querySelector('button.lab-family')?.click()");
@@ -431,7 +456,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===5"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===6"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -467,12 +492,15 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows are visible; only five have live pilots',
-  allQueue.count===66&&allQueue.pilots===5&&allQueue.queued===61&&
+ check('canonical 66 candidate rows are visible; exactly six have partial live pilots',
+  allQueue.count===66&&allQueue.pilots===6&&allQueue.queued===60&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
- const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Queued')&&!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
- check('issue 432 search finds queued TextField without fake demo control',filteredQueue);
+ const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
+ check('issue 432 search finds current TextField pilot without claiming completion',filteredQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const tfQueueLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('TextField')&&!!document.querySelector('#lab-tf-input')"),12000);
+ check('source queue launches sixth real TextField preview from issue 432',tfQueueLaunch);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
  await js("document.querySelector('.lab-queue-row button')?.click()");
