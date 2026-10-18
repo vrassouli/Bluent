@@ -16,7 +16,7 @@ const route=interactiveServer?"/v3/interactive-portal-lab":"/v3/styling-lab";
 const chromePath=process.env.CHROME_PATH||"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const dir=mkdtempSync(join(tmpdir(),"bluent-v3-418-cdp-")),children=[],checks=[],errors=[];
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function start(cmd,args,workDir=cwd,environment=process.env){const p=spawn(cmd,args,{cwd:workDir,env:environment,stdio:["ignore","pipe","pipe"],windowsHide:true});let log="";for(const s of [p.stdout,p.stderr])s.on("data",b=>log=(log+String(b)).slice(-2000));p.tail=()=>log;children.push(p);return p;}
+function start(cmd,args,workDir=cwd,environment=process.env){const p=spawn(cmd,args,{cwd:workDir,env:environment,stdio:["ignore","pipe","pipe"],windowsHide:true});let log="";for(const s of [p.stdout,p.stderr])s.on("data",b=>log=(log+String(b)).slice(-16000));p.tail=()=>log;p.exitReason=null;p.on("exit",(code,signal)=>{p.exitReason={code,signal};});children.push(p);return p;}
 function assert(name,ok,notes=""){checks.push({name,pass:!!ok,notes});if(!ok)errors.push(name+": "+notes);}
 async function until(fn,name,ms=65000){const end=Date.now()+ms;let last="";while(Date.now()<end){try{const r=await fn();if(r)return r;}catch(e){last=String(e)}await sleep(320);}throw Error("Timeout "+name+" "+last);}
 class CDP {
@@ -488,7 +488,15 @@ try {
  await cdp.js("document.querySelector('#v3-show-service-dialog')?.click()");
  await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===1&&!!document.activeElement?.closest('.bui-dialog')"),"return-focus Dialog open",16000);
  await cdp.js("document.querySelector('.dialog-wrapper .header button')?.click()");
- const focusReturned=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-service-dialog'"),"Dialog focus restoration after close",16000);
+ let focusReturned;
+ try {
+  focusReturned=await until(()=>cdp.js("document.querySelectorAll('.dialog-wrapper').length===0&&document.activeElement?.id==='v3-show-service-dialog'"),"Dialog focus restoration after close",16000);
+ } catch(focusError) {
+  // A transient failure must remain RED. Report whether the modal is still
+  // mounted, what owns focus and whether the launcher is still focusable.
+  const focusDiagnostics=await cdp.js("(()=>{const target=document.getElementById('v3-show-service-dialog'),active=document.activeElement,wrappers=[...document.querySelectorAll('.dialog-wrapper')];return {targetConnected:target?.isConnected,targetDisabled:target?.disabled,targetRects:target?.getClientRects().length,targetTabIndex:target?.tabIndex,activeTag:active?.tagName,activeId:active?.id,activeOuter:active?.outerHTML.slice(0,250),dialogs:wrappers.map(w=>({id:w.id,hide:w.classList.contains('hide')})),documentReady:document.readyState}})()").catch(e=>({diagnosticUnavailable:String(e)}));
+  throw Error(String(focusError)+"; focus DOM="+JSON.stringify(focusDiagnostics));
+ }
  assert("opt-in Dialog restores focus to explicitly supplied live Bluent Button",focusReturned);
  // D5: exercise the actual v3 opt-in MODAL, including topmost-only keyboard
  // capture, real Tab/Shift+Tab cycling and nested Escape focus ownership.
@@ -1336,5 +1344,5 @@ try {
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;
-}catch(e){console.error("Probe error: "+String(e));if(interactiveServer&&app)console.error("SSR APP LOG: "+app.tail());if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
+}catch(e){console.error("Probe error: "+String(e));if(app)console.error("Bluent QA host diagnostics: "+JSON.stringify({pid:app.pid,exitCode:app.exitCode,exitReason:app.exitReason,signalCode:app.signalCode,killed:app.killed,tail:app.tail()}));if(cdp){try{console.error("Browser state: "+JSON.stringify(await cdp.js("({url:location.href,title:document.title,text:document.body?.innerText?.slice(0,1400),buttons:[...document.querySelectorAll(\"button\")].map(x=>({id:x.id,text:x.innerText})).slice(0,15)})")));}catch{}}console.error(JSON.stringify({checks,errors,events:cdp?.events?.slice(-12)},null,2));process.exitCode=1;}
 finally{try{cdp?.close();}catch{}for(const p of children.reverse())if(p.pid&&p.exitCode===null){try{if(process.platform==="win32")execFileSync("taskkill",["/PID",String(p.pid),"/T","/F"],{stdio:"ignore",timeout:8000});else p.kill();}catch{try{p.kill();}catch{}}}try{await cleanupOwnedBrowser();}catch(e){console.error("Owned temporary QA browser cleanup failed: "+String(e));process.exitCode=1;}try{rmSync(dir,{recursive:true,force:true});}catch{}}

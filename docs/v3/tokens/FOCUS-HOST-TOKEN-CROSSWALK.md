@@ -191,3 +191,24 @@ probe to avoid misreporting it as a failure of the approved adaptive
 design. The public token API, gradients/photo hosts, named AT and native
 Windows Contrast Themes remain unapproved / unverified. This does not
 alter the existing branded Focus in 2.x or implement the future Button.
+
+### 2026-10-18 — integration-only diagnostic hardening (no focus behavior change)
+
+A current-head multi-foundation local merge (#418 + #420 + #425 + #421)
+returned two **intermittent, unresolved** failures on Dev01: a deep
+published InteractiveServer run lost its host while changing a branded
+theme CSS sheet (HTTP ERR_CONNECTION_REFUSED/SignalR negotiation), and
+a separate deep WebAssembly run failed its existing Dialog return-focus
+wait. The following two independent instrumented WASM reruns passed
+950/950. A separate actual integrated Chrome/Server Popover run passed
+71/71, but that does not cancel the red deep Server result.
+
+For reliable next-run evidence the unchanged #418 source-owned deep probe
+now retains 16KB of bounded child-host stdout/stderr instead of 2KB,
+captures the child process exit code and signal when available, and
+reports detailed launcher/activeElement/remaining-Dialog DOM state
+only on failed Dialog focus restoration. It does **not** add retries,
+omit assertions or broaden the Focus acceptance threshold. CI enforces
+this fail-closed instrumentation with negative source checks. These
+are debugging improvements, not a product fix or user-approved
+Penpot/native assistive technology result; #418 remains Draft.

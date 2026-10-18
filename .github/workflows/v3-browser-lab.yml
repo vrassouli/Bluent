@@ -8,6 +8,7 @@ on:
     paths:
       - ".github/workflows/v3-browser-lab.yml"
       - "scripts/quality/probe_v3_blazor_runtime.mjs"
+      - "scripts/quality/test_v3_runtime_failure_diagnostics.py"
       - "scripts/quality/probe_v3_focus_alpha_hosts_browser.mjs"
       - "scripts/quality/audit_v3_focus_alpha_hosts.py"
       - "scripts/quality/test_v3_focus_alpha_hosts.py"
@@ -87,6 +88,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node scripts/quality/probe_v3_focus_alpha_hosts_browser.mjs
           exit $LASTEXITCODE
+      - name: Enforce fail-closed host and Dialog Focus diagnostics
+        run: python -m unittest discover -s scripts/quality -p test_v3_runtime_failure_diagnostics.py -v
       - name: Exercise real opt-in controls with CDP
         shell: pwsh
         run: |
