@@ -66,7 +66,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('ten pilot families and four functional controls rendered',initial.catalog.length===10&&initial.controls===4,initial);
+ check('eleven pilot families and four functional controls rendered',initial.catalog.length===11&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -433,7 +433,7 @@ try {
  check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
    tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
  // visual, native AT or product implementation acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Checkbox');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -468,7 +468,7 @@ try {
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
  // but the future #435 semantic switch role and Windows AT are NOT
  // implemented or certified by the #421 source-owned demo.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -502,7 +502,7 @@ try {
  check('generated Switch Razor contains two bind Value models before-label and disabled',
   switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Ninth existing NumericField<T> API pilot from public source: real
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"),12000); // Ninth existing NumericField<T> API pilot from public source: real
  // native text entry and Blazor int binding, callbacks and a separate
  // decimal specimen. #433 stays Backlog; full validation/AT is not done.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'NumericField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -536,7 +536,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Current public RadioGroup<string> and Radio<string> only;
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"),12000); // Current public RadioGroup<string> and Radio<string> only;
  // does not certify future #436 accessible radiogroup/arrow navigation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'RadioGroup');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RadioGroup')"),12000);
@@ -586,7 +586,44 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"),12000); // Existing Badge API: native source rendering, not a CSS mock.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"),12000); // Eleventh current native SelectField<T> Blazor specimen. Native
+ // Chromium ArrowDown/ArrowUp events, real onchange and generic int
+ // conversion, not fake element.click() or JS model mutation.
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'SelectField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('SelectField')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const selectReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('SelectField')&&!!document.getElementById('lab-select-color')"),12000);
+ check('eleventh current SelectField renders real native generic HTML select in Lab',selectReady);
+ const selectInitial=await js("(()=>{const a=document.getElementById('lab-select-color'),b=document.getElementById('lab-select-priority'),d=document.getElementById('lab-select-disabled');return {cards:document.querySelector('.lab-select-grid')?.children.length,native:[a,b,d].every(x=>x?.tagName==='SELECT'),color:a?.value,colorOptions:a?.options.length,priority:b?.value,priorityOptions:b?.options.length,disabled:d?.disabled,disabledValue:d?.value}})()");
+ check('SelectField real string blue int two and native disabled select initial values',
+   selectInitial.cards===3&&selectInitial.native&&selectInitial.color==='Blue'&&selectInitial.colorOptions===3&&selectInitial.priority==='2'&&selectInitial.priorityOptions===3&&selectInitial.disabled&&selectInitial.disabledValue==='Locked',selectInitial);
+ await js("document.getElementById('lab-select-color')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowDown',code:'ArrowDown',windowsVirtualKeyCode:40,nativeVirtualKeyCode:40});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowDown',code:'ArrowDown',windowsVirtualKeyCode:40,nativeVirtualKeyCode:40});
+ const selectGreen=await poll(()=>js("document.getElementById('lab-select-color')?.value==='Green'&&document.querySelector('.lab-select-color-status')?.textContent.trim()==='Selected: Green'"),12000);
+ check('native ArrowDown changes SelectField string ValueChanged and Blazor status to Green',selectGreen);
+ await js("document.getElementById('lab-select-priority')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowUp',code:'ArrowUp',windowsVirtualKeyCode:38,nativeVirtualKeyCode:38});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowUp',code:'ArrowUp',windowsVirtualKeyCode:38,nativeVirtualKeyCode:38});
+ const selectInt=await poll(()=>js("document.getElementById('lab-select-priority')?.value==='1'&&document.querySelector('.lab-select-priority-status')?.textContent.trim()==='Priority: 1'"),12000);
+ check('native ArrowUp parses generic SelectField int ValueChanged and updates Blazor model',selectInt);
+ const selectDisabled=await js("(()=>{const e=document.getElementById('lab-select-disabled');e?.focus();return {disabled:e?.disabled,focusDenied:document.activeElement!==e,value:e?.value}})()");
+ check('native disabled SelectField rejects focus and preserves selected option',
+  selectDisabled.disabled&&selectDisabled.focusDenied&&selectDisabled.value==='Locked',selectDisabled);
+ const selectCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('SelectField copyable Razor includes string int selected options and disabled',
+  selectCopy?.includes('@bind-Value="_labSelectColor"')&&selectCopy?.includes('@bind-Value="_labSelectPriority"')&&selectCopy?.includes('value="Green"')&&selectCopy?.includes('disabled>')&&selectCopy?.includes('Value="@_labSelectLocked"')&&selectCopy?.includes('private string _labSelectLocked')&&selectCopy?.includes('private int _labSelectPriority'),selectCopy);
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ const selectLayout=await js("(()=>{const g=document.querySelector('.lab-select-grid'),rect=g.getBoundingClientRect(),a=[...g.children].map(x=>x.getBoundingClientRect()),s=getComputedStyle(g),n=[...g.querySelectorAll('p[role=status]')].map(x=>({lang:x.lang,dir:x.dir,direction:getComputedStyle(x).direction,align:getComputedStyle(x).textAlign}));return {cols:s.gridTemplateColumns,gap:parseFloat(s.rowGap),vgaps:a.slice(1).map((x,i)=>x.top-a[i].bottom),inside:a.every(x=>x.left>=rect.left-1&&x.right<=rect.right+1),canvas:document.querySelector('.lab-canvas').getBoundingClientRect().width,english:n}})()");
+ check('RTL 320px SelectField cards are one full-width column with >=8px real separation',
+  selectLayout.cols.trim().split(/\s+/).length===1&&selectLayout.gap>=8&&selectLayout.vgaps.every(x=>x>=8)&&selectLayout.inside&&selectLayout.canvas<=320,selectLayout);
+ check('RTL SelectField English statuses keep LTR punctuation and right alignment',
+  selectLayout.english.length===2&&selectLayout.english.every(x=>x.lang==='en'&&x.dir==='ltr'&&x.direction==='ltr'&&['right','end'].includes(x.align)),selectLayout.english);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"),12000); // Existing Badge API: native source rendering, not a CSS mock.
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Badge');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Badge')"));
  await js("document.querySelector('button.lab-family')?.click()");
@@ -609,7 +646,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===10"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===11"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -645,8 +682,8 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows include ten incomplete real lab pilots',
-  allQueue.count===66&&allQueue.pilots===10&&allQueue.queued===56&&
+ check('canonical 66 candidate rows include eleven incomplete real lab pilots',
+  allQueue.count===66&&allQueue.pilots===11&&allQueue.queued===55&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
@@ -674,7 +711,12 @@ try {
  check('queue #436 correctly retains incomplete RadioGroup and runnable pilot link',radioQueue);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const radioLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('RadioGroup')&&!!document.querySelector('#lab-radio-am')"),12000);
- check('queue launches tenth real RadioGroup pilot without completing product issue',radioLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ check('queue launches tenth real RadioGroup pilot without completing product issue',radioLaunch); await js("(()=>{const el=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'437');el.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ const selectQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return rows.length===1&&rows[0].textContent.includes('SelectField')&&rows[0].textContent.includes('Live pilot')&&rows[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/437')&&!!rows[0].querySelector('button')})()"),12000);
+ check('source queue #437 points to incomplete SelectField plus live pilot link',selectQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const selectLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('SelectField')&&!!document.getElementById('lab-select-color')"),12000);
+ check('source queue launches 11th real SelectField without claiming #437 Done',selectLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas .lab-click-status')?.textContent.includes('1')"),12000);

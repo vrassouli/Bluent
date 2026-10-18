@@ -710,3 +710,50 @@ representative-only live scenarios, 56 families without a Lab
 pilot, and ZERO finally accepted exhaustive v3 families.
 #421 In progress/PR Draft; #436 Backlog; no protected
 bluent-v3 or stable Dev merge; no NuGet release.
+## 2026-10-18 — eleventh live family: existing public SelectField
+
+ELEVENTH source-backed representative-only pilot in #421 is the
+current public SelectField<TValue>, rendering a true native select.
+The future Fluent2 SelectField product redesign #437 remains in
+Backlog. No production library API/style changes were made.
+
+Three separately padded, spaced, RTL-friendly real native states:
+1. Current string SelectField bound to Blazor value Blue with Red,
+   Blue and Green options. Actual Chromium ArrowDown changes it
+   to Green and renders the new bound status immediately.
+2. Current int SelectField starts at 2; actual Chromium ArrowUp
+   changes it to 1 via Blazor generic TValue binding conversion.
+3. Truly native disabled string SelectField with option Locked;
+   programmatic focus cannot reach it or modify selection.
+
+Copyable Razor is source-backed and includes current native option
+values and string/int model fields. Three cards stack as one column
+in actual embedded 320px RTL canvas; physical card separation
+at least 8 CSS pixels with no overflow. English status values
+use lang=en dir=ltr with right alignment in RTL to keep correct
+punctuation. No cross-component production styles were changed.
+
+Actual independent Dev01 browser matrix: Chrome and Edge times
+WebAssembly and published InteractiveServer, each 158/158 strict
+native CDP assertions = **632/632 in four runs**. No failed
+assertions, errors=[] and QA-owned browser processes remaining=0.
+True native ArrowDown/ArrowUp keys were used, not direct JS
+model/state reassignment masquerading as user selection.
+
+[View real 375px RTL SelectField screenshot after native
+Green selection](evidence/component-lab-selectfield-live-rtl-chrome-wasm.png).
+This is from a hydrated Chrome/WebAssembly Blazor instance with
+three separated cards, not a mockup or final Penpot acceptance.
+
+Scope and outstanding #437 tasks: array/multiple selection,
+form validation and CultureInfo conversion, inherited input
+add-ons, all disabled/appearance/focus/forced-colors/theme
+permutations, Windows OS AT and approved Fluent2 Penpot visual
+parity remain UNTESTED. Current keyboard proof for Arrow keys
+does not constitute exhaustive final accessibility acceptance.
+
+Canonical source census remains 66 public component families,
+ELEVEN live representative pilots, 55 no Lab scenario, and ZERO
+finally accepted complete v3 families. Issue #437 continues
+Backlog; #421 stays In progress and PR Draft. Nothing merged
+into bluent-v3 or stable Dev; NuGet not published.

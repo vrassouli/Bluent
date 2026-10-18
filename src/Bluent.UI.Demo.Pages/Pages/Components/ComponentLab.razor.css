@@ -197,3 +197,16 @@
 .lab-canvas.compact .lab-radio-grid { gap:.5rem; }
 .lab-canvas.compact .lab-radio-card { padding:.625rem; gap:.375rem; }
 @media(max-width:600px) { .lab-radio-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* Current #421 SelectField specimen only; no #437 production field redesign. */
+.lab-select-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-select-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-select-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-select-card :is(select,.bui-select-field) { min-width:0; max-width:100%; }
+.lab-select-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas[dir="rtl"] .lab-select-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-select-card p { text-align:left; }
+.lab-canvas.narrow .lab-select-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-select-grid { gap:.5rem; }
+.lab-canvas.compact .lab-select-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-select-grid { grid-template-columns:minmax(0,1fr); } }

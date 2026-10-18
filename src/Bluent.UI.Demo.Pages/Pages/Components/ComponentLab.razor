@@ -459,6 +459,37 @@
                 </div>
                 <p class="lab-controls-note">Existing RadioGroup/Radio API. Native fieldset/radiogroup semantics and arrow-key interaction are pending #436 acceptance.</p>
             }
+            else if (_selected == "selectfield")
+            {
+                <div class="lab-select-grid" aria-label="Existing SelectField string int and disabled native selects">
+                    <div class="lab-select-card">
+                        <label for="lab-select-color">Live color selection</label>
+                        <SelectField id="lab-select-color" @bind-Value="_labSelectColor">
+                            <option value="Red">Red</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Green">Green</option>
+                        </SelectField>
+                        <p class="lab-select-color-status" role="status" lang="en" dir="ltr">Selected: @_labSelectColor</p>
+                    </div>
+                    <div class="lab-select-card">
+                        <label for="lab-select-priority">Integer value</label>
+                        <SelectField id="lab-select-priority" @bind-Value="_labSelectPriority">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </SelectField>
+                        <p class="lab-select-priority-status" role="status" lang="en" dir="ltr">Priority: @_labSelectPriority</p>
+                    </div>
+                    <div class="lab-select-card">
+                        <label for="lab-select-disabled">Disabled native select</label>
+                        <SelectField TValue="string" id="lab-select-disabled" Value="@_labSelectLocked" disabled>
+                            <option value="Locked">Locked</option>
+                            <option value="Other">Other</option>
+                        </SelectField>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing native SelectField API. Multi-value/culture/form validation, pointer and Fluent 2 accessibility for #437 remain pending.</p>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -519,8 +550,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>10</strong> live pilot specimens ·
-               <strong>56</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>11</strong> live pilot specimens ·
+               <strong>55</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -588,6 +619,10 @@
             "Current RadioGroup and Radio input with Value binding, Orientation, ItemsLabelPosition, and disabled option.",
             "<RadioGroup @bind-Value=\"_labRadioChoice\"><Radio Value=\"@(\\\"Morning\\\")\" Label=\"Morning\" /></RadioGroup>",
             "Representative runnable scenario only"),
+        new("selectfield", "SelectField", "components/fields", "Native keyboard choice",
+            "Current generic SelectField demonstrates string selection, integer choice, and truly disabled native select.",
+            "<SelectField @bind-Value=\"_labSelectColor\"><option value=\"Blue\">Blue</option></SelectField>",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -641,6 +676,11 @@
     private string _labRadioOrientation = "High";
     private string _labRadioRestricted = "";
     private string SelectedRadioRazor => "<RadioGroup @bind-Value=\"_labRadioChoice\" Label=\"Time preference\">\n    <Radio Id=\"lab-radio-am\" Value=\"@(\"Morning\")\" Label=\"Morning\" />\n    <Radio Id=\"lab-radio-pm\" Value=\"@(\"Afternoon\")\" Label=\"Afternoon\" />\n</RadioGroup>\n<RadioGroup @bind-Value=\"_labRadioOrientation\" Label=\"Priority\" Orientation=\"Orientation.Vertical\" ItemsLabelPosition=\"LabelPosition.Before\">\n    <Radio Id=\"lab-radio-high\" Value=\"@(\"High\")\" Label=\"High\" />\n    <Radio Id=\"lab-radio-low\" Value=\"@(\"Low\")\" Label=\"Low\" />\n</RadioGroup>\n<RadioGroup @bind-Value=\"_labRadioRestricted\" Label=\"Availability\">\n    <Radio Id=\"lab-radio-disabled\" Value=\"@(\"Closed\")\" Label=\"Closed\" disabled />\n    <Radio Id=\"lab-radio-open\" Value=\"@(\"Open\")\" Label=\"Open\" />\n</RadioGroup>\n@code { private string _labRadioChoice = \"\"; private string _labRadioOrientation = \"High\"; private string _labRadioRestricted = \"\"; }";
+
+    private string _labSelectColor = "Blue";
+    private int _labSelectPriority = 2;
+    private string _labSelectLocked = "Locked";
+    private string SelectedSelectFieldRazor => "<SelectField id=\"lab-select-color\" @bind-Value=\"_labSelectColor\"><option value=\"Red\">Red</option><option value=\"Blue\">Blue</option><option value=\"Green\">Green</option></SelectField>\n<SelectField id=\"lab-select-priority\" @bind-Value=\"_labSelectPriority\"><option value=\"1\">One</option><option value=\"2\">Two</option><option value=\"3\">Three</option></SelectField>\n<SelectField TValue=\"string\" id=\"lab-select-disabled\" Value=\"@_labSelectLocked\" disabled><option value=\"Locked\">Locked</option><option value=\"Other\">Other</option></SelectField>\n@code { private string _labSelectColor = \"Blue\"; private int _labSelectPriority = 2; private string _labSelectLocked = \"Locked\"; }";
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -718,7 +758,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "radio" ? SelectedRadioRazor
+    private string ActiveRazor => _selected == "selectfield" ? SelectedSelectFieldRazor
+        : _selected == "radio" ? SelectedRadioRazor
         : _selected == "numeric" ? SelectedNumericRazor
         : _selected == "switch" ? SelectedSwitchRazor
         : _selected == "checkbox" ? SelectedCheckboxRazor

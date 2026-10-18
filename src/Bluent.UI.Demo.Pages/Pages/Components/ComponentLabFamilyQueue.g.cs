@@ -15,7 +15,7 @@ internal static class ComponentLabFamilyQueue
         new("Checkbox", 434, "checkbox"),
         new("Switch", 435, "switch"),
         new("RadioGroup", 436, "radio"),
-        new("SelectField", 437, null),
+        new("SelectField", 437, "selectfield"),
         new("DateField", 438, null),
         new("TimeField", 439, null),
         new("MaskedField", 440, null),

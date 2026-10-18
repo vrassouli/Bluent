@@ -5,8 +5,8 @@
   "sourceInventory": "docs/v3/inventory/public-component-sources.json",
   "sourceManifestScope": "source-candidate-only; NOT public API/markup or runtime verified",
   "familyCount": 66,
-  "familiesWithRepresentativeLabScenario": 10,
-  "familiesWithRealBrowserSpecimen": 10,
+  "familiesWithRepresentativeLabScenario": 11,
+  "familiesWithRealBrowserSpecimen": 11,
   "apiCoverageComplete": false,
   "note": "This is a complete 66-family WORK QUEUE sourced from the #494 census, NOT 66 tested interactive demos or accepted v3 components. Family source candidates are not an authoritative public API census.",
   "families": [
@@ -195,8 +195,8 @@
         "docs/components/select-field.md"
       ],
       "existingConsumerExampleFiles": [],
-      "scenarioId": null,
-      "scenarioEvidence": "no_component_lab_scenario",
+      "scenarioId": "select-field-string-int-native-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_selectfield_native_keyboard_string_int_binding_observed",
       "apiPropertiesEventsMapped": false,
       "completeDemoAcceptance": false,
       "componentDesignAccepted": false,
