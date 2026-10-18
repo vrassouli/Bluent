@@ -53,6 +53,8 @@
 .lab-button-variants select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
 /* Existing Button advanced API specimens, source-linked pilot only. */
 .lab-advanced-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:1rem; }
+/* The Lab preview can be 320px wide inside a much larger browser. */
+.lab-canvas.narrow .lab-advanced-actions { grid-template-columns:minmax(0,1fr); }
 .lab-advanced-group { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.55rem; padding:.8rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
 .lab-advanced-label { font-size:.79rem; font-weight:600; color:var(--colorNeutralForeground3,#56667a); }
 .lab-menu-status { font-size:.82rem; margin:0; }

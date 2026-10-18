@@ -327,3 +327,49 @@ it is NOT a design mockup or approved Penpot visual parity. The
 disabled light-background contrast, icon-only secondary accessible
 name, Escape/focus-cycle details and real Windows OS screen reader
 evidence still belong to #428's component acceptance.
+## 2026-10-18 — real advanced Button card spacing regression fixed
+
+A user's visual review of the previous live 375px RTL screenshots
+identified an actual layout problem: the enabled and disabled Split
+specimens had adjoining bordered cards with zero visible spacing.
+Source inspection identified the cause: both Split specimen groups
+were accidentally placed OUTSIDE the existing lab-advanced-actions
+CSS Grid, whose four intended children need uniform 0.75rem gap.
+
+Fix in the #421 Demo Pages Lab ONLY: place the two Split specimens
+inside the same grid as Compound/Badge and Dropdown examples.
+The resulting desktop arrangement is 2 x 2 with the existing
+0.75rem row/column gap. The Lab-controlled 320px Narrow preview
+also forces the grid to one column even inside a wide desktop browser,
+with four vertically separated cards. A physical 375px RTL viewport
+likewise stacks them with the same 0.75rem (12px at the default
+16px root font) visible separation. This is a grid relationship fix,
+not per-card arbitrary margin overrides or a production Button CSS
+change.
+
+TWO actual browser geometry assertions now reject missing cards,
+touching desktop rows/columns, narrow 320px RTL card overlaps or
+cards escaping their grid. The source checker rejects splitting
+these four groups out of the shared grid and losing the narrow
+layout override. All FOUR independently run actual Dev01 QA modes
+are green on the corrected local task source:
+- Chrome/WebAssembly: 90/90, browser cleanup remaining=0.
+- Chrome/production-published InteractiveServer: 90/90,
+  cleanup remaining=0.
+- Edge/WebAssembly: 90/90, cleanup remaining=0.
+- Edge/production-published InteractiveServer: 90/90,
+  cleanup remaining=0.
+Total **360/360 actual browser checks**, not a synthetic screenshot
+assertion. The real Blazor Demo.Pages Debug -warnaserror build had
+zero warnings and errors.
+
+[VIEW REAL Chrome RTL/mobile after-spacing screenshot](evidence/component-lab-split-disabled-rtl-mobile-spaced-chrome-wasm.png).
+It shows the enabled and disabled Split Button samples separated
+by the now-uniform Lab grid gap. Retain the earlier [zero-gap
+historical screenshot](evidence/component-lab-split-disabled-rtl-mobile-chrome-wasm.png)
+as a visual before/reference, not as current appearance.
+
+The screenshots are local real Blazor browser captures, NOT approved
+Penpot design parity or named native OS screen-reader testing.
+The Component Lab remains In progress with zero of 66 fully accepted
+final v3 components; #428 product Button remains Backlog.

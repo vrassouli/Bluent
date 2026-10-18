@@ -120,33 +120,33 @@
                         </Button>
                         <p role="status" class="lab-menu-status">Menu choice: @_lastMenuChoice; callbacks: @_menuEvents</p>
                     </div>
-                </div>
 
-                <div class="lab-advanced-group lab-split-action" aria-label="Current Button split primary action and dropdown example">
-                    <span class="lab-advanced-label">Split action · existing Button API</span>
-                    <Button Text="Send now" OnClick="ChooseSplitPrimaryAsync"
-                            Appearance="ButtonAppearance.Primary"
-                            DropdownPlacement="Placement.BottomEnd">
-                        <Dropdown>
-                            <MenuList>
-                                <MenuItem Title="Schedule send" OnClick="ChooseSplitScheduleAsync" />
-                            </MenuList>
-                        </Dropdown>
-                    </Button>
-                    <p role="status" class="lab-split-status">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
-                </div>
-                <div class="lab-advanced-group lab-split-disabled" aria-label="Current disabled Split Button real behavior specimen">
-                    <span class="lab-advanced-label">Disabled split · existing Button API</span>
-                    <Button Text="Send disabled" OnClick="ChooseSplitPrimaryAsync"
-                            Appearance="ButtonAppearance.Primary"
-                            DropdownPlacement="Placement.BottomEnd" disabled>
-                        <Dropdown>
-                            <MenuList>
-                                <MenuItem Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync" />
-                            </MenuList>
-                        </Dropdown>
-                    </Button>
-                    <p class="lab-split-disabled-help">Neither the primary action nor the menu should activate.</p>
+                    <div class="lab-advanced-group lab-split-action" aria-label="Current Button split primary action and dropdown example">
+                        <span class="lab-advanced-label">Split action · existing Button API</span>
+                        <Button Text="Send now" OnClick="ChooseSplitPrimaryAsync"
+                                Appearance="ButtonAppearance.Primary"
+                                DropdownPlacement="Placement.BottomEnd">
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Schedule send" OnClick="ChooseSplitScheduleAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p role="status" class="lab-split-status">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
+                    </div>
+                    <div class="lab-advanced-group lab-split-disabled" aria-label="Current disabled Split Button real behavior specimen">
+                        <span class="lab-advanced-label">Disabled split · existing Button API</span>
+                        <Button Text="Send disabled" OnClick="ChooseSplitPrimaryAsync"
+                                Appearance="ButtonAppearance.Primary"
+                                DropdownPlacement="Placement.BottomEnd" disabled>
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p class="lab-split-disabled-help">Neither the primary action nor the menu should activate.</p>
+                    </div>
                 </div>
                 <div class="lab-orientation-examples" aria-label="Current Button Icon TextClass Orientation Rotated examples">
                     <div class="lab-orientation-group">

@@ -202,6 +202,20 @@ def check() -> int:
         assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(
             encoding="utf-8-sig"
         ), "Missing disabled Split native browser guard: "+label
+    # All four advanced cards must live inside one responsive CSS Grid.
+    # This protects spacing in both RTL 320px preview and desktop.
+    start = source.index('class="lab-advanced-actions"')
+    end = source.index('class="lab-orientation-examples"', start)
+    assert source[start:end].count('class="lab-advanced-group') == 4
+    css = (ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor.css").read_text(encoding="utf-8-sig")
+    assert '.lab-advanced-actions { display:grid;' in css
+    assert 'gap:.75rem;' in css
+    assert '.lab-canvas.narrow .lab-advanced-actions { grid-template-columns:minmax(0,1fr); }' in css
+    for label in (
+        'desktop advanced Button cards have clear grid row and column spacing',
+        'RTL narrow preview advanced Button cards retain visible vertical spacing',
+    ):
+        assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig"), "missing actual browser card-spacing regression: "+label
     # Actual Chrome/Edge launch must fail closed. Cold Windows CI may need
     # >20s to start the CDP debug server when 8 parallel jobs compete.
     browser_probe=(ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")

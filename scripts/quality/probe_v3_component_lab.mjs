@@ -207,7 +207,15 @@ try {
    disabledSplitSource?.includes('Text="Send disabled"') &&
    disabledSplitSource?.includes('DropdownPlacement="Placement.BottomEnd" disabled>') &&
    disabledSplitSource?.includes('Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync"'),disabledSplitSource);
- // Complete representative display of existing Button 20/20 [Parameter]
+ // Fail closed if advanced Button cards touch in real desktop layout.
+ const gridDesktop=await js("(()=>{const g=document.querySelector('.lab-advanced-actions'),c=[...g.children],r=c.map(e=>e.getBoundingClientRect()),s=getComputedStyle(g);return {count:c.length,cols:s.gridTemplateColumns,declaredGap:parseFloat(s.rowGap),rowGap:r[2].top-Math.max(r[0].bottom,r[1].bottom),colGap:r[1].left-r[0].right}})()");
+ check('desktop advanced Button cards have clear grid row and column spacing',gridDesktop.count===4&&gridDesktop.declaredGap>=10&&gridDesktop.rowGap>=10&&gridDesktop.colGap>=10,gridDesktop);
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow']]){const e=document.getElementById(id);e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ const gridMobile=await js("(()=>{const g=document.querySelector('.lab-advanced-actions'),c=[...g.children],r=c.map(e=>e.getBoundingClientRect()),outer=g.getBoundingClientRect(),s=getComputedStyle(g);return {count:c.length,declaredGap:parseFloat(s.rowGap),gaps:r.slice(1).map((x,i)=>x.top-r[i].bottom),within:r.every(x=>x.left>=outer.left-1&&x.right<=outer.right+1),width:outer.width}})()");
+ check('RTL narrow preview advanced Button cards retain visible vertical spacing',gridMobile.count===4&&gridMobile.declaredGap>=10&&gridMobile.gaps.every(x=>x>=10)&&gridMobile.within&&gridMobile.width<=320,gridMobile);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const e=document.getElementById(id);e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000); // Complete representative display of existing Button 20/20 [Parameter]
  // names: Icon, TextClass, Orientation, Rotated. NO final Fluent2 parity.
  const vertical=await js("(()=>{const b=document.querySelector('#lab-button-vertical'),s=b&&getComputedStyle(b),l=b?.querySelector('.lab-custom-button-text'),ls=l&&getComputedStyle(l),i=b?.querySelector('.bui-icon.icon');return {tag:b?.tagName,vertical:b?.classList.contains('vertical'),layout:s?.flexDirection,icon:!!i,iconClass:i?.className,labelClass:!!l,labelWeight:ls?.fontWeight,bounds:b?{button:b.getBoundingClientRect().width,container:b.parentElement.getBoundingClientRect().width}:null};})()");
  check('actual Button Icon TextClass and Vertical API render with native flex layout',
