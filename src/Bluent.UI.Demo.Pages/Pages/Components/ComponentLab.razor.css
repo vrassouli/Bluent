@@ -153,3 +153,13 @@
 .lab-canvas.compact .lab-textfield-grid { gap:.5rem; }
 .lab-canvas.compact .lab-textfield-card { padding:.625rem; gap:.375rem; }
 @media(max-width:600px) { .lab-textfield-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 current API Checkbox specimen only; not #434 implementation. */
+.lab-checkbox-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-checkbox-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-checkbox-card h3 { font-size:.86rem; line-height:1.4; font-weight:600; margin:0; }
+.lab-checkbox-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-checkbox-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-checkbox-grid { gap:.5rem; }
+.lab-canvas.compact .lab-checkbox-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-checkbox-grid { grid-template-columns:minmax(0,1fr); } }

@@ -515,3 +515,47 @@ Ada-Live and shows the current input underline, textarea and
 disabled state. It is NOT an approved Fluent2/Penpot parity reference
 or named native Windows assistive-tech evidence. #421 In progress,
 #432 Backlog, no protected v3/Dev merge or NuGet release.
+## 2026-10-18 — seventh live family: current public Checkbox
+
+A SEVENTH source-backed, existing-API-only representative pilot
+was added to the #421 Component Lab. Component source:
+src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor and cs.
+The original public demo is /components/checkboxes. This is
+NOT the #434 Fluent2 product implementation (#434 still Backlog).
+
+Three actual Bluent Checkbox states render in visibly separated,
+RTL/320px responsive, properly padded Lab cards:
+1. bool initially unchecked then native keyboard Space checks it,
+   updates Blazor bool model and the displayed Checked: True status.
+2. bool? initially null with visual Indeterminate and specific
+   IndeterminateLabel Not decided. Native Space checks it and
+   updates the bound nullable bool model and visible status.
+3. Disabled checked state uses the native input disabled property;
+   native focus is denied and a REAL hit-tested CDP pointer on the
+   indicator cannot change its checked state.
+
+The copyable source includes both bind Value models and disabled.
+The generated queue of 66 source candidates now has 7 live pilots,
+59 unrepresented and ZERO accepted exhaustive v3 components.
+Queue row #434 launches the representative Checkbox pilot without
+marking its redesign issue completed.
+
+Independent actual Dev01 browser matrix:
+Chrome/WebAssembly, Edge/WebAssembly, Chrome/published
+InteractiveServer and Edge/published InteractiveServer each
+**113/113** (452/452 across 4 runs), browser errors=[], and
+QA-owned Chromium browser cleanup remaining=0. Real native Space
+and hit-tested mouse events were used, not fake JS click assertions.
+
+[Actual Chrome 375px RTL Checkbox screenshot with spaced cards](evidence/component-lab-checkbox-live-rtl-chrome-wasm.png)
+is from live hydrated Blazor after native Space. It is NOT a mockup.
+
+Known unaccepted #434 work: explicit native mixed ARIA and Windows
+screen-reader evidence for the indeterminate source (currently a
+CSS indeterminate class and visual SVG, not demonstrated ARIA mixed);
+all Circular/Size/LabelPosition/Required variants; forced colors,
+native AT, complete keyboard/disabled/RTL and Fluent2 Penpot
+visual parity, docs, migration and reviewer signoff.
+
+#421 stays In progress/PR Draft; #434 stays Backlog. No
+bluent-v3 or stable Dev merges, and no NuGet package published.

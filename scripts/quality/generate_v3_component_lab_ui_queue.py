@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=ROOT/"docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
 DEST=ROOT/"src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLabFamilyQueue.g.cs"
-PILOTS={"Button":"button","Icon":"icon","Label":"label","Link":"link","Badge":"badge","TextField":"textfield"}
+PILOTS={"Button":"button","Icon":"icon","Label":"label","Link":"link","Badge":"badge","TextField":"textfield","Checkbox":"checkbox"}
 def render():
     data=json.loads(SOURCE.read_text(encoding="utf-8"))
     assert data["familyCount"]==66 and data["apiCoverageComplete"] is False
@@ -29,7 +29,7 @@ if __name__=="__main__":
     args=parser.parse_args();expected=render()
     if args.check:
         assert DEST.is_file() and DEST.read_text(encoding="utf-8-sig")==expected
-        print("Component Lab UI queue 66/66 canonical; 6 pilots, 60 queued.")
+        print("Component Lab UI queue 66/66 canonical; 7 pilots, 59 queued.")
     else:
         DEST.write_text(expected,encoding="utf-8")
         print("Generated 66 candidate entries")
