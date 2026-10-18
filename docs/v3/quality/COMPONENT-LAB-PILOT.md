@@ -813,3 +813,51 @@ representative live browser specimens, 54 unrepresented,
 ZERO finally accepted exhaustive v3 component families.
 #421 remains In progress/Draft; #438 remains Backlog.
 No bluent-v3 or stable Dev protected branch merge; no NuGet.
+## 2026-10-18 — thirteenth live family: existing public TimeField
+
+THIRTEENTH source-backed representative-only #421 Component Lab
+pilot renders the actual existing public TimeField<TValue>.
+This implementation uses the current native text input through
+MaskedField; it does NOT redesign #439 or replace the final Fluent2
+TimeField. #439 remains Backlog. Production Bluent.UI sources/CSS
+are untouched by the Lab-only specimen.
+
+Four padded, properly spaced real RTL/320px cards display:
+1. TimeOnly initialized 9:30 in InvariantCulture with actual
+   native Chromium editing of final minute digits from 30 to 31.
+   The browser input and Blazor typed TimeOnly model BOTH become
+   9:31; rendered visible status is Time: 09:31.
+2. TimeOnly with Seconds enabled, initial 14:25:6.
+3. TimeSpan duration initial 2:15 with its current mask.
+4. Independent bound disabled TimeOnly 12:40; actual disabled
+   input rejects focus and remains unchanged by typing elsewhere.
+
+The copyable Razor includes @bind-Value, actual TimeOnly/
+TimeSpan models, Seconds, Culture and disabled code. No model
+mutation via test-only JavaScript passes for user input. Real
+embedded 320px RTL cards remain in a single column with
+separation >=8 CSS pixels, no overflow. The English status
+retains LTR direction but is right aligned in RTL.
+
+Dev01 actual browser evidence: Chrome/Edge x WebAssembly and
+published InteractiveServer, all FOUR modes **177/177 checks**
+each (**708/708 combined**), browser errors=[], QA-owned
+Chromium cleanup remaining=0. The screen-capture helper
+explicitly selected the TimeField catalog family before
+interacting and typing. Screenshot was visually inspected and
+recropped to show all four complete cards and no cut-off footer.
+
+[Real RTL TimeField screenshot after genuine input editing](evidence/component-lab-timefield-live-rtl-chrome-wasm.png)
+is a hydrated Chrome/WebAssembly snapshot, not a mockup.
+
+Remaining #439 acceptance: DateTime date preservation, TimeSpan
+durations with days, input parsing/invalid errors, locale-specific
+formatting and edge cases, native OS screen reader and accessibility
+behavior, RTL/dark/high contrast/forced-colors Fluent2 design
+parity and migration. These are NOT certified by one specimen.
+
+The source queue still inventories 66 candidate families: THIRTEEN
+representative runnable live specimens, 53 without a lab scenario,
+ZERO finally accepted exhaustive v3 components.
+#421 In progress/PR Draft; #439 Backlog. No merge to protected
+bluent-v3 or stable Dev; no NuGet release.

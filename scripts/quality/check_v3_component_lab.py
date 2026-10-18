@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 12
+    assert len(data["families"]) == 13
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -40,6 +40,37 @@ def check() -> int:
         assert gate in probe_text, "missing real Link browser gate: " + gate
     # #421 can introduce a current-API TextField specimen even while
     # the actual v3 product redesign #432 remains Backlog.
+    assert data["families"][12]["id"] == "timefield"
+    assert data["families"][12]["classification"] == "representative_only"
+    assert data["families"][12]["existingDemoRoute"] == "/components/fields"
+    assert set(data["families"][12]["propertiesDemonstrated"]) == {
+        "Value", "ValueChanged", "Culture", "Seconds", "disabled"
+    }
+    time_source=(ROOT/"src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor").read_text(encoding="utf-8-sig")
+    assert '<MaskedField Mask="@GetMask()"' in time_source
+    for marker in ('new("timefield", "TimeField"', 'class="lab-time-grid"',
+                   'id="lab-time-basic"', 'id="lab-time-seconds"',
+                   'id="lab-time-span"', 'id="lab-time-disabled"',
+                   'SelectedTimeFieldRazor','Seconds />'):
+        assert marker in source, "Current TimeField real source sample missing: "+marker
+    assert '.lab-canvas.narrow .lab-time-grid' in css
+    assert '.lab-canvas.compact .lab-time-card' in css
+    assert '.lab-canvas[dir="rtl"] .lab-time-card p { text-align:right; }' in css
+    time_queue=next(e for e in json.loads(QUEUE.read_text(encoding="utf-8-sig"))["families"]
+                    if e["family"]=="TimeField")
+    assert time_queue["scenarioId"]=="timefield-timeonly-seconds-timespan-disabled"
+    for gate in (
+        "thirteenth TimeField renders real existing native masked TimeOnly/TimeSpan inputs",
+        "TimeField original TimeOnly minute seconds TimeSpan and disabled mask render",
+        "native masked TimeField text edit updates typed TimeOnly Blazor value 9:30 to 9:31",
+        "native disabled TimeField input cannot focus and retains independent value",
+        "copyable TimeField Razor contains TimeOnly Seconds TimeSpan and disabled current API",
+        "RTL 320px TimeField four cards are one real separated non-overflow column",
+        "RTL TimeField English time status remains LTR but right aligned",
+        "source queue #439 retains TimeField Backlog with runnable live pilot link",
+        "source queue launches thirteenth TimeField without completing #439",
+    ):
+        assert gate in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
     assert data["families"][11]["id"] == "datefield"
     assert data["families"][11]["classification"] == "representative_only"
     assert data["families"][11]["existingDemoRoute"] == "/components/fields"
@@ -268,7 +299,7 @@ def check() -> int:
     for marker in ('new("textfield", "TextField"', 'class="lab-textfield-grid"',
                    'id="lab-tf-input"', 'id="lab-tf-notes"', 'id="lab-tf-disabled"',
                    'BindValueEvent="oninput"', 'Rows="3"', 'ResizeTextarea="false"',
-                   'SelectedTextFieldRazor', '54</strong> not yet demonstrated'):
+                   'SelectedTextFieldRazor', '53</strong> not yet demonstrated'):
         assert marker in source, "Live current TextField specimen contract missing: " + marker
     assert '.lab-canvas.narrow .lab-textfield-grid' in css
     assert '.lab-canvas.compact .lab-textfield-card' in css
@@ -278,7 +309,7 @@ def check() -> int:
     assert textfield_queue["scenarioId"] == "textfield-input-textarea-disabled"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 12
+    assert len({entry["id"] for entry in data["families"]}) == 13
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -332,8 +363,8 @@ def check() -> int:
             if entry["id"] == "badge":
                 assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
                 continue
-            if entry["id"] in ("textfield","checkbox","switch","numeric","radio","selectfield","datefield"):
-                assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser" if entry["id"] == "switch" else "NumericField native Blazor browser" if entry["id"] == "numeric" else "RadioGroup native Blazor browser" if entry["id"] == "radio" else "SelectField native Blazor browser" if entry["id"] == "selectfield" else "DateField native Blazor browser") in mode
+            if entry["id"] in ("textfield","checkbox","switch","numeric","radio","selectfield","datefield","timefield"):
+                assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser" if entry["id"] == "switch" else "NumericField native Blazor browser" if entry["id"] == "numeric" else "RadioGroup native Blazor browser" if entry["id"] == "radio" else "SelectField native Blazor browser" if entry["id"] == "selectfield" else "DateField native Blazor browser" if entry["id"] == "datefield" else "TimeField native Blazor browser") in mode
                 continue
             assert "shared browser smoke 27/27" in mode
             if entry["id"] in ("button", "icon"):
@@ -342,7 +373,7 @@ def check() -> int:
                 assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
-        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor", "radio": "Radios.razor", "selectfield": "Fields.razor", "datefield": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
+        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor", "radio": "Radios.razor", "selectfield": "Fields.razor", "datefield": "Fields.razor", "timefield": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
         demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / demo_file
         assert demo_path.exists(), f"missing referenced demo: {demo_path}"
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
@@ -510,8 +541,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 12
-    assert queue["familiesWithRealBrowserSpecimen"] == 12
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 13
+    assert queue["familiesWithRealBrowserSpecimen"] == 13
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -532,7 +563,7 @@ def check() -> int:
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows include twelve incomplete real lab pilots",
+                    "canonical 66 candidate rows include thirteen incomplete real lab pilots",
                     "issue 432 search finds current TextField pilot without claiming completion",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
@@ -618,8 +649,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 12 live pilot specimens, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 12/12 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 13 live pilot specimens, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 13/13 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

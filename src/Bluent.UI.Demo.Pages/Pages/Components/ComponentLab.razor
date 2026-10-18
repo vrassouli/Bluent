@@ -521,6 +521,33 @@
                 </div>
                 <p class="lab-controls-note">Existing MaskedField-based DateField API. Culture parsing, calendar keyboard/pointer, validation and all Fluent 2 states remain #438 work.</p>
             }
+            else if (_selected == "timefield")
+            {
+                <div class="lab-time-grid" aria-label="Existing masked TimeField TimeOnly seconds TimeSpan and disabled states">
+                    <div class="lab-time-card">
+                        <label for="lab-time-basic">TimeOnly hours/minutes</label>
+                        <TimeField id="lab-time-basic" @bind-Value="_labTimeBasic"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                        <p class="lab-time-basic-status" role="status" lang="en" dir="ltr">Time: @_labTimeBasic.ToString("HH:mm")</p>
+                    </div>
+                    <div class="lab-time-card">
+                        <label for="lab-time-seconds">TimeOnly with seconds</label>
+                        <TimeField id="lab-time-seconds" @bind-Value="_labTimeSeconds"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" Seconds />
+                    </div>
+                    <div class="lab-time-card">
+                        <label for="lab-time-span">TimeSpan duration</label>
+                        <TimeField id="lab-time-span" @bind-Value="_labTimeSpan"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                    </div>
+                    <div class="lab-time-card">
+                        <label for="lab-time-disabled">Disabled TimeOnly</label>
+                        <TimeField id="lab-time-disabled" Value="_labTimeDisabled"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -581,8 +608,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>12</strong> live pilot specimens ·
-               <strong>54</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>13</strong> live pilot specimens ·
+               <strong>53</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -658,6 +685,10 @@
             "Existing masked DateField demonstrates DateTime, DateOnly, CalendarMode.MonthSelect and native disabled state.",
             "<DateField @bind-Value=\"_labDateDay\" Culture=\"CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
+        new("timefield", "TimeField", "components/fields", "TimeOnly seconds and TimeSpan",
+            "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
+            "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -722,6 +753,12 @@
     private DateOnly _labDateOnly = new(2026, 10, 18);
     private DateTime _labDateDisabled = new(2026, 10, 18);
     private string SelectedDateFieldRazor => "<DateField id=\"lab-date-day\" @bind-Value=\"_labDateDay\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<DateField id=\"lab-date-month\" @bind-Value=\"_labDateMonth\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Mode=\"CalendarMode.MonthSelect\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-only\" @bind-Value=\"_labDateOnly\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-disabled\" Value=\"_labDateDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" disabled />\n@code { private DateTime _labDateDay = new(2026, 10, 18); private DateTime _labDateMonth = new(2026, 10, 1); private DateOnly _labDateOnly = new(2026, 10, 18); private DateTime _labDateDisabled = new(2026, 10, 18); }";
+
+    private TimeOnly _labTimeBasic = new(9, 30);
+    private TimeOnly _labTimeSeconds = new(14, 25, 6);
+    private TimeSpan _labTimeSpan = new(2, 15, 0);
+    private TimeOnly _labTimeDisabled = new(12, 40);
+    private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -799,7 +836,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "datefield" ? SelectedDateFieldRazor
+    private string ActiveRazor => _selected == "timefield" ? SelectedTimeFieldRazor
+        : _selected == "datefield" ? SelectedDateFieldRazor
         : _selected == "selectfield" ? SelectedSelectFieldRazor
         : _selected == "radio" ? SelectedRadioRazor
         : _selected == "numeric" ? SelectedNumericRazor
