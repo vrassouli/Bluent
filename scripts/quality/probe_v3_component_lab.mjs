@@ -66,7 +66,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('seven pilot families and four functional controls rendered',initial.catalog.length===7&&initial.controls===4,initial);
+ check('eight pilot families and four functional controls rendered',initial.catalog.length===8&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -433,7 +433,7 @@ try {
  check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
    tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===7"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
  // visual, native AT or product implementation acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Checkbox');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -468,7 +468,41 @@ try {
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===7"),12000); // Existing Badge API: native source rendering, not a CSS mock.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
+ // but the future #435 semantic switch role and Windows AT are NOT
+ // implemented or certified by the #421 source-owned demo.
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Switch')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const switchReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Switch')&&!!document.querySelector('#lab-switch-primary')"),12000);
+ check('eighth Switch pilot renders actual Bluent input family through interactive catalog',switchReady);
+ const switchInitial=await js("(()=>{const a=document.getElementById('lab-switch-primary'),b=document.getElementById('lab-switch-before'),d=document.getElementById('lab-switch-disabled'),wrap=x=>x?.closest('.bui-switch');return {native:a?.type==='checkbox'&&b?.type==='checkbox'&&d?.type==='checkbox',off:!a?.checked,offLabel:wrap(a)?.querySelector('label')?.textContent.trim(),labelBefore:wrap(b)?.classList.contains('label-before'),beforeLabel:wrap(b)?.querySelector('label')?.textContent.trim(),disabled:d?.disabled,disabledChecked:d?.checked,cards:document.querySelector('.lab-switch-grid')?.children.length}})()");
+ check('Switch current native off label-before and disabled true states render',
+  switchInitial.native&&switchInitial.off&&switchInitial.offLabel==='Notifications off'&&switchInitial.labelBefore&&switchInitial.beforeLabel==='Feature inactive'&&switchInitial.disabled&&switchInitial.disabledChecked&&switchInitial.cards===3,switchInitial);
+ await js("document.getElementById('lab-switch-primary')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ const switchOn=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: True'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications on'})()"),12000);
+ check('native Space on current Switch toggles true and updates label plus Blazor model',switchOn);
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
+ const switchOff=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return !x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: False'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications off'})()"),12000);
+ check('second native Space returns Switch to off without stale label or value',switchOff);
+ const switchDisabled=await js("(()=>{const d=document.getElementById('lab-switch-disabled');d?.focus();return {disabled:d?.disabled,checked:d?.checked,focusDenied:document.activeElement!==d}})()");
+ check('current disabled Switch rejects native focus and remains checked',
+  switchDisabled.disabled&&switchDisabled.checked&&switchDisabled.focusDenied,switchDisabled);
+ const switchHit=await js("(()=>{const x=document.querySelector('#lab-switch-disabled')?.closest('.bui-switch')?.querySelector('.indicator');x?.scrollIntoView({block:'center',behavior:'instant'});const r=x.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;return {x:cx,y:cy,target:document.elementFromPoint(cx,cy)?.tagName,inside:!!document.elementFromPoint(cx,cy)?.closest('.bui-switch')}})()");
+ check('disabled Switch indicator has native pointer hit-test inside component',switchHit.inside,switchHit);
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:switchHit.x,y:switchHit.y,button:'left',clickCount:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:switchHit.x,y:switchHit.y,button:'left',clickCount:1});
+ await wait(260);
+ const switchPointer=await js("(()=>{const d=document.getElementById('lab-switch-disabled');return {disabled:d?.disabled,checked:d?.checked}})()");
+ check('hit-tested native pointer cannot toggle disabled public Switch',switchPointer.disabled&&switchPointer.checked,switchPointer);
+ const switchCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('generated Switch Razor contains two bind Value models before-label and disabled',
+  switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"),12000); // Existing Badge API: native source rendering, not a CSS mock.
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Badge');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Badge')"));
  await js("document.querySelector('button.lab-family')?.click()");
@@ -491,7 +525,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===7"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -527,8 +561,8 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows include seven incomplete real lab pilots',
-  allQueue.count===66&&allQueue.pilots===7&&allQueue.queued===59&&
+ check('canonical 66 candidate rows include eight incomplete real lab pilots',
+  allQueue.count===66&&allQueue.pilots===8&&allQueue.queued===58&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
@@ -541,7 +575,12 @@ try {
  check('source queue #434 links unfinished Checkbox issue and its actual runnable pilot',cbQueue);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const cbLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Checkbox')&&!!document.querySelector('#lab-cb-checked')"),12000);
- check('source queue launches seventh current Checkbox specimen without falsely completing #434',cbLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ check('source queue launches seventh current Checkbox specimen without falsely completing #434',cbLaunch); await js("(()=>{const el=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'435');el.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ const switchQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return rows.length===1&&rows[0].textContent.includes('Switch')&&rows[0].textContent.includes('Live pilot')&&rows[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/435')&&!!rows[0].querySelector('button')})()"),12000);
+ check('source queue #435 links incomplete Switch and provides real pilot launch',switchQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const switchLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Switch')&&!!document.querySelector('#lab-switch-primary')"),12000);
+ check('source queue launches eighth Switch specimen without completing #435',switchLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas .lab-click-status')?.textContent.includes('1')"),12000);

@@ -163,3 +163,13 @@
 .lab-canvas.compact .lab-checkbox-grid { gap:.5rem; }
 .lab-canvas.compact .lab-checkbox-card { padding:.625rem; gap:.375rem; }
 @media(max-width:600px) { .lab-checkbox-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 current public Switch specimen only, not #435 production CSS. */
+.lab-switch-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-switch-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-switch-card h3 { font-size:.86rem; line-height:1.4; margin:0; font-weight:600; }
+.lab-switch-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-switch-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-switch-grid { gap:.5rem; }
+.lab-canvas.compact .lab-switch-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-switch-grid { grid-template-columns:minmax(0,1fr); } }

@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 7
+    assert len(data["families"]) == 8
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -40,6 +40,38 @@ def check() -> int:
         assert gate in probe_text, "missing real Link browser gate: " + gate
     # #421 can introduce a current-API TextField specimen even while
     # the actual v3 product redesign #432 remains Backlog.
+    assert data["families"][7]["id"] == "switch"
+    assert data["families"][7]["classification"] == "representative_only"
+    assert data["families"][7]["existingDemoRoute"] == "/components/fields"
+    assert set(data["families"][7]["propertiesDemonstrated"]) == {
+        "Value", "ValueChanged", "Label", "UncheckedLabel", "LabelPosition", "disabled"
+    }
+    switch_source = (ROOT/"src/Bluent.UI/Components/SwitchComponent/Switch.razor").read_text(encoding="utf-8-sig")
+    assert "@inherits Checkbox<bool>" in switch_source
+    for x in ('new("switch", "Switch"', 'class="lab-switch-grid"',
+              'id="lab-switch-primary"', 'id="lab-switch-before"',
+              'id="lab-switch-disabled"', 'LabelPosition="LabelPosition.Before"',
+              'SelectedSwitchRazor'):
+        assert x in source, "Source-backed Switch preview missing: "+x
+    assert '.lab-canvas.narrow .lab-switch-grid' in css
+    assert '.lab-canvas.compact .lab-switch-card' in css
+    switch_queue = next(e for e in json.loads(QUEUE.read_text(encoding="utf-8-sig"))["families"]
+                        if e["family"] == "Switch")
+    assert switch_queue["scenarioId"] == "switch-bool-label-before-disabled"
+    for proof in (
+        "eighth Switch pilot renders actual Bluent input family through interactive catalog",
+        "Switch current native off label-before and disabled true states render",
+        "native Space on current Switch toggles true and updates label plus Blazor model",
+        "second native Space returns Switch to off without stale label or value",
+        "current disabled Switch rejects native focus and remains checked",
+        "disabled Switch indicator has native pointer hit-test inside component",
+        "hit-tested native pointer cannot toggle disabled public Switch",
+        "generated Switch Razor contains two bind Value models before-label and disabled",
+        "source queue #435 links incomplete Switch and provides real pilot launch",
+        "source queue launches eighth Switch specimen without completing #435",
+    ):
+        assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+
     assert data["families"][6]["id"] == "checkbox"
     assert data["families"][6]["classification"] == "representative_only"
     assert data["families"][6]["existingDemoRoute"] == "/components/checkboxes"
@@ -96,7 +128,7 @@ def check() -> int:
     for marker in ('new("textfield", "TextField"', 'class="lab-textfield-grid"',
                    'id="lab-tf-input"', 'id="lab-tf-notes"', 'id="lab-tf-disabled"',
                    'BindValueEvent="oninput"', 'Rows="3"', 'ResizeTextarea="false"',
-                   'SelectedTextFieldRazor', '59</strong> not yet demonstrated'):
+                   'SelectedTextFieldRazor', '58</strong> not yet demonstrated'):
         assert marker in source, "Live current TextField specimen contract missing: " + marker
     assert '.lab-canvas.narrow .lab-textfield-grid' in css
     assert '.lab-canvas.compact .lab-textfield-card' in css
@@ -106,7 +138,7 @@ def check() -> int:
     assert textfield_queue["scenarioId"] == "textfield-input-textarea-disabled"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 7
+    assert len({entry["id"] for entry in data["families"]}) == 8
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -160,8 +192,8 @@ def check() -> int:
             if entry["id"] == "badge":
                 assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
                 continue
-            if entry["id"] in ("textfield","checkbox"):
-                assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser") in mode
+            if entry["id"] in ("textfield","checkbox","switch"):
+                assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser") in mode
                 continue
             assert "shared browser smoke 27/27" in mode
             if entry["id"] in ("button", "icon"):
@@ -170,7 +202,7 @@ def check() -> int:
                 assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
-        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor"}.get(entry["id"],entry["family"]+"s.razor")
+        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
         demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / demo_file
         assert demo_path.exists(), f"missing referenced demo: {demo_path}"
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
@@ -338,8 +370,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 7
-    assert queue["familiesWithRealBrowserSpecimen"] == 7
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 8
+    assert queue["familiesWithRealBrowserSpecimen"] == 8
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -360,7 +392,7 @@ def check() -> int:
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows include seven incomplete real lab pilots",
+                    "canonical 66 candidate rows include eight incomplete real lab pilots",
                     "issue 432 search finds current TextField pilot without claiming completion",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
@@ -446,8 +478,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 7 live pilot specimens, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 7/7 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 8 live pilot specimens, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 8/8 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

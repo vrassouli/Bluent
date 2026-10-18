@@ -559,3 +559,50 @@ visual parity, docs, migration and reviewer signoff.
 
 #421 stays In progress/PR Draft; #434 stays Backlog. No
 bluent-v3 or stable Dev merges, and no NuGet package published.
+## 2026-10-18 — eighth live family: existing public Switch
+
+Added the EIGHTH current-API representative source-backed family
+to #421 Component Lab. Switch inherits existing Checkbox<bool>
+and currently renders native checkbox input; this does not
+implement or approve #435 future Fluent2 Switch (still Backlog).
+
+Live, responsive RTL 320px examples are displayed in three
+spaced, padded cards:
+1. Current on/off Switch bound to Blazor bool; native Space
+   twice verifies off -> on -> off, model status and its
+   state-specific Label / UncheckedLabel remain synchronized.
+2. LabelPosition.Before on a second separately bound Switch,
+   verifying existing label-before public API/class and label.
+3. HTML native disabled checked Switch, which cannot be focused
+   via keyboard and remains true after an actual hit-tested
+   CDP native pointer click on its visible indicator.
+
+The actual generated Razor snippet includes two bound bool model
+properties, state-specific labels, LabelPosition and native
+disabled, not a fake screenshot/JSON widget.
+
+The source census remains all 66 families with EIGHT live
+representative demos, 58 not represented, and ZERO final accepted
+v3 component families. Issue #435 queue entry launches only
+the existing API pilot and does not advance its Backlog status.
+
+Independent actual Dev01 Chrome/Edge x WebAssembly and production
+published InteractiveServer all **123/123 browser checks each**,
+**492/492 total**, browser errors=[] and QA-owned process
+cleanup remaining=0. Tests include real native Space on the
+input, real pointer hit-test, binding/label synchronization,
+and canonical queue launch with no fake completion.
+
+[Real hydrated Chrome 375px RTL Switch screenshot](evidence/component-lab-switch-live-rtl-chrome-wasm.png)
+was captured after a native Space toggled the current Switch on;
+three separate cards remain spaced in the narrow preview.
+Not a design mockup and NOT human Penpot/Fluent2 parity signoff.
+
+Remaining #435 product/acceptance: current public Switch derives
+from Checkbox<bool> and renders input type=checkbox, not
+a verified role=switch; accessible role, mixed/unavailable
+semantics, native Windows assistive-tech wording, forced-colors,
+focus, theme, RTL, visual Fluent2 design and migration are
+all unaccepted. #421 remains In progress / PR Draft; #435
+remains Backlog. Nothing merged into bluent-v3 or Dev, and
+NuGet unchanged.

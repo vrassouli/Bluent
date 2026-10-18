@@ -382,6 +382,28 @@
                 </div>
                 <p class="lab-controls-note">Current Checkbox API, not #434 Fluent v3 approval. Native disabled, pointer, keyboard and assistive-tech behavior require full acceptance.</p>
             }
+            else if (_selected == "switch")
+            {
+                <div class="lab-switch-grid" aria-label="Current Switch on off and disabled specimens">
+                    <div class="lab-switch-card">
+                        <h3>Notifications</h3>
+                        <Switch id="lab-switch-primary" @bind-Value="_labSwitchOn"
+                                Label="Notifications on" UncheckedLabel="Notifications off" />
+                        <p class="lab-switch-status" role="status">Enabled: @_labSwitchOn</p>
+                    </div>
+                    <div class="lab-switch-card">
+                        <h3>Label before indicator</h3>
+                        <Switch id="lab-switch-before" @bind-Value="_labSwitchBefore"
+                                Label="Feature active" UncheckedLabel="Feature inactive"
+                                LabelPosition="LabelPosition.Before" />
+                    </div>
+                    <div class="lab-switch-card">
+                        <h3>Disabled switch</h3>
+                        <Switch id="lab-switch-disabled" Value="true" Label="Managed setting" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current Bluent Switch API. #435 redesign, accessible switch role and native OS/AT checks remain pending.</p>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -442,8 +464,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>7</strong> live pilot specimens ·
-               <strong>59</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>8</strong> live pilot specimens ·
+               <strong>58</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -499,6 +521,10 @@
             "Existing bool/bool? Checkbox with dynamic labels and native disabled state. Not a Fluent v3 rewrite.",
             "<Checkbox @bind-Value=\"_labChecked\" Label=\"Accept terms\" />",
             "Representative runnable scenario only"),
+        new("switch", "Switch", "components/fields", "On off and managed states",
+            "Existing Switch renders a native checkbox with on/off labels and a managed disabled state.",
+            "<Switch @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -535,6 +561,10 @@
     private bool _labChecked;
     private bool? _labNullableChecked;
     private string SelectedCheckboxRazor => "<Checkbox id=\"lab-cb-checked\" @bind-Value=\"_labChecked\" Label=\"Accept terms\" />\n<Checkbox id=\"lab-cb-nullable\" @bind-Value=\"_labNullableChecked\" Label=\"Permission\" IndeterminateLabel=\"Not decided\" />\n<Checkbox id=\"lab-cb-disabled\" Value=\"true\" Label=\"Locked option\" disabled />\n@code { private bool _labChecked; private bool? _labNullableChecked; }";
+
+    private bool _labSwitchOn;
+    private bool _labSwitchBefore;
+    private string SelectedSwitchRazor => "<Switch id=\"lab-switch-primary\" @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />\n<Switch id=\"lab-switch-before\" @bind-Value=\"_labSwitchBefore\" Label=\"Feature active\" UncheckedLabel=\"Feature inactive\" LabelPosition=\"LabelPosition.Before\" />\n<Switch id=\"lab-switch-disabled\" Value=\"true\" Label=\"Managed setting\" disabled />\n@code { private bool _labSwitchOn; private bool _labSwitchBefore; }";
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -612,7 +642,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "checkbox" ? SelectedCheckboxRazor
+    private string ActiveRazor => _selected == "switch" ? SelectedSwitchRazor
+        : _selected == "checkbox" ? SelectedCheckboxRazor
         : _selected == "textfield" ? SelectedTextFieldRazor
         : _selected == "badge" ? SelectedBadgeRazor
         : _selected == "icon" ? SelectedIconRazor
