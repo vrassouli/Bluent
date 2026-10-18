@@ -173,3 +173,15 @@
 .lab-canvas.compact .lab-switch-grid { gap:.5rem; }
 .lab-canvas.compact .lab-switch-card { padding:.625rem; gap:.375rem; }
 @media(max-width:600px) { .lab-switch-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 NumericField original API pilot; not future #433 product CSS. */
+.lab-numeric-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-numeric-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-numeric-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-numeric-card .bui-numeric-field { min-width:0; max-width:100%; }
+.lab-numeric-card input { min-width:0; max-width:100%; }
+.lab-numeric-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-numeric-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-numeric-grid { gap:.5rem; }
+.lab-canvas.compact .lab-numeric-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-numeric-grid { grid-template-columns:minmax(0,1fr); } }

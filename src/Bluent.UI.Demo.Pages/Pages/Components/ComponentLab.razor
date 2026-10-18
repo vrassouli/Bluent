@@ -404,6 +404,29 @@
                 </div>
                 <p class="lab-controls-note">Current Bluent Switch API. #435 redesign, accessible switch role and native OS/AT checks remain pending.</p>
             }
+            else if (_selected == "numeric")
+            {
+                <div class="lab-numeric-grid" aria-label="Current numeric integer decimal and disabled inputs">
+                    <div class="lab-numeric-card">
+                        <label for="lab-numeric-live">Integer (1 to 99)</label>
+                        <NumericField id="lab-numeric-live" @bind-Value="_labInteger"
+                                      BindValueEvent="oninput" Min="1" Max="99"
+                                      OnFocus="NumericFocusedAsync" OnBlur="NumericBlurredAsync" />
+                        <p class="lab-numeric-status" role="status">Value: @_labInteger</p>
+                        <p class="lab-numeric-focus-status" role="status">Focus: @_numericFocusCount; blur: @_numericBlurCount</p>
+                    </div>
+                    <div class="lab-numeric-card">
+                        <label for="lab-numeric-decimal">Decimal formatted</label>
+                        <NumericField id="lab-numeric-decimal" @bind-Value="_labDecimal"
+                                      Format="G29" />
+                    </div>
+                    <div class="lab-numeric-card">
+                        <label for="lab-numeric-disabled">Disabled numeric input</label>
+                        <NumericField TValue="int" id="lab-numeric-disabled" Value="3" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing NumericField only. Full parsing, boundary errors, culture and v3 input accessibility still belong to #433.</p>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -464,8 +487,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>8</strong> live pilot specimens ·
-               <strong>58</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>9</strong> live pilot specimens ·
+               <strong>57</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -525,6 +548,10 @@
             "Existing Switch renders a native checkbox with on/off labels and a managed disabled state.",
             "<Switch @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />",
             "Representative runnable scenario only"),
+        new("numeric", "NumericField", "components/fields", "Integers decimal and bounds",
+            "Current NumericField data binding, format, min/max, focus/blur and native disabled state.",
+            "<NumericField @bind-Value=\"_labInteger\" Min=\"1\" Max=\"99\" />",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -565,6 +592,14 @@
     private bool _labSwitchOn;
     private bool _labSwitchBefore;
     private string SelectedSwitchRazor => "<Switch id=\"lab-switch-primary\" @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />\n<Switch id=\"lab-switch-before\" @bind-Value=\"_labSwitchBefore\" Label=\"Feature active\" UncheckedLabel=\"Feature inactive\" LabelPosition=\"LabelPosition.Before\" />\n<Switch id=\"lab-switch-disabled\" Value=\"true\" Label=\"Managed setting\" disabled />\n@code { private bool _labSwitchOn; private bool _labSwitchBefore; }";
+
+    private int _labInteger = 5;
+    private decimal _labDecimal = 12.5m;
+    private int _numericFocusCount;
+    private int _numericBlurCount;
+    private Task NumericFocusedAsync() { _numericFocusCount++; return Task.CompletedTask; }
+    private Task NumericBlurredAsync() { _numericBlurCount++; return Task.CompletedTask; }
+    private string SelectedNumericRazor => "<NumericField id=\"lab-numeric-live\" @bind-Value=\"_labInteger\" BindValueEvent=\"oninput\" Min=\"1\" Max=\"99\" OnFocus=\"NumericFocusedAsync\" OnBlur=\"NumericBlurredAsync\" />\n<NumericField id=\"lab-numeric-decimal\" @bind-Value=\"_labDecimal\" Format=\"G29\" />\n<NumericField TValue=\"int\" id=\"lab-numeric-disabled\" Value=\"3\" disabled />\n@code { private int _labInteger = 5; private decimal _labDecimal = 12.5m; private Task NumericFocusedAsync() => Task.CompletedTask; private Task NumericBlurredAsync() => Task.CompletedTask; }";
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -642,7 +677,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "switch" ? SelectedSwitchRazor
+    private string ActiveRazor => _selected == "numeric" ? SelectedNumericRazor
+        : _selected == "switch" ? SelectedSwitchRazor
         : _selected == "checkbox" ? SelectedCheckboxRazor
         : _selected == "textfield" ? SelectedTextFieldRazor
         : _selected == "badge" ? SelectedBadgeRazor

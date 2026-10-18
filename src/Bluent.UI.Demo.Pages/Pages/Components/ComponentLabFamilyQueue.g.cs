@@ -11,7 +11,7 @@ internal static class ComponentLabFamilyQueue
         new("Label", 430, "label"),
         new("Link", 431, "link"),
         new("TextField", 432, "textfield"),
-        new("NumericField", 433, null),
+        new("NumericField", 433, "numeric"),
         new("Checkbox", 434, "checkbox"),
         new("Switch", 435, "switch"),
         new("RadioGroup", 436, null),

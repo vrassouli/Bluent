@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 8
+    assert len(data["families"]) == 9
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -40,6 +40,40 @@ def check() -> int:
         assert gate in probe_text, "missing real Link browser gate: " + gate
     # #421 can introduce a current-API TextField specimen even while
     # the actual v3 product redesign #432 remains Backlog.
+    assert data["families"][8]["id"] == "numeric"
+    assert data["families"][8]["classification"] == "representative_only"
+    assert data["families"][8]["existingDemoRoute"] == "/components/fields"
+    assert set(data["families"][8]["propertiesDemonstrated"]) == {
+        "Value", "ValueChanged", "BindValueEvent", "Min", "Max",
+        "Format", "OnFocus", "OnBlur", "disabled"
+    }
+    nf=(ROOT/"src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs").read_text(encoding="utf-8-sig")
+    assert all(x in nf for x in ("public TValue? Min", "public TValue? Max",
+                              "public string? Format", "public EventCallback OnFocus",
+                              "public EventCallback OnBlur"))
+    for marker in ('new("numeric", "NumericField"', 'class="lab-numeric-grid"',
+                   'id="lab-numeric-live"', 'id="lab-numeric-decimal"',
+                   'id="lab-numeric-disabled"', 'SelectedNumericRazor',
+                   'OnFocus="NumericFocusedAsync"', 'OnBlur="NumericBlurredAsync"'):
+        assert marker in source, "NumericField actual API pilot missing: "+marker
+    assert '.lab-canvas.narrow .lab-numeric-grid' in css
+    assert '.lab-canvas.compact .lab-numeric-card' in css
+    numeric_queue=next(e for e in json.loads(QUEUE.read_text(encoding="utf-8-sig"))["families"]
+                       if e["family"]=="NumericField")
+    assert numeric_queue["scenarioId"] == "numeric-integer-decimal-bounds-focus-disabled"
+    for proof in (
+        "ninth NumericField renders existing live generic Blazor numeric input",
+        "NumericField integer five decimal formatted and native disabled real inputs render",
+        "native focus invokes current NumericField OnFocus exactly once",
+        "native NumericField text entry changes integer ValueChanged via Blazor oninput",
+        "leaving actual NumericField emits OnBlur exactly once",
+        "numeric disabled property rejects focus and preserves its value",
+        "NumericField copyable source preserves Min Max Format oninput and focus handlers",
+        "RTL 320px NumericField source cards have a real single column and nonzero gaps",
+        "source queue #433 points to incomplete NumericField issue and its live demo",
+        "source queue launches ninth real NumericField pilot without completing #433",
+    ):
+        assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
     assert data["families"][7]["id"] == "switch"
     assert data["families"][7]["classification"] == "representative_only"
     assert data["families"][7]["existingDemoRoute"] == "/components/fields"
@@ -128,7 +162,7 @@ def check() -> int:
     for marker in ('new("textfield", "TextField"', 'class="lab-textfield-grid"',
                    'id="lab-tf-input"', 'id="lab-tf-notes"', 'id="lab-tf-disabled"',
                    'BindValueEvent="oninput"', 'Rows="3"', 'ResizeTextarea="false"',
-                   'SelectedTextFieldRazor', '58</strong> not yet demonstrated'):
+                   'SelectedTextFieldRazor', '57</strong> not yet demonstrated'):
         assert marker in source, "Live current TextField specimen contract missing: " + marker
     assert '.lab-canvas.narrow .lab-textfield-grid' in css
     assert '.lab-canvas.compact .lab-textfield-card' in css
@@ -138,7 +172,7 @@ def check() -> int:
     assert textfield_queue["scenarioId"] == "textfield-input-textarea-disabled"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 8
+    assert len({entry["id"] for entry in data["families"]}) == 9
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -192,8 +226,8 @@ def check() -> int:
             if entry["id"] == "badge":
                 assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
                 continue
-            if entry["id"] in ("textfield","checkbox","switch"):
-                assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser") in mode
+            if entry["id"] in ("textfield","checkbox","switch","numeric"):
+                assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser" if entry["id"] == "switch" else "NumericField native Blazor browser") in mode
                 continue
             assert "shared browser smoke 27/27" in mode
             if entry["id"] in ("button", "icon"):
@@ -202,7 +236,7 @@ def check() -> int:
                 assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
-        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
+        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
         demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / demo_file
         assert demo_path.exists(), f"missing referenced demo: {demo_path}"
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
@@ -370,8 +404,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 8
-    assert queue["familiesWithRealBrowserSpecimen"] == 8
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 9
+    assert queue["familiesWithRealBrowserSpecimen"] == 9
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -392,7 +426,7 @@ def check() -> int:
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows include eight incomplete real lab pilots",
+                    "canonical 66 candidate rows include nine incomplete real lab pilots",
                     "issue 432 search finds current TextField pilot without claiming completion",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
@@ -478,8 +512,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 8 live pilot specimens, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 8/8 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 9 live pilot specimens, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 9/9 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

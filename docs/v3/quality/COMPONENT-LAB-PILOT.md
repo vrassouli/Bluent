@@ -606,3 +606,49 @@ focus, theme, RTL, visual Fluent2 design and migration are
 all unaccepted. #421 remains In progress / PR Draft; #435
 remains Backlog. Nothing merged into bluent-v3 or Dev, and
 NuGet unchanged.
+## 2026-10-18 — ninth live family: existing public NumericField
+
+Added NINTH representative-only public Bluent component pilot to
+#421 Component Lab. NumericField of TValue inherits the current
+BluentFieldComponentBase, unchanged by this Lab-only work. The
+future Fluent 2 redesign #433 stays Backlog.
+
+Live native input scenarios, separated in padded RTL 320px cards:
+1. int initialized to 5 with BindValueEvent=oninput, Min=1
+   Max=99; a real Chromium Input.insertText("7") updates the
+   native field AND Blazor model to 57. Native focus and
+   blur each invoke their handler exactly once.
+2. Decimal initialized to 12.5 rendered with Format=G29.
+3. Native disabled int initialized to 3, rejects focus and
+   preserves its input value.
+
+Copyable Razor includes actual Value bindings, Min, Max, Format,
+oninput and Focus/Blur handlers with backing code. Real browser
+geometry validates that all cards stack in ONE column within
+RTL 320px Lab canvas, separated by >=8px, no horizontal overflow.
+Default wide desktop grid remains unchanged.
+
+Crucial scope: Min/Max are DECLARED and the 57 in-range result
+was tested. The out-of-range, parse errors, overflow, Step,
+cultural formatting and thorough validation/AT are UNTESTED.
+This is NOT an accepted Fluent2 NumericField implementation.
+
+Canonical queue remains 66 source families, now 9 with
+representative live demos, 57 without, and ZERO final accepted
+v3 families. Issue #433 row launches this incomplete current
+API pilot; it does not change its Backlog status.
+
+Independent Dev01 actual Chrome/Edge x WebAssembly and published
+InteractiveServer each passed 133/133 strict real CDP checks:
+532/532 combined. Native keyboard/input and native focus/blur,
+RTL layout and source queue navigation verified; browser
+errors=[] and QA-owned Chromium cleanup remaining=0.
+
+[Real hydrated RTL Chrome NumericField input screenshot](evidence/component-lab-numeric-live-rtl-chrome-wasm.png)
+shows typed integer 57, decimal 12.5 and disabled value 3 in
+three separated cards. This is a browser screenshot, not a
+Penpot design mockup or an accepted Windows OS AT test.
+
+#421 remains In progress / Draft; #433 Backlog.
+Nothing merged to protected bluent-v3 or stable Dev and
+no NuGet release.

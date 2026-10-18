@@ -66,7 +66,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('eight pilot families and four functional controls rendered',initial.catalog.length===8&&initial.controls===4,initial);
+ check('nine pilot families and four functional controls rendered',initial.catalog.length===9&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -433,7 +433,7 @@ try {
  check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
    tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
  // visual, native AT or product implementation acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Checkbox');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -468,7 +468,7 @@ try {
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
  // but the future #435 semantic switch role and Windows AT are NOT
  // implemented or certified by the #421 source-owned demo.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -502,7 +502,41 @@ try {
  check('generated Switch Razor contains two bind Value models before-label and disabled',
   switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"),12000); // Existing Badge API: native source rendering, not a CSS mock.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Ninth existing NumericField<T> API pilot from public source: real
+ // native text entry and Blazor int binding, callbacks and a separate
+ // decimal specimen. #433 stays Backlog; full validation/AT is not done.
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'NumericField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('NumericField')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const numericReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('NumericField')&&!!document.querySelector('#lab-numeric-live')"),12000);
+ check('ninth NumericField renders existing live generic Blazor numeric input',numericReady);
+ const numberInitial=await js("(()=>{const a=document.getElementById('lab-numeric-live'),b=document.getElementById('lab-numeric-decimal'),d=document.getElementById('lab-numeric-disabled'),g=document.querySelector('.lab-numeric-grid');return {count:g?.children.length,native:a?.tagName,kind:a?.type,value:a?.value,decimal:b?.value,disabled:d?.disabled,disabledValue:d?.value,labels:[...g.querySelectorAll('label')].map(x=>x.htmlFor)}})()");
+ check('NumericField integer five decimal formatted and native disabled real inputs render',
+  numberInitial.count===3&&numberInitial.native==='INPUT'&&numberInitial.kind==='text'&&numberInitial.value==='5'&&numberInitial.decimal?.length>0&&numberInitial.disabled&&numberInitial.disabledValue==='3'&&numberInitial.labels.includes('lab-numeric-live'),numberInitial);
+ await js("(()=>{const a=document.getElementById('lab-numeric-live');a.focus();a.setSelectionRange(a.value.length,a.value.length)})()");
+ const numberFocus=await poll(()=>js("document.querySelector('.lab-numeric-focus-status')?.textContent.trim()==='Focus: 1; blur: 0'&&document.activeElement===document.getElementById('lab-numeric-live')"),12000);
+ check('native focus invokes current NumericField OnFocus exactly once',numberFocus);
+ await send('Input.insertText',{text:'7'});
+ const numberLive=await poll(()=>js("document.querySelector('.lab-numeric-status')?.textContent.trim()==='Value: 57'&&document.getElementById('lab-numeric-live')?.value==='57'"),12000);
+ check('native NumericField text entry changes integer ValueChanged via Blazor oninput',numberLive);
+ await js("document.getElementById('lab-numeric-decimal')?.focus()");
+ const numberBlur=await poll(()=>js("document.querySelector('.lab-numeric-focus-status')?.textContent.trim()==='Focus: 1; blur: 1'"),12000);
+ check('leaving actual NumericField emits OnBlur exactly once',numberBlur);
+ const numberDisabled=await js("(()=>{const d=document.getElementById('lab-numeric-disabled');d?.focus();return {disabled:d?.disabled,value:d?.value,focusDenied:document.activeElement!==d}})()");
+ check('numeric disabled property rejects focus and preserves its value',
+  numberDisabled.disabled&&numberDisabled.value==='3'&&numberDisabled.focusDenied,numberDisabled);
+ const numericCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('NumericField copyable source preserves Min Max Format oninput and focus handlers',
+  numericCopy?.includes('Min="1"')&&numericCopy?.includes('Max="99"')&&numericCopy?.includes('Format="G29"')&&numericCopy?.includes('BindValueEvent="oninput"')&&numericCopy?.includes('OnFocus="NumericFocusedAsync"')&&numericCopy?.includes('OnBlur="NumericBlurredAsync"')&&numericCopy?.includes('disabled />'),numericCopy);
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ const numericNarrow=await js("(()=>{const g=document.querySelector('.lab-numeric-grid'),r=[...g.children].map(x=>x.getBoundingClientRect()),s=getComputedStyle(g),a=g.getBoundingClientRect();return {columns:s.gridTemplateColumns,gap:parseFloat(s.rowGap),inside:r.every(x=>x.left>=a.left-1&&x.right<=a.right+1),vertical:r.slice(1).map((x,i)=>x.top-r[i].bottom),canvas:document.querySelector('.lab-canvas').getBoundingClientRect().width}})()");
+ check('RTL 320px NumericField source cards have a real single column and nonzero gaps',
+  numericNarrow.columns.trim().split(/\s+/).length===1&&numericNarrow.gap>=8&&numericNarrow.vertical.every(x=>x>=8)&&numericNarrow.inside&&numericNarrow.canvas<=320,numericNarrow);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"),12000); // Existing Badge API: native source rendering, not a CSS mock.
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Badge');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Badge')"));
  await js("document.querySelector('button.lab-family')?.click()");
@@ -525,7 +559,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===8"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===9"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -561,8 +595,8 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows include eight incomplete real lab pilots',
-  allQueue.count===66&&allQueue.pilots===8&&allQueue.queued===58&&
+ check('canonical 66 candidate rows include nine incomplete real lab pilots',
+  allQueue.count===66&&allQueue.pilots===9&&allQueue.queued===57&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
@@ -580,7 +614,12 @@ try {
  check('source queue #435 links incomplete Switch and provides real pilot launch',switchQueue);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const switchLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Switch')&&!!document.querySelector('#lab-switch-primary')"),12000);
- check('source queue launches eighth Switch specimen without completing #435',switchLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ check('source queue launches eighth Switch specimen without completing #435',switchLaunch); await js("(()=>{const el=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'433');el.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ const numericQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return rows.length===1&&rows[0].textContent.includes('NumericField')&&rows[0].textContent.includes('Live pilot')&&rows[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/433')&&!!rows[0].querySelector('button')})()"),12000);
+ check('source queue #433 points to incomplete NumericField issue and its live demo',numericQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const numericLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('NumericField')&&!!document.querySelector('#lab-numeric-live')"),12000);
+ check('source queue launches ninth real NumericField pilot without completing #433',numericLaunch); await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const launchPilot=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Button')&&document.querySelector('.lab-canvas .lab-click-status')?.textContent.includes('1')"),12000);

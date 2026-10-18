@@ -47,6 +47,7 @@ def payload():
             else "chrome_and_edge_wasm_server_native_text_input_binding_observed" if family == "TextField"
             else "chrome_and_edge_wasm_server_checkbox_native_checked_nullable_disabled_observed" if family == "Checkbox"
             else "chrome_and_edge_wasm_server_native_switch_on_off_disabled_observed" if family == "Switch"
+            else "chrome_edge_wasm_server_numeric_native_input_focus_blur_observed" if family == "NumericField"
             else "no_component_lab_scenario"
         )
         entries.append({
@@ -77,7 +78,7 @@ def payload():
         "sourceManifestScope": census["status"],
         "familyCount": len(entries),
         "familiesWithRepresentativeLabScenario": len(specimens),
-        "familiesWithRealBrowserSpecimen": 8,
+        "familiesWithRealBrowserSpecimen": 9,
         "apiCoverageComplete": False,
         "note": (
             "This is a complete 66-family WORK QUEUE sourced from the #494 census, "
@@ -99,7 +100,7 @@ def main():
         TARGET.write_text(desired, encoding="utf-8")
     elif not TARGET.is_file() or TARGET.read_text(encoding="utf-8") != desired:
         raise SystemExit("Component Lab family work queue is missing or stale. Review #494 data and regenerate.")
-    print("Component Lab family queue: 66/66 mapped to issues; 8 pilots, 8 actual browser specimens across four independent local modes; ZERO complete API acceptance.")
+    print("Component Lab family queue: 66/66 mapped to issues; 9 pilots, 9 real-browser specimens across four independent local modes; ZERO complete API acceptance.")
 
 
 if __name__ == "__main__":
