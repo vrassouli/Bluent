@@ -264,6 +264,16 @@ def check() -> int:
 
     assert "framework JavaScript and stylesheet requests have no HTTP failures" in probe
     assert "browser reports no unhandled JavaScript exceptions" in probe
+    # After 320px compact/RTL emulation the visual viewport and a nested
+    # scrolling ancestor can disagree. Do not bring back window-only
+    # scrolling or skip actual native hit-testing when Chrome CI is cold.
+    for marker in ("Emulation.clearDeviceMetricsOverride",
+                   "innerWidth>=700",
+                   "e.scrollHeight>e.clientHeight+2",
+                   "e.scrollTop+=y-h/2",
+                   "document.elementFromPoint(x,y)",
+                   "Copy source target cannot be safely clicked"):
+        assert marker in probe, f"missing strict nested scroller/copy-source gate: {marker}"
     for behavior in ("real pointer activation completes Razor Copy source interop",
                      "enabled Bluent Button receives native keyboard focus",
                      "real Enter key activates native Bluent Button exactly once",

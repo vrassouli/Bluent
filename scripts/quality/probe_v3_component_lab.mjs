@@ -359,20 +359,25 @@ try {
  const narrow=await js("(()=>({innerWidth,scrollWidth:document.documentElement.scrollWidth,lab:document.querySelector('.component-lab')?.getBoundingClientRect().width}))()");
  check('mobile 320px viewport has no unintended horizontal document clipping',narrow.scrollWidth<=321,narrow);
  await send('Emulation.clearDeviceMetricsOverride');
+ // Wait for CSS viewport reflow before real pointer hit-testing the source
+ // action; 320px compact/RTL followed by desktop metrics may otherwise
+ // leave nested page scroll offsets and target geometry from different frames.
+ await poll(()=>js("innerWidth>=700&&document.querySelector('.lab-source button')?.getBoundingClientRect().width>0"),12000);
  const source=await js("(()=>({text:document.querySelector('.lab-source pre code')?.textContent,buttons:document.querySelectorAll('.lab-source button').length,heading:document.querySelector('.lab-source h2')?.textContent}))()");
  check('copyable Razor source visible in native code block',source.text?.includes('<Badge')&&source.buttons===1,source);
 
  // Exercise the actual Copy source click, not just the presence of a decorative control.
- // Scroll into view and dispatch real CDP pointer events to grant user activation.
- await js("document.querySelector('.lab-source button')?.scrollIntoView({block:'center',behavior:'instant'})");
- // Some hosted Chromium runs finish ancestor scrolling after scrollIntoView,
- // leaving the button behind a fixed header (observed center y=4). Native
- // pointer hit testing is mandatory; retry only actual viewport positioning.
+ // After the 320px simulated viewport, several real CI Chrome runs had a
+ // *nested* scroller offset even when window.scrollY=0. Scrolling only the
+ // window cannot recover a button whose center is above the visual viewport.
+ // Reposition the real scrollable owner, then require native hit-testing.
+ await js("document.querySelector('.lab-source button')?.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'})");
  let copyPos=null;
  for(let attempt=0;attempt<20;attempt++){
-  copyPos=await js("(()=>{const b=document.querySelector('.lab-source button');if(!b)return null;const r=b.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2,h=innerHeight,margin=Math.min(64,h/4),safe=y>margin&&y<h-margin,hit=!!safe&&document.elementFromPoint(x,y)?.closest('button')===b;if(!hit)window.scrollBy({top:y-h/2,behavior:'instant'});return {x,y,height:h,safe,hit,scrollY:window.scrollY}})()");
+  copyPos=await js("(()=>{const b=document.querySelector('.lab-source button');if(!b)return null;const r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,w=innerWidth,h=innerHeight,margin=Math.min(64,h/4),safe=x>0&&x<w&&y>margin&&y<h-margin,hit=!!safe&&document.elementFromPoint(x,y)?.closest('button')===b,owners=[];for(let e=b.parentElement;e;e=e.parentElement){const st=getComputedStyle(e);if(e.scrollHeight>e.clientHeight+2&&/(auto|scroll|overlay)/.test(st.overflowY)){owners.push({tag:e.tagName,cls:typeof e.className==='string'?e.className.slice(0,65):'',top:e.scrollTop,available:e.scrollHeight-e.clientHeight});if(!hit){e.scrollTop+=y-h/2;break;}}}if(!hit&&owners.length===0)window.scrollBy({top:y-h/2,behavior:'instant'});return {x,y,width:w,height:h,safe,hit,scrollY:window.scrollY,owners}})()");
   if(copyPos?.hit)break;
-  await wait(250);
+  await wait(300);
+  await js("document.querySelector('.lab-source button')?.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'})");
  }
  check('CDP Copy source pointer target is the actual visible button',copyPos?.hit===true,copyPos);
  if(!copyPos?.hit)throw Error('Copy source target cannot be safely clicked');

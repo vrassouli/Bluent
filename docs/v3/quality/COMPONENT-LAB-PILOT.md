@@ -209,3 +209,28 @@ secondary icon-only trigger has no explicit accessible name in the
 source-generated markup: a #428 design/semantic review item.
 Four separately tested Chrome/Edge x WASM/Server 83/83 runtime passes
 remain independent interaction evidence, not visual certification.
+## 2026-10-18 — actual Chrome/WebAssembly CI Copy source regression
+
+Exact #421 commit 23c33af4 browser run 39111545774 was **RED** in
+Chrome/WebAssembly (other three browser-mode jobs PASS) because after
+testing the RTL, 320px viewport and compact-density modes, the final
+Copy source pointer target was above the visual viewport (center
+y=-108.17px, window.scrollY=0). The browser's native hit test correctly
+refused to click an offscreen button; 82 prior checks had passed. This
+was a test viewport/scroll ownership problem, NOT evidence that the
+Split Button callback behavior was broken or that its existing
+accessibility gap was fixed.
+
+The #421 QA probe now waits for the desktop viewport layout to settle
+after clearing CDP device metrics, then locates actual scrollable
+ancestor(s) and positions the Copy button in the usable viewport. A
+real document.elementFromPoint hit test is STILL required. The source
+contract prevents accidentally reverting to scrolling window alone;
+the browser test still fails if the target cannot be safely hit or
+if native pointer Copy source interop does not succeed.
+
+Independent Dev01 actual **Chrome/WebAssembly** run of this modified
+source completed 83/83, errors=[], owned Chrome cleanup remaining=0
+at localhost port 52539. A new exact GitHub Actions run must validate
+the remediation in the same formerly failing CI job. Do not count
+the previous red run as green or mark #421 complete.
