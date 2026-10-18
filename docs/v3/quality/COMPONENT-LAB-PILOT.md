@@ -290,3 +290,40 @@ Locally validated against actual #421 source on Dev01:
 This does not change production Bluent components or public APIs,
 nor does it certify a completed v3 family, native OS AT, or approved
 Penpot visual parity. #421 remains In progress/Draft, #428 Backlog.
+## 2026-10-18 — native disabled Split Button specimen (not #428 product)
+
+Added a LIVE current Bluent Button sample with OnClick + Dropdown
+and an HTML disabled attribute, adjacent to the existing active Split.
+Both underlying native primary and secondary buttons are expected to
+be inert. Two separate EventCallbacks reuse the enabled specimen's
+counter as a negative assertion: pressing native Enter or clicking
+either disabled button must not increment either counter or open
+"Schedule disabled".
+
+The #421 browser probe has five additional fail-closed checks:
+both DOM native buttons disabled, disabled primary cannot receive
+focus/activate by CDP Enter, disabled disclosure likewise, BOTH actual
+CDP hit-tested pointer clicks remain inert, and copyable Razor retains
+the disabled attribute and real handlers. Native pointer checks
+are still required even when buttons are disabled.
+
+Actual Dev01 current task-source local results:
+- Chrome/WebAssembly, port 64430: **88/88 assertions passed**,
+  failed=0, browser owned-process cleanup remaining=0.
+- Edge/production-published InteractiveServer, port 63588:
+  **88/88 assertions passed**, failed=0, cleanup remaining=0.
+- An earlier Chrome/WASM attempt passed all 88 functional assertions
+  but left 1 Chromium child at the initial 350ms teardown check.
+  Runner cleanup was corrected to wait up to 5 seconds with
+  GUID-scoped termination and FAIL CLOSED if a child survives.
+  Repeated actual runs above verified remaining=0.
+- The 66-family strict source ledger still has zero fully accepted v3
+  components; this is representative current-API coverage only.
+
+[Actual 375px RTL mobile active-versus-disabled Split Button screenshot](evidence/component-lab-split-disabled-rtl-mobile-chrome-wasm.png)
+was captured from the fully hydrated actual Blazor Demo on Dev01,
+with live RTL and mobile 320px Lab canvas controls, CSS viewport 375px;
+it is NOT a design mockup or approved Penpot visual parity. The
+disabled light-background contrast, icon-only secondary accessible
+name, Escape/focus-cycle details and real Windows OS screen reader
+evidence still belong to #428's component acceptance.

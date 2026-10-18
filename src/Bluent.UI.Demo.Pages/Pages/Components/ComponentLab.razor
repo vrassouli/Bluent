@@ -135,6 +135,19 @@
                     </Button>
                     <p role="status" class="lab-split-status">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
                 </div>
+                <div class="lab-advanced-group lab-split-disabled" aria-label="Current disabled Split Button real behavior specimen">
+                    <span class="lab-advanced-label">Disabled split · existing Button API</span>
+                    <Button Text="Send disabled" OnClick="ChooseSplitPrimaryAsync"
+                            Appearance="ButtonAppearance.Primary"
+                            DropdownPlacement="Placement.BottomEnd" disabled>
+                        <Dropdown>
+                            <MenuList>
+                                <MenuItem Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync" />
+                            </MenuList>
+                        </Dropdown>
+                    </Button>
+                    <p class="lab-split-disabled-help">Neither the primary action nor the menu should activate.</p>
+                </div>
                 <div class="lab-orientation-examples" aria-label="Current Button Icon TextClass Orientation Rotated examples">
                     <div class="lab-orientation-group">
                         <span class="lab-advanced-label">Icon, TextClass and Vertical orientation</span>
@@ -551,6 +564,7 @@
           "<Button Text=\"Notifications\" SecondaryText=\"Recent activity\" Compact=\"true\" BadgeHorizontalPosition=\"HorizontalSides.End\" BadgeVerticalPosition=\"VerticalSides.Bottom\"><Badge><Badge Text=\"3\" Size=\"BadgeSize.Small\" /></Badge></Button>\n" +
           "<Button Text=\"More actions\" ShowDropdownIndicator=\"true\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Export report\" OnClick=\"ChooseExportAsync\" /><MenuItem Title=\"Share summary\" OnClick=\"ChooseShareAsync\" /></MenuList></Dropdown></Button>\n" +
           "<Button Text=\"Send now\" Appearance=\"ButtonAppearance.Primary\" OnClick=\"ChooseSplitPrimaryAsync\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Schedule send\" OnClick=\"ChooseSplitScheduleAsync\" /></MenuList></Dropdown></Button>\n" +
+          "<Button Text=\"Send disabled\" Appearance=\"ButtonAppearance.Primary\" OnClick=\"ChooseSplitPrimaryAsync\" DropdownPlacement=\"Placement.BottomEnd\" disabled><Dropdown><MenuList><MenuItem Title=\"Schedule disabled\" OnClick=\"ChooseSplitScheduleAsync\" /></MenuList></Dropdown></Button>\n" +
           "<Button Text=\"Vertical action\" Icon=\"@FluentIcons.Settings\" TextClass=\"lab-custom-button-text\" Orientation=\"Orientation.Vertical\" />\n" +
           "<Button Text=\"Rotated action\" Icon=\"@FluentIcons.Search\" Rotated=\"true\" />\n" +
           "@code {\n    private int _splitPrimaryEvents;\n    private int _splitScheduleEvents;\n    private Task ChooseSplitPrimaryAsync() { _splitPrimaryEvents++; return Task.CompletedTask; }\n    private Task ChooseSplitScheduleAsync() { _splitScheduleEvents++; return Task.CompletedTask; }\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n    private string _lastMenuChoice = \"none\";\n    private int _menuEvents;\n    private Task ChooseExportAsync() { _lastMenuChoice = \"Export report\"; _menuEvents++; return Task.CompletedTask; }\n    private Task ChooseShareAsync() { _lastMenuChoice = \"Share summary\"; _menuEvents++; return Task.CompletedTask; }\n}"

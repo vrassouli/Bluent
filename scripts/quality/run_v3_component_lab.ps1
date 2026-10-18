@@ -84,14 +84,26 @@ finally {
     foreach($process in $owned) {
         Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
     }
-    Start-Sleep -Milliseconds 350
-    $remaining = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" |
-        Where-Object { $_.CommandLine -and
-                       $_.CommandLine.Contains($profilePrefix) })
+    # Windows Chromium descendants may release their profile shortly after
+    # their parent exits. Bound the wait to five seconds, and only inspect
+    # THIS invocation's GUID-scoped processes. Never mask a real leak.
+    $remaining = @()
+    for($attempt = 0; $attempt -lt 20; $attempt++) {
+        $remaining = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" |
+            Where-Object { $_.CommandLine -and
+                           $_.CommandLine.Contains($profilePrefix) })
+        if($remaining.Count -eq 0) { break }
+        foreach($process in $remaining) {
+            Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
+        }
+        Start-Sleep -Milliseconds 250
+    }
     Write-Output "QA browser cleanup: owned=$($owned.Count), remaining=$($remaining.Count)"
     if($remaining.Count -eq 0) {
         Get-ChildItem -Path $env:TEMP -Directory -Filter "$profilePrefix*" -ErrorAction SilentlyContinue |
             Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+    } else {
+        throw "QA owned Chromium cleanup incomplete: $($remaining.Count) browser processes remain"
     }
 
 }

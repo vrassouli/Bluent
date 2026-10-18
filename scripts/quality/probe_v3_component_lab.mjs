@@ -67,7 +67,7 @@ try {
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
  check('five pilot families and four functional controls rendered',initial.catalog.length===5&&initial.controls===4,initial);
- check('real library Button elements rendered, not image/mock',initial.runnable===11,initial);
+ check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
  check('actual Blazor OnClick event increments visible count',clicked);
@@ -174,6 +174,39 @@ try {
   splitSource?.includes('Title="Schedule send" OnClick="ChooseSplitScheduleAsync"')&&
   splitSource?.includes('private Task ChooseSplitPrimaryAsync()')&&
   splitSource?.includes('private Task ChooseSplitScheduleAsync()'),splitSource);
+ // The same existing public Split API with HTML disabled must make
+ // BOTH the primary and secondary native buttons inert. Do not fake
+ // click/focus for assertions: CDP native Enter and hit-tested pointer.
+ const disabledSplit=await js("(()=>{const root=document.querySelector('.lab-split-disabled'),buttons=[...root?.querySelectorAll('button.bui-button')||[]];return {count:buttons.length,disabled:buttons.map(b=>b.disabled),text:buttons[0]?.textContent?.trim()}})()");
+ check('existing disabled Split Button disables both native primary and disclosure',
+   disabledSplit.count===2&&disabledSplit.disabled.every(Boolean)&&disabledSplit.text==='Send disabled',disabledSplit);
+ await js("document.querySelector('.lab-split-disabled button.bui-button')?.focus()");
+ const disabledPrimaryFocus=await js("document.activeElement!==document.querySelector('.lab-split-disabled button.bui-button')");
+ await pressEnter();
+ check('native Enter cannot focus or activate disabled Split primary',disabledPrimaryFocus&&
+   await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1'"));
+ await js("document.querySelectorAll('.lab-split-disabled button.bui-button')[1]?.focus()");
+ const disabledSecondaryFocus=await js("document.activeElement!==document.querySelectorAll('.lab-split-disabled button.bui-button')[1]");
+ await pressEnter();
+ check('native Enter cannot focus or open disabled Split disclosure',disabledSecondaryFocus&&
+   await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))"));
+ const disabledNativeHits=[];
+ for(const index of [0,1]){
+  await js("document.querySelectorAll('.lab-split-disabled button.bui-button')["+index+"]?.scrollIntoView({block:'center',behavior:'instant'})");
+  const target=await js("(()=>{const b=document.querySelectorAll('.lab-split-disabled button.bui-button')["+index+"];if(!b)return null;const r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('button')===b}})()");
+  disabledNativeHits.push(target);
+  if(!target?.hit)break;
+  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:target.x,y:target.y,button:'left',clickCount:1});
+  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:target.x,y:target.y,button:'left',clickCount:1});
+ }
+ check('real CDP pointer hits both disabled Split buttons without activating either',
+   disabledNativeHits.length===2&&disabledNativeHits.every(t=>t?.hit) &&
+   await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))"),disabledNativeHits);
+ const disabledSplitSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable disabled Split Razor passes native disabled attribute to both actions',
+   disabledSplitSource?.includes('Text="Send disabled"') &&
+   disabledSplitSource?.includes('DropdownPlacement="Placement.BottomEnd" disabled>') &&
+   disabledSplitSource?.includes('Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync"'),disabledSplitSource);
  // Complete representative display of existing Button 20/20 [Parameter]
  // names: Icon, TextClass, Orientation, Rotated. NO final Fluent2 parity.
  const vertical=await js("(()=>{const b=document.querySelector('#lab-button-vertical'),s=b&&getComputedStyle(b),l=b?.querySelector('.lab-custom-button-text'),ls=l&&getComputedStyle(l),i=b?.querySelector('.bui-icon.icon');return {tag:b?.tagName,vertical:b?.classList.contains('vertical'),layout:s?.flexDirection,icon:!!i,iconClass:i?.className,labelClass:!!l,labelWeight:ls?.fontWeight,bounds:b?{button:b.getBoundingClientRect().width,container:b.parentElement.getBoundingClientRect().width}:null};})()");

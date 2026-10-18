@@ -186,6 +186,22 @@ def check() -> int:
         assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(
             encoding="utf-8-sig"
         ), "missing Split Button runtime browser gate: "+label
+    # Existing Split Button native-disabled state must be a real Blazor
+    # specimen, not an image, and never be reported as v3 AT acceptance.
+    for literal in ('class="lab-advanced-group lab-split-disabled"',
+                    'Text="Send disabled"',
+                    'MenuItem Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync"'):
+        assert literal in source, "Missing disabled Split Button specimen: "+literal
+    for label in (
+        "existing disabled Split Button disables both native primary and disclosure",
+        "native Enter cannot focus or activate disabled Split primary",
+        "native Enter cannot focus or open disabled Split disclosure",
+        "real CDP pointer hits both disabled Split buttons without activating either",
+        "copyable disabled Split Razor passes native disabled attribute to both actions",
+    ):
+        assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(
+            encoding="utf-8-sig"
+        ), "Missing disabled Split native browser guard: "+label
     # Actual Chrome/Edge launch must fail closed. Cold Windows CI may need
     # >20s to start the CDP debug server when 8 parallel jobs compete.
     browser_probe=(ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
@@ -258,6 +274,12 @@ def check() -> int:
     assert 'http://127.0.0.1:5279' not in owner
     assert 'process.env.BLUENT_V3_LAB_PROFILE_PREFIX' in probe
     assert 'Unsafe QA-owned Chromium profile prefix' in probe
+    for cleanup_guard in (
+        "for($attempt = 0; $attempt -lt 20; $attempt++)",
+        "Start-Sleep -Milliseconds 250",
+        "QA owned Chromium cleanup incomplete:",
+    ):
+        assert cleanup_guard in owner, f"browser teardown must remain bounded and fail closed: {cleanup_guard}"
     assert owner.count("Name='chrome.exe' OR Name='msedge.exe'")==2
     assert "remaining=$($remaining.Count)" in owner
     assert "browserName=/msedge/i.test(chrome)?'Edge':'Chrome';" in probe

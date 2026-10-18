@@ -81,9 +81,22 @@
         ],
         "checksPerMode": 83,
         "totalChecksPassed": 332,
-        "knownUnaccepted": [
+        "disabledSplit20261018LocalEvidence": {
+          "classification": "representative_existing_api_only_not_v3_acceptance",
+          "newAssertionsPerMode": 5,
+          "testedPublicBehavior": [
+            "both primary and disclosure are native disabled buttons",
+            "neither native keyboard Enter can focus or activate either button",
+            "both hit-tested native pointer clicks have no effect",
+            "copyable Razor includes disabled plus real split event handlers"
+          ],
+          "sourceOwnedChromeWebAssembly": "88/88 PASS, localhost 64430, own browser cleanup remaining=0",
+          "sourceOwnedEdgePublishedServer": "88/88 PASS, localhost 63588, own browser cleanup remaining=0",
+          "visual": "evidence/component-lab-split-disabled-rtl-mobile-chrome-wasm.png",
+          "limitations": "v3 disabled Split behavior still requires native OS AT, WCAG contrast, RTL design and Penpot review; this is a current-API laboratory specimen"
+        },        "knownUnaccepted": [
           "secondary icon-only disclosure accessible name and native screen reader behavior",
-          "disabled split states and focus cycling / Escape",
+          "disabled Split native keyboard/pointer state sampled, but full focus cycling and Escape unaccepted",
           "Light/Dark RTL and high contrast actual OS",
           "v3 Fluent 2 design and migration acceptance"
         ]
