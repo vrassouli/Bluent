@@ -214,6 +214,9 @@ try {
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  const gridMobile=await js("(()=>{const g=document.querySelector('.lab-advanced-actions'),c=[...g.children],r=c.map(e=>e.getBoundingClientRect()),outer=g.getBoundingClientRect(),s=getComputedStyle(g);return {count:c.length,declaredGap:parseFloat(s.rowGap),gaps:r.slice(1).map((x,i)=>x.top-r[i].bottom),within:r.every(x=>x.left>=outer.left-1&&x.right<=outer.right+1),width:outer.width}})()");
  check('RTL narrow preview advanced Button cards retain visible vertical spacing',gridMobile.count===4&&gridMobile.declaredGap>=10&&gridMobile.gaps.every(x=>x>=10)&&gridMobile.within&&gridMobile.width<=320,gridMobile);
+ const orientationNarrow=await js("(()=>{const g=document.querySelector('.lab-orientation-examples'),cards=[...g.children],r=cards.map(e=>e.getBoundingClientRect()),outer=g.getBoundingClientRect(),s=getComputedStyle(g);return {count:cards.length,cols:s.gridTemplateColumns,gap:parseFloat(s.rowGap),vertical:r[1].top-r[0].bottom,inside:r.every(x=>x.left>=outer.left-1&&x.right<=outer.right+1),preview:document.querySelector('.lab-canvas')?.getBoundingClientRect().width}})()");
+ check('RTL 320px preview Orientation and Rotated cards stack without overlap',
+  orientationNarrow.count===2&&orientationNarrow.cols.trim().split(/\s+/).length===1&&orientationNarrow.gap>=10&&orientationNarrow.vertical>=10&&orientationNarrow.inside&&orientationNarrow.preview<=320,orientationNarrow);
  const englishRTL=await js("(()=>{const p=[...document.querySelectorAll('.lab-advanced-actions .lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help)')];return p.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect(),a=e.parentElement.getBoundingClientRect();return {dir:s.direction,align:s.textAlign,lang:e.lang,margin:s.marginTop,inside:r.left>=a.left-1&&r.right<=a.right+1}})})()");
  check('RTL advanced specimen English captions retain LTR punctuation and right alignment',englishRTL.length===7&&englishRTL.every(x=>x.dir==='ltr'&&x.lang==='en'&&['end','right'].includes(x.align)&&x.margin==='0px'&&x.inside),englishRTL);
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const e=document.getElementById(id);e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}))}})()");
@@ -248,6 +251,16 @@ try {
  await js("document.querySelector('button.lab-family')?.click()");
  const switched=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.includes('Icon') && document.querySelectorAll('.lab-canvas .bui-icon').length>=3"));
  check('catalog selection renders real Bluent Icon specimens',switched);
+ // The embedded 320px preview can be narrow even inside a desktop
+ // browser; public Icon/Label/Badge API controls should fit this
+ // canvas rather than waiting for a window-level @media breakpoint.
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
+ const narrowApi=await js("(()=>{const g=document.querySelector('.lab-api-controls'),children=[...g.children],r=children.map(e=>e.getBoundingClientRect()),outer=g.getBoundingClientRect(),s=getComputedStyle(g);return {count:children.length,cols:s.gridTemplateColumns,gap:parseFloat(s.rowGap),vGap:r[1].top-r[0].bottom,inside:r.every(x=>x.left>=outer.left-1&&x.right<=outer.right+1),canvas:document.querySelector('.lab-canvas')?.getBoundingClientRect().width}})()");
+ check('RTL 320px Icon API controls are one full-width column with visible gap',
+  narrowApi.count===2&&narrowApi.cols.trim().split(/\s+/).length===1&&narrowApi.gap>=10&&narrowApi.vGap>=10&&narrowApi.inside&&narrowApi.canvas<=320,narrowApi);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  // The real Icon class switches actual public Value and Variant enums,
  // not a static screenshot or merely changed combobox selection.
  const iconBase=await js("(()=>{const el=document.querySelector('.lab-selected-icon');return {exists:!!el,html:el?.outerHTML,legend:document.querySelector('.lab-icon-selection')?.textContent?.trim(),variant:document.getElementById('lab-icon-variant')?.value}})()");

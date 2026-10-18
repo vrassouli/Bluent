@@ -211,6 +211,10 @@ def check() -> int:
     assert '.lab-advanced-actions { display:grid;' in css
     assert 'gap:.75rem;' in css
     assert '.lab-canvas.narrow .lab-advanced-actions { grid-template-columns:minmax(0,1fr); }' in css
+    assert '.lab-canvas.narrow .lab-orientation-examples,' in css
+    assert '.lab-canvas.narrow .lab-api-controls { grid-template-columns:minmax(0,1fr); }' in css
+    assert 'RTL 320px preview Orientation and Rotated cards stack without overlap' in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    assert 'RTL 320px Icon API controls are one full-width column with visible gap' in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
     for label in (
         'desktop advanced Button cards have clear grid row and column spacing',
         'RTL narrow preview advanced Button cards retain visible vertical spacing',

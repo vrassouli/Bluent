@@ -403,3 +403,40 @@ from the hydrated Blazor page can be compared with the
 The new image is a browser reference, not human Penpot signoff or
 native Windows screen-reader evidence. The screenshot and CSS belong
 only to the source-owned #421 Lab, not the unfinished #428 Button.
+## 2026-10-18 — container-width-correct mobile preview for existing Button/Icon API
+
+The responsive previews previously relied on the window-level
+max-width 600px media query to stack the current Button
+Orientation/Rotated specimen pair, and on max-width 440px for
+Icon/Label/Badge API controls. Those queries only see the outer
+browser width; a 320px lab-canvas.narrow embedded in a
+desktop-width browser could still render two squeezed columns.
+This is a Lab-only layout bug, not a new Button/Fluent2 implementation.
+
+The same narrow-canvas override already used by the four advanced
+Button cards now covers lab-orientation-examples and
+lab-api-controls. In wide layout their normal desktop grids remain.
+In the 320px RTL preview, both Orientation/Rotated native Button
+cards stack as one column with at least 10 CSS px real row gap, and
+Icon's two actual API selects stack full width with at least 10 CSS
+px gap. No outside-grid positioning, hidden clipping, per-card margin
+hacks or edits to public Bluent components were used.
+
+Two additional STRICT actual CDP geometry checks, inserted in the
+existing source-owned Component Lab QA browser run, enforce preview
+width at most 320px, one true CSS grid column, at least 10 CSS px
+vertical gaps, and no card/control protrusions beyond the owner Grid.
+Both were verified in INDEPENDENT Dev01 real-browser runs:
+- Chrome/WebAssembly: 94/94 checks, errors=[], Chrome owned-profile
+  process cleanup remaining=0.
+- Edge/production-published InteractiveServer: 94/94 checks,
+  errors=[], Edge owned-profile cleanup remaining=0.
+
+[ACTUAL Chromium screenshot: RTL 320px Orientation/Rotated preview inside
+a desktop-wide browser](evidence/component-lab-orientation-narrow-rtl-wide-browser.png)
+is a real hydrated Blazor live capture using an 1150px browser CDP
+viewport with the Lab canvas deliberately narrowed to 320px and RTL.
+It is NOT a design mockup, named OS screen-reader evidence, or accepted
+Fluent 2 Penpot parity. It is independent layout QA evidence. The
+existing canonical Penpot Lab page42 is still pending human parity
+review, #421 stays In progress, and #428 Button remains Backlog.
