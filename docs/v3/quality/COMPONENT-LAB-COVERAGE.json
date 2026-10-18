@@ -51,7 +51,7 @@
         "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
         "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "All 20 currently declared public Button [Parameter] names now have a representative Lab specimen (plus disabled AdditionalAttributes); this is NOT full permutation or Fluent2 acceptance. Additional unaccepted scenarios: split button (OnClick plus Dropdown), disabled anchor semantics, accessible toggle aria-pressed and pressed focus, menu keyboard and native AT semantics, grouping, icon-only labels, all appearance/size combinations, real theme contrast/RTL, visual Fluent 2 parity, migration and final reviewer acceptance. 16/20 public parameters sampled plus disabled AdditionalAttributes does not mean exhaustive coverage.",
+      "remaining": "All 20 currently declared public Button [Parameter] names now have a representative Lab specimen (plus disabled AdditionalAttributes); this is NOT full permutation or Fluent2 acceptance. Additional unaccepted scenarios: split button (OnClick plus Dropdown), disabled anchor semantics, accessible toggle aria-pressed and pressed focus, menu keyboard and native AT semantics, grouping, icon-only labels, all appearance/size combinations, real theme contrast/RTL, visual Fluent 2 parity, migration and final reviewer acceptance. 20/20 currently declared public parameter NAMES represented plus disabled AdditionalAttributes do not mean exhaustive combination, keyboard, visual or native AT acceptance. Split Button primary vs dropdown event paths now have real native-CDP keyboard and pointer regression coverage in all four browser/modes; full Fluent v3 split semantics and accessible secondary label still belong to #428.",
       "incremental20261017Evidence": {
         "kind": "actual-local-browser; representative-only, not design or AT signoff",
         "Chrome/Server": "32/32 actual Dev01 published InteractiveServer browser assertions after status selector fix; cleanup remaining=0",
@@ -61,6 +61,32 @@
         "accessibilityGap": "Existing public toggled Button observed aria-pressed=null in real Edge/WASM: route review to #428, do not claim accessible toggle parity",
         "designReview": "Existing canonical Penpot Component Lab page42 board is source-owned DRAFT, currently disconnected; no new board change or design acceptance claimed. Advanced API variants reuse existing source-owned live scenario layout.",
         "advanced20261017": "Current source local Edge/WebAssembly 40/40 and Chrome/production-published InteractiveServer 40/40 real browser checks. Fixed Server-only missing interactive PopoverContainer in compatibility page; neither error reflected a core Button API change. 320px scroll and exact two MenuItem callbacks passed in both. Chrome/WebAssembly and Edge/Server on exact-head GitHub CI still pending."
+      },
+      "splitButton20261018Evidence": {
+        "classification": "representative_existing_public_api_only_not_fluent_v3_acceptance",
+        "design": "Existing canonical Bluent v3 Component Lab page42 desktop/mobile DRAFT arrangement reused; no new Penpot design or approval claimed",
+        "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+        "states": [
+          "OnClick plus Dropdown supplies distinct primary action and secondary disclosure",
+          "native Enter on primary invokes exactly one primary callback",
+          "native Enter on indicator reveals live menu and preserves primary callback count",
+          "real hit-tested mouse click on Schedule send invokes only secondary callback",
+          "copyable Razor includes actual handlers"
+        ],
+        "localRealBrowser": [
+          "Chrome/WebAssembly Dev01 83/83, host 127.0.0.1:55735, cleanup remaining=0",
+          "Chrome/production-published InteractiveServer Dev01 83/83, host 127.0.0.1:65189, cleanup remaining=0",
+          "Edge/WebAssembly Dev01 83/83, host 127.0.0.1:64421, cleanup remaining=0",
+          "Edge/production-published InteractiveServer Dev01 83/83, host 127.0.0.1:56738, cleanup remaining=0"
+        ],
+        "checksPerMode": 83,
+        "totalChecksPassed": 332,
+        "knownUnaccepted": [
+          "secondary icon-only disclosure accessible name and native screen reader behavior",
+          "disabled split states and focus cycling / Escape",
+          "Light/Dark RTL and high contrast actual OS",
+          "v3 Fluent 2 design and migration acceptance"
+        ]
       }
     },
     {

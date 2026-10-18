@@ -64,7 +64,7 @@ try {
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
  check('five pilot families and four functional controls rendered',initial.catalog.length===5&&initial.controls===4,initial);
- check('real library Button elements rendered, not image/mock',initial.runnable===9,initial);
+ check('real library Button elements rendered, not image/mock',initial.runnable===11,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
  check('actual Blazor OnClick event increments visible count',clicked);
@@ -148,6 +148,29 @@ try {
   sourceAdvanced?.includes('DropdownPlacement="Placement.BottomEnd"')&&
   sourceAdvanced?.includes('private Task ChooseExportAsync()')&&sourceAdvanced?.includes('private Task ChooseShareAsync()'),sourceAdvanced);
 
+ // Existing public Split Button combines OnClick with Dropdown; two
+ // independently focusable real buttons must never invoke each other.
+ const split=await js("(()=>{const root=document.querySelector('.lab-split-action'),buttons=[...root?.querySelectorAll('button.bui-button')||[]];return {buttons:buttons.length,primary:buttons[0]?.textContent?.trim(),secondaryIcon:!!buttons[1]?.querySelector('.dropdown-icon')}})()");
+ check('actual current public Split Button mounts independent primary and disclosure buttons',
+  split.buttons===2&&split.primary==='Send now'&&split.secondaryIcon,split);
+ await js("document.querySelector('.lab-split-action button.bui-button')?.focus()");
+ await pressEnter();
+ const splitPrimary=await poll(()=>js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 0'"),12000);
+ check('native Enter on Split primary invokes only primary callback once',splitPrimary);
+ await js("document.querySelectorAll('.lab-split-action button.bui-button')[1]?.focus()");
+ await pressEnter();
+ const splitOpened=await poll(()=>js("!![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].find(x=>x.textContent?.includes('Schedule send'))"),15000);
+ check('native Enter on Split secondary opens Dropdown without primary callback',splitOpened&&
+  await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 0'"));
+ await selectMenu('Schedule send');
+ const splitScheduled=await poll(()=>js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1'"),14000);
+ check('real Split menu pointer action invokes only scheduled callback once',splitScheduled);
+ const splitSource=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable existing Split Button Razor includes both real event handlers',
+  splitSource?.includes('OnClick="ChooseSplitPrimaryAsync"')&&
+  splitSource?.includes('Title="Schedule send" OnClick="ChooseSplitScheduleAsync"')&&
+  splitSource?.includes('private Task ChooseSplitPrimaryAsync()')&&
+  splitSource?.includes('private Task ChooseSplitScheduleAsync()'),splitSource);
  // Complete representative display of existing Button 20/20 [Parameter]
  // names: Icon, TextClass, Orientation, Rotated. NO final Fluent2 parity.
  const vertical=await js("(()=>{const b=document.querySelector('#lab-button-vertical'),s=b&&getComputedStyle(b),l=b?.querySelector('.lab-custom-button-text'),ls=l&&getComputedStyle(l),i=b?.querySelector('.bui-icon.icon');return {tag:b?.tagName,vertical:b?.classList.contains('vertical'),layout:s?.flexDirection,icon:!!i,iconClass:i?.className,labelClass:!!l,labelWeight:ls?.fontWeight,bounds:b?{button:b.getBoundingClientRect().width,container:b.parentElement.getBoundingClientRect().width}:null};})()");

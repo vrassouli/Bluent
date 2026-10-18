@@ -1,4 +1,4 @@
-﻿@page "/component-lab"
+@page "/component-lab"
 @namespace Bluent.UI.Demo.Pages.Components
 @using Bluent.UI.Enums
 @using System.ComponentModel.DataAnnotations
@@ -122,6 +122,19 @@
                     </div>
                 </div>
 
+                <div class="lab-advanced-group lab-split-action" aria-label="Current Button split primary action and dropdown example">
+                    <span class="lab-advanced-label">Split action · existing Button API</span>
+                    <Button Text="Send now" OnClick="ChooseSplitPrimaryAsync"
+                            Appearance="ButtonAppearance.Primary"
+                            DropdownPlacement="Placement.BottomEnd">
+                        <Dropdown>
+                            <MenuList>
+                                <MenuItem Title="Schedule send" OnClick="ChooseSplitScheduleAsync" />
+                            </MenuList>
+                        </Dropdown>
+                    </Button>
+                    <p role="status" class="lab-split-status">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
+                </div>
                 <div class="lab-orientation-examples" aria-label="Current Button Icon TextClass Orientation Rotated examples">
                     <div class="lab-orientation-group">
                         <span class="lab-advanced-label">Icon, TextClass and Vertical orientation</span>
@@ -475,6 +488,11 @@
     private Task ChooseExportAsync() { _lastMenuChoice = "Export report"; _menuEvents++; return Task.CompletedTask; }
     private Task ChooseShareAsync() { _lastMenuChoice = "Share summary"; _menuEvents++; return Task.CompletedTask; }
 
+    private int _splitPrimaryEvents;
+    private int _splitScheduleEvents;
+    private Task ChooseSplitPrimaryAsync() { _splitPrimaryEvents++; return Task.CompletedTask; }
+    private Task ChooseSplitScheduleAsync() { _splitScheduleEvents++; return Task.CompletedTask; }
+
     private bool _buttonToggled;
     private int _toggleEvents;
     private Task ButtonToggledAsync(bool toggled)
@@ -532,9 +550,10 @@
           "<Button Text=\"Open guide\" Href=\"getting-started\" Appearance=\"ButtonAppearance.Subtle\" />\n" +
           "<Button Text=\"Notifications\" SecondaryText=\"Recent activity\" Compact=\"true\" BadgeHorizontalPosition=\"HorizontalSides.End\" BadgeVerticalPosition=\"VerticalSides.Bottom\"><Badge><Badge Text=\"3\" Size=\"BadgeSize.Small\" /></Badge></Button>\n" +
           "<Button Text=\"More actions\" ShowDropdownIndicator=\"true\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Export report\" OnClick=\"ChooseExportAsync\" /><MenuItem Title=\"Share summary\" OnClick=\"ChooseShareAsync\" /></MenuList></Dropdown></Button>\n" +
+          "<Button Text=\"Send now\" Appearance=\"ButtonAppearance.Primary\" OnClick=\"ChooseSplitPrimaryAsync\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Schedule send\" OnClick=\"ChooseSplitScheduleAsync\" /></MenuList></Dropdown></Button>\n" +
           "<Button Text=\"Vertical action\" Icon=\"@FluentIcons.Settings\" TextClass=\"lab-custom-button-text\" Orientation=\"Orientation.Vertical\" />\n" +
           "<Button Text=\"Rotated action\" Icon=\"@FluentIcons.Search\" Rotated=\"true\" />\n" +
-          "@code {\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n    private string _lastMenuChoice = \"none\";\n    private int _menuEvents;\n    private Task ChooseExportAsync() { _lastMenuChoice = \"Export report\"; _menuEvents++; return Task.CompletedTask; }\n    private Task ChooseShareAsync() { _lastMenuChoice = \"Share summary\"; _menuEvents++; return Task.CompletedTask; }\n}"
+          "@code {\n    private int _splitPrimaryEvents;\n    private int _splitScheduleEvents;\n    private Task ChooseSplitPrimaryAsync() { _splitPrimaryEvents++; return Task.CompletedTask; }\n    private Task ChooseSplitScheduleAsync() { _splitScheduleEvents++; return Task.CompletedTask; }\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n    private string _lastMenuChoice = \"none\";\n    private int _menuEvents;\n    private Task ChooseExportAsync() { _lastMenuChoice = \"Export report\"; _menuEvents++; return Task.CompletedTask; }\n    private Task ChooseShareAsync() { _lastMenuChoice = \"Share summary\"; _menuEvents++; return Task.CompletedTask; }\n}"
         : Selected.Razor;
     private void Select(string id)
     {

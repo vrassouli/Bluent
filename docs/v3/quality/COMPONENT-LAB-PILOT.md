@@ -151,3 +151,44 @@ The existing SSR dependency Microsoft.AspNetCore.Components.WebAssembly.Server
 GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4.
 Release build succeeded with 2 warnings; -warnaserror fails and the
 advisories are NOT suppressed or counted as zero warnings.
+
+## 2026-10-18 — actual existing Split Button demo and keyboard/event routing (#421)
+
+The source-backed public Button API already supports a Split Button:
+a Button with both OnClick and Dropdown creates two native buttons.
+The v3 Component Lab now exercises this existing feature inside the
+already-designed advanced Button pilot area. New specimen "Send now"
+uses the real primary handler and a separate "Schedule send" dropdown
+MenuItem, visible independent callback counters, and synchronized
+copyable Razor with actual backing handler methods. This is a #421
+live laboratory improvement, NOT #428 product API or final Fluent 2 UI.
+
+Five fail-closed real Chromium checks per render mode require the
+two-button split markup and indicator, native Enter on primary with
+only primary callback firing, native Enter on secondary opening menu
+without primary activation, actual hit-tested pointer click on
+secondary MenuItem with exactly one secondary callback, and complete
+copyable source. The preexisting Button count fixture was updated
+from 9 to the real 11 native buttons. Source contract checks preserve
+the specimen and the five runtime gates.
+
+Verified on Dev01, latest unpublished #421 task source:
+Chrome/WebAssembly 83/83 (port 55735), Chrome/production-published
+InteractiveServer 83/83 (port 65189), Edge/WebAssembly 83/83
+(port 64421), Edge/production-published InteractiveServer 83/83
+(port 56738): **332/332 actual browser assertions**, errors=[],
+scoped Chromium owned-process cleanup remaining=0 on each of four
+independent invocations. Current Demo.Pages Debug compiled with
+zero warnings/errors; source/queue contract PASS.
+
+The covered public Button parameter-name set remains 20/20 plus the
+HTML disabled attribute; the split case adds a REAL behavior scenario
+rather than a twenty-first parameter. All 5 pilot family entries
+remain representative_only, the 66-family queue remains zero fully
+accepted, and #421 remains In progress. In particular, the icon-only
+secondary split trigger's accessible name, native screen reader and OS
+Contrast Theme interactions, focus cycling, Escape semantics, exact
+Fluent 2 visual parity, disabled/split forms, exhaustive state matrix
+and human approved Penpot page42 design are NOT accepted. Those belong
+to #428 after its foundation Ready gate. Nothing merged to
+bluent-v3/Dev and nothing published to NuGet.

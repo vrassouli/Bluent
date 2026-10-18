@@ -187,3 +187,13 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - 2026-10-17 #421 representative Button 20/20 existing C# [Parameter] names now have a live Lab specimen (plus disabled HTML AdditionalAttribute), in four total pilot families of 66; ZERO completed. Added Icon/TextClass/Vertical and Rotated current API Bluent Buttons with computed geometry/class/font/writing mode, real native Tab focus-visible and copyable Razor. Four browser checks raise 61 to 65. Local Chrome/fresh WebAssembly 65/65 and Edge/published Server 65/65 PASS, QA browser cleanup zero. Initial test 64/65 red only due harness seven-vs-nine old count, fixed/retested. Source contract reads real Button.razor.cs [Parameter] set to fail closed on API drift. Existing Penpot page42 DRAFT not edited; #421 In progress/PR #551 Draft, #428 Backlog. No public API/stable Dev/NuGet. New-head GitHub CI pending.
 
 - 2026-10-17 #421 first exact-head browser CI concurrent cold Chrome/WASM run failed before CDP port appeared at hardcoded 20-second startup timeout (no Lab assertions executed); a separate Chrome/WASM plus Edge/WASM on same head each passed 65/65. Hardened only actual DevToolsActivePort launch wait to 60s, retained fail-closed real browser connection and all 65 checks, negative source guard added. Must independently revalidate new SHA; this is NOT a product Button failure or a license to skip failing CI, no stable Dev/NuGet changes.
+
+**#421 Split Button real Lab demo (2026-10-18):** Existing public
+OnClick plus Dropdown Split Button now has a current-API specimen
+and independent callbacks in /component-lab, copyable Razor,
+and five CDP keyboard/actual pointer behavior checks. Dev01 exact
+local source Chrome/Edge x WASM/published Server each 83/83,
+332/332 total; owned browser cleanup=0. 20/20 existing public Button
+parameter names remain representative-only, zero 66-family
+component acceptances, Penpot page42 DRAFT/AT unverified. #421
+In progress, PR #551 Draft; #428 Backlog. No stable release.

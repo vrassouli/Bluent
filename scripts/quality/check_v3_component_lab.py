@@ -168,6 +168,24 @@ def check() -> int:
                   "real Share summary menu click invokes exactly a second callback",
                   "copyable Razor includes badge/menu source and backing event handlers"):
         assert proof in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
+    # The public Split Button combines an independent OnClick with Dropdown.
+    # A demo is useful for #428 work, but is NOT full native AT approval.
+    for needle in ('class="lab-advanced-group lab-split-action"', 'Text="Send now"',
+                   'OnClick="ChooseSplitPrimaryAsync"',
+                   'MenuItem Title="Schedule send" OnClick="ChooseSplitScheduleAsync"',
+                   'private Task ChooseSplitPrimaryAsync()',
+                   'private Task ChooseSplitScheduleAsync()'):
+        assert needle in source, "existing Split Button live sample missing: "+needle
+    for label in (
+        "actual current public Split Button mounts independent primary and disclosure buttons",
+        "native Enter on Split primary invokes only primary callback once",
+        "native Enter on Split secondary opens Dropdown without primary callback",
+        "real Split menu pointer action invokes only scheduled callback once",
+        "copyable existing Split Button Razor includes both real event handlers",
+    ):
+        assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(
+            encoding="utf-8-sig"
+        ), "missing Split Button runtime browser gate: "+label
     # Actual Chrome/Edge launch must fail closed. Cold Windows CI may need
     # >20s to start the CDP debug server when 8 parallel jobs compete.
     browser_probe=(ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")
