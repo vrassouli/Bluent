@@ -251,3 +251,42 @@ The image does not establish Penpot parity or native Windows Screen
 Reader compliance. It does not alter any public Button code, public
 ARIA or product CSS. The #421 browser suite independently enforces
 RTL/narrow behavior and actual Split action callbacks.
+## 2026-10-18 — per-invocation Component Lab ownership and default ports
+
+The #421 source-owned PowerShell runner previously defaulted to shared
+ports 5279 (WASM) and 5280 (published Server). It also used shared
+stdout/stderr log filenames and, more importantly, cleaned ALL Chrome
+and Edge processes whose command line contained the generic
+bluent-v3-421-lab- profile prefix. Overlapping legitimate QA runs on
+the same Dev01 host could therefore terminate **each other's**
+browser profiles or attach to the wrong Blazor server.
+
+Every runner invocation now creates a unique nonce and uses it for
+its browser profile prefix, stdout/stderr logs and scoped cleanup.
+Unless an explicit -BaseUrl is passed, the runner obtains a fresh
+ephemeral 127.0.0.1 TCP port from the operating system. The real
+Chromium CDP probe validates the supplied profile-prefix format
+and creates its actual temporary profile under that precise name.
+PowerShell cleanup matches only this one invocation's full nonce
+instead of touching another run's Chromium/profile directories.
+An explicit -BaseUrl remains supported for controlled QA sessions.
+
+This is a reduction of genuine host/process cross-talk risk, NOT a
+promise that port release-to-bind is atomic or that all historical
+browser flakiness is cured. Failure assertions and real browser
+hit-tested click/keyboard/Copy-source checks remain mandatory.
+
+Locally validated against actual #421 source on Dev01:
+- **Chrome/WebAssembly**, default OS port 54421: 83/83 pass,
+  errors=[], owned Chromium cleanup remaining=0.
+- **Edge/production-published InteractiveServer**, default OS
+  port 62920: 83/83 pass, errors=[], cleanup remaining=0.
+- Component Lab source/ledger regression checks PASS, including
+  guards for unique port/log/profile/cleanup ownership.
+- Separate exact-head screenshot-evidence commit bc3bd58c
+  GitHub Windows CI four browser modes all SUCCESS
+  (run 39113043450), and Documentation Contract SUCCESS.
+
+This does not change production Bluent components or public APIs,
+nor does it certify a completed v3 family, native OS AT, or approved
+Penpot visual parity. #421 remains In progress/Draft, #428 Backlog.

@@ -12,7 +12,10 @@ const renderMode=process.env.BLUENT_V3_LAB_MODE==='Server'?'Server':'WebAssembly
 const labRoute=renderMode==='Server'?'/compatibility/component-lab-server':'/component-lab';
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const browserName=/msedge/i.test(chrome)?'Edge':'Chrome';
-const profile=await mkdtemp(join(tmpdir(),'bluent-v3-421-lab-'));
+const profilePrefix=process.env.BLUENT_V3_LAB_PROFILE_PREFIX||'bluent-v3-421-lab-';
+if(!/^bluent-v3-421-lab-(?:[a-f0-9]{32}-)?$/.test(profilePrefix))
+ throw Error('Unsafe QA-owned Chromium profile prefix');
+const profile=await mkdtemp(join(tmpdir(),profilePrefix));
 const checks=[],errors=[],pending=new Map(),runtimeSignals=[]; let browser,ws,seq=0;
 const check=(name,pass,detail)=>{console.log('QA CHECK '+(pass?'PASS ':'FAIL ')+name);checks.push({name,pass:!!pass,detail});if(!pass)errors.push(name);};
 const poll=async(fn,timeoutMs=70000)=>{

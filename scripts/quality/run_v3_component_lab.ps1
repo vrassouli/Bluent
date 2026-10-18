@@ -5,13 +5,22 @@ param(
 )
 $ErrorActionPreference = "Stop"
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
+# Isolate every Lab run's localhost port, log files and Chromium profiles.
+$qaRunId = [guid]::NewGuid().ToString("N")
+$profilePrefix = "bluent-v3-421-lab-$qaRunId-"
 if(-not $BaseUrl) {
-    $BaseUrl = if($Mode -eq "Server") { "http://127.0.0.1:5280" } else { "http://127.0.0.1:5279" }
+    $listener = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback, 0)
+    try {
+        $listener.Start()
+        $port = $listener.LocalEndpoint.Port
+    } finally { $listener.Stop() }
+    $BaseUrl = "http://127.0.0.1:$port"
 }
 $env:BLUENT_V3_LAB_MODE = $Mode
+$env:BLUENT_V3_LAB_PROFILE_PREFIX = $profilePrefix
 
-$log = Join-Path $env:TEMP "bluent-v3-421-wasm-stdout.log"
-$errLog = Join-Path $env:TEMP "bluent-v3-421-wasm-stderr.log"
+$log = Join-Path $env:TEMP "bluent-v3-421-$qaRunId-stdout.log"
+$errLog = Join-Path $env:TEMP "bluent-v3-421-$qaRunId-stderr.log"
 $project = if($Mode -eq "Server") {
     Join-Path $repo "src\Bluent.UI.Demo.SSR\Bluent.UI.Demo.SSR.csproj"
 } else { Join-Path $repo "src\Bluent.UI.Demo\Bluent.UI.Demo.csproj" }
@@ -71,17 +80,17 @@ finally {
     # created by this #421 QA probe. Never target users' Chrome sessions.
     $owned = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" |
         Where-Object { $_.CommandLine -and
-                       $_.CommandLine.Contains("bluent-v3-421-lab-") })
+                       $_.CommandLine.Contains($profilePrefix) })
     foreach($process in $owned) {
         Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
     }
     Start-Sleep -Milliseconds 350
     $remaining = @(Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" |
         Where-Object { $_.CommandLine -and
-                       $_.CommandLine.Contains("bluent-v3-421-lab-") })
+                       $_.CommandLine.Contains($profilePrefix) })
     Write-Output "QA browser cleanup: owned=$($owned.Count), remaining=$($remaining.Count)"
     if($remaining.Count -eq 0) {
-        Get-ChildItem -Path $env:TEMP -Directory -Filter "bluent-v3-421-lab-*" -ErrorAction SilentlyContinue |
+        Get-ChildItem -Path $env:TEMP -Directory -Filter "$profilePrefix*" -ErrorAction SilentlyContinue |
             Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
     }
 

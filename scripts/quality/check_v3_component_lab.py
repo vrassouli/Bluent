@@ -245,6 +245,19 @@ def check() -> int:
     owner=(ROOT/"scripts/quality/run_v3_component_lab.ps1").read_text(encoding="utf-8-sig")
     assert "browser: [Chrome, Edge]" in flow
     assert "matrix.browser" in flow and "msedge.exe" in flow
+    # Per-run prefix prevents concurrent QA owners from cross-killing.
+    for marker in ('$qaRunId = [guid]::NewGuid().ToString("N")',
+                   '$profilePrefix = "bluent-v3-421-lab-$qaRunId-"',
+                   '$env:BLUENT_V3_LAB_PROFILE_PREFIX = $profilePrefix',
+                   'TcpListener]::new([Net.IPAddress]::Loopback, 0)',
+                   '$_.CommandLine.Contains($profilePrefix)',
+                   '-Filter "$profilePrefix*"',
+                   '"bluent-v3-421-$qaRunId-stdout.log"'):
+        assert marker in owner, f"missing per-run ownership isolation: {marker}"
+    assert 'http://127.0.0.1:5280' not in owner
+    assert 'http://127.0.0.1:5279' not in owner
+    assert 'process.env.BLUENT_V3_LAB_PROFILE_PREFIX' in probe
+    assert 'Unsafe QA-owned Chromium profile prefix' in probe
     assert owner.count("Name='chrome.exe' OR Name='msedge.exe'")==2
     assert "remaining=$($remaining.Count)" in owner
     assert "browserName=/msedge/i.test(chrome)?'Edge':'Chrome';" in probe
