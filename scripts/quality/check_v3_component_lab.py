@@ -216,6 +216,17 @@ def check() -> int:
         'RTL narrow preview advanced Button cards retain visible vertical spacing',
     ):
         assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig"), "missing actual browser card-spacing regression: "+label
+    # In RTL samples, keep English specimen text LTR for punctuation,
+    # while aligning labels with the canvas RTL edge.
+    for cls in ('lab-advanced-label','lab-menu-status',
+                'lab-split-status','lab-split-disabled-help'):
+        assert f'class="{cls}" dir="ltr" lang="en"' in source
+    assert '.lab-canvas[dir="rtl"] .lab-advanced-group > :is(' in css
+    for label in (
+        'RTL advanced specimen English captions retain LTR punctuation and right alignment',
+        'LTR advanced specimen captions keep natural left text alignment',
+    ):
+        assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
     # Actual Chrome/Edge launch must fail closed. Cold Windows CI may need
     # >20s to start the CDP debug server when 8 parallel jobs compete.
     browser_probe=(ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8")

@@ -98,7 +98,7 @@
                 <p role="status" class="lab-toggle-status">Pinned: @(_buttonToggled ? "yes" : "no"); change callbacks: @_toggleEvents</p>
                 <div class="lab-advanced-actions" aria-label="Current Button advanced API examples">
                     <div class="lab-advanced-group">
-                        <span class="lab-advanced-label">Compound and Badge</span>
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Compound and Badge</span>
                         <Button Text="Notifications" SecondaryText="Recent activity" Compact="true"
                                 BadgeHorizontalPosition="HorizontalSides.End"
                                 BadgeVerticalPosition="VerticalSides.Bottom">
@@ -108,7 +108,7 @@
                         </Button>
                     </div>
                     <div class="lab-advanced-group">
-                        <span class="lab-advanced-label">Dropdown actions</span>
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Dropdown actions</span>
                         <Button Text="More actions" ShowDropdownIndicator="true"
                                 DropdownPlacement="Placement.BottomEnd">
                             <Dropdown>
@@ -118,11 +118,11 @@
                                 </MenuList>
                             </Dropdown>
                         </Button>
-                        <p role="status" class="lab-menu-status">Menu choice: @_lastMenuChoice; callbacks: @_menuEvents</p>
+                        <p role="status" class="lab-menu-status" dir="ltr" lang="en">Menu choice: @_lastMenuChoice; callbacks: @_menuEvents</p>
                     </div>
 
                     <div class="lab-advanced-group lab-split-action" aria-label="Current Button split primary action and dropdown example">
-                        <span class="lab-advanced-label">Split action · existing Button API</span>
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Split action · existing Button API</span>
                         <Button Text="Send now" OnClick="ChooseSplitPrimaryAsync"
                                 Appearance="ButtonAppearance.Primary"
                                 DropdownPlacement="Placement.BottomEnd">
@@ -132,10 +132,10 @@
                                 </MenuList>
                             </Dropdown>
                         </Button>
-                        <p role="status" class="lab-split-status">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
+                        <p role="status" class="lab-split-status" dir="ltr" lang="en">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
                     </div>
                     <div class="lab-advanced-group lab-split-disabled" aria-label="Current disabled Split Button real behavior specimen">
-                        <span class="lab-advanced-label">Disabled split · existing Button API</span>
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Disabled split · existing Button API</span>
                         <Button Text="Send disabled" OnClick="ChooseSplitPrimaryAsync"
                                 Appearance="ButtonAppearance.Primary"
                                 DropdownPlacement="Placement.BottomEnd" disabled>
@@ -145,7 +145,7 @@
                                 </MenuList>
                             </Dropdown>
                         </Button>
-                        <p class="lab-split-disabled-help">Neither the primary action nor the menu should activate.</p>
+                        <p class="lab-split-disabled-help" dir="ltr" lang="en">Neither the primary action nor the menu should activate.</p>
                     </div>
                 </div>
                 <div class="lab-orientation-examples" aria-label="Current Button Icon TextClass Orientation Rotated examples">

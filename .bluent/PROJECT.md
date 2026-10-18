@@ -197,3 +197,11 @@ local source Chrome/Edge x WASM/published Server each 83/83,
 parameter names remain representative-only, zero 66-family
 component acceptances, Penpot page42 DRAFT/AT unverified. #421
 In progress, PR #551 Draft; #428 Backlog. No stable release.
+**#421 RTL English sample copy legibility (2026-10-18):** English advanced
+Button specimen headings and status/help text now carry explicit LTR
+base direction without altering RTL control order. RTL text is
+right-aligned, LTR text left-aligned, margins normalized and wrapped
+inside spaced cards. Current source Chrome/WASM and Edge/published
+Server 92/92 each on real Dev01 browser, zero browser leftovers;
+[real current screenshot](../docs/v3/quality/evidence/component-lab-split-rtl-english-legibility-chrome-wasm.png).
+Still #421 In progress/PR Draft; #428 Backlog; 0/66 accepted.

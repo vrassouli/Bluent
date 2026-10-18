@@ -58,6 +58,21 @@
 .lab-advanced-group { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.55rem; padding:.8rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
 .lab-advanced-label { font-size:.79rem; font-weight:600; color:var(--colorNeutralForeground3,#56667a); }
 .lab-menu-status { font-size:.82rem; margin:0; }
+/* The Lab canvas mirrors controls in RTL, but English specimen text
+   remains logically LTR so punctuation and word order do not flip. */
+.lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help) {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-width: 0;
+    margin: 0;
+    line-height: 1.45;
+    text-align: start;
+    overflow-wrap: break-word;
+}
+.lab-canvas[dir="rtl"] .lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help) {
+    text-align: end;
+}
+.lab-advanced-group > :is(.lab-split-status,.lab-split-disabled-help) { font-size: .82rem; }
 @media(max-width:600px) { .lab-advanced-actions { grid-template-columns:minmax(0,1fr); } }/* #421 existing Icon and Label parameter explorer, no production component restyling. */
 .lab-api-demo { display:grid; gap:.75rem; margin-top:1rem; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; min-width:0; }
 .lab-api-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }

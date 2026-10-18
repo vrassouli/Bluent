@@ -373,3 +373,33 @@ The screenshots are local real Blazor browser captures, NOT approved
 Penpot design parity or named native OS screen-reader testing.
 The Component Lab remains In progress with zero of 66 fully accepted
 final v3 components; #428 product Button remains Backlog.
+## 2026-10-18 — correct English caption flow inside RTL Component Lab cards
+
+Follow-up review of the actual 375px RTL split Button screenshot exposed
+awkward English punctuation and a displaced sentence-ending period in
+the disabled specimen help text. The outer RTL layout and Split primary/
+caret order were right, but demo-only English captions inherited RTL
+base text direction. This is NOT a problem with Fluent 2 Button APIs.
+
+In the #421 Demo only, the four advanced Button card headings and
+three status/help lines now explicitly declare lang=en and dir=ltr.
+Scoped CSS gives these labels consistent margin=0, full available
+content width, 1.45 line height and wrapping without overflowing the
+card. They are right-aligned against the parent RTL card edge while
+keeping natural English punctuation, and left-aligned in LTR. Button
+direction, keyboard order, grid spacing and CSS production library
+components are unchanged.
+
+Two real-browser geometry/typographic checks now reject mixed-direction
+regressions in the 320px RTL preview and the restored LTR layout;
+they verify caption language/direction, logical alignment, within-card
+bounds and no default paragraph margin. Current source independent
+Dev01 Chrome/WebAssembly 92/92 and Edge/published InteractiveServer
+92/92 passed with browser errors=[] and owned Chromium cleanup=0.
+
+[New REAL 375px RTL English caption screenshot](evidence/component-lab-split-rtl-english-legibility-chrome-wasm.png)
+from the hydrated Blazor page can be compared with the
+[prior 375px RTL spaced screenshot](evidence/component-lab-split-disabled-rtl-mobile-spaced-chrome-wasm.png).
+The new image is a browser reference, not human Penpot signoff or
+native Windows screen-reader evidence. The screenshot and CSS belong
+only to the source-owned #421 Lab, not the unfinished #428 Button.
