@@ -14,6 +14,19 @@ class BrowserFailureDiagnosticsContract(unittest.TestCase):
     def setUpClass(cls):
         cls.source=PROBE.read_text(encoding="utf-8-sig")
 
+    def test_each_deep_browser_run_uses_an_independent_loopback_port(self):
+        # Without a per-run port, two overlapping QA probes can attach to
+        # the same app; killing one host then makes the other fail spuriously.
+        for part in (
+            'import {createServer} from "node:net"',
+            "server.listen(0,",
+            'server.close(e=>',
+            "const origin=process.env.BLUENT_V3_LAB_ORIGIN||await allocateTestOrigin()",
+            "v3 isolated deep probe origin:",
+        ):
+            self.assertIn(part,self.source)
+        self.assertNotIn('http://127.0.0.1:5159',self.source)
+        self.assertNotIn('http://127.0.0.1:5129',self.source)
     def test_server_crash_retains_host_exit_and_bounded_tail(self):
         for part in (
             ".slice(-16000)", 'p.exitReason=null',

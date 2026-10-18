@@ -212,3 +212,21 @@ omit assertions or broaden the Focus acceptance threshold. CI enforces
 this fail-closed instrumentation with negative source checks. These
 are debugging improvements, not a product fix or user-approved
 Penpot/native assistive technology result; #418 remains Draft.
+
+### 2026-10-18 — isolated host ports for real-browser quality tests
+
+The deep #418 test formerly bound every locally concurrent WASM run
+to 127.0.0.1:5129 and every published InteractiveServer run to
+127.0.0.1:5159. If overlapping probes were launched on the same host,
+their HTTP readiness check could accidentally attach to a server owned
+by another probe, only to lose it when that probe finished.
+
+The source-owned harness now obtains a distinct OS-assigned loopback
+port for each invocation and uses that same origin for its own app,
+browser and dynamic theme assets. An explicit BLUENT_V3_LAB_ORIGIN
+override remains supported for controlled runs. This mitigates a real
+test-isolation defect. It is **not** proof of the historical Server
+host-loss root cause: a small release-to-bind race still exists in
+ephemeral port allocation, and failures are not retried or hidden.
+The contract CI checks absence of former shared ports and presence of
+the OS port lease, and real browsers remain the acceptance gate.

@@ -8,10 +8,27 @@ import {mkdtempSync,existsSync,readFileSync,rmSync} from "node:fs";
 import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
+import {createServer} from "node:net";
 import {assessPersianFontEvidence} from "./v3_persian_font_evidence.mjs";
 const cwd=resolve(fileURLToPath(new URL("../../",import.meta.url)));
 const interactiveServer=process.env.BLUENT_V3_LAB_MODE==="server";
-const origin=process.env.BLUENT_V3_LAB_ORIGIN||(interactiveServer?"http://127.0.0.1:5159":"http://127.0.0.1:5129");
+// Do not reuse a shared port across concurrent Dev01/CI probe runs: if one
+// probe exits, another must never borrow its Blazor host and later lose it.
+// The tiny listen(0) lease is released before starting the child process.
+// Explicit BLUENT_V3_LAB_ORIGIN remains available for controlled debugging.
+async function allocateTestOrigin() {
+ return new Promise((resolve,reject)=>{
+  const server=createServer();
+  server.once("error",reject);
+  server.listen(0,"127.0.0.1",()=>{
+   const port=server.address()?.port;
+   if(!port){server.close();reject(Error("Ephemeral QA port allocation failed"));return;}
+   server.close(e=>e?reject(e):resolve("http://127.0.0.1:"+port));
+  });
+ });
+}
+const origin=process.env.BLUENT_V3_LAB_ORIGIN||await allocateTestOrigin();
+console.log("v3 isolated deep probe origin: "+origin);
 const route=interactiveServer?"/v3/interactive-portal-lab":"/v3/styling-lab";
 const chromePath=process.env.CHROME_PATH||"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const dir=mkdtempSync(join(tmpdir(),"bluent-v3-418-cdp-")),children=[],checks=[],errors=[];
