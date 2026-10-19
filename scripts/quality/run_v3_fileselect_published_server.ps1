@@ -1,5 +1,7 @@
 param(
-    [string]$LabSourceRoot = 'C:\Projects\Bluent-issue421'
+    [string]$LabSourceRoot = 'C:\Projects\Bluent-issue421',
+    [ValidateSet('file-upload', 'pointer-scroll')]
+    [string]$Scenario = 'file-upload'
 )
 $ErrorActionPreference = 'Stop'
 # Audit-only runner: publish unmodified #421 InteractiveServer to a disposable
@@ -18,8 +20,8 @@ try {
     $env:BLUENT_V3_552_PUBLISHED_DIR = $published
     Push-Location $repo
     try {
-        & node scripts/quality/probe_v3_bluent_lab_reference.mjs $labRoot docs/v3/quality/evidence file-upload Server
-        if ($LASTEXITCODE -ne 0) { throw "Browser upload probe failed: $LASTEXITCODE" }
+        & node scripts/quality/probe_v3_bluent_lab_reference.mjs $labRoot docs/v3/quality/evidence $Scenario Server
+        if ($LASTEXITCODE -ne 0) { throw "Browser $Scenario probe failed: $LASTEXITCODE" }
     }
     finally { Pop-Location }
 }

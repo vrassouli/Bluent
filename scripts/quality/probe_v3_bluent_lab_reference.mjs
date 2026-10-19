@@ -15,7 +15,7 @@ const hostingMode=process.argv[5]||'WebAssembly';
 if(!['WebAssembly','Server'].includes(hostingMode))throw Error('Unknown browser hosting mode '+hostingMode);
 const publishedRoot=process.env.BLUENT_V3_552_PUBLISHED_DIR||'';
 if(hostingMode==='Server'&&!publishedRoot)throw Error('Server mode requires isolated published root from wrapper');
-if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard','file-upload'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
+if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard','file-upload','pointer-scroll'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
 const uploadDir=scenario==='file-upload'?await mkdtemp(join(tmpdir(),'bluent552-file-fixture-')):null;
@@ -69,7 +69,8 @@ try{
   ['RangeSlider',443,'#lab-range-int'],
   ['FileSelect',444,'#lab-file-multi']
  ]){
-  if(hostingMode==='Server'&&family!=='FileSelect')continue;
+  if(hostingMode==='Server'&&family!=='FileSelect'&&scenario!=='pointer-scroll')continue;
+  if(scenario==='pointer-scroll' && family!=='Slider' && family!=='RangeSlider')continue;
   console.log('BLUENT FAMILY '+family+' host='+hostingMode+' at queue filter');
   await js(`(()=>{const el=document.getElementById('lab-queue-search');if(!el)throw Error('Missing Lab queue search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'${issue}');el.dispatchEvent(new Event('input',{bubbles:true}));})()`);
   await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),hostingMode==='Server'?35000:15000);
@@ -80,7 +81,7 @@ try{
   const detail=await js(`(()=>{
    const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas');
    if('${scenario}'!=='baseline'){
-     if('${scenario}'!=='zoom-200'&&('${family}'==='Slider'||'${family}'==='RangeSlider'))e.style.width='260px';
+     if('${scenario}'!=='zoom-200'&&'${scenario}'!=='pointer-scroll'&&('${family}'==='Slider'||'${family}'==='RangeSlider'))e.style.width='260px';
      if('${family}'==='Button')e.style.width='96px';
    }
    const r=e.getBoundingClientRect(),style=getComputedStyle(e);
@@ -192,6 +193,40 @@ try{
     stages.push({name:'cumulative-overflow',...await grab()});
     add('Actual re-selection exceeds MaxFiles=2; existing cumulative limit gap',stages.at(-1).statusMulti.includes('Files: 3;')&&stages.at(-1).multi.removeButtons.length===3,stages.at(-1));
     detail.uploadEvidence={syntheticFileNames:synthetic,testedMaxFiles:2,stages,removeAX,limitations:'Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance.'};
+  }
+
+  if(scenario==='pointer-scroll' && (family==='Slider'||family==='RangeSlider')){
+    const valueSelector=family==='Slider'?'.lab-slider-int-status':'.lab-range-int-status';
+    // Real browser mouse input: observe source events and callback value without changing product.
+    await js("(()=>{if(!window.__bluent552PointerEvents){window.__bluent552PointerEvents=[];document.addEventListener('pointerdown',e=>window.__bluent552PointerEvents.push({kind:'down',id:e.target.closest('.bui-slider,.bui-range-slider')?.id||null,screenX:e.screenX,clientX:e.clientX,screenY:e.screenY,clientY:e.clientY,scrollY}),true);document.addEventListener('pointermove',e=>{if(window.__bluent552PointerEvents.length<20)window.__bluent552PointerEvents.push({kind:'move',id:e.target.closest('.bui-slider,.bui-range-slider')?.id||null,screenX:e.screenX,clientX:e.clientX})},true)}})()");
+    const readValue=()=>js("document.querySelector("+JSON.stringify(valueSelector)+")?.textContent?.trim()||''");
+    const cases=[];
+    for(const target of [{name:'normal',fraction:.75},{name:'scroll',fraction:.25}]){
+      await js("document.querySelector("+JSON.stringify(selector)+").scrollIntoView({block:'center'})");
+      if(target.name==='scroll')await js("(()=>{const e=document.querySelector("+JSON.stringify(selector)+");const c=e.closest('.page-content');if(c)c.scrollBy(0,130);else window.scrollBy(0,130)})()");
+
+      const position=await js("(()=>{const e=document.querySelector("+JSON.stringify(selector)+"),r=e.querySelector('.rail').getBoundingClientRect();return {left:r.left,top:r.top,width:r.width,height:r.height,scrollY,scrollContainerTop:e.closest('.page-content')?.scrollTop||0,windowScreenX:screenX,windowScreenY:screenY}})()");
+      const x=position.left+position.width*target.fraction,y=position.top+position.height/2;
+      if(x<0||y<0||x>=size.width||y>=size.height)throw Error('Offscreen pointer audit '+JSON.stringify({family,target,x,y,position}));
+      if(target.name==='scroll')add(family+' audit scroll scenario has nonzero scrollY',(position.scrollContainerTop>0||position.scrollY>0),position);
+      const before=await readValue();
+      await send('Input.dispatchMouseEvent',{type:'mouseMoved',x,y,button:'none'});
+      await send('Input.dispatchMouseEvent',{type:'mousePressed',x,y,button:'left',buttons:1,clickCount:1});
+      await wait(hostingMode==='Server'?650:320);
+      const afterDown=await readValue();
+      await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:x+9,y,button:'left',buttons:1});
+      await wait(hostingMode==='Server'?650:320);
+      const afterMove=await readValue();
+      await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:x+9,y,button:'left',buttons:0,clickCount:1});
+      await wait(180);
+      const afterUp=await readValue();
+      const events=await js("window.__bluent552PointerEvents.splice(0)");
+      const sample={case:target.name,position,targetFraction:target.fraction,before,afterDown,afterMove,afterUp,events};
+      cases.push(sample);
+      add(family+' '+target.name+' real Chrome pointerdown reached component',events.some(e=>e.kind==='down'&&e.id===selector.slice(1)),sample);
+      console.log('BLUENT POINTER '+JSON.stringify({family,hostingMode,sample}));
+    }
+    detail.pointerScrollEvidence={cases,limitations:'Real headless Chrome CDP mouse and Blazor callbacks, actual viewport scroll; not OS touch/pen or design acceptance.'};
   }
   const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:detail.canvas.x,y:detail.canvas.y,width:detail.canvas.width,height:detail.canvas.height,scale:1}});
   const img='BLUENT-LAB-'+family.toUpperCase()+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+(hostingMode==='Server'?'-SERVER':'')+'-CHROME.png';
