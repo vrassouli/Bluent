@@ -279,3 +279,16 @@
 .lab-canvas.compact .lab-slider-grid { gap:.5rem; }
 .lab-canvas.compact .lab-slider-card { padding:.75rem; gap:.5rem; }
 @media(max-width:600px) { .lab-slider-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 demo-scoped current RangeSlider, no #443 production CSS. */
+.lab-range-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-range-card { display:grid; align-content:start; gap:.85rem; min-width:0; padding:1rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-range-title { font-size:.86rem; font-weight:600; line-height:1.4; }
+.lab-range-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-range-card ::deep .bui-range-slider { width:100%; min-width:0; box-sizing:border-box; }
+.lab-canvas[dir="rtl"] .lab-range-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-range-card p { text-align:left; }
+.lab-canvas.narrow .lab-range-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-range-grid { gap:.5rem; }
+.lab-canvas.compact .lab-range-card { padding:.75rem; gap:.5rem; }
+@media(max-width:600px) { .lab-range-grid { grid-template-columns:minmax(0,1fr); } }

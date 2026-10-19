@@ -548,6 +548,22 @@
                 </div>
                 <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
             }
+            else if (_selected == "range")
+            {
+                <div class="lab-range-grid" aria-label="Actual source RangeSlider generic numeric specimens">
+                    <div class="lab-range-card">
+                        <span class="lab-range-title">Integer handles 20–80 on 0–100</span>
+                        <RangeSlider id="lab-range-int" @bind-Value="_labRangeInt" Min="0" Max="100" ThumbSize="20" />
+                        <p class="lab-range-int-status" role="status" lang="en" dir="ltr">Range: @_labRangeInt.Min to @_labRangeInt.Max</p>
+                    </div>
+                    <div class="lab-range-card">
+                        <span class="lab-range-title">Decimal handles 1.5–7.5 on 0–10</span>
+                        <RangeSlider id="lab-range-decimal" @bind-Value="_labRangeDecimal" Min="0" Max="10" ThumbSize="28" />
+                        <p class="lab-range-decimal-status" role="status" lang="en" dir="ltr">Range: @_labRangeDecimal.Min.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) to @_labRangeDecimal.Max.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)</p>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work.</p>
+            }
             else if (_selected == "slider")
             {
                 <div class="lab-slider-grid" aria-label="Existing public Slider numeric ranges and thumb sizes">
@@ -754,6 +770,10 @@
             "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
             "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
+        new("range", "RangeSlider", "components/sliders", "Two-thumb generic numeric range",
+            "Current RangeSlider<T> with ValueRange<int>/ValueRange<decimal>, Min, Max and ThumbSize.",
+            "<RangeSlider @bind-Value=\"_labRangeInt\" Min=\"0\" Max=\"100\" ThumbSize=\"20\" />",
+            "Representative runnable scenario only"),
         new("slider", "Slider", "components/sliders", "Pointer-driven numeric ranges",
             "Current generic Slider with Value binding, Min/Max, and ThumbSize; not a native keyboard slider.",
             "<Slider @bind-Value=\"_labSliderInt\" Min=\"-50\" Max=\"50\" ThumbSize=\"20\" />",
@@ -836,6 +856,17 @@
     private TimeSpan _labTimeSpan = new(2, 15, 0);
     private TimeOnly _labTimeDisabled = new(12, 40);
     private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
+
+    private ValueRange<int> _labRangeInt = new(20, 80);
+    private ValueRange<decimal> _labRangeDecimal = new(1.5m, 7.5m);
+    private string SelectedRangeRazor => """
+        <RangeSlider id="lab-range-int" @bind-Value="_labRangeInt" Min="0" Max="100" ThumbSize="20" />
+        <RangeSlider id="lab-range-decimal" @bind-Value="_labRangeDecimal" Min="0" Max="10" ThumbSize="28" />
+        @code {
+            private ValueRange<int> _labRangeInt = new(20, 80);
+            private ValueRange<decimal> _labRangeDecimal = new(1.5m, 7.5m);
+        }
+        """;
 
     private int _labSliderInt = -15;
     private double _labSliderDouble = 4.0;
@@ -949,7 +980,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "slider" ? SelectedSliderRazor
+    private string ActiveRazor => _selected == "range" ? SelectedRangeRazor
+        : _selected == "slider" ? SelectedSliderRazor
         : _selected == "otp" ? SelectedOtpRazor
         : _selected == "masked" ? SelectedMaskedRazor
         : _selected == "timefield" ? SelectedTimeFieldRazor
