@@ -1,6 +1,6 @@
 param(
     [string]$LabSourceRoot = 'C:\Projects\Bluent-issue421',
-    [ValidateSet('file-upload', 'pointer-scroll')]
+    [ValidateSet('file-upload', 'pointer-scroll', 'button-keyboard')]
     [string]$Scenario = 'file-upload'
 )
 $ErrorActionPreference = 'Stop'

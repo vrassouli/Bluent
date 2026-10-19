@@ -15,7 +15,7 @@ const hostingMode=process.argv[5]||'WebAssembly';
 if(!['WebAssembly','Server'].includes(hostingMode))throw Error('Unknown browser hosting mode '+hostingMode);
 const publishedRoot=process.env.BLUENT_V3_552_PUBLISHED_DIR||'';
 if(hostingMode==='Server'&&!publishedRoot)throw Error('Server mode requires isolated published root from wrapper');
-if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard','file-upload','pointer-scroll'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
+if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard','file-upload','pointer-scroll','button-keyboard'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
 const uploadDir=scenario==='file-upload'?await mkdtemp(join(tmpdir(),'bluent552-file-fixture-')):null;
@@ -69,8 +69,9 @@ try{
   ['RangeSlider',443,'#lab-range-int'],
   ['FileSelect',444,'#lab-file-multi']
  ]){
-  if(hostingMode==='Server'&&family!=='FileSelect'&&scenario!=='pointer-scroll')continue;
+  if(hostingMode==='Server'&&family!=='FileSelect'&&scenario!=='pointer-scroll'&&scenario!=='button-keyboard')continue;
   if(scenario==='pointer-scroll' && family!=='Slider' && family!=='RangeSlider')continue;
+  if(scenario==='button-keyboard' && family!=='Button')continue;
   console.log('BLUENT FAMILY '+family+' host='+hostingMode+' at queue filter');
   await js(`(()=>{const el=document.getElementById('lab-queue-search');if(!el)throw Error('Missing Lab queue search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'${issue}');el.dispatchEvent(new Event('input',{bubbles:true}));})()`);
   await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),hostingMode==='Server'?35000:15000);
@@ -227,6 +228,39 @@ try{
       console.log('BLUENT POINTER '+JSON.stringify({family,hostingMode,sample}));
     }
     detail.pointerScrollEvidence={cases,limitations:'Real headless Chrome CDP mouse and Blazor callbacks, actual viewport scroll; not OS touch/pen or design acceptance.'};
+  }
+  if(scenario==='button-keyboard' && family==='Button'){
+    const inspect=()=>js("(()=>{const e=[...document.querySelectorAll('.lab-examples button')].find(b=>b.textContent.trim()==='Pin selection');if(!e)throw Error('Missing live Pin selection native Button');const r=e.getBoundingClientRect(),status=document.querySelector('.lab-toggle-status')?.textContent?.trim()||'';return {tag:e.tagName,role:e.getAttribute('role'),ariaPressed:e.getAttribute('aria-pressed'),toggled:e.classList.contains('toggled'),disabled:e.disabled,tabIndex:e.tabIndex,visible:r.width>0&&r.height>0,status,buttonName:e.textContent.trim(),disabledOther:[...document.querySelectorAll('.lab-examples button')].find(b=>b.textContent.trim()==='Unavailable')?.disabled,linkHref:[...document.querySelectorAll('.lab-examples a')].find(a=>a.textContent.trim()==='Open guide')?.getAttribute('href')||null}})()");
+    const snap=[];
+    const initial=await inspect();snap.push({step:'initial',...initial});
+    add('Bluent Button toggle native DOM and callback baseline',initial.tag==='BUTTON'&&initial.visible&&initial.status.includes('Pinned: no; change callbacks: 0')&&!initial.toggled,initial);
+    add('Bluent Button existing disabled and anchor compositions use native elements',initial.disabledOther===true&&!!initial.linkHref,initial);
+    const focus=await js("(()=>{const e=[...document.querySelectorAll('.lab-examples button')].find(b=>b.textContent.trim()==='Pin selection');e.focus();return {focused:document.activeElement===e,tag:document.activeElement?.tagName}})()");
+    add('Bluent toggle native button focusable in Chrome',focus.focused,focus);
+    const root=await send('DOM.getDocument',{depth:1});
+    const all=await send('DOM.querySelectorAll',{nodeId:root.root.nodeId,selector:'.lab-examples button'});
+    const ax=await send('Accessibility.getFullAXTree');
+    const toggleAX=(ax.nodes||[]).filter(n=>n.role?.value==='button'&&n.name?.value==='Pin selection').map(n=>({role:n.role.value,name:n.name.value,pressed:n.properties?.find(p=>p.name==='pressed')?.value?.value??null}));
+    add('Chrome exposes named toggle as Button but no pressed semantic (known gap)',toggleAX.length===1&&toggleAX[0].pressed===null,toggleAX);
+    const press=async(key,code,vkey)=>{
+      await send('Input.dispatchKeyEvent',{type:'keyDown',key,code,windowsVirtualKeyCode:vkey,nativeVirtualKeyCode:vkey});
+      if(key==='Enter')await send('Input.dispatchKeyEvent',{type:'char',key,code,text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:vkey,nativeVirtualKeyCode:vkey});
+      await send('Input.dispatchKeyEvent',{type:'keyUp',key,code,windowsVirtualKeyCode:vkey,nativeVirtualKeyCode:vkey});
+    };
+    const preKey=await js("(()=>{const e=[...document.querySelectorAll('.lab-examples button')].find(b=>b.textContent.trim()==='Pin selection');window.__bluentKeyEvents=[];['keydown','keyup','click'].forEach(t=>document.addEventListener(t,ev=>{if(ev.target===e)window.__bluentKeyEvents.push({type:t,key:ev.key,code:ev.code})},true));e.focus();return {focused:document.activeElement===e,activeTag:document.activeElement?.tagName}})()");
+    console.log('BUTTON PRE ENTER '+JSON.stringify(preKey));
+    await press('Enter','Enter',13);
+    console.log('BUTTON KEY EVENTS '+JSON.stringify(await js("window.__bluentKeyEvents")));
+    console.log('BUTTON AFTER ENTER '+JSON.stringify(await inspect()));
+    await poll(async()=>{const now=await inspect();return now.status.includes('Pinned: yes; change callbacks: 1')?true:false},hostingMode==='Server'?22000:12000);
+    const entered=await inspect();snap.push({step:'enter',...entered});
+    add('Real Enter key toggles Button and invokes one bound callback',entered.toggled&&entered.ariaPressed===null,entered);
+    await js("(()=>{const e=[...document.querySelectorAll('.lab-examples button')].find(b=>b.textContent.trim()==='Pin selection');e.focus()})()");
+    await press(' ','Space',32);
+    await poll(async()=>{const now=await inspect();return now.status.includes('Pinned: no; change callbacks: 2')?true:false},hostingMode==='Server'?22000:12000);
+    const spaced=await inspect();snap.push({step:'space',...spaced});
+    add('Real Space key untoggles Button and invokes next bound callback',!spaced.toggled&&spaced.ariaPressed===null,spaced);
+    detail.buttonToggleKeyboard={snap,toggleAX,focus,limitations:'Real Chrome keyboard on native Blazor Button and AX tree. aria-pressed missing in component. Does not certify actual native OS screen-reader or approved visual parity.'};
   }
   const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:detail.canvas.x,y:detail.canvas.y,width:detail.canvas.width,height:detail.canvas.height,scale:1}});
   const img='BLUENT-LAB-'+family.toUpperCase()+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+(hostingMode==='Server'?'-SERVER':'')+'-CHROME.png';
