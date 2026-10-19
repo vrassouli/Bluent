@@ -29,7 +29,7 @@ class FileSelectRealUploadEvidence(unittest.TestCase):
         self.assertIn("DOM.setFileInputFiles",self.upload["limitations"])
 
     def test_recorded_browser_assertions(self):
-        self.assertEqual(16,len(self.data["checks"]))
+        self.assertEqual(17,len(self.data["checks"]))
         self.assertTrue(all(x["pass"] for x in self.data["checks"]))
         self.assertEqual({"initial","single-first","single-replaced","multi-two",
                           "after-remove","cumulative-overflow"},set(self.steps))
@@ -50,6 +50,17 @@ class FileSelectRealUploadEvidence(unittest.TestCase):
         self.assertEqual(3,len(overflow["multi"]["removeButtons"]))
         self.assertIn("Files: 3;",overflow["statusMulti"])
         self.assertFalse(overflow["multi"]["chooseVisible"])
+
+    def test_three_files_in_one_batch_also_exceed_maxfiles(self):
+        one=self.upload["singleBatchOverflow"]
+        self.assertEqual(2,one["maxFiles"])
+        self.assertEqual(3,one["cards"])
+        self.assertEqual(3,one["removeButtons"])
+        self.assertTrue(one["nativeMultiple"])
+        self.assertIn("Files: 3;",one["status"])
+        screenshot=EVIDENCE/self.upload["singleBatchImage"]
+        self.assertTrue(screenshot.exists())
+        self.assertEqual(bytes((137,80,78,71,13,10,26,10)),screenshot.read_bytes()[:8])
 
     def test_remove_and_reselect_path_is_real(self):
         after=self.steps["after-remove"]

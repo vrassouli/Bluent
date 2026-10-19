@@ -1,5 +1,6 @@
 {
   "auditIssue": 552,
+  "hostingMode": "WebAssembly",
   "sourceBranch": "v3/issue-421-component-lab",
   "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
   "mode": "real Chrome Blazor WebAssembly Debug Lab",
@@ -27,7 +28,7 @@
     "theme": "light",
     "claim": "same nominal width and theme mode only; independent layouts, no pixel parity"
   },
-  "generatedAt": "2026-10-19T17:24:37.905Z",
+  "generatedAt": "2026-10-19T17:44:01.938Z",
   "checks": [
     {
       "label": "Live source Lab hydrated",
@@ -70,7 +71,7 @@
           "height": 732.28125
         },
         "buttonFocusProbe": {
-          "id": "f161d754c",
+          "id": "f1b394610",
           "cls": "bui-button primary ",
           "focused": true,
           "tabIndex": 0,
@@ -85,7 +86,7 @@
       "label": "Native Bluent Button is focusable in actual Chromium",
       "pass": true,
       "details": {
-        "id": "f161d754c",
+        "id": "f1b394610",
         "cls": "bui-button primary ",
         "focused": true,
         "tabIndex": 0,
@@ -447,7 +448,16 @@
               "ignored": false
             }
           ],
-          "limitations": "Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance."
+          "limitations": "Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance.",
+          "singleBatchOverflow": {
+            "maxFiles": 2,
+            "status": "Files: 3; names: alpha.txt, beta.md, gamma.txt",
+            "cards": 3,
+            "removeButtons": 3,
+            "nativeMultiple": true,
+            "pickerVisible": false
+          },
+          "singleBatchImage": "BLUENT-LAB-FILESELECT-ONE-BATCH-CHROME.png"
         },
         "image": "BLUENT-LAB-FILESELECT-FILE-UPLOAD-CHROME.png"
       }
@@ -630,6 +640,18 @@
         "statusSingle": "Files: 1; names: single-replacement.txt",
         "statusMulti": "Files: 3; names: beta.md, gamma.txt, delta.md"
       }
+    },
+    {
+      "label": "One native batch of three files exceeds MaxFiles=2 (independent gap)",
+      "pass": true,
+      "details": {
+        "maxFiles": 2,
+        "status": "Files: 3; names: alpha.txt, beta.md, gamma.txt",
+        "cards": 3,
+        "removeButtons": 3,
+        "nativeMultiple": true,
+        "pickerVisible": false
+      }
     }
   ],
   "measurements": [
@@ -659,7 +681,7 @@
         "height": 732.28125
       },
       "buttonFocusProbe": {
-        "id": "f161d754c",
+        "id": "f1b394610",
         "cls": "bui-button primary ",
         "focused": true,
         "tabIndex": 0,
@@ -997,7 +1019,16 @@
             "ignored": false
           }
         ],
-        "limitations": "Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance."
+        "limitations": "Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance.",
+        "singleBatchOverflow": {
+          "maxFiles": 2,
+          "status": "Files: 3; names: alpha.txt, beta.md, gamma.txt",
+          "cards": 3,
+          "removeButtons": 3,
+          "nativeMultiple": true,
+          "pickerVisible": false
+        },
+        "singleBatchImage": "BLUENT-LAB-FILESELECT-ONE-BATCH-CHROME.png"
       },
       "image": "BLUENT-LAB-FILESELECT-FILE-UPLOAD-CHROME.png"
     }

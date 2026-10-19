@@ -53,3 +53,6 @@ Thus the issue is **not** literally an empty accessible name. It is an unusable/
 - Structured real-browser output: [`BLUENT-LAB-P0-FILE-UPLOAD-CHROME.json`](evidence/BLUENT-LAB-P0-FILE-UPLOAD-CHROME.json), includes six stage snapshots, full real callback names, scoped Chrome AX role/name, 16 successful *observation* checks, and synthetic-only file names.
 - Stored evidence/negative-acceptance guards: `python -m unittest discover -s scripts/quality -p test_v3_p0_fileselect_live_upload.py -v` (**9 tests**).
 - No actual upstream or Bluent product changes, no new design approval, no native screen-reader certification. Keep #552 **In progress** and #553 **Draft**, and treat #444 as the issue owner of both gaps.
+## New live published InteractiveServer and single-batch evidence
+
+The [independently published Production InteractiveServer test](FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md) **reproduces both the cumulative overflow and the single-batch overflow**, each ending with **3 files at MaxFiles=2**, on actual WebAssembly **and** on the real published Server Blazor circuit. The scoped AX remove Button still exposes a nonsemantic Private Use Area glyph; single-file replacement still works. These are browser-proven open defects in #444, not an implementation fix or a completed OS/AT audit.

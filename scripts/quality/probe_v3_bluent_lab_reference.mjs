@@ -11,6 +11,10 @@ import {setTimeout as wait} from 'node:timers/promises';
 const sourceRoot=resolve(process.argv[2]||'C:/Projects/Bluent-issue421');
 const evidenceRoot=resolve(process.argv[3]||'docs/v3/quality/evidence');
 const scenario=process.argv[4]||'baseline';
+const hostingMode=process.argv[5]||'WebAssembly';
+if(!['WebAssembly','Server'].includes(hostingMode))throw Error('Unknown browser hosting mode '+hostingMode);
+const publishedRoot=process.env.BLUENT_V3_552_PUBLISHED_DIR||'';
+if(hostingMode==='Server'&&!publishedRoot)throw Error('Server mode requires isolated published root from wrapper');
 if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard','file-upload'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
@@ -24,8 +28,13 @@ const add=(label,ok,details)=>{checks.push({label,pass:!!ok,details});console.lo
 try{
  const p=await port(),url='http://127.0.0.1:'+p;
  const project=join(sourceRoot,'src/Bluent.UI.Demo/Bluent.UI.Demo.csproj');
- host=spawn('dotnet',['run','--project',project,'-c','Debug','--no-build','--no-launch-profile','--urls',url],{cwd:sourceRoot,stdio:'ignore',windowsHide:true});
- await poll(async()=>{const r=await fetch(url+'/component-lab');return r.status===200;},70000);
+ const route=hostingMode==='Server'?'/compatibility/component-lab-server':'/component-lab';
+ if(hostingMode==='Server'){
+   host=spawn('dotnet',[join(publishedRoot,'Bluent.UI.Demo.SSR.dll'),'--urls',url],{cwd:publishedRoot,stdio:'ignore',windowsHide:true,env:{...process.env,ASPNETCORE_ENVIRONMENT:'Production'}});
+ }else{
+   host=spawn('dotnet',['run','--project',project,'-c','Debug','--no-build','--no-launch-profile','--urls',url],{cwd:sourceRoot,stdio:'ignore',windowsHide:true});
+ }
+ await poll(async()=>{const r=await fetch(url+route);return r.status===200;},70000);
  browser=spawn(chrome,['--headless=new','--no-sandbox','--disable-gpu','--no-first-run','--disable-extensions','--remote-debugging-port=0','--remote-allow-origins=*','--user-data-dir='+profile,'about:blank'],{stdio:'ignore',windowsHide:true});
  const bp=await poll(async()=>+(await readFile(join(profile,'DevToolsActivePort'),'utf8')).trim().split(/\r?\n/)[0],35000);
  const tabs=await(await fetch('http://127.0.0.1:'+bp+'/json/list')).json(),tab=tabs.find(t=>t.type==='page'&&t.webSocketDebuggerUrl);
@@ -38,7 +47,7 @@ try{
  const size=reflowProxy?{width:620,height:570,deviceScaleFactor:2,mobile:false}:{width:1240,height:1140,deviceScaleFactor:1,mobile:false};
  await send('Emulation.setDeviceMetricsOverride',size);
  if(scenario==='forced-colors'||scenario==='ax-keyboard')await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]});
- await send('Page.navigate',{url:url+'/component-lab'});
+ await send('Page.navigate',{url:url+route});
  await poll(()=>js("document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),45000);
  add('Live source Lab hydrated',true);
  const accessibilityMode=await js("(()=>({forcedColors:matchMedia('(forced-colors: active)').matches,contrastMore:matchMedia('(prefers-contrast: more)').matches,viewportWidth:innerWidth,viewportHeight:innerHeight,dpr:devicePixelRatio,documentScrollWidth:document.documentElement.scrollWidth,visualViewportScale:visualViewport?.scale||null}))()");
@@ -60,10 +69,14 @@ try{
   ['RangeSlider',443,'#lab-range-int'],
   ['FileSelect',444,'#lab-file-multi']
  ]){
+  if(hostingMode==='Server'&&family!=='FileSelect')continue;
+  console.log('BLUENT FAMILY '+family+' host='+hostingMode+' at queue filter');
   await js(`(()=>{const el=document.getElementById('lab-queue-search');if(!el)throw Error('Missing Lab queue search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'${issue}');el.dispatchEvent(new Event('input',{bubbles:true}));})()`);
-  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),15000);
+  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),hostingMode==='Server'?35000:15000);
+  console.log('BLUENT FAMILY '+family+' filtered');
   await js("document.querySelector('.lab-queue-row button').click()");
-  await poll(()=>js("!!document.querySelector("+JSON.stringify(selector)+")"),16000);
+  await poll(()=>js("!!document.querySelector("+JSON.stringify(selector)+")"),hostingMode==='Server'?35000:16000);
+  console.log('BLUENT FAMILY '+family+' real specimen selected');
   const detail=await js(`(()=>{
    const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas');
    if('${scenario}'!=='baseline'){
@@ -181,14 +194,39 @@ try{
     detail.uploadEvidence={syntheticFileNames:synthetic,testedMaxFiles:2,stages,removeAX,limitations:'Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance.'};
   }
   const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:detail.canvas.x,y:detail.canvas.y,width:detail.canvas.width,height:detail.canvas.height,scale:1}});
-  const img='BLUENT-LAB-'+family.toUpperCase()+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.png';
+  const img='BLUENT-LAB-'+family.toUpperCase()+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+(hostingMode==='Server'?'-SERVER':'')+'-CHROME.png';
   await writeFile(join(evidenceRoot,img),Buffer.from(capture.data,'base64'));
-  detail.image=img;measurements.push(detail);
+  detail.image=img;
+  if(scenario==='file-upload' && family==='FileSelect'){
+    // Separate fresh component state; no action on the now-hidden picker.
+    // This tests the independent "too many files in ONE native selection" path.
+    console.log('BLUENT SINGLE BATCH '+hostingMode+' starting clean SSR/WASM navigation');
+    await send('Page.navigate',{url:url+route});
+    await poll(()=>js("document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),45000);
+    await js("(()=>{const e=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'444');e.dispatchEvent(new Event('input',{bubbles:true}));})()");
+    await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),hostingMode==='Server'?35000:15000);
+    await js("document.querySelector('.lab-queue-row button').click()");
+    await poll(()=>js("!!document.querySelector('#lab-file-multi input[type=file]')"),hostingMode==='Server'?35000:16000);
+    const oneInput=await send('DOM.getDocument',{depth:1});
+    const oneId=await send('DOM.querySelector',{nodeId:oneInput.root.nodeId,selector:'#lab-file-multi input[type=file]'});
+    if(!oneId.nodeId)throw Error('No clean FileSelect input for one-batch test');
+    await send('DOM.setFileInputFiles',{nodeId:oneId.nodeId,files:['alpha.txt','beta.md','gamma.txt'].map(n=>join(uploadDir,n))});
+    await poll(()=>js("document.querySelector('.lab-file-multi-status')?.textContent?.includes('Files: 3;')"),18000);
+    const oneBatch=await js("(()=>{const c=document.querySelector('#lab-file-multi');return {maxFiles:2,status:document.querySelector('.lab-file-multi-status')?.textContent?.trim(),cards:c?.querySelectorAll('.files .bui-card').length||0,removeButtons:c?.querySelectorAll('.files button').length||0,nativeMultiple:c?.querySelector('input[type=file]')?.multiple,pickerVisible:!!c?.querySelector('.content > button')}})()");
+    add('One native batch of three files exceeds MaxFiles=2 (independent gap)',oneBatch.cards===3&&oneBatch.nativeMultiple===true&&oneBatch.status.includes('Files: 3;'),oneBatch);
+    detail.uploadEvidence.singleBatchOverflow=oneBatch;
+    await js("document.querySelector('#lab-file-multi')?.scrollIntoView({block:'center'})");
+    const oneShot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true});
+    const oneImg='BLUENT-LAB-FILESELECT-ONE-BATCH-'+(hostingMode==='Server'?'SERVER-':'')+'CHROME.png';
+    await writeFile(join(evidenceRoot,oneImg),Buffer.from(oneShot.data,'base64'));
+    detail.uploadEvidence.singleBatchImage=oneImg;
+  }
+  measurements.push(detail);
  }
- const evidence={auditIssue:552,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
- mode:'real Chrome Blazor WebAssembly Debug Lab',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
+ const evidence={auditIssue:552,hostingMode,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
+ mode:hostingMode==='Server'?'real Chrome published Production Blazor InteractiveServer':'real Chrome Blazor WebAssembly Debug Lab',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
  viewport:size,accessibilityMode,normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:scenario==='zoom-200'?'natural intrinsic responsive width':'forced 260px',rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:scenario==='ax-keyboard'?'Chrome AX tree plus real key event and runtime-only CSS candidate; NOT OS/AT or design signoff':scenario==='zoom-200'?'620 CSSpx DPR2 reflow proxy with natural Slider width, no native browser zoom or parity':scenario==='forced-colors'?'Real Chromium forced-colors CSS emulation only, no native OS HC or parity':'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
- await writeFile(join(evidenceRoot,'BLUENT-LAB-P0'+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
+ await writeFile(join(evidenceRoot,'BLUENT-LAB-P0'+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+(hostingMode==='Server'?'-SERVER':'')+'-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
  console.log('BLUENT SUMMARY '+JSON.stringify({checks:checks.length,screenshots:measurements.map(x=>x.image)}));
 }catch(e){console.error('BLUENT ERROR',e?.stack||String(e));process.exitCode=1;}
 finally{
