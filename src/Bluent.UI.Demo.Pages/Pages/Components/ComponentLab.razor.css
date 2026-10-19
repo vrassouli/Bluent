@@ -266,3 +266,16 @@
 .lab-canvas.compact .lab-otp-card { padding:.625rem; gap:.375rem; }
 @media(max-width:600px) { .lab-otp-grid { grid-template-columns:minmax(0,1fr); } }
 .lab-otp-autosubmit-form { margin:0; display:grid; gap:.625rem; min-width:0; }
+
+/* #421 pointer-only source Slider pilot, not #442 production styling. */
+.lab-slider-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-slider-card { display:grid; align-content:start; gap:.8rem; min-width:0; padding:1rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-slider-label { font-size:.86rem; font-weight:600; line-height:1.4; }
+.lab-slider-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-slider-card ::deep .bui-slider { box-sizing:border-box; width:100%; min-width:0; }
+.lab-canvas[dir="rtl"] .lab-slider-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-slider-card p { text-align:left; }
+.lab-canvas.narrow .lab-slider-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-slider-grid { gap:.5rem; }
+.lab-canvas.compact .lab-slider-card { padding:.75rem; gap:.5rem; }
+@media(max-width:600px) { .lab-slider-grid { grid-template-columns:minmax(0,1fr); } }

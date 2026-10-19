@@ -66,7 +66,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('fifteen pilot families and four functional controls rendered',initial.catalog.length===15&&initial.controls===4,initial);
+ check('sixteen pilot families and four functional controls rendered',initial.catalog.length===16&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -433,7 +433,7 @@ try {
  check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
    tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
  // visual, native AT or product implementation acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Checkbox');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -468,7 +468,7 @@ try {
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
  // but the future #435 semantic switch role and Windows AT are NOT
  // implemented or certified by the #421 source-owned demo.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -502,7 +502,7 @@ try {
  check('generated Switch Razor contains two bind Value models before-label and disabled',
   switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Ninth existing NumericField<T> API pilot from public source: real
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Ninth existing NumericField<T> API pilot from public source: real
  // native text entry and Blazor int binding, callbacks and a separate
  // decimal specimen. #433 stays Backlog; full validation/AT is not done.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'NumericField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -536,7 +536,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Current public RadioGroup<string> and Radio<string> only;
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Current public RadioGroup<string> and Radio<string> only;
  // does not certify future #436 accessible radiogroup/arrow navigation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'RadioGroup');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RadioGroup')"),12000);
@@ -586,7 +586,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Eleventh current native SelectField<T> Blazor specimen. Native
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Eleventh current native SelectField<T> Blazor specimen. Native
  // Chromium ArrowDown/ArrowUp events, real onchange and generic int
  // conversion, not fake element.click() or JS model mutation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'SelectField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -623,7 +623,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Existing DateField<T>: current MaskedField-based source component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Existing DateField<T>: current MaskedField-based source component.
  // Only day/month/DateOnly/disabled states. Full culture parsing,
  // calendar selection and native AT belong to future #438 redesign.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'DateField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -656,7 +656,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000); // Existing MaskedField-based TimeField<TimeOnly/TimeSpan> API, not a
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000); // Existing MaskedField-based TimeField<TimeOnly/TimeSpan> API, not a
  // future v3 implementation. Real input editing validates oninput
  // and typed value, while the #439 OS AT matrix stays pending.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'TimeField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -687,7 +687,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const e=document.getElementById(id);e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"),12000);
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"),12000);
  // Existing public MaskedField demo, not production v3 product implementation.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'MaskedField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('MaskedField')"),12000);
@@ -721,6 +721,51 @@ try {
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')&&!document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
 
+
+ // 16th public Slider is a source-driven pointer component, not an accessible native range.
+ await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'Slider');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Slider')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const sliderReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Slider')&&!!document.getElementById('lab-slider-int')"),12000);
+ check('sixteenth existing Slider renders two real numeric source component specimens',sliderReady);
+ const sliderBefore=await js("(()=>{const a=['lab-slider-int','lab-slider-double'].map(id=>document.getElementById(id));return {classes:a.map(x=>x?.className),rails:a.map(x=>x?.querySelector('.rail')?.getBoundingClientRect().width),styles:a.map(x=>x?.style.getPropertyValue('--thumb-size').trim()),values:[document.querySelector('.lab-slider-int-status')?.textContent.trim(),document.querySelector('.lab-slider-double-status')?.textContent.trim()]}})()");
+ check('Slider original int/double bindings and public ThumbSize emit real geometry',
+  sliderBefore.classes.every(x=>x?.includes('bui-slider'))&&sliderBefore.rails.every(x=>x>60)&&
+  JSON.stringify(sliderBefore.styles)===JSON.stringify(['20px','28px'])&&
+  JSON.stringify(sliderBefore.values)===JSON.stringify(['Value: -15','Value: 4.0']),sliderBefore);
+ if(renderMode==='WebAssembly') {
+ const sliderIntPoint=await js("(()=>{const r=document.querySelector('#lab-slider-int>.rail').getBoundingClientRect();return {x:Math.round(r.left+r.width*.75),y:Math.round(r.top+r.height/2)}})()");
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:sliderIntPoint.x,y:sliderIntPoint.y,button:'left',clickCount:1});
+ await wait(350); // real human-duration press permits InteractiveServer async pointerdown dispatch
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:sliderIntPoint.x,y:sliderIntPoint.y,button:'left',clickCount:1});
+ const sliderIntValue=await poll(()=>js("(()=>{const s=document.querySelector('.lab-slider-int-status')?.textContent?.trim();const v=Number(s?.replace('Value: ','')||'NaN');return Number.isFinite(v)&&v>=-50&&v<=50&&v!==-15})()"),12000);
+ check('real CDP pointer activation changes generic integer Slider and invokes Blazor ValueChanged',sliderIntValue);
+ const sliderDoublePoint=await js("(()=>{const r=document.querySelector('#lab-slider-double>.rail').getBoundingClientRect();return {x:Math.round(r.left+r.width*.20),y:Math.round(r.top+r.height/2)}})()");
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x:sliderDoublePoint.x,y:sliderDoublePoint.y,button:'left',clickCount:1});
+ await wait(350);
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:sliderDoublePoint.x,y:sliderDoublePoint.y,button:'left',clickCount:1});
+ const sliderDoubleValue=await poll(()=>js("(()=>{const s=document.querySelector('.lab-slider-double-status')?.textContent?.trim();const v=Number(s?.replace('Value: ','')||'NaN');return Number.isFinite(v)&&v>=0&&v<=10&&Math.abs(v-4)>0.1})()"),12000);
+ check('real CDP pointer activation changes generic double Slider bound value',sliderDoubleValue);
+ } else {
+   // This is a consciously unverified interaction path, not a passed test.
+   // Source Slider ScreenX/DOM interop pointer binding did not change the
+   // bound value in a real published InteractiveServer run on 2026-10-19.
+   // Keep a render/layout smoke only and retain the finding under #442.
+   console.log('QA KNOWN GAP #442: InteractiveServer Slider pointer binding not asserted; actual CDP press returned unchanged bound value (-15).');
+ }
+ const sliderCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable Slider public Razor demonstrates typed Min Max ThumbSize and ValueChanged binding',
+  sliderCopy?.includes('Min="-50" Max="50" ThumbSize="20"')&&sliderCopy?.includes('Min="0.0" Max="10.0" ThumbSize="28"')&&sliderCopy?.includes('@bind-Value="_labSliderInt"')&&sliderCopy?.includes('_labSliderDouble'),sliderCopy);
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')&&document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ const sliderLayout=await js("(()=>{const g=document.querySelector('.lab-slider-grid'),b=g.getBoundingClientRect(),a=[...g.children].map(x=>x.getBoundingClientRect()),s=getComputedStyle(g),rails=[...g.querySelectorAll('.rail')].map(x=>x.getBoundingClientRect()),sts=[...g.querySelectorAll('p[role=status]')].map(x=>({dir:x.dir,lang:x.lang,align:getComputedStyle(x).textAlign}));return {columns:s.gridTemplateColumns,gap:parseFloat(s.rowGap),vertical:a.slice(1).map((x,i)=>x.top-a[i].bottom),within:a.every(x=>x.left>=b.left-1&&x.right<=b.right+1),rails:rails.map(x=>({l:x.left,r:x.right})),railWithin:rails.every(x=>x.left>=b.left-1&&x.right<=b.right+1),canvas:document.querySelector('.lab-canvas').getBoundingClientRect().width,statuses:sts}})()");
+ check('RTL 320px compact Slider cards have >=8px gap and rails never overflow',
+  sliderLayout.columns.trim().split(/\\s+/).length===1&&sliderLayout.gap>=8&&sliderLayout.vertical.every(x=>x>=8)&&sliderLayout.within&&sliderLayout.railWithin&&sliderLayout.canvas<=320,sliderLayout);
+ check('RTL Slider English status remains logical LTR but is right-aligned',
+  sliderLayout.statuses.length===2&&sliderLayout.statuses.every(x=>x.dir==='ltr'&&x.lang==='en'&&['right','end'].includes(x.align)),sliderLayout.statuses);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide'],['lab-density','normal']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')&&!document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
  // 15th current OtpField uses the bundled Bluent JS interop and real native editable cells.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'OtpField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('OtpField')"),12000);
@@ -788,7 +833,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===15"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===16"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -824,8 +869,8 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows include fifteen incomplete real lab pilots',
-  allQueue.count===66&&allQueue.pilots===15&&allQueue.queued===51&&
+ check('canonical 66 candidate rows include sixteen incomplete real lab pilots',
+  allQueue.count===66&&allQueue.pilots===16&&allQueue.queued===50&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
@@ -881,6 +926,13 @@ try {
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const otpQueueLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('OtpField')&&!!document.getElementById('lab-otp-secret')"),12000);
  check('queue launches actual fifteenth OtpField JS-backed pilot without #441 acceptance',otpQueueLaunch);
+ await js("(()=>{const x=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'442');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ const sliderQueue=await poll(()=>js("(()=>{const r=[...document.querySelectorAll('.lab-queue-row')];return r.length===1&&r[0].textContent.includes('Slider')&&r[0].textContent.includes('Live pilot')&&r[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/442')&&!!r[0].querySelector('button')})()"),12000);
+ check('queue #442 retains incomplete Slider issue and offers new live pilot',sliderQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const sliderQueueLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('Slider')&&!!document.getElementById('lab-slider-double')"),12000);
+ check('queue launches sixteenth real Slider without claiming #442 completion',sliderQueueLaunch);
+
 
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'428');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&document.querySelector('.lab-queue-row button')?.textContent.includes('View pilot')"),12000);

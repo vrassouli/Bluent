@@ -54,6 +54,7 @@ def payload():
             else "chrome_edge_wasm_server_timefield_native_timeonly_timespan_disabled_observed" if family == "TimeField"
             else "chrome_edge_wasm_server_maskedfield_regex_ascii_disabled_observed" if family == "MaskedField"
             else "chrome_edge_wasm_server_otp_native_js_keyboard_binding_autosubmit_observed" if family == "OtpField"
+            else "chrome_edge_wasm_pointer_value_observed_server_layout_only_pointer_unverified" if family == "Slider"
             else "no_component_lab_scenario"
         )
         entries.append({
@@ -106,7 +107,7 @@ def main():
         TARGET.write_text(desired, encoding="utf-8")
     elif not TARGET.is_file() or TARGET.read_text(encoding="utf-8") != desired:
         raise SystemExit("Component Lab family work queue is missing or stale. Review #494 data and regenerate.")
-    print("Component Lab family queue: 66/66 mapped to issues; 15 pilots, 15 real browser specimens; ZERO complete API acceptance.")
+    print("Component Lab family queue: 66/66 mapped to issues; 16 pilots, 15 real browser specimens; Slider Server pointer gap; ZERO complete API acceptance.")
 
 
 if __name__ == "__main__":

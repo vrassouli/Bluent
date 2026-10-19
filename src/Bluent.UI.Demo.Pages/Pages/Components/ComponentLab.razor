@@ -548,6 +548,22 @@
                 </div>
                 <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
             }
+            else if (_selected == "slider")
+            {
+                <div class="lab-slider-grid" aria-label="Existing public Slider numeric ranges and thumb sizes">
+                    <div class="lab-slider-card">
+                        <span class="lab-slider-label">Integer range -50 to 50</span>
+                        <Slider id="lab-slider-int" @bind-Value="_labSliderInt" Min="-50" Max="50" ThumbSize="20" />
+                        <p class="lab-slider-int-status" role="status" lang="en" dir="ltr">Value: @_labSliderInt</p>
+                    </div>
+                    <div class="lab-slider-card">
+                        <span class="lab-slider-label">Double range 0 to 10, large thumb</span>
+                        <Slider id="lab-slider-double" @bind-Value="_labSliderDouble" Min="0.0" Max="10.0" ThumbSize="28" />
+                        <p class="lab-slider-double-status" role="status" lang="en" dir="ltr">Value: @_labSliderDouble.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)</p>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442.</p>
+            }
             else if (_selected == "otp")
             {
                 <div class="lab-otp-grid" aria-label="Existing public OtpField length password and auto-submit attributes">
@@ -738,6 +754,10 @@
             "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
             "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
+        new("slider", "Slider", "components/sliders", "Pointer-driven numeric ranges",
+            "Current generic Slider with Value binding, Min/Max, and ThumbSize; not a native keyboard slider.",
+            "<Slider @bind-Value=\"_labSliderInt\" Min=\"-50\" Max=\"50\" ThumbSize=\"20\" />",
+            "Representative runnable scenario only"),
         new("otp", "OtpField", "components/fields", "Four, six and auto-submit OTP configurations",
             "Current public OtpField JS-backed code editing, Password and Length variants, plus AutoSubmit configuration.",
             "<OtpField @bind-Value=\"_labOtpCode\" Length=\"4\" BindValueEvent=\"oninput\" />",
@@ -816,6 +836,17 @@
     private TimeSpan _labTimeSpan = new(2, 15, 0);
     private TimeOnly _labTimeDisabled = new(12, 40);
     private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
+
+    private int _labSliderInt = -15;
+    private double _labSliderDouble = 4.0;
+    private string SelectedSliderRazor => """
+        <Slider id="lab-slider-int" @bind-Value="_labSliderInt" Min="-50" Max="50" ThumbSize="20" />
+        <Slider id="lab-slider-double" @bind-Value="_labSliderDouble" Min="0.0" Max="10.0" ThumbSize="28" />
+        @code {
+            private int _labSliderInt = -15;
+            private double _labSliderDouble = 4.0;
+        }
+        """;
 
     private string? _labOtpCode = "";
     private string? _labOtpSecret = "";
@@ -918,7 +949,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "otp" ? SelectedOtpRazor
+    private string ActiveRazor => _selected == "slider" ? SelectedSliderRazor
+        : _selected == "otp" ? SelectedOtpRazor
         : _selected == "masked" ? SelectedMaskedRazor
         : _selected == "timefield" ? SelectedTimeFieldRazor
         : _selected == "datefield" ? SelectedDateFieldRazor
