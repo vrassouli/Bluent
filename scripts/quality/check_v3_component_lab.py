@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 14
+    assert len(data["families"]) == 15
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -51,6 +51,36 @@ def check() -> int:
         "queue launches fourteenth MaskedField without claiming issue #440 Done",
     ):
         assert gate in probe_text, "missing MaskedField browser gate: " + gate
+    assert data["families"][14]["id"] == "otp"
+    assert data["families"][14]["classification"] == "representative_only"
+    assert data["families"][14]["existingDemoRoute"] == "/components/fields"
+    assert set(data["families"][14]["propertiesDemonstrated"]) == {
+        "Value", "ValueChanged", "BindValueEvent", "Length", "Password", "AutoSubmit"
+    }
+    otp_source=(ROOT/"src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs").read_text(encoding="utf-8-sig")
+    for marker in ("public int Length", "public bool Password", "public bool AutoSubmit"):
+        assert marker in otp_source
+    for marker in ('new("otp", "OtpField"', 'class="lab-otp-grid"', 'id="lab-otp-code"',
+                   'id="lab-otp-secret"', 'id="lab-otp-auto"', 'SelectedOtpRazor',
+                   'BindValueEvent="oninput" Length="4"', 'Length="6" Password',
+                   'Length="3" AutoSubmit'):
+        assert marker in source, "current public OtpField pilot missing: "+marker
+    assert '.lab-canvas.narrow .lab-otp-grid' in css
+    assert '.lab-canvas.compact .lab-otp-card' in css
+    assert '.lab-canvas[dir="rtl"] .lab-otp-card p { text-align:right; }' in css
+    for marker in ("fifteenth native OtpField scenario renders three genuine JS-backed specimens",
+                   "OtpField source Length 4/6/3 Password AutoSubmit and hidden binding match actual runtime DOM",
+                   "existing OtpField initializes its real JS interop on all three independent instances",
+                   "real native digit input and JS focus advance bind 12 into Blazor Value",
+                   "OTP JS automatically advances keyboard focus to the third digit",
+                   "complete native three-digit OTP AutoSubmit invokes its actual Blazor form handler once",
+                   "OtpField auto-submit has no duplicate submit callback after completion",
+                   "copyable OTP Razor shows real Length Password AutoSubmit and oninput binding",
+                   "RTL 320px compact OTP cards and all digit inputs stay within column with >=8px gap",
+                   "RTL OTP English bound status stays LTR while its card is right-aligned",
+                   "queue #441 links unfinished OtpField product issue and 15th pilot",
+                   "queue launches actual fifteenth OtpField JS-backed pilot without #441 acceptance"):
+        assert marker in probe_text, "OTP real-browser regression gate missing: "+marker
     # #421 can introduce a current-API TextField specimen even while
     # the actual v3 product redesign #432 remains Backlog.
     assert data["families"][13]["id"] == "masked"
@@ -341,7 +371,7 @@ def check() -> int:
     assert textfield_queue["scenarioId"] == "textfield-input-textarea-disabled"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 14
+    assert len({entry["id"] for entry in data["families"]}) == 15
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -395,6 +425,9 @@ def check() -> int:
             if entry["id"] == "badge":
                 assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
                 continue
+            if entry["id"] == "otp":
+                assert "real 199/199 Chrome DevTools Protocol assertions PASS including OTP" in mode
+                continue
             if entry["id"] in ("textfield","checkbox","switch","numeric","radio","selectfield","datefield","timefield","masked"):
                 assert ("TextField native Blazor browser" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser" if entry["id"] == "switch" else "NumericField native Blazor browser" if entry["id"] == "numeric" else "RadioGroup native Blazor browser" if entry["id"] == "radio" else "SelectField native Blazor browser" if entry["id"] == "selectfield" else "DateField native Blazor browser" if entry["id"] == "datefield" else "TimeField native Blazor browser" if entry["id"] == "timefield" else "real native source browser 187/187 PASS incl #440 MaskedField") in mode
                 continue
@@ -405,7 +438,7 @@ def check() -> int:
                 assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
-        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor", "radio": "Radios.razor", "selectfield": "Fields.razor", "datefield": "Fields.razor", "timefield": "Fields.razor", "masked": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
+        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor", "radio": "Radios.razor", "selectfield": "Fields.razor", "datefield": "Fields.razor", "timefield": "Fields.razor", "masked": "Fields.razor", "otp": "Fields.razor"}.get(entry["id"],entry["family"]+"s.razor")
         demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / demo_file
         assert demo_path.exists(), f"missing referenced demo: {demo_path}"
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
@@ -573,8 +606,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 14
-    assert queue["familiesWithRealBrowserSpecimen"] == 13
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 15
+    assert queue["familiesWithRealBrowserSpecimen"] == 15
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -595,7 +628,7 @@ def check() -> int:
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows include fourteen incomplete real lab pilots",
+                    "canonical 66 candidate rows include fifteen incomplete real lab pilots",
                     "issue 432 search finds current TextField pilot without claiming completion",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
@@ -681,8 +714,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 14 live pilot specimens, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 14/14 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 15 live pilot specimens, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 15/15 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

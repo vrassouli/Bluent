@@ -249,3 +249,20 @@
 .lab-canvas.compact .lab-masked-grid { gap:.5rem; }
 .lab-canvas.compact .lab-masked-card { padding:.625rem; gap:.375rem; }
 @media(max-width:600px) { .lab-masked-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421: current public OtpField specimen only, not #441 production restyling. */
+.lab-otp-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-otp-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-otp-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-otp-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-otp-card ::deep .bui-otp-field { max-width:100%; min-width:0; }
+.lab-otp-card ::deep .otp { display:flex; flex-wrap:wrap; max-width:100%; gap:.35rem; }
+.lab-otp-card ::deep .otp-cell { flex:0 0 auto; }
+.lab-otp-card ::deep .otp-cell-input { box-sizing:border-box; max-width:2.35rem; min-width:0; }
+.lab-canvas[dir="rtl"] .lab-otp-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-otp-card p { text-align:left; }
+.lab-canvas.narrow .lab-otp-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-otp-grid { gap:.5rem; }
+.lab-canvas.compact .lab-otp-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-otp-grid { grid-template-columns:minmax(0,1fr); } }
+.lab-otp-autosubmit-form { margin:0; display:grid; gap:.625rem; min-width:0; }

@@ -548,6 +548,32 @@
                 </div>
                 <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
             }
+            else if (_selected == "otp")
+            {
+                <div class="lab-otp-grid" aria-label="Existing public OtpField length password and auto-submit attributes">
+                    <div class="lab-otp-card">
+                        <label for="lab-otp-code">Four digit code</label>
+                        <OtpField id="lab-otp-code" @bind-Value="_labOtpCode"
+                                  BindValueEvent="oninput" Length="4" />
+                        <p class="lab-otp-code-status" role="status" dir="ltr" lang="en">Code: @_labOtpCode</p>
+                    </div>
+                    <div class="lab-otp-card">
+                        <label for="lab-otp-secret">Six digit password mode</label>
+                        <OtpField id="lab-otp-secret" @bind-Value="_labOtpSecret"
+                                  BindValueEvent="oninput" Length="6" Password />
+                        <p class="lab-otp-secret-status" role="status" dir="ltr" lang="en">Entered digits: @(_labOtpSecret?.Length ?? 0)</p>
+                    </div>
+                    <div class="lab-otp-card">
+                        <form class="lab-otp-autosubmit-form" @onsubmit="OnOtpSubmitted" @onsubmit:preventDefault>
+                            <label for="lab-otp-auto">Three digit auto-submit form</label>
+                            <OtpField id="lab-otp-auto" @bind-Value="_labOtpAuto"
+                                      BindValueEvent="oninput" Length="3" AutoSubmit />
+                            <p class="lab-otp-auto-status" role="status" dir="ltr" lang="en">Entered digits: @(_labOtpAuto?.Length ?? 0); submissions: @_labOtpSubmitCount</p>
+                        </form>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing OtpField JavaScript interop and public options. Completing a real enclosing form, focus disposal, localization and native assistive-technology review remain #441 work.</p>
+            }
             else if (_selected == "masked")
             {
                 <div class="lab-masked-grid" aria-label="Existing public MaskedField fixed pattern Persian digits and disabled states">
@@ -712,6 +738,10 @@
             "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
             "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
+        new("otp", "OtpField", "components/fields", "Four, six and auto-submit OTP configurations",
+            "Current public OtpField JS-backed code editing, Password and Length variants, plus AutoSubmit configuration.",
+            "<OtpField @bind-Value=\"_labOtpCode\" Length=\"4\" BindValueEvent=\"oninput\" />",
+            "Representative runnable scenario only"),
         new("masked", "MaskedField", "components/fields", "Format-constrained native input",
             "Current public MaskedField demonstrates fixed regex code, AsciiDigits and true disabled input.",
             "<MaskedField @bind-Value=\"_labMaskedCode\" Mask=\"^\\d{3}-\\d{2}$\" />",
@@ -786,6 +816,26 @@
     private TimeSpan _labTimeSpan = new(2, 15, 0);
     private TimeOnly _labTimeDisabled = new(12, 40);
     private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
+
+    private string? _labOtpCode = "";
+    private string? _labOtpSecret = "";
+    private string? _labOtpAuto = "";
+    private int _labOtpSubmitCount;
+    private void OnOtpSubmitted() => _labOtpSubmitCount++;
+    private string SelectedOtpRazor => """
+        <OtpField id="lab-otp-code" @bind-Value="_labOtpCode" BindValueEvent="oninput" Length="4" />
+        <OtpField id="lab-otp-secret" @bind-Value="_labOtpSecret" BindValueEvent="oninput" Length="6" Password />
+        <form @onsubmit="OnOtpSubmitted" @onsubmit:preventDefault>
+            <OtpField id="lab-otp-auto" @bind-Value="_labOtpAuto" BindValueEvent="oninput" Length="3" AutoSubmit />
+        </form>
+        @code {
+            private string? _labOtpCode = "";
+            private string? _labOtpSecret = "";
+            private string? _labOtpAuto = "";
+            private int _labOtpSubmitCount;
+            private void OnOtpSubmitted() => _labOtpSubmitCount++;
+        }
+        """;
 
     private string _labMaskedCode = "123-45";
     private string _labMaskedDigits = "12";
@@ -868,7 +918,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "masked" ? SelectedMaskedRazor
+    private string ActiveRazor => _selected == "otp" ? SelectedOtpRazor
+        : _selected == "masked" ? SelectedMaskedRazor
         : _selected == "timefield" ? SelectedTimeFieldRazor
         : _selected == "datefield" ? SelectedDateFieldRazor
         : _selected == "selectfield" ? SelectedSelectFieldRazor
