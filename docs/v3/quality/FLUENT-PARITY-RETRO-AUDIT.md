@@ -6,7 +6,7 @@
 
 **Pause all new Component Lab family pilots beyond the first 18.** This P0 quality-backfill audit is the next development priority; Product #428–#445 and actual Penpot/Figma reviews remain the owning sources for implementation. Workstream #552 moved to **Ready** in GitHub Project #5, priority **P0**; do not claim it is In progress without the required own task branch/design source gate.
 
-**Resume new component families only after** all 18 retrospective Fluent comparison reports are written, reviewed and have every material gap assigned an explicit product-issue remediation/accepted-exception decision. This gate requires **audited and dispositioned debt**, not pretending 18 product components are Done. Actual product fixes remain on their existing issue lifecycle; if a crucial gap is blocking Fluent parity, it must be resolved before calling that family accepted.
+**Resume new component families only after** all 18 retrospective Fluent comparison reports are written and reviewed **AND every actionable parity gap is corrected and regression-tested, or explicitly reviewed/approved as a deliberate Bluent exception**. Merely filing an issue or documenting a failing behavior does **not** settle that debt. This gate requires **audited and dispositioned debt**, not pretending 18 product components are Done. Actual product fixes remain on their existing issue lifecycle; if a crucial gap is blocking Fluent parity, it must be resolved before calling that family accepted.
 
 Read the P0 known issues first: Button #428, Slider #442, RangeSlider #443, FileSelect #444. No changes to the stable v2 branch, no forced #421 PR merge, and no fictional design approval.
 

@@ -695,7 +695,7 @@
     "newComponentLabFamiliesPaused": true,
     "requestedBy": "project maintainer",
     "reason": "Finish Fluent2 visual, feature, behavioral and accessibility comparison of the first 18 existing pilot families before implementing a 19th.",
-    "resumeOnlyAfter": "18 retrospective audits have documented Fluent source comparison, reviewable design decisions, and each material gap an owning product issue with approved disposition; no unverified full-parity claims",
+    "resumeOnlyAfter": "All first 18 families have completed evidenced Fluent2 visual/feature/behavior/accessibility design audits AND their actionable parity defects have been fixed and regression-tested or are explicitly approved/justified intentional Bluent deviations; component-specific acceptance and any mandatory migration/docs/skills remain governed by each product issue's full DoD. No outstanding unreviewed material parity gaps.",
     "firstFocus": [
       "Button #428",
       "Slider #442",
