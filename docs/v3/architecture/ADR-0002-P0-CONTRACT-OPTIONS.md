@@ -26,7 +26,7 @@ Existing #420 Popover uses a **caller-attribute preserving** convention for owne
 
 ## Executable .NET contract options — NOT product fixes
 
-`scripts/quality/v3_p0_policy_prototype` is a **standalone, dependency-free .NET 10 QA model**, deliberately outside `src/` and outside the public package.
+`scripts/quality/v3_p0_policy_prototype` is a **standalone .NET 10 QA model (no external NuGet dependencies; uses the built-in ASP.NET Core shared framework to exercise HtmlRenderer)**, deliberately outside `src/` and outside the public package.
 
 Run:
 
@@ -34,10 +34,19 @@ Run:
 dotnet run --project scripts/quality/v3_p0_policy_prototype/V3P0PolicyPrototype.csproj -c Release
 ```
 
-The prototype executes **42 real .NET assertions**, covering both safe file-overflow policies for a three-file batch with MaxFiles=2, cumulative append after deletion, rejected versus accepted callback implications, single-file replacement, disabled/empty/invalid capacity, a viewport-relative numeric slider model and incorrect `ScreenX` offset, RTL inversion *as a candidate*, degenerate rail guarding, and three native Button pressed-state cases including explicit caller override. None of these assertions proves that the shipped Bluent implementation has been fixed, nor that a real Blazor render tree obeys the proposed precedence.
+The prototype executes **50 real .NET assertions**, covering both safe file-overflow policies for a three-file batch with MaxFiles=2, cumulative append after deletion, rejected versus accepted callback implications, single-file replacement, disabled/empty/invalid capacity, a viewport-relative numeric slider model and incorrect `ScreenX` offset, RTL inversion *as a candidate*, degenerate rail guarding, and three native Button pressed-state cases including explicit caller override. None of these assertions proves that the shipped Bluent implementation has been fixed, nor that a real Blazor render tree obeys the proposed precedence.
 
 Any owner issue implementation must (a) link an **accepted** version of these specific decisions, (b) change source only in its own Ready/In progress branch, (c) replace #552's known-gap tests with **positive** WASM/Production Server/browser/AT regressions, and (d) obtain the component's actual Penpot/Figma design acceptance before Review/Done.
 
+
+### Measured Blazor render-attribute precedence (not conjecture)
+
+The prototype also now renders a **real Blazor ComponentBase via ASP.NET Core 10 HtmlRenderer**, comparing exactly the two orders of `RenderTreeBuilder.AddMultipleAttributes` and `AddAttribute`. The emitted HTML in the actual .NET run was:
+
+- **Caller attributes first; library aria-pressed last:** `<button data-qa="kept" aria-pressed="true">Toggle</button>` — the library's `true` wins, discarding explicit caller `mixed`.
+- **Library aria-pressed first; caller attributes last:** `<button aria-pressed="mixed" data-qa="kept">Toggle</button>` — explicit caller `mixed` wins. Both variants have **one**, not duplicate, `aria-pressed` attributes.
+
+Thus, if #420 accepts **caller override precedence**, #428 must add computed pressed state **before** `AdditionalAttributes` in the native RenderTreeBuilder call order, then verify the complete real Button/split/anchor rendering and contradictory caller overrides. This is a factual renderer result and a *proposed* rule; it does not mean #428's product code has been changed or that contradictory caller values are a recommended usage pattern.
 ## Design/tool and release boundaries
 
 Canonical **Bluent v3** editable Penpot board for #420: file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page `ed5216bd-3d5b-8015-8008-cb247e27efb4`, interaction board `ed5216bd-3d5b-8015-8008-cb247e906204`. The board is **DRAFT**; these precise P0 decisions still need a reviewer-visible, accepted edit on the correct design board. The #552 draft Figma rail comparison is supplementary and **not** design approval.

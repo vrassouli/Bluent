@@ -1,6 +1,12 @@
 // Issue #420 — TEST-ONLY policy models; NO public Bluent component API.
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 enum OverflowPolicy { RejectBatch, AcceptRemaining }
 
@@ -93,8 +99,30 @@ static class Check
         $" expected {expected}, actual {actual}");
 }
 
+internal sealed class NativeAttributeOrderProbe : ComponentBase
+{
+    [Parameter] public bool? Toggled { get; set; }
+    [Parameter] public bool CallerAttributesLast { get; set; }
+    [Parameter] public Dictionary<string, object>? Incoming { get; set; }
+    protected override void BuildRenderTree(RenderTreeBuilder b)
+    {
+        b.OpenElement(0, "button");
+        if (CallerAttributesLast)
+        {
+            if (Toggled.HasValue) b.AddAttribute(1, "aria-pressed", Toggled.Value ? "true" : "false");
+            b.AddMultipleAttributes(2, Incoming);
+        }
+        else
+        {
+            b.AddMultipleAttributes(1, Incoming);
+            if (Toggled.HasValue) b.AddAttribute(2, "aria-pressed", Toggled.Value ? "true" : "false");
+        }
+        b.AddContent(3, "Toggle");
+        b.CloseElement();
+    }
+}
 internal static class Program {
-    public static void Main() {
+    public static async Task Main() {
 var empty = Array.Empty<string>();
 var pair = new[] { "alpha.txt", "beta.md" };
 var triple = new[] { "alpha.txt", "beta.md", "gamma.txt" };
@@ -176,6 +204,41 @@ Check.Equal("mixed", (string)overrideAttrs["aria-pressed"]!, "caller override pr
 Check.Equal("Save", (string)overrideAttrs["aria-label"]!, "unrelated caller attributes preserved");
 Check.Equal(2, overrideAttrs.Count, "no case-insensitive duplicate aria pressed");
 
+// The real ASP.NET Core 10 HtmlRenderer resolves RenderTreeBuilder duplicates;
+// a pure Dictionary model alone cannot tell which attribute actually wins.
+var services = new ServiceCollection().AddLogging().BuildServiceProvider();
+await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+async Task<string> Render(bool? toggled, bool callerLast, Dictionary<string, object>? incoming = null) =>
+    await renderer.Dispatcher.InvokeAsync(async () =>
+        (await renderer.RenderComponentAsync<NativeAttributeOrderProbe>(ParameterView.FromDictionary(
+            new Dictionary<string, object?> {
+                ["Toggled"] = toggled, ["CallerAttributesLast"] = callerLast,
+                ["Incoming"] = incoming
+            }))).ToHtmlString());
+var nativeDefault = await Render(null, false);
+var nativeOn = await Render(true, false);
+var nativeOverrideEarlier = await Render(true, false,
+    new Dictionary<string, object> { ["aria-pressed"] = "mixed", ["data-qa"] = "kept" });
+var nativeOverrideLater = await Render(true, true,
+    new Dictionary<string, object> { ["aria-pressed"] = "mixed", ["data-qa"] = "kept" });
+Console.WriteLine("ACTUAL BLAZOR renderer attribute collision, library-last: " + nativeOverrideEarlier);
+Console.WriteLine("ACTUAL BLAZOR renderer attribute collision, consumer-last: " + nativeOverrideLater);
+Check.That(!nativeDefault.Contains("aria-pressed", StringComparison.OrdinalIgnoreCase),
+    "real rendered ordinary native Button omits pressed");
+Check.That(nativeOn.Contains("aria-pressed=\"true\"", StringComparison.OrdinalIgnoreCase),
+    "real rendered toggle gets pressed=true");
+Check.That(nativeOverrideEarlier.Contains("data-qa=\"kept\""),
+    "real renderer keeps unrelated consumer attribute");
+Check.That(nativeOverrideLater.Contains("data-qa=\"kept\""),
+    "real renderer keeps unrelated consumer attr in reverse order");
+Check.That(nativeOverrideEarlier.Contains("aria-pressed=\"true\"", StringComparison.OrdinalIgnoreCase),
+    "actual Blazor explicit library attribute wins if placed AFTER caller attributes");
+Check.That(nativeOverrideLater.Contains("aria-pressed=\"mixed\"", StringComparison.OrdinalIgnoreCase),
+    "actual Blazor caller-provided pressed value wins if placed AFTER library default");
+Check.Equal(1, Regex.Matches(nativeOverrideEarlier, "aria-pressed", RegexOptions.IgnoreCase).Count,
+    "rendered element has no duplicate aria-pressed when library wins");
+Check.Equal(1, Regex.Matches(nativeOverrideLater, "aria-pressed", RegexOptions.IgnoreCase).Count,
+    "rendered element has no duplicate aria-pressed when caller wins");
 Console.WriteLine($"PASS #420 proposed policies: {Check.Count} executable .NET assertions. " +
     "This is QA-only modeling, not shipped component code, accepted API/design, or OS/AT.");
 

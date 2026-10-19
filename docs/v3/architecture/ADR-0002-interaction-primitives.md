@@ -2,7 +2,7 @@
 
 **Status: PROPOSED.** This is not a new approved public API or full implementation. Only issue-specific task work targeting bluent-v3. Stable Dev, NuGet and v2 are unchanged.
 
-**2026-10-19 P0 interaction handoff:** [Executable, decision-pending Button / FileSelect / Slider semantics and capacity options](ADR-0002-P0-CONTRACT-OPTIONS.md) derives from actual #552 WASM + Production Server browser evidence. A standalone .NET 10 QA-only model exercises 42 assertions; no component source, public API or design has been approved or changed by that model.
+**2026-10-19 P0 interaction handoff:** [Executable, decision-pending Button / FileSelect / Slider semantics and capacity options](ADR-0002-P0-CONTRACT-OPTIONS.md) derives from actual #552 WASM + Production Server browser evidence. A standalone .NET 10 QA-only model now exercises 50 assertions, including actual ASP.NET Core 10 HtmlRenderer attribute precedence; no component source, public API or design has been approved or changed by that model.
 
 ## Design provenance and issue-specific editable draft
 
