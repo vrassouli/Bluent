@@ -8,6 +8,8 @@ are documented, with final native Persian glyph/AT acceptance still open.
 
 The draft [editable Persian typography/fallback acceptance study](PERSIAN-TYPOGRAPHY-RESEARCH.md) is now in the correct Penpot Bluent file (page 42 / board e775e67c-d9da-804b-8008-cb84059cbdab): eight native size-token links, not final font approval.
 
+The [Chrome/Edge Forced Colors paint and opt-in isolation study for Slider and RangeSlider](SLIDER-FORCED-COLORS-BROWSER-RESEARCH.md) covers actual compiled CSS, 10 brands × 2 modes × LTR/RTL, **3,040 real browser observations**, and an expressly **unapproved / non-shipping** research fallback. No source component change or native Windows HC/AT signoff is implied.
+
 ## Real design location and scope
 
 - Authoritative working file (not Microsoft Fluent Community): **`Bluent v3 Design System`**, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
