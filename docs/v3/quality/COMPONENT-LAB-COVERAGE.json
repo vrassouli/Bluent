@@ -1,0 +1,570 @@
+{
+  "schemaVersion": 1,
+  "issue": 421,
+  "status": "pilot_incomplete",
+  "designSource": {
+    "platform": "Penpot",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "pageId": "e775e67c-d9da-804b-8008-cc7c2dd7ecf7",
+    "boards": [
+      "e775e67c-d9da-804b-8008-cc7c2dec1d15",
+      "e775e67c-d9da-804b-8008-cc7c2e40c7d2"
+    ],
+    "approval": "pending"
+  },
+  "note": "Six representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate. 2026-10-17 incremental EXISTING-API Button Lab specimens for Toggled/ToggledChanged (two native CDP Enter events + exact callback count) and Href native anchor, with synchronized Razor source. New exact-head 32-check four-mode CI is pending; 27/27 entries are historical proof, not claims about new specimens. Toggle aria-pressed/AT remains unapproved #428 work. 2026-10-17 advanced current API pilot: Badge/Compound/Compact and Dropdown/BottomEnd with two real menu callbacks, 40/40 Edge/WASM actual local, remaining three new-head CI pending; 16/20 declared Button params represented in Lab (plus disabled AdditionalAttributes); NOT full API or design parity. 2026-10-17 local Chrome/published InteractiveServer 40/40 also passed after adding same-interactive-boundary PopoverContainer to SERVER-ONLY test host; no stable library change. 2026-10-17 Icon+Label live parameter explorers added. Icon both declared parameters Value/Variant in lab; Label all six declared parameters shown in representative specimens incl Auto [Required] / native label-input focus and Info Popover. These counts DO NOT imply complete API permutations, Fluent design or AT acceptance. Original 40-check exact-head CI prior commit remains historical; new suite 53 checks pending. Current source local Edge/WASM and Chrome/published Server each 53/53 real tests PASS after Label Info, plus source-only regression gates; four-mode new-head CI pending. Color SVG source-backed research prototype uses existing FromSvg and HCM fallback only, not new public IconVariant.Color. 2026-10-17 Color Icon decorative accessibility proof strengthened: +4 real native keyboard, DOM aria-hidden, Chromium AX exclusion and forced-colors Filled fallback checks; local Edge/fresh WASM 61/61, Chrome/published Server 61/61 PASS, CI exact-head pending. No public API or native OS/AT acceptance. 2026-10-17 advanced existing-API Button source coverage now all 20 declared [Parameter] names represented (plus disabled attribute), adding Icon/TextClass, Vertical Orientation and Rotated alongside real CDP geometry, keyboard focus and copyable Razor contracts; exact-head CI pending. Still representative-only. New 2026-10-18 TextField current-API sixth interactive pilot: Chrome/WASM and Edge/Server 103/103 actual native CDP checks each. All four Dev01 modes 103/103 each; exact GitHub latest-head CI pending. No #432 product implementation or final a11y/Penpot acceptance. 2026-10-18 seventh current-API Checkbox pilot added, actual browser matrix still pending; not product implementation. Current source Checkbox 2026-10-18 all four independent Dev01 browser modes 113/113 (452/452), GitHub exact-head CI pending; native OS/AT not certified. 2026-10-18 eighth current public Switch example added; browser QA pending, no #435 product implementation. Eighth current Switch pilot 2026-10-18 all independent source browser modes 123/123 (492/492), exact-head GitHub CI pending. Ninth current public NumericField sample added 2026-10-18; actual browser not yet verified. Ninth current NumericField pilot all four source Dev01 real browser modes 133/133, latest-head GitHub CI pending. Min/Max invalid ranges not accepted. Tenth existing RadioGroup/Radio source-only pilot added 2026-10-18; browser evidence pending. Tenth current RadioGroup existing API pilot 2026-10-18: real 4-mode QA 148/148 each (592/592), exact-head GitHub CI pending. Native radiogroup arrow keys / AT unaccepted. 2026-10-18 11th existing SelectField native specimen; actual browser matrix pending. 2026-10-18 11th SelectField current API real native keyboard and value binding: 4 x 158/158 local tests. GitHub CI new head pending. 2026-10-18 12th current DateField existing-API sample added; browser verification pending. 12th DateField current API all 4 source browser modes 168/168 (672/672), latest-head GitHub CI pending. Disabled backing model independent to avoid false assertion. 2026-10-18 13th source-backed current TimeField API sample added; browser matrix pending. Current TimeField 13th pilot 2026-10-18 four independent real browser modes 177/177 each (708/708); GitHub exact head CI pending. No OS/AT acceptance. Current 14th native MaskedField demo added 2026-10-18. On 2026-10-19 four independent real browser runs passed 187/187 each (Chrome and Edge x WebAssembly and published InteractiveServer; 748/748 total): regex bound input, Persian digit to ASCII, disabled native focus, copyable source, RTL 320px compact card spacing >=8px and #440 queue launch. Temporary Chromium processes cleaned (remaining=0). This is source-backed representative Lab evidence, not v3 Fluent2 Penpot acceptance, native OS/AT certification, full API permutations or exact-head GitHub CI. 2026-10-19 fifteenth OtpField current JS-backed live pilot passed actual independent four-mode Dev01 runtime Chrome/Edge x WebAssembly/published InteractiveServer 199/199 each (796/796 total). Real digit insertion focuses next cell, updates Blazor Value, completes AutoSubmit form exactly once; 320px RTL compact cards have >=8px gap without clipping. Source contract and Debug demo build passed; no native OS/AT or Penpot approval, and exact-head GitHub CI pending. #441 remains product backlog; no new v3 API or component acceptance. 2026-10-19 sixteenth Slider current-API source pilot: local Chrome/Edge WebAssembly 208/208 each including real pointer value changes; Chrome/Edge published InteractiveServer 206/206 each for existing other families and Slider render/RTL/layout ONLY. InteractiveServer Slider CDP click left bound value unchanged (unverified; excluded from passed checks). WebAssembly pointer coordinate discrepancy ScreenX vs DOM Rect observed. This remains an open product gap #442; no four-mode Slider pointer acceptance. New GitHub exact-head CI and Penpot design approval pending. 2026-10-19 seventeenth current public RangeSlider pilot: real Chrome and Edge WASM each 217/217 including int/decimal pointer-driven bound ValueRange changes; Chrome and Edge published InteractiveServer each 213/213 for render/layout/queue only. Server pointer intentionally NOT tested as success due to sibling Slider #442 gap. Across all modes 860/860 passing verified assertions, but no four-mode pointer acceptance. No production API/CSS or #443 product approval. 2026-10-19 eighteenth FileSelect source-backed pilot verified via CDP synthetic QA fixture uploads/removal in Chrome and Edge x WebAssembly/published InteractiveServer: 228/228 WASM each, 224/224 Server each, 904/904 actual PASS. Server CSS had an actual file Card 6px spacing override; tightened Lab scoped CSS to >=8px and reran all modes. Existing FileSelect demo uses undocumented Multiple; new Lab correctly uses MaxFiles. Real native OS file picker, AT, upload server validation, product #444 and Penpot parity still pending. SSR host Release build surfaced two NU1903 advisories for 10.0.7 (not fixed by this Lab change).",
+  "families": [
+    {
+      "id": "button",
+      "family": "Button",
+      "existingDemoRoute": "/components/buttons",
+      "labRoute": "/component-lab",
+      "scenarioId": "button-actions",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text",
+        "Appearance",
+        "OnClick",
+        "disabled",
+        "Size",
+        "Shape",
+        "Toggled",
+        "ToggledChanged",
+        "Href",
+        "SecondaryText",
+        "Compact",
+        "Badge",
+        "BadgeHorizontalPosition",
+        "BadgeVerticalPosition",
+        "Dropdown",
+        "ShowDropdownIndicator",
+        "DropdownPlacement",
+        "TextClass",
+        "Icon",
+        "Rotated",
+        "Orientation"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; Button Appearance/Size/Shape explorer exercised",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; Button Appearance/Size/Shape explorer exercised",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
+      ],
+      "remaining": "All 20 currently declared public Button [Parameter] names now have a representative Lab specimen (plus disabled AdditionalAttributes); this is NOT full permutation or Fluent2 acceptance. Additional unaccepted scenarios: split button (OnClick plus Dropdown), disabled anchor semantics, accessible toggle aria-pressed and pressed focus, menu keyboard and native AT semantics, grouping, icon-only labels, all appearance/size combinations, real theme contrast/RTL, visual Fluent 2 parity, migration and final reviewer acceptance. 20/20 currently declared public parameter NAMES represented plus disabled AdditionalAttributes do not mean exhaustive combination, keyboard, visual or native AT acceptance. Split Button primary vs dropdown event paths now have real native-CDP keyboard and pointer regression coverage in all four browser/modes; full Fluent v3 split semantics and accessible secondary label still belong to #428.",
+      "incremental20261017Evidence": {
+        "kind": "actual-local-browser; representative-only, not design or AT signoff",
+        "Chrome/Server": "32/32 actual Dev01 published InteractiveServer browser assertions after status selector fix; cleanup remaining=0",
+        "Edge/WebAssembly": "32/32 actual Dev01 freshly compiled WebAssembly browser assertions after fresh-build runner fix and self-contained Razor source; cleanup remaining=0",
+        "Chrome/WebAssembly": "New 32-check exact-head CI pending; historic 27/27 remains separate",
+        "Edge/Server": "New 32-check exact-head CI pending; historic 27/27 remains separate",
+        "accessibilityGap": "Existing public toggled Button observed aria-pressed=null in real Edge/WASM: route review to #428, do not claim accessible toggle parity",
+        "designReview": "Existing canonical Penpot Component Lab page42 board is source-owned DRAFT, currently disconnected; no new board change or design acceptance claimed. Advanced API variants reuse existing source-owned live scenario layout.",
+        "advanced20261017": "Current source local Edge/WebAssembly 40/40 and Chrome/production-published InteractiveServer 40/40 real browser checks. Fixed Server-only missing interactive PopoverContainer in compatibility page; neither error reflected a core Button API change. 320px scroll and exact two MenuItem callbacks passed in both. Chrome/WebAssembly and Edge/Server on exact-head GitHub CI still pending."
+      },
+      "splitButton20261018Evidence": {
+        "classification": "representative_existing_public_api_only_not_fluent_v3_acceptance",
+        "design": "Existing canonical Bluent v3 Component Lab page42 desktop/mobile DRAFT arrangement reused; no new Penpot design or approval claimed",
+        "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+        "states": [
+          "OnClick plus Dropdown supplies distinct primary action and secondary disclosure",
+          "native Enter on primary invokes exactly one primary callback",
+          "native Enter on indicator reveals live menu and preserves primary callback count",
+          "real hit-tested mouse click on Schedule send invokes only secondary callback",
+          "copyable Razor includes actual handlers"
+        ],
+        "localRealBrowser": [
+          "Chrome/WebAssembly Dev01 83/83, host 127.0.0.1:55735, cleanup remaining=0",
+          "Chrome/production-published InteractiveServer Dev01 83/83, host 127.0.0.1:65189, cleanup remaining=0",
+          "Edge/WebAssembly Dev01 83/83, host 127.0.0.1:64421, cleanup remaining=0",
+          "Edge/production-published InteractiveServer Dev01 83/83, host 127.0.0.1:56738, cleanup remaining=0"
+        ],
+        "checksPerMode": 83,
+        "totalChecksPassed": 332,
+        "disabledSplit20261018LocalEvidence": {
+          "classification": "representative_existing_api_only_not_v3_acceptance",
+          "newAssertionsPerMode": 5,
+          "testedPublicBehavior": [
+            "both primary and disclosure are native disabled buttons",
+            "neither native keyboard Enter can focus or activate either button",
+            "both hit-tested native pointer clicks have no effect",
+            "copyable Razor includes disabled plus real split event handlers"
+          ],
+          "sourceOwnedChromeWebAssembly": "88/88 PASS, localhost 64430, own browser cleanup remaining=0",
+          "sourceOwnedEdgePublishedServer": "88/88 PASS, localhost 63588, own browser cleanup remaining=0",
+          "visual": "evidence/component-lab-split-disabled-rtl-mobile-chrome-wasm.png",
+          "limitations": "v3 disabled Split behavior still requires native OS AT, WCAG contrast, RTL design and Penpot review; this is a current-API laboratory specimen"
+        },
+        "knownUnaccepted": [
+          "secondary icon-only disclosure accessible name and native screen reader behavior",
+          "disabled Split native keyboard/pointer state sampled, but full focus cycling and Escape unaccepted",
+          "Light/Dark RTL and high contrast actual OS",
+          "v3 Fluent 2 design and migration acceptance"
+        ]
+      }
+    },
+    {
+      "id": "icon",
+      "family": "Icon",
+      "existingDemoRoute": "/components/icons",
+      "labRoute": "/component-lab",
+      "scenarioId": "icon-basic",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "Variant"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
+      ],
+      "remaining": "The two native public Icon parameters (Value, Variant) are demonstrated through the current Settings/Search source-backed combobox and Regular/Filled. Still incomplete: all icon definitions and source kinds SVG/image/CSS, size/color via Style/Class, RTL, fallback variant behavior, meaningful accessibility labels and associated native AT checks, design/visual parity and migration.",
+      "incremental20261017Evidence": {
+        "classification": "existing-current-API-live-pilot; NOT Fluent2 design approval",
+        "local": "Final source current Dev01 Edge/fresh WebAssembly 53/53 and Chrome/production-published InteractiveServer 53/53 browser checks, zero errors, QA-owned Chromium remaining=0. Exact-head GitHub four-mode CI still pending.",
+        "canonicalDesign": "Existing Penpot page42 source-owned Component Lab DRAFT reused for live public-API exploration; Penpot plugin disconnected; no new design artifact mutation or acceptance.",
+        "accessibility": "Real Label/native input and Popover semantics tested; no screen reader or OS Contrast Themes signoff"
+      },
+      "colorResearchPreview20261017": {
+        "status": "prototype only; public IconVariant.Color is NOT implemented",
+        "asset": "official MIT @fluentui/svg-icons 1.1.344 package/icons/apps_20_color.svg",
+        "design": "editable Figma working file JfxkDgSbNr8W0ppUZPQPHc page 26:2 board 26:3; DRAFT research",
+        "api": "existing trusted IconDefinition.FromSvg and existing Filled fallback; no change to production",
+        "evidence": "Dev01 Edge/WebAssembly 57/57 CDP checks PASS after Blazor scoped CSS ::deep fix; includes emulated forced-colors active and none",
+        "risk": "upstream Color deprecated and limited subset; Windows HCM / dark contrast native AT not accepted",
+        "tracked": "#429 Backlog",
+        "decorativeAccessibilityEvidence": {
+          "scope": "source-owned demo-only, public IconVariant.Color NOT implemented",
+          "browserProbes": "four real CDP checks: both variants aria-hidden/non-tabbable, AX tree ignores visible Color SVG, native Tab bypasses both, forced-colors Filled remains decorative next to readable human label",
+          "Edge/WebAssembly": "61/61 actual Dev01 freshly-built WASM browser assertions, errors=[], owned Chromium cleanup remaining=0",
+          "Chrome/Server": "61/61 actual Dev01 production-published InteractiveServer browser assertions, errors=[], owned Chromium cleanup remaining=0",
+          "CI": "Exact new SHA GitHub Actions four browser modes pending",
+          "remaining": "Native Windows Contrast Themes/NVDA/Narrator, public color variant API and complete Fluent parity are NOT approved; #429 Backlog"
+        }
+      }
+    },
+    {
+      "id": "label",
+      "family": "Label",
+      "existingDemoRoute": "/components/labels",
+      "labRoute": "/component-lab",
+      "scenarioId": "label-basic",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text",
+        "ForExpression",
+        "RequiredSymbol",
+        "Size",
+        "Required",
+        "Info"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root"
+      ],
+      "remaining": "All six public Label parameters have representative live usages (Text, ForExpression, RequiredSymbol, Size, Required, Info), including DataAnnotations auto-required, explicit NotRequired/Required and native input focus. Still incomplete: full forms, DisplayName fallback, validation/error messaging, disabled/contrast RTL, accessibility of Info trigger to assistive technology and automated keyboard traversal, all state combinations, design review and migration.",
+      "incremental20261017Evidence": {
+        "classification": "existing-current-API-live-pilot; NOT Fluent2 design approval",
+        "local": "Final source current Dev01 Edge/fresh WebAssembly 53/53 and Chrome/production-published InteractiveServer 53/53 browser checks, zero errors, QA-owned Chromium remaining=0. Exact-head GitHub four-mode CI still pending.",
+        "canonicalDesign": "Existing Penpot page42 source-owned Component Lab DRAFT reused for live public-API exploration; Penpot plugin disconnected; no new design artifact mutation or acceptance.",
+        "accessibility": "Real Label/native input and Popover semantics tested; no screen reader or OS Contrast Themes signoff"
+      }
+    },
+    {
+      "id": "link",
+      "family": "Link",
+      "existingDemoRoute": "/components/links",
+      "labRoute": "/component-lab",
+      "scenarioId": "link-basic",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text",
+        "Href",
+        "Appearance",
+        "OnClick"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed",
+        "Edge/WebAssembly Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed",
+        "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root",
+        "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root"
+      ],
+      "remaining": "All four declared Link parameters sampled: native anchor, dynamic Appearance/Text, native action button with keyboard OnClick. Still incomplete: disabled anchor, external target/rel, OS AT, state permutations, RTL, Fluent 2 visual parity, migration and reviewer signoff.",
+      "browserEvidence20261017": {
+        "Chrome/WebAssembly": "Dev01 freshly built Blazor WASM; 72/72 actual CDP checks passed; browser errors=[]; owned Chromium remaining=0",
+        "Edge/InteractiveServer": "Dev01 production-published InteractiveServer; 72/72 actual CDP checks passed; browser errors=[]; owned Chromium remaining=0",
+        "otherModes": "New-head GitHub CI pending for Chrome/Server and Edge/WebAssembly"
+      }
+    },
+    {
+      "id": "badge",
+      "family": "Badge",
+      "existingDemoRoute": "/components/badges",
+      "labRoute": "/component-lab",
+      "scenarioId": "badge-variants",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Appearance",
+        "Size",
+        "Shape",
+        "Color",
+        "Text",
+        "Icon",
+        "DropShadow",
+        "AnimateShadow"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Badge CDP 77/77 PASS (2026-10-17, actual fresh WASM); browser errors=[]; owned Chromium remaining=0",
+        "Edge/WebAssembly Dev01: pending new current-commit Badge CDP checks",
+        "Chrome/Server Dev01: pending new current-commit Badge CDP checks",
+        "Edge/Server Dev01: Badge CDP 77/77 PASS (2026-10-17, production-published InteractiveServer); browser errors=[]; owned Chromium remaining=0"
+      ],
+      "remaining": "All eight declared Badge parameters have runnable scenarios verified locally on Chrome/WASM and Edge/published InteractiveServer, both 77/77. New-head GitHub Chrome/Server and Edge/WASM still pending. Final Fluent2 parity, complete enum combinations, native OS contrast/AT, RTL, responsive, color semantics and migration remain."
+    },
+    {
+      "id": "textfield",
+      "family": "TextField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "textfield-input-textarea-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "BindValueEvent",
+        "Rows",
+        "ResizeTextarea",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: TextField native Blazor browser 103/103, interactive input binding, textarea, disabled, source queue, cleanup remaining=0",
+        "Edge/WebAssembly Dev01: TextField native Blazor browser 103/103, interactive input binding, textarea, disabled, source queue, cleanup remaining=0",
+        "Chrome/Server Dev01: TextField native Blazor browser 103/103, published InteractiveServer input binding and queue, cleanup remaining=0",
+        "Edge/Server Dev01: TextField native Blazor browser 103/103, published InteractiveServer input binding and queue, cleanup remaining=0"
+      ],
+      "remaining": "Representative input live oninput binding, 3-row nonresizable textarea and native disabled only. Current TextField-specific DigitOnly, AsciiDigits, ArabicToPersianConversion, GainFocus, addons, sizing, inherited form validation, full field semantics/keyboard matrix, focus underline versus outer ring, RTL, native Windows AT, light/dark/forced-colors visual parity and all combinations are NOT accepted. #432 remains Backlog; this is #421 current-API lab research only.",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-textfield-live-rtl-chrome-wasm.png",
+      "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 browser/render modes 103/103 each (412/412); no failed checks, errors=[], browser cleanup remaining=0",
+      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused, human approval pending. #432 TextField Backlog; no production component API/style changes; native OS ScreenReader not tested."
+    },
+    {
+      "id": "checkbox",
+      "family": "Checkbox",
+      "existingDemoRoute": "/components/checkboxes",
+      "labRoute": "/component-lab",
+      "scenarioId": "checkbox-bool-nullable-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Label",
+        "IndeterminateLabel",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Checkbox native Blazor browser 113/113; native Space bool/nullable, checked/indeterminate/disabled and hit-tested disabled pointer; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: Checkbox native Blazor browser 113/113; native Space bool/nullable, checked/indeterminate/disabled and hit-tested disabled pointer; cleanup remaining=0",
+        "Chrome/Server Dev01: Checkbox native Blazor browser 113/113; published InteractiveServer native Space bool/nullable and disabled pointer; cleanup remaining=0",
+        "Edge/Server Dev01: Checkbox native Blazor browser 113/113; published InteractiveServer native Space bool/nullable and disabled pointer; cleanup remaining=0"
+      ],
+      "remaining": "Current Checkbox bool/bool? tri-state plus disabled representative only. Circular, Size, LabelPosition, UncheckedLabel, Required, native AT, CSS contrast/RTL parity, full keyboard/pointer and Fluent2 visual acceptance remain #434 Backlog work.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 four separate Dev01 Chrome/Edge x WASM/published InteractiveServer native-browser runs 113/113 each (452/452), errors=[], cleanup remaining=0",
+      "designAndAcceptance": "Existing canonical #421 Penpot Lab page42 design reused, no new Penpot parity or maintainer approval; #434 product status Backlog, native OS screen reader and ARIA mixed state unaccepted.",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-checkbox-live-rtl-chrome-wasm.png",
+      "knownAccessibilityReview": "Nullable indeterminate state uses a CSS indeterminate class and SVG; native input mixed ARIA/indeterminate and ScreenReader semantics are not yet verified. #434 AT acceptance pending."
+    },
+    {
+      "id": "switch",
+      "family": "Switch",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "switch-bool-label-before-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Label",
+        "UncheckedLabel",
+        "LabelPosition",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: Switch native Blazor browser 123/123; native Space twice, dynamic labels/binding, disabled pointer and queue; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: Switch native Blazor browser 123/123; native Space twice, dynamic labels/binding, disabled pointer and queue; cleanup remaining=0",
+        "Chrome/Server Dev01: Switch native Blazor browser 123/123; published InteractiveServer keyboard state/binding, disabled pointer; cleanup remaining=0",
+        "Edge/Server Dev01: Switch native Blazor browser 123/123; published InteractiveServer keyboard state/binding, disabled pointer; cleanup remaining=0"
+      ],
+      "remaining": "Current API on/off, before-label and disabled native state only. Switch-role ARIA, forced colors, focus, accessible name, complete pointer/keyboard/AT, RTL and Fluent2 Penpot review in Backlog #435.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 Chrome/Edge x WebAssembly/published InteractiveServer 123/123 each (492/492); errors=[], browser cleanup remaining=0",
+      "designAndAcceptance": "Existing canonical source-owned #421 Penpot page42 layout reused; no new Penpot parity / maintainer signoff; product #435 Backlog. Input uses native checkbox currently, not proven ARIA role=switch.",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-switch-live-rtl-chrome-wasm.png",
+      "knownAccessibilityReview": "Current Switch inherits Checkbox<bool>, rendering a native checkbox input; final Fluent 2 ARIA switch semantics, native OS ScreenReader and parity are not yet accepted. #435 Backlog."
+    },
+    {
+      "id": "numeric",
+      "family": "NumericField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "numeric-integer-decimal-bounds-focus-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "BindValueEvent",
+        "Min",
+        "Max",
+        "Format",
+        "OnFocus",
+        "OnBlur",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: NumericField native Blazor browser 133/133; input from 5 to 57, Focus and Blur once, RTL, disabled and source queue; cleanup=0",
+        "Edge/WebAssembly Dev01: NumericField native Blazor browser 133/133; input from 5 to 57, Focus and Blur once, RTL, disabled and source queue; cleanup=0",
+        "Chrome/Server Dev01: NumericField native Blazor browser 133/133; published InteractiveServer input binding, focus and blur and RTL; cleanup=0",
+        "Edge/Server Dev01: NumericField native Blazor browser 133/133; published InteractiveServer input binding, focus and blur and RTL; cleanup=0"
+      ],
+      "remaining": "Live integer, decimal format, Min/Max declared, native focus and disabled only. Invalid input validation, numeric ranges, overflows, CultureInfo, Step, custom error messages, native AT, RTL/focus and Fluent2 visual parity unaccepted; #433 Backlog.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 Chrome/Edge x WASM/published InteractiveServer 133/133 each, 532/532 total; browser errors=[], cleanup 0",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-numeric-live-rtl-chrome-wasm.png",
+      "knownLimitations": "Min/Max values declared but invalid/out-of-range boundary and overflow behavior UNTESTED. Locale-specific decimal formatting, full native OS AT and v3 Fluent2 design unaccepted."
+    },
+    {
+      "id": "radio",
+      "family": "RadioGroup",
+      "existingDemoRoute": "/components/radios",
+      "labRoute": "/component-lab",
+      "scenarioId": "radio-group-choice-orientation-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Label",
+        "Orientation",
+        "ItemsLabelPosition",
+        "Radio.Value",
+        "Radio.Label",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: RadioGroup native Blazor browser 148/148; native Space, real option pointers, disabled, RTL typography and queue; browser cleanup remaining=0",
+        "Edge/WebAssembly Dev01: RadioGroup native Blazor browser 148/148; native Space, option pointers, disabled, RTL typography and queue; browser cleanup remaining=0",
+        "Chrome/Server Dev01: RadioGroup native Blazor browser 148/148; production published Server native Space and pointer, RTL punctuation, cleanup remaining=0",
+        "Edge/Server Dev01: RadioGroup native Blazor browser 148/148; production published Server native Space and pointer, RTL punctuation, cleanup remaining=0"
+      ],
+      "remaining": "Current group single choice, vertical label before and disabled option only. True native radiogroup name, arrow keys, tab navigation, OS screen reader, keyboard focus, RTL, dark, forced-colors and Fluent2 Penpot parity pending #436. This Lab is not product acceptance.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 independent Chrome/Edge x WASM/production published InteractiveServer 148/148 each (592/592), errors=[], QA Chrome/Edge process cleanup 0",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-radio-live-rtl-chrome-wasm.png",
+      "knownAccessibilityReview": "Current RadioGroup source renders div with label and items-list, and Radio native input type radio without explicit group name; radio keyboard arrow traversal and named OS AT radiogroup not yet certified; #436 Backlog."
+    },
+    {
+      "id": "selectfield",
+      "family": "SelectField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "select-field-string-int-native-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "ChildContent",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: SelectField native Blazor browser 158/158, ArrowDown string Blue to Green, ArrowUp int 2 to 1, disabled, RTL, queue; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: SelectField native Blazor browser 158/158, native keyboard bound string/int, disabled, RTL, queue; cleanup remaining=0",
+        "Chrome/Server Dev01: SelectField native Blazor browser 158/158, published Server native keyboard bound string/int, RTL, queue; cleanup remaining=0",
+        "Edge/Server Dev01: SelectField native Blazor browser 158/158, published Server native keyboard bound string/int, RTL, queue; cleanup remaining=0"
+      ],
+      "remaining": "Current native single-choice string/int value and disabled only. Array multiple-select, custom validation, Addons, keyboard arrows, culture, native OS AT, forced-colors and Fluent2 Penpot parity pending #437. No production code touched.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 Chrome and Edge × WebAssembly/published InteractiveServer 158/158 each, total 632/632; errors=[], browser cleanup remaining=0",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-selectfield-live-rtl-chrome-wasm.png",
+      "knownLimitations": "Current single value string/int selection only. Multiple array selection not tested; addons, validation, culture, native OS AT, size/themes/forced-colors and Fluent2 Penpot parity remain future #437."
+    },
+    {
+      "id": "datefield",
+      "family": "DateField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "datefield-day-month-dateonly-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Culture",
+        "Mode",
+        "DisplayCalendar",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: DateField native Blazor browser 168/168; native masked Day value changed 18 to 19, Month, DateOnly, calendar trigger, disabled, RTL and queue; cleanup=0",
+        "Edge/WebAssembly Dev01: DateField native Blazor browser 168/168; native masked Day binding, Month, DateOnly, disabled, RTL and queue; cleanup=0",
+        "Chrome/Server Dev01: DateField native Blazor browser 168/168; published InteractiveServer native masked edit, DateOnly, disabled, RTL; cleanup=0",
+        "Edge/Server Dev01: DateField native Blazor browser 168/168; published InteractiveServer native masked edit, DateOnly, disabled, RTL; cleanup=0"
+      ],
+      "remaining": "Existing DateTime/DateOnly, day/month mode and disabled samples only. DateClass, Min/Max, full calendar surface/selection, culture-specific Persian calendar, type mask validation, errors, keyboard, OS AT, Fluent2 Penpot parity pending #438.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 Chrome/Edge × WebAssembly/published InteractiveServer real CDP browser 168/168 each (672/672 total); errors=[], QA-owned browser cleanup 0",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-datefield-live-rtl-chrome-wasm.png",
+      "knownLimitations": "Current DateTime day and MonthSelect, DateOnly, disabled native masked inputs; no actual calendar surface date selection, Persian calendar locale, Min/Max/DateClass, accessibility, native OS AT or complete Fluent2 visual parity acceptance."
+    },
+    {
+      "id": "timefield",
+      "family": "TimeField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "timefield-timeonly-seconds-timespan-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Culture",
+        "Seconds",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: TimeField native Blazor browser 177/177; native TimeOnly edit 9:30 to 9:31, seconds, TimeSpan, disabled, RTL and queue; browser cleanup remaining=0",
+        "Edge/WebAssembly Dev01: TimeField native Blazor browser 177/177; current TimeOnly masked edit, seconds, TimeSpan, disabled, RTL and queue; browser cleanup remaining=0",
+        "Chrome/Server Dev01: TimeField native Blazor browser 177/177; published InteractiveServer TimeOnly masked edit, disabled, RTL; cleanup remaining=0",
+        "Edge/Server Dev01: TimeField native Blazor browser 177/177; published InteractiveServer TimeOnly masked edit, disabled, RTL; cleanup remaining=0"
+      ],
+      "remaining": "Current TimeOnly, TimeSpan, Seconds, native disabled only. DateTime preservation, parser invalid/edge cases, culture calendars, AT focus/keyboard, forced colors, Fluent2 Penpot parity and full migration #439 still unaccepted.",
+      "fourModeLocalBrowserEvidence": "2026-10-18 independent actual Dev01 Chrome/Edge x WASM/published InteractiveServer 177/177 per run (708/708 total), errors=[], QA-owned Chromium cleanup remaining=0",
+      "visualEvidence": "docs/v3/quality/evidence/component-lab-timefield-live-rtl-chrome-wasm.png",
+      "knownLimitations": "Only TimeOnly minutes and Seconds, TimeSpan, independent disabled. TimeOnly/DateTime date preservation, parser invalid cases, day duration >24h and culture, OS AT, keyboard edge cases and Fluent2 Penpot parity unaccepted (#439 Backlog)."
+    },
+    {
+      "id": "masked",
+      "family": "MaskedField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "maskedfield-regex-ascii-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Mask",
+        "AsciiDigits",
+        "disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: 2026-10-19 real native source browser 187/187 PASS incl #440 MaskedField; no OS/AT certification",
+        "Edge/WebAssembly Dev01: 2026-10-19 real native source browser 187/187 PASS incl #440 MaskedField; no OS/AT certification",
+        "Chrome/Server Dev01: 2026-10-19 real native source browser 187/187 PASS incl #440 MaskedField; no OS/AT certification",
+        "Edge/Server Dev01: 2026-10-19 real native source browser 187/187 PASS incl #440 MaskedField; no OS/AT certification"
+      ],
+      "remaining": "Existing fixed code regex, ASCII digit conversion and disabled only. Regex alternations/reflow/ArabicToPersianConversion, input rejection and OS AT including focus contrast, RTL and Fluent2 parity still require #440 acceptance."
+    },
+    {
+      "id": "otp",
+      "family": "OtpField",
+      "existingDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "scenarioId": "otpfield-js-four-six-password-auto",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "BindValueEvent",
+        "Length",
+        "Password",
+        "AutoSubmit"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: 2026-10-19 real 199/199 Chrome DevTools Protocol assertions PASS including OTP oninput binding, focus, AutoSubmit once and RTL card gaps; not native OS/AT acceptance",
+        "Edge/WebAssembly Dev01: 2026-10-19 real 199/199 Chrome DevTools Protocol assertions PASS including OTP oninput binding, focus, AutoSubmit once and RTL card gaps; not native OS/AT acceptance",
+        "Chrome/Server Dev01: 2026-10-19 real 199/199 Chrome DevTools Protocol assertions PASS including OTP oninput binding, focus, AutoSubmit once and RTL card gaps; not native OS/AT acceptance",
+        "Edge/Server Dev01: 2026-10-19 real 199/199 Chrome DevTools Protocol assertions PASS including OTP oninput binding, focus, AutoSubmit once and RTL card gaps; not native OS/AT acceptance"
+      ],
+      "remaining": "Existing JS-backed Length/Password/Value/AutoSubmit demonstrated including one actual Blazor form submit. Full API permutation, paste/backspace/arrow-key matrices, localized group/digit accessibility labels, native OS/AT, JS event listener cleanup after navigation, Fluent2 parity and approved Penpot work remain #441."
+    },
+    {
+      "id": "slider",
+      "family": "Slider",
+      "existingDemoRoute": "/components/sliders",
+      "labRoute": "/component-lab",
+      "scenarioId": "slider-pointer-int-double-thumb",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Min",
+        "Max",
+        "ThumbSize"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: 2026-10-19 real 208/208 PASS incl Slider CDP pointer ValueChanged, typed numeric source and RTL 320px card gaps; rail coordinate accuracy not accepted",
+        "Edge/WebAssembly Dev01: 2026-10-19 real 208/208 PASS incl Slider CDP pointer ValueChanged, typed numeric source and RTL 320px card gaps; rail coordinate accuracy not accepted",
+        "Chrome/Server Dev01: 2026-10-19 actual published InteractiveServer 206/206 PASS render/layout only; pointer mutation not verified: real CDP press left Slider bound value unchanged; #442 remains open",
+        "Edge/Server Dev01: 2026-10-19 actual published InteractiveServer 206/206 PASS render/layout only; pointer mutation not verified: real CDP press left Slider bound value unchanged; #442 remains open"
+      ],
+      "remaining": "Real pointer-driven ValueChanged observed in Chrome and Edge WebAssembly only. In published InteractiveServer a real CDP press left initial -15 unchanged despite hydration; this is explicitly excluded from Server pass counts. ScreenX and getBoundingClientRect.left appear to use inconsistent coordinates in the observed headless WebAssembly execution: 75% rail click yielded integer 46 instead of expected near 25. Product-level pointer geometry, keyboard, ARIA role/value semantics, RTL interaction, disabled behavior, native OS/AT and Fluent2 Penpot design all remain #442."
+    },
+    {
+      "id": "range",
+      "family": "RangeSlider",
+      "existingDemoRoute": "/components/sliders",
+      "labRoute": "/component-lab",
+      "scenarioId": "rangeslider-int-decimal-twothumb",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Value",
+        "ValueChanged",
+        "Min",
+        "Max",
+        "ThumbSize"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: 2026-10-19 real 217/217 PASS including CDP pointer updates ValueRange<int> and ValueRange<decimal>, two-thumb geometry, RTL 320px gaps; coordinate precision not accepted",
+        "Edge/WebAssembly Dev01: 2026-10-19 real 217/217 PASS including CDP pointer updates ValueRange<int> and ValueRange<decimal>, two-thumb geometry, RTL 320px gaps; coordinate precision not accepted",
+        "Chrome/Server Dev01: 2026-10-19 real published InteractiveServer 213/213 PASS for rendering, initial bound ranges, copyable Razor, 320px RTL layout and queue; RangeSlider pointer binding deliberately NOT asserted",
+        "Edge/Server Dev01: 2026-10-19 real published InteractiveServer 213/213 PASS for rendering, initial bound ranges, copyable Razor, 320px RTL layout and queue; RangeSlider pointer binding deliberately NOT asserted"
+      ],
+      "remaining": "Source-backed RangeSlider ValueRange<int> and ValueRange<decimal> two-thumb rendering and WASM CDP pointer ValueChanged verified. InteractiveServer pointer ValueChanged deliberately UNVERIFIED because sibling Slider #442 failed server pointer activation. Also precision in mixed ScreenX vs getBoundingClientRect() coordinates, handle collision/crossing, keyboard, ARIA role/value, RTL drag policy, native OS AT and full Penpot Fluent2 parity remain #443 product acceptance scope."
+    },
+    {
+      "id": "file",
+      "family": "FileSelect",
+      "existingDemoRoute": "/components/file-selects",
+      "labRoute": "/component-lab",
+      "scenarioId": "fileselect-input-native-single-multi-disabled",
+      "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
+      "propertiesDemonstrated": [
+        "Text",
+        "Accept",
+        "MaxFiles",
+        "OnChange",
+        "AllowRemove",
+        "ShowFileInfo",
+        "Disabled"
+      ],
+      "classification": "representative_only",
+      "renderModesVerified": [
+        "Chrome/WebAssembly Dev01: 2026-10-19 real native synthetic InputFile single/multiple selection, OnChange and Card remove 228/228 PASS; 320px RTL nested card gaps >=8px; no OS picker/AT acceptance",
+        "Edge/WebAssembly Dev01: 2026-10-19 real native synthetic InputFile single/multiple selection, OnChange and Card remove 228/228 PASS; 320px RTL nested card gaps >=8px; no OS picker/AT acceptance",
+        "Chrome/Server Dev01: 2026-10-19 published InteractiveServer real synthetic InputFile selection + binding + removal 224/224 PASS; detected 6px inner file-card gap and repaired demo-only CSS to >=8px; no native OS picker/AT",
+        "Edge/Server Dev01: 2026-10-19 published InteractiveServer real synthetic InputFile selection + binding + removal 224/224 PASS; demo-only inner file-card gap >=8px; no native OS picker/AT"
+      ],
+      "remaining": "Real native Blazor InputFile synthetic fixtures and callback/remove verified in four modes; Accept is browser chooser hint, not security validation. Complete server upload/type/size/access authorization, accessible remove Button name, keyboard/native OS file picker/AT and Fluent 2 Penpot parity remain product #444. Source old demo <FileSelect Multiple/> is not public API; current multi selection is MaxFiles>1. SSR build emits two NU1903 warnings for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7."
+    }
+  ]
+}
