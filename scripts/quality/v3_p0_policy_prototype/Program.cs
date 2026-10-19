@@ -239,6 +239,38 @@ Check.Equal(1, Regex.Matches(nativeOverrideEarlier, "aria-pressed", RegexOptions
     "rendered element has no duplicate aria-pressed when library wins");
 Check.Equal(1, Regex.Matches(nativeOverrideLater, "aria-pressed", RegexOptions.IgnoreCase).Count,
     "rendered element has no duplicate aria-pressed when caller wins");
+RealBlazorFileEventProbe.Run(Check.That);
+// Real Blazor HTML emission for the proposed over-capacity feedback and
+// filename-specific remove actions, without changing the product FileSelect.
+async Task<string> RenderFeedback(string[] selected, string? error, string verb = "Remove") =>
+    await renderer.Dispatcher.InvokeAsync(async () =>
+        (await renderer.RenderComponentAsync<FileSelectionFeedbackProbe>(ParameterView.FromDictionary(
+            new Dictionary<string, object?> {
+                ["SelectedNames"] = selected, ["Error"] = error, ["RemoveVerb"] = verb
+            }))).ToHtmlString());
+var rejectedHtml = await RenderFeedback(new[] { "beta.md" },
+    "You can select at most 2 files. No new files were added.");
+Check.That(rejectedHtml.Contains("role=\"alert\""),
+    "rejected batch feedback has native accessible alert role");
+Check.That(rejectedHtml.Contains("No new files were added."),
+    "visible rejection explains atomic reject policy");
+Check.That(rejectedHtml.Contains("aria-label=\"Remove beta.md\""),
+    "real Blazor HTML assigns descriptive per-file remove button name");
+Check.That(!rejectedHtml.Contains("gamma.txt") && !rejectedHtml.Contains("delta.md"),
+    "old accepted file remains; over-limit new files absent from rendered cards");
+var successHtml = await RenderFeedback(new[] { "alpha.txt", "beta.md" }, null);
+Check.That(!successHtml.Contains("role=\"alert\""),
+    "success should not display stale file-capacity error");
+Check.That(Regex.Matches(successHtml, "aria-label=", RegexOptions.IgnoreCase).Count == 2,
+    "exact-capacity success renders two accessible remove actions");
+var escapedHtml = await RenderFeedback(new[] { "x<evil>&.txt" }, null, "حذف");
+Console.WriteLine("REAL FILE RENDER " + escapedHtml);
+Check.That(escapedHtml.Contains("aria-label=\"&#x62D;&#x630;&#x641; x&lt;evil&gt;&amp;.txt\""),
+    "actual Blazor renderer HTML-escapes untrusted file names in localized accessible label");
+Check.That(System.Net.WebUtility.HtmlDecode(escapedHtml).Contains("aria-label=\"حذف x<evil>&.txt\""),
+    "decoded accessible label keeps intended RTL/Persian language and filename");
+Check.That(!escapedHtml.Contains("<evil>"),
+    "untrusted filename is emitted as encoded text not interpreted markup");
 Console.WriteLine($"PASS #420 proposed policies: {Check.Count} executable .NET assertions. " +
     "This is QA-only modeling, not shipped component code, accepted API/design, or OS/AT.");
 
