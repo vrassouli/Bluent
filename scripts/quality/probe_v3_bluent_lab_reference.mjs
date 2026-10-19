@@ -11,7 +11,7 @@ import {setTimeout as wait} from 'node:timers/promises';
 const sourceRoot=resolve(process.argv[2]||'C:/Projects/Bluent-issue421');
 const evidenceRoot=resolve(process.argv[3]||'docs/v3/quality/evidence');
 const scenario=process.argv[4]||'baseline';
-if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
+if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
 const pending=new Map(),measurements=[],checks=[];let serial=0,host,browser,socket;
@@ -36,12 +36,12 @@ try{
  const reflowProxy=scenario==='zoom-200';
  const size=reflowProxy?{width:620,height:570,deviceScaleFactor:2,mobile:false}:{width:1240,height:1140,deviceScaleFactor:1,mobile:false};
  await send('Emulation.setDeviceMetricsOverride',size);
- if(scenario==='forced-colors')await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]});
+ if(scenario==='forced-colors'||scenario==='ax-keyboard')await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]});
  await send('Page.navigate',{url:url+'/component-lab'});
  await poll(()=>js("document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),45000);
  add('Live source Lab hydrated',true);
  const accessibilityMode=await js("(()=>({forcedColors:matchMedia('(forced-colors: active)').matches,contrastMore:matchMedia('(prefers-contrast: more)').matches,viewportWidth:innerWidth,viewportHeight:innerHeight,dpr:devicePixelRatio,documentScrollWidth:document.documentElement.scrollWidth,visualViewportScale:visualViewport?.scale||null}))()");
- if(scenario==='forced-colors')add('Real Chromium forced-colors emulation matched',accessibilityMode.forcedColors===true&&accessibilityMode.contrastMore===true,accessibilityMode);
+ if(scenario==='forced-colors'||scenario==='ax-keyboard')add('Real Chromium forced-colors emulation matched',accessibilityMode.forcedColors===true&&accessibilityMode.contrastMore===true,accessibilityMode);
  if(scenario==='zoom-200')add('200 percent layout reflow proxy (not native browser zoom)',accessibilityMode.viewportWidth===620&&accessibilityMode.dpr===2,accessibilityMode);
  if(scenario!=='baseline'){
    const mode=await js(`(()=>{
@@ -78,10 +78,38 @@ try{
      canvas:{x:Math.max(0,c.left+scrollX),y:Math.max(0,c.top+scrollY),width:Math.max(1,Math.min(c.width,1080)),height:Math.max(1,Math.min(c.height,880))}};
    })()`);
   add(family+' actual Bluent specimen located',detail.width>0&&detail.height>0,detail);
+  if(scenario==='ax-keyboard'){
+    const full=await send('Accessibility.getFullAXTree');
+    const ax=(full.nodes||[]).filter(n=>['button','slider','textField'].includes(n.role?.value)).map(n=>({
+      role:n.role?.value,name:n.name?.value||'',value:n.value?.value??null
+    }));
+    detail.accessibilityTree= ax.slice(0,45);
+    console.log('BLUENT AX '+family+' '+JSON.stringify({sliders:ax.filter(x=>x.role==='slider'),buttons:ax.filter(x=>x.role==='button').length}));
+    if(family==='Slider'||family==='RangeSlider'){
+      add(family+' is absent from browser AX slider-role tree (current gap)',ax.every(x=>x.role!=='slider'),ax.filter(x=>x.role==='slider'));
+      await js("document.querySelector('#audit-only-forced-color-proposal')?.remove()");
+      const sel=JSON.stringify(selector);
+      const before=await js("(()=>{const e=document.querySelector("+sel+"),r=e.querySelector('.rail'),c=getComputedStyle(r);return {backgroundImage:c.backgroundImage,backgroundColor:c.backgroundColor,afterBg:getComputedStyle(r,'::after').backgroundColor}})()");
+      add(family+' baseline forced-colors rail is transparent',before.backgroundImage==='none'&&['rgba(0, 0, 0, 0)','transparent'].includes(before.backgroundColor),before);
+      const css=await readFile('scripts/quality/fixtures/v3-p0-forced-colors-rail-proposal.css','utf8');
+      await js("(()=>{const x=document.createElement('style');x.id='audit-only-forced-color-proposal';x.textContent="+JSON.stringify(css)+";document.head.appendChild(x)})()");
+      const after=await js("(()=>{const e=document.querySelector("+sel+"),r=e.querySelector('.rail'),c=getComputedStyle(r),a=getComputedStyle(r,'::after');return {backgroundImage:c.backgroundImage,backgroundColor:c.backgroundColor,afterBg:a.backgroundColor,afterWidth:a.width,afterContent:a.content}})()");
+      detail.experimentalTrackProposal={before,after,claim:'runtime-only style injected into disposable browser; NOT product/design acceptance'};
+      add(family+' experimental CSS restores solid visible rail paint',after.backgroundImage==='none'&&!['rgba(0, 0, 0, 0)','transparent'].includes(after.backgroundColor),after);
+      add(family+' experimental CSS adds a visible highlighted progress segment',after.afterContent!=='none'&&after.afterWidth!=='0px'&&!['rgba(0, 0, 0, 0)','transparent'].includes(after.afterBg),after);
+    }
+  }
   if(scenario!=='baseline' && family==='Button'){
-    const probe=await js("(()=>{const e=document.querySelector('.lab-canvas .bui-button');e.focus();const computed=getComputedStyle(e);return {focused:document.activeElement===e,tabIndex:e.tabIndex,outlineStyle:computed.outlineStyle,outlineWidth:computed.outlineWidth,forcedColors:matchMedia('(forced-colors: active)').matches}})()");
+    const probe=await js("(()=>{const e=document.querySelector('.lab-canvas .bui-button');e.focus();const computed=getComputedStyle(e);return {id:e.id,cls:e.className,focused:document.activeElement===e,tabIndex:e.tabIndex,outlineStyle:computed.outlineStyle,outlineWidth:computed.outlineWidth,forcedColors:matchMedia('(forced-colors: active)').matches}})()");
     detail.buttonFocusProbe=probe;
     add('Native Bluent Button is focusable in actual Chromium',probe.focused===true&&probe.tabIndex===0,probe);
+    if(scenario==='ax-keyboard'){
+      await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+      await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+      const next=await js("({tag:document.activeElement?.tagName||'',id:document.activeElement?.id||'',cls:document.activeElement?.className||''})");
+      detail.buttonTabProbe=next;
+      add('Bluent Button real Tab advances focus',next.tag!==''&&next.tag!=='BODY'&&(next.id!==probe.id||next.cls!==probe.cls), next);
+    }
   }
   if(scenario==='forced-colors' && (family==='Slider'||family==='RangeSlider')){
     const rail=detail.rail;
@@ -92,6 +120,14 @@ try{
     detail.keyboardFocusProbe=probe;
     add('Existing Bluent Slider has no native keyboard focus target (confirmed GAP, not a11y approval)',probe.rootFocused===false&&probe.rootTabIndex===-1&&probe.thumbTabIndex===-1&&probe.thumbRole===null&&probe.rootRole===null,probe);
   }
+  if(scenario==='ax-keyboard' && (family==='Slider'||family==='RangeSlider')){
+    const valueBefore=await js("document.querySelector('.lab-canvas .lab-value-output')?.textContent||document.querySelector('.lab-canvas')?.innerText?.slice(0,300)");
+    await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowRight',code:'ArrowRight',windowsVirtualKeyCode:39,nativeVirtualKeyCode:39});
+    await send('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowRight',code:'ArrowRight',windowsVirtualKeyCode:39,nativeVirtualKeyCode:39});
+    const valueAfter=await js("document.querySelector('.lab-canvas .lab-value-output')?.textContent||document.querySelector('.lab-canvas')?.innerText?.slice(0,300)");
+    detail.arrowRightProbe={valueBefore,valueAfter};
+    add(family+' no native keyboard ArrowRight operation in current sample',valueBefore===valueAfter,detail.arrowRightProbe);
+  }
   const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:detail.canvas.x,y:detail.canvas.y,width:detail.canvas.width,height:detail.canvas.height,scale:1}});
   const img='BLUENT-LAB-'+family.toUpperCase()+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.png';
   await writeFile(join(evidenceRoot,img),Buffer.from(capture.data,'base64'));
@@ -99,7 +135,7 @@ try{
  }
  const evidence={auditIssue:552,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
  mode:'real Chrome Blazor WebAssembly Debug Lab',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
- viewport:size,accessibilityMode,normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:scenario==='zoom-200'?'natural intrinsic responsive width':'forced 260px',rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:scenario==='zoom-200'?'620 CSSpx DPR2 reflow proxy with natural Slider width, no native browser zoom or parity':scenario==='forced-colors'?'Real Chromium forced-colors CSS emulation only, no native OS HC or parity':'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
+ viewport:size,accessibilityMode,normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:scenario==='zoom-200'?'natural intrinsic responsive width':'forced 260px',rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:scenario==='ax-keyboard'?'Chrome AX tree plus real key event and runtime-only CSS candidate; NOT OS/AT or design signoff':scenario==='zoom-200'?'620 CSSpx DPR2 reflow proxy with natural Slider width, no native browser zoom or parity':scenario==='forced-colors'?'Real Chromium forced-colors CSS emulation only, no native OS HC or parity':'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
  await writeFile(join(evidenceRoot,'BLUENT-LAB-P0'+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
  console.log('BLUENT SUMMARY '+JSON.stringify({checks:checks.length,screenshots:measurements.map(x=>x.image)}));
 }catch(e){console.error('BLUENT ERROR',e?.stack||String(e));process.exitCode=1;}

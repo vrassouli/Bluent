@@ -13,7 +13,7 @@ import {setTimeout as wait} from 'node:timers/promises';
 const root=resolve(process.argv[2]||'');
 const output=resolve(process.argv[3]||'docs/v3/quality/evidence/FLUENT-WC-3.1.3-LIGHT-CHROME.png');
 const scenario=process.argv[4]||'baseline';
-if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200'].includes(scenario))throw Error('Unsupported reference scenario '+scenario);
+if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard'].includes(scenario))throw Error('Unsupported reference scenario '+scenario);
 const browserExe=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-pinned-wc-chrome-'));
 const audit=[],pending=new Map(),signals=[];let server,browser,socket,serial=0;
@@ -74,10 +74,29 @@ try{
  assert('Fluent primary has real shadow rendered component',measurement.find(x=>x.id==='btn-primary')?.shadowRoot===true);
  const toggled=await js("(()=>{const x=document.getElementById('btn-toggle');x.click();return x.hasAttribute('pressed')||x.pressed===true})()");
  assert('Official ToggleButton responds to click with pressed state',toggled);
+ if(scenario==='ax-keyboard'){
+   await js("document.getElementById('btn-primary').focus()");
+   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+   await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+   const next=await js("({id:document.activeElement?.id||'',tag:document.activeElement?.tagName||''})");
+   assert('Official Button Tab moves focus to a subsequent focusable control',next.id!==''&&next.id!=='btn-primary',next);
+ }
  const before=await js("document.getElementById('ref-slider-step').value");
  await js("document.getElementById('ref-slider-step').focus()");
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowRight',code:'ArrowRight',windowsVirtualKeyCode:39,nativeVirtualKeyCode:39});
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowRight',code:'ArrowRight',windowsVirtualKeyCode:39,nativeVirtualKeyCode:39});
+ let accessibilityTree=null;
+ if(scenario==='ax-keyboard'){
+   const full=await send('Accessibility.getFullAXTree');
+   accessibilityTree=(full.nodes||[]).filter(n=>['slider','button'].includes(n.role?.value)).map(n=>({
+     role:n.role?.value,name:n.name?.value||'',value:n.value?.value??null,
+     focused:n.properties?.find(p=>p.name==='focused')?.value?.value??false
+   }));
+   const sliders=accessibilityTree.filter(n=>n.role==='slider');
+   console.log('REF ACCESSIBILITY '+JSON.stringify(sliders));
+   assert('Official WC exposes 2 native accessibility slider roles',sliders.length===2,sliders);
+   assert('Official WC slider labels include Volume and Brightness',sliders.some(x=>x.name.includes('Volume'))&&sliders.some(x=>x.name.includes('Brightness')),sliders);
+ }
  const after=await js("document.getElementById('ref-slider-step').value");
  assert('Official step slider responds to ArrowRight in actual Chromium',String(before)!==String(after),{before,after});
  // Capture the actual keyboard focus state separately from the rest-state baseline.
@@ -92,7 +111,7 @@ try{
  await mkdir(resolve(output,'..'),{recursive:true});
  await writeFile(output,Buffer.from(capture.data,'base64'));
  const evidence={auditIssue:552,officialPackage:'@fluentui/web-components',packageVersion:'3.1.3',
- browserName:/msedge/i.test(browserExe)?'Edge':'Chrome',scenario,pageBounds,accessibilityMode,fixture:'scripts/quality/fixtures/fluent-wc-3.1.3-reference.html',
+ browserName:/msedge/i.test(browserExe)?'Edge':'Chrome',scenario,pageBounds,accessibilityMode,accessibilityTree,fixture:'scripts/quality/fixtures/fluent-wc-3.1.3-reference.html',
  outputImage:output.split(/[\\/]/).slice(-1)[0],focusedImage:focusedImage.split(/[\\/]/).slice(-1)[0],viewport:size,
  inspectedAt:new Date().toISOString(),status:'official_baseline_only_no_bluent_parity',
  note:scenario==='zoom-200'?'Viewport 620 CSSpx and DPR2 is a 200% layout/reflow proxy; NOT native desktop browser zoom. Independent layout, NOT parity or OS/AT acceptance.':scenario==='forced-colors'?'Actual Chromium forced-colors CSS-media emulation; NOT real OS high-contrast settings or screen-reader acceptance.':'Real official WC specimen, independent layout. No native OS AT.',
