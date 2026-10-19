@@ -1,0 +1,43 @@
+name: Bluent v3 Fluent Parity Source Audit
+
+# This never runs against or publishes stable 2.x Dev.
+on:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-fluent-parity-audit.yml"
+      - "src/Bluent.Core/BluentComponentBase.cs"
+      - "src/Bluent.UI/Components/**"
+      - "docs/v3/quality/FLUENT-PARITY-**"
+      - "scripts/quality/audit_v3_parity_*.py"
+      - "scripts/quality/test_v3_parity_*.py"
+      - "scripts/quality/check_v3_p0_source_evidence.py"
+      - "scripts/quality/test_v3_p0_source_evidence.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-evidence-only:
+    name: Baseline source census and negative controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Guard P0 source anchors
+        run: python scripts/quality/check_v3_p0_source_evidence.py
+      - name: Guard all 18 direct API snapshots
+        run: python scripts/quality/audit_v3_parity_source_api.py
+      - name: Guard all 18 locally inherited API chains
+        run: python scripts/quality/audit_v3_parity_inherited_api.py
+      - name: Prove false approval and API drift fail
+        run: |
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_source_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_parity_source_api.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_parity_inherited_api.py" -v
+      - name: Explicit acceptance disclaimer
+        run: echo "PASS means source census only — not Fluent API/visual/behavior/accessibility parity, component design approval, or native OS/AT verification."

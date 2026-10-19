@@ -1,0 +1,1351 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "status": "local_inherited_source_only",
+  "limitations": "Local class chain and declared attributes only; framework InputBase and component/rendered API not resolved or approved.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "components": [
+        {
+          "component": "Button",
+          "declaredParameterCount": 22,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "components": [
+        {
+          "component": "Icon",
+          "declaredParameterCount": 2,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "components": [
+        {
+          "component": "Label",
+          "declaredParameterCount": 6,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "components": [
+        {
+          "component": "Link",
+          "declaredParameterCount": 4,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "components": [
+        {
+          "component": "Badge",
+          "declaredParameterCount": 8,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "components": [
+        {
+          "component": "TextField",
+          "declaredParameterCount": 6,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "components": [
+        {
+          "component": "NumericField",
+          "declaredParameterCount": 11,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "components": [
+        {
+          "component": "Checkbox",
+          "declaredParameterCount": 7,
+          "locallyInheritedCount": 2,
+          "localBaseChain": [
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "components": [
+        {
+          "component": "Switch",
+          "declaredParameterCount": 0,
+          "locallyInheritedCount": 9,
+          "localBaseChain": [
+            "Checkbox",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Label",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 10
+            },
+            {
+              "name": "UncheckedLabel",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 11
+            },
+            {
+              "name": "IndeterminateLabel",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 12
+            },
+            {
+              "name": "Required",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 13
+            },
+            {
+              "name": "Circular",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 14
+            },
+            {
+              "name": "Size",
+              "type": "CheckboxSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 15
+            },
+            {
+              "name": "LabelPosition",
+              "type": "LabelPosition",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 16
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "components": [
+        {
+          "component": "RadioGroup",
+          "declaredParameterCount": 4,
+          "locallyInheritedCount": 2,
+          "localBaseChain": [
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        },
+        {
+          "component": "Radio",
+          "declaredParameterCount": 3,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "components": [
+        {
+          "component": "SelectField",
+          "declaredParameterCount": 1,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "components": [
+        {
+          "component": "DateField",
+          "declaredParameterCount": 7,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "components": [
+        {
+          "component": "TimeField",
+          "declaredParameterCount": 3,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "components": [
+        {
+          "component": "MaskedField",
+          "declaredParameterCount": 3,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "components": [
+        {
+          "component": "OtpField",
+          "declaredParameterCount": 3,
+          "locallyInheritedCount": 6,
+          "localBaseChain": [
+            "BluentFieldComponentBase",
+            "BluentInputComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "StartAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "EndAddon",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "Size",
+              "type": "FieldSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "BindValueEvent",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 16
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "line": 17
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "InputBase<TValue>"
+          ],
+          "implementedInterfaces": [
+            "IAsyncDisposable"
+          ],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "components": [
+        {
+          "component": "Slider",
+          "declaredParameterCount": 5,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [
+            "IPointerMoveEventHandler"
+          ],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "components": [
+        {
+          "component": "RangeSlider",
+          "declaredParameterCount": 5,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [
+            "IPointerMoveEventHandler"
+          ],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "components": [
+        {
+          "component": "FileSelect",
+          "declaredParameterCount": 12,
+          "locallyInheritedCount": 8,
+          "localBaseChain": [
+            "BluentUiComponentBase",
+            "BluentComponentBase"
+          ],
+          "localInheritedParameters": [
+            {
+              "name": "Tooltip",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "TooltipContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 10
+            },
+            {
+              "name": "TooltipPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 11
+            },
+            {
+              "name": "TooltipAppearance",
+              "type": "PopoverAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 12
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "line": 13
+            },
+            {
+              "name": "AdditionalAttributes",
+              "type": "Dictionary<string, object>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 8
+            },
+            {
+              "name": "Class",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 9
+            },
+            {
+              "name": "Style",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.Core/BluentComponentBase.cs",
+              "line": 10
+            }
+          ],
+          "externalFrameworkBaseBoundary": [
+            "ComponentBase"
+          ],
+          "implementedInterfaces": [],
+          "inheritedContractStatus": "local_source_only_external_pending",
+          "completePublicApiVerified": false
+        }
+      ],
+      "fluentParityStatus": "not_reviewed"
+    }
+  ]
+}
