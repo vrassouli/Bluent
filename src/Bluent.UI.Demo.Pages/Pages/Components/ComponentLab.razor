@@ -548,6 +548,29 @@
                 </div>
                 <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
             }
+            else if (_selected == "masked")
+            {
+                <div class="lab-masked-grid" aria-label="Existing public MaskedField fixed pattern Persian digits and disabled states">
+                    <div class="lab-masked-card">
+                        <label for="lab-mask-code">Masked code (###-##)</label>
+                        <MaskedField id="lab-mask-code" @bind-Value="_labMaskedCode"
+                                     Mask="^\d{3}-\d{2}$" />
+                        <p class="lab-masked-status" role="status" lang="en" dir="ltr">Code: @_labMaskedCode</p>
+                    </div>
+                    <div class="lab-masked-card">
+                        <label for="lab-mask-digits">Persian digits converted to ASCII</label>
+                        <MaskedField id="lab-mask-digits" @bind-Value="_labMaskedDigits"
+                                     Mask="^\d{3}$" AsciiDigits />
+                        <p class="lab-masked-digits-status" role="status" lang="en" dir="ltr">Digits: @_labMaskedDigits</p>
+                    </div>
+                    <div class="lab-masked-card">
+                        <label for="lab-mask-disabled">Disabled masked code</label>
+                        <MaskedField id="lab-mask-disabled" Value="@_labMaskedDisabled"
+                                     Mask="^\d{3}$" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current public MaskedField API. All regex/path edge cases, cultural conversions, OS assistive tech and Fluent2 approval belong to #440.</p>
+            }
             else if (_selected == "link")
             {
                 <div class="lab-api-demo" aria-label="Current Link public API explorer">
@@ -608,8 +631,8 @@
     <section class="lab-queue" aria-label="Canonical component work queue">
         <div class="lab-queue-heading">
             <h2>Component implementation queue</h2>
-            <p><strong>66</strong> source candidates · <strong>13</strong> live pilot specimens ·
-               <strong>53</strong> not yet demonstrated</p>
+            <p><strong>66</strong> source candidates · <strong>14</strong> live pilot specimens ·
+               <strong>52</strong> not yet demonstrated</p>
         </div>
         <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
            “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
@@ -689,6 +712,10 @@
             "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
             "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
+        new("masked", "MaskedField", "components/fields", "Format-constrained native input",
+            "Current public MaskedField demonstrates fixed regex code, AsciiDigits and true disabled input.",
+            "<MaskedField @bind-Value=\"_labMaskedCode\" Mask=\"^\\d{3}-\\d{2}$\" />",
+            "Representative runnable scenario only"),
         new("link", "Link", "components/links", "Navigation",
             "The current public Link component in a normal navigation context.",
             "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
@@ -759,6 +786,11 @@
     private TimeSpan _labTimeSpan = new(2, 15, 0);
     private TimeOnly _labTimeDisabled = new(12, 40);
     private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
+
+    private string _labMaskedCode = "123-45";
+    private string _labMaskedDigits = "12";
+    private string _labMaskedDisabled = "888";
+    private string SelectedMaskedRazor => "<MaskedField id=\"lab-mask-code\" @bind-Value=\"_labMaskedCode\" Mask=\"^\\d{3}-\\d{2}$\" />\n<MaskedField id=\"lab-mask-digits\" @bind-Value=\"_labMaskedDigits\" Mask=\"^\\d{3}$\" AsciiDigits />\n<MaskedField id=\"lab-mask-disabled\" Value=\"@_labMaskedDisabled\" Mask=\"^\\d{3}$\" disabled />\n@code { private string _labMaskedCode = \"123-45\"; private string _labMaskedDigits = \"12\"; private string _labMaskedDisabled = \"888\"; }";
 
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
@@ -836,7 +868,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "timefield" ? SelectedTimeFieldRazor
+    private string ActiveRazor => _selected == "masked" ? SelectedMaskedRazor
+        : _selected == "timefield" ? SelectedTimeFieldRazor
         : _selected == "datefield" ? SelectedDateFieldRazor
         : _selected == "selectfield" ? SelectedSelectFieldRazor
         : _selected == "radio" ? SelectedRadioRazor
