@@ -9,6 +9,7 @@ import {setTimeout as delay} from "node:timers/promises";
 const root=resolve(import.meta.dirname,"../..");
 const css=await readFile(join(root,"src/Bluent.UI/Styles/Components/components.css"),"utf8");
 const candidate=await readFile(join(root,"docs/v3/tokens/issue-418-slider-forced-colors.opt-in.preview.css"),"utf8");
+const systemSchemes=["dark","light"];
 const brandNames=["default","excel","office","outlook","powerapps","powerbi","powerpoint","stream","teams","word"];
 const browserExe=process.env.CHROME_PATH||"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const browserName=/msedge/i.test(browserExe)?"Edge":"Chrome";
@@ -38,7 +39,8 @@ function contrastRGB(a,b){
  const x=lum(a),y=lum(b);
  return x===null||y===null?0:(Math.max(x,y)+.05)/(Math.min(x,y)+.05);
 }
-const inspect="(()=>[...document.querySelectorAll('.tile')].map(t=>{const e=t.querySelector('.bui-slider,.bui-range-slider'),r=e.querySelector('.rail'),x=getComputedStyle(r),y=getComputedStyle(r,'::after'),z=r.getBoundingClientRect(),h=e.querySelector('.thumb').getBoundingClientRect();return {family:t.dataset.family,scope:t.dataset.scope,dir:t.dir,forced:matchMedia('(forced-colors: active)').matches,width:z.width,height:z.height,color:x.backgroundColor,gradient:x.backgroundImage,progressColor:y.backgroundColor,progressContent:y.content,progressLeft:y.left,progressWidth:y.width,progressBorderColor:y.borderTopColor,progressBorderWidth:y.borderTopWidth,thumbCenter:h.left+h.width/2-z.left,legacyBrand:getComputedStyle(e).getPropertyValue('--colorBrandBackground').trim()}}))()";
+const transparentPaint = value => value==="transparent" || /^rgba\([^)]*,\s*0(?:\.0+)?\)$/.test(value);
+const inspect="(()=>[...document.querySelectorAll('.tile')].map(t=>{const e=t.querySelector('.bui-slider,.bui-range-slider'),r=e.querySelector('.rail'),x=getComputedStyle(r),y=getComputedStyle(r,'::after'),z=r.getBoundingClientRect(),h=e.querySelector('.thumb').getBoundingClientRect();return {family:t.dataset.family,scope:t.dataset.scope,dir:t.dir,forced:matchMedia('(forced-colors: active)').matches,systemScheme:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light',width:z.width,height:z.height,color:x.backgroundColor,gradient:x.backgroundImage,progressColor:y.backgroundColor,progressContent:y.content,progressLeft:y.left,progressWidth:y.width,progressBorderColor:y.borderTopColor,progressBorderWidth:y.borderTopWidth,thumbCenter:h.left+h.width/2-z.left,legacyBrand:getComputedStyle(e).getPropertyValue('--colorBrandBackground').trim()}}))()";
 async function cleanup(){
  if(process.platform!=="win32"){browser?.kill();return "remaining=0 (non-Windows)";}
  const cmd="$p=$env:BLUENT_418_HC_DIR; if(-not $p -or -not $p.Contains('bluent-v3-418-slider-hc-')){throw 'unsafe'};"+
@@ -62,29 +64,30 @@ try{
  socket.addEventListener("message",event=>{const p=JSON.parse(event.data),w=pending.get(p.id);if(!w)return;pending.delete(p.id);p.error?w.no(Error(JSON.stringify(p.error))):w.yes(p.result||{})});
  await send("Page.enable");await send("Runtime.enable");
  await send("Emulation.setDeviceMetricsOverride",{width:1380,height:1080,deviceScaleFactor:1,mobile:false});
- for(const brand of brandNames)for(const mode of ["light","dark"]){
+ for(const brand of brandNames)for(const mode of ["light","dark"])for(const systemScheme of systemSchemes){
   const theme=await readFile(join(root,"src/Bluent.UI/Styles/Themes/theme-"+brand+"-"+mode+".css"),"utf8");
   const expectedBrand=(theme.match(/--colorBrandBackground:\s*(#[0-9A-Fa-f]{6})\s*;/)||[])[1];
   if(!expectedBrand)throw Error("Missing source brand token "+brand+"/"+mode);
   const tiles=[];
   for(const direction of ["ltr","rtl"])for(const family of ["slider","range"])for(const scope of ["none","direct","nested"])tiles.push(role(family,scope,direction));
-  const path=join(work,"case-"+brand+"-"+mode+".html");
-  const page='<!doctype html><html><head><meta charset="utf-8"><style>'+theme+'</style><style>'+css+'</style><style>'+candidate+'</style><style>body{margin:10px;background:Canvas;color:CanvasText;font:14px sans-serif}main{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tile{min-height:100px;box-sizing:border-box}.bui-slider,.bui-range-slider{margin-top:18px}</style></head><body data-bui-theme="'+mode+'"><h1>HC '+brand+' '+mode+'</h1><main>'+tiles.join("")+'</main></body></html>';
+  const path=join(work,"case-"+brand+"-"+mode+"-"+systemScheme+".html");
+  const page='<!doctype html><html style="color-scheme:'+systemScheme+'"><head><meta charset="utf-8"><style>'+theme+'</style><style>'+css+'</style><style>'+candidate+'</style><style>body{margin:10px;background:Canvas;color:CanvasText;font:14px sans-serif}main{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tile{min-height:100px;box-sizing:border-box}.bui-slider,.bui-range-slider{margin-top:18px}</style></head><body data-bui-theme="'+mode+'"><h1>HC '+brand+' '+mode+'</h1><main>'+tiles.join("")+'</main></body></html>';
   await writeFile(path,page,"utf8");const url=pathToFileURL(path).href;
-  await send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
+  await send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-color-scheme",value:systemScheme}]});
   await send("Page.navigate",{url});
   await wait(()=>js("location.href==="+JSON.stringify(url)+"&&document.querySelectorAll('.tile').length===12"));
   const forced=await js(inspect);
-  await send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"}]});
+  await send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"none"},{name:"prefers-color-scheme",value:systemScheme}]});
   const normal=await js(inspect);
   for(let i=0;i<12;i++){
-   const f=forced[i],n=normal[i],id=brand+"/"+mode+"/"+f.dir+"/"+f.family+"/"+f.scope;
+   const f=forced[i],n=normal[i],id=brand+"/"+mode+"/"+systemScheme+"/"+f.dir+"/"+f.family+"/"+f.scope;
    const opted=f.scope!=="none",expectedLeft=f.family==="slider"?0:60,expectedWidth=f.family==="slider"?105:180;
    requireValue(id+" media",f.forced&&!n.forced,f);
+   requireValue(id+" requested OS color scheme is actually emulated",f.systemScheme===systemScheme&&n.systemScheme===systemScheme,{f:f.systemScheme,n:n.systemScheme,systemScheme});
    requireValue(id+" source brand/mode actually inherited",f.legacyBrand.toLowerCase()===expectedBrand.toLowerCase()&&n.legacyBrand.toLowerCase()===expectedBrand.toLowerCase(),{brand,mode,actual:f.legacyBrand,expectedBrand});
    requireValue(id+" natural geometry",Math.abs(f.width-300)<1&&Math.abs(f.height-4)<1,f);
    requireValue(id+" normal gradient unaffected",n.gradient.includes("linear-gradient"),n);
-   requireValue(id+" explicit opt-in",f.gradient==="none"&&(opted?f.color!=="rgba(0, 0, 0, 0)":f.color==="rgba(0, 0, 0, 0)"),f);
+   requireValue(id+" explicit opt-in",f.gradient==="none"&&(opted?!transparentPaint(f.color):transparentPaint(f.color)),f);
    if(opted){
     requireValue(id+" system-highlight paint",f.progressContent!=="none"&&f.progressColor!=="rgba(0, 0, 0, 0)",f);
     requireValue(id+" system-color 1px boundary",f.progressBorderWidth==="1px"&&contrastRGB(f.color,f.progressBorderColor)>=3,
@@ -92,16 +95,16 @@ try{
     requireValue(id+" boundary against selected highlight",contrastRGB(f.progressColor,f.progressBorderColor)>=3,
       {progress:f.progressColor,border:f.progressBorderColor,contrast:contrastRGB(f.progressColor,f.progressBorderColor)});    requireValue(id+" physical RTL/LTR thumb alignment",Math.abs(parseFloat(f.progressLeft)-expectedLeft)<1&&Math.abs(parseFloat(f.progressWidth)-expectedWidth)<1&&Math.abs(f.thumbCenter-(f.family==="slider"?105:60))<1,f);
    }
-   results.push({brand,mode,forced:f,normal:n});
+   results.push({brand,mode,systemScheme,forced:f,normal:n});
   }
   if(brand==="default"){
-   await send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"}]});
+   await send("Emulation.setEmulatedMedia",{features:[{name:"forced-colors",value:"active"},{name:"prefers-color-scheme",value:systemScheme}]});
    const shot=await send("Page.captureScreenshot",{format:"png",captureBeyondViewport:true});
-   const name="SLIDER-HC-"+browserName.toUpperCase()+"-"+mode.toUpperCase()+"-QA.png";
+   const name="SLIDER-HC-"+browserName.toUpperCase()+"-"+mode.toUpperCase()+(systemScheme==="light"?"-SYSTEM-LIGHT":"")+"-QA.png";
    const dst=join(root,"docs/v3/tokens/evidence");await mkdir(dst,{recursive:true});await writeFile(join(dst,name),Buffer.from(shot.data,"base64"));
    screenshots.push(name);
   }
-  console.log("HC MODE "+browserName+" "+brand+"/"+mode+" 12 tiles inspected");
+  console.log("HC MODE "+browserName+" "+brand+"/"+mode+" systemScheme="+systemScheme+" 12 tiles inspected");
  }
 }catch(e){errors.push({fatal:String(e.stack||e)});console.error("HC FATAL "+String(e.stack||e))}
 finally{
@@ -109,8 +112,8 @@ finally{
  try{clean=await cleanup()}catch(e){errors.push({cleanup:String(e)});browser?.kill()}
  try{await rm(work,{recursive:true,force:true,maxRetries:10,retryDelay:280})}catch(e){errors.push({temporaryFiles:String(e)})}
 }
-const report={issue:418,related:[442,443,552],browser:browserName,brands:10,modes:2,tiles:results.length,checks:results.reduce((n,r)=>n+(r.forced.scope==="none"?5:9),0),failureCount:errors.length,errors,cleanup:clean,screenshots,scope:"ACTUAL compiled source CSS + generated 20 brand theme files; static markup and Chromium forced-colors emulator only; not product, native OS AT or approved RTL",records:results};
+const report={issue:418,related:[442,443,552],browser:browserName,brands:10,modes:2,systemSchemes,tiles:results.length,checks:results.reduce((n,r)=>n+(r.forced.scope==="none"?6:10),0),failureCount:errors.length,errors,cleanup:clean,screenshots,scope:"ACTUAL compiled source CSS + generated 20 brand theme files; static markup and Chromium forced-colors emulator only; not product, native OS AT or approved RTL",records:results};
 const dest=join(root,"docs/v3/tokens/evidence");await mkdir(dest,{recursive:true});
 await writeFile(join(dest,"SLIDER-HC-"+browserName.toUpperCase()+"-MATRIX.json"),JSON.stringify(report,null,2)+"\n");
 console.log("HC SUMMARY "+JSON.stringify({browser:browserName,tiles:report.tiles,checks:report.checks,errors:errors.length,cleanup:clean,screenshots}));
-if(errors.length||results.length!==240||!clean.includes("remaining=0"))process.exitCode=1;
+if(errors.length||results.length!==480||!clean.includes("remaining=0"))process.exitCode=1;

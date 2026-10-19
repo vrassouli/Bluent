@@ -4,6 +4,7 @@ The tests protect actual archived browser outputs and opt-in isolation. They do
 not approve component source changes, native Windows Contrast Themes or OS AT.
 """
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -28,13 +29,13 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
             self.assertEqual([442,443,552],mat["related"])
             self.assertEqual(10,mat["brands"])
             self.assertEqual(2,mat["modes"])
-            self.assertEqual(240,mat["tiles"])
-            self.assertEqual(1840,mat["checks"])
+            self.assertEqual(480,mat["tiles"])
+            self.assertEqual(4160,mat["checks"])
             self.assertEqual(0,mat["failureCount"])
             self.assertFalse(mat["errors"])
-            tuples={(r["brand"],r["mode"],r["forced"]["dir"],
+            tuples={(r["brand"],r["mode"],r["systemScheme"],r["forced"]["dir"],
                      r["forced"]["family"],r["forced"]["scope"]) for r in mat["records"]}
-            self.assertEqual(240,len(tuples))
+            self.assertEqual(480,len(tuples))
             self.assertEqual(set(BRANDS),{r["brand"] for r in mat["records"]})
 
     def test_each_case_actually_inherits_correct_emitted_brand_mode(self):
@@ -47,6 +48,24 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
                 self.assertIsNotNone(expected)
                 self.assertEqual(expected.group(1).lower(),r["forced"]["legacyBrand"].lower())
                 self.assertEqual(expected.group(1).lower(),r["normal"]["legacyBrand"].lower())
+    def test_actual_both_emulated_system_color_palettes_per_theme(self):
+        for matrix in self.matrices.values():
+            grouped={}
+            for row in matrix["records"]:
+                key=(row["brand"],row["mode"],row["forced"]["dir"],
+                     row["forced"]["family"],row["forced"]["scope"])
+                self.assertEqual(row["systemScheme"],row["forced"]["systemScheme"])
+                self.assertEqual(row["systemScheme"],row["normal"]["systemScheme"])
+                grouped.setdefault(key,{})[row["systemScheme"]]=row
+            self.assertEqual(240,len(grouped))
+            for key,pair in grouped.items():
+                self.assertEqual({"light","dark"},set(pair),key)
+                if key[-1]!="none":
+                    self.assertNotEqual(pair["light"]["forced"]["color"],
+                                        pair["dark"]["forced"]["color"],key)
+                    self.assertNotEqual(pair["light"]["forced"]["progressColor"],
+                                        pair["dark"]["forced"]["progressColor"],key)
+
     def test_rail_is_painted_only_for_explicit_opt_in(self):
         for mat in self.matrices.values():
             for r in mat["records"]:
@@ -55,7 +74,7 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
                 self.assertEqual("none",f["gradient"])
                 self.assertEqual(300,f["width"])
                 self.assertEqual(4,f["height"])
-                invisible=(f["color"]=="rgba(0, 0, 0, 0)")
+                invisible=(f["color"]=="transparent" or re.fullmatch(r"rgba\([^)]*,\s*0(?:\.0+)?\)",f["color"]) is not None)
                 self.assertEqual(f["scope"]=="none",invisible)
 
     def test_selected_highlight_width_and_physical_thumb_match_in_rtl_and_ltr(self):
@@ -103,10 +122,10 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
             self.assertIn("background-image: linear-gradient",value)
             self.assertNotIn("data-bui-v3-slider-hc-proposal",value)
 
-    def test_actual_four_png_captures_and_scoped_browser_cleanup(self):
+    def test_actual_eight_png_captures_and_scoped_browser_cleanup(self):
         for browser,mat in self.matrices.items():
             self.assertEqual("remaining=0",mat["cleanup"])
-            self.assertEqual(2,len(mat["screenshots"]))
+            self.assertEqual(4,len(mat["screenshots"]))
             for name in mat["screenshots"]:
                 self.assertIn(browser,name)
                 path=E/name
@@ -144,7 +163,7 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
                     contrast(f["progressColor"], f["progressBorderColor"]), 3,
                     (mat["browser"], entry["brand"], entry["mode"], "boundary-to-highlight"))
                 checked += 1
-        self.assertEqual(320, checked)
+        self.assertEqual(640, checked)
 
         source = self.matrices["CHROME"]["records"]
         reference = next(r["forced"] for r in source if r["brand"] == "default" and
