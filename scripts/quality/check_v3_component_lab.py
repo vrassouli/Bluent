@@ -23,7 +23,7 @@ def check() -> int:
     assert data["status"] == "pilot_incomplete", "do not infer full coverage from a partial demo"
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
-    assert len(data["families"]) == 17
+    assert len(data["families"]) == 18
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -51,6 +51,42 @@ def check() -> int:
         "queue launches fourteenth MaskedField without claiming issue #440 Done",
     ):
         assert gate in probe_text, "missing MaskedField browser gate: " + gate
+    assert data["families"][17]["id"] == "file"
+    assert data["families"][17]["classification"] == "representative_only"
+    assert data["families"][17]["existingDemoRoute"] == "/components/file-selects"
+    assert set(data["families"][17]["propertiesDemonstrated"]) == {
+        "Text", "Accept", "MaxFiles", "OnChange", "AllowRemove", "ShowFileInfo", "Disabled"
+    }
+    file_source=(ROOT/"src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs").read_text(encoding="utf-8-sig")
+    assert "[Parameter] public int MaxFiles" in file_source and "private bool Multiple => MaxFiles > 1" in file_source
+    assert "[Parameter] public EventCallback<IEnumerable<SelectedFile>> OnChange" in file_source
+    assert "public bool Multiple {" not in file_source, "old demo Multiple attribute is not a supported public parameter"
+    for marker in ('new("file", "FileSelect"', 'class="lab-file-grid"', 'id="lab-file-single"',
+                   'id="lab-file-multi"', 'id="lab-file-disabled"', 'SelectedFileRazor',
+                   'OnChange="OnLabSingleFilesChanged"', 'OnChange="OnLabMultipleFilesChanged"',
+                   'MaxFiles="2"', 'ShowFileInfo="false"', 'Disabled'):
+        assert marker in source, "missing real FileSelect public API pilot: "+marker
+    assert '.lab-canvas.narrow .lab-file-grid' in css
+    assert '.lab-canvas.compact .lab-file-card' in css
+    assert '.lab-file-card ::deep .files { display:grid;' in css
+    assert '.lab-file-card ::deep .bui-file-select .files { row-gap:.625rem !important;' in css
+    assert '.lab-canvas[dir="rtl"] .lab-file-card p { text-align:right; }' in css
+    for fixture in ('bluent-421-upload-one.txt', 'bluent-421-upload-two.md'):
+        assert (ROOT/'scripts/quality/fixtures'/fixture).is_file()
+    for gate in (
+        "eighteenth real FileSelect renders three current public InputFile specimens",
+        "FileSelect native multiple from MaxFiles plus Accept hint disabled button and independent initial status",
+        "actual native synthetic text attachment updates FileSelect single file and Blazor OnChange",
+        "actual two native synthetic uploads bind MaxFiles=2 names into Blazor and render file Cards",
+        "selected file Cards are separated >=8px, within bounds and full MaxFiles hides chooser",
+        "real FileSelect native Card remove restores single slot and OnChange empty model",
+        "copyable public FileSelect Razor uses MaxFiles not removed Multiple API and real callbacks",
+        "RTL 320px compact FileSelect three Cards stack with >=8px separation without overflow",
+        "RTL native FileSelect filenames stay logical LTR while right-aligned",
+        "queue #444 exposes unfinished FileSelect and real live native upload pilot",
+        "queue launches eighteenth FileSelect demo without accepting product #444",
+    ):
+        assert gate in probe_text, "missing FileSelect real browser gate: "+gate
     assert data["families"][16]["id"] == "range"
     assert data["families"][16]["classification"] == "representative_only"
     assert data["families"][16]["existingDemoRoute"] == "/components/sliders"
@@ -428,7 +464,7 @@ def check() -> int:
     assert textfield_queue["scenarioId"] == "textfield-input-textarea-disabled"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
-    assert len({entry["id"] for entry in data["families"]}) == 17
+    assert len({entry["id"] for entry in data["families"]}) == 18
     assert '@page "/component-lab"' in source
     assert 'Href="component-lab"' in menu
     assert '@bind:event="oninput"' in source
@@ -482,6 +518,12 @@ def check() -> int:
             if entry["id"] == "badge":
                 assert "Badge CDP" in mode, "Do not infer Badge OS/AT acceptance from a pilot"
                 continue
+            if entry["id"] == "file":
+                if i < 2:
+                    assert "real native synthetic InputFile single/multiple selection, OnChange and Card remove 228/228 PASS" in mode
+                else:
+                    assert "published InteractiveServer real synthetic InputFile selection + binding + removal 224/224 PASS" in mode
+                continue
             if entry["id"] == "range":
                 if i < 2:
                     assert "217/217 PASS including CDP pointer updates ValueRange<int> and ValueRange<decimal>" in mode
@@ -509,7 +551,7 @@ def check() -> int:
                 assert "native rendered markup observed" in mode
         assert entry["source"] == str(LAB.relative_to(ROOT)).replace("\\", "/")
         assert entry["labRoute"] == "/component-lab"
-        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor", "radio": "Radios.razor", "selectfield": "Fields.razor", "datefield": "Fields.razor", "timefield": "Fields.razor", "masked": "Fields.razor", "otp": "Fields.razor", "slider": "Sliders.razor", "range": "Sliders.razor"}.get(entry["id"],entry["family"]+"s.razor")
+        demo_file = {"textfield": "Fields.razor", "checkbox": "Checkboxes.razor", "switch": "Fields.razor", "numeric": "Fields.razor", "radio": "Radios.razor", "selectfield": "Fields.razor", "datefield": "Fields.razor", "timefield": "Fields.razor", "masked": "Fields.razor", "otp": "Fields.razor", "slider": "Sliders.razor", "range": "Sliders.razor", "file": "FileSelects.razor"}.get(entry["id"],entry["family"]+"s.razor")
         demo_path = ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components" / demo_file
         assert demo_path.exists(), f"missing referenced demo: {demo_path}"
         assert f'@page "{entry["existingDemoRoute"]}"' in demo_path.read_text(encoding="utf-8-sig")
@@ -677,8 +719,8 @@ def check() -> int:
     assert ".lab-queue-row" in css and ".lab-queue-list" in css
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
     assert queue == expected_full_queue(), "66-family queue must match canonical #494 census"
-    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 17
-    assert queue["familiesWithRealBrowserSpecimen"] == 15
+    assert queue["familyCount"] == 66 and queue["familiesWithRepresentativeLabScenario"] == 18
+    assert queue["familiesWithRealBrowserSpecimen"] == 16
     assert queue["apiCoverageComplete"] is False
     assert [item["issue"] for item in queue["families"]] == list(range(428, 494))
     assert not any(item["completeDemoAcceptance"] or item["componentDesignAccepted"] or
@@ -699,7 +741,7 @@ def check() -> int:
                     "markup.tag==='label'",
                     "markup.tag==='a'",
                     "mobile 320px viewport has no unintended horizontal document clipping",
-                    "canonical 66 candidate rows include seventeen incomplete real lab pilots",
+                    "canonical 66 candidate rows include eighteen incomplete real lab pilots",
                     "issue 432 search finds current TextField pilot without claiming completion",
                     "source queue opens actual previously tested Button specimen",
                     "full 66-family queue reflows without document overflow at 320px"):
@@ -785,8 +827,8 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
-    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 17 live pilot specimens, ZERO complete components")
-    print("Component Lab PILOT contract PASS: 17/17 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab family QUEUE PASS: 66/66 source-mapped, 18 live pilot specimens, ZERO complete components")
+    print("Component Lab PILOT contract PASS: 18/18 source-linked families; NOT exhaustive acceptance")
     return 0
 
 

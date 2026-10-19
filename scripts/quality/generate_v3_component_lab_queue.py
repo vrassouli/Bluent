@@ -56,6 +56,7 @@ def payload():
             else "chrome_edge_wasm_server_otp_native_js_keyboard_binding_autosubmit_observed" if family == "OtpField"
             else "chrome_edge_wasm_pointer_value_observed_server_layout_only_pointer_unverified" if family == "Slider"
             else "chrome_edge_wasm_rangeslider_int_decimal_pointer_verified_server_render_layout_only" if family == "RangeSlider"
+            else "chrome_edge_wasm_server_native_file_input_multi_remove_observed" if family == "FileSelect"
             else "no_component_lab_scenario"
         )
         entries.append({
@@ -86,7 +87,7 @@ def payload():
         "sourceManifestScope": census["status"],
         "familyCount": len(entries),
         "familiesWithRepresentativeLabScenario": len(specimens),
-        "familiesWithRealBrowserSpecimen": 15,
+        "familiesWithRealBrowserSpecimen": 16,
         "apiCoverageComplete": False,
         "note": (
             "This is a complete 66-family WORK QUEUE sourced from the #494 census, "
@@ -108,7 +109,7 @@ def main():
         TARGET.write_text(desired, encoding="utf-8")
     elif not TARGET.is_file() or TARGET.read_text(encoding="utf-8") != desired:
         raise SystemExit("Component Lab family work queue is missing or stale. Review #494 data and regenerate.")
-    print("Component Lab family queue: 66/66 mapped to issues; 17 pilots, 15 prior browser-backed specimens; RangeSlider/Slider Server pointer gaps explicit; ZERO complete API acceptance.")
+    print("Component Lab family queue: 66/66 mapped to issues; 18 pilots, 16 browser-backed specimens; RangeSlider/Slider Server pointer gaps remain; ZERO complete API acceptance.")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 @page "/component-lab"
 @namespace Bluent.UI.Demo.Pages.Components
 @using Bluent.UI.Enums
+@using Bluent.UI.Components.FileSelectComponent
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.JSInterop
 @inject IJSRuntime JS
@@ -548,6 +549,29 @@
                 </div>
                 <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
             }
+            else if (_selected == "file")
+            {
+                <div class="lab-file-grid" aria-label="Current public FileSelect single multi and disabled specimens">
+                    <div class="lab-file-card">
+                        <span class="lab-file-label">Single .txt attachment</span>
+                        <FileSelect id="lab-file-single" Text="Choose text file" Accept=".txt" MaxFiles="1"
+                                    OnChange="OnLabSingleFilesChanged" />
+                        <p class="lab-file-single-status" role="status" lang="en" dir="ltr">Files: @_labSingleFileCount; names: @_labSingleFileNames</p>
+                    </div>
+                    <div class="lab-file-card">
+                        <span class="lab-file-label">Up to 2 text/markdown attachments</span>
+                        <FileSelect id="lab-file-multi" Text="Choose up to two files" Accept=".txt,.md" MaxFiles="2"
+                                    OnChange="OnLabMultipleFilesChanged" />
+                        <p class="lab-file-multi-status" role="status" lang="en" dir="ltr">Files: @_labMultiFileCount; names: @_labMultiFileNames</p>
+                    </div>
+                    <div class="lab-file-card">
+                        <span class="lab-file-label">Disabled button and hidden file info</span>
+                        <FileSelect id="lab-file-disabled" Text="File picker disabled" Accept=".png" Disabled
+                                    ShowFileInfo="false" AllowRemove="false" />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Accept is a browser chooser hint, not server-side file validation. Missing accessible remove names and exhaustive native picker cases remain #444.</p>
+            }
             else if (_selected == "range")
             {
                 <div class="lab-range-grid" aria-label="Actual source RangeSlider generic numeric specimens">
@@ -770,6 +794,10 @@
             "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
             "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
+        new("file", "FileSelect", "components/file-selects", "Real browser file input and collection",
+            "Current FileSelect with MaxFiles, Accept hint, real selection/remove callbacks and disabled button.",
+            "<FileSelect Text=\"Choose text file\" Accept=\".txt\" MaxFiles=\"1\" OnChange=\"OnLabSingleFilesChanged\" />",
+            "Representative runnable scenario only"),
         new("range", "RangeSlider", "components/sliders", "Two-thumb generic numeric range",
             "Current RangeSlider<T> with ValueRange<int>/ValueRange<decimal>, Min, Max and ThumbSize.",
             "<RangeSlider @bind-Value=\"_labRangeInt\" Min=\"0\" Max=\"100\" ThumbSize=\"20\" />",
@@ -856,6 +884,36 @@
     private TimeSpan _labTimeSpan = new(2, 15, 0);
     private TimeOnly _labTimeDisabled = new(12, 40);
     private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
+
+    private int _labSingleFileCount;
+    private int _labMultiFileCount;
+    private string _labSingleFileNames = "none";
+    private string _labMultiFileNames = "none";
+    private void OnLabSingleFilesChanged(IEnumerable<SelectedFile> files)
+    {
+        var items = files.ToArray();
+        _labSingleFileCount = items.Length;
+        _labSingleFileNames = items.Length == 0 ? "none" : string.Join(", ", items.Select(x => x.File.Name));
+    }
+    private void OnLabMultipleFilesChanged(IEnumerable<SelectedFile> files)
+    {
+        var items = files.ToArray();
+        _labMultiFileCount = items.Length;
+        _labMultiFileNames = items.Length == 0 ? "none" : string.Join(", ", items.Select(x => x.File.Name));
+    }
+    private string SelectedFileRazor => """
+        @using Bluent.UI.Components.FileSelectComponent
+        <FileSelect id="lab-file-single" Text="Choose text file" Accept=".txt" MaxFiles="1" OnChange="OnLabSingleFilesChanged" />
+        <FileSelect id="lab-file-multi" Text="Choose up to two files" Accept=".txt,.md" MaxFiles="2" OnChange="OnLabMultipleFilesChanged" />
+        <FileSelect id="lab-file-disabled" Text="File picker disabled" Accept=".png" Disabled ShowFileInfo="false" AllowRemove="false" />
+        @code {
+            private string _singleNames = "none", _multiNames = "none";
+            private void OnLabSingleFilesChanged(IEnumerable<SelectedFile> files) =>
+                _singleNames = string.Join(", ", files.Select(x => x.File.Name));
+            private void OnLabMultipleFilesChanged(IEnumerable<SelectedFile> files) =>
+                _multiNames = string.Join(", ", files.Select(x => x.File.Name));
+        }
+        """;
 
     private ValueRange<int> _labRangeInt = new(20, 80);
     private ValueRange<decimal> _labRangeDecimal = new(1.5m, 7.5m);
@@ -980,7 +1038,8 @@
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
           "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
 
-    private string ActiveRazor => _selected == "range" ? SelectedRangeRazor
+    private string ActiveRazor => _selected == "file" ? SelectedFileRazor
+        : _selected == "range" ? SelectedRangeRazor
         : _selected == "slider" ? SelectedSliderRazor
         : _selected == "otp" ? SelectedOtpRazor
         : _selected == "masked" ? SelectedMaskedRazor

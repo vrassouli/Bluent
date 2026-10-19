@@ -292,3 +292,20 @@
 .lab-canvas.compact .lab-range-grid { gap:.5rem; }
 .lab-canvas.compact .lab-range-card { padding:.75rem; gap:.5rem; }
 @media(max-width:600px) { .lab-range-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 demo-only actual FileSelect source API. Separate cards and inner file rows. */
+.lab-file-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-file-card { display:grid; align-content:start; gap:.7rem; min-width:0; padding:1rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-file-label { font-size:.86rem; font-weight:600; line-height:1.4; }
+.lab-file-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-file-card ::deep .bui-file-select { min-width:0; max-width:100%; }
+.lab-file-card ::deep .files { display:grid; grid-template-columns:minmax(0,1fr); gap:.625rem; min-width:0; margin-top:.625rem; }
+/* Published InteractiveServer base FileSelect .files has a 6px competing gap; enforce the Lab spacing contract. */
+.lab-file-card ::deep .bui-file-select .files { row-gap:.625rem !important; column-gap:.625rem !important; }
+.lab-file-card ::deep .files > * { min-width:0; max-width:100%; }
+.lab-canvas[dir="rtl"] .lab-file-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-file-card p { text-align:left; }
+.lab-canvas.narrow .lab-file-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-file-grid { gap:.5rem; }
+.lab-canvas.compact .lab-file-card { padding:.75rem; gap:.5rem; }
+@media(max-width:600px) { .lab-file-grid { grid-template-columns:minmax(0,1fr); } }

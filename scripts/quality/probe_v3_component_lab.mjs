@@ -6,6 +6,7 @@ import {mkdtemp,readFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {setTimeout as wait} from 'node:timers/promises';
+import {fileURLToPath} from 'node:url';
 
 const base=(process.argv[2]||'http://127.0.0.1:5279').replace(/\/$/,'');
 const renderMode=process.env.BLUENT_V3_LAB_MODE==='Server'?'Server':'WebAssembly';
@@ -66,7 +67,7 @@ try {
  check('real '+renderMode+' Component Lab hydrated with live Bluent Button',!!ready);
  console.log('QA: lab first DOM loaded');
  const initial=await js("(()=>({heading:document.querySelector('h1')?.textContent,catalog:[...document.querySelectorAll('button.lab-family')].map(x=>x.textContent.trim()),runnable:document.querySelectorAll('.lab-canvas .bui-button').length,controls:document.querySelectorAll('.lab-controls select').length}))()");
- check('seventeen pilot families and four functional controls rendered',initial.catalog.length===17&&initial.controls===4,initial);
+ check('eighteen pilot families and four functional controls rendered',initial.catalog.length===18&&initial.controls===4,initial);
  check('real library Button elements rendered, not image/mock',initial.runnable===13,initial);
  await js("(()=>{const x=[...document.querySelectorAll('.lab-canvas button')].find(x=>x.textContent.includes('Continue'));x?.click()})()");
  const clicked=await poll(()=>js("document.querySelector('.lab-canvas .lab-click-status')?.textContent?.includes('1')"));
@@ -433,7 +434,7 @@ try {
  check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
    tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
  // visual, native AT or product implementation acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Checkbox');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -468,7 +469,7 @@ try {
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
  // but the future #435 semantic switch role and Windows AT are NOT
  // implemented or certified by the #421 source-owned demo.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -502,7 +503,7 @@ try {
  check('generated Switch Razor contains two bind Value models before-label and disabled',
   switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Ninth existing NumericField<T> API pilot from public source: real
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Ninth existing NumericField<T> API pilot from public source: real
  // native text entry and Blazor int binding, callbacks and a separate
  // decimal specimen. #433 stays Backlog; full validation/AT is not done.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'NumericField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -536,7 +537,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Current public RadioGroup<string> and Radio<string> only;
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Current public RadioGroup<string> and Radio<string> only;
  // does not certify future #436 accessible radiogroup/arrow navigation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'RadioGroup');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RadioGroup')"),12000);
@@ -586,7 +587,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Eleventh current native SelectField<T> Blazor specimen. Native
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Eleventh current native SelectField<T> Blazor specimen. Native
  // Chromium ArrowDown/ArrowUp events, real onchange and generic int
  // conversion, not fake element.click() or JS model mutation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'SelectField');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -623,7 +624,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Existing DateField<T>: current MaskedField-based source component.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Existing DateField<T>: current MaskedField-based source component.
  // Only day/month/DateOnly/disabled states. Full culture parsing,
  // calendar selection and native AT belong to future #438 redesign.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'DateField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -656,7 +657,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000); // Existing MaskedField-based TimeField<TimeOnly/TimeSpan> API, not a
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Existing MaskedField-based TimeField<TimeOnly/TimeSpan> API, not a
  // future v3 implementation. Real input editing validates oninput
  // and typed value, while the #439 OS AT matrix stays pending.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'TimeField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -687,7 +688,7 @@ try {
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const e=document.getElementById(id);e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"),12000);
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000);
  // Existing public MaskedField demo, not production v3 product implementation.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'MaskedField');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('MaskedField')"),12000);
@@ -723,6 +724,56 @@ try {
 
 
 
+
+ // 18th existing FileSelect: native Blazor InputFile, no fake upload component or private user files.
+ await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'FileSelect');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('FileSelect')"),12000);
+ await js("document.querySelector('button.lab-family')?.click()");
+ const fileReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('FileSelect')&&!!document.getElementById('lab-file-single')"),12000);
+ check('eighteenth real FileSelect renders three current public InputFile specimens',fileReady);
+ const fileInitial=await js("(()=>{const a=['lab-file-single','lab-file-multi','lab-file-disabled'].map(id=>document.getElementById(id));return {roots:a.map(x=>x?.className),input:a.map(x=>{const v=x?.querySelector('input[type=file]');return {type:v?.type,multiple:v?.multiple,accept:v?.accept}}),disabledButton:!!a[2]?.querySelector('button[disabled]'),statuses:[document.querySelector('.lab-file-single-status')?.textContent.trim(),document.querySelector('.lab-file-multi-status')?.textContent.trim()]}})()");
+ check('FileSelect native multiple from MaxFiles plus Accept hint disabled button and independent initial status',
+  fileInitial.roots.every(x=>x?.includes('bui-file-select'))&&
+  JSON.stringify(fileInitial.input.map(x=>x.multiple))===JSON.stringify([false,true,false])&&
+  JSON.stringify(fileInitial.input.map(x=>x.accept))===JSON.stringify(['.txt','.txt,.md','.png'])&&
+  fileInitial.disabledButton&&fileInitial.statuses.every(x=>x==='Files: 0; names: none'),fileInitial);
+ await send('DOM.enable');
+ const setTestFiles=async(selector,paths)=>{
+   const root=await send('DOM.getDocument',{depth:1});
+   const q=await send('DOM.querySelector',{nodeId:root.root.nodeId,selector});
+   if(!q.nodeId)throw Error('Real Blazor file input missing: '+selector);
+   await send('DOM.setFileInputFiles',{nodeId:q.nodeId,files:paths});
+ };
+ const fixtureOne=fileURLToPath(new URL('./fixtures/bluent-421-upload-one.txt',import.meta.url));
+ const fixtureTwo=fileURLToPath(new URL('./fixtures/bluent-421-upload-two.md',import.meta.url));
+ await setTestFiles('#lab-file-single input[type=file]',[fixtureOne]);
+ const fileSingle=await poll(()=>js("(()=>{const s=document.querySelector('.lab-file-single-status')?.textContent?.trim();const n=document.querySelector('#lab-file-single .files')?.textContent;return s==='Files: 1; names: bluent-421-upload-one.txt'&&n?.includes('bluent-421-upload-one.txt')})()"),15000);
+ check('actual native synthetic text attachment updates FileSelect single file and Blazor OnChange',fileSingle);
+ await setTestFiles('#lab-file-multi input[type=file]',[fixtureOne,fixtureTwo]);
+ const fileMulti=await poll(()=>js("(()=>{const s=document.querySelector('.lab-file-multi-status')?.textContent?.trim();const n=document.querySelector('#lab-file-multi .files')?.textContent;return s==='Files: 2; names: bluent-421-upload-one.txt, bluent-421-upload-two.md'&&n?.includes('bluent-421-upload-one.txt')&&n?.includes('bluent-421-upload-two.md')})()"),15000);
+ check('actual two native synthetic uploads bind MaxFiles=2 names into Blazor and render file Cards',fileMulti);
+ const fileCards=await js("(()=>{const f=document.querySelector('#lab-file-multi .files'),s=getComputedStyle(f),r=[...f.children].map(x=>x.getBoundingClientRect());return {count:r.length,gap:parseFloat(s.rowGap),distance:r.length===2?r[1].top-r[0].bottom:null,within:r.every(x=>x.left>=f.getBoundingClientRect().left-1&&x.right<=f.getBoundingClientRect().right+1),singleRemove:!!document.querySelector('#lab-file-single .files button'),singleChooser:!!document.querySelector('#lab-file-single .content>button'),multiChooser:!!document.querySelector('#lab-file-multi .content>button')}})()");
+ check('selected file Cards are separated >=8px, within bounds and full MaxFiles hides chooser',
+  fileCards.count===2&&fileCards.gap>=8&&fileCards.distance>=8&&fileCards.within&&fileCards.singleRemove&&
+  !fileCards.singleChooser&&!fileCards.multiChooser,fileCards);
+ await js("document.querySelector('#lab-file-single .files button')?.click()");
+ const fileRemoved=await poll(()=>js("document.querySelector('.lab-file-single-status')?.textContent.trim()==='Files: 0; names: none'&&!!document.querySelector('#lab-file-single .content>button')"),12000);
+ check('real FileSelect native Card remove restores single slot and OnChange empty model',fileRemoved);
+ const fileRazor=await js("document.querySelector('.lab-source pre code')?.textContent");
+ check('copyable public FileSelect Razor uses MaxFiles not removed Multiple API and real callbacks',
+  fileRazor?.includes('MaxFiles="1"')&&fileRazor?.includes('MaxFiles="2"')&&
+  fileRazor?.includes('OnChange="OnLabSingleFilesChanged"')&&fileRazor?.includes('ShowFileInfo="false"')&&
+  !fileRazor?.includes('<FileSelect Multiple'),fileRazor);
+ await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')&&document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ const fileLayout=await js("(()=>{const g=document.querySelector('.lab-file-grid'),b=g.getBoundingClientRect(),a=[...g.children].map(x=>x.getBoundingClientRect()),s=getComputedStyle(g),sts=[...g.querySelectorAll('p[role=status]')].map(x=>({dir:x.dir,lang:x.lang,align:getComputedStyle(x).textAlign}));return {columns:s.gridTemplateColumns,gap:parseFloat(s.rowGap),distances:a.slice(1).map((x,i)=>x.top-a[i].bottom),within:a.every(x=>x.left>=b.left-1&&x.right<=b.right+1),canvas:document.querySelector('.lab-canvas').getBoundingClientRect().width,statuses:sts}})()");
+ check('RTL 320px compact FileSelect three Cards stack with >=8px separation without overflow',
+   fileLayout.columns.trim().split(/\s+/).length===1&&fileLayout.gap>=8&&fileLayout.distances.every(x=>x>=8)&&fileLayout.within&&fileLayout.canvas<=320,fileLayout);
+ check('RTL native FileSelect filenames stay logical LTR while right-aligned',
+   fileLayout.statuses.length===2&&fileLayout.statuses.every(x=>x.dir==='ltr'&&x.lang==='en'&&['right','end'].includes(x.align)),fileLayout.statuses);
+ await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide'],['lab-density','normal']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
+ await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')&&!document.querySelector('.lab-canvas')?.classList.contains('compact')"),12000);
+ await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
  // 17th current source RangeSlider<TValue> with two real independent ValueRange<T> bindings.
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'RangeSlider');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RangeSlider')"),12000);
@@ -877,7 +928,7 @@ try {
  const noShadow=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas .bui-badge');return b&&!b.classList.contains('drop-shadow')&&!b.classList.contains('animated')})()"),12000);
  check('Badge AnimateShadow without DropShadow does not emit animated shadow class',noShadow);
  await js("(()=>{const x=document.querySelector('#lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}));})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===17"));
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"));
  await js("(()=>{for(const [id,val] of [['lab-direction','rtl'],['lab-viewport','narrow'],['lab-density','compact'],['lab-contrast','dark']]){const x=document.getElementById(id);x.value=val;x.dispatchEvent(new Event('change',{bubbles:true}));}})()");
  const controlState=await poll(()=>js("(()=>{const x=document.querySelector('.lab-canvas');return x?.getAttribute('dir')==='rtl'&&x?.classList.contains('narrow')&&x?.classList.contains('compact')&&x?.dataset.labCanvas==='dark';})()"));
  check('RTL, narrow viewport, compact density and canvas contrast controls all update',controlState);
@@ -913,8 +964,8 @@ try {
  check('real pointer activation completes Razor Copy source interop',copied);
 
  const allQueue=await js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return {count:rows.length,pilots:rows.filter(x=>x.textContent.includes('Live pilot')).length,queued:rows.filter(x=>x.textContent.includes('Queued')).length,firstLink:rows[0]?.querySelector('a')?.getAttribute('href'),lastLink:rows.at(-1)?.querySelector('a')?.getAttribute('href')}})()");
- check('canonical 66 candidate rows include seventeen incomplete real lab pilots',
-  allQueue.count===66&&allQueue.pilots===17&&allQueue.queued===49&&
+ check('canonical 66 candidate rows include eighteen incomplete real lab pilots',
+  allQueue.count===66&&allQueue.pilots===18&&allQueue.queued===48&&
   allQueue.firstLink?.endsWith('/issues/428')&&allQueue.lastLink?.endsWith('/issues/493'),allQueue);
  await js("(()=>{const el=document.querySelector('#lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'432');el.dispatchEvent(new Event('input',{bubbles:true}));})()");
  const filteredQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];if(rows.length!==1)return null;const x=rows[0];return x.textContent.includes('TextField')&&x.textContent.includes('Live pilot')&&!!x.querySelector('button')&&x.querySelector('a')?.getAttribute('href')?.endsWith('/issues/432')})()"),12000);
@@ -982,6 +1033,13 @@ try {
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const rangeQueueLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('RangeSlider')&&!!document.getElementById('lab-range-decimal')"),12000);
  check('queue launches seventeenth RangeSlider lab specimen without completing #443',rangeQueueLaunch);
+ await js("(()=>{const x=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'444');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
+ const fileQueue=await poll(()=>js("(()=>{const r=[...document.querySelectorAll('.lab-queue-row')];return r.length===1&&r[0].textContent.includes('FileSelect')&&r[0].textContent.includes('Live pilot')&&r[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/444')&&!!r[0].querySelector('button')})()"),12000);
+ check('queue #444 exposes unfinished FileSelect and real live native upload pilot',fileQueue);
+ await js("document.querySelector('.lab-queue-row button')?.click()");
+ const fileQueueLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('FileSelect')&&!!document.getElementById('lab-file-multi')"),12000);
+ check('queue launches eighteenth FileSelect demo without accepting product #444',fileQueueLaunch);
+
 
 
 

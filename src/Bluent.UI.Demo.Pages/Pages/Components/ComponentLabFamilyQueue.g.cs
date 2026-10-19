@@ -22,7 +22,7 @@ internal static class ComponentLabFamilyQueue
         new("OtpField", 441, "otp"),
         new("Slider", 442, "slider"),
         new("RangeSlider", 443, "range"),
-        new("FileSelect", 444, null),
+        new("FileSelect", 444, "file"),
         new("Badge", 445, "badge"),
         new("Avatar", 446, null),
         new("Tag", 447, null),
