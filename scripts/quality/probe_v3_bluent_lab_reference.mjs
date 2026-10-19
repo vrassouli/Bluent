@@ -10,6 +10,8 @@ import {createServer} from 'node:net';
 import {setTimeout as wait} from 'node:timers/promises';
 const sourceRoot=resolve(process.argv[2]||'C:/Projects/Bluent-issue421');
 const evidenceRoot=resolve(process.argv[3]||'docs/v3/quality/evidence');
+const scenario=process.argv[4]||'baseline';
+if(!['baseline','light-ltr','dark-rtl','dark-ltr'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
 const pending=new Map(),measurements=[],checks=[];let serial=0,host,browser,socket;
@@ -34,6 +36,15 @@ try{
  await send('Page.navigate',{url:url+'/component-lab'});
  await poll(()=>js("document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),45000);
  add('Live source Lab hydrated',true);
+ if(scenario!=='baseline'){
+   const mode=await js(`(()=>{
+     const root=document.documentElement;
+     root.setAttribute('data-bui-theme','${scenario.startsWith('dark')?'dark':'light'}');
+     root.setAttribute('dir','${scenario.endsWith('rtl')?'rtl':'ltr'}');
+     return {theme:root.getAttribute('data-bui-theme'),dir:root.getAttribute('dir')};
+   })()`);
+   add('Real Bluent theme/direction attributes set',mode.theme===(scenario.startsWith('dark')?'dark':'light')&&mode.dir===(scenario.endsWith('rtl')?'rtl':'ltr'),mode);
+ }
  await mkdir(evidenceRoot,{recursive:true});
  for(const [family,issue,selector] of [
   ['Button',428,'.lab-canvas .bui-button'],
@@ -46,7 +57,12 @@ try{
   await js("document.querySelector('.lab-queue-row button').click()");
   await poll(()=>js("!!document.querySelector("+JSON.stringify(selector)+")"),16000);
   const detail=await js(`(()=>{
-   const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas'),r=e.getBoundingClientRect(),style=getComputedStyle(e);
+   const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas');
+   if('${scenario}'!=='baseline'){
+     if('${family}'==='Slider'||'${family}'==='RangeSlider')e.style.width='260px';
+     if('${family}'==='Button')e.style.width='96px';
+   }
+   const r=e.getBoundingClientRect(),style=getComputedStyle(e);
    canvas?.scrollIntoView({block:'start'});
    const c=canvas?.getBoundingClientRect(),thumbs=[...e.querySelectorAll('.thumb')];
    return {family:'${family}',issue:${issue},elementTag:e.tagName,cls:e.className,role:e.getAttribute('role'),ariaValueNow:e.getAttribute('aria-valuenow'),
@@ -55,15 +71,20 @@ try{
      canvas:{x:Math.max(0,c.left+scrollX),y:Math.max(0,c.top+scrollY),width:Math.max(1,Math.min(c.width,1080)),height:Math.max(1,Math.min(c.height,880))}};
    })()`);
   add(family+' actual Bluent specimen located',detail.width>0&&detail.height>0,detail);
+  if(scenario!=='baseline' && family==='Slider'){
+    const probe=await js("(()=>{const e=document.getElementById('lab-slider-int');e.focus();const thumb=e.querySelector('.thumb');return {rootFocused:document.activeElement===e,rootTabIndex:e.tabIndex,rootRole:e.getAttribute('role'),thumbTabIndex:thumb?.tabIndex,thumbRole:thumb?.getAttribute('role'),thumbAriaValue:thumb?.getAttribute('aria-valuenow'),theme:document.documentElement.getAttribute('data-bui-theme'),direction:document.documentElement.dir}})()");
+    detail.keyboardFocusProbe=probe;
+    add('Existing Bluent Slider has no native keyboard focus target (confirmed GAP, not a11y approval)',probe.rootFocused===false&&probe.rootTabIndex===-1&&probe.thumbTabIndex===-1&&probe.thumbRole===null&&probe.rootRole===null,probe);
+  }
   const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:detail.canvas.x,y:detail.canvas.y,width:detail.canvas.width,height:detail.canvas.height,scale:1}});
-  const img='BLUENT-LAB-'+family.toUpperCase()+'-CHROME.png';
+  const img='BLUENT-LAB-'+family.toUpperCase()+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.png';
   await writeFile(join(evidenceRoot,img),Buffer.from(capture.data,'base64'));
   detail.image=img;measurements.push(detail);
  }
  const evidence={auditIssue:552,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
- mode:'real Chrome Blazor WebAssembly Debug Lab',status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
- viewport:{width:1240,height:1140,deviceScaleFactor:1},generatedAt:new Date().toISOString(),checks,measurements};
- await writeFile(join(evidenceRoot,'BLUENT-LAB-P0-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
+ mode:'real Chrome Blazor WebAssembly Debug Lab',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
+ viewport:{width:1240,height:1140,deviceScaleFactor:1},normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:260,rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
+ await writeFile(join(evidenceRoot,'BLUENT-LAB-P0'+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
  console.log('BLUENT SUMMARY '+JSON.stringify({checks:checks.length,screenshots:measurements.map(x=>x.image)}));
 }catch(e){console.error('BLUENT ERROR',e?.stack||String(e));process.exitCode=1;}
 finally{

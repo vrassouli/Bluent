@@ -12,6 +12,8 @@ import {setTimeout as wait} from 'node:timers/promises';
 
 const root=resolve(process.argv[2]||'');
 const output=resolve(process.argv[3]||'docs/v3/quality/evidence/FLUENT-WC-3.1.3-LIGHT-CHROME.png');
+const scenario=process.argv[4]||'baseline';
+if(!['baseline','light-ltr','dark-rtl','dark-ltr'].includes(scenario))throw Error('Unsupported reference scenario '+scenario);
 const browserExe=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-pinned-wc-chrome-'));
 const audit=[],pending=new Map(),signals=[];let server,browser,socket,serial=0;
@@ -34,11 +36,19 @@ try{
  await new Promise((res,rej)=>{socket.addEventListener('open',res,{once:true});socket.addEventListener('error',rej,{once:true});});
  socket.addEventListener('message',event=>{const m=JSON.parse(event.data),p=pending.get(m.id);if(m.method==='Runtime.exceptionThrown')signals.push('EXCEPTION '+(m.params?.exceptionDetails?.text||''));if(m.method==='Runtime.consoleAPICalled'&&m.params?.type==='error')signals.push('CONSOLE '+m.params?.args?.map(x=>x.value||x.description||'').join(' '));if(!p)return;pending.delete(m.id);m.error?p.rej(Error(JSON.stringify(m.error))):p.res(m.result||{});});
  await send('Page.enable');await send('Runtime.enable');await send('Emulation.setDeviceMetricsOverride',{width:1240,height:1140,deviceScaleFactor:1,mobile:false});
- await send('Page.navigate',{url:'http://127.0.0.1:'+port+'/index.html'});
+ await send('Page.navigate',{url:'http://127.0.0.1:'+port+'/index.html?scenario='+encodeURIComponent(scenario)});
  let loaded;
  try {loaded=await poll(()=>js("['fluent-button','fluent-toggle-button','fluent-compound-button','fluent-menu-button','fluent-slider'].every(t=>!!customElements.get(t))"),5000);}
  catch(e){console.error('REFERENCE DEBUG',JSON.stringify(await js("(()=>({url:location.href,readyState:document.readyState,title:document.title,defined:document.documentElement.dataset.officialDefined,tags:['fluent-button','fluent-toggle-button','fluent-compound-button','fluent-menu-button','fluent-slider'].map(x=>[x,!!customElements.get(x)]),body:document.body?.innerText?.slice(0,150)}))()"),null,2));console.error('REFERENCE SIGNALS',signals.slice(0,10));throw e;}
  assert('Official WC 3.1.3 tag definitions loaded',loaded);
+ const pageBounds=await js("(()=>{const e=document.querySelector('main'),r=e.getBoundingClientRect();return {innerWidth,docWidth:document.documentElement.scrollWidth,scrollX,mainLeft:r.left,mainRight:r.right,mainWidth:r.width,dir:document.documentElement.dir,clientWidth:document.documentElement.clientWidth}})()");
+ console.log('REF PAGE BOUNDS '+JSON.stringify(pageBounds));
+ assert('Official reference viewport layout is within visible bounds',pageBounds.mainLeft>=0&&pageBounds.mainRight<=pageBounds.innerWidth&&pageBounds.docWidth<=pageBounds.innerWidth,pageBounds);
+ if(scenario!=='baseline'){
+   await js("(()=>{document.querySelector('#btn-primary').textContent='Continue';})()");
+   const mode=await js("({theme:document.documentElement.dataset.officialTheme,dir:document.documentElement.dir,normalized:document.documentElement.dataset.normalizedFixture})");
+   assert('Reference scenario uses real theme and direction',mode.theme===(scenario.startsWith('dark')?'webDarkTheme':'webLightTheme')&&mode.dir===(scenario.endsWith('rtl')?'rtl':'ltr')&&mode.normalized==='true',mode);
+ }
  const measurement=await js(`(()=>{
  const ids=['btn-neutral','btn-primary','btn-outline','btn-subtle','btn-transparent','btn-disabled','btn-toggle','btn-toggle-on','btn-compound','btn-menu','ref-slider','ref-slider-step'];
  return ids.map(id=>{const e=document.getElementById(id),r=e.getBoundingClientRect(),s=getComputedStyle(e);
@@ -65,20 +75,20 @@ try{
  assert('Official step slider responds to ArrowRight in actual Chromium',String(before)!==String(after),{before,after});
  // Capture the actual keyboard focus state separately from the rest-state baseline.
  const focusedImage=output.slice(0,-4)+'-KEYBOARD-FOCUS.png';
- const focusCapture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,fromSurface:true});
+ const focusCapture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true});
  await mkdir(resolve(output,'..'),{recursive:true});
  await writeFile(focusedImage,Buffer.from(focusCapture.data,'base64'));
  // Return fixture state to initial selection before screenshot.
  await js("(()=>{document.getElementById('btn-toggle').pressed=false;document.getElementById('ref-slider-step').value='40';document.activeElement?.blur();})()");
  await wait(500);
- const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,fromSurface:true});
+ const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true});
  await mkdir(resolve(output,'..'),{recursive:true});
  await writeFile(output,Buffer.from(capture.data,'base64'));
  const evidence={auditIssue:552,officialPackage:'@fluentui/web-components',packageVersion:'3.1.3',
- browserName:/msedge/i.test(browserExe)?'Edge':'Chrome',fixture:'scripts/quality/fixtures/fluent-wc-3.1.3-reference.html',
+ browserName:/msedge/i.test(browserExe)?'Edge':'Chrome',scenario,pageBounds,fixture:'scripts/quality/fixtures/fluent-wc-3.1.3-reference.html',
  outputImage:output.split(/[\\/]/).slice(-1)[0],focusedImage:focusedImage.split(/[\\/]/).slice(-1)[0],viewport:{width:1240,height:1140,deviceScaleFactor:1},
  inspectedAt:new Date().toISOString(),status:'official_baseline_only_no_bluent_parity',
- note:'Official pinned package sample measured in Chromium; not paired with Bluent screenshot or native OS AT.',
+ note:scenario==='baseline'?'Official pinned package sample measured in Chromium; not paired with Bluent screenshot or native OS AT.':'Mode-specific real official WC theme and direction; primary Button width is normalized to 96px and text Continue. Slider 260px; independent layout remains unpaired. No native OS AT.',
  assertions:audit,geometry:measurement};
  console.log('REF SUMMARY '+JSON.stringify({checks:audit.length,png:output,buttons:measurement.filter(x=>x.tag.includes('button')).length}));
  const jsonOut=output.replace(/\.png$/i,'.json');await writeFile(jsonOut,JSON.stringify(evidence,null,2)+'\n');
@@ -87,7 +97,7 @@ finally{
  try{socket?.close();}catch{}
  if(server&&!server.killed)server.kill();
  if(browser&&!browser.killed){
-  try{spawn('taskkill',['/PID',String(browser.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});}catch{}
+  try{const killer=spawn('taskkill',['/PID',String(browser.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});await new Promise(res=>killer.once('close',res));}catch{}
   browser.kill();
  }
  await wait(1000);
