@@ -17,6 +17,7 @@ on:
       - "scripts/quality/test_v3_fluent_wc_manifest.py"
       - "scripts/quality/test_v3_p0_visual_evidence.py"
       - "scripts/quality/test_v3_p0_normalized_visual.py"
+      - "scripts/quality/test_v3_p0_accessibility_modes.py"
       - "scripts/quality/audit_v3_parity_*.py"
       - "scripts/quality/test_v3_parity_*.py"
       - "scripts/quality/check_v3_p0_source_evidence.py"
@@ -63,5 +64,6 @@ jobs:
           python -m unittest discover -s scripts/quality -p "test_v3_fluent_wc_manifest.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_p0_visual_evidence.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_p0_normalized_visual.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_accessibility_modes.py" -v
       - name: Explicit acceptance disclaimer
         run: echo "PASS means source and stored browser evidence guards only; no live CI browser, no normalized Fluent parity, design approval, or native OS/AT verification."

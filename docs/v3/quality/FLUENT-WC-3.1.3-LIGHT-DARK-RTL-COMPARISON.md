@@ -65,3 +65,6 @@ No source/installer/product code changed. #552 remains **In progress**, #553 **D
 ## Native keyboard focus check on the Bluent Slider DOM
 
 In each Bluent Light/LTR and Dark/RTL run, the browser directly executed `element.focus()` on the actual `#lab-slider-int` component DOM, **without adding `tabindex` or mutating the component**. The result was `rootFocused=false`, `rootTabIndex=-1`, `thumbTabIndex=-1`, and no `role=slider` or thumb `aria-valuenow`. This is a **reproduced Chrome keyboard-focus absence**, not only a C# source inference, and warrants #442 remediation. The official 3.1.3 focused stepped-slider `ArrowRight` case already passed separately; neither run supplies native screen-reader OS/AT results.
+## Follow-up: Forced Colors and narrower reflow
+
+The [subsequent actual browser checkpoint](FLUENT-WC-3.1.3-FORCED-COLORS-REFLOW.md) reproduces an important **gradient-only rail disappears under CSS Forced Colors** issue for Slider #442 and RangeSlider #443, plus separate Button/Slider focus results. The 620 CSS-pixel / DPR2 mode is **not native browser zoom**, and real Slider responsive width is preserved. Full OS/AT and 200/400% native browser zoom remain future gates.

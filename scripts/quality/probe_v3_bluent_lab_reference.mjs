@@ -11,7 +11,7 @@ import {setTimeout as wait} from 'node:timers/promises';
 const sourceRoot=resolve(process.argv[2]||'C:/Projects/Bluent-issue421');
 const evidenceRoot=resolve(process.argv[3]||'docs/v3/quality/evidence');
 const scenario=process.argv[4]||'baseline';
-if(!['baseline','light-ltr','dark-rtl','dark-ltr'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
+if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
 const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
 const pending=new Map(),measurements=[],checks=[];let serial=0,host,browser,socket;
@@ -32,10 +32,17 @@ try{
  socket=new WebSocket(tab.webSocketDebuggerUrl);
  await new Promise((ok,no)=>{socket.addEventListener('open',ok,{once:true});socket.addEventListener('error',no,{once:true});});
  socket.addEventListener('message',e=>{const x=JSON.parse(e.data),q=pending.get(x.id);if(q){pending.delete(x.id);x.error?q.no(Error(JSON.stringify(x.error))):q.ok(x.result||{})}});
- await send('Page.enable');await send('Runtime.enable');await send('Emulation.setDeviceMetricsOverride',{width:1240,height:1140,deviceScaleFactor:1,mobile:false});
+ await send('Page.enable');await send('Runtime.enable');
+ const reflowProxy=scenario==='zoom-200';
+ const size=reflowProxy?{width:620,height:570,deviceScaleFactor:2,mobile:false}:{width:1240,height:1140,deviceScaleFactor:1,mobile:false};
+ await send('Emulation.setDeviceMetricsOverride',size);
+ if(scenario==='forced-colors')await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]});
  await send('Page.navigate',{url:url+'/component-lab'});
  await poll(()=>js("document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),45000);
  add('Live source Lab hydrated',true);
+ const accessibilityMode=await js("(()=>({forcedColors:matchMedia('(forced-colors: active)').matches,contrastMore:matchMedia('(prefers-contrast: more)').matches,viewportWidth:innerWidth,viewportHeight:innerHeight,dpr:devicePixelRatio,documentScrollWidth:document.documentElement.scrollWidth,visualViewportScale:visualViewport?.scale||null}))()");
+ if(scenario==='forced-colors')add('Real Chromium forced-colors emulation matched',accessibilityMode.forcedColors===true&&accessibilityMode.contrastMore===true,accessibilityMode);
+ if(scenario==='zoom-200')add('200 percent layout reflow proxy (not native browser zoom)',accessibilityMode.viewportWidth===620&&accessibilityMode.dpr===2,accessibilityMode);
  if(scenario!=='baseline'){
    const mode=await js(`(()=>{
      const root=document.documentElement;
@@ -59,18 +66,27 @@ try{
   const detail=await js(`(()=>{
    const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas');
    if('${scenario}'!=='baseline'){
-     if('${family}'==='Slider'||'${family}'==='RangeSlider')e.style.width='260px';
+     if('${scenario}'!=='zoom-200'&&('${family}'==='Slider'||'${family}'==='RangeSlider'))e.style.width='260px';
      if('${family}'==='Button')e.style.width='96px';
    }
    const r=e.getBoundingClientRect(),style=getComputedStyle(e);
    canvas?.scrollIntoView({block:'start'});
-   const c=canvas?.getBoundingClientRect(),thumbs=[...e.querySelectorAll('.thumb')];
+   const c=canvas?.getBoundingClientRect(),parent=e.parentElement?.getBoundingClientRect(),thumbs=[...e.querySelectorAll('.thumb')],rail=e.querySelector('.rail'),railStyle=rail?getComputedStyle(rail):null;
    return {family:'${family}',issue:${issue},elementTag:e.tagName,cls:e.className,role:e.getAttribute('role'),ariaValueNow:e.getAttribute('aria-valuenow'),
-     tabIndex:e.getAttribute('tabindex'),width:+r.width.toFixed(2),height:+r.height.toFixed(2),background:style.backgroundColor,borderRadius:style.borderRadius,
-     thumbCount:thumbs.length,thumbs:thumbs.map(x=>({role:x.getAttribute('role'),tabIndex:x.getAttribute('tabindex'),ariaValueNow:x.getAttribute('aria-valuenow')})),
+     tabIndex:e.getAttribute('tabindex'),width:+r.width.toFixed(2),height:+r.height.toFixed(2),left:+r.left.toFixed(2),right:+r.right.toFixed(2),parentRight:parent?+parent.right.toFixed(2):null,parentWidth:parent?+parent.width.toFixed(2):null,background:style.backgroundColor,borderRadius:style.borderRadius,
+     rail:railStyle?{backgroundImage:railStyle.backgroundImage,backgroundColor:railStyle.backgroundColor,width:+rail.getBoundingClientRect().width.toFixed(2),height:+rail.getBoundingClientRect().height.toFixed(2)}:null,thumbCount:thumbs.length,thumbs:thumbs.map(x=>({role:x.getAttribute('role'),tabIndex:x.getAttribute('tabindex'),ariaValueNow:x.getAttribute('aria-valuenow')})),
      canvas:{x:Math.max(0,c.left+scrollX),y:Math.max(0,c.top+scrollY),width:Math.max(1,Math.min(c.width,1080)),height:Math.max(1,Math.min(c.height,880))}};
    })()`);
   add(family+' actual Bluent specimen located',detail.width>0&&detail.height>0,detail);
+  if(scenario!=='baseline' && family==='Button'){
+    const probe=await js("(()=>{const e=document.querySelector('.lab-canvas .bui-button');e.focus();const computed=getComputedStyle(e);return {focused:document.activeElement===e,tabIndex:e.tabIndex,outlineStyle:computed.outlineStyle,outlineWidth:computed.outlineWidth,forcedColors:matchMedia('(forced-colors: active)').matches}})()");
+    detail.buttonFocusProbe=probe;
+    add('Native Bluent Button is focusable in actual Chromium',probe.focused===true&&probe.tabIndex===0,probe);
+  }
+  if(scenario==='forced-colors' && (family==='Slider'||family==='RangeSlider')){
+    const rail=detail.rail;
+    add('Known forced-colors gradient-only rail becomes unpainted (a gap, not parity)',rail?.backgroundImage==='none'&&(rail.backgroundColor==='rgba(0, 0, 0, 0)'||rail.backgroundColor==='transparent'),rail);
+  }
   if(scenario!=='baseline' && family==='Slider'){
     const probe=await js("(()=>{const e=document.getElementById('lab-slider-int');e.focus();const thumb=e.querySelector('.thumb');return {rootFocused:document.activeElement===e,rootTabIndex:e.tabIndex,rootRole:e.getAttribute('role'),thumbTabIndex:thumb?.tabIndex,thumbRole:thumb?.getAttribute('role'),thumbAriaValue:thumb?.getAttribute('aria-valuenow'),theme:document.documentElement.getAttribute('data-bui-theme'),direction:document.documentElement.dir}})()");
     detail.keyboardFocusProbe=probe;
@@ -83,7 +99,7 @@ try{
  }
  const evidence={auditIssue:552,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
  mode:'real Chrome Blazor WebAssembly Debug Lab',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
- viewport:{width:1240,height:1140,deviceScaleFactor:1},normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:260,rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
+ viewport:size,accessibilityMode,normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:scenario==='zoom-200'?'natural intrinsic responsive width':'forced 260px',rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:scenario==='zoom-200'?'620 CSSpx DPR2 reflow proxy with natural Slider width, no native browser zoom or parity':scenario==='forced-colors'?'Real Chromium forced-colors CSS emulation only, no native OS HC or parity':'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
  await writeFile(join(evidenceRoot,'BLUENT-LAB-P0'+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+'-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
  console.log('BLUENT SUMMARY '+JSON.stringify({checks:checks.length,screenshots:measurements.map(x=>x.image)}));
 }catch(e){console.error('BLUENT ERROR',e?.stack||String(e));process.exitCode=1;}
