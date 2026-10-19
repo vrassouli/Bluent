@@ -92,7 +92,7 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
         self.assertNotIn("forced-color-adjust: none",self.css)
 
     def test_shipped_component_css_and_source_scss_are_not_modified_by_candidate(self):
-        css=(ROOT/"src/Bluent.UI/wwwroot/bluent.ui.components.css").read_text(encoding="utf8")
+        css=(ROOT/"src/Bluent.UI/Styles/Components/components.css").read_text(encoding="utf8")
         self.assertIn(".bui-slider > .rail",css)
         self.assertNotIn("data-bui-v3-slider-hc-proposal",css)
         for family in ("slider","range-slider"):

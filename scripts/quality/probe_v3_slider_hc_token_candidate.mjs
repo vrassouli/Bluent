@@ -7,7 +7,7 @@ import {tmpdir} from "node:os";
 import {pathToFileURL} from "node:url";
 import {setTimeout as delay} from "node:timers/promises";
 const root=resolve(import.meta.dirname,"../..");
-const css=await readFile(join(root,"src/Bluent.UI/wwwroot/bluent.ui.components.css"),"utf8");
+const css=await readFile(join(root,"src/Bluent.UI/Styles/Components/components.css"),"utf8");
 const candidate=await readFile(join(root,"docs/v3/tokens/issue-418-slider-forced-colors.opt-in.preview.css"),"utf8");
 const brandNames=["default","excel","office","outlook","powerapps","powerbi","powerpoint","stream","teams","word"];
 const browserExe=process.env.CHROME_PATH||"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
