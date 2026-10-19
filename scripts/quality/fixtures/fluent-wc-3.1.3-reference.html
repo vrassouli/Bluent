@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluent WC 3.1.3 · #552 P0 pinned visual fixture</title>
+<style>
+  html {background:#f5f7fa;font-family: "Segoe UI",Arial,sans-serif;color:#202020}
+  body {margin:0;padding:40px;}
+  main {max-width:1040px;margin:0 auto}
+  h1 {font-size:26px;margin:0 0 8px}
+  p.note {font-size:13px;color:#555;line-height:1.55;margin:0 0 24px}
+  section {background:white;border:1px solid #dedede;border-radius:12px;padding:22px 24px;margin:0 0 20px}
+  h2 {font-size:17px;margin:0 0 16px}
+  .stack {display:flex;flex-wrap:wrap;align-items:center;gap:16px 18px}
+  .stacks {display:grid;grid-template-columns: 1fr 1fr;gap:18px}
+  .caption {font-size:12px;color:#555;margin:7px 0 0}
+  .preview {min-width:160px;display:flex;flex-direction:column;gap:8px}
+  fluent-slider {width:260px}
+  @media(max-width:650px){body{padding:12px}.stacks{grid-template-columns:1fr}fluent-slider{max-width:100%;width:240px}}
+</style>
+<script type="module" src="./entry.js"></script>
+</head>
+<body>
+<main id="reference" data-reference="@fluentui/web-components@3.1.3">
+<h1>Fluent Web Components 3.1.3</h1>
+<p class="note">Official NPM package reference, fixed version · isolated QA fixture · visual/browser evidence only, not Bluent parity approval</p>
+<section id="button-variants"><h2>Button · appearances and states</h2>
+<div class="stack">
+<div class="preview"><fluent-button id="btn-neutral">Continue</fluent-button><span class="caption">Neutral</span></div>
+<div class="preview"><fluent-button id="btn-primary" appearance="primary">Save changes</fluent-button><span class="caption">Primary</span></div>
+<div class="preview"><fluent-button id="btn-outline" appearance="outline">Outline</fluent-button><span class="caption">Outline</span></div>
+<div class="preview"><fluent-button id="btn-subtle" appearance="subtle">Subtle</fluent-button><span class="caption">Subtle</span></div>
+<div class="preview"><fluent-button id="btn-transparent" appearance="transparent">Transparent</fluent-button><span class="caption">Transparent</span></div>
+<div class="preview"><fluent-button id="btn-disabled" disabled>Unavailable</fluent-button><span class="caption">Disabled</span></div>
+</div></section>
+<section id="button-types"><h2>Button · toggle, compound and menu</h2>
+<div class="stack">
+<div class="preview"><fluent-toggle-button id="btn-toggle">Pin selection</fluent-toggle-button><span class="caption">Toggle (pressed=false)</span></div>
+<div class="preview"><fluent-toggle-button id="btn-toggle-on" pressed>Pin selection</fluent-toggle-button><span class="caption">Toggle (pressed=true)</span></div>
+<div class="preview"><fluent-compound-button id="btn-compound" appearance="primary">Notifications<span slot="description">Recent activity</span></fluent-compound-button><span class="caption">Compound</span></div>
+<div class="preview"><fluent-menu-button id="btn-menu">More actions</fluent-menu-button><span class="caption">Menu Button</span></div>
+</div></section>
+<section id="slider-reference"><h2>Slider · continuous and stepped</h2>
+<div class="stacks">
+<div><label for="ref-slider">Volume · 40%</label><div style="margin:16px 0"><fluent-slider id="ref-slider" min="0" max="100" value="40" aria-label="Volume"></fluent-slider></div><span class="caption">Continuous · 0..100</span></div>
+<div><label for="ref-slider-step">Brightness · step 10</label><div style="margin:16px 0"><fluent-slider id="ref-slider-step" min="0" max="100" step="10" value="40" aria-label="Brightness"></fluent-slider></div><span class="caption">Step=10 · 0..100</span></div>
+</div></section>
+</main></body></html>

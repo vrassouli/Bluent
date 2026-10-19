@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+// #552 actual Bluent #421 Lab screenshot/measured-geometry comparison companion.
+// Usage: node scripts/quality/probe_v3_bluent_lab_reference.mjs C:/Projects/Bluent-issue421
+// Captures real source under a disposable host and isolated Chromium, not final parity.
+import {spawn} from 'node:child_process';
+import {mkdtemp,readFile,writeFile,mkdir,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {resolve,join} from 'node:path';
+import {createServer} from 'node:net';
+import {setTimeout as wait} from 'node:timers/promises';
+const sourceRoot=resolve(process.argv[2]||'C:/Projects/Bluent-issue421');
+const evidenceRoot=resolve(process.argv[3]||'docs/v3/quality/evidence');
+const chrome=process.env.CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const profile=await mkdtemp(join(tmpdir(),'bluent552-lab-comparison-'));
+const pending=new Map(),measurements=[],checks=[];let serial=0,host,browser,socket;
+const poll=async(fn,ms=70000)=>{const end=Date.now()+ms;while(Date.now()<end){try{const v=await fn();if(v)return v;}catch{}await wait(250);}throw Error('Timed out waiting for live Blazor Lab');};
+const port=()=>new Promise((ok,no)=>{const s=createServer();s.on('error',no);s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>ok(p));});});
+const send=(method,params={})=>new Promise((ok,no)=>{const id=++serial,t=setTimeout(()=>{pending.delete(id);no(Error(method+' timed out'));},18000);pending.set(id,{ok:x=>{clearTimeout(t);ok(x)},no:e=>{clearTimeout(t);no(e)}});socket.send(JSON.stringify({id,method,params}));});
+const js=async expression=>{const r=await send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result?.value;};
+const add=(label,ok,details)=>{checks.push({label,pass:!!ok,details});console.log('BLUENT '+(ok?'PASS':'FAIL')+' '+label);if(!ok)throw Error(label+': '+JSON.stringify(details));};
+try{
+ const p=await port(),url='http://127.0.0.1:'+p;
+ const project=join(sourceRoot,'src/Bluent.UI.Demo/Bluent.UI.Demo.csproj');
+ host=spawn('dotnet',['run','--project',project,'-c','Debug','--no-build','--no-launch-profile','--urls',url],{cwd:sourceRoot,stdio:'ignore',windowsHide:true});
+ await poll(async()=>{const r=await fetch(url+'/component-lab');return r.status===200;},70000);
+ browser=spawn(chrome,['--headless=new','--no-sandbox','--disable-gpu','--no-first-run','--disable-extensions','--remote-debugging-port=0','--remote-allow-origins=*','--user-data-dir='+profile,'about:blank'],{stdio:'ignore',windowsHide:true});
+ const bp=await poll(async()=>+(await readFile(join(profile,'DevToolsActivePort'),'utf8')).trim().split(/\r?\n/)[0],35000);
+ const tabs=await(await fetch('http://127.0.0.1:'+bp+'/json/list')).json(),tab=tabs.find(t=>t.type==='page'&&t.webSocketDebuggerUrl);
+ if(!tab)throw Error('No disposable CDP Chrome page');
+ socket=new WebSocket(tab.webSocketDebuggerUrl);
+ await new Promise((ok,no)=>{socket.addEventListener('open',ok,{once:true});socket.addEventListener('error',no,{once:true});});
+ socket.addEventListener('message',e=>{const x=JSON.parse(e.data),q=pending.get(x.id);if(q){pending.delete(x.id);x.error?q.no(Error(JSON.stringify(x.error))):q.ok(x.result||{})}});
+ await send('Page.enable');await send('Runtime.enable');await send('Emulation.setDeviceMetricsOverride',{width:1240,height:1140,deviceScaleFactor:1,mobile:false});
+ await send('Page.navigate',{url:url+'/component-lab'});
+ await poll(()=>js("document.querySelector('main.component-lab')?.getAttribute('data-lab-interactive')==='true'"),45000);
+ add('Live source Lab hydrated',true);
+ await mkdir(evidenceRoot,{recursive:true});
+ for(const [family,issue,selector] of [
+  ['Button',428,'.lab-canvas .bui-button'],
+  ['Slider',442,'#lab-slider-int'],
+  ['RangeSlider',443,'#lab-range-int'],
+  ['FileSelect',444,'#lab-file-multi']
+ ]){
+  await js(`(()=>{const el=document.getElementById('lab-queue-search');if(!el)throw Error('Missing Lab queue search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'${issue}');el.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),15000);
+  await js("document.querySelector('.lab-queue-row button').click()");
+  await poll(()=>js("!!document.querySelector("+JSON.stringify(selector)+")"),16000);
+  const detail=await js(`(()=>{
+   const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas'),r=e.getBoundingClientRect(),style=getComputedStyle(e);
+   canvas?.scrollIntoView({block:'start'});
+   const c=canvas?.getBoundingClientRect(),thumbs=[...e.querySelectorAll('.thumb')];
+   return {family:'${family}',issue:${issue},elementTag:e.tagName,cls:e.className,role:e.getAttribute('role'),ariaValueNow:e.getAttribute('aria-valuenow'),
+     tabIndex:e.getAttribute('tabindex'),width:+r.width.toFixed(2),height:+r.height.toFixed(2),background:style.backgroundColor,borderRadius:style.borderRadius,
+     thumbCount:thumbs.length,thumbs:thumbs.map(x=>({role:x.getAttribute('role'),tabIndex:x.getAttribute('tabindex'),ariaValueNow:x.getAttribute('aria-valuenow')})),
+     canvas:{x:Math.max(0,c.left+scrollX),y:Math.max(0,c.top+scrollY),width:Math.max(1,Math.min(c.width,1080)),height:Math.max(1,Math.min(c.height,880))}};
+   })()`);
+  add(family+' actual Bluent specimen located',detail.width>0&&detail.height>0,detail);
+  const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:detail.canvas.x,y:detail.canvas.y,width:detail.canvas.width,height:detail.canvas.height,scale:1}});
+  const img='BLUENT-LAB-'+family.toUpperCase()+'-CHROME.png';
+  await writeFile(join(evidenceRoot,img),Buffer.from(capture.data,'base64'));
+  detail.image=img;measurements.push(detail);
+ }
+ const evidence={auditIssue:552,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
+ mode:'real Chrome Blazor WebAssembly Debug Lab',status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
+ viewport:{width:1240,height:1140,deviceScaleFactor:1},generatedAt:new Date().toISOString(),checks,measurements};
+ await writeFile(join(evidenceRoot,'BLUENT-LAB-P0-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
+ console.log('BLUENT SUMMARY '+JSON.stringify({checks:checks.length,screenshots:measurements.map(x=>x.image)}));
+}catch(e){console.error('BLUENT ERROR',e?.stack||String(e));process.exitCode=1;}
+finally{
+ try{socket?.close()}catch{}
+ if(host&&!host.killed){try{const k=spawn('taskkill',['/PID',String(host.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});await new Promise(ok=>k.once('close',ok));}catch{}host.kill();}
+ if(browser&&!browser.killed){try{const k=spawn('taskkill',['/PID',String(browser.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});await new Promise(ok=>k.once('close',ok));}catch{}browser.kill();}
+ await wait(900);
+ try{await rm(profile,{recursive:true,force:true,maxRetries:12,retryDelay:250});}catch(e){console.error('Owned Chrome profile cleanup failed: '+e.message);process.exitCode=1;}
+}

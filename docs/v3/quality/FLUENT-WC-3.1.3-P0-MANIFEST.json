@@ -1,0 +1,184 @@
+{
+  "auditIssue": 552,
+  "package": "@fluentui/web-components",
+  "version": "3.1.3",
+  "integrity": "sha512-1jl4CHoFFSfevkr8l7F+dKNJzyMWBZqwQfB/khNZtwyY0rv87799mpDWSVu0QeiZAFEbqCtnAOnXWsxJ/kek+Q==",
+  "manifestSource": "npm tarball root custom-elements.json",
+  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "status": "pinned_release_manifest_only",
+  "limitations": "No API equivalence inferred from matching names; absence of a tag in THIS release does not prove nonexistence in all Fluent libraries. No behavior/screenshots/OS AT.",
+  "actualTagCount": 42,
+  "observations": [
+    {
+      "tag": "fluent-button",
+      "productIssue": 428,
+      "manifestStatus": "published_custom_element",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "name",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "events": [],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-toggle-button",
+      "productIssue": 428,
+      "manifestStatus": "published_custom_element",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "mixed",
+        "name",
+        "pressed",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "events": [],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-compound-button",
+      "productIssue": 428,
+      "manifestStatus": "published_custom_element",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "name",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "slots": [
+        "",
+        "description",
+        "end",
+        "start"
+      ],
+      "events": [],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-menu-button",
+      "productIssue": 428,
+      "manifestStatus": "published_custom_element",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "name",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "events": [],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-slider",
+      "productIssue": 442,
+      "manifestStatus": "published_custom_element",
+      "attributes": [
+        "disabled",
+        "max",
+        "min",
+        "mode",
+        "orientation",
+        "size",
+        "step",
+        "value"
+      ],
+      "slots": [
+        "thumb"
+      ],
+      "events": [
+        "change"
+      ],
+      "cssParts": [
+        "thumb-container",
+        "track-container"
+      ]
+    },
+    {
+      "tag": "fluent-range-slider",
+      "productIssue": 443,
+      "manifestStatus": "not_in_this_release_tag_catalog",
+      "attributes": [],
+      "slots": [],
+      "events": [],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-file-select",
+      "productIssue": 444,
+      "manifestStatus": "not_in_this_release_tag_catalog",
+      "attributes": [],
+      "slots": [],
+      "events": [],
+      "cssParts": []
+    }
+  ],
+  "parityAccepted": false
+}

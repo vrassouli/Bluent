@@ -21,3 +21,6 @@ Both `Slider.razor.cs` and `RangeSlider.razor.cs` call `CalculateValueFromPoint(
 - Test W3C multi-thumb touch assistive technology on actual supported devices; W3C specifically cautions about touch/AT gesture support.
 
 No component was moved to Review/Done. No public v3 component implementation or stable v2 release changed.
+## Subsequent pinned published package baseline — 2026-10-19
+
+The **published NPM** `@fluentui/web-components@3.1.3` tarball is now version/integrity-pinned separately from the moving Storybook URL; see [manifest feature crosswalk](FLUENT-WC-3.1.3-P0-CROSSWALK.md) and [actual Chrome WC-vs-Bluent screenshots/measurements](FLUENT-WC-3.1.3-VISUAL-BASELINE.md). This supersedes the initial *unverified package version* wording above **for the NPM v3.1.3 CEM only**. Current 3.1.3 defines Fluent ToggleButton and Slider with `step`/`orientation`; it does **not** declare `fluent-range-slider` or `fluent-file-select` tags. Older Microsoft Learn pages show a different initialization generation, so no API equivalence is inferred from those pages. Original Storybook build revision, normalized visual parity and OS/AT remain unverified.

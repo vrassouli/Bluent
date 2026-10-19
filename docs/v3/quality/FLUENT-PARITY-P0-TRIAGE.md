@@ -2,7 +2,7 @@
 
 > **Source baseline:** `2c37dbef516230606306549458721d6bda03a8ab` (`bluent-v3`), inspected 2026-10-19. **Four source observations; zero completed cross-platform parity audits.** Epic #416. No product source files are changed by this task.
 
-This is a source-backed supplement to the **existing 18-family, nine-dimension [#421 retrospective matrix](https://github.com/vrassouli/Bluent/blob/v3/issue-421-component-lab/docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.json)** already in draft PR #551. Do not duplicate/overwrite that matrix or conflate its pilot checks with parity signoff. New Lab family pilots remain paused by the P0 debt-first decision in #552. Treat upstream Storybook content as a dated live reference: package version is **not yet frozen**, so there is no exact-version parity verdict.
+This is a source-backed supplement to the **existing 18-family, nine-dimension [#421 retrospective matrix](https://github.com/vrassouli/Bluent/blob/v3/issue-421-component-lab/docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.json)** already in draft PR #551. Do not duplicate/overwrite that matrix or conflate its pilot checks with parity signoff. New Lab family pilots remain paused by the P0 debt-first decision in #552. Treat the live Storybook build as a separately unpinned moving reference. An exact **Fluent Web Components 3.1.3** NPM-manifest source baseline and [initial real paired screenshots](FLUENT-WC-3.1.3-VISUAL-BASELINE.md) were subsequently captured; this does **not** constitute a finished parity verdict.
 
 ## Editable decision artifact (not component approval)
 
