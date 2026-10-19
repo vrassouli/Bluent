@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "epicIssue": 416,
+  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "date": "2026-10-19",
+  "scope": "P0 source-only triage supplement to the 18-family retrospective matrix on draft #421; no Fluent visual/behavior/AT acceptance",
+  "matrixSource": "https://github.com/vrassouli/Bluent/blob/v3/issue-421-component-lab/docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.json",
+  "figma": {
+    "fileKey": "JfxkDgSbNr8W0ppUZPQPHc",
+    "pageId": "14:2",
+    "boardId": "57:2",
+    "url": "https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=57-2",
+    "artifactType": "audit decision map, NOT approved component design",
+    "approved": false
+  },
+  "upstreamReferenceDate": "2026-10-19",
+  "upstreamPackageVersion": "not_pinned",
+  "allFluentParityReviewed": false,
+  "items": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "status": "source_observed",
+      "upstreamReference": "https://storybooks.fluentui.dev/web-components/?path=/docs/components-button-button--docs",
+      "designGuidance": "https://fluent2.microsoft.design/components/web/react/core/button/usage/",
+      "referenceClassification": "Web Components Button exists; React guideline supplemental",
+      "risk": "toggle_state_not_exposed_as_aria_pressed",
+      "sources": [
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "anchors": [
+            "__builder.OpenElement(0, GetButtonTag());",
+            "__builder.AddMultipleAttributes(3, AdditionalAttributes);"
+          ]
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "anchors": [
+            "[Parameter] public bool? Toggled { get; set; }",
+            "if (Toggled != null)",
+            "InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));"
+          ]
+        }
+      ],
+      "verification": "source inspection only; runtime toggle, custom AdditionalAttributes and icon/text visual alignment not tested"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "status": "source_observed",
+      "upstreamReference": "https://fluent2.microsoft.design/components/web/react/core/slider/usage",
+      "designGuidance": "https://fluent2.microsoft.design/components/web/react/core/slider/usage",
+      "referenceClassification": "Fluent guidance confirmed; Web Components Storybook exact page to be verified",
+      "risk": "screen_coordinates_used_for_viewport_geometry",
+      "sources": [
+        {
+          "path": "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+          "anchors": [
+            "@onpointerdown=\"OnPointerDown\"",
+            "<div class=\"thumb\"></div>"
+          ]
+        },
+        {
+          "path": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+          "anchors": [
+            "CalculateValueFromPoint(args.ScreenX, args.ScreenY)",
+            "var relativeX = screenX - start;"
+          ]
+        }
+      ],
+      "verification": "browser scroll/zoom/RTL and published InteractiveServer pointer binding not retested"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "status": "source_observed",
+      "upstreamReference": "https://fluent2.microsoft.design/components/web/react/core/slider/usage",
+      "designGuidance": "https://fluent2.microsoft.design/components/web/react/core/slider/usage",
+      "referenceClassification": "Single-value Slider guidance only; dual-thumb counterpart NOT verified",
+      "risk": "two_thumb_screen_coordinates_and_keyboard_semantics_unverified",
+      "sources": [
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+          "anchors": [
+            "@onpointerdown=\"OnPointerDown\"",
+            "<div class=\"thumb min-thumb\"></div>",
+            "<div class=\"thumb max-thumb\"></div>"
+          ]
+        },
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+          "anchors": [
+            "CalculateValueFromPoint(args.ScreenX, args.ScreenY)",
+            "var relativeX = screenX - start;"
+          ]
+        }
+      ],
+      "verification": "two-thumb interaction, ordering, screen-reader role, keyboard and Server mode still pending"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "status": "source_observed",
+      "upstreamReference": null,
+      "designGuidance": "https://fluent2.microsoft.design/components/web/react/core/button/usage/",
+      "referenceClassification": "No comparable upload family confirmed in the inspected WC/React catalog; native Blazor InputFile and Bluent extension require separate design review",
+      "risk": "icon_only_delete_without_name_and_maxfiles_capacity_mismatch",
+      "sources": [
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "anchors": [
+            "<InputFile @ref=\"_filePicker\"",
+            "<Button Icon=\"@FluentIcons.Delete\"",
+            "OnClick=\"()=>HandleFileRemove(file)\""
+          ]
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+          "anchors": [
+            "[Parameter] public int MaxFiles { get; set; } = 1;",
+            "private bool Multiple => MaxFiles > 1;",
+            "_files.Add(file);"
+          ]
+        }
+      ],
+      "verification": "MaxFiles enforcement, Accept/security validation, nested cards spacing and keyboard naming require runtime review"
+    }
+  ],
+  "runtimeBrowserChecks": 0,
+  "nativeAssistiveTechnologyChecks": 0,
+  "approvedComponentDesigns": 0
+}
