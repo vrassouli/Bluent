@@ -26,7 +26,19 @@ const role=(family,scope,dir)=>{
  const contents=scope==="nested"?'<div data-bui-v3-slider-hc-proposal>'+body+'</div>':body;
  return '<section class="tile" data-bui-v3-tokens '+attrs+' data-family="'+family+'" data-scope="'+scope+'" dir="'+dir+'" style="padding:12px;border:1px solid ButtonText">'+family+' '+scope+' '+dir+contents+'</section>';
 };
-const inspect="(()=>[...document.querySelectorAll('.tile')].map(t=>{const e=t.querySelector('.bui-slider,.bui-range-slider'),r=e.querySelector('.rail'),x=getComputedStyle(r),y=getComputedStyle(r,'::after'),z=r.getBoundingClientRect(),h=e.querySelector('.thumb').getBoundingClientRect();return {family:t.dataset.family,scope:t.dataset.scope,dir:t.dir,forced:matchMedia('(forced-colors: active)').matches,width:z.width,height:z.height,color:x.backgroundColor,gradient:x.backgroundImage,progressColor:y.backgroundColor,progressContent:y.content,progressLeft:y.left,progressWidth:y.width,thumbCenter:h.left+h.width/2-z.left,legacyBrand:getComputedStyle(e).getPropertyValue('--colorBrandBackground').trim()}}))()";
+function contrastRGB(a,b){
+ const lum=s=>{
+  const parts=String(s).match(/\d+(?:\.\d+)?/g);
+  if(!parts||parts.length<3)return null;
+  const v=parts.slice(0,3).map(Number).map(n=>{
+   const c=n/255;return c<=.04045?c/12.92:((c+.055)/1.055)**2.4;
+  });
+  return v[0]*.2126+v[1]*.7152+v[2]*.0722;
+ };
+ const x=lum(a),y=lum(b);
+ return x===null||y===null?0:(Math.max(x,y)+.05)/(Math.min(x,y)+.05);
+}
+const inspect="(()=>[...document.querySelectorAll('.tile')].map(t=>{const e=t.querySelector('.bui-slider,.bui-range-slider'),r=e.querySelector('.rail'),x=getComputedStyle(r),y=getComputedStyle(r,'::after'),z=r.getBoundingClientRect(),h=e.querySelector('.thumb').getBoundingClientRect();return {family:t.dataset.family,scope:t.dataset.scope,dir:t.dir,forced:matchMedia('(forced-colors: active)').matches,width:z.width,height:z.height,color:x.backgroundColor,gradient:x.backgroundImage,progressColor:y.backgroundColor,progressContent:y.content,progressLeft:y.left,progressWidth:y.width,progressBorderColor:y.borderTopColor,progressBorderWidth:y.borderTopWidth,thumbCenter:h.left+h.width/2-z.left,legacyBrand:getComputedStyle(e).getPropertyValue('--colorBrandBackground').trim()}}))()";
 async function cleanup(){
  if(process.platform!=="win32"){browser?.kill();return "remaining=0 (non-Windows)";}
  const cmd="$p=$env:BLUENT_418_HC_DIR; if(-not $p -or -not $p.Contains('bluent-v3-418-slider-hc-')){throw 'unsafe'};"+
@@ -75,7 +87,10 @@ try{
    requireValue(id+" explicit opt-in",f.gradient==="none"&&(opted?f.color!=="rgba(0, 0, 0, 0)":f.color==="rgba(0, 0, 0, 0)"),f);
    if(opted){
     requireValue(id+" system-highlight paint",f.progressContent!=="none"&&f.progressColor!=="rgba(0, 0, 0, 0)",f);
-    requireValue(id+" physical RTL/LTR thumb alignment",Math.abs(parseFloat(f.progressLeft)-expectedLeft)<1&&Math.abs(parseFloat(f.progressWidth)-expectedWidth)<1&&Math.abs(f.thumbCenter-(f.family==="slider"?105:60))<1,f);
+    requireValue(id+" system-color 1px boundary",f.progressBorderWidth==="1px"&&contrastRGB(f.color,f.progressBorderColor)>=3,
+      {rail:f.color,border:f.progressBorderColor,contrast:contrastRGB(f.color,f.progressBorderColor)});
+    requireValue(id+" boundary against selected highlight",contrastRGB(f.progressColor,f.progressBorderColor)>=3,
+      {progress:f.progressColor,border:f.progressBorderColor,contrast:contrastRGB(f.progressColor,f.progressBorderColor)});    requireValue(id+" physical RTL/LTR thumb alignment",Math.abs(parseFloat(f.progressLeft)-expectedLeft)<1&&Math.abs(parseFloat(f.progressWidth)-expectedWidth)<1&&Math.abs(f.thumbCenter-(f.family==="slider"?105:60))<1,f);
    }
    results.push({brand,mode,forced:f,normal:n});
   }
@@ -94,7 +109,7 @@ finally{
  try{clean=await cleanup()}catch(e){errors.push({cleanup:String(e)});browser?.kill()}
  try{await rm(work,{recursive:true,force:true,maxRetries:10,retryDelay:280})}catch(e){errors.push({temporaryFiles:String(e)})}
 }
-const report={issue:418,related:[442,443,552],browser:browserName,brands:10,modes:2,tiles:results.length,checks:results.reduce((n,r)=>n+(r.forced.scope==="none"?5:7),0),failureCount:errors.length,errors,cleanup:clean,screenshots,scope:"ACTUAL compiled source CSS + generated 20 brand theme files; static markup and Chromium forced-colors emulator only; not product, native OS AT or approved RTL",records:results};
+const report={issue:418,related:[442,443,552],browser:browserName,brands:10,modes:2,tiles:results.length,checks:results.reduce((n,r)=>n+(r.forced.scope==="none"?5:9),0),failureCount:errors.length,errors,cleanup:clean,screenshots,scope:"ACTUAL compiled source CSS + generated 20 brand theme files; static markup and Chromium forced-colors emulator only; not product, native OS AT or approved RTL",records:results};
 const dest=join(root,"docs/v3/tokens/evidence");await mkdir(dest,{recursive:true});
 await writeFile(join(dest,"SLIDER-HC-"+browserName.toUpperCase()+"-MATRIX.json"),JSON.stringify(report,null,2)+"\n");
 console.log("HC SUMMARY "+JSON.stringify({browser:browserName,tiles:report.tiles,checks:report.checks,errors:errors.length,cleanup:clean,screenshots}));

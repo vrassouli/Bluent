@@ -29,7 +29,7 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
             self.assertEqual(10,mat["brands"])
             self.assertEqual(2,mat["modes"])
             self.assertEqual(240,mat["tiles"])
-            self.assertEqual(1520,mat["checks"])
+            self.assertEqual(1840,mat["checks"])
             self.assertEqual(0,mat["failureCount"])
             self.assertFalse(mat["errors"])
             tuples={(r["brand"],r["mode"],r["forced"]["dir"],
@@ -86,6 +86,8 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
         self.assertIn("[data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal]",self.css)
         self.assertIn("background-color: CanvasText",self.css)
         self.assertIn("background-color: Highlight",self.css)
+        self.assertIn("border: 1px solid Canvas",self.css)
+        self.assertIn("box-sizing: border-box",self.css)
         self.assertIn("left: var(--min-progress",self.css)
         self.assertIn("width: calc(var(--max-progress",self.css)
         self.assertNotIn("inset-inline-start",self.css)
@@ -111,6 +113,49 @@ class ForcedColorsSliderTokenCandidate(unittest.TestCase):
                 self.assertGreater(path.stat().st_size,5000)
                 self.assertEqual(bytes([137,80,78,71,13,10,26,10]),path.read_bytes()[:8])
 
+    def test_real_forced_color_segment_boundary_has_at_least_three_to_one_contrast(self):
+        # Numeric check on computed REAL Chrome and Edge forced-color paint values.
+        # Original CanvasText white/Highlight cyan alone was only ~1.46:1.
+        import re
+
+        def luminance(value):
+            parts = [int(x) for x in re.findall(r"\d+", value)[:3]]
+            self.assertEqual(3, len(parts), value)
+            channels = [v / 255 for v in parts]
+            linear = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+                      for c in channels]
+            return sum(a * b for a, b in zip(linear, (0.2126, 0.7152, 0.0722)))
+
+        def contrast(a, b):
+            x, y = luminance(a), luminance(b)
+            return (max(x, y) + 0.05) / (min(x, y) + 0.05)
+
+        checked = 0
+        for mat in self.matrices.values():
+            for entry in mat["records"]:
+                f = entry["forced"]
+                if f["scope"] == "none":
+                    continue
+                self.assertEqual("1px", f["progressBorderWidth"])
+                self.assertGreaterEqual(
+                    contrast(f["color"], f["progressBorderColor"]), 3,
+                    (mat["browser"], entry["brand"], entry["mode"], "boundary-to-rail"))
+                self.assertGreaterEqual(
+                    contrast(f["progressColor"], f["progressBorderColor"]), 3,
+                    (mat["browser"], entry["brand"], entry["mode"], "boundary-to-highlight"))
+                checked += 1
+        self.assertEqual(320, checked)
+
+        source = self.matrices["CHROME"]["records"]
+        reference = next(r["forced"] for r in source if r["brand"] == "default" and
+                         r["mode"] == "light" and r["forced"]["family"] == "slider" and
+                         r["forced"]["scope"] == "direct" and r["forced"]["dir"] == "ltr")
+        self.assertAlmostEqual(1.46125,
+            contrast(reference["color"], reference["progressColor"]), delta=0.01)
+        self.assertGreaterEqual(
+            contrast(reference["color"], reference["progressBorderColor"]), 20)
+        self.assertGreaterEqual(
+            contrast(reference["progressColor"], reference["progressBorderColor"]), 10)
     def test_no_invented_visual_or_native_at_approval(self):
         for mat in self.matrices.values():
             self.assertIn("static markup",mat["scope"])

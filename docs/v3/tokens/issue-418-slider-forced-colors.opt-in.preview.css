@@ -22,6 +22,11 @@
     bottom: 0;
     background-image: none;
     background-color: Highlight;
+    /* In Chromium HC, CanvasText white vs Highlight cyan is only 1.46:1.
+       A 1px system Canvas edge demarcates progress from both paints.
+       This is a research fix, NOT native Windows HC/AT approval. */
+    box-sizing: border-box;
+    border: 1px solid Canvas;
     pointer-events: none;
   }
   [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-slider > .rail::after,
