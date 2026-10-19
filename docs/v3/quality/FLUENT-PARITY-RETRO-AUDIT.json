@@ -1,0 +1,692 @@
+{
+  "schemaVersion": 1,
+  "epicIssue": 416,
+  "labIssue": 421,
+  "auditIssue": 552,
+  "qualityIssue": 425,
+  "scope": "retrospective parity plan for existing 18 current-API lab pilots; no actual Fluent parity audit completed",
+  "baselineDate": "2026-10-19",
+  "branch": "v3/issue-421-component-lab",
+  "plannedFamilyCount": 18,
+  "auditComplete": false,
+  "noneApproved": true,
+  "rules": {
+    "upstreamReferenceOrder": [
+      "Fluent2 design and tokens",
+      "Fluent Web Components Storybook if matching",
+      "Fluent React v9 explicitly labeled fallback",
+      "Bluent current public API and documented extensions"
+    ],
+    "allowedAuditStatuses": [
+      "not_reviewed",
+      "researching",
+      "audited_gaps",
+      "design_reviewed",
+      "verification_in_progress",
+      "verified"
+    ],
+    "reviewerApprovedRequired": true,
+    "nativeOSAssistiveTechnologyCannotBeInferredFromCDP": true,
+    "separatePilotAndFluentParity": true,
+    "changesOnlyTo": "bluent-v3",
+    "stable2xProtected": true
+  },
+  "waves": [
+    {
+      "name": "A",
+      "families": [
+        "Button",
+        "Icon",
+        "Label",
+        "Link",
+        "Badge"
+      ],
+      "count": 5
+    },
+    {
+      "name": "B",
+      "families": [
+        "TextField",
+        "NumericField",
+        "Checkbox",
+        "Switch",
+        "RadioGroup",
+        "SelectField"
+      ],
+      "count": 6
+    },
+    {
+      "name": "C",
+      "families": [
+        "DateField",
+        "TimeField",
+        "MaskedField",
+        "OtpField"
+      ],
+      "count": 4
+    },
+    {
+      "name": "D",
+      "families": [
+        "Slider",
+        "RangeSlider",
+        "FileSelect"
+      ],
+      "count": 3
+    }
+  ],
+  "families": [
+    {
+      "family": "Button",
+      "labId": "button",
+      "productIssue": 428,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/428",
+      "wave": "A",
+      "priority": "P0",
+      "currentDemoRoute": "/components/buttons",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Focus style and text/icon alignment; user-approved brand focus ring retained for buttons. Inspect toggle/split/accessible semantics."
+    },
+    {
+      "family": "Icon",
+      "labId": "icon",
+      "productIssue": 429,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/429",
+      "wave": "A",
+      "priority": "P2",
+      "currentDemoRoute": "/components/icons",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Check Regular/Filled/Color independently; do not call upstream Color a current public Bluent variant."
+    },
+    {
+      "family": "Label",
+      "labId": "label",
+      "productIssue": 430,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/430",
+      "wave": "A",
+      "priority": "P2",
+      "currentDemoRoute": "/components/labels",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Required marks, Info, alignment, native for/focus association, accessible helper/validation copy."
+    },
+    {
+      "family": "Link",
+      "labId": "link",
+      "productIssue": 431,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/431",
+      "wave": "A",
+      "priority": "P2",
+      "currentDemoRoute": "/components/links",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Native hyperlink vs action semantics, keyboard and disabled/unsafe URL handling."
+    },
+    {
+      "family": "Badge",
+      "labId": "badge",
+      "productIssue": 445,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/445",
+      "wave": "A",
+      "priority": "P2",
+      "currentDemoRoute": "/components/badges",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Shape, Size, appearance, placement and contrast with Fluent reference."
+    },
+    {
+      "family": "TextField",
+      "labId": "textfield",
+      "productIssue": 432,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/432",
+      "wave": "B",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Existing preferred focus underline; no generic surrounding rectangular focus ring. Check validation/placeholder/multiline."
+    },
+    {
+      "family": "Checkbox",
+      "labId": "checkbox",
+      "productIssue": 434,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/434",
+      "wave": "B",
+      "priority": "P1",
+      "currentDemoRoute": "/components/checkboxes",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Indeterminate state, group semantics, disabled and focus."
+    },
+    {
+      "family": "Switch",
+      "labId": "switch",
+      "productIssue": 435,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/435",
+      "wave": "B",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Role=switch, label/order and keyboard/announced state."
+    },
+    {
+      "family": "NumericField",
+      "labId": "numeric",
+      "productIssue": 433,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/433",
+      "wave": "B",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Min/Max, culture, invalid and overflow, decimal values and keyboard handling."
+    },
+    {
+      "family": "RadioGroup",
+      "labId": "radio",
+      "productIssue": 436,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/436",
+      "wave": "B",
+      "priority": "P1",
+      "currentDemoRoute": "/components/radios",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Arrow-key roving focus, labeled radiogroup and disabled radios."
+    },
+    {
+      "family": "SelectField",
+      "labId": "selectfield",
+      "productIssue": 437,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/437",
+      "wave": "B",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Single vs multiple, keyboard select, options, focus and value binding."
+    },
+    {
+      "family": "DateField",
+      "labId": "datefield",
+      "productIssue": 438,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/438",
+      "wave": "C",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "DateOnly/DateTime, calendar interactions, localization and parsing."
+    },
+    {
+      "family": "TimeField",
+      "labId": "timefield",
+      "productIssue": 439,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/439",
+      "wave": "C",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "TimeOnly/TimeSpan/DateTime, seconds and culture."
+    },
+    {
+      "family": "MaskedField",
+      "labId": "masked",
+      "productIssue": 440,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/440",
+      "wave": "C",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Regex/normalization input rules, cursor and IME, document intentional Bluent extension."
+    },
+    {
+      "family": "OtpField",
+      "labId": "otp",
+      "productIssue": 441,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/441",
+      "wave": "C",
+      "priority": "P1",
+      "currentDemoRoute": "/components/fields",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Digit group a11y, paste, backspace, keyboard and AutoSubmit; likely custom pattern requiring explicit mapping."
+    },
+    {
+      "family": "Slider",
+      "labId": "slider",
+      "productIssue": 442,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/442",
+      "wave": "D",
+      "priority": "P0",
+      "currentDemoRoute": "/components/sliders",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Verified defect: ScreenX vs getBoundingClientRect viewport; pointer click no change in published InteractiveServer. #442."
+    },
+    {
+      "family": "RangeSlider",
+      "labId": "range",
+      "productIssue": 443,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/443",
+      "wave": "D",
+      "priority": "P0",
+      "currentDemoRoute": "/components/sliders",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "Two thumb geometry/order/crossing, pointer coordinate and Server interaction unverified; #443."
+    },
+    {
+      "family": "FileSelect",
+      "labId": "file",
+      "productIssue": 444,
+      "productIssueUrl": "https://github.com/vrassouli/Bluent/issues/444",
+      "wave": "D",
+      "priority": "P0",
+      "currentDemoRoute": "/components/file-selects",
+      "labRoute": "/component-lab",
+      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
+      "auditStatus": "not_reviewed",
+      "fluentReference": {
+        "designSystem": "https://fluent2.microsoft.design/",
+        "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
+        "reactFallback": "https://storybooks.fluentui.dev/react/",
+        "matchedUpstreamComponent": "unverified"
+      },
+      "dimensions": {
+        "visual": "not_reviewed",
+        "feature": "not_reviewed",
+        "behavior": "not_reviewed",
+        "accessibility": "not_reviewed",
+        "tokenTheme": "not_reviewed",
+        "responsiveRTL": "not_reviewed",
+        "BlazorExtensions": "not_reviewed",
+        "designArtifact": "not_reviewed",
+        "migrationDocs": "not_reviewed"
+      },
+      "designApproval": "pending",
+      "editableDesignLocation": null,
+      "evidenceBundle": null,
+      "gapDisposition": "untriaged",
+      "notesForReview": "MaxFiles is current API (legacy demo Multiple drift); accessible remove button; Accept not server validation; card gap restored in Lab."
+    }
+  ]
+}

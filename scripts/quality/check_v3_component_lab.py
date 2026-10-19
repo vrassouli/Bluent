@@ -827,6 +827,60 @@ def check() -> int:
     assert 'Class="lab-color-preview-icon" aria-hidden="true"' in source
     assert 'Class="lab-color-preview-monochrome" aria-hidden="true"' in source
     assert "browser-lab-pilot:" in flow and "mode: [WebAssembly, Server]" in flow
+    # #552: Retrospective parity planning is NOT the current API browser smoke.
+    # Anchor these 18 historical pilots in the exact canonical issue/source map.
+    # A future "verified" claim must carry real reviewed evidence and design approval.
+    retro_path = ROOT / "docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.json"
+    retro_doc = ROOT / "docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.md"
+    retro = json.loads(retro_path.read_text(encoding="utf-8"))
+    assert retro["schemaVersion"] == 1 and retro["auditIssue"] == 552
+    assert retro["epicIssue"] == 416 and retro["labIssue"] == 421
+    assert retro["plannedFamilyCount"] == 18 and len(retro["families"]) == 18
+    original = data["families"][:18]
+    assert [x["family"] for x in retro["families"]] == [x["family"] for x in original]
+    live_queue = json.loads(QUEUE.read_text(encoding="utf-8"))["families"]
+    issues = {x["family"]: x["issue"] for x in live_queue}
+    wave_names = [f for wave in retro["waves"] for f in wave["families"]]
+    assert len(wave_names) == 18 and set(wave_names) == {x["family"] for x in original}
+    assert all(wave["count"] == len(wave["families"]) for wave in retro["waves"])
+    assert len({x["productIssue"] for x in retro["families"]}) == 18
+    assert retro["rules"]["separatePilotAndFluentParity"] is True
+    assert retro["rules"]["stable2xProtected"] is True
+    assert retro["rules"]["changesOnlyTo"] == "bluent-v3"
+    assert retro_doc.is_file()
+    doc_text = retro_doc.read_text(encoding="utf-8")
+    assert "18/18 not reviewed" in doc_text
+    assert "0/18 Fluent-approved" in doc_text
+    dimensions = {
+        "visual", "feature", "behavior", "accessibility", "tokenTheme",
+        "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"
+    }
+    actually_approved = 0
+    for entry in retro["families"]:
+        family = entry["family"]
+        assert entry["productIssue"] == issues[family]
+        assert entry["productIssueUrl"] == f"https://github.com/vrassouli/Bluent/issues/{issues[family]}"
+        assert entry["labId"] == next(x["id"] for x in original if x["family"] == family)
+        assert entry["wave"] in ("A", "B", "C", "D")
+        assert entry["priority"] in ("P0", "P1", "P2")
+        assert entry["existingPilotStatus"].startswith("representative_only")
+        assert set(entry["dimensions"]) == dimensions
+        assert entry["auditStatus"] in retro["rules"]["allowedAuditStatuses"]
+        if entry["auditStatus"] == "verified":
+            assert entry["designApproval"] == "approved"
+            assert entry["editableDesignLocation"] and entry["evidenceBundle"]
+            assert entry["fluentReference"]["matchedUpstreamComponent"] != "unverified"
+            assert all(v != "not_reviewed" for v in entry["dimensions"].values())
+        if entry["designApproval"] == "approved":
+            assert entry["editableDesignLocation"]
+            actually_approved += 1
+    assert retro["noneApproved"] == (actually_approved == 0)
+    assert retro["auditComplete"] is False or (
+        all(x["auditStatus"] == "verified" for x in retro["families"])
+        and not retro["noneApproved"]
+    )
+    print("Fluent 2 RETRO PLAN PASS: 18/18 original pilot families issue-mapped; "
+          "parity approvals remain independent of Component Lab runtime checks")
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 18 live pilot specimens, ZERO complete components")
     print("Component Lab PILOT contract PASS: 18/18 source-linked families; NOT exhaustive acceptance")
     return 0
