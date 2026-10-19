@@ -26,3 +26,8 @@ This is a source-backed supplement to the **existing 18-family, nine-dimension [
 5. Retest fixes, link PRs, docs/skills/demos/migration and the evidence bundle. Close #552 only when all **18** comparisons and dispositions are reviewed, not on a green Lab smoke result.
 
 Machine-readable source assertions: [`FLUENT-PARITY-P0-SOURCE.json`](FLUENT-PARITY-P0-SOURCE.json), validated by `python scripts/quality/check_v3_p0_source_evidence.py`. **Anchors only establish facts about the baseline source; they do not test accessibility or visual parity.**
+## Live browser rerun and P0 accessibility checkpoint — 2026-10-19
+
+The [actual four-mode Chrome/Edge × WebAssembly/published InteractiveServer run](FLUENT-PARITY-P0-LIVE-RERUN.md) reports **904/904 existing #421 Lab checks PASS**, with *published Server Slider/RangeSlider pointer binding explicitly excluded* from that denominator. Real browser success is not Fluent acceptance or native OS/AT certification. The independently guarded [seven P0 source observations](FLUENT-PARITY-P0-SEMANTICS.json) cover toggle ARIA, single/dual thumb semantics, pointer coordinate mismatch in both range controls, accessible file removal and chooser/file contract. The reference W3C APG requirements apply to accessible Bluent behavior and do not assert that Fluent ships an identical two-thumb widget.
+
+Remediation belongs to the existing #428/#442/#443/#444 component issues after editable design review. No product implementation was altered for this checkpoint.
