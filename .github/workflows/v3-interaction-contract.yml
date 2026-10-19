@@ -10,6 +10,8 @@ on:
       - "scripts/quality/test_v3_popover_foundation_compatibility.py"
       - "scripts/quality/test_v3_interaction_sample.py"
       - "scripts/quality/v3_interop_lifecycle/**"
+      - "scripts/quality/v3_p0_policy_prototype/**"
+      - "docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md"
       - "scripts/quality/probe_v3_popover_runtime.mjs"
       - "scripts/quality/check_v3_popover_js_bundle.py"
       - "scripts/quality/test_v3_popover_js_bundle.py"
@@ -63,6 +65,10 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"
+      - name: Execute decision-pending P0 file, slider and toggle .NET QA options
+        run: |
+          dotnet restore scripts/quality/v3_p0_policy_prototype/V3P0PolicyPrototype.csproj
+          dotnet run --project scripts/quality/v3_p0_policy_prototype/V3P0PolicyPrototype.csproj --configuration Release --no-restore
       - name: Compile current public binding and EditContext sample
         run: |
           dotnet restore samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj

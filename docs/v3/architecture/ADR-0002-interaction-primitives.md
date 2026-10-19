@@ -2,6 +2,8 @@
 
 **Status: PROPOSED.** This is not a new approved public API or full implementation. Only issue-specific task work targeting bluent-v3. Stable Dev, NuGet and v2 are unchanged.
 
+**2026-10-19 P0 interaction handoff:** [Executable, decision-pending Button / FileSelect / Slider semantics and capacity options](ADR-0002-P0-CONTRACT-OPTIONS.md) derives from actual #552 WASM + Production Server browser evidence. A standalone .NET 10 QA-only model exercises 42 assertions; no component source, public API or design has been approved or changed by that model.
+
 ## Design provenance and issue-specific editable draft
 
 Canonical editable Bluent v3 Penpot file: b64f6665-c9ab-80b5-8008-c4ac99d9d000. Reviewed source inputs are accepted #501 Focus board f4136a9a-101d-8004-8008-ca2956fe05f9 and #417 D1-D5 styling architecture, and #494 public CLR inventory. A real source-owned issue-specific editable Penpot board was created 2026-10-15: page 40 / Blazor interaction and JS lifetime / #420, ID ed5216bd-3d5b-8015-8008-cb247e27efb4; board #420 Interaction contract and resource lifetime, ID ed5216bd-3d5b-8015-8008-cb247e906204 (51 native editable shapes). The four lanes cover field/EditContext binding, overlay keyboard/focus, JS module/owned pointer lifetime and evidence/signoff. This is a DRAFT, NOT accepted reviewer design parity, browser implementation or a reviewed screenshot. Earlier Figma fallback https://www.figma.com/design/X6Ima16GAyuk7dVUjGgIkt hit Starter limits; canonical Penpot was used instead. Review and real browser tests remain pending.

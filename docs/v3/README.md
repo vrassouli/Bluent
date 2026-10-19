@@ -15,7 +15,7 @@
 
 ## Documentation map
 
-- **Interaction foundations (#420, proposed):** [ADR-0002 shared Blazor state/JS lifecycle](architecture/ADR-0002-interaction-primitives.md), with source-debt negative controls and compileable consumer sample. This is not yet approved public API or runtime/AT validation.
+- **Interaction foundations (#420, proposed):** [ADR-0002 shared Blazor state/JS lifecycle](architecture/ADR-0002-interaction-primitives.md), [P0 interaction behavior decision options and executable .NET QA prototype](architecture/ADR-0002-P0-CONTRACT-OPTIONS.md), with source-debt negative controls and compileable consumer sample. This is not yet approved public API or runtime/AT validation.
 - **Architecture:** [D1–D5 styling boundaries](architecture/ADR-0001-styling-boundaries.md), [CSS audit](architecture/css-architecture-audit.md), [current theme/API crosswalk](architecture/theme-contract-crosswalk.md) and [runtime probe record](architecture/css-runtime-probes.md).
 - **Design:** [Owned Penpot file and IDs](design/BLUENT-V3-PENPOT.md), [reference/import fidelity](design/PENPOT-IMPORT-FIDELITY.md), [component anatomy matrices](design/COMPONENT-REFERENCE-MATRICES.md) and [design-to-Razor handoff](design/DESIGN-TO-RAZOR-HANDOFF.md).
 - **Components:** [Source-verified 2.x family inventory](../components/inventory.md), [family reference authoring contract](COMPONENT-REFERENCE-TEMPLATE.md). Publish a v3-specific component page only when its own issue can support the claims.
