@@ -6,6 +6,7 @@ export class Popover {
     private _triggerResizeObserver: ResizeObserver;
     private _surfaceResizeObserver: ResizeObserver;
     private _cleanupAutoUpdate: (() => void) | null;
+    private _optInEscapeHandlers = new Map<string, (event: KeyboardEvent) => void>();
 
     constructor(dotNetRef: any) {
         this._dotNetRef = dotNetRef;
@@ -14,6 +15,10 @@ export class Popover {
     setPopover(settings: PopoverSettings) {
         const trigger = this.getTrigger(settings);
         if (trigger) {
+            if (settings.accessibleTriggerState) {
+                trigger.setAttribute("aria-controls", settings.triggerId + "_surface");
+                trigger.setAttribute("aria-expanded", "false");
+            }
             if (settings.triggerEvents) {
                 settings.triggerEvents.forEach((triggerEvent) => {
                     trigger.addEventListener(triggerEvent, () => {
@@ -58,7 +63,14 @@ export class Popover {
             }
             this.setSurfaceWidth(trigger, surface);
         }
+        // Keep the .NET Button's aria-expanded state in sync with the JS-owned
+        // visibility for explicitly opted-in v3 button-triggered Popovers.
+        // Existing non-opted-in controls retain their previous lifecycle.
         surface.classList.remove('hidden');
+        if (settings.accessibleTriggerState) {
+            this.getTrigger(settings)?.setAttribute("aria-expanded", "true");
+            this.registerOptInEscape(settings);
+        }
 
         this.updatePosition(settings);
 
@@ -159,9 +171,66 @@ export class Popover {
     //     this.updatePosition(settings);
     // }
 
+    // Registered only for a currently visible, opted-in button Popover.
+    // The document bubble handler runs before the Modal's window bubble
+    // handler, allowing the nearest open child to consume Escape first.
+    private registerOptInEscape(settings: PopoverSettings) {
+        this.unregisterOptInEscape(settings);
+        const listener = (event: KeyboardEvent) => {
+            if (event.key !== "Escape" || event.defaultPrevented || event.isComposing || event.repeat) return;
+            const trigger = this.getTrigger(settings);
+            const surface = this.getSurface(settings);
+            if (!trigger || !surface || surface.classList.contains("hidden") || !surface.classList.contains("show")) return;
+            const target = event.target as Node;
+            if (!trigger.contains(target) && !surface.contains(target)) return;
+            event.preventDefault();
+            event.stopPropagation();
+            this.hideSurface(settings);
+            if (trigger instanceof HTMLElement && trigger.isConnected)
+                trigger.focus({ preventScroll: true });
+        };
+        document.addEventListener("keydown", listener);
+        this._optInEscapeHandlers.set(settings.triggerId, listener);
+    }
+
+    // An opted-in owner can be removed from the Blazor render tree while
+    // its surface is open. Explicitly release its document Escape handler.
+    public unregisterOptInEscapeByTriggerId(triggerId: string) {
+        const listener = this._optInEscapeHandlers.get(triggerId);
+        if (!listener) return;
+        document.removeEventListener("keydown", listener);
+        this._optInEscapeHandlers.delete(triggerId);
+    }
+    private unregisterOptInEscape(settings: PopoverSettings) {
+        this.unregisterOptInEscapeByTriggerId(settings.triggerId);
+    }
     private hideSurface(settings: PopoverSettings) {
         const surface = <HTMLElement>this.getSurface(settings);
         if (surface) {
+            // #418 opted-in: finish dismissal even if transitionend is skipped.
+            if (settings.accessibleTriggerState) {
+                let finished = false;
+                const complete = () => {
+                    if (finished) return;
+                    finished = true;
+                    surface.removeEventListener("transitionend", onEnd);
+                    // A new show request supersedes an earlier close timer.
+                    if (surface.classList.contains("show")) return;
+                    this.doHideSurface(settings, surface);
+                };
+                const onEnd = (event: TransitionEvent) => {
+                    if (event.target === surface) complete();
+                };
+                const duration = getComputedStyle(surface).transitionDuration
+                    .split(',').map(x => x.trim()).map(x =>
+                        x.endsWith('ms') ? parseFloat(x) : parseFloat(x) * 1000);
+                const maxMs = Math.max(0, ...duration.filter(Number.isFinite));
+                surface.addEventListener("transitionend", onEnd);
+                surface.classList.remove('show');
+                if (maxMs === 0) complete();
+                else window.setTimeout(complete, maxMs + 90);
+                return;
+            }
             surface.addEventListener("transitionend", (event) => {
                 this.doHideSurface(settings, surface);
             }, { once: true });
@@ -177,7 +246,10 @@ export class Popover {
     }
 
     private doHideSurface(settings: PopoverSettings, surface: HTMLElement) {
+        if (settings.accessibleTriggerState) this.unregisterOptInEscape(settings);
         surface?.classList.add('hidden');
+        if (settings.accessibleTriggerState)
+            this.getTrigger(settings)?.setAttribute("aria-expanded", "false");
         this._dotNetRef.invokeMethodAsync('HideSurface', settings);
 
         if (this._triggerResizeObserver) {

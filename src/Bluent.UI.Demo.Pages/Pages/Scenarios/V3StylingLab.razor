@@ -1,33 +1,266 @@
-@page "/v3/styling-lab"
+﻿@page "/v3/styling-lab"
 @namespace Bluent.UI.Demo.Pages.Scenarios
+@using Bluent.UI.Services.Abstractions
+@using Bluent.UI.Demo.Pages.Pages.Components.DialogComponents
+@inject IDialogService DialogService
 
-<PageTitle>v3 CSS architecture experiment | Bluent</PageTitle>
+<PageTitle>v3 opt-in tokens and theme ownership experiment | Bluent</PageTitle>
+<HeadContent>
+    <link rel="stylesheet" href="_content/Bluent.UI.Demo.Pages/v3/issue-418.opt-in.preview.css" />
+    <link rel="stylesheet" href="_content/Bluent.UI/v3/danger-toggle.opt-in.preview.css" />
+    <link rel="stylesheet" href="_content/Bluent.UI.Demo.Pages/v3/issue-418-portal-focus.opt-in.preview.css" />
+</HeadContent>
 
 <main class="v3-lab">
-    <h1>v3 styling lab — issue #417</h1>
-    <p>This isolated experiment uses existing public Bluent controls. It previews scoped tokens; it is not a new public component or an approved Fluent parity claim.</p>
+    <h1>v3 styling lab — issues #417 and #418</h1>
+    <p>This v3-branch demo uses real Bluent controls and opt-in, unpublished CSS.
+       Token names and system-color mappings are research candidates, not an approved v3 component API.</p>
     <div class="v3-lab-controls">
-        <Button Text="@(_dark ? "Switch to light" : "Switch to dark")" OnClick="() => _dark = !_dark" />
+        <Button id="v3-lab-switch-theme" Text="@(_dark ? "Switch to light" : "Switch to dark")" OnClick="() => _dark = !_dark" />
         <Button Text="@(_rtl ? "Switch to LTR" : "Switch to RTL")" OnClick="() => _rtl = !_rtl" />
         <Button Text="@(_compact ? "Comfortable density" : "Compact density")" OnClick="() => _compact = !_compact" />
+        <Button id="v3-lab-switch-brand" Text="@(_mainBrand == "excel" ? "Clear main brand" : "Set main brand Excel")" OnClick="ToggleMainBrand" />
     </div>
 
-    <section class="v3-lab-surface" data-bui-theme="@(_dark ? "dark" : "light")"
+    <CascadingValue Value="CurrentScope">
+    <section class="v3-lab-surface" data-bui-v3-tokens data-bui-brand="@_mainBrand" data-bui-theme="@(_dark ? "dark" : "light")"
              data-density="@(_compact ? "compact" : "comfortable")"
-             dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 token experiment">
-        <h2>Button / Field / Overlay</h2>
-        <p>Use Tab and Shift+Tab to inspect focus, then change direction and theme.</p>
+             data-bui-v3-focus-brand-candidate="@(_focusPreview == FocusPreviewMode.BrandedContrast ? "" : null)"
+             data-bui-v3-focus-contrast-candidate="@(_focusPreview == FocusPreviewMode.Focus2 ? "" : null)"
+             data-bui-v3-focus-double-ring-candidate="@(_focusPreview == FocusPreviewMode.DoubleRing ? "" : null)"
+             dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 opt-in token experiment">
+        <h2>Real Button / TextField / Overlay</h2>
+        <p>Use Tab and Shift+Tab to inspect focus. Switch Light/Dark and LTR/RTL to compare computed colors.</p>
         <div class="v3-lab-actions">
-            <Button Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
-            <Button Text="Disabled" disabled />
-            <Button Text="Preview overlay" OnClick="() => _overlayOpen = true" />
+            <Button id="v3-token-action" Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
+            <Button id="v3-disabled-button" Text="Disabled" disabled />
+            <Button Text="Preview local overlay" OnClick="() => _overlayOpen = true" />
+            <Button id="v3-show-service-dialog" Text="Show service-hosted dialog" OnClick="ShowServiceDialog" />
+            <Button id="v3-show-keyboard-modal" Text="Show keyboard modal (v3 opt-in)" OnClick="ShowKeyboardModal" />
+            <Button id="v3-show-route-exit-modal" Text="Open Dialog and navigate away" OnClick="ShowRouteExitModal" />
+            <Button id="v3-mount-lifecycle-modal" Text="Mount temporary keyboard modal" OnClick="() => _lifecycleModalMounted = true" />
+            @if (_lifecycleModalMounted)
+            {
+                <Dialog AccessibleName="Temporary modal lifecycle fixture"
+                        CloseButtonLabel="Close temporary modal"
+                        EnableModalKeyboard="true" IsModal="true">
+                    <section data-v3-lifecycle-modal>
+                        <p>This temporary Modal will be removed without the Close lifecycle.</p>
+                        <Button id="v3-unmount-lifecycle-modal" Text="Unmount this Modal now"
+                                OnClick="() => _lifecycleModalMounted = false" />
+                    </section>
+                </Dialog>
+            }
+            <Button id="v3-show-custom-fragment" Text="Show custom named fragment (no header)" OnClick="ShowCustomNamedFragment" />
+            <Button id="v3-show-live-title" Text="Show Dialog with live changing heading" OnClick="ShowLiveTitleDialog" />
+            <Button id="v3-show-persian-dialog" Text="آزمایش توضیح فارسی و بستن پنجره" OnClick="ShowPersianAccessibleDialog" />
+            <Button id="v3-show-initial-focus-modal" Text="Show modal focused on last action" OnClick="() => ShowInitialFocusModal(false)" />
+            <Button id="v3-show-invalid-focus-modal" Text="Show modal with external focus target" OnClick="() => ShowInitialFocusModal(true)" />
+            <Button Text="Show alternate host dialog" OnClick="ShowAlternateDialog" />
+            <Button Text="Show legacy unscoped dialog" OnClick="ShowUnscopedDialog" />
+            <Popover KeepSurface="true" Placement="Placement.Bottom">
+                <Trigger>
+                    <Button id="v3-legacy-popover-trigger" Text="Legacy Popover without ARIA opt-in" />
+                </Trigger>
+                <Surface>
+                    <span data-v3-legacy-popover>Legacy Popover remains untouched</span>
+                </Surface>
+            </Popover>
+            <Button id="v3-toggle-removable-popover" Text="Mount removable Popover" OnClick="() => _removablePopover = true" />
+            @if (_removablePopover)
+            {
+                <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+                    <Trigger>
+                        <Button id="v3-removable-popover-trigger" Text="Open removable Popover" />
+                    </Trigger>
+                    <Surface>
+                        <Button id="v3-remove-open-popover" Text="Remove while open" OnClick="() => _removablePopover = false" />
+                    </Surface>
+                </Popover>
+            }
+            <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+                <Trigger>
+                    <Button id="v3-popover-trigger" Text="Show service-hosted popover" />
+                </Trigger>
+                <Surface>
+                    <section data-v3-popover-probe aria-label="v3 detached theme ownership probe">
+                        <strong>v3 global Popover ownership check</strong>
+                        <p>Rendered by the Layout container outside the local theme host.</p>
+                    </section>
+                </Surface>
+            </Popover>
         </div>
-        <div class="v3-lab-field">
+        <CascadingValue Value="AlternateScope">
+            <section class="v3-lab-independent-host" data-bui-v3-tokens data-bui-brand="@AlternateScope.Brand"
+                     data-bui-theme="@AlternateScope.Mode" dir="@AlternateScope.Direction"
+                     aria-label="independent nested theme owner">
+                <h3>Independent nested Word brand host</h3>
+                <p>Word brand; opposite mode and direction, without modifying its Excel parent.</p>
+                <Button id="v3-nested-brand-action" Text="Word primary action" Appearance="ButtonAppearance.Primary" />
+                @* Real mounted nested Word focus host: approved neutral-context role,
+                   independent from the outer Excel/default theme, without
+                   reapplying product data-bui-theme on this local card. *@
+                <div class="v3-lab-independent-focus-host"
+                     data-bui-v3-focus-host="neutral"
+                     data-bui-v3-focus-mode="@AlternateScope.Mode">
+                    <Button id="v3-nested-word-focus" Text="Word keyboard focus" />
+                </div>
+                <Popover KeepSurface="true" Placement="Placement.Bottom" AccessibleTriggerState="true">
+                    <Trigger>
+                        <Button id="v3-independent-popover-trigger" Text="Show other host popover" />
+                    </Trigger>
+                    <Surface>
+                        <span data-v3-independent-popover-probe>Independent host portal</span>
+                        @* The service-hosted Popover is outside this Razor-scoped DOM.
+                           Explicit neutral Focus role remains owned by Word, not Excel. *@
+                        <div data-v3-portal-focus-fixture
+                             data-bui-v3-focus-host="neutral"
+                             data-bui-v3-focus-mode="@AlternateScope.Mode">
+                            <Button id="v3-word-popover-focus" Text="Word portal keyboard focus" />
+                        </div>
+                    </Surface>
+                </Popover>
+            </section>
+        </CascadingValue>
+        <section class="v3-lab-focus-matrix" data-bui-v3-danger-toggle aria-label="Opt-in Bluent Button focus research matrix" lang="fa" dir="rtl">
+            <h3>پیش‌نمایش آزمایشی Focus دکمه‌ها — #418 / #501</h3>
+            <p>ترتیب کیبورد: پیش‌نیاز، شش ظاهر فعلی Bluent، دکمه غیرفعال، سپس مقصد بعدی. حلقه‌ها طرح نهایی تأییدشده نیستند.</p>
+            <div class="v3-lab-focus-preview-controls" role="group" aria-label="انتخاب حلقه فوکوس آزمایشی">
+                <Button id="v3-focus-preview-baseline" Text="فعلی (رنگ برند)"
+                        Appearance="@(_focusPreview == FocusPreviewMode.Baseline ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.Baseline" />
+                <Button id="v3-focus-preview-brand" Text="برند پرکنتراست (آزمایشی)"
+                        Appearance="@(_focusPreview == FocusPreviewMode.BrandedContrast ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.BrandedContrast" />
+                <Button id="v3-focus-preview-focus2" Text="Focus2 ساده"
+                        Appearance="@(_focusPreview == FocusPreviewMode.Focus2 ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.Focus2" />
+                <Button id="v3-focus-preview-double" Text="Focus2 دولایه (آزمایشی)"
+                        Appearance="@(_focusPreview == FocusPreviewMode.DoubleRing ? ButtonAppearance.Primary : ButtonAppearance.Default)"
+                        OnClick="() => _focusPreview = FocusPreviewMode.DoubleRing" />
+            </div>
+            <p class="v3-lab-hint" role="status">
+                @(_focusPreview switch
+                {
+                    FocusPreviewMode.BrandedContrast => "رنگ برند پرکنتراست: در Light مثل حالت فعلی و در Dark رنگ روشن‌تر همان برند، با توکن Fluent colorBrandForeground2؛ روی دو سطح معمولی و Hover آزمایش شده، اما برای همه زمینه‌ها تأیید نهایی نشده است.",
+                    FocusPreviewMode.Focus2 => "Focus2 ساده: حلقه ۲ پیکسلی مشکی در Light یا سفید در Dark؛ بدون فاصله داخلی دولایه.",
+                    FocusPreviewMode.DoubleRing => "Focus2 دولایه: حلقه بیرونی ۲ پیکسل با فاصله ۱ پیکسل و جداکننده هم‌رنگ سطح. برای دیدنش با Tab روی دکمه‌های زیر حرکت کن.",
+                    _ => "حالت فعلی: حلقه با رنگ برند. یکی از گزینه‌های Focus2 را انتخاب کن، سپس با Tab بین دکمه‌های زیر حرکت کن."
+                })
+            </p>
+            <div class="v3-lab-focus-actions">
+                <Button id="v3-focus-start" Text="شروع مسیر کیبورد" />
+                <Button id="v3-focus-default" Text="معمولی" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Default" />
+                <Button id="v3-focus-primary" Text="اصلی" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary" />
+                <Button id="v3-focus-danger" Text="خطر" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Danger" />
+                <Button id="v3-focus-outline" Text="حاشیه‌دار" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Outline" />
+                <Button id="v3-focus-subtle" Text="ملایم" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Subtle" />
+                <Button id="v3-focus-transparent" Text="شفاف" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Transparent" />
+                <Button id="v3-focus-disabled" Text="غیرفعال" Appearance="ButtonAppearance.Primary" disabled />
+                <Button id="v3-focus-end" Text="پایان مسیر کیبورد" />
+            </div>
+            <div class="v3-lab-focus-actions" aria-label="Selected Button and keyboard Focus combination">
+                <Button id="v3-selected-start" Text="شروع دکمه‌های انتخاب‌شده" />
+                <Button id="v3-selected-default" Text="معمولی انتخاب‌شده" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Default" Toggled="true" />
+                <Button id="v3-selected-primary" Text="اصلی انتخاب‌شده" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary" Toggled="true" />
+                <Button id="v3-selected-danger" Text="خطر انتخاب‌شده" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Danger" Toggled="true" />
+                <Button id="v3-selected-outline" Text="حاشیه انتخاب‌شده" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Outline" Toggled="true" />
+                <Button id="v3-selected-subtle" Text="ملایم انتخاب‌شده" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Subtle" Toggled="true" />
+                <Button id="v3-selected-transparent" Text="شفاف انتخاب‌شده" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Transparent" Toggled="true" />
+                <Button id="v3-selected-end" Text="پایان دکمه‌های انتخاب‌شده" />
+            </div>
+        </section>
+        @* #418 source-owned Penpot page-07 context comparison. Demo ONLY:
+           5 existing Fluent host colors; real Bluent Button, no new API. *@
+        <section class="v3-lab-focus-host-review" lang="fa" dir="@(_rtl ? "rtl" : "ltr")"
+                 aria-labelledby="v3-focus-host-title"
+                 data-v3-focus-host-mode="@(_hostFocusAdaptive ? "adaptive" : "brand")">
+            <h3 id="v3-focus-host-title">بررسی طرح تأییدشدهٔ فوکوس روی زمینه‌های مختلف — #418</h3>
+            <p>با Tab روی دکمه‌های واقعی حرکت کن. اینجا رنگ حلقه بر اساس <strong>زمینهٔ بیرون دکمه</strong> بررسی می‌شود، نه رنگ خود دکمه.</p>
+            <Button id="v3-focus-host-toggle"
+                    Text="@(_hostFocusAdaptive ? "مقایسه با رنگ ثابت برند" : "بازگشت به طرح تأییدشده (سازگار با زمینه)")"
+                    OnClick="() => _hostFocusAdaptive = !_hostFocusAdaptive" />
+            <p id="v3-focus-host-status" class="v3-lab-hint" role="status">
+                @(_hostFocusAdaptive
+                    ? "طرح تأییدشده: حلقهٔ برند روی زمینهٔ خنثی، رنگ معکوس روی زمینه‌های رنگی، و Inverted متناسب با Light/Dark. پیاده‌سازی عمومی Button هنوز در دست بررسی است."
+                    : "مبنای مقایسه: رنگ برند (Light) یا رنگ روشن‌تر همان برند (Dark)، بدون توجه به زمینه. این حالت عمداً در بعضی زمینه‌ها کم‌کنتراست است.")
+            </p>
+            <div class="v3-lab-focus-host-grid" aria-label="پنج زمینهٔ واقعی Fluent">
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="neutral" data-bui-v3-focus-host="neutral" data-bui-v3-focus-mode="@(_dark ? "dark" : "light")">
+                    <strong>Neutral</strong>
+                    <Button id="v3-focus-host-neutral" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="brand" data-bui-v3-focus-host="brand" data-bui-v3-focus-mode="@(_dark ? "dark" : "light")">
+                    <strong>Brand</strong>
+                    <Button id="v3-focus-host-brand" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="brandHover" data-bui-v3-focus-host="brandHover" data-bui-v3-focus-mode="@(_dark ? "dark" : "light")">
+                    <strong>Brand Hover</strong>
+                    <Button id="v3-focus-host-brandHover" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="danger" data-bui-v3-focus-host="danger" data-bui-v3-focus-mode="@(_dark ? "dark" : "light")">
+                    <strong>Danger</strong>
+                    <Button id="v3-focus-host-danger" Text="ثبت / Submit" />
+                </div>
+                <div class="v3-lab-focus-host-card" data-v3-focus-host="inverted" data-bui-v3-focus-host="inverted" data-bui-v3-focus-mode="@(_dark ? "dark" : "light")">
+                    <strong>Inverted</strong>
+                    <Button id="v3-focus-host-inverted" Text="ثبت / Submit" />
+                </div>
+            </div>
+            <p class="v3-lab-hint">محدودهٔ مطالعه: ۱۰ برند، Light/Dark، زمینه‌های سادهٔ Fluent. سطوح نیمه‌شفاف، تصویر، فشار دکمه، Windows Contrast Themes و ابزارهای کمکی هنوز تأیید نشده‌اند.</p>
+        </section>
+        @* #418 Figma DRAFT 38:2, a real Bluent Button research fixture.
+           No shipping component API / CSS, no automatic alpha-host role. *@
+        <section class="v3-lab-alpha-focus-review" lang="fa"
+                 aria-label="Explicit alpha-host-only Focus2 contrast experiment">
+            <h3>بررسی فوکوس دکمه روی زمینهٔ نیمه‌شفاف — تحقیق #418</h3>
+            <p>هر دو دکمه واقعی Bluent هستند. با Tab از «شروع» به رنگ برند
+               و سپس Focus2 برو. این گزینه فقط برای زمینهٔ نیمه‌شفاف بررسی می‌شود،
+               نه برای تمام دکمه‌ها یا TextField.</p>
+            <Button id="v3-alpha-focus-start" Text="شروع آزمون فوکوس" />
+            <div class="v3-lab-alpha-focus-underlay">
+                <div class="v3-lab-alpha-focus-overlay">
+                    <div class="v3-lab-alpha-focus-card" data-v3-alpha-ring="brand">
+                        <strong>رنگ برند فعلی · تحقیق</strong>
+                        <Button id="v3-alpha-brand-button" Text="ثبت درخواست" />
+                    </div>
+                    <div class="v3-lab-alpha-focus-card" data-v3-alpha-ring="focus2">
+                        <strong>Focus2 مخصوص Alpha · پیش‌نویس</strong>
+                        <Button id="v3-alpha-focus2-button" Text="ثبت درخواست" />
+                    </div>
+                </div>
+            </div>
+            <Button id="v3-alpha-focus-end" Text="پایان آزمون" />
+            <p class="v3-lab-hint">مقایسهٔ آزمایشی؛ کنتراست حداقل ۸٫۵۱:۱
+               در ۸۰ حالت توکن منبع به معنی تأیید عمومی محصول، دسترس‌پذیری
+               واقعی سیستم‌عامل یا طرح نهایی نیست.</p>
+        </section>
+        <section class="v3-lab-typography" lang="fa" dir="rtl" aria-label="Persian and mixed-direction typography QA">
+            <h3>آزمون تایپوگرافی و راست‌به‌چپ</h3>
+            <p id="v3-fa-paragraph">گزارش‌های حضور و غیاب — درخواست مأموریت ۱۴۰۵/۰۷/۱۹</p>
+            <p id="v3-mixed-paragraph">شماره پیگیری: <bdi>ABC-123</bdi>، شناسه: <bdi>2026/10/11</bdi>، وضعیت: تأیید شد</p>
+            <div class="v3-lab-persian-actions">
+                <Button id="v3-fa-button" Text="ثبت درخواست" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary" />
+                <Button id="v3-fa-mixed-button" Text="مشاهده گزارش ABC-123" Icon="@FluentIcons.CursorClick" />
+                <Button id="v3-fa-long-button" Text="ارسال گزارش‌های تأییدشده برای بررسی مجدد" Icon="@FluentIcons.CursorClick" />
+            </div>
+            <label for="v3-fa-field">عنوان درخواست</label>
+            <TextField id="v3-fa-field" placeholder="عنوان را وارد کنید" />
+            <label for="v3-invalid-field">مبلغ نامعتبر</label>
+            <TextField id="v3-invalid-field" aria-invalid="true" aria-describedby="v3-invalid-description"
+                       placeholder="مبلغ را اصلاح کنید" />
+            <span id="v3-invalid-description" class="v3-lab-validation">لطفاً مبلغ معتبر وارد کنید.</span>
+            <p class="v3-lab-hint">فونت‌ها از سیستم کاربر انتخاب می‌شوند؛ این بخش صرفاً آزمایش‌پذیر است و فونت جدیدی همراه بسته منتشر نمی‌کند.</p>
+        </section>        <div class="v3-lab-field">
             <label for="v3-experiment-name">Name</label>
             <TextField id="v3-experiment-name" @bind-Value="_name" placeholder="Example name" />
-            <span class="v3-lab-hint">This existing TextField receives experiment-only CSS aliases.</span>
+            <span class="v3-lab-hint">This is a real Bluent TextField styled through the unpublished, scoped alias bridge.</span>
         </div>
         <p role="status" aria-live="polite">@_message</p>
+        <p class="v3-lab-hint">
+            Service-hosted dialogs and popovers are rendered by the layout's global containers, outside this page-local theme.
+            Opt-in scope snapshots keep each detached surface in its initiating theme. The alternate Dialog deliberately uses the opposite mode to test simultaneous independent ownership.
+        </p>
         @if (_overlayOpen)
         {
             <Overlay OnClick="() => _overlayOpen = false" />
@@ -37,20 +270,140 @@
             </div>
         }
     </section>
+    </CascadingValue>
 </main>
 
 @code {
+    private PortalThemeScope CurrentScope => new(_dark ? "dark" : "light", _rtl ? "rtl" : "ltr", _compact ? "compact" : "comfortable", brand: _mainBrand);
+    private PortalThemeScope AlternateScope => new(_dark ? "light" : "dark", _rtl ? "ltr" : "rtl", brand: "word");
     private string? _name;
     private string _message = "No action yet";
+    private string? _mainBrand;
+    private enum FocusPreviewMode { Baseline, BrandedContrast, Focus2, DoubleRing }
+    private FocusPreviewMode _focusPreview = FocusPreviewMode.Baseline;
+    private bool _hostFocusAdaptive = true; // Maintainer-approved visual mapping is the opt-in lab default; never shared public Button CSS.
     private bool _dark;
     private bool _rtl;
     private bool _compact;
     private bool _overlayOpen;
+    private bool _removablePopover;
+    private bool _lifecycleModalMounted;
+
+    private void ToggleMainBrand() => _mainBrand = _mainBrand == "excel" ? null : "excel";
 
     private void Submit()
     {
         _message = string.IsNullOrWhiteSpace(_name)
             ? "Enter a name to preview feedback."
             : $"Preview saved for {_name}.";
+    }
+
+    private void ShowServiceDialog()
+    {
+        // A service cannot infer its caller from the current document/focus.
+        // The opt-in scope must be explicitly supplied by this owner.
+        var snapshot = CurrentScope;
+        _ = DialogService.ShowAsync<SampleDialogContent>("v3 scoped Dialog",
+            null, options => options.SetThemeScope(snapshot).SetModal(false).SetAccessibleDialog("v3 scoped Dialog", "Close dialog").SetAccessibleDescription("Review the attendance changes before confirming.").SetReturnFocusTargetId("v3-show-service-dialog"));
+    }
+
+    private void ShowCustomNamedFragment()
+    {
+        RenderFragment content = builder =>
+        {
+            builder.OpenElement(0, "p");
+            builder.AddAttribute(1, "id", "v3-custom-fragment-content");
+            builder.AddContent(2, "Custom fragment with no standard title header.");
+            builder.CloseElement();
+        };
+        _ = DialogService.ShowAsync(content,
+            new DialogConfiguration(modal: true)
+            {
+                ThemeScope = CurrentScope,
+                AccessibleName = "پنجره سفارشی",
+                AccessibleDescription = "متن راهنمای این پنجره سفارشی برای صفحه‌خوان",
+                CloseButtonLabel = "بستن پنجره",
+                EnableModalKeyboard = true,
+                ReturnFocusTargetId = "v3-show-custom-fragment"
+            });
+    }
+    private void ShowLiveTitleDialog()
+    {
+        var scope = CurrentScope;
+        _ = DialogService.ShowAsync<V3DynamicTitleContent>(
+            "Review attendance changes", null,
+            config => config.SetThemeScope(scope)
+                .SetAccessibleDialog("Fallback accessible name", "Close dialog")
+                .SetAccessibleDescription("Review this person's changes before approving.")
+                .SetModalKeyboardNavigation()
+                .SetInitialFocusTargetId("v3-live-title-field")
+                .SetReturnFocusTargetId("v3-show-live-title"));
+    }
+    private void ShowPersianAccessibleDialog()
+    {
+        // Isolated D5 native VoiceOver research fixture, not a public API.
+        var scope = CurrentScope;
+        _ = DialogService.ShowAsync<V3DynamicTitleContent>(
+            "بررسی درخواست مرخصی", null,
+            config => config.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("بررسی درخواست مرخصی", "بستن پنجره")
+                .SetAccessibleDescription("برای تأیید درخواست مرخصی شماره ABC-123، اطلاعات را بررسی کنید؛ سپس پنجره را ببندید.")
+                .SetModalKeyboardNavigation()
+                .SetInitialFocusTargetId("v3-live-title-field")
+                .SetReturnFocusTargetId("v3-show-persian-dialog"));
+    }
+    private void ShowRouteExitModal()
+    {
+        var scope = CurrentScope;
+        _ = DialogService.ShowAsync<V3RouteExitDialogContent>(
+            "Route-local Dialog awaiting navigation", null,
+            config => config.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("Route-local Dialog", "Close Dialog")
+                .SetAccessibleDescription("Navigation will dispose this page-local Dialog host.")
+                .SetModalKeyboardNavigation()
+                .SetReturnFocusTargetId("v3-show-route-exit-modal"));
+    }
+    private void ShowKeyboardModal()
+    {
+        var scope = CurrentScope;
+        var parameters = new Dictionary<string, object?>
+        {
+            [nameof(V3ModalKeyboardContent.Scope)] = scope,
+            [nameof(V3ModalKeyboardContent.Depth)] = 0
+        };
+        _ = DialogService.ShowAsync<V3ModalKeyboardContent>("v3 keyboard modal", parameters,
+            options => options.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("v3 keyboard modal", "Close modal")
+                .SetModalKeyboardNavigation()
+                .SetReturnFocusTargetId("v3-show-keyboard-modal"));
+    }
+    private void ShowInitialFocusModal(bool externalTarget)
+    {
+        var scope = CurrentScope;
+        var parameters = new Dictionary<string, object?>
+        {
+            [nameof(V3ModalKeyboardContent.Scope)] = scope,
+            [nameof(V3ModalKeyboardContent.Depth)] = 0
+        };
+        var launcher = externalTarget ? "v3-show-invalid-focus-modal" : "v3-show-initial-focus-modal";
+        var focusId = externalTarget ? "v3-token-action" : "v3-modal-last-0";
+        _ = DialogService.ShowAsync<V3ModalKeyboardContent>("v3 explicit focus modal", parameters,
+            config => config.SetThemeScope(scope).SetModal(true)
+                .SetAccessibleDialog("v3 explicit focus modal", "Close focused modal")
+                .SetModalKeyboardNavigation()
+                .SetInitialFocusTargetId(focusId)
+                .SetReturnFocusTargetId(launcher));
+    }
+    private void ShowUnscopedDialog()
+    {
+        // Guard against accidentally enabling v3 data attributes for v2 usage.
+        _ = DialogService.ShowAsync<SampleDialogContent>("Legacy unscoped Dialog",
+            null, options => options.SetModal(false));
+    }
+    private void ShowAlternateDialog()
+    {
+        var alternate = AlternateScope;
+        _ = DialogService.ShowAsync<SampleDialogContent>("v3 independent host",
+            null, options => options.SetThemeScope(alternate).SetModal(false).SetAccessibleDialog("v3 independent host", "بستن پنجره"));
     }
 }

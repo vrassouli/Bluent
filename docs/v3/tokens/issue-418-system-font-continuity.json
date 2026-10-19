@@ -1,0 +1,49 @@
+{
+  "contractVersion": 1,
+  "issue": 418,
+  "status": "interim system-font continuity approved; native Persian glyph and AT acceptance open",
+  "penpot": {
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "tokenSet": "bluent-v3/draft/typography",
+    "tokenName": "bluent.type.family.base",
+    "quotedRawValue": "\"Segoe UI\"",
+    "expectedResolvedValue": "Segoe UI",
+    "reviewBoardId": "e775e67c-d9da-804b-8008-cb8405b790a5"
+  },
+  "source": {
+    "variable": "--fontFamilyBase",
+    "stack": "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif",
+    "brands": [
+      "default",
+      "excel",
+      "office",
+      "outlook",
+      "powerapps",
+      "powerbi",
+      "powerpoint",
+      "stream",
+      "teams",
+      "word"
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ]
+  },
+  "packaging": {
+    "noNewTextFonts": true,
+    "existingIconFontSubdirectory": "src/Bluent.UI/wwwroot/fonts/icons",
+    "expectedExistingIconFontFiles": [
+      "FluentSystemIcons-Resizable.ttf",
+      "FluentSystemIcons-Resizable.woff",
+      "FluentSystemIcons-Resizable.woff2"
+    ]
+  },
+  "acceptance": {
+    "fontFamilyFormatResolved": true,
+    "finalPersianGlyphShapingApproved": false,
+    "nativeContrastThemesApproved": false,
+    "screenReaderApproved": false,
+    "publicTypographyApiApproved": false
+  }
+}

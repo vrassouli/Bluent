@@ -1,0 +1,292 @@
+# #418 — Source → semantic → component token bridge, first design/implementation checkpoint
+
+**Status:** In progress · **2026-10-11** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+
+The accepted interim system-font continuity, real CSS/asset regression
+checks and [safe rollback steps](SYSTEM-FONT-CONTINUITY-AND-ROLLBACK.md)
+are documented, with final native Persian glyph/AT acceptance still open.
+
+The draft [editable Persian typography/fallback acceptance study](PERSIAN-TYPOGRAPHY-RESEARCH.md) is now in the correct Penpot Bluent file (page 42 / board e775e67c-d9da-804b-8008-cb84059cbdab): eight native size-token links, not final font approval.
+
+The [Chrome/Edge Forced Colors paint and opt-in isolation study for Slider and RangeSlider](SLIDER-FORCED-COLORS-BROWSER-RESEARCH.md) covers actual compiled CSS, 10 brands × 2 modes × LTR/RTL, **8,320 real browser observations across two emulated OS contrast palettes and a 1.461:1 selected-rail contrast regression control**, and an expressly **unapproved / non-shipping** research fallback. No source component change or native Windows HC/AT signoff is implied.
+
+## Real design location and scope
+
+- Authoritative working file (not Microsoft Fluent Community): **`Bluent v3 Design System`**, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
+- Native token-layer board: **`27 · v3 token architecture and themes · #418`**, page ID `acf5f619-7d81-80da-8008-c5cad7f94014`, main board ID `acf5f619-7d81-80da-8008-c5cb90d6963b`. Screen exported, inspected, and TextField example's visible border improved.
+- Native 10-brand palette review: **`28 · Ten brands Light Dark matrix · #418`**, page ID `acf5f619-7d81-80da-8008-c5cce396e634`, main board ID `acf5f619-7d81-80da-8008-c5cce3bd4593`. Board includes **ten named source brands and 20 color swatches**, each from real emitted CSS. PNG exported and inspected. The preview board shows sourced colors, not individually bound/active 20 Penpot brand themes.
+- The latest **named recovery version**, observed revision **220**, is `Bluent v3 · #418 20 brands contrast and foundations audited 2026-10-11`. It includes **five #418 design pages** (27–31), source-backed 10-brand theme switching and an independent Danger text contrast candidate board. The static swatch matrix was independently audited (**60 checks, zero errors**), and the **20 genuinely selectable native brand-mode themes** were switched live (**80/80 component-token assertions, zero errors**).
+- Earlier #419 Penpot library remains separate: its **seven draft sets (49 tokens)** and imported read-only Fluent kit were **not overwritten**. #418 first added **six default Light/Dark TokenSets (48 tokens)**, then **20 native brand-palette source sets (4 tokens each) plus two shared brand-preview semantic/component sets (4 each)**. A further **two isolated accessibility research sets (two tokens per mode)** plus six shared foundation aliases bring the design file to **38 total sets / 195 tokens / 22 themes**. The original #419 library PR remains in Review.
+
+### Native 10-brand switching preview
+
+- **Actual native Theme group:** `Bluent v3 / Brand×Mode (Preview)`, 20 options (`default / light`, `default / dark`, `excel / light`, ... `word / dark`), each linking its own source TokenSet plus **shared** `bluent-v3/418/brand-preview/semantic` and `bluent-v3/418/brand-preview/component` sets.
+- The 20 new source sets contain **four unique token names each**: `bluent.preview.source.surface`, `bluent.preview.source.foreground`, `bluent.preview.source.brandBackground`, `bluent.preview.source.onBrand`. Shared semantic and component sets contain **4 aliased tokens each**. These use a **separate experiment namespace** so they do not override #419's existing source tokens or falsely finalize the production alias names.
+- **Real bound preview board** on `29 · Live brand theme switching · #418`: Penpot page `acf5f619-7d81-80da-8008-c5d06084d4c6`, board `acf5f619-7d81-80da-8008-c5d0608ab738`. The Button fill/label and TextField surface/text have **native Penpot Token binding**. The preview was PNG-reviewed in Default/Light and **Excel/Dark**; after the next Penpot read, actual shape fills updated to `#146938` Button and `#292929` TextField surface, proving this is not just a static swatch.
+- **Live theme switching:** [repeatable script](../../../scripts/quality/penpot_v3_native_brand_theme_audit.js) tested all **20 themes × four actual component alias values = 80 checks / zero failures**. It restores `default / light` and `Light · Draft` when finished.
+- **Important limitation:** Penpot has **two separate theme groups**: the Brand×Mode source palette and the original neutral/global Mode. The designer must select matching Light/Dark modes; this is a prototype of brand+mode resolution, **not an implemented automatic synchronized theme picker in Blazor**. The static 10-brand board remains useful for side-by-side palette comparison.
+
+### Text contrast candidate and design evidence
+
+A **real source-color defect candidate** was detected for ordinary Danger text on the neutral dark surface: existing `--colorStatusDangerForeground1` `#DC626D` vs `#292929` gives **4.164:1** in **all ten Dark brands**, while the existing `--colorPaletteRedForeground1` `#E37D80` gives **5.204:1**. In Light, the respective ratios are **7.121:1** and **5.848:1**. This is a *specific numerical pairing*, not a declaration that every use of the old Danger variable fails WCAG.
+
+- [Editable Penpot contrast board](CONTRAST-AUDIT.md): page `30 · Danger text contrast comparison · #418` (`acf5f619-7d81-80da-8008-c5ddd53bc436`), board `acf5f619-7d81-80da-8008-c5ddf5c26686`; exported PNG visually reviewed.
+- Two new **separate a11y research TokenSets**, Light `acf5f619-7d81-80da-8008-c5ddd546a298` and Dark `acf5f619-7d81-80da-8008-c5ddd54c7980`, with two source-backed color values each; actual mode-readback audit **12/12 pass**.
+- [Contrast scanner](../../../scripts/quality/audit_v3_token_preview_contrast.py): **20 modes × 4 numerical pairs = 80 checks**, confirms **10/10** legacy Dark Danger values below 4.5 and **0/20** candidate values below 4.5.
+- Added **independent opt-in alias chain**, `--colorPaletteRedForeground1` → `--bui-v3-text-danger-accessible` → `--bui-v3-badge-danger-text-accessible`. Existing `--bui-v3-status-danger` and `--bui-v3-badge-danger-foreground` **remain untouched**; this does not change stable CSS or approve a final badge runtime API.
+
+### Native additive #418 TokenSets
+
+| Penpot set | ID | Native tokens |
+| --- | --- | ---: |
+| `bluent-v3/418/source/light` | `acf5f619-7d81-80da-8008-c5cb4da01659` | 5 |
+| `bluent-v3/418/source/dark` | `acf5f619-7d81-80da-8008-c5cb4e0375d0` | 5 |
+| `bluent-v3/418/semantic/light` | `acf5f619-7d81-80da-8008-c5cad804962a` | 11 |
+| `bluent-v3/418/semantic/dark` | `acf5f619-7d81-80da-8008-c5cb4e03942e` | 11 |
+| `bluent-v3/418/component/light` | `acf5f619-7d81-80da-8008-c5cb4da21fea` | 8 |
+| `bluent-v3/418/component/dark` | `acf5f619-7d81-80da-8008-c5cb4e03faa3` | 8 |
+
+Each set is included in the matching existing `Bluent v3 / Mode` **Light · Draft / Dark · Draft** theme. The existing default-brand color tokens still supply five source names per mode; #418 adds five more: **onBrand**, accessible stroke, danger foreground, foreground disabled and disabled background, all from existing emitted CSS.
+
+Penpot **real design aliases** use `{bluent.color.brandBackground}` → `{bluent.semantic.action.background}` → component-specific names, **not manually duplicated hex strings**. Actual Penpot theme-switch readback verified **48/48 resolved tokens**, zero unresolved aliases, including `bluent.component.button.backgroundPrimary` resolving to **#1267B4 in Light** and **#18599B in Dark**, and accessible text-field stroke and danger badge colors. Initial #418 presentation board has a token-bound Light specimen, and a literal Dark preview clearly identified as a source-derived static snapshot.
+
+### Typography, density and motion source-alias specimen
+
+The editable [source-backed foundation study](FOUNDATION-AUDIT.md) on page `31 · Typography density and motion foundations · #418` (ID `acf5f619-7d81-80da-8008-c5e09d3a050f`, board `acf5f619-7d81-80da-8008-c5e0d7a2fbf9`) adds one *shared, genuine native* `bluent-v3/418/foundation/aliases` TokenSet (ID `acf5f619-7d81-80da-8008-c5e09d49cf8a`). Its **six native references** resolve pre-existing #419 foundation tokens for body typography (14px / 20px), control gap 12px, Medium Button height 32px, fast motion 150ms and reduced motion 0ms. Both Latin/Persian text specimens and Medium height sample bind real Penpot tokens. Live Light/Dark audit: **18/18 checks passed**; exported PNG visually reviewed. **Neither browser font fallback nor product motion behavior is approved.**
+
+## Source-backed code artifact, opt-in only
+
+[Versioned preview schema](issue-418-token-schema.preview.json) is the explicit crosswalk for the following three layers:
+
+1. **Source:** eleven logical tokens per mode — actual existing CSS variables (`--colorNeutralBackground1`, `--colorBrandBackground`, `--colorNeutralStrokeAccessible`, `--colorStatusDangerForeground1`, etc.). Existing #419 Penpot sets contain five of these; the new #418 source sets add five.
+2. **Semantic:** twelve aliases such as `--bui-v3-action-background`, `--bui-v3-surface-default`, `--bui-v3-border-strong`, `--bui-v3-text-disabled`. Designed to express purpose rather than a particular color.
+3. **Component:** nine aliases such as `--bui-v3-button-background-primary`, `--bui-v3-text-field-stroke`, `--bui-v3-checkbox-checked-fill`, `--bui-v3-switch-checked-track`. These names are **proposals**, not committed API names or exhaustive production component states.
+
+Run from repo root:
+
+```powershell
+python scripts/quality/generate_v3_token_preview.py
+python scripts/quality/generate_v3_token_preview.py --check
+python scripts/quality/probe_v3_token_preview.py
+python scripts/quality/audit_v3_token_preview_contrast.py
+python scripts/quality/probe_v3_token_nested_theme_scope.py
+```
+
+[Generator](../../../scripts/quality/generate_v3_token_preview.py) validates existing **20 emitted brand/mode source files**, resolves all 32 logical tokens per combination, rejects missing/conflicting source declarations, forward/cyclic aliases and schema drift. It writes [the deterministic 10×2 source-color matrix](issue-418-brand-matrix.preview.json) and [the opt-in CSS bridge](issue-418-opt-in.preview.css) under `docs/v3/tokens`.
+
+**Important D1 safety:** The CSS is **not included in `bundleconfig.json`, the current static-asset CSS or NuGet release** and never defines or overwrites a preexisting `--color*`, `--spacing*`, `--fui-*` variable. The new aliases exist *only* under `[data-bui-v3-tokens][data-bui-theme]` and descendant `[data-bui-theme]` scopes **when a consumer explicitly includes this research CSS file**.
+
+A [real Chromium computed-style probe](../../../scripts/quality/probe_v3_token_preview.py) uses all **10 actual brand theme files × 2 modes** with the generated opt-in CSS. It verified **140/140 assertions, 0 failures** for Button background/text/border, disabled foreground/background and the new opt-in accessible Danger text candidate. This is measurable stylesheet interoperability, **not a claim of actual Button Blazor behavior** or WCAG AA compliance.
+
+## Browser evidence: nested Theme and opt-in boundaries (2026-10-11)
+
+Run `python scripts/quality/probe_v3_token_nested_theme_scope.py` for a repeatable Chrome check with real emitted Light/Dark CSS and the opt-in token preview.
+
+The fixture loads **all ten existing brands** independently and checks a non-opted-in subtree, a Light opt-in host, a nested Dark host, a nested Light host and an outside Dark subtree. It verifies the current legacy brand source variable remains correct, that opt-in aliases resolve to each mode's computed color, and that unopted regions receive no v3 token alias.
+
+**Results: 10 brands × 10 computed-style expectations = 100/100 PASS (0 errors).** Default brand Button-background samples: `rgb(18, 103, 180)` Light and `rgb(24, 89, 155)` Dark. The generator's `--check` mode also passes across 20 brand/mode combinations with 32 logical tokens each.
+
+**Limit:** This tests nested DOM CSS inheritance, **not** service-hosted Dialog/Popover outside its ancestry, keyboard, screen readers, forced colors or full accessibility. Runtime portal propagation (ADR D2) still requires implementation and real Blazor testing.
+
+## Native forced-colors and reduced-motion acceptance study
+
+A new **editable native Penpot page**, `32 · High contrast and reduced motion policy · #418` (ID `acf5f619-7d81-80da-8008-c5ef1089ac94`, board `acf5f619-7d81-80da-8008-c5ef2f9a3158`), documents three separate policy concepts: regular Light/Dark semantic tokens, OS forced-colors system roles and reduced-motion acceptance. The board was exported to PNG and visually inspected. Recovery version `Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11` at Penpot revision **223** contains **33 pages**, still **38 native TokenSets**. Original imported Fluent source was not modified.
+
+The [design and runtime acceptance distinctions](HIGH-CONTRAST-MOTION-DESIGN.md) explicitly prohibit treating the illustration as proof of native forced-color behavior, functioning Blazor control focus or automatic portal context propagation. The real Chrome DOM ancestry scope check immediately above passed **100/100**; actual portal, forced-colors and reduced-motion runtime verification remain open.
+
+## Still required before #418 Review
+
+- **Penpot:** repeat the [default-mode native alias audit](../../../scripts/quality/penpot_v3_token_alias_audit.js) (**48/48 passed**), [static palette source audit](../../../scripts/quality/penpot_v3_brand_matrix_audit.js) (**60/60 passed**) and [true native brand theme-switch audit](../../../scripts/quality/penpot_v3_native_brand_theme_audit.js) (**80/80 passed**, observed revision 193). The selected Brand×Mode palette group requires **matching the separate base Mode Light/Dark selection**. Neither these proofs nor native Penpot preview names approve all runtime semantic aliases.
+- **Full token coverage:** typography stacks for Windows/macOS/Persian (Segoe UI vs Inter, Noto Sans Arabic candidate), density, elevation, corners, high contrast/forced-colors, motion/reduced-motion and true RTL/LTR logical dimensions. The 48 color token specimens are only the first independently checked slice; #419 has earlier draft spacing/typography/motion sets.
+- **Portal and nested theme ownership:** D2's real Dialog/Popover host-context behavior remains unimplemented; token aliasing alone does not move a DOM portal into its correct Theme ancestry.
+- **Actual component consumption:** the CSS is deliberately opt-in research and not yet imported by final Blazor v3 component code. Test real disabled/focus/error/hover, modes, SSR, keyboard, zoom and screen readers, with nonbreaking CSS variable precedence.
+- **Quality & migration:** full browser/reflow/forced-colors evidence, documentation/Skills, exhaustive demo, build/pack/SSR validations and [#424](https://github.com/vrassouli/Bluent/issues/424) migration notes before Review/Done. #419 design-library PR #499 has been merged into bluent-v3; #418 remains independently in progress.
+
+**Isolation:** work on branch `v3/issue-418-design-tokens` based on `bluent-v3`; stable `Dev` and published NuGet untouched. The architecture D1–D5 is accepted; the *exact v3 token vocabulary and complete brand themes have not yet been approved*.
+
+## Browser emulation checkpoint
+The [scoped accessibility policy overlay](issue-418-accessibility.preview.css) and [six-scenario Chrome probe](ACCESSIBILITY-MEDIA-PROBE.md) exercise forced-colors and reduced-motion at research scope only; keyboard focus and non-reduced motion remain open. This is not shipped CSS.
+
+
+## Real Blazor runtime and detached Dialog checkpoint
+The [nine-check interactive WASM/Chrome proof, SSR smoke and D2 Penpot decision map](BLZ-RUNTIME-PORTAL-AUDIT.md) exercise scoped candidate tokens in real Bluent controls and document the **reproduced, still-unfixed** global service Dialog theme ownership gap. Preview CSS stays opt-in and demo-only.
+
+
+## Expanded Chrome/Blazor 74-check runtime matrix
+[Runtime results](BLZ-RUNTIME-PORTAL-AUDIT.md) now include 20 real Button brand-mode colors, 20 root alias isolation assertions, 20 primary color-contrast arithmetic checks (minimum 5.552:1), mobile 390px RTL, compact height, and **both still-unfixed** service Dialog/Popover ownership defects. See [D2 candidate owner contract](PORTAL-THEME-OWNERSHIP-PROPOSAL.md) for required app-scoped propagation design; the document-wide style swap does not demonstrate independent simultaneous brands.
+
+
+## Opt-in portal theme prototype — actual runtime implementation
+[The scope prototype guide](PORTAL-THEME-SCOPE-PREVIEW.md) documents the proposed C# PortalThemeScope/SetThemeScope/CascadingValue contract, real Blazor ownership propagation and v2 no-scope fallback. Actual Dev01 Chrome passes **83/83** assertions and NUnit **26/26**; the original D2/D5 defects are fixed **only in the opted-in research path**. Brand-isolated simultaneous apps, native High Contrast/AT, interactive SSR, final API/Skills and full Penpot approval are **still pending**. It is not in current NuGet/CSS packages. The earlier findings above are preserved as historical pre-fix evidence.
+
+## Concurrent brand-scoped owners
+See BRAND-SCOPES-PREVIEW.md for the source-based 10-brand, 2-mode CSS generator, Penpot page 34 and 126/126 real Blazor Chrome tests. All 450 variable declarations are parsed per theme, but only 49 brand-varying variables are overridden for each opted-in host (980 declarations across 20 combinations). NUnit tests: 40/40. Legacy, stable and default bundles are unchanged. Older browser-count checkpoints above are retained for traceability.
+
+## Interactive Server browser parity
+The [published SSR InteractiveServer integration probe](INTERACTIVE-SERVER-PROBE.md) now passes the same **126/126 real Chrome/CDP tests** as standalone Blazor WebAssembly. The isolated SSR probe route keeps the service-hosted Containers in its own interactive circuit; the Production-published local host handles static assets correctly. This is not native accessibility validation, deployment, or a release.
+
+## Persian typography / genuine 320px reflow research
+The [live فارسی, ZWNJ, Latin identifiers and icon/text alignment research](PERSIAN-TYPOGRAPHY-RESEARCH.md) adds three real Bluent Buttons, one TextField, isolated bidi identifiers and Chrome platform-font tracing to the opt-in lab. It corrects the previous mobile emulation false-positive: CSS viewport width is now explicitly asserted to be 320 or 390px. An observed 400% long Persian Button overflow was fixed **only inside the v3 demo CSS**, using wrapping and width constraints. The current dual-mode browser matrix is **139/139 WASM and 139/139 Interactive Server**, subject to their documented scope. A new Penpot typography design and approved font choice are still pending; stable Bluent.UI Button SCSS is unchanged.
+
+
+## Verifiable typography source and invalid/disabled states
+The [#418 typography source audit](TYPOGRAPHY-SOURCE-AUDIT.md) parses the existing 10-brand × Light/Dark CSS and verifies the same 17 declared family/weight/size/line-height values for all 20 modes (fontSizeBase300 14px, lineHeightBase300 20px). These are **legacy source facts**, not approved v3 typography. The research demo now contains a truly disabled Bluent Button and Persian invalid TextField with aria-describedby and a demo-only source-danger border. Updated Chrome WASM and InteractiveServer test suites pass **144/144** each; final font/visual/native AT decisions remain open.
+
+Additional real Microsoft Edge (Chromium) repetitions of the full new 144-check matrix pass on both WebAssembly and locally published InteractiveServer; see TYPOGRAPHY-SOURCE-AUDIT.md. This does not provide Firefox/Safari/AT coverage.
+
+
+## Editable Penpot form and reflow board; open D5 portal accessibility
+The correct Bluent v3 Design System Penpot file (b64f6665-c9ab-80b5-8008-c4ac99d9d000) now includes a **new editable page 35**: `Persian validation states and reflow` (page `916ee53e-8991-8009-8008-c61c0754ce9d`, board `916ee53e-8991-8009-8008-c61c075e54cc`, **44 native shapes**, 0 bounds violations; final updated PNG exported and visually inspected). It previews Persian TextField error states, disabled Button, Light/Dark, a schematic of the browser-verified 320 CSS-pixel / 400% text wrapping (not a pixel-scale font-size rendering). Noto Sans Arabic is **only the research Penpot font**, not an approved v3 shipping font. [D5 actual Chrome Accessibility/keyboard audit](D5-PORTAL-ACCESSIBILITY-AUDIT.md) identifies *four still-open findings* around Dialog role, accessible close label, initial focus from a programmatic open, and open Popover expanded/controls relationships; 144/144 Chrome styling tests **do not imply these are fixed**. Penpot page 33 D2 acceptance text was updated for D5.
+
+Final page #35 board re-exported from the connected Penpot file after refinements, visually reviewed and rechecked: 44 editable elements, zero geometry bounds errors. Four D5 open observations reproduced on Chrome and Edge, on both WASM and InteractiveServer; see D5-PORTAL-ACCESSIBILITY-AUDIT.md.
+
+
+## Penpot #418 Button labels: rendered-content centering
+The maintainer spotted visibly top-aligned Button text on page 34 (Excel/Word) and page 35 (Persian disabled and multiline RTL). [Native Penpot correction evidence](PENPOT-BUTTON-LABEL-CENTERING.md) records the before/after layout and actual Penpot Text.textBounds measurement: all five labels now have centered ink boxes (horizontal 0 px, vertical <=0.21 px), all inside their background buttons, and both page PNG exports were visually inspected. Setting verticalAlign=center alone was inadequate for Penpot Noto Sans Arabic, so the final result was calibrated from actual rendered text bounds. This changes Penpot design assets only; no shipping Button CSS or stable NuGet.
+
+
+## Opt-in Dialog accessible name/entry proof
+The [D5 scoped Dialog accessibility prototype](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md) supplies an explicit localized accessible name and Close icon label, adds role=dialog and focuses the Dialog on initial render, only with caller opt-in. Real Chrome and Edge, WASM and published InteractiveServer **149/149** each; NUnit **43/43**. Legacy unscoped markup is unchanged. **Remaining gaps:** focus restoration, full modal keyboard trap/stack, Popover aria-expanded/aria-controls, native AT and approved API. The earlier four D5 defects in D5-PORTAL-ACCESSIBILITY-AUDIT.md are historical baseline findings.
+
+
+## Explicit focus restoration and actual Popover ARIA state (opt-in)
+The [#418 D5 focus-return and Popover ARIA proof](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md) covers a caller-supplied Dialog launch Button ID and safe restoration after the last Dialog closes; real Popover show/hide/reopen cycles set aria-expanded and aria-controls in the JS component that owns visibility. A legacy Popover opened without opt-in remains unchanged. Four Chrome/Edge x WASM/InteractiveServer browser runs **157/157 each**, NUnit **47/47**; the previously reported original D5 gaps are now historical only in the opted-in prototype. Modal focus trapping, nested stacks, AT, final component API approval and complete design parity remain open.
+
+
+## D5 named Modal keyboard, nested Escape and focus stack draft
+The [new native Penpot #418 design and runtime ledger](D5-MODAL-KEYBOARD-STACK-PROTOTYPE.md) references actual editable Penpot page 36 (535db143-a732-807e-8008-c6403ec3fa0c), board 535db143-a732-807e-8008-c6403f3c74af: 35 native shapes, zero bounds violations, five rendered label ink centers within 0.36px of button center, reviewed exported PNG. Opt-in SetModalKeyboardNavigation on a named Modal implements topmost-only Tab/Shift+Tab looping, Escape with keyrepeat/closing guard, nested caller-ID focus return, teardown of its listener and reduced-motion dismissal. **Four 169/169** Chrome/Edge × WebAssembly/published InteractiveServer passes; **48/48** NUnit. Native OS/AT and final API/cross-component sign-off remain open.
+
+
+## D5 escape precedence and explicit initial focus (draft)
+Penpot file Bluent v3 Design System now has **page 37** `535db143-a732-807e-8008-c644769400c0`, native board `535db143-a732-807e-8008-c644771eb48a`: 26 editable elements, 0 board-bounds errors, actual PNG visually reviewed. [D5 design-to-code record](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md) specifies child Popover Escape consumption before its Modal, internal preventDefault/stopPropagation Escape ownership and explicit caller-selected initial focus with inside/visible/enabled validation and fallback to the Dialog root. Four actual **176/176** Chrome/Edge x WebAssembly/InteractiveServer interactive probes pass; final native AT/Fluent API acceptance remains open.
+
+
+### D5 open-Popover disposal proof
+Added an opt-in JS Escape-listener disposal path through existing Blazor PopoverService.Destroy and PopoverInterop. Browser integration checks count actual document keyboard listeners before show, while a Popover is open, and after *in-surface button-triggered component unmount*, proving **+1 then -1**. Four Chromium x Blazor runs each **177/177**, including prior Escape/initial-focus checks. See [D5 Escape/focus audit](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md). Arbitrary navigation, other libraries and real screen readers remain separate acceptance items.
+
+
+## D5 visible Dialog heading as accessible name
+Real editable Bluent v3 Penpot **page 38** (`535db143-a732-807e-8008-c64b3e0c419d`, native board `535db143-a732-807e-8008-c64b3e839d5a`) documents the [title-to-AX-name contract](D5-DIALOG-HEADING-AX-AUDIT.md): standard titled `ShowAsync<T>(title,...)` opts into an `aria-labelledby` reference to its true unique `h2`; custom render-fragment dialogs keep the explicit localized `aria-label` fallback and never point to a missing heading. Board has **22 editable shapes**, zero bounds errors and reviewed PNG export. Real Chrome/Edge × WASM/InteractiveServer **183/183 each**, NUnit **53/53** including static SSR/HTML-encoding tests. NVDA was not found on Dev01; VoiceOver was not running on MacBook3: no actual native screen-reader approval is claimed.
+
+
+## D5 Dialog aria-describedby and live Persian title proof
+The [#418 visible description and live title audit](D5-DESCRIPTION-LIVE-TITLE-AUDIT.md) links actual opt-in visible English/Persian help text via a unique, scoped aria-describedby IDREF; native Blazor Button changes the standard Dialog h2 and Chromium Accessibility Tree name follows it with stable aria-labelledby. New real editable Penpot page `535db143-a732-807e-8008-c650a310958b` / board `535db143-a732-807e-8008-c650a32a10f7` (22 shapes, 0 bounds errors, exported PNG reviewed). Four **190/190** Chrome/Edge × WASM/InteractiveServer runs, NUnit **58/58**. A reduced-motion zero-duration close race was fixed only in opt-in paths; an accidental duplicate JS export briefly terminated the Server Circuit during testing, was removed and all suites re-passed. Native AT, Safari engine and final API still OPEN.
+
+
+## D5 Dialog unmount and keyboard teardown regression
+See [#418 live Blazor Dialog owner removal](D5-DIALOG-OWNER-UNMOUNT-AUDIT.md). Three actual mount/unmount cycles remove an open opt-in Dialog via its own Bluent Button without Close(), and CDP verifies window keydown listeners baseline -> +1 -> baseline. Real Chrome/Edge x WASM/published InteractiveServer pass 194/194 each. The early red test was a JavaScript falsey-zero test bug, not a demonstrated runtime leak. JS unregister now supports stable Dialog ID after DOM detach. Existing Penpot page36 is design basis; a new Penpot board was blocked by suspended tab and Figma fallback by Starter-plan rate limit. SafariDriver was ready on MacBook3 but Safari requires Allow Remote Automation to be manually enabled; setting unchanged and Safari not tested.
+
+
+## D5 native Safari / WebKit test and VoiceOver gate (2026-10-11)
+The [Safari/VoiceOver #418 audit](D5-SAFARI-VOICEOVER-AUDIT.md) records a real authored Penpot D5 page `535db143-a732-807e-8008-c661af0787e1`, board `535db143-a732-807e-8008-c661af7e66a4` (26 native editable shapes, zero bounds errors and reviewed PNG). Actual Safari 27.0.1/WebKit with locally published InteractiveServer **15/15** repeatable W3C WebDriver checks via `scripts/quality/probe_v3_safari_webdriver.py`: hydration, named modal, native keyboard Tab/Shift+Tab/Escape, focus restore, aria-labelledby/describedby, live Persian title and three real Blazor owner unmount cycles. Stable Mac checkout remained Dev; only a temporary task-branch worktree and published host were used. Opening VoiceOver revealed first-run Quickstart, so **native spoken VoiceOver output remains NOT VERIFIED**; no VoiceOver/WCAG certification is claimed.
+
+
+## D5 route-local Dialog host disposal (draft)
+The [#418 page-local navigation/awaiting Dialog audit](D5-ROUTE-LOCAL-DIALOG-DISPOSAL-AUDIT.md) documents actual editable Penpot page `535db143-a732-807e-8008-c66a41867ed4` and board `535db143-a732-807e-8008-c66a418dadb2` (26 native shapes, zero boundary errors and PNG visually reviewed). A RED NUnit reproduced an opted-in Dialog awaiting forever when its page-local host was disposed; opt-in-only `Dispose` now completes its pending result as dismissed/null while preserving legacy default behavior. Real published InteractiveServer route navigation via a Button inside the Dialog verifies the old host and focus scope disappear (Chrome+Edge 197/197 each); existing WebAssembly tests 194/194 each. Layout-global Dialog owner navigation semantics and native VoiceOver output remain OPEN.
+
+- **D5 route-navigation WebKit update:** real macOS Safari 27.0.1/WebKit locally published InteractiveServer on task branch `8fc5d7e5`, repeatable `scripts/quality/probe_v3_safari_webdriver.py` **18/18** including 3 cross-route Dialog-owner disposal/landing-focus assertions; native VoiceOver speech still unverified.
+
+
+## D5 native VoiceOver progress (2026-10-12)
+[MacBook3 VoiceOver spoken-caption evidence](D5-VOICEOVER-OBSERVATIONS.md) now verifies real Safari VoiceOver reading of an active Dialog context and its dynamic Persian h2 name. The VoiceOver Caption Panel actually displayed the Persian name, web dialog role and heading level 2 after the user-facing Bluent Button was activated with a native VoiceOver command. This is a **partial native VoiceOver pass**, not full VoiceOver/WCAG signoff: full description traversal, closure/focus return and Popover composites still open.
+
+
+## D5 Persian-first Dialog / localized Close gate (2026-10-12)
+[Penpot-designed Persian-first Dialog audit](D5-PERSIAN-VOICEOVER-CLOSE-AUDIT.md): native editable Penpot page \`6519bd63-6e0d-802b-8008-c6ddeb6733bd\`, board \`6519bd63-6e0d-802b-8008-c6ddeb872846\` (26 shapes, zero bounds issues, exported PNG visually reviewed). Real opt-in Blazor Dialog has initial Persian h2, visible mixed-direction Persian aria-describedby, localized \`بستن پنجره\` close name and initial/return focus. Chrome/Edge real WASM **198/198 each**, published Server **201/201 each**, NUnit **60/60**, SSR **4/4**, Release zero warnings/errors. New Safari W3C assertions are authored but **not executed** because Safari currently reports Allow Remote Automation disabled. Native spoken VoiceOver Persian description and Close focus-return also **not verified**; previous native dynamic-heading caption evidence remains valid.
+
+## Real mouse versus keyboard Button focus (v3 draft)
+
+The opt-in #418 Blazor integration probe now dispatches actual Chrome DevTools Protocol mouse press/release and keyboard Tab events on the rendered Button, rather than calling click() or manually setting CSS pseudoclasses. It checks that pointer focus does **not** acquire the keyboard-only focus-visible ring and that the next Tab produces a visible >=2px focus outline. The scenario links to #501, but does not assert that the unapproved native Penpot focus variants or #428 component implementation are complete. Design sources: #418 Penpot tokens/modes and #501 page 38 Focus Visible states.
+
+Validated on Dev01 in the v3/issue-418-design-tokens task branch, using node scripts/quality/probe_v3_blazor_runtime.mjs. The final isolated test order passes four genuine browser/Blazor combinations: **Chrome 201/201 WASM**, **Chrome 204/204 InteractiveServer**, **Edge 201/201 WASM**, and **Edge 204/204 InteractiveServer**. The initial placement of the CDP mouse gesture before the Dialog checks caused Edge to time out while closing a scoped Dialog after reduced-motion emulation; temporarily removing the gesture restored the older 198/198 baseline. Moving the focus-modality scenario after Dialog teardown removes that test-order interaction. This is an isolation change in the test suite, NOT proof that the production Dialog has a defect or that #501 is finished.
+
+The browser checks use a Chromium focus/style heuristic only: no native OS focus rings, assistive technology, Penpot approval, Firefox/Safari parity, or accessibility certification. The v2 Dev branch and stable NuGet remain untouched.
+## Strict emitted-theme parser and v3-only CI (2026-10-12)
+
+The two research generators now consume one fail-closed [CSS source reader](../../../scripts/quality/v3_theme_css_parser.py): exactly one emitted `[data-bui-theme=light|dark]` source block, no extra override selectors, no comment-supplied variable, no duplicate declaration (even equal), no empty/malformed declarations. The checker does not pretend to parse arbitrary CSS; it enforces the existing Bluent theme source-file contract. This prevents accidental extraction of a commented token and flags Sass/CSS output shape drift before producing preview tokens or scoped brand styles.
+
+Run `python -m unittest discover -s scripts/quality -p test_v3_theme_css_parser.py -v` (8 tests), `python scripts/quality/generate_v3_token_preview.py --check`, `python scripts/quality/generate_v3_scoped_brands.py --check`, `python scripts/quality/check_v3_typography_source_contract.py`, and `python scripts/quality/audit_v3_token_preview_contrast.py`. Dedicated [v3 Token Contract CI](../../../.github/workflows/v3-token-contract.yml) watches PRs to `bluent-v3` and pushes to the `v3/issue-418-design-tokens` task branch. Its read-only checks never pack, publish, edit generated artifacts or touch protected `Dev`. Real 20 × 450 emitted declarations and both generated CSS/JSON previews are unchanged. This is a source/generator reliability gate, not final Penpot token approval or native UI accessibility evidence.
+
+## Button face-center geometry gate (2026-10-12)
+
+The real Blazor/CDP probe now measures the **center of text and icon separately against the button face**, not merely icon versus text. Three Persian/RTL specimens (regular, mixed Persian/Latin and long ZWNJ-wrapped text) must stay within a 2 CSS-pixel center tolerance. The same additional assertions run with consumer text enlarged to 200% and 400% in a genuine 320px CSS viewport, alongside pre-existing clipping and icon-order tests.
+
+Verified on Dev01 on the v3 #418 task branch: **Chrome WASM 206/206**, **Chrome published InteractiveServer 209/209**, **Edge WASM 206/206**, **Edge published InteractiveServer 209/209**. Normal-size measured center offset was zero for both label and icon in each of the three live Chrome specimens. This is **CSS geometry evidence only**; visual glyph ink, genuine Penpot native variant positions, font rendering on Safari/macOS and #501's unapproved focus rings require separate inspection.
+
+## Visible-icon and keyboard-focus geometry correction (2026-10-12)
+
+**Evidence correction:** the earlier geometry smoke sampled the element with CSS class `icon` without checking visibility. Bluent Button renders both regular (`icon`) and filled (`active-icon`) Fluent icon elements; on hover/selected the regular element can be `display:none`, producing a **zero-size rect**. The earlier "zero pixel offset" alone could therefore be a false positive and must not be construed as pixel/ink-level Button fidelity.
+
+The actual headless Blazor/CDP probe now selects the **currently visible** `bui-icon` whose CSS computed display is non-none and whose measured bounding rectangle exceeds 8px in each axis. It separately asserts a rendered >=10px glyph container in the standard Persian, mixed-direction and long-ZWNJ buttons, at normal size and 200%/400% consumer text enlargement. It checks horizontal RTL icon-after-label ordering plus full icon containment inside the Button face at all three sizes; text clipping, face/content vertical center, and the true 320px zoom reflow gates remain.
+
+The same real-user-modality test now performs pointer focus followed by Tab and Shift+Tab, captures the **same** Persian Button face and its visible icon before/after keyboard focus, and verifies <0.5px geometry changes (no layout shift) when the 2px opt-in focus ring appears. A forced-colors + reduced-motion browser emulation checks that focus-visible stays present with >=2px solid outline and no face/label/icon geometry changes. These are research-only runtime checks grounded in #418's existing High Contrast policy design and tracked toward #501; they do not silently approve new native Penpot Focus variants or alter production Button CSS.
+
+**Re-run on Dev01, exact branch `v3/issue-418-design-tokens`:** Chrome WebAssembly **220/220**, Chrome published InteractiveServer **223/223**, Edge WebAssembly **220/220**, Edge published InteractiveServer **223/223**. The normal visible regular icon box measured **20x20 CSS pixels**. Browser CSS element rectangles are NOT visible glyph-ink bounds or native screen-reader/Windows High Contrast certification, nor Safari/Firefox coverage; native Penpot review remains open. No stable Dev/NuGet change.
+
+## Dedicated real-browser v3 CI (draft #418)
+
+The opt-in browser research probe also has a [v3-only Windows GitHub Actions matrix](../../../.github/workflows/v3-browser-lab.yml): Chrome/Edge times Blazor WebAssembly/published InteractiveServer. Each job installs .NET 10 and Node 24, restores the solution, builds the actual Debug WASM demo, and runs the same CDP test used on Dev01, with a temporary browser profile and no production deployment. It retains failure logs for a short period. The workflow runs on **pull requests targeting bluent-v3** when relevant research/demo/theme files change, or by manual dispatch; there is no trigger on stable Dev and no NuGet publication action. GitHub-hosted runner success must be inspected separately; local Dev01 pass is not CI evidence.
+
+This is not native Windows High Contrast, screen-reader testing or final #501 Penpot design acceptance.
+
+## Avoid duplicate browser CI work
+
+The draft v3 source/contract workflow and Windows browser matrix now run automatically on PR changes to bluent-v3 only, or by manual dispatch. Previously the same head commit generated simultaneous push and pull_request executions, duplicating the expensive four-way Windows matrix. Both workflows now use PR-head concurrency with cancel-in-progress for superseded commits. No changes to protected Dev/release workflows. GitHub-hosted final results must still be checked independently.
+
+## Six-appearance keyboard focus matrix (#418 / #501, research only)
+
+Source experiment: the actual `V3StylingLab.razor` now includes an independent Persian/RTL research fixture for **all six existing public Bluent ButtonAppearance values**: `Default`, `Primary`, `Danger`, `Outline`, `Subtle` and `Transparent`. It also includes a native disabled Primary and keyboard entry/exit sentinels. This is **not** an implementation of the imported Fluent 2 Button variant family, nor final design acceptance for Penpot #501 (whose five native appearances use `Secondary` where legacy Bluent uses `Default`, and do not include a finished `Danger` focus design).
+
+The full CDP/Blazor interaction probe issues **real browser Tab** across all six appearances, verifies `:focus-visible` plus >=2px outline per appearance and no face-size layout shift, verifies Tab skips disabled to the exit sentinel, and verifies **Shift+Tab** reverses to Transparent without entering disabled. A second pass with `forced-colors: active` (browser emulation) checks keyboard ring visibility for each appearance. All styles are inherited from the previously documented **opt-in v3 lab**; shipping `Bluent.UI` Button CSS and the released API are unchanged.
+
+Local Dev01 verification: Chrome **240/240 WebAssembly** and **243/243 published InteractiveServer**; Edge **240/240 WebAssembly** and **243/243 published InteractiveServer**. Explicit Debug rebuild was needed for WASM because the harness correctly launches with `--no-build`; the first pre-rebuild run could not find the new matrix DOM fixture and did not reveal a Button runtime defect. The native Penpot Focus overlay/token reviewer gate, actual OS high contrast/AT, pointer-versus-keyboard nuances on real devices, glyph-ink centering, and Safari/Firefox are **not completed**. Do not mark #501/#418 Done based on this matrix alone.
+
+## Keyboard Focus + Hover/Pressed/Selected research matrix (2026-10-12)
+
+The expanded [Button state-interaction report](BUTTON-FOCUS-INTERACTION-MATRIX.md) pairs real Tab/Shift+Tab and held Space with six legacy Bluent appearances and a second six-button selected/Toggled=true matrix in Persian RTL. Tests verify selected/focus independence, visible icon containment and no layout shift; an actual Space activation removes selected styling while focus persists. Dev01 Chrome/Edge WebAssembly 278/278 each, InteractiveServer 281/281 each. The browser probe **explicitly reports a known a11y failure**: all six toggle-enabled Buttons omit aria-pressed; these green layout/interaction counts do not constitute final a11y approval. The fix belongs in the prerequisite-gated #428 Button implementation, not stable v2 source.
+
+## Focus ring contrast across all brands (2026-10-12)
+
+The [real-browser focus contrast review](FOCUS-RING-CONTRAST-CANDIDATE.md) compared ring and adjacent host surface for the 10 brands x Light/Dark. The existing opt-in brand-stroke ring is under 3:1 on **all ten Dark modes** (1.94-2.15:1). A separately gated, **not-default** candidate reuses the existing Fluent --colorStrokeFocus2 token (#000 Light / #fff Dark), achieving >=14.55:1 across 20 computed browser samples and preserving OS Highlight during forced-colors emulation. Local Chrome/Edge WASM 320/320 each and published InteractiveServer 323/323 each; one Server attempt failed before a full successful rerun (cause undetermined). Native Penpot ring geometry/approval, OS AT and WCAG remain open. No shipping component colors changed.
+
+## 2026-10-13 Focus2 source-to-Button research alias
+
+The candidate high-contrast Focus Ring path is now present in the **opt-in-only** generator: `--colorStrokeFocus2` → `--bui-v3-focus-ring-strong-candidate` → `--bui-v3-button-focus-outer-candidate`. See [source-to-component crosswalk and browser checks](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). Do not replace the existing `--bui-v3-border-focus` or treat this candidate as a released public token contract.
+
+**Connected Penpot follow-through:** two additive native Focus2 research TokenSets and twelve actual vector stroke bindings now exist for the #501 Button Focus Visible family. Light native resolution verified; Dark readback and Light restoration remain pending because Penpot disconnected. [Native IDs and limitations](FOCUS2-ALIAS-CHAIN-CROSSWALK.md).
+
+Connected Penpot native follow-up: both Light and Dark showed the correct actual 6 Button/Danger Focus pairs with `bluent.component.button.focusOuterCandidate` and gap token bindings; a separate Light read-only check passed **71/71** and counted **40 sets / 205 tokens**. A later Dark toggle caused a browser-tab freeze, so the Mode must be restored to Light when the tab wakes. See [traceable live evidence](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). Candidate names remain unapproved.
+
+### Final recovery addendum
+
+2026-10-13 final UI-state recovery: after the later Dark toggle suspended the plugin, the correct Penpot file connected again and the existing Light · Draft Mode theme was explicitly toggled active. The tool returned activeModes: [Light · Draft] and the exact Bluent v3 Design System file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000. Thus **the final default-Light restoration is now confirmed**. The earlier separate real six-variant Light and Dark readbacks and 71/71 Light audit remain the recorded actual stroke evidence; the last restore call verified the active theme, not a new screenshot or repeat of the 71-check suite. Public token signoff and native screen-reader/OS conformance remain open.
+
+## Focus reviewer decision (2026-10-13)
+
+Maintainer preference: **brand-colored Button focus ring** is the default, and **TextField keeps only its native animated bottom underline**. The Styling Lab no longer frames TextFields; emulated forced colors maintains an OS-highlight underline. Local Chromium suite: **592/592 pass**. Focus2 remains an unapproved comparison and brand-dark focus contrast still needs work. See [TextField design review](TEXTFIELD-FOCUS-REVIEW.md).
+
+Branded Dark focus latest research: The opt-in Styling Lab has an experimental fourth brand-preserving preview. The Chrome/WASM browser suite passed 613/613. Although the brighter emitted compound-brand stroke passes 3:1 on the ordinary neutral Dark surface, it fails on Dark NeutralBackground1Hover in all 10 brands (2.65–2.91:1). See BRANDED-FOCUS-PENPOT-PAGE07-REVIEW.md. No approved/public Button focus change.
+
+Latest brand-preserving Dark hover research: the optional Styling Lab preview now uses existing emitted colorBrandForeground2 in Dark; normal and hover neutral hosts both pass the numerical 3:1 contrast gate across all 10 brands (minimum 4.294 normal, 3.206 hover), with an actual new Penpot board and 633/633 real Blazor browser checks. The earlier compoundBrandStroke Hover failure remains important evidence. See BRANDED-FOCUS-HOVER-CANDIDATE.md. No public Button focus API/default or stable CSS change.
+
+Keyboard-focused branded Focus research extended: **653/653 real Chrome/Blazor assertions**, including 20 focused Button outline computed-style checks across 10 brands × Light/Dark on two source backgrounds. It is still an opt-in demo alternative, not released production CSS or OS/AT certification. Details: BRANDED-FOCUS-HOVER-CANDIDATE.md.
+
+**2026-10-14 focus host-surface review:** a single brand ring passes on the studied neutral hosts but fails on colored brand/danger surrounding containers; an inverse white source passes those colored hosts but fails in Dark inverted white hosts. Across 100 source-host cases the behavior is explicitly documented and guarded by five new tests. Two ACTUAL editable Penpot page-07 research boards were exported/visually reviewed and six rings have exact #501 symmetric vector geometry. Real Chrome/WASM six-appearance browser regression: 673/673 pass. No public focus token approved. See [focus host-context evidence](FOCUS-HOST-CONTEXT-REVIEW.md).
+
+2026-10-14 mounted-host evidence: Actual keyboard-focused Bluent Button host backgrounds were switched among emitted Brand, BrandHover, Danger and Inverted roles for all ten brands in Light/Dark; **80 new real Chromium CSS observations** reproduced **70 selected-branded ring shortfalls** and **10 inverse Dark-inverted failures**. Complete Chrome/WASM lab suite: **753/753 passed**, zero failures, with the known failures asserted as research findings (not waived as conformant). See [focus host-context evidence](FOCUS-HOST-CONTEXT-REVIEW.md). The two actual Penpot board PNGs were inspected and six symmetric ring geometry values directly read back, but the combined live audit is pending a waking Penpot tab.
+
+**Updated Penpot result:** after the tab reconnected, the actual combined page-07 native audit of the two context-focus boards PASSED **40/40** editable-shape/color/geometry/caption checks, zero failures. Earlier descriptions of a suspended plugin were accurate at that earlier checkpoint and are now superseded. Source/Chrome/Edge proof remains bounded; final cross-surface token API approval and native OS/AT are still open.
+
+**2026-10-14 five-host interactive focus comparison (research):** the opt-in Styling Lab renders Neutral, Brand, BrandHover, Danger and Inverted source hosts with real Bluent Buttons and one clickable research mode switch. Contextual mode uses existing source roles; the initial brand-ring visual and all public Button/TextField CSS are unchanged. Real Chrome and Edge WASM **796/796 each** passed, including 100/100 studied contextual numerical host contrasts against 70 known unconditional shortfalls. The responsive 320px RTL/200% text overflow introduced by the research Button was fixed in demo-only CSS. See [source-owned design-to-Blazor evidence](CONTEXTUAL-BRANDED-FOCUS-LIVE-REVIEW.md). Not universal accessibility certification.
+
+**2026-10-14 forced-colors regression check:** a real emulated forced-colors cascade mismatch was discovered in the new demo-only contextual Focus cards (Dark and opt-in Adaptive colors could override system Highlight). Fixed with an explicitly winning system Highlight custom-property **within the five research cards only**. A 20-card-mode computed-role assertion is now permanent; Chrome/WASM entire suite **797/797 passed**. This is NOT native Windows/AT signoff. [Evidence](CONTEXTUAL-BRANDED-FOCUS-LIVE-REVIEW.md).
+
+**2026-10-14 Danger/Toggled readability:** Light source had #FDF6F6 background with white label. Scoped v3 Styling Lab contrast fix now pairs emitted red background/foreground roles for selected/hover/pressed, preserving nonselected Danger. Source QA across 10 brands x Light/Dark x four states; real Chrome and Edge WebAssembly 823/823 each. Public Button CSS unchanged and design Penpot review pending (wrong file attached; Figma fallback quota exhausted). See DANGER-TOGGLED-READABILITY-REVIEW.md.
+
+Danger/Toggled design-tool parity is now source-owned: canonical Penpot Bluent v3 page 07 board 94a03b1b-8cb6-8091-8008-c986fd01b85f contains eight Light/Dark editable Danger states, centered Persian RTL labels and the original 1.07:1 failure. Exported board PNG visually reviewed and **61/61 actual native Penpot checks PASS**, zero failures. The earlier wrong-file design blocker has been resolved for this research specimen; the public Button contract is NOT approved. See DANGER-TOGGLED-READABILITY-REVIEW.md.
+
+Latest Danger contrast progress: Penpot-audited Light/Dark readable selected state is supplied in the actual Bluent.UI v3 **opt-in** static stylesheet wwwroot/v3/danger-toggle.opt-in.preview.css. Styling Lab uses the packaged asset, not duplicate demo CSS; legacy Button remains unchanged. Actual local Chrome/Edge 843/843 each; local-only NuGet package inventory check passed. No publication and no approval of default Button API. Details: DANGER-TOGGLE-PACKAGED-OPTIN.md.
+
+## 2026-10-14 maintainer-approved visual Focus host roles — opt-in token preview
+
+The [Focus host token crosswalk](FOCUS-HOST-TOKEN-CROSSWALK.md) maps the approved visual rule from the #501 source-owned Penpot page-38 board into #418's opt-in generator, **without finalizing a public API**. A host needs explicit surface kind and Light/Dark mode on the same element; provisional variable --bui-v3-focus-host-ring-candidate resolves to approved Fluent source role, or system Highlight under forced colors. The generator validates 100 source pair ratios, with five new contract tests and negative controls. The real browser lab checks actual mounted Blazor host cards and absence of non-opted-in leakage. No shipping CSS or stable NuGet changes.

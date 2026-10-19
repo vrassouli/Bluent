@@ -1,0 +1,80 @@
+/* AUTO-GENERATED #418 PREVIEW — source-backed token alias mapping.
+   Not part of Bluent 2.x bundle; no CSS is enabled without explicit opt-in.
+   This is a v3 research preview, NOT an approved public token naming API.
+   Regenerate: python scripts/quality/generate_v3_token_preview.py */
+[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme] {
+  /* semantic: aliases only; legacy variables are never overwritten. */
+  --bui-v3-surface-default: var(--colorNeutralBackground1);
+  --bui-v3-text-primary: var(--colorNeutralForeground1);
+  --bui-v3-action-background: var(--colorBrandBackground);
+  --bui-v3-action-foreground: var(--colorBrandForeground1);
+  --bui-v3-action-on-brand: var(--colorNeutralForegroundOnBrand);
+  --bui-v3-border-default: var(--colorNeutralStroke1);
+  --bui-v3-border-strong: var(--colorNeutralStrokeAccessible);
+  --bui-v3-status-danger: var(--colorStatusDangerForeground1);
+  --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
+  --bui-v3-surface-disabled: var(--colorNeutralBackgroundDisabled);
+  --bui-v3-border-focus: var(--colorBrandBackground);
+  --bui-v3-text-danger-accessible: var(--colorPaletteRedForeground1);
+  --bui-v3-focus-ring-strong-candidate: var(--colorStrokeFocus2);
+  /* component: aliases only; legacy variables are never overwritten. */
+  --bui-v3-button-background-primary: var(--bui-v3-action-background);
+  --bui-v3-button-foreground-primary: var(--bui-v3-action-on-brand);
+  --bui-v3-button-foreground-default: var(--bui-v3-text-primary);
+  --bui-v3-text-field-background: var(--bui-v3-surface-default);
+  --bui-v3-text-field-stroke: var(--bui-v3-border-strong);
+  --bui-v3-checkbox-checked-fill: var(--bui-v3-action-background);
+  --bui-v3-switch-checked-track: var(--bui-v3-action-background);
+  --bui-v3-badge-danger-foreground: var(--bui-v3-status-danger);
+  --bui-v3-badge-danger-text-accessible: var(--bui-v3-text-danger-accessible);
+  --bui-v3-button-focus-outer-candidate: var(--bui-v3-focus-ring-strong-candidate);
+}
+/* APPROVED VISUAL host-role choice; candidate token ONLY in explicit v3 opt-in scopes.
+   data-bui-v3-focus-mode must be explicit on the host; inherited product theme is untouched.
+   Not a Button rule: consumers may bind outline-color separately after API review. */
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandBackground);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-v3-focus-mode][data-bui-v3-focus-host],
+  [data-bui-v3-tokens] [data-bui-v3-focus-mode][data-bui-v3-focus-host] {
+    --bui-v3-focus-host-ring-candidate: Highlight;
+  }
+}
