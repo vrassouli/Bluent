@@ -143,6 +143,16 @@ finally{
  try{socket?.close()}catch{}
  if(host&&!host.killed){try{const k=spawn('taskkill',['/PID',String(host.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});await new Promise(ok=>k.once('close',ok));}catch{}host.kill();}
  if(browser&&!browser.killed){try{const k=spawn('taskkill',['/PID',String(browser.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});await new Promise(ok=>k.once('close',ok));}catch{}browser.kill();}
+ // Secondary cleanup: Chromium renderer/GPU processes can outlive the root PID.
+ // Only touch Chrome/Edge child processes whose command line contains THIS GUID profile.
+ if(process.platform==='win32'){
+  const ownedProfilePath=profile.replace(/'/g,"''");
+  const sweeperCommand="$p='"+ownedProfilePath+"'; Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($p) } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }";
+  try {
+   const sweeper=spawn('pwsh',['-NoLogo','-NoProfile','-NonInteractive','-Command',sweeperCommand],{stdio:'ignore',windowsHide:true});
+   await Promise.race([new Promise(ok=>{sweeper.once('close',ok);sweeper.once('error',ok)}),wait(6500)]);
+  } catch {}
+ }
  await wait(900);
  try{await rm(profile,{recursive:true,force:true,maxRetries:12,retryDelay:250});}catch(e){console.error('Owned Chrome profile cleanup failed: '+e.message);process.exitCode=1;}
 }

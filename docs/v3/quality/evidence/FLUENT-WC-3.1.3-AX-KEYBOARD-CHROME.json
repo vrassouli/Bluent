@@ -106,7 +106,7 @@
     "deviceScaleFactor": 1,
     "mobile": false
   },
-  "inspectedAt": "2026-10-19T14:50:44.061Z",
+  "inspectedAt": "2026-10-19T15:00:05.100Z",
   "status": "official_baseline_only_no_bluent_parity",
   "note": "Real official WC specimen, independent layout. No native OS AT.",
   "assertions": [

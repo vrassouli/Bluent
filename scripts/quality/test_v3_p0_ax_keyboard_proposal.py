@@ -83,6 +83,14 @@ class LiveAxAndForcedColorsProposal(unittest.TestCase):
         for family in ("BUTTON","SLIDER","RANGESLIDER","FILESELECT"):
             self.assertTrue(png("BLUENT-LAB-"+family+"-AX-KEYBOARD-CHROME.png"))
 
+    def test_disposable_browser_cleanup_is_scoped_to_guid_profile(self):
+        for name in ("probe_v3_fluent_wc_reference.mjs","probe_v3_bluent_lab_reference.mjs"):
+            source=(ROOT/"scripts/quality"/name).read_text(encoding="utf-8")
+            self.assertIn("ownedProfilePath=profile.replace",source)
+            self.assertIn("CommandLine.Contains($p)",source)
+            self.assertIn("Get-CimInstance Win32_Process",source)
+            self.assertNotIn("taskkill',['/IM'",source)
+
     def test_no_parity_screen_reader_or_product_acceptance(self):
         for d in (self.fluent,self.bluent):
             self.assertNotIn("nativeOsAtPassed",d)

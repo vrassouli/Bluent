@@ -126,6 +126,16 @@ finally{
   try{const killer=spawn('taskkill',['/PID',String(browser.pid),'/T','/F'],{stdio:'ignore',windowsHide:true});await new Promise(res=>killer.once('close',res));}catch{}
   browser.kill();
  }
+ // Secondary cleanup: Chromium renderer/GPU processes can outlive the root PID.
+ // Only touch Chrome/Edge child processes whose command line contains THIS GUID profile.
+ if(process.platform==='win32'){
+  const ownedProfilePath=profile.replace(/'/g,"''");
+  const sweeperCommand="$p='"+ownedProfilePath+"'; Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($p) } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }";
+  try {
+   const sweeper=spawn('pwsh',['-NoLogo','-NoProfile','-NonInteractive','-Command',sweeperCommand],{stdio:'ignore',windowsHide:true});
+   await Promise.race([new Promise(ok=>{sweeper.once('close',ok);sweeper.once('error',ok)}),wait(6500)]);
+  } catch {}
+ }
  await wait(1000);
  try{await rm(profile,{recursive:true,force:true,maxRetries:8,retryDelay:200})}catch(e){console.error('Reference-owned profile cleanup incomplete',e.message);process.exitCode=1;}
 }

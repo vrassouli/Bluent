@@ -27,7 +27,7 @@
     "theme": "light",
     "claim": "Chrome AX tree plus real key event and runtime-only CSS candidate; NOT OS/AT or design signoff"
   },
-  "generatedAt": "2026-10-19T14:50:55.915Z",
+  "generatedAt": "2026-10-19T15:00:11.488Z",
   "checks": [
     {
       "label": "Live source Lab hydrated",
@@ -255,7 +255,7 @@
           }
         ],
         "buttonFocusProbe": {
-          "id": "f1368f374",
+          "id": "f6ccc8f10",
           "cls": "bui-button primary ",
           "focused": true,
           "tabIndex": 0,
@@ -265,7 +265,7 @@
         },
         "buttonTabProbe": {
           "tag": "BUTTON",
-          "id": "f647f67dd",
+          "id": "f1a2ffa2",
           "cls": "bui-button outline "
         },
         "image": "BLUENT-LAB-BUTTON-AX-KEYBOARD-CHROME.png"
@@ -275,7 +275,7 @@
       "label": "Native Bluent Button is focusable in actual Chromium",
       "pass": true,
       "details": {
-        "id": "f1368f374",
+        "id": "f6ccc8f10",
         "cls": "bui-button primary ",
         "focused": true,
         "tabIndex": 0,
@@ -289,7 +289,7 @@
       "pass": true,
       "details": {
         "tag": "BUTTON",
-        "id": "f647f67dd",
+        "id": "f1a2ffa2",
         "cls": "bui-button outline "
       }
     },
@@ -1114,7 +1114,7 @@
         }
       ],
       "buttonFocusProbe": {
-        "id": "f1368f374",
+        "id": "f6ccc8f10",
         "cls": "bui-button primary ",
         "focused": true,
         "tabIndex": 0,
@@ -1124,7 +1124,7 @@
       },
       "buttonTabProbe": {
         "tag": "BUTTON",
-        "id": "f647f67dd",
+        "id": "f1a2ffa2",
         "cls": "bui-button outline "
       },
       "image": "BLUENT-LAB-BUTTON-AX-KEYBOARD-CHROME.png"
