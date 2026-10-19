@@ -17,6 +17,21 @@
 | M11 — responsive layout | Existing consumer CSS and utility classes influence page sizing, typography and spacing | Penpot Button constraints now preserve geometry only at tested widths; flex-layout experiment initially failed caption render | **Visual/regression** | Keep old layout utility compatibility until measured; define min widths, overflow and logical CSS; add actual DOM screenshot/zoom/RTL tests |
 | M12 — advanced components | Bluent-specific diagrams, charts, non-Fluent components | Upstream source only supplies a partial grid/cell reference; no universal Fluent equivalent | **Functionality/data** | Preserve/enhance special-purpose components through separate issues rather than delete because not in Fluent catalog |
 
+## Actual issue #420 interaction changes (2026-10-16; DRAFT)
+
+Unlike the visual proposal rows above, these are observed task-branch
+behavior changes with no new public component API. Full consumer-facing
+examples, implementation links and exact acceptance limits appear in
+[the #420 migration review](../architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md).
+
+| Ref | V3 task-branch behavior | Risk | Acceptance needed |
+| --- | --- | --- | --- |
+| M13 - Calendar selection | Awaitable Task handlers for MonthSelect/YearSelect; SelectedDateChanged public signature unchanged | Callback completion, async exception propagation | Controlled async consumer plus real browser |
+| M14 - Calendar month view | MonthChanged awaited in navigation and external SelectedDate parameter update; same-month duplicate suppressed | Behavioral timing, callback reentrancy | Slow callback and parent update integration |
+| M15 - Popover click ARIA | Managed expanded/controls only when attributes absent; Tooltip hover/focus excluded | Semantics for existing custom-ARIA consumers | Actual browser AX + named screen reader |
+| M16 - Popover child lifetime | Remove only destroyed child JS handles/observers/ARIA; sibling stays open | Fast unmount/remount and trigger reuse | Real sibling Escape/focus and resource cleanup |
+| M17 - Native acceptance | Forced-colors browser emulation and Chromium AX are measured, native Windows OS/AT not verified | Release evidence blocker, not breaking API | Windows Contrast Themes, UIA, Narrator/NVDA and accepted design |
+
 ## Non-breaking default proposal
 
 1. **No stable package change is approved by a Penpot design file.** Keep the existing `ButtonAppearance.Default` and `Danger`, all old enum values, parameter binding semantics, DOM behavior and source client layout until a later component issue proves a safe replacement.

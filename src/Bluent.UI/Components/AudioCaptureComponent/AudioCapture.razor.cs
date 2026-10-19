@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops;
+using Bluent.UI.Interops;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -61,7 +61,7 @@ public partial class AudioCapture : IAudioCaptureEventHandler, IAsyncDisposable
     {
         if (_recording)
         {
-            _interop.Stop();
+            await _interop.StopAsync();
             _recording = false;
         }
         else

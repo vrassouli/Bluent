@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops;
+using Bluent.UI.Interops;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -37,10 +37,16 @@ public partial class DataGrid<TItem> : IDataGridEventHandler, IAsyncDisposable
 
     public override async ValueTask DisposeAsync()
     {
-        if (_interop != null)
-            await _interop.DisposeAsync();
-
-        await base.DisposeAsync();
+        try
+        {
+            if (_interop is not null)
+                await _interop.DisposeAsync();
+        }
+        finally
+        {
+            // Tooltip/base resources still need cleanup when JS disposal fails.
+            await base.DisposeAsync();
+        }
     }
 
     public override IEnumerable<string> GetClasses()
