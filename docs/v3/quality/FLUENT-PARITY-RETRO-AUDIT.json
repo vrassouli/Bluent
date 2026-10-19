@@ -688,5 +688,19 @@
       "gapDisposition": "untriaged",
       "notesForReview": "MaxFiles is current API (legacy demo Multiple drift); accessible remove button; Accept not server validation; card gap restored in Lab."
     }
-  ]
+  ],
+  "executionDecision": {
+    "decisionDate": "2026-10-19",
+    "decision": "debt_first",
+    "newComponentLabFamiliesPaused": true,
+    "requestedBy": "project maintainer",
+    "reason": "Finish Fluent2 visual, feature, behavioral and accessibility comparison of the first 18 existing pilot families before implementing a 19th.",
+    "resumeOnlyAfter": "18 retrospective audits have documented Fluent source comparison, reviewable design decisions, and each material gap an owning product issue with approved disposition; no unverified full-parity claims",
+    "firstFocus": [
+      "Button #428",
+      "Slider #442",
+      "RangeSlider #443",
+      "FileSelect #444"
+    ]
+  }
 }

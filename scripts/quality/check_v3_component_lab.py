@@ -836,6 +836,13 @@ def check() -> int:
     assert retro["schemaVersion"] == 1 and retro["auditIssue"] == 552
     assert retro["epicIssue"] == 416 and retro["labIssue"] == 421
     assert retro["plannedFamilyCount"] == 18 and len(retro["families"]) == 18
+    # Maintainer: settle the original 18 Fluent parity debts before family 19.
+    assert retro["executionDecision"]["decision"] == "debt_first"
+    assert retro["executionDecision"]["newComponentLabFamiliesPaused"] is True
+    assert retro["executionDecision"]["firstFocus"] == [
+        "Button #428", "Slider #442", "RangeSlider #443", "FileSelect #444"
+    ]
+
     original = data["families"][:18]
     assert [x["family"] for x in retro["families"]] == [x["family"] for x in original]
     live_queue = json.loads(QUEUE.read_text(encoding="utf-8"))["families"]

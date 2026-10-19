@@ -2,6 +2,14 @@
 
 > **Plan only; NOT a Fluent audit result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **18/18 not reviewed; 0/18 Fluent-approved**. Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
+## Maintainer decision — debt first (2026-10-19)
+
+**Pause all new Component Lab family pilots beyond the first 18.** This P0 quality-backfill audit is the next development priority; Product #428–#445 and actual Penpot/Figma reviews remain the owning sources for implementation. Workstream #552 moved to **Ready** in GitHub Project #5, priority **P0**; do not claim it is In progress without the required own task branch/design source gate.
+
+**Resume new component families only after** all 18 retrospective Fluent comparison reports are written, reviewed and have every material gap assigned an explicit product-issue remediation/accepted-exception decision. This gate requires **audited and dispositioned debt**, not pretending 18 product components are Done. Actual product fixes remain on their existing issue lifecycle; if a crucial gap is blocking Fluent parity, it must be resolved before calling that family accepted.
+
+Read the P0 known issues first: Button #428, Slider #442, RangeSlider #443, FileSelect #444. No changes to the stable v2 branch, no forced #421 PR merge, and no fictional design approval.
+
 ## Reference contract and guardrails
 
 - Visual, anatomy and UX: [Fluent 2 Design](https://fluent2.microsoft.design/), [design tokens](https://fluent2.microsoft.design/design-tokens), [accessibility](https://fluent2.microsoft.design/accessibility) and [spacing](https://fluent2.microsoft.design/layout).
