@@ -48,3 +48,7 @@ For each test mode, the disposable browser briefly added aria-hidden=true to bot
 3. Verify Hover/Focus/Toggled and disabled interactions with native screen readers, keyboard Enter/Space, published InteractiveServer, multiple browsers/versions, real Windows Contrast Themes, localization and reference Fluent 2 once an **editable Penpot/Figma approved design** exists. Penpot's last connected file is unrelated PuyaStudio Runner; Figma fallback previously hit Starter call limit. This audit does not promote #428/#429.
 
 **Lifecycle:** #552 In progress; PR #553 Draft; stable Dev untouched and no component API/DOM code changes.
+
+## Follow-on cross-component findings (2026-10-20)
+
+Separate source-real Chrome/Edge exploratory checks for TabList, NavItem, Accordion and disabled MenuItem reproduced state/role/accessible-name gaps with native pointer actions; see [the source and owner-by-owner handoff](FLUENT-PARITY-CROSS-CONTROL-ICON-AX.md). No product/source change or new Fluent parity approval.
