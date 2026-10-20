@@ -49,3 +49,7 @@ Full [Chrome DOM/AX original](evidence/BLUENT-BUTTON-ICON-ALIGN-CHROME.json) and
 4. Validate final implementation in **Chrome/Edge + released host scenarios (WASM/InteractiveServer), actual Windows contrast/AT, keyboard and content localization**, and reference Fluent 2 optical alignment on accepted designs. An unchanged-source browser-positive QA report cannot close #428/#429.
 
 **Status:** #552 In progress / PR #553 Draft; component owner issues remain Backlog (unless a separate reviewed issue status changes); product stable `Dev` untouched.
+
+## Real Hover and Toggle state follow-up (2026-10-20)
+
+Actual Chrome/Edge original Blazor Toggle Button changes its accessible name from U+E60F Default (regular) to U+E60E Default (filled) merely on hover and keeps Filled after a native click, while never exposing aria-pressed. A disposable-browser-only semantic experiment produces a stable Default name and explicit false/true pressed values. [Source and exact state-machine browser/AX evidence](FLUENT-PARITY-BUTTON-TOGGLE-STATES.md). Not a product fix or Fluent parity signoff.
