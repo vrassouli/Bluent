@@ -32,3 +32,7 @@ The existing `/components/icons` sample demonstrates Regular, Filled and custom 
 5. Validate source-compiled asset/catalog integrity; real Chrome+Edge, WASM and published Server examples; genuine theme/contrast and keyboard/AX; native Windows High Contrast and screen readers. Proposed public API and existing behavior migration are separate owner tasks.
 
 **Acceptance intentionally OPEN:** direct source facts are verified by `test_v3_icon_variant_source.py`; normalized actual Fluent-vs-Bluent visual and OS/AT are **not** tested in this checkpoint. #429 remains its own owner issue (no product patch and no issue-status promotion); #552 and PR #553 remain in progress/draft.
+
+## Subsequent actual browser checkpoint (2026-10-20)
+
+[Chrome + Edge live Icon render and AX observations](FLUENT-PARITY-ICON-BROWSER.md) now confirm a 377×377 SVG rendered from the existing 32×32 demo setting and an unnamed Image node in both engines, across Light/LTR, Dark/RTL and Chromium Forced Colors emulation. No product fix or Fluent parity approval is implied.
