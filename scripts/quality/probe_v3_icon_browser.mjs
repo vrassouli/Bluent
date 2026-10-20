@@ -8,6 +8,8 @@ import {join,resolve} from 'node:path';
 import {createServer} from 'node:net';
 import {setTimeout as wait} from 'node:timers/promises';
 const engine=(process.argv[2]||'chrome').toLowerCase();
+const candidate=process.argv[3]==='candidate';
+if(process.argv[3] && !candidate)throw Error('Optional mode must be candidate');
 if (!['chrome','edge'].includes(engine)) throw Error('Engine must be chrome or edge');
 const browserExe=engine==='chrome'?'C:/Program Files/Google/Chrome/Application/chrome.exe':'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const root=resolve('.');
@@ -74,11 +76,19 @@ try{
  await send('Page.navigate',{url:site});
  await poll(()=>js("(()=>[...document.querySelectorAll('h4')].some(x=>x.textContent.trim()==='Filled variant') && !!document.querySelector('img.bui-icon'))()"));
  await poll(()=>js("document.querySelector('img.bui-icon')?.complete && document.fonts.status==='loaded'"),20000);
+ if(candidate){
+  // RESEARCH ONLY: inject a separate stylesheet into the disposable browser, not the component.
+  const css=await readFile(join(root,'scripts/quality/fixtures/v3-icon-svg-size-candidate.css'),'utf8');
+  const inserted=await js("(()=>{const s=document.createElement('style');s.id='bluent552-icon-size-experiment';s.textContent="+JSON.stringify(css)+";document.head.appendChild(s);return s.isConnected})()");
+  assert('separate CSS candidate injected into test page only',inserted,inserted);
+ }
  for(const mode of [
   {name:'light-ltr',theme:'light',dir:'ltr',forced:false},
   {name:'dark-rtl',theme:'dark',dir:'rtl',forced:false},
-  {name:'forced-colors',theme:'light',dir:'ltr',forced:true}
+  {name:'forced-colors',theme:'light',dir:'ltr',forced:true},
+  ...(candidate?[{name:'mobile-320',theme:'light',dir:'ltr',forced:false,viewport:320}]:[])
  ]){
+  await send('Emulation.setDeviceMetricsOverride',{width:mode.viewport||1240,height:mode.viewport?740:960,deviceScaleFactor:1,mobile:false});
   await send('Emulation.setEmulatedMedia',{features:mode.forced?[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]:[]});
   await js("(()=>{document.documentElement.setAttribute('data-bui-theme',"+JSON.stringify(mode.theme)+");document.documentElement.setAttribute('dir',"+JSON.stringify(mode.dir)+");})()");
   await js("document.fonts.ready.then(()=>true)");
@@ -88,20 +98,42 @@ try{
    icons['Default'].classes.includes('_20_regular')&&icons['Filled variant'].classes.includes('_20_filled')&&
    icons['Default'].css.beforeContent!=='none'&&icons['Filled variant'].css.beforeContent!=='none'&&observed.fontReady,observed);
   assert(mode.name+' custom SVG component',icons.SVG.tag==='SPAN'&&icons.SVG.svg,icons.SVG);
+  if(candidate){
+   assert(mode.name+' actual 32px SVG and wrapper after isolated paint proposal',
+     icons.SVG.svgGeometry.width===32 && icons.SVG.svgGeometry.height===32 &&
+     icons.SVG.geometry.width===32 && icons.SVG.geometry.height===32,icons.SVG);
+   assert(mode.name+' bundled font icons and image retain original rendered geometry',
+     icons.Default.geometry.width===28 && icons['Filled variant'].geometry.width===28 &&
+     icons.Image.geometry.width===32 && icons.Image.geometry.height===32,icons);
+  }
   assert(mode.name+' custom Image loads',icons.Image.tag==='IMG'&&icons.Image.complete&&icons.Image.naturalWidth>0,icons.Image);
   assert(mode.name+' Button icon + textual name',observed.save.found&&observed.save.hasIcon&&observed.save.text==='Save',observed.save);
   const accessibility={};
   for(const name of ['Default','Filled variant','SVG','Image']) accessibility[name]=await axFor(name);
   await js("document.querySelector('h1')?.scrollIntoView({block:'start'})");
   const screenshot=(await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true})).data;
-  const filename='BLUENT-ICON-'+engine.toUpperCase()+'-'+mode.name.toUpperCase()+'.png';
+  const filename='BLUENT-ICON-'+engine.toUpperCase()+(candidate?'-CANDIDATE':'')+'-'+mode.name.toUpperCase()+'.png';
   await writeFile(join(destination,filename),Buffer.from(screenshot,'base64'));
   scenarios.push({...observed,scenario:mode.name,ax:accessibility,screenshot:filename});
  }
- const data={auditIssue:552,ownerIssue:429,sourceRef:'1b023a5c',engine,host:'original Blazor WebAssembly Demo /components/icons, Debug real build',
+ let accessibilityExperiment=null;
+ if(candidate){
+  // Hypothesis-only ARIA choices, neither silently changes Bluent's contract.
+  await js("document.querySelector('img.bui-icon').setAttribute('alt','')");
+  const decorative=await axFor('Image');
+  await js("document.querySelector('img.bui-icon').setAttribute('alt','PowerPoint file type')");
+  const informative=await axFor('Image');
+  await js("document.querySelector('img.bui-icon').removeAttribute('alt')");
+  accessibilityExperiment={decorative,informative};
+  assert('decorative empty alt removes meaningful image from Chrome AX',decorative.some(x=>x.ignored===true),decorative);
+  assert('informative alt gives named image in Chrome AX',informative.some(x=>x.role==='image'&&x.name==='PowerPoint file type'&&!x.ignored),informative);
+ }
+ const data={auditIssue:552,ownerIssue:429,sourceRef:'1b023a5c',engine,candidate,
+  candidateStylesheet:candidate?'scripts/quality/fixtures/v3-icon-svg-size-candidate.css':null,
+  accessibilityExperiment,host:'original Blazor WebAssembly Demo /components/icons, Debug real build',
   status:'browser source observation only NOT Fluent parity NOT native OS or screen-reader signoff',checks,scenarios};
- await writeFile(join(destination,'BLUENT-ICON-'+engine.toUpperCase()+'-BROWSER.json'),JSON.stringify(data,null,2)+'\n');
- console.log('SUMMARY '+JSON.stringify({engine,passed:checks.filter(x=>x.pass).length,total:checks.length,scenarios:scenarios.length}));
+ await writeFile(join(destination,'BLUENT-ICON-'+engine.toUpperCase()+(candidate?'-CANDIDATE':'')+'-BROWSER.json'),JSON.stringify(data,null,2)+'\n');
+ console.log('SUMMARY '+JSON.stringify({engine,candidate,passed:checks.filter(x=>x.pass).length,total:checks.length,scenarios:scenarios.length}));
 }catch(error){console.error('ERROR '+engine+' '+(error?.stack||error));process.exitCode=1;}
 finally{
  try{ws?.close()}catch{}

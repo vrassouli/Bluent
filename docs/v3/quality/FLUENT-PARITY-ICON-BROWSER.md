@@ -40,3 +40,7 @@ Captured `Accessibility.getPartialAXTree` gives `generic` with empty name for ea
 4. The source-only [Icon variant audit](FLUENT-PARITY-ICON-VARIANTS.md) remains separate from this **live browser** evidence. `python -m unittest discover -s scripts/quality -p test_v3_icon_browser_evidence.py -v` only guards recorded observations and source provenance; CI does **not** launch browsers.
 
 **Status:** #552 In progress · PR #553 Draft · #429 product owner Backlog · no edits to stable `Dev` or released 2.x packages.
+
+## Follow-up isolated browser-only sizing candidate (2026-10-20)
+
+A CSS-only research fixture on the unchanged original Blazor page recovered the nested SVG and wrapper to the requested 32x32 CSS pixels on real Chrome+Edge in Light, Dark/RTL, Forced Colors emulation and 320px viewport, with separate opt-in alt policies observed in browser AX. See [the actual paired candidate measurements and screenshots](FLUENT-PARITY-ICON-SVG-PROTOTYPE.md). **Not a product fix, native screen-reader test, or design approval.**
