@@ -39,3 +39,7 @@ Also recorded eight original screenshots for Dark/RTL and Forced Colors, and com
 - **#429 / #420**: decorative vs informative Icon semantics across all consumers; no blanket ARIA override of caller intent, avoid private-use glyph leakage. Keep design approvals and implementations in **their respective owner branches**, not in PR #553.
 
 **Not tested**: approved current Fluent 2 same-state reference, actual native screen readers, Firefox/Safari, production-published InteractiveServer, actual Windows Contrast Theme settings or mobile AT. **Workflow** #552 In progress, PR #553 Draft; product issue lifecycle unchanged, stable `Dev` untouched.
+
+## Live native keyboard follow-up (2026-10-20)
+
+The prior unexecuted keyboard handoff has now been replaced by **real Chrome and Edge Tab/Arrow/Enter/Space source runs**. TabList exposes native button Enter/Space activation but lacks roving Arrow focus; original Nav/Accordion disclosure DIVs and both enabled/disabled MenuItem DIVs cannot receive focus. See [Wave E source-real keyboard report, traces and 30 screenshots](FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md). No product changes or native OS AT certification.
