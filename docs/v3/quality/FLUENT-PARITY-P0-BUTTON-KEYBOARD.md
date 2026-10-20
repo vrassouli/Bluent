@@ -37,3 +37,7 @@ The minimal proposed behavioral contract under **#428**: native Button with `Tog
 - Server: `./scripts/quality/run_v3_fileselect_published_server.ps1 -Scenario button-keyboard`; the existing isolated Release Production runner now also accepts this scenario.
 - Machine evidence: [WASM JSON](evidence/BLUENT-LAB-P0-BUTTON-KEYBOARD-CHROME.json), [Production Server JSON](evidence/BLUENT-LAB-P0-BUTTON-KEYBOARD-SERVER-CHROME.json), each 10/10 browser observation checks, exact status snapshots and computed Chrome AX semantics.
 - `python -m unittest discover -s scripts/quality -p test_v3_p0_button_keyboard_evidence.py -v` — 7 source/snapshot/negative-acceptance tests.
+
+## Button icon accessibility follow-up (2026-10-20)
+
+Real original Buttons demo Chrome/Edge samples for Small/Medium/Large show icon/text flex-box center-Y difference of 0px, but icon-only Button AX names are **private-use glyphs** and text-labeled Button names are prefixed by the glyph. Browser-only aria-hidden and explicit Button aria-label restore meaningful names; see [#552 paired source and semantic-policy research](FLUENT-PARITY-BUTTON-ICON-AX.md). This is not product repair or native screen-reader certification.

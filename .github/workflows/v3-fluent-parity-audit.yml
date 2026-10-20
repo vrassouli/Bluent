@@ -37,6 +37,9 @@ on:
       - "scripts/quality/probe_v3_icon_browser.mjs"
       - "scripts/quality/test_v3_icon_browser_evidence.py"
       - "scripts/quality/test_v3_icon_svg_candidate.py"
+      - "scripts/quality/probe_v3_button_icon_alignment.mjs"
+      - "scripts/quality/test_v3_button_icon_browser_evidence.py"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor"
       - "src/Bluent.UI/Icons/**"
       - "src/Bluent.UI.IconGenerator/FluentIconsGenerator.cs"
       - "src/Bluent.UI/wwwroot/fonts/icons/FluentSystemIcons-Resizable.json"
@@ -87,5 +90,6 @@ jobs:
           python -m unittest discover -s scripts/quality -p "test_v3_icon_variant_source.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_icon_browser_evidence.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_icon_svg_candidate.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_button_icon_browser_evidence.py" -v
       - name: Explicit acceptance disclaimer
         run: echo "PASS means source and stored browser evidence guards only; no live CI browser, no normalized Fluent parity, design approval, or native OS/AT verification."
