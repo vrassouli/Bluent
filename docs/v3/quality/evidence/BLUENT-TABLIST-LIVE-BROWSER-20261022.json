@@ -1,0 +1,93 @@
+{
+  "audit_issue": 552,
+  "owner_issue": 465,
+  "source_branch": "v3/issue-552-fluent-parity-audit",
+  "scope": "Existing Bluent WebAssembly demo real Chrome/Edge via CDP; observed defects NOT parity acceptance",
+  "capture_date": "2026-10-22",
+  "results": [
+    {
+      "engine": "chrome",
+      "mode": "light-ltr",
+      "route": "/components/tablists",
+      "elementTag": "BUTTON",
+      "accessibilityRole": "button",
+      "ariaSelected": null,
+      "nativeTabReached": true,
+      "arrowRightStayedOnOriginal": true,
+      "arrowLeftStayedOnOriginal": true,
+      "pointerSelectionChanged": true,
+      "sourceTrace": "BLUENT-KEYBOARD-CHROME.json",
+      "screenshot": "BLUENT-KEYBOARD-CHROME-LIGHT-LTR-TAB.png"
+    },
+    {
+      "engine": "chrome",
+      "mode": "dark-rtl",
+      "route": "/components/tablists",
+      "elementTag": "BUTTON",
+      "accessibilityRole": "button",
+      "ariaSelected": null,
+      "nativeTabReached": true,
+      "arrowRightStayedOnOriginal": true,
+      "arrowLeftStayedOnOriginal": true,
+      "pointerSelectionChanged": true,
+      "sourceTrace": "BLUENT-KEYBOARD-CHROME.json",
+      "screenshot": "BLUENT-KEYBOARD-CHROME-DARK-RTL-TAB.png"
+    },
+    {
+      "engine": "chrome",
+      "mode": "forced-colors",
+      "route": "/components/tablists",
+      "elementTag": "BUTTON",
+      "accessibilityRole": "button",
+      "ariaSelected": null,
+      "nativeTabReached": true,
+      "arrowRightStayedOnOriginal": true,
+      "arrowLeftStayedOnOriginal": true,
+      "pointerSelectionChanged": true,
+      "sourceTrace": "BLUENT-KEYBOARD-CHROME.json",
+      "screenshot": "BLUENT-KEYBOARD-CHROME-FORCED-COLORS-TAB.png"
+    },
+    {
+      "engine": "edge",
+      "mode": "light-ltr",
+      "route": "/components/tablists",
+      "elementTag": "BUTTON",
+      "accessibilityRole": "button",
+      "ariaSelected": null,
+      "nativeTabReached": true,
+      "arrowRightStayedOnOriginal": true,
+      "arrowLeftStayedOnOriginal": true,
+      "pointerSelectionChanged": true,
+      "sourceTrace": "BLUENT-KEYBOARD-EDGE.json",
+      "screenshot": "BLUENT-KEYBOARD-EDGE-LIGHT-LTR-TAB.png"
+    },
+    {
+      "engine": "edge",
+      "mode": "dark-rtl",
+      "route": "/components/tablists",
+      "elementTag": "BUTTON",
+      "accessibilityRole": "button",
+      "ariaSelected": null,
+      "nativeTabReached": true,
+      "arrowRightStayedOnOriginal": true,
+      "arrowLeftStayedOnOriginal": true,
+      "pointerSelectionChanged": true,
+      "sourceTrace": "BLUENT-KEYBOARD-EDGE.json",
+      "screenshot": "BLUENT-KEYBOARD-EDGE-DARK-RTL-TAB.png"
+    },
+    {
+      "engine": "edge",
+      "mode": "forced-colors",
+      "route": "/components/tablists",
+      "elementTag": "BUTTON",
+      "accessibilityRole": "button",
+      "ariaSelected": null,
+      "nativeTabReached": true,
+      "arrowRightStayedOnOriginal": true,
+      "arrowLeftStayedOnOriginal": true,
+      "pointerSelectionChanged": true,
+      "sourceTrace": "BLUENT-KEYBOARD-EDGE.json",
+      "screenshot": "BLUENT-KEYBOARD-EDGE-FORCED-COLORS-TAB.png"
+    }
+  ]
+}
