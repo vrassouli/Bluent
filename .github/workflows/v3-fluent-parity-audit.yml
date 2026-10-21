@@ -50,6 +50,10 @@ on:
       - "scripts/quality/test_v3_focus_navigation_prototype.mjs"
       - "scripts/quality/test_v3_focus_reentry_proposal.mjs"
       - "scripts/quality/test_v3_focus_reentry_contract.py"
+      - "docs/v3/quality/FOCUS-KEYBOARD-LIFECYCLE-RESEARCH.md"
+      - "scripts/quality/probe_v3_focus_lifecycle_browser.mjs"
+      - "scripts/quality/test_v3_focus_lifecycle_prototype.mjs"
+      - "scripts/quality/test_v3_focus_lifecycle_evidence.py"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/TabLists.razor"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/NavLists.razor"
@@ -113,5 +117,7 @@ jobs:
           node --test scripts/quality/test_v3_focus_navigation_prototype.mjs
           node --test scripts/quality/test_v3_focus_reentry_proposal.mjs
           python -m unittest discover -s scripts/quality -p "test_v3_focus_reentry_contract.py" -v
+          node --test scripts/quality/test_v3_focus_lifecycle_prototype.mjs
+          python -m unittest discover -s scripts/quality -p "test_v3_focus_lifecycle_evidence.py" -v
       - name: Explicit acceptance disclaimer
         run: echo "PASS means source and stored browser evidence guards only; no live CI browser, no normalized Fluent parity, design approval, or native OS/AT verification."
