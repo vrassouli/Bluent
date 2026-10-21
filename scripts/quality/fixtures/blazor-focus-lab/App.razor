@@ -1,0 +1,25 @@
+@page "/"
+@namespace Bluent.FocusLifecycleLab.Components
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bluent #552 Real Blazor FocusAsync Research — NOT PRODUCT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <HeadOutlet @rendermode="InteractiveServer" />
+  <style>
+    :root {font-family:Segoe UI,Arial,sans-serif;color-scheme:light dark}
+    body {max-width:900px;margin:35px auto;padding:0 24px}
+    #scope {padding:20px;margin:16px 0;border:1px solid #888;display:flex;gap:12px;flex-wrap:wrap}
+    button {font:inherit;padding:9px 13px;border:1px solid #888;border-radius:5px;background:Canvas;color:CanvasText}
+    button:focus-visible {outline:3px solid Highlight;outline-offset:3px}
+    #popup {border:1px solid #888;padding:14px;display:flex;gap:8px;margin:18px 0}
+    output {display:block;padding:12px;background:Canvas;color:CanvasText}
+  </style>
+  <script src="focus-lab.js"></script>
+</head>
+<body>
+  <FocusLab @rendermode="InteractiveServer" />
+  <script src="_framework/blazor.web.js"></script>
+</body>
+</html>

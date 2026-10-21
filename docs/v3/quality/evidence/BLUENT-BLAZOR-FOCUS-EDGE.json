@@ -1,0 +1,1160 @@
+{
+  "issue": 552,
+  "status": "isolated Blazor InteractiveServer actual ElementReference.FocusAsync; NOT Bluent component/Fluent/AT acceptance",
+  "browser": "Edg/155.0.4283.62",
+  "platform": "Windows",
+  "records": [
+    {
+      "mode": "light-ltr",
+      "checks": [
+        {
+          "name": "Blazor runtime loaded",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "document actual direction",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "emulated forced-colors matches",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "queue does not directly call FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "queued",
+            "active": "queue",
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "real ElementReference.FocusAsync focused target",
+          "pass": true,
+          "observed": {
+            "status": "focused-target",
+            "active": "target",
+            "focusCalls": 1,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Blazor FocusAsync call count",
+          "pass": true,
+          "observed": {
+            "status": "focused-target",
+            "active": "target",
+            "focusCalls": 1,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "actual async delayed Blazor FocusAsync selects target",
+          "pass": true,
+          "observed": {
+            "status": "delay-focused-target",
+            "active": "target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async FocusAsync actually called after await",
+          "pass": true,
+          "observed": {
+            "status": "delay-focused-target",
+            "active": "target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside user focus survives delayed resume",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-owner",
+            "active": "outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async request canceled before FocusAsync after outside focus",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-owner",
+            "active": "outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside owner prevents focus hijack",
+          "pass": true,
+          "observed": {
+            "status": "canceled-focus-owner",
+            "active": "apply-outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "rejected outside focus request never invoked FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "canceled-focus-owner",
+            "active": "apply-outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor actually unmounted target",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "removed target never receives focus",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "stale request does not invoke FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor rerender restored a target node",
+          "pass": true,
+          "observed": {
+            "status": "target-restored",
+            "active": "restore-target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async delayed target is actually removed in Blazor",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async awaited FocusAsync never focuses removed target",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async canceled stale target never calls FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "OnAfterRenderAsync FocusAsync focused mounted popup",
+          "pass": true,
+          "observed": {
+            "status": "popup-focused",
+            "active": "popup-item",
+            "focusCalls": 3,
+            "target": false,
+            "trigger": true,
+            "popup": true
+          }
+        },
+        {
+          "name": "Blazor real postrender focus called",
+          "pass": true,
+          "observed": {
+            "status": "popup-focused",
+            "active": "popup-item",
+            "focusCalls": 3,
+            "target": false,
+            "trigger": true,
+            "popup": true
+          }
+        },
+        {
+          "name": "Escape restores connected trigger via FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "popup is unmounted by Razor render",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Blazor postrender restore FocusAsync called",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside-close preserves unrelated user focus",
+          "pass": true,
+          "observed": {
+            "status": "closed-unowned",
+            "active": "close-outside",
+            "focusCalls": 5,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside-close unmounts popup",
+          "pass": true,
+          "observed": {
+            "status": "closed-unowned",
+            "active": "close-outside",
+            "focusCalls": 5,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor unmounted trigger before close",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        },
+        {
+          "name": "no stale FocusAsync to removed trigger",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        },
+        {
+          "name": "Escape closes popup with removed trigger",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        }
+      ],
+      "screenshots": [
+        "BLUENT-BLAZOR-FOCUS-EDGE-LIGHT-LTR-FOCUSED.png",
+        "BLUENT-BLAZOR-FOCUS-EDGE-LIGHT-LTR-FINAL.png"
+      ],
+      "states": [
+        {
+          "status": "ready",
+          "focusCalls": 0,
+          "epoch": 0,
+          "active": null,
+          "trigger": true,
+          "target": true,
+          "popup": false,
+          "direction": "ltr",
+          "forced": false,
+          "interactive": true
+        },
+        {
+          "status": "closed-no-trigger",
+          "focusCalls": 6,
+          "epoch": 4,
+          "active": null,
+          "trigger": false,
+          "target": false,
+          "popup": false,
+          "direction": "ltr",
+          "forced": false,
+          "interactive": true
+        }
+      ],
+      "host": "isolated .NET 10 Blazor InteractiveServer, NOT Bluent product"
+    },
+    {
+      "mode": "dark-rtl",
+      "checks": [
+        {
+          "name": "Blazor runtime loaded",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "document actual direction",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "emulated forced-colors matches",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "queue does not directly call FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "queued",
+            "active": "queue",
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "real ElementReference.FocusAsync focused target",
+          "pass": true,
+          "observed": {
+            "status": "focused-target",
+            "active": "target",
+            "focusCalls": 1,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Blazor FocusAsync call count",
+          "pass": true,
+          "observed": {
+            "status": "focused-target",
+            "active": "target",
+            "focusCalls": 1,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "actual async delayed Blazor FocusAsync selects target",
+          "pass": true,
+          "observed": {
+            "status": "delay-focused-target",
+            "active": "target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async FocusAsync actually called after await",
+          "pass": true,
+          "observed": {
+            "status": "delay-focused-target",
+            "active": "target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside user focus survives delayed resume",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-owner",
+            "active": "outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async request canceled before FocusAsync after outside focus",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-owner",
+            "active": "outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside owner prevents focus hijack",
+          "pass": true,
+          "observed": {
+            "status": "canceled-focus-owner",
+            "active": "apply-outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "rejected outside focus request never invoked FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "canceled-focus-owner",
+            "active": "apply-outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor actually unmounted target",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "removed target never receives focus",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "stale request does not invoke FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor rerender restored a target node",
+          "pass": true,
+          "observed": {
+            "status": "target-restored",
+            "active": "restore-target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async delayed target is actually removed in Blazor",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async awaited FocusAsync never focuses removed target",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async canceled stale target never calls FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "OnAfterRenderAsync FocusAsync focused mounted popup",
+          "pass": true,
+          "observed": {
+            "status": "popup-focused",
+            "active": "popup-item",
+            "focusCalls": 3,
+            "target": false,
+            "trigger": true,
+            "popup": true
+          }
+        },
+        {
+          "name": "Blazor real postrender focus called",
+          "pass": true,
+          "observed": {
+            "status": "popup-focused",
+            "active": "popup-item",
+            "focusCalls": 3,
+            "target": false,
+            "trigger": true,
+            "popup": true
+          }
+        },
+        {
+          "name": "Escape restores connected trigger via FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "popup is unmounted by Razor render",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Blazor postrender restore FocusAsync called",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside-close preserves unrelated user focus",
+          "pass": true,
+          "observed": {
+            "status": "closed-unowned",
+            "active": "close-outside",
+            "focusCalls": 5,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside-close unmounts popup",
+          "pass": true,
+          "observed": {
+            "status": "closed-unowned",
+            "active": "close-outside",
+            "focusCalls": 5,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor unmounted trigger before close",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        },
+        {
+          "name": "no stale FocusAsync to removed trigger",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        },
+        {
+          "name": "Escape closes popup with removed trigger",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        }
+      ],
+      "screenshots": [
+        "BLUENT-BLAZOR-FOCUS-EDGE-DARK-RTL-FOCUSED.png",
+        "BLUENT-BLAZOR-FOCUS-EDGE-DARK-RTL-FINAL.png"
+      ],
+      "states": [
+        {
+          "status": "ready",
+          "focusCalls": 0,
+          "epoch": 0,
+          "active": null,
+          "trigger": true,
+          "target": true,
+          "popup": false,
+          "direction": "rtl",
+          "forced": false,
+          "interactive": true
+        },
+        {
+          "status": "closed-no-trigger",
+          "focusCalls": 6,
+          "epoch": 4,
+          "active": null,
+          "trigger": false,
+          "target": false,
+          "popup": false,
+          "direction": "rtl",
+          "forced": false,
+          "interactive": true
+        }
+      ],
+      "host": "isolated .NET 10 Blazor InteractiveServer, NOT Bluent product"
+    },
+    {
+      "mode": "forced-colors",
+      "checks": [
+        {
+          "name": "Blazor runtime loaded",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "document actual direction",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "emulated forced-colors matches",
+          "pass": true,
+          "observed": {
+            "status": "ready",
+            "active": null,
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "queue does not directly call FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "queued",
+            "active": "queue",
+            "focusCalls": 0,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "real ElementReference.FocusAsync focused target",
+          "pass": true,
+          "observed": {
+            "status": "focused-target",
+            "active": "target",
+            "focusCalls": 1,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Blazor FocusAsync call count",
+          "pass": true,
+          "observed": {
+            "status": "focused-target",
+            "active": "target",
+            "focusCalls": 1,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "actual async delayed Blazor FocusAsync selects target",
+          "pass": true,
+          "observed": {
+            "status": "delay-focused-target",
+            "active": "target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async FocusAsync actually called after await",
+          "pass": true,
+          "observed": {
+            "status": "delay-focused-target",
+            "active": "target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside user focus survives delayed resume",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-owner",
+            "active": "outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async request canceled before FocusAsync after outside focus",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-owner",
+            "active": "outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside owner prevents focus hijack",
+          "pass": true,
+          "observed": {
+            "status": "canceled-focus-owner",
+            "active": "apply-outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "rejected outside focus request never invoked FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "canceled-focus-owner",
+            "active": "apply-outside",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor actually unmounted target",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "removed target never receives focus",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "stale request does not invoke FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "canceled-stale-target",
+            "active": "apply",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor rerender restored a target node",
+          "pass": true,
+          "observed": {
+            "status": "target-restored",
+            "active": "restore-target",
+            "focusCalls": 2,
+            "target": true,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async delayed target is actually removed in Blazor",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async awaited FocusAsync never focuses removed target",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "async canceled stale target never calls FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "delay-canceled-target",
+            "active": "remove",
+            "focusCalls": 2,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "OnAfterRenderAsync FocusAsync focused mounted popup",
+          "pass": true,
+          "observed": {
+            "status": "popup-focused",
+            "active": "popup-item",
+            "focusCalls": 3,
+            "target": false,
+            "trigger": true,
+            "popup": true
+          }
+        },
+        {
+          "name": "Blazor real postrender focus called",
+          "pass": true,
+          "observed": {
+            "status": "popup-focused",
+            "active": "popup-item",
+            "focusCalls": 3,
+            "target": false,
+            "trigger": true,
+            "popup": true
+          }
+        },
+        {
+          "name": "Escape restores connected trigger via FocusAsync",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "popup is unmounted by Razor render",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Blazor postrender restore FocusAsync called",
+          "pass": true,
+          "observed": {
+            "status": "restored-trigger",
+            "active": "trigger",
+            "focusCalls": 4,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside-close preserves unrelated user focus",
+          "pass": true,
+          "observed": {
+            "status": "closed-unowned",
+            "active": "close-outside",
+            "focusCalls": 5,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "outside-close unmounts popup",
+          "pass": true,
+          "observed": {
+            "status": "closed-unowned",
+            "active": "close-outside",
+            "focusCalls": 5,
+            "target": false,
+            "trigger": true,
+            "popup": false
+          }
+        },
+        {
+          "name": "Razor unmounted trigger before close",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        },
+        {
+          "name": "no stale FocusAsync to removed trigger",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        },
+        {
+          "name": "Escape closes popup with removed trigger",
+          "pass": true,
+          "observed": {
+            "status": "closed-no-trigger",
+            "active": null,
+            "focusCalls": 6,
+            "target": false,
+            "trigger": false,
+            "popup": false
+          }
+        }
+      ],
+      "screenshots": [
+        "BLUENT-BLAZOR-FOCUS-EDGE-FORCED-COLORS-FOCUSED.png",
+        "BLUENT-BLAZOR-FOCUS-EDGE-FORCED-COLORS-FINAL.png"
+      ],
+      "states": [
+        {
+          "status": "ready",
+          "focusCalls": 0,
+          "epoch": 0,
+          "active": null,
+          "trigger": true,
+          "target": true,
+          "popup": false,
+          "direction": "ltr",
+          "forced": true,
+          "interactive": true
+        },
+        {
+          "status": "closed-no-trigger",
+          "focusCalls": 6,
+          "epoch": 4,
+          "active": null,
+          "trigger": false,
+          "target": false,
+          "popup": false,
+          "direction": "ltr",
+          "forced": true,
+          "interactive": true
+        }
+      ],
+      "host": "isolated .NET 10 Blazor InteractiveServer, NOT Bluent product"
+    }
+  ]
+}

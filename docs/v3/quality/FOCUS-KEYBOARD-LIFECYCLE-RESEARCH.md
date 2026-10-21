@@ -51,3 +51,7 @@ For #420: scope `focusin`/`focusout`, null relatedTarget, epoch invalidation, di
 - `python -m unittest discover -s scripts/quality -p test_v3_focus_lifecycle_evidence.py -v`
 
 **CI validates stored browser evidence and pure tests only; it does not run a live browser.**
+
+## Real Blazor InteractiveServer follow-up (Wave J, 2026-10-21)
+
+The [isolated .NET 10 InteractiveServer FocusAsync experiment](BLUENT-BLAZOR-FOCUS-REAL-LIFECYCLE.md) now adds 174 real Chrome/Edge checks of framework ElementReference.FocusAsync, post-render popup focus, a delayed Task.Delay handler canceled after unrelated focus and a target removed during an await. It is **still NOT original Bluent component acceptance**, and the 33 owner scenarios remain planned.
