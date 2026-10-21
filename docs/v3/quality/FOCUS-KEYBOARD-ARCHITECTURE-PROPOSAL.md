@@ -51,3 +51,7 @@ Choose an explicit menu composite (`role=menu` with `menuitem`/`menuitemcheckbox
 Reference patterns: [WAI-ARIA Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), [Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/), [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/), [Fluent 2](https://fluent2.microsoft.design/).
 
 **A green audit CI only validates recorded claims**, policy fixture tests and source-evidence guards. It does not certify design, implemented accessibility, or acceptance.
+
+## Follow-up: manual TabList focus re-entry candidate (Wave H)
+
+A newer [research-only design decision](FOCUS-KEYBOARD-REENTRY-DECISION.md) distinguishes focus inside the manual tablist vs focus after native Tab leaves. The candidate prefers an eligible focused tab only while inside, then returns entry priority to the eligible selected tab. This is **unapproved** and does not implement browser focusin/focusout or revise any component acceptance case.

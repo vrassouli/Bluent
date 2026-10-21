@@ -7,3 +7,7 @@ Run `node --test scripts/quality/test_v3_focus_navigation_prototype.mjs`. The **
 The horizontal RTL visual-order rule is a *draft policy*. Do not promote it to approved production behavior without #420/#465 design and comparison to accepted Fluent reference. Disabled focus eligibility and command activation are separate decisions.
 
 The [33-case component acceptance matrix](FOCUS-KEYBOARD-ACCEPTANCE-MATRIX.json) remains **planned/not-executed**, regardless of these pure prototype test results. See [real keyboard evidence](FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md). No product source changes or native OS/AT validation in this experiment.
+
+## Wave H follow-up
+
+The optional focusWithin research flag and [manual TabList re-entry proposal](FOCUS-KEYBOARD-REENTRY-DECISION.md) add **eight pure tests** (43 cumulative Node tests). No new public API, Blazor runtime behavior, Fluent parity acceptance or native browser evidence is claimed.

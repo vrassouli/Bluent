@@ -44,11 +44,17 @@ export function findFocusTarget(entries,currentId,key,opts={}){
  if(next>=allowed.length)next=wrap?0:current;
  return allowed[next].id;
 }
-export function rovingTabStops(entries,focusedId,selectedId){
+export function rovingTabStops(entries,focusedId,selectedId,{focusWithin=true}={}){
+ if(typeof focusWithin!=='boolean')throw new TypeError('focusWithin must be boolean');
  verify(entries);const c=candidates(entries,'skip');
- const chosen=(c.some(x=>x.id===focusedId)?focusedId:null)??(c.some(x=>x.id===selectedId)?selectedId:null)??c[0]?.id;
+ // Research hypothesis: while focus is inside, keep the roving focus target;
+ // after actual focus exit, prefer selected tab for the next Tab entry.
+ // Do NOT assume this policy is approved Fluent parity.
+ const preference=focusWithin?[focusedId,selectedId]:[selectedId,focusedId];
+ const chosen=preference.find(id=>c.some(x=>x.id===id))??c[0]?.id;
  return Object.fromEntries(entries.map(x=>[x.id,x.id===chosen?0:-1]));
 }
+
 export function canActivate(e){
  if(!e||typeof e!=='object')throw new TypeError('Focus entry required');
  return e.visible===true&&e.presentInDom===true&&e.navigable===true&&e.disabled===false;
