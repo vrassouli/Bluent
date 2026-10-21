@@ -55,3 +55,7 @@ Reference patterns: [WAI-ARIA Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tab
 ## Follow-up: manual TabList focus re-entry candidate (Wave H)
 
 A newer [research-only design decision](FOCUS-KEYBOARD-REENTRY-DECISION.md) distinguishes focus inside the manual tablist vs focus after native Tab leaves. The candidate prefers an eligible focused tab only while inside, then returns entry priority to the eligible selected tab. This is **unapproved** and does not implement browser focusin/focusout or revise any component acceptance case.
+
+## Editable Penpot Focus architecture review (2026-10-21)
+
+The [new separate #420 Focus lifecycle design board](FOCUS-KEYBOARD-PENPOT-REVIEW-420.md) is editable in the correct Bluent v3 Penpot file and visually inspected. It remains **PROPOSED and NOT APPROVED**. No product owner acceptance or API implementation is implied.
