@@ -1,0 +1,1135 @@
+{
+  "issue": 552,
+  "owner": 465,
+  "engine": "edge",
+  "host": "actual Bluent WebAssembly Demo",
+  "scope": "observations only, not Fluent acceptance or AT signoff",
+  "before": {
+    "panel": {
+      "name": "With Panels",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": [
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        }
+      ]
+    },
+    "links": {
+      "name": "Urls",
+      "items": [
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab1",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab2",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab3",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab4",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    },
+    "disabled": {
+      "name": "Disabled",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "First Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Second Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": true,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Third Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Fourth Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    }
+  },
+  "focusPanelSecond": true,
+  "afterArrow": {
+    "panel": {
+      "name": "With Panels",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": [
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        }
+      ]
+    },
+    "links": {
+      "name": "Urls",
+      "items": [
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab1",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab2",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab3",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab4",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    },
+    "disabled": {
+      "name": "Disabled",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "First Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Second Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": true,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Third Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Fourth Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    }
+  },
+  "afterEnter": {
+    "panel": {
+      "name": "With Panels",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": [
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        }
+      ]
+    },
+    "links": {
+      "name": "Urls",
+      "items": [
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab1",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab2",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab3",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab4",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    },
+    "disabled": {
+      "name": "Disabled",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "First Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Second Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": true,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Third Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Fourth Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    }
+  },
+  "focusDisabled": false,
+  "afterDisabledFocus": {
+    "panel": {
+      "name": "With Panels",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": [
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        }
+      ]
+    },
+    "links": {
+      "name": "Urls",
+      "items": [
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab1",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab2",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab3",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab4",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    },
+    "disabled": {
+      "name": "Disabled",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "First Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Second Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": true,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Third Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Fourth Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    }
+  },
+  "focusLink": true,
+  "afterLinkFocus": {
+    "panel": {
+      "name": "With Panels",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Arrivals",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Departures",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Conditions",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": [
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": true,
+          "visible": true
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        },
+        {
+          "role": null,
+          "labelledBy": null,
+          "selected": false,
+          "visible": false
+        }
+      ]
+    },
+    "links": {
+      "name": "Urls",
+      "items": [
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab1",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab2",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": true
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab3",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "A",
+          "text": "",
+          "href": "/components/tablists?tab4",
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    },
+    "disabled": {
+      "name": "Disabled",
+      "items": [
+        {
+          "tag": "BUTTON",
+          "text": "First Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Second Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": true,
+          "selected": true,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Third Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Fourth Tab",
+          "href": null,
+          "role": null,
+          "tabindex": null,
+          "ariaSelected": null,
+          "ariaControls": null,
+          "disabled": false,
+          "selected": false,
+          "focused": false
+        }
+      ],
+      "panels": []
+    }
+  }
+}
