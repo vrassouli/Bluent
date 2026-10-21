@@ -29,6 +29,14 @@ class PenpotFocusReview(unittest.TestCase):
   for document in ("FOCUS-KEYBOARD-ARCHITECTURE-PROPOSAL.md","BLUENT-BLAZOR-FOCUS-REAL-LIFECYCLE.md","FOCUS-KEYBOARD-ACCEPTANCE-MATRIX.json"):
    self.assertIn(document,self.report)
    self.assertTrue((REPORT.parent/document).is_file())
+ def test_real_exported_penpot_png_not_placeholder(self):
+  import struct
+  p=REPORT.parent/'evidence/BLUENT-FOCUS-PENPOT-BOARD-420.png'
+  data=p.read_bytes()
+  self.assertGreater(len(data),100000)
+  self.assertEqual(bytes((137,80,78,71,13,10,26,10)),data[:8])
+  self.assertEqual((1500,1640),struct.unpack('>II',data[16:24]))
+  self.assertIn('evidence/BLUENT-FOCUS-PENPOT-BOARD-420.png',self.report)
  def test_all_33_owner_cases_still_planned(self):
   m=json.loads(MATRIX.read_text(encoding="utf8"))
   self.assertEqual(33,len(m["cases"]))

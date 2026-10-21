@@ -20,6 +20,8 @@ The correct file ID was confirmed before editing. The new board was placed to th
 
 See [the full architecture proposal](FOCUS-KEYBOARD-ARCHITECTURE-PROPOSAL.md) for owner semantics, API conventions and design-first requirements.
 
+**Visual preview:** [actual exported Penpot PNG — 1500 × 1640](evidence/BLUENT-FOCUS-PENPOT-BOARD-420.png). This is an unchanged export of the **editable 81-layer Penpot board**, not a substitute for the source board or design approval.
+
 ## What the board models
 
 1. Intent from keyboard/owner event -> stable scope and logical ID -> asynchronous render/epoch validation -> `ElementReference.FocusAsync()` only when the target is still connected and user focus is still owned.
