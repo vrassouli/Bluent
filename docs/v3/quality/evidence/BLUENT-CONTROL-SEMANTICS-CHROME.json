@@ -1,0 +1,1706 @@
+{
+  "issue": 552,
+  "sourceRef": "73155f02",
+  "engine": "chrome",
+  "host": "Bluent.UI.Demo WebAssembly, built from current task branch source with Release configuration",
+  "scope": "Actual Chromium CDP DOM/AX-tree, pointer and keyboard observations; emulated forced-colors only; not Fluent parity acceptance, native OS contrast or screen-reader certification.",
+  "createdAt": "2026-10-22T15:58:13.730Z",
+  "checks": [
+    {
+      "name": "LIGHT-LTR checkboxes real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR Checkbox mixed visual state exists",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR Checkbox native input is not indeterminate and lacks mixed ARIA",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR Checkbox AX exposes checkbox role and computed label",
+      "pass": true,
+      "observed": [
+        {
+          "role": "checkbox",
+          "name": "Indeterminate checkbox",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "checked": "false",
+            "labelledby": "nodeList"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Checkbox indeterminate fixture can receive native focus",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "Native Space transitions indeterminate demo value to checked",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox checked  ",
+        "id": "_nullableChecked",
+        "checked": true,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Checked"
+        ]
+      }
+    },
+    {
+      "name": "Switch AX role is currently checkbox, not switch",
+      "pass": true,
+      "observed": [
+        {
+          "role": "checkbox",
+          "name": "Light",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "checked": "false",
+            "labelledby": "nodeList"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Switch has a non-empty computed accessible name",
+      "pass": true,
+      "observed": [
+        {
+          "role": "checkbox",
+          "name": "Light",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "checked": "false",
+            "labelledby": "nodeList"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Switch responds to native Space activation",
+      "pass": true,
+      "observed": {
+        "index": 0,
+        "id": "IsDarkTheme",
+        "checked": true,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Dark",
+        "labelFor": "IsDarkTheme",
+        "wrapperClass": "bui-switch  "
+      }
+    },
+    {
+      "name": "Switch can return to its initial state using native Space",
+      "pass": true,
+      "observed": {
+        "index": 0,
+        "id": "IsDarkTheme",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Light",
+        "labelFor": "IsDarkTheme",
+        "wrapperClass": "bui-switch  "
+      }
+    },
+    {
+      "name": "LIGHT-LTR radios real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR RadioGroup options do not have a shared native name",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f15802ed3",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Yes",
+          "labelFor": "f15802ed3"
+        },
+        {
+          "id": "f5d034de2",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "No",
+          "labelFor": "f5d034de2"
+        }
+      ]
+    },
+    {
+      "name": "LIGHT-LTR RadioGroup wrapper is ignored in browser AX and has no group name",
+      "pass": true,
+      "observed": {
+        "before": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f15802ed3",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f15802ed3"
+            },
+            {
+              "id": "f5d034de2",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f5d034de2"
+            }
+          ]
+        },
+        "groupAx": [
+          {
+            "role": "none",
+            "name": "",
+            "ignored": true,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR Radio options retain individual accessible names",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f15802ed3",
+          "ax": [
+            {
+              "role": "radio",
+              "name": "Yes",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "checked": "false",
+                "labelledby": "nodeList"
+              }
+            }
+          ]
+        },
+        {
+          "id": "f5d034de2",
+          "ax": [
+            {
+              "role": "radio",
+              "name": "No",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "checked": "false",
+                "labelledby": "nodeList"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pointer activation selects first native radio and updates Blazor group",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f15802ed3",
+          "name": "",
+          "checked": true,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Yes",
+          "labelFor": "f15802ed3"
+        },
+        {
+          "id": "f5d034de2",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "No",
+          "labelFor": "f5d034de2"
+        }
+      ]
+    },
+    {
+      "name": "ArrowRight advances from the first radio to its second option",
+      "pass": true,
+      "observed": {
+        "activeId": "f5d034de2",
+        "checked": [
+          false,
+          true
+        ]
+      }
+    },
+    {
+      "name": "Native Space on second option updates Blazor selection",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f15802ed3",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Yes",
+          "labelFor": "f15802ed3"
+        },
+        {
+          "id": "f5d034de2",
+          "name": "",
+          "checked": true,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "No",
+          "labelFor": "f5d034de2"
+        }
+      ]
+    },
+    {
+      "name": "ArrowRight cross-group leakage is reproduced when radio names are empty",
+      "pass": true,
+      "observed": {
+        "activeId": "f65425ed5",
+        "enumFirstId": "f65425ed5",
+        "all": [
+          {
+            "id": "f15802ed3",
+            "name": "",
+            "checked": false,
+            "label": "Yes"
+          },
+          {
+            "id": "f5d034de2",
+            "name": "",
+            "checked": true,
+            "label": "No"
+          },
+          {
+            "id": "f65425ed5",
+            "name": "",
+            "checked": true,
+            "label": "Yes"
+          },
+          {
+            "id": "f4b7ed03e",
+            "name": "",
+            "checked": false,
+            "label": "No"
+          },
+          {
+            "id": "f273c9c7c",
+            "name": "",
+            "checked": false,
+            "label": "Apple"
+          },
+          {
+            "id": "f2d0522e7",
+            "name": "",
+            "checked": false,
+            "label": "Pear"
+          },
+          {
+            "id": "f583eaf0a",
+            "name": "",
+            "checked": false,
+            "label": "Banana"
+          },
+          {
+            "id": "f4349159a",
+            "name": "",
+            "checked": false,
+            "label": "Orange"
+          },
+          {
+            "id": "f6a13bb09",
+            "name": "",
+            "checked": false,
+            "label": "Yes"
+          },
+          {
+            "id": "f5e6558",
+            "name": "",
+            "checked": true,
+            "label": "No"
+          },
+          {
+            "id": "f1ead33e8",
+            "name": "",
+            "checked": false,
+            "label": "Yes"
+          },
+          {
+            "id": "f6ef0ed6b",
+            "name": "",
+            "checked": true,
+            "label": "No"
+          },
+          {
+            "id": "f10a4924f",
+            "name": "",
+            "checked": false,
+            "label": "Yes"
+          },
+          {
+            "id": "f57600a5e",
+            "name": "",
+            "checked": true,
+            "label": "No"
+          }
+        ],
+        "crossGroupArrowLeaked": true
+      }
+    },
+    {
+      "name": "Native Tab sequence records individual radio option stops",
+      "pass": true,
+      "observed": {
+        "tabObservation": {
+          "tabIndices": [
+            0,
+            0
+          ],
+          "ids": [
+            "f15802ed3",
+            "f5d034de2"
+          ]
+        },
+        "tabResult": {
+          "activeId": "f5d034de2",
+          "activeTag": "INPUT"
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL checkboxes real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL Checkbox mixed visual state exists",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL Checkbox native input is not indeterminate and lacks mixed ARIA",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL Checkbox AX exposes checkbox role and computed label",
+      "pass": true,
+      "observed": [
+        {
+          "role": "checkbox",
+          "name": "Indeterminate checkbox",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "checked": "false",
+            "labelledby": "nodeList"
+          }
+        }
+      ]
+    },
+    {
+      "name": "DARK-RTL radios real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL RadioGroup options do not have a shared native name",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f4f69f61d",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Yes",
+          "labelFor": "f4f69f61d"
+        },
+        {
+          "id": "f7e01a891",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "No",
+          "labelFor": "f7e01a891"
+        }
+      ]
+    },
+    {
+      "name": "DARK-RTL RadioGroup wrapper is ignored in browser AX and has no group name",
+      "pass": true,
+      "observed": {
+        "before": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f4f69f61d",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f4f69f61d"
+            },
+            {
+              "id": "f7e01a891",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f7e01a891"
+            }
+          ]
+        },
+        "groupAx": [
+          {
+            "role": "none",
+            "name": "",
+            "ignored": true,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL Radio options retain individual accessible names",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f4f69f61d",
+          "ax": [
+            {
+              "role": "radio",
+              "name": "Yes",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "checked": "false",
+                "labelledby": "nodeList"
+              }
+            }
+          ]
+        },
+        {
+          "id": "f7e01a891",
+          "ax": [
+            {
+              "role": "radio",
+              "name": "No",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "checked": "false",
+                "labelledby": "nodeList"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FORCED-COLORS checkboxes real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS Checkbox mixed visual state exists",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS Checkbox native input is not indeterminate and lacks mixed ARIA",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-checkbox indeterminate  ",
+        "id": "_nullableChecked",
+        "checked": false,
+        "indeterminate": false,
+        "ariaChecked": null,
+        "role": null,
+        "name": "",
+        "disabled": false,
+        "tabIndex": 0,
+        "label": "Indeterminate checkbox",
+        "labelFor": "_nullableChecked",
+        "stateText": [
+          "Indeterminate"
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS Checkbox AX exposes checkbox role and computed label",
+      "pass": true,
+      "observed": [
+        {
+          "role": "checkbox",
+          "name": "Indeterminate checkbox",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "checked": "false",
+            "labelledby": "nodeList"
+          }
+        }
+      ]
+    },
+    {
+      "name": "FORCED-COLORS radios real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS RadioGroup options do not have a shared native name",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f7aa7f9c8",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Yes",
+          "labelFor": "f7aa7f9c8"
+        },
+        {
+          "id": "f796c063",
+          "name": "",
+          "checked": false,
+          "role": null,
+          "ariaChecked": null,
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "No",
+          "labelFor": "f796c063"
+        }
+      ]
+    },
+    {
+      "name": "FORCED-COLORS RadioGroup wrapper is ignored in browser AX and has no group name",
+      "pass": true,
+      "observed": {
+        "before": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f7aa7f9c8",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f7aa7f9c8"
+            },
+            {
+              "id": "f796c063",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f796c063"
+            }
+          ]
+        },
+        "groupAx": [
+          {
+            "role": "none",
+            "name": "",
+            "ignored": true,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS Radio options retain individual accessible names",
+      "pass": true,
+      "observed": [
+        {
+          "id": "f7aa7f9c8",
+          "ax": [
+            {
+              "role": "radio",
+              "name": "Yes",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "checked": "false",
+                "labelledby": "nodeList"
+              }
+            }
+          ]
+        },
+        {
+          "id": "f796c063",
+          "ax": [
+            {
+              "role": "radio",
+              "name": "No",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "checked": "false",
+                "labelledby": "nodeList"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "page": "checkboxes",
+      "mode": "LIGHT-LTR",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "checkbox": {
+        "before": {
+          "wrapperClass": "bui-checkbox indeterminate  ",
+          "id": "_nullableChecked",
+          "checked": false,
+          "indeterminate": false,
+          "ariaChecked": null,
+          "role": null,
+          "name": "",
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Indeterminate checkbox",
+          "labelFor": "_nullableChecked",
+          "stateText": [
+            "Indeterminate"
+          ]
+        },
+        "ax": [
+          {
+            "role": "checkbox",
+            "name": "Indeterminate checkbox",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "checked": "false",
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-CHROME-CHECKBOX-LIGHT-LTR.png"
+    },
+    {
+      "page": "checkboxes",
+      "mode": "LIGHT-LTR",
+      "switch": {
+        "before": {
+          "index": 0,
+          "id": "IsDarkTheme",
+          "checked": false,
+          "indeterminate": false,
+          "ariaChecked": null,
+          "role": null,
+          "name": "",
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Light",
+          "labelFor": "IsDarkTheme",
+          "wrapperClass": "bui-switch  "
+        },
+        "ax": [
+          {
+            "role": "checkbox",
+            "name": "Light",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "checked": "false",
+              "labelledby": "nodeList"
+            }
+          }
+        ],
+        "afterSpace": {
+          "index": 0,
+          "id": "IsDarkTheme",
+          "checked": true,
+          "indeterminate": false,
+          "ariaChecked": null,
+          "role": null,
+          "name": "",
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Dark",
+          "labelFor": "IsDarkTheme",
+          "wrapperClass": "bui-switch  "
+        },
+        "restored": {
+          "index": 0,
+          "id": "IsDarkTheme",
+          "checked": false,
+          "indeterminate": false,
+          "ariaChecked": null,
+          "role": null,
+          "name": "",
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Light",
+          "labelFor": "IsDarkTheme",
+          "wrapperClass": "bui-switch  "
+        }
+      }
+    },
+    {
+      "page": "radios",
+      "mode": "LIGHT-LTR",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "radioGroup": {
+        "before": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f15802ed3",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f15802ed3"
+            },
+            {
+              "id": "f5d034de2",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f5d034de2"
+            }
+          ]
+        },
+        "groupAx": [
+          {
+            "role": "none",
+            "name": "",
+            "ignored": true,
+            "properties": {}
+          }
+        ],
+        "optionAx": [
+          {
+            "id": "f15802ed3",
+            "ax": [
+              {
+                "role": "radio",
+                "name": "Yes",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "checked": "false",
+                  "labelledby": "nodeList"
+                }
+              }
+            ]
+          },
+          {
+            "id": "f5d034de2",
+            "ax": [
+              {
+                "role": "radio",
+                "name": "No",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "checked": "false",
+                  "labelledby": "nodeList"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-CHROME-RADIOGROUP-LIGHT-LTR.png"
+    },
+    {
+      "page": "radios",
+      "mode": "LIGHT-LTR",
+      "radioKeyboard": {
+        "afterPointer": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f15802ed3",
+              "name": "",
+              "checked": true,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f15802ed3"
+            },
+            {
+              "id": "f5d034de2",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f5d034de2"
+            }
+          ]
+        },
+        "afterArrow": {
+          "activeId": "f5d034de2",
+          "checked": [
+            false,
+            true
+          ]
+        },
+        "afterSpace": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f15802ed3",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f15802ed3"
+            },
+            {
+              "id": "f5d034de2",
+              "name": "",
+              "checked": true,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f5d034de2"
+            }
+          ]
+        },
+        "crossGroupArrow": {
+          "activeId": "f65425ed5",
+          "enumFirstId": "f65425ed5",
+          "all": [
+            {
+              "id": "f15802ed3",
+              "name": "",
+              "checked": false,
+              "label": "Yes"
+            },
+            {
+              "id": "f5d034de2",
+              "name": "",
+              "checked": true,
+              "label": "No"
+            },
+            {
+              "id": "f65425ed5",
+              "name": "",
+              "checked": true,
+              "label": "Yes"
+            },
+            {
+              "id": "f4b7ed03e",
+              "name": "",
+              "checked": false,
+              "label": "No"
+            },
+            {
+              "id": "f273c9c7c",
+              "name": "",
+              "checked": false,
+              "label": "Apple"
+            },
+            {
+              "id": "f2d0522e7",
+              "name": "",
+              "checked": false,
+              "label": "Pear"
+            },
+            {
+              "id": "f583eaf0a",
+              "name": "",
+              "checked": false,
+              "label": "Banana"
+            },
+            {
+              "id": "f4349159a",
+              "name": "",
+              "checked": false,
+              "label": "Orange"
+            },
+            {
+              "id": "f6a13bb09",
+              "name": "",
+              "checked": false,
+              "label": "Yes"
+            },
+            {
+              "id": "f5e6558",
+              "name": "",
+              "checked": true,
+              "label": "No"
+            },
+            {
+              "id": "f1ead33e8",
+              "name": "",
+              "checked": false,
+              "label": "Yes"
+            },
+            {
+              "id": "f6ef0ed6b",
+              "name": "",
+              "checked": true,
+              "label": "No"
+            },
+            {
+              "id": "f10a4924f",
+              "name": "",
+              "checked": false,
+              "label": "Yes"
+            },
+            {
+              "id": "f57600a5e",
+              "name": "",
+              "checked": true,
+              "label": "No"
+            }
+          ],
+          "crossGroupArrowLeaked": true
+        },
+        "tabObservation": {
+          "tabIndices": [
+            0,
+            0
+          ],
+          "ids": [
+            "f15802ed3",
+            "f5d034de2"
+          ]
+        },
+        "tabResult": {
+          "activeId": "f5d034de2",
+          "activeTag": "INPUT"
+        }
+      }
+    },
+    {
+      "page": "checkboxes",
+      "mode": "DARK-RTL",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "checkbox": {
+        "before": {
+          "wrapperClass": "bui-checkbox indeterminate  ",
+          "id": "_nullableChecked",
+          "checked": false,
+          "indeterminate": false,
+          "ariaChecked": null,
+          "role": null,
+          "name": "",
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Indeterminate checkbox",
+          "labelFor": "_nullableChecked",
+          "stateText": [
+            "Indeterminate"
+          ]
+        },
+        "ax": [
+          {
+            "role": "checkbox",
+            "name": "Indeterminate checkbox",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "checked": "false",
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-CHROME-CHECKBOX-DARK-RTL.png"
+    },
+    {
+      "page": "radios",
+      "mode": "DARK-RTL",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "radioGroup": {
+        "before": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f4f69f61d",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f4f69f61d"
+            },
+            {
+              "id": "f7e01a891",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f7e01a891"
+            }
+          ]
+        },
+        "groupAx": [
+          {
+            "role": "none",
+            "name": "",
+            "ignored": true,
+            "properties": {}
+          }
+        ],
+        "optionAx": [
+          {
+            "id": "f4f69f61d",
+            "ax": [
+              {
+                "role": "radio",
+                "name": "Yes",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "checked": "false",
+                  "labelledby": "nodeList"
+                }
+              }
+            ]
+          },
+          {
+            "id": "f7e01a891",
+            "ax": [
+              {
+                "role": "radio",
+                "name": "No",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "checked": "false",
+                  "labelledby": "nodeList"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-CHROME-RADIOGROUP-DARK-RTL.png"
+    },
+    {
+      "page": "checkboxes",
+      "mode": "FORCED-COLORS",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "checkbox": {
+        "before": {
+          "wrapperClass": "bui-checkbox indeterminate  ",
+          "id": "_nullableChecked",
+          "checked": false,
+          "indeterminate": false,
+          "ariaChecked": null,
+          "role": null,
+          "name": "",
+          "disabled": false,
+          "tabIndex": 0,
+          "label": "Indeterminate checkbox",
+          "labelFor": "_nullableChecked",
+          "stateText": [
+            "Indeterminate"
+          ]
+        },
+        "ax": [
+          {
+            "role": "checkbox",
+            "name": "Indeterminate checkbox",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "checked": "false",
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-CHROME-CHECKBOX-FORCED-COLORS.png"
+    },
+    {
+      "page": "radios",
+      "mode": "FORCED-COLORS",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "radioGroup": {
+        "before": {
+          "groupClass": "bui-radio-group  ",
+          "groupRole": null,
+          "groupAriaLabel": null,
+          "groupLabelledBy": null,
+          "groupText": "Do you agree?",
+          "groupLabelTag": "LABEL",
+          "groupLabelFor": "",
+          "hasFieldset": false,
+          "hasLegend": false,
+          "options": [
+            {
+              "id": "f7aa7f9c8",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "Yes",
+              "labelFor": "f7aa7f9c8"
+            },
+            {
+              "id": "f796c063",
+              "name": "",
+              "checked": false,
+              "role": null,
+              "ariaChecked": null,
+              "disabled": false,
+              "tabIndex": 0,
+              "label": "No",
+              "labelFor": "f796c063"
+            }
+          ]
+        },
+        "groupAx": [
+          {
+            "role": "none",
+            "name": "",
+            "ignored": true,
+            "properties": {}
+          }
+        ],
+        "optionAx": [
+          {
+            "id": "f7aa7f9c8",
+            "ax": [
+              {
+                "role": "radio",
+                "name": "Yes",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "checked": "false",
+                  "labelledby": "nodeList"
+                }
+              }
+            ]
+          },
+          {
+            "id": "f796c063",
+            "ax": [
+              {
+                "role": "radio",
+                "name": "No",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "checked": "false",
+                  "labelledby": "nodeList"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-CHROME-RADIOGROUP-FORCED-COLORS.png"
+    }
+  ],
+  "summary": {
+    "checks": 35,
+    "passed": 35,
+    "failed": 0,
+    "screenshots": [
+      "BLUENT-CONTROL-SEMANTICS-CHROME-CHECKBOX-LIGHT-LTR.png",
+      "BLUENT-CONTROL-SEMANTICS-CHROME-RADIOGROUP-LIGHT-LTR.png",
+      "BLUENT-CONTROL-SEMANTICS-CHROME-CHECKBOX-DARK-RTL.png",
+      "BLUENT-CONTROL-SEMANTICS-CHROME-RADIOGROUP-DARK-RTL.png",
+      "BLUENT-CONTROL-SEMANTICS-CHROME-CHECKBOX-FORCED-COLORS.png",
+      "BLUENT-CONTROL-SEMANTICS-CHROME-RADIOGROUP-FORCED-COLORS.png"
+    ]
+  }
+}

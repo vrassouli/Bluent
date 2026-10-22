@@ -41,10 +41,10 @@ The following ledger records partial audit progress, not parity acceptance. All 
 | 4 | [Link](https://github.com/vrassouli/Bluent/issues/431) (#431) | P2 | A | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 5 | [Badge](https://github.com/vrassouli/Bluent/issues/445) (#445) | P2 | A | Not reviewed | **Audited gaps** | Not reviewed | **A11y: audited gaps; design: not reviewed** |
 | 6 | [TextField](https://github.com/vrassouli/Bluent/issues/432) (#432) | P1 | B | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
+| 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX confirms mixed-state gap; design: not reviewed** |
+| 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX role=checkbox; design: not reviewed** |
 | 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
-| 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
+| 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | Not reviewed | Not reviewed | **Audited gaps; ArrowRight crosses groups in Chrome/Edge** | **A11y: group ignored in browser AX; design: not reviewed** |
 | 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
 | 12 | [DateField](https://github.com/vrassouli/Bluent/issues/438) (#438) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
@@ -74,9 +74,9 @@ The following pinned references now provide traceable starting points for the fa
 | Link #431 | Researching; disabled-anchor and callback guard gaps identified in source; runtime verification pending; no approval | [Link family audit](FLUENT-PARITY-LINK-AUDIT.md) |
 | TextField #432 | Researching; source audit found native input/textarea and correctly wired BindValueEvent; no gap confirmed; runtime and parity remain unreviewed | [TextField family audit](FLUENT-PARITY-TEXTFIELD-AUDIT.md) |
 | Badge #445 | Researching; public Icon parameter docs conflict with source and optional infinite shadow has no reduced-motion override; no approval | [Badge family audit](FLUENT-PARITY-BADGE-AUDIT.md) |
-| Checkbox #434 | Researching; visual indeterminate state lacks native/ARIA mixed semantics; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
-| Switch #435 | Researching; current source exposes native checkbox semantics rather than explicit switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
-| RadioGroup #436 | Researching; group lacks shared native radio name and group-level semantics; no approval | [RadioGroup family audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) |
+| Checkbox #434 | Researching; Chrome/Edge AX confirm visual indeterminate state is announced unchecked; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
+| Switch #435 | Researching; Chrome/Edge AX expose checkbox semantics rather than switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
+| RadioGroup #436 | Researching; group is ignored in browser AX and ArrowRight crosses into the next group in Chrome/Edge; no approval | [RadioGroup family audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) |
 | OtpField #441 | Researching; group/cell accessible labels are hard-coded English and invalid lengths can contradict labels; JS runtime still unverified | [OtpField family audit](FLUENT-PARITY-OTP-AUDIT.md) |
 | NumericField #433 | Researching; public Step parameter is not consumed and input mode/step semantics need a contract | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
 | SelectField #437 | Researching; inherited BindValueEvent is ignored and multiple-select runtime remains unverified | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
@@ -87,7 +87,7 @@ The following pinned references now provide traceable starting points for the fa
 | RangeSlider #443 | Researching; visual, pointer behavior and dual-thumb accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
 | FileSelect #444 | Researching; file-count behavior and browser accessible-name gaps documented; no approval | [FileSelect family audit](FLUENT-PARITY-FILESELECT-AUDIT.md) |
 
-These reports are explicit audit artifacts, not accepted design or implementation evidence.
+These reports are explicit audit artifacts, not accepted design or implementation evidence. Partial runtime results are documented in the [Checkbox/Switch/RadioGroup Chrome/Edge browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md); raw results and screenshots are linked there. These results do not satisfy the full evidence-bundle requirement.
 
 ### Existing family-specific research leads
 
