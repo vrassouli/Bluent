@@ -125,7 +125,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
@@ -208,7 +208,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -270,7 +270,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -332,7 +332,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -395,7 +395,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -455,7 +455,7 @@
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
@@ -532,7 +532,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
@@ -609,7 +609,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
@@ -688,7 +688,7 @@
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -744,7 +744,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -805,7 +805,7 @@
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -864,7 +864,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -922,7 +922,7 @@
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -980,7 +980,7 @@
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -1038,7 +1038,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -1094,7 +1094,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -1155,7 +1155,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -1214,7 +1214,7 @@
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
+        "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
       },
@@ -1283,7 +1283,9 @@
     "waveCApiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-C-API-REVIEW.md",
     "waveCApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-C-API-REVIEW.json",
     "waveDApiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-D-API-REVIEW.md",
-    "waveDApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-D-API-REVIEW.json"
+    "waveDApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-D-API-REVIEW.json",
+    "blazorExtensionsAuditReport": "docs/v3/quality/FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.md",
+    "blazorExtensionsAuditLedger": "docs/v3/quality/FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",

@@ -1,0 +1,856 @@
+{
+  "issue": 552,
+  "audit": "Blazor binding, validation, event and interop surface",
+  "reviewedOn": "2026-10-22",
+  "sourceBaseline": "73155f02",
+  "familyCount": 18,
+  "dimension": "BlazorExtensions",
+  "dimensionStatus": "audited_gaps",
+  "parityAccepted": false,
+  "noneApproved": true,
+  "runtimeScope": "Source review plus selected existing Chrome/Edge probes. Not a complete EditContext/form-serialization suite, not a full published InteractiveServer matrix, and not native OS/screen-reader acceptance.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "EventCallback-driven button; no InputBase value binding.",
+      "sourceFinding": "Click/toggle/focus evidence is selective, not a complete callback + disabled + state + native-AT matrix.",
+      "remainingGate": "Published InteractiveServer callback lifecycle and native AT remain unaccepted.",
+      "followUp": "Verify OnClick order, toggle state, disabled behavior and focus in WASM and published server mode.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 7,
+          "excerpt": "if (IsLink && !IsDisabled)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 11,
+          "excerpt": "__builder.AddMultipleAttributes(3, AdditionalAttributes);"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 15,
+          "excerpt": "__builder.AddAttribute(7, \"onclick\", EventCallback.Factory.Create(this, ClickHandler));"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 74,
+          "excerpt": "AdditionalAttributes=\"@AdditionalAttributes\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 95,
+          "excerpt": "OnClick=\"@OnClick\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 98,
+          "excerpt": "AdditionalAttributes=\"@AdditionalAttributes\" />"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-BUTTON-STATE-CHROME.json",
+        "evidence/BLUENT-BLAZOR-FOCUS-CHROME.json",
+        "evidence/BLUENT-LAB-P0-BUTTON-KEYBOARD-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "IconDefinition and inline SVG composition; no InputBase.",
+      "sourceFinding": "Cross-icon/browser alignment is tested; accessible-name, SVG semantics and native AT are not certified.",
+      "remainingGate": "Decorative versus informative semantics and native screen-reader behavior remain open.",
+      "followUp": "Test labeled/decorative icons with native screen readers and verify aria/title attributes on the rendered SVG/root.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/IconComponent/Icon.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+          "line": 9,
+          "excerpt": "[Parameter, EditorRequired] public IconDefinition? Value { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+          "line": 56,
+          "excerpt": "builder.AddMultipleAttributes(sequence, AdditionalAttributes);"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CROSS-ICON-CHROME.json",
+        "evidence/BLUENT-BUTTON-ICON-ALIGN-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Native label association plus display-only required marker; no value binding.",
+      "sourceFinding": "Required is visual decoration; it is not automatically connected to target required state or EditContext validation.",
+      "remainingGate": "Dynamic label-for association and required-state consistency remain open.",
+      "followUp": "Verify changing target IDs and define whether Required is decorative or must track validation semantics.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/LabelComponent/Label.razor",
+        "src/Bluent.UI/Components/LabelComponent/Label.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 4,
+          "excerpt": "<label for=\"@GetPropertyName()\" @attributes=AdditionalAttributes id=\"@Id\" class=\"@GetComponentClass()\" style=\"@Style\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 17,
+          "excerpt": "@if (IsRequired)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 19,
+          "excerpt": "<span class=\"required\">@RequiredSymbol</span>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "line": 12,
+          "excerpt": "[Parameter] public string RequiredSymbol { get; set; } = \"*\";"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "line": 15,
+          "excerpt": "[Parameter] public LabelRequiredState Required { get; set; } = LabelRequiredState.Auto;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "line": 17,
+          "excerpt": "private bool IsRequired => Required switch"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Native anchor navigation plus optional EventCallback; no InputBase.",
+      "sourceFinding": "Href + callback/default-navigation ordering is not accepted across keyboard and published server mode.",
+      "remainingGate": "Modifier clicks, callback ordering and native AT remain open.",
+      "followUp": "Test Href alone, callback alone, and both together in WASM and published server mode.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/LinkComponent/Link.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 9,
+          "excerpt": "[Parameter, EditorRequired] public string Text { get; set; } = default!;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 12,
+          "excerpt": "[Parameter] public EventCallback OnClick { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 25,
+          "excerpt": "if (string.IsNullOrEmpty(Href) || IsDisabled)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 30,
+          "excerpt": "builder.AddMultipleAttributes(3, GetAdditionalAttributes());"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 34,
+          "excerpt": "builder.AddAttribute(7, \"onclick\", EventCallback.Factory.Create(this, ClickHandler));"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 47,
+          "excerpt": "private Dictionary<string, object>? GetAdditionalAttributes()"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Display/animation component; no InputBase.",
+      "sourceFinding": "AnimateShadow continues infinitely under reduced-motion emulation; native AT and interactive semantics remain open.",
+      "remainingGate": "Reduced-motion and any interactive-variant semantics remain open.",
+      "followUp": "Honor prefers-reduced-motion for infinite shadow animation and verify semantics for interactive variants.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+          "line": 4,
+          "excerpt": "<div @attributes=AdditionalAttributes id=\"@Id\" class=\"@GetComponentClass()\" style=\"@Style\">"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "InputBase<TValue> binding/validation with configurable bind event.",
+      "sourceFinding": "Browser DOM reports an empty input name; form serialization and EditContext validation are not covered.",
+      "remainingGate": "Native name/form submission, validation and full InteractiveServer binding remain open.",
+      "followUp": "Add a real EditForm fixture for ValueChanged, ValueExpression, validation, submit serialization and bind-event choice.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 14,
+          "excerpt": "<input @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 17,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 19,
+          "excerpt": "@bind-value:event=\"@BindValueEvent\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 23,
+          "excerpt": "<textarea @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 26,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 29,
+          "excerpt": "@bind-value:event=\"@BindValueEvent\"></textarea>"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "InputBase<TValue> numeric parse/format binding.",
+      "sourceFinding": "Step has no effective behavior; only integer typing is tested, not decimal/float parsing, invalid input, limits or serialization.",
+      "remainingGate": "Step, culture, validation and form submission remain open.",
+      "followUp": "Test integer/decimal/float, invalid text, limits, culture changes, EditContext and form serialization.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+          "line": 13,
+          "excerpt": "<input @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+          "line": 17,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+          "line": 19,
+          "excerpt": "@bind-value:event=\"@BindValueEvent\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+          "line": 36,
+          "excerpt": "[Parameter] public EventCallback OnBlur { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+          "line": 37,
+          "excerpt": "[Parameter] public EventCallback OnFocus { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+          "line": 240,
+          "excerpt": "/// <param name=\"value\">The value to format.</param>"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "InputBase<TValue> checked-value binding over native checkbox.",
+      "sourceFinding": "Visual indeterminate does not set native input.indeterminate; browser AX reports unchecked; Required is a marker, not native required.",
+      "remainingGate": "Mixed state, required validation, form serialization and native AT remain open.",
+      "followUp": "Set/clear native indeterminate state and verify aria-checked=mixed, required validation, reset and form serialization.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 6,
+          "excerpt": "<input @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 10,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 13,
+          "excerpt": "@onchange=\"ChangeHandler\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 26,
+          "excerpt": "@if (!string.IsNullOrEmpty(Required))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 28,
+          "excerpt": "<span class=\"required\">@Required</span>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 36,
+          "excerpt": "@if (!string.IsNullOrEmpty(Required))"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Checkbox-derived value binding with switch styling.",
+      "sourceFinding": "Browser AX exposes checkbox rather than switch; inherited Size and Circular have no effect in reviewed source.",
+      "remainingGate": "Role/state announcements, inherited parameters, EditContext and native AT remain open.",
+      "followUp": "Confirm role strategy; test checked/disabled announcements, keyboard, form binding and native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 5,
+          "excerpt": "<input @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 9,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 12,
+          "excerpt": "@onchange=\"ChangeHandler\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 22,
+          "excerpt": "@if (!string.IsNullOrEmpty(Required))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 24,
+          "excerpt": "<span class=\"required\">@Required</span>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 32,
+          "excerpt": "@if (!string.IsNullOrEmpty(Required))"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Group value/callback plus child native radios; custom group semantics.",
+      "sourceFinding": "Wrapper is ignored in AX, radio name attributes are empty, and ArrowRight crosses into the next group.",
+      "remainingGate": "Group naming, one-tab-stop navigation, form serialization and validation remain open.",
+      "followUp": "Add group label/name; isolate arrow navigation; test real form serialization and EditContext validation.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+          "line": 6,
+          "excerpt": "<input @attributes=GetInputAdditionalAttributes() type=\"radio\" checked=\"@IsChecked\" id=\"@Id\" @onchange=\"HandleOnChange\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 8,
+          "excerpt": "[Parameter, EditorRequired] public TValue Value { get; set; } = default!;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 26,
+          "excerpt": "RadioGroup.OnValueChanged += OnValueChanged;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 33,
+          "excerpt": "RadioGroup.OnValueChanged -= OnValueChanged;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 51,
+          "excerpt": "private void OnValueChanged(object? sender, EventArgs e)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 57,
+          "excerpt": "protected Dictionary<string, object>? GetInputAdditionalAttributes()"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Native select/InputBase-style binding with Bluent option composition.",
+      "sourceFinding": "Inherited BindValueEvent is not forwarded to the visible native select.",
+      "remainingGate": "Bind-event contract, form name, validation and server mode remain open.",
+      "followUp": "Forward or retire BindValueEvent and test callbacks, validation, reset and form serialization.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+          "line": 13,
+          "excerpt": "<select @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+          "line": 16,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+          "line": 19,
+          "excerpt": "@onchange=\"OnValueChanged\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs",
+          "line": 37,
+          "excerpt": "private void OnValueChanged(ChangeEventArgs args)"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "InputBase date parsing/validation around nested MaskedField.",
+      "sourceFinding": "BindValueEvent is not forwarded; DateClass is unused; YearSelect mask/format disagree; typed values bypass Min/Max.",
+      "remainingGate": "Nested event propagation, bounds, date validation and server mode remain open.",
+      "followUp": "Align mask/format/parser; forward or retire BindValueEvent; enforce typed Min/Max; test EditContext.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+          "line": 13,
+          "excerpt": "@attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+          "line": 17,
+          "excerpt": "name=\"@NameAttributeValue\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+          "line": 183,
+          "excerpt": "builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.IsDisabled), IsDisabled);"
+        },
+        {
+          "path": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+          "line": 189,
+          "excerpt": "builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.OnDatePicked), EventCallback.Factory.Create<TValue>(this, OnDatePicked));"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "InputBase time parsing around nested MaskedField.",
+      "sourceFinding": "BindValueEvent is not forwarded; supplied Culture affects parsing but not consistently formatting.",
+      "remainingGate": "Culture formatting, validation and server mode remain open.",
+      "followUp": "Use Culture for both formatting/parsing; test seconds, locales, invalid input and EditForm validation.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+          "line": 13,
+          "excerpt": "@attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+          "line": 17,
+          "excerpt": "name=\"@NameAttributeValue\" />"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Explicit oninput mask engine updates Blazor current value.",
+      "sourceFinding": "BindValueEvent is unused; Chrome/Edge reproduce leading-literal corruption; digit-conversion flags are order-dependent.",
+      "remainingGate": "Input event contract, paste/backspace, digit conversion and form binding remain open.",
+      "followUp": "Fix literal indexing; test typing/paste/deletion and Persian/Arabic digits with combined conversion flags.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+          "line": 12,
+          "excerpt": "<input @attributes=GetInputAdditionalAttributes()"
+        },
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+          "line": 16,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+          "line": 18,
+          "excerpt": "@oninput=\"@OnUserInputChanged\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+          "line": 20,
+          "excerpt": "@oninput:preventDefault=\"true\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+          "line": 21,
+          "excerpt": "@oninput:stopPropagation=\"true\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+          "line": 16,
+          "excerpt": "[Parameter, EditorRequired] public string Mask { get; set; } = default!;"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Hidden bound value plus JS cell synchronization and event dispatch.",
+      "sourceFinding": "Synthetic paste is tested, not native clipboard/IME; labels are hard-coded English; inherited addons/size are no-ops.",
+      "remainingGate": "Real form submit, native clipboard/IME, dynamic length, localization and native AT remain open.",
+      "followUp": "Add EditForm fixture; test event variants, native paste/IME, length changes, password mode and screen readers.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 4,
+          "excerpt": "<div @attributes=AdditionalAttributes id=\"@Id\" class=\"@GetComponentClass()\" style=\"@Style\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 11,
+          "excerpt": "data-otp-blazor-event=\"@BindValueEvent\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 33,
+          "excerpt": "name=\"@NameAttributeValue\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 35,
+          "excerpt": "@bind-value:event=\"@BindValueEvent\"/>"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "ValueChanged callback driven by pointer interop; no InputBase.",
+      "sourceFinding": "Div/thumb composition has no native slider role, tabindex or keyboard behavior.",
+      "remainingGate": "ARIA values, keyboard, callback order and published server mode remain open.",
+      "followUp": "Define native slider semantics and keyboard behavior; test bounds, callbacks and focus in WASM/server.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+          "line": 5,
+          "excerpt": "<div @attributes=AdditionalAttributes"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+          "line": 28,
+          "excerpt": "[Parameter] public EventCallback<TValue?> ValueChanged { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+          "line": 306,
+          "excerpt": "await ValueChanged.InvokeAsync(Value);"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Two-value ValueRange callback driven by pointer interop; no InputBase.",
+      "sourceFinding": "Two-thumb composition has no native slider role/tabindex/keyboard; crossing and per-thumb focus semantics are unaccepted.",
+      "remainingGate": "Independent thumb ARIA/keyboard, crossing policy and form integration remain open.",
+      "followUp": "Specify crossing policy and per-thumb semantics; test keyboard, callbacks and form binding in WASM/server.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+          "line": 5,
+          "excerpt": "<div @attributes=AdditionalAttributes"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+          "line": 23,
+          "excerpt": "[Parameter] public ValueRange<TValue>? Value { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+          "line": 24,
+          "excerpt": "[Parameter] public EventCallback<ValueRange<TValue>?> ValueChanged { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+          "line": 310,
+          "excerpt": "Value = new ValueRange<TValue>(value, Value is null ? _max! : Value.Max);"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+          "line": 314,
+          "excerpt": "Value = new ValueRange<TValue>(Value is null ? _min! : Value.Min, value);"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+          "line": 317,
+          "excerpt": "await ValueChanged.InvokeAsync(Value);"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "dimension": "BlazorExtensions",
+      "dimensionStatus": "audited_gaps",
+      "bindingModel": "Native InputFile plus batch/per-file EventCallbacks; no InputBase value model.",
+      "sourceFinding": "MaxFiles=2 accepts three files; Disabled affects trigger only; remove action has glyph-only name; Accept is not upload security.",
+      "remainingGate": "Limit enforcement, native disabled semantics, callback order, upload security and native AT remain open.",
+      "followUp": "Enforce batch/cumulative policy; disable actual input; localize remove name; test callbacks and server-side upload validation.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 6,
+          "excerpt": "<div @attributes=AdditionalAttributes id=\"@Id\" class=\"@GetComponentClass()\" style=\"@Style\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 8,
+          "excerpt": "<InputFile @ref=\"_filePicker\" OnChange=\"HandleFileChanged\" multiple=\"@Multiple\" accept=\"@Accept\"></InputFile>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 11,
+          "excerpt": "@if (_files.Count < MaxFiles || !ShowFileInfo)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 14,
+          "excerpt": "OnClick=\"HandleOnClick\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 16,
+          "excerpt": "disabled=\"@Disabled\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 39,
+          "excerpt": "OnClick=\"()=>HandleFileRemove(file)\" />"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-FILE-UPLOAD-CHROME.json",
+        "evidence/BLUENT-LAB-P0-FILE-UPLOAD-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    }
+  ],
+  "acceptanceBoundary": "audited_gaps means the family was reviewed and gaps/evidence limits remain; it is not a pass or parity approval."
+}
