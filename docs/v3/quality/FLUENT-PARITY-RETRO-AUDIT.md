@@ -1,6 +1,6 @@
 # Retrospective Fluent 2 parity review: first 18 Component Lab pilots
 
-> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **All 18 families now have partial source/API audit reports and linked browser/runtime evidence; 0/18 Fluent-approved. Wave B has manual API mappings for TextField, NumericField, Checkbox, Switch, RadioGroup and SelectField; Wave C adds DateField, TimeField, MaskedField and OtpField. These source/API reviews record extensions and gaps, not approvals; visual, behavior, accessibility, token/theme, responsive RTL, Blazor-extension, design-artifact and migration acceptance remain incomplete.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
+> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **All 18 families now have partial source/API audit reports and linked browser/runtime evidence; 0/18 Fluent-approved. Waves A-D now provide manual API mappings for all 18 families and 239 source-known direct and locally inherited parameter occurrences. The ledgers document supported concepts, missing behavior and Bluent extensions; they are source/API audits, not parity approvals. Visual, behavior, accessibility, token/theme, responsive RTL, Blazor-extension, design-artifact and migration acceptance remain incomplete.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
 ## Maintainer decision — debt first (2026-10-19)
 
@@ -52,7 +52,7 @@ The following ledger records partial audit progress, not parity acceptance. All 
 | 15 | [OtpField](https://github.com/vrassouli/Bluent/issues/441) (#441) | P1 | C | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
 | 16 | [Slider](https://github.com/vrassouli/Bluent/issues/442) (#442) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
+| 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 
 ## Frozen upstream reference baseline (2026-10-22)
 
@@ -102,6 +102,7 @@ The following pinned references now provide traceable starting points for the fa
 - [Wave A manual Fluent API review (82 source-known parameter occurrences)](FLUENT-PARITY-WAVE-A-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-A-API-REVIEW.json)
 - [Wave B manual Fluent API review (71 source-known parameter occurrences)](FLUENT-PARITY-WAVE-B-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-B-API-REVIEW.json)
 - [Wave C manual Fluent API review (40 source-known parameter occurrences)](FLUENT-PARITY-WAVE-C-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-C-API-REVIEW.json)
+- [Wave D manual Fluent API review (46 source-known parameter occurrences)](FLUENT-PARITY-WAVE-D-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-D-API-REVIEW.json)
 
 ### Partial family audit reports
 

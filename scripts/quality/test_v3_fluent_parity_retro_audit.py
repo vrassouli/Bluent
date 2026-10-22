@@ -53,9 +53,9 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             "DateField": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
             "TimeField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
             "MaskedField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
-            "Slider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
-            "RangeSlider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
-            "FileSelect": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
+            "Slider": ({"feature", "visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
+            "RangeSlider": ({"feature", "visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
+            "FileSelect": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
         }
         for name, (audited_dimensions, report_path) in expected_partial.items():
             family = families[name]

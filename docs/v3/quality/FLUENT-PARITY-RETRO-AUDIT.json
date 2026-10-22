@@ -1089,7 +1089,7 @@
       },
       "dimensions": {
         "visual": "audited_gaps",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -1150,7 +1150,7 @@
       },
       "dimensions": {
         "visual": "audited_gaps",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -1209,7 +1209,7 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -1281,7 +1281,9 @@
     "waveBApiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-B-API-REVIEW.md",
     "waveBApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-B-API-REVIEW.json",
     "waveCApiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-C-API-REVIEW.md",
-    "waveCApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-C-API-REVIEW.json"
+    "waveCApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-C-API-REVIEW.json",
+    "waveDApiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-D-API-REVIEW.md",
+    "waveDApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-D-API-REVIEW.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",
