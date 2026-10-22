@@ -31,13 +31,15 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertEqual(EXPECTED, {f["family"]: f["productIssue"] for f in families})
         self.assertEqual(18, len({f["family"] for f in families}))
 
-    def test_p0_partial_audits_are_evidenced_and_other_families_remain_unreviewed(self):
+    def test_partial_audits_are_evidenced_and_other_families_remain_unreviewed(self):
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
         families = {family["family"]: family for family in self.data["families"]}
         expected_partial = {
             "Button": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
             "Icon": ({"visual", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
+            "Label": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
+            "Link": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
             "Slider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
             "RangeSlider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
             "FileSelect": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
@@ -77,7 +79,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         for phrase in (
             "research leads, not acceptance evidence", "nine-dimension acceptance matrix",
             "full evidence bundle remains pending for all 18 families",
-            "Button, Icon, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
+            "Button, Icon, Label, Link, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
             "native OS/assistive-technology acceptance", "PR #553 targets `bluent-v3`",
         ):
             self.assertIn(phrase, self.report)

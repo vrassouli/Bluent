@@ -169,7 +169,7 @@
       "currentDemoRoute": "/components/labels",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -180,7 +180,7 @@
         "visual": "not_reviewed",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -190,11 +190,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Required marks, Info, alignment, native for/focus association, accessible helper/validation copy.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"
     },
     {
       "family": "Link",
@@ -206,7 +207,7 @@
       "currentDemoRoute": "/components/links",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -216,8 +217,8 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -227,12 +228,13 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Native hyperlink vs action semantics, keyboard and disabled/unsafe URL handling.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FOCUS-TABLIST-PANELS-LINKS-DISABLED.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"
     },
     {
       "family": "Badge",
