@@ -1,6 +1,6 @@
 # Retrospective Fluent 2 parity review: first 18 Component Lab pilots
 
-> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **Button, Icon, Label, Link, Badge, Checkbox, Switch, RadioGroup, OtpField, Slider, RangeSlider and FileSelect: researching with documented partial source/browser gaps; 6/18 families not reviewed; 0/18 Fluent-approved.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
+> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **Button, Icon, Label, Link, Badge, Checkbox, Switch, NumericField, SelectField, DateField, TimeField, MaskedField, RadioGroup, OtpField, Slider, RangeSlider and FileSelect: researching with documented partial source/browser gaps; 1/18 family not reviewed; 0/18 Fluent-approved.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
 ## Maintainer decision — debt first (2026-10-19)
 
@@ -31,7 +31,7 @@ Read the P0 known issues first: Button #428, Slider #442, RangeSlider #443, File
 
 ## Backfill ledger: status reflects evidenced progress; approval remains pending
 
-The following ledger records partial audit progress, not parity acceptance. Button, Icon, Label, Link, Badge, Checkbox, Switch, RadioGroup, OtpField, Slider, RangeSlider and FileSelect have partial source/browser gap reports; their unreviewed dimensions remain open. The remaining 6 families are not reviewed. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
+The following ledger records partial audit progress, not parity acceptance. Button, Icon, Label, Link, Badge, Checkbox, Switch, NumericField, SelectField, DateField, TimeField, MaskedField, RadioGroup, OtpField, Slider, RangeSlider and FileSelect have partial source/browser gap reports; their unreviewed dimensions remain open. TextField is the only family without a partial family audit report. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
 
 | # | Existing source family / product issue | Priority | Wave | Visual | Feature | Behavior | A11y / design |
 | --: | --- | --- | --- | --- | --- | --- | --- |
@@ -43,12 +43,12 @@ The following ledger records partial audit progress, not parity acceptance. Butt
 | 6 | [TextField](https://github.com/vrassouli/Bluent/issues/432) (#432) | P1 | B | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
 | 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
+| 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
 | 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 12 | [DateField](https://github.com/vrassouli/Bluent/issues/438) (#438) | P1 | C | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 14 | [MaskedField](https://github.com/vrassouli/Bluent/issues/440) (#440) | P1 | C | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
+| 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
+| 12 | [DateField](https://github.com/vrassouli/Bluent/issues/438) (#438) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
+| 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
+| 14 | [MaskedField](https://github.com/vrassouli/Bluent/issues/440) (#440) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
 | 15 | [OtpField](https://github.com/vrassouli/Bluent/issues/441) (#441) | P1 | C | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
 | 16 | [Slider](https://github.com/vrassouli/Bluent/issues/442) (#442) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
@@ -77,6 +77,11 @@ The following pinned references now provide traceable starting points for the fa
 | Switch #435 | Researching; current source exposes native checkbox semantics rather than explicit switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
 | RadioGroup #436 | Researching; group lacks shared native radio name and group-level semantics; no approval | [RadioGroup family audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) |
 | OtpField #441 | Researching; group/cell accessible labels are hard-coded English and invalid lengths can contradict labels; JS runtime still unverified | [OtpField family audit](FLUENT-PARITY-OTP-AUDIT.md) |
+| NumericField #433 | Researching; public Step parameter is not consumed and input mode/step semantics need a contract | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
+| SelectField #437 | Researching; inherited BindValueEvent is ignored and multiple-select runtime remains unverified | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
+| DateField #438 | Researching; DateClass no-op, typed Min/Max bypass, YearSelect mask mismatch and unnamed calendar trigger | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
+| TimeField #439 | Researching; inherited BindValueEvent is ignored and Culture-vs-format contract needs disposition | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
+| MaskedField #440 | Researching; inherited BindValueEvent is ignored; mask/caret/IME behavior still requires runtime tests | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
 | Slider #442 | Researching; visual, pointer behavior and browser accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
 | RangeSlider #443 | Researching; visual, pointer behavior and dual-thumb accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
 | FileSelect #444 | Researching; file-count behavior and browser accessible-name gaps documented; no approval | [FileSelect family audit](FLUENT-PARITY-FILESELECT-AUDIT.md) |
@@ -121,7 +126,7 @@ These reports are explicit audit artifacts, not accepted design or implementatio
 
 ### Status discipline
 
-Unstarted dimensions remain **not_reviewed**. Button and FileSelect have behavior/accessibility gaps documented; Icon has visual/accessibility gaps documented; Label has an accessibility gap documented; Link has behavior/accessibility gaps documented; Badge has feature-documentation/accessibility gaps documented; Checkbox and Switch have accessibility gaps documented; RadioGroup has behavior/accessibility gaps; OtpField has localized-name and length-label gaps; Slider and RangeSlider also have visual gaps documented. All twelve families remain `researching`, design approvals and full evidence bundles are pending, and matched upstream equivalence is not yet accepted. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
+Unstarted dimensions remain **not_reviewed**. Button and FileSelect have behavior/accessibility gaps documented; Icon has visual/accessibility gaps documented; Label has an accessibility gap documented; Link has behavior/accessibility gaps documented; Badge has feature-documentation/accessibility gaps documented; Checkbox and Switch have accessibility gaps documented; NumericField, SelectField, DateField, TimeField and MaskedField have source-confirmed API/behavior gaps; RadioGroup has behavior/accessibility gaps; OtpField has localized-name and length-label gaps; Slider and RangeSlider also have visual gaps documented. Seventeen families now have partial audit reports; TextField remains the only family without one. All design approvals and full evidence bundles remain pending, and matched upstream equivalence is not yet accepted. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
 
 ### Specific known gaps already uncovered by the existing pilot tests
 

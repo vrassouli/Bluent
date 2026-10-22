@@ -400,7 +400,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -409,8 +409,8 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
-        "behavior": "not_reviewed",
+        "feature": "audited_gaps",
+        "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
@@ -421,11 +421,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Min/Max, culture, invalid and overflow, decimal values and keyboard handling.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
     },
     {
       "family": "RadioGroup",
@@ -476,7 +477,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -485,8 +486,8 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
-        "behavior": "not_reviewed",
+        "feature": "audited_gaps",
+        "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
@@ -497,12 +498,13 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Single vs multiple, keyboard select, options, focus and value binding.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
     },
     {
       "family": "DateField",
@@ -514,7 +516,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -523,9 +525,9 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "feature": "audited_gaps",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -535,11 +537,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "DateOnly/DateTime, calendar interactions, localization and parsing.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
     },
     {
       "family": "TimeField",
@@ -551,7 +554,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -560,8 +563,8 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
-        "behavior": "not_reviewed",
+        "feature": "audited_gaps",
+        "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
@@ -572,11 +575,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "TimeOnly/TimeSpan/DateTime, seconds and culture.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
     },
     {
       "family": "MaskedField",
@@ -588,7 +592,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -597,8 +601,8 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
-        "behavior": "not_reviewed",
+        "feature": "audited_gaps",
+        "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
@@ -609,11 +613,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Regex/normalization input rules, cursor and IME, document intentional Bluent extension.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
     },
     {
       "family": "OtpField",

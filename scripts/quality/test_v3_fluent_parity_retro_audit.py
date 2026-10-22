@@ -45,6 +45,11 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             "Switch": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
             "RadioGroup": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
             "OtpField": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
+            "NumericField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "SelectField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "DateField": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "TimeField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "MaskedField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
             "Slider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
             "RangeSlider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
             "FileSelect": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
@@ -84,7 +89,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         for phrase in (
             "research leads, not acceptance evidence", "nine-dimension acceptance matrix",
             "full evidence bundle remains pending for all 18 families",
-            "Button, Icon, Label, Link, Badge, Checkbox, Switch, RadioGroup, OtpField, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
+            "Button, Icon, Label, Link, Badge, Checkbox, Switch, NumericField, SelectField, DateField, TimeField, MaskedField, RadioGroup, OtpField, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
             "native OS/assistive-technology acceptance", "PR #553 targets `bluent-v3`",
         ):
             self.assertIn(phrase, self.report)
