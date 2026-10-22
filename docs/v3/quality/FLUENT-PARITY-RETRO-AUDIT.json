@@ -246,7 +246,7 @@
       "currentDemoRoute": "/components/badges",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -255,9 +255,9 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -267,11 +267,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Shape, Size, appearance, placement and contrast with Fluent reference.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"
     },
     {
       "family": "TextField",
