@@ -129,7 +129,7 @@
       "currentDemoRoute": "/components/icons",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -137,10 +137,10 @@
         "matchedUpstreamComponent": "unverified"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -150,13 +150,14 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Check Regular/Filled/Color independently; do not call upstream Color a current public Bluent variant.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md",
         "docs/v3/quality/FLUENT-PARITY-ICON-BROWSER.md",
         "docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"
     },
     {
       "family": "Label",
