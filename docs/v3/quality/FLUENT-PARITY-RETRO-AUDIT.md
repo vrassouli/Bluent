@@ -72,7 +72,7 @@ The following pinned references now provide traceable starting points for the fa
 | Icon #429 | Researching; custom SVG sizing and unnamed image gaps reproduced in Chrome/Edge; no approval | [Icon family audit](FLUENT-PARITY-ICON-AUDIT.md) |
 | Label #430 | Researching; Info trigger lacks an explicit accessible name; target ID association needs runtime verification; no approval | [Label family audit](FLUENT-PARITY-LABEL-AUDIT.md) |
 | Link #431 | Researching; disabled-anchor and callback guard gaps identified in source; runtime verification pending; no approval | [Link family audit](FLUENT-PARITY-LINK-AUDIT.md) |
-| TextField #432 | Researching; source audit found native input/textarea and correctly wired BindValueEvent; no gap confirmed; runtime and parity remain unreviewed | [TextField family audit](FLUENT-PARITY-TEXTFIELD-AUDIT.md) |
+| TextField #432 | Researching; default field is named `Example text field` and label association works in browser AX; empty HTML name observed but form serialization remains untested | [TextField source audit](FLUENT-PARITY-TEXTFIELD-AUDIT.md) · [Typed-field browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
 | Badge #445 | Researching; public Icon parameter docs conflict with source and optional infinite shadow has no reduced-motion override; no approval | [Badge family audit](FLUENT-PARITY-BADGE-AUDIT.md) |
 | Checkbox #434 | Researching; Chrome/Edge AX confirm visual indeterminate state is announced unchecked; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
 | Switch #435 | Researching; Chrome/Edge AX expose checkbox semantics rather than switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |

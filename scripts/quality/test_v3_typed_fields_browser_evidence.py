@@ -24,21 +24,22 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
             with self.subTest(engine=engine):
                 self.assertEqual(engine, run["engine"])
                 self.assertEqual("73155f02", run["sourceRef"])
-                self.assertEqual(39, run["summary"]["checks"])
-                self.assertEqual(39, run["summary"]["passed"])
+                self.assertEqual(42, run["summary"]["checks"])
+                self.assertEqual(42, run["summary"]["passed"])
                 self.assertEqual(0, run["summary"]["failed"])
-                self.assertEqual(39, len(run["checks"]))
+                self.assertEqual(42, len(run["checks"]))
                 self.assertTrue(all(item["pass"] for item in run["checks"]))
                 screenshots = run["summary"]["screenshots"]
-                self.assertEqual(18, len(screenshots))
+                self.assertEqual(21, len(screenshots))
                 for screenshot in screenshots:
                     file = EVIDENCE / screenshot
                     self.assertTrue(file.is_file(), screenshot)
                     self.assertGreater(file.stat().st_size, 1000, screenshot)
                 self.assertIn("no native screen-reader", run["scope"])
 
-    def test_all_five_families_have_browser_ax_names_in_three_modes(self):
+    def test_all_six_families_have_browser_ax_names_in_three_modes(self):
         expected = {
+            "Text field": ("textbox", "Example text field"),
             "Masked field": ("textbox", "Masked field"),
             "Time field": ("textbox", "Time only"),
             "Date field": ("textbox", "Small date field"),
@@ -51,8 +52,8 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                 field_cases = [c for c in run["cases"] if c.get("typedFields")]
                 self.assertEqual(expected_modes, {c["mode"] for c in field_cases})
                 for case in field_cases:
-                    self.assertEqual(5, len(case["typedFields"]["families"]))
-                    self.assertEqual(5, sum(1 for group in case["typedFields"]["snapshot"] if group["headingFound"]))
+                    self.assertEqual(6, len(case["typedFields"]["families"]))
+                    self.assertEqual(6, sum(1 for group in case["typedFields"]["snapshot"] if group["headingFound"]))
                 light = next(c for c in field_cases if c["mode"] == "LIGHT-LTR")
                 families = {f["family"]: f for f in light["typedFields"]["families"]}
                 self.assertEqual(set(expected), set(families))
@@ -81,7 +82,7 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                 self.assertNotEqual("0912-345-6789", mask["input"])
 
     def test_report_keeps_runtime_and_acceptance_boundaries_explicit(self):
-        self.assertIn("39/39 instrumentation checks", self.report)
+        self.assertIn("42/42 instrumentation checks", self.report)
         self.assertIn("reproduced in Chrome and Edge", self.report)
         self.assertIn("native screen-reader output", self.report)
         self.assertIn("not native Windows Contrast Themes", self.report)

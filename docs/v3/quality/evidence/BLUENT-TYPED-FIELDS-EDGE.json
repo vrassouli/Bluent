@@ -4,7 +4,7 @@
   "engine": "edge",
   "host": "Bluent.UI.Demo WebAssembly, built from current task branch source with Debug configuration",
   "scope": "Actual Chromium CDP DOM/AX-tree and keyboard observations for typed fields; OTP paste uses a synthetic ClipboardEvent; forced-colors is emulated; no native screen-reader or OS contrast certification.",
-  "createdAt": "2026-10-22T18:15:02.548Z",
+  "createdAt": "2026-10-22T18:34:03.569Z",
   "checks": [
     {
       "name": "LIGHT-LTR fields real header controls apply theme/direction and forced-colors media",
@@ -36,7 +36,7 @@
       "observed": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -105,7 +105,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -275,7 +275,7 @@
       "pass": true,
       "observed": {
         "wrapperClass": "bui-otp-field  ",
-        "hostId": "otpf1b4ffd98",
+        "hostId": "otpf4cb4f3d6",
         "role": "group",
         "ariaLabel": "Verification code",
         "dataLength": "4",
@@ -344,7 +344,7 @@
           }
         ],
         "hidden": {
-          "id": "hiddenf1b4ffd98",
+          "id": "hiddenf4cb4f3d6",
           "type": "hidden",
           "name": "",
           "value": ""
@@ -358,7 +358,7 @@
       "observed": {
         "afterFirst": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -427,7 +427,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -443,7 +443,7 @@
       "observed": {
         "afterSecond": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -512,7 +512,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "42"
@@ -528,7 +528,7 @@
       "observed": {
         "afterBackspace": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -597,7 +597,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -617,7 +617,7 @@
         },
         "afterPaste": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -686,7 +686,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "7391"
@@ -703,7 +703,7 @@
       "observed": {
         "afterInvalid": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -772,7 +772,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "739"
@@ -818,7 +818,7 @@
       "observed": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf2ef19682",
+          "hostId": "otpf2c88c5a3",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -887,7 +887,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf2ef19682",
+            "id": "hiddenf2c88c5a3",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -1057,7 +1057,7 @@
       "pass": true,
       "observed": {
         "wrapperClass": "bui-otp-field  ",
-        "hostId": "otpf2ef19682",
+        "hostId": "otpf2c88c5a3",
         "role": "group",
         "ariaLabel": "Verification code",
         "dataLength": "4",
@@ -1126,7 +1126,7 @@
           }
         ],
         "hidden": {
-          "id": "hiddenf2ef19682",
+          "id": "hiddenf2c88c5a3",
           "type": "hidden",
           "name": "",
           "value": ""
@@ -1164,7 +1164,7 @@
       "observed": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf71e6849e",
+          "hostId": "otpf62aebd6e",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -1233,7 +1233,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf71e6849e",
+            "id": "hiddenf62aebd6e",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -1403,7 +1403,7 @@
       "pass": true,
       "observed": {
         "wrapperClass": "bui-otp-field  ",
-        "hostId": "otpf71e6849e",
+        "hostId": "otpf62aebd6e",
         "role": "group",
         "ariaLabel": "Verification code",
         "dataLength": "4",
@@ -1472,12 +1472,38 @@
           }
         ],
         "hidden": {
-          "id": "hiddenf71e6849e",
+          "id": "hiddenf62aebd6e",
           "type": "hidden",
           "name": "",
           "value": ""
         },
         "outputText": "OTP:"
+      }
+    },
+    {
+      "name": "LIGHT-LTR Text field fixture and representative native control are present",
+      "pass": true,
+      "observed": {
+        "family": "Text field",
+        "element": true,
+        "groupFound": true,
+        "ax": [
+          {
+            "role": "textbox",
+            "name": "Example text field",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "editable": "plaintext",
+              "settable": true,
+              "multiline": false,
+              "readonly": false,
+              "required": false,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
       }
     },
     {
@@ -1649,6 +1675,32 @@
       }
     },
     {
+      "name": "DARK-RTL Text field fixture and representative native control are present",
+      "pass": true,
+      "observed": {
+        "family": "Text field",
+        "element": true,
+        "groupFound": true,
+        "ax": [
+          {
+            "role": "textbox",
+            "name": "Example text field",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "editable": "plaintext",
+              "settable": true,
+              "multiline": false,
+              "readonly": false,
+              "required": false,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
       "name": "DARK-RTL Masked field fixture and representative native control are present",
       "pass": true,
       "observed": {
@@ -1769,6 +1821,32 @@
               "focusable": true,
               "hasPopup": "menu",
               "expanded": false,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS Text field fixture and representative native control are present",
+      "pass": true,
+      "observed": {
+        "family": "Text field",
+        "element": true,
+        "groupFound": true,
+        "ax": [
+          {
+            "role": "textbox",
+            "name": "Example text field",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "editable": "plaintext",
+              "settable": true,
+              "multiline": false,
+              "readonly": false,
+              "required": false,
               "labelledby": "nodeList"
             }
           }
@@ -1930,7 +2008,7 @@
       "otp": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -1999,7 +2077,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -2101,7 +2179,7 @@
       "otpKeyboard": {
         "afterFirst": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2170,7 +2248,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -2180,7 +2258,7 @@
         "activeAfterFirst": 1,
         "afterSecond": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2249,7 +2327,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "42"
@@ -2259,7 +2337,7 @@
         "activeAfterSecond": 2,
         "afterBackspace": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2328,7 +2406,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -2342,7 +2420,7 @@
         },
         "afterPaste": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2411,7 +2489,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "7391"
@@ -2421,7 +2499,7 @@
         "activeAfterPaste": 3,
         "afterInvalid": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf1b4ffd98",
+          "hostId": "otpf4cb4f3d6",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2490,7 +2568,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf1b4ffd98",
+            "id": "hiddenf4cb4f3d6",
             "type": "hidden",
             "name": "",
             "value": "739"
@@ -2526,7 +2604,7 @@
       "otp": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf2ef19682",
+          "hostId": "otpf2c88c5a3",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2595,7 +2673,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf2ef19682",
+            "id": "hiddenf2c88c5a3",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -2717,7 +2795,7 @@
       "otp": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf71e6849e",
+          "hostId": "otpf62aebd6e",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2786,7 +2864,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf71e6849e",
+            "id": "hiddenf62aebd6e",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -2904,6 +2982,46 @@
       "typedFields": {
         "snapshot": [
           {
+            "name": "Text field",
+            "headingFound": true,
+            "sections": [
+              {
+                "sectionIndex": 0,
+                "className": "p-7 rounded-5 shadow-3",
+                "fields": [
+                  {
+                    "tag": "input",
+                    "id": "_textField",
+                    "type": "text",
+                    "name": "",
+                    "value": "",
+                    "disabled": false,
+                    "readOnly": false,
+                    "required": false,
+                    "dir": "ltr",
+                    "autocomplete": null,
+                    "inputMode": null,
+                    "pattern": null,
+                    "maxLength": -1,
+                    "placeholder": null,
+                    "ariaLabel": null,
+                    "ariaLabelledBy": null,
+                    "role": null,
+                    "className": "",
+                    "ancestorClasses": [
+                      "bui-field bui-text-field  ",
+                      "p-7 rounded-5 shadow-3"
+                    ],
+                    "labels": [
+                      "Example text field"
+                    ]
+                  }
+                ],
+                "text": "Example text field"
+              }
+            ]
+          },
+          {
             "name": "Masked field",
             "headingFound": true,
             "sections": [
@@ -2983,7 +3101,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "21:44",
+                    "value": "22:3",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3009,7 +3127,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "21:44:52",
+                    "value": "22:3:53",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3035,7 +3153,7 @@
                     "id": "_dateField",
                     "type": "text",
                     "name": "",
-                    "value": "21:44",
+                    "value": "22:3",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3062,7 +3180,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739910.21:44",
+                    "value": "739910.22:3",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3088,7 +3206,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739910.21:44:52",
+                    "value": "739910.22:3:53",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3110,7 +3228,7 @@
                     ]
                   }
                 ],
-                "text": "Time only\n \n\n                TimeOnly: 9:44 PM\nDate field\n\n                DateTime: 10/21/2026 9:44:52 PM\nTime span\n \n\n                TimeSpan: 739910.21:44:52.6190000"
+                "text": "Time only\n \n\n                TimeOnly: 10:03 PM\nDate field\n\n                DateTime: 10/21/2026 10:03:53 PM\nTime span\n \n\n                TimeSpan: 739910.22:03:53.5510000"
               }
             ]
           },
@@ -3259,7 +3377,7 @@
                     ]
                   }
                 ],
-                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/21/2026 9:44:52 PM\nMonth field\n\n                Date: 10/22/2026 9:44:52 PM"
+                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/21/2026 10:03:53 PM\nMonth field\n\n                Date: 10/22/2026 10:03:53 PM"
               }
             ]
           },
@@ -3475,6 +3593,58 @@
         ],
         "families": [
           {
+            "family": "Text field",
+            "elementPresent": true,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Example text field",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false,
+                  "labelledby": "nodeList"
+                }
+              }
+            ],
+            "observedName": "Example text field",
+            "observedRole": "textbox",
+            "allGroupFields": [
+              {
+                "tag": "input",
+                "id": "_textField",
+                "type": "text",
+                "name": "",
+                "value": "",
+                "disabled": false,
+                "readOnly": false,
+                "required": false,
+                "dir": "ltr",
+                "autocomplete": null,
+                "inputMode": null,
+                "pattern": null,
+                "maxLength": -1,
+                "placeholder": null,
+                "ariaLabel": null,
+                "ariaLabelledBy": null,
+                "role": null,
+                "className": "",
+                "ancestorClasses": [
+                  "bui-field bui-text-field  ",
+                  "p-7 rounded-5 shadow-3"
+                ],
+                "labels": [
+                  "Example text field"
+                ]
+              }
+            ]
+          },
+          {
             "family": "Masked field",
             "elementPresent": true,
             "ax": [
@@ -3581,7 +3751,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "21:44",
+                "value": "22:3",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3607,7 +3777,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "21:44:52",
+                "value": "22:3:53",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3633,7 +3803,7 @@
                 "id": "_dateField",
                 "type": "text",
                 "name": "",
-                "value": "21:44",
+                "value": "22:3",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3660,7 +3830,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739910.21:44",
+                "value": "739910.22:3",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3686,7 +3856,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739910.21:44:52",
+                "value": "739910.22:3:53",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4096,6 +4266,7 @@
         ]
       },
       "screenshots": [
+        "BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-LIGHT-LTR.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-LIGHT-LTR.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-LIGHT-LTR.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-LIGHT-LTR.png",
@@ -4157,6 +4328,46 @@
       "typedFields": {
         "snapshot": [
           {
+            "name": "Text field",
+            "headingFound": true,
+            "sections": [
+              {
+                "sectionIndex": 0,
+                "className": "p-7 rounded-5 shadow-3",
+                "fields": [
+                  {
+                    "tag": "input",
+                    "id": "_textField",
+                    "type": "text",
+                    "name": "",
+                    "value": "",
+                    "disabled": false,
+                    "readOnly": false,
+                    "required": false,
+                    "dir": "rtl",
+                    "autocomplete": null,
+                    "inputMode": null,
+                    "pattern": null,
+                    "maxLength": -1,
+                    "placeholder": null,
+                    "ariaLabel": null,
+                    "ariaLabelledBy": null,
+                    "role": null,
+                    "className": "",
+                    "ancestorClasses": [
+                      "bui-field bui-text-field  ",
+                      "p-7 rounded-5 shadow-3"
+                    ],
+                    "labels": [
+                      "Example text field"
+                    ]
+                  }
+                ],
+                "text": "Example text field"
+              }
+            ]
+          },
+          {
             "name": "Masked field",
             "headingFound": true,
             "sections": [
@@ -4236,7 +4447,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "21:44",
+                    "value": "22:3",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4262,7 +4473,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "21:44:57",
+                    "value": "22:3:58",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4288,7 +4499,7 @@
                     "id": "_dateField",
                     "type": "text",
                     "name": "",
-                    "value": "21:44",
+                    "value": "22:3",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4315,7 +4526,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739910.21:44",
+                    "value": "739910.22:3",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4341,7 +4552,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739910.21:44:57",
+                    "value": "739910.22:3:58",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4363,7 +4574,7 @@
                     ]
                   }
                 ],
-                "text": "Time only\n \n\n                TimeOnly: 9:44 PM\nDate field\n\n                DateTime: 10/21/2026 9:44:57 PM\nTime span\n \n\n                TimeSpan: 739910.21:44:57.5840000"
+                "text": "Time only\n \n\n                TimeOnly: 10:03 PM\nDate field\n\n                DateTime: 10/21/2026 10:03:58 PM\nTime span\n \n\n                TimeSpan: 739910.22:03:58.6780000"
               }
             ]
           },
@@ -4512,7 +4723,7 @@
                     ]
                   }
                 ],
-                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/21/2026 9:44:57 PM\nMonth field\n\n                Date: 10/22/2026 9:44:57 PM"
+                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/21/2026 10:03:58 PM\nMonth field\n\n                Date: 10/22/2026 10:03:58 PM"
               }
             ]
           },
@@ -4728,6 +4939,58 @@
         ],
         "families": [
           {
+            "family": "Text field",
+            "elementPresent": true,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Example text field",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false,
+                  "labelledby": "nodeList"
+                }
+              }
+            ],
+            "observedName": "Example text field",
+            "observedRole": "textbox",
+            "allGroupFields": [
+              {
+                "tag": "input",
+                "id": "_textField",
+                "type": "text",
+                "name": "",
+                "value": "",
+                "disabled": false,
+                "readOnly": false,
+                "required": false,
+                "dir": "rtl",
+                "autocomplete": null,
+                "inputMode": null,
+                "pattern": null,
+                "maxLength": -1,
+                "placeholder": null,
+                "ariaLabel": null,
+                "ariaLabelledBy": null,
+                "role": null,
+                "className": "",
+                "ancestorClasses": [
+                  "bui-field bui-text-field  ",
+                  "p-7 rounded-5 shadow-3"
+                ],
+                "labels": [
+                  "Example text field"
+                ]
+              }
+            ]
+          },
+          {
             "family": "Masked field",
             "elementPresent": true,
             "ax": [
@@ -4834,7 +5097,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "21:44",
+                "value": "22:3",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4860,7 +5123,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "21:44:57",
+                "value": "22:3:58",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4886,7 +5149,7 @@
                 "id": "_dateField",
                 "type": "text",
                 "name": "",
-                "value": "21:44",
+                "value": "22:3",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4913,7 +5176,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739910.21:44",
+                "value": "739910.22:3",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4939,7 +5202,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739910.21:44:57",
+                "value": "739910.22:3:58",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -5349,6 +5612,7 @@
         ]
       },
       "screenshots": [
+        "BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-DARK-RTL.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-DARK-RTL.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-DARK-RTL.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-DARK-RTL.png",
@@ -5378,6 +5642,46 @@
       "typedFields": {
         "snapshot": [
           {
+            "name": "Text field",
+            "headingFound": true,
+            "sections": [
+              {
+                "sectionIndex": 0,
+                "className": "p-7 rounded-5 shadow-3",
+                "fields": [
+                  {
+                    "tag": "input",
+                    "id": "_textField",
+                    "type": "text",
+                    "name": "",
+                    "value": "",
+                    "disabled": false,
+                    "readOnly": false,
+                    "required": false,
+                    "dir": "ltr",
+                    "autocomplete": null,
+                    "inputMode": null,
+                    "pattern": null,
+                    "maxLength": -1,
+                    "placeholder": null,
+                    "ariaLabel": null,
+                    "ariaLabelledBy": null,
+                    "role": null,
+                    "className": "",
+                    "ancestorClasses": [
+                      "bui-field bui-text-field  ",
+                      "p-7 rounded-5 shadow-3"
+                    ],
+                    "labels": [
+                      "Example text field"
+                    ]
+                  }
+                ],
+                "text": "Example text field"
+              }
+            ]
+          },
+          {
             "name": "Masked field",
             "headingFound": true,
             "sections": [
@@ -5457,7 +5761,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "21:45",
+                    "value": "22:4",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -5483,7 +5787,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "21:45:0",
+                    "value": "22:4:1",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -5509,7 +5813,7 @@
                     "id": "_dateField",
                     "type": "text",
                     "name": "",
-                    "value": "21:45",
+                    "value": "22:4",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -5536,7 +5840,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739910.21:45",
+                    "value": "739910.22:4",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -5562,7 +5866,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739910.21:45:0",
+                    "value": "739910.22:4:1",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -5584,7 +5888,7 @@
                     ]
                   }
                 ],
-                "text": "Time only\n \n\n                TimeOnly: 9:45 PM\nDate field\n\n                DateTime: 10/21/2026 9:45:00 PM\nTime span\n \n\n                TimeSpan: 739910.21:45:00.6330000"
+                "text": "Time only\n \n\n                TimeOnly: 10:04 PM\nDate field\n\n                DateTime: 10/21/2026 10:04:01 PM\nTime span\n \n\n                TimeSpan: 739910.22:04:01.6470000"
               }
             ]
           },
@@ -5733,7 +6037,7 @@
                     ]
                   }
                 ],
-                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/21/2026 9:45:00 PM\nMonth field\n\n                Date: 10/22/2026 9:45:00 PM"
+                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/21/2026 10:04:01 PM\nMonth field\n\n                Date: 10/22/2026 10:04:01 PM"
               }
             ]
           },
@@ -5949,6 +6253,58 @@
         ],
         "families": [
           {
+            "family": "Text field",
+            "elementPresent": true,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Example text field",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false,
+                  "labelledby": "nodeList"
+                }
+              }
+            ],
+            "observedName": "Example text field",
+            "observedRole": "textbox",
+            "allGroupFields": [
+              {
+                "tag": "input",
+                "id": "_textField",
+                "type": "text",
+                "name": "",
+                "value": "",
+                "disabled": false,
+                "readOnly": false,
+                "required": false,
+                "dir": "ltr",
+                "autocomplete": null,
+                "inputMode": null,
+                "pattern": null,
+                "maxLength": -1,
+                "placeholder": null,
+                "ariaLabel": null,
+                "ariaLabelledBy": null,
+                "role": null,
+                "className": "",
+                "ancestorClasses": [
+                  "bui-field bui-text-field  ",
+                  "p-7 rounded-5 shadow-3"
+                ],
+                "labels": [
+                  "Example text field"
+                ]
+              }
+            ]
+          },
+          {
             "family": "Masked field",
             "elementPresent": true,
             "ax": [
@@ -6055,7 +6411,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "21:45",
+                "value": "22:4",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6081,7 +6437,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "21:45:0",
+                "value": "22:4:1",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6107,7 +6463,7 @@
                 "id": "_dateField",
                 "type": "text",
                 "name": "",
-                "value": "21:45",
+                "value": "22:4",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6134,7 +6490,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739910.21:45",
+                "value": "739910.22:4",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6160,7 +6516,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739910.21:45:0",
+                "value": "739910.22:4:1",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6570,6 +6926,7 @@
         ]
       },
       "screenshots": [
+        "BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-FORCED-COLORS.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-FORCED-COLORS.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-FORCED-COLORS.png",
         "BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-FORCED-COLORS.png",
@@ -6579,23 +6936,26 @@
     }
   ],
   "summary": {
-    "checks": 39,
-    "passed": 39,
+    "checks": 42,
+    "passed": 42,
     "failed": 0,
     "screenshots": [
       "BLUENT-TYPED-FIELDS-EDGE-OTP-LIGHT-LTR.png",
       "BLUENT-TYPED-FIELDS-EDGE-OTP-DARK-RTL.png",
       "BLUENT-TYPED-FIELDS-EDGE-OTP-FORCED-COLORS.png",
+      "BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-LIGHT-LTR.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-LIGHT-LTR.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-LIGHT-LTR.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-LIGHT-LTR.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-NUMERIC-FIELD-LIGHT-LTR.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-SELECT-FIELD-LIGHT-LTR.png",
+      "BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-DARK-RTL.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-DARK-RTL.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-DARK-RTL.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-DARK-RTL.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-NUMERIC-FIELD-DARK-RTL.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-SELECT-FIELD-DARK-RTL.png",
+      "BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-FORCED-COLORS.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-FORCED-COLORS.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-FORCED-COLORS.png",
       "BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-FORCED-COLORS.png",
