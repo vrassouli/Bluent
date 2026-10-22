@@ -21,14 +21,15 @@ The `/components/labels` demo was captured in Chrome and Edge in Light/LTR, Dark
 ## Canonical matrix disposition
 
 - `accessibility`: `audited_gaps` — browser AX names the Info action `This is a label`, inherited from the containing label rather than describing the action; native screen-reader output and field association across field families remain unverified.
-- `visual`, `feature`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — source inspection does not complete these acceptance dimensions.
+- `feature`: `audited_gaps` — 14 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); native `for`, Auto required inference, custom symbol and Info are extensions.
+- `visual`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions
 
 1. **#430:** decide whether Label should own the accessible name of its Info trigger and preserve the approved shared Button contract; add a localized action name after the design/API decision.
 2. Define the association contract between `ForExpression`, the emitted `for`, and each consuming field's real DOM `id`. Test TextField, NumericField, SelectField, Checkbox/RadioGroup and custom field components separately; do not assume a property name is always the generated input id.
-3. Compare all current public enum values, defaults, required marker, info slot/Popover composition and inherited attributes against pinned Fluent `fluent-label` and React Label signatures. Preserve Bluent-only expression metadata as an explicit extension if approved.
+3. Review the [Wave A API ledger](FLUENT-PARITY-WAVE-A-API-REVIEW.md) and decide whether ForExpression, Auto required inference, custom RequiredSymbol and Info Popover are intentional extensions. Preserve Bluent-only expression metadata only after that decision.
 4. Complete editable Bluent v3 design, Light/Dark, RTL, required/error states, focus, zoom/reflow and native screen-reader checks before acceptance.
 
 ## Evidence sources

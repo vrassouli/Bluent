@@ -120,7 +120,7 @@
       },
       "dimensions": {
         "visual": "audited_gaps",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -157,10 +157,14 @@
         "docs/v3/quality/FLUENT-PARITY-BUTTON-ICON-AX.md",
         "docs/v3/quality/FLUENT-PARITY-BUTTON-TOGGLE-STATES.md",
         "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md",
-        "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
+        "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
       ],
       "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",
-      "designAuditReport": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
+      "designAuditReport": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md",
+      "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
     },
     {
       "family": "Icon",
@@ -199,7 +203,7 @@
       },
       "dimensions": {
         "visual": "audited_gaps",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -216,9 +220,13 @@
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md",
         "docs/v3/quality/FLUENT-PARITY-ICON-BROWSER.md",
-        "docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md"
+        "docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md",
+      "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
     },
     {
       "family": "Label",
@@ -257,7 +265,7 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -272,9 +280,13 @@
       "gapDisposition": "known_gaps_open",
       "notesForReview": "Required marks, Info, alignment, native for/focus association, accessible helper/validation copy.",
       "researchLeadDocuments": [
-        "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
+        "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md",
+      "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
     },
     {
       "family": "Link",
@@ -315,7 +327,7 @@
       },
       "dimensions": {
         "visual": "not_reviewed",
-        "feature": "not_reviewed",
+        "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
@@ -331,9 +343,13 @@
       "notesForReview": "Native hyperlink vs action semantics, keyboard and disabled/unsafe URL handling.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
-        "docs/v3/quality/FOCUS-TABLIST-PANELS-LINKS-DISABLED.md"
+        "docs/v3/quality/FOCUS-TABLIST-PANELS-LINKS-DISABLED.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md",
+      "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
     },
     {
       "family": "Badge",
@@ -389,9 +405,13 @@
       "gapDisposition": "known_gaps_open",
       "notesForReview": "Shape, Size, appearance, placement and contrast with Fluent reference.",
       "researchLeadDocuments": [
-        "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
+        "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md",
+      "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
     },
     {
       "family": "TextField",
@@ -1232,7 +1252,7 @@
     "reactApiCandidateReport": "docs/v3/quality/FLUENT-REACT-9.74.10-18-API-CANDIDATES.md",
     "reactSemanticTriageReport": "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
     "sourceApiCensus": "docs/v3/quality/FLUENT-PARITY-18-SOURCE-API.json",
-    "interpretation": "Research leads only; exact upstream package/version baseline and all 18 family mappings are pinned, partial browser/runtime evidence is linked for all 18, and four editable core-control design comparisons now document visual gaps. This does not complete the nine dimensions or approve parity.",
+    "interpretation": "Research leads only; exact upstream package/version baseline and all 18 family mappings are pinned, 82 Wave A API parameter occurrences across five families are manually classified in a separate review ledger, partial browser/runtime evidence is linked for all 18, and four editable core-control design comparisons document visual gaps. This does not complete the nine dimensions or approve parity.",
     "typedFieldBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md",
     "typedFieldBrowserEvidenceChrome": "docs/v3/quality/evidence/BLUENT-TYPED-FIELDS-CHROME.json",
     "typedFieldBrowserEvidenceEdge": "docs/v3/quality/evidence/BLUENT-TYPED-FIELDS-EDGE.json",
@@ -1255,7 +1275,9 @@
     "fileSelectPublishedServerEvidence": "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md",
     "penpotAuditArtifact": "Bluent v3 Design System (file b64f6665-c9ab-80b5-8008-c4ac99d9d000) / 03 · Quality & migration (page 07c521b9-e441-80bd-8008-c4ad87df93c3) / #552 · Fluent parity audit coverage · DRAFT (board 4d22aead-d6ef-801a-8008-d482b9bb0cc8), review date 2026-10-22; file revision metadata not exposed by connector; not an approval.",
     "referenceVersionEvidence": "docs/v3/quality/evidence/FLUENT-NPM-REFERENCE-VERSIONS-2026-10-22.json",
-    "coreControlDesignAudit": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
+    "coreControlDesignAudit": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md",
+    "waveAApiReview": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
+    "waveAApiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",

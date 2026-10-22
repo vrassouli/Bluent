@@ -22,13 +22,14 @@ The `/components/links` demo was captured in Chrome and Edge in Light/LTR, Dark/
 
 - `behavior`: `audited_gaps` — source does not guard the click callback when disabled; browser confirms the disabled anchor remains focusable but loses link semantics. Real callback invocation/suppression remains untested.
 - `accessibility`: `audited_gaps` — disabled navigation is exposed as a focusable generic node without `href` or `aria-disabled`; native screen-reader output remains untested.
-- `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — the source/API review does not complete those acceptance dimensions.
+- `feature`: `audited_gaps` — 12 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); href/appearance map, but anchor/button fallback and disabled semantics differ from `fluent-link`.
+- `visual`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions
 
 1. **#431:** choose and document the disabled navigation contract and callback policy. Test enabled/disabled anchor and action forms independently, including Enter/Space behavior, focus order, pointer activation, navigation, `OnClick` count, `aria-disabled`, and unmatched-attribute precedence.
-2. Compare `Text`, `Href`, `Appearance`, `OnClick`, inherited tooltip/common attributes, defaults and disabled states against the pinned Fluent Link and anchor-button contracts. Keep Link, Button, and navigation-anchor behavior semantically distinct in the mapping.
+2. Review the [Wave A API ledger](FLUENT-PARITY-WAVE-A-API-REVIEW.md); keep Link, Button and navigation-anchor behavior semantically distinct, and finish the disabled/callback/ARIA behavior checks.
 3. Add real browser evidence in Chrome/Edge, WebAssembly and published InteractiveServer, then same-state Fluent screenshots, RTL, focus-visible, forced colors and native screen-reader verification. The existing TabList URL-link evidence proves those *different tab demo anchors* navigate; it is not evidence that this Link component's disabled behavior works.
 4. Complete the editable Bluent v3 design and lifecycle prerequisites before changing the owning product issue. Keep implementation out of #552.
 

@@ -22,7 +22,8 @@ The `/components/badges` demo was captured in Chrome and Edge in Light/LTR, Dark
 
 - `feature`: `audited_gaps` — the public component documentation's `Icon` parameter type conflicts with source.
 - `accessibility`: `audited_gaps` — the optional infinite shadow animation remains active under browser-emulated `prefers-reduced-motion: reduce`; native OS/AT behavior remains untested.
-- `visual`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — representative browser snapshots now exist, but the normalized Fluent screenshot/state-combination matrix remains unreviewed.
+- `feature`: `audited_gaps` — 16 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); `Outlined` normalization and `Sever` versus upstream `severe` are value-level gaps, and shadow animation is a Bluent extension.
+- `visual`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — the normalized Fluent screenshot/state-combination matrix remains unreviewed.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions

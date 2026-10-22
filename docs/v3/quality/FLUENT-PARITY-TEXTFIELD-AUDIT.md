@@ -18,7 +18,9 @@ The pinned Fluent Web Components 3.1.3 inventory contains a text-input primitive
 
 ## Canonical matrix disposition
 
-All nine dimensions remain `not_reviewed`. The source inspection did not establish a specific gap that justifies `audited_gaps`, and it does not establish parity acceptance either. Family `auditStatus` is `researching`; `designApproval` remains `pending`; `evidenceBundle` remains `null`; `gapDisposition` remains `untriaged`.
+- `visual`: `audited_gaps` — 28 Fluent reference variants versus 10 Bluent variants; Hover/Pressed/Underline and separate Filled Lighter/Darker variants are missing. See [core-control design audit](FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md).
+- `designArtifact`: `audited_gaps` — editable reference and draft frame IDs are recorded in the design audit; draft only.
+- `feature`, `behavior`, `accessibility`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, and `migrationDocs`: `not_reviewed`. Family `auditStatus` is `researching`; `designApproval` remains `pending`; `evidenceBundle` remains `null`; `gapDisposition` is `known_gaps_open`.
 
 ## Required next evidence
 

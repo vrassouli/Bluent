@@ -175,6 +175,20 @@ A real, editable audit map has been added to the source-owned Penpot file. This 
 - Board: `#552 · Fluent parity audit coverage · DRAFT` — node ID `4d22aead-d6ef-801a-8008-d482b9bb0cc8`.
 - Review date: 2026-10-22; the current Penpot connector did not expose a file revision value. The board is at x=1700, y=90, 1660×1120 and contains all 18 families, evidence group, reproduced/open gap and pending approval state.
 - No product component designs or code were changed. All family design approvals remain pending; native AT/OS contrast, complete state/event matrices and the nine-dimension acceptance review remain open.
+## Wave A API review (2026-10-22)
+
+The [review report](FLUENT-PARITY-WAVE-A-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-A-API-REVIEW.json) classify **82/82 direct and locally inherited parameter occurrences** across Button, Icon, Label, Link and Badge. The source-generated API-name candidate queue remains unchanged; the new ledger is a separate manual review. `Supported` means an API mapping is identified, not that runtime, visual, accessibility or overall Fluent parity has passed.
+
+| Family | Owner | Parameters reviewed | Feature disposition | Principal open API gap |
+|---|---:|---:|---|---|
+| Button | #428 | 30 | `audited_gaps` | Base Button combines anchor, toggle, compound and menu behavior; Danger and positioned Badge/Popover APIs are Bluent extensions. |
+| Icon | #429 | 10 | `audited_gaps` | No dedicated WC Icon tag; generic source abstraction is Bluent-specific; Color variant remains undecided and is not claimed. |
+| Label | #430 | 14 | `audited_gaps` | Native `for` association, automatic required inference, custom required symbol and Info popover are Bluent-specific. |
+| Link | #431 | 12 | `audited_gaps` | Href/appearance map, but anchor/button fallback and disabled-anchor semantics differ from `fluent-link`. |
+| Badge | #445 | 16 | `audited_gaps` | `Outlined` needs normalization, `Sever` does not match upstream `severe`, and shadow animation is a Bluent extension. |
+
+The Wave A `feature` dimension is now `audited_gaps` for these five families. This does not change their other dimension statuses, `designApproval=pending`, `evidenceBundle=null`, or the overall `auditComplete=false` boundary.
+
 ## Component design comparisons (partial, 2026-10-22)
 
 The editable Penpot comparison for four families now has a concrete visual disposition. Full detail and all reference/local page-node IDs are in [FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md](FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md). These remain draft findings, not approvals.

@@ -33,7 +33,8 @@ The original live browser harness observed 15/15 fixture/render assertions per e
 
 - `visual`: `audited_gaps` — the 377×377 SVG rendering defect is measured in two real browser engines; full normalized Fluent visual comparison remains open.
 - `accessibility`: `audited_gaps` — the image's empty accessible name is reproduced in the browser AX tree; decorative/informative intent and native OS/AT remain pending.
-- `feature`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — the source inventory and selected browser scenarios do not complete those acceptance dimensions.
+- `feature`: `audited_gaps` — 10 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); no dedicated WC Icon tag, generic IconDefinition is a Bluent extension, and Color remains undecided.
+- `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions

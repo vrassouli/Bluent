@@ -33,13 +33,16 @@ The evidence documents report Chrome/Edge source observations, including 10/10 o
 
 - `behavior`: `audited_gaps` — narrow, reproducible keyboard/toggle observations exist and expose a gap; exhaustive parity behavior is not complete.
 - `accessibility`: `audited_gaps` — browser AX evidence reproduces name and pressed-state gaps; native OS/AT acceptance is still pending.
-- `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — existing research does not complete those acceptance dimensions.
+- `visual`: `audited_gaps` — the Penpot comparison export omits headings and row/column labels; see [core-control design audit](FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md).
+- `feature`: `audited_gaps` — 30 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); Danger is an extension and anchor/toggle/menu/Badge composition is not 1:1.
+- `designArtifact`: `audited_gaps` — editable reference/draft pair is linked in the core-control design audit; approval remains pending.
+- `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `migrationDocs`: `not_reviewed`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Next owner actions
 
 - Keep product implementation in #428 until its lifecycle/design/architecture prerequisites are met; do not patch the component in this audit branch.
-- Complete the upstream feature disposition and the remaining composition/keyboard paths, including disabled behavior, popup focus/return, link behavior, callback ordering and caller-supplied ARIA precedence.
+- Review the [Wave A API ledger](FLUENT-PARITY-WAVE-A-API-REVIEW.md) and decide which Bluent extensions are intentional; then complete the remaining composition/keyboard paths, including disabled behavior, popup focus/return, link behavior, callback ordering and caller-supplied ARIA precedence.
 - Review the full editable Bluent v3 Button design (including the focus-visible subset owned by #501) and compare real screenshots across appearances, sizes, states, themes, RTL/LTR, 320px/reflow and forced colors.
 - After any owner-approved remediation, rerun the same source-real tests and add native OS/assistive-technology evidence; keep unknown cases explicitly pending.
 

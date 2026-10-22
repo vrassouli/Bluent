@@ -1,5 +1,7 @@
 """Contract tests for the #552 18-family Fluent parity backfill matrix."""
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -36,11 +38,11 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertTrue(self.data["noneApproved"])
         families = {family["family"]: family for family in self.data["families"]}
         expected_partial = {
-            "Button": ({"visual", "behavior", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
+            "Button": ({"visual", "feature", "behavior", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
             "TextField": ({"visual", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"),
-            "Icon": ({"visual", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
-            "Label": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
-            "Link": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
+            "Icon": ({"visual", "feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
+            "Label": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
+            "Link": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
             "Badge": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"),
             "Checkbox": ({"visual", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
             "Switch": ({"visual", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
@@ -180,6 +182,28 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertIn("latest tag is 9.74.11", self.report)
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
+    def test_wave_a_api_review_covers_all_source_known_parameters(self):
+        builder = ROOT / "scripts/quality/build_v3_fluent_wave_a_api_review.py"
+        subprocess.run([sys.executable, str(builder), "--check"], check=True, cwd=ROOT)
+        ledger = json.loads((QUALITY / "FLUENT-PARITY-WAVE-A-API-REVIEW.json").read_text(encoding="utf-8-sig"))
+        candidates = json.loads((QUALITY / "FLUENT-WC-3.1.3-18-API-NAME-CANDIDATES.json").read_text(encoding="utf-8-sig"))
+        wave_a = {"Button", "Icon", "Label", "Link", "Badge"}
+        expected = {(f["family"], c["name"], p["name"]) for f in candidates["families"] if f["family"] in wave_a for c in f["components"] for p in c["parameters"]}
+        actual = {(f["family"], p["component"], p["name"]) for f in ledger["families"] for p in f["parameters"]}
+        self.assertEqual(82, ledger["parameterOccurrenceCount"])
+        self.assertEqual(expected, actual)
+        self.assertEqual(82, len(actual))
+        for family in ledger["families"]:
+            self.assertEqual(family["parameterCount"], len(family["parameters"]))
+            self.assertEqual("audited_gaps", family["apiReviewStatus"])
+            self.assertEqual("pending", family["designApproval"])
+            self.assertIsNone(family["evidenceBundle"])
+            for parameter in family["parameters"]:
+                self.assertIn(parameter["reviewDisposition"], ledger["classificationValues"])
+                self.assertTrue(parameter["mapping"], f"{family['family']}.{parameter['name']}")
+                self.assertTrue(parameter["rationale"], f"{family['family']}.{parameter['name']}")
+                self.assertEqual("not_reviewed", parameter["sourceCandidateStatus"])
+
     def test_core_control_design_audit_links_editable_frames_without_approval(self):
         report_path = "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
         self.assertTrue((ROOT / report_path).is_file())
