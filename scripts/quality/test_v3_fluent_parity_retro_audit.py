@@ -39,14 +39,14 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         families = {family["family"]: family for family in self.data["families"]}
         expected_partial = {
             "Button": ({"visual", "feature", "behavior", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
-            "TextField": ({"visual", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"),
+            "TextField": ({"visual", "feature", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"),
             "Icon": ({"visual", "feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
             "Label": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
             "Link": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
             "Badge": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"),
-            "Checkbox": ({"visual", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
-            "Switch": ({"visual", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
-            "RadioGroup": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
+            "Checkbox": ({"visual", "feature", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "Switch": ({"visual", "feature", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "RadioGroup": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
             "OtpField": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
             "NumericField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
             "SelectField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),

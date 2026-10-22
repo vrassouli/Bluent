@@ -1,6 +1,6 @@
 # Retrospective Fluent 2 parity review: first 18 Component Lab pilots
 
-> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **All 18 families now have partial source/API audit reports and linked browser/runtime evidence; 0/18 Fluent-approved. TextField has no confirmed source gap, so all its acceptance dimensions remain not_reviewed.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
+> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **All 18 families now have partial source/API audit reports and linked browser/runtime evidence; 0/18 Fluent-approved. TextField now has a source/API mapping review with documented extensions; its visual and design evidence remain partial and other acceptance dimensions are still open.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
 ## Maintainer decision — debt first (2026-10-19)
 
@@ -40,12 +40,12 @@ The following ledger records partial audit progress, not parity acceptance. All 
 | 3 | [Label](https://github.com/vrassouli/Bluent/issues/430) (#430) | P2 | A | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
 | 4 | [Link](https://github.com/vrassouli/Bluent/issues/431) (#431) | P2 | A | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 5 | [Badge](https://github.com/vrassouli/Bluent/issues/445) (#445) | P2 | A | Not reviewed | **Audited gaps** | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 6 | [TextField](https://github.com/vrassouli/Bluent/issues/432) (#432) | P1 | B | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX confirms mixed-state gap; design: not reviewed** |
-| 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX role=checkbox; design: not reviewed** |
-| 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
-| 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | Not reviewed | Not reviewed | **Audited gaps; ArrowRight crosses groups in Chrome/Edge** | **A11y: group ignored in browser AX; design: not reviewed** |
-| 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
+| 6 | [TextField](https://github.com/vrassouli/Bluent/issues/432) (#432) | P1 | B | **Audited gaps** | Not reviewed | Not reviewed | Not reviewed |
+| 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX confirms mixed-state gap; design: not reviewed** |
+| 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX role=checkbox; design: not reviewed** |
+| 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | Not reviewed |
+| 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | **Audited gaps** | Not reviewed | **Audited gaps; ArrowRight crosses groups in Chrome/Edge** | **A11y: group ignored in browser AX; design: not reviewed** |
+| 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | Not reviewed |
 | 12 | [DateField](https://github.com/vrassouli/Bluent/issues/438) (#438) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
 | 14 | [MaskedField](https://github.com/vrassouli/Bluent/issues/440) (#440) | P1 | C | Not reviewed | **Audited gaps** | **Audited gaps** | Not reviewed |
@@ -99,6 +99,8 @@ The following pinned references now provide traceable starting points for the fa
 - [Pinned Fluent React 9.74.10 API-name candidates](FLUENT-REACT-9.74.10-18-API-CANDIDATES.md)
 - [Family-by-family React semantic triage](FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md)
 - [Bluent source API census](FLUENT-PARITY-18-SOURCE-API.json)
+- [Wave A manual Fluent API review (82 source-known parameter occurrences)](FLUENT-PARITY-WAVE-A-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-A-API-REVIEW.json)
+- [Wave B manual Fluent API review (71 source-known parameter occurrences)](FLUENT-PARITY-WAVE-B-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-B-API-REVIEW.json)
 
 ### Partial family audit reports
 
