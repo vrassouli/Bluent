@@ -204,7 +204,7 @@
       "dimensions": {
         "visual": "audited_gaps",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -266,7 +266,7 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -391,7 +391,7 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -451,7 +451,7 @@
       "dimensions": {
         "visual": "audited_gaps",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -528,7 +528,7 @@
       "dimensions": {
         "visual": "audited_gaps",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -605,7 +605,7 @@
       "dimensions": {
         "visual": "audited_gaps",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -1034,7 +1034,7 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "audited_gaps",
-        "behavior": "not_reviewed",
+        "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
@@ -1289,7 +1289,9 @@
     "tokenThemeAuditReport": "docs/v3/quality/FLUENT-PARITY-TOKEN-THEME-AUDIT.md",
     "tokenThemeAuditLedger": "docs/v3/quality/FLUENT-PARITY-TOKEN-THEME-AUDIT.json",
     "responsiveRtlAuditReport": "docs/v3/quality/FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.md",
-    "responsiveRtlAuditLedger": "docs/v3/quality/FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.json"
+    "responsiveRtlAuditLedger": "docs/v3/quality/FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.json",
+    "behaviorAuditReport": "docs/v3/quality/FLUENT-PARITY-BEHAVIOR-AUDIT.md",
+    "behaviorAuditLedger": "docs/v3/quality/FLUENT-PARITY-BEHAVIOR-AUDIT.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",
