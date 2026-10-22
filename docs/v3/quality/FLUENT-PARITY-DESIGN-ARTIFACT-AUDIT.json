@@ -1,0 +1,459 @@
+{
+  "issue": 552,
+  "audit": "Penpot design-artifact coverage and approval inventory",
+  "reviewedOn": "2026-10-22",
+  "sourceBaseline": "73155f02",
+  "familyCount": 18,
+  "dimension": "designArtifact",
+  "dimensionStatus": "audited_gaps",
+  "parityAccepted": false,
+  "noneApproved": true,
+  "penpotSnapshot": "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json",
+  "penpotFile": {
+    "name": "Bluent v3 Design System",
+    "id": "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
+  },
+  "coveragePage": {
+    "name": "03 · Quality & migration",
+    "id": "07c521b9-e441-80bd-8008-c4ad87df93c3"
+  },
+  "coverageBoard": {
+    "name": "#552 · Fluent parity audit coverage · DRAFT",
+    "id": "4d22aead-d6ef-801a-8008-d482b9bb0cc8",
+    "width": 1660,
+    "height": 1120,
+    "children": 112,
+    "metrics": {
+      "familiesWithLinkedPartialBrowserRuntimeEvidence": "18 / 18",
+      "fluentApprovals": "0 / 18",
+      "sourceKnownApiEntries": 239,
+      "familyCount": 18
+    }
+  },
+  "localLibrary": {
+    "componentCount": 13,
+    "componentNames": [
+      "Size × Layout",
+      "Appearance × State",
+      "DRAFT · TextField",
+      "DRAFT · Checkbox native variant set",
+      "DRAFT · Switch native state × direction",
+      "DRAFT · Checkbox",
+      "DRAFT · TextField native variant set",
+      "Appearance × Focus",
+      "Appearance × State",
+      "Focus (standalone)",
+      "DRAFT · Switch",
+      "DRAFT Persian Button · Size × Direction",
+      "DRAFT · Primary Button"
+    ],
+    "familyTypesRepresented": [
+      "Button",
+      "TextField",
+      "Checkbox",
+      "Switch"
+    ]
+  },
+  "familySpecificDesignAssetCount": 4,
+  "familiesWithoutDedicatedFamilyAssetCount": 14,
+  "familySpecificDesignAssets": [
+    "Button",
+    "Checkbox",
+    "Switch",
+    "TextField"
+  ],
+  "familiesWithoutDedicatedFamilyAsset": [
+    "Badge",
+    "DateField",
+    "FileSelect",
+    "Icon",
+    "Label",
+    "Link",
+    "MaskedField",
+    "NumericField",
+    "OtpField",
+    "RadioGroup",
+    "RangeSlider",
+    "SelectField",
+    "Slider",
+    "TimeField"
+  ],
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "draft-family-artifacts-present",
+      "designPages": [
+        {
+          "name": "02 · Component anatomy",
+          "id": "07c521b9-e441-80bd-8008-c4ad87dee26e",
+          "board": "#419 · Button design mapping · DRAFT",
+          "boardId": "07c521b9-e441-80bd-8008-c4ae9e63585f"
+        },
+        {
+          "name": "19 · Bluent Button native variants",
+          "id": "e31294c6-7c55-805f-8008-c58ffcf22e07"
+        },
+        {
+          "name": "20 · Bluent Button sizes and layout",
+          "id": "e31294c6-7c55-805f-8008-c590b2678162"
+        },
+        {
+          "name": "21 · Button Bluent-specific API anatomy",
+          "id": "e31294c6-7c55-805f-8008-c5912770e8ab"
+        },
+        {
+          "name": "22 · Button Fluent parity review",
+          "id": "e31294c6-7c55-805f-8008-c5a8fb268d03"
+        },
+        {
+          "name": "23 · Button resize stress laboratory",
+          "id": "e31294c6-7c55-805f-8008-c5aa0da135fb"
+        },
+        {
+          "name": "24 · Button equal-content comparison",
+          "id": "e31294c6-7c55-805f-8008-c5af6658c671"
+        },
+        {
+          "name": "25 · Button Persian RTL typography",
+          "id": "e31294c6-7c55-805f-8008-c5b0bae3546a"
+        }
+      ],
+      "coverageRow": {
+        "family": "Button",
+        "productIssue": 428,
+        "evidence": "Keyboard, icon/AX, toggle",
+        "gap": "Behavior/state/AX gaps; focus and API review open."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",
+      "followUp": "Extend the existing draft family designs to the full state/appearance/size/RTL matrix and obtain explicit Fluent parity approval.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "Icon",
+        "productIssue": 429,
+        "evidence": "Chrome/Edge sizing and AX",
+        "gap": "Custom SVG sizing and unnamed-image gaps; API docs mismatch."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "Label",
+        "productIssue": 430,
+        "evidence": "31/31 per engine",
+        "gap": "Info action inherits parent label name instead of an action-specific name."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "Link",
+        "productIssue": 431,
+        "evidence": "31/31 per engine",
+        "gap": "Disabled anchor stays tabbable but loses link/disabled semantics."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "Badge",
+        "productIssue": 445,
+        "evidence": "31/31 per engine",
+        "gap": "AnimateShadow remains 1.5s infinite under reduced-motion emulation."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "draft-family-artifacts-present",
+      "designPages": [
+        {
+          "name": "16 · Bluent TextField variants",
+          "id": "e31294c6-7c55-805f-8008-c51213e75deb"
+        }
+      ],
+      "coverageRow": {
+        "family": "TextField",
+        "productIssue": 432,
+        "evidence": "42/42 per engine",
+        "gap": "HTML name is empty; form serialization remains untested."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md",
+      "followUp": "Extend the native variants to focus, filled, invalid, disabled, RTL, high contrast and validation states; record Fluent counterpart and approve.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "draft-family-artifacts-present",
+      "designPages": [
+        {
+          "name": "17 · Bluent Checkbox variants",
+          "id": "e31294c6-7c55-805f-8008-c51213e87848"
+        }
+      ],
+      "coverageRow": {
+        "family": "Checkbox",
+        "productIssue": 434,
+        "evidence": "56/56 per engine",
+        "gap": "Visual indeterminate state is announced unchecked in browser AX."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "followUp": "Complete checked, mixed, disabled, focus, required and RTL variants with explicit Fluent state mapping and approval.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "draft-family-artifacts-present",
+      "designPages": [
+        {
+          "name": "18 · Bluent Switch variants",
+          "id": "e31294c6-7c55-805f-8008-c51213e8a17b"
+        }
+      ],
+      "coverageRow": {
+        "family": "Switch",
+        "productIssue": 435,
+        "evidence": "56/56 per engine",
+        "gap": "Browser AX reports checkbox semantics, not explicit switch role."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "followUp": "Complete on/off, disabled, focus, RTL and forced-colors variants with an explicit Fluent role/state decision and approval.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "NumericField",
+        "productIssue": 433,
+        "evidence": "42/42 per engine",
+        "gap": "Step has no effect; float/decimal, limits and form serialization remain open."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "RadioGroup",
+        "productIssue": 436,
+        "evidence": "56/56 per engine",
+        "gap": "Group ignored in AX; ArrowRight crosses into the next group."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "SelectField",
+        "productIssue": 437,
+        "evidence": "42/42 per engine",
+        "gap": "Native ArrowDown path only; custom option/ARIA states remain open."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "DateField",
+        "productIssue": 438,
+        "evidence": "42/42 per engine",
+        "gap": "DateClass no-op; YearSelect mask/format mismatch; typed Min/Max bypass."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "TimeField",
+        "productIssue": 439,
+        "evidence": "42/42 per engine",
+        "gap": "Culture affects parsing, not formatting; locale edge cases remain open."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "MaskedField",
+        "productIssue": 440,
+        "evidence": "42/42 per engine",
+        "gap": "09123456789 becomes 0991-234-5678 under the fixed-prefix regex."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "OtpField",
+        "productIssue": 441,
+        "evidence": "56/56 per engine",
+        "gap": "Inherited addons/size no-op; English labels and native clipboard/AT remain open."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "Slider",
+        "productIssue": 442,
+        "evidence": "Pointer + WASM/Server",
+        "gap": "No native role/tabindex/keyboard semantics; visual and forced-colors gaps remain."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "RangeSlider",
+        "productIssue": 443,
+        "evidence": "Pointer + WASM/Server",
+        "gap": "No dedicated Fluent range tag; dual-thumb semantics/keyboard/visual gaps remain."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "dimension": "designArtifact",
+      "dimensionStatus": "audited_gaps",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designPages": [],
+      "coverageRow": {
+        "family": "FileSelect",
+        "productIssue": 444,
+        "evidence": "Live upload + Server",
+        "gap": "MaxFiles=2 accepts 3 files; disabled input and remove-name gaps remain."
+      },
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md",
+      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    }
+  ],
+  "runtimeScope": "Read-only connected Penpot inspection captured on 2026-10-22. The #552 board is a draft coverage index, not a family design approval. No design shapes were edited.",
+  "acceptanceBoundary": "Acceptance requires a family-specific editable artifact and explicit state/token mapping. Four family types have dedicated draft component/variant artifacts in the current library inventory; fourteen have only a coverage row or general/upstream reference in this snapshot. All 18 remain DESIGN PENDING, evidenceBundle is null, and no component design is approved."
+}

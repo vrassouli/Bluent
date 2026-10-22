@@ -209,7 +209,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -271,7 +271,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -333,7 +333,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -396,7 +396,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -689,7 +689,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -745,7 +745,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -806,7 +806,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -865,7 +865,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -923,7 +923,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -981,7 +981,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -1039,7 +1039,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -1095,7 +1095,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -1156,7 +1156,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -1215,7 +1215,7 @@
         "tokenTheme": "audited_gaps",
         "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
@@ -1293,7 +1293,9 @@
     "behaviorAuditReport": "docs/v3/quality/FLUENT-PARITY-BEHAVIOR-AUDIT.md",
     "behaviorAuditLedger": "docs/v3/quality/FLUENT-PARITY-BEHAVIOR-AUDIT.json",
     "accessibilityAuditReport": "docs/v3/quality/FLUENT-PARITY-ACCESSIBILITY-AUDIT.md",
-    "accessibilityAuditLedger": "docs/v3/quality/FLUENT-PARITY-ACCESSIBILITY-AUDIT.json"
+    "accessibilityAuditLedger": "docs/v3/quality/FLUENT-PARITY-ACCESSIBILITY-AUDIT.json",
+    "designArtifactAuditReport": "docs/v3/quality/FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md",
+    "designArtifactAuditLedger": "docs/v3/quality/FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",

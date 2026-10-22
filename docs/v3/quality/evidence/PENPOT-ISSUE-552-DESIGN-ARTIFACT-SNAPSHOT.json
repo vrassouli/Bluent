@@ -1,0 +1,254 @@
+{
+  "capturedOn": "2026-10-22",
+  "method": "Read-only inspection through the connected Penpot plugin; no design shapes were edited.",
+  "file": {
+    "name": "Bluent v3 Design System",
+    "id": "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
+  },
+  "coveragePage": {
+    "name": "03 · Quality & migration",
+    "id": "07c521b9-e441-80bd-8008-c4ad87df93c3"
+  },
+  "coverageBoard": {
+    "name": "#552 · Fluent parity audit coverage · DRAFT",
+    "id": "4d22aead-d6ef-801a-8008-d482b9bb0cc8",
+    "width": 1660,
+    "height": 1120,
+    "children": 112,
+    "metrics": {
+      "familiesWithLinkedPartialBrowserRuntimeEvidence": "18 / 18",
+      "fluentApprovals": "0 / 18",
+      "sourceKnownApiEntries": 239,
+      "familyCount": 18
+    }
+  },
+  "localLibrary": {
+    "componentCount": 13,
+    "componentNames": [
+      "Size × Layout",
+      "Appearance × State",
+      "DRAFT · TextField",
+      "DRAFT · Checkbox native variant set",
+      "DRAFT · Switch native state × direction",
+      "DRAFT · Checkbox",
+      "DRAFT · TextField native variant set",
+      "Appearance × Focus",
+      "Appearance × State",
+      "Focus (standalone)",
+      "DRAFT · Switch",
+      "DRAFT Persian Button · Size × Direction",
+      "DRAFT · Primary Button"
+    ],
+    "familyTypesRepresented": [
+      "Button",
+      "TextField",
+      "Checkbox",
+      "Switch"
+    ]
+  },
+  "familyDesignPages": [
+    {
+      "family": "Button",
+      "pages": [
+        {
+          "name": "02 · Component anatomy",
+          "id": "07c521b9-e441-80bd-8008-c4ad87dee26e",
+          "board": "#419 · Button design mapping · DRAFT",
+          "boardId": "07c521b9-e441-80bd-8008-c4ae9e63585f"
+        },
+        {
+          "name": "19 · Bluent Button native variants",
+          "id": "e31294c6-7c55-805f-8008-c58ffcf22e07"
+        },
+        {
+          "name": "20 · Bluent Button sizes and layout",
+          "id": "e31294c6-7c55-805f-8008-c590b2678162"
+        },
+        {
+          "name": "21 · Button Bluent-specific API anatomy",
+          "id": "e31294c6-7c55-805f-8008-c5912770e8ab"
+        },
+        {
+          "name": "22 · Button Fluent parity review",
+          "id": "e31294c6-7c55-805f-8008-c5a8fb268d03"
+        },
+        {
+          "name": "23 · Button resize stress laboratory",
+          "id": "e31294c6-7c55-805f-8008-c5aa0da135fb"
+        },
+        {
+          "name": "24 · Button equal-content comparison",
+          "id": "e31294c6-7c55-805f-8008-c5af6658c671"
+        },
+        {
+          "name": "25 · Button Persian RTL typography",
+          "id": "e31294c6-7c55-805f-8008-c5b0bae3546a"
+        }
+      ]
+    },
+    {
+      "family": "TextField",
+      "pages": [
+        {
+          "name": "16 · Bluent TextField variants",
+          "id": "e31294c6-7c55-805f-8008-c51213e75deb"
+        }
+      ]
+    },
+    {
+      "family": "Checkbox",
+      "pages": [
+        {
+          "name": "17 · Bluent Checkbox variants",
+          "id": "e31294c6-7c55-805f-8008-c51213e87848"
+        }
+      ]
+    },
+    {
+      "family": "Switch",
+      "pages": [
+        {
+          "name": "18 · Bluent Switch variants",
+          "id": "e31294c6-7c55-805f-8008-c51213e8a17b"
+        }
+      ]
+    }
+  ],
+  "coverageRows": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "evidence": "Keyboard, icon/AX, toggle",
+      "gap": "Behavior/state/AX gaps; focus and API review open."
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "evidence": "Chrome/Edge sizing and AX",
+      "gap": "Custom SVG sizing and unnamed-image gaps; API docs mismatch."
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "evidence": "31/31 per engine",
+      "gap": "Info action inherits parent label name instead of an action-specific name."
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "evidence": "31/31 per engine",
+      "gap": "Disabled anchor stays tabbable but loses link/disabled semantics."
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "evidence": "42/42 per engine",
+      "gap": "HTML name is empty; form serialization remains untested."
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "evidence": "42/42 per engine",
+      "gap": "Step has no effect; float/decimal, limits and form serialization remain open."
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "evidence": "56/56 per engine",
+      "gap": "Visual indeterminate state is announced unchecked in browser AX."
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "evidence": "56/56 per engine",
+      "gap": "Browser AX reports checkbox semantics, not explicit switch role."
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "evidence": "56/56 per engine",
+      "gap": "Group ignored in AX; ArrowRight crosses into the next group."
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "evidence": "42/42 per engine",
+      "gap": "Native ArrowDown path only; custom option/ARIA states remain open."
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "evidence": "42/42 per engine",
+      "gap": "DateClass no-op; YearSelect mask/format mismatch; typed Min/Max bypass."
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "evidence": "42/42 per engine",
+      "gap": "Culture affects parsing, not formatting; locale edge cases remain open."
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "evidence": "42/42 per engine",
+      "gap": "09123456789 becomes 0991-234-5678 under the fixed-prefix regex."
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "evidence": "56/56 per engine",
+      "gap": "Inherited addons/size no-op; English labels and native clipboard/AT remain open."
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "evidence": "Pointer + WASM/Server",
+      "gap": "No native role/tabindex/keyboard semantics; visual and forced-colors gaps remain."
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "evidence": "Pointer + WASM/Server",
+      "gap": "No dedicated Fluent range tag; dual-thumb semantics/keyboard/visual gaps remain."
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "evidence": "Live upload + Server",
+      "gap": "MaxFiles=2 accepts 3 files; disabled input and remove-name gaps remain."
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "evidence": "31/31 per engine",
+      "gap": "AnimateShadow remains 1.5s infinite under reduced-motion emulation."
+    }
+  ],
+  "interpretation": {
+    "familySpecificDesignAssets": [
+      "Button",
+      "TextField",
+      "Checkbox",
+      "Switch"
+    ],
+    "familiesWithoutDedicatedFamilyPageOrLibraryAsset": [
+      "Icon",
+      "Label",
+      "Link",
+      "Badge",
+      "NumericField",
+      "RadioGroup",
+      "SelectField",
+      "DateField",
+      "TimeField",
+      "MaskedField",
+      "OtpField",
+      "Slider",
+      "RangeSlider",
+      "FileSelect"
+    ],
+    "designApproval": "pending for all 18",
+    "evidenceBundle": "null for all 18",
+    "warning": "The coverage board and upstream Fluent reference pages are not equivalent to approved family-specific Bluent component designs."
+  }
+}
