@@ -1,6 +1,6 @@
 # Retrospective Fluent 2 parity review: first 18 Component Lab pilots
 
-> **Plan only; NOT a Fluent audit result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **18/18 not reviewed; 0/18 Fluent-approved**. Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
+> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **Button, Slider, RangeSlider and FileSelect: researching with documented partial source/browser gaps; 14/18 families not reviewed; 0/18 Fluent-approved.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
 ## Maintainer decision — debt first (2026-10-19)
 
@@ -29,13 +29,13 @@ Read the P0 known issues first: Button #428, Slider #442, RangeSlider #443, File
 6. **Wave D — pointer/files (3):** Slider, RangeSlider, FileSelect. Fully close known gaps only via their own design-approved product implementation flow; P0 research starts earlier.
 7. **Independent acceptance:** source and reference mapping + annotated real screenshot diff + per-state/per-event matrix + Penpot/Figma decision + CDP cross-mode/browser tests + native OS/AT checks, docs/skills/migration. A completed audit is not equivalent to finished implementation.
 
-## Backfill ledger: all entries currently NOT REVIEWED
+## Backfill ledger: status reflects evidenced progress; approval remains pending
 
-The following are planned audits, not parity results. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
+The following ledger records partial audit progress, not parity acceptance. Button, Slider, RangeSlider and FileSelect have partial source/browser gap reports; their unreviewed dimensions remain open. The remaining 14 families are not reviewed. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
 
 | # | Existing source family / product issue | Priority | Wave | Visual | Feature | Behavior | A11y / design |
 | --: | --- | --- | --- | --- | --- | --- | --- |
-| 1 | [Button](https://github.com/vrassouli/Bluent/issues/428) (#428) | P0 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
+| 1 | [Button](https://github.com/vrassouli/Bluent/issues/428) (#428) | P0 | A | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 2 | [Icon](https://github.com/vrassouli/Bluent/issues/429) (#429) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 3 | [Label](https://github.com/vrassouli/Bluent/issues/430) (#430) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 4 | [Link](https://github.com/vrassouli/Bluent/issues/431) (#431) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
@@ -50,9 +50,9 @@ The following are planned audits, not parity results. Source of truth: [machine-
 | 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 14 | [MaskedField](https://github.com/vrassouli/Bluent/issues/440) (#440) | P1 | C | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 15 | [OtpField](https://github.com/vrassouli/Bluent/issues/441) (#441) | P1 | C | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 16 | [Slider](https://github.com/vrassouli/Bluent/issues/442) (#442) | P0 | D | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
+| 16 | [Slider](https://github.com/vrassouli/Bluent/issues/442) (#442) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
+| 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
+| 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 
 ## Supplemental source/API research (research leads, not acceptance evidence)
 
@@ -63,6 +63,17 @@ The following pinned references now provide traceable starting points for the fa
 - [Pinned Fluent React 9.74.10 API-name candidates](FLUENT-REACT-9.74.10-18-API-CANDIDATES.md)
 - [Family-by-family React semantic triage](FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md)
 - [Bluent source API census](FLUENT-PARITY-18-SOURCE-API.json)
+
+### Partial family audit reports
+
+| Family | Current disposition | Report |
+| --- | --- | --- |
+| Button #428 | Researching; behavior and browser accessibility have confirmed open gaps; no approval | [Button family audit](FLUENT-PARITY-BUTTON-AUDIT.md) |
+| Slider #442 | Researching; visual, pointer behavior and browser accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
+| RangeSlider #443 | Researching; visual, pointer behavior and dual-thumb accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
+| FileSelect #444 | Researching; file-count behavior and browser accessible-name gaps documented; no approval | [FileSelect family audit](FLUENT-PARITY-FILESELECT-AUDIT.md) |
+
+These reports are explicit audit artifacts, not accepted design or implementation evidence.
 
 ### Existing family-specific research leads
 
@@ -102,7 +113,7 @@ The following pinned references now provide traceable starting points for the fa
 
 ### Status discipline
 
-All **nine** machine-readable dimensions begin **not_reviewed**, approvals are pending, matched upstream counterpart remains unverified. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
+Unstarted dimensions remain **not_reviewed**. Button and FileSelect have behavior/accessibility gaps documented; Slider and RangeSlider also have visual gaps documented. All four families remain `researching`, design approvals and full evidence bundles are pending, and matched upstream equivalence is not yet accepted. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
 
 ### Specific known gaps already uncovered by the existing pilot tests
 

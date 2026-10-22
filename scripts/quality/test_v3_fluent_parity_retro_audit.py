@@ -31,16 +31,33 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertEqual(EXPECTED, {f["family"]: f["productIssue"] for f in families})
         self.assertEqual(18, len({f["family"] for f in families}))
 
-    def test_all_nine_dimensions_and_family_statuses_remain_unreviewed(self):
+    def test_p0_partial_audits_are_evidenced_and_other_families_remain_unreviewed(self):
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
-        for family in self.data["families"]:
-            self.assertEqual("not_reviewed", family["auditStatus"], family["family"])
-            self.assertEqual(DIMENSIONS, set(family["dimensions"]), family["family"])
-            self.assertEqual({"not_reviewed"}, set(family["dimensions"].values()), family["family"])
-            self.assertEqual("pending", family["designApproval"], family["family"])
-            self.assertIsNone(family["evidenceBundle"], family["family"])
-            self.assertEqual("untriaged", family["gapDisposition"], family["family"])
+        families = {family["family"]: family for family in self.data["families"]}
+        expected_partial = {
+            "Button": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
+            "Slider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
+            "RangeSlider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
+            "FileSelect": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
+        }
+        for name, (audited_dimensions, report_path) in expected_partial.items():
+            family = families[name]
+            self.assertEqual("researching", family["auditStatus"], name)
+            self.assertEqual("known_gaps_open", family["gapDisposition"], name)
+            self.assertEqual(report_path, family["partialAuditReport"], name)
+            self.assertTrue((ROOT / report_path).is_file(), report_path)
+            for dimension in DIMENSIONS:
+                expected_status = "audited_gaps" if dimension in audited_dimensions else "not_reviewed"
+                self.assertEqual(expected_status, family["dimensions"][dimension], f"{name}: {dimension}")
+        for family_name, family in families.items():
+            self.assertEqual(DIMENSIONS, set(family["dimensions"]), family_name)
+            self.assertEqual("pending", family["designApproval"], family_name)
+            self.assertIsNone(family["evidenceBundle"], family_name)
+            if family_name not in expected_partial:
+                self.assertEqual("not_reviewed", family["auditStatus"], family_name)
+                self.assertEqual({"not_reviewed"}, set(family["dimensions"].values()), family_name)
+                self.assertEqual("untriaged", family["gapDisposition"], family_name)
 
     def test_research_leads_are_real_files_not_accepted_evidence(self):
         refs = self.data["supplementalSourceAnalysis"]
@@ -59,6 +76,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         for phrase in (
             "research leads, not acceptance evidence", "nine-dimension acceptance matrix",
             "full evidence bundle remains pending for all 18 families",
+            "Button, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
             "native OS/assistive-technology acceptance", "PR #553 targets `bluent-v3`",
         ):
             self.assertIn(phrase, self.report)

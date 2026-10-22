@@ -88,7 +88,7 @@
       "currentDemoRoute": "/components/buttons",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -98,8 +98,8 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -109,14 +109,15 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Focus style and text/icon alignment; user-approved brand focus ring retained for buttons. Inspect toggle/split/accessible semantics.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-P0-BUTTON-KEYBOARD.md",
         "docs/v3/quality/FLUENT-PARITY-BUTTON-ICON-AX.md",
         "docs/v3/quality/FLUENT-PARITY-BUTTON-TOGGLE-STATES.md",
         "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"
     },
     {
       "family": "Icon",
@@ -654,7 +655,7 @@
       "currentDemoRoute": "/components/sliders",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -662,10 +663,10 @@
         "matchedUpstreamComponent": "unverified"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -675,14 +676,15 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Verified defect: ScreenX vs getBoundingClientRect viewport; pointer click no change in published InteractiveServer. #442.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md",
         "docs/v3/quality/FLUENT-WC-3.1.3-FORCED-COLORS-REFLOW.md",
         "docs/v3/quality/FLUENT-WC-3.1.3-LIGHT-DARK-RTL-COMPARISON.md",
         "docs/v3/quality/FLUENT-PARITY-P0-SEMANTICS.json"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"
     },
     {
       "family": "RangeSlider",
@@ -694,7 +696,7 @@
       "currentDemoRoute": "/components/sliders",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -702,10 +704,10 @@
         "matchedUpstreamComponent": "unverified"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -715,14 +717,15 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Two thumb geometry/order/crossing, pointer coordinate and Server interaction unverified; #443.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md",
         "docs/v3/quality/FLUENT-WC-3.1.3-FORCED-COLORS-REFLOW.md",
         "docs/v3/quality/FLUENT-WC-3.1.3-LIGHT-DARK-RTL-COMPARISON.md",
         "docs/v3/quality/FLUENT-PARITY-P0-SEMANTICS.json"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"
     },
     {
       "family": "FileSelect",
@@ -734,7 +737,7 @@
       "currentDemoRoute": "/components/file-selects",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -744,8 +747,8 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -755,13 +758,14 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "MaxFiles is current API (legacy demo Multiple drift); accessible remove button; Accept not server validation; card gap restored in Lab.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md",
         "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md",
         "docs/v3/quality/FLUENT-WC-3.1.3-LIGHT-DARK-RTL-COMPARISON.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"
     }
   ],
   "executionDecision": {
