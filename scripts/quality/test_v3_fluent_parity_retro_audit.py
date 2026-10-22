@@ -36,13 +36,14 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertTrue(self.data["noneApproved"])
         families = {family["family"]: family for family in self.data["families"]}
         expected_partial = {
-            "Button": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
+            "Button": ({"visual", "behavior", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
+            "TextField": ({"visual", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"),
             "Icon": ({"visual", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
             "Label": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
             "Link": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
             "Badge": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"),
-            "Checkbox": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
-            "Switch": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "Checkbox": ({"visual", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "Switch": ({"visual", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
             "RadioGroup": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
             "OtpField": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
             "NumericField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
@@ -144,6 +145,69 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertIn("not an approval", artifact)
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
+    def test_reference_baseline_and_all_18_upstream_mappings_are_pinned(self):
+        baseline = self.data["referenceBaseline"]
+        self.assertEqual("2026-10-22", baseline["reviewedOn"])
+        self.assertEqual("3.1.3", baseline["webComponents"]["version"])
+        self.assertEqual("3.1.3", baseline["webComponents"]["latestTagOnSnapshot"])
+        self.assertEqual("9.74.10", baseline["reactFallback"]["version"])
+        self.assertEqual("9.74.11", baseline["reactFallback"]["latestTagOnSnapshot"])
+        self.assertEqual("2.0.344", baseline["icons"]["version"])
+        evidence_path = ROOT / baseline["versionEvidence"]
+        self.assertTrue(evidence_path.is_file())
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8-sig"))
+        for package, key in (("@fluentui/web-components", "webComponents"), ("@fluentui/react-components", "reactFallback"), ("@fluentui/react-icons", "icons")):
+            self.assertEqual(baseline[key]["version"], evidence["packages"][package]["selectedVersion"])
+            self.assertEqual(baseline[key]["integrity"], evidence["packages"][package]["selectedVersionIntegrity"])
+        react_crosswalk = json.loads((ROOT / "docs/v3/quality/FLUENT-REACT-9.74.10-18-API-CANDIDATES.json").read_text(encoding="utf-8-sig"))
+        self.assertEqual(baseline["reactFallback"]["integrity"], react_crosswalk["fluentReactIntegrity"])
+        allowed_mapping_kinds = {"direct-web-component", "icon-library-reference", "react-v9-cross-platform", "related-only", "native-input-pattern", "bluent-extension"}
+        self.assertEqual(18, len(self.data["families"]))
+        for family in self.data["families"]:
+            with self.subTest(family=family["family"]):
+                ref = family["fluentReference"]
+                self.assertNotEqual("unverified", ref["matchedUpstreamComponent"])
+                self.assertIn(ref["mappingKind"], allowed_mapping_kinds)
+                self.assertEqual("2026-10-22", ref["referenceSnapshotDate"])
+                self.assertEqual("3.1.3", ref["webComponentsPackageVersion"])
+                self.assertEqual("9.74.10", ref["reactFallbackPackageVersion"])
+                self.assertTrue(ref["mappingNotes"])
+                self.assertIn(f"| {family['family']} #{family['productIssue']} |", self.report)
+                if ref["mappingKind"] == "direct-web-component":
+                    self.assertTrue(ref["webComponentsComponent"])
+        self.assertIn("## Frozen upstream reference baseline (2026-10-22)", self.report)
+        self.assertIn("@fluentui/react-components@9.74.10", self.report)
+        self.assertIn("latest tag is 9.74.11", self.report)
+        self.assertFalse(self.data["auditComplete"])
+        self.assertTrue(self.data["noneApproved"])
+    def test_core_control_design_audit_links_editable_frames_without_approval(self):
+        report_path = "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
+        self.assertTrue((ROOT / report_path).is_file())
+        self.assertIn("Component design comparisons (partial, 2026-10-22)", self.report)
+        design_report = (ROOT / report_path).read_text(encoding="utf-8-sig")
+        self.assertIn("Button's comparison export omits its headings and row/column labels", design_report)
+        for name in ("Button", "TextField", "Checkbox", "Switch"):
+            with self.subTest(family=name):
+                family = next(item for item in self.data["families"] if item["family"] == name)
+                self.assertEqual("researching", family["auditStatus"])
+                self.assertEqual("known_gaps_open", family["gapDisposition"])
+                self.assertEqual("audited_gaps", family["dimensions"]["visual"])
+                self.assertEqual("audited_gaps", family["dimensions"]["designArtifact"])
+                self.assertEqual(report_path, family["designAuditReport"])
+                self.assertIn(report_path, family["researchLeadDocuments"])
+                location = family["editableDesignLocation"]
+                self.assertEqual("b64f6665-c9ab-80b5-8008-c4ac99d9d000", location["fileId"])
+                self.assertEqual("2026-10-22", location["reviewDate"])
+                self.assertEqual("not exposed by current Penpot connector", location["fileRevision"])
+                self.assertIn("maintainer approval pending", location["designDecision"])
+                for side in ("reference", "bluentDraft"):
+                    self.assertTrue(location[side]["pageId"])
+                    self.assertTrue(location[side]["nodeId"])
+                self.assertEqual("pending", family["designApproval"])
+                self.assertIsNone(family["evidenceBundle"])
+        self.assertFalse(self.data["auditComplete"])
+        self.assertTrue(self.data["noneApproved"])
+
     def test_branch_isolated_and_all_parity_approvals_still_pending(self):
         self.assertEqual("v3/issue-552-fluent-parity-audit", self.data["branch"])
         self.assertEqual("bluent-v3", self.data["rules"]["changesOnlyTo"])

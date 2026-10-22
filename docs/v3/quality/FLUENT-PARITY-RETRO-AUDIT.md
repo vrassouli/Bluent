@@ -54,6 +54,42 @@ The following ledger records partial audit progress, not parity acceptance. All 
 | 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 | 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
 
+## Frozen upstream reference baseline (2026-10-22)
+
+The reference set is now pinned for reproducibility. This freezes the source/version selection; it does not mean any Bluent family is approved.
+
+- **Fluent 2 visual/UX reference:** [Fluent 2 Design System](https://fluent2.microsoft.design/) — live evergreen site; snapshot date 2026-10-22 because no semantic version is exposed.
+- **Primary implementation reference:** [@fluentui/web-components@3.1.3](https://www.npmjs.com/package/@fluentui/web-components) and the [official Web Components Storybook](https://storybooks.fluentui.dev/web-components/). The package latest tag was 3.1.3 on the snapshot date.
+- **React fallback only where Web Components lacks a comparable component:** [@fluentui/react-components@9.74.10](https://www.npmjs.com/package/@fluentui/react-components), with exact tarball integrity pinned by the checked-in crosswalk. The latest tag is 9.74.11; 9.74.10 is deliberately retained to keep the existing API candidate evidence reproducible. Do not silently upgrade this baseline mid-audit.
+- **Icon asset reference:** [@fluentui/react-icons@2.0.344](https://www.npmjs.com/package/@fluentui/react-icons) — latest tag on the snapshot date; use it as the Fluent System Icons asset catalog, not as a standalone Web Components component.
+- Storybook deployments are live and are **not assumed to be release-pinned** to the package versions above. React v9 is a cross-platform reference, not a DOM/API 1:1. Do not use React v8 compatibility components as v9 references.
+- Version evidence: [npm package versions, dist-tags and integrity snapshot](evidence/FLUENT-NPM-REFERENCE-VERSIONS-2026-10-22.json). Component mapping evidence: [Web Components 3.1.3 crosswalk](FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md), [React 9.74.10 API candidates](FLUENT-REACT-9.74.10-18-API-CANDIDATES.md), [React semantic triage](FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md).
+
+### Verified upstream component mapping
+
+| Family | Web Components match | Mapping kind | React v9 fallback / icon reference |
+|---|---|---|---|
+| Button #428 | fluent-button (also fluent-toggle-button, fluent-compound-button, fluent-menu-button, fluent-anchor-button) | direct-web-component | — (not primary; direct WC counterpart) |
+| Icon #429 | No WC icon tag; Fluent System Icons asset library | icon-library-reference | @fluentui/react-icons@2.0.344 (asset library, not component) |
+| Label #430 | fluent-label | direct-web-component | — (not primary; direct WC counterpart) |
+| Link #431 | fluent-link (also fluent-anchor-button) | direct-web-component | — (not primary; direct WC counterpart) |
+| Badge #445 | fluent-badge (also fluent-counter-badge) | direct-web-component | — (not primary; direct WC counterpart) |
+| TextField #432 | fluent-text-input | direct-web-component | — (not primary; direct WC counterpart) |
+| Checkbox #434 | fluent-checkbox | direct-web-component | — (not primary; direct WC counterpart) |
+| Switch #435 | fluent-switch | direct-web-component | — (not primary; direct WC counterpart) |
+| NumericField #433 | Related only: fluent-text-input | react-v9-cross-platform | Field + SpinButton |
+| RadioGroup #436 | fluent-radio-group + fluent-radio | direct-web-component | — (not primary; direct WC counterpart) |
+| SelectField #437 | Related only: fluent-dropdown, fluent-dropdown-option, fluent-listbox | related-only | Field + Select / Dropdown / Combobox |
+| DateField #438 | Related only: fluent-text-input | native-input-pattern | Field + Input (native date input pattern) |
+| TimeField #439 | Related only: fluent-text-input | native-input-pattern | Field + Input (native time input pattern) |
+| MaskedField #440 | Related only: fluent-text-input | bluent-extension | Input primitive only; no mask component |
+| OtpField #441 | Related only: fluent-text-input | bluent-extension | Input primitive only; no OTP component |
+| Slider #442 | fluent-slider | direct-web-component | — (not primary; direct WC counterpart) |
+| RangeSlider #443 | Related only: fluent-slider (single-thumb only) | bluent-extension | Slider (single-thumb only; not 1:1) |
+| FileSelect #444 | No direct component; native/extension pattern | native-input-pattern | Field + Input[type=file] (native primitive only) |
+
+The machine-readable JSON is the source of truth for mapping notes, related-only tags and alternatives. A direct or related upstream component does not prove Bluent parity; the per-family public-property/event/slot/style comparison remains a separate audit dimension.
+
 ## Supplemental source/API research (research leads, not acceptance evidence)
 
 The following pinned references now provide traceable starting points for the family audits. They are **not** a substitute for the nine-dimension acceptance matrix below, and none changes a family's `auditStatus`, `dimensions`, `designApproval`, or `evidenceBundle`. Exact-name matches are not semantic parity.
@@ -104,15 +140,6 @@ These reports are explicit audit artifacts, not accepted design or implementatio
 These reports differ in coverage and environment. CDP AX snapshots, browser-computed styles, screenshots and green probes are not native screen-reader/OS-contrast acceptance, a complete state/event matrix, an editable Penpot review, or approval to change product code. Keep `auditComplete=false`, `noneApproved=true`, every `designApproval=pending` and every `evidenceBundle=null` until the nine dimensions and each actionable gap disposition are independently reviewed.
 
 
-## Penpot design-decision artifact (2026-10-22)
-
-A real, editable audit map has been added to the source-owned Penpot file. This is a quality/disposition artifact, **not** a component redesign or parity approval.
-
-- File: `Bluent v3 Design System` — ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
-- Page: `03 · Quality & migration` — ID `07c521b9-e441-80bd-8008-c4ad87df93c3`.
-- Board: `#552 · Fluent parity audit coverage · DRAFT` — node ID `4d22aead-d6ef-801a-8008-d482b9bb0cc8`.
-- Review date: 2026-10-22; the current Penpot connector did not expose a file revision value. The board is at x=1700, y=90, 1660×1120 and contains all 18 families, evidence group, reproduced/open gap and pending approval state.
-- No product component designs or code were changed. All family design approvals remain pending; native AT/OS contrast, complete state/event matrices and the nine-dimension acceptance review remain open.
 ### Existing family-specific research leads
 
 | Family | Existing source/research documents |
@@ -137,6 +164,29 @@ A real, editable audit map has been added to the source-owned Penpot file. This 
 | FileSelect | [FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md](FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md) · [FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md](FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md) · [FLUENT-WC-3.1.3-LIGHT-DARK-RTL-COMPARISON.md](FLUENT-WC-3.1.3-LIGHT-DARK-RTL-COMPARISON.md) |
 
 **Interpretation:** these are source research pointers only. Browser evidence is scoped to its stated scenario; screenshots, source crosswalks, CDP accessibility snapshots and green smoke tests do not prove native OS/assistive-technology acceptance or design approval. The full evidence bundle remains pending for all 18 families.
+
+
+## Penpot design-decision artifact (2026-10-22)
+
+A real, editable audit map has been added to the source-owned Penpot file. This is a quality/disposition artifact, **not** a component redesign or parity approval.
+
+- File: `Bluent v3 Design System` — ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
+- Page: `03 · Quality & migration` — ID `07c521b9-e441-80bd-8008-c4ad87df93c3`.
+- Board: `#552 · Fluent parity audit coverage · DRAFT` — node ID `4d22aead-d6ef-801a-8008-d482b9bb0cc8`.
+- Review date: 2026-10-22; the current Penpot connector did not expose a file revision value. The board is at x=1700, y=90, 1660×1120 and contains all 18 families, evidence group, reproduced/open gap and pending approval state.
+- No product component designs or code were changed. All family design approvals remain pending; native AT/OS contrast, complete state/event matrices and the nine-dimension acceptance review remain open.
+## Component design comparisons (partial, 2026-10-22)
+
+The editable Penpot comparison for four families now has a concrete visual disposition. Full detail and all reference/local page-node IDs are in [FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md](FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md). These remain draft findings, not approvals.
+
+| Family | Fluent reference node | Bluent draft node | Design disposition |
+|---|---|---|---|
+| Button #428 | page 09 / `07c521b9-e441-80bd-8008-c4b5759995ec` | page 22 / `e31294c6-7c55-805f-8008-c5a91188deb7` | `audited_gaps`: comparison export omits headings and row/column labels; clean export needed. |
+| TextField #432 | page 10 / `07c521b9-e441-80bd-8008-c4d65b54658b` | page 16 / `e31294c6-7c55-805f-8008-c512bf412b37` | `audited_gaps`: 28 upstream variants vs 10 local; Hover/Pressed/Underline and separate Filled variants missing. |
+| Checkbox #434 | page 11 / `07c521b9-e441-80bd-8008-c4d69e2a5bfe` | page 17 / `e31294c6-7c55-805f-8008-c51334e865e4` | `audited_gaps`: 30 upstream variants vs 12 local; Hover/Pressed/Circular missing; Error is an extra Bluent state. |
+| Switch #435 | page 14 / `07c521b9-e441-80bd-8008-c4d793b68198` | page 18 / `e31294c6-7c55-805f-8008-c5139a9544bf` | `audited_gaps`: 40 upstream variants vs 12 local; Hover/Pressed and label-position variants missing. |
+
+All four families remain `designApproval=pending`. The other 14 families have no reviewed editable component-frame pair linked in this audit yet; their `designArtifact` dimension remains `not_reviewed`.
 
 ## Required per-component evidence bundle
 

@@ -93,21 +93,62 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-button",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-button",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components counterpart. Alternatives such as toggle/compound/menu/anchor buttons are distinct contracts; select only when the Bluent behavior matches.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [
+          "fluent-toggle-button",
+          "fluent-compound-button",
+          "fluent-menu-button",
+          "fluent-anchor-button"
+        ],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
-      "editableDesignLocation": null,
+      "editableDesignLocation": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "reference": {
+          "pageId": "07c521b9-e441-80bd-8008-c4b57568c3ef",
+          "pageName": "09 · Fluent Button state reference",
+          "nodeId": "07c521b9-e441-80bd-8008-c4b5759995ec",
+          "nodeName": "#419 · Fluent Button state matrix"
+        },
+        "bluentDraft": {
+          "pageId": "e31294c6-7c55-805f-8008-c5a8fb268d03",
+          "pageName": "22 · Button Fluent parity review",
+          "nodeId": "e31294c6-7c55-805f-8008-c5a91188deb7",
+          "nodeName": "#419 · Linked Button reference comparison"
+        },
+        "reviewDate": "2026-10-22",
+        "fileRevision": "not exposed by current Penpot connector",
+        "designDecision": "audited_gaps; draft only; maintainer approval pending"
+      },
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
       "notesForReview": "Focus style and text/icon alignment; user-approved brand focus ring retained for buttons. Inspect toggle/split/accessible semantics.",
@@ -115,9 +156,11 @@
         "docs/v3/quality/FLUENT-PARITY-P0-BUTTON-KEYBOARD.md",
         "docs/v3/quality/FLUENT-PARITY-BUTTON-ICON-AX.md",
         "docs/v3/quality/FLUENT-PARITY-BUTTON-TOGGLE-STATES.md",
-        "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
+        "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md",
+        "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",
+      "designAuditReport": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
     },
     {
       "family": "Icon",
@@ -134,7 +177,25 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "Fluent System Icons asset catalog; no dedicated Web Components icon tag in v3.1.3",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": "@fluentui/react-icons@2.0.344",
+        "webComponentsComponent": null,
+        "reactFallbackComponent": null,
+        "mappingKind": "icon-library-reference",
+        "mappingNotes": "Compare regular/filled/color asset variants and sizing against Fluent System Icons. The React icon wrappers are asset references, not a cross-platform 1:1 component.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "none",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not a component fallback; Fluent System Icons is an asset-library reference only"
       },
       "dimensions": {
         "visual": "audited_gaps",
@@ -174,7 +235,25 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-label",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-label",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components label counterpart. Bluent Info popover behavior is an additional behavior and must be reviewed separately.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -212,7 +291,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-link",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-link",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components link counterpart; fluent-anchor-button is a separate button-like navigation variant, not interchangeable with link.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [
+          "fluent-anchor-button"
+        ],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -251,7 +350,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-badge",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-badge",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components badge counterpart; counter-badge is a distinct variant and must not be treated as identical.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [
+          "fluent-counter-badge"
+        ],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -289,29 +408,67 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-text-input",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-text-input",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components text input. Compare the exact public input API and Field composition without assuming React DOM/API identity.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
         "accessibility": "not_reviewed",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
-      "editableDesignLocation": null,
+      "editableDesignLocation": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "reference": {
+          "pageId": "07c521b9-e441-80bd-8008-c4d65ae7b089",
+          "pageName": "10 · Fluent Input reference",
+          "nodeId": "07c521b9-e441-80bd-8008-c4d65b54658b",
+          "nodeName": "#419 · Input Medium states × styles"
+        },
+        "bluentDraft": {
+          "pageId": "e31294c6-7c55-805f-8008-c51213e75deb",
+          "pageName": "16 · Bluent TextField variants",
+          "nodeId": "e31294c6-7c55-805f-8008-c512bf412b37",
+          "nodeName": "#419 · Bluent TextField native variant matrix"
+        },
+        "reviewDate": "2026-10-22",
+        "fileRevision": "not exposed by current Penpot connector",
+        "designDecision": "audited_gaps; draft only; maintainer approval pending"
+      },
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Existing preferred focus underline; no generic surrounding rectangular focus ring. Check validation/placeholder/multiline.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
-        "docs/v3/quality/FOCUS-KEYBOARD-ARCHITECTURE-PROPOSAL.md"
+        "docs/v3/quality/FOCUS-KEYBOARD-ARCHITECTURE-PROPOSAL.md",
+        "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md",
+      "designAuditReport": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
     },
     {
       "family": "Checkbox",
@@ -328,29 +485,67 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-checkbox",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-checkbox",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components counterpart; compare native checked/indeterminate and keyboard contracts explicitly.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
-      "editableDesignLocation": null,
+      "editableDesignLocation": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "reference": {
+          "pageId": "07c521b9-e441-80bd-8008-c4d69e1290a6",
+          "pageName": "11 · Fluent Checkbox reference",
+          "nodeId": "07c521b9-e441-80bd-8008-c4d69e2a5bfe",
+          "nodeName": "#419 · Checkbox state × status × style matrix"
+        },
+        "bluentDraft": {
+          "pageId": "e31294c6-7c55-805f-8008-c51213e87848",
+          "pageName": "17 · Bluent Checkbox variants",
+          "nodeId": "e31294c6-7c55-805f-8008-c51334e865e4",
+          "nodeName": "#419 · Bluent Checkbox state × value matrix"
+        },
+        "reviewDate": "2026-10-22",
+        "fileRevision": "not exposed by current Penpot connector",
+        "designDecision": "audited_gaps; draft only; maintainer approval pending"
+      },
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
       "notesForReview": "Indeterminate state, group semantics, disabled and focus.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
-        "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
+        "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md",
+        "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "designAuditReport": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
     },
     {
       "family": "Switch",
@@ -367,29 +562,67 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-switch",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-switch",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components counterpart; compare role, checked state and keyboard contract explicitly.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
-        "designArtifact": "not_reviewed",
+        "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
       },
       "designApproval": "pending",
-      "editableDesignLocation": null,
+      "editableDesignLocation": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "reference": {
+          "pageId": "07c521b9-e441-80bd-8008-c4d793a549ff",
+          "pageName": "14 · Fluent Switch reference",
+          "nodeId": "07c521b9-e441-80bd-8008-c4d793b68198",
+          "nodeName": "#419 · Switch state × value × label position"
+        },
+        "bluentDraft": {
+          "pageId": "e31294c6-7c55-805f-8008-c51213e8a17b",
+          "pageName": "18 · Bluent Switch variants",
+          "nodeId": "e31294c6-7c55-805f-8008-c5139a9544bf",
+          "nodeName": "#419 · Bluent Switch direction × state matrix"
+        },
+        "reviewDate": "2026-10-22",
+        "fileRevision": "not exposed by current Penpot connector",
+        "designDecision": "audited_gaps; draft only; maintainer approval pending"
+      },
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
       "notesForReview": "Role=switch, label/order and keyboard/announced state.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
-        "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
+        "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md",
+        "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
       ],
-      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "designAuditReport": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
     },
     {
       "family": "NumericField",
@@ -406,7 +639,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No dedicated number-field tag; fluent-text-input is related only",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Field + SpinButton",
+        "mappingKind": "react-v9-cross-platform",
+        "mappingNotes": "The pinned Web Components catalog has no dedicated number-field; fluent-text-input is not a numeric spinbutton counterpart. Use React v9 Field + SpinButton as cross-platform reference, not a 1:1 contract.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-text-input"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -444,7 +697,25 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-radio-group + fluent-radio",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-radio-group + fluent-radio",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct Web Components group and option counterparts; compare group isolation and arrow-key navigation.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -483,7 +754,29 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "Related only: fluent-dropdown + fluent-dropdown-option + fluent-listbox; no dedicated fluent-select tag",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Field + Select / Dropdown / Combobox",
+        "mappingKind": "related-only",
+        "mappingNotes": "No dedicated select tag in the pinned Web Components catalog. React v9 Select/Dropdown/Combobox are alternative interaction models; use only as cross-platform references and do not claim 1:1.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-dropdown",
+          "fluent-dropdown-option",
+          "fluent-listbox"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -522,7 +815,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No dedicated DateField; fluent-text-input is related only",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Field + Input (native date input pattern)",
+        "mappingKind": "native-input-pattern",
+        "mappingNotes": "No dedicated date-field tag in the pinned catalog. Compare Fluent 2 field guidance and native input[type=date] behavior; React v9 Input is a primitive reference, not a component-level 1:1.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-text-input"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -560,7 +873,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No dedicated TimeField; fluent-text-input is related only",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Field + Input (native time input pattern)",
+        "mappingKind": "native-input-pattern",
+        "mappingNotes": "No dedicated time-field tag in the pinned catalog. Compare Fluent 2 field guidance and native input[type=time] behavior; React v9 Input is a primitive reference, not a component-level 1:1.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-text-input"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -598,7 +931,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No direct mask component; fluent-text-input is the primitive baseline",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Input primitive only; no mask component",
+        "mappingKind": "bluent-extension",
+        "mappingNotes": "Treat masking as a deliberate Bluent extension. React v9 Input may inform composition only; do not assert a direct Fluent mask counterpart.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-text-input"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -636,7 +989,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No direct OTP component; fluent-text-input is a primitive baseline only",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Input primitive only; no OTP component",
+        "mappingKind": "bluent-extension",
+        "mappingNotes": "Treat OTP segmentation, paste, IME and auto-submit as a Bluent extension. The text input primitive is not a 1:1 counterpart.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-text-input"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -674,7 +1047,25 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "fluent-slider (single-thumb)",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": "fluent-slider",
+        "reactFallbackComponent": null,
+        "mappingKind": "direct-web-component",
+        "mappingNotes": "Direct single-thumb Web Components counterpart; compare pointer coordinates, keyboard and render-mode behavior.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "direct",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
         "visual": "audited_gaps",
@@ -715,7 +1106,27 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No dual-thumb range slider counterpart; fluent-slider is single-thumb only",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Slider (single-thumb only; not 1:1)",
+        "mappingKind": "bluent-extension",
+        "mappingNotes": "Treat dual-thumb behavior as a deliberate Bluent extension. Do not claim a 1:1 mapping to the single-thumb Fluent slider.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "related-only",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [
+          "fluent-slider (single-thumb only)"
+        ],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "audited_gaps",
@@ -756,7 +1167,25 @@
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "No dedicated FileSelect/FileUpload component in the pinned Web Components catalog",
+        "designSystemSnapshotDate": "2026-10-22",
+        "webComponentsPackage": "@fluentui/web-components",
+        "webComponentsPackageVersion": "3.1.3",
+        "webComponentsSnapshotDate": "2026-10-22",
+        "reactFallbackPackage": "@fluentui/react-components",
+        "reactFallbackPackageVersion": "9.74.10",
+        "reactFallbackSnapshotDate": "2026-10-22",
+        "iconAssetReference": null,
+        "webComponentsComponent": null,
+        "reactFallbackComponent": "Field + Input[type=file] (native primitive only)",
+        "mappingKind": "native-input-pattern",
+        "mappingNotes": "Compare native file input semantics and Fluent 2 field guidance; React v9 Input[type=file] is only a primitive reference, not a file-upload component.",
+        "referenceSnapshotDate": "2026-10-22",
+        "storybookBuildPinnedToPackage": false,
+        "webComponentsRelationship": "none",
+        "webComponentsAlternatives": [],
+        "webComponentsRelatedComponents": [],
+        "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
         "visual": "not_reviewed",
@@ -803,7 +1232,7 @@
     "reactApiCandidateReport": "docs/v3/quality/FLUENT-REACT-9.74.10-18-API-CANDIDATES.md",
     "reactSemanticTriageReport": "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
     "sourceApiCensus": "docs/v3/quality/FLUENT-PARITY-18-SOURCE-API.json",
-    "interpretation": "Research leads only; typed-field and Label/Link/Badge browser evidence is partial DOM/AX and keyboard/style evidence, does not complete any of the nine acceptance dimensions or approve parity.",
+    "interpretation": "Research leads only; exact upstream package/version baseline and all 18 family mappings are pinned, partial browser/runtime evidence is linked for all 18, and four editable core-control design comparisons now document visual gaps. This does not complete the nine dimensions or approve parity.",
     "typedFieldBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md",
     "typedFieldBrowserEvidenceChrome": "docs/v3/quality/evidence/BLUENT-TYPED-FIELDS-CHROME.json",
     "typedFieldBrowserEvidenceEdge": "docs/v3/quality/evidence/BLUENT-TYPED-FIELDS-EDGE.json",
@@ -824,6 +1253,46 @@
     "fileSelectBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md",
     "fileSelectLiveUploadEvidence": "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md",
     "fileSelectPublishedServerEvidence": "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md",
-    "penpotAuditArtifact": "Bluent v3 Design System (file b64f6665-c9ab-80b5-8008-c4ac99d9d000) / 03 · Quality & migration (page 07c521b9-e441-80bd-8008-c4ad87df93c3) / #552 · Fluent parity audit coverage · DRAFT (board 4d22aead-d6ef-801a-8008-d482b9bb0cc8), review date 2026-10-22; file revision metadata not exposed by connector; not an approval."
+    "penpotAuditArtifact": "Bluent v3 Design System (file b64f6665-c9ab-80b5-8008-c4ac99d9d000) / 03 · Quality & migration (page 07c521b9-e441-80bd-8008-c4ad87df93c3) / #552 · Fluent parity audit coverage · DRAFT (board 4d22aead-d6ef-801a-8008-d482b9bb0cc8), review date 2026-10-22; file revision metadata not exposed by connector; not an approval.",
+    "referenceVersionEvidence": "docs/v3/quality/evidence/FLUENT-NPM-REFERENCE-VERSIONS-2026-10-22.json",
+    "coreControlDesignAudit": "docs/v3/quality/FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md"
+  },
+  "referenceBaseline": {
+    "reviewedOn": "2026-10-22",
+    "designSystem": {
+      "url": "https://fluent2.microsoft.design/",
+      "versioning": "live evergreen design site; no semantic version exposed",
+      "snapshotDate": "2026-10-22"
+    },
+    "webComponents": {
+      "package": "@fluentui/web-components",
+      "version": "3.1.3",
+      "latestTagOnSnapshot": "3.1.3",
+      "npm": "https://www.npmjs.com/package/@fluentui/web-components",
+      "storybook": "https://storybooks.fluentui.dev/web-components/",
+      "snapshotDate": "2026-10-22",
+      "integrity": "sha512-1jl4CHoFFSfevkr8l7F+dKNJzyMWBZqwQfB/khNZtwyY0rv87799mpDWSVu0QeiZAFEbqCtnAOnXWsxJ/kek+Q=="
+    },
+    "reactFallback": {
+      "package": "@fluentui/react-components",
+      "version": "9.74.10",
+      "latestTagOnSnapshot": "9.74.11",
+      "integrity": "sha512-Guhlej7Rs7OdxiSn6DWHP8p4Elle+QIgmsIlXAruV9/ek1u+YnZFxW5EIeSYpyq/zXd+ujJ/PtQvi6g2oc4TLQ==",
+      "npm": "https://www.npmjs.com/package/@fluentui/react-components",
+      "storybook": "https://storybooks.fluentui.dev/react/",
+      "snapshotDate": "2026-10-22",
+      "selectionRationale": "Retain the exact 9.74.10 npm tarball and integrity already pinned by the checked-in React API crosswalk. The latest tag is 9.74.11; do not silently change the audit baseline mid-review."
+    },
+    "icons": {
+      "package": "@fluentui/react-icons",
+      "version": "2.0.344",
+      "latestTagOnSnapshot": "2.0.344",
+      "npm": "https://www.npmjs.com/package/@fluentui/react-icons",
+      "snapshotDate": "2026-10-22",
+      "rule": "Fluent System Icons asset reference; not a standalone Web Components component.",
+      "integrity": "sha512-pvEVFOUrrtmIglqdfhDVX6XT80a5z9kX+BTso6NAzgmkko8nlURhOzNwvZZlsCK4yQseH/4NQdYoN8ijO7IHdNw=="
+    },
+    "notes": "Package versions are pinned to exact npm package versions and dist-tags checked on 2026-10-22. React fallback remains on the verified 9.74.10 crosswalk snapshot even though the latest tag is 9.74.11. Storybook URLs are live deployments and are not assumed to be release-pinned to those package versions. React v9 is used only where the Web Components catalog lacks a comparable reference, and is explicitly cross-platform rather than 1:1. No direct counterpart is recorded rather than silently substituting a non-equivalent component.",
+    "versionEvidence": "docs/v3/quality/evidence/FLUENT-NPM-REFERENCE-VERSIONS-2026-10-22.json"
   }
 }
