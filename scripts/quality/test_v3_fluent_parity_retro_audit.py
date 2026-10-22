@@ -33,29 +33,29 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertEqual(EXPECTED, {f["family"]: f["productIssue"] for f in families})
         self.assertEqual(18, len({f["family"] for f in families}))
 
-    def test_partial_audits_are_evidenced_and_other_families_remain_unreviewed(self):
+    def test_all_nine_dimensions_are_audited_but_not_accepted(self):
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
         families = {family["family"]: family for family in self.data["families"]}
         expected_partial = {
-            "Button": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "visual", "feature", "behavior", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
-            "TextField": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "visual", "feature", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"),
-            "Icon": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "visual", "feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
-            "Label": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
-            "Link": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
-            "Badge": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"),
-            "Checkbox": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "visual", "feature", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
-            "Switch": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "visual", "feature", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
-            "RadioGroup": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
-            "OtpField": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
-            "NumericField": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
-            "SelectField": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
-            "DateField": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
-            "TimeField": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
-            "MaskedField": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
-            "Slider": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
-            "RangeSlider": ({"designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
-            "FileSelect": ({"visual", "designArtifact", "accessibility", "behavior", "responsiveRTL", "tokenTheme", "BlazorExtensions", "feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
+            "Button": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"),
+            "TextField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"),
+            "Icon": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"),
+            "Label": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
+            "Link": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
+            "Badge": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"),
+            "Checkbox": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "Switch": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "RadioGroup": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
+            "OtpField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
+            "NumericField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "SelectField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "DateField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "TimeField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "MaskedField": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
+            "Slider": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
+            "RangeSlider": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
+            "FileSelect": ({"feature", "visual", "behavior", "accessibility", "tokenTheme", "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
         }
         for name, (audited_dimensions, report_path) in expected_partial.items():
             family = families[name]
@@ -63,20 +63,15 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             self.assertEqual("known_gaps_open", family["gapDisposition"], name)
             self.assertEqual(report_path, family["partialAuditReport"], name)
             self.assertTrue((ROOT / report_path).is_file(), report_path)
+            self.assertEqual(DIMENSIONS, audited_dimensions, name)
             for dimension in DIMENSIONS:
-                expected_status = "audited_gaps" if dimension in audited_dimensions else "not_reviewed"
-                self.assertEqual(expected_status, family["dimensions"][dimension], f"{name}: {dimension}")
+                self.assertEqual("audited_gaps", family["dimensions"][dimension], f"{name}: {dimension}")
         for family_name, family in families.items():
             self.assertEqual(DIMENSIONS, set(family["dimensions"]), family_name)
+            self.assertEqual("researching", family["auditStatus"], family_name)
+            self.assertEqual("known_gaps_open", family["gapDisposition"], family_name)
             self.assertEqual("pending", family["designApproval"], family_name)
             self.assertIsNone(family["evidenceBundle"], family_name)
-            if family_name == "TextField":
-                continue
-            if family_name not in expected_partial:
-                self.assertEqual("not_reviewed", family["auditStatus"], family_name)
-                self.assertEqual({"not_reviewed"}, set(family["dimensions"].values()), family_name)
-                self.assertEqual("untriaged", family["gapDisposition"], family_name)
-
     def test_research_leads_are_real_files_not_accepted_evidence(self):
         refs = self.data["supplementalSourceAnalysis"]
         self.assertTrue(refs["interpretation"].startswith("Research leads only"))

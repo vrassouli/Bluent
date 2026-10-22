@@ -31,7 +31,7 @@ Read the P0 known issues first: Button #428, Slider #442, RangeSlider #443, File
 
 ## Backfill ledger: status reflects evidenced progress; approval remains pending
 
-The following ledger records partial audit progress, not parity acceptance. All 18 families have a linked source/API audit report. Only evidence-backed gaps are marked `audited_gaps`; TextField remains fully `not_reviewed` because source inspection alone did not establish a specific gap. All design approvals and full evidence bundles remain pending. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
+The following ledger records audit progress, not parity acceptance. All 18 families have source/API reports, selected browser evidence and nine dimension-specific inventories with known gaps. Every dimension is audited_gaps; none is accepted. No family has a populated 2.x-to-v3 migration section (0/18). All design approvals and full evidence bundles remain pending. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
 
 | # | Existing source family / product issue | Priority | Wave | Visual | Feature | Behavior | A11y / design |
 | --: | --- | --- | --- | --- | --- | --- | --- |
@@ -110,6 +110,7 @@ The following pinned references now provide traceable starting points for the fa
 - [Accessibility semantics audit (18 families)](FLUENT-PARITY-ACCESSIBILITY-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-ACCESSIBILITY-AUDIT.json)
 - [Penpot design-artifact coverage audit (18 families)](FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.json)
 - [Visual screenshot-evidence coverage audit (18 families)](FLUENT-PARITY-VISUAL-EVIDENCE-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-VISUAL-EVIDENCE-AUDIT.json)
+- [Migration-document coverage audit (18 families)](FLUENT-PARITY-MIGRATION-DOCS-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-MIGRATION-DOCS-AUDIT.json)
 
 ### Partial family audit reports
 
@@ -212,7 +213,7 @@ The editable Penpot comparison for four families now has a concrete visual dispo
 | Checkbox #434 | page 11 / `07c521b9-e441-80bd-8008-c4d69e2a5bfe` | page 17 / `e31294c6-7c55-805f-8008-c51334e865e4` | `audited_gaps`: 30 upstream variants vs 12 local; Hover/Pressed/Circular missing; Error is an extra Bluent state. |
 | Switch #435 | page 14 / `07c521b9-e441-80bd-8008-c4d793b68198` | page 18 / `e31294c6-7c55-805f-8008-c5139a9544bf` | `audited_gaps`: 40 upstream variants vs 12 local; Hover/Pressed and label-position variants missing. |
 
-All four families remain `designApproval=pending`. The other 14 families have no reviewed editable component-frame pair linked in this audit yet; their `designArtifact` dimension remains `not_reviewed`.
+All four families with dedicated draft design assets remain `designApproval=pending`. The other 14 families have no dedicated family-specific editable component page/library asset in the current Penpot snapshot; all 18 `designArtifact` dimensions are `audited_gaps`, not accepted.
 
 ## Required per-component evidence bundle
 
@@ -227,7 +228,7 @@ All four families remain `designApproval=pending`. The other 14 families have no
 
 ### Status discipline
 
-Unstarted dimensions remain **not_reviewed**. Button and FileSelect have behavior/accessibility gaps documented; Icon has visual/accessibility gaps documented; Label has an accessibility gap documented; Link has behavior/accessibility gaps documented; Badge has feature-documentation/accessibility gaps documented; Checkbox and Switch have accessibility gaps documented; NumericField, SelectField, DateField, TimeField and MaskedField have source-confirmed API/behavior gaps; RadioGroup has behavior/accessibility gaps; OtpField has localized-name and length-label gaps; Slider and RangeSlider also have visual gaps documented. All 18 families now have partial source/API audit reports. TextField has no confirmed gap from source inspection, so its nine dimensions remain `not_reviewed`. All design approvals and full evidence bundles remain pending, and matched upstream equivalence is not yet accepted. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
+All nine dimensions have now been inventoried across all 18 families. Each family records audited_gaps for feature, visual, behavior, accessibility, tokenTheme, responsiveRTL, BlazorExtensions, designArtifact and migrationDocs; none is accepted. The migration-doc audit confirms current component reference docs exist for 18/18 families, but no family has a populated 2.x-to-v3 migration section (0/18); the template section is not a migration guide. The matrix intentionally records explicit gaps rather than treating audit completion as component completion or Fluent parity approval. All family design approvals remain pending and every evidenceBundle remains null. All 18 Lab entries remain representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. Audited gaps is not Design approved, which is not Implementation verified. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, not the automatic closure of 18 product issues.
 
 ### Specific known gaps already uncovered by the existing pilot tests
 
