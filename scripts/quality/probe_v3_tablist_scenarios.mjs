@@ -20,7 +20,7 @@ const key=async(k,code,vk)=>{for(const type of ['keyDown','keyUp'])await cdp('In
 async function stop(proc){if(!proc?.pid)return;await new Promise(ok=>{const x=spawn('taskkill',['/PID',String(proc.pid),'/T','/F'],{windowsHide:true,stdio:'ignore'});x.once('close',ok);x.once('error',ok);})}
 const capture=()=>evalJs(`(()=>{
  const section=(name)=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()===name);return h?.nextElementSibling};
- const inspect=(name)=>{const root=section(name);const items=[...(root?.querySelectorAll('.tab-item')||[])];const panels=[...(root?.querySelectorAll('.tab-panel')||[])];return {name,items:items.map(x=>({tag:x.tagName,text:x.textContent.trim(),href:x.getAttribute('href'),role:x.getAttribute('role'),tabindex:x.getAttribute('tabindex'),ariaSelected:x.getAttribute('aria-selected'),ariaControls:x.getAttribute('aria-controls'),disabled:x.hasAttribute('disabled'),selected:x.classList.contains('selected'),focused:x===document.activeElement})),panels:panels.map(x=>({role:x.getAttribute('role'),labelledBy:x.getAttribute('aria-labelledby'),selected:x.classList.contains('selected'),visible:getComputedStyle(x).display!=='none'}))};};
+ const inspect=(name)=>{const root=section(name);const items=[...(root?.querySelectorAll('.tab-item')||[])];const panels=[...(root?.querySelectorAll('.tab-panel')||[])];return {name,items:items.map(x=>({tag:x.tagName,text:x.textContent.trim(),href:x.getAttribute('href'),role:x.getAttribute('role'),tabindex:x.getAttribute('tabindex'),nativeTabIndex:x.tabIndex,ariaSelected:x.getAttribute('aria-selected'),ariaControls:x.getAttribute('aria-controls'),disabled:x.hasAttribute('disabled'),selected:x.classList.contains('selected'),focused:x===document.activeElement})),panels:panels.map(x=>({role:x.getAttribute('role'),labelledBy:x.getAttribute('aria-labelledby'),selected:x.classList.contains('selected'),visible:getComputedStyle(x).display!=='none'}))};};
  return {panel:inspect('With Panels'),links:inspect('Urls'),disabled:inspect('Disabled')};
 })()`);
 async function action(selector,kind) {
@@ -46,9 +46,11 @@ try {
  const focusPanelSecond=await action(1,'With Panels');
  await key('ArrowRight','ArrowRight',39);const afterArrow=await capture();
  await key('Enter','Enter',13);await sleep(450);const afterEnter=await capture();
+ const focusFirstPanel=await action(0,'With Panels');await key('Tab','Tab',9);const afterNativeTab=await capture();
  const focusDisabled=await action(1,'Disabled');const afterDisabledFocus=await capture();
  const focusLink=await action(1,'Urls');const afterLinkFocus=await capture();
- const result={issue:552,owner:465,engine,host:'actual Bluent WebAssembly Demo',scope:'observations only, not Fluent acceptance or AT signoff',before,focusPanelSecond,afterArrow,afterEnter,focusDisabled,afterDisabledFocus,focusLink,afterLinkFocus};
+ await key('Enter','Enter',13); const navigationSearch=await poll(async()=>{const q=await evalJs('location.search');return q==='?tab2'?q:false},15000);
+ const result={issue:552,owner:465,engine,host:'actual Bluent WebAssembly Demo',scope:'observations only, not Fluent acceptance or AT signoff',before,focusPanelSecond,afterArrow,afterEnter,focusFirstPanel,afterNativeTab,focusDisabled,afterDisabledFocus,focusLink,afterLinkFocus,navigationSearch};
  const output=join(root,'docs/v3/quality/evidence/BLUENT-TABLIST-SCENARIOS-'+engine.toUpperCase()+'.json');
  await writeFile(output,JSON.stringify(result,null,2)+'\n');
  console.log(JSON.stringify({engine,initialPanels:before.panel.panels.length,panelButtons:before.panel.items.length,links:before.links.items.map(x=>({tag:x.tag,href:x.href})),panelArrowFocusStayed:afterArrow.panel.items[1]?.focused,afterEnterSelected:afterEnter.panel.items.map(x=>x.selected),disabledTabFocus:focusDisabled,disabledAttributes:afterDisabledFocus.disabled.items.map(x=>x.disabled),linkFocus:focusLink}));

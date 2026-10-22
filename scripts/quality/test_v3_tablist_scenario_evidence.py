@@ -33,6 +33,15 @@ class TabListScenarioEvidence(unittest.TestCase):
             first_group = r["afterEnter"]["panel"]["items"][:3]
             self.assertEqual([x["selected"] for x in first_group], [False, True, False])
             self.assertTrue(first_group[1]["focused"])
+    def test_real_native_tab_enters_next_tab_instead_of_exiting(self):
+        for r in self.runs:
+            self.assertTrue(r["focusFirstPanel"])
+            self.assertTrue(r["afterNativeTab"]["panel"]["items"][1]["focused"])
+            self.assertTrue(all(x["nativeTabIndex"] == 0 for x in r["before"]["panel"]["items"]))
+    def test_actual_url_activation_on_enter(self):
+        for r in self.runs:
+            self.assertTrue(r["focusLink"])
+            self.assertEqual(r["navigationSearch"], "?tab2")
     def test_disabled_selected_but_unfocusable(self):
         for r in self.runs:
             second = r["afterDisabledFocus"]["disabled"]["items"][1]

@@ -1,0 +1,789 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "labIssue": 421,
+  "npmPackage": "@fluentui/web-components",
+  "npmVersion": "3.1.3",
+  "npmTarballIntegrity": "sha512-1jl4CHoFFSfevkr8l7F+dKNJzyMWBZqwQfB/khNZtwyY0rv87799mpDWSVu0QeiZAFEbqCtnAOnXWsxJ/kek+Q==",
+  "cemSha256": "e460a61de0cd6f99ec6caedc203db681d95ac16332d3b296b50484b79ad61329",
+  "cemTagCount": 42,
+  "cemPublishedTags": [
+    "fluent-accordion",
+    "fluent-accordion-item",
+    "fluent-anchor-button",
+    "fluent-avatar",
+    "fluent-badge",
+    "fluent-button",
+    "fluent-checkbox",
+    "fluent-compound-button",
+    "fluent-counter-badge",
+    "fluent-dialog",
+    "fluent-dialog-body",
+    "fluent-divider",
+    "fluent-drawer",
+    "fluent-drawer-body",
+    "fluent-dropdown",
+    "fluent-dropdown-option",
+    "fluent-field",
+    "fluent-image",
+    "fluent-label",
+    "fluent-link",
+    "fluent-listbox",
+    "fluent-menu",
+    "fluent-menu-button",
+    "fluent-menu-item",
+    "fluent-menu-list",
+    "fluent-message-bar",
+    "fluent-progress-bar",
+    "fluent-radio",
+    "fluent-radio-group",
+    "fluent-rating-display",
+    "fluent-slider",
+    "fluent-spinner",
+    "fluent-switch",
+    "fluent-tab",
+    "fluent-tablist",
+    "fluent-text",
+    "fluent-text-area",
+    "fluent-text-input",
+    "fluent-toggle-button",
+    "fluent-tooltip",
+    "fluent-tree",
+    "fluent-tree-item"
+  ],
+  "scope": "tag-catalog and declared CEM metadata only; no Bluent-Fluent API equivalence, product acceptance or design signoff",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "wave": "A",
+      "componentCount": 1,
+      "directParameterCount": 22,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-button",
+        "fluent-toggle-button",
+        "fluent-compound-button",
+        "fluent-menu-button",
+        "fluent-anchor-button"
+      ],
+      "mappingCaveat": "Separate WC button families; Bluent split/dropdown/toggle API not assumed equal.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "wave": "A",
+      "componentCount": 1,
+      "directParameterCount": 2,
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "mappingCaveat": "Fluent System Icons are outside this Web Component tag catalog; do not infer absence of icon assets.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "wave": "A",
+      "componentCount": 1,
+      "directParameterCount": 6,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-label"
+      ],
+      "mappingCaveat": "Compare native labeling/for and inherited Bluent field integration.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "wave": "A",
+      "componentCount": 1,
+      "directParameterCount": 4,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-link",
+        "fluent-anchor-button"
+      ],
+      "mappingCaveat": "An anchor-styled button and link are distinct semantics.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "wave": "A",
+      "componentCount": 1,
+      "directParameterCount": 8,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-badge",
+        "fluent-counter-badge"
+      ],
+      "mappingCaveat": "Numeric/counter semantics differ from decorative/status badges.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "wave": "B",
+      "componentCount": 1,
+      "directParameterCount": 6,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "mappingCaveat": "Underline appearance and focus behavior require rendered comparison.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "wave": "B",
+      "componentCount": 1,
+      "directParameterCount": 11,
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "mappingCaveat": "No dedicated fluent-number-field tag; text-input is only a related control.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "wave": "B",
+      "componentCount": 1,
+      "directParameterCount": 7,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-checkbox"
+      ],
+      "mappingCaveat": "Indeterminate and validation/binding details remain unreviewed.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "wave": "B",
+      "componentCount": 1,
+      "directParameterCount": 0,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-switch"
+      ],
+      "mappingCaveat": "Bluent Switch inherits Checkbox<bool>; check inherited API, not zero declared props.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "wave": "B",
+      "componentCount": 2,
+      "directParameterCount": 7,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-radio-group",
+        "fluent-radio"
+      ],
+      "mappingCaveat": "Group and child radio are separate custom elements.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "wave": "B",
+      "componentCount": 1,
+      "directParameterCount": 1,
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-dropdown",
+        "fluent-dropdown-option",
+        "fluent-listbox"
+      ],
+      "mappingCaveat": "No fluent-select-field tag; dropdown/listbox are category counterparts, not a 1:1 API.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "wave": "C",
+      "componentCount": 1,
+      "directParameterCount": 7,
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "mappingCaveat": "No dedicated fluent-date-field/date-picker tag in this pinned WC catalog.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "wave": "C",
+      "componentCount": 1,
+      "directParameterCount": 3,
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "mappingCaveat": "No dedicated fluent-time-field/time-picker tag in this pinned WC catalog.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "wave": "C",
+      "componentCount": 1,
+      "directParameterCount": 3,
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "mappingCaveat": "Mask/parser semantics are a Bluent extension pending React fallback review.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "wave": "C",
+      "componentCount": 1,
+      "directParameterCount": 3,
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "mappingCaveat": "OTP multi-cell interaction is not equivalent to one text input.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "wave": "D",
+      "componentCount": 1,
+      "directParameterCount": 5,
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-slider"
+      ],
+      "mappingCaveat": "Value, step, ARIA, orientation and pointer semantics need separate live review.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "wave": "D",
+      "componentCount": 1,
+      "directParameterCount": 5,
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "mappingCaveat": "No fluent-range-slider custom element in pinned WC 3.1.3; W3C multi-thumb guidance applies.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "wave": "D",
+      "componentCount": 1,
+      "directParameterCount": 12,
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "mappingCaveat": "No fluent-file-select custom element in pinned WC 3.1.3; native InputFile behavior remains Bluent-owned.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "runtimeBehaviorAcceptance": "not_reviewed",
+      "nativeOSAT": "not_tested",
+      "fluentParity": "not_reviewed"
+    }
+  ],
+  "referencedTagDetails": [
+    {
+      "tag": "fluent-anchor-button",
+      "attributes": [
+        "appearance",
+        "download",
+        "href",
+        "hreflang",
+        "icon-only",
+        "ping",
+        "referrerpolicy",
+        "rel",
+        "shape",
+        "size",
+        "target",
+        "type"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "content",
+        "control"
+      ]
+    },
+    {
+      "tag": "fluent-badge",
+      "attributes": [
+        "appearance",
+        "color",
+        "shape",
+        "size"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-button",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "name",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-checkbox",
+      "attributes": [
+        "checked",
+        "disabled",
+        "form",
+        "name",
+        "required",
+        "shape",
+        "size",
+        "value"
+      ],
+      "events": [
+        "change",
+        "input"
+      ],
+      "slots": [
+        "checked-indicator",
+        "indeterminate-indicator"
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-compound-button",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "name",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "description",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-counter-badge",
+      "attributes": [
+        "appearance",
+        "color",
+        "count",
+        "dot",
+        "overflow-count",
+        "shape",
+        "show-zero",
+        "size"
+      ],
+      "events": [],
+      "slots": [
+        "end",
+        "start"
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-dropdown",
+      "attributes": [
+        "appearance",
+        "aria-labelledby",
+        "disabled",
+        "id",
+        "multiple",
+        "name",
+        "placeholder",
+        "required",
+        "size",
+        "type",
+        "value"
+      ],
+      "events": [
+        "change"
+      ],
+      "slots": [
+        "",
+        "control",
+        "indicator"
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-dropdown-option",
+      "attributes": [
+        "disabled",
+        "form",
+        "freeform",
+        "id",
+        "name",
+        "selected",
+        "text",
+        "value"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "checked-indicator",
+        "description",
+        "start"
+      ],
+      "cssParts": [
+        "content",
+        "description"
+      ]
+    },
+    {
+      "tag": "fluent-label",
+      "attributes": [
+        "disabled",
+        "required",
+        "size",
+        "weight"
+      ],
+      "events": [],
+      "slots": [
+        ""
+      ],
+      "cssParts": [
+        "asterisk"
+      ]
+    },
+    {
+      "tag": "fluent-link",
+      "attributes": [
+        "appearance",
+        "download",
+        "href",
+        "hreflang",
+        "inline",
+        "ping",
+        "referrerpolicy",
+        "rel",
+        "target",
+        "type"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "content",
+        "control"
+      ]
+    },
+    {
+      "tag": "fluent-listbox",
+      "attributes": [],
+      "events": [],
+      "slots": [
+        ""
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-menu-button",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "name",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "content"
+      ]
+    },
+    {
+      "tag": "fluent-radio",
+      "attributes": [
+        "checked",
+        "disabled",
+        "form",
+        "name",
+        "required",
+        "value"
+      ],
+      "events": [
+        "change",
+        "disabled",
+        "input"
+      ],
+      "slots": [
+        "checked-indicator"
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-radio-group",
+      "attributes": [
+        "disabled",
+        "name",
+        "orientation",
+        "required",
+        "value"
+      ],
+      "events": [
+        "change"
+      ],
+      "slots": [
+        ""
+      ],
+      "cssParts": []
+    },
+    {
+      "tag": "fluent-slider",
+      "attributes": [
+        "disabled",
+        "max",
+        "min",
+        "mode",
+        "orientation",
+        "size",
+        "step",
+        "value"
+      ],
+      "events": [
+        "change"
+      ],
+      "slots": [
+        "thumb"
+      ],
+      "cssParts": [
+        "thumb-container",
+        "track-container"
+      ]
+    },
+    {
+      "tag": "fluent-switch",
+      "attributes": [
+        "checked",
+        "disabled",
+        "form",
+        "name",
+        "required",
+        "value"
+      ],
+      "events": [
+        "change",
+        "input"
+      ],
+      "slots": [],
+      "cssParts": [
+        "checked-indicator"
+      ]
+    },
+    {
+      "tag": "fluent-text-input",
+      "attributes": [
+        "appearance",
+        "autocomplete",
+        "control-size",
+        "current-value",
+        "dirname",
+        "disabled",
+        "form",
+        "list",
+        "maxlength",
+        "minlength",
+        "multiple",
+        "name",
+        "pattern",
+        "placeholder",
+        "readonly",
+        "required",
+        "size",
+        "spellcheck",
+        "type",
+        "value"
+      ],
+      "events": [
+        "change",
+        "select"
+      ],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "control",
+        "label",
+        "root"
+      ]
+    },
+    {
+      "tag": "fluent-toggle-button",
+      "attributes": [
+        "appearance",
+        "disabled",
+        "disabled-focusable",
+        "form",
+        "formaction",
+        "formenctype",
+        "formmethod",
+        "formnovalidate",
+        "formtarget",
+        "icon-only",
+        "mixed",
+        "name",
+        "pressed",
+        "shape",
+        "size",
+        "type",
+        "value"
+      ],
+      "events": [],
+      "slots": [
+        "",
+        "end",
+        "start"
+      ],
+      "cssParts": [
+        "content"
+      ]
+    }
+  ],
+  "parityAccepted": false
+}
