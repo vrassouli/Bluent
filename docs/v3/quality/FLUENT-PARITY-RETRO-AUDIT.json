@@ -803,6 +803,10 @@
     "reactApiCandidateReport": "docs/v3/quality/FLUENT-REACT-9.74.10-18-API-CANDIDATES.md",
     "reactSemanticTriageReport": "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
     "sourceApiCensus": "docs/v3/quality/FLUENT-PARITY-18-SOURCE-API.json",
-    "interpretation": "Research leads only; these artifacts do not complete any of the nine acceptance dimensions or approve parity."
+    "interpretation": "Research leads only; typed-field browser evidence is partial DOM/AX and keyboard evidence, does not complete any of the nine acceptance dimensions or approve parity.",
+    "typedFieldBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md",
+    "typedFieldBrowserEvidenceChrome": "docs/v3/quality/evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+    "typedFieldBrowserEvidenceEdge": "docs/v3/quality/evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+    "typedFieldBrowserEvidenceTests": "scripts/quality/test_v3_typed_fields_browser_evidence.py"
   }
 }

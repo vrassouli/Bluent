@@ -20,6 +20,11 @@ The pinned Fluent references provide input/select primitives and separate field 
 | MaskedField #440 | Inherited `BindValueEvent` is ignored; markup directly wires `@oninput="OnInput"`. | Confirmed public parameter mismatch: changing `BindValueEvent` does not change the event that updates the mask. |
 | MaskedField #440 | Masking combines `@oninput`, `@oninput:preventDefault`, key-up rollback, regex patterns and custom parsing. | IME composition, paste, caret stability, undo/redo and mobile input remain unverified. Source inspection is not runtime acceptance. |
 
+## Supplemental Chrome/Edge browser evidence (2026-10-22)
+
+The live WebAssembly demo was exercised in headless Chrome and Edge on `/components/fields`, with real header-switch changes for Light/LTR and Dark/RTL and CDP-emulated forced-colors. Each engine passed **39/39 instrumentation checks** and produced 18 screenshots. See [the typed-field browser evidence report](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) and structured [Chrome](evidence/BLUENT-TYPED-FIELDS-CHROME.json) / [Edge](evidence/BLUENT-TYPED-FIELDS-EDGE.json) evidence.
+
+The runtime confirmed a narrow NumericField integer-entry path (`123` updates the bound output), and native SelectField ArrowDown selection (`Green` to `Blue`). It also reproduced a MaskedField prefix-literal defect in both browsers: typing `09123456789` with `^09\d{2}-\d{3}-\d{4}$` yields `0991-234-5678`. This does not validate multiple-select, DateField typed ranges/YearSelect/calendar activation, TimeField Culture/seconds semantics, mask paste/caret/IME, native screen readers, native OS contrast, or published InteractiveServer. No family approval or product-code change is implied.
 ## Canonical matrix disposition
 
 - **NumericField:** `feature=audited_gaps`, `behavior=audited_gaps` — `Step` is not consumed; default numeric input-mode semantics need a contract.

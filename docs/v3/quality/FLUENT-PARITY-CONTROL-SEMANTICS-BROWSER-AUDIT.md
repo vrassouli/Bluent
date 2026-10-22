@@ -56,4 +56,4 @@
 
 These are browser DOM and accessibility-tree observations from the WASM demo, not native screen-reader output. Forced-colors was emulated; this is not native Windows Contrast Themes. This run does not cover published InteractiveServer, all validation/disabled/form cases, a normalized same-state Fluent visual comparison, or editable design approval. It does **not** complete any nine-dimension family audit or create a full evidence bundle. `auditStatus` remains `researching`, design approvals remain pending, `evidenceBundle` remains null, and zero families are Fluent-approved.
 
-Related family reports: [Checkbox/Switch audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) · [RadioGroup audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) · [OtpField audit](FLUENT-PARITY-OTP-AUDIT.md).
+Related family reports: [Checkbox/Switch audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) · [RadioGroup audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) · [OtpField audit](FLUENT-PARITY-OTP-AUDIT.md) · [Typed-field browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md).
