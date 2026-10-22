@@ -1,0 +1,3173 @@
+{
+  "issue": 552,
+  "audit": "Responsive layout and RTL source/evidence inventory",
+  "reviewedOn": "2026-10-22",
+  "sourceBaseline": "73155f02",
+  "familyCount": 18,
+  "dimension": "responsiveRTL",
+  "dimensionStatus": "audited_gaps",
+  "parityAccepted": false,
+  "noneApproved": true,
+  "runtimeScope": "Source inventory plus existing Chrome/Edge browser evidence. Dark/RTL evidence is present for all 18 families; narrow/zoom proxy evidence is limited to a subset. The zoom-200 scenario is a layout-reflow proxy, not native browser UI zoom. No native OS/AT acceptance is claimed.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_button.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 12,
+          "excerpt": "left: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 16,
+          "excerpt": "right: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 95,
+          "excerpt": "left: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 99,
+          "excerpt": "left: 100%;"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 118,
+          "excerpt": "text-align: start;"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 58,
+          "excerpt": "min-width: 96px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 105,
+          "excerpt": "max-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 106,
+          "excerpt": "min-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 360,
+          "excerpt": "min-width: 64px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 364,
+          "excerpt": "max-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 365,
+          "excerpt": "min-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 383,
+          "excerpt": "min-width: 96px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 387,
+          "excerpt": "max-width: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 388,
+          "excerpt": "min-width: 40px;"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 58,
+          "excerpt": "min-width: 96px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 71,
+          "excerpt": "height: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 72,
+          "excerpt": "width: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 105,
+          "excerpt": "max-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 106,
+          "excerpt": "min-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 122,
+          "excerpt": "line-height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 360,
+          "excerpt": "min-width: 64px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 364,
+          "excerpt": "max-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 365,
+          "excerpt": "min-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 371,
+          "excerpt": "height: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 372,
+          "excerpt": "width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 383,
+          "excerpt": "min-width: 96px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 387,
+          "excerpt": "max-width: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 388,
+          "excerpt": "min-width: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 394,
+          "excerpt": "height: 22px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 395,
+          "excerpt": "width: 22px;"
+        }
+      ],
+      "explicitRtlSignals": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 1,
+          "excerpt": ".rtl, [dir=rtl] {"
+        }
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 1,
+          "excerpt": ".rtl, [dir=rtl] {"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 58,
+          "excerpt": "min-width: 96px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 105,
+          "excerpt": "max-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 106,
+          "excerpt": "min-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 118,
+          "excerpt": "text-align: start;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 360,
+          "excerpt": "min-width: 64px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 364,
+          "excerpt": "max-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 365,
+          "excerpt": "min-width: 24px;"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-BUTTON-STATE-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "\"\"",
+            "\"\"",
+            "0EB2AFDD",
+            "BLOCK",
+            "BLUENT-BUTTON-STATE-CHROME-DARK-RTL-TOGGLED.PNG",
+            "BLUENT-BUTTON-STATE-CHROME-FORCED-COLORS-TOGGLED.PNG",
+            "BLUENT-BUTTON-STATE-CHROME-LIGHT-LTR-TOGGLED.PNG",
+            "BUI-BUTTON ",
+            "BUI-BUTTON TOGGLED ",
+            "BUI-ICON ICON-IC_FLUENT_CURSOR_CLICK_20_FILLED ACTIVE-ICON",
+            "BUI-ICON ICON-IC_FLUENT_CURSOR_CLICK_20_REGULAR ICON",
+            "BUTTON"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-BLAZOR-FOCUS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "ACTUAL ASYNC DELAYED BLAZOR FOCUSASYNC SELECTS TARGET",
+            "APPLY",
+            "APPLY-OUTSIDE",
+            "ASYNC AWAITED FOCUSASYNC NEVER FOCUSES REMOVED TARGET",
+            "ASYNC CANCELED STALE TARGET NEVER CALLS FOCUSASYNC",
+            "ASYNC DELAYED TARGET IS ACTUALLY REMOVED IN BLAZOR",
+            "ASYNC FOCUSASYNC ACTUALLY CALLED AFTER AWAIT",
+            "ASYNC REQUEST CANCELED BEFORE FOCUSASYNC AFTER OUTSIDE FOCUS",
+            "BLAZOR FOCUSASYNC CALL COUNT",
+            "BLAZOR POSTRENDER RESTORE FOCUSASYNC CALLED",
+            "BLAZOR REAL POSTRENDER FOCUS CALLED",
+            "BLAZOR RUNTIME LOADED"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-DARK-RTL-CHROME.json",
+          "engine": "chrome",
+          "scenario": "dark-rtl",
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T14:00:11.214Z",
+            "4PX",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-BUTTON PRIMARY ",
+            "BUI-FILE-SELECT ",
+            "BUI-RANGE-SLIDER "
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-ZOOM-200-CHROME.json",
+          "engine": "chrome",
+          "scenario": "zoom-200",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "200 PERCENT LAYOUT REFLOW PROXY (NOT NATIVE BROWSER ZOOM)",
+            "2026-10-19T14:23:37.784Z",
+            "3PX",
+            "4PX",
+            "620 CSSPX DPR2 REFLOW PROXY WITH NATURAL SLIDER WIDTH, NO NATIVE BROWSER ZOOM OR PARITY",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": true,
+      "followUp": "Check icon/label order, focus ring clipping and wrapping at narrow RTL and layout-reflow proxy.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/IconComponent/Icon.cs"
+      ],
+      "physicalDirectionalDeclarations": [],
+      "logicalDirectionalDeclarations": [],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-CROSS-ICON-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\"",
+            "\"\""
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "\"HELVETICA NEUE\", HELVETICA, ARIAL, SANS-SERIF",
+            "\"\"",
+            "\"\"",
+            "/ASSETS/ICONS/POWERPOINT.SVG",
+            "0 0 24 24",
+            "1B023A5C",
+            "32PX",
+            "<I ID=\"F2765C145\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_REGULAR FS-6\"></I>",
+            "<I ID=\"F2F9B0A0\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_FILLED FS-6\"></I>",
+            "<IMG ID=\"F3FEE86B7\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\" SRC=\"/ASSETS/ICONS/POWERPOINT.SVG\">",
+            "<SPAN ID=\"F66568602\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\"><!--!--><SVG XMLNS=\"HTTP://WWW.W3.ORG/2000/SVG\" VIEWBOX=\"0 0 24 24\" FILL=\"CURRENTCOLOR\">\n    <PATH D=\"M12 2A10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM0 5A1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM2 10H-4V-1.5H1.25V12H10V-1.5H2.75V5H14V17Z\"></PATH>\n</SVG></SPAN>"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": true,
+      "followUp": "Verify icon order/alignment, inherited currentColor and clipping at 320 CSS px in an RTL parent; candidate mobile evidence is research-only.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_label.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/LabelComponent/Label.razor",
+        "src/Bluent.UI/Components/LabelComponent/Label.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_label.scss",
+          "line": 8,
+          "excerpt": "padding-inline-start: var(--spacingHorizontalXS);"
+        }
+      ],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_label.scss",
+          "line": 8,
+          "excerpt": "padding-inline-start: var(--spacingHorizontalXS);"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": true,
+          "evidenceLabels": [
+            "",
+            "#",
+            "#292929",
+            "#FFF",
+            "+99",
+            "0S",
+            "1",
+            "1.5S",
+            "2026-10-22T18:46:36.106Z",
+            "73155F02",
+            "A",
+            "ACTUAL CHROMIUM CDP DOM/AX-TREE OBSERVATIONS FOR LABEL, LINK AND BADGE; FORCED-COLORS AND REDUCED-MOTION ARE EMULATED; NO NATIVE SCREEN-READER OR OS CONTRAST CERTIFICATION; NOT FLUENT PARITY ACCEPTANCE."
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check association, required marker placement and wrapping in RTL.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_link.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/LinkComponent/Link.cs"
+      ],
+      "physicalDirectionalDeclarations": [],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 15,
+          "excerpt": "text-align: start;"
+        }
+      ],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 15,
+          "excerpt": "text-align: start;"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": true,
+          "evidenceLabels": [
+            "",
+            "#",
+            "#292929",
+            "#FFF",
+            "+99",
+            "0S",
+            "1",
+            "1.5S",
+            "2026-10-22T18:46:36.106Z",
+            "73155F02",
+            "A",
+            "ACTUAL CHROMIUM CDP DOM/AX-TREE OBSERVATIONS FOR LABEL, LINK AND BADGE; FORCED-COLORS AND REDUCED-MOTION ARE EMULATED; NO NATIVE SCREEN-READER OR OS CONTRAST CERTIFICATION; NOT FLUENT PARITY ACCEPTANCE."
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check underline/focus geometry and inline placement within RTL text flow.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_badge.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [],
+      "logicalDirectionalDeclarations": [],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 21,
+          "excerpt": "min-width: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 98,
+          "excerpt": "min-width: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 108,
+          "excerpt": "min-width: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 118,
+          "excerpt": "min-width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 127,
+          "excerpt": "min-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 136,
+          "excerpt": "min-width: 32px;"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 20,
+          "excerpt": "height: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 21,
+          "excerpt": "min-width: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 99,
+          "excerpt": "line-height: 4px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 101,
+          "excerpt": "height: 6px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 102,
+          "excerpt": "width: 6px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 109,
+          "excerpt": "line-height: 6px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 111,
+          "excerpt": "height: 10px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 112,
+          "excerpt": "width: 10px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 118,
+          "excerpt": "min-width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 121,
+          "excerpt": "height: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 127,
+          "excerpt": "min-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 130,
+          "excerpt": "height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 136,
+          "excerpt": "min-width: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 139,
+          "excerpt": "height: 32px;"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 21,
+          "excerpt": "min-width: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 98,
+          "excerpt": "min-width: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 108,
+          "excerpt": "min-width: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 118,
+          "excerpt": "min-width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 127,
+          "excerpt": "min-width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 136,
+          "excerpt": "min-width: 32px;"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": true,
+          "evidenceLabels": [
+            "",
+            "#",
+            "#292929",
+            "#FFF",
+            "+99",
+            "0S",
+            "1",
+            "1.5S",
+            "2026-10-22T18:46:36.106Z",
+            "73155F02",
+            "A",
+            "ACTUAL CHROMIUM CDP DOM/AX-TREE OBSERVATIONS FOR LABEL, LINK AND BADGE; FORCED-COLORS AND REDUCED-MOTION ARE EMULATED; NO NATIVE SCREEN-READER OR OS CONTRAST CERTIFICATION; NOT FLUENT PARITY ACCEPTANCE."
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check badge placement and wrapping in RTL; include reduced-motion state in the visual matrix.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 116,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 118,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 120,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 121,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 11,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 39,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 56,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 74,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 102,
+          "excerpt": "--fui-text-field-min-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 109,
+          "excerpt": "--fui-text-field-min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 119,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check label, validation message, caret, adornments and width constraints in RTL at narrow sizes.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_checkbox.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 16,
+          "excerpt": "left: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 106,
+          "excerpt": "left: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 107,
+          "excerpt": "right: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 180,
+          "excerpt": "left: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 181,
+          "excerpt": "right: 0px;"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 80,
+          "excerpt": "padding-inline-start: var(--spacingHorizontalXS);"
+        }
+      ],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 11,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 17,
+          "excerpt": "width: calc(16px + 2* var(--spacingHorizontalS));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 59,
+          "excerpt": "height: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 60,
+          "excerpt": "width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 87,
+          "excerpt": "width: calc(20px + 2* var(--spacingHorizontalS));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 91,
+          "excerpt": "width: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 92,
+          "excerpt": "height: 20px;"
+        }
+      ],
+      "explicitRtlSignals": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 177,
+          "excerpt": ".rtl, [dir=rtl] {"
+        }
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 80,
+          "excerpt": "padding-inline-start: var(--spacingHorizontalXS);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 177,
+          "excerpt": ".rtl, [dir=rtl] {"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "1",
+            "2",
+            "2026-10-22T16:13:02.556Z",
+            "3",
+            "4",
+            "42",
+            "7",
+            "73155F02"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "1",
+            "2",
+            "2026-10-22T16:13:42.376Z",
+            "3",
+            "4",
+            "42",
+            "7",
+            "73155F02"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check label/indicator order, required/error text and focus visibility at narrow RTL.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_switch.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 10,
+          "excerpt": "left: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 53,
+          "excerpt": "transform: translateX(20px);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 112,
+          "excerpt": "left: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 113,
+          "excerpt": "right: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 129,
+          "excerpt": "left: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 130,
+          "excerpt": "right: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 134,
+          "excerpt": "transform: translateX(-20px);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 100,
+          "excerpt": "padding-inline: var(--spacingHorizontalXS) var(--spacingHorizontalS);"
+        }
+      ],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 12,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 16,
+          "excerpt": "width: calc(40px + 2* var(--spacingHorizontalS));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 80,
+          "excerpt": "height: 20px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 86,
+          "excerpt": "width: 40px;"
+        }
+      ],
+      "explicitRtlSignals": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 126,
+          "excerpt": ".rtl, [dir=rtl] {"
+        }
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 100,
+          "excerpt": "padding-inline: var(--spacingHorizontalXS) var(--spacingHorizontalS);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 126,
+          "excerpt": ".rtl, [dir=rtl] {"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "1",
+            "2",
+            "2026-10-22T16:13:02.556Z",
+            "3",
+            "4",
+            "42",
+            "7",
+            "73155F02"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "1",
+            "2",
+            "2026-10-22T16:13:42.376Z",
+            "3",
+            "4",
+            "42",
+            "7",
+            "73155F02"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check label/track order and thumb geometry at narrow RTL; verify state does not depend on physical left/right.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 116,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 118,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 120,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 121,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 11,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 39,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 56,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 74,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 102,
+          "excerpt": "--fui-text-field-min-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 109,
+          "excerpt": "--fui-text-field-min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 119,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check numeric text/caret direction, spin affordance and validation wrapping under RTL.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_radio-group.scss",
+        "src/Bluent.UI/Styles/Components/_radio.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 18,
+          "excerpt": "left: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 97,
+          "excerpt": "left: unset;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 98,
+          "excerpt": "right: 0;"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 89,
+          "excerpt": "padding-inline-start: var(--spacingHorizontalXS);"
+        }
+      ],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 13,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 19,
+          "excerpt": "width: calc(16px + 2* var(--spacingHorizontalS));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 30,
+          "excerpt": "width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 31,
+          "excerpt": "height: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 63,
+          "excerpt": "width: 16px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 64,
+          "excerpt": "height: 16px;"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 89,
+          "excerpt": "padding-inline-start: var(--spacingHorizontalXS);"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "1",
+            "2",
+            "2026-10-22T16:13:02.556Z",
+            "3",
+            "4",
+            "42",
+            "7",
+            "73155F02"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "1",
+            "2",
+            "2026-10-22T16:13:42.376Z",
+            "3",
+            "4",
+            "42",
+            "7",
+            "73155F02"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check option order, wrapping and keyboard focus order under RTL, not just the outer group direction.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss",
+        "src/Bluent.UI/Styles/Components/_dropdown-select.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 116,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 118,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 120,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 121,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 70,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 72,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 74,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 75,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 10,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 34,
+          "excerpt": "min-width: 0px;"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 11,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 39,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 56,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 74,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 102,
+          "excerpt": "--fui-text-field-min-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 109,
+          "excerpt": "--fui-text-field-min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 119,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 13,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 34,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 44,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 61,
+          "excerpt": "--tag-height: 26px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 73,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 10,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_dropdown-select.scss",
+          "line": 34,
+          "excerpt": "min-width: 0px;"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check native select arrow, popup alignment, label/error wrapping and keyboard focus in RTL at narrow widths.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss",
+        "src/Bluent.UI/Styles/Components/_calendar.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 116,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 118,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 120,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 121,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 18,
+          "excerpt": "padding-inline: 10px 4px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 28,
+          "excerpt": "text-align: start;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 221,
+          "excerpt": "margin-inline-end: 12px;"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 209,
+          "excerpt": "min-width: 40px;"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 11,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 39,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 56,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 74,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 102,
+          "excerpt": "--fui-text-field-min-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 109,
+          "excerpt": "--fui-text-field-min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 119,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 3,
+          "excerpt": "width: 196px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 10,
+          "excerpt": "line-height: 44px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 11,
+          "excerpt": "height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 13,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 21,
+          "excerpt": "line-height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 42,
+          "excerpt": "outline-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 59,
+          "excerpt": "width: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 60,
+          "excerpt": "height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 61,
+          "excerpt": "line-height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 75,
+          "excerpt": "outline-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 98,
+          "excerpt": "width: 196px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 109,
+          "excerpt": "width: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 110,
+          "excerpt": "height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 111,
+          "excerpt": "line-height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 123,
+          "excerpt": "width: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 124,
+          "excerpt": "height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 125,
+          "excerpt": "line-height: 28px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 134,
+          "excerpt": "line-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 140,
+          "excerpt": "width: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 141,
+          "excerpt": "height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 179,
+          "excerpt": "outline-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 206,
+          "excerpt": "width: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 207,
+          "excerpt": "height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 208,
+          "excerpt": "min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 209,
+          "excerpt": "min-width: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 210,
+          "excerpt": "line-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 228,
+          "excerpt": "outline-width: 1px;"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 18,
+          "excerpt": "padding-inline: 10px 4px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_calendar.scss",
+          "line": 28,
+          "excerpt": "text-align: start;"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check calendar popup anchoring, weekday order, selected-date focus and Min/Max messages in narrow RTL.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 116,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 118,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 120,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 121,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 11,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 39,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 56,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 74,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 102,
+          "excerpt": "--fui-text-field-min-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 109,
+          "excerpt": "--fui-text-field-min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 119,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+          "line": 15,
+          "excerpt": "dir=\"ltr\""
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check field alignment, localized formatting and popup/keyboard order under RTL.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 116,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 118,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 120,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 121,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 11,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 39,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 56,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 74,
+          "excerpt": "height: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 102,
+          "excerpt": "--fui-text-field-min-height: 24px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 109,
+          "excerpt": "--fui-text-field-min-height: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 119,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 25,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 29,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 48,
+          "excerpt": "margin-inline-start: calc(var(--fui-text-field-padding-x) * -1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 53,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 62,
+          "excerpt": "padding-inline-start: 0;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 71,
+          "excerpt": "min-width: var(--fui-text-field-min-height);"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check caret and literal positioning, digit conversion and mask progression under RTL.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_otp-field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 61,
+          "excerpt": "left: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 63,
+          "excerpt": "right: -1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 65,
+          "excerpt": "border-bottom-left-radius: var(--borderRadiusMedium);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 66,
+          "excerpt": "border-bottom-right-radius: var(--borderRadiusMedium);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 38,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        }
+      ],
+      "breakpointAndReflowRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 42,
+          "excerpt": "min-width: 0px;"
+        }
+      ],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 16,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 22,
+          "excerpt": "border-width: 1px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 33,
+          "excerpt": "width: 3rem;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 34,
+          "excerpt": "height: 3rem;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 42,
+          "excerpt": "min-width: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 52,
+          "excerpt": "width: 100%;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 64,
+          "excerpt": "height: max(2px, var(--borderRadiusMedium));"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 38,
+          "excerpt": "padding-inline: var(--fui-text-field-padding-x) var(--fui-text-field-padding-x);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 42,
+          "excerpt": "min-width: 0px;"
+        }
+      ],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:30:07.899Z",
+            "2026/10"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-TYPED-FIELDS-EDGE.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": true,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "#292929",
+            "#FFF",
+            "0",
+            "0.000",
+            "09123456789",
+            "0991-234-5678",
+            "1",
+            "123",
+            "2",
+            "2026-10-22T18:34:03.569Z",
+            "2026/10"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": false,
+      "followUp": "Check visual cell order versus digit entry and screen-reader reading order under RTL; preserve digit sequence intentionally.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_slider.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 23,
+          "excerpt": "left: var(--progress);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 24,
+          "excerpt": "transform: translateX(-50%);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 35,
+          "excerpt": "left: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 36,
+          "excerpt": "right: 0px;"
+        }
+      ],
+      "logicalDirectionalDeclarations": [],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 14,
+          "excerpt": "height: 4px;"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-LAB-P0-DARK-RTL-CHROME.json",
+          "engine": "chrome",
+          "scenario": "dark-rtl",
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T14:00:11.214Z",
+            "4PX",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-BUTTON PRIMARY ",
+            "BUI-FILE-SELECT ",
+            "BUI-RANGE-SLIDER "
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-ZOOM-200-CHROME.json",
+          "engine": "chrome",
+          "scenario": "zoom-200",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "200 PERCENT LAYOUT REFLOW PROXY (NOT NATIVE BROWSER ZOOM)",
+            "2026-10-19T14:23:37.784Z",
+            "3PX",
+            "4PX",
+            "620 CSSPX DPR2 REFLOW PROXY WITH NATURAL SLIDER WIDTH, NO NATIVE BROWSER ZOOM OR PARITY",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+          "engine": "chrome",
+          "scenario": "pointer-scroll",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T18:42:32.630Z",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-RANGESLIDER-POINTER-SCROLL-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-POINTER-SCROLL-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-RANGE-SLIDER ",
+            "BUI-SLIDER ",
+            "DIV",
+            "DOWN",
+            "EXISTING BLUENT SLIDER HAS NO NATIVE KEYBOARD FOCUS TARGET (CONFIRMED GAP, NOT A11Y APPROVAL)",
+            "FORCED 260PX"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json",
+          "engine": "chrome",
+          "scenario": "pointer-scroll",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T18:42:51.153Z",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-RANGESLIDER-POINTER-SCROLL-SERVER-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-POINTER-SCROLL-SERVER-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-RANGE-SLIDER ",
+            "BUI-SLIDER ",
+            "DIV",
+            "DOWN",
+            "EXISTING BLUENT SLIDER HAS NO NATIVE KEYBOARD FOCUS TARGET (CONFIRMED GAP, NOT A11Y APPROVAL)",
+            "FORCED 260PX"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": true,
+      "followUp": "Check rail origin, thumb position and value mapping under RTL; define direction/value reversal from design rather than assuming it.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_range-slider.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 35,
+          "excerpt": "left: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 36,
+          "excerpt": "right: 0px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 44,
+          "excerpt": "left: var(--min-progress);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 45,
+          "excerpt": "transform: translateX(-50%);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 49,
+          "excerpt": "left: var(--max-progress);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 50,
+          "excerpt": "transform: translateX(-50%);"
+        }
+      ],
+      "logicalDirectionalDeclarations": [],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 14,
+          "excerpt": "height: 4px;"
+        }
+      ],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-LAB-P0-DARK-RTL-CHROME.json",
+          "engine": "chrome",
+          "scenario": "dark-rtl",
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T14:00:11.214Z",
+            "4PX",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-BUTTON PRIMARY ",
+            "BUI-FILE-SELECT ",
+            "BUI-RANGE-SLIDER "
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-ZOOM-200-CHROME.json",
+          "engine": "chrome",
+          "scenario": "zoom-200",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "200 PERCENT LAYOUT REFLOW PROXY (NOT NATIVE BROWSER ZOOM)",
+            "2026-10-19T14:23:37.784Z",
+            "3PX",
+            "4PX",
+            "620 CSSPX DPR2 REFLOW PROXY WITH NATURAL SLIDER WIDTH, NO NATIVE BROWSER ZOOM OR PARITY",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+          "engine": "chrome",
+          "scenario": "pointer-scroll",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T18:42:32.630Z",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-RANGESLIDER-POINTER-SCROLL-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-POINTER-SCROLL-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-RANGE-SLIDER ",
+            "BUI-SLIDER ",
+            "DIV",
+            "DOWN",
+            "EXISTING BLUENT SLIDER HAS NO NATIVE KEYBOARD FOCUS TARGET (CONFIRMED GAP, NOT A11Y APPROVAL)",
+            "FORCED 260PX"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json",
+          "engine": "chrome",
+          "scenario": "pointer-scroll",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T18:42:51.153Z",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-RANGESLIDER-POINTER-SCROLL-SERVER-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-POINTER-SCROLL-SERVER-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-RANGE-SLIDER ",
+            "BUI-SLIDER ",
+            "DIV",
+            "DOWN",
+            "EXISTING BLUENT SLIDER HAS NO NATIVE KEYBOARD FOCUS TARGET (CONFIRMED GAP, NOT A11Y APPROVAL)",
+            "FORCED 260PX"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": true,
+      "followUp": "Check both thumbs, crossing behavior and focus order under RTL at narrow width; validate independently for each thumb.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "dimension": "responsiveRTL",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_file-select.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs"
+      ],
+      "physicalDirectionalDeclarations": [],
+      "logicalDirectionalDeclarations": [],
+      "breakpointAndReflowRules": [],
+      "fixedDimensionRules": [],
+      "explicitRtlSignals": [],
+      "sourceSnippets": [],
+      "browserEvidence": [
+        {
+          "file": "evidence/BLUENT-LAB-P0-DARK-RTL-CHROME.json",
+          "engine": "chrome",
+          "scenario": "dark-rtl",
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "2026-10-19T14:00:11.214Z",
+            "4PX",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-DARK-RTL-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY",
+            "BUI-BUTTON PRIMARY ",
+            "BUI-FILE-SELECT ",
+            "BUI-RANGE-SLIDER "
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-ZOOM-200-CHROME.json",
+          "engine": "chrome",
+          "scenario": "zoom-200",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "0PX",
+            "200 PERCENT LAYOUT REFLOW PROXY (NOT NATIVE BROWSER ZOOM)",
+            "2026-10-19T14:23:37.784Z",
+            "3PX",
+            "4PX",
+            "620 CSSPX DPR2 REFLOW PROXY WITH NATURAL SLIDER WIDTH, NO NATIVE BROWSER ZOOM OR PARITY",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BLUENT-LAB-BUTTON-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-RANGESLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT-LAB-SLIDER-ZOOM-200-CHROME.PNG",
+            "BLUENT_CURRENT_SOURCE_VISUAL_BASELINE_NOT_FLUENT_PARITY"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-FILE-UPLOAD-CHROME.json",
+          "engine": "chrome",
+          "scenario": "file-upload",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            ".TXT",
+            ".TXT,.MD",
+            "0PX",
+            "2026-10-19T17:44:01.938Z",
+            "3PX",
+            "4PX",
+            "ACTUAL RE-SELECTION EXCEEDS MAXFILES=2; EXISTING CUMULATIVE LIMIT GAP",
+            "AFTER-REMOVE",
+            "ALPHA.TXT",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BETA.MD"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-LAB-P0-FILE-UPLOAD-SERVER-CHROME.json",
+          "engine": "chrome",
+          "scenario": "file-upload",
+          "rtlEvidence": false,
+          "narrowOrZoomEvidence": false,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            ".TXT",
+            ".TXT,.MD",
+            "0PX",
+            "2026-10-19T17:49:19.093Z",
+            "ACTUAL RE-SELECTION EXCEEDS MAXFILES=2; EXISTING CUMULATIVE LIMIT GAP",
+            "AFTER-REMOVE",
+            "ALPHA.TXT",
+            "B9952AA93E89FD569DE54080A7FDD06037B53A41",
+            "BETA.MD",
+            "BLUENT-LAB-FILESELECT-FILE-UPLOAD-SERVER-CHROME.PNG",
+            "BLUENT-LAB-FILESELECT-ONE-BATCH-SERVER-CHROME.PNG"
+          ]
+        }
+      ],
+      "hasRtlBrowserEvidence": true,
+      "hasNarrowOrZoomEvidence": true,
+      "followUp": "Check filename wrapping, remove-action placement, disabled state and overflow at narrow widths.",
+      "designApproval": "pending",
+      "evidenceBundle": null
+    }
+  ],
+  "acceptanceBoundary": "Physical directional declarations are review prompts, not automatic defects. RTL and narrow-layout acceptance requires comparison with the approved design and actual browser states; all family approvals remain pending."
+}

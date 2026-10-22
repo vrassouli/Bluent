@@ -124,7 +124,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
@@ -207,7 +207,7 @@
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -269,7 +269,7 @@
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -331,7 +331,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -394,7 +394,7 @@
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -454,7 +454,7 @@
         "behavior": "not_reviewed",
         "accessibility": "not_reviewed",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
@@ -531,7 +531,7 @@
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
@@ -608,7 +608,7 @@
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "audited_gaps",
         "migrationDocs": "not_reviewed"
@@ -687,7 +687,7 @@
         "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -743,7 +743,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -804,7 +804,7 @@
         "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -863,7 +863,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -921,7 +921,7 @@
         "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -979,7 +979,7 @@
         "behavior": "audited_gaps",
         "accessibility": "not_reviewed",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -1037,7 +1037,7 @@
         "behavior": "not_reviewed",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -1093,7 +1093,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -1154,7 +1154,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -1213,7 +1213,7 @@
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
         "tokenTheme": "audited_gaps",
-        "responsiveRTL": "not_reviewed",
+        "responsiveRTL": "audited_gaps",
         "BlazorExtensions": "audited_gaps",
         "designArtifact": "not_reviewed",
         "migrationDocs": "not_reviewed"
@@ -1287,7 +1287,9 @@
     "blazorExtensionsAuditReport": "docs/v3/quality/FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.md",
     "blazorExtensionsAuditLedger": "docs/v3/quality/FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.json",
     "tokenThemeAuditReport": "docs/v3/quality/FLUENT-PARITY-TOKEN-THEME-AUDIT.md",
-    "tokenThemeAuditLedger": "docs/v3/quality/FLUENT-PARITY-TOKEN-THEME-AUDIT.json"
+    "tokenThemeAuditLedger": "docs/v3/quality/FLUENT-PARITY-TOKEN-THEME-AUDIT.json",
+    "responsiveRtlAuditReport": "docs/v3/quality/FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.md",
+    "responsiveRtlAuditLedger": "docs/v3/quality/FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",
