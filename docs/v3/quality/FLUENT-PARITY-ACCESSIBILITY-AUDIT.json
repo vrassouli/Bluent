@@ -1,0 +1,643 @@
+{
+  "issue": 552,
+  "audit": "Accessibility semantics, names, roles and state announcements",
+  "reviewedOn": "2026-10-22",
+  "sourceBaseline": "73155f02",
+  "familyCount": 18,
+  "dimension": "accessibility",
+  "dimensionStatus": "audited_gaps",
+  "parityAccepted": false,
+  "noneApproved": true,
+  "runtimeScope": "Selected Chromium/Edge accessibility-tree snapshots and source review. Browser AX is not a native screen-reader test; forced-colors is emulated, not native OS high contrast. Keyboard probes cover selected paths only.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "The tested toggle specimen has a native button role and visible text; its browser snapshot records ariaPressed=None.",
+      "knownGap": "Toggle-state announcement is not represented by aria-pressed in the tested specimen; icon-only naming and native AT are not accepted.",
+      "followUp": "Define toggle semantics and test accessible name, pressed/disabled state, focus indication and native screen-reader output.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 7,
+          "excerpt": "if (IsLink && !IsDisabled)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 105,
+          "excerpt": "disabled=\"@IsDisabled\" />"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-BUTTON-STATE-CHROME.json",
+        "evidence/BLUENT-BLAZOR-FOCUS-CHROME.json",
+        "evidence/BLUENT-LAB-P0-BUTTON-KEYBOARD-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Cross-icon evidence covers SVG rendering and inherited color, not native AT certification.",
+      "knownGap": "Decorative versus informative SVG semantics and icon-only accessible naming do not have a complete documented/tested contract.",
+      "followUp": "Define decorative/meaningful icon rules; test aria-hidden, title/name propagation and icon-only controls with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/IconComponent/Icon.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+          "line": 9,
+          "excerpt": "[Parameter, EditorRequired] public IconDefinition? Value { get; set; }"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CROSS-ICON-CHROME.json",
+        "evidence/BLUENT-BUTTON-ICON-ALIGN-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "The browser demo renders labels; the sample label snapshot has an empty for attribute.",
+      "knownGap": "The current demo sample does not prove label-to-control association; required marker is not connected to native required/invalid state.",
+      "followUp": "Use a real form fixture to test click-to-focus, dynamic target IDs, required/invalid state and localized marker announcements.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/LabelComponent/Label.razor",
+        "src/Bluent.UI/Components/LabelComponent/Label.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 4,
+          "excerpt": "<label for=\"@GetPropertyName()\" @attributes=AdditionalAttributes id=\"@Id\" class=\"@GetComponentClass()\" style=\"@Style\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 17,
+          "excerpt": "@if (IsRequired)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 19,
+          "excerpt": "<span class=\"required\">@RequiredSymbol</span>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor",
+          "line": 21,
+          "excerpt": "</label>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "line": 8,
+          "excerpt": "public partial class Label"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "line": 12,
+          "excerpt": "[Parameter] public string RequiredSymbol { get; set; } = \"*\";"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX evidence exposes the demo anchor as a native link with text and href.",
+      "knownGap": "Modified clicks, visited/focus states and callback/default-navigation semantics are not fully accepted; no native AT test exists.",
+      "followUp": "Test Enter, modifier clicks, link name/context, focus and navigation behavior in browser and native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/LinkComponent/Link.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 9,
+          "excerpt": "[Parameter, EditorRequired] public string Text { get; set; } = default!;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 25,
+          "excerpt": "if (string.IsNullOrEmpty(Href) || IsDisabled)"
+        },
+        {
+          "path": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "line": 58,
+          "excerpt": "if (item.Key.Equals(\"href\", StringComparison.InvariantCultureIgnoreCase) && IsDisabled)"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "The empty badge specimen is a div with no role, accessible name or live region; count badges render visible text.",
+      "knownGap": "The design contract does not state when a badge is decorative versus an announced count; infinite animation lacks reduced-motion handling.",
+      "followUp": "Document decorative/count semantics; test count announcements, surrounding context and reduced-motion behavior.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX exposes the tested field as a named textbox: Example text field.",
+      "knownGap": "The visible native input name attribute is empty; invalid/describedby association, validation announcements and form submission are not covered.",
+      "followUp": "Test label, name, aria-describedby, aria-invalid, required state and validation announcements in a real EditForm.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX exposes the tested numeric field as a named textbox: Nullable int.",
+      "knownGap": "It is exposed as textbox rather than spinbutton in the tested browser; confirm intended parity semantics and validate limits/Step announcements.",
+      "followUp": "Compare role, value/limits, stepper keyboard and validation semantics against the pinned Fluent NumberField.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "AX exposes a focusable native checkbox with its label.",
+      "knownGap": "Visual indeterminate is not native indeterminate; aria-checked is absent and AX reports checked=false, so mixed state is announced incorrectly.",
+      "followUp": "Synchronize native indeterminate/aria-checked=mixed and test checked, mixed, disabled, required and reset announcements.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 15,
+          "excerpt": "<svg class=\"indeterminate-state\" fill=\"currentColor\" aria-hidden=\"true\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 18,
+          "excerpt": "<svg class=\"checked-state\" fill=\"currentColor\" aria-hidden=\"true\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 22,
+          "excerpt": "@if (ValueAsBool == true && !string.IsNullOrEmpty(Label))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 24,
+          "excerpt": "<label for=\"@GetInputId()\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 25,
+          "excerpt": "@Label"
+        },
+        {
+          "path": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+          "line": 26,
+          "excerpt": "@if (!string.IsNullOrEmpty(Required))"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "AX exposes a focusable checkbox with the label Light and checked state.",
+      "knownGap": "The tested switch is announced as checkbox rather than switch; state announcements and disabled behavior need explicit parity review.",
+      "followUp": "Confirm intended role strategy, then test switch role/state announcements, keyboard, disabled and native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 14,
+          "excerpt": "<svg fill=\"currentColor\" aria-hidden=\"true\" width=\"1em\" height=\"1em\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 18,
+          "excerpt": "@if (CurrentValue == true && !string.IsNullOrEmpty(Label))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 20,
+          "excerpt": "<label for=\"@GetInputId()\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 21,
+          "excerpt": "@Label"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 22,
+          "excerpt": "@if (!string.IsNullOrEmpty(Required))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+          "line": 24,
+          "excerpt": "<span class=\"required\">@Required</span>"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Individual radio inputs have names, but the group wrapper is ignored by browser AX.",
+      "knownGap": "The group has no accessible group name; radio name attributes are empty and arrow navigation can cross into another group.",
+      "followUp": "Provide group naming/field name, isolate arrow-key navigation and verify one-tab-stop behavior with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+          "line": 7,
+          "excerpt": "<label for=\"@Id\" class=\"indicator\"></label>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+          "line": 8,
+          "excerpt": "@if (!string.IsNullOrEmpty(Label))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+          "line": 10,
+          "excerpt": "<label for=\"@Id\">@Label</label>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 8,
+          "excerpt": "[Parameter, EditorRequired] public TValue Value { get; set; } = default!;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 9,
+          "excerpt": "[Parameter] public string? Label { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+          "line": 41,
+          "excerpt": "if (RadioGroup.ItemsLabelPosition != LabelPosition.After)"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX exposes the native select as a named combobox: Select field.",
+      "knownGap": "Popup/listbox announcements, selected option changes, invalid/required descriptions and form-field name are not fully verified.",
+      "followUp": "Test expanded/selected states, option count/name, validation associations and native screen-reader behavior.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX exposes the sample date field as a named textbox: Small date field.",
+      "knownGap": "Date-picker popup semantics, bounds, invalid state and date-format announcements are not covered by a native AT test.",
+      "followUp": "Test picker navigation, selected date, min/max, invalid state and localized announcements with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+          "line": 183,
+          "excerpt": "builder.AddAttribute(0, nameof(DateFieldPicker<TValue>.IsDisabled), IsDisabled);"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX exposes the sample time field as a named textbox: Time only.",
+      "knownGap": "Time-picker and locale-specific formatting/announcements are not accepted; invalid/describedby semantics remain untested.",
+      "followUp": "Test time entry/picker, locale, seconds, validation and native AT in both themes and RTL.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser AX exposes a named textbox: Masked field.",
+      "knownGap": "Mask formatting has a reproduced input corruption and no complete invalid/describedby announcement test.",
+      "followUp": "Fix mask behavior first, then test accessible name, helper/error text, caret, input mode and digit conversion.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+          "line": 16,
+          "excerpt": "[Parameter, EditorRequired] public string Mask { get; set; } = default!;"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "AX exposes a group named Verification code and four textboxes named Digit 1 of 4 through Digit 4 of 4.",
+      "knownGap": "Cell labels are hard-coded English; incomplete/invalid code state, native clipboard/IME, and form-submit announcements are not tested.",
+      "followUp": "Localize group/cell labels and test incomplete/invalid state, paste/IME, focus movement and form submission with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 13,
+          "excerpt": "role=\"group\""
+        },
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 14,
+          "excerpt": "aria-label=\"Verification code\">"
+        },
+        {
+          "path": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+          "line": 25,
+          "excerpt": "aria-label=\"Digit @(i + 1) of @Length\""
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser snapshot finds a div root and thumb; both have no role, tabindex or aria-valuenow.",
+      "knownGap": "No native slider semantics, keyboard focus or value announcement is exposed.",
+      "followUp": "Add/define slider role, focusability, value/min/max/orientation and keyboard semantics, then test with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser snapshot finds a div root and two thumbs; the thumbs have no role, tabindex or aria-valuenow.",
+      "knownGap": "Neither thumb exposes an independent slider role/value or keyboard focus; crossing and range announcements are undefined.",
+      "followUp": "Define per-thumb role/value/labels, keyboard interaction and crossing policy; test range announcements with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+          "line": 1,
+          "excerpt": "@namespace Bluent.UI.Components"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "dimension": "accessibility",
+      "dimensionStatus": "audited_gaps",
+      "observedSemantics": "Browser probes exercise file selection and upload; the file input and remove action have separate semantics.",
+      "knownGap": "The remove action has a glyph-only accessible name; native disabled state, file count announcement and upload error announcements are not accepted.",
+      "followUp": "Give remove actions localized names, expose file count/errors, test disabled input and upload progress/errors with native AT.",
+      "sourceFiles": [
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs"
+      ],
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 8,
+          "excerpt": "<InputFile @ref=\"_filePicker\" OnChange=\"HandleFileChanged\" multiple=\"@Multiple\" accept=\"@Accept\"></InputFile>"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+          "line": 16,
+          "excerpt": "disabled=\"@Disabled\" />"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+          "line": 11,
+          "excerpt": "private InputFile? _filePicker;"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+          "line": 19,
+          "excerpt": "[Parameter] public bool Disabled { get; set; }"
+        },
+        {
+          "path": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+          "line": 63,
+          "excerpt": "private void HandleFileChanged(InputFileChangeEventArgs args)"
+        }
+      ],
+      "familyReport": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-FILE-UPLOAD-CHROME.json",
+        "evidence/BLUENT-LAB-P0-FILE-UPLOAD-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    }
+  ],
+  "acceptanceBoundary": "audited_gaps means semantics and acceptance gaps were inventoried; it is not an accessibility conformance claim or Fluent parity approval."
+}
