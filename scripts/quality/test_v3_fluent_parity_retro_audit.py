@@ -47,7 +47,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             "Checkbox": ({"visual", "feature", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
             "Switch": ({"visual", "feature", "accessibility", "designArtifact"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
             "RadioGroup": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"),
-            "OtpField": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
+            "OtpField": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"),
             "NumericField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
             "SelectField": ({"feature", "behavior"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),
             "DateField": ({"feature", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"),

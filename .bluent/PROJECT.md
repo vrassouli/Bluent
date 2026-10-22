@@ -16,6 +16,8 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **GitHub workflow:** [Backlog → Ready → In progress → Review → Done](../docs/v3/ISSUE-WORKFLOW.md). No task automatically merges to `Dev` before the complete v3 epic is accepted and separately authorized.
 
+**#552 retrospective Fluent parity audit (parallel, evidence-only):** [18-family matrix](../docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.md), [Wave A API review (82 occurrences)](../docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md), [Wave B API review (71 occurrences)](../docs/v3/quality/FLUENT-PARITY-WAVE-B-API-REVIEW.md), and [Wave C API review (40 occurrences)](../docs/v3/quality/FLUENT-PARITY-WAVE-C-API-REVIEW.md). The three manual waves cover 15/18 families and 193 source-known direct/locally inherited parameter occurrences. No product source, CSS, public API or component design changed. Typed-field browser evidence reports 42/42 checks per engine in Chrome and Edge; control-semantics browser evidence reports 56/56 per engine. The latest full quality suite passed 340/340; Wave B GitHub CI passed 3/3. PR #553 remains Draft; all family design approvals remain pending, evidenceBundle remains null, and 0/18 families are Fluent-approved. Continue with the remaining family API mapping and the separate visual/runtime/native-AT acceptance gates; do not close #552 until the full criteria are satisfied.
+
 ## Current Phase
 
 **Phase:** AI readiness and consumer usability
