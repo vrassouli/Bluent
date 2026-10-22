@@ -264,7 +264,7 @@
         "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -326,7 +326,7 @@
         "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -389,7 +389,7 @@
         "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -682,7 +682,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -738,7 +738,7 @@
         "reactFallbackRole": "not used as primary parity target because a direct Web Components counterpart exists"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -799,7 +799,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -858,7 +858,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -916,7 +916,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -974,7 +974,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -1032,7 +1032,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -1208,7 +1208,7 @@
         "reactFallbackRole": "cross-platform primitive/reference only; not a 1:1 contract"
       },
       "dimensions": {
-        "visual": "not_reviewed",
+        "visual": "audited_gaps",
         "feature": "audited_gaps",
         "behavior": "audited_gaps",
         "accessibility": "audited_gaps",
@@ -1295,7 +1295,9 @@
     "accessibilityAuditReport": "docs/v3/quality/FLUENT-PARITY-ACCESSIBILITY-AUDIT.md",
     "accessibilityAuditLedger": "docs/v3/quality/FLUENT-PARITY-ACCESSIBILITY-AUDIT.json",
     "designArtifactAuditReport": "docs/v3/quality/FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md",
-    "designArtifactAuditLedger": "docs/v3/quality/FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.json"
+    "designArtifactAuditLedger": "docs/v3/quality/FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.json",
+    "visualEvidenceAuditReport": "docs/v3/quality/FLUENT-PARITY-VISUAL-EVIDENCE-AUDIT.md",
+    "visualEvidenceAuditLedger": "docs/v3/quality/FLUENT-PARITY-VISUAL-EVIDENCE-AUDIT.json"
   },
   "referenceBaseline": {
     "reviewedOn": "2026-10-22",

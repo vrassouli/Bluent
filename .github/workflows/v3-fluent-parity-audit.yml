@@ -45,6 +45,8 @@ on:
       - "scripts/quality/build_v3_fluent_design_artifact_audit.py"
       - "scripts/quality/test_v3_fluent_design_artifact_audit.py"
       - "docs/v3/quality/evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json"
+      - "scripts/quality/build_v3_fluent_visual_evidence_audit.py"
+      - "scripts/quality/test_v3_fluent_visual_evidence_audit.py"
       - "scripts/quality/test_v3_parity_*.py"
       - "scripts/quality/check_v3_p0_source_evidence.py"
       - "scripts/quality/audit_v3_p0_semantic_gaps.py"
@@ -133,6 +135,8 @@ jobs:
         run: python scripts/quality/build_v3_fluent_accessibility_audit.py --check
       - name: Check design-artifact coverage audit
         run: python scripts/quality/build_v3_fluent_design_artifact_audit.py --check
+      - name: Check visual screenshot-evidence audit
+        run: python scripts/quality/build_v3_fluent_visual_evidence_audit.py --check
       - name: Verify declared API matches #494 compiled CLR contract
         run: python scripts/quality/check_v3_parity_clr_crosswalk.py
       - name: Prove false approval and API drift fail
@@ -150,6 +154,7 @@ jobs:
           python -m unittest discover -s scripts/quality -p "test_v3_fluent_behavior_audit.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_fluent_accessibility_audit.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_fluent_design_artifact_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_visual_evidence_audit.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_parity_clr_crosswalk.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_fluent_wc_manifest.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_p0_visual_evidence.py" -v
