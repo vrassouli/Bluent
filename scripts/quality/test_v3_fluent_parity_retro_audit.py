@@ -139,12 +139,15 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertIn("b64f6665-c9ab-80b5-8008-c4ac99d9d000", self.report)
         self.assertIn("07c521b9-e441-80bd-8008-c4ad87df93c3", self.report)
         self.assertIn("4d22aead-d6ef-801a-8008-d482b9bb0cc8", self.report)
-        self.assertIn("did not expose a file revision value", self.report)
+        self.assertIn("file revision is 447", self.report)
+        self.assertIn("Issue #552 Waves A-D API coverage - DRAFT", self.report)
         self.assertIn("quality/disposition artifact", self.report)
         self.assertIn("component redesign or parity approval", self.report)
         artifact = self.data["supplementalSourceAnalysis"]["penpotAuditArtifact"]
         self.assertIn("DRAFT", artifact)
         self.assertIn("not an approval", artifact)
+        self.assertIn("revision 447", artifact)
+        self.assertIn("Issue #552 Waves A-D API coverage - DRAFT", artifact)
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
     def test_reference_baseline_and_all_18_upstream_mappings_are_pinned(self):

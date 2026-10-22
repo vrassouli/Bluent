@@ -177,7 +177,8 @@ A real, editable audit map has been added to the source-owned Penpot file. This 
 - File: `Bluent v3 Design System` — ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
 - Page: `03 · Quality & migration` — ID `07c521b9-e441-80bd-8008-c4ad87df93c3`.
 - Board: `#552 · Fluent parity audit coverage · DRAFT` — node ID `4d22aead-d6ef-801a-8008-d482b9bb0cc8`.
-- Review date: 2026-10-22; the current Penpot connector did not expose a file revision value. The board is at x=1700, y=90, 1660×1120 and contains all 18 families, evidence group, reproduced/open gap and pending approval state.
+- Review date: 2026-10-22; the file revision is 447; named version "Issue #552 Waves A-D API coverage - DRAFT". The board is at x=1700, y=90, 1660×1120 and contains all 18 families, evidence group, reproduced/open gap and pending approval state.
+- The board summary now records 239 API entries across 18/18 families and highlights newly confirmed API gaps; it remains a coverage index, not an approval.
 - No product component designs or code were changed. All family design approvals remain pending; native AT/OS contrast, complete state/event matrices and the nine-dimension acceptance review remain open.
 ## Wave A API review (2026-10-22)
 
