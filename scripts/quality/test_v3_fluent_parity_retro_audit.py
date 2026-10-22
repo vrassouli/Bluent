@@ -96,6 +96,54 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         ):
             self.assertIn(phrase, self.report)
 
+    def test_browser_evidence_index_links_all_18_families(self):
+        coverage = {
+            "Button": ["docs/v3/quality/FLUENT-PARITY-P0-BUTTON-KEYBOARD.md", "docs/v3/quality/FLUENT-PARITY-BUTTON-ICON-AX.md", "docs/v3/quality/FLUENT-PARITY-BUTTON-TOGGLE-STATES.md"],
+            "Icon": ["docs/v3/quality/FLUENT-PARITY-ICON-BROWSER.md"],
+            "Label": ["docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md"],
+            "Link": ["docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md"],
+            "Badge": ["docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md"],
+            "TextField": ["docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md"],
+            "NumericField": ["docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md"],
+            "SelectField": ["docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md"],
+            "DateField": ["docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md"],
+            "TimeField": ["docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md"],
+            "MaskedField": ["docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md"],
+            "Checkbox": ["docs/v3/quality/FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md"],
+            "Switch": ["docs/v3/quality/FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md"],
+            "RadioGroup": ["docs/v3/quality/FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md"],
+            "OtpField": ["docs/v3/quality/FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md"],
+            "Slider": ["docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md", "docs/v3/quality/FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md"],
+            "RangeSlider": ["docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md", "docs/v3/quality/FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md"],
+            "FileSelect": ["docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md", "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md", "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md"],
+        }
+        self.assertEqual(set(EXPECTED), set(coverage))
+        for family, paths in coverage.items():
+            with self.subTest(family=family):
+                self.assertIn(f"| {family} #", self.report)
+                for path in paths:
+                    self.assertTrue((ROOT / path).is_file(), path)
+        refs = self.data["supplementalSourceAnalysis"]
+        self.assertIn("18/18 families have linked partial browser/runtime evidence", refs["browserEvidenceCoverageNote"])
+        self.assertIn("## Partial browser evidence coverage (2026-10-22)", self.report)
+        self.assertFalse(self.data["auditComplete"])
+        self.assertTrue(self.data["noneApproved"])
+        for family in self.data["families"]:
+            self.assertEqual("pending", family["designApproval"])
+            self.assertIsNone(family["evidenceBundle"])
+    def test_penpot_audit_map_is_recorded_as_draft_not_approval(self):
+        self.assertIn("Penpot design-decision artifact (2026-10-22)", self.report)
+        self.assertIn("b64f6665-c9ab-80b5-8008-c4ac99d9d000", self.report)
+        self.assertIn("07c521b9-e441-80bd-8008-c4ad87df93c3", self.report)
+        self.assertIn("4d22aead-d6ef-801a-8008-d482b9bb0cc8", self.report)
+        self.assertIn("did not expose a file revision value", self.report)
+        self.assertIn("quality/disposition artifact", self.report)
+        self.assertIn("component redesign or parity approval", self.report)
+        artifact = self.data["supplementalSourceAnalysis"]["penpotAuditArtifact"]
+        self.assertIn("DRAFT", artifact)
+        self.assertIn("not an approval", artifact)
+        self.assertFalse(self.data["auditComplete"])
+        self.assertTrue(self.data["noneApproved"])
     def test_branch_isolated_and_all_parity_approvals_still_pending(self):
         self.assertEqual("v3/issue-552-fluent-parity-audit", self.data["branch"])
         self.assertEqual("bluent-v3", self.data["rules"]["changesOnlyTo"])

@@ -811,6 +811,19 @@
     "labelLinkBadgeBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md",
     "labelLinkBadgeBrowserEvidenceChrome": "docs/v3/quality/evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json",
     "labelLinkBadgeBrowserEvidenceEdge": "docs/v3/quality/evidence/BLUENT-LABEL-LINK-BADGE-EDGE.json",
-    "labelLinkBadgeBrowserEvidenceTests": "scripts/quality/test_v3_label_link_badge_browser_evidence.py"
+    "labelLinkBadgeBrowserEvidenceTests": "scripts/quality/test_v3_label_link_badge_browser_evidence.py",
+    "browserEvidenceCoverageNote": "18/18 families have linked partial browser/runtime evidence; this is not nine-dimension acceptance and none is Fluent-approved.",
+    "buttonBrowserEvidenceReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",
+    "buttonKeyboardEvidence": "docs/v3/quality/FLUENT-PARITY-P0-BUTTON-KEYBOARD.md",
+    "buttonIconAxEvidence": "docs/v3/quality/FLUENT-PARITY-BUTTON-ICON-AX.md",
+    "buttonToggleEvidence": "docs/v3/quality/FLUENT-PARITY-BUTTON-TOGGLE-STATES.md",
+    "iconBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-ICON-BROWSER.md",
+    "controlSemanticsBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md",
+    "sliderRangeSliderBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md",
+    "sliderPointerEvidence": "docs/v3/quality/FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md",
+    "fileSelectBrowserEvidence": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md",
+    "fileSelectLiveUploadEvidence": "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md",
+    "fileSelectPublishedServerEvidence": "docs/v3/quality/FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md",
+    "penpotAuditArtifact": "Bluent v3 Design System (file b64f6665-c9ab-80b5-8008-c4ac99d9d000) / 03 · Quality & migration (page 07c521b9-e441-80bd-8008-c4ad87df93c3) / #552 · Fluent parity audit coverage · DRAFT (board 4d22aead-d6ef-801a-8008-d482b9bb0cc8), review date 2026-10-22; file revision metadata not exposed by connector; not an approval."
   }
 }

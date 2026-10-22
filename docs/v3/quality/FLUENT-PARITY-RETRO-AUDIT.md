@@ -1,6 +1,6 @@
 # Retrospective Fluent 2 parity review: first 18 Component Lab pilots
 
-> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **All 18 families now have partial source/API audit reports; 0/18 Fluent-approved. TextField has no confirmed source gap, so all its acceptance dimensions remain not_reviewed.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
+> **Retrospective audit in progress; not a Fluent parity acceptance result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **All 18 families now have partial source/API audit reports and linked browser/runtime evidence; 0/18 Fluent-approved. TextField has no confirmed source gap, so all its acceptance dimensions remain not_reviewed.** Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
 ## Maintainer decision — debt first (2026-10-19)
 
@@ -68,27 +68,51 @@ The following pinned references now provide traceable starting points for the fa
 
 | Family | Current disposition | Report |
 | --- | --- | --- |
-| Button #428 | Researching; behavior and browser accessibility have confirmed open gaps; no approval | [Button family audit](FLUENT-PARITY-BUTTON-AUDIT.md) |
-| Icon #429 | Researching; custom SVG sizing and unnamed image gaps reproduced in Chrome/Edge; no approval | [Icon family audit](FLUENT-PARITY-ICON-AUDIT.md) |
+| Button #428 | Researching; behavior and browser accessibility have confirmed open gaps; no approval | [Button family audit](FLUENT-PARITY-BUTTON-AUDIT.md) · [keyboard evidence](FLUENT-PARITY-P0-BUTTON-KEYBOARD.md) · [icon/AX evidence](FLUENT-PARITY-BUTTON-ICON-AX.md) · [toggle evidence](FLUENT-PARITY-BUTTON-TOGGLE-STATES.md) |
+| Icon #429 | Researching; custom SVG sizing and unnamed image gaps reproduced in Chrome/Edge; no approval | [Icon family audit](FLUENT-PARITY-ICON-AUDIT.md) · [browser evidence](FLUENT-PARITY-ICON-BROWSER.md) |
 | Label #430 | Researching; browser AX names Info action `This is a label` from parent label, not action-specific; required demo target absent only in isolated fixture; no approval | [Label source audit](FLUENT-PARITY-LABEL-AUDIT.md) · [Browser evidence](FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md) |
 | Link #431 | Researching; disabled anchor remains focusable generic AX node with no `href`/`aria-disabled`; callback guard remains untested in runtime; no approval | [Link source audit](FLUENT-PARITY-LINK-AUDIT.md) · [Browser evidence](FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md) |
 | TextField #432 | Researching; default field is named `Example text field` and label association works in browser AX; empty HTML name observed but form serialization remains untested | [TextField source audit](FLUENT-PARITY-TEXTFIELD-AUDIT.md) · [Typed-field browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
 | Badge #445 | Researching; `AnimateShadow` remains 1.5s infinite under CDP reduced-motion emulation; Icon API documentation mismatch remains open; no approval | [Badge source audit](FLUENT-PARITY-BADGE-AUDIT.md) · [Browser evidence](FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md) |
-| Checkbox #434 | Researching; Chrome/Edge AX confirm visual indeterminate state is announced unchecked; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
-| Switch #435 | Researching; Chrome/Edge AX expose checkbox semantics rather than switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
-| RadioGroup #436 | Researching; group is ignored in browser AX and ArrowRight crosses into the next group in Chrome/Edge; no approval | [RadioGroup family audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) |
-| OtpField #441 | Researching; Chrome/Edge confirm English labels and test typing, backspace and synthetic paste; length edge cases/AT remain open | [OtpField family audit](FLUENT-PARITY-OTP-AUDIT.md) |
+| Checkbox #434 | Researching; Chrome/Edge AX confirm visual indeterminate state is announced unchecked; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) · [browser evidence](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) |
+| Switch #435 | Researching; Chrome/Edge AX expose checkbox semantics rather than switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) · [browser evidence](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) |
+| RadioGroup #436 | Researching; group is ignored in browser AX and ArrowRight crosses into the next group in Chrome/Edge; no approval | [RadioGroup family audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) · [browser evidence](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) |
+| OtpField #441 | Researching; Chrome/Edge confirm English labels and test typing, backspace and synthetic paste; length edge cases/AT remain open | [OtpField family audit](FLUENT-PARITY-OTP-AUDIT.md) · [browser evidence](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) |
 | NumericField #433 | Researching; `Step` no-op remains open; Chrome/Edge keyboard entry `123` updates bound output; no native inputmode/step/min/max on inspected text input | [Typed field source audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) · [Browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
 | SelectField #437 | Researching; native combobox ArrowDown changes Green to Blue in Chrome/Edge; inherited `BindValueEvent` and multiple-select remain open | [Typed field source audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) · [Browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
 | DateField #438 | Researching; browser confirms named text/date-month fields and disabled fixture; typed Min/Max, YearSelect and calendar trigger remain open | [Typed field source audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) · [Browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
 | TimeField #439 | Researching; browser confirms named text inputs for time/seconds; Culture/format and inherited event-selector contract remain open | [Typed field source audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) · [Browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
 | MaskedField #440 | Researching; Chrome/Edge reproduce fixed-prefix `9` duplication (`09123456789` → `0991-234-5678`); paste/caret/IME remain open | [Typed field source audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) · [Browser evidence](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) |
-| Slider #442 | Researching; visual, pointer behavior and browser accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
-| RangeSlider #443 | Researching; visual, pointer behavior and dual-thumb accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) |
-| FileSelect #444 | Researching; file-count behavior and browser accessible-name gaps documented; no approval | [FileSelect family audit](FLUENT-PARITY-FILESELECT-AUDIT.md) |
+| Slider #442 | Researching; visual, pointer behavior and browser accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) · [pointer/browser evidence](FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md) |
+| RangeSlider #443 | Researching; visual, pointer behavior and dual-thumb accessibility gaps documented; no approval | [Slider / RangeSlider family audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) · [pointer/browser evidence](FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md) |
+| FileSelect #444 | Researching; file-count behavior and browser accessible-name gaps documented; no approval | [FileSelect family audit](FLUENT-PARITY-FILESELECT-AUDIT.md) · [live upload evidence](FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md) · [published Server evidence](FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md) |
 
-These reports are explicit audit artifacts, not accepted design or implementation evidence. Partial runtime results are documented in the [Checkbox/Switch/RadioGroup Chrome/Edge browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md); raw results and screenshots are linked there. These results do not satisfy the full evidence-bundle requirement.
+These reports are explicit audit artifacts, not accepted design or implementation evidence. See the [partial browser evidence coverage index](#partial-browser-evidence-coverage-2026-10-22) for current links across all 18 families. This evidence does not satisfy the full evidence-bundle requirement.
 
+## Partial browser evidence coverage (2026-10-22)
+
+**18/18 families now have linked, partial browser/runtime evidence; 0/18 are Fluent-approved.** Evidence is grouped by probe below; the count indicates coverage, not acceptance or completion of the nine-dimension matrix.
+
+- **Button #428:** [keyboard/Enter/Space](FLUENT-PARITY-P0-BUTTON-KEYBOARD.md), [icon and accessible-name AX](FLUENT-PARITY-BUTTON-ICON-AX.md), [toggle-state AX](FLUENT-PARITY-BUTTON-TOGGLE-STATES.md).
+- **Icon #429:** [live Chrome/Edge browser and AX evidence](FLUENT-PARITY-ICON-BROWSER.md).
+- **Label #430, Link #431, Badge #445:** [Label/Link/Badge browser audit](FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md) — 31/31 checks per engine.
+- **TextField #432, NumericField #433, SelectField #437, DateField #438, TimeField #439, MaskedField #440:** [typed-field browser audit](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) — 42/42 checks per engine.
+- **Checkbox #434, Switch #435, RadioGroup #436, OtpField #441:** [control semantics browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) — 56/56 checks per engine.
+- **Slider #442 and RangeSlider #443:** [Slider/RangeSlider audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) and [pointer/screen/viewport evidence](FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md), including WebAssembly and published-Server scenarios.
+- **FileSelect #444:** [FileSelect audit](FLUENT-PARITY-FILESELECT-AUDIT.md), [live upload evidence](FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md) and [published-Server evidence](FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md).
+
+These reports differ in coverage and environment. CDP AX snapshots, browser-computed styles, screenshots and green probes are not native screen-reader/OS-contrast acceptance, a complete state/event matrix, an editable Penpot review, or approval to change product code. Keep `auditComplete=false`, `noneApproved=true`, every `designApproval=pending` and every `evidenceBundle=null` until the nine dimensions and each actionable gap disposition are independently reviewed.
+
+
+## Penpot design-decision artifact (2026-10-22)
+
+A real, editable audit map has been added to the source-owned Penpot file. This is a quality/disposition artifact, **not** a component redesign or parity approval.
+
+- File: `Bluent v3 Design System` — ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
+- Page: `03 · Quality & migration` — ID `07c521b9-e441-80bd-8008-c4ad87df93c3`.
+- Board: `#552 · Fluent parity audit coverage · DRAFT` — node ID `4d22aead-d6ef-801a-8008-d482b9bb0cc8`.
+- Review date: 2026-10-22; the current Penpot connector did not expose a file revision value. The board is at x=1700, y=90, 1660×1120 and contains all 18 families, evidence group, reproduced/open gap and pending approval state.
+- No product component designs or code were changed. All family design approvals remain pending; native AT/OS contrast, complete state/event matrices and the nine-dimension acceptance review remain open.
 ### Existing family-specific research leads
 
 | Family | Existing source/research documents |
