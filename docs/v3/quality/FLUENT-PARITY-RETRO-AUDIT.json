@@ -437,7 +437,7 @@
       "currentDemoRoute": "/components/radios",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -447,8 +447,8 @@
       "dimensions": {
         "visual": "not_reviewed",
         "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "behavior": "audited_gaps",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -458,12 +458,13 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Arrow-key roving focus, labeled radiogroup and disabled radios.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"
     },
     {
       "family": "SelectField",
@@ -624,7 +625,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -635,7 +636,7 @@
         "visual": "not_reviewed",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -645,11 +646,12 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Digit group a11y, paste, backspace, keyboard and AutoSubmit; likely custom pattern requiring explicit mapping.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"
     },
     {
       "family": "Slider",
