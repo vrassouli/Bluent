@@ -10,15 +10,18 @@ The pinned Fluent Web Components 3.1.3 manifest includes `fluent-link` and `flue
 
 | Finding | Source evidence | Disposition |
 | --- | --- | --- |
-| Disabled anchor remains an anchor without `href` | `GetLinkTag()` selects `a` whenever `Href` is non-empty. `BuildRenderTree()` suppresses the `href` when `IsDisabled`, but still emits the `a` element and adds `type="button"` (which has no native button meaning on an anchor). | Source-confirmed semantic mismatch/risk. No complete disabled-link pattern (`aria-disabled`, keyboard reachability and focus style) is supplied by the component. Runtime focus/AX checks are still needed. |
+| Disabled anchor is focusable but loses link semantics | Chrome/Edge show an `a` with no `href`, an ineffective `disabled` attribute, `tabIndex=0`, no `aria-disabled`, and AX role `generic` with an empty name. | Runtime semantic/focus gap reproduced. Callback suppression remains source-confirmed but was not tested with a real click callback in this demo. |
 | Click callback is not guarded by disabled state | `ClickHandler()` unconditionally calls `InvokeAsync(OnClick.InvokeAsync)` and does not check `IsDisabled`. For a disabled anchor, removing `href` and passing an ineffective `disabled` attribute does not itself establish event suppression. | Source-confirmed handler gap; actual pointer/keyboard callback behavior should be reproduced in the browser before remediation acceptance. |
 | `Href` determines navigation vs action semantics | Empty/whitespace `Href` yields `<button type="button">`; non-empty `Href` yields `<a href="...">`. The same `OnClick` callback is wired in both cases. | Current source supports two native element types. The full API/behavior mapping must decide whether that is an intentional Bluent extension or whether action and navigation semantics need separate owner-approved contracts. Do not call every Link a native anchor. |
 | Unmatched attributes are filtered selectively | `GetAdditionalAttributes()` removes a supplied `href` when `IsDisabled`, then forwards remaining attributes. It does not create an explicit `aria-disabled` contract or suppress the `OnClick` callback. | Test caller-supplied `disabled`, `aria-disabled`, `tabindex`, `href` casing/precedence, native focus order and event behavior. Keep caller attributes and component-owned attributes from accidentally disagreeing. |
 
+## Supplemental browser evidence (2026-10-22)
+
+The `/components/links` demo was captured in Chrome and Edge in Light/LTR, Dark/RTL and CDP-emulated forced-colors (31/31 instrumentation checks per engine across the Label/Link/Badge probe). Enabled Default and Subtle links are named native anchors. The Disabled example is still an anchor, has no `href`, retains `tabIndex=0`, carries a `disabled` attribute that has no native disabled meaning on an anchor, lacks `aria-disabled`, and is exposed as a generic AX node with an empty name. See [Label/Link/Badge browser evidence](FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md). The demo has no `OnClick` callback, so actual callback invocation/suppression remains untested; source still invokes the callback without checking disabled state.
 ## Canonical matrix disposition
 
-- `behavior`: `audited_gaps` — source does not guard the click callback when disabled; actual disabled-anchor runtime behavior remains to be tested.
-- `accessibility`: `audited_gaps` — disabled navigation is represented as an anchor without `href`, with no component-owned `aria-disabled`/focus contract.
+- `behavior`: `audited_gaps` — source does not guard the click callback when disabled; browser confirms the disabled anchor remains focusable but loses link semantics. Real callback invocation/suppression remains untested.
+- `accessibility`: `audited_gaps` — disabled navigation is exposed as a focusable generic node without `href` or `aria-disabled`; native screen-reader output remains untested.
 - `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — the source/API review does not complete those acceptance dimensions.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
