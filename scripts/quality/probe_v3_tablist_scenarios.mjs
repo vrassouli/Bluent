@@ -16,7 +16,7 @@ const port=()=>new Promise((yes,no)=>{const s=createServer();s.once('error',no);
 const poll=async(fn,ms=45000)=>{const end=Date.now()+ms;while(Date.now()<end){try{const value=await fn();if(value)return value}catch{}await sleep(160)}throw Error('Polling timeout')};
 const cdp=(method,params={})=>new Promise((yes,no)=>{const id=++seq;const t=setTimeout(()=>{pending.delete(id);no(Error(method+' timeout'));},18000);pending.set(id,{yes:v=>{clearTimeout(t);yes(v)},no:e=>{clearTimeout(t);no(e)}});socket.send(JSON.stringify({id,method,params}));});
 const evalJs=async(expression)=>{const r=await cdp('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.text);return r.result?.value};
-const key=async(k,code,vk)=>{for(const type of ['keyDown','keyUp'])await cdp('Input.dispatchKeyEvent',{type,key:k,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk});await sleep(130)};
+const key=async(k,code,vk)=>{for(const type of ['keyDown','keyUp'])await cdp('Input.dispatchKeyEvent',{type,key:k,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk,...(type==='keyDown' && k==='Enter'?{text:'\r',unmodifiedText:'\r'}:{})});await sleep(130)};
 async function stop(proc){if(!proc?.pid)return;await new Promise(ok=>{const x=spawn('taskkill',['/PID',String(proc.pid),'/T','/F'],{windowsHide:true,stdio:'ignore'});x.once('close',ok);x.once('error',ok);})}
 const capture=()=>evalJs(`(()=>{
  const section=(name)=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()===name);return h?.nextElementSibling};

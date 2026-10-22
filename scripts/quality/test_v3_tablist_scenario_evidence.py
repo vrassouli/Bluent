@@ -27,6 +27,12 @@ class TabListScenarioEvidence(unittest.TestCase):
             self.assertTrue(r["focusPanelSecond"])
             self.assertTrue(r["afterArrow"]["panel"]["items"][1]["focused"])
             self.assertFalse(r["afterArrow"]["panel"]["items"][2]["focused"])
+    def test_real_native_enter_activation(self):
+        for r in self.runs:
+            self.assertTrue(r["focusPanelSecond"])
+            first_group = r["afterEnter"]["panel"]["items"][:3]
+            self.assertEqual([x["selected"] for x in first_group], [False, True, False])
+            self.assertTrue(first_group[1]["focused"])
     def test_disabled_selected_but_unfocusable(self):
         for r in self.runs:
             second = r["afterDisabledFocus"]["disabled"]["items"][1]
