@@ -2,7 +2,7 @@
 
 **Research/Phase 0 reference freeze only — not a Fluent 2 parity decision.** The catalog was extracted from the published npm `@fluentui/web-components@3.1.3` tarball, `package/custom-elements.json`, with npm integrity `sha512-1jl4CHoFFSfevkr8l7F+dKNJzyMWBZqwQfB/khNZtwyY0rv87799mpDWSVu0QeiZAFEbqCtnAOnXWsxJ/kek+Q==` and content SHA-256 `e460a61de0cd6f99ec6caedc203db681d95ac16332d3b296b50484b79ad61329`.
 
-The frozen CEM contains **42 unique custom-element tags**. A tag with a similar name is **not proof of API, appearance, keyboard, ARIA, lifecycle or behavior equivalence**. This crosswalk supplements #421's canonical retrospective matrix, which still records **18/18 unaccepted**; all per-component design frames and native OS/AT tests remain pending.
+The frozen CEM contains **42 unique custom-element tags**. The JSON preserves typed/documented attributes, parsed types, events, slots, CSS parts/properties/states, descriptions, superclass and module paths for all 42 tags. A tag with a similar name is **not proof of API, appearance, keyboard, ARIA, lifecycle or behavior equivalence**. This crosswalk supplements #421's canonical retrospective matrix, which still records **18/18 unaccepted**; all per-component design frames and native OS/AT tests remain pending.
 
 | Bluent family | Owner | Wave | WC 3.1.3 relationship | Published tags checked |
 | --- | --- | --- | --- | --- |

@@ -24,6 +24,22 @@ class Upstream18Families(unittest.TestCase):
         self.assertEqual(self.data["cemTagCount"], 42)
         self.assertEqual(len(self.data["cemSha256"]), 64)
 
+    def test_full_typed_metadata_for_all_42_tags_is_pinned(self):
+        tags = self.data["publishedElementDetails"]
+        self.assertEqual(len(tags), 42)
+        self.assertEqual({x["tag"] for x in tags}, set(self.data["cemPublishedTags"]))
+        self.assertGreater(sum(len(x["attributeDetails"]) for x in tags), 250)
+        self.assertGreater(sum(len(x["eventDetails"]) for x in tags), 0)
+        self.assertGreater(sum(len(x["slotDetails"]) for x in tags), 0)
+        for tag in tags:
+            self.assertEqual(set(tag["attributes"]), {a["name"] for a in tag["attributeDetails"]})
+            self.assertEqual(set(tag["events"]), {a["name"] for a in tag["eventDetails"]})
+            self.assertEqual(set(tag["slots"]), {a["name"] for a in tag["slotDetails"]})
+    def test_reject_tampered_typed_metadata(self):
+        data = copy.deepcopy(self.data)
+        data["publishedElementDetails"][0]["attributeDetails"][0]["description"] = "tampered"
+        with self.assertRaisesRegex(ValueError, "metadata digest drift"):
+            module.validate(data, self.census, self.pinned)
     def test_wave_counts_and_source_issues(self):
         rows = self.data["families"]
         self.assertEqual({w: sum(x["wave"] == w for x in rows) for w in "ABCD"},

@@ -40,12 +40,29 @@ WAVES = {
 }
 
 def as_lists(d):
+    # Preserve compact name lists for the candidate queue and pin typed/documented metadata.
+    def details(key, fields):
+        result = []
+        for item in d.get(key, []):
+            value = {field: item[field] for field in fields if field in item}
+            if value.get("name") is not None:
+                result.append(value)
+        return sorted(result, key=lambda item: item["name"])
     return {
         "tag": d["tagName"],
+        "description": d.get("description", ""),
+        "modulePath": d.get("modulePath", ""),
+        "superclass": d.get("superclass", {}),
         "attributes": sorted({v["name"] for v in d.get("attributes", []) if "name" in v}),
+        "attributeDetails": details("attributes", ("name", "fieldName", "type", "parsedType", "description", "inheritedFrom")),
         "events": sorted({v["name"] for v in d.get("events", []) if "name" in v}),
+        "eventDetails": details("events", ("name", "type", "description", "inheritedFrom")),
         "slots": sorted({v["name"] for v in d.get("slots", []) if "name" in v}),
+        "slotDetails": details("slots", ("name", "description", "inheritedFrom")),
         "cssParts": sorted({v["name"] for v in d.get("cssParts", []) if "name" in v}),
+        "cssPartDetails": details("cssParts", ("name", "description", "inheritedFrom")),
+        "cssProperties": details("cssProperties", ("name", "syntax", "inherits", "initialValue", "description")),
+        "cssStates": details("cssStates", ("name", "description")),
     }
 
 def build(raw, census, pinned):
@@ -95,6 +112,9 @@ def build(raw, census, pinned):
         "scope": "tag-catalog and declared CEM metadata only; no Bluent-Fluent API equivalence, product acceptance or design signoff",
         "families": rows,
         "referencedTagDetails": details,
+        "publishedElementDetails": [as_lists(tags[tag]) for tag in sorted(tags)],
+        "publishedElementDetailsSha256": hashlib.sha256(json.dumps([as_lists(tags[tag]) for tag in sorted(tags)], ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest(),
+        "metadataScope": "Published CEM descriptions, attributes/types/parsedTypes, events, slots, CSS parts/properties/states and superclass/module metadata; package-authored metadata is not independent runtime verification.",
         "parityAccepted": False,
     }
 
@@ -106,9 +126,10 @@ def markdown(data):
         + "`@fluentui/web-components@3.1.3` tarball, `package/custom-elements.json`, with npm integrity "
         + "`" + data["npmTarballIntegrity"] + "` and content SHA-256 `" + data["cemSha256"] + "`.",
         "",
-        "The frozen CEM contains **42 unique custom-element tags**. A tag with a similar name is **not proof of API, appearance, "
-        "keyboard, ARIA, lifecycle or behavior equivalence**. This crosswalk supplements #421's canonical retrospective matrix, "
-        "which still records **18/18 unaccepted**; all per-component design frames and native OS/AT tests remain pending.",
+        "The frozen CEM contains **42 unique custom-element tags**. The JSON preserves typed/documented attributes, parsed types, "
+        + "events, slots, CSS parts/properties/states, descriptions, superclass and module paths for all 42 tags. A tag with a similar name is **not proof of API, appearance, "
+        + "keyboard, ARIA, lifecycle or behavior equivalence**. This crosswalk supplements #421's canonical retrospective matrix, "
+        + "which still records **18/18 unaccepted**; all per-component design frames and native OS/AT tests remain pending.",
         "",
         "| Bluent family | Owner | Wave | WC 3.1.3 relationship | Published tags checked |",
         "| --- | --- | --- | --- | --- |",
@@ -150,6 +171,12 @@ def validate(current, census, pinned):
     if len(current.get("families", [])) != 18 or {r["family"] for r in current["families"]} != set(FAMILY_MAPPING):
         raise ValueError("18-family list drift")
     details = {d["tag"]: d for d in current.get("referencedTagDetails", [])}
+    all_details = {d["tag"]: d for d in current.get("publishedElementDetails", [])}
+    if set(all_details) != set(current["cemPublishedTags"]) or len(all_details) != 42:
+        raise ValueError("Full published element metadata drift")
+    digest = hashlib.sha256(json.dumps(current["publishedElementDetails"], ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+    if digest != current.get("publishedElementDetailsSha256"):
+        raise ValueError("Published element metadata digest drift")
     for row in current["families"]:
         family = row["family"]
         source = next(f for f in census["families"] if f["family"] == family)
