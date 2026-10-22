@@ -22,9 +22,11 @@ const waitFor=async selector=>{try{return await poll(()=>js(`!!document.querySel
 const snapshotCheckbox=()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Indeterminate');const section=h?.nextElementSibling;const input=section?.querySelector('input[type="checkbox"]');const wrapper=input?.parentElement;const label=wrapper?.querySelector('label');return input?{wrapperClass:wrapper.className,id:input.id,checked:input.checked,indeterminate:input.indeterminate,ariaChecked:input.getAttribute('aria-checked'),role:input.getAttribute('role'),name:input.name,disabled:input.disabled,tabIndex:input.tabIndex,label:label?.textContent.trim()||'',labelFor:label?.htmlFor||'',stateText:[...(section?.querySelectorAll('pre')||[])].map(x=>x.textContent.trim())}:null;};
 const snapshotSwitch=()=>{const wrappers=[...document.querySelectorAll('.bui-switch')];return wrappers.map((wrapper,index)=>{const input=wrapper.querySelector('input[type="checkbox"]');const label=input&&[...wrapper.querySelectorAll('label')].find(x=>x.htmlFor===input.id);return input?{index,id:input.id,checked:input.checked,indeterminate:input.indeterminate,ariaChecked:input.getAttribute('aria-checked'),role:input.getAttribute('role'),name:input.name,disabled:input.disabled,tabIndex:input.tabIndex,label:label?.textContent.trim()||'',labelFor:label?.htmlFor||'',wrapperClass:wrapper.className}:null;}).filter(Boolean);};
 const snapshotRadios=()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Default');const section=h?.nextElementSibling;const list=section?.querySelector('.items-list');const group=list?.parentElement;if(!group)return null;const inputs=[...group.querySelectorAll('input[type="radio"]')];return {groupClass:group.className,groupRole:group.getAttribute('role'),groupAriaLabel:group.getAttribute('aria-label'),groupLabelledBy:group.getAttribute('aria-labelledby'),groupText:group.firstElementChild?.textContent.trim()||'',groupLabelTag:group.firstElementChild?.tagName||'',groupLabelFor:group.firstElementChild?.htmlFor||'',hasFieldset:!!group.querySelector('fieldset'),hasLegend:!!group.querySelector('legend'),options:inputs.map(input=>{const label=[...group.querySelectorAll('label')].find(x=>x.htmlFor===input.id&&x.textContent.trim());return {id:input.id,name:input.name,checked:input.checked,role:input.getAttribute('role'),ariaChecked:input.getAttribute('aria-checked'),disabled:input.disabled,tabIndex:input.tabIndex,label:label?.textContent.trim()||'',labelFor:label?.htmlFor||''};})};};
+const snapshotOtp=()=>{const wrapper=document.querySelector('.bui-otp-field');const host=wrapper?.querySelector(':scope > .otp');if(!host)return null;const cells=[...host.querySelectorAll('.otp-cell-input')];const hidden=wrapper.querySelector('input[type="hidden"]');return {wrapperClass:wrapper.className,hostId:host.id,role:host.getAttribute('role'),ariaLabel:host.getAttribute('aria-label'),dataLength:host.getAttribute('data-otp-length'),dataAutoSubmit:host.getAttribute('data-otp-auto-submit'),dataBlazorEvent:host.getAttribute('data-otp-blazor-event'),cells:cells.map((input,index)=>({index,id:input.id,type:input.type,ariaLabel:input.getAttribute('aria-label'),inputMode:input.getAttribute('inputmode'),autocomplete:input.autocomplete,pattern:input.pattern,maxLength:input.maxLength,value:input.value,name:input.name,tabIndex:input.tabIndex,disabled:input.disabled,idx:input.getAttribute('data-idx')})),hidden:hidden?{id:hidden.id,type:hidden.type,name:hidden.name,value:hidden.value}:null,outputText:wrapper.nextElementSibling?.textContent.trim()||''};};
 const axFor=async expression=>{const r=await call('Runtime.evaluate',{expression,returnByValue:false});const objectId=r.result?.objectId;if(!objectId)return null;const tree=await call('Accessibility.getPartialAXTree',{objectId,fetchRelatives:false});return (tree.nodes||[]).map(n=>({role:n.role?.value||null,name:n.name?.value||'',ignored:!!n.ignored,properties:Object.fromEntries((n.properties||[]).map(p=>[p.name,p.value?.value??p.value?.type??null]))}));};
 const keypress=async(key,code,vk)=>{const p={key,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk};await call('Input.dispatchKeyEvent',{type:'keyDown',...p,...(key==='Enter'?{text:'\r',unmodifiedText:'\r'}:key===' '?{text:' ',unmodifiedText:' '}: {})});await call('Input.dispatchKeyEvent',{type:'keyUp',...p});await wait(260);};
 const ensureUiMode=async mode=>{for(const target of [{index:0,checked:mode.theme==='dark'},{index:1,checked:mode.dir==='rtl'}]){const item=await js(`(()=>{const x=[...document.querySelectorAll('.bui-switch input[type=\"checkbox\"]')][${target.index}];return x?{id:x.id,checked:x.checked}:null})()`);if(!item)throw Error('Header theme/direction switch '+target.index+' not found');if(item.checked!==target.checked){await js(`document.getElementById(${JSON.stringify(item.id)})?.focus()`);await keypress(' ','Space',32);const domState=target.index===0?`document.documentElement.getAttribute('data-bui-theme')===${JSON.stringify(mode.theme)}`:`document.documentElement.dir===${JSON.stringify(mode.dir)}`;await poll(()=>js(`(()=>{const x=document.getElementById(${JSON.stringify(item.id)});return !!x&&x.checked===${target.checked}&&(${domState})})()`),10000);}}return js(`({theme:document.documentElement.getAttribute('data-bui-theme'),dir:document.documentElement.dir,forced:matchMedia('(forced-colors: active)').matches,themeBackground:getComputedStyle(document.documentElement).getPropertyValue('--colorNeutralBackground1').trim(),switches:[...document.querySelectorAll('.bui-switch input[type=\"checkbox\"]')].slice(0,2).map(x=>({id:x.id,checked:x.checked}))})`)};
+const insertText=async text=>{await call('Input.insertText',{text});await wait(300);};
 const clickAt=async box=>{await call('Input.dispatchMouseEvent',{type:'mouseMoved',x:box.x,y:box.y});await call('Input.dispatchMouseEvent',{type:'mousePressed',x:box.x,y:box.y,button:'left',clickCount:1});await call('Input.dispatchMouseEvent',{type:'mouseReleased',x:box.x,y:box.y,button:'left',clickCount:1});await wait(350);};
 const clickFirstRadio=async()=>{const box=await js(`(()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Default');const i=h?.nextElementSibling?.querySelector('.items-list input[type="radio"]');const l=i&&[...i.parentElement.querySelectorAll('label')].find(x=>x.htmlFor===i.id&&x.textContent.trim());const e=l||i;if(!e)return null;e.scrollIntoView({block:'center'});const b=e.getBoundingClientRect();return {x:b.left+b.width/2,y:b.top+b.height/2}})()`);if(!box)throw Error('Could not locate the first RadioGroup option');await clickAt(box);};
 const screenshot=async name=>{const png=(await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true})).data;const file='BLUENT-CONTROL-SEMANTICS-'+engine.toUpperCase()+'-'+name+'.png';await writeFile(join(evidence,file),Buffer.from(png,'base64'));return file;};
@@ -45,10 +47,10 @@ try{
  const modes=[{name:'LIGHT-LTR',theme:'light',dir:'ltr',forced:false},{name:'DARK-RTL',theme:'dark',dir:'rtl',forced:false},{name:'FORCED-COLORS',theme:'light',dir:'ltr',forced:true}];
  for(const mode of modes){
   await call('Emulation.setEmulatedMedia',{features:mode.forced?[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]:[]});
-  for(const page of ['checkboxes','radios']){
+  for(const page of ['checkboxes','radios','fields']){
    await call('Page.navigate',{url:base+'/components/'+page});
    console.log(engine+' loading '+page+' '+mode.name+' url='+base+'/components/'+page);
-   await waitFor(page==='checkboxes'?'h3 + section input[type="checkbox"]':'h3 + section .items-list input[type="radio"]');
+   await waitFor(page==='checkboxes'?'h3 + section input[type="checkbox"]':page==='radios'?'h3 + section .items-list input[type="radio"]':'input[autocomplete="one-time-code"]');
    const setup=await ensureUiMode(mode);
    await js('document.fonts.ready.then(()=>true)');
    setup.viewport=await js('({width:innerWidth,height:innerHeight})');
@@ -56,14 +58,14 @@ try{
    if(page==='checkboxes'){
     await js(`(()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Indeterminate');h?.nextElementSibling?.scrollIntoView({block:'center'});})()`);
     const before=await js(`(${snapshotCheckbox.toString()})()`);if(!before)throw Error('Indeterminate checkbox demo fixture not found');
-    const ax=await axFor(`document.querySelector('h3') && [...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Indeterminate')?.nextElementSibling?.querySelector('h3 + section input[type="checkbox"]')`);
+    const ax=await axFor(`document.querySelector('h3') && [...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Indeterminate')?.nextElementSibling?.querySelector('input[type="checkbox"]')`);
     check(mode.name+' Checkbox mixed visual state exists',before.wrapperClass.split(/\s+/).includes('indeterminate'),before);
     check(mode.name+' Checkbox native input is not indeterminate and lacks mixed ARIA',before.indeterminate===false&&before.ariaChecked!=='mixed',before);
     check(mode.name+' Checkbox AX exposes checkbox role and computed label',ax?.[0]?.role==='checkbox'&&ax?.[0]?.name==='Indeterminate checkbox',ax);
     const image=await screenshot('CHECKBOX-'+mode.name);
     cases.push({page,mode:mode.name,setup,checkbox:{before,ax},screenshot:image});
     if(mode.name==='LIGHT-LTR'){
-     const first=await js(`(()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Indeterminate');const i=h?.nextElementSibling?.querySelector('h3 + section input[type="checkbox"]');i?.focus();return !!i&&document.activeElement===i})()`);
+     const first=await js(`(()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Indeterminate');const i=h?.nextElementSibling?.querySelector('input[type="checkbox"]');i?.focus();return !!i&&document.activeElement===i})()`);
      check('Checkbox indeterminate fixture can receive native focus',first,before);
      await keypress(' ','Space',32);const after=await js(`(${snapshotCheckbox.toString()})()`);
      check('Native Space transitions indeterminate demo value to checked',after.checked===true&&after.wrapperClass.split(/\s+/).includes('checked')&&after.indeterminate===false,after);
@@ -79,7 +81,7 @@ try{
      check('Switch can return to its initial state using native Space',restored.checked===initial.checked,restored);
      cases.push({page,mode:mode.name,switch:{before:initial,ax:switchAx,afterSpace:toggled,restored}});
     }
-   }else{
+    }else if(page==='radios'){
     await js(`(()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Default');h?.nextElementSibling?.scrollIntoView({block:'center'});})()`);
     const before=await js(`(${snapshotRadios.toString()})()`);if(!before||before.options.length<2)throw Error('Default RadioGroup demo fixture not found');
     const groupAx=await axFor(`(()=>{const h=[...document.querySelectorAll('h3')].find(x=>x.textContent.trim()==='Default');return h?.nextElementSibling?.querySelector('.items-list')?.parentElement})()`);
@@ -107,10 +109,37 @@ try{
      check('Native Tab sequence records individual radio option stops',tabObservation.tabIndices.every(x=>x>=0)&&tabResult.activeId===secondId,{tabObservation,tabResult});
      cases.push({page,mode:mode.name,radioKeyboard:{afterPointer,afterArrow,afterSpace,crossGroupArrow,tabObservation,tabResult}});
     }
-   }
+    }else{
+     await js(`(()=>{document.querySelector('.bui-otp-field > .otp')?.scrollIntoView({block:'center'});})()`);
+     const before=await js(`(${snapshotOtp.toString()})()`);if(!before||before.cells.length!==4)throw Error('OTP Fields showcase fixture missing or unexpected cell count');
+     const groupAx=await axFor(`document.querySelector('.bui-otp-field > .otp')`);
+     const cellAx=[];for(const cell of before.cells){cellAx.push({index:cell.index,ax:await axFor(`document.querySelectorAll('.bui-otp-field .otp-cell-input')[${cell.index}]`)});}
+     check(mode.name+' OTP group exposes group role and Verification code name',before.role==='group'&&before.ariaLabel==='Verification code'&&groupAx?.[0]?.role==='group'&&groupAx?.[0]?.name==='Verification code',{before,groupAx});
+     check(mode.name+' OTP cells expose English positional labels and numeric one-time-code metadata',before.cells.every((x,i)=>x.ariaLabel===`Digit ${i+1} of 4`&&x.type==='text'&&x.inputMode==='numeric'&&x.autocomplete==='one-time-code'&&x.pattern==='\\d*'&&x.maxLength===1),before.cells);
+     check(mode.name+' OTP browser AX exposes each cell as a named textbox',cellAx.length===4&&cellAx.every((x,i)=>x.ax?.[0]?.role==='textbox'&&x.ax?.[0]?.name===before.cells[i].ariaLabel),cellAx);
+     check(mode.name+' OTP hidden bound input and displayed value start empty',before.hidden?.type==='hidden'&&before.hidden.value===''&&before.outputText==='OTP:',before);
+     const image=await screenshot('OTP-'+mode.name);
+     cases.push({page,mode:mode.name,setup,otp:{before,groupAx,cellAx},screenshot:image});
+     if(mode.name==='LIGHT-LTR'){
+      await js(`document.querySelectorAll('.bui-otp-field .otp-cell-input')[0]?.focus()`);await insertText('4');
+      const afterFirst=await js(`(${snapshotOtp.toString()})()`);const activeAfterFirst=await js(`([...document.querySelectorAll('.bui-otp-field .otp-cell-input')].indexOf(document.activeElement))`);
+      check('OTP typing one digit updates hidden binding and advances focus',afterFirst.cells[0].value==='4'&&afterFirst.hidden?.value==='4'&&afterFirst.outputText==='OTP: 4'&&activeAfterFirst===1,{afterFirst,activeAfterFirst});
+      await insertText('2');const afterSecond=await js(`(${snapshotOtp.toString()})()`);const activeAfterSecond=await js(`([...document.querySelectorAll('.bui-otp-field .otp-cell-input')].indexOf(document.activeElement))`);
+      check('OTP sequential typing updates two cells and bound value',afterSecond.cells[0].value==='4'&&afterSecond.cells[1].value==='2'&&afterSecond.hidden?.value==='42'&&afterSecond.outputText==='OTP: 42'&&activeAfterSecond===2,{afterSecond,activeAfterSecond});
+      await js(`document.querySelectorAll('.bui-otp-field .otp-cell-input')[2]?.focus()`);await keypress('Backspace','Backspace',8);const afterBackspace=await js(`(${snapshotOtp.toString()})()`);const activeAfterBackspace=await js(`([...document.querySelectorAll('.bui-otp-field .otp-cell-input')].indexOf(document.activeElement))`);
+      check('OTP Backspace on an empty cell clears the previous digit and moves focus back',afterBackspace.cells[0].value==='4'&&afterBackspace.cells[1].value===''&&afterBackspace.hidden?.value==='4'&&afterBackspace.outputText==='OTP: 4'&&activeAfterBackspace===1,{afterBackspace,activeAfterBackspace});
+      const pasteEvent=await js(`(()=>{const first=document.querySelectorAll('.bui-otp-field .otp-cell-input')[0];const transfer=new DataTransfer();transfer.setData('text','7391');const event=new ClipboardEvent('paste',{bubbles:true,cancelable:true,clipboardData:transfer});first.focus();first.dispatchEvent(event);return {defaultPrevented:event.defaultPrevented,clipboardText:event.clipboardData?.getData('text')||''}})()`);await wait(350);const afterPaste=await js(`(${snapshotOtp.toString()})()`);const activeAfterPaste=await js(`([...document.querySelectorAll('.bui-otp-field .otp-cell-input')].indexOf(document.activeElement))`);
+      check('OTP synthetic paste distributes digits, updates hidden binding and focuses final cell',pasteEvent.defaultPrevented&&pasteEvent.clipboardText==='7391'&&afterPaste.cells.map(x=>x.value).join('')==='7391'&&afterPaste.hidden?.value==='7391'&&afterPaste.outputText==='OTP: 7391'&&activeAfterPaste===3,{pasteEvent,afterPaste,activeAfterPaste,syntheticClipboardEvent:true});
+      await insertText('x');const afterInvalid=await js(`(${snapshotOtp.toString()})()`);
+      check('OTP input handler strips non-digit text and updates bound value',afterInvalid.cells.map(x=>x.value).join('')==='739'&&afterInvalid.hidden?.value==='739'&&afterInvalid.outputText==='OTP: 739',{afterInvalid});
+      await keypress('ArrowLeft','ArrowLeft',37);const activeAfterArrow=await js(`([...document.querySelectorAll('.bui-otp-field .otp-cell-input')].indexOf(document.activeElement))`);
+      check('OTP ArrowLeft moves focus to the previous cell',activeAfterArrow===2,{activeAfterArrow});
+      cases.push({page,mode:mode.name,otpKeyboard:{afterFirst,activeAfterFirst,afterSecond,activeAfterSecond,afterBackspace,activeAfterBackspace,pasteEvent,afterPaste,activeAfterPaste,afterInvalid,activeAfterArrow}});
+     }
+    }
   }
  }
- const result={issue:552,sourceRef,engine,host:'Bluent.UI.Demo WebAssembly, built from current task branch source with Release configuration',scope:'Actual Chromium CDP DOM/AX-tree, pointer and keyboard observations; emulated forced-colors only; not Fluent parity acceptance, native OS contrast or screen-reader certification.',createdAt:new Date().toISOString(),checks,cases,summary:{checks:checks.length,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length,screenshots:cases.map(x=>x.screenshot).filter(Boolean)}};
+ const result={issue:552,sourceRef,engine,host:'Bluent.UI.Demo WebAssembly, built from current task branch source with Debug configuration',scope:'Actual Chromium CDP DOM/AX-tree, pointer and keyboard observations; OTP paste path uses a synthetic ClipboardEvent, not the native OS clipboard; forced-colors is emulated; not Fluent parity acceptance, native OS contrast or screen-reader certification.',createdAt:new Date().toISOString(),checks,cases,summary:{checks:checks.length,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length,screenshots:cases.map(x=>x.screenshot).filter(Boolean)}};
  const file='BLUENT-CONTROL-SEMANTICS-'+engine.toUpperCase()+'.json';await writeFile(join(evidence,file),JSON.stringify(result,null,2)+'\n','utf8');
  console.log('SUMMARY '+JSON.stringify(result.summary));
  if(checks.some(x=>!x.pass))process.exitCode=1;

@@ -24,13 +24,13 @@ class ControlSemanticsBrowserEvidenceTests(unittest.TestCase):
             with self.subTest(engine=engine):
                 self.assertEqual(engine, run["engine"])
                 self.assertEqual("73155f02", run["sourceRef"])
-                self.assertEqual(35, run["summary"]["checks"])
-                self.assertEqual(35, run["summary"]["passed"])
+                self.assertEqual(56, run["summary"]["checks"])
+                self.assertEqual(56, run["summary"]["passed"])
                 self.assertEqual(0, run["summary"]["failed"])
-                self.assertEqual(35, len(run["checks"]))
+                self.assertEqual(56, len(run["checks"]))
                 self.assertTrue(all(item["pass"] for item in run["checks"]))
                 screenshots = run["summary"]["screenshots"]
-                self.assertEqual(6, len(screenshots))
+                self.assertEqual(9, len(screenshots))
                 for screenshot in screenshots:
                     file = EVIDENCE / screenshot
                     self.assertTrue(file.is_file(), screenshot)
@@ -76,8 +76,33 @@ class ControlSemanticsBrowserEvidenceTests(unittest.TestCase):
                 self.assertTrue(next(x for x in all_options if x["id"] == next_group_first)["checked"])
                 self.assertEqual(next_group_first, keyboard["crossGroupArrow"]["activeId"])
 
+    def test_otp_accessible_names_typing_backspace_paste_and_digit_filtering(self):
+        for engine, run in self.runs.items():
+            with self.subTest(engine=engine):
+                otp_case = next(c for c in run["cases"] if c.get("page") == "fields" and c.get("mode") == "LIGHT-LTR" and "otp" in c)
+                otp = otp_case["otp"]
+                self.assertEqual("group", otp["before"]["role"])
+                self.assertEqual("Verification code", otp["before"]["ariaLabel"])
+                self.assertEqual("4", otp["before"]["dataLength"])
+                self.assertEqual([f"Digit {i} of 4" for i in range(1, 5)], [cell["ariaLabel"] for cell in otp["before"]["cells"]])
+                self.assertTrue(all(cell["inputMode"] == "numeric" and cell["autocomplete"] == "one-time-code" and cell["pattern"] == r"\d*" and cell["maxLength"] == 1 for cell in otp["before"]["cells"]))
+                self.assertEqual("group", otp["groupAx"][0]["role"])
+                self.assertEqual("Verification code", otp["groupAx"][0]["name"])
+                self.assertTrue(all(cell["ax"][0]["role"] == "textbox" and cell["ax"][0]["name"] == otp["before"]["cells"][cell["index"]]["ariaLabel"] for cell in otp["cellAx"]))
+                keyboard = next(c["otpKeyboard"] for c in run["cases"] if "otpKeyboard" in c)
+                self.assertEqual("OTP: 42", keyboard["afterSecond"]["outputText"])
+                self.assertEqual("OTP: 4", keyboard["afterBackspace"]["outputText"])
+                self.assertTrue(keyboard["pasteEvent"]["defaultPrevented"])
+                self.assertEqual("7391", keyboard["pasteEvent"]["clipboardText"])
+                self.assertEqual("7391", keyboard["afterPaste"]["hidden"]["value"])
+                self.assertEqual("OTP: 7391", keyboard["afterPaste"]["outputText"])
+                self.assertTrue(keyboard["afterPaste"]["cells"][-1]["value"] == "1")
+                self.assertEqual("OTP: 739", keyboard["afterInvalid"]["outputText"])
+                self.assertEqual(2, keyboard["activeAfterArrow"])
+        self.assertIn("synthetic ClipboardEvent", self.runs["chrome"]["scope"])
+
     def test_report_preserves_partial_evidence_and_native_at_boundary(self):
-        self.assertIn("35/35 instrumentation checks", self.report)
+        self.assertIn("56/56 instrumentation checks", self.report)
         self.assertIn("cross-group navigation leakage reproduced in both Chrome and Edge", self.report)
         self.assertIn("not native screen-reader output", self.report)
         self.assertIn("forced-colors was emulated", self.report.lower())

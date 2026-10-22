@@ -13,8 +13,12 @@ The pinned Fluent Web Components 3.1.3 manifest has no dedicated OTP/one-time-co
 | Group accessible name is hard-coded English | `OtpField.razor` emits `role="group" aria-label="Verification code"` as a literal string. | Confirmed localization/accessibility gap for Persian and other localized applications. A consumer cannot configure the group label through a dedicated parameter; forwarding unmatched attributes applies to the outer wrapper, not this inner group. |
 | Per-cell accessible labels are hard-coded English | Each visible input emits `aria-label="Digit N of Length"` as a literal. | Confirmed localization/accessibility gap. Add a localizable label template or resource-backed formatter while preserving position and length information. |
 | Non-positive `Length` creates contradictory labels | Rendering uses `Math.Max(1, Length)` for the number of visible inputs, but the label uses raw `Length`. For `Length=0`, the source still renders one input named “Digit 1 of 0”; negative lengths can produce the same inconsistency. | Source-confirmed boundary bug. Validate `Length` or consistently use a normalized effective length for both rendered cells and accessible labels. |
-| Input behavior depends on JS interop | Source initializes `OptFieldInterop` after first render. Focus movement, paste distribution, backspace navigation and auto-submit are not proven by the Razor markup. | Explicitly unverified. Do not mark keyboard/paste/auto-submit behavior as passed from source inspection or the compiled showcase alone. |
-| Visible and submitted values differ structurally | Each visible cell has `maxlength="1"`, numeric input mode, `autocomplete="one-time-code"`, pattern `\d*`, and a per-cell label; the bound value is stored in a hidden input. `Digits` filters `char.IsDigit` characters and slices to `Length`. | Verify ASCII/Persian/Arabic digit normalization, paste, incomplete values, length changes and form submission in the actual runtime. No claim is made here about how all digit systems behave in the browser. |
+| Input behavior depends on JS interop | Chrome and Edge browser runs verified sequential typing/focus advance, Backspace on an empty cell, ArrowLeft, synthetic paste distribution, invalid-character filtering, hidden-value updates and the demo output. | Those tested paths now have runtime evidence. Auto-submit, native OS clipboard integration, IME/mobile input and other edge cases remain unverified. |
+| Visible and submitted values differ structurally | Each visible cell has `maxlength="1"`, numeric input mode, `autocomplete="one-time-code"`, pattern `\d*`, and a per-cell label; the bound value is stored in a hidden input. Chrome/Edge verified sequential typing and synthetic paste update the hidden bound value and demo output. | Verify ASCII/Persian/Arabic digit normalization, native clipboard integration, incomplete values, length changes, auto-submit and form submission. No claim is made here about how all digit systems behave in the browser. |
+
+## Partial browser evidence (not full acceptance)
+
+The [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) records **56/56 instrumentation checks in Chrome and 56/56 in Edge**, with nine screenshots per engine. The OTP paste test dispatches a synthetic `ClipboardEvent`; it exercises the real registered handler but is not native OS clipboard testing. The results do not include native screen-reader output.
 
 ## Canonical matrix disposition
 
@@ -24,9 +28,9 @@ The pinned Fluent Web Components 3.1.3 manifest has no dedicated OTP/one-time-co
 
 ## Required owner actions
 
-1. **#441:** add localized group/cell accessible labels with explicit parameters or resource-backed defaults; test Persian and English names in the browser AX tree and native screen readers.
+1. **#441:** add localized group/cell accessible labels with explicit parameters or resource-backed defaults; browser AX currently confirms the hard-coded English strings in Chrome and Edge. Still test Persian and English names with native screen readers.
 2. Normalize/validate `Length` and use the same effective value for visible cells, `Digits`, group metadata and per-cell names.
-3. Run actual JavaScript-backed tests for initial focus, sequential typing, paste of one/many digits, backspace/delete navigation, arrow-key behavior, autofill, password mode, auto-submit, value updates and form serialization.
+3. **Already captured in Chrome/Edge WASM:** sequential typing/focus advance, Backspace, ArrowLeft, synthetic multi-digit paste, invalid-character filtering, hidden value updates and demo output. **Still required:** native OS clipboard, initial-focus policy, autofill, password mode, auto-submit, non-positive/changed lengths, digit normalization, incomplete values and form serialization.
 4. Test Persian/Arabic digits, RTL/LTR, mobile input, Light/Dark, forced colors, 320px/reflow and WebAssembly/published InteractiveServer. Link the editable Bluent v3 design before visual approval.
 5. Keep implementation on #441 after Ready/design gates; this #552 branch remains audit-only.
 
@@ -37,6 +41,7 @@ The pinned Fluent Web Components 3.1.3 manifest has no dedicated OTP/one-time-co
 - Packaged interop `src/Bluent.UI/Interops/OptFieldInterop` and the current Fields showcase (source only; not a new runtime pass)
 - [Pinned Fluent Web Components 3.1.3 crosswalk](FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md)
 - [Pinned Fluent React semantic triage](FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md)
+- [Chrome/Edge partial runtime evidence](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md)
 - [OtpField owner issue #441](https://github.com/vrassouli/Bluent/issues/441)
 
 **Boundary:** this is a source/API audit. It does not prove JavaScript behavior, native screen-reader output, full Fluent parity, or design approval.

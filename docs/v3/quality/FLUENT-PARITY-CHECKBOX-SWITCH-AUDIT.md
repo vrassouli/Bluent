@@ -25,7 +25,7 @@ For both Checkbox and Switch:
 
 ## Partial browser evidence (not full acceptance)
 
-The [consolidated Checkbox/Switch/RadioGroup browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) records **35/35 instrumentation checks in Chrome and 35/35 in Edge**, with six screenshots per engine. It confirms the unchecked AX state for the visual indeterminate checkbox and checkbox semantics for Switch. These are browser DOM/AX observations, not screen-reader sign-off.
+The [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) records **56/56 instrumentation checks in Chrome and 56/56 in Edge**, with nine screenshots per engine. It confirms the unchecked AX state for the visual indeterminate checkbox and checkbox semantics for Switch. These are browser DOM/AX observations, not screen-reader sign-off.
 
 ## Required owner actions
 

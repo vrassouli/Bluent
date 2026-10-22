@@ -2,9 +2,9 @@
   "issue": 552,
   "sourceRef": "73155f02",
   "engine": "edge",
-  "host": "Bluent.UI.Demo WebAssembly, built from current task branch source with Release configuration",
-  "scope": "Actual Chromium CDP DOM/AX-tree, pointer and keyboard observations; emulated forced-colors only; not Fluent parity acceptance, native OS contrast or screen-reader certification.",
-  "createdAt": "2026-10-22T15:59:12.393Z",
+  "host": "Bluent.UI.Demo WebAssembly, built from current task branch source with Debug configuration",
+  "scope": "Actual Chromium CDP DOM/AX-tree, pointer and keyboard observations; OTP paste path uses a synthetic ClipboardEvent, not the native OS clipboard; forced-colors is emulated; not Fluent parity acceptance, native OS contrast or screen-reader certification.",
+  "createdAt": "2026-10-22T16:13:42.376Z",
   "checks": [
     {
       "name": "LIGHT-LTR checkboxes real header controls apply theme/direction and forced-colors media",
@@ -226,7 +226,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f10dce055",
+          "id": "f14309a79",
           "name": "",
           "checked": false,
           "role": null,
@@ -234,10 +234,10 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "Yes",
-          "labelFor": "f10dce055"
+          "labelFor": "f14309a79"
         },
         {
-          "id": "f76451f40",
+          "id": "f5315ecd7",
           "name": "",
           "checked": false,
           "role": null,
@@ -245,7 +245,7 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "No",
-          "labelFor": "f76451f40"
+          "labelFor": "f5315ecd7"
         }
       ]
     },
@@ -265,7 +265,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f10dce055",
+              "id": "f14309a79",
               "name": "",
               "checked": false,
               "role": null,
@@ -273,10 +273,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f10dce055"
+              "labelFor": "f14309a79"
             },
             {
-              "id": "f76451f40",
+              "id": "f5315ecd7",
               "name": "",
               "checked": false,
               "role": null,
@@ -284,7 +284,7 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f76451f40"
+              "labelFor": "f5315ecd7"
             }
           ]
         },
@@ -303,7 +303,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f10dce055",
+          "id": "f14309a79",
           "ax": [
             {
               "role": "radio",
@@ -319,7 +319,7 @@
           ]
         },
         {
-          "id": "f76451f40",
+          "id": "f5315ecd7",
           "ax": [
             {
               "role": "radio",
@@ -341,7 +341,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f10dce055",
+          "id": "f14309a79",
           "name": "",
           "checked": true,
           "role": null,
@@ -349,10 +349,10 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "Yes",
-          "labelFor": "f10dce055"
+          "labelFor": "f14309a79"
         },
         {
-          "id": "f76451f40",
+          "id": "f5315ecd7",
           "name": "",
           "checked": false,
           "role": null,
@@ -360,7 +360,7 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "No",
-          "labelFor": "f76451f40"
+          "labelFor": "f5315ecd7"
         }
       ]
     },
@@ -368,7 +368,7 @@
       "name": "ArrowRight advances from the first radio to its second option",
       "pass": true,
       "observed": {
-        "activeId": "f76451f40",
+        "activeId": "f5315ecd7",
         "checked": [
           false,
           true
@@ -380,7 +380,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f10dce055",
+          "id": "f14309a79",
           "name": "",
           "checked": false,
           "role": null,
@@ -388,10 +388,10 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "Yes",
-          "labelFor": "f10dce055"
+          "labelFor": "f14309a79"
         },
         {
-          "id": "f76451f40",
+          "id": "f5315ecd7",
           "name": "",
           "checked": true,
           "role": null,
@@ -399,7 +399,7 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "No",
-          "labelFor": "f76451f40"
+          "labelFor": "f5315ecd7"
         }
       ]
     },
@@ -407,89 +407,89 @@
       "name": "ArrowRight cross-group leakage is reproduced when radio names are empty",
       "pass": true,
       "observed": {
-        "activeId": "f30e30e52",
-        "enumFirstId": "f30e30e52",
+        "activeId": "fb8d85c1",
+        "enumFirstId": "fb8d85c1",
         "all": [
           {
-            "id": "f10dce055",
+            "id": "f14309a79",
             "name": "",
             "checked": false,
             "label": "Yes"
           },
           {
-            "id": "f76451f40",
+            "id": "f5315ecd7",
             "name": "",
             "checked": true,
             "label": "No"
           },
           {
-            "id": "f30e30e52",
+            "id": "fb8d85c1",
             "name": "",
             "checked": true,
             "label": "Yes"
           },
           {
-            "id": "f32b27bf3",
+            "id": "f7de5d84d",
             "name": "",
             "checked": false,
             "label": "No"
           },
           {
-            "id": "f729ca3f5",
+            "id": "f6caf74d8",
             "name": "",
             "checked": false,
             "label": "Apple"
           },
           {
-            "id": "f943dad8",
+            "id": "f7b025264",
             "name": "",
             "checked": false,
             "label": "Pear"
           },
           {
-            "id": "f31917241",
+            "id": "f790874c5",
             "name": "",
             "checked": false,
             "label": "Banana"
           },
           {
-            "id": "f2f6174b6",
+            "id": "f41cd937c",
             "name": "",
             "checked": false,
             "label": "Orange"
           },
           {
-            "id": "f271dab48",
+            "id": "f67bacaf7",
             "name": "",
             "checked": false,
             "label": "Yes"
           },
           {
-            "id": "f7a08143e",
+            "id": "f2b27ba33",
             "name": "",
             "checked": true,
             "label": "No"
           },
           {
-            "id": "f1f132fc6",
+            "id": "f281860fb",
             "name": "",
             "checked": false,
             "label": "Yes"
           },
           {
-            "id": "f4e9754f6",
+            "id": "f18d1980c",
             "name": "",
             "checked": true,
             "label": "No"
           },
           {
-            "id": "f4c19a959",
+            "id": "f2b418dab",
             "name": "",
             "checked": false,
             "label": "Yes"
           },
           {
-            "id": "f896d51a",
+            "id": "f4e268786",
             "name": "",
             "checked": true,
             "label": "No"
@@ -508,14 +508,796 @@
             0
           ],
           "ids": [
-            "f10dce055",
-            "f76451f40"
+            "f14309a79",
+            "f5315ecd7"
           ]
         },
         "tabResult": {
-          "activeId": "f76451f40",
+          "activeId": "f5315ecd7",
           "activeTag": "INPUT"
         }
+      }
+    },
+    {
+      "name": "LIGHT-LTR fields real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR OTP group exposes group role and Verification code name",
+      "pass": true,
+      "observed": {
+        "before": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": ""
+          },
+          "outputText": "OTP:"
+        },
+        "groupAx": [
+          {
+            "role": "group",
+            "name": "Verification code",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR OTP cells expose English positional labels and numeric one-time-code metadata",
+      "pass": true,
+      "observed": [
+        {
+          "index": 0,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 1 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "0"
+        },
+        {
+          "index": 1,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 2 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "1"
+        },
+        {
+          "index": 2,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 3 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "2"
+        },
+        {
+          "index": 3,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 4 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "3"
+        }
+      ]
+    },
+    {
+      "name": "LIGHT-LTR OTP browser AX exposes each cell as a named textbox",
+      "pass": true,
+      "observed": [
+        {
+          "index": 0,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 1 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 2 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 3 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 4 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LIGHT-LTR OTP hidden bound input and displayed value start empty",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-otp-field  ",
+        "hostId": "otpf1a026a58",
+        "role": "group",
+        "ariaLabel": "Verification code",
+        "dataLength": "4",
+        "dataAutoSubmit": "false",
+        "dataBlazorEvent": "onchange",
+        "cells": [
+          {
+            "index": 0,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 1 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "0"
+          },
+          {
+            "index": 1,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 2 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "1"
+          },
+          {
+            "index": 2,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 3 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "2"
+          },
+          {
+            "index": 3,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 4 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "3"
+          }
+        ],
+        "hidden": {
+          "id": "hiddenf1a026a58",
+          "type": "hidden",
+          "name": "",
+          "value": ""
+        },
+        "outputText": "OTP:"
+      }
+    },
+    {
+      "name": "OTP typing one digit updates hidden binding and advances focus",
+      "pass": true,
+      "observed": {
+        "afterFirst": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "4",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "4"
+          },
+          "outputText": "OTP: 4"
+        },
+        "activeAfterFirst": 1
+      }
+    },
+    {
+      "name": "OTP sequential typing updates two cells and bound value",
+      "pass": true,
+      "observed": {
+        "afterSecond": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "4",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "2",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "42"
+          },
+          "outputText": "OTP: 42"
+        },
+        "activeAfterSecond": 2
+      }
+    },
+    {
+      "name": "OTP Backspace on an empty cell clears the previous digit and moves focus back",
+      "pass": true,
+      "observed": {
+        "afterBackspace": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "4",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "4"
+          },
+          "outputText": "OTP: 4"
+        },
+        "activeAfterBackspace": 1
+      }
+    },
+    {
+      "name": "OTP synthetic paste distributes digits, updates hidden binding and focuses final cell",
+      "pass": true,
+      "observed": {
+        "pasteEvent": {
+          "defaultPrevented": true,
+          "clipboardText": "7391"
+        },
+        "afterPaste": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "7",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "3",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "9",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "1",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "7391"
+          },
+          "outputText": "OTP: 7391"
+        },
+        "activeAfterPaste": 3,
+        "syntheticClipboardEvent": true
+      }
+    },
+    {
+      "name": "OTP input handler strips non-digit text and updates bound value",
+      "pass": true,
+      "observed": {
+        "afterInvalid": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "7",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "3",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "9",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "739"
+          },
+          "outputText": "OTP: 739"
+        }
+      }
+    },
+    {
+      "name": "OTP ArrowLeft moves focus to the previous cell",
+      "pass": true,
+      "observed": {
+        "activeAfterArrow": 2
       }
     },
     {
@@ -628,7 +1410,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f27858fdf",
+          "id": "f134a8750",
           "name": "",
           "checked": false,
           "role": null,
@@ -636,10 +1418,10 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "Yes",
-          "labelFor": "f27858fdf"
+          "labelFor": "f134a8750"
         },
         {
-          "id": "f5d298556",
+          "id": "f5690c6c1",
           "name": "",
           "checked": false,
           "role": null,
@@ -647,7 +1429,7 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "No",
-          "labelFor": "f5d298556"
+          "labelFor": "f5690c6c1"
         }
       ]
     },
@@ -667,7 +1449,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f27858fdf",
+              "id": "f134a8750",
               "name": "",
               "checked": false,
               "role": null,
@@ -675,10 +1457,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f27858fdf"
+              "labelFor": "f134a8750"
             },
             {
-              "id": "f5d298556",
+              "id": "f5690c6c1",
               "name": "",
               "checked": false,
               "role": null,
@@ -686,7 +1468,7 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f5d298556"
+              "labelFor": "f5690c6c1"
             }
           ]
         },
@@ -705,7 +1487,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f27858fdf",
+          "id": "f134a8750",
           "ax": [
             {
               "role": "radio",
@@ -721,7 +1503,7 @@
           ]
         },
         {
-          "id": "f5d298556",
+          "id": "f5690c6c1",
           "ax": [
             {
               "role": "radio",
@@ -737,6 +1519,352 @@
           ]
         }
       ]
+    },
+    {
+      "name": "DARK-RTL fields real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL OTP group exposes group role and Verification code name",
+      "pass": true,
+      "observed": {
+        "before": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf47706ae3",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf47706ae3",
+            "type": "hidden",
+            "name": "",
+            "value": ""
+          },
+          "outputText": "OTP:"
+        },
+        "groupAx": [
+          {
+            "role": "group",
+            "name": "Verification code",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL OTP cells expose English positional labels and numeric one-time-code metadata",
+      "pass": true,
+      "observed": [
+        {
+          "index": 0,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 1 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "0"
+        },
+        {
+          "index": 1,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 2 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "1"
+        },
+        {
+          "index": 2,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 3 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "2"
+        },
+        {
+          "index": 3,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 4 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "3"
+        }
+      ]
+    },
+    {
+      "name": "DARK-RTL OTP browser AX exposes each cell as a named textbox",
+      "pass": true,
+      "observed": [
+        {
+          "index": 0,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 1 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 2 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 3 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 4 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DARK-RTL OTP hidden bound input and displayed value start empty",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-otp-field  ",
+        "hostId": "otpf47706ae3",
+        "role": "group",
+        "ariaLabel": "Verification code",
+        "dataLength": "4",
+        "dataAutoSubmit": "false",
+        "dataBlazorEvent": "onchange",
+        "cells": [
+          {
+            "index": 0,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 1 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "0"
+          },
+          {
+            "index": 1,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 2 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "1"
+          },
+          {
+            "index": 2,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 3 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "2"
+          },
+          {
+            "index": 3,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 4 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "3"
+          }
+        ],
+        "hidden": {
+          "id": "hiddenf47706ae3",
+          "type": "hidden",
+          "name": "",
+          "value": ""
+        },
+        "outputText": "OTP:"
+      }
     },
     {
       "name": "FORCED-COLORS checkboxes real header controls apply theme/direction and forced-colors media",
@@ -848,7 +1976,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f18295f7a",
+          "id": "f35e39b25",
           "name": "",
           "checked": false,
           "role": null,
@@ -856,10 +1984,10 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "Yes",
-          "labelFor": "f18295f7a"
+          "labelFor": "f35e39b25"
         },
         {
-          "id": "f40f9da79",
+          "id": "f55a91622",
           "name": "",
           "checked": false,
           "role": null,
@@ -867,7 +1995,7 @@
           "disabled": false,
           "tabIndex": 0,
           "label": "No",
-          "labelFor": "f40f9da79"
+          "labelFor": "f55a91622"
         }
       ]
     },
@@ -887,7 +2015,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f18295f7a",
+              "id": "f35e39b25",
               "name": "",
               "checked": false,
               "role": null,
@@ -895,10 +2023,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f18295f7a"
+              "labelFor": "f35e39b25"
             },
             {
-              "id": "f40f9da79",
+              "id": "f55a91622",
               "name": "",
               "checked": false,
               "role": null,
@@ -906,7 +2034,7 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f40f9da79"
+              "labelFor": "f55a91622"
             }
           ]
         },
@@ -925,7 +2053,7 @@
       "pass": true,
       "observed": [
         {
-          "id": "f18295f7a",
+          "id": "f35e39b25",
           "ax": [
             {
               "role": "radio",
@@ -941,7 +2069,7 @@
           ]
         },
         {
-          "id": "f40f9da79",
+          "id": "f55a91622",
           "ax": [
             {
               "role": "radio",
@@ -957,6 +2085,352 @@
           ]
         }
       ]
+    },
+    {
+      "name": "FORCED-COLORS fields real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS OTP group exposes group role and Verification code name",
+      "pass": true,
+      "observed": {
+        "before": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpff5cf9b5",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenff5cf9b5",
+            "type": "hidden",
+            "name": "",
+            "value": ""
+          },
+          "outputText": "OTP:"
+        },
+        "groupAx": [
+          {
+            "role": "group",
+            "name": "Verification code",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS OTP cells expose English positional labels and numeric one-time-code metadata",
+      "pass": true,
+      "observed": [
+        {
+          "index": 0,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 1 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "0"
+        },
+        {
+          "index": 1,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 2 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "1"
+        },
+        {
+          "index": 2,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 3 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "2"
+        },
+        {
+          "index": 3,
+          "id": "",
+          "type": "text",
+          "ariaLabel": "Digit 4 of 4",
+          "inputMode": "numeric",
+          "autocomplete": "one-time-code",
+          "pattern": "\\d*",
+          "maxLength": 1,
+          "value": "",
+          "name": "",
+          "tabIndex": 0,
+          "disabled": false,
+          "idx": "3"
+        }
+      ]
+    },
+    {
+      "name": "FORCED-COLORS OTP browser AX exposes each cell as a named textbox",
+      "pass": true,
+      "observed": [
+        {
+          "index": 0,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 1 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 2 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 3 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "ax": [
+            {
+              "role": "textbox",
+              "name": "Digit 4 of 4",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "editable": "plaintext",
+                "settable": true,
+                "multiline": false,
+                "readonly": false,
+                "required": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FORCED-COLORS OTP hidden bound input and displayed value start empty",
+      "pass": true,
+      "observed": {
+        "wrapperClass": "bui-otp-field  ",
+        "hostId": "otpff5cf9b5",
+        "role": "group",
+        "ariaLabel": "Verification code",
+        "dataLength": "4",
+        "dataAutoSubmit": "false",
+        "dataBlazorEvent": "onchange",
+        "cells": [
+          {
+            "index": 0,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 1 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "0"
+          },
+          {
+            "index": 1,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 2 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "1"
+          },
+          {
+            "index": 2,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 3 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "2"
+          },
+          {
+            "index": 3,
+            "id": "",
+            "type": "text",
+            "ariaLabel": "Digit 4 of 4",
+            "inputMode": "numeric",
+            "autocomplete": "one-time-code",
+            "pattern": "\\d*",
+            "maxLength": 1,
+            "value": "",
+            "name": "",
+            "tabIndex": 0,
+            "disabled": false,
+            "idx": "3"
+          }
+        ],
+        "hidden": {
+          "id": "hiddenff5cf9b5",
+          "type": "hidden",
+          "name": "",
+          "value": ""
+        },
+        "outputText": "OTP:"
+      }
     }
   ],
   "cases": [
@@ -1113,7 +2587,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f10dce055",
+              "id": "f14309a79",
               "name": "",
               "checked": false,
               "role": null,
@@ -1121,10 +2595,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f10dce055"
+              "labelFor": "f14309a79"
             },
             {
-              "id": "f76451f40",
+              "id": "f5315ecd7",
               "name": "",
               "checked": false,
               "role": null,
@@ -1132,7 +2606,7 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f76451f40"
+              "labelFor": "f5315ecd7"
             }
           ]
         },
@@ -1146,7 +2620,7 @@
         ],
         "optionAx": [
           {
-            "id": "f10dce055",
+            "id": "f14309a79",
             "ax": [
               {
                 "role": "radio",
@@ -1162,7 +2636,7 @@
             ]
           },
           {
-            "id": "f76451f40",
+            "id": "f5315ecd7",
             "ax": [
               {
                 "role": "radio",
@@ -1197,7 +2671,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f10dce055",
+              "id": "f14309a79",
               "name": "",
               "checked": true,
               "role": null,
@@ -1205,10 +2679,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f10dce055"
+              "labelFor": "f14309a79"
             },
             {
-              "id": "f76451f40",
+              "id": "f5315ecd7",
               "name": "",
               "checked": false,
               "role": null,
@@ -1216,12 +2690,12 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f76451f40"
+              "labelFor": "f5315ecd7"
             }
           ]
         },
         "afterArrow": {
-          "activeId": "f76451f40",
+          "activeId": "f5315ecd7",
           "checked": [
             false,
             true
@@ -1239,7 +2713,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f10dce055",
+              "id": "f14309a79",
               "name": "",
               "checked": false,
               "role": null,
@@ -1247,10 +2721,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f10dce055"
+              "labelFor": "f14309a79"
             },
             {
-              "id": "f76451f40",
+              "id": "f5315ecd7",
               "name": "",
               "checked": true,
               "role": null,
@@ -1258,94 +2732,94 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f76451f40"
+              "labelFor": "f5315ecd7"
             }
           ]
         },
         "crossGroupArrow": {
-          "activeId": "f30e30e52",
-          "enumFirstId": "f30e30e52",
+          "activeId": "fb8d85c1",
+          "enumFirstId": "fb8d85c1",
           "all": [
             {
-              "id": "f10dce055",
+              "id": "f14309a79",
               "name": "",
               "checked": false,
               "label": "Yes"
             },
             {
-              "id": "f76451f40",
+              "id": "f5315ecd7",
               "name": "",
               "checked": true,
               "label": "No"
             },
             {
-              "id": "f30e30e52",
+              "id": "fb8d85c1",
               "name": "",
               "checked": true,
               "label": "Yes"
             },
             {
-              "id": "f32b27bf3",
+              "id": "f7de5d84d",
               "name": "",
               "checked": false,
               "label": "No"
             },
             {
-              "id": "f729ca3f5",
+              "id": "f6caf74d8",
               "name": "",
               "checked": false,
               "label": "Apple"
             },
             {
-              "id": "f943dad8",
+              "id": "f7b025264",
               "name": "",
               "checked": false,
               "label": "Pear"
             },
             {
-              "id": "f31917241",
+              "id": "f790874c5",
               "name": "",
               "checked": false,
               "label": "Banana"
             },
             {
-              "id": "f2f6174b6",
+              "id": "f41cd937c",
               "name": "",
               "checked": false,
               "label": "Orange"
             },
             {
-              "id": "f271dab48",
+              "id": "f67bacaf7",
               "name": "",
               "checked": false,
               "label": "Yes"
             },
             {
-              "id": "f7a08143e",
+              "id": "f2b27ba33",
               "name": "",
               "checked": true,
               "label": "No"
             },
             {
-              "id": "f1f132fc6",
+              "id": "f281860fb",
               "name": "",
               "checked": false,
               "label": "Yes"
             },
             {
-              "id": "f4e9754f6",
+              "id": "f18d1980c",
               "name": "",
               "checked": true,
               "label": "No"
             },
             {
-              "id": "f4c19a959",
+              "id": "f2b418dab",
               "name": "",
               "checked": false,
               "label": "Yes"
             },
             {
-              "id": "f896d51a",
+              "id": "f4e268786",
               "name": "",
               "checked": true,
               "label": "No"
@@ -1359,14 +2833,610 @@
             0
           ],
           "ids": [
-            "f10dce055",
-            "f76451f40"
+            "f14309a79",
+            "f5315ecd7"
           ]
         },
         "tabResult": {
-          "activeId": "f76451f40",
+          "activeId": "f5315ecd7",
           "activeTag": "INPUT"
         }
+      }
+    },
+    {
+      "page": "fields",
+      "mode": "LIGHT-LTR",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "otp": {
+        "before": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": ""
+          },
+          "outputText": "OTP:"
+        },
+        "groupAx": [
+          {
+            "role": "group",
+            "name": "Verification code",
+            "ignored": false,
+            "properties": {}
+          }
+        ],
+        "cellAx": [
+          {
+            "index": 0,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 1 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 1,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 2 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 3 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 4 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-EDGE-OTP-LIGHT-LTR.png"
+    },
+    {
+      "page": "fields",
+      "mode": "LIGHT-LTR",
+      "otpKeyboard": {
+        "afterFirst": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "4",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "4"
+          },
+          "outputText": "OTP: 4"
+        },
+        "activeAfterFirst": 1,
+        "afterSecond": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "4",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "2",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "42"
+          },
+          "outputText": "OTP: 42"
+        },
+        "activeAfterSecond": 2,
+        "afterBackspace": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "4",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "4"
+          },
+          "outputText": "OTP: 4"
+        },
+        "activeAfterBackspace": 1,
+        "pasteEvent": {
+          "defaultPrevented": true,
+          "clipboardText": "7391"
+        },
+        "afterPaste": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "7",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "3",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "9",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "1",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "7391"
+          },
+          "outputText": "OTP: 7391"
+        },
+        "activeAfterPaste": 3,
+        "afterInvalid": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf1a026a58",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "7",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "3",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "9",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf1a026a58",
+            "type": "hidden",
+            "name": "",
+            "value": "739"
+          },
+          "outputText": "OTP: 739"
+        },
+        "activeAfterArrow": 2
       }
     },
     {
@@ -1461,7 +3531,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f27858fdf",
+              "id": "f134a8750",
               "name": "",
               "checked": false,
               "role": null,
@@ -1469,10 +3539,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f27858fdf"
+              "labelFor": "f134a8750"
             },
             {
-              "id": "f5d298556",
+              "id": "f5690c6c1",
               "name": "",
               "checked": false,
               "role": null,
@@ -1480,7 +3550,7 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f5d298556"
+              "labelFor": "f5690c6c1"
             }
           ]
         },
@@ -1494,7 +3564,7 @@
         ],
         "optionAx": [
           {
-            "id": "f27858fdf",
+            "id": "f134a8750",
             "ax": [
               {
                 "role": "radio",
@@ -1510,7 +3580,7 @@
             ]
           },
           {
-            "id": "f5d298556",
+            "id": "f5690c6c1",
             "ax": [
               {
                 "role": "radio",
@@ -1528,6 +3598,197 @@
         ]
       },
       "screenshot": "BLUENT-CONTROL-SEMANTICS-EDGE-RADIOGROUP-DARK-RTL.png"
+    },
+    {
+      "page": "fields",
+      "mode": "DARK-RTL",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "otp": {
+        "before": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpf47706ae3",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenf47706ae3",
+            "type": "hidden",
+            "name": "",
+            "value": ""
+          },
+          "outputText": "OTP:"
+        },
+        "groupAx": [
+          {
+            "role": "group",
+            "name": "Verification code",
+            "ignored": false,
+            "properties": {}
+          }
+        ],
+        "cellAx": [
+          {
+            "index": 0,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 1 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 1,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 2 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 3 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 4 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-EDGE-OTP-DARK-RTL.png"
     },
     {
       "page": "checkboxes",
@@ -1621,7 +3882,7 @@
           "hasLegend": false,
           "options": [
             {
-              "id": "f18295f7a",
+              "id": "f35e39b25",
               "name": "",
               "checked": false,
               "role": null,
@@ -1629,10 +3890,10 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "Yes",
-              "labelFor": "f18295f7a"
+              "labelFor": "f35e39b25"
             },
             {
-              "id": "f40f9da79",
+              "id": "f55a91622",
               "name": "",
               "checked": false,
               "role": null,
@@ -1640,7 +3901,7 @@
               "disabled": false,
               "tabIndex": 0,
               "label": "No",
-              "labelFor": "f40f9da79"
+              "labelFor": "f55a91622"
             }
           ]
         },
@@ -1654,7 +3915,7 @@
         ],
         "optionAx": [
           {
-            "id": "f18295f7a",
+            "id": "f35e39b25",
             "ax": [
               {
                 "role": "radio",
@@ -1670,7 +3931,7 @@
             ]
           },
           {
-            "id": "f40f9da79",
+            "id": "f55a91622",
             "ax": [
               {
                 "role": "radio",
@@ -1688,19 +3949,213 @@
         ]
       },
       "screenshot": "BLUENT-CONTROL-SEMANTICS-EDGE-RADIOGROUP-FORCED-COLORS.png"
+    },
+    {
+      "page": "fields",
+      "mode": "FORCED-COLORS",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "otp": {
+        "before": {
+          "wrapperClass": "bui-otp-field  ",
+          "hostId": "otpff5cf9b5",
+          "role": "group",
+          "ariaLabel": "Verification code",
+          "dataLength": "4",
+          "dataAutoSubmit": "false",
+          "dataBlazorEvent": "onchange",
+          "cells": [
+            {
+              "index": 0,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 1 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "0"
+            },
+            {
+              "index": 1,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 2 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "1"
+            },
+            {
+              "index": 2,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 3 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "2"
+            },
+            {
+              "index": 3,
+              "id": "",
+              "type": "text",
+              "ariaLabel": "Digit 4 of 4",
+              "inputMode": "numeric",
+              "autocomplete": "one-time-code",
+              "pattern": "\\d*",
+              "maxLength": 1,
+              "value": "",
+              "name": "",
+              "tabIndex": 0,
+              "disabled": false,
+              "idx": "3"
+            }
+          ],
+          "hidden": {
+            "id": "hiddenff5cf9b5",
+            "type": "hidden",
+            "name": "",
+            "value": ""
+          },
+          "outputText": "OTP:"
+        },
+        "groupAx": [
+          {
+            "role": "group",
+            "name": "Verification code",
+            "ignored": false,
+            "properties": {}
+          }
+        ],
+        "cellAx": [
+          {
+            "index": 0,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 1 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 1,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 2 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 3 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "ax": [
+              {
+                "role": "textbox",
+                "name": "Digit 4 of 4",
+                "ignored": false,
+                "properties": {
+                  "invalid": "false",
+                  "focusable": true,
+                  "editable": "plaintext",
+                  "settable": true,
+                  "multiline": false,
+                  "readonly": false,
+                  "required": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "screenshot": "BLUENT-CONTROL-SEMANTICS-EDGE-OTP-FORCED-COLORS.png"
     }
   ],
   "summary": {
-    "checks": 35,
-    "passed": 35,
+    "checks": 56,
+    "passed": 56,
     "failed": 0,
     "screenshots": [
       "BLUENT-CONTROL-SEMANTICS-EDGE-CHECKBOX-LIGHT-LTR.png",
       "BLUENT-CONTROL-SEMANTICS-EDGE-RADIOGROUP-LIGHT-LTR.png",
+      "BLUENT-CONTROL-SEMANTICS-EDGE-OTP-LIGHT-LTR.png",
       "BLUENT-CONTROL-SEMANTICS-EDGE-CHECKBOX-DARK-RTL.png",
       "BLUENT-CONTROL-SEMANTICS-EDGE-RADIOGROUP-DARK-RTL.png",
+      "BLUENT-CONTROL-SEMANTICS-EDGE-OTP-DARK-RTL.png",
       "BLUENT-CONTROL-SEMANTICS-EDGE-CHECKBOX-FORCED-COLORS.png",
-      "BLUENT-CONTROL-SEMANTICS-EDGE-RADIOGROUP-FORCED-COLORS.png"
+      "BLUENT-CONTROL-SEMANTICS-EDGE-RADIOGROUP-FORCED-COLORS.png",
+      "BLUENT-CONTROL-SEMANTICS-EDGE-OTP-FORCED-COLORS.png"
     ]
   }
 }

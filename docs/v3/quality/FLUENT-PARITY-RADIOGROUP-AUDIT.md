@@ -31,7 +31,7 @@ The pinned Fluent Web Components 3.1.3 inventory and React semantic triage treat
 
 ## Partial browser evidence (not full acceptance)
 
-See the [consolidated Checkbox/Switch/RadioGroup browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) and the raw [Chrome evidence JSON](evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json) / [Edge evidence JSON](evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json). Both runs passed 35/35 instrumentation checks; the checks intentionally assert that the cross-group navigation bug is reproduced, not that the component passes parity.
+See the [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) and the raw [Chrome evidence JSON](evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json) / [Edge evidence JSON](evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json). Both runs passed 56/56 instrumentation checks; the checks intentionally assert that the cross-group navigation bug is reproduced, not that the component passes parity.
 
 ## Evidence sources
 

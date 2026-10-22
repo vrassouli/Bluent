@@ -77,7 +77,7 @@ The following pinned references now provide traceable starting points for the fa
 | Checkbox #434 | Researching; Chrome/Edge AX confirm visual indeterminate state is announced unchecked; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
 | Switch #435 | Researching; Chrome/Edge AX expose checkbox semantics rather than switch role; no approval | [Checkbox / Switch family audit](FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md) |
 | RadioGroup #436 | Researching; group is ignored in browser AX and ArrowRight crosses into the next group in Chrome/Edge; no approval | [RadioGroup family audit](FLUENT-PARITY-RADIOGROUP-AUDIT.md) |
-| OtpField #441 | Researching; group/cell accessible labels are hard-coded English and invalid lengths can contradict labels; JS runtime still unverified | [OtpField family audit](FLUENT-PARITY-OTP-AUDIT.md) |
+| OtpField #441 | Researching; Chrome/Edge confirm English labels and test typing, backspace and synthetic paste; length edge cases/AT remain open | [OtpField family audit](FLUENT-PARITY-OTP-AUDIT.md) |
 | NumericField #433 | Researching; public Step parameter is not consumed and input mode/step semantics need a contract | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
 | SelectField #437 | Researching; inherited BindValueEvent is ignored and multiple-select runtime remains unverified | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
 | DateField #438 | Researching; DateClass no-op, typed Min/Max bypass, YearSelect mask mismatch and unnamed calendar trigger | [Typed field family audit](FLUENT-PARITY-TYPED-FIELDS-AUDIT.md) |
