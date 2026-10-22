@@ -284,7 +284,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -310,7 +310,8 @@
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FOCUS-KEYBOARD-ARCHITECTURE-PROPOSAL.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"
     },
     {
       "family": "Checkbox",
