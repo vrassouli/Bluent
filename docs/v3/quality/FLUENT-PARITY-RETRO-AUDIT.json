@@ -322,7 +322,7 @@
       "currentDemoRoute": "/components/checkboxes",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -333,7 +333,7 @@
         "visual": "not_reviewed",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -343,12 +343,13 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Indeterminate state, group semantics, disabled and focus.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"
     },
     {
       "family": "Switch",
@@ -360,7 +361,7 @@
       "currentDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
       "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "auditStatus": "researching",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
@@ -371,7 +372,7 @@
         "visual": "not_reviewed",
         "feature": "not_reviewed",
         "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
+        "accessibility": "audited_gaps",
         "tokenTheme": "not_reviewed",
         "responsiveRTL": "not_reviewed",
         "BlazorExtensions": "not_reviewed",
@@ -381,12 +382,13 @@
       "designApproval": "pending",
       "editableDesignLocation": null,
       "evidenceBundle": null,
-      "gapDisposition": "untriaged",
+      "gapDisposition": "known_gaps_open",
       "notesForReview": "Role=switch, label/order and keyboard/announced state.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md"
-      ]
+      ],
+      "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"
     },
     {
       "family": "NumericField",

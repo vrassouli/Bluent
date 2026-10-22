@@ -41,6 +41,8 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             "Label": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"),
             "Link": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"),
             "Badge": ({"feature", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"),
+            "Checkbox": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
+            "Switch": ({"accessibility"}, "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"),
             "Slider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
             "RangeSlider": ({"visual", "behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"),
             "FileSelect": ({"behavior", "accessibility"}, "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"),
@@ -80,7 +82,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         for phrase in (
             "research leads, not acceptance evidence", "nine-dimension acceptance matrix",
             "full evidence bundle remains pending for all 18 families",
-            "Button, Icon, Label, Link, Badge, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
+            "Button, Icon, Label, Link, Badge, Checkbox, Switch, Slider, RangeSlider and FileSelect have partial source/browser gap reports",
             "native OS/assistive-technology acceptance", "PR #553 targets `bluent-v3`",
         ):
             self.assertIn(phrase, self.report)
