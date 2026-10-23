@@ -4,7 +4,7 @@
   "engine": "edge",
   "host": "Bluent.UI.Demo WebAssembly, built from current task branch source with Debug configuration",
   "scope": "Actual Chromium CDP DOM/AX-tree and keyboard observations for typed fields; OTP paste uses a synthetic ClipboardEvent; forced-colors is emulated; no native screen-reader or OS contrast certification.",
-  "createdAt": "2026-10-23T07:51:11.117Z",
+  "createdAt": "2026-10-23T08:02:03.288Z",
   "checks": [
     {
       "name": "LIGHT-LTR fields real header controls apply theme/direction and forced-colors media",
@@ -36,7 +36,7 @@
       "observed": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -105,7 +105,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -275,7 +275,7 @@
       "pass": true,
       "observed": {
         "wrapperClass": "bui-otp-field  ",
-        "hostId": "otpf137f73f4",
+        "hostId": "otpf586ee97",
         "role": "group",
         "ariaLabel": "Verification code",
         "dataLength": "4",
@@ -344,7 +344,7 @@
           }
         ],
         "hidden": {
-          "id": "hiddenf137f73f4",
+          "id": "hiddenf586ee97",
           "type": "hidden",
           "name": "",
           "value": ""
@@ -358,7 +358,7 @@
       "observed": {
         "afterFirst": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -427,7 +427,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -443,7 +443,7 @@
       "observed": {
         "afterSecond": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -512,7 +512,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "42"
@@ -528,7 +528,7 @@
       "observed": {
         "afterBackspace": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -597,7 +597,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -617,7 +617,7 @@
         },
         "afterPaste": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -686,7 +686,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "7391"
@@ -703,7 +703,7 @@
       "observed": {
         "afterInvalid": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -772,7 +772,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "739"
@@ -818,7 +818,7 @@
       "observed": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf587c6658",
+          "hostId": "otpf4367af97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -887,7 +887,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf587c6658",
+            "id": "hiddenf4367af97",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -1057,7 +1057,7 @@
       "pass": true,
       "observed": {
         "wrapperClass": "bui-otp-field  ",
-        "hostId": "otpf587c6658",
+        "hostId": "otpf4367af97",
         "role": "group",
         "ariaLabel": "Verification code",
         "dataLength": "4",
@@ -1126,7 +1126,7 @@
           }
         ],
         "hidden": {
-          "id": "hiddenf587c6658",
+          "id": "hiddenf4367af97",
           "type": "hidden",
           "name": "",
           "value": ""
@@ -1164,7 +1164,7 @@
       "observed": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf996af34",
+          "hostId": "otpf3f69efd2",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -1233,7 +1233,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf996af34",
+            "id": "hiddenf3f69efd2",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -1403,7 +1403,7 @@
       "pass": true,
       "observed": {
         "wrapperClass": "bui-otp-field  ",
-        "hostId": "otpf996af34",
+        "hostId": "otpf3f69efd2",
         "role": "group",
         "ariaLabel": "Verification code",
         "dataLength": "4",
@@ -1472,7 +1472,7 @@
           }
         ],
         "hidden": {
-          "id": "hiddenf996af34",
+          "id": "hiddenf3f69efd2",
           "type": "hidden",
           "name": "",
           "value": ""
@@ -1720,6 +1720,40 @@
         "output": "Typed value: 0991-234-5678",
         "pattern": null,
         "maxLength": -1
+      }
+    },
+    {
+      "name": "DateField sequential digits format a valid date and update bound display",
+      "pass": true,
+      "observed": {
+        "dateBefore": {
+          "value": "2026/10/22",
+          "output": "Date: 10/22/2026 11:31:50 AM"
+        },
+        "dateAfter": {
+          "value": "2025/01/15",
+          "output": "Date: 1/15/2025 12:00:00 AM"
+        }
+      }
+    },
+    {
+      "name": "TimeField sequential digits update the bound display and seconds variant retains H:m:s format",
+      "pass": true,
+      "observed": {
+        "timeBefore": {
+          "values": [
+            "11:31",
+            "11:31:50"
+          ],
+          "output": "TimeOnly: 11:31 AM"
+        },
+        "timeAfter": {
+          "values": [
+            "09:30",
+            "9:30:0"
+          ],
+          "output": "TimeOnly: 9:30 AM"
+        }
       }
     },
     {
@@ -2152,7 +2186,7 @@
       "otp": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2221,7 +2255,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -2323,7 +2357,7 @@
       "otpKeyboard": {
         "afterFirst": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2392,7 +2426,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -2402,7 +2436,7 @@
         "activeAfterFirst": 1,
         "afterSecond": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2471,7 +2505,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "42"
@@ -2481,7 +2515,7 @@
         "activeAfterSecond": 2,
         "afterBackspace": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2550,7 +2584,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "4"
@@ -2564,7 +2598,7 @@
         },
         "afterPaste": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2633,7 +2667,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "7391"
@@ -2643,7 +2677,7 @@
         "activeAfterPaste": 3,
         "afterInvalid": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf137f73f4",
+          "hostId": "otpf586ee97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2712,7 +2746,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf137f73f4",
+            "id": "hiddenf586ee97",
             "type": "hidden",
             "name": "",
             "value": "739"
@@ -2748,7 +2782,7 @@
       "otp": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf587c6658",
+          "hostId": "otpf4367af97",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -2817,7 +2851,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf587c6658",
+            "id": "hiddenf4367af97",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -2939,7 +2973,7 @@
       "otp": {
         "before": {
           "wrapperClass": "bui-otp-field  ",
-          "hostId": "otpf996af34",
+          "hostId": "otpf3f69efd2",
           "role": "group",
           "ariaLabel": "Verification code",
           "dataLength": "4",
@@ -3008,7 +3042,7 @@
             }
           ],
           "hidden": {
-            "id": "hiddenf996af34",
+            "id": "hiddenf3f69efd2",
             "type": "hidden",
             "name": "",
             "value": ""
@@ -3245,7 +3279,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "11:21",
+                    "value": "11:31",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3271,7 +3305,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "11:21:0",
+                    "value": "11:31:50",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3297,7 +3331,7 @@
                     "id": "_dateField",
                     "type": "text",
                     "name": "",
-                    "value": "11:21",
+                    "value": "11:31",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3324,7 +3358,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739911.11:21",
+                    "value": "739911.11:31",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3350,7 +3384,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739911.11:21:0",
+                    "value": "739911.11:31:50",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -3372,7 +3406,7 @@
                     ]
                   }
                 ],
-                "text": "Time only\n \n\n                TimeOnly: 11:21 AM\nDate field\n\n                DateTime: 10/22/2026 11:21:00 AM\nTime span\n \n\n                TimeSpan: 739911.11:21:00.5950000"
+                "text": "Time only\n \n\n                TimeOnly: 11:31 AM\nDate field\n\n                DateTime: 10/22/2026 11:31:50 AM\nTime span\n \n\n                TimeSpan: 739911.11:31:50.7430000"
               }
             ]
           },
@@ -3521,7 +3555,7 @@
                     ]
                   }
                 ],
-                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/22/2026 11:21:00 AM\nMonth field\n\n                Date: 10/23/2026 11:21:00 AM"
+                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/22/2026 11:31:50 AM\nMonth field\n\n                Date: 10/23/2026 11:31:50 AM"
               }
             ]
           },
@@ -3895,7 +3929,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "11:21",
+                "value": "11:31",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3921,7 +3955,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "11:21:0",
+                "value": "11:31:50",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3947,7 +3981,7 @@
                 "id": "_dateField",
                 "type": "text",
                 "name": "",
-                "value": "11:21",
+                "value": "11:31",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -3974,7 +4008,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739911.11:21",
+                "value": "739911.11:31",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4000,7 +4034,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739911.11:21:0",
+                "value": "739911.11:31:50",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -4491,6 +4525,28 @@
           "output": "Typed value: 0991-234-5678",
           "pattern": null,
           "maxLength": -1
+        },
+        "dateBefore": {
+          "value": "2026/10/22",
+          "output": "Date: 10/22/2026 11:31:50 AM"
+        },
+        "dateAfter": {
+          "value": "2025/01/15",
+          "output": "Date: 1/15/2025 12:00:00 AM"
+        },
+        "timeBefore": {
+          "values": [
+            "11:31",
+            "11:31:50"
+          ],
+          "output": "TimeOnly: 11:31 AM"
+        },
+        "timeAfter": {
+          "values": [
+            "09:30",
+            "9:30:0"
+          ],
+          "output": "TimeOnly: 9:30 AM"
         }
       }
     },
@@ -4635,7 +4691,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "11:21",
+                    "value": "11:31",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4661,7 +4717,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "11:21:6",
+                    "value": "11:31:58",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4687,7 +4743,7 @@
                     "id": "_dateField",
                     "type": "text",
                     "name": "",
-                    "value": "11:21",
+                    "value": "11:31",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4714,7 +4770,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739911.11:21",
+                    "value": "739911.11:31",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4740,7 +4796,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739911.11:21:6",
+                    "value": "739911.11:31:58",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -4762,7 +4818,7 @@
                     ]
                   }
                 ],
-                "text": "Time only\n \n\n                TimeOnly: 11:21 AM\nDate field\n\n                DateTime: 10/22/2026 11:21:06 AM\nTime span\n \n\n                TimeSpan: 739911.11:21:06.1170000"
+                "text": "Time only\n \n\n                TimeOnly: 11:31 AM\nDate field\n\n                DateTime: 10/22/2026 11:31:58 AM\nTime span\n \n\n                TimeSpan: 739911.11:31:58.0640000"
               }
             ]
           },
@@ -4911,7 +4967,7 @@
                     ]
                   }
                 ],
-                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/22/2026 11:21:06 AM\nMonth field\n\n                Date: 10/23/2026 11:21:06 AM"
+                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/22/2026 11:31:58 AM\nMonth field\n\n                Date: 10/23/2026 11:31:58 AM"
               }
             ]
           },
@@ -5285,7 +5341,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "11:21",
+                "value": "11:31",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -5311,7 +5367,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "11:21:6",
+                "value": "11:31:58",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -5337,7 +5393,7 @@
                 "id": "_dateField",
                 "type": "text",
                 "name": "",
-                "value": "11:21",
+                "value": "11:31",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -5364,7 +5420,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739911.11:21",
+                "value": "739911.11:31",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -5390,7 +5446,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739911.11:21:6",
+                "value": "739911.11:31:58",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -5993,7 +6049,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "11:21",
+                    "value": "11:32",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -6019,7 +6075,7 @@
                     "id": "_timeOnly",
                     "type": "text",
                     "name": "",
-                    "value": "11:21:9",
+                    "value": "11:32:1",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -6045,7 +6101,7 @@
                     "id": "_dateField",
                     "type": "text",
                     "name": "",
-                    "value": "11:21",
+                    "value": "11:32",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -6072,7 +6128,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739911.11:21",
+                    "value": "739911.11:32",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -6098,7 +6154,7 @@
                     "id": "_timeSpan",
                     "type": "text",
                     "name": "",
-                    "value": "739911.11:21:9",
+                    "value": "739911.11:32:1",
                     "disabled": false,
                     "readOnly": false,
                     "required": false,
@@ -6120,7 +6176,7 @@
                     ]
                   }
                 ],
-                "text": "Time only\n \n\n                TimeOnly: 11:21 AM\nDate field\n\n                DateTime: 10/22/2026 11:21:09 AM\nTime span\n \n\n                TimeSpan: 739911.11:21:09.0920000"
+                "text": "Time only\n \n\n                TimeOnly: 11:32 AM\nDate field\n\n                DateTime: 10/22/2026 11:32:01 AM\nTime span\n \n\n                TimeSpan: 739911.11:32:01.2330000"
               }
             ]
           },
@@ -6269,7 +6325,7 @@
                     ]
                   }
                 ],
-                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/22/2026 11:21:09 AM\nMonth field\n\n                Date: 10/23/2026 11:21:09 AM"
+                "text": "Small date field\nDate field\nLarge date field\nDisabled date field\n\n                Date: 10/22/2026 11:32:01 AM\nMonth field\n\n                Date: 10/23/2026 11:32:01 AM"
               }
             ]
           },
@@ -6643,7 +6699,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "11:21",
+                "value": "11:32",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6669,7 +6725,7 @@
                 "id": "_timeOnly",
                 "type": "text",
                 "name": "",
-                "value": "11:21:9",
+                "value": "11:32:1",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6695,7 +6751,7 @@
                 "id": "_dateField",
                 "type": "text",
                 "name": "",
-                "value": "11:21",
+                "value": "11:32",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6722,7 +6778,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739911.11:21",
+                "value": "739911.11:32",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -6748,7 +6804,7 @@
                 "id": "_timeSpan",
                 "type": "text",
                 "name": "",
-                "value": "739911.11:21:9",
+                "value": "739911.11:32:1",
                 "disabled": false,
                 "readOnly": false,
                 "required": false,
@@ -7212,8 +7268,8 @@
     }
   ],
   "summary": {
-    "checks": 45,
-    "passed": 45,
+    "checks": 47,
+    "passed": 47,
     "failed": 0,
     "screenshots": [
       "BLUENT-TYPED-FIELDS-EDGE-OTP-LIGHT-LTR.png",

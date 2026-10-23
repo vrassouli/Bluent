@@ -1,6 +1,6 @@
 # #552 browser audit — typed field families
 
-**Partial runtime evidence only; no Fluent parity acceptance.** The Bluent UI Demo WebAssembly app was built from the task-branch source baseline `73155f02` and exercised in headless Chrome and Edge through Chromium DevTools Protocol (CDP). Each engine completed **45/45 instrumentation checks**, with 21 screenshots per engine. No product component source or design file was changed.
+**Partial runtime evidence only; no Fluent parity acceptance.** The Bluent UI Demo WebAssembly app was built from the task-branch source baseline `73155f02` and exercised in headless Chrome and Edge through Chromium DevTools Protocol (CDP). Each engine completed **47/47 instrumentation checks**, with 21 screenshots per engine. No product component source or design file was changed.
 
 ## Scope and limitations
 
@@ -11,8 +11,8 @@
 
 | Evidence | Result |
 | --- | --- |
-| [Chrome structured evidence](evidence/BLUENT-TYPED-FIELDS-CHROME.json) | 45/45 checks; 0 failed |
-| [Edge structured evidence](evidence/BLUENT-TYPED-FIELDS-EDGE.json) | 45/45 checks; 0 failed |
+| [Chrome structured evidence](evidence/BLUENT-TYPED-FIELDS-CHROME.json) | 47/47 checks; 0 failed |
+| [Edge structured evidence](evidence/BLUENT-TYPED-FIELDS-EDGE.json) | 47/47 checks; 0 failed |
 | Chrome screenshots | [TextField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-TEXT-FIELD-LIGHT-LTR.png) · [MaskedField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-MASKED-FIELD-LIGHT-LTR.png) · [TimeField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-TIME-FIELD-LIGHT-LTR.png) · [DateField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-DATE-FIELD-LIGHT-LTR.png) · [NumericField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-NUMERIC-FIELD-LIGHT-LTR.png) · [SelectField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-SELECT-FIELD-LIGHT-LTR.png) · [MaskedField · Dark/RTL](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-MASKED-FIELD-DARK-RTL.png) · [DateField · forced colors](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-DATE-FIELD-FORCED-COLORS.png) |
 | Edge screenshots | [TextField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-LIGHT-LTR.png) · [MaskedField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-LIGHT-LTR.png) · [TimeField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-LIGHT-LTR.png) · [DateField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-LIGHT-LTR.png) · [NumericField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-NUMERIC-FIELD-LIGHT-LTR.png) · [SelectField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-SELECT-FIELD-LIGHT-LTR.png) · [MaskedField · Dark/RTL](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-DARK-RTL.png) · [DateField · forced colors](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-FORCED-COLORS.png) |
 
@@ -51,16 +51,16 @@ The JSON files contain the full 21-screenshot lists for both engines, including 
 ### DateField #438
 
 - The representative `Small date field` is exposed as a named textbox. The demo's inspected date/month variants render text inputs with `autocomplete="off"`; the disabled date variant is actually disabled.
-- The representative value is formatted as `yyyy/MM/dd` in the demo. This run did not exercise typed Min/Max boundaries, YearSelect, picker-button activation or calendar-trigger accessible naming.
+- The representative value is formatted as yyyy/MM/dd in the demo. Sequentially typing digits 20250115 formats the input as 2025/01/15 and updates the bound display in both engines. Typed Min/Max boundaries, YearSelect, picker-button activation and calendar-trigger accessible naming remain untested.
 
-**Disposition:** labels and the disabled fixture are present in the browser tree; source-confirmed range bypass, YearSelect format/mask inconsistency and calendar-trigger naming remain open under #438.
+**Disposition:** labels, disabled fixture and basic typed date entry are verified in this browser path; source-confirmed range bypass, YearSelect format/mask inconsistency and calendar-trigger naming remain open under #438.
 
 ### TimeField #439
 
 - The representative `Time only` input is exposed as a named textbox. Time and time-with-seconds examples render text inputs with `autocomplete="off"`, not native `type="time"` controls.
-- The demo currently renders time strings such as `21:44` and `21:44:52`. This run did not verify Culture switching, parsing, seconds edge cases or the inherited `BindValueEvent` parameter.
+- The demo currently renders time strings such as 21:44 and 21:44:52. Sequentially typing digits 0930 updates the bound display to 9:30 AM in both engines. The repeated controls render as 09:30 and 9:30:0 respectively; the seconds-enabled instance uses the current H:m:s format without zero-padding. This is recorded as an observed formatting contract to compare against the approved design, not automatically declared a defect. Culture switching, parsing beyond this basic path, seconds edge cases and the inherited BindValueEvent parameter remain untested.
 
-**Disposition:** tested fields are discoverable and named in browser AX. Culture/format and event-selector contracts remain open under #439.
+**Disposition:** fields are discoverable and named in browser AX, and the basic keyboard time-entry path updates its binding. Culture/format and event-selector contracts remain open under #439.
 
 ### MaskedField #440 — reproduced prefix-literal defect
 

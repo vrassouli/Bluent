@@ -24,10 +24,10 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
             with self.subTest(engine=engine):
                 self.assertEqual(engine, run["engine"])
                 self.assertEqual("73155f02", run["sourceRef"])
-                self.assertEqual(45, run["summary"]["checks"])
-                self.assertEqual(45, run["summary"]["passed"])
+                self.assertEqual(47, run["summary"]["checks"])
+                self.assertEqual(47, run["summary"]["passed"])
                 self.assertEqual(0, run["summary"]["failed"])
-                self.assertEqual(45, len(run["checks"]))
+                self.assertEqual(47, len(run["checks"]))
                 self.assertTrue(all(item["pass"] for item in run["checks"]))
                 screenshots = run["summary"]["screenshots"]
                 self.assertEqual(21, len(screenshots))
@@ -75,6 +75,20 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                     for element_id in expected:
                         self.assertEqual(2, duplicates[element_id]["count"], (engine, case["mode"], element_id))
 
+    def test_date_and_time_keyboard_paths_update_bound_values(self):
+        for engine, run in self.runs.items():
+            with self.subTest(engine=engine):
+                case = next(c for c in run["cases"] if c.get("typedFieldKeyboard"))
+                keyboard = case["typedFieldKeyboard"]
+                self.assertEqual("2025/01/15", keyboard["dateAfter"]["value"], (engine, keyboard["dateAfter"]))
+                self.assertNotEqual(keyboard["dateBefore"]["output"], keyboard["dateAfter"]["output"], engine)
+                self.assertEqual(2, len(keyboard["timeAfter"]["values"]), (engine, keyboard["timeAfter"]))
+                self.assertIn(keyboard["timeAfter"]["values"][0], {"9:30", "09:30"}, (engine, keyboard["timeAfter"]))
+                seconds_parts = keyboard["timeAfter"]["values"][1].split(":")
+                self.assertEqual(3, len(seconds_parts), (engine, keyboard["timeAfter"]))
+                self.assertTrue(all(part.isdigit() and 1 <= len(part) <= 2 for part in seconds_parts), (engine, keyboard["timeAfter"]))
+                self.assertNotEqual(keyboard["timeBefore"]["output"], keyboard["timeAfter"]["output"], engine)
+
     def test_numeric_and_select_keyboard_paths_update_values(self):
         for engine, run in self.runs.items():
             with self.subTest(engine=engine):
@@ -94,7 +108,7 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                 self.assertNotEqual("0912-345-6789", mask["input"])
 
     def test_report_keeps_runtime_and_acceptance_boundaries_explicit(self):
-        self.assertIn("45/45 instrumentation checks", self.report)
+        self.assertIn("47/47 instrumentation checks", self.report)
         self.assertIn("reproduced in Chrome and Edge", self.report)
         self.assertIn("native screen-reader output", self.report)
         self.assertIn("not native Windows Contrast Themes", self.report)
