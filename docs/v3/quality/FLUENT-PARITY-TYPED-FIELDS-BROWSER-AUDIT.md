@@ -1,6 +1,6 @@
 # #552 browser audit — typed field families
 
-**Partial runtime evidence only; no Fluent parity acceptance.** The Bluent UI Demo WebAssembly app was built from the task-branch source baseline `73155f02` and exercised in headless Chrome and Edge through Chromium DevTools Protocol (CDP). Each engine completed **49/49 instrumentation checks**, with 21 screenshots per engine. No product component source or design file was changed.
+**Partial runtime evidence only; no Fluent parity acceptance.** The Bluent UI Demo WebAssembly app was built from the task-branch source baseline `73155f02` and exercised in headless Chrome and Edge through Chromium DevTools Protocol (CDP). Each engine completed **49/49 instrumentation checks**, with 21 screenshots per engine. No product component source or design file was changed. The probe was repeated on **2026-10-23** after the earlier 2026-10-22 run; both engines again reported 49/49 checks and zero failures, and the structured evidence/screenshots now reflect that repeat run.
 
 ## Scope and limitations
 
