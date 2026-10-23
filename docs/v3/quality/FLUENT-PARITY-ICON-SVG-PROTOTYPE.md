@@ -5,7 +5,7 @@
 ## Design-tool access and approval boundary
 
 **Historical access note (2026-10-20):** Penpot was then connected to an unrelated **PuyaStudio Runner** file (ID b64f6665-c9ab-80b5-8008-c44ed391c0c4); Figma read-only inspection in owned working file JfxkDgSbNr8W0ppUZPQPHc hit the Starter plan tool-call limit. No unrelated asset was touched.
-- **Current access check (2026-10-23):** Penpot read-only inspection later confirmed the correct **Bluent v3 Design System** file (ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`), with existing pages through `42 · Component demo shell`. No dedicated Icon component board was found. A subsequent read attempt failed because the browser tab had suspended; no board was created or changed, and design approval remains open.
+- **Current design work (2026-10-23):** the Penpot connection was recovered in the correct **Bluent v3 Design System** file (ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`). A new editable review board was created at page **43 · Icon anatomy & contract · #429 DRAFT** (page ID `1d7e9dd6-b977-802e-8008-d5a718dd7655`), board **#429 · Icon SVG sizing & semantics · REVIEW DRAFT** (node ID `1d7e9dd6-b977-802e-8008-d5a718e3f4a2`). It has **129 editable child layers**, including 68 text nodes and imported SVG samples. A live export was visually checked after fixing text line-height; all 68 text bounds are valid and every child is within the board bounds. No pre-existing page/board was modified. This is a working review draft, not maintainer sign-off or a production component master.
 
 ## Real unchanged Blazor WASM component and isolated CSS injection
 
@@ -59,7 +59,7 @@ This remains injected CSS in temporary browser processes only. It does not valid
 
 ## #429 design-first decision checklist — ready for review, not pre-approved
 
-The current Penpot source file is `Bluent v3 Design System` (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`). It contains existing component and audit pages but no dedicated Icon board was identified in the read-only search. The connected browser tab subsequently suspended before an Icon board could be created. Therefore this is a **written review brief, not a substitute for an editable Penpot design or maintainer approval**. Create a separate clearly labeled draft Icon board in that file after reconnecting, preserve every existing page/board, then record its page/node ID here and on #429.
+The current Penpot source file is `Bluent v3 Design System` (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`). The editable Icon review board now exists at page `43 · Icon anatomy & contract · #429 DRAFT` (page ID `1d7e9dd6-b977-802e-8008-d5a718dd7655`) and board `#429 · Icon SVG sizing & semantics · REVIEW DRAFT` (node ID `1d7e9dd6-b977-802e-8008-d5a718e3f4a2`). It contains the 16/20/24/28/32px sizing matrix, the measured viewBox boundary, decorative-vs-informative options, dark/RTL context, owner decisions and a truthful acceptance matrix. Structural check: 129 editable children, 68/68 text nodes have valid text bounds, and zero children extend beyond the 1600×2320 board. One exported PNG was visually inspected after correcting the text line-height ratio. **This is a review draft, not an approved Fluent parity design, component master, or maintainer sign-off.**
 
 Before an owner branch can begin implementation, #429/#420 and the maintainer should record an explicit disposition for each decision below (do not silently choose product behavior based on the CSS experiment):
 
