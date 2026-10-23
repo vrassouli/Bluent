@@ -69,3 +69,8 @@ The Bluent source was the existing `v3/issue-421-component-lab` commit `b9952aa9
 - The official reference responds to the stepped Slider's `ArrowRight` key and ToggleButton clicks. This proves those reference behaviors work in the tested Chromium fixture; it does not imply Bluent parity.
 
 The rerun did **not** perform normalized pixel-diff acceptance, native OS high-contrast testing, screen-reader testing, touch testing, or published InteractiveServer acceptance. No component is marked Fluent-approved. Preserve #552 as In progress and PR #553 as Draft.
+
+
+## Editable Slider/RangeSlider design handoff — 2026-10-23
+
+Two editable, review-draft boards were created in the project-owned Penpot file and exported/visually inspected. See [the detailed handoff](SLIDER-RANGESLIDER-DESIGN-REVIEW.md) for the actual file/page/board IDs, state matrices, proposed keyboard/ARIA contract, range ordering proposal and outstanding acceptance gates. The boards are explicitly marked REVIEW DRAFT; neither issue is implementation-approved. The boards do not substitute for #418/#420 foundation acceptance, #421 interactive demo coverage, #425 browser/native accessibility gates, or maintainer decisions on RangeSlider crossing behavior.
