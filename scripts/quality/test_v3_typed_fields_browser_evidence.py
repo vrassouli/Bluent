@@ -24,10 +24,10 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
             with self.subTest(engine=engine):
                 self.assertEqual(engine, run["engine"])
                 self.assertEqual("73155f02", run["sourceRef"])
-                self.assertEqual(42, run["summary"]["checks"])
-                self.assertEqual(42, run["summary"]["passed"])
+                self.assertEqual(45, run["summary"]["checks"])
+                self.assertEqual(45, run["summary"]["passed"])
                 self.assertEqual(0, run["summary"]["failed"])
-                self.assertEqual(42, len(run["checks"]))
+                self.assertEqual(45, len(run["checks"]))
                 self.assertTrue(all(item["pass"] for item in run["checks"]))
                 screenshots = run["summary"]["screenshots"]
                 self.assertEqual(21, len(screenshots))
@@ -63,6 +63,18 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                     self.assertEqual(name, families[family]["observedName"], family)
                     self.assertTrue(families[family]["allGroupFields"], family)
 
+    def test_demo_repeated_bindings_report_duplicate_dom_ids_in_all_modes(self):
+        expected = {"_timeOnly", "_timeSpan", "_dateField"}
+        for engine, run in self.runs.items():
+            with self.subTest(engine=engine):
+                field_cases = [c for c in run["cases"] if c.get("typedFields")]
+                self.assertEqual({"LIGHT-LTR", "DARK-RTL", "FORCED-COLORS"}, {c["mode"] for c in field_cases})
+                for case in field_cases:
+                    duplicates = case["typedFields"]["duplicateIds"]
+                    self.assertTrue(expected.issubset(duplicates), (engine, case["mode"], duplicates))
+                    for element_id in expected:
+                        self.assertEqual(2, duplicates[element_id]["count"], (engine, case["mode"], element_id))
+
     def test_numeric_and_select_keyboard_paths_update_values(self):
         for engine, run in self.runs.items():
             with self.subTest(engine=engine):
@@ -82,7 +94,7 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                 self.assertNotEqual("0912-345-6789", mask["input"])
 
     def test_report_keeps_runtime_and_acceptance_boundaries_explicit(self):
-        self.assertIn("42/42 instrumentation checks", self.report)
+        self.assertIn("45/45 instrumentation checks", self.report)
         self.assertIn("reproduced in Chrome and Edge", self.report)
         self.assertIn("native screen-reader output", self.report)
         self.assertIn("not native Windows Contrast Themes", self.report)

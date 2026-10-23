@@ -1,6 +1,6 @@
 # #552 browser audit — typed field families
 
-**Partial runtime evidence only; no Fluent parity acceptance.** The Bluent UI Demo WebAssembly app was built from the task-branch source baseline `73155f02` and exercised in headless Chrome and Edge through Chromium DevTools Protocol (CDP). Each engine completed **42/42 instrumentation checks**, with 21 screenshots per engine. No product component source or design file was changed.
+**Partial runtime evidence only; no Fluent parity acceptance.** The Bluent UI Demo WebAssembly app was built from the task-branch source baseline `73155f02` and exercised in headless Chrome and Edge through Chromium DevTools Protocol (CDP). Each engine completed **45/45 instrumentation checks**, with 21 screenshots per engine. No product component source or design file was changed.
 
 ## Scope and limitations
 
@@ -11,14 +11,20 @@
 
 | Evidence | Result |
 | --- | --- |
-| [Chrome structured evidence](evidence/BLUENT-TYPED-FIELDS-CHROME.json) | 42/42 checks; 0 failed |
-| [Edge structured evidence](evidence/BLUENT-TYPED-FIELDS-EDGE.json) | 42/42 checks; 0 failed |
+| [Chrome structured evidence](evidence/BLUENT-TYPED-FIELDS-CHROME.json) | 45/45 checks; 0 failed |
+| [Edge structured evidence](evidence/BLUENT-TYPED-FIELDS-EDGE.json) | 45/45 checks; 0 failed |
 | Chrome screenshots | [TextField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-TEXT-FIELD-LIGHT-LTR.png) · [MaskedField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-MASKED-FIELD-LIGHT-LTR.png) · [TimeField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-TIME-FIELD-LIGHT-LTR.png) · [DateField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-DATE-FIELD-LIGHT-LTR.png) · [NumericField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-NUMERIC-FIELD-LIGHT-LTR.png) · [SelectField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-SELECT-FIELD-LIGHT-LTR.png) · [MaskedField · Dark/RTL](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-MASKED-FIELD-DARK-RTL.png) · [DateField · forced colors](evidence/BLUENT-TYPED-FIELDS-CHROME-FIELD-DATE-FIELD-FORCED-COLORS.png) |
 | Edge screenshots | [TextField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-TEXT-FIELD-LIGHT-LTR.png) · [MaskedField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-LIGHT-LTR.png) · [TimeField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-TIME-FIELD-LIGHT-LTR.png) · [DateField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-LIGHT-LTR.png) · [NumericField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-NUMERIC-FIELD-LIGHT-LTR.png) · [SelectField · Light/LTR](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-SELECT-FIELD-LIGHT-LTR.png) · [MaskedField · Dark/RTL](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-MASKED-FIELD-DARK-RTL.png) · [DateField · forced colors](evidence/BLUENT-TYPED-FIELDS-EDGE-FIELD-DATE-FIELD-FORCED-COLORS.png) |
 
 The JSON files contain the full 21-screenshot lists for both engines, including all five field families in all three modes.
 
 ## Confirmed browser observations
+
+### Demo-level duplicate DOM IDs in repeated field bindings
+
+- A new whole-page DOM scan in both Chrome and Edge finds duplicate IDs in all three tested display modes: _timeOnly occurs twice, _timeSpan occurs twice, and _dateField occurs twice.
+- The Fields.razor showcase binds two TimeField controls to the same _timeOnly and two to _timeSpan; the DateTime-backed TimeField and medium DateField also share _dateField. The generated IDs therefore collide in this demo composition.
+- This can make label-for resolution ambiguous and is a concrete accessibility/markup defect in the current showcase. It does not by itself prove every isolated component instance generates duplicate IDs; use distinct explicit IDs when rendering multiple controls for one model field, then re-run the live audit.
 
 ### TextField #432
 
