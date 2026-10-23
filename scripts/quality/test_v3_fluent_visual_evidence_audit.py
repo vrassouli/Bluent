@@ -49,8 +49,10 @@ class VisualEvidenceAuditTests(unittest.TestCase):
 
     def test_visual_design_coverage_matches_live_penpot_snapshot(self):
         with_design={f['family'] for f in self.ledger['families'] if f['designPages']}
-        self.assertEqual({'Button','TextField','Checkbox','Switch'},with_design)
-        self.assertEqual(14,sum(not f['designPages'] for f in self.ledger['families']))
+        self.assertEqual({'Button','Icon','TextField','Checkbox','Switch'},with_design)
+        self.assertEqual(13,sum(not f['designPages'] for f in self.ledger['families']))
+        self.assertIn('incomplete',self.by_family['Icon']['visualGap'])
+        self.assertEqual('dedicated-review-board-incomplete-variant-coverage',self.by_family['Icon']['designArtifactStatus'])
 
     def test_evidence_and_source_files_exist(self):
         for f in self.ledger['families']:

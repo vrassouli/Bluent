@@ -1,7 +1,7 @@
 {
   "issue": 552,
   "audit": "Penpot design-artifact coverage and approval inventory",
-  "reviewedOn": "2026-10-22",
+  "reviewedOn": "2026-10-23",
   "sourceBaseline": "73155f02",
   "familyCount": 18,
   "dimension": "designArtifact",
@@ -54,11 +54,22 @@
       "Switch"
     ]
   },
-  "familySpecificDesignAssetCount": 4,
-  "familiesWithoutDedicatedFamilyAssetCount": 14,
+  "familySpecificDesignAssetCount": 5,
+  "familySpecificReusableVariantSetCount": 4,
+  "familySpecificReusableVariantSetFamilies": [
+    "Button",
+    "Checkbox",
+    "Switch",
+    "TextField"
+  ],
+  "familiesWithDedicatedReviewBoard": [
+    "Icon"
+  ],
+  "familiesWithoutDedicatedFamilyAssetCount": 13,
   "familySpecificDesignAssets": [
     "Button",
     "Checkbox",
+    "Icon",
     "Switch",
     "TextField"
   ],
@@ -66,7 +77,6 @@
     "Badge",
     "DateField",
     "FileSelect",
-    "Icon",
     "Label",
     "Link",
     "MaskedField",
@@ -137,8 +147,21 @@
       "productIssue": 429,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
-      "designPages": [],
+      "designArtifactStatus": "dedicated-review-board-incomplete-variant-coverage",
+      "designPages": [
+        {
+          "name": "43 · Icon anatomy & contract · #429 DRAFT",
+          "id": "1d7e9dd6-b977-802e-8008-d5a718dd7655",
+          "board": "#429 · Icon SVG sizing & semantics · REVIEW DRAFT",
+          "boardId": "1d7e9dd6-b977-802e-8008-d5a718e3f4a2",
+          "reviewOnly": true,
+          "variantSetComplete": false,
+          "editableChildren": 129,
+          "textNodes": 68,
+          "invalidTextBounds": 0,
+          "childrenOutsideBoard": 0
+        }
+      ],
       "coverageRow": {
         "family": "Icon",
         "productIssue": 429,
@@ -146,7 +169,7 @@
         "gap": "Custom SVG sizing and unnamed-image gaps; API docs mismatch."
       },
       "familyReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md",
-      "followUp": "Create a family-specific editable Bluent component board and native variant set, map every required state to the pinned Fluent counterpart, include Light/Dark/RTL/focus/disabled/error/forced-colors and responsive cases, then obtain design approval before implementation.",
+      "followUp": "Expand the dedicated Icon review board into a complete reusable family variant set; resolve size/default, viewBox, SVG trust-boundary and accessible-name policies, then perform the matched Fluent comparison and review.",
       "designApproval": "pending",
       "evidenceBundle": null
     },
@@ -155,7 +178,7 @@
       "productIssue": 430,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "Label",
@@ -173,7 +196,7 @@
       "productIssue": 431,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "Link",
@@ -191,7 +214,7 @@
       "productIssue": 445,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "Badge",
@@ -278,7 +301,7 @@
       "productIssue": 433,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "NumericField",
@@ -296,7 +319,7 @@
       "productIssue": 436,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "RadioGroup",
@@ -314,7 +337,7 @@
       "productIssue": 437,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "SelectField",
@@ -332,7 +355,7 @@
       "productIssue": 438,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "DateField",
@@ -350,7 +373,7 @@
       "productIssue": 439,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "TimeField",
@@ -368,7 +391,7 @@
       "productIssue": 440,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "MaskedField",
@@ -386,7 +409,7 @@
       "productIssue": 441,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "OtpField",
@@ -404,7 +427,7 @@
       "productIssue": 442,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "Slider",
@@ -422,7 +445,7 @@
       "productIssue": 443,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "RangeSlider",
@@ -440,7 +463,7 @@
       "productIssue": 444,
       "dimension": "designArtifact",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "coverageRow": {
         "family": "FileSelect",
@@ -454,6 +477,6 @@
       "evidenceBundle": null
     }
   ],
-  "runtimeScope": "Read-only connected Penpot inspection captured on 2026-10-22. The #552 board is a draft coverage index, not a family design approval. No design shapes were edited.",
-  "acceptanceBoundary": "Acceptance requires a family-specific editable artifact and explicit state/token mapping. Four family types have dedicated draft component/variant artifacts in the current library inventory; fourteen have only a coverage row or general/upstream reference in this snapshot. All 18 remain DESIGN PENDING, evidenceBundle is null, and no component design is approved."
+  "runtimeScope": "The original connected Penpot inventory is a read-only capture from 2026-10-22. A dated 2026-10-23 addendum records a later editable Icon review board (129 children, 68 valid text bounds, 0 children outside its board). The #552 coverage board remains an index, not a family design approval; the Icon board is incomplete for full variant coverage.",
+  "acceptanceBoundary": "Acceptance requires a family-specific editable artifact and explicit state/token mapping. Five family types have a dedicated editable artifact in the combined dated record; four have reusable local library variant sets and Icon has a review-only board with incomplete variant coverage. Thirteen families still have only a coverage row/general upstream reference. All 18 remain DESIGN PENDING, evidenceBundle is null, and no component design is approved."
 }

@@ -213,10 +213,27 @@
         "migrationDocs": "audited_gaps"
       },
       "designApproval": "pending",
-      "editableDesignLocation": null,
+      "editableDesignLocation": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "bluentDraft": {
+          "pageId": "1d7e9dd6-b977-802e-8008-d5a718dd7655",
+          "pageName": "43 · Icon anatomy & contract · #429 DRAFT",
+          "nodeId": "1d7e9dd6-b977-802e-8008-d5a718e3f4a2",
+          "nodeName": "#429 · Icon SVG sizing & semantics · REVIEW DRAFT",
+          "editableChildren": 129,
+          "textNodes": 68,
+          "invalidTextBounds": 0,
+          "childrenOutsideBoard": 0,
+          "variantSetComplete": false
+        },
+        "reviewDate": "2026-10-23",
+        "fileRevision": "not exposed by current Penpot connector",
+        "designDecision": "review draft only; incomplete variant coverage; size/default, viewBox, trusted SVG boundary and decorative/informative semantics unresolved; maintainer approval pending"
+      },
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
-      "notesForReview": "Check Regular/Filled/Color independently; do not call upstream Color a current public Bluent variant.",
+      "notesForReview": "Review Regular/Filled variants and asset provenance; upstream Color is not a current public Bluent variant. Draft board covers SVG sizing, viewBox, semantics and owner decisions but does not define complete reusable variants. Resolve intrinsic size/default, no-viewBox contract, trusted-markup boundary and decorative/informative semantics.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md",
         "docs/v3/quality/FLUENT-PARITY-ICON-BROWSER.md",

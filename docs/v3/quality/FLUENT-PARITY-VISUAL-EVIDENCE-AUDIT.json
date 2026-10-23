@@ -1,7 +1,7 @@
 {
   "issue": 552,
   "audit": "Visual screenshot and design-comparison evidence coverage",
-  "reviewedOn": "2026-10-22",
+  "reviewedOn": "2026-10-23",
   "sourceBaseline": "73155f02",
   "familyCount": 18,
   "dimension": "visual",
@@ -9,7 +9,7 @@
   "parityAccepted": false,
   "noneApproved": true,
   "penpotSnapshot": "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json",
-  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. No pixel-diff or complete side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented.",
+  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. No pixel-diff or complete side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. The 2026-10-23 Icon review-board addendum updates editable-design traceability only; it adds no browser/Fluent parity evidence.",
   "coverageSummary": {
     "lightLtr": 18,
     "darkRtl": 18,
@@ -263,13 +263,26 @@
       "productIssue": 429,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
-      "designPages": [],
+      "designArtifactStatus": "dedicated-review-board-incomplete-variant-coverage",
+      "designPages": [
+        {
+          "name": "43 · Icon anatomy & contract · #429 DRAFT",
+          "id": "1d7e9dd6-b977-802e-8008-d5a718dd7655",
+          "board": "#429 · Icon SVG sizing & semantics · REVIEW DRAFT",
+          "boardId": "1d7e9dd6-b977-802e-8008-d5a718e3f4a2",
+          "reviewOnly": true,
+          "variantSetComplete": false,
+          "editableChildren": 129,
+          "textNodes": 68,
+          "invalidTextBounds": 0,
+          "childrenOutsideBoard": 0
+        }
+      ],
       "styleFiles": [],
       "sourceFiles": [
         "src/Bluent.UI/Components/IconComponent/Icon.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "An editable Icon review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded.",
       "followUp": "The unchanged-source route now has paired Chrome/Edge screenshots at 320 CSS px in Light/LTR and Dark/RTL. The SVG still paints at 253x253 px inside a 253x16 px wrapper, without document-level horizontal overflow. A complete same-state Fluent/Penpot comparison and design-owner approval remain open.",
       "browserEvidence": [
         {
@@ -433,7 +446,7 @@
       "productIssue": 430,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_label.scss"
@@ -442,7 +455,7 @@
         "src/Bluent.UI/Components/LabelComponent/Label.razor",
         "src/Bluent.UI/Components/LabelComponent/Label.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -501,7 +514,7 @@
       "productIssue": 431,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_link.scss"
@@ -509,7 +522,7 @@
       "sourceFiles": [
         "src/Bluent.UI/Components/LinkComponent/Link.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -568,7 +581,7 @@
       "productIssue": 445,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_badge.scss"
@@ -577,7 +590,7 @@
         "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
         "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -960,7 +973,7 @@
       "productIssue": 433,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_field.scss"
@@ -969,7 +982,7 @@
         "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
         "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1063,7 +1076,7 @@
       "productIssue": 436,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_radio-group.scss",
@@ -1075,7 +1088,7 @@
         "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
         "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1169,7 +1182,7 @@
       "productIssue": 437,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_field.scss",
@@ -1179,7 +1192,7 @@
         "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
         "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1273,7 +1286,7 @@
       "productIssue": 438,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_field.scss",
@@ -1283,7 +1296,7 @@
         "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
         "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1377,7 +1390,7 @@
       "productIssue": 439,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_field.scss"
@@ -1386,7 +1399,7 @@
         "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
         "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1480,7 +1493,7 @@
       "productIssue": 440,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_field.scss"
@@ -1489,7 +1502,7 @@
         "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
         "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1583,7 +1596,7 @@
       "productIssue": 441,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_otp-field.scss"
@@ -1592,7 +1605,7 @@
         "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
         "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1686,7 +1699,7 @@
       "productIssue": 442,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_slider.scss"
@@ -1695,7 +1708,7 @@
         "src/Bluent.UI/Components/SliderComponent/Slider.razor",
         "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -1913,7 +1926,7 @@
       "productIssue": 443,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_range-slider.scss"
@@ -1922,7 +1935,7 @@
         "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
         "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -2140,7 +2153,7 @@
       "productIssue": 444,
       "dimension": "visual",
       "dimensionStatus": "audited_gaps",
-      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-snapshot",
+      "designArtifactStatus": "coverage-row-only-no-dedicated-family-asset-in-current-record",
       "designPages": [],
       "styleFiles": [
         "src/Bluent.UI/Styles/Components/_file-select.scss"
@@ -2149,7 +2162,7 @@
         "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
         "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs"
       ],
-      "visualGap": "No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.",
+      "visualGap": "No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.",
       "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
       "browserEvidence": [
         {
@@ -2363,5 +2376,5 @@
       "evidenceBundle": null
     }
   ],
-  "acceptanceBoundary": "This is a visual evidence coverage audit, not a visual parity result. Four family types have draft editable design assets and fourteen lack a dedicated family-specific asset in the current Penpot snapshot. All design approvals remain pending."
+  "acceptanceBoundary": "This is a visual evidence coverage audit, not a visual parity result. Five families have a dedicated editable design artifact in the dated record, but Icon has incomplete reusable variant coverage; four families have reusable local variant assets and thirteen families lack a dedicated family-specific artifact. All design approvals remain pending."
 }

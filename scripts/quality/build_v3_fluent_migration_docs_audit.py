@@ -9,7 +9,7 @@ TEMPLATE=ROOT/'docs/v3/COMPONENT-REFERENCE-TEMPLATE.md'
 GENERAL=ROOT/'docs/compatibility/migration-and-upgrades.md'
 JSON_OUT=Q/'FLUENT-PARITY-MIGRATION-DOCS-AUDIT.json'
 MD_OUT=Q/'FLUENT-PARITY-MIGRATION-DOCS-AUDIT.md'
-DATE='2026-10-22'
+DATE='2026-10-23'
 BASELINE='73155f02'
 FAMILY_DOCS={
 'Button':'button.md','Icon':'icon.md','Label':'label.md','Link':'link.md','Badge':'badge.md',

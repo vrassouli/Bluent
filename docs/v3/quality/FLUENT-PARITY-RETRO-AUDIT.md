@@ -213,7 +213,20 @@ The editable Penpot comparison for four families now has a concrete visual dispo
 | Checkbox #434 | page 11 / `07c521b9-e441-80bd-8008-c4d69e2a5bfe` | page 17 / `e31294c6-7c55-805f-8008-c51334e865e4` | `audited_gaps`: 30 upstream variants vs 12 local; Hover/Pressed/Circular missing; Error is an extra Bluent state. |
 | Switch #435 | page 14 / `07c521b9-e441-80bd-8008-c4d793b68198` | page 18 / `e31294c6-7c55-805f-8008-c5139a9544bf` | `audited_gaps`: 40 upstream variants vs 12 local; Hover/Pressed and label-position variants missing. |
 
-All four families with dedicated draft design assets remain `designApproval=pending`. The other 14 families have no dedicated family-specific editable component page/library asset in the current Penpot snapshot; all 18 `designArtifact` dimensions are `audited_gaps`, not accepted.
+The four families Button, TextField, Checkbox and Switch have reusable local draft variant assets and remain `designApproval=pending`. Icon (#429) now has a dedicated **review-only, incomplete-variant** board (details below), not a complete reusable component set. The other 13 families have no dedicated family-specific editable artifact in the combined dated record; all 18 `designArtifact` dimensions remain `audited_gaps`, not accepted.
+
+## Icon review-board addendum (2026-10-23)
+
+The historical read-only Penpot inventory above was captured on 2026-10-22. A new, separately recorded editable Icon review board has since been created in the same project-owned file; see the [dated structural addendum](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json).
+
+- File: `Bluent v3 Design System` — `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
+- Page: `43 · Icon anatomy & contract · #429 DRAFT` — `1d7e9dd6-b977-802e-8008-d5a718dd7655`.
+- Board: `#429 · Icon SVG sizing & semantics · REVIEW DRAFT` — `1d7e9dd6-b977-802e-8008-d5a718e3f4a2`.
+- Structure checked: 129 editable children, 68 text nodes, 0 invalid text bounds, and 0 children outside the 1600×2320 board.
+- The board captures 16/20/24/28/32px sizing, viewBox/no-viewBox behavior, decorative/informative semantics, dark/RTL context and owner decisions. It is **not** a complete reusable Icon variant set; no local library component has been added, and it is not a sign-off.
+- Unresolved decisions: default/intrinsic sizing and explicit-size precedence; supported SVG/viewBox contract; trusted app-owned markup vs reviewed sanitization/allow-list; decorative vs informative image semantics and attribute precedence; target browser support; native OS contrast, native screen-reader and real Fluent comparison.
+
+Accordingly, Icon now has a grounded editable design reference in the machine-readable family matrix, but `designApproval` stays `pending`, `evidenceBundle` stays `null`, and every acceptance dimension stays `audited_gaps`. The dated audit inventory counts five families with some dedicated artifact, only four with reusable variant assets, and thirteen with no dedicated family-specific artifact.
 
 ## Required per-component evidence bundle
 

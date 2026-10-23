@@ -1,6 +1,6 @@
 # Migration-document coverage audit - Issue #552
 
-Review date: 2026-10-22. Source baseline: 73155f02.
+Review date: 2026-10-23. Source baseline: 73155f02.
 
 ## Findings
 

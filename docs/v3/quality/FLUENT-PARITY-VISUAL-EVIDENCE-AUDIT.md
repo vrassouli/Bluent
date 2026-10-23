@@ -1,6 +1,6 @@
 # Visual evidence coverage audit - Issue #552
 
-Review date: 2026-10-22. Source baseline: 73155f02.
+Review date: 2026-10-23. Source baseline: 73155f02.
 
 ## Scope
 
@@ -27,23 +27,23 @@ This audit inventories existing screenshots, browser visual modes, component sty
 | Family | Editable design artifact | Light/LTR | Dark/RTL | Forced colors | Focus | Hover | Disabled | Pressed/selected | Narrow/zoom proxy | Visual gap |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded. |
-| Icon | no dedicated family asset | yes | yes | yes | no | no | no | yes | yes | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| Label | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| Link | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| Badge | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
+| Icon | review board, incomplete variants | yes | yes | yes | no | no | no | yes | yes | An editable Icon review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded. |
+| Label | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| Link | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| Badge | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 | TextField | draft page(s) | yes | yes | yes | yes | no | no | yes | no | Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded. |
 | Checkbox | draft page(s) | yes | yes | yes | yes | no | no | no | no | Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded. |
 | Switch | draft page(s) | yes | yes | yes | yes | no | no | no | no | Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded. |
-| NumericField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| RadioGroup | no dedicated family asset | yes | yes | yes | yes | no | no | no | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| SelectField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| DateField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| TimeField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| MaskedField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| OtpField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| Slider | no dedicated family asset | yes | yes | yes | yes | no | no | no | yes | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| RangeSlider | no dedicated family asset | yes | yes | yes | yes | no | no | no | yes | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
-| FileSelect | no dedicated family asset | yes | yes | yes | yes | no | yes | yes | yes | No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family. |
+| NumericField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| RadioGroup | no dedicated family asset | yes | yes | yes | yes | no | no | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| SelectField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| DateField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| TimeField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| MaskedField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| OtpField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| Slider | no dedicated family asset | yes | yes | yes | yes | no | no | no | yes | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| RangeSlider | no dedicated family asset | yes | yes | yes | yes | no | no | no | yes | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| FileSelect | no dedicated family asset | yes | yes | yes | yes | no | yes | yes | yes | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 
 ## Per-family follow-up
 
@@ -61,7 +61,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Icon (#429)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** An editable Icon review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded.
 
 **Follow-up:** The unchanged-source route now has paired Chrome/Edge screenshots at 320 CSS px in Light/LTR and Dark/RTL. The SVG still paints at 253x253 px inside a 253x16 px wrapper, without document-level horizontal overflow. A complete same-state Fluent/Penpot comparison and design-owner approval remain open.
 
@@ -73,7 +73,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Label (#430)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -85,7 +85,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Link (#431)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -97,7 +97,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Badge (#445)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -145,7 +145,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### NumericField (#433)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -157,7 +157,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### RadioGroup (#436)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -169,7 +169,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### SelectField (#437)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -181,7 +181,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### DateField (#438)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -193,7 +193,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### TimeField (#439)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -205,7 +205,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### MaskedField (#440)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -217,7 +217,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### OtpField (#441)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -229,7 +229,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Slider (#442)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -241,7 +241,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### RangeSlider (#443)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -253,7 +253,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### FileSelect (#444)
 
-**Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
 
 **Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
 
@@ -265,4 +265,4 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ## Acceptance boundary
 
-All 18 visual dimensions are recorded as audited_gaps. Pixel-level/state-by-state Light/Dark/RTL/forced-colors comparison and design-owner sign-off remain open. Every family design approval is pending and evidenceBundle remains null. No product source, CSS or public API changed.
+All 18 visual dimensions remain audited_gaps. The Icon review board was added to design traceability only; it does not add matched Fluent screenshots, pixel-diff, native OS/AT coverage or approval. Pixel-level/state-by-state Light/Dark/RTL/forced-colors comparison and design-owner sign-off remain open. Every family design approval is pending and evidenceBundle remains null. No product source, CSS or public API changed.

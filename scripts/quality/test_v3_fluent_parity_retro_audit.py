@@ -230,6 +230,26 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertFalse(self.data["auditComplete"])
         self.assertTrue(self.data["noneApproved"])
 
+    def test_icon_review_board_location_is_grounded_but_not_approval(self):
+        icon = next(item for item in self.data["families"] if item["family"] == "Icon")
+        location = icon["editableDesignLocation"]
+        self.assertEqual("b64f6665-c9ab-80b5-8008-c4ac99d9d000", location["fileId"])
+        self.assertEqual("2026-10-23", location["reviewDate"])
+        self.assertEqual("1d7e9dd6-b977-802e-8008-d5a718dd7655", location["bluentDraft"]["pageId"])
+        self.assertEqual("1d7e9dd6-b977-802e-8008-d5a718e3f4a2", location["bluentDraft"]["nodeId"])
+        self.assertEqual(129, location["bluentDraft"]["editableChildren"])
+        self.assertEqual(68, location["bluentDraft"]["textNodes"])
+        self.assertFalse(location["bluentDraft"]["variantSetComplete"])
+        self.assertIn("maintainer approval pending", location["designDecision"])
+        self.assertEqual("pending", icon["designApproval"])
+        self.assertIsNone(icon["evidenceBundle"])
+        self.assertEqual("researching", icon["auditStatus"])
+        self.assertTrue(self.data["noneApproved"])
+        self.assertFalse(self.data["auditComplete"])
+        self.assertTrue((QUALITY / "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json").is_file())
+        self.assertIn("Icon review-board addendum (2026-10-23)", self.report)
+        self.assertIn("not** a complete reusable Icon variant set", self.report)
+
     def test_branch_isolated_and_all_parity_approvals_still_pending(self):
         self.assertEqual("v3/issue-552-fluent-parity-audit", self.data["branch"])
         self.assertEqual("bluent-v3", self.data["rules"]["changesOnlyTo"])
