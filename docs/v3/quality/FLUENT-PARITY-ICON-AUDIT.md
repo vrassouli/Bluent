@@ -31,11 +31,21 @@ The original live browser harness observed 15/15 fixture/render assertions per e
 
 ## Canonical matrix disposition
 
-- `visual`: `audited_gaps` — the 377×377 SVG rendering defect is measured in two real browser engines; full normalized Fluent visual comparison remains open.
-- `accessibility`: `audited_gaps` — the image's empty accessible name is reproduced in the browser AX tree; decorative/informative intent and native OS/AT remain pending.
-- `feature`: `audited_gaps` — 10 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); no dedicated WC Icon tag, generic IconDefinition is a Bluent extension, and Color remains undecided.
-- `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed`.
-- Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
+The nine dimensions below are now all represented in the shared, machine-checked 18-family matrix as `audited_gaps`. These cross-family inventories make the review scope explicit; they do not mean every Icon scenario is implemented, verified or accepted.
+
+| Dimension | Current evidence | Disposition and boundary |
+| --- | --- | --- |
+| `visual` | [Icon browser evidence](FLUENT-PARITY-ICON-BROWSER.md) and [cross-family visual evidence inventory](FLUENT-PARITY-VISUAL-EVIDENCE-AUDIT.md) | `audited_gaps` — the 377×377 SVG sizing defect is reproduced; normalized Fluent screenshot/pixel comparison and a complete state matrix remain open. |
+| `feature` | [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md) and [Icon variant/catalog audit](FLUENT-PARITY-ICON-VARIANTS.md) | `audited_gaps` — ten source-known parameters are mapped; upstream has no matching generic Icon component and the public Color decision remains unresolved. |
+| `behavior` | [Cross-family behavior audit](FLUENT-PARITY-BEHAVIOR-AUDIT.md) | `audited_gaps` — representative size/alignment/inherited-color probes exist; dynamic source changes, accessible-name propagation and native screen-reader behavior remain unaccepted. |
+| `accessibility` | [Cross-family accessibility audit](FLUENT-PARITY-ACCESSIBILITY-AUDIT.md) and [Button icon/AX evidence](FLUENT-PARITY-BUTTON-ICON-AX.md) | `audited_gaps` — decorative versus informative SVG/image semantics need a contract; browser AX is not native assistive-technology sign-off. |
+| `tokenTheme` | [Token/theme source audit](FLUENT-PARITY-TOKEN-THEME-AUDIT.md) | `audited_gaps` — no dedicated Icon SCSS was found; SVG color inherits `currentColor` and parent theme context. Computed Light/Dark and forced-colors parity is not approved. |
+| `responsiveRTL` | [Responsive/RTL audit](FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.md) | `audited_gaps` — existing RTL evidence does not include the standard Icon route at narrow width; the separate 320px sizing-candidate run is research-only, not product validation. |
+| `BlazorExtensions` | [Blazor extension-surface audit](FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.md) | `audited_gaps` — the source contract uses `IconDefinition` and inline SVG rather than `InputBase`; attribute/ARIA behavior and native AT are not certified. |
+| `designArtifact` | [Design-artifact coverage audit](FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md) | `audited_gaps` — the current snapshot has no dedicated Icon-family design asset; component design approval remains pending. |
+| `migrationDocs` | [Migration-document coverage audit](FLUENT-PARITY-MIGRATION-DOCS-AUDIT.md) | `audited_gaps` — the canonical reference exists, but no family-specific 2.x-to-v3 migration section is populated. |
+
+Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions
 
