@@ -1,6 +1,6 @@
 # #552 family audit — Icon (#429)
 
-**Status: partial source/browser audit with confirmed gaps.** This is not a Fluent parity acceptance, a design approval, a public Color-variant decision, or native OS/assistive-technology sign-off. The current Icon source files match the exact source baseline used by the recorded browser evidence (`1b023a5c`). No product source, package asset, or design file was changed.
+**Status: partial source/browser audit with confirmed gaps.** This is not a Fluent parity acceptance, a design approval, a public Color-variant decision, or native OS/assistive-technology sign-off. The current Icon source files match the exact source baseline used by the recorded browser evidence (`1b023a5c`). No product source or package asset was changed. A separate editable Penpot review draft was added on 2026-10-23; its concrete file/page/board IDs and limitations are recorded below and in the dated design-artifact addendum.
 
 ## Upstream comparison decision
 
@@ -42,17 +42,29 @@ The nine dimensions below are now all represented in the shared, machine-checked
 | `tokenTheme` | [Token/theme source audit](FLUENT-PARITY-TOKEN-THEME-AUDIT.md) | `audited_gaps` — no dedicated Icon SCSS was found; SVG color inherits `currentColor` and parent theme context. Computed Light/Dark and forced-colors parity is not approved. |
 | `responsiveRTL` | [Responsive/RTL audit](FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.md) | `audited_gaps` — existing RTL evidence does not include the standard Icon route at narrow width; the separate 320px sizing-candidate run is research-only, not product validation. |
 | `BlazorExtensions` | [Blazor extension-surface audit](FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.md) | `audited_gaps` — the source contract uses `IconDefinition` and inline SVG rather than `InputBase`; attribute/ARIA behavior and native AT are not certified. |
-| `designArtifact` | [Design-artifact coverage audit](FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md) | `audited_gaps` — the current snapshot has no dedicated Icon-family design asset; component design approval remains pending. |
+| `designArtifact` | [Design-artifact coverage audit](FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md) and [editable Icon review draft below](#editable-icon-review-draft-2026-10-23) | `audited_gaps` — a dedicated editable review board exists, but it is not a complete reusable Icon variant set; component design approval remains pending. |
 | `migrationDocs` | [Migration-document coverage audit](FLUENT-PARITY-MIGRATION-DOCS-AUDIT.md) | `audited_gaps` — the canonical reference exists, but no family-specific 2.x-to-v3 migration section is populated. |
 
 Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
+
+## Editable Icon review draft (2026-10-23)
+
+The source-owned Penpot file was reconnected and the dedicated Icon review board was created and exported for visual inspection. Its presence corrects the historical 2026-10-22 inventory gap, but it is explicitly **review-only** and does not change any acceptance status.
+
+- File: `Bluent v3 Design System` — `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
+- Page: `43 · Icon anatomy & contract · #429 DRAFT` — `1d7e9dd6-b977-802e-8008-d5a718dd7655`.
+- Board: `#429 · Icon SVG sizing & semantics · REVIEW DRAFT` — `1d7e9dd6-b977-802e-8008-d5a718e3f4a2`.
+- Live Penpot structural check: 129 editable children, 68 text nodes, zero invalid text bounds and zero children outside the 1600×2320 board; the exported board image was visually reviewed.
+- The board covers candidate sizes 16/20/24/28/32, viewBox/no-viewBox geometry, decorative/informative semantics, dark/RTL context and owner decisions. Its glyphs are neutral sizing samples, not official Fluent assets. It is **not** a component-master variant set, and no library component has been created.
+
+Next design gate is an explicit #429/#420 review of size/default precedence, valid-viewBox policy, target-browser support, trusted SVG markup/security boundary, attribute/accessible-name precedence and decorative/informative use. Only after that decision should the review page be expanded into the approved reusable family design and matched Fluent comparisons run. Keep `designApproval=pending`, `evidenceBundle=null` and all nine Icon dimensions `audited_gaps` until the actual gates pass. See [the reproducible structural addendum](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json).
 
 ## Required owner actions
 
 1. **#429:** design the SVG sizing/intrinsic-size contract (including SVG with/without `viewBox`, explicit vs implicit sizes, CSS and Image sources), and decide the decorative vs informative image policy and `AdditionalAttributes` precedence.
 2. **#418/#420:** decide shared sizing/token and accessible-attribute rules; ensure a decorative icon does not accidentally hide a meaningful control and an Icon label does not replace an icon-only Button's contextual action name.
 3. Pin the exact upstream asset release/commit before any Color proposal; compare actual asset coverage and license/shipping, define a fallback under Dark/forced colors, and preserve the current Regular/Filled behavior until an approved migration decision exists.
-4. Link and review the actual editable Bluent v3 Icon design. Then run same-state Fluent reference comparisons, sizes/appearances, Light/Dark, RTL/directional glyphs, 320px/reflow, browser zoom, published InteractiveServer, real Windows Contrast Themes and native assistive technology.
+4. Review the linked editable Bluent v3 Icon draft, complete the reusable variant set after policy decisions, and then run same-state Fluent reference comparisons, sizes/appearances, Light/Dark, RTL/directional glyphs, 320px/reflow, browser zoom, published InteractiveServer, real Windows Contrast Themes and native assistive technology.
 5. Keep all implementation on the owner issue after the normal Ready/design gates; this #552 audit branch remains documentation/evidence only.
 
 ## Evidence sources

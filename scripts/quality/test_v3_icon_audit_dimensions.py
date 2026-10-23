@@ -55,6 +55,25 @@ class IconAuditDimensionTests(unittest.TestCase):
                     self.assertTrue((QUALITY / name).is_file(), name)
                     self.assertIn(f"]({name})", section, f"missing evidence link for {dimension}: {name}")
 
+    def test_editable_penpot_draft_is_linked_but_not_misclassified_as_approval(self):
+        location = self.family["editableDesignLocation"]
+        self.assertEqual("b64f6665-c9ab-80b5-8008-c4ac99d9d000", location["fileId"])
+        self.assertEqual("2026-10-23", location["reviewDate"])
+        self.assertEqual("1d7e9dd6-b977-802e-8008-d5a718dd7655", location["bluentDraft"]["pageId"])
+        self.assertEqual("1d7e9dd6-b977-802e-8008-d5a718e3f4a2", location["bluentDraft"]["nodeId"])
+        self.assertEqual(129, location["bluentDraft"]["editableChildren"])
+        self.assertEqual(68, location["bluentDraft"]["textNodes"])
+        self.assertEqual(0, location["bluentDraft"]["invalidTextBounds"])
+        self.assertEqual(0, location["bluentDraft"]["childrenOutsideBoard"])
+        self.assertFalse(location["bluentDraft"]["variantSetComplete"])
+        self.assertEqual("pending", self.family["designApproval"])
+        self.assertIsNone(self.family["evidenceBundle"])
+        self.assertIn("Editable Icon review draft (2026-10-23)", self.report)
+        self.assertIn("not a complete reusable Icon variant set", self.report)
+        self.assertIn("PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json", self.report)
+        self.assertTrue((QUALITY / "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json").is_file())
+        self.assertIn("Penpot review board now exists", (QUALITY / "FLUENT-PARITY-ICON-VARIANTS.md").read_text(encoding="utf-8-sig"))
+
     def test_disposition_preserves_unapproved_design_and_accessibility_boundaries(self):
         for phrase in (
             "SVG sizing defect",
