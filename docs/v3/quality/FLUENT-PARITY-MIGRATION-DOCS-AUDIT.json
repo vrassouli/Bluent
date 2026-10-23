@@ -52,7 +52,7 @@
     {
       "path": "docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.md",
       "exists": true,
-      "lineCount": 258,
+      "lineCount": 264,
       "mentionsV3Migration": false,
       "purpose": "Retrospective parity audit and gap matrix; not consumer-facing migration guidance."
     },

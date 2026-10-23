@@ -80,6 +80,36 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         self.assertIn("example", icon_inventory(sample)["regular"])
         self.assertNotIn("example", self.variants["regular"])
 
+    def test_exact_npm_svg_asset_pin_is_inventory_only_not_color_approval(self):
+        snapshot_path = ROOT / "docs/v3/quality/evidence/FLUENT-ICON-ASSET-PACKAGES-2026-10-23.json"
+        snapshot = json.loads(snapshot_path.read_text(encoding="utf-8-sig"))
+        self.assertEqual("2026-10-23", snapshot["capturedOn"])
+        svg = snapshot["packages"]["@fluentui/svg-icons"]
+        react = snapshot["packages"]["@fluentui/react-icons"]
+        self.assertEqual("1.1.344", svg["version"])
+        self.assertEqual("sha512-rasjaq4hBXzRS25pSY9gaqwY7NdvZJCz7G/rtpwF6mCmg2R+9TnySLhHbR+sOpkMP/IDDG28XvxRcNEQ/lJYoQ==", svg["distIntegrity"])
+        self.assertEqual("MIT", svg["license"])
+        self.assertEqual((21732, 21732, 2991), (svg["publishedTarballInventory"]["svgFiles"], svg["publishedTarballInventory"]["filenamePatternMatches"], svg["publishedTarballInventory"]["uniqueIconBaseNames"]))
+        inventory = svg["publishedTarballInventory"]
+        self.assertEqual([10, 12, 16, 20, 24, 28, 32, 48], inventory["sizesObserved"])
+        self.assertEqual(["color", "filled", "light", "regular"], inventory["stylesObserved"])
+        self.assertEqual(890, inventory["colorFiles"])
+        self.assertEqual(214, inventory["lightFiles"])
+        self.assertEqual([16, 20, 24, 28, 48], svg["packedReadme"]["declaredSizes"])
+        self.assertTrue(svg["packedReadme"]["statesColorDeprecated"])
+        self.assertTrue(svg["packedReadme"]["warnsColorMayBeRemoved"])
+        self.assertEqual("2.0.344", react["version"])
+        self.assertEqual("sha512-pvEVFOUrrtmIglqdfhDVX6XT80a5z9kX+BTso6NAzgmkko8nlURhOzNwvZZlsCK4yQseH/4NQdYoN8ijO7IHdNw==", react["distIntegrity"])
+        self.assertIn("not approved", snapshot["decisionStatus"]["bluentIconVariantColor"])
+        family_matrix = json.loads((ROOT / "docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.json").read_text(encoding="utf-8-sig"))
+        icon = next(x for x in family_matrix["families"] if x["family"] == "Icon")
+        self.assertEqual("1.1.344", icon["fluentSvgAssetReference"]["version"])
+        self.assertEqual(svg["distIntegrity"], icon["fluentSvgAssetReference"]["integrity"])
+        report = read("docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md")
+        self.assertIn("exact npm asset inventory", report.lower())
+        self.assertIn("Color SVG files", report)
+        self.assertIn("not a Bluent API", report)
+
     def test_report_does_not_invent_approval(self):
         report = read("docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md")
         for boundary in ("NOT Fluent parity", "not approved", "screen readers"):

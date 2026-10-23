@@ -21,7 +21,20 @@ The existing `/components/icons` sample demonstrates Regular, Filled and custom 
 
 - [Microsoft `@fluentui/react-icons` README](https://github.com/microsoft/fluentui-system-icons/blob/main/packages/react-icons/README.md) says Regular/Filled for most icons, Light/Color only on selected icons, and strongly advises avoiding Color due to known Windows High Contrast and Dark mode contrast defects. This is a **React/asset reference, not a 1:1 Fluent Web Component Icon tag contract**.
 - [Microsoft `@fluentui/svg-icons` README](https://github.com/microsoft/fluentui-system-icons/blob/main/packages/svg-icons/README.md) lists `regular`, `filled`, `color`, but **explicitly marks color deprecated** and warns it may be removed. Color fills/gradients are preserved and not themeable through single-color `currentColor`; not every icon/size has Color.
-- Both links are an **as-read 2026-10-20 documentation checkpoint**, not a tagged/reproducible upstream package inventory. Before any proposed Color API, pin the exact release/commit, enumerate available matching files, verify license and asset shipping, and address the moving deprecation guidance. Web Components v3.1.3 P0 manifest is unrelated to React icon asset inventory.
+- The README prose observation above was originally captured on 2026-10-20. On 2026-10-23, the exact published npm tarballs were pinned and the SVG tarball was enumerated; see [the additive package/inventory snapshot](evidence/FLUENT-ICON-ASSET-PACKAGES-2026-10-23.json). This pins the **npm package version and published SRI integrity**, not a Git source commit. It separates `@fluentui/react-icons@2.0.344` (React wrappers/catalogue) from `@fluentui/svg-icons@1.1.344` (plain SVG files). The latter is MIT-licensed, and its packed README explicitly marks Color deprecated and warns it may be removed; do not treat its presence as a Bluent enum/API decision.
+
+## Additive exact npm asset inventory (2026-10-23)
+
+The live npm metadata and the **published `@fluentui/svg-icons@1.1.344` tarball** were checked directly on this date. The canonical [evidence JSON](evidence/FLUENT-ICON-ASSET-PACKAGES-2026-10-23.json) stores the exact published integrity and the filename inventory; the earlier 2026-10-22 upstream-version snapshot remains unchanged.
+
+| Package | Published pin | Role in this audit |
+| --- | --- | --- |
+| [`@fluentui/react-icons@2.0.344`](https://www.npmjs.com/package/@fluentui/react-icons) | SHA-512 SRI recorded in the JSON; MIT | React icon wrappers/catalogue only; not a Web Components `Icon` element. |
+| [`@fluentui/svg-icons@1.1.344`](https://www.npmjs.com/package/@fluentui/svg-icons) | SHA-512 SRI `sha512-rasjaq4hBXzRS25pSY9gaqwY7NdvZJCz7G/rtpwF6mCmg2R+9TnySLhHbR+sOpkMP/IDDG28XvxRcNEQ/lJYoQ==`; MIT | Plain SVG asset catalogue, separately counted from React wrappers. |
+
+Exact tarball inventory: **21,732 SVG files**, **2,991 unique icon base names**, 8 numeric sizes present in filenames (`10, 12, 16, 20, 24, 28, 32, 48`) and four styles (`regular, filled, color, light`). This is a file inventory, not a promise that every icon has every size/style. The packed README declares sizes `16/20/24/28/48` and styles `regular/filled/color`, but the tarball includes size `10`, size `12`, size `32`, and some `light` files (214 total) that its README list does not mention. Record that as an upstream README-to-package inventory discrepancy, not a Bluent API.
+
+There are **890 Color SVG files** across the enumerated sizes. Crucially, the *same pinned tarball's own README* marks Color deprecated, warns it may be removed, states Color assets are not themeable like Regular/Filled, and cautions that only a subset of icons/sizes has Color. Existence therefore does not justify adding `IconVariant.Color`, shipping these assets, or claiming Dark/forced-colors/Fluent parity. No upstream asset was copied into Bluent.
 
 ## Design-first #429 proposal (not approved)
 

@@ -90,6 +90,12 @@ The reference set is now pinned for reproducibility. This freezes the source/ver
 
 The machine-readable JSON is the source of truth for mapping notes, related-only tags and alternatives. A direct or related upstream component does not prove Bluent parity; the per-family public-property/event/slot/style comparison remains a separate audit dimension.
 
+## Additive exact Icon asset-package inventory (2026-10-23)
+
+The existing React icon pin above is now complemented by a separate pin for plain SVG assets: [`@fluentui/svg-icons@1.1.344`](https://www.npmjs.com/package/@fluentui/svg-icons), MIT licensed, published integrity `sha512-rasjaq4hBXzRS25pSY9gaqwY7NdvZJCz7G/rtpwF6mCmg2R+9TnySLhHbR+sOpkMP/IDDG28XvxRcNEQ/lJYoQ==`. This is **not** a Web Components Icon element or the same package as `@fluentui/react-icons@2.0.344`. See [the exact npm package and inventory evidence](evidence/FLUENT-ICON-ASSET-PACKAGES-2026-10-23.json).
+
+Enumeration of that exact published tarball found **21,732 SVG files** with 2,991 unique icon names, 890 Color assets and 214 `light` assets. The packed README declares sizes 16/20/24/28/48 and styles `regular`/`filled`/`color`, while the actual tarball also contains files named for sizes 10/12/32 and a `light` style. Record this as an upstream README/package inventory discrepancy, not a Bluent API promise. The same exact README marks Color deprecated and warns it may be removed. The pin and count improve traceability only: no asset was imported, no dependency was added and `IconVariant.Color` is still not approved.
+
 ## Supplemental source/API research (research leads, not acceptance evidence)
 
 The following pinned references now provide traceable starting points for the family audits. They are **not** a substitute for the nine-dimension acceptance matrix below, and none changes a family's `auditStatus`, `dimensions`, `designApproval`, or `evidenceBundle`. Exact-name matches are not semantic parity.

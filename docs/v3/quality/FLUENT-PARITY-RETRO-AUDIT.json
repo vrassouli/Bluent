@@ -243,7 +243,16 @@
       ],
       "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md",
       "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
-      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
+      "apiReviewLedger": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json",
+      "fluentSvgAssetReference": {
+        "package": "@fluentui/svg-icons",
+        "version": "1.1.344",
+        "integrity": "sha512-rasjaq4hBXzRS25pSY9gaqwY7NdvZJCz7G/rtpwF6mCmg2R+9TnySLhHbR+sOpkMP/IDDG28XvxRcNEQ/lJYoQ==",
+        "license": "MIT",
+        "snapshot": "docs/v3/quality/evidence/FLUENT-ICON-ASSET-PACKAGES-2026-10-23.json",
+        "mappingKind": "direct-svg-asset-library-not-component",
+        "note": "Published tarball enumerated; Color SVGs exist but are deprecated upstream and not an approved Bluent API. README size/style list differs from actual tarball filenames; see snapshot."
+      }
     },
     {
       "family": "Label",
