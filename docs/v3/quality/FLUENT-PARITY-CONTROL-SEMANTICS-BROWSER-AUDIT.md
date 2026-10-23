@@ -1,6 +1,6 @@
 # #552 browser audit — Checkbox, Switch, RadioGroup and OtpField
 
-**Partial runtime evidence only.** The Bluent UI Demo WebAssembly app was built from task-branch source at `73155f02` and exercised with real pointer/keyboard input through Chromium DevTools Protocol. Chrome and Edge each completed **56/56 instrumentation checks**. No product code or design file was changed.
+**Partial runtime evidence only.** The original Bluent UI Demo WebAssembly run used task-branch source at `73155f02` and real pointer/keyboard input through Chromium DevTools Protocol. A fresh 2026-10-23 rerun against the current task branch verified the OtpField component/interop files remain unchanged from that source anchor and rebuilt the Demo in Debug with 0 warnings/0 errors. Chrome 155 and Edge 155 each completed **56/56 instrumentation checks**. No product code or design file was changed.
 
 ## Test scope and evidence
 
@@ -50,7 +50,7 @@
 - A **synthetic** `ClipboardEvent` with clipboard text `7391` is handled by the component's real registered paste handler: all four digits are distributed, the hidden value/output becomes `OTP: 7391`, and focus moves to the final cell. Inserting a non-digit `x` is filtered, leaving `739`.
 - The accessible group name and per-cell labels are fixed English strings. This run verifies the tested JavaScript interaction path; it does not test the native OS clipboard, auto-submit, non-positive `Length`, Persian/Arabic digit normalization, or native screen-reader output.
 
-**Disposition:** tested typing, backspace, synthetic-paste distribution, and invalid-character filtering work in this demo path. The hard-coded English accessible names remain a confirmed localization/accessibility gap; length edge cases and remaining runtime paths stay open for #441.
+**Disposition:** tested typing, backspace, synthetic-paste distribution, and invalid-character filtering work in this demo path. The hard-coded English accessible names remain a confirmed localization/accessibility gap. Source shows `Length=0` renders one cell named `Digit 1 of 0`, but this rerun exercised only `Length=4`; treat that boundary as source-derived until the owner adds a runtime case. Length changes and remaining runtime paths stay open for #441.
 
 ## Acceptance boundary
 

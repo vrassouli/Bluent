@@ -17,13 +17,13 @@ class OwnerFollowupLogTests(unittest.TestCase):
             (421, 6364097165), (429, 6364123686), (430, 6364121764),
             (431, 6364122316), (433, 6364094735), (436, 6364020962),
             (437, 6364095285), (438, 6364095929), (439, 6364096541),
-            (440, 6364017910), (445, 6364122931), (552, 6364097761),
+            (440, 6364017910), (441, 6365198229), (445, 6364122931), (552, 6364097761),
             (465, 6291679837), (465, 6309151172), (465, 6315500921), (466, 6291681034), (469, 6291682208),
             (507, 6291682966), (517, 6291684094), (517, 6314944950), (517, 6315501948),
         ):
             with self.subTest(issue=issue):
                 self.assertIn(f"https://github.com/vrassouli/Bluent/issues/{issue}#issuecomment-{comment_id}", self.log)
-        self.assertEqual(21, self.log.count("#issuecomment-"))
+        self.assertEqual(22, self.log.count("#issuecomment-"))
 
     def test_current_typed_field_count_is_not_stale(self):
         self.assertIn("49/49 checks per engine (repeat run 2026-10-23)", self.retro)
@@ -42,6 +42,19 @@ class OwnerFollowupLogTests(unittest.TestCase):
         ):
             self.assertIn(phrase, self.log)
         self.assertIn("FLUENT-PARITY-CROSS-CONTROL-KEYBOARD.md", self.log)
+
+    def test_otp_followup_keeps_source_and_runtime_evidence_distinct(self):
+        for phrase in (
+            "OtpField #441",
+            "56/56 observations per engine",
+            "The Length boundary is source-derived only",
+            "synthetic `ClipboardEvent` is not native clipboard testing",
+            "Project #5 status remains Backlog.",
+        ):
+            self.assertIn(phrase, self.log)
+        otp = (QUALITY / "FLUENT-PARITY-OTP-AUDIT.md").read_text(encoding="utf-8-sig")
+        self.assertIn("Length=0", otp)
+        self.assertIn("remains source-derived, not runtime-tested", otp)
 
     def test_log_preserves_non_acceptance_boundary(self):
         for phrase in (

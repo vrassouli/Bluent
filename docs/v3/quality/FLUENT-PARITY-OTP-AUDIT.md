@@ -18,7 +18,7 @@ The pinned Fluent Web Components 3.1.3 manifest has no dedicated OTP/one-time-co
 
 ## Partial browser evidence (not full acceptance)
 
-The [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) records **56/56 instrumentation checks in Chrome and 56/56 in Edge**, with nine screenshots per engine. The OTP paste test dispatches a synthetic `ClipboardEvent`; it exercises the real registered handler but is not native OS clipboard testing. The results do not include native screen-reader output.
+The [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) was rerun on 2026-10-23 against the current task branch: Chrome 155 and Edge 155 each recorded **56/56 instrumentation checks**, with nine screenshots per engine. The OtpField component and interop files were verified unchanged from source anchor `73155f02`; the current Demo Debug build completed with 0 warnings and 0 errors. This rerun used the four-cell fixture, so the non-positive `Length` inconsistency remains source-derived, not runtime-tested. The OTP paste test dispatches a synthetic `ClipboardEvent`; it exercises the real registered handler but is not native OS clipboard testing. The results do not include native screen-reader output.
 
 ## Canonical matrix disposition
 
