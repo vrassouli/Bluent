@@ -38,7 +38,7 @@ FIXED_DIM=re.compile(r'(?i)\b(?:width|min-width|max-width|height|min-height|max-
 RTL_SIGNAL=re.compile(r'(?i)(:dir\(\s*rtl\s*\)|\[dir\s*=\s*["\']?rtl|direction\s*:\s*rtl|isrtl|righttoleft|rtl)')
 TERMS=('margin-left','margin-right','padding-left','padding-right','inset-inline','margin-inline','padding-inline','text-align: start','text-align: end','@media','max-width','min-width','dir=','RightToLeft','IsRtl')
 FOLLOWUP={
-'Icon':'The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL. The document remains 320px wide, but the custom SVG paints at 253x253px inside a 253x16px wrapper; no horizontal page overflow does not clear the sizing/layout gap. Candidate CSS remains research-only.',
+'Icon':'The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL: SVG 253x253px in a 253x16px wrapper, with no document overflow. The isolated CSS candidate now has live Chrome/Edge checks at 320px in both Light/LTR and Dark/RTL and measures 32x32px; it remains research-only and is not product or design approval.',
 'SelectField':'Check native select arrow, popup alignment, label/error wrapping and keyboard focus in RTL at narrow widths.',
 'DateField':'Check calendar popup anchoring, weekday order, selected-date focus and Min/Max messages in narrow RTL.',
 'OtpField':'Check visual cell order versus digit entry and screen-reader reading order under RTL; preserve digit sequence intentionally.',

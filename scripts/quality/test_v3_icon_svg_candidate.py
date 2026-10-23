@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 E=ROOT/"docs/v3/quality/evidence"
-SCENARIOS=["light-ltr","dark-rtl","forced-colors","mobile-320"]
+SCENARIOS=["light-ltr","dark-rtl","forced-colors","mobile-320","mobile-320-dark-rtl"]
 class Candidate(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -22,7 +22,7 @@ class Candidate(unittest.TestCase):
     def test_actual_32px_and_original_377px(self):
         for _,(before,after) in self.data.items():
             self.assertEqual(SCENARIOS,[x["scenario"] for x in after["scenarios"]])
-            self.assertEqual(31,len(after["checks"]))
+            self.assertEqual(38,len(after["checks"]))
             self.assertTrue(all(x["pass"] for x in after["checks"]))
             for old,new in zip(before["scenarios"],after["scenarios"][:3]):
                 a=next(x for x in old["icons"] if x["name"]=="SVG")
@@ -30,6 +30,14 @@ class Candidate(unittest.TestCase):
                 self.assertEqual((377,377),(a["svgGeometry"]["width"],a["svgGeometry"]["height"]))
                 self.assertEqual((32,32),(b["svgGeometry"]["width"],b["svgGeometry"]["height"]))
                 self.assertEqual((32,32),(b["geometry"]["width"],b["geometry"]["height"]))
+    def test_both_320px_states_recover_svg_and_wrapper_without_page_overflow(self):
+        for _,(_,after) in self.data.items():
+            for name in ("mobile-320", "mobile-320-dark-rtl"):
+                s=next(x for x in after["scenarios"] if x["scenario"]==name)
+                self.assertEqual((320,740,320),(s["viewport"]["width"],s["viewport"]["height"],s["viewport"]["documentWidth"]))
+                svg=next(x for x in s["icons"] if x["name"]=="SVG")
+                self.assertEqual((32,32),(svg["svgGeometry"]["width"],svg["svgGeometry"]["height"]))
+                self.assertEqual((32,32),(svg["geometry"]["width"],svg["geometry"]["height"]))
     def test_no_other_icon_geometry_regression(self):
         for _,(_,after) in self.data.items():
             for s in after["scenarios"]:

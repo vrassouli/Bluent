@@ -53,7 +53,7 @@ This source/evidence inventory reviews physical versus logical directional CSS, 
 
 **Logical declarations:** 0; **breakpoint/reflow rules:** 0; **fixed dimensions:** 0; **explicit RTL signals:** 0.
 
-**Follow-up:** The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL. The document remains 320px wide, but the custom SVG paints at 253x253px inside a 253x16px wrapper; no horizontal page overflow does not clear the sizing/layout gap. Candidate CSS remains research-only.
+**Follow-up:** The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL: SVG 253x253px in a 253x16px wrapper, with no document overflow. The isolated CSS candidate now has live Chrome/Edge checks at 320px in both Light/LTR and Dark/RTL and measures 32x32px; it remains research-only and is not product or design approval.
 
 **Style files:** No dedicated family stylesheet.
 

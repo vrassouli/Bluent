@@ -92,7 +92,7 @@ try{
   {name:'light-ltr',theme:'light',dir:'ltr',forced:false},
   {name:'dark-rtl',theme:'dark',dir:'rtl',forced:false},
   {name:'forced-colors',theme:'light',dir:'ltr',forced:true},
-  ...(candidate?[{name:'mobile-320',theme:'light',dir:'ltr',forced:false,viewport:320}]:[])
+  ...(candidate?[{name:'mobile-320',theme:'light',dir:'ltr',forced:false,viewport:320},{name:'mobile-320-dark-rtl',theme:'dark',dir:'rtl',forced:false,viewport:320}]:[])
  ];
  for(const mode of modeScenarios){
   await send('Emulation.setDeviceMetricsOverride',{width:mode.viewport||1240,height:mode.viewport?740:960,deviceScaleFactor:1,mobile:false});
