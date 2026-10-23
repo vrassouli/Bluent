@@ -24,10 +24,10 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
             with self.subTest(engine=engine):
                 self.assertEqual(engine, run["engine"])
                 self.assertEqual("73155f02", run["sourceRef"])
-                self.assertEqual(47, run["summary"]["checks"])
-                self.assertEqual(47, run["summary"]["passed"])
+                self.assertEqual(49, run["summary"]["checks"])
+                self.assertEqual(49, run["summary"]["passed"])
                 self.assertEqual(0, run["summary"]["failed"])
-                self.assertEqual(47, len(run["checks"]))
+                self.assertEqual(49, len(run["checks"]))
                 self.assertTrue(all(item["pass"] for item in run["checks"]))
                 screenshots = run["summary"]["screenshots"]
                 self.assertEqual(21, len(screenshots))
@@ -98,6 +98,15 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                 self.assertEqual("Green", keyboard["selectBefore"]["value"])
                 self.assertEqual("Blue", keyboard["selectAfter"]["value"])
 
+    def test_maskedfield_accepts_editable_digits_and_backspace(self):
+        for engine, run in self.runs.items():
+            with self.subTest(engine=engine):
+                case = next(c for c in run["cases"] if c.get("typedFieldKeyboard"))
+                keyboard = case["typedFieldKeyboard"]
+                self.assertEqual("0912-345-6789", keyboard["maskValidEntry"]["input"], (engine, keyboard["maskValidEntry"]))
+                self.assertEqual("Typed value: 0912-345-6789", keyboard["maskValidEntry"]["output"], (engine, keyboard["maskValidEntry"]))
+                self.assertLess(len(keyboard["maskAfterBackspace"]["input"]), len(keyboard["maskValidEntry"]["input"]), (engine, keyboard["maskAfterBackspace"]))
+
     def test_maskedfield_fixed_digit_prefix_mismatch_is_reproduced(self):
         for engine, run in self.runs.items():
             with self.subTest(engine=engine):
@@ -108,7 +117,7 @@ class TypedFieldsBrowserEvidenceTests(unittest.TestCase):
                 self.assertNotEqual("0912-345-6789", mask["input"])
 
     def test_report_keeps_runtime_and_acceptance_boundaries_explicit(self):
-        self.assertIn("47/47 instrumentation checks", self.report)
+        self.assertIn("49/49 instrumentation checks", self.report)
         self.assertIn("reproduced in Chrome and Edge", self.report)
         self.assertIn("native screen-reader output", self.report)
         self.assertIn("not native Windows Contrast Themes", self.report)
