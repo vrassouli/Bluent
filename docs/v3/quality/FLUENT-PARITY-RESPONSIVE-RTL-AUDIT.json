@@ -383,12 +383,12 @@
             "\"\"",
             "/ASSETS/ICONS/POWERPOINT.SVG",
             "0 0 24 24",
+            "16PX",
             "1B023A5C",
-            "32PX",
-            "<I ID=\"F58EF59F3\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_FILLED FS-6\"></I>",
-            "<I ID=\"F63E2A291\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_REGULAR FS-6\"></I>",
-            "<IMG ID=\"F7A6FAFAC\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\" SRC=\"/ASSETS/ICONS/POWERPOINT.SVG\">",
-            "<SPAN ID=\"F38B6E703\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\"><!--!--><SVG XMLNS=\"HTTP://WWW.W3.ORG/2000/SVG\" VIEWBOX=\"0 0 24 24\" FILL=\"CURRENTCOLOR\">\n    <PATH D=\"M12 2A10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM0 5A1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM2 10H-4V-1.5H1.25V12H10V-1.5H2.75V5H14V17Z\"></PATH>\n</SVG></SPAN>"
+            "20PX",
+            "24PX",
+            "28PX",
+            "32PX"
           ]
         },
         {

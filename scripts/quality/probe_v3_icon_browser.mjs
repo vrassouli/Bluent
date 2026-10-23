@@ -50,6 +50,41 @@ function extract(){
   save:{found:!!save,text:save?.textContent.trim(),hasIcon:!!save?.querySelector('.bui-icon')},
   viewport:{width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth}};
 }
+function measureCandidateContract(){
+ const ns='http://www.w3.org/2000/svg';
+ const host=document.createElement('div');
+ host.id='bluent552-icon-contract-matrix';
+ host.style.cssText='position:absolute;left:-2000px;top:0;visibility:hidden;font-size:20px;';
+ document.body.appendChild(host);
+ const make=(name,size,viewBox=true)=>{
+  const wrapper=document.createElement('span');wrapper.className='bui-icon';wrapper.dataset.contractCase=name;
+  if(size!==null)wrapper.style.cssText=`width:${size}px;height:${size}px`;
+  const svg=document.createElementNS(ns,'svg');svg.setAttribute('width','24');svg.setAttribute('height','24');
+  if(viewBox)svg.setAttribute('viewBox','0 0 24 24');
+  const path=document.createElementNS(ns,'path');path.setAttribute('d','M2 2 H22 V22 H2 Z');path.setAttribute('fill','currentColor');
+  svg.appendChild(path);wrapper.appendChild(svg);host.appendChild(wrapper);
+  const wr=wrapper.getBoundingClientRect(),sr=svg.getBoundingClientRect(),pr=path.getBoundingClientRect();
+  return {name,size,viewBox,selectorMatched:wrapper.matches('span.bui-icon:has(> svg)'),
+   wrapper:{width:wr.width,height:wr.height},svg:{width:sr.width,height:sr.height,cssWidth:getComputedStyle(svg).width,cssHeight:getComputedStyle(svg).height},
+   path:{width:+pr.width.toFixed(3),height:+pr.height.toFixed(3),left:+pr.left.toFixed(3),top:+pr.top.toFixed(3)},
+   pathExceedsSvg:pr.width>sr.width+0.5||pr.height>sr.height+0.5};
+ };
+ try{
+  const sizes=[16,20,24,28,32].map(size=>make(`viewbox-${size}`,size,true));
+  const implicit=make('implicit-1em',null,true);
+  const noViewBox=[make('no-viewbox-16',16,false),make('no-viewbox-32',32,false)];
+  const font=document.createElement('i');font.className='bui-icon';font.style.cssText='display:inline-block;width:32px;height:32px;font-size:28px';host.appendChild(font);
+  const img=document.createElement('img');img.className='bui-icon';img.alt='';img.width=32;img.height=32;img.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22%3E%3Crect width=%221%22 height=%221%22/%3E%3C/svg%3E';host.appendChild(img);
+  const nested=document.createElement('span');nested.className='bui-icon';const inner=document.createElement('span');const nestedSvg=document.createElementNS(ns,'svg');nestedSvg.setAttribute('viewBox','0 0 24 24');nestedSvg.appendChild(document.createElementNS(ns,'path'));inner.appendChild(nestedSvg);nested.appendChild(inner);host.appendChild(nested);
+  return {supportsHas:CSS.supports('selector(span.bui-icon:has(> svg))'),
+   directSvg:makeSelector(host.querySelector('[data-contract-case="viewbox-16"]')),
+   explicitSizes:sizes,implicit,
+   noViewBox:noViewBox,
+   nonSvgTargets:{fontMatches:font.matches('span.bui-icon:has(> svg)'),fontWidth:getComputedStyle(font).width,imageMatches:img.matches('span.bui-icon:has(> svg)'),imageWidth:getComputedStyle(img).width},
+   nestedSvg:{selectorMatched:nested.matches('span.bui-icon:has(> svg)'),svgDirectChild:nestedSvg.parentElement===nested}};
+ }finally{host.remove();}
+ function makeSelector(el){return el.matches('span.bui-icon:has(> svg)')&&!!el.querySelector(':scope > svg');}
+}
 async function axFor(name){
  const expr="([...document.querySelectorAll('h4')].find(x=>x.textContent.trim()==="+JSON.stringify(name)+")?.parentElement?.querySelector('.bui-icon'))";
  const r=await send('Runtime.evaluate',{expression:expr,returnByValue:false});
@@ -84,6 +119,18 @@ try{
   const css=await readFile(join(root,'scripts/quality/fixtures/v3-icon-svg-size-candidate.css'),'utf8');
   const inserted=await js("(()=>{const s=document.createElement('style');s.id='bluent552-icon-size-experiment';s.textContent="+JSON.stringify(css)+";document.head.appendChild(s);return s.isConnected})()");
   assert('separate CSS candidate injected into test page only',inserted,inserted);
+ }
+ let contractMatrix=null;
+ if(candidate){
+  contractMatrix=await js('('+measureCandidateContract.toString()+')()');
+  assert('candidate :has direct-child selector is supported and matches actual SVG children',contractMatrix.supportsHas && contractMatrix.directSvg,contractMatrix);
+  for(const sample of contractMatrix.explicitSizes){
+   assert(sample.name+' wrapper and SVG both honor requested explicit size',sample.selectorMatched && sample.wrapper.width===sample.size && sample.wrapper.height===sample.size && sample.svg.width===sample.size && sample.svg.height===sample.size,sample);
+  }
+  assert('unsized wrapper resolves to inherited 1em dimensions',contractMatrix.implicit.selectorMatched && contractMatrix.implicit.wrapper.width===20 && contractMatrix.implicit.wrapper.height===20 && contractMatrix.implicit.svg.width===20 && contractMatrix.implicit.svg.height===20,contractMatrix.implicit);
+  assert('missing viewBox remains size-constrained but preserves raw SVG user-unit geometry',contractMatrix.noViewBox.length===2 && contractMatrix.noViewBox[0].wrapper.width===16 && contractMatrix.noViewBox[0].svg.width===16 && contractMatrix.noViewBox[0].pathExceedsSvg && contractMatrix.noViewBox[1].wrapper.width===32 && contractMatrix.noViewBox[1].svg.width===32 && !contractMatrix.noViewBox[1].pathExceedsSvg,contractMatrix.noViewBox);
+  assert('font and image icon targets are excluded from candidate selector and keep explicit width',!contractMatrix.nonSvgTargets.fontMatches && !contractMatrix.nonSvgTargets.imageMatches && contractMatrix.nonSvgTargets.fontWidth==='32px' && contractMatrix.nonSvgTargets.imageWidth==='32px',contractMatrix.nonSvgTargets);
+  assert('nested descendant SVG does not activate direct-child candidate selector',!contractMatrix.nestedSvg.selectorMatched && !contractMatrix.nestedSvg.svgDirectChild,contractMatrix.nestedSvg);
  }
  const modeScenarios=responsive?[
   {name:'mobile-320-light-ltr',theme:'light',dir:'ltr',forced:false,viewport:320},
@@ -138,7 +185,7 @@ try{
   assert('decorative empty alt removes meaningful image from Chrome AX',decorative.some(x=>x.ignored===true),decorative);
   assert('informative alt gives named image in Chrome AX',informative.some(x=>x.role==='image'&&x.name==='PowerPoint file type'&&!x.ignored),informative);
  }
- const data={auditIssue:552,ownerIssue:429,sourceRef:'1b023a5c',engine,candidate,runMode,responsive,
+ const data={auditIssue:552,ownerIssue:429,sourceRef:'1b023a5c',engine,candidate,runMode,responsive,contractMatrix,
   candidateStylesheet:candidate?'scripts/quality/fixtures/v3-icon-svg-size-candidate.css':null,
   accessibilityExperiment,host:'original Blazor WebAssembly Demo /components/icons, Debug real build',
   status:'browser source observation only NOT Fluent parity NOT native OS or screen-reader signoff',checks,scenarios};

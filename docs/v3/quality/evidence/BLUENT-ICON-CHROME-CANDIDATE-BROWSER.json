@@ -6,6 +6,208 @@
   "candidate": true,
   "runMode": "candidate",
   "responsive": false,
+  "contractMatrix": {
+    "supportsHas": true,
+    "directSvg": true,
+    "explicitSizes": [
+      {
+        "name": "viewbox-16",
+        "size": 16,
+        "viewBox": true,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 16,
+          "height": 16
+        },
+        "svg": {
+          "width": 16,
+          "height": 16,
+          "cssWidth": "16px",
+          "cssHeight": "16px"
+        },
+        "path": {
+          "width": 13.333,
+          "height": 13.333,
+          "left": -1998.667,
+          "top": 5.146
+        },
+        "pathExceedsSvg": false
+      },
+      {
+        "name": "viewbox-20",
+        "size": 20,
+        "viewBox": true,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 20,
+          "height": 20
+        },
+        "svg": {
+          "width": 20,
+          "height": 20,
+          "cssWidth": "20px",
+          "cssHeight": "20px"
+        },
+        "path": {
+          "width": 16.667,
+          "height": 16.667,
+          "left": -1982.333,
+          "top": 3.479
+        },
+        "pathExceedsSvg": false
+      },
+      {
+        "name": "viewbox-24",
+        "size": 24,
+        "viewBox": true,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 24,
+          "height": 24
+        },
+        "svg": {
+          "width": 24,
+          "height": 24,
+          "cssWidth": "24px",
+          "cssHeight": "24px"
+        },
+        "path": {
+          "width": 20,
+          "height": 20,
+          "left": -1962,
+          "top": 2
+        },
+        "pathExceedsSvg": false
+      },
+      {
+        "name": "viewbox-28",
+        "size": 28,
+        "viewBox": true,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 28,
+          "height": 28
+        },
+        "svg": {
+          "width": 28,
+          "height": 28,
+          "cssWidth": "28px",
+          "cssHeight": "28px"
+        },
+        "path": {
+          "width": 23.333,
+          "height": 23.333,
+          "left": -1937.667,
+          "top": 2.333
+        },
+        "pathExceedsSvg": false
+      },
+      {
+        "name": "viewbox-32",
+        "size": 32,
+        "viewBox": true,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 32,
+          "height": 32
+        },
+        "svg": {
+          "width": 32,
+          "height": 32,
+          "cssWidth": "32px",
+          "cssHeight": "32px"
+        },
+        "path": {
+          "width": 26.667,
+          "height": 26.667,
+          "left": -1909.333,
+          "top": 2.667
+        },
+        "pathExceedsSvg": false
+      }
+    ],
+    "implicit": {
+      "name": "implicit-1em",
+      "size": null,
+      "viewBox": true,
+      "selectorMatched": true,
+      "wrapper": {
+        "width": 20,
+        "height": 20
+      },
+      "svg": {
+        "width": 20,
+        "height": 20,
+        "cssWidth": "20px",
+        "cssHeight": "20px"
+      },
+      "path": {
+        "width": 16.667,
+        "height": 16.667,
+        "left": -1878.333,
+        "top": 7.667
+      },
+      "pathExceedsSvg": false
+    },
+    "noViewBox": [
+      {
+        "name": "no-viewbox-16",
+        "size": 16,
+        "viewBox": false,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 16,
+          "height": 16
+        },
+        "svg": {
+          "width": 16,
+          "height": 16,
+          "cssWidth": "16px",
+          "cssHeight": "16px"
+        },
+        "path": {
+          "width": 20,
+          "height": 20,
+          "left": -1858,
+          "top": 10
+        },
+        "pathExceedsSvg": true
+      },
+      {
+        "name": "no-viewbox-32",
+        "size": 32,
+        "viewBox": false,
+        "selectorMatched": true,
+        "wrapper": {
+          "width": 32,
+          "height": 32
+        },
+        "svg": {
+          "width": 32,
+          "height": 32,
+          "cssWidth": "32px",
+          "cssHeight": "32px"
+        },
+        "path": {
+          "width": 20,
+          "height": 20,
+          "left": -1842,
+          "top": 2
+        },
+        "pathExceedsSvg": false
+      }
+    ],
+    "nonSvgTargets": {
+      "fontMatches": false,
+      "fontWidth": "32px",
+      "imageMatches": false,
+      "imageWidth": "32px"
+    },
+    "nestedSvg": {
+      "selectorMatched": false,
+      "svgDirectChild": false
+    }
+  },
   "candidateStylesheet": "scripts/quality/fixtures/v3-icon-svg-size-candidate.css",
   "accessibilityExperiment": {
     "decorative": [
@@ -28,6 +230,46 @@
   "checks": [
     {
       "name": "separate CSS candidate injected into test page only",
+      "pass": true
+    },
+    {
+      "name": "candidate :has direct-child selector is supported and matches actual SVG children",
+      "pass": true
+    },
+    {
+      "name": "viewbox-16 wrapper and SVG both honor requested explicit size",
+      "pass": true
+    },
+    {
+      "name": "viewbox-20 wrapper and SVG both honor requested explicit size",
+      "pass": true
+    },
+    {
+      "name": "viewbox-24 wrapper and SVG both honor requested explicit size",
+      "pass": true
+    },
+    {
+      "name": "viewbox-28 wrapper and SVG both honor requested explicit size",
+      "pass": true
+    },
+    {
+      "name": "viewbox-32 wrapper and SVG both honor requested explicit size",
+      "pass": true
+    },
+    {
+      "name": "unsized wrapper resolves to inherited 1em dimensions",
+      "pass": true
+    },
+    {
+      "name": "missing viewBox remains size-constrained but preserves raw SVG user-unit geometry",
+      "pass": true
+    },
+    {
+      "name": "font and image icon targets are excluded from candidate selector and keep explicit width",
+      "pass": true
+    },
+    {
+      "name": "nested descendant SVG does not activate direct-child candidate selector",
       "pass": true
     },
     {
@@ -190,7 +432,7 @@
           "name": "Default",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
-          "html": "<i id=\"f63e2a291\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "html": "<i id=\"f335bd94d\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -217,7 +459,7 @@
           "name": "Filled variant",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
-          "html": "<i id=\"f58ef59f3\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "html": "<i id=\"f643120d9\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -244,7 +486,7 @@
           "name": "SVG",
           "tag": "SPAN",
           "classes": "bui-icon ",
-          "html": "<span id=\"f38b6e703\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "html": "<span id=\"fea12d0d\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -277,7 +519,7 @@
           "name": "Image",
           "tag": "IMG",
           "classes": "bui-icon ",
-          "html": "<img id=\"f7a6fafac\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "html": "<img id=\"f113ec3de\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -355,7 +597,7 @@
           "name": "Default",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
-          "html": "<i id=\"f63e2a291\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "html": "<i id=\"f335bd94d\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -382,7 +624,7 @@
           "name": "Filled variant",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
-          "html": "<i id=\"f58ef59f3\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "html": "<i id=\"f643120d9\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -409,7 +651,7 @@
           "name": "SVG",
           "tag": "SPAN",
           "classes": "bui-icon ",
-          "html": "<span id=\"f38b6e703\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "html": "<span id=\"fea12d0d\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -442,7 +684,7 @@
           "name": "Image",
           "tag": "IMG",
           "classes": "bui-icon ",
-          "html": "<img id=\"f7a6fafac\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "html": "<img id=\"f113ec3de\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -520,7 +762,7 @@
           "name": "Default",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
-          "html": "<i id=\"f63e2a291\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "html": "<i id=\"f335bd94d\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -547,7 +789,7 @@
           "name": "Filled variant",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
-          "html": "<i id=\"f58ef59f3\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "html": "<i id=\"f643120d9\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -574,7 +816,7 @@
           "name": "SVG",
           "tag": "SPAN",
           "classes": "bui-icon ",
-          "html": "<span id=\"f38b6e703\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "html": "<span id=\"fea12d0d\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -607,7 +849,7 @@
           "name": "Image",
           "tag": "IMG",
           "classes": "bui-icon ",
-          "html": "<img id=\"f7a6fafac\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "html": "<img id=\"f113ec3de\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -685,7 +927,7 @@
           "name": "Default",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
-          "html": "<i id=\"f63e2a291\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "html": "<i id=\"f335bd94d\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -712,7 +954,7 @@
           "name": "Filled variant",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
-          "html": "<i id=\"f58ef59f3\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "html": "<i id=\"f643120d9\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -739,7 +981,7 @@
           "name": "SVG",
           "tag": "SPAN",
           "classes": "bui-icon ",
-          "html": "<span id=\"f38b6e703\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "html": "<span id=\"fea12d0d\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -772,7 +1014,7 @@
           "name": "Image",
           "tag": "IMG",
           "classes": "bui-icon ",
-          "html": "<img id=\"f7a6fafac\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "html": "<img id=\"f113ec3de\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(36, 36, 36)",
@@ -850,7 +1092,7 @@
           "name": "Default",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
-          "html": "<i id=\"f63e2a291\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "html": "<i id=\"f335bd94d\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -877,7 +1119,7 @@
           "name": "Filled variant",
           "tag": "I",
           "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
-          "html": "<i id=\"f58ef59f3\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "html": "<i id=\"f643120d9\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -904,7 +1146,7 @@
           "name": "SVG",
           "tag": "SPAN",
           "classes": "bui-icon ",
-          "html": "<span id=\"f38b6e703\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "html": "<span id=\"fea12d0d\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",
@@ -937,7 +1179,7 @@
           "name": "Image",
           "tag": "IMG",
           "classes": "bui-icon ",
-          "html": "<img id=\"f7a6fafac\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "html": "<img id=\"f113ec3de\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
           "css": {
             "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
             "color": "rgb(255, 255, 255)",

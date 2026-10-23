@@ -22,7 +22,7 @@ class Candidate(unittest.TestCase):
     def test_actual_32px_and_original_377px(self):
         for _,(before,after) in self.data.items():
             self.assertEqual(SCENARIOS,[x["scenario"] for x in after["scenarios"]])
-            self.assertEqual(38,len(after["checks"]))
+            self.assertEqual(48,len(after["checks"]))
             self.assertTrue(all(x["pass"] for x in after["checks"]))
             for old,new in zip(before["scenarios"],after["scenarios"][:3]):
                 a=next(x for x in old["icons"] if x["name"]=="SVG")
@@ -30,6 +30,38 @@ class Candidate(unittest.TestCase):
                 self.assertEqual((377,377),(a["svgGeometry"]["width"],a["svgGeometry"]["height"]))
                 self.assertEqual((32,32),(b["svgGeometry"]["width"],b["svgGeometry"]["height"]))
                 self.assertEqual((32,32),(b["geometry"]["width"],b["geometry"]["height"]))
+    def test_explicit_sizes_1em_default_and_selector_scope(self):
+        for engine,(_,after) in self.data.items():
+            with self.subTest(engine=engine):
+                matrix=after["contractMatrix"]
+                self.assertTrue(matrix["supportsHas"])
+                self.assertTrue(matrix["directSvg"])
+                self.assertEqual([16,20,24,28,32],[x["size"] for x in matrix["explicitSizes"]])
+                for sample in matrix["explicitSizes"]:
+                    self.assertTrue(sample["selectorMatched"])
+                    self.assertEqual((sample["size"],sample["size"]),(sample["wrapper"]["width"],sample["wrapper"]["height"]))
+                    self.assertEqual((sample["size"],sample["size"]),(sample["svg"]["width"],sample["svg"]["height"]))
+                    self.assertFalse(sample["pathExceedsSvg"])
+                self.assertEqual((20,20),(matrix["implicit"]["wrapper"]["width"],matrix["implicit"]["wrapper"]["height"]))
+                self.assertEqual((20,20),(matrix["implicit"]["svg"]["width"],matrix["implicit"]["svg"]["height"]))
+                self.assertFalse(matrix["nonSvgTargets"]["fontMatches"])
+                self.assertFalse(matrix["nonSvgTargets"]["imageMatches"])
+                self.assertEqual("32px",matrix["nonSvgTargets"]["fontWidth"])
+                self.assertEqual("32px",matrix["nonSvgTargets"]["imageWidth"])
+                self.assertFalse(matrix["nestedSvg"]["selectorMatched"])
+                self.assertFalse(matrix["nestedSvg"]["svgDirectChild"])
+    def test_missing_viewbox_content_can_exceed_a_small_svg_viewport(self):
+        for engine,(_,after) in self.data.items():
+            with self.subTest(engine=engine):
+                small,large=after["contractMatrix"]["noViewBox"]
+                self.assertEqual((16,16),(small["wrapper"]["width"],small["svg"]["width"]))
+                self.assertEqual((20,20),(small["path"]["width"],small["path"]["height"]))
+                self.assertTrue(small["pathExceedsSvg"])
+                self.assertEqual((32,32),(large["wrapper"]["width"],large["svg"]["width"]))
+                self.assertFalse(large["pathExceedsSvg"])
+                report=(ROOT/"docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md").read_text(encoding="utf-8-sig").lower()
+                self.assertIn("without viewbox",report)
+                self.assertIn("does not automatically scale the svg content",report)
     def test_both_320px_states_recover_svg_and_wrapper_without_page_overflow(self):
         for _,(_,after) in self.data.items():
             for name in ("mobile-320", "mobile-320-dark-rtl"):
@@ -75,6 +107,17 @@ class Candidate(unittest.TestCase):
         self.assertIn("const candidate=process.argv[3]==='candidate'",h)
         self.assertIn("document.createElement('style')",h)
         self.assertIn("await readFile(join(root,'scripts/quality/fixtures/v3-icon-svg-size-candidate.css')",h)
+    def test_raw_svg_markup_trust_boundary_remains_explicit(self):
+        definition=(ROOT/"src/Bluent.UI/Icons/IconDefinition.cs").read_text(encoding="utf-8-sig")
+        source=(ROOT/"src/Bluent.UI/Icons/IconSource.cs").read_text(encoding="utf-8-sig")
+        component=(ROOT/"src/Bluent.UI/Components/IconComponent/Icon.cs").read_text(encoding="utf-8-sig")
+        report=(ROOT/"docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md").read_text(encoding="utf-8-sig").lower()
+        self.assertIn("IconSource.Svg(regularSvg)",definition)
+        self.assertIn("new(IconSourceKind.Svg, svg)",source)
+        self.assertIn("(MarkupString)source.Value",component)
+        self.assertIn("source-review trust-boundary finding",report)
+        self.assertIn("no payload was executed",report)
+        self.assertIn("trusted application-owned markup",report)
     def test_no_false_design_or_at_signoff(self):
         d=(ROOT/"docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md").read_text(encoding="utf-8")
         for x in ("PuyaStudio Runner","Figma","NVDA","Backlog","Draft","not product"):
