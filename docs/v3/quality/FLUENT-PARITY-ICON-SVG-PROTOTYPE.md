@@ -4,8 +4,8 @@
 
 ## Design-tool access and approval boundary
 
-- Penpot currently points to the unrelated **PuyaStudio Runner** file (ID b64f6665-c9ab-80b5-8008-c44ed391c0c4), not the required Bluent v3 Design System (b64f6665-c9ab-80b5-8008-c4ac99d9d000). No unrelated Penpot asset was touched.
-- Figma fallback in owned working file JfxkDgSbNr8W0ppUZPQPHc returned the **Starter plan tool-call limit** on read-only inspection. No Icon board was edited or approved. This candidate does not clear #429 design-first approval.
+**Historical access note (2026-10-20):** Penpot was then connected to an unrelated **PuyaStudio Runner** file (ID b64f6665-c9ab-80b5-8008-c44ed391c0c4); Figma read-only inspection in owned working file JfxkDgSbNr8W0ppUZPQPHc hit the Starter plan tool-call limit. No unrelated asset was touched.
+- **Current access check (2026-10-23):** Penpot read-only inspection later confirmed the correct **Bluent v3 Design System** file (ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`), with existing pages through `42 · Component demo shell`. No dedicated Icon component board was found. A subsequent read attempt failed because the browser tab had suspended; no board was created or changed, and design approval remains open.
 
 ## Real unchanged Blazor WASM component and isolated CSS injection
 
@@ -56,3 +56,20 @@ The matrix also measures explicit 16/20/24/28/32px SVGs with a `0 0 24 24` viewB
 In the current source path, `IconDefinition.FromSvg(regularSvg, ...)` forwards strings to `IconSource.Svg(...)`, and `Icon.BuildRenderTree` emits `source.Value` as a `MarkupString`. The inspected path contains no SVG sanitization call. This is a **source-review trust-boundary finding**, not a proof of exploitability or a runtime XSS test: no payload was executed. Treat custom SVG strings as trusted application-owned markup unless a reviewed sanitizer/allow-list and threat model establishes that untrusted content may be accepted. A CSS sizing rule neither sanitizes markup nor mitigates script/event attributes; security review remains a separate owner gate.
 
 This remains injected CSS in temporary browser processes only. It does not validate CSS `:has()` support outside the tested Chrome/Edge versions, native browser zoom, Windows Contrast Themes, native assistive technology, security of arbitrary SVG markup, or design parity. **No product component/CSS/API was changed; #429 remains Backlog and PR #553 remains Draft.**
+
+## #429 design-first decision checklist — ready for review, not pre-approved
+
+The current Penpot source file is `Bluent v3 Design System` (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`). It contains existing component and audit pages but no dedicated Icon board was identified in the read-only search. The connected browser tab subsequently suspended before an Icon board could be created. Therefore this is a **written review brief, not a substitute for an editable Penpot design or maintainer approval**. Create a separate clearly labeled draft Icon board in that file after reconnecting, preserve every existing page/board, then record its page/node ID here and on #429.
+
+Before an owner branch can begin implementation, #429/#420 and the maintainer should record an explicit disposition for each decision below (do not silently choose product behavior based on the CSS experiment):
+
+| Decision | Measured evidence | Options to decide and record |
+| --- | --- | --- |
+| **Icon dimensions / default** | Explicit 16/20/24/28/32px viewBox SVGs size correctly in both tested engines; an unsized wrapper inherits 1em (20px at the probe's 20px font size). | Approve or revise the intrinsic `1em` default; define explicit-size precedence and the supported standard size set; link exact design examples for standalone icons and icons inside controls. |
+| **SVG without `viewBox`** | At a 16px viewport, an example's 20×20px path is not scaled by the candidate and extends past the viewport. | Require a valid `viewBox`; allow authored user-unit behavior; or specify a different supported SVG contract. State whether malformed/no-viewBox input is rejected, visually clipped, or treated as trusted author responsibility. |
+| **Browser support for `:has()`** | `CSS.supports('selector(span.bui-icon:has(> svg))')` passed in the exact Chrome and Edge versions tested. No other browser or minimum version was tested. | Record support matrix/minimum versions. If any target lacks `:has()`, choose a maintainable alternative that doesn't accidentally size image/font/nested icons. |
+| **SVG markup trust boundary** | `FromSvg` passes its string to `IconSource.Svg`, and `Icon` renders it through `MarkupString`; the inspected path has no sanitizer call. No attack payload was executed. | Explicitly limit this API to trusted app-owned markup, or approve an allow-list sanitizer and threat model before admitting untrusted content. CSS sizing is not a security control. |
+| **Image and SVG accessibility** | The actual demo image has no `alt` and appears as an unnamed image in browser partial AX. Temporary empty-alt vs meaningful-alt values produced distinct AX outcomes. | Define decorative vs informative intent, attribute forwarding/precedence (including `AdditionalAttributes`), and document that interactive controls need their own accessible names. Confirm with native assistive technology before sign-off. |
+| **Visual and platform acceptance** | The sizing candidate is a browser-only CSS injection; forced-colors is emulation, not physical Windows Contrast Themes. | Add approved same-state Fluent reference anatomy, Light/Dark/RTL, 320px, real zoom, native OS/AT, published InteractiveServer, security and focus/keyboard results. A green candidate matrix alone does not satisfy any design/AT gate. |
+
+**Ownership/lifecycle boundary:** #429 remains Backlog until design-first prerequisites move it to Ready through the normal issue workflow. Keep #552 In progress and PR #553 Draft. Do not merge the experiment, import the candidate stylesheet into production, change public API, or touch stable v2.x while any decision remains unapproved.

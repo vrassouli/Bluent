@@ -118,6 +118,11 @@ class Candidate(unittest.TestCase):
         self.assertIn("source-review trust-boundary finding",report)
         self.assertIn("no payload was executed",report)
         self.assertIn("trusted application-owned markup",report)
+        self.assertIn("not a substitute for an editable penpot design",report)
+        self.assertIn("require a valid `viewbox`",report)
+        self.assertIn("minimum versions",report)
+        self.assertIn("allow-list sanitizer",report)
+        self.assertIn("#429 remains backlog",report)
     def test_no_false_design_or_at_signoff(self):
         d=(ROOT/"docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md").read_text(encoding="utf-8")
         for x in ("PuyaStudio Runner","Figma","NVDA","Backlog","Draft","not product"):
