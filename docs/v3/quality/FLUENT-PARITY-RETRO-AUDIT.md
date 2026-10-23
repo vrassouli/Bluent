@@ -144,7 +144,7 @@ These reports are explicit audit artifacts, not accepted design or implementatio
 - **Button #428:** [keyboard/Enter/Space](FLUENT-PARITY-P0-BUTTON-KEYBOARD.md), [icon and accessible-name AX](FLUENT-PARITY-BUTTON-ICON-AX.md), [toggle-state AX](FLUENT-PARITY-BUTTON-TOGGLE-STATES.md).
 - **Icon #429:** [live Chrome/Edge browser and AX evidence](FLUENT-PARITY-ICON-BROWSER.md).
 - **Label #430, Link #431, Badge #445:** [Label/Link/Badge browser audit](FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md) — 31/31 checks per engine.
-- **TextField #432, NumericField #433, SelectField #437, DateField #438, TimeField #439, MaskedField #440:** [typed-field browser audit](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) — 42/42 checks per engine.
+- **TextField #432, NumericField #433, SelectField #437, DateField #438, TimeField #439, MaskedField #440:** [typed-field browser audit](FLUENT-PARITY-TYPED-FIELDS-BROWSER-AUDIT.md) — 49/49 checks per engine (repeat run 2026-10-23).
 - **Checkbox #434, Switch #435, RadioGroup #436, OtpField #441:** [control semantics browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) — 56/56 checks per engine.
 - **Slider #442 and RangeSlider #443:** [Slider/RangeSlider audit](FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md) and [pointer/screen/viewport evidence](FLUENT-PARITY-P0-POINTER-SCREEN-VIEWPORT.md), including WebAssembly and published-Server scenarios.
 - **FileSelect #444:** [FileSelect audit](FLUENT-PARITY-FILESELECT-AUDIT.md), [live upload evidence](FLUENT-PARITY-P0-FILESELECT-LIVE-UPLOAD.md) and [published-Server evidence](FLUENT-PARITY-P0-FILESELECT-PUBLISHED-SERVER.md).
@@ -238,3 +238,8 @@ All nine dimensions have now been inventoried across all 18 families. Each famil
 - **#429:** Color icons remain desired research/possible upstream asset fallback, not necessarily an approved public IconVariant.Color enum.
 
 Design/architecture dependencies [#417](https://github.com/vrassouli/Bluent/issues/417), [#418](https://github.com/vrassouli/Bluent/issues/418), [#419](https://github.com/vrassouli/Bluent/issues/419), [#420](https://github.com/vrassouli/Bluent/issues/420), and QA #425 must be respected. No arbitrary time estimates, production changes or premature Issue state transitions. Product tasks advance Backlog → Ready → In progress → Review → Done separately from audit tracker.
+
+
+## Owner follow-up ledger (2026-10-23)
+
+The audit findings are now linked to comments on their owning GitHub issues, with evidence classes and unverified acceptance gates retained in the [owner follow-up log](FLUENT-PARITY-OWNER-FOLLOW-UP-LOG.md). The log records concrete handoffs for #421, #429–#440 (only issues with findings documented there), #445 and tracker #552. These are follow-up links, not issue-state transitions or component acceptance. PR #553 remains Draft; all design approvals and full evidence bundles remain pending.
