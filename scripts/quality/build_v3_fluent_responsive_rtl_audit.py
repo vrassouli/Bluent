@@ -13,7 +13,7 @@ DATE='2026-10-22'
 BASELINE='73155f02'
 EVIDENCE={
 'Button':['BLUENT-BUTTON-STATE-CHROME.json','BLUENT-BLAZOR-FOCUS-CHROME.json','BLUENT-LAB-P0-DARK-RTL-CHROME.json','BLUENT-LAB-P0-ZOOM-200-CHROME.json'],
-'Icon':['BLUENT-CROSS-ICON-CHROME.json','BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json'],
+'Icon':['BLUENT-CROSS-ICON-CHROME.json','BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json','BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json','BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json'],
 'Label':['BLUENT-LABEL-LINK-BADGE-CHROME.json'],
 'Link':['BLUENT-LABEL-LINK-BADGE-CHROME.json'],
 'Badge':['BLUENT-LABEL-LINK-BADGE-CHROME.json'],
@@ -38,7 +38,7 @@ FIXED_DIM=re.compile(r'(?i)\b(?:width|min-width|max-width|height|min-height|max-
 RTL_SIGNAL=re.compile(r'(?i)(:dir\(\s*rtl\s*\)|\[dir\s*=\s*["\']?rtl|direction\s*:\s*rtl|isrtl|righttoleft|rtl)')
 TERMS=('margin-left','margin-right','padding-left','padding-right','inset-inline','margin-inline','padding-inline','text-align: start','text-align: end','@media','max-width','min-width','dir=','RightToLeft','IsRtl')
 FOLLOWUP={
-'Icon':'Verify icon order/alignment, inherited currentColor and clipping at 320 CSS px in an RTL parent; candidate mobile evidence is research-only.',
+'Icon':'The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL. The document remains 320px wide, but the custom SVG paints at 253x253px inside a 253x16px wrapper; no horizontal page overflow does not clear the sizing/layout gap. Candidate CSS remains research-only.',
 'SelectField':'Check native select arrow, popup alignment, label/error wrapping and keyboard focus in RTL at narrow widths.',
 'DateField':'Check calendar popup anchoring, weekday order, selected-date focus and Min/Max messages in narrow RTL.',
 'OtpField':'Check visual cell order versus digit entry and screen-reader reading order under RTL; preserve digit sequence intentionally.',

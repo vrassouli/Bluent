@@ -32,6 +32,25 @@ Captured `Accessibility.getPartialAXTree` gives `generic` with empty name for ea
 
 [Chrome raw DOM/CSS/AX JSON](evidence/BLUENT-ICON-CHROME-BROWSER.json) · [Edge raw DOM/CSS/AX JSON](evidence/BLUENT-ICON-EDGE-BROWSER.json). Screenshots are real Chromium captures, not edited artwork. The screenshot viewport is 1240×960 CSSpx. The measured overlarge SVG may extend beyond the current viewport; the numeric SVG rectangle is preserved independently.
 
+## Follow-up original-source responsive run at 320 CSS px (2026-10-23)
+
+This run exercised the unchanged /components/icons Blazor WebAssembly page in the real Chrome and Edge processes launched by the existing browser probe with its new isolated responsive-320 mode. No candidate CSS was injected. Each engine recorded 10/10 fixture/mode observations across Light/LTR and Dark/RTL at an actual **320×740 CSS-pixel viewport**.
+
+| Engine / state | Custom SVG box | Inline wrapper fragment | Custom image | Document horizontal overflow |
+| --- | ---: | ---: | ---: | --- |
+| Chrome Light/LTR | 253×253 px | 253×16 px | 32×32 px | none; document width 320 px |
+| Chrome Dark/RTL | 253×253 px | 253×16 px | 32×32 px | none; document width 320 px |
+| Edge Light/LTR | 253×253 px | 253×16 px | 32×32 px | none; document width 320 px |
+| Edge Dark/RTL | 253×253 px | 253×16 px | 32×32 px | none; document width 320 px |
+
+The SVG remains far larger than the requested 32×32 CSS pixels, although it shrinks from 377×377 px in the 1240px desktop viewport to 253×253 px in the 320px viewport. In these two narrow-page captures, the document itself did not acquire horizontal scroll width beyond 320px. **No horizontal page overflow is not evidence that the icon is correctly sized**: the nested SVG still paints an oversized shape inside a wrapper fragment whose measured height is only 16px. The separate image remains an exposed image with an empty accessible name in the browser partial AX tree; decorative versus informative intent is unresolved.
+
+| Engine | Light/LTR | Dark/RTL |
+| --- | --- | --- |
+| Chrome | [320px screenshot](evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-MOBILE-320-LIGHT-LTR.png) | [320px screenshot](evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-MOBILE-320-DARK-RTL.png) |
+| Edge | [320px screenshot](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-MOBILE-320-LIGHT-LTR.png) | [320px screenshot](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-MOBILE-320-DARK-RTL.png) |
+
+Structured observations: [Chrome](evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json) · [Edge](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json). The snapshots preserve actual wrapper/SVG geometry, image AX, viewport and horizontal-overflow measurements. Browser AX and CSS layout remain partial evidence, not native AT, actual browser-UI zoom, Windows Contrast Themes or Fluent reference parity.
 ## Owner decision and remaining work
 
 1. Keep product code unmodified in **audit-only PR #553**. The existing **#429** issue owns the SVG sizing correction, image/decorative icon ARIA default, safe custom SVG handling, and final public Color variant decision. Do not create duplicate product issues or advance its **Backlog** status without design-first Ready prerequisites.

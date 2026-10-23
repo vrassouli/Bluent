@@ -390,11 +390,57 @@
             "<IMG ID=\"F3FEE86B7\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\" SRC=\"/ASSETS/ICONS/POWERPOINT.SVG\">",
             "<SPAN ID=\"F66568602\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\"><!--!--><SVG XMLNS=\"HTTP://WWW.W3.ORG/2000/SVG\" VIEWBOX=\"0 0 24 24\" FILL=\"CURRENTCOLOR\">\n    <PATH D=\"M12 2A10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM0 5A1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM2 10H-4V-1.5H1.25V12H10V-1.5H2.75V5H14V17Z\"></PATH>\n</SVG></SPAN>"
           ]
+        },
+        {
+          "file": "evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json",
+          "engine": "chrome",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "\"HELVETICA NEUE\", HELVETICA, ARIAL, SANS-SERIF",
+            "\"\"",
+            "\"\"",
+            "/ASSETS/ICONS/POWERPOINT.SVG",
+            "0 0 24 24",
+            "1B023A5C",
+            "253PX",
+            "<I ID=\"F432B49EB\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_REGULAR FS-6\"></I>",
+            "<I ID=\"F46F56B1F\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_FILLED FS-6\"></I>",
+            "<IMG ID=\"F3773E30F\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\" SRC=\"/ASSETS/ICONS/POWERPOINT.SVG\">",
+            "<SPAN ID=\"F58F06161\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\"><!--!--><SVG XMLNS=\"HTTP://WWW.W3.ORG/2000/SVG\" VIEWBOX=\"0 0 24 24\" FILL=\"CURRENTCOLOR\">\n    <PATH D=\"M12 2A10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM0 5A1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM2 10H-4V-1.5H1.25V12H10V-1.5H2.75V5H14V17Z\"></PATH>\n</SVG></SPAN>"
+          ]
+        },
+        {
+          "file": "evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json",
+          "engine": "edge",
+          "scenario": null,
+          "rtlEvidence": true,
+          "narrowOrZoomEvidence": true,
+          "forcedColorsEvidence": false,
+          "reducedMotionEvidence": false,
+          "evidenceLabels": [
+            "",
+            "\"HELVETICA NEUE\", HELVETICA, ARIAL, SANS-SERIF",
+            "\"\"",
+            "\"\"",
+            "/ASSETS/ICONS/POWERPOINT.SVG",
+            "0 0 24 24",
+            "1B023A5C",
+            "253PX",
+            "<I ID=\"F42E079BD\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_FILLED FS-6\"></I>",
+            "<I ID=\"F521E392E\" CLASS=\"BUI-ICON ICON-IC_FLUENT_SETTINGS_20_REGULAR FS-6\"></I>",
+            "<IMG ID=\"F665AE252\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\" SRC=\"/ASSETS/ICONS/POWERPOINT.SVG\">",
+            "<SPAN ID=\"F56F6EC89\" CLASS=\"BUI-ICON \" STYLE=\"WIDTH: 32PX; HEIGHT: 32PX;\"><!--!--><SVG XMLNS=\"HTTP://WWW.W3.ORG/2000/SVG\" VIEWBOX=\"0 0 24 24\" FILL=\"CURRENTCOLOR\">\n    <PATH D=\"M12 2A10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM0 5A1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM2 10H-4V-1.5H1.25V12H10V-1.5H2.75V5H14V17Z\"></PATH>\n</SVG></SPAN>"
+          ]
         }
       ],
       "hasRtlBrowserEvidence": true,
       "hasNarrowOrZoomEvidence": true,
-      "followUp": "Verify icon order/alignment, inherited currentColor and clipping at 320 CSS px in an RTL parent; candidate mobile evidence is research-only.",
+      "followUp": "The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL. The document remains 320px wide, but the custom SVG paints at 253x253px inside a 253x16px wrapper; no horizontal page overflow does not clear the sizing/layout gap. Candidate CSS remains research-only.",
       "designApproval": "pending",
       "evidenceBundle": null
     },

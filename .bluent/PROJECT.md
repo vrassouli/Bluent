@@ -20,6 +20,8 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **Latest #552 follow-up (2026-10-23):** Synced the Icon (#429) family disposition report to the shared nine-dimension audit matrix and added regression coverage for linked evidence and the open-state boundary. The full `scripts/quality` Python suite passes **443/443**; local Markdown links validate across **221 files**; `git diff --check` passes. Documentation/test-only: no product source, public API or design artifact changed. The matrix remains `auditComplete=false`, `noneApproved=true`; PR #553 remains Draft and targets `bluent-v3`.
 
+**Latest #552 responsive Icon follow-up (2026-10-23):** Added unchanged-source 320 CSS px browser evidence from Chrome and Edge in Light/LTR and Dark/RTL. The custom SVG still paints at 253×253 px inside a 253×16 px wrapper while document width remains 320 px; no horizontal scroll does not clear the sizing defect. Official responsive/RTL and visual-evidence inventories were regenerated. The full scripts/quality suite passes **448/448**; local Markdown links validate across **221 files**; git diff --check passes. Audit-only: no product source, public API or design artifact changed. Matrix remains auditComplete=false, noneApproved=true; PR #553 remains Draft.
+
 ## Current Phase
 
 **Phase:** AI readiness and consumer usability

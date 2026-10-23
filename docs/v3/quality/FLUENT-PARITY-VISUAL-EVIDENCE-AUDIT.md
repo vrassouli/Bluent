@@ -63,11 +63,11 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 **Visual gap:** No family-specific editable design asset in the current Penpot snapshot; a design-to-browser comparison cannot be completed for this family.
 
-**Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
+**Follow-up:** The unchanged-source route now has paired Chrome/Edge screenshots at 320 CSS px in Light/LTR and Dark/RTL. The SVG still paints at 253x253 px inside a 253x16 px wrapper, without document-level horizontal overflow. A complete same-state Fluent/Penpot comparison and design-owner approval remain open.
 
 **Style sources:** No dedicated family stylesheet.
 
-**Browser evidence:** [BLUENT-CROSS-ICON-CHROME.json](evidence/BLUENT-CROSS-ICON-CHROME.json), [BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json](evidence/BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json)
+**Browser evidence:** [BLUENT-CROSS-ICON-CHROME.json](evidence/BLUENT-CROSS-ICON-CHROME.json), [BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json](evidence/BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json), [BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json](evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json), [BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json)
 
 **Family audit:** [FLUENT-PARITY-ICON-AUDIT.md](../../../docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md)
 

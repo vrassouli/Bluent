@@ -53,13 +53,13 @@ This source/evidence inventory reviews physical versus logical directional CSS, 
 
 **Logical declarations:** 0; **breakpoint/reflow rules:** 0; **fixed dimensions:** 0; **explicit RTL signals:** 0.
 
-**Follow-up:** Verify icon order/alignment, inherited currentColor and clipping at 320 CSS px in an RTL parent; candidate mobile evidence is research-only.
+**Follow-up:** The unchanged-source Chrome/Edge 320px run records Light/LTR and Dark/RTL. The document remains 320px wide, but the custom SVG paints at 253x253px inside a 253x16px wrapper; no horizontal page overflow does not clear the sizing/layout gap. Candidate CSS remains research-only.
 
 **Style files:** No dedicated family stylesheet.
 
 **Source anchors:** No matching source anchors in the reviewed file set.
 
-**Browser evidence:** [BLUENT-CROSS-ICON-CHROME.json](evidence/BLUENT-CROSS-ICON-CHROME.json) (RTL; no narrow/zoom scenario), [BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json](evidence/BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json) (RTL; narrow/zoom proxy)
+**Browser evidence:** [BLUENT-CROSS-ICON-CHROME.json](evidence/BLUENT-CROSS-ICON-CHROME.json) (RTL; no narrow/zoom scenario), [BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json](evidence/BLUENT-ICON-CHROME-CANDIDATE-BROWSER.json) (RTL; narrow/zoom proxy), [BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json](evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json) (RTL; narrow/zoom proxy), [BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json) (RTL; narrow/zoom proxy)
 
 ### Label (#430)
 

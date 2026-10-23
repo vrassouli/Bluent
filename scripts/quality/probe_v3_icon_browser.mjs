@@ -8,8 +8,11 @@ import {join,resolve} from 'node:path';
 import {createServer} from 'node:net';
 import {setTimeout as wait} from 'node:timers/promises';
 const engine=(process.argv[2]||'chrome').toLowerCase();
+const runMode=(process.argv[3]||'baseline').toLowerCase();
 const candidate=process.argv[3]==='candidate';
-if(process.argv[3] && !candidate)throw Error('Optional mode must be candidate');
+const responsive=runMode==='responsive-320';
+if(!['baseline','candidate','responsive-320'].includes(runMode))throw Error('Mode must be baseline, candidate, or responsive-320');
+const runSuffix=responsive?'-RESPONSIVE-320':candidate?'-CANDIDATE':'';
 if (!['chrome','edge'].includes(engine)) throw Error('Engine must be chrome or edge');
 const browserExe=engine==='chrome'?'C:/Program Files/Google/Chrome/Application/chrome.exe':'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const root=resolve('.');
@@ -82,12 +85,16 @@ try{
   const inserted=await js("(()=>{const s=document.createElement('style');s.id='bluent552-icon-size-experiment';s.textContent="+JSON.stringify(css)+";document.head.appendChild(s);return s.isConnected})()");
   assert('separate CSS candidate injected into test page only',inserted,inserted);
  }
- for(const mode of [
+ const modeScenarios=responsive?[
+  {name:'mobile-320-light-ltr',theme:'light',dir:'ltr',forced:false,viewport:320},
+  {name:'mobile-320-dark-rtl',theme:'dark',dir:'rtl',forced:false,viewport:320}
+ ]:[
   {name:'light-ltr',theme:'light',dir:'ltr',forced:false},
   {name:'dark-rtl',theme:'dark',dir:'rtl',forced:false},
   {name:'forced-colors',theme:'light',dir:'ltr',forced:true},
   ...(candidate?[{name:'mobile-320',theme:'light',dir:'ltr',forced:false,viewport:320}]:[])
- ]){
+ ];
+ for(const mode of modeScenarios){
   await send('Emulation.setDeviceMetricsOverride',{width:mode.viewport||1240,height:mode.viewport?740:960,deviceScaleFactor:1,mobile:false});
   await send('Emulation.setEmulatedMedia',{features:mode.forced?[{name:'forced-colors',value:'active'},{name:'prefers-contrast',value:'more'}]:[]});
   await js("(()=>{document.documentElement.setAttribute('data-bui-theme',"+JSON.stringify(mode.theme)+");document.documentElement.setAttribute('dir',"+JSON.stringify(mode.dir)+");})()");
@@ -112,9 +119,12 @@ try{
   for(const name of ['Default','Filled variant','SVG','Image']) accessibility[name]=await axFor(name);
   await js("document.querySelector('h1')?.scrollIntoView({block:'start'})");
   const screenshot=(await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true})).data;
-  const filename='BLUENT-ICON-'+engine.toUpperCase()+(candidate?'-CANDIDATE':'')+'-'+mode.name.toUpperCase()+'.png';
+  const filename='BLUENT-ICON-'+engine.toUpperCase()+runSuffix+'-'+mode.name.toUpperCase()+'.png';
   await writeFile(join(destination,filename),Buffer.from(screenshot,'base64'));
-  scenarios.push({...observed,scenario:mode.name,ax:accessibility,screenshot:filename});
+  scenarios.push({...observed,scenario:mode.name,
+   responsiveObservation:responsive?{horizontalOverflow:observed.viewport.documentWidth>observed.viewport.width,
+    overflowPixels:Math.max(0,observed.viewport.documentWidth-observed.viewport.width)}:null,
+   ax:accessibility,screenshot:filename});
  }
  let accessibilityExperiment=null;
  if(candidate){
@@ -128,11 +138,11 @@ try{
   assert('decorative empty alt removes meaningful image from Chrome AX',decorative.some(x=>x.ignored===true),decorative);
   assert('informative alt gives named image in Chrome AX',informative.some(x=>x.role==='image'&&x.name==='PowerPoint file type'&&!x.ignored),informative);
  }
- const data={auditIssue:552,ownerIssue:429,sourceRef:'1b023a5c',engine,candidate,
+ const data={auditIssue:552,ownerIssue:429,sourceRef:'1b023a5c',engine,candidate,runMode,responsive,
   candidateStylesheet:candidate?'scripts/quality/fixtures/v3-icon-svg-size-candidate.css':null,
   accessibilityExperiment,host:'original Blazor WebAssembly Demo /components/icons, Debug real build',
   status:'browser source observation only NOT Fluent parity NOT native OS or screen-reader signoff',checks,scenarios};
- await writeFile(join(destination,'BLUENT-ICON-'+engine.toUpperCase()+(candidate?'-CANDIDATE':'')+'-BROWSER.json'),JSON.stringify(data,null,2)+'\n');
+ await writeFile(join(destination,'BLUENT-ICON-'+engine.toUpperCase()+runSuffix+'-BROWSER.json'),JSON.stringify(data,null,2)+'\n');
  console.log('SUMMARY '+JSON.stringify({engine,candidate,passed:checks.filter(x=>x.pass).length,total:checks.length,scenarios:scenarios.length}));
 }catch(error){console.error('ERROR '+engine+' '+(error?.stack||error));process.exitCode=1;}
 finally{
