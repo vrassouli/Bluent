@@ -9,7 +9,7 @@
   "parityAccepted": false,
   "noneApproved": true,
   "penpotSnapshot": "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json",
-  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. No pixel-diff or complete side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. Dated Icon, Slider and RangeSlider review-board addenda update design traceability only; they add no matched browser/Fluent parity evidence.",
+  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. A narrow same-size primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no complete family/state-by-state pixel-diff or full side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. Dated Icon, Slider and RangeSlider review-board addenda update design traceability only; they add no matched browser/Fluent parity evidence.",
   "coverageSummary": {
     "lightLtr": 18,
     "darkRtl": 18,
@@ -71,8 +71,8 @@
         "src/Bluent.UI/Components/ButtonComponent/Button.razor",
         "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       ],
-      "visualGap": "Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded.",
-      "followUp": "Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.",
+      "visualGap": "A narrow primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no approved state-by-state Fluent/Penpot-to-browser comparison or design-owner sign-off exists.",
+      "followUp": "Review the primary-Button crop diagnostic against the approved Penpot appearance/state design, document font/token/geometry differences, and obtain design-owner approval; these crops cover only two visual modes.",
       "browserEvidence": [
         {
           "file": "evidence/BLUENT-BUTTON-STATE-CHROME.json",

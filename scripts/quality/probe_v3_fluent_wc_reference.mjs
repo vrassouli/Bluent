@@ -107,12 +107,21 @@ try{
  // Return fixture state to initial selection before screenshot.
  await js("(()=>{document.getElementById('btn-toggle').pressed=false;document.getElementById('ref-slider-step').value='40';document.activeElement?.blur();})()");
  await wait(500);
+ let primaryButtonCrop = null;
+ let primaryButtonCropMeta = null;
+ if (scenario === 'light-ltr' || scenario === 'dark-rtl') {
+   primaryButtonCropMeta = await js("(()=>{const e=document.getElementById('btn-primary'),r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,text:e.textContent.trim(),theme:document.documentElement.dataset.officialTheme,dir:document.documentElement.dir}})()");
+   assert('Official primary Button crop is normalized 96x32 with Continue label', Math.abs(primaryButtonCropMeta.width-96)<0.1 && Math.abs(primaryButtonCropMeta.height-32)<0.1 && primaryButtonCropMeta.text==='Continue' && primaryButtonCropMeta.dir===(scenario.endsWith('rtl')?'rtl':'ltr'), primaryButtonCropMeta);
+   const cropCapture = await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true,clip:{x:Math.round(primaryButtonCropMeta.x),y:Math.round(primaryButtonCropMeta.y),width:96,height:32,scale:1}});
+   primaryButtonCrop = output.replace(/\.png$/i,'-PRIMARY-CROP.png');
+   await writeFile(primaryButtonCrop,Buffer.from(cropCapture.data,'base64'));
+ }
  const capture=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true});
  await mkdir(resolve(output,'..'),{recursive:true});
  await writeFile(output,Buffer.from(capture.data,'base64'));
  const evidence={auditIssue:552,officialPackage:'@fluentui/web-components',packageVersion:'3.1.3',
  browserName:/msedge/i.test(browserExe)?'Edge':'Chrome',scenario,pageBounds,accessibilityMode,accessibilityTree,fixture:'scripts/quality/fixtures/fluent-wc-3.1.3-reference.html',
- outputImage:output.split(/[\\/]/).slice(-1)[0],focusedImage:focusedImage.split(/[\\/]/).slice(-1)[0],viewport:size,
+ outputImage:output.split(/[\\/]/).slice(-1)[0],focusedImage:focusedImage.split(/[\\/]/).slice(-1)[0],primaryButtonCrop:primaryButtonCrop?{file:primaryButtonCrop.split(/[\\/]/).slice(-1)[0],...primaryButtonCropMeta,note:'Real official component host crop; 96x32 CSS pixels; no outside app layout; diagnostics only.'}:null,viewport:size,
  inspectedAt:new Date().toISOString(),status:'official_baseline_only_no_bluent_parity',
  note:scenario==='zoom-200'?'Viewport 620 CSSpx and DPR2 is a 200% layout/reflow proxy; NOT native desktop browser zoom. Independent layout, NOT parity or OS/AT acceptance.':scenario==='forced-colors'?'Actual Chromium forced-colors CSS-media emulation; NOT real OS high-contrast settings or screen-reader acceptance.':'Real official WC specimen, independent layout. No native OS AT.',
  assertions:audit,geometry:measurement};

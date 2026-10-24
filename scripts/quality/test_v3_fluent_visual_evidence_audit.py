@@ -69,7 +69,7 @@ class VisualEvidenceAuditTests(unittest.TestCase):
 
     def test_visual_audit_does_not_claim_pixel_parity(self):
         self.assertFalse(self.ledger['parityAccepted'])
-        self.assertIn('No pixel-diff or complete side-by-side design comparison was performed',self.ledger['runtimeScope'])
+        self.assertIn('no complete family/state-by-state pixel-diff or full side-by-side design comparison was performed',self.ledger['runtimeScope'])
         self.assertIn('not a visual parity verdict',self.report)
 
     def test_forced_colors_and_zoom_limitations_are_explicit(self):

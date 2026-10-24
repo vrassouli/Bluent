@@ -23,6 +23,19 @@ Both reference and target render the actual **Continue** primary button, 96px wi
 
 **No pixel diff** was run on these two independently composed pages. The screenshots can be reviewed visually for contextual direction/spacing, but they aren't equivalent whole-page layouts or font baselines.
 
+## Narrow primary-Button crop pixel diagnostics (2026-10-24)
+
+Separate from the independent full-page screenshots above, the primary Button host was captured from each **real rendered browser fixture** as an exact 96×32 CSS-pixel crop. Both show the visible label `Continue`; the Fluent side is the pinned published `@fluentui/web-components@3.1.3` fixture and the Bluent side is the real source-built Component Lab at `b9952aa93e89fd569de54080a7fdd06037b53a41`. Bluent's pointer was moved away and focus blurred before its rest-state crop. No Bluent product source or CSS was modified to produce these crops.
+
+| Mode | Fluent rendered crop | Bluent rendered crop | Amplified RGB difference image | Diagnostic measurements |
+| --- | --- | --- | --- | --- |
+| Light/LTR | ![Fluent Light LTR primary Button host crop](evidence/FLUENT-WC-3.1.3-LIGHT-LTR-PRIMARY-CROP-CHROME.png) | ![Bluent Light LTR primary Button host crop](evidence/BLUENT-LAB-BUTTON-LIGHT-LTR-PRIMARY-CROP-CHROME.png) | ![Amplified Light LTR RGB difference](evidence/FLUENT-BLUENT-BUTTON-LIGHT-LTR-PRIMARY-CROP-DIFF-CHROME.png) | 3066/3072 pixels changed (99.80%); mean absolute RGB-channel delta 18.82 |
+| Dark/RTL | ![Fluent Dark RTL primary Button host crop](evidence/FLUENT-WC-3.1.3-DARK-RTL-PRIMARY-CROP-CHROME.png) | ![Bluent Dark RTL primary Button host crop](evidence/BLUENT-LAB-BUTTON-DARK-RTL-PRIMARY-CROP-CHROME.png) | ![Amplified Dark RTL RGB difference](evidence/FLUENT-BLUENT-BUTTON-DARK-RTL-PRIMARY-CROP-DIFF-CHROME.png) | 3066/3072 pixels changed (99.80%); mean absolute RGB-channel delta 20.79 |
+
+Machine-readable metrics and input/diff SHA-256 hashes are in the [crop diagnostic JSON](evidence/FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json). Recompute and verify with `python scripts/quality/compare_v3_fluent_button_crops.py --write` and check with `--check`.
+
+**Interpretation limit:** a pixel is counted changed if any RGB channel differs by at least 1; this sensitive ratio is not a perceptual quality score or a pass/fail threshold. The amplified diff is for locating differences, not a similarity score. The crop has the same outer host size and label, but does not normalize the two token systems, font metrics/antialiasing, internal markup or approved Penpot geometry. The crop excludes outside focus/box-shadow pixels and app scaffolding. This is diagnostic evidence for one Button appearance in two modes only—not a parity verdict, visual approval, native OS high-contrast result or screen-reader acceptance. All 18 family dimensions remain `audited_gaps` and design approval remains pending.
+
 ## Same-width Slider
 
 | Mode | Fluent WC Slider host | Bluent Slider host | Reproducible difference |

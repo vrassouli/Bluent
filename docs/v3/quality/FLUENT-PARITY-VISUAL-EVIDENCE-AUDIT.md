@@ -6,7 +6,7 @@ Review date: 2026-10-24. Source baseline: 73155f02.
 
 This audit inventories existing screenshots, browser visual modes, component style sources and the availability of family-specific editable Penpot design artifacts. Snapshot: [Penpot design-artifact snapshot](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json).
 
-**Important:** this is an evidence coverage audit, not a visual parity verdict. No pixel-diff or complete side-by-side comparison was performed. Matching screenshots and token names do not prove Fluent visual parity. The zoom-200 scenario is a layout-reflow proxy, not native browser UI zoom.
+**Important:** this is an evidence coverage audit, not a visual parity verdict. Only the primary Button has a narrow 96×32 host-crop pixel diagnostic in Light/LTR and Dark/RTL; no complete family/state-by-state pixel-diff or approved side-by-side comparison was performed. Matching screenshots and token names do not prove Fluent visual parity. The zoom-200 scenario is a layout-reflow proxy, not native browser UI zoom.
 
 ## Coverage summary
 
@@ -26,7 +26,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 | Family | Editable design artifact | Light/LTR | Dark/RTL | Forced colors | Focus | Hover | Disabled | Pressed/selected | Narrow/zoom proxy | Visual gap |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded. |
+| Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | A narrow primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no approved state-by-state Fluent/Penpot-to-browser comparison or design-owner sign-off exists. |
 | Icon | review board, incomplete variants | yes | yes | yes | no | no | no | yes | yes | An editable Icon review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded. |
 | Label | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 | Link | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
@@ -49,9 +49,9 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Button (#428)
 
-**Visual gap:** Draft design pages exist, but no approved state-by-state design-to-browser comparison or pixel-diff is recorded.
+**Visual gap:** A narrow primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no approved state-by-state Fluent/Penpot-to-browser comparison or design-owner sign-off exists.
 
-**Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
+**Follow-up:** Review the primary-Button crop diagnostic against the approved Penpot appearance/state design, document font/token/geometry differences, and obtain design-owner approval; these crops cover only two visual modes.
 
 **Style sources:** [_button.scss](../../../src/Bluent.UI/Styles/Components/_button.scss)
 
@@ -265,4 +265,4 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ## Acceptance boundary
 
-All 18 visual dimensions remain audited_gaps. The Icon, Slider and RangeSlider review boards were added to design traceability only; they do not add matched Fluent screenshots, pixel-diff, native OS/AT coverage or approval. Pixel-level/state-by-state Light/Dark/RTL/forced-colors comparison and design-owner sign-off remain open. Every family design approval is pending and evidenceBundle remains null. No product source, CSS or public API changed.
+All 18 visual dimensions remain audited_gaps. The Icon, Slider and RangeSlider review boards were added to design traceability only; they do not add matched Fluent screenshots, pixel-diff, native OS/AT coverage or approval. Separately, the primary Button has only a same-size RGB crop diagnostic for Light/LTR and Dark/RTL; other Button states and the remaining 17 families are not covered. Pixel-level/state-by-state Light/Dark/RTL/forced-colors comparison and design-owner sign-off remain open. Every family design approval is pending and evidenceBundle remains null. No product source, CSS or public API changed.

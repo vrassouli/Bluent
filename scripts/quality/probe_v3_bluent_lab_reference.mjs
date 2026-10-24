@@ -94,6 +94,17 @@ try{
      canvas:{x:Math.max(0,c.left+scrollX),y:Math.max(0,c.top+scrollY),width:Math.max(1,Math.min(c.width,1080)),height:Math.max(1,Math.min(c.height,880))}};
    })()`);
   add(family+' actual Bluent specimen located',detail.width>0&&detail.height>0,detail);
+  if (family === 'Button' && (scenario === 'light-ltr' || scenario === 'dark-rtl')) {
+    await js("document.querySelector('.lab-canvas .bui-button')?.blur()");
+    await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:1,y:1,button:'none'});
+    await wait(120);
+    const cropMeta = await js("(()=>{const e=document.querySelector('.lab-canvas .bui-button'),r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,text:e.innerText.trim(),theme:document.documentElement.getAttribute('data-bui-theme'),dir:document.documentElement.dir}})()");
+    add('Primary Button crop is normalized 96x32 with Continue label',Math.abs(cropMeta.width-96)<0.1 && Math.abs(cropMeta.height-32)<0.1 && cropMeta.text==='Continue' && cropMeta.theme===(scenario.startsWith('dark')?'dark':'light') && cropMeta.dir===(scenario.endsWith('rtl')?'rtl':'ltr'),cropMeta);
+    const cropCapture = await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true,clip:{x:Math.round(cropMeta.x),y:Math.round(cropMeta.y),width:96,height:32,scale:1}});
+    const cropImage = 'BLUENT-LAB-BUTTON-'+scenario.toUpperCase()+'-PRIMARY-CROP-CHROME.png';
+    await writeFile(join(evidenceRoot,cropImage),Buffer.from(cropCapture.data,'base64'));
+    detail.primaryButtonCrop={file:cropImage,...cropMeta,note:'Real current-source Bluent Button host crop; pointer moved away and focus blurred before capture; 96x32 CSS pixels; diagnostics only.'};
+  }
   if(scenario==='ax-keyboard'){
     const full=await send('Accessibility.getFullAXTree');
     const ax=(full.nodes||[]).filter(n=>['button','slider','textField'].includes(n.role?.value)).map(n=>({
