@@ -34,6 +34,15 @@ Separate from the independent full-page screenshots above, the primary Button ho
 
 Machine-readable metrics and input/diff SHA-256 hashes are in the [crop diagnostic JSON](evidence/FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json). Recompute and verify with `python scripts/quality/compare_v3_fluent_button_crops.py --write` and check with `--check`.
 
+The raw changed-pixel ratio is **99.80% in both modes largely because the surface-fill RGB differs across almost the entire button face**; it must not be read as 99.8% of the component being visually wrong. The center-surface color deltas are Fluent vs Bluent **(3, 5, 9)** per RGB channel in Light/LTR and **(7, 5, 8)** in Dark/RTL. To separate fill color from high-contrast glyph pixels, the diagnostic also builds a foreground mask relative to each crop's own center RGB, using an exploratory max-channel threshold of 50 inside the inset region x=6–89, y=6–25:
+
+| Mode | Fluent mask | Bluent mask | Foreground-mask bounds (Fluent / Bluent) | Mask IoU |
+| --- | ---: | ---: | --- | ---: |
+| Light/LTR | 314 px | 383 px | 57×10 px / 63×11 px | 0.443 |
+| Dark/RTL | 333 px | 407 px | 58×10 px / 64×11 px | 0.495 |
+
+These thresholded glyph/content masks indicate the Bluent label silhouette is about 6 px wider and begins one row higher in these captures. That is a **diagnostic lead** for typography/vertical alignment review, not yet a confirmed design defect: the cutoff is exploratory and font metrics, antialiasing, token differences and the approved Penpot frame have not been normalized.
+
 **Interpretation limit:** a pixel is counted changed if any RGB channel differs by at least 1; this sensitive ratio is not a perceptual quality score or a pass/fail threshold. The amplified diff is for locating differences, not a similarity score. The crop has the same outer host size and label, but does not normalize the two token systems, font metrics/antialiasing, internal markup or approved Penpot geometry. The crop excludes outside focus/box-shadow pixels and app scaffolding. This is diagnostic evidence for one Button appearance in two modes only—not a parity verdict, visual approval, native OS high-contrast result or screen-reader acceptance. All 18 family dimensions remain `audited_gaps` and design approval remains pending.
 
 ## Same-width Slider

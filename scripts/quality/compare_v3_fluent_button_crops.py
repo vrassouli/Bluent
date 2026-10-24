@@ -111,6 +111,33 @@ def decode_png_rgb(path: Path):
     return width, height, bytes(rgb), sha256(data)
 
 
+def foreground_mask(rgb: bytes, surface_rgb, threshold: int = 50):
+    """Return a diagnostic high-contrast-text mask inside a shared 84x20 inset.
+
+    The reference and target are classified relative to their own center-fill RGB,
+    so a small background token difference does not by itself count as foreground.
+    The threshold is exploratory and is not an acceptance criterion.
+    """
+    width, height = 96, 32
+    mask = set()
+    for y in range(6, 26):
+        for x in range(6, 90):
+            i = (y * width + x) * 3
+            if max(abs(rgb[i + c] - surface_rgb[c]) for c in range(3)) >= threshold:
+                mask.add((x, y))
+    if not mask:
+        raise ValueError("Foreground mask is empty; review crop and threshold")
+    bbox = {
+        "left": min(x for x, _ in mask),
+        "top": min(y for _, y in mask),
+        "right": max(x for x, _ in mask),
+        "bottom": max(y for _, y in mask),
+    }
+    bbox["width"] = bbox["right"] - bbox["left"] + 1
+    bbox["height"] = bbox["bottom"] - bbox["top"] + 1
+    return mask, bbox
+
+
 def _chunk(kind: bytes, payload: bytes) -> bytes:
     return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", zlib.crc32(kind + payload) & 0xffffffff)
 
@@ -131,6 +158,12 @@ def build():
         bw, bh, bluent_rgb, bluent_hash = decode_png_rgb(bluent_path)
         if (ow, oh) != (96, 32) or (bw, bh) != (96, 32):
             raise ValueError(f"{mode}: expected both actual host crops to be exactly 96x32, got Fluent {ow}x{oh}, Bluent {bw}x{bh}")
+        official_surface = tuple(official_rgb[(16 * 96 + 48) * 3:(16 * 96 + 48) * 3 + 3])
+        bluent_surface = tuple(bluent_rgb[(16 * 96 + 48) * 3:(16 * 96 + 48) * 3 + 3])
+        official_mask, official_mask_bbox = foreground_mask(official_rgb, official_surface)
+        bluent_mask, bluent_mask_bbox = foreground_mask(bluent_rgb, bluent_surface)
+        mask_intersection = len(official_mask & bluent_mask)
+        mask_union = len(official_mask | bluent_mask)
         changed, sum_delta, per_pixel_max, diff = 0, 0, [], bytearray(len(official_rgb))
         for i in range(0, len(official_rgb), 3):
             delta = [abs(official_rgb[i + c] - bluent_rgb[i + c]) for c in range(3)]
@@ -156,6 +189,25 @@ def build():
             "meanAbsoluteChannelDifference": sum_delta / (96 * 32 * 3),
             "p95PerPixelMaxChannelDifference": sorted_max[int(0.95 * (len(sorted_max) - 1))],
             "maxObservedChannelDifference": max(sorted_max),
+            "surfaceColor": {
+                "samplePoint": {"x": 48, "y": 16},
+                "officialRGB": list(official_surface),
+                "bluentRGB": list(bluent_surface),
+                "absoluteChannelDelta": [abs(official_surface[c] - bluent_surface[c]) for c in range(3)],
+            },
+            "foregroundMask": {
+                "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",
+                "method": "pixel included when max absolute RGB-channel distance from its own center surface color is at least 50",
+                "sampleRegionInclusive": {"left": 6, "top": 6, "right": 89, "bottom": 25},
+                "officialPixelCount": len(official_mask),
+                "bluentPixelCount": len(bluent_mask),
+                "intersectionPixels": mask_intersection,
+                "unionPixels": mask_union,
+                "intersectionOverUnion": mask_intersection / mask_union,
+                "officialBoundingBox": official_mask_bbox,
+                "bluentBoundingBox": bluent_mask_bbox,
+                "thresholdIsExploratoryNotAcceptance": True,
+            },
             "officialSHA256": official_hash,
             "bluentSHA256": bluent_hash,
             "differenceImageSHA256": sha256(diff_png),
@@ -169,11 +221,11 @@ def build():
         "bluent": {"repo": "vrassouli/Bluent", "sourceBranch": "v3/issue-421-component-lab", "sourceRef": SOURCE_BASELINE, "source": "real source-built Blazor WebAssembly Component Lab"},
         "browser": {"engine": "Chromium/Chrome", "nominalViewport": {"width": 1240, "height": 1140}, "deviceScaleFactor": 1},
         "normalization": {"component": "primary Button", "visibleLabel": "Continue", "cssHostSize": {"width": 96, "height": 32}, "capture": "actual rendered host border-box crop; app scaffolding excluded; focus blurred and pointer moved away on Bluent before capture", "directions": ["Light/LTR", "Dark/RTL"]},
-        "algorithm": {"channels": "RGB only; PNG alpha ignored", "changedPixel": "at least one RGB channel differs by at least 1", "meanAbsoluteChannelDifference": "mean absolute RGB-channel delta over all pixels", "differenceImage": "per-channel absolute difference multiplied by 3 and clamped to 255"},
+        "algorithm": {"channels": "8-bit true-color RGB; all six input PNGs are color-type 2 and have no alpha channel", "changedPixel": "at least one RGB channel differs by at least 1", "meanAbsoluteChannelDifference": "mean absolute RGB-channel delta over all pixels", "differenceImage": "per-channel absolute difference multiplied by 3 and clamped to 255"},
         "comparisons": comparisons,
         "status": "diagnostic_pixel_difference_not_parity_approval",
         "parityAccepted": False,
-        "acceptanceLimitations": ["This does not align Fluent/Bluent token systems, font rendering, internal markup, or the approved Penpot design.", "A changed-pixel ratio is extremely sensitive and is not a perceptual quality score or pass threshold.", "Only the primary Button in two visual modes is covered; other Button appearances/states and other 17 families are not.", "The crop excludes outside focus/box-shadow pixels and the application scaffolding.", "No native OS high-contrast or assistive-technology acceptance is implied."],
+        "acceptanceLimitations": ["This does not align Fluent/Bluent token systems, font rendering, internal markup, or the approved Penpot design.", "Changed-pixel ratio counts any nonzero surface-fill channel difference and is not a perceptual quality score or pass threshold.", "Foreground-mask results depend on an exploratory max-channel threshold; they describe only a crop silhouette, not optical/typographic acceptance.", "Only the primary Button in two visual modes is covered; other Button appearances/states and other 17 families are not.", "The crop excludes outside focus/box-shadow pixels and the application scaffolding.", "No native OS high-contrast or assistive-technology acceptance is implied."],
     }
     return ledger, images
 

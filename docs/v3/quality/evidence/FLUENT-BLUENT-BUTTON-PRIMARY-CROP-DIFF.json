@@ -36,7 +36,7 @@
     ]
   },
   "algorithm": {
-    "channels": "RGB only; PNG alpha ignored",
+    "channels": "8-bit true-color RGB; all six input PNGs are color-type 2 and have no alpha channel",
     "changedPixel": "at least one RGB channel differs by at least 1",
     "meanAbsoluteChannelDifference": "mean absolute RGB-channel delta over all pixels",
     "differenceImage": "per-channel absolute difference multiplied by 3 and clamped to 255"
@@ -55,6 +55,59 @@
       "meanAbsoluteChannelDifference": 18.824327256944443,
       "p95PerPixelMaxChannelDifference": 225,
       "maxObservedChannelDifference": 240,
+      "surfaceColor": {
+        "samplePoint": {
+          "x": 48,
+          "y": 16
+        },
+        "officialRGB": [
+          15,
+          108,
+          189
+        ],
+        "bluentRGB": [
+          18,
+          103,
+          180
+        ],
+        "absoluteChannelDelta": [
+          3,
+          5,
+          9
+        ]
+      },
+      "foregroundMask": {
+        "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",
+        "method": "pixel included when max absolute RGB-channel distance from its own center surface color is at least 50",
+        "sampleRegionInclusive": {
+          "left": 6,
+          "top": 6,
+          "right": 89,
+          "bottom": 25
+        },
+        "officialPixelCount": 314,
+        "bluentPixelCount": 383,
+        "intersectionPixels": 214,
+        "unionPixels": 483,
+        "intersectionOverUnion": 0.44306418219461696,
+        "officialBoundingBox": {
+          "left": 20,
+          "top": 11,
+          "right": 76,
+          "bottom": 20,
+          "width": 57,
+          "height": 10
+        },
+        "bluentBoundingBox": {
+          "left": 17,
+          "top": 10,
+          "right": 79,
+          "bottom": 20,
+          "width": 63,
+          "height": 11
+        },
+        "thresholdIsExploratoryNotAcceptance": true
+      },
       "officialSHA256": "0dccef0ebb842269ba8345d1bf0489fa1e3bb8f234227f4d9b32d033a87136a5",
       "bluentSHA256": "4cb34aea486463dabbca1b9e58e2df0c760ef98dd9c74d851c820786cddce45b",
       "differenceImageSHA256": "f2eb13ca4cb07ca74c448ed43a34b423047dd22d768122a51351552305b59cd8"
@@ -72,6 +125,59 @@
       "meanAbsoluteChannelDifference": 20.79155815972222,
       "p95PerPixelMaxChannelDifference": 223,
       "maxObservedChannelDifference": 238,
+      "surfaceColor": {
+        "samplePoint": {
+          "x": 48,
+          "y": 16
+        },
+        "officialRGB": [
+          17,
+          94,
+          163
+        ],
+        "bluentRGB": [
+          24,
+          89,
+          155
+        ],
+        "absoluteChannelDelta": [
+          7,
+          5,
+          8
+        ]
+      },
+      "foregroundMask": {
+        "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",
+        "method": "pixel included when max absolute RGB-channel distance from its own center surface color is at least 50",
+        "sampleRegionInclusive": {
+          "left": 6,
+          "top": 6,
+          "right": 89,
+          "bottom": 25
+        },
+        "officialPixelCount": 333,
+        "bluentPixelCount": 407,
+        "intersectionPixels": 245,
+        "unionPixels": 495,
+        "intersectionOverUnion": 0.494949494949495,
+        "officialBoundingBox": {
+          "left": 19,
+          "top": 11,
+          "right": 76,
+          "bottom": 20,
+          "width": 58,
+          "height": 10
+        },
+        "bluentBoundingBox": {
+          "left": 16,
+          "top": 10,
+          "right": 79,
+          "bottom": 20,
+          "width": 64,
+          "height": 11
+        },
+        "thresholdIsExploratoryNotAcceptance": true
+      },
       "officialSHA256": "c6e10d550f83b66763464f4b428b4753578d21665cb7ea8575ae38968f6f1444",
       "bluentSHA256": "c366117dfe112b62b45bca88edd4c205ff36925bcb807c7f7b1224a72ead722a",
       "differenceImageSHA256": "98fa32f682520d6c39a689fcb7935dd64cb44592ad79095dd8fd8281cea738af"
@@ -81,7 +187,8 @@
   "parityAccepted": false,
   "acceptanceLimitations": [
     "This does not align Fluent/Bluent token systems, font rendering, internal markup, or the approved Penpot design.",
-    "A changed-pixel ratio is extremely sensitive and is not a perceptual quality score or pass threshold.",
+    "Changed-pixel ratio counts any nonzero surface-fill channel difference and is not a perceptual quality score or pass threshold.",
+    "Foreground-mask results depend on an exploratory max-channel threshold; they describe only a crop silhouette, not optical/typographic acceptance.",
     "Only the primary Button in two visual modes is covered; other Button appearances/states and other 17 families are not.",
     "The crop excludes outside focus/box-shadow pixels and the application scaffolding.",
     "No native OS high-contrast or assistive-technology acceptance is implied."

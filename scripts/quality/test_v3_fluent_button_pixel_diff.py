@@ -26,6 +26,23 @@ class FluentButtonPixelDiffEvidence(unittest.TestCase):
             self.assertEqual(generated_images[row["differenceImage"]], diff_path.read_bytes())
             self.assertEqual(row["differenceImageSHA256"], pixel_diff.sha256(diff_path.read_bytes()))
 
+    def test_surface_color_and_foreground_mask_are_reported_separately(self):
+        ledger, _images = pixel_diff.build()
+        expected = {
+            "LIGHT-LTR": ((15, 108, 189), (18, 103, 180), (3, 5, 9), 314, 383, 0.4431),
+            "DARK-RTL": ((17, 94, 163), (24, 89, 155), (7, 5, 8), 333, 407, 0.4949),
+        }
+        for row in ledger["comparisons"]:
+            official, bluent, delta, official_count, bluent_count, iou = expected[row["mode"]]
+            self.assertEqual(list(official), row["surfaceColor"]["officialRGB"])
+            self.assertEqual(list(bluent), row["surfaceColor"]["bluentRGB"])
+            self.assertEqual(list(delta), row["surfaceColor"]["absoluteChannelDelta"])
+            mask = row["foregroundMask"]
+            self.assertEqual(official_count, mask["officialPixelCount"])
+            self.assertEqual(bluent_count, mask["bluentPixelCount"])
+            self.assertAlmostEqual(iou, mask["intersectionOverUnion"], places=4)
+            self.assertTrue(mask["thresholdIsExploratoryNotAcceptance"])
+
     def test_report_is_explicitly_diagnostic_not_parity_acceptance(self):
         ledger, _images = pixel_diff.build()
         self.assertFalse(ledger["parityAccepted"])
