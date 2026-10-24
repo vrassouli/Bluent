@@ -1,0 +1,340 @@
+{
+  "auditIssue": 552,
+  "hostingMode": "WebAssembly",
+  "sourceBranch": "v3/issue-421-component-lab",
+  "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+  "mode": "real Chrome Blazor WebAssembly Debug Lab",
+  "scenario": "button-keyboard",
+  "status": "Bluent_current_source_visual_baseline_NOT_fluent_parity",
+  "viewport": {
+    "width": 1240,
+    "height": 1140,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "accessibilityMode": {
+    "forcedColors": false,
+    "contrastMore": false,
+    "viewportWidth": 1240,
+    "viewportHeight": 1140,
+    "dpr": 1,
+    "documentScrollWidth": 1240,
+    "visualViewportScale": 1
+  },
+  "normalizedInScenario": {
+    "buttonWidth": 96,
+    "sliderWidth": "forced 260px",
+    "rtl": false,
+    "theme": "light",
+    "claim": "same nominal width and theme mode only; independent layouts, no pixel parity"
+  },
+  "generatedAt": "2026-10-19T19:01:16.971Z",
+  "checks": [
+    {
+      "label": "Live source Lab hydrated",
+      "pass": true
+    },
+    {
+      "label": "Real Bluent theme/direction attributes set",
+      "pass": true,
+      "details": {
+        "theme": "light",
+        "dir": "ltr"
+      }
+    },
+    {
+      "label": "Button actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Button",
+        "issue": 428,
+        "elementTag": "BUTTON",
+        "cls": "bui-button primary ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 96,
+        "height": 32,
+        "left": 368,
+        "right": 464,
+        "parentRight": 1136,
+        "parentWidth": 768,
+        "background": "rgb(18, 103, 180)",
+        "borderRadius": "4px",
+        "rail": null,
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 352,
+          "y": 39.828125,
+          "width": 800,
+          "height": 732.28125
+        },
+        "buttonFocusProbe": {
+          "id": "f34fa6afd",
+          "cls": "bui-button primary ",
+          "focused": true,
+          "tabIndex": 0,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "forcedColors": false
+        },
+        "buttonToggleKeyboard": {
+          "snap": [
+            {
+              "step": "initial",
+              "tag": "BUTTON",
+              "role": null,
+              "ariaPressed": null,
+              "toggled": false,
+              "disabled": false,
+              "tabIndex": 0,
+              "visible": true,
+              "status": "Pinned: no; change callbacks: 0",
+              "buttonName": "Pin selection",
+              "disabledOther": true,
+              "linkHref": "getting-started"
+            },
+            {
+              "step": "enter",
+              "tag": "BUTTON",
+              "role": null,
+              "ariaPressed": null,
+              "toggled": true,
+              "disabled": false,
+              "tabIndex": 0,
+              "visible": true,
+              "status": "Pinned: yes; change callbacks: 1",
+              "buttonName": "Pin selection",
+              "disabledOther": true,
+              "linkHref": "getting-started"
+            },
+            {
+              "step": "space",
+              "tag": "BUTTON",
+              "role": null,
+              "ariaPressed": null,
+              "toggled": false,
+              "disabled": false,
+              "tabIndex": 0,
+              "visible": true,
+              "status": "Pinned: no; change callbacks: 2",
+              "buttonName": "Pin selection",
+              "disabledOther": true,
+              "linkHref": "getting-started"
+            }
+          ],
+          "toggleAX": [
+            {
+              "role": "button",
+              "name": "Pin selection",
+              "pressed": null
+            }
+          ],
+          "focus": {
+            "focused": true,
+            "tag": "BUTTON"
+          },
+          "limitations": "Real Chrome keyboard on native Blazor Button and AX tree. aria-pressed missing in component. Does not certify actual native OS screen-reader or approved visual parity."
+        },
+        "image": "BLUENT-LAB-BUTTON-BUTTON-KEYBOARD-CHROME.png"
+      }
+    },
+    {
+      "label": "Native Bluent Button is focusable in actual Chromium",
+      "pass": true,
+      "details": {
+        "id": "f34fa6afd",
+        "cls": "bui-button primary ",
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": false
+      }
+    },
+    {
+      "label": "Bluent Button toggle native DOM and callback baseline",
+      "pass": true,
+      "details": {
+        "tag": "BUTTON",
+        "role": null,
+        "ariaPressed": null,
+        "toggled": false,
+        "disabled": false,
+        "tabIndex": 0,
+        "visible": true,
+        "status": "Pinned: no; change callbacks: 0",
+        "buttonName": "Pin selection",
+        "disabledOther": true,
+        "linkHref": "getting-started"
+      }
+    },
+    {
+      "label": "Bluent Button existing disabled and anchor compositions use native elements",
+      "pass": true,
+      "details": {
+        "tag": "BUTTON",
+        "role": null,
+        "ariaPressed": null,
+        "toggled": false,
+        "disabled": false,
+        "tabIndex": 0,
+        "visible": true,
+        "status": "Pinned: no; change callbacks: 0",
+        "buttonName": "Pin selection",
+        "disabledOther": true,
+        "linkHref": "getting-started"
+      }
+    },
+    {
+      "label": "Bluent toggle native button focusable in Chrome",
+      "pass": true,
+      "details": {
+        "focused": true,
+        "tag": "BUTTON"
+      }
+    },
+    {
+      "label": "Chrome exposes named toggle as Button but no pressed semantic (known gap)",
+      "pass": true,
+      "details": [
+        {
+          "role": "button",
+          "name": "Pin selection",
+          "pressed": null
+        }
+      ]
+    },
+    {
+      "label": "Real Enter key toggles Button and invokes one bound callback",
+      "pass": true,
+      "details": {
+        "tag": "BUTTON",
+        "role": null,
+        "ariaPressed": null,
+        "toggled": true,
+        "disabled": false,
+        "tabIndex": 0,
+        "visible": true,
+        "status": "Pinned: yes; change callbacks: 1",
+        "buttonName": "Pin selection",
+        "disabledOther": true,
+        "linkHref": "getting-started"
+      }
+    },
+    {
+      "label": "Real Space key untoggles Button and invokes next bound callback",
+      "pass": true,
+      "details": {
+        "tag": "BUTTON",
+        "role": null,
+        "ariaPressed": null,
+        "toggled": false,
+        "disabled": false,
+        "tabIndex": 0,
+        "visible": true,
+        "status": "Pinned: no; change callbacks: 2",
+        "buttonName": "Pin selection",
+        "disabledOther": true,
+        "linkHref": "getting-started"
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "elementTag": "BUTTON",
+      "cls": "bui-button primary ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 96,
+      "height": 32,
+      "left": 368,
+      "right": 464,
+      "parentRight": 1136,
+      "parentWidth": 768,
+      "background": "rgb(18, 103, 180)",
+      "borderRadius": "4px",
+      "rail": null,
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 352,
+        "y": 39.828125,
+        "width": 800,
+        "height": 732.28125
+      },
+      "buttonFocusProbe": {
+        "id": "f34fa6afd",
+        "cls": "bui-button primary ",
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": false
+      },
+      "buttonToggleKeyboard": {
+        "snap": [
+          {
+            "step": "initial",
+            "tag": "BUTTON",
+            "role": null,
+            "ariaPressed": null,
+            "toggled": false,
+            "disabled": false,
+            "tabIndex": 0,
+            "visible": true,
+            "status": "Pinned: no; change callbacks: 0",
+            "buttonName": "Pin selection",
+            "disabledOther": true,
+            "linkHref": "getting-started"
+          },
+          {
+            "step": "enter",
+            "tag": "BUTTON",
+            "role": null,
+            "ariaPressed": null,
+            "toggled": true,
+            "disabled": false,
+            "tabIndex": 0,
+            "visible": true,
+            "status": "Pinned: yes; change callbacks: 1",
+            "buttonName": "Pin selection",
+            "disabledOther": true,
+            "linkHref": "getting-started"
+          },
+          {
+            "step": "space",
+            "tag": "BUTTON",
+            "role": null,
+            "ariaPressed": null,
+            "toggled": false,
+            "disabled": false,
+            "tabIndex": 0,
+            "visible": true,
+            "status": "Pinned: no; change callbacks: 2",
+            "buttonName": "Pin selection",
+            "disabledOther": true,
+            "linkHref": "getting-started"
+          }
+        ],
+        "toggleAX": [
+          {
+            "role": "button",
+            "name": "Pin selection",
+            "pressed": null
+          }
+        ],
+        "focus": {
+          "focused": true,
+          "tag": "BUTTON"
+        },
+        "limitations": "Real Chrome keyboard on native Blazor Button and AX tree. aria-pressed missing in component. Does not certify actual native OS screen-reader or approved visual parity."
+      },
+      "image": "BLUENT-LAB-BUTTON-BUTTON-KEYBOARD-CHROME.png"
+    }
+  ]
+}

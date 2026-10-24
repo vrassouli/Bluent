@@ -1,0 +1,25 @@
+# Bluent v3 P0 — bounded remediation queue after #552 browser evidence
+
+**Source-backed execution handoff, 2026-10-19. Not a new epic, not component completion, not authorization to skip design.**
+
+## Count defects, not tests
+
+The #552 audit suite's green evidence tests are not defects and are not percentages of finished components. They pin **four P0 owner families** from the pre-existing #428, #442, #443 and #444 issues. The distinct gaps below have concrete repros; duplicated WASM/Server findings are **one issue each**, not two new bugs. Avoid inflating the backlog with duplicate tickets. Green runtime smoke and source facts never imply Fluent parity approval.
+
+| Owner and priority | Verified gap / working behavior | Smallest owner-owned remediation vertical slice | Required validation |
+| --- | --- | --- | --- |
+| **#444 FileSelect** · first bounded integrity fix | MaxFiles=2 accepts 3 both in a single native batch and after remove/reselect, in WASM and Release-published Server; remove Button Chrome name is a PUA icon; single-file replace/disabled **already work** | Define explicit **over-capacity policy** (reject whole batch vs accept remaining with a localized error message). Then enforce final aggregate count on every `OnChange`, label each remove action by filename; keep existing successful cases | Existing real `InputFile` CDP 2-mode repro + adapted tests, callback payload consistency, keyboard/focus restoration, approved file-card design, native AT, security checks |
+| **#442 Slider** · parallel high-severity a11y + pointer | True Chrome 4 pointer samples match `ScreenX` minus viewport rect (4–6 value points off versus `ClientX`); missing AX Slider role, keyboard target/arrows, and Forced Colors track; **mouse does work in both hosts** in this isolated smoke | Define semantic, keyboard and `Step` API with #420; correct `ClientX`/rect coordinate space and source event teardown; adopt design-approved forced-colors rail fallback | Real WASM+published Server pointer and scroll, keyboard/AX, RTL, pen/touch, OS HC/AT, exact screenshot state matrix |
+| **#443 RangeSlider** · parallel multi-thumb contract | Same coordinate bug and missing Forced Colors track; both thumbs lack AX slider roles and keyboard; WC 3.1.3 has **no exact dual-thumb tag**; mouse works on both tested hosts | Declare deliberate Bluent-only two-thumb extension; define stable thumb semantics/focus/bounds and crossing policy, correct viewport coordinates; design-approved color fallback | Multi-thumb W3C APG pattern, dependent ARIA bounds, pointer/scroll/touch/RTL, published Server, real AT |
+| **#428 Button** · narrow semantic fix | **Enter and Space work** (WASM + Production Server), callbacks increment once each, disabled/anchor native behavior works; toggle is missing intrinsic `aria-pressed` and AX pressed state | Once #420 settles `AdditionalAttributes`/ARIA override convention, emit synchronized `aria-pressed` **only when `Toggled.HasValue`**; avoid unnecessary keyboard rewrite | Existing new real 2-host Enter/Space/AX guard, disabled/split states, approved focus-visible design and icon/text alignment |
+
+## Actual blocking dependency gates (do not hide or bypass)
+
+- [#417 architecture](https://github.com/vrassouli/Bluent/issues/417): **closed/accepted**; [#419 Penpot design library](https://github.com/vrassouli/Bluent/issues/419): **closed**. These do **not** by themselves approve per-component final designs.
+- [#418 tokens and themes](https://github.com/vrassouli/Bluent/issues/418): **open** — requires approved focus/forced-colors/color/RTL token mapping before product styling.
+- [#420 shared component interaction contract](https://github.com/vrassouli/Bluent/issues/420): **open** — blocks choosing generic keyboard/ARIA/override, pointer capture/cleanup, and input validation rules in product implementation.
+- [#425 quality gates](https://github.com/vrassouli/Bluent/issues/425): **open** — blocks declaring product issues Done; [#421 Component Lab](https://github.com/vrassouli/Bluent/issues/421) remains a **draft** rather than product acceptance.
+- [#501 Button focus-visible design](https://github.com/vrassouli/Bluent/issues/501): **closed**, but #428 must still independently review/use actual approved focus states, not infer full Fluent parity.
+- [#552 retrospective audit](https://github.com/vrassouli/Bluent/issues/552) and [draft PR #553](https://github.com/vrassouli/Bluent/pull/553) remain **In progress / Draft**; acceptance of all 18 matrices still outstanding.
+
+**Execution sequence:** finalize the relevant narrow #418/#420 contracts; obtain editable component design approvals; carry each scoped product fix in **its own owner issue/branch/PR targeting `bluent-v3`**; retest using source-backed #552 evidence (rewrite snapshot tests when a bug is fixed, rather than treating their failure as a newly broken feature). Keep stable v2.x `Dev` unchanged. Maintain Backlog → Ready → In progress → Review → Done status progression and require the full owning issue's acceptance criteria before closing it. Do not create 90 issues from 90 test assertions.

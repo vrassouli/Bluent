@@ -1,0 +1,959 @@
+{
+  "issue": 552,
+  "status": "Native CDP keyboard on isolated HTML; NOT product/Fluent/AT acceptance",
+  "browser": {
+    "family": "Google Chrome",
+    "version": "Chrome/155.0.8059.82",
+    "os": "Windows"
+  },
+  "modes": [
+    {
+      "mode": "light-ltr",
+      "checks": [
+        {
+          "name": "computed effective direction",
+          "pass": true
+        },
+        {
+          "name": "forced colors CSS emulation",
+          "pass": true
+        },
+        {
+          "name": "initial selection A",
+          "pass": true
+        },
+        {
+          "name": "fixture preceding control focusable",
+          "pass": true
+        },
+        {
+          "name": "native Tab enters selected A",
+          "pass": true
+        },
+        {
+          "name": "native directional arrow moves focus to B",
+          "pass": true
+        },
+        {
+          "name": "manual activation preserves selected A",
+          "pass": true
+        },
+        {
+          "name": "roving focus follows B internally",
+          "pass": true
+        },
+        {
+          "name": "native focusout relates to B",
+          "pass": true
+        },
+        {
+          "name": "native Tab exits composite",
+          "pass": true
+        },
+        {
+          "name": "external focus restores selected A tab stop",
+          "pass": true
+        },
+        {
+          "name": "native Shift+Tab reenters selected A",
+          "pass": true
+        },
+        {
+          "name": "native arrow B before deletion",
+          "pass": true
+        },
+        {
+          "name": "removing focused B does not forcibly focus A",
+          "pass": true
+        },
+        {
+          "name": "surviving A remains valid roving target",
+          "pass": true
+        },
+        {
+          "name": "Tab reenters surviving A after removal",
+          "pass": true
+        },
+        {
+          "name": "native Enter opens popup with focus inside",
+          "pass": true
+        },
+        {
+          "name": "native Escape restores trigger while popup owns focus",
+          "pass": true
+        },
+        {
+          "name": "Escape closes popup",
+          "pass": true
+        },
+        {
+          "name": "closing after outside focus cannot hijack it",
+          "pass": true
+        },
+        {
+          "name": "externally closed popup state",
+          "pass": true
+        },
+        {
+          "name": "removed trigger is never focused",
+          "pass": true
+        },
+        {
+          "name": "Escape closes popup without trigger",
+          "pass": true
+        }
+      ],
+      "source": "ISOLATED HTML research fixture, NOT Bluent component",
+      "arrowScreenshot": "BLUENT-FOCUS-LIFECYCLE-WIN-CHROME-LIGHT-LTR-ARROW.png",
+      "screenshot": "BLUENT-FOCUS-LIFECYCLE-WIN-CHROME-LIGHT-LTR.png",
+      "trace": [
+        {
+          "event": "focusin",
+          "active": "before",
+          "target": "before",
+          "related": null
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "before",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "before"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-b",
+          "target": "tab-b",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-b",
+          "related": "after"
+        },
+        {
+          "event": "focusin",
+          "active": "after",
+          "target": "after",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "after",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "after"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-b",
+          "target": "tab-b",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-b",
+          "related": null
+        },
+        {
+          "event": "focusin",
+          "active": "before",
+          "target": "before",
+          "related": null
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "before",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "before"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "proposed-restore",
+          "active": "trigger",
+          "target": "trigger"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": "outside"
+        },
+        {
+          "event": "focusin",
+          "active": "outside",
+          "target": "outside",
+          "related": "menu-a"
+        },
+        {
+          "event": "restore-rejected",
+          "active": "outside",
+          "target": "outside"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "outside",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "outside"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "restore-rejected",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": null
+        }
+      ],
+      "setup": {
+        "dir": "ltr",
+        "forced": false
+      }
+    },
+    {
+      "mode": "dark-rtl",
+      "checks": [
+        {
+          "name": "computed effective direction",
+          "pass": true
+        },
+        {
+          "name": "forced colors CSS emulation",
+          "pass": true
+        },
+        {
+          "name": "initial selection A",
+          "pass": true
+        },
+        {
+          "name": "fixture preceding control focusable",
+          "pass": true
+        },
+        {
+          "name": "native Tab enters selected A",
+          "pass": true
+        },
+        {
+          "name": "native directional arrow moves focus to B",
+          "pass": true
+        },
+        {
+          "name": "manual activation preserves selected A",
+          "pass": true
+        },
+        {
+          "name": "roving focus follows B internally",
+          "pass": true
+        },
+        {
+          "name": "native focusout relates to B",
+          "pass": true
+        },
+        {
+          "name": "native Tab exits composite",
+          "pass": true
+        },
+        {
+          "name": "external focus restores selected A tab stop",
+          "pass": true
+        },
+        {
+          "name": "native Shift+Tab reenters selected A",
+          "pass": true
+        },
+        {
+          "name": "native arrow B before deletion",
+          "pass": true
+        },
+        {
+          "name": "removing focused B does not forcibly focus A",
+          "pass": true
+        },
+        {
+          "name": "surviving A remains valid roving target",
+          "pass": true
+        },
+        {
+          "name": "Tab reenters surviving A after removal",
+          "pass": true
+        },
+        {
+          "name": "native Enter opens popup with focus inside",
+          "pass": true
+        },
+        {
+          "name": "native Escape restores trigger while popup owns focus",
+          "pass": true
+        },
+        {
+          "name": "Escape closes popup",
+          "pass": true
+        },
+        {
+          "name": "closing after outside focus cannot hijack it",
+          "pass": true
+        },
+        {
+          "name": "externally closed popup state",
+          "pass": true
+        },
+        {
+          "name": "removed trigger is never focused",
+          "pass": true
+        },
+        {
+          "name": "Escape closes popup without trigger",
+          "pass": true
+        }
+      ],
+      "source": "ISOLATED HTML research fixture, NOT Bluent component",
+      "arrowScreenshot": "BLUENT-FOCUS-LIFECYCLE-WIN-CHROME-DARK-RTL-ARROW.png",
+      "screenshot": "BLUENT-FOCUS-LIFECYCLE-WIN-CHROME-DARK-RTL.png",
+      "trace": [
+        {
+          "event": "focusin",
+          "active": "before",
+          "target": "before",
+          "related": null
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "before",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "before"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-b",
+          "target": "tab-b",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-b",
+          "related": "after"
+        },
+        {
+          "event": "focusin",
+          "active": "after",
+          "target": "after",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "after",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "after"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-b",
+          "target": "tab-b",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-b",
+          "related": null
+        },
+        {
+          "event": "focusin",
+          "active": "before",
+          "target": "before",
+          "related": null
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "before",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "before"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "proposed-restore",
+          "active": "trigger",
+          "target": "trigger"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": "outside"
+        },
+        {
+          "event": "focusin",
+          "active": "outside",
+          "target": "outside",
+          "related": "menu-a"
+        },
+        {
+          "event": "restore-rejected",
+          "active": "outside",
+          "target": "outside"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "outside",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "outside"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "restore-rejected",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": null
+        }
+      ],
+      "setup": {
+        "dir": "rtl",
+        "forced": false
+      }
+    },
+    {
+      "mode": "forced-colors",
+      "checks": [
+        {
+          "name": "computed effective direction",
+          "pass": true
+        },
+        {
+          "name": "forced colors CSS emulation",
+          "pass": true
+        },
+        {
+          "name": "initial selection A",
+          "pass": true
+        },
+        {
+          "name": "fixture preceding control focusable",
+          "pass": true
+        },
+        {
+          "name": "native Tab enters selected A",
+          "pass": true
+        },
+        {
+          "name": "native directional arrow moves focus to B",
+          "pass": true
+        },
+        {
+          "name": "manual activation preserves selected A",
+          "pass": true
+        },
+        {
+          "name": "roving focus follows B internally",
+          "pass": true
+        },
+        {
+          "name": "native focusout relates to B",
+          "pass": true
+        },
+        {
+          "name": "native Tab exits composite",
+          "pass": true
+        },
+        {
+          "name": "external focus restores selected A tab stop",
+          "pass": true
+        },
+        {
+          "name": "native Shift+Tab reenters selected A",
+          "pass": true
+        },
+        {
+          "name": "native arrow B before deletion",
+          "pass": true
+        },
+        {
+          "name": "removing focused B does not forcibly focus A",
+          "pass": true
+        },
+        {
+          "name": "surviving A remains valid roving target",
+          "pass": true
+        },
+        {
+          "name": "Tab reenters surviving A after removal",
+          "pass": true
+        },
+        {
+          "name": "native Enter opens popup with focus inside",
+          "pass": true
+        },
+        {
+          "name": "native Escape restores trigger while popup owns focus",
+          "pass": true
+        },
+        {
+          "name": "Escape closes popup",
+          "pass": true
+        },
+        {
+          "name": "closing after outside focus cannot hijack it",
+          "pass": true
+        },
+        {
+          "name": "externally closed popup state",
+          "pass": true
+        },
+        {
+          "name": "removed trigger is never focused",
+          "pass": true
+        },
+        {
+          "name": "Escape closes popup without trigger",
+          "pass": true
+        }
+      ],
+      "source": "ISOLATED HTML research fixture, NOT Bluent component",
+      "arrowScreenshot": "BLUENT-FOCUS-LIFECYCLE-WIN-CHROME-FORCED-COLORS-ARROW.png",
+      "screenshot": "BLUENT-FOCUS-LIFECYCLE-WIN-CHROME-FORCED-COLORS.png",
+      "trace": [
+        {
+          "event": "focusin",
+          "active": "before",
+          "target": "before",
+          "related": null
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "before",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "before"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-b",
+          "target": "tab-b",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-b",
+          "related": "after"
+        },
+        {
+          "event": "focusin",
+          "active": "after",
+          "target": "after",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "after",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "after"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "tab-b"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-b",
+          "target": "tab-b",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-b",
+          "related": null
+        },
+        {
+          "event": "focusin",
+          "active": "before",
+          "target": "before",
+          "related": null
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "before",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusin",
+          "active": "tab-a",
+          "target": "tab-a",
+          "related": "before"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "tab-a",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "tab-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "proposed-restore",
+          "active": "trigger",
+          "target": "trigger"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": "outside"
+        },
+        {
+          "event": "focusin",
+          "active": "outside",
+          "target": "outside",
+          "related": "menu-a"
+        },
+        {
+          "event": "restore-rejected",
+          "active": "outside",
+          "target": "outside"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "outside",
+          "related": "trigger"
+        },
+        {
+          "event": "focusin",
+          "active": "trigger",
+          "target": "trigger",
+          "related": "outside"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "trigger",
+          "related": "menu-a"
+        },
+        {
+          "event": "focusin",
+          "active": "menu-a",
+          "target": "menu-a",
+          "related": "trigger"
+        },
+        {
+          "event": "popup-open",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "restore-rejected",
+          "active": "menu-a",
+          "target": "menu-a"
+        },
+        {
+          "event": "focusout",
+          "active": null,
+          "target": "menu-a",
+          "related": null
+        }
+      ],
+      "setup": {
+        "dir": "ltr",
+        "forced": true
+      }
+    }
+  ]
+}

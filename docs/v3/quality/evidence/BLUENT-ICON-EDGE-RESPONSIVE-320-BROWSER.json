@@ -1,0 +1,393 @@
+{
+  "auditIssue": 552,
+  "ownerIssue": 429,
+  "sourceRef": "1b023a5c",
+  "engine": "edge",
+  "candidate": false,
+  "runMode": "responsive-320",
+  "responsive": true,
+  "candidateStylesheet": null,
+  "accessibilityExperiment": null,
+  "host": "original Blazor WebAssembly Demo /components/icons, Debug real build",
+  "status": "browser source observation only NOT Fluent parity NOT native OS or screen-reader signoff",
+  "checks": [
+    {
+      "name": "mobile-320-light-ltr theme/direction/media",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-light-ltr source CSS glyph variants",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-light-ltr custom SVG component",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-light-ltr custom Image loads",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-light-ltr Button icon + textual name",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-dark-rtl theme/direction/media",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-dark-rtl source CSS glyph variants",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-dark-rtl custom SVG component",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-dark-rtl custom Image loads",
+      "pass": true
+    },
+    {
+      "name": "mobile-320-dark-rtl Button icon + textual name",
+      "pass": true
+    }
+  ],
+  "scenarios": [
+    {
+      "theme": "light",
+      "direction": "ltr",
+      "forcedColors": false,
+      "fontReady": true,
+      "icons": [
+        {
+          "name": "Default",
+          "tag": "I",
+          "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
+          "html": "<i id=\"f521e392e\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(36, 36, 36)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "\"\"",
+            "beforeFontFamily": "FluentSystemIcons-Resizable"
+          },
+          "geometry": {
+            "width": 28,
+            "height": 31,
+            "left": 26
+          },
+          "svg": false,
+          "svgGeometry": null,
+          "src": null,
+          "alt": null,
+          "complete": null,
+          "naturalWidth": null,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        },
+        {
+          "name": "Filled variant",
+          "tag": "I",
+          "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
+          "html": "<i id=\"f42e079bd\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(36, 36, 36)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "\"\"",
+            "beforeFontFamily": "FluentSystemIcons-Resizable"
+          },
+          "geometry": {
+            "width": 28,
+            "height": 31,
+            "left": 26
+          },
+          "svg": false,
+          "svgGeometry": null,
+          "src": null,
+          "alt": null,
+          "complete": null,
+          "naturalWidth": null,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        },
+        {
+          "name": "SVG",
+          "tag": "SPAN",
+          "classes": "bui-icon ",
+          "html": "<span id=\"f56f6ec89\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(36, 36, 36)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "none",
+            "beforeFontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+          },
+          "geometry": {
+            "width": 253,
+            "height": 16,
+            "left": 26
+          },
+          "svg": true,
+          "svgGeometry": {
+            "width": 253,
+            "height": 253,
+            "cssWidth": "253px",
+            "cssHeight": "253px",
+            "viewBox": "0 0 24 24"
+          },
+          "src": null,
+          "alt": null,
+          "complete": null,
+          "naturalWidth": null,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        },
+        {
+          "name": "Image",
+          "tag": "IMG",
+          "classes": "bui-icon ",
+          "html": "<img id=\"f665ae252\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(36, 36, 36)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "none",
+            "beforeFontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+          },
+          "geometry": {
+            "width": 32,
+            "height": 32,
+            "left": 26
+          },
+          "svg": false,
+          "svgGeometry": null,
+          "src": "/assets/icons/powerpoint.svg",
+          "alt": null,
+          "complete": true,
+          "naturalWidth": 150,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        }
+      ],
+      "save": {
+        "found": true,
+        "text": "Save",
+        "hasIcon": true
+      },
+      "viewport": {
+        "width": 320,
+        "height": 740,
+        "documentWidth": 320
+      },
+      "scenario": "mobile-320-light-ltr",
+      "responsiveObservation": {
+        "horizontalOverflow": false,
+        "overflowPixels": 0
+      },
+      "ax": {
+        "Default": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "Filled variant": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "SVG": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "Image": [
+          {
+            "role": "image",
+            "name": "",
+            "ignored": false
+          }
+        ]
+      },
+      "screenshot": "BLUENT-ICON-EDGE-RESPONSIVE-320-MOBILE-320-LIGHT-LTR.png"
+    },
+    {
+      "theme": "dark",
+      "direction": "rtl",
+      "forcedColors": false,
+      "fontReady": true,
+      "icons": [
+        {
+          "name": "Default",
+          "tag": "I",
+          "classes": "bui-icon icon-ic_fluent_settings_20_regular fs-6",
+          "html": "<i id=\"f521e392e\" class=\"bui-icon icon-ic_fluent_settings_20_regular fs-6\"></i>",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "\"\"",
+            "beforeFontFamily": "FluentSystemIcons-Resizable"
+          },
+          "geometry": {
+            "width": 28,
+            "height": 31,
+            "left": 266
+          },
+          "svg": false,
+          "svgGeometry": null,
+          "src": null,
+          "alt": null,
+          "complete": null,
+          "naturalWidth": null,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        },
+        {
+          "name": "Filled variant",
+          "tag": "I",
+          "classes": "bui-icon icon-ic_fluent_settings_20_filled fs-6",
+          "html": "<i id=\"f42e079bd\" class=\"bui-icon icon-ic_fluent_settings_20_filled fs-6\"></i>",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "\"\"",
+            "beforeFontFamily": "FluentSystemIcons-Resizable"
+          },
+          "geometry": {
+            "width": 28,
+            "height": 31,
+            "left": 266
+          },
+          "svg": false,
+          "svgGeometry": null,
+          "src": null,
+          "alt": null,
+          "complete": null,
+          "naturalWidth": null,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        },
+        {
+          "name": "SVG",
+          "tag": "SPAN",
+          "classes": "bui-icon ",
+          "html": "<span id=\"f56f6ec89\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\"><!--!--><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n    <path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm2 10h-4v-1.5h1.25V12H10v-1.5h2.75v5H14V17Z\"></path>\n</svg></span>",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "none",
+            "beforeFontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+          },
+          "geometry": {
+            "width": 253,
+            "height": 16,
+            "left": 41
+          },
+          "svg": true,
+          "svgGeometry": {
+            "width": 253,
+            "height": 253,
+            "cssWidth": "253px",
+            "cssHeight": "253px",
+            "viewBox": "0 0 24 24"
+          },
+          "src": null,
+          "alt": null,
+          "complete": null,
+          "naturalWidth": null,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        },
+        {
+          "name": "Image",
+          "tag": "IMG",
+          "classes": "bui-icon ",
+          "html": "<img id=\"f665ae252\" class=\"bui-icon \" style=\"width: 32px; height: 32px;\" src=\"/assets/icons/powerpoint.svg\">",
+          "css": {
+            "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgba(0, 0, 0, 0)",
+            "beforeContent": "none",
+            "beforeFontFamily": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+          },
+          "geometry": {
+            "width": 32,
+            "height": 32,
+            "left": 262
+          },
+          "svg": false,
+          "svgGeometry": null,
+          "src": "/assets/icons/powerpoint.svg",
+          "alt": null,
+          "complete": true,
+          "naturalWidth": 150,
+          "ariaHidden": null,
+          "role": null,
+          "label": null
+        }
+      ],
+      "save": {
+        "found": true,
+        "text": "Save",
+        "hasIcon": true
+      },
+      "viewport": {
+        "width": 320,
+        "height": 740,
+        "documentWidth": 320
+      },
+      "scenario": "mobile-320-dark-rtl",
+      "responsiveObservation": {
+        "horizontalOverflow": false,
+        "overflowPixels": 0
+      },
+      "ax": {
+        "Default": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "Filled variant": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "SVG": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "Image": [
+          {
+            "role": "image",
+            "name": "",
+            "ignored": false
+          }
+        ]
+      },
+      "screenshot": "BLUENT-ICON-EDGE-RESPONSIVE-320-MOBILE-320-DARK-RTL.png"
+    }
+  ]
+}

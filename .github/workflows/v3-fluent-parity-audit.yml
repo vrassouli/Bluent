@@ -1,0 +1,214 @@
+name: Bluent v3 Fluent Parity Source Audit
+
+# This never runs against or publishes stable 2.x Dev.
+on:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-fluent-parity-audit.yml"
+      - "src/Bluent.Core/BluentComponentBase.cs"
+      - "src/Bluent.UI/Components/**"
+      - "docs/v3/quality/FLUENT-PARITY-**"
+      - "docs/v3/quality/FLUENT-WC-**"
+      - "docs/v3/quality/evidence/**"
+      - "scripts/quality/fixtures/**"
+      - "scripts/quality/probe_v3_*reference.mjs"
+      - "scripts/quality/check_v3_fluent_wc_manifest.py"
+      - "scripts/quality/test_v3_fluent_wc_manifest.py"
+      - "scripts/quality/test_v3_p0_visual_evidence.py"
+      - "scripts/quality/test_v3_p0_normalized_visual.py"
+      - "scripts/quality/test_v3_p0_accessibility_modes.py"
+      - "scripts/quality/test_v3_p0_ax_keyboard_proposal.py"
+      - "scripts/quality/test_v3_p0_fileselect_live_upload.py"
+      - "scripts/quality/test_v3_p0_fileselect_published_server.py"
+      - "scripts/quality/test_v3_p0_pointer_scroll_evidence.py"
+      - "scripts/quality/test_v3_p0_button_keyboard_evidence.py"
+      - "scripts/quality/run_v3_fileselect_published_server.ps1"
+      - "scripts/quality/audit_v3_parity_*.py"
+      - "scripts/quality/build_v3_fluent_wave_a_api_review.py"
+      - "scripts/quality/build_v3_fluent_wave_b_api_review.py"
+      - "scripts/quality/test_v3_fluent_wave_b_api_review.py"
+      - "scripts/quality/build_v3_fluent_wave_c_api_review.py"
+      - "scripts/quality/test_v3_fluent_wave_c_api_review.py"
+      - "scripts/quality/build_v3_fluent_api_surface_coverage_audit.py"
+      - "scripts/quality/test_v3_fluent_api_surface_coverage_audit.py"
+      - "scripts/quality/test_v3_fluent_parity_retro_audit.py"
+      - "scripts/quality/build_v3_fluent_wave_d_api_review.py"
+      - "scripts/quality/test_v3_fluent_wave_d_api_review.py"
+      - "scripts/quality/build_v3_fluent_blazor_extensions_audit.py"
+      - "scripts/quality/test_v3_fluent_blazor_extensions_audit.py"
+      - "scripts/quality/build_v3_fluent_token_theme_audit.py"
+      - "scripts/quality/test_v3_fluent_token_theme_audit.py"
+      - "scripts/quality/build_v3_fluent_responsive_rtl_audit.py"
+      - "scripts/quality/test_v3_fluent_responsive_rtl_audit.py"
+      - "scripts/quality/build_v3_fluent_behavior_audit.py"
+      - "scripts/quality/test_v3_fluent_behavior_audit.py"
+      - "scripts/quality/build_v3_fluent_accessibility_audit.py"
+      - "scripts/quality/test_v3_fluent_accessibility_audit.py"
+      - "scripts/quality/build_v3_fluent_design_artifact_audit.py"
+      - "scripts/quality/test_v3_fluent_design_artifact_audit.py"
+      - "docs/v3/quality/evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json"
+      - "scripts/quality/build_v3_fluent_visual_evidence_audit.py"
+      - "scripts/quality/test_v3_fluent_visual_evidence_audit.py"
+      - "scripts/quality/build_v3_fluent_migration_docs_audit.py"
+      - "scripts/quality/test_v3_fluent_migration_docs_audit.py"
+      - "docs/compatibility/migration-and-upgrades.md"
+      - "docs/components/**"
+      - "docs/v3/design/MIGRATION-IMPACT-LEDGER.md"
+      - "docs/v3/architecture/css-migration-impact-ledger.md"
+      - "docs/v3/design/COMPONENT-REFERENCE-MATRICES.md"
+      - "docs/v3/quality/FLUENT-REACT-9.74.10-18-API-CANDIDATES.md"
+      - "docs/v3/COMPONENT-REFERENCE-TEMPLATE.md"
+      - "scripts/quality/test_v3_parity_*.py"
+      - "scripts/quality/check_v3_p0_source_evidence.py"
+      - "scripts/quality/audit_v3_p0_semantic_gaps.py"
+      - "scripts/quality/test_v3_p0_semantic_gaps.py"
+      - "scripts/quality/check_v3_parity_clr_crosswalk.py"
+      - "scripts/quality/test_v3_parity_clr_crosswalk.py"
+      - "docs/v3/inventory/public-component-contracts.json"
+      - "scripts/quality/test_v3_p0_source_evidence.py"
+      - "scripts/quality/test_v3_icon_variant_source.py"
+      - "scripts/quality/probe_v3_icon_browser.mjs"
+      - "scripts/quality/probe_v3_icon_attribute_collisions.mjs"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/IconAttributeProbe.razor"
+      - "src/Bluent.UI.Demo.Interactive.Client/Pages/IconAttributeProbeServer.razor"
+      - "scripts/quality/test_v3_icon_attribute_collisions_evidence.py"
+      - "scripts/quality/test_v3_icon_browser_evidence.py"
+      - "scripts/quality/test_v3_icon_svg_candidate.py"
+      - "scripts/quality/probe_v3_button_icon_alignment.mjs"
+      - "scripts/quality/test_v3_button_icon_browser_evidence.py"
+      - "scripts/quality/probe_v3_button_toggle_states.mjs"
+      - "scripts/quality/test_v3_button_toggle_states_evidence.py"
+      - "scripts/quality/probe_v3_cross_component_icons.mjs"
+      - "scripts/quality/test_v3_cross_component_icons_evidence.py"
+      - "scripts/quality/probe_v3_cross_component_keyboard.mjs"
+      - "scripts/quality/test_v3_cross_component_keyboard_evidence.py"
+      - "scripts/quality/test_v3_focus_keyboard_proposal_contract.py"
+      - "scripts/quality/fixtures/focus-navigation-core-prototype.mjs"
+      - "scripts/quality/test_v3_focus_navigation_prototype.mjs"
+      - "scripts/quality/test_v3_focus_reentry_proposal.mjs"
+      - "scripts/quality/test_v3_focus_reentry_contract.py"
+      - "docs/v3/quality/FOCUS-KEYBOARD-LIFECYCLE-RESEARCH.md"
+      - "scripts/quality/probe_v3_focus_lifecycle_browser.mjs"
+      - "scripts/quality/test_v3_focus_lifecycle_prototype.mjs"
+      - "scripts/quality/test_v3_focus_lifecycle_evidence.py"
+      - "scripts/quality/probe_v3_blazor_focus_lifecycle.mjs"
+      - "scripts/quality/test_v3_blazor_focus_lifecycle_evidence.py"
+      - "docs/v3/quality/FOCUS-KEYBOARD-PENPOT-REVIEW-420.md"
+      - "scripts/quality/test_v3_focus_penpot_review.py"
+      - "docs/v3/quality/BLUENT-BLAZOR-FOCUS-REAL-LIFECYCLE.md"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/TabLists.razor"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/NavLists.razor"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Accordions.razor"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor"
+      - "src/Bluent.UI/Icons/**"
+      - "src/Bluent.UI.IconGenerator/FluentIconsGenerator.cs"
+      - "src/Bluent.UI/wwwroot/fonts/icons/FluentSystemIcons-Resizable.json"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Icons.razor"
+      - "tests/RegexSampleGeneratorTest/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-evidence-only:
+    name: Baseline source census and negative controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Verify Icon root attributes in Blazor HtmlRenderer
+        run: dotnet test tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj --configuration Release --filter FullyQualifiedName~IconRenderTests --verbosity minimal
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Guard exact published Fluent Web Components 3.1.3 CEM source
+        run: python scripts/quality/check_v3_fluent_wc_manifest.py
+      - name: Guard P0 source anchors
+        run: python scripts/quality/check_v3_p0_source_evidence.py
+      - name: Guard seven source-proven P0 semantic and coordinate findings
+        run: python scripts/quality/audit_v3_p0_semantic_gaps.py
+      - name: Guard all 18 direct API snapshots
+        run: python scripts/quality/audit_v3_parity_source_api.py
+      - name: Guard all 18 locally inherited API chains
+        run: python scripts/quality/audit_v3_parity_inherited_api.py
+      - name: Check Wave A reviewed Fluent API ledger
+        run: python scripts/quality/build_v3_fluent_wave_a_api_review.py --check
+      - name: Check Wave B reviewed Fluent API ledger
+        run: python scripts/quality/build_v3_fluent_wave_b_api_review.py --check
+      - name: Check Wave C reviewed Fluent API ledger
+        run: python scripts/quality/build_v3_fluent_wave_c_api_review.py --check
+      - name: Check Wave D reviewed Fluent API ledger
+        run: python scripts/quality/build_v3_fluent_wave_d_api_review.py --check
+      - name: Check cross-wave API surface disposition coverage
+        run: python scripts/quality/build_v3_fluent_api_surface_coverage_audit.py --check
+      - name: Check Blazor extension surface audit
+        run: python scripts/quality/build_v3_fluent_blazor_extensions_audit.py --check
+      - name: Check token/theme source audit
+        run: python scripts/quality/build_v3_fluent_token_theme_audit.py --check
+      - name: Check responsive/RTL source audit
+        run: python scripts/quality/build_v3_fluent_responsive_rtl_audit.py --check
+      - name: Check interactive behavior audit
+        run: python scripts/quality/build_v3_fluent_behavior_audit.py --check
+      - name: Check accessibility semantics audit
+        run: python scripts/quality/build_v3_fluent_accessibility_audit.py --check
+      - name: Check design-artifact coverage audit
+        run: python scripts/quality/build_v3_fluent_design_artifact_audit.py --check
+      - name: Check visual screenshot-evidence audit
+        run: python scripts/quality/build_v3_fluent_visual_evidence_audit.py --check
+      - name: Check migration-doc coverage audit
+        run: python scripts/quality/build_v3_fluent_migration_docs_audit.py --check
+      - name: Verify declared API matches #494 compiled CLR contract
+        run: python scripts/quality/check_v3_parity_clr_crosswalk.py
+      - name: Prove false approval and API drift fail
+        run: |
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_source_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_semantic_gaps.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_parity_source_api.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_parity_inherited_api.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_wave_b_api_review.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_wave_c_api_review.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_wave_d_api_review.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_api_surface_coverage_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_parity_retro_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_blazor_extensions_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_token_theme_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_responsive_rtl_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_behavior_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_accessibility_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_design_artifact_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_visual_evidence_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_migration_docs_audit.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_parity_clr_crosswalk.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_fluent_wc_manifest.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_visual_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_normalized_visual.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_accessibility_modes.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_ax_keyboard_proposal.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_fileselect_live_upload.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_fileselect_published_server.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_pointer_scroll_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_p0_button_keyboard_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_icon_variant_source.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_icon_browser_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_icon_attribute_collisions_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_icon_svg_candidate.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_button_icon_browser_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_button_toggle_states_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_cross_component_icons_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_cross_component_keyboard_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_focus_keyboard_proposal_contract.py" -v
+          node --test scripts/quality/test_v3_focus_navigation_prototype.mjs
+          node --test scripts/quality/test_v3_focus_reentry_proposal.mjs
+          python -m unittest discover -s scripts/quality -p "test_v3_focus_reentry_contract.py" -v
+          node --test scripts/quality/test_v3_focus_lifecycle_prototype.mjs
+          python -m unittest discover -s scripts/quality -p "test_v3_focus_lifecycle_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_blazor_focus_lifecycle_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_focus_penpot_review.py" -v
+      - name: Explicit acceptance disclaimer
+        run: echo "PASS means source and stored browser evidence guards only; no live CI browser, no normalized Fluent parity, design approval, or native OS/AT verification."

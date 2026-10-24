@@ -1,0 +1,247 @@
+{
+  "auditIssue": 552,
+  "sourceBranch": "v3/issue-421-component-lab",
+  "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+  "mode": "real Chrome Blazor WebAssembly Debug Lab",
+  "status": "Bluent_current_source_visual_baseline_NOT_fluent_parity",
+  "viewport": {
+    "width": 1240,
+    "height": 1140,
+    "deviceScaleFactor": 1
+  },
+  "generatedAt": "2026-10-19T13:25:01.836Z",
+  "checks": [
+    {
+      "label": "Live source Lab hydrated",
+      "pass": true
+    },
+    {
+      "label": "Button actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Button",
+        "issue": 428,
+        "elementTag": "BUTTON",
+        "cls": "bui-button primary ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 96,
+        "height": 32,
+        "background": "rgb(18, 103, 180)",
+        "borderRadius": "4px",
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 352,
+          "y": 39.828125,
+          "width": 800,
+          "height": 732.28125
+        },
+        "image": "BLUENT-LAB-BUTTON-CHROME.png"
+      }
+    },
+    {
+      "label": "Slider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Slider",
+        "issue": 442,
+        "elementTag": "DIV",
+        "cls": "bui-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 351.5,
+        "height": 20,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "thumbCount": 1,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 337,
+          "y": 89.828125,
+          "width": 815,
+          "height": 212.453125
+        },
+        "image": "BLUENT-LAB-SLIDER-CHROME.png"
+      }
+    },
+    {
+      "label": "RangeSlider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "RangeSlider",
+        "issue": 443,
+        "elementTag": "DIV",
+        "cls": "bui-range-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 351.5,
+        "height": 20,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "thumbCount": 2,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          },
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 337,
+          "y": 108.828125,
+          "width": 815,
+          "height": 194.046875
+        },
+        "image": "BLUENT-LAB-RANGESLIDER-CHROME.png"
+      }
+    },
+    {
+      "label": "FileSelect actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "FileSelect",
+        "issue": 444,
+        "elementTag": "DIV",
+        "cls": "bui-file-select ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 351.5,
+        "height": 32,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 337,
+          "y": 39.828125,
+          "width": 815,
+          "height": 321.6875
+        },
+        "image": "BLUENT-LAB-FILESELECT-CHROME.png"
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "elementTag": "BUTTON",
+      "cls": "bui-button primary ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 96,
+      "height": 32,
+      "background": "rgb(18, 103, 180)",
+      "borderRadius": "4px",
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 352,
+        "y": 39.828125,
+        "width": 800,
+        "height": 732.28125
+      },
+      "image": "BLUENT-LAB-BUTTON-CHROME.png"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "elementTag": "DIV",
+      "cls": "bui-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 351.5,
+      "height": 20,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "thumbCount": 1,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 337,
+        "y": 89.828125,
+        "width": 815,
+        "height": 212.453125
+      },
+      "image": "BLUENT-LAB-SLIDER-CHROME.png"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "elementTag": "DIV",
+      "cls": "bui-range-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 351.5,
+      "height": 20,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "thumbCount": 2,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        },
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 337,
+        "y": 108.828125,
+        "width": 815,
+        "height": 194.046875
+      },
+      "image": "BLUENT-LAB-RANGESLIDER-CHROME.png"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "elementTag": "DIV",
+      "cls": "bui-file-select ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 351.5,
+      "height": 32,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 337,
+        "y": 39.828125,
+        "width": 815,
+        "height": 321.6875
+      },
+      "image": "BLUENT-LAB-FILESELECT-CHROME.png"
+    }
+  ]
+}

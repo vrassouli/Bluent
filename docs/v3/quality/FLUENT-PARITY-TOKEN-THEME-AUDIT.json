@@ -1,0 +1,1641 @@
+{
+  "issue": 552,
+  "audit": "Token/theme source inventory and acceptance gaps",
+  "reviewedOn": "2026-10-22",
+  "sourceBaseline": "73155f02",
+  "familyCount": 18,
+  "dimension": "tokenTheme",
+  "dimensionStatus": "audited_gaps",
+  "parityAccepted": false,
+  "noneApproved": true,
+  "themeSourceFiles": [
+    "src/Bluent.UI/Styles/Themes/theme/light-theme.scss",
+    "src/Bluent.UI/Styles/Themes/theme/dark-theme.scss",
+    "src/Bluent.UI/Styles/Themes/theme/light/color-palette.scss",
+    "src/Bluent.UI/Styles/Themes/theme/dark/color-palette.scss",
+    "src/Bluent.UI/Styles/Themes/theme/light/brand-palette.scss",
+    "src/Bluent.UI/Styles/Themes/theme/dark/brand-palette.scss",
+    "src/Bluent.UI/Styles/Themes/theme/light/status-color-palette.scss",
+    "src/Bluent.UI/Styles/Themes/theme/dark/status-color-palette.scss"
+  ],
+  "themeTokenPrefixes": [
+    "--colorNeutral",
+    "--colorBrand",
+    "--colorPalette",
+    "--colorTransparent",
+    "--font",
+    "--lineHeight",
+    "--spacing",
+    "--strokeWidth",
+    "--duration",
+    "--curve",
+    "--borderRadius",
+    "--shadow"
+  ],
+  "runtimeScope": "Static SCSS/source inventory plus selected existing browser evidence. It does not compare computed values against the pinned Fluent runtime and does not certify native OS high contrast or assistive technology.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_button.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--borderRadiusMedium",
+        "--borderRadiusNone",
+        "--colorBrandBackground",
+        "--colorBrandBackgroundHover",
+        "--colorBrandBackgroundPressed",
+        "--colorBrandBackgroundSelected",
+        "--colorNeutralBackground1",
+        "--colorNeutralBackground1Hover",
+        "--colorNeutralBackground1Pressed",
+        "--colorNeutralBackground1Selected",
+        "--colorNeutralBackgroundDisabled",
+        "--colorNeutralForeground1",
+        "--colorNeutralForeground1Hover",
+        "--colorNeutralForeground1Pressed",
+        "--colorNeutralForeground1Selected",
+        "--colorNeutralForeground2",
+        "--colorNeutralForeground2BrandHover",
+        "--colorNeutralForeground2BrandPressed",
+        "--colorNeutralForeground2BrandSelected",
+        "--colorNeutralForeground2Hover",
+        "--colorNeutralForeground2Pressed",
+        "--colorNeutralForeground2Selected",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralForegroundOnBrand",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeDisabled",
+        "--colorPaletteDarkOrangeBackground3",
+        "--colorPaletteDarkRedForeground2",
+        "--colorPaletteRedBackground1",
+        "--colorPaletteRedBackground3",
+        "--colorTransparentBackground",
+        "--colorTransparentBackgroundHover",
+        "--colorTransparentBackgroundPressed",
+        "--colorTransparentBackgroundSelected",
+        "--colorTransparentStroke",
+        "--curveEasyEase",
+        "--durationFaster",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--fontWeightSemibold",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--shadow2",
+        "--spacingHorizontalL",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--strokeWidthThick",
+        "--strokeWidthThicker",
+        "--strokeWidthThin"
+      ],
+      "localCustomProps": [],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 70,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 33,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 34,
+          "excerpt": "color: var(--colorNeutralForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 35,
+          "excerpt": "border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 121,
+          "excerpt": "color: var(--colorNeutralForeground2);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 130,
+          "excerpt": "background-color: var(--colorNeutralBackground1Selected);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 131,
+          "excerpt": "color: var(--colorNeutralForeground1Selected);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 132,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 144,
+          "excerpt": "background-color: var(--colorNeutralBackground1Hover);"
+        }
+      ],
+      "sourceNote": "Uses Fluent-named semantic color, typography, spacing and radius tokens, but outline is reset and focus/forced-colors parity needs explicit state-by-state verification.",
+      "browserEvidence": [
+        "evidence/BLUENT-BUTTON-STATE-CHROME.json",
+        "evidence/BLUENT-BLAZOR-FOCUS-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/IconComponent/Icon.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": false,
+      "themeTokenRefs": [],
+      "localCustomProps": [],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 0,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+          "line": 1,
+          "excerpt": "using Bluent.UI.Icons;"
+        }
+      ],
+      "sourceNote": "No dedicated family SCSS was found in the reviewed style map; rendered SVG color depends on inherited currentColor and parent theme context.",
+      "browserEvidence": [
+        "evidence/BLUENT-CROSS-ICON-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_label.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/LabelComponent/Label.razor",
+        "src/Bluent.UI/Components/LabelComponent/Label.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorPaletteRedForeground3",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightSemibold",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalXS"
+      ],
+      "localCustomProps": [],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 4,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_label.scss",
+          "line": 5,
+          "excerpt": "color: var(--colorNeutralForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_label.scss",
+          "line": 9,
+          "excerpt": "color: var(--colorPaletteRedForeground3);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_label.scss",
+          "line": 16,
+          "excerpt": "color: var(--colorNeutralForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_label.scss",
+          "line": 27,
+          "excerpt": "color: var(--colorNeutralForegroundDisabled);"
+        }
+      ],
+      "sourceNote": "Foreground styling uses semantic color tokens; required-marker contrast and theme behavior are not native AT or computed-Fluent parity acceptance.",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_link.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/LinkComponent/Link.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--colorBrandForegroundLink",
+        "--colorBrandForegroundLinkHover",
+        "--colorBrandForegroundLinkPressed",
+        "--colorNeutralForeground2",
+        "--colorNeutralForeground2Hover",
+        "--colorNeutralForeground2Pressed",
+        "--colorNeutralForegroundDisabled",
+        "--fontFamilyBase",
+        "--fontWeightRegular",
+        "--strokeWidthThin"
+      ],
+      "localCustomProps": [],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 7,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 5,
+          "excerpt": "color: var(--colorBrandForegroundLink);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 19,
+          "excerpt": "color: var(--colorNeutralForeground2);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 23,
+          "excerpt": "color: var(--colorBrandForegroundLinkHover);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 27,
+          "excerpt": "color: var(--colorNeutralForeground2Hover);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 32,
+          "excerpt": "color: var(--colorBrandForegroundLinkPressed);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 36,
+          "excerpt": "color: var(--colorNeutralForeground2Pressed);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_link.scss",
+          "line": 46,
+          "excerpt": "color: var(--colorNeutralForegroundDisabled);"
+        }
+      ],
+      "sourceNote": "Foreground/background styles use semantic token references; hover, focus, visited and high-contrast behavior still need comparison with the pinned Fluent runtime.",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_badge.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--borderRadiusMedium",
+        "--borderRadiusNone",
+        "--colorBrandBackground",
+        "--colorBrandBackground2",
+        "--colorBrandForeground1",
+        "--colorBrandForeground2",
+        "--colorBrandStroke2",
+        "--colorNeutralBackground1",
+        "--colorNeutralBackground5",
+        "--colorNeutralForeground1",
+        "--colorNeutralForeground1Static",
+        "--colorNeutralForeground3",
+        "--colorNeutralForegroundOnBrand",
+        "--colorPaletteDarkOrangeBackground3",
+        "--colorPaletteGreenBackground3",
+        "--colorPaletteRedBackground3",
+        "--colorPaletteYellowBackground3",
+        "--colorTransparentStroke",
+        "--fontFamilyBase",
+        "--fontSizeBase100",
+        "--fontSizeBase200",
+        "--fontWeightSemibold",
+        "--lineHeightBase100",
+        "--lineHeightBase200",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXS",
+        "--spacingHorizontalXXS",
+        "--strokeWidthThin"
+      ],
+      "localCustomProps": [
+        "--badge-bg-color"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 22,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 10,
+          "excerpt": "--badge-bg-color: var(--colorBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 24,
+          "excerpt": "border-color: var(--colorTransparentStroke);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 31,
+          "excerpt": "--badge-bg-color: var(--colorBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 32,
+          "excerpt": "color: var(--colorNeutralForegroundOnBrand);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 36,
+          "excerpt": "--badge-bg-color: var(--colorPaletteRedBackground3);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 40,
+          "excerpt": "--badge-bg-color: var(--colorNeutralForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 41,
+          "excerpt": "color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_badge.scss",
+          "line": 45,
+          "excerpt": "--badge-bg-color: var(--colorNeutralBackground5);"
+        }
+      ],
+      "sourceNote": "Uses semantic status tokens; its infinite shadow animation has no component-specific reduced-motion rule. This is a motion/acceptance gap, not evidence of a color-token mismatch.",
+      "browserEvidence": [
+        "evidence/BLUENT-LABEL-LINK-BADGE-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--colorPaletteRedBorder2",
+        "--colorPaletteRedForeground1",
+        "--colorTransparentBackground",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-font-size",
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 20,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 2,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 3,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 4,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 13,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 14,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 17,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 20,
+          "excerpt": "font-size: var(--fui-text-field-font-size);"
+        }
+      ],
+      "sourceNote": "Shared field styling uses semantic tokens plus local --fui-text-field-* properties and a fixed 32px minimum height; density and focus behavior need design comparison.",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--colorPaletteRedBorder2",
+        "--colorPaletteRedForeground1",
+        "--colorTransparentBackground",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-font-size",
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 20,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 2,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 3,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 4,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 13,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 14,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 17,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 20,
+          "excerpt": "font-size: var(--fui-text-field-font-size);"
+        }
+      ],
+      "sourceNote": "Shares field tokens and local sizing properties; Step has no effective behavior and the style inventory does not prove numeric-state parity.",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_checkbox.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--borderRadiusSmall",
+        "--colorNeutralForeground1",
+        "--colorNeutralForeground3",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralForegroundInverted",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeDisabled",
+        "--colorPaletteRedForeground3",
+        "--fontFamilyBase",
+        "--fontSizeBase300",
+        "--lineHeightBase300",
+        "--spacingHorizontalS",
+        "--spacingHorizontalXS",
+        "--spacingVerticalS",
+        "--strokeWidthThin"
+      ],
+      "localCustomProps": [
+        "--bui-checkbox-indicator-backgroundColor",
+        "--bui-checkbox-indicator-borderColor",
+        "--bui-checkbox-indicator-color"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 14,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 2,
+          "excerpt": "color: var(--colorNeutralForeground3);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 22,
+          "excerpt": "--bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 23,
+          "excerpt": "--bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 24,
+          "excerpt": "--bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 25,
+          "excerpt": "color: var(--colorNeutralForegroundInverted);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 32,
+          "excerpt": "--bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 33,
+          "excerpt": "--bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_checkbox.scss",
+          "line": 34,
+          "excerpt": "--bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);"
+        }
+      ],
+      "sourceNote": "Uses semantic theme tokens and local --bui-checkbox-* properties; mixed/checked/disabled/forced-colors combinations remain unaccepted.",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_switch.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--colorNeutralBackgroundDisabled",
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralForegroundInverted",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeDisabled",
+        "--colorTransparentStroke",
+        "--colorTransparentStrokeDisabled",
+        "--curveEasyEase",
+        "--durationNormal",
+        "--fontFamilyBase",
+        "--fontSizeBase300",
+        "--lineHeightBase300",
+        "--spacingHorizontalS",
+        "--spacingHorizontalXS",
+        "--spacingVerticalS"
+      ],
+      "localCustomProps": [],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 11,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 21,
+          "excerpt": "color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 22,
+          "excerpt": "border-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 26,
+          "excerpt": "color: var(--colorNeutralForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 32,
+          "excerpt": "background-color: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 33,
+          "excerpt": "color: var(--colorNeutralForegroundInverted);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 34,
+          "excerpt": "border-color: var(--colorTransparentStroke);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 40,
+          "excerpt": "border-color: var(--colorNeutralStrokeDisabled);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_switch.scss",
+          "line": 46,
+          "excerpt": "background-color: var(--colorNeutralBackgroundDisabled);"
+        }
+      ],
+      "sourceNote": "Uses semantic tokens for track/thumb states; no component-specific forced-colors override was found in the family stylesheet.",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_radio-group.scss",
+        "src/Bluent.UI/Styles/Components/_radio.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--colorNeutralForeground1",
+        "--colorNeutralForeground3",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeDisabled",
+        "--colorPaletteRedForeground3",
+        "--fontFamilyBase",
+        "--fontSizeBase300",
+        "--lineHeightBase300",
+        "--spacingHorizontalS",
+        "--spacingHorizontalXS",
+        "--spacingVerticalS",
+        "--strokeWidthThin"
+      ],
+      "localCustomProps": [
+        "--bui-checkbox-indicator-backgroundColor"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 9,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 4,
+          "excerpt": "color: var(--colorNeutralForeground3);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 24,
+          "excerpt": "border-color: var(--colorCompoundBrandStroke);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 25,
+          "excerpt": "color: var(--colorCompoundBrandForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 38,
+          "excerpt": "color: var(--colorNeutralForeground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 45,
+          "excerpt": "border-color: var(--colorNeutralStrokeDisabled);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 46,
+          "excerpt": "color: var(--colorNeutralForegroundDisabled);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 49,
+          "excerpt": "color: var(--colorNeutralForegroundDisabled);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_radio.scss",
+          "line": 57,
+          "excerpt": "border-color: var(--colorNeutralStrokeAccessible);"
+        }
+      ],
+      "sourceNote": "Group styles rely on the radio subcomponent stylesheet; selected, disabled, focus and forced-colors values need per-state comparison.",
+      "browserEvidence": [
+        "evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json",
+        "evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss",
+        "src/Bluent.UI/Styles/Components/_dropdown-select.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--colorPaletteRedBorder2",
+        "--colorPaletteRedForeground1",
+        "--colorTransparentBackground",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-font-size",
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 37,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 2,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 3,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 4,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 13,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 14,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 17,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 20,
+          "excerpt": "font-size: var(--fui-text-field-font-size);"
+        }
+      ],
+      "sourceNote": "Shares field tokens and dropdown-select styling; native popup rendering and high-contrast behavior cannot be established from SCSS inventory.",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss",
+        "src/Bluent.UI/Styles/Components/_calendar.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorBrandBackground",
+        "--colorBrandBackgroundInvertedHover",
+        "--colorBrandBackgroundInvertedPressed",
+        "--colorBrandBackgroundInvertedSelected",
+        "--colorBrandForegroundOnLightHover",
+        "--colorBrandForegroundOnLightPressed",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralForeground1Static",
+        "--colorNeutralForeground3",
+        "--colorNeutralForeground4",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralForegroundOnBrand",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--colorPaletteRedBorder2",
+        "--colorPaletteRedForeground1",
+        "--colorTransparentBackground",
+        "--colorTransparentStroke",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--curveEasyEase",
+        "--durationFast",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--fontWeightSemibold",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-font-size",
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 59,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 2,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 3,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 4,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 13,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 14,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 17,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 20,
+          "excerpt": "font-size: var(--fui-text-field-font-size);"
+        }
+      ],
+      "sourceNote": "Shares field and calendar styling; calendar popup, selected dates, bounds and dark/forced-colors states need direct browser comparison.",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--colorPaletteRedBorder2",
+        "--colorPaletteRedForeground1",
+        "--colorTransparentBackground",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-font-size",
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 20,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 2,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 3,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 4,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 13,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 14,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 17,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 20,
+          "excerpt": "font-size: var(--fui-text-field-font-size);"
+        }
+      ],
+      "sourceNote": "Shares field styling; locale formatting defects are separate from color-token usage and still affect parity.",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralForegroundDisabled",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--colorPaletteRedBorder2",
+        "--colorPaletteRedForeground1",
+        "--colorTransparentBackground",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase200",
+        "--fontSizeBase300",
+        "--fontSizeBase400",
+        "--fontWeightRegular",
+        "--lineHeightBase200",
+        "--lineHeightBase300",
+        "--lineHeightBase400",
+        "--spacingHorizontalM",
+        "--spacingHorizontalS",
+        "--spacingHorizontalSNudge",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-font-size",
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 20,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 2,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 3,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 4,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 5,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 13,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 14,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 17,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "line": 20,
+          "excerpt": "font-size: var(--fui-text-field-font-size);"
+        }
+      ],
+      "sourceNote": "Shares field styling; input-state tokens do not resolve the mask/bind-event behavior defects.",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_otp-field.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusMedium",
+        "--colorNeutralBackground1",
+        "--colorNeutralForeground1",
+        "--colorNeutralStroke1",
+        "--colorNeutralStroke1Hover",
+        "--colorNeutralStroke1Pressed",
+        "--colorNeutralStrokeAccessible",
+        "--colorNeutralStrokeAccessibleHover",
+        "--colorNeutralStrokeAccessiblePressed",
+        "--curveAccelerateMid",
+        "--curveDecelerateMid",
+        "--durationNormal",
+        "--durationUltraFast",
+        "--fontFamilyBase",
+        "--fontSizeBase300",
+        "--fontWeightRegular",
+        "--lineHeightBase300",
+        "--spacingHorizontalM",
+        "--spacingHorizontalXXS"
+      ],
+      "localCustomProps": [
+        "--fui-text-field-line-height",
+        "--fui-text-field-min-height",
+        "--fui-text-field-padding-x"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 11,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 13,
+          "excerpt": "--fui-text-field-line-height: var(--lineHeightBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 14,
+          "excerpt": "--fui-text-field-font-size: var(--fontSizeBase300);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 15,
+          "excerpt": "--fui-text-field-padding-x: var(--spacingHorizontalM);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 16,
+          "excerpt": "--fui-text-field-min-height: 32px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 24,
+          "excerpt": "border-color: var(--colorNeutralStroke1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 25,
+          "excerpt": "border-bottom-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 28,
+          "excerpt": "background-color: var(--colorNeutralBackground1);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_otp-field.scss",
+          "line": 31,
+          "excerpt": "line-height: var(--fui-text-field-line-height);"
+        }
+      ],
+      "sourceNote": "Uses custom cell borders/backgrounds alongside theme tokens; focused, filled, error and disabled cells need full theme/state comparison.",
+      "browserEvidence": [
+        "evidence/BLUENT-TYPED-FIELDS-CHROME.json",
+        "evidence/BLUENT-TYPED-FIELDS-EDGE.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_slider.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--colorNeutralBackground1",
+        "--colorNeutralStroke1",
+        "--colorNeutralStrokeAccessible"
+      ],
+      "localCustomProps": [
+        "--bui-slider-direction",
+        "--bui-slider-progress-color",
+        "--bui-slider-rail-color",
+        "--bui-slider-thumb-color"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 5,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 2,
+          "excerpt": "--bui-slider-direction: 90deg;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 3,
+          "excerpt": "--bui-slider-progress-color: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 4,
+          "excerpt": "--bui-slider-rail-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 5,
+          "excerpt": "--bui-slider-thumb-color: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 15,
+          "excerpt": "background-image: linear-gradient(var(--bui-slider-direction), var(--bui-slider-progress-color) 0%,"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 16,
+          "excerpt": "var(--bui-slider-progress-color) var(--progress), var(--bui-slider-rail-color) var(--progress));"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 26,
+          "excerpt": "background-color: var(--bui-slider-thumb-color);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_slider.scss",
+          "line": 27,
+          "excerpt": "box-shadow: 0 0 0 calc(var(--thumb-size) * .2) var(--colorNeutralBackground1) inset;"
+        }
+      ],
+      "sourceNote": "Uses custom --bui-slider-* properties and gradients; rail/thumb tokens and forced-colors visibility need explicit verification.",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_range-slider.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--borderRadiusCircular",
+        "--colorNeutralBackground1",
+        "--colorNeutralStroke1",
+        "--colorNeutralStrokeAccessible"
+      ],
+      "localCustomProps": [
+        "--bui-slider-direction",
+        "--bui-slider-progress-color",
+        "--bui-slider-rail-color",
+        "--bui-slider-thumb-color"
+      ],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 5,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 2,
+          "excerpt": "--bui-slider-direction: 90deg;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 3,
+          "excerpt": "--bui-slider-progress-color: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 4,
+          "excerpt": "--bui-slider-rail-color: var(--colorNeutralStrokeAccessible);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 5,
+          "excerpt": "--bui-slider-thumb-color: var(--colorCompoundBrandBackground);"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 15,
+          "excerpt": "background-image: linear-gradient(var(--bui-slider-direction),"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 16,
+          "excerpt": "var(--bui-slider-rail-color) 0%, var(--bui-slider-rail-color) var(--min-progress),"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 17,
+          "excerpt": "var(--bui-slider-progress-color) var(--min-progress),"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_range-slider.scss",
+          "line": 18,
+          "excerpt": "var(--bui-slider-progress-color) var(--max-progress),"
+        }
+      ],
+      "sourceNote": "Uses custom --bui-slider-* properties; two-thumb active/inactive rails and high-contrast states need explicit verification.",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-CHROME.json",
+        "evidence/BLUENT-LAB-P0-POINTER-SCROLL-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "dimension": "tokenTheme",
+      "dimensionStatus": "audited_gaps",
+      "styleFiles": [
+        "src/Bluent.UI/Styles/Components/_file-select.scss"
+      ],
+      "componentSourceFiles": [
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs"
+      ],
+      "hasDedicatedFamilyStylesheet": true,
+      "themeTokenRefs": [
+        "--spacingVerticalMNudge",
+        "--spacingVerticalSNudge"
+      ],
+      "localCustomProps": [],
+      "unresolvedLocalProps": [],
+      "tokenizedColorDeclarationCount": 0,
+      "rawColorDeclarations": [],
+      "componentForcedColorsRuleLines": 0,
+      "componentReducedMotionRuleLines": 0,
+      "sourceSnippets": [
+        {
+          "path": "src/Bluent.UI/Styles/Components/_file-select.scss",
+          "line": 1,
+          "excerpt": ".bui-file-select {"
+        }
+      ],
+      "sourceNote": "Family stylesheet has little/no direct color styling and delegates visuals to child controls; card, remove-action and focus theme parity must be checked compositionally.",
+      "browserEvidence": [
+        "evidence/BLUENT-LAB-P0-FILE-UPLOAD-CHROME.json",
+        "evidence/BLUENT-LAB-P0-FILE-UPLOAD-SERVER-CHROME.json"
+      ],
+      "designApproval": "pending",
+      "evidenceBundle": null
+    }
+  ],
+  "acceptanceBoundary": "audited_gaps means source usage and known evidence gaps were inventoried; token naming is not proof of value, contrast, state or Fluent parity."
+}

@@ -1,0 +1,167 @@
+@namespace Bluent.FocusLifecycleLab.Components
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<h1>#552 Blazor-native ElementReference FocusAsync research fixture</h1>
+<p>This is isolated Blazor InteractiveServer, NOT the Bluent product, NOT Fluent parity.</p>
+<button id="before">Before</button>
+<div id="scope">
+  <button id="queue" @onclick="QueueTarget">Queue B focus</button>
+  <button id="apply" @onclick="ApplyTargetAsync">Apply inside</button>
+  <button id="delay" @onclick="DelayedFocusAsync">Delayed FocusAsync (900ms)</button>
+  <button id="restore-target" @onclick="RestoreTarget">Restore target</button>
+  @if (_showTarget)
+  {
+    <button id="target" @ref="_target">Focus target B</button>
+  }
+  <button id="remove" @onclick="RemoveTarget">Remove target</button>
+</div>
+<button id="apply-outside" @onclick="ApplyTargetAsync">Apply outside</button>
+<button id="outside">Outside</button>
+@if (_showTrigger)
+{
+  <button id="trigger" @ref="_trigger" @onclick="OpenPopupAsync">Open popup</button>
+}
+@if (_popupOpen)
+{
+  <div id="popup">
+    <button id="popup-item" @ref="_popupItem" @onkeydown="PopupKeyDown">Popup item (Esc)</button>
+    <button id="remove-trigger" @onclick="RemoveTrigger">Remove trigger</button>
+  </div>
+}
+<button id="close-outside" @onclick="ClosePopupAsync">Close popup outside</button>
+<output id="result" data-status="@_status" data-epoch="@_epoch" data-focusasync-calls="@_focusCalls">@_status</output>
+
+@code {
+    private sealed record FocusTicket(long Serial, long Epoch);
+    private FocusTicket? _pending;
+    private ElementReference _target, _popupItem, _trigger;
+    private long _epoch, _serial;
+    private bool _showTarget=true, _showTrigger=true, _popupOpen, _needPopupFocus, _restorePending;
+    private int _serialBeforeClose, _focusCalls;
+    private string _status="ready";
+
+    private void QueueTarget()
+    {
+        _pending=new FocusTicket(++_serial,_epoch);
+        _status="queued";
+    }
+
+    private void RestoreTarget()
+    {
+        _showTarget=true;
+        _epoch++;
+        _status="target-restored";
+    }
+
+    // Async event handler spans a real Blazor render/yield boundary.
+    // If user focus moves outside or the target disappears during await,
+    // the actual ElementReference.FocusAsync MUST NOT be invoked.
+    private async Task DelayedFocusAsync()
+    {
+        var ticket=new FocusTicket(++_serial,_epoch);
+        _status="delay-pending";
+        await Task.Delay(900);
+        if(ticket.Epoch!=_epoch || !_showTarget)
+        {
+            _status="delay-canceled-target";
+            return;
+        }
+        if(!await JS.InvokeAsync<bool>("bluent552.canFocus","scope","target"))
+        {
+            _status="delay-canceled-owner";
+            return;
+        }
+        await _target.FocusAsync();
+        _focusCalls++;
+        _status="delay-focused-target";
+    }
+
+    private void RemoveTarget()
+    {
+        _showTarget=false;
+        _epoch++;
+        _status="target-removed";
+    }
+
+    private async Task ApplyTargetAsync()
+    {
+        var ticket=_pending;
+        _pending=null;
+        if(ticket is null) { _status="no-request"; return; }
+        if(ticket.Epoch!=_epoch || !_showTarget) { _status="canceled-stale-target"; return; }
+        if(!await JS.InvokeAsync<bool>("bluent552.canFocus", "scope", "target"))
+        {
+            _status="canceled-focus-owner"; return;
+        }
+        // This is the actual framework ElementReference.FocusAsync, not JS .focus().
+        await _target.FocusAsync();
+        _focusCalls++;
+        _status="focused-target";
+    }
+
+    private Task OpenPopupAsync()
+    {
+        _popupOpen=true;
+        _needPopupFocus=true;
+        _restorePending=false;
+        _status="popup-opening";
+        return Task.CompletedTask;
+    }
+
+    private Task RemoveTrigger()
+    {
+        _showTrigger=false; _epoch++;
+        _status="trigger-removed";
+        return Task.CompletedTask;
+    }
+
+    private async Task PopupKeyDown(KeyboardEventArgs e)
+    {
+        if(e.Key=="Escape")await ClosePopupAsync();
+    }
+
+    private async Task ClosePopupAsync()
+    {
+        if(!_popupOpen) { _status="popup-already-closed"; return; }
+        bool owned=await JS.InvokeAsync<bool>("bluent552.focusWithin","popup");
+        _serialBeforeClose=await JS.InvokeAsync<int>("bluent552.focusSerial");
+        _popupOpen=false;
+        _needPopupFocus=false;
+        _restorePending=owned && _showTrigger;
+        _status=(!_showTrigger?"closed-no-trigger":owned?"popup-closing-owned":"closed-unowned");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(_needPopupFocus && _popupOpen)
+        {
+            _needPopupFocus=false;
+            await _popupItem.FocusAsync();
+            _focusCalls++;
+            _status="popup-focused";
+            await InvokeAsync(StateHasChanged);
+        }
+        if(_restorePending)
+        {
+            _restorePending=false;
+            if(_showTrigger && await JS.InvokeAsync<bool>("bluent552.canRestore","trigger",_serialBeforeClose))
+            {
+                await _trigger.FocusAsync();
+                _focusCalls++;
+                _status="restored-trigger";
+            }
+            else _status="restore-rejected";
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        _epoch++;
+        _pending=null;
+        _restorePending=false;
+        _needPopupFocus=false;
+        return ValueTask.CompletedTask;
+    }
+}

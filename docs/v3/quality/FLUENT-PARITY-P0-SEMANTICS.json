@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "status": "observed_source_gaps_only",
+  "fluentAcceptance": false,
+  "realBrowserATResult": "not_tested_by_this_gate",
+  "note": "Observed omissions / inconsistencies in current pinned source; not a complete Fluent comparator or implemented fix.",
+  "checks": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "id": "toggle_aria_pressed",
+      "observedSourceGap": true,
+      "finding": "Toggled public state is represented by a CSS class and callbacks, but the component does not itself emit aria-pressed. Caller-supplied AdditionalAttributes could still provide it.",
+      "requirement": "Toggle button needs an accessible pressed state if it functions as a toggle button.",
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/button/"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "id": "slider_thumb_semantics",
+      "observedSourceGap": true,
+      "finding": "Current thumb is a div without intrinsic slider role, tabindex, or value ARIA. AdditionalAttributes on the OUTER host can add attributes, but does not make the thumb itself a documented operable slider.",
+      "requirement": "An operable, labelled slider thumb must be keyboard focusable and expose current/range values.",
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "id": "two_thumb_semantics",
+      "observedSourceGap": true,
+      "finding": "Both thumb divs lack independent role, focusability, accessible names and value/range semantics; external host attributes cannot label both thumb nodes independently.",
+      "requirement": "Two separately focusable, named slider thumbs with constant Tab order and dependent ARIA bounds.",
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "id": "pointer_coordinate_space",
+      "observedSourceGap": true,
+      "finding": "ScreenX screen coordinates are subtracted from getBoundingClientRect() viewport coordinates; scroll/window position can introduce offset error.",
+      "requirement": "Use a consistent coordinate space (e.g., ClientX with viewport rect), and verify with real pointer measurements.",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "id": "pointer_coordinate_space",
+      "observedSourceGap": true,
+      "finding": "Same mixed coordinate space as Slider, compounded by dependent bounds and thumb selection.",
+      "requirement": "Use a consistent coordinate space; test crossing, overlap, RTL, Server binding and viewport scroll.",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "id": "remove_action_accessible_name",
+      "observedSourceGap": true,
+      "finding": "Source creates icon-only remove Button with no explicit accessible name. Needs per-file meaningful accessible naming; no native OS/AT confirmation claimed.",
+      "requirement": "Icon-only delete buttons must have a programmatic accessible name.",
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/button/"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "id": "maxfiles_vs_input_multiple",
+      "observedSourceGap": true,
+      "finding": "MaxFiles drives the chooser multiple attribute; accept is a browser chooser hint, not server-side validation. Runtime enforcement requires independent investigation.",
+      "requirement": "Document public MaxFiles; validate count/type/size/authorization on server.",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/accept"
+    }
+  ]
+}

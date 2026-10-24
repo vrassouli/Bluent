@@ -1,0 +1,36 @@
+{
+  "recordedOn": "2026-10-23",
+  "kind": "post-snapshot-addendum",
+  "method": "Records the Icon board created and visually/structurally checked in the connected source-owned Penpot file after the 2026-10-22 read-only inventory; preserves the original snapshot as a historical capture.",
+  "file": {
+    "name": "Bluent v3 Design System",
+    "id": "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
+  },
+  "family": "Icon",
+  "productIssue": 429,
+  "page": {
+    "name": "43 · Icon anatomy & contract · #429 DRAFT",
+    "id": "1d7e9dd6-b977-802e-8008-d5a718dd7655"
+  },
+  "board": {
+    "name": "#429 · Icon SVG sizing & semantics · REVIEW DRAFT",
+    "id": "1d7e9dd6-b977-802e-8008-d5a718e3f4a2",
+    "width": 1600,
+    "height": 2320,
+    "editableChildren": 129,
+    "textNodes": 68,
+    "invalidTextBounds": 0,
+    "childrenOutsideBoard": 0
+  },
+  "scope": [
+    "16/20/24/28/32px SVG sizing matrix",
+    "viewBox versus missing-viewBox boundary",
+    "decorative versus informative accessibility option matrix",
+    "Dark/RTL context and owner decisions"
+  ],
+  "variantSetComplete": false,
+  "reusableLocalLibraryComponentAdded": false,
+  "designApproval": "pending",
+  "evidenceBundle": null,
+  "acceptanceBoundary": "Dedicated review board exists, but complete reusable variant set, approved policy decisions, normalized Fluent parity, native OS/assistive technology and implementation acceptance remain open."
+}
