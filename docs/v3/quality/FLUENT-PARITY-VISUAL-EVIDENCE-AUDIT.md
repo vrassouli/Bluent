@@ -26,7 +26,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 | Family | Editable design artifact | Light/LTR | Dark/RTL | Forced colors | Focus | Hover | Disabled | Pressed/selected | Narrow/zoom proxy | Visual gap |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | A narrow primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no approved state-by-state Fluent/Penpot-to-browser comparison or design-owner sign-off exists. |
+| Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | A narrow primary-Button host-crop pixel diagnostic and live computed-style evidence exist for Light/LTR and Dark/RTL: Fluent reports a Segoe UI/Web font stack while Bluent reports Tahoma, and the text Range is 57.72px vs 70px in equal 96px hosts. This is a recorded rendering difference; approved state-by-state Fluent/Penpot comparison and design-owner sign-off remain open. |
 | Icon | review board, incomplete variants | yes | yes | yes | no | no | no | yes | yes | An editable Icon review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded. |
 | Label | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 | Link | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
@@ -49,13 +49,13 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Button (#428)
 
-**Visual gap:** A narrow primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no approved state-by-state Fluent/Penpot-to-browser comparison or design-owner sign-off exists.
+**Visual gap:** A narrow primary-Button host-crop pixel diagnostic and live computed-style evidence exist for Light/LTR and Dark/RTL: Fluent reports a Segoe UI/Web font stack while Bluent reports Tahoma, and the text Range is 57.72px vs 70px in equal 96px hosts. This is a recorded rendering difference; approved state-by-state Fluent/Penpot comparison and design-owner sign-off remain open.
 
-**Follow-up:** Review the primary-Button crop diagnostic against the approved Penpot appearance/state design, document font/token/geometry differences, and obtain design-owner approval; these crops cover only two visual modes.
+**Follow-up:** Review the primary-Button crop and live computed typography evidence against the approved Penpot appearance/state design, decide the intended font-stack mapping with owner #428, document font/token/geometry differences, and obtain design-owner approval; evidence covers only two visual modes.
 
 **Style sources:** [_button.scss](../../../src/Bluent.UI/Styles/Components/_button.scss)
 
-**Browser evidence:** [BLUENT-BUTTON-STATE-CHROME.json](evidence/BLUENT-BUTTON-STATE-CHROME.json), [BLUENT-BLAZOR-FOCUS-CHROME.json](evidence/BLUENT-BLAZOR-FOCUS-CHROME.json), [BLUENT-LAB-P0-DARK-RTL-CHROME.json](evidence/BLUENT-LAB-P0-DARK-RTL-CHROME.json), [BLUENT-LAB-P0-ZOOM-200-CHROME.json](evidence/BLUENT-LAB-P0-ZOOM-200-CHROME.json), [BLUENT-LAB-P0-FORCED-COLORS-CHROME.json](evidence/BLUENT-LAB-P0-FORCED-COLORS-CHROME.json)
+**Browser evidence:** [BLUENT-BUTTON-STATE-CHROME.json](evidence/BLUENT-BUTTON-STATE-CHROME.json), [BLUENT-BLAZOR-FOCUS-CHROME.json](evidence/BLUENT-BLAZOR-FOCUS-CHROME.json), [BLUENT-LAB-P0-DARK-RTL-CHROME.json](evidence/BLUENT-LAB-P0-DARK-RTL-CHROME.json), [BLUENT-LAB-P0-ZOOM-200-CHROME.json](evidence/BLUENT-LAB-P0-ZOOM-200-CHROME.json), [BLUENT-LAB-P0-FORCED-COLORS-CHROME.json](evidence/BLUENT-LAB-P0-FORCED-COLORS-CHROME.json), [FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json](evidence/FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json), [FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json](evidence/FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json)
 
 **Family audit:** [FLUENT-PARITY-BUTTON-AUDIT.md](../../../docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md)
 

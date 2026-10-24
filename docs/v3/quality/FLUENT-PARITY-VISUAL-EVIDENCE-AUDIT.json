@@ -9,7 +9,7 @@
   "parityAccepted": false,
   "noneApproved": true,
   "penpotSnapshot": "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json",
-  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. A narrow same-size primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no complete family/state-by-state pixel-diff or full side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. Dated Icon, Slider and RangeSlider review-board addenda update design traceability only; they add no matched browser/Fluent parity evidence.",
+  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. A narrow same-size primary-Button host-crop pixel diagnostic and live computed font-stack/text-width measurements exist for Light/LTR and Dark/RTL; no complete family/state-by-state pixel-diff or full side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. Dated Icon, Slider and RangeSlider review-board addenda update design traceability only; they add no matched browser/Fluent parity evidence.",
   "coverageSummary": {
     "lightLtr": 18,
     "darkRtl": 18,
@@ -71,8 +71,8 @@
         "src/Bluent.UI/Components/ButtonComponent/Button.razor",
         "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       ],
-      "visualGap": "A narrow primary-Button host-crop pixel diagnostic exists for Light/LTR and Dark/RTL; no approved state-by-state Fluent/Penpot-to-browser comparison or design-owner sign-off exists.",
-      "followUp": "Review the primary-Button crop diagnostic against the approved Penpot appearance/state design, document font/token/geometry differences, and obtain design-owner approval; these crops cover only two visual modes.",
+      "visualGap": "A narrow primary-Button host-crop pixel diagnostic and live computed-style evidence exist for Light/LTR and Dark/RTL: Fluent reports a Segoe UI/Web font stack while Bluent reports Tahoma, and the text Range is 57.72px vs 70px in equal 96px hosts. This is a recorded rendering difference; approved state-by-state Fluent/Penpot comparison and design-owner sign-off remain open.",
+      "followUp": "Review the primary-Button crop and live computed typography evidence against the approved Penpot appearance/state design, decide the intended font-stack mapping with owner #428, document font/token/geometry differences, and obtain design-owner approval; evidence covers only two visual modes.",
       "browserEvidence": [
         {
           "file": "evidence/BLUENT-BUTTON-STATE-CHROME.json",
@@ -237,6 +237,46 @@
           "forcedColors": true,
           "reducedMotion": false,
           "focusState": true,
+          "hoverState": false,
+          "disabledState": false,
+          "pressedOrSelectedState": false,
+          "narrowOrZoomProxy": false
+        },
+        {
+          "file": "evidence/FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json",
+          "engine": "chrome",
+          "labels": [
+            "DARK-RTL",
+            "FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.JSON",
+            "LIGHT-LTR"
+          ],
+          "lightLtr": true,
+          "darkRtl": true,
+          "forcedColors": false,
+          "reducedMotion": false,
+          "focusState": false,
+          "hoverState": false,
+          "disabledState": false,
+          "pressedOrSelectedState": false,
+          "narrowOrZoomProxy": false
+        },
+        {
+          "file": "evidence/FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
+          "engine": "chrome",
+          "labels": [
+            "DARK",
+            "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.JSON",
+            "LIGHT",
+            "LTR",
+            "RTL",
+            "WEBDARKTHEME",
+            "WEBLIGHTTHEME"
+          ],
+          "lightLtr": true,
+          "darkRtl": true,
+          "forcedColors": false,
+          "reducedMotion": false,
+          "focusState": false,
           "hoverState": false,
           "disabledState": false,
           "pressedOrSelectedState": false,

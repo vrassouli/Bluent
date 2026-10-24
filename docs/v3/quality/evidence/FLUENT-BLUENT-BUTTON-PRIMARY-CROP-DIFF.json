@@ -76,6 +76,33 @@
           9
         ]
       },
+      "computedTypographyEvidence": {
+        "sourceFile": "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
+        "officialFontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
+        "bluentFontFamily": "Tahoma",
+        "fontFamilyDiffers": true,
+        "fontSize": {
+          "official": "14px",
+          "bluent": "14px",
+          "matches": true
+        },
+        "fontWeight": {
+          "official": "600",
+          "bluent": "600",
+          "matches": true
+        },
+        "lineHeight": {
+          "official": "20px",
+          "bluent": "20px",
+          "matches": true
+        },
+        "inlinePaddingMatches": true,
+        "textRectWidthCssPx": {
+          "official": 57.72,
+          "bluent": 70,
+          "bluentMinusOfficial": 12.28
+        }
+      },
       "foregroundMask": {
         "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",
         "method": "pixel included when max absolute RGB-channel distance from its own center surface color is at least 50",
@@ -145,6 +172,33 @@
           5,
           8
         ]
+      },
+      "computedTypographyEvidence": {
+        "sourceFile": "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
+        "officialFontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
+        "bluentFontFamily": "Tahoma",
+        "fontFamilyDiffers": true,
+        "fontSize": {
+          "official": "14px",
+          "bluent": "14px",
+          "matches": true
+        },
+        "fontWeight": {
+          "official": "600",
+          "bluent": "600",
+          "matches": true
+        },
+        "lineHeight": {
+          "official": "20px",
+          "bluent": "20px",
+          "matches": true
+        },
+        "inlinePaddingMatches": true,
+        "textRectWidthCssPx": {
+          "official": 57.72,
+          "bluent": 70,
+          "bluentMinusOfficial": 12.28
+        }
       },
       "foregroundMask": {
         "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",

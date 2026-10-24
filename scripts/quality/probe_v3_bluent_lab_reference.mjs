@@ -98,7 +98,12 @@ try{
     await js("document.querySelector('.lab-canvas .bui-button')?.blur()");
     await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:1,y:1,button:'none'});
     await wait(120);
-    const cropMeta = await js("(()=>{const e=document.querySelector('.lab-canvas .bui-button'),r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,text:e.innerText.trim(),theme:document.documentElement.getAttribute('data-bui-theme'),dir:document.documentElement.dir}})()");
+    const cropMeta = await js(`(()=>{
+      const e=document.querySelector('.lab-canvas .bui-button'),h=e.getBoundingClientRect(),cs=getComputedStyle(e);
+      const range=document.createRange();range.selectNodeContents(e);const tr=range.getBoundingClientRect();
+      const round=v=>Math.round(v*100)/100;
+      return {x:h.x,y:h.y,width:h.width,height:h.height,text:e.innerText.trim(),theme:document.documentElement.getAttribute('data-bui-theme'),dir:document.documentElement.dir,hostTag:e.tagName,textRect:{left:round(tr.left-h.left),top:round(tr.top-h.top),width:round(tr.width),height:round(tr.height)},computedStyle:{fontFamily:cs.fontFamily,fontSize:cs.fontSize,fontWeight:cs.fontWeight,lineHeight:cs.lineHeight,letterSpacing:cs.letterSpacing,color:cs.color,backgroundColor:cs.backgroundColor,paddingInlineStart:cs.paddingInlineStart,paddingInlineEnd:cs.paddingInlineEnd,display:cs.display,boxSizing:cs.boxSizing,whiteSpace:cs.whiteSpace,textTransform:cs.textTransform,textAlign:cs.textAlign}};
+    })()`);
     add('Primary Button crop is normalized 96x32 with Continue label',Math.abs(cropMeta.width-96)<0.1 && Math.abs(cropMeta.height-32)<0.1 && cropMeta.text==='Continue' && cropMeta.theme===(scenario.startsWith('dark')?'dark':'light') && cropMeta.dir===(scenario.endsWith('rtl')?'rtl':'ltr'),cropMeta);
     const cropCapture = await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true,clip:{x:Math.round(cropMeta.x),y:Math.round(cropMeta.y),width:96,height:32,scale:1}});
     const cropImage = 'BLUENT-LAB-BUTTON-'+scenario.toUpperCase()+'-PRIMARY-CROP-CHROME.png';

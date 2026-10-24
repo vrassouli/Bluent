@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "issue": 552,
+  "audit": "Primary Button computed typography/style evidence",
+  "captureDate": "2026-10-24",
+  "reference": {
+    "package": "@fluentui/web-components@3.1.3",
+    "themePackage": "@fluentui/tokens@1.0.0-alpha.24",
+    "fixture": "scripts/quality/fixtures/fluent-wc-3.1.3-reference.html"
+  },
+  "bluent": {
+    "repository": "vrassouli/Bluent",
+    "branch": "v3/issue-421-component-lab",
+    "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+    "fixture": "src/Bluent.UI.Demo/Bluent.UI.Demo.csproj / Component Lab",
+    "hostingMode": "Blazor WebAssembly"
+  },
+  "browser": {
+    "engine": "Chromium/Chrome",
+    "viewportCssPx": {
+      "width": 1240,
+      "height": 1140
+    },
+    "deviceScaleFactor": 1
+  },
+  "measurementMethod": "Real browser getComputedStyle and DOM Range.getBoundingClientRect on the actual published Fluent custom-element host text and the actual Bluent button text. Text rectangle offsets are relative to the corresponding 96x32 host.",
+  "modes": {
+    "LIGHT-LTR": {
+      "official": {
+        "file": "FLUENT-WC-3.1.3-LIGHT-LTR-PRIMARY-CROP-CHROME.png",
+        "sha256": "0dccef0ebb842269ba8345d1bf0489fa1e3bb8f234227f4d9b32d033a87136a5",
+        "theme": "webLightTheme",
+        "dir": "ltr",
+        "hostTag": "FLUENT-BUTTON",
+        "internalTag": "FLUENT-BUTTON",
+        "text": "Continue",
+        "cssHostSize": {
+          "width": 96,
+          "height": 32
+        },
+        "textRectRelativeToHost": {
+          "left": 19.14,
+          "top": 6,
+          "width": 57.72,
+          "height": 19
+        },
+        "computedStyle": {
+          "fontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "20px",
+          "letterSpacing": "normal",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(15, 108, 189)",
+          "paddingInlineStart": "12px",
+          "paddingInlineEnd": "12px",
+          "display": "flex",
+          "boxSizing": "border-box",
+          "whiteSpace": "normal",
+          "textTransform": "none",
+          "textAlign": "center"
+        }
+      },
+      "bluent": {
+        "file": "BLUENT-LAB-BUTTON-LIGHT-LTR-PRIMARY-CROP-CHROME.png",
+        "sha256": "4cb34aea486463dabbca1b9e58e2df0c760ef98dd9c74d851c820786cddce45b",
+        "theme": "light",
+        "dir": "ltr",
+        "hostTag": "BUTTON",
+        "internalTag": null,
+        "text": "Continue",
+        "cssHostSize": {
+          "width": 96,
+          "height": 32
+        },
+        "textRectRelativeToHost": {
+          "left": 13,
+          "top": 6,
+          "width": 70,
+          "height": 20
+        },
+        "computedStyle": {
+          "fontFamily": "Tahoma",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "20px",
+          "letterSpacing": "normal",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "paddingInlineStart": "12px",
+          "paddingInlineEnd": "12px",
+          "display": "flex",
+          "boxSizing": "border-box",
+          "whiteSpace": "normal",
+          "textTransform": "none",
+          "textAlign": "center"
+        }
+      },
+      "comparison": {
+        "fontFamilyDiffers": true,
+        "fontSizeMatches": true,
+        "fontWeightMatches": true,
+        "lineHeightMatches": true,
+        "horizontalPaddingMatches": true,
+        "textRangeWidthDeltaCssPx": 12.28
+      },
+      "inspectedAt": {
+        "official": "2026-10-24T17:04:03.161Z",
+        "bluent": "2026-10-24T17:04:25.311Z"
+      }
+    },
+    "DARK-RTL": {
+      "official": {
+        "file": "FLUENT-WC-3.1.3-DARK-RTL-PRIMARY-CROP-CHROME.png",
+        "sha256": "c6e10d550f83b66763464f4b428b4753578d21665cb7ea8575ae38968f6f1444",
+        "theme": "webDarkTheme",
+        "dir": "rtl",
+        "hostTag": "FLUENT-BUTTON",
+        "internalTag": "FLUENT-BUTTON",
+        "text": "Continue",
+        "cssHostSize": {
+          "width": 96,
+          "height": 32
+        },
+        "textRectRelativeToHost": {
+          "left": 19.14,
+          "top": 6,
+          "width": 57.72,
+          "height": 19
+        },
+        "computedStyle": {
+          "fontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "20px",
+          "letterSpacing": "normal",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(17, 94, 163)",
+          "paddingInlineStart": "12px",
+          "paddingInlineEnd": "12px",
+          "display": "flex",
+          "boxSizing": "border-box",
+          "whiteSpace": "normal",
+          "textTransform": "none",
+          "textAlign": "center"
+        }
+      },
+      "bluent": {
+        "file": "BLUENT-LAB-BUTTON-DARK-RTL-PRIMARY-CROP-CHROME.png",
+        "sha256": "c366117dfe112b62b45bca88edd4c205ff36925bcb807c7f7b1224a72ead722a",
+        "theme": "dark",
+        "dir": "rtl",
+        "hostTag": "BUTTON",
+        "internalTag": null,
+        "text": "Continue",
+        "cssHostSize": {
+          "width": 96,
+          "height": 32
+        },
+        "textRectRelativeToHost": {
+          "left": 13,
+          "top": 6,
+          "width": 70,
+          "height": 20
+        },
+        "computedStyle": {
+          "fontFamily": "Tahoma",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "20px",
+          "letterSpacing": "normal",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "paddingInlineStart": "12px",
+          "paddingInlineEnd": "12px",
+          "display": "flex",
+          "boxSizing": "border-box",
+          "whiteSpace": "normal",
+          "textTransform": "none",
+          "textAlign": "center"
+        }
+      },
+      "comparison": {
+        "fontFamilyDiffers": true,
+        "fontSizeMatches": true,
+        "fontWeightMatches": true,
+        "lineHeightMatches": true,
+        "horizontalPaddingMatches": true,
+        "textRangeWidthDeltaCssPx": 12.28
+      },
+      "inspectedAt": {
+        "official": "2026-10-24T17:04:12.802Z",
+        "bluent": "2026-10-24T17:04:38.430Z"
+      }
+    }
+  },
+  "finding": "The rendered CSS font-family stacks differ: Fluent specifies the Segoe UI/Web stack with system fallbacks; Bluent computes Tahoma. Both use 14px, weight 600, line-height 20px, 12px inline padding and centered text. Range text width is 57.72px for Fluent and 70px for Bluent, a 12.28px delta within equal 96px host boxes. This is a confirmed computed-style/geometry difference in this browser, not automatic proof of a design defect. The approved Bluent design and owner #428 must determine the intended font mapping.",
+  "status": "diagnostic_runtime_style_difference_not_parity_approval",
+  "parityAccepted": false,
+  "limitations": [
+    "Computed font-family reports the CSS font stack; it does not certify which fallback font is active on every OS.",
+    "No source product change, approved Penpot comparison, native OS/AT or cross-platform typography acceptance is represented.",
+    "The evidence covers only Primary Button with Continue in Light/LTR and Dark/RTL."
+  ]
+}

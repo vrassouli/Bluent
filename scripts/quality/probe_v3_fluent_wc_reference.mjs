@@ -110,7 +110,13 @@ try{
  let primaryButtonCrop = null;
  let primaryButtonCropMeta = null;
  if (scenario === 'light-ltr' || scenario === 'dark-rtl') {
-   primaryButtonCropMeta = await js("(()=>{const e=document.getElementById('btn-primary'),r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,text:e.textContent.trim(),theme:document.documentElement.dataset.officialTheme,dir:document.documentElement.dir}})()");
+   primaryButtonCropMeta = await js(`(()=>{
+     const e=document.getElementById('btn-primary'),h=e.getBoundingClientRect();
+     const target=e.shadowRoot?.querySelector('button')||e,cs=getComputedStyle(target);
+     const range=document.createRange();range.selectNodeContents(target);const tr=range.getBoundingClientRect();
+     const round=v=>Math.round(v*100)/100;
+     return {x:h.x,y:h.y,width:h.width,height:h.height,text:e.textContent.trim(),theme:document.documentElement.dataset.officialTheme,dir:document.documentElement.dir,hostTag:e.tagName,internalTag:target.tagName,textRect:{left:round(tr.left-h.left),top:round(tr.top-h.top),width:round(tr.width),height:round(tr.height)},computedStyle:{fontFamily:cs.fontFamily,fontSize:cs.fontSize,fontWeight:cs.fontWeight,lineHeight:cs.lineHeight,letterSpacing:cs.letterSpacing,color:cs.color,backgroundColor:cs.backgroundColor,paddingInlineStart:cs.paddingInlineStart,paddingInlineEnd:cs.paddingInlineEnd,display:cs.display,boxSizing:cs.boxSizing,whiteSpace:cs.whiteSpace,textTransform:cs.textTransform,textAlign:cs.textAlign}};
+   })()`);
    assert('Official primary Button crop is normalized 96x32 with Continue label', Math.abs(primaryButtonCropMeta.width-96)<0.1 && Math.abs(primaryButtonCropMeta.height-32)<0.1 && primaryButtonCropMeta.text==='Continue' && primaryButtonCropMeta.dir===(scenario.endsWith('rtl')?'rtl':'ltr'), primaryButtonCropMeta);
    const cropCapture = await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true,clip:{x:Math.round(primaryButtonCropMeta.x),y:Math.round(primaryButtonCropMeta.y),width:96,height:32,scale:1}});
    primaryButtonCrop = output.replace(/\.png$/i,'-PRIMARY-CROP.png');

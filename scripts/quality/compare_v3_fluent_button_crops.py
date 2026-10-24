@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE = ROOT / "docs/v3/quality/evidence"
 JSON_OUT = EVIDENCE / "FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json"
+TYPOGRAPHY_JSON = EVIDENCE / "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json"
 SOURCE_BASELINE = "b9952aa93e89fd569de54080a7fdd06037b53a41"
 OFFICIAL_PACKAGE = "@fluentui/web-components@3.1.3"
 PAIR_NAMES = {
@@ -151,6 +152,9 @@ def encode_png_rgb(width: int, height: int, rgb: bytes) -> bytes:
 
 
 def build():
+    if not TYPOGRAPHY_JSON.is_file():
+        raise ValueError(f"Missing live-browser typography evidence: {TYPOGRAPHY_JSON.name}")
+    typography = json.loads(TYPOGRAPHY_JSON.read_text(encoding="utf-8-sig"))
     comparisons, images = [], {}
     for mode, (official_name, bluent_name, diff_name) in PAIR_NAMES.items():
         official_path, bluent_path = EVIDENCE / official_name, EVIDENCE / bluent_name
@@ -158,6 +162,16 @@ def build():
         bw, bh, bluent_rgb, bluent_hash = decode_png_rgb(bluent_path)
         if (ow, oh) != (96, 32) or (bw, bh) != (96, 32):
             raise ValueError(f"{mode}: expected both actual host crops to be exactly 96x32, got Fluent {ow}x{oh}, Bluent {bw}x{bh}")
+        style_mode = typography.get("modes", {}).get(mode)
+        if not style_mode:
+            raise ValueError(f"Missing computed-style evidence for mode {mode}")
+        if style_mode["official"].get("sha256") != official_hash or style_mode["bluent"].get("sha256") != bluent_hash:
+            raise ValueError(f"{mode}: typography capture hashes do not match the pixel-diff input crops")
+        style_comparison = style_mode["comparison"]
+        official_style = style_mode["official"]["computedStyle"]
+        bluent_style = style_mode["bluent"]["computedStyle"]
+        official_text_width = style_mode["official"]["textRectRelativeToHost"]["width"]
+        bluent_text_width = style_mode["bluent"]["textRectRelativeToHost"]["width"]
         official_surface = tuple(official_rgb[(16 * 96 + 48) * 3:(16 * 96 + 48) * 3 + 3])
         bluent_surface = tuple(bluent_rgb[(16 * 96 + 48) * 3:(16 * 96 + 48) * 3 + 3])
         official_mask, official_mask_bbox = foreground_mask(official_rgb, official_surface)
@@ -194,6 +208,17 @@ def build():
                 "officialRGB": list(official_surface),
                 "bluentRGB": list(bluent_surface),
                 "absoluteChannelDelta": [abs(official_surface[c] - bluent_surface[c]) for c in range(3)],
+            },
+            "computedTypographyEvidence": {
+                "sourceFile": TYPOGRAPHY_JSON.name,
+                "officialFontFamily": official_style["fontFamily"],
+                "bluentFontFamily": bluent_style["fontFamily"],
+                "fontFamilyDiffers": style_comparison["fontFamilyDiffers"],
+                "fontSize": {"official": official_style["fontSize"], "bluent": bluent_style["fontSize"], "matches": style_comparison["fontSizeMatches"]},
+                "fontWeight": {"official": official_style["fontWeight"], "bluent": bluent_style["fontWeight"], "matches": style_comparison["fontWeightMatches"]},
+                "lineHeight": {"official": official_style["lineHeight"], "bluent": bluent_style["lineHeight"], "matches": style_comparison["lineHeightMatches"]},
+                "inlinePaddingMatches": style_comparison["horizontalPaddingMatches"],
+                "textRectWidthCssPx": {"official": official_text_width, "bluent": bluent_text_width, "bluentMinusOfficial": style_comparison["textRangeWidthDeltaCssPx"]},
             },
             "foregroundMask": {
                 "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",
