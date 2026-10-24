@@ -328,7 +328,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f1639f0e8\" class=\"tab-item selected\"><!--!--><i id=\"fc2c9311\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f656b7fe4\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"f6488c98d\" class=\"tab-item selected\"><!--!--><i id=\"f303c11d4\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f122590c7\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 563.5,
@@ -480,7 +480,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f1639f0e8\" class=\"tab-item selected \"><!--!--><i id=\"fc2c9311\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f656b7fe4\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"f6488c98d\" class=\"tab-item selected \"><!--!--><i id=\"f303c11d4\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f122590c7\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 563.5,
@@ -527,7 +527,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f1639f0e8\" class=\"tab-item selected \"><!--!--><i id=\"fc2c9311\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f656b7fe4\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"f6488c98d\" class=\"tab-item selected \"><!--!--><i id=\"f303c11d4\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f122590c7\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 563.5,
@@ -575,7 +575,7 @@
           "ariaDisabled": null,
           "disabled": false,
           "tabindex": null,
-          "html": "<button type=\"button\" id=\"f1639f0e8\" class=\"tab-item \"><!--!--><i id=\"fc2c9311\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f656b7fe4\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "html": "<button type=\"button\" id=\"f6488c98d\" class=\"tab-item \"><!--!--><i id=\"f303c11d4\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f122590c7\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
           "text": "First Tab",
           "box": {
             "left": 563.5,
@@ -622,7 +622,7 @@
           "ariaDisabled": null,
           "disabled": false,
           "tabindex": null,
-          "html": "<button type=\"button\" id=\"f1639f0e8\" class=\"tab-item selected \"><!--!--><i id=\"fc2c9311\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f656b7fe4\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "html": "<button type=\"button\" id=\"f6488c98d\" class=\"tab-item selected \"><!--!--><i id=\"f303c11d4\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f122590c7\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
           "text": "First Tab",
           "box": {
             "left": 563.5,
@@ -681,7 +681,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f4ebb26d6\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"fa2d0804\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f13c2b791\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f62f07227\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f260150\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f8fa2c6f\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f598c6f9e\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2887c420\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f367cb660\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f2b416a67\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></i>",
+        "html": "<div id=\"f547236b9\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f45c6d464\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f4cc4489b\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f8eae13b\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f4a84c9c9\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5d280b49\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f5b640d43\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f6891fa37\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5b4454e\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f20a4dea3\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 563.5,
@@ -811,7 +811,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f4ebb26d6\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"fa2d0804\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f13c2b791\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f62f07227\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f260150\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f8fa2c6f\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f598c6f9e\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2887c420\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f367cb660\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f2b416a67\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></i>",
+        "html": "<div id=\"f547236b9\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f45c6d464\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f4cc4489b\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f8eae13b\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f4a84c9c9\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5d280b49\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f5b640d43\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f6891fa37\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5b4454e\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f20a4dea3\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 563.5,
@@ -888,7 +888,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f4ebb26d6\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"fa2d0804\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f13c2b791\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f62f07227\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f260150\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f8fa2c6f\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f598c6f9e\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2887c420\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f367cb660\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f2b416a67\" class=\"bui-icon icon-ic_fluent_grid_20_regular i",
+        "html": "<div id=\"f547236b9\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f45c6d464\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f4cc4489b\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f8eae13b\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f4a84c9c9\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5d280b49\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f5b640d43\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f6891fa37\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5b4454e\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f20a4dea3\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 563.5,
@@ -977,7 +977,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1dba093e\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f2ec2fc03\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f2f62d66b\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f51835d71\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 563.5,
@@ -1077,7 +1077,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1dba093e\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f2ec2fc03\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f2f62d66b\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f51835d71\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 563.5,
@@ -1124,7 +1124,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1dba093e\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f2ec2fc03\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f2f62d66b\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f51835d71\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 563.5,
@@ -1183,7 +1183,7 @@
         "ariaDisabled": null,
         "disabled": true,
         "tabindex": null,
-        "html": "<div disabled=\"\" id=\"f8527b2e\" class=\"menu-item disabled \"><!--!--><i id=\"f4b1b6db9\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f1f7fa14b\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "html": "<div disabled=\"\" id=\"f17a22a87\" class=\"menu-item disabled \"><!--!--><i id=\"f1d5c1481\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f461fec53\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
         "text": "Undo",
         "box": {
           "left": 563.5,
@@ -1283,7 +1283,7 @@
         "ariaDisabled": null,
         "disabled": true,
         "tabindex": null,
-        "html": "<div disabled=\"\" id=\"f8527b2e\" class=\"menu-item disabled \"><!--!--><i id=\"f4b1b6db9\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f1f7fa14b\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "html": "<div disabled=\"\" id=\"f17a22a87\" class=\"menu-item disabled \"><!--!--><i id=\"f1d5c1481\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f461fec53\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
         "text": "Undo",
         "box": {
           "left": 563.5,
@@ -1343,7 +1343,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f2f4ae27e\" class=\"menu-item \"><!--!--><i id=\"f2d04a6b7\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f7c7343e8\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "html": "<div id=\"f65e3b33c\" class=\"menu-item \"><!--!--><i id=\"f30b8be30\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f409c77b9\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
         "text": "Paste",
         "box": {
           "left": 563.5,
@@ -1443,7 +1443,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f2f4ae27e\" class=\"menu-item \"><!--!--><i id=\"f2d04a6b7\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f7c7343e8\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "html": "<div id=\"f65e3b33c\" class=\"menu-item \"><!--!--><i id=\"f30b8be30\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f409c77b9\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
         "text": "Paste",
         "box": {
           "left": 563.5,
@@ -1503,7 +1503,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f2cfdf970\" class=\"tab-item selected\"><!--!--><i id=\"f7ddd4d36\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1d46eaa0\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"fe7b1f1b\" class=\"tab-item selected\"><!--!--><i id=\"f6d29e37f\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1b489737\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 577.140625,
@@ -1655,7 +1655,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f2cfdf970\" class=\"tab-item selected \"><!--!--><i id=\"f7ddd4d36\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1d46eaa0\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"fe7b1f1b\" class=\"tab-item selected \"><!--!--><i id=\"f6d29e37f\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1b489737\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 577.140625,
@@ -1702,7 +1702,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f2cfdf970\" class=\"tab-item selected \"><!--!--><i id=\"f7ddd4d36\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1d46eaa0\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"fe7b1f1b\" class=\"tab-item selected \"><!--!--><i id=\"f6d29e37f\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1b489737\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 577.140625,
@@ -1750,7 +1750,7 @@
           "ariaDisabled": null,
           "disabled": false,
           "tabindex": null,
-          "html": "<button type=\"button\" id=\"f2cfdf970\" class=\"tab-item \"><!--!--><i id=\"f7ddd4d36\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1d46eaa0\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "html": "<button type=\"button\" id=\"fe7b1f1b\" class=\"tab-item \"><!--!--><i id=\"f6d29e37f\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1b489737\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
           "text": "First Tab",
           "box": {
             "left": 585.9375,
@@ -1797,7 +1797,7 @@
           "ariaDisabled": null,
           "disabled": false,
           "tabindex": null,
-          "html": "<button type=\"button\" id=\"f2cfdf970\" class=\"tab-item selected \"><!--!--><i id=\"f7ddd4d36\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1d46eaa0\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "html": "<button type=\"button\" id=\"fe7b1f1b\" class=\"tab-item selected \"><!--!--><i id=\"f6d29e37f\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f1b489737\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
           "text": "First Tab",
           "box": {
             "left": 577.140625,
@@ -1856,7 +1856,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f4376794b\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f129136c8\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f28020caa\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f7d64d016\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f4f95cf44\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3c5c0d7c\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f3a1c2cb0\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f3d67d868\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4fb0eb8c\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f1b3238e4\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
+        "html": "<div id=\"f8567b7\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f208b0d1c\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f4fc482e1\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3e83140f\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f17ac8e69\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3e72ca58\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f7374ba53\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f175a24c5\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f359d6c35\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f7f9fa071\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 299.5,
@@ -1986,7 +1986,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f4376794b\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f129136c8\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f28020caa\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f7d64d016\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f4f95cf44\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3c5c0d7c\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f3a1c2cb0\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f3d67d868\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4fb0eb8c\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f1b3238e4\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
+        "html": "<div id=\"f8567b7\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f208b0d1c\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f4fc482e1\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3e83140f\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f17ac8e69\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3e72ca58\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f7374ba53\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f175a24c5\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f359d6c35\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f7f9fa071\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 299.5,
@@ -2063,7 +2063,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f4376794b\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f129136c8\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f28020caa\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f7d64d016\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f4f95cf44\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3c5c0d7c\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f3a1c2cb0\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f3d67d868\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4fb0eb8c\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f1b3238e4\" class=\"bui-icon icon-ic_fluent_grid_20_regul",
+        "html": "<div id=\"f8567b7\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f208b0d1c\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f4fc482e1\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3e83140f\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f17ac8e69\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3e72ca58\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f7374ba53\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f175a24c5\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f359d6c35\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f7f9fa071\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 299.5,
@@ -2152,7 +2152,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6f9ccfd2\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f48d3f3fe\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6a86ca6f\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f9985d55\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 299.5,
@@ -2252,7 +2252,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6f9ccfd2\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f48d3f3fe\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6a86ca6f\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f9985d55\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 299.5,
@@ -2299,7 +2299,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6f9ccfd2\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f48d3f3fe\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6a86ca6f\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f9985d55\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 299.5,
@@ -2358,7 +2358,7 @@
         "ariaDisabled": null,
         "disabled": true,
         "tabindex": null,
-        "html": "<div disabled=\"\" id=\"f44f4ca61\" class=\"menu-item disabled \"><!--!--><i id=\"f335118bd\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f98b6c58\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "html": "<div disabled=\"\" id=\"f74b547b8\" class=\"menu-item disabled \"><!--!--><i id=\"f1eac672c\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f691c4fd4\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
         "text": "Undo",
         "box": {
           "left": 548.5,
@@ -2458,7 +2458,7 @@
         "ariaDisabled": null,
         "disabled": true,
         "tabindex": null,
-        "html": "<div disabled=\"\" id=\"f44f4ca61\" class=\"menu-item disabled \"><!--!--><i id=\"f335118bd\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f98b6c58\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "html": "<div disabled=\"\" id=\"f74b547b8\" class=\"menu-item disabled \"><!--!--><i id=\"f1eac672c\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f691c4fd4\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
         "text": "Undo",
         "box": {
           "left": 548.5,
@@ -2518,7 +2518,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f1287eece\" class=\"menu-item \"><!--!--><i id=\"f4b726878\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f246d5c64\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "html": "<div id=\"f440d2114\" class=\"menu-item \"><!--!--><i id=\"f549d1f59\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f2c2fa0fa\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
         "text": "Paste",
         "box": {
           "left": 548.5,
@@ -2618,7 +2618,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f1287eece\" class=\"menu-item \"><!--!--><i id=\"f4b726878\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f246d5c64\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "html": "<div id=\"f440d2114\" class=\"menu-item \"><!--!--><i id=\"f549d1f59\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f2c2fa0fa\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
         "text": "Paste",
         "box": {
           "left": 548.5,
@@ -2678,7 +2678,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f416895c0\" class=\"tab-item selected\"><!--!--><i id=\"f323c227\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f51f02d6f\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"f78c6cefb\" class=\"tab-item selected\"><!--!--><i id=\"f30445099\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"fa122120\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 563.5,
@@ -2830,7 +2830,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f416895c0\" class=\"tab-item selected \"><!--!--><i id=\"f323c227\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f51f02d6f\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"f78c6cefb\" class=\"tab-item selected \"><!--!--><i id=\"f30445099\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"fa122120\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 563.5,
@@ -2877,7 +2877,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<button type=\"button\" id=\"f416895c0\" class=\"tab-item selected \"><!--!--><i id=\"f323c227\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f51f02d6f\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "html": "<button type=\"button\" id=\"f78c6cefb\" class=\"tab-item selected \"><!--!--><i id=\"f30445099\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"fa122120\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
         "text": "First Tab",
         "box": {
           "left": 563.5,
@@ -2925,7 +2925,7 @@
           "ariaDisabled": null,
           "disabled": false,
           "tabindex": null,
-          "html": "<button type=\"button\" id=\"f416895c0\" class=\"tab-item \"><!--!--><i id=\"f323c227\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f51f02d6f\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "html": "<button type=\"button\" id=\"f78c6cefb\" class=\"tab-item \"><!--!--><i id=\"f30445099\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"fa122120\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
           "text": "First Tab",
           "box": {
             "left": 563.5,
@@ -2972,7 +2972,7 @@
           "ariaDisabled": null,
           "disabled": false,
           "tabindex": null,
-          "html": "<button type=\"button\" id=\"f416895c0\" class=\"tab-item selected \"><!--!--><i id=\"f323c227\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f51f02d6f\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "html": "<button type=\"button\" id=\"f78c6cefb\" class=\"tab-item selected \"><!--!--><i id=\"f30445099\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"fa122120\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
           "text": "First Tab",
           "box": {
             "left": 563.5,
@@ -3031,7 +3031,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f5ed1de27\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"fc3f9d65\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f77d9ee0e\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f22b98e8c\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f7de298eb\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f69b4d730\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f29dffc07\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f32ea5f14\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f1ee28a59\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"fdc6b391\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "html": "<div id=\"f3b58113a\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6de4222d\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f3c01fb56\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f2348e5c2\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f45f3185f\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4ea2e071\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2bfb693d\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2611cb1b\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f2abd4a0d\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f74062cac\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 563.5,
@@ -3161,7 +3161,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f5ed1de27\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"fc3f9d65\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f77d9ee0e\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f22b98e8c\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f7de298eb\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f69b4d730\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f29dffc07\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f32ea5f14\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f1ee28a59\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"fdc6b391\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "html": "<div id=\"f3b58113a\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6de4222d\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f3c01fb56\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f2348e5c2\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f45f3185f\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4ea2e071\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2bfb693d\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2611cb1b\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f2abd4a0d\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f74062cac\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 563.5,
@@ -3238,7 +3238,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f5ed1de27\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"fc3f9d65\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f77d9ee0e\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f22b98e8c\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f7de298eb\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f69b4d730\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f29dffc07\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f32ea5f14\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f1ee28a59\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"fdc6b391\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
+        "html": "<div id=\"f3b58113a\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6de4222d\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f3c01fb56\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f2348e5c2\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f45f3185f\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4ea2e071\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2bfb693d\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2611cb1b\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f2abd4a0d\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f74062cac\" class=\"bui-icon icon-ic_fluent_grid_20_regul",
         "text": "ComponentsButtons\n                    Data grids",
         "box": {
           "left": 563.5,
@@ -3327,7 +3327,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f77bdead9\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f186a2cc3\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f3267766d\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f29f86133\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 563.5,
@@ -3427,7 +3427,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f77bdead9\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f186a2cc3\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f3267766d\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f29f86133\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 563.5,
@@ -3474,7 +3474,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f77bdead9\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f186a2cc3\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f3267766d\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f29f86133\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
         "text": "Accordion header 1",
         "box": {
           "left": 563.5,
@@ -3533,7 +3533,7 @@
         "ariaDisabled": null,
         "disabled": true,
         "tabindex": null,
-        "html": "<div disabled=\"\" id=\"f96c5c22\" class=\"menu-item disabled \"><!--!--><i id=\"f233d9be4\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f4282c48f\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "html": "<div disabled=\"\" id=\"f51866af1\" class=\"menu-item disabled \"><!--!--><i id=\"f501e6866\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f48e5d567\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
         "text": "Undo",
         "box": {
           "left": 563.5,
@@ -3633,7 +3633,7 @@
         "ariaDisabled": null,
         "disabled": true,
         "tabindex": null,
-        "html": "<div disabled=\"\" id=\"f96c5c22\" class=\"menu-item disabled \"><!--!--><i id=\"f233d9be4\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f4282c48f\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "html": "<div disabled=\"\" id=\"f51866af1\" class=\"menu-item disabled \"><!--!--><i id=\"f501e6866\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f48e5d567\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
         "text": "Undo",
         "box": {
           "left": 563.5,
@@ -3693,7 +3693,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f1e2d0025\" class=\"menu-item \"><!--!--><i id=\"f3b33f83f\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f3db46467\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "html": "<div id=\"f5389f4d4\" class=\"menu-item \"><!--!--><i id=\"f4eeda47a\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f67ab4318\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
         "text": "Paste",
         "box": {
           "left": 563.5,
@@ -3793,7 +3793,7 @@
         "ariaDisabled": null,
         "disabled": false,
         "tabindex": null,
-        "html": "<div id=\"f1e2d0025\" class=\"menu-item \"><!--!--><i id=\"f3b33f83f\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f3db46467\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "html": "<div id=\"f5389f4d4\" class=\"menu-item \"><!--!--><i id=\"f4eeda47a\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f67ab4318\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
         "text": "Paste",
         "box": {
           "left": 563.5,
