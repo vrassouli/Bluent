@@ -31,6 +31,9 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 **Latest #552 Icon trust-boundary follow-up (2026-10-24):** Source review confirms `IconDefinition.FromSvg` passes the caller's SVG string through `IconSource.Svg` and `Icon.BuildRenderTree` emits it as `MarkupString`; the inspected path has no sanitizer/allow-list call. This is a trust-boundary finding only—not a demonstrated exploit—and no payload was executed. Added the trusted developer-controlled SVG warning to the canonical [Icon reference](../docs/components/icon.md), aligned the Icon audit, and added a regression test for the source/documentation boundary. No product runtime/security behavior was changed; do not pass untrusted SVG absent a separately reviewed sanitizer/allow-list and threat model.
 
 
+**Latest #552 Icon browser DOM follow-up (2026-10-24):** Added unlinked QA routes and a disposable browser runner for attribute collisions. Chrome and Edge each passed **20/20** DOM/event observations in the Release WASM host and published Production InteractiveServer (80/80 combined). Results verify emitted browser DOM and actual click interactivity only; the intended public precedence contract still awaits #429/#420 review. SSR records also surface the existing missing `/app.css` resource separately from JavaScript errors. No product component, API or CSS changed. All nine Icon parity dimensions remain `audited_gaps`; #552 remains In progress and PR #553 Draft.
+
+
 ## Current Phase
 
 **Phase:** AI readiness and consumer usability

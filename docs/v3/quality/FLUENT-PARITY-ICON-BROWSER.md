@@ -51,11 +51,22 @@ The SVG remains far larger than the requested 32×32 CSS pixels, although it shr
 | Edge | [320px screenshot](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-MOBILE-320-LIGHT-LTR.png) | [320px screenshot](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-MOBILE-320-DARK-RTL.png) |
 
 Structured observations: [Chrome](evidence/BLUENT-ICON-CHROME-RESPONSIVE-320-BROWSER.json) · [Edge](evidence/BLUENT-ICON-EDGE-RESPONSIVE-320-BROWSER.json). The snapshots preserve actual wrapper/SVG geometry, image AX, viewport and horizontal-overflow measurements. Browser AX and CSS layout remain partial evidence, not native AT, actual browser-UI zoom, Windows Contrast Themes or Fluent reference parity.
+## #552 live browser DOM attribute-collision verification (2026-10-24)
+
+Four actual browser runs exercised hidden QA routes against the Release WebAssembly host and a published Production InteractiveServer host. Chrome and Edge each passed **20/20** observations in each renderer. The measurements agree with the source order: caller-supplied `id` and unrelated `data-probe-case` are retained; explicit `Class` and `Style` parameters win over their unmatched same-name attributes; each root contains one `id`, `class`, and `style`; and `IconDefinition.Value` supplies the single loaded image `src` in preference to an unmatched `src`. A physical browser click increments state in both renderers.
+
+| Renderer | Chrome | Edge |
+| --- | --- | --- |
+| Release WebAssembly | [20/20 evidence](evidence/BLUENT-ICON-ATTRIBUTE-COLLISIONS-WASM-CHROME.json) | [20/20 evidence](evidence/BLUENT-ICON-ATTRIBUTE-COLLISIONS-WASM-EDGE.json) |
+| Published Production InteractiveServer | [20/20 evidence](evidence/BLUENT-ICON-ATTRIBUTE-COLLISIONS-INTERACTIVE-SERVER-CHROME.json) | [20/20 evidence](evidence/BLUENT-ICON-ATTRIBUTE-COLLISIONS-INTERACTIVE-SERVER-EDGE.json) |
+
+These are browser DOM and event observations, **not** Fluent parity or product approval. The SSR host's existing `App.razor` reference to missing `/app.css` appears as a 404/resource failure in the records; the runner reports it separately from JavaScript errors and rejects any other failed resource. No production component/API/CSS was changed. The intended public collision precedence still requires #429/#420 review.
+
 ## Owner decision and remaining work
 
 1. Keep product code unmodified in **audit-only PR #553**. The existing **#429** issue owns the SVG sizing correction, image/decorative icon ARIA default, safe custom SVG handling, and final public Color variant decision. Do not create duplicate product issues or advance its **Backlog** status without design-first Ready prerequisites.
 2. Agree the wrapper/SVG sizing contract with #420 and an editable **Bluent v3 Penpot** component design. Test explicit vs implicit sizes, icon-only Buttons, labels, modern Fluent SVG icon assets, 16/20/24/28 sizes, RTL direction, dark tokens, Forced Colors and 320px.
-3. Native NVDA/JAWS/VoiceOver/TalkBack, real Windows Contrast Themes, **published InteractiveServer**, same-state Fluent reference screenshot parity, and the official upstream exact icon-package snapshot are **not** verified by this step. Avoid counting this as #429 Done, Fluent visual parity, a native AT pass, or an approved Color API.
+3. This added route verifies only Icon root-attribute collision behavior in published InteractiveServer; it does not cover the full `/components/icons` page or all server interactions. Native NVDA/JAWS/VoiceOver/TalkBack, real Windows Contrast Themes, same-state Fluent reference screenshot parity, and other render-mode behavior remain unverified by this step. Avoid counting it as #429 Done, Fluent visual parity, a native AT pass, or an approved Color API.
 4. The source-only [Icon variant audit](FLUENT-PARITY-ICON-VARIANTS.md) remains separate from this **live browser** evidence. `python -m unittest discover -s scripts/quality -p test_v3_icon_browser_evidence.py -v` only guards recorded observations and source provenance; CI does **not** launch browsers.
 
 **Status:** #552 In progress · PR #553 Draft · #429 product owner Backlog · no edits to stable `Dev` or released 2.x packages.

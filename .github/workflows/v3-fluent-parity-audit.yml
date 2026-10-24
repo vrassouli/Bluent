@@ -66,6 +66,10 @@ on:
       - "scripts/quality/test_v3_p0_source_evidence.py"
       - "scripts/quality/test_v3_icon_variant_source.py"
       - "scripts/quality/probe_v3_icon_browser.mjs"
+      - "scripts/quality/probe_v3_icon_attribute_collisions.mjs"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/IconAttributeProbe.razor"
+      - "src/Bluent.UI.Demo.Interactive.Client/Pages/IconAttributeProbeServer.razor"
+      - "scripts/quality/test_v3_icon_attribute_collisions_evidence.py"
       - "scripts/quality/test_v3_icon_browser_evidence.py"
       - "scripts/quality/test_v3_icon_svg_candidate.py"
       - "scripts/quality/probe_v3_button_icon_alignment.mjs"
@@ -185,6 +189,7 @@ jobs:
           python -m unittest discover -s scripts/quality -p "test_v3_p0_button_keyboard_evidence.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_icon_variant_source.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_icon_browser_evidence.py" -v
+          python -m unittest discover -s scripts/quality -p "test_v3_icon_attribute_collisions_evidence.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_icon_svg_candidate.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_button_icon_browser_evidence.py" -v
           python -m unittest discover -s scripts/quality -p "test_v3_button_toggle_states_evidence.py" -v
