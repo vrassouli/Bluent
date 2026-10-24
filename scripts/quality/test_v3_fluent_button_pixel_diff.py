@@ -29,8 +29,8 @@ class FluentButtonPixelDiffEvidence(unittest.TestCase):
     def test_surface_color_and_foreground_mask_are_reported_separately(self):
         ledger, _images = pixel_diff.build()
         expected = {
-            "LIGHT-LTR": ((15, 108, 189), (18, 103, 180), (3, 5, 9), 314, 383, 0.4431),
-            "DARK-RTL": ((17, 94, 163), (24, 89, 155), (7, 5, 8), 333, 407, 0.4949),
+            "LIGHT-LTR": ((15, 108, 189), (18, 103, 180), (3, 5, 9), 314, 314, 1.0),
+            "DARK-RTL": ((17, 94, 163), (24, 89, 155), (7, 5, 8), 333, 334, 0.9970),
         }
         for row in ledger["comparisons"]:
             official, bluent, delta, official_count, bluent_count, iou = expected[row["mode"]]
@@ -43,27 +43,33 @@ class FluentButtonPixelDiffEvidence(unittest.TestCase):
             self.assertAlmostEqual(iou, mask["intersectionOverUnion"], places=4)
             self.assertTrue(mask["thresholdIsExploratoryNotAcceptance"])
 
-    def test_live_computed_font_stack_explains_text_width_delta(self):
+    def test_release_canvas_glyph_metrics_match_and_debug_override_is_separate(self):
         typography = json.loads(pixel_diff.TYPOGRAPHY_JSON.read_text(encoding="utf-8-sig"))
         self.assertEqual("b9952aa93e89fd569de54080a7fdd06037b53a41", typography["bluent"]["sourceRef"])
         for mode, row in typography["modes"].items():
             official = row["official"]
-            bluent = row["bluent"]
-            self.assertIn("Segoe UI", official["computedStyle"]["fontFamily"])
-            self.assertEqual("Tahoma", bluent["computedStyle"]["fontFamily"])
-            self.assertTrue(row["comparison"]["fontFamilyDiffers"])
+            release = row["bluentRelease"]
+            debug = row["bluentDebugOverride"]
+            self.assertEqual(official["computedStyle"]["fontFamily"], release["computedStyle"]["fontFamily"])
+            self.assertTrue(row["comparison"]["computedFontFamilyMatches"])
             for field in ("fontSize", "fontWeight", "lineHeight"):
                 self.assertTrue(row["comparison"][f"{field}Matches"], (mode, field))
-                self.assertEqual(official["computedStyle"][field], bluent["computedStyle"][field])
+                self.assertEqual(official["computedStyle"][field], release["computedStyle"][field])
             self.assertTrue(row["comparison"]["horizontalPaddingMatches"])
-            self.assertAlmostEqual(12.28, row["comparison"]["textRangeWidthDeltaCssPx"], places=2)
-            for side in (official, bluent):
+            self.assertEqual(official["canvasTextMetrics"]["advanceWidth"], release["canvasTextMetrics"]["advanceWidth"])
+            self.assertEqual(57.72, row["comparison"]["canvasTextAdvanceWidthCssPx"]["official"])
+            self.assertEqual(57.72, row["comparison"]["canvasTextAdvanceWidthCssPx"]["bluentRelease"])
+            self.assertEqual(0.0, row["comparison"]["canvasTextAdvanceWidthCssPx"]["bluentMinusOfficial"])
+            self.assertEqual("Tahoma", debug["computedStyle"]["fontFamily"])
+            self.assertEqual(63.23, debug["canvasTextMetrics"]["advanceWidth"])
+            for side in (official, release, debug):
                 crop = pixel_diff.EVIDENCE / side["file"]
                 self.assertEqual(side["sha256"], pixel_diff.sha256(crop.read_bytes()))
         ledger, _ = pixel_diff.build()
         for metric in ledger["comparisons"]:
-            self.assertTrue(metric["computedTypographyEvidence"]["fontFamilyDiffers"])
-            self.assertEqual(12.28, metric["computedTypographyEvidence"]["textRectWidthCssPx"]["bluentMinusOfficial"])
+            self.assertFalse(metric["computedTypographyEvidence"]["fontFamilyDiffers"])
+            self.assertEqual(0.0, metric["computedTypographyEvidence"]["canvasTextAdvanceWidthCssPx"]["bluentMinusOfficial"])
+            self.assertEqual(63.23, metric["computedTypographyEvidence"]["debugHostOverride"]["canvasTextAdvanceWidthCssPx"])
 
     def test_report_is_explicitly_diagnostic_not_parity_acceptance(self):
         ledger, _images = pixel_diff.build()

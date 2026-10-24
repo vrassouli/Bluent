@@ -26,7 +26,7 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 | Family | Editable design artifact | Light/LTR | Dark/RTL | Forced colors | Focus | Hover | Disabled | Pressed/selected | Narrow/zoom proxy | Visual gap |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | A narrow primary-Button host-crop pixel diagnostic and live computed-style evidence exist for Light/LTR and Dark/RTL: Fluent reports a Segoe UI/Web font stack while Bluent reports Tahoma, and the text Range is 57.72px vs 70px in equal 96px hosts. This is a recorded rendering difference; approved state-by-state Fluent/Penpot comparison and design-owner sign-off remain open. |
+| Button | draft page(s) | yes | yes | yes | yes | yes | no | yes | yes | A narrow primary-Button Release-host crop and live style/canvas metrics exist for Light/LTR and Dark/RTL: computed font stacks and 57.72px canvas glyph advance match; own-fill foreground masks align (IoU 1.000 / 0.997), while measured surface RGB differs. Debug-only Tahoma override crops are tracked separately. Confirm surface-token intent against approved Penpot and obtain design-owner sign-off. |
 | Icon | review board, incomplete variants | yes | yes | yes | no | no | no | yes | yes | An editable Icon review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded. |
 | Label | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 | Link | no dedicated family asset | yes | yes | yes | yes | no | yes | no | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
@@ -49,9 +49,9 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Button (#428)
 
-**Visual gap:** A narrow primary-Button host-crop pixel diagnostic and live computed-style evidence exist for Light/LTR and Dark/RTL: Fluent reports a Segoe UI/Web font stack while Bluent reports Tahoma, and the text Range is 57.72px vs 70px in equal 96px hosts. This is a recorded rendering difference; approved state-by-state Fluent/Penpot comparison and design-owner sign-off remain open.
+**Visual gap:** A narrow primary-Button Release-host crop and live style/canvas metrics exist for Light/LTR and Dark/RTL: computed font stacks and 57.72px canvas glyph advance match; own-fill foreground masks align (IoU 1.000 / 0.997), while measured surface RGB differs. Debug-only Tahoma override crops are tracked separately. Confirm surface-token intent against approved Penpot and obtain design-owner sign-off.
 
-**Follow-up:** Review the primary-Button crop and live computed typography evidence against the approved Penpot appearance/state design, decide the intended font-stack mapping with owner #428, document font/token/geometry differences, and obtain design-owner approval; evidence covers only two visual modes.
+**Follow-up:** Review the Release primary-Button crop/color metrics against the approved Penpot appearance/state design, decide the intended surface-token values with owner #428, document remaining color/geometry differences, and obtain design-owner approval; evidence covers only two visual modes.
 
 **Style sources:** [_button.scss](../../../src/Bluent.UI/Styles/Components/_button.scss)
 

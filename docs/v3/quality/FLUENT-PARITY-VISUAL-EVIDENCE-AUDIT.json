@@ -9,7 +9,7 @@
   "parityAccepted": false,
   "noneApproved": true,
   "penpotSnapshot": "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json",
-  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. A narrow same-size primary-Button host-crop pixel diagnostic and live computed font-stack/text-width measurements exist for Light/LTR and Dark/RTL; no complete family/state-by-state pixel-diff or full side-by-side design comparison was performed. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. Dated Icon, Slider and RangeSlider review-board addenda update design traceability only; they add no matched browser/Fluent parity evidence.",
+  "runtimeScope": "Existing screenshot/browser evidence is inventoried for all families. Light/LTR and Dark/RTL evidence is linked for all 18; narrow/zoom proxy coverage is limited to a subset. A narrow same-size primary-Button Release-host crop, surface-color diff, and live computed-style/canvas glyph-advance measurements exist for Light/LTR and Dark/RTL; foreground masks align closely, but no complete family/state-by-state pixel-diff or full side-by-side design comparison was performed. Debug-only Tahoma override evidence is not used as the parity baseline. The zoom-200 scenario is a reflow proxy, not native browser UI zoom. Native OS high-contrast and assistive-technology acceptance are not represented. Dated Icon, Slider and RangeSlider review-board addenda update design traceability only; they add no matched browser/Fluent parity evidence.",
   "coverageSummary": {
     "lightLtr": 18,
     "darkRtl": 18,
@@ -71,8 +71,8 @@
         "src/Bluent.UI/Components/ButtonComponent/Button.razor",
         "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       ],
-      "visualGap": "A narrow primary-Button host-crop pixel diagnostic and live computed-style evidence exist for Light/LTR and Dark/RTL: Fluent reports a Segoe UI/Web font stack while Bluent reports Tahoma, and the text Range is 57.72px vs 70px in equal 96px hosts. This is a recorded rendering difference; approved state-by-state Fluent/Penpot comparison and design-owner sign-off remain open.",
-      "followUp": "Review the primary-Button crop and live computed typography evidence against the approved Penpot appearance/state design, decide the intended font-stack mapping with owner #428, document font/token/geometry differences, and obtain design-owner approval; evidence covers only two visual modes.",
+      "visualGap": "A narrow primary-Button Release-host crop and live style/canvas metrics exist for Light/LTR and Dark/RTL: computed font stacks and 57.72px canvas glyph advance match; own-fill foreground masks align (IoU 1.000 / 0.997), while measured surface RGB differs. Debug-only Tahoma override crops are tracked separately. Confirm surface-token intent against approved Penpot and obtain design-owner sign-off.",
+      "followUp": "Review the Release primary-Button crop/color metrics against the approved Penpot appearance/state design, decide the intended surface-token values with owner #428, document remaining color/geometry differences, and obtain design-owner approval; evidence covers only two visual modes.",
       "browserEvidence": [
         {
           "file": "evidence/BLUENT-BUTTON-STATE-CHROME.json",

@@ -165,13 +165,13 @@ def build():
         style_mode = typography.get("modes", {}).get(mode)
         if not style_mode:
             raise ValueError(f"Missing computed-style evidence for mode {mode}")
-        if style_mode["official"].get("sha256") != official_hash or style_mode["bluent"].get("sha256") != bluent_hash:
+        if style_mode["official"].get("sha256") != official_hash or style_mode["bluentRelease"].get("sha256") != bluent_hash:
             raise ValueError(f"{mode}: typography capture hashes do not match the pixel-diff input crops")
         style_comparison = style_mode["comparison"]
         official_style = style_mode["official"]["computedStyle"]
-        bluent_style = style_mode["bluent"]["computedStyle"]
-        official_text_width = style_mode["official"]["textRectRelativeToHost"]["width"]
-        bluent_text_width = style_mode["bluent"]["textRectRelativeToHost"]["width"]
+        bluent_style = style_mode["bluentRelease"]["computedStyle"]
+        official_text_width = style_mode["official"]["canvasTextMetrics"]["advanceWidth"]
+        bluent_text_width = style_mode["bluentRelease"]["canvasTextMetrics"]["advanceWidth"]
         official_surface = tuple(official_rgb[(16 * 96 + 48) * 3:(16 * 96 + 48) * 3 + 3])
         bluent_surface = tuple(bluent_rgb[(16 * 96 + 48) * 3:(16 * 96 + 48) * 3 + 3])
         official_mask, official_mask_bbox = foreground_mask(official_rgb, official_surface)
@@ -213,12 +213,14 @@ def build():
                 "sourceFile": TYPOGRAPHY_JSON.name,
                 "officialFontFamily": official_style["fontFamily"],
                 "bluentFontFamily": bluent_style["fontFamily"],
-                "fontFamilyDiffers": style_comparison["fontFamilyDiffers"],
+                "fontFamilyMatches": style_comparison["computedFontFamilyMatches"],
+                "fontFamilyDiffers": not style_comparison["computedFontFamilyMatches"],
                 "fontSize": {"official": official_style["fontSize"], "bluent": bluent_style["fontSize"], "matches": style_comparison["fontSizeMatches"]},
                 "fontWeight": {"official": official_style["fontWeight"], "bluent": bluent_style["fontWeight"], "matches": style_comparison["fontWeightMatches"]},
                 "lineHeight": {"official": official_style["lineHeight"], "bluent": bluent_style["lineHeight"], "matches": style_comparison["lineHeightMatches"]},
                 "inlinePaddingMatches": style_comparison["horizontalPaddingMatches"],
-                "textRectWidthCssPx": {"official": official_text_width, "bluent": bluent_text_width, "bluentMinusOfficial": style_comparison["textRangeWidthDeltaCssPx"]},
+                "canvasTextAdvanceWidthCssPx": {"official": official_text_width, "bluentRelease": bluent_text_width, "bluentMinusOfficial": style_comparison["canvasTextAdvanceWidthCssPx"]["bluentMinusOfficial"]},
+                "debugHostOverride": {"fontFamily": style_mode["bluentDebugOverride"]["computedStyle"]["fontFamily"], "canvasTextAdvanceWidthCssPx": style_mode["bluentDebugOverride"]["canvasTextMetrics"]["advanceWidth"]},
             },
             "foregroundMask": {
                 "purpose": "diagnostic high-contrast glyph/content silhouette after factoring out each surface fill color",
@@ -250,7 +252,7 @@ def build():
         "comparisons": comparisons,
         "status": "diagnostic_pixel_difference_not_parity_approval",
         "parityAccepted": False,
-        "acceptanceLimitations": ["This does not align Fluent/Bluent token systems, font rendering, internal markup, or the approved Penpot design.", "Changed-pixel ratio counts any nonzero surface-fill channel difference and is not a perceptual quality score or pass threshold.", "Foreground-mask results depend on an exploratory max-channel threshold; they describe only a crop silhouette, not optical/typographic acceptance.", "Only the primary Button in two visual modes is covered; other Button appearances/states and other 17 families are not.", "The crop excludes outside focus/box-shadow pixels and the application scaffolding.", "No native OS high-contrast or assistive-technology acceptance is implied."],
+        "acceptanceLimitations": ["The Release host computed font stack and canvas text advance match this Fluent run, but that does not prove full visual parity across platforms or states; the Debug host has a separately recorded Tahoma override.", "The comparison does not align Fluent/Bluent brand token systems, internal markup, or the approved Penpot design.", "Changed-pixel ratio counts any nonzero surface-fill channel difference and is not a perceptual quality score or pass threshold.", "Foreground-mask results depend on an exploratory max-channel threshold; they describe only a crop silhouette, not optical/typographic acceptance.", "Only the primary Button in two visual modes is covered; other Button appearances/states and other 17 families are not.", "The crop excludes outside focus/box-shadow pixels and the application scaffolding.", "No native OS high-contrast or assistive-technology acceptance is implied."],
     }
     return ledger, images
 

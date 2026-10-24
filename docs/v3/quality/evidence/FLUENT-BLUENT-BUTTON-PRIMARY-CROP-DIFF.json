@@ -49,12 +49,12 @@
       "differenceImage": "FLUENT-BLUENT-BUTTON-LIGHT-LTR-PRIMARY-CROP-DIFF-CHROME.png",
       "width": 96,
       "height": 32,
-      "changedPixels": 3066,
+      "changedPixels": 2963,
       "totalPixels": 3072,
-      "changedPixelRatio": 0.998046875,
-      "meanAbsoluteChannelDifference": 18.824327256944443,
-      "p95PerPixelMaxChannelDifference": 225,
-      "maxObservedChannelDifference": 240,
+      "changedPixelRatio": 0.9645182291666666,
+      "meanAbsoluteChannelDifference": 5.211371527777778,
+      "p95PerPixelMaxChannelDifference": 9,
+      "maxObservedChannelDifference": 9,
       "surfaceColor": {
         "samplePoint": {
           "x": 48,
@@ -79,8 +79,9 @@
       "computedTypographyEvidence": {
         "sourceFile": "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
         "officialFontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
-        "bluentFontFamily": "Tahoma",
-        "fontFamilyDiffers": true,
+        "bluentFontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
+        "fontFamilyMatches": true,
+        "fontFamilyDiffers": false,
         "fontSize": {
           "official": "14px",
           "bluent": "14px",
@@ -97,10 +98,14 @@
           "matches": true
         },
         "inlinePaddingMatches": true,
-        "textRectWidthCssPx": {
+        "canvasTextAdvanceWidthCssPx": {
           "official": 57.72,
-          "bluent": 70,
-          "bluentMinusOfficial": 12.28
+          "bluentRelease": 57.72,
+          "bluentMinusOfficial": 0.0
+        },
+        "debugHostOverride": {
+          "fontFamily": "Tahoma",
+          "canvasTextAdvanceWidthCssPx": 63.23
         }
       },
       "foregroundMask": {
@@ -113,10 +118,10 @@
           "bottom": 25
         },
         "officialPixelCount": 314,
-        "bluentPixelCount": 383,
-        "intersectionPixels": 214,
-        "unionPixels": 483,
-        "intersectionOverUnion": 0.44306418219461696,
+        "bluentPixelCount": 314,
+        "intersectionPixels": 314,
+        "unionPixels": 314,
+        "intersectionOverUnion": 1.0,
         "officialBoundingBox": {
           "left": 20,
           "top": 11,
@@ -126,18 +131,18 @@
           "height": 10
         },
         "bluentBoundingBox": {
-          "left": 17,
-          "top": 10,
-          "right": 79,
+          "left": 20,
+          "top": 11,
+          "right": 76,
           "bottom": 20,
-          "width": 63,
-          "height": 11
+          "width": 57,
+          "height": 10
         },
         "thresholdIsExploratoryNotAcceptance": true
       },
       "officialSHA256": "0dccef0ebb842269ba8345d1bf0489fa1e3bb8f234227f4d9b32d033a87136a5",
-      "bluentSHA256": "4cb34aea486463dabbca1b9e58e2df0c760ef98dd9c74d851c820786cddce45b",
-      "differenceImageSHA256": "f2eb13ca4cb07ca74c448ed43a34b423047dd22d768122a51351552305b59cd8"
+      "bluentSHA256": "d352965f4380b11706b74a3198c6c917eedc7a0e2e714df3c6e313eb1029da9f",
+      "differenceImageSHA256": "a29748542a9370b00d708d951d24169dd4a9f211c9a8743ce6a45af6a350cba5"
     },
     {
       "mode": "DARK-RTL",
@@ -146,12 +151,12 @@
       "differenceImage": "FLUENT-BLUENT-BUTTON-DARK-RTL-PRIMARY-CROP-DIFF-CHROME.png",
       "width": 96,
       "height": 32,
-      "changedPixels": 3066,
+      "changedPixels": 3022,
       "totalPixels": 3072,
-      "changedPixelRatio": 0.998046875,
-      "meanAbsoluteChannelDifference": 20.79155815972222,
-      "p95PerPixelMaxChannelDifference": 223,
-      "maxObservedChannelDifference": 238,
+      "changedPixelRatio": 0.9837239583333334,
+      "meanAbsoluteChannelDifference": 6.154513888888889,
+      "p95PerPixelMaxChannelDifference": 8,
+      "maxObservedChannelDifference": 10,
       "surfaceColor": {
         "samplePoint": {
           "x": 48,
@@ -176,8 +181,9 @@
       "computedTypographyEvidence": {
         "sourceFile": "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
         "officialFontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
-        "bluentFontFamily": "Tahoma",
-        "fontFamilyDiffers": true,
+        "bluentFontFamily": "\"Segoe UI\", \"Segoe UI Web (West European)\", -apple-system, BlinkMacSystemFont, Roboto, \"Helvetica Neue\", sans-serif",
+        "fontFamilyMatches": true,
+        "fontFamilyDiffers": false,
         "fontSize": {
           "official": "14px",
           "bluent": "14px",
@@ -194,10 +200,14 @@
           "matches": true
         },
         "inlinePaddingMatches": true,
-        "textRectWidthCssPx": {
+        "canvasTextAdvanceWidthCssPx": {
           "official": 57.72,
-          "bluent": 70,
-          "bluentMinusOfficial": 12.28
+          "bluentRelease": 57.72,
+          "bluentMinusOfficial": 0.0
+        },
+        "debugHostOverride": {
+          "fontFamily": "Tahoma",
+          "canvasTextAdvanceWidthCssPx": 63.23
         }
       },
       "foregroundMask": {
@@ -210,10 +220,10 @@
           "bottom": 25
         },
         "officialPixelCount": 333,
-        "bluentPixelCount": 407,
-        "intersectionPixels": 245,
-        "unionPixels": 495,
-        "intersectionOverUnion": 0.494949494949495,
+        "bluentPixelCount": 334,
+        "intersectionPixels": 333,
+        "unionPixels": 334,
+        "intersectionOverUnion": 0.9970059880239521,
         "officialBoundingBox": {
           "left": 19,
           "top": 11,
@@ -223,24 +233,25 @@
           "height": 10
         },
         "bluentBoundingBox": {
-          "left": 16,
-          "top": 10,
-          "right": 79,
+          "left": 19,
+          "top": 11,
+          "right": 76,
           "bottom": 20,
-          "width": 64,
-          "height": 11
+          "width": 58,
+          "height": 10
         },
         "thresholdIsExploratoryNotAcceptance": true
       },
       "officialSHA256": "c6e10d550f83b66763464f4b428b4753578d21665cb7ea8575ae38968f6f1444",
-      "bluentSHA256": "c366117dfe112b62b45bca88edd4c205ff36925bcb807c7f7b1224a72ead722a",
-      "differenceImageSHA256": "98fa32f682520d6c39a689fcb7935dd64cb44592ad79095dd8fd8281cea738af"
+      "bluentSHA256": "075da985eb88bdaa338867654a1e820b1958fc01d92861eb50c7288d9ba386a4",
+      "differenceImageSHA256": "a55e0d5255d1e76921bc4c4a905fc3af5e4cc6c93a9ae34f454b15267fb02d32"
     }
   ],
   "status": "diagnostic_pixel_difference_not_parity_approval",
   "parityAccepted": false,
   "acceptanceLimitations": [
-    "This does not align Fluent/Bluent token systems, font rendering, internal markup, or the approved Penpot design.",
+    "The Release host computed font stack and canvas text advance match this Fluent run, but that does not prove full visual parity across platforms or states; the Debug host has a separately recorded Tahoma override.",
+    "The comparison does not align Fluent/Bluent brand token systems, internal markup, or the approved Penpot design.",
     "Changed-pixel ratio counts any nonzero surface-fill channel difference and is not a perceptual quality score or pass threshold.",
     "Foreground-mask results depend on an exploratory max-channel threshold; they describe only a crop silhouette, not optical/typographic acceptance.",
     "Only the primary Button in two visual modes is covered; other Button appearances/states and other 17 families are not.",

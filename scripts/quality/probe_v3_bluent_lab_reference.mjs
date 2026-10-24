@@ -5,14 +5,16 @@
 import {spawn} from 'node:child_process';
 import {mkdtemp,readFile,writeFile,mkdir,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
-import {resolve,join} from 'node:path';
+import {resolve,join,dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {createServer} from 'node:net';
 import {setTimeout as wait} from 'node:timers/promises';
 const sourceRoot=resolve(process.argv[2]||'C:/Projects/Bluent-issue421');
+const qaRoot=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const evidenceRoot=resolve(process.argv[3]||'docs/v3/quality/evidence');
 const scenario=process.argv[4]||'baseline';
 const hostingMode=process.argv[5]||'WebAssembly';
-if(!['WebAssembly','Server'].includes(hostingMode))throw Error('Unknown browser hosting mode '+hostingMode);
+if(!['WebAssembly','WebAssemblyRelease','Server'].includes(hostingMode))throw Error('Unknown browser hosting mode '+hostingMode);
 const publishedRoot=process.env.BLUENT_V3_552_PUBLISHED_DIR||'';
 if(hostingMode==='Server'&&!publishedRoot)throw Error('Server mode requires isolated published root from wrapper');
 if(!['baseline','light-ltr','dark-rtl','dark-ltr','forced-colors','zoom-200','ax-keyboard','file-upload','pointer-scroll','button-keyboard'].includes(scenario))throw Error('Unsupported Bluent scenario '+scenario);
@@ -28,9 +30,12 @@ const add=(label,ok,details)=>{checks.push({label,pass:!!ok,details});console.lo
 try{
  const p=await port(),url='http://127.0.0.1:'+p;
  const project=join(sourceRoot,'src/Bluent.UI.Demo/Bluent.UI.Demo.csproj');
- const route=hostingMode==='Server'?'/compatibility/component-lab-server':'/component-lab';
+ const route=hostingMode==='Server'?'/compatibility/component-lab-server':hostingMode==='WebAssemblyRelease'?'/Bluent/component-lab':'/component-lab';
  if(hostingMode==='Server'){
    host=spawn('dotnet',[join(publishedRoot,'Bluent.UI.Demo.SSR.dll'),'--urls',url],{cwd:publishedRoot,stdio:'ignore',windowsHide:true,env:{...process.env,ASPNETCORE_ENVIRONMENT:'Production'}});
+ }else if(hostingMode==='WebAssemblyRelease'){
+   const releaseRoot=process.env.BLUENT_V3_552_WASM_RELEASE_ROOT||join(sourceRoot,'src/Bluent.UI.Demo/bin/Release/net10.0/wwwroot');
+   host=spawn(process.execPath,[join(qaRoot,'scripts/quality/serve_v3_bluent_release.mjs'),releaseRoot,url],{cwd:qaRoot,stdio:'ignore',windowsHide:true});
  }else{
    host=spawn('dotnet',['run','--project',project,'-c','Debug','--no-build','--no-launch-profile','--urls',url],{cwd:sourceRoot,stdio:'ignore',windowsHide:true});
  }
@@ -70,15 +75,21 @@ try{
   ['FileSelect',444,'#lab-file-multi']
  ]){
   if(hostingMode==='Server'&&family!=='FileSelect'&&scenario!=='pointer-scroll'&&scenario!=='button-keyboard')continue;
+  if(hostingMode==='WebAssemblyRelease'&&family!=='Button')continue;
   if(scenario==='pointer-scroll' && family!=='Slider' && family!=='RangeSlider')continue;
   if(scenario==='button-keyboard' && family!=='Button')continue;
   console.log('BLUENT FAMILY '+family+' host='+hostingMode+' at queue filter');
-  await js(`(()=>{const el=document.getElementById('lab-queue-search');if(!el)throw Error('Missing Lab queue search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'${issue}');el.dispatchEvent(new Event('input',{bubbles:true}));})()`);
-  await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),hostingMode==='Server'?35000:15000);
-  console.log('BLUENT FAMILY '+family+' filtered');
-  await js("document.querySelector('.lab-queue-row button').click()");
-  await poll(()=>js("!!document.querySelector("+JSON.stringify(selector)+")"),hostingMode==='Server'?35000:16000);
-  console.log('BLUENT FAMILY '+family+' real specimen selected');
+  if(hostingMode==='WebAssemblyRelease'){
+    const current=await js(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});return {found:!!e,selectedCatalogItem:document.querySelector('.lab-family.selected')?.innerText||null,queueRowCount:document.querySelectorAll('.lab-queue-row').length}})()`);
+    add('Release host contains the actual default-selected Button specimen',family==='Button'&&current.found,current);
+  }else{
+    await js(`(()=>{const el=document.getElementById('lab-queue-search');if(!el)throw Error('Missing Lab queue search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'${issue}');el.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+    await poll(()=>js("document.querySelectorAll('.lab-queue-row').length===1&&!!document.querySelector('.lab-queue-row button')"),hostingMode==='Server'?35000:15000);
+    console.log('BLUENT FAMILY '+family+' filtered');
+    await js("document.querySelector('.lab-queue-row button').click()");
+    await poll(()=>js("!!document.querySelector("+JSON.stringify(selector)+")"),hostingMode==='Server'?35000:16000);
+    console.log('BLUENT FAMILY '+family+' real specimen selected');
+  }
   const detail=await js(`(()=>{
    const e=document.querySelector(${JSON.stringify(selector)}),canvas=e.closest('.lab-canvas');
    if('${scenario}'!=='baseline'){
@@ -101,8 +112,9 @@ try{
     const cropMeta = await js(`(()=>{
       const e=document.querySelector('.lab-canvas .bui-button'),h=e.getBoundingClientRect(),cs=getComputedStyle(e);
       const range=document.createRange();range.selectNodeContents(e);const tr=range.getBoundingClientRect();
+      const label=e.innerText.trim(),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');ctx.font=cs.font;const tm=ctx.measureText(label);
       const round=v=>Math.round(v*100)/100;
-      return {x:h.x,y:h.y,width:h.width,height:h.height,text:e.innerText.trim(),theme:document.documentElement.getAttribute('data-bui-theme'),dir:document.documentElement.dir,hostTag:e.tagName,textRect:{left:round(tr.left-h.left),top:round(tr.top-h.top),width:round(tr.width),height:round(tr.height)},computedStyle:{fontFamily:cs.fontFamily,fontSize:cs.fontSize,fontWeight:cs.fontWeight,lineHeight:cs.lineHeight,letterSpacing:cs.letterSpacing,color:cs.color,backgroundColor:cs.backgroundColor,paddingInlineStart:cs.paddingInlineStart,paddingInlineEnd:cs.paddingInlineEnd,display:cs.display,boxSizing:cs.boxSizing,whiteSpace:cs.whiteSpace,textTransform:cs.textTransform,textAlign:cs.textAlign}};
+      return {x:h.x,y:h.y,width:h.width,height:h.height,text:label,theme:document.documentElement.getAttribute('data-bui-theme'),dir:document.documentElement.dir,hostTag:e.tagName,textNodeRangeRect:{left:round(tr.left-h.left),top:round(tr.top-h.top),width:round(tr.width),height:round(tr.height),note:'Range rectangle may reflect a stretched anonymous flex item; do not interpret width as glyph advance.'},canvasTextMetrics:{font:ctx.font,advanceWidth:round(tm.width),actualBoundingBoxLeft:round(tm.actualBoundingBoxLeft),actualBoundingBoxRight:round(tm.actualBoundingBoxRight),actualBoundingBoxAscent:round(tm.actualBoundingBoxAscent),actualBoundingBoxDescent:round(tm.actualBoundingBoxDescent),fontBoundingBoxAscent:round(tm.fontBoundingBoxAscent),fontBoundingBoxDescent:round(tm.fontBoundingBoxDescent)},computedStyle:{fontFamily:cs.fontFamily,fontSize:cs.fontSize,fontWeight:cs.fontWeight,lineHeight:cs.lineHeight,letterSpacing:cs.letterSpacing,color:cs.color,backgroundColor:cs.backgroundColor,paddingInlineStart:cs.paddingInlineStart,paddingInlineEnd:cs.paddingInlineEnd,display:cs.display,boxSizing:cs.boxSizing,whiteSpace:cs.whiteSpace,textTransform:cs.textTransform,textAlign:cs.textAlign}};
     })()`);
     add('Primary Button crop is normalized 96x32 with Continue label',Math.abs(cropMeta.width-96)<0.1 && Math.abs(cropMeta.height-32)<0.1 && cropMeta.text==='Continue' && cropMeta.theme===(scenario.startsWith('dark')?'dark':'light') && cropMeta.dir===(scenario.endsWith('rtl')?'rtl':'ltr'),cropMeta);
     const cropCapture = await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface:true,clip:{x:Math.round(cropMeta.x),y:Math.round(cropMeta.y),width:96,height:32,scale:1}});
@@ -309,7 +321,7 @@ try{
   measurements.push(detail);
  }
  const evidence={auditIssue:552,hostingMode,sourceBranch:'v3/issue-421-component-lab',sourceRef:'b9952aa93e89fd569de54080a7fdd06037b53a41',
- mode:hostingMode==='Server'?'real Chrome published Production Blazor InteractiveServer':'real Chrome Blazor WebAssembly Debug Lab',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
+ mode:hostingMode==='Server'?'real Chrome published Production Blazor InteractiveServer':hostingMode==='WebAssemblyRelease'?'real Chrome Blazor WebAssembly Release Lab using index.Release.html under /Bluent base path':'real Chrome Blazor WebAssembly Debug Lab (index.Debug.html includes a Tahoma font token override)',scenario,status:'Bluent_current_source_visual_baseline_NOT_fluent_parity',
  viewport:size,accessibilityMode,normalizedInScenario:scenario==='baseline'?null:{buttonWidth:96,sliderWidth:scenario==='zoom-200'?'natural intrinsic responsive width':'forced 260px',rtl:scenario.endsWith('rtl'),theme:scenario.startsWith('dark')?'dark':'light',claim:scenario==='ax-keyboard'?'Chrome AX tree plus real key event and runtime-only CSS candidate; NOT OS/AT or design signoff':scenario==='zoom-200'?'620 CSSpx DPR2 reflow proxy with natural Slider width, no native browser zoom or parity':scenario==='forced-colors'?'Real Chromium forced-colors CSS emulation only, no native OS HC or parity':'same nominal width and theme mode only; independent layouts, no pixel parity'},generatedAt:new Date().toISOString(),checks,measurements};
  await writeFile(join(evidenceRoot,'BLUENT-LAB-P0'+(scenario==='baseline'?'':'-'+scenario.toUpperCase())+(hostingMode==='Server'?'-SERVER':'')+'-CHROME.json'),JSON.stringify(evidence,null,2)+'\n');
  console.log('BLUENT SUMMARY '+JSON.stringify({checks:checks.length,screenshots:measurements.map(x=>x.image)}));
