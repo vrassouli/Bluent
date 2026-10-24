@@ -70,7 +70,7 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         component = read("src/Bluent.UI/Components/IconComponent/Icon.cs")
         definition = read("src/Bluent.UI/Icons/IconDefinition.cs")
         source = read("src/Bluent.UI/Icons/IconSource.cs")
-        css = read("src/Bluent.UI/wwwroot/bluent.ui.components.css")
+        css = read("src/Bluent.UI/wwwroot/bluent.ui.components.min.css")
         svg_branch = component.split("case IconSourceKind.Svg:", 1)[1].split("case IconSourceKind.Image:", 1)[0]
 
         self.assertIn('builder.OpenElement(0, "span")', svg_branch)
