@@ -366,12 +366,15 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
-      "notesForReview": "Native hyperlink vs action semantics, keyboard and disabled/unsafe URL handling.",
+      "notesForReview": "Native hyperlink-vs-action semantics; disabled/unsafe URL handling and keyboard behavior. Published Production InteractiveServer Chrome/Edge evidence reproduces a real pointer click invoking OnClick despite disabled and sequential Tab skipping that anchor (2026-10-24); Enter/Space on the anchor and native AT remain untested.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FOCUS-TABLIST-PANELS-LINKS-DISABLED.md",
         "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
-        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json",
+        "docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md",
+        "docs/v3/quality/evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME.json",
+        "docs/v3/quality/evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE.json"
       ],
       "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md",
       "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",

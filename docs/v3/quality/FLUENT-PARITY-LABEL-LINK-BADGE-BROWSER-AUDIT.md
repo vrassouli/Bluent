@@ -43,6 +43,24 @@
 
 ## Acceptance boundary
 
-All 31 checks passing means the probe successfully captured these expected observations, including the three gap reproductions; it does **not** mean the components pass Fluent parity. Forced-colors and reduced-motion are emulated. Native screen readers, OS high contrast, real callback activation, full visual/state combinations and published InteractiveServer remain unverified. Keep `auditComplete=false`, `noneApproved=true`, all family `designApproval=pending` and all `evidenceBundle=null` until the full nine-dimension review and design gates are completed.
+All 31 checks passing means the probe successfully captured these expected observations, including the three gap reproductions; it does **not** mean the components pass Fluent parity. Forced-colors and reduced-motion are emulated. Native screen readers, native OS high contrast, keyboard activation behavior, complete visual/state combinations and Fluent parity acceptance remain unverified. A later published InteractiveServer follow-up is recorded below. Keep `auditComplete=false`, `noneApproved=true`, all family `designApproval=pending` and all `evidenceBundle=null` until the full nine-dimension review and design gates are completed.
 
 Related reports: [Label source/API audit](FLUENT-PARITY-LABEL-AUDIT.md) · [Link source/API audit](FLUENT-PARITY-LINK-AUDIT.md) · [Badge source/API audit](FLUENT-PARITY-BADGE-AUDIT.md) · [18-family retrospective matrix](FLUENT-PARITY-RETRO-AUDIT.md).
+
+## Published Production InteractiveServer follow-up (2026-10-24)
+
+The original WASM evidence is preserved above. An additional QA-only route was added in the published Bluent.UI.Demo.SSR host at /__quality/server-label-link-badge-probe with explicit @rendermode InteractiveServer. A real pointer click changed a Razor counter from 0 to 1 in each browser, proving this was an interactive published Server circuit rather than prerender-only HTML.
+
+- Chrome: 19/19 checks pass. Edge: 19/19 pass (38/38 combined).
+- Coverage: Light/LTR, Dark/RTL, CDP-emulated Forced Colors, and separately emulated prefers-reduced-motion: reduce; browser DOM, computed styles, Chromium accessibility-tree nodes and captured PNGs.
+- Newly reproduced Link behavior: a real pointer click on the Link component with disabled set still invokes its supplied OnClick callback. The server-side callback counter changed from 0 to 1 in both browsers. On that element, the observed DOM is an A with no href, a disabled attribute (which has no native disabled semantics on anchors), no aria-disabled, no explicit tabindex attribute, and a tabIndex property whose reported value is 0. A deterministic keyboard trace starting from the preceding Label Info button then presses Tab: focus moves directly to the server-interaction sentinel and skips the disabled Link in both browsers. Enter/Space were not sent to the Link because the browser did not move focus to it; native screen-reader behavior remains untested.
+- The other gaps remained consistent with the WASM run: Label's Info action inherits the surrounding label's name; the disabled Link has generic/empty-name AX semantics; and AnimateShadow continues its infinite 1.5s pulse while reduced-motion is emulated. The static +99 Badge remains a non-focusable generic div; that observation alone is not an asserted defect.
+
+| Evidence | Result |
+| --- | --- |
+| [Chrome InteractiveServer JSON](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME.json) | 19/19; includes pointer and keyboard-focus findings |
+| [Edge InteractiveServer JSON](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE.json) | 19/19; includes pointer and keyboard-focus findings |
+| Chrome screenshots | [Light/LTR](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME-LIGHT-LTR.png) · [Dark/RTL](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME-DARK-RTL.png) · [Forced Colors emulation](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME-FORCED-COLORS.png) · [Reduced Motion emulation](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME-REDUCED-MOTION.png) |
+| Edge screenshots | [Light/LTR](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-LIGHT-LTR.png) · [Dark/RTL](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-DARK-RTL.png) · [Forced Colors emulation](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-FORCED-COLORS.png) · [Reduced Motion emulation](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-REDUCED-MOTION.png) |
+
+All styling modes called Forced Colors and Reduced Motion above are browser emulation, not proof from the native OS accessibility stack. No product component source, public API or product CSS changed; the route and its callback counter are QA instrumentation only. Ownership remains #430 (Label), #431 (Link), and #445 (Badge); do not repair their product implementations in #552. The family dimensions stay audited_gaps, design approval stays pending, and evidenceBundle stays null.

@@ -1,0 +1,42 @@
+@page "/__quality/server-label-link-badge-probe"
+@rendermode InteractiveServer
+@namespace Bluent.UI.Demo.SSR.Components.Pages
+@using Bluent.UI.Components
+
+<div class="p-5" id="issue552-server-label-link-badge-probe">
+    <h1>Issue 552 · Label / Link / Badge InteractiveServer probe</h1>
+    <p>QA-only instrumentation route; not a product demo or parity acceptance artifact.</p>
+    <section id="probe-label-section">
+        <h3>Info</h3>
+        <Label Text="This is a label">
+            <Info>
+                This is example information for an InfoLabel.
+                <Link Text="Learn more" Href="https://fluent2.microsoft.design/components/web/react/accordion/usage" />
+            </Info>
+        </Label>
+    </section>
+    <section id="probe-link-section">
+        <h3>Disable</h3>
+        <Link Text="Disabled" disabled Href="#" OnClick="IncrementDisabledLinkCount" />
+        <span id="disabled-link-click-count">@disabledLinkClickCount</span>
+    </section>
+    <section id="probe-badge-section">
+        <h3>Badge animation</h3>
+        <Badge Text="+99" />
+        <Badge Color="BadgeColor.Brand" DropShadow AnimateShadow />
+    </section>
+    <section id="probe-server-interaction">
+        <h3>InteractiveServer round-trip sentinel</h3>
+        <button id="server-interaction-sentinel" type="button" @onclick="Increment">
+            Server interaction count: <span id="server-interaction-count">@clickCount</span>
+        </button>
+    </section>
+</div>
+
+@code {
+    private int clickCount;
+    private int disabledLinkClickCount;
+
+    private void Increment() => clickCount++;
+    private void IncrementDisabledLinkCount() => disabledLinkClickCount++;
+}
