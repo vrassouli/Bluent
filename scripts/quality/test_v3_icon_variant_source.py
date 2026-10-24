@@ -65,6 +65,62 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         for intrinsic in ('"aria-hidden"', '"aria-label"', '"alt"'):
             self.assertNotIn(intrinsic, component)
 
+
+    def test_svg_is_opaque_markup_without_size_or_viewbox_normalization(self):
+        component = read("src/Bluent.UI/Components/IconComponent/Icon.cs")
+        definition = read("src/Bluent.UI/Icons/IconDefinition.cs")
+        source = read("src/Bluent.UI/Icons/IconSource.cs")
+        css = read("src/Bluent.UI/wwwroot/bluent.ui.components.css")
+        svg_branch = component.split("case IconSourceKind.Svg:", 1)[1].split("case IconSourceKind.Image:", 1)[0]
+
+        self.assertIn('builder.OpenElement(0, "span")', svg_branch)
+        self.assertIn("builder.AddContent(5, (MarkupString)source.Value)", svg_branch)
+        self.assertIn("IconSource.Svg(regularSvg)", definition)
+        self.assertIn("IconSource.Svg(filledSvg)", definition)
+        self.assertIn("new(IconSourceKind.Svg, svg)", source)
+        for attribute in ("width", "height", "viewBox", "preserveAspectRatio"):
+            self.assertNotIn(f'"{attribute}"', svg_branch)
+        self.assertNotIn("Size", component)
+        self.assertNotIn(".bui-icon", css)
+
+    def test_root_attribute_order_and_accessibility_are_forwarded_not_synthesized(self):
+        component = read("src/Bluent.UI/Components/IconComponent/Icon.cs")
+        base = read("src/Bluent.Core/BluentComponentBase.cs")
+        ui_base = read("src/Bluent.UI/Components/BluentUiComponentBase.cs")
+        common = component.split("private void AddCommonAttributes", 1)[1]
+
+        emitted = [
+            common.index("AddMultipleAttributes(sequence, AdditionalAttributes)"),
+            common.index('AddAttribute(sequence + 1, "id", Id)'),
+            common.index('AddAttribute(sequence + 2, "class", GetComponentClass())'),
+            common.index('AddAttribute(sequence + 3, "style", Style)'),
+        ]
+        self.assertEqual(sorted(emitted), emitted)
+        self.assertEqual(3, component.count("AddCommonAttributes(builder,"))
+        self.assertLess(
+            component.index("AddCommonAttributes(builder, 7)"),
+            component.index('builder.AddAttribute(11, "src", source.Value)'),
+        )
+        self.assertIn("[Parameter] public string? Class { get; set; }", base)
+        self.assertIn("[Parameter] public string? Style { get; set; }", base)
+        self.assertIn("GetClasses())} {Class}", base)
+        self.assertIn('TryGetValue("id"', base)
+        self.assertNotIn("GetComponentStyle()", component)
+        self.assertIn('builder.AddAttribute(sequence + 3, "style", Style);', component)
+        for attribute in (
+            '"role"', '"title"', '"aria-hidden"', '"aria-label"',
+            '"aria-labelledby"', '"alt"',
+        ):
+            self.assertNotIn(attribute, component)
+        self.assertIn("TooltipService.SetTrigger", ui_base)
+        self.assertNotIn('"title"', ui_base)
+
+        docs = read("docs/components/icon.md")
+        report = read("docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md")
+        self.assertIn("SVG sizing and root attributes", docs)
+        self.assertIn("Source order alone does not define", docs)
+        self.assertIn("Source-proven geometry, attribute and naming contract", report)
+        self.assertIn("does not claim which duplicate wins", report)
     def test_demo_covers_existing_only_not_color(self):
         demo = read("src/Bluent.UI.Demo.Pages/Pages/Components/Icons.razor")
         self.assertIn('Variant="IconVariant.Filled"', demo)

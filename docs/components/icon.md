@@ -27,6 +27,14 @@ Package: `Bluent.UI`
 
 The component inherits common Bluent `Class`, `Style`, `Id`, tooltip, and unmatched-attribute support.
 
+## SVG sizing and root attributes
+
+The Icon component has no Size parameter. FromSvg stores the supplied non-whitespace SVG string, and the renderer places that markup inside its outer span without parsing or normalizing the SVG root. It does not add or validate viewBox, width, height, or preserveAspectRatio. SVG sizing therefore depends on the supplied markup and surrounding CSS; the current source does not promise a normalized intrinsic size.
+
+Class is emitted on the source-kind host together with the component's generated classes. Style is emitted as supplied on that host; Icon does not merge generated size styles. AdditionalAttributes are forwarded to the outer span, img, or i element. For an image source, src is emitted after the common attributes. Source order alone does not define the final DOM result for duplicate attributes.
+
+No title or accessibility attributes are synthesized. Caller-supplied title, role, and aria attributes are forwarded to the host; an SVG title element must be present in the supplied SVG markup. The inherited Tooltip parameter uses Bluent's popover service and is not an automatic HTML title or accessible name. Exact browser and assistive-technology naming behavior depends on the markup and remains outside this source-only contract.
+
 ## IconDefinition
 
 `IconDefinition` is a readonly record struct containing a required regular `IconSource` and optional filled `IconSource`.
