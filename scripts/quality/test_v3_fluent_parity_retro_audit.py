@@ -88,6 +88,16 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             self.assertEqual("pending", record["designApproval"])
             self.assertIsNone(record["evidenceBundle"])
 
+    def test_consolidated_api_surface_rollup_is_linked_and_non_accepting(self):
+        report=(QUALITY / "FLUENT-PARITY-API-SURFACE-COVERAGE.md").read_text(encoding="utf-8-sig")
+        ledger=json.loads((QUALITY / "FLUENT-PARITY-API-SURFACE-COVERAGE.json").read_text(encoding="utf-8-sig"))
+        self.assertIn("FLUENT-PARITY-API-SURFACE-COVERAGE.md", (QUALITY / "FLUENT-PARITY-RETRO-AUDIT.md").read_text(encoding="utf-8-sig"))
+        self.assertEqual(239, ledger["reviewedOccurrenceCount"])
+        self.assertEqual(11, ledger["missingParameterCount"])
+        self.assertFalse(ledger["parityAccepted"])
+        self.assertIn("not a public-API completeness certificate", report)
+        self.assertIn("all 18 matrix families remain", report)
+
     def test_research_leads_are_real_files_not_accepted_evidence(self):
         refs = self.data["supplementalSourceAnalysis"]
         self.assertTrue(refs["interpretation"].startswith("Research leads only"))

@@ -1,0 +1,672 @@
+{
+  "auditIssue": 552,
+  "reviewedOn": "2026-10-24",
+  "audit": "Cross-wave source-known API occurrence disposition coverage",
+  "upstreamReference": "@fluentui/web-components@3.1.3",
+  "familyCount": 18,
+  "sourceCandidateOccurrenceCount": 239,
+  "reviewedOccurrenceCount": 239,
+  "reviewedOccurrenceCoverage": 1.0,
+  "waveOccurrenceCounts": {
+    "A": 82,
+    "B": 71,
+    "C": 40,
+    "D": 46
+  },
+  "candidateKindCounts": {
+    "cascading": 3,
+    "event": 10,
+    "slot": 28,
+    "value": 198
+  },
+  "reviewDispositionCounts": {
+    "Bluent extension": 130,
+    "Missing": 11,
+    "N/A": 1,
+    "Supported": 97
+  },
+  "outOfBandPublicApiEntryCount": 7,
+  "outOfBandPublicApiEntries": [
+    {
+      "wave": "A",
+      "name": "Id",
+      "scope": "BluentComponentBase public API; not counted among the 82 [Parameter] occurrences",
+      "disposition": "Supported",
+      "mapping": "HTML id via AdditionalAttributes; generated identifier when none is supplied",
+      "rationale": "BluentComponentBase reads a caller id from AdditionalAttributes or creates one; TooltipService uses the resulting id."
+    },
+    {
+      "wave": "A",
+      "name": "Disabled",
+      "scope": "Attribute-based base behavior; not a typed [Parameter]",
+      "disposition": "Bluent extension",
+      "mapping": "AdditionalAttributes['disabled'] and IsDisabled",
+      "rationale": "IsDisabled recognizes only a boolean true value. Link/Button disabled navigation semantics differ from fluent-link/fluent-button and need explicit runtime evidence."
+    },
+    {
+      "wave": "A",
+      "name": "SetStateHasChanged",
+      "scope": "IBluentComponent/Blazor base method; not a component property",
+      "disposition": "N/A",
+      "mapping": "Blazor lifecycle helper",
+      "rationale": "Not a Fluent component feature."
+    },
+    {
+      "wave": "A",
+      "name": "IconVariant.Color",
+      "scope": "Potential future icon feature; not in current public enum",
+      "disposition": "N/A",
+      "requirementStatus": "not_decided",
+      "mapping": "No Color enum in the current Bluent IconVariant; do not add one without exact asset-release coverage, license/shipping, theme/forced-colors and design review.",
+      "rationale": "The pinned React icon package is an asset reference, not a generic Icon component; the local 20px font map has no Color entries."
+    },
+    {
+      "wave": "B",
+      "name": "InputBase<TValue> binding/validation surface",
+      "scope": "External Microsoft.AspNetCore.Components.Forms.InputBase<TValue>; not counted among the 71 locally declared/inherited parameter occurrences",
+      "disposition": "Bluent extension",
+      "mapping": "Value, ValueChanged, ValueExpression and EditContext/validation integration are framework-owned binding contracts",
+      "rationale": "The local inherited census intentionally stops at the external framework boundary. This ledger does not claim the complete emitted public API or complete EditContext/form behavior; reconcile the framework surface separately before public API acceptance."
+    },
+    {
+      "wave": "C",
+      "name": "InputBase<TValue> binding/validation surface",
+      "scope": "External Microsoft.AspNetCore.Components.Forms.InputBase<TValue>; not counted among the 40 locally declared/inherited parameter occurrences",
+      "disposition": "Bluent extension",
+      "mapping": "Value, ValueChanged, ValueExpression and EditContext/validation integration are framework-owned binding contracts",
+      "rationale": "The local inherited census intentionally stops at the external framework boundary. This ledger does not claim the complete emitted public API or complete EditContext/form behavior; reconcile the framework surface separately before public API acceptance."
+    },
+    {
+      "wave": "D",
+      "name": "InputBase<TValue> binding/validation surface",
+      "scope": "External Microsoft.AspNetCore.Components.Forms.InputBase<TValue>; not counted among the 46 locally declared/inherited parameter occurrences",
+      "disposition": "Bluent extension",
+      "mapping": "Value, ValueChanged, ValueExpression and EditContext/validation integration are framework-owned binding contracts",
+      "rationale": "The local inherited census intentionally stops at the external framework boundary. This ledger does not claim the complete emitted public API or complete EditContext/form behavior; reconcile the framework surface separately before public API acceptance."
+    }
+  ],
+  "missingParameterCount": 11,
+  "missingParameters": [
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "component": "Switch",
+      "parameter": "Circular",
+      "csharpType": "bool",
+      "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+      "sourceLine": 14,
+      "mapping": "Inherited Circular parameter has no effect on Switch",
+      "rationale": "Switch overrides GetClasses without including Checkbox's circular class, so the inherited parameter is present in the CLR surface but not applied by the current component.",
+      "followUp": "Remediate or explicitly deprecate through #435; do not silently count inherited parameters as supported.",
+      "wave": "B"
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "component": "Switch",
+      "parameter": "Size",
+      "csharpType": "CheckboxSize",
+      "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+      "sourceLine": 15,
+      "mapping": "Inherited Size parameter has no effect on Switch",
+      "rationale": "Switch overrides GetClasses without adding the inherited Checkbox size class, and fluent-switch has no size attribute in the pinned CEM.",
+      "followUp": "Remediate or explicitly deprecate through #435 after the component API/design decision.",
+      "wave": "B"
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "component": "NumericField",
+      "parameter": "Step",
+      "csharpType": "TValue?",
+      "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+      "sourceLine": 35,
+      "mapping": "Declared Step parameter has no effective source behavior",
+      "rationale": "The current implementation records the parameter but does not apply it to numeric parsing, increment/decrement behavior or the rendered input. This is a source-confirmed owner issue, not a request to change product code in #552.",
+      "followUp": "Track/remediate through #433 after its design/API gate; add a negative-control test proving Step affects the intended contract.",
+      "wave": "B"
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "component": "SelectField",
+      "parameter": "BindValueEvent",
+      "csharpType": "string",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 12,
+      "mapping": "Inherited BindValueEvent is not honored by SelectField",
+      "rationale": "SelectField binds through an explicit @onchange handler rather than using BindValueEvent; the inherited parameter has no effect in the current source.",
+      "followUp": "Resolve the inherited API contract through #437; test both change and input paths before deciding whether to remove or honor it.",
+      "wave": "B"
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "component": "DateField",
+      "parameter": "DateClass",
+      "csharpType": "Func<DateTime, string>?",
+      "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+      "sourceLine": 26,
+      "mapping": "Declared per-date CSS callback is not forwarded to DateFieldPicker",
+      "rationale": "The current DateField source declares DateClass but never reads or passes it to the embedded picker; the public parameter has no effect.",
+      "followUp": "Wire the callback into the picker or explicitly deprecate it through #438 after design/API review.",
+      "wave": "C"
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "component": "DateField",
+      "parameter": "BindValueEvent",
+      "csharpType": "string",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 12,
+      "mapping": "Inherited BindValueEvent is not forwarded to the nested MaskedField",
+      "rationale": "DateField binds CurrentValueAsString to a MaskedField component but does not pass its own BindValueEvent; the parent parameter has no effect on the visible input event.",
+      "followUp": "Either forward the setting or explicitly remove/deprecate the inherited contract through #438 after API review.",
+      "wave": "C"
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "component": "TimeField",
+      "parameter": "BindValueEvent",
+      "csharpType": "string",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 12,
+      "mapping": "Inherited BindValueEvent is not forwarded to the nested MaskedField",
+      "rationale": "TimeField binds CurrentValueAsString to a MaskedField component but does not pass its own BindValueEvent; the parent parameter has no effect on the visible input event.",
+      "followUp": "Either forward the setting or explicitly remove/deprecate the inherited contract through #439 after API review.",
+      "wave": "C"
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "component": "MaskedField",
+      "parameter": "BindValueEvent",
+      "csharpType": "string",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 12,
+      "mapping": "Inherited BindValueEvent is not used by MaskedField",
+      "rationale": "MaskedField handles DOM input explicitly with @oninput and does not bind through BindValueEvent; changing this inherited parameter has no effect on the visible input.",
+      "followUp": "Resolve the inherited contract through #440; retain input-event semantics if required by the mask engine.",
+      "wave": "C"
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "component": "OtpField",
+      "parameter": "StartAddon",
+      "csharpType": "RenderFragment?",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 9,
+      "mapping": "Inherited StartAddon is not rendered by OtpField",
+      "rationale": "OtpField markup does not render StartAddon despite inheriting the parameter; the public property has no effect.",
+      "followUp": "Either render the addon in the approved OTP composition or explicitly deprecate the inherited API through #441.",
+      "wave": "C"
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "component": "OtpField",
+      "parameter": "EndAddon",
+      "csharpType": "RenderFragment?",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 10,
+      "mapping": "Inherited EndAddon is not rendered by OtpField",
+      "rationale": "OtpField markup does not render EndAddon despite inheriting the parameter; the public property has no effect.",
+      "followUp": "Either render the addon in the approved OTP composition or explicitly deprecate the inherited API through #441.",
+      "wave": "C"
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "component": "OtpField",
+      "parameter": "Size",
+      "csharpType": "FieldSize",
+      "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+      "sourceLine": 11,
+      "mapping": "Inherited Size is not applied by OtpField",
+      "rationale": "OtpField.GetClasses emits only bui-otp-field and the markup has no size-class binding; changing the inherited Size parameter has no effect.",
+      "followUp": "Define supported OTP sizing in the approved design/API or explicitly deprecate the inherited parameter through #441.",
+      "wave": "C"
+    }
+  ],
+  "waves": {
+    "A": {
+      "parameterOccurrenceCount": 82,
+      "families": [
+        "Badge",
+        "Button",
+        "Icon",
+        "Label",
+        "Link"
+      ],
+      "dispositionCounts": {
+        "Bluent extension": 46,
+        "Supported": 36
+      },
+      "outOfBandPublicApiEntryCount": 4,
+      "ledger": "FLUENT-PARITY-WAVE-A-API-REVIEW.json",
+      "report": "FLUENT-PARITY-WAVE-A-API-REVIEW.md"
+    },
+    "B": {
+      "parameterOccurrenceCount": 71,
+      "families": [
+        "Checkbox",
+        "NumericField",
+        "RadioGroup",
+        "SelectField",
+        "Switch",
+        "TextField"
+      ],
+      "dispositionCounts": {
+        "Bluent extension": 38,
+        "Missing": 4,
+        "N/A": 1,
+        "Supported": 28
+      },
+      "outOfBandPublicApiEntryCount": 1,
+      "ledger": "FLUENT-PARITY-WAVE-B-API-REVIEW.json",
+      "report": "FLUENT-PARITY-WAVE-B-API-REVIEW.md"
+    },
+    "C": {
+      "parameterOccurrenceCount": 40,
+      "families": [
+        "DateField",
+        "MaskedField",
+        "OtpField",
+        "TimeField"
+      ],
+      "dispositionCounts": {
+        "Bluent extension": 17,
+        "Missing": 7,
+        "Supported": 16
+      },
+      "outOfBandPublicApiEntryCount": 1,
+      "ledger": "FLUENT-PARITY-WAVE-C-API-REVIEW.json",
+      "report": "FLUENT-PARITY-WAVE-C-API-REVIEW.md"
+    },
+    "D": {
+      "parameterOccurrenceCount": 46,
+      "families": [
+        "FileSelect",
+        "RangeSlider",
+        "Slider"
+      ],
+      "dispositionCounts": {
+        "Bluent extension": 29,
+        "Supported": 17
+      },
+      "outOfBandPublicApiEntryCount": 1,
+      "ledger": "FLUENT-PARITY-WAVE-D-API-REVIEW.json",
+      "report": "FLUENT-PARITY-WAVE-D-API-REVIEW.md"
+    }
+  },
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "wave": "A",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 30,
+      "dispositionCounts": {
+        "Bluent extension": 19,
+        "Supported": 11
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-button",
+        "fluent-toggle-button",
+        "fluent-compound-button",
+        "fluent-menu-button",
+        "fluent-anchor-button"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md"
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "wave": "A",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 10,
+      "dispositionCounts": {
+        "Bluent extension": 6,
+        "Supported": 4
+      },
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md"
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "wave": "A",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 14,
+      "dispositionCounts": {
+        "Bluent extension": 9,
+        "Supported": 5
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-label"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md"
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "wave": "A",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 12,
+      "dispositionCounts": {
+        "Bluent extension": 5,
+        "Supported": 7
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-link",
+        "fluent-anchor-button"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-LINK-AUDIT.md"
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "wave": "A",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 16,
+      "dispositionCounts": {
+        "Bluent extension": 7,
+        "Supported": 9
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-badge",
+        "fluent-counter-badge"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-BADGE-AUDIT.md"
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "wave": "B",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 12,
+      "dispositionCounts": {
+        "Bluent extension": 7,
+        "Supported": 5
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-TEXTFIELD-AUDIT.md"
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "wave": "B",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 9,
+      "dispositionCounts": {
+        "Bluent extension": 6,
+        "Supported": 3
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-checkbox"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "wave": "B",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 9,
+      "dispositionCounts": {
+        "Bluent extension": 4,
+        "Missing": 2,
+        "N/A": 1,
+        "Supported": 2
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-switch"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-CHECKBOX-SWITCH-AUDIT.md"
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "wave": "B",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 17,
+      "dispositionCounts": {
+        "Bluent extension": 9,
+        "Missing": 1,
+        "Supported": 7
+      },
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "wave": "B",
+      "componentCount": 2,
+      "sourceOccurrenceCount": 17,
+      "dispositionCounts": {
+        "Bluent extension": 9,
+        "Supported": 8
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-radio-group",
+        "fluent-radio"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md"
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "wave": "B",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 7,
+      "dispositionCounts": {
+        "Bluent extension": 3,
+        "Missing": 1,
+        "Supported": 3
+      },
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-dropdown",
+        "fluent-dropdown-option",
+        "fluent-listbox"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "wave": "C",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 13,
+      "dispositionCounts": {
+        "Bluent extension": 6,
+        "Missing": 2,
+        "Supported": 5
+      },
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "wave": "C",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 9,
+      "dispositionCounts": {
+        "Bluent extension": 3,
+        "Missing": 1,
+        "Supported": 5
+      },
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "wave": "C",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 9,
+      "dispositionCounts": {
+        "Bluent extension": 3,
+        "Missing": 1,
+        "Supported": 5
+      },
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-TYPED-FIELDS-AUDIT.md"
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "wave": "C",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 9,
+      "dispositionCounts": {
+        "Bluent extension": 5,
+        "Missing": 3,
+        "Supported": 1
+      },
+      "counterpartKind": "related_only",
+      "referencedTags": [
+        "fluent-text-input"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-OTP-AUDIT.md"
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "wave": "D",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 13,
+      "dispositionCounts": {
+        "Bluent extension": 6,
+        "Supported": 7
+      },
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-slider"
+      ],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "wave": "D",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 13,
+      "dispositionCounts": {
+        "Bluent extension": 10,
+        "Supported": 3
+      },
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "wave": "D",
+      "componentCount": 1,
+      "sourceOccurrenceCount": 20,
+      "dispositionCounts": {
+        "Bluent extension": 13,
+        "Supported": 7
+      },
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "partialReport": "docs/v3/quality/FLUENT-PARITY-FILESELECT-AUDIT.md"
+    }
+  ],
+  "apiReviewAcceptance": "audited_gaps",
+  "parityAccepted": false,
+  "noneApproved": true,
+  "designApprovalsPendingCount": 18,
+  "evidenceBundlesPendingCount": 18,
+  "limitations": [
+    "These dispositions are source-to-pinned-CEM research, not maintainer approval or proof runtime behavior is correct.",
+    "RenderFragment/EventCallback entries are declaration mappings; child-content rendering, DOM event ordering, keyboard/pointer operation and Blazor binding remain separate runtime gates.",
+    "This rollup does not certify exhaustive Bluent CSS properties, CSS parts/states, token relations, emitted DOM behavior or the full framework InputBase<TValue> surface.",
+    "Out-of-band rows are ledger entries, not unique API counts; shared InputBase<TValue> notes repeat in Waves B-D and require separate emitted-API/form validation.",
+    "All 18 families remain audited_gaps with approval pending and evidenceBundle null. No visual, behavior, accessibility, native OS/AT or Fluent parity acceptance is inferred."
+  ]
+}

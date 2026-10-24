@@ -109,6 +109,7 @@ The following pinned references now provide traceable starting points for the fa
 - [Wave B manual Fluent API review (71 source-known parameter occurrences)](FLUENT-PARITY-WAVE-B-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-B-API-REVIEW.json)
 - [Wave C manual Fluent API review (40 source-known parameter occurrences)](FLUENT-PARITY-WAVE-C-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-C-API-REVIEW.json)
 - [Wave D manual Fluent API review (46 source-known parameter occurrences)](FLUENT-PARITY-WAVE-D-API-REVIEW.md) and [machine-readable ledger](FLUENT-PARITY-WAVE-D-API-REVIEW.json)
+- [Consolidated API surface disposition coverage: all 239 source-known occurrences, per-family dispositions and 11 Missing entries](FLUENT-PARITY-API-SURFACE-COVERAGE.md) with [machine-readable coverage ledger](FLUENT-PARITY-API-SURFACE-COVERAGE.json). This validates cross-wave bookkeeping only; CSS/DOM/runtime/AT parity and owner approval remain separate.
 - [Blazor extension surface audit (18 families)](FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-BLAZOR-EXTENSIONS-AUDIT.json)
 - [Token/theme source audit (18 families)](FLUENT-PARITY-TOKEN-THEME-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-TOKEN-THEME-AUDIT.json)
 - [Responsive layout and RTL audit (18 families)](FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.md) and [machine-readable ledger](FLUENT-PARITY-RESPONSIVE-RTL-AUDIT.json)
