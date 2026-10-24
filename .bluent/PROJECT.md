@@ -134,3 +134,8 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
 - Added two source guards for those contracts. The audit explicitly leaves final duplicate-attribute DOM resolution, approved v3 sizing/name design, published InteractiveServer, and native AT results unverified.
 - Focused Icon quality suite: 42/42 PASS; Markdown links: 221 files PASS; v3 docs contract: 0 findings; `git diff --check` PASS. No runtime/API/CSS changes.
 - PR #553 remains Draft/open against `bluent-v3`; #552 remains In progress; design and native AT gates remain open.
+## Icon static-render follow-up (2026-10-24)
+- Added an NUnit HtmlRenderer test for SVG/span, Image/img, and CSS/i sources. The serialized output has one id/class/style per host; caller id is preserved; Class and Style parameters override same-named unmatched values; unrelated data attributes are forwarded.
+- This is static Blazor HtmlRenderer evidence only. Browser DOM parsing, published InteractiveServer, design approval, native contrast, and assistive-technology results remain open.
+- The v3 parity workflow now runs this focused .NET test and includes the test folder in its path filter. Release test passed 1/1; docs contract and migration-ledger checks passed.
+- PR #553 remains Draft/open against bluent-v3; #552 remains In progress; #429 remains Backlog. No runtime/API/CSS change.

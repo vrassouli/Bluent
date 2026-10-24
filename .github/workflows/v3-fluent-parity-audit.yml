@@ -99,6 +99,7 @@ on:
       - "src/Bluent.UI.IconGenerator/FluentIconsGenerator.cs"
       - "src/Bluent.UI/wwwroot/fonts/icons/FluentSystemIcons-Resizable.json"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Icons.razor"
+      - "tests/RegexSampleGeneratorTest/**"
   workflow_dispatch:
 
 permissions:
@@ -111,6 +112,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Verify Icon root attributes in Blazor HtmlRenderer
+        run: dotnet test tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj --configuration Release --filter FullyQualifiedName~IconRenderTests --verbosity minimal
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

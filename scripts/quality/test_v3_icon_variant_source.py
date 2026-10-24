@@ -118,9 +118,9 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         docs = read("docs/components/icon.md")
         report = read("docs/v3/quality/FLUENT-PARITY-ICON-AUDIT.md")
         self.assertIn("SVG sizing and root attributes", docs)
-        self.assertIn("Source order alone does not define", docs)
+        self.assertIn("not browser DOM or published InteractiveServer evidence", docs)
         self.assertIn("Source-proven geometry, attribute and naming contract", report)
-        self.assertIn("does not claim which duplicate wins", report)
+        self.assertIn("serialized result for the SVG span, image, and CSS-class hosts", report)
     def test_demo_covers_existing_only_not_color(self):
         demo = read("src/Bluent.UI.Demo.Pages/Pages/Components/Icons.razor")
         self.assertIn('Variant="IconVariant.Filled"', demo)
