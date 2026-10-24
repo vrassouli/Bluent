@@ -1,6 +1,6 @@
 # Visual evidence coverage audit - Issue #552
 
-Review date: 2026-10-23. Source baseline: 73155f02.
+Review date: 2026-10-24. Source baseline: 73155f02.
 
 ## Scope
 
@@ -41,8 +41,8 @@ This audit inventories existing screenshots, browser visual modes, component sty
 | TimeField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 | MaskedField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 | OtpField | no dedicated family asset | yes | yes | yes | yes | no | no | yes | no | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
-| Slider | no dedicated family asset | yes | yes | yes | yes | no | no | no | yes | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
-| RangeSlider | no dedicated family asset | yes | yes | yes | yes | no | no | no | yes | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
+| Slider | review board, incomplete variants | yes | yes | yes | yes | no | no | no | yes | An editable Slider review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded. |
+| RangeSlider | review board, incomplete variants | yes | yes | yes | yes | no | no | no | yes | An editable RangeSlider review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded. |
 | FileSelect | no dedicated family asset | yes | yes | yes | yes | no | yes | yes | yes | No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family. |
 
 ## Per-family follow-up
@@ -229,9 +229,9 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### Slider (#442)
 
-**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** An editable Slider review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded.
 
-**Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
+**Follow-up:** Review the Slider design draft against the pinned Fluent range/slider contract, then capture matched screenshots and obtain design-owner approval; do not implement while the owning issue remains Backlog.
 
 **Style sources:** [_slider.scss](../../../src/Bluent.UI/Styles/Components/_slider.scss)
 
@@ -241,9 +241,9 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ### RangeSlider (#443)
 
-**Visual gap:** No family-specific editable design artifact in the dated Penpot record; a design-to-browser comparison cannot be completed for this family.
+**Visual gap:** An editable RangeSlider review board exists, but its reusable variant set is explicitly incomplete; no approved state-by-state Fluent/Penpot-to-browser comparison or pixel-diff is recorded.
 
-**Follow-up:** Capture matching viewport, theme, direction, typography and component state; compare the editable Penpot specimen with the runtime screenshot, record each difference and obtain design-owner approval.
+**Follow-up:** Review the two-thumb RangeSlider draft against the pinned Fluent references and settle ordering/clamping/keyboard semantics before matched screenshot comparison; do not implement while the owning issue remains Backlog.
 
 **Style sources:** [_range-slider.scss](../../../src/Bluent.UI/Styles/Components/_range-slider.scss)
 
@@ -265,4 +265,4 @@ This audit inventories existing screenshots, browser visual modes, component sty
 
 ## Acceptance boundary
 
-All 18 visual dimensions remain audited_gaps. The Icon review board was added to design traceability only; it does not add matched Fluent screenshots, pixel-diff, native OS/AT coverage or approval. Pixel-level/state-by-state Light/Dark/RTL/forced-colors comparison and design-owner sign-off remain open. Every family design approval is pending and evidenceBundle remains null. No product source, CSS or public API changed.
+All 18 visual dimensions remain audited_gaps. The Icon, Slider and RangeSlider review boards were added to design traceability only; they do not add matched Fluent screenshots, pixel-diff, native OS/AT coverage or approval. Pixel-level/state-by-state Light/Dark/RTL/forced-colors comparison and design-owner sign-off remain open. Every family design approval is pending and evidenceBundle remains null. No product source, CSS or public API changed.

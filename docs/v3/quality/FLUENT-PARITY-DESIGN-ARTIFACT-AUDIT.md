@@ -1,17 +1,17 @@
 # Design-artifact coverage audit - Issue #552
 
-Review date: 2026-10-23. Source baseline: 73155f02.
+Review date: 2026-10-24. Source baseline: 73155f02.
 
 ## Scope
 
-Inventory of the source-owned Penpot file Bluent v3 Design System, combining the original read-only snapshot ([PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-SNAPSHOT.json)) with the dated additive Icon board record ([PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json)). The original coverage board and existing family designs were not changed by this inventory update.
+Inventory of the source-owned Penpot file Bluent v3 Design System, combining the original read-only snapshot with dated additive Icon, Slider and RangeSlider review-board records. The original coverage board and existing family designs were not changed by this inventory update.
 
 ## Findings
 
 - The #552 Fluent parity audit coverage DRAFT board exists on 03 · Quality & migration (page id 07c521b9-e441-80bd-8008-c4ad87df93c3, board id 4d22aead-d6ef-801a-8008-d482b9bb0cc8).
 - The board contains 18/18 family rows, 239 source-known API entries, and 0/18 Fluent approvals. It is a coverage/index artifact, not component-design approval.
 - The local Penpot library contains 13 components spanning four family types: Button, TextField, Checkbox and Switch.
-- A dedicated editable artifact now exists for 5/18 family types in the dated record: four have reusable local variant/library assets, and Icon has a review-only board with incomplete variant coverage. 13/18 still have no dedicated family-specific artifact; upstream Fluent reference pages and the #552 coverage row do not substitute for a Bluent family design.
+- A dedicated editable artifact now exists for 7/18 family types in the dated record: four have reusable local variant/library assets, while Icon, Slider and RangeSlider have review-only boards with incomplete variant coverage. 11/18 still have no dedicated family-specific artifact; upstream Fluent reference pages and the #552 coverage row do not substitute for a Bluent family design.
 - All family design approvals remain pending and all evidenceBundle values remain null.
 
 **Status: audited gaps, not accepted.** The inventory is not a visual parity verdict and does not authorize product implementation.
@@ -35,8 +35,8 @@ Inventory of the source-owned Penpot file Bluent v3 Design System, combining the
 | TimeField | coverage-row-only-no-dedicated-family-asset-in-current-record | 0 | Culture affects parsing, not formatting; locale edge cases remain open. | pending |
 | MaskedField | coverage-row-only-no-dedicated-family-asset-in-current-record | 0 | 09123456789 becomes 0991-234-5678 under the fixed-prefix regex. | pending |
 | OtpField | coverage-row-only-no-dedicated-family-asset-in-current-record | 0 | Inherited addons/size no-op; English labels and native clipboard/AT remain open. | pending |
-| Slider | coverage-row-only-no-dedicated-family-asset-in-current-record | 0 | No native role/tabindex/keyboard semantics; visual and forced-colors gaps remain. | pending |
-| RangeSlider | coverage-row-only-no-dedicated-family-asset-in-current-record | 0 | No dedicated Fluent range tag; dual-thumb semantics/keyboard/visual gaps remain. | pending |
+| Slider | dedicated-review-board-incomplete-variant-coverage | 1 | No native role/tabindex/keyboard semantics; visual and forced-colors gaps remain. | pending |
+| RangeSlider | dedicated-review-board-incomplete-variant-coverage | 1 | No dedicated Fluent range tag; dual-thumb semantics/keyboard/visual gaps remain. | pending |
 | FileSelect | coverage-row-only-no-dedicated-family-asset-in-current-record | 0 | MaxFiles=2 accepts 3 files; disabled input and remove-name gaps remain. | pending |
 
 ## Existing family-specific draft pages
@@ -78,15 +78,27 @@ Inventory of the source-owned Penpot file Bluent v3 Design System, combining the
 
 **Follow-up:** Complete on/off, disabled, focus, RTL and forced-colors variants with an explicit Fluent role/state decision and approval.
 
+### Slider (#442)
+
+- **03 · Quality & migration** — page id 07c521b9-e441-80bd-8008-c4ad87df93c3; board #442 · Slider design · REVIEW DRAFT (id deabb4f4-bae0-800e-8008-d55884e4ac27)
+
+**Follow-up:** Review the existing draft for keyboard target/slider semantics, value and step behavior, RTL, forced-colors rail/thumb and disabled/read-only states; confirm upstream token/focus contracts and obtain design-owner approval before implementation.
+
+### RangeSlider (#443)
+
+- **03 · Quality & migration** — page id 07c521b9-e441-80bd-8008-c4ad87df93c3; board #443 · RangeSlider design · REVIEW DRAFT (id deabb4f4-bae0-800e-8008-d5588803df4e)
+
+**Follow-up:** Review the existing two-thumb draft for independent focus/keyboard behavior, ordering/crossing/clamping, value announcements, RTL, forced-colors and disabled states; confirm upstream interaction contracts and approval before implementation.
+
 ## Families without a dedicated family-specific design artifact in the dated record
 
-Badge, DateField, FileSelect, Label, Link, MaskedField, NumericField, OtpField, RadioGroup, RangeSlider, SelectField, Slider, TimeField.
+Badge, DateField, FileSelect, Label, Link, MaskedField, NumericField, OtpField, RadioGroup, SelectField, TimeField.
 
 For each, create an editable Bluent family board and variant set tied to the pinned Fluent counterpart, covering the required visual and interactive states. Keep the current coverage row as traceability only.
 
-## Additional incomplete artifact
+## Additional incomplete artifacts
 
-Icon now has a dedicated editable review board, but it is explicitly **not** a complete reusable variant set. Required decisions (size/default, viewBox contract, trusted SVG boundary, decorative/informative semantics), matched Fluent render comparisons and native OS/assistive-technology checks remain open. See the dated addendum for exact IDs and structural measurements.
+Icon, Slider and RangeSlider have review-only boards, none of which is a complete reusable variant set. Icon policy decisions and Slider/RangeSlider interaction contracts still require review. Slider/RangeSlider text-bound and containment metrics are explicitly unrecorded, not assumed clean. Matched Fluent render comparisons and native OS/assistive-technology checks remain open. See the dated addenda and family handoff notes for board IDs and known measurements.
 
 ## Acceptance boundary
 

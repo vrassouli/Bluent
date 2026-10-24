@@ -32,6 +32,13 @@ class DesignArtifactAuditTests(unittest.TestCase):
         addendum=json.loads((QUALITY/'evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json').read_text(encoding='utf-8-sig'))
         self.assertEqual('2026-10-23',addendum['recordedOn'])
         self.assertEqual('Icon',addendum['family'])
+        for name,family,issue,board_id in [('PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-SLIDER.json','Slider',442,'deabb4f4-bae0-800e-8008-d55884e4ac27'),('PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-RANGESLIDER.json','RangeSlider',443,'deabb4f4-bae0-800e-8008-d5588803df4e')]:
+            record=json.loads((QUALITY/'evidence'/name).read_text(encoding='utf-8-sig'))
+            self.assertEqual(family,record['family'])
+            self.assertEqual(issue,record['productIssue'])
+            self.assertEqual(board_id,record['board']['id'])
+            self.assertIsNone(record['board']['textNodes'])
+            self.assertEqual('pending',record['designApproval'])
         self.assertFalse(addendum['variantSetComplete'])
         self.assertEqual('pending',addendum['designApproval'])
         self.assertIsNone(addendum['evidenceBundle'])
@@ -48,13 +55,14 @@ class DesignArtifactAuditTests(unittest.TestCase):
         self.assertEqual('0 / 18',metrics['fluentApprovals'])
         self.assertIn('not a family design approval',self.ledger['runtimeScope'])
 
-    def test_four_family_types_have_draft_assets_and_fourteen_do_not(self):
-        self.assertEqual(5,self.ledger['familySpecificDesignAssetCount'])
+    def test_seven_family_types_have_dedicated_artifacts_and_eleven_do_not(self):
+        self.assertEqual(7,self.ledger['familySpecificDesignAssetCount'])
+        self.assertEqual(['Icon','RangeSlider','Slider'],self.ledger['familiesWithDedicatedReviewBoard'])
         self.assertEqual(4,self.ledger['familySpecificReusableVariantSetCount'])
         self.assertEqual({'Button','TextField','Checkbox','Switch'},set(self.ledger['familySpecificReusableVariantSetFamilies']))
-        self.assertEqual(13,self.ledger['familiesWithoutDedicatedFamilyAssetCount'])
-        self.assertEqual({'Button','TextField','Checkbox','Switch','Icon'},set(self.ledger['familySpecificDesignAssets']))
-        self.assertEqual(13,len(self.ledger['familiesWithoutDedicatedFamilyAsset']))
+        self.assertEqual(11,self.ledger['familiesWithoutDedicatedFamilyAssetCount'])
+        self.assertEqual({'Button','TextField','Checkbox','Switch','Icon','Slider','RangeSlider'},set(self.ledger['familySpecificDesignAssets']))
+        self.assertEqual(11,len(self.ledger['familiesWithoutDedicatedFamilyAsset']))
         icon=self.by_family['Icon']
         self.assertEqual('dedicated-review-board-incomplete-variant-coverage',icon['designArtifactStatus'])
         self.assertFalse(icon['designPages'][0]['variantSetComplete'])
@@ -63,7 +71,7 @@ class DesignArtifactAuditTests(unittest.TestCase):
         self.assertEqual(0,icon['designPages'][0]['invalidTextBounds'])
         self.assertEqual(0,icon['designPages'][0]['childrenOutsideBoard'])
         for name in self.ledger['familySpecificDesignAssets']:
-            expected='dedicated-review-board-incomplete-variant-coverage' if name=='Icon' else 'draft-family-artifacts-present'
+            expected='dedicated-review-board-incomplete-variant-coverage' if name in {'Icon','Slider','RangeSlider'} else 'draft-family-artifacts-present'
             self.assertEqual(expected,self.by_family[name]['designArtifactStatus'])
             self.assertTrue(self.by_family[name]['designPages'])
         for name in self.ledger['familiesWithoutDedicatedFamilyAsset']:
@@ -79,6 +87,14 @@ class DesignArtifactAuditTests(unittest.TestCase):
         self.assertEqual(1,len(self.by_family['Icon']['designPages']))
         self.assertEqual('1d7e9dd6-b977-802e-8008-d5a718e3f4a2',self.by_family['Icon']['designPages'][0]['boardId'])
         self.assertEqual(1,len(self.by_family['TextField']['designPages']))
+        for family,board_id,count in [('Slider','deabb4f4-bae0-800e-8008-d55884e4ac27',39),('RangeSlider','deabb4f4-bae0-800e-8008-d5588803df4e',49)]:
+            page=self.by_family[family]['designPages'][0]
+            self.assertEqual('dedicated-review-board-incomplete-variant-coverage',self.by_family[family]['designArtifactStatus'])
+            self.assertEqual(board_id,page['boardId'])
+            self.assertEqual(count,page['editableChildren'])
+            self.assertIsNone(page['textNodes'])
+            self.assertIsNone(page['invalidTextBounds'])
+            self.assertIsNone(page['childrenOutsideBoard'])
 
     def test_all_family_coverage_rows_match_issue_matrix(self):
         for f in self.ledger['families']:
@@ -95,7 +111,7 @@ class DesignArtifactAuditTests(unittest.TestCase):
 
     def test_acceptance_requires_family_design_not_coverage_row(self):
         self.assertIn('family-specific editable artifact',self.ledger['acceptanceBoundary'])
-        self.assertIn('13/18',self.report)
+        self.assertIn('11/18',self.report)
         self.assertIn('upstream Fluent reference pages',self.report)
 
     def test_missing_family_negative_control_fails_closed(self):
@@ -107,6 +123,18 @@ class DesignArtifactAuditTests(unittest.TestCase):
             return value
         with patch.object(builder,'readj',side_effect=altered):
             with self.assertRaisesRegex(ValueError,'exactly all 18 families'):
+                builder.build()
+
+
+    def test_addenda_must_be_unique_and_inside_the_18_family_matrix(self):
+        original=builder.readj
+        def duplicate(path):
+            value=original(path)
+            if path==builder.ADDENDA[1]:
+                value['family']='TabList'
+            return value
+        with patch.object(builder,'readj',side_effect=duplicate):
+            with self.assertRaisesRegex(ValueError,'same authoritative file and matrix'):
                 builder.build()
 
     def test_checked_in_outputs_match_builder(self):
