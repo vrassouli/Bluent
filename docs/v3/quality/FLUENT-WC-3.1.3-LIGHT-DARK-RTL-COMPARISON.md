@@ -55,7 +55,7 @@ This is a **diagnostic finding for Button owner #428**: confirm whether the meas
 
 The Release screenshot's remaining surface-color difference now has a source-backed token chain: Bluent Primary uses --colorBrandBackground, whose default Light/Dark values compile from $brand-default keys 80 / 70 to #1267B4 / #18599B; the actual Release browser computes the same values. The pinned Fluent run computes #0F6CBD / #115EA3. This confirms a default-source palette divergence, but whether that is an intentional Bluent brand choice or a Fluent parity gap remains a design-owner decision—not an automatic defect.
 
-See the [Button brand-token reconciliation](FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md) and [machine-readable evidence](evidence/FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json). Product CSS/API was not changed; editable Penpot review and all acceptance gates remain pending.
+The source-owned Penpot inspection also confirms the discrepancy is in an unapproved draft: page 22 explicitly says to inspect differences before approving parity, and page 27 labels its token names PROPOSED. See the [Button brand-token reconciliation](FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md) and [machine-readable evidence](evidence/FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json). Product CSS/API was not changed; design-owner approval and all acceptance gates remain pending.
 
 ## Same-width Slider
 

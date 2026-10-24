@@ -21,6 +21,16 @@ The remaining Primary Button surface-color difference has now been traced throug
 
 The reference values above are observed computed colors on the pinned Fluent Button host; this report does not assume Fluent uses Bluent's token names. Machine-readable measurements and source paths are in the [token reconciliation evidence](evidence/FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json). The prior [crop diagnostic](evidence/FLUENT-BLUENT-BUTTON-PRIMARY-CROP-DIFF.json) remains a separate pixel-level measurement.
 
+## Source-owned Penpot review (read-only, 2026-10-24)
+
+The connected file was confirmed as **Bluent v3 Design System** (file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000). The relevant editable artifacts confirm that the current palette is **not yet approved design intent**:
+
+- Page **22 · Button Fluent parity review**, board **#419 · Linked Button reference comparison** (e31294c6-7c55-805f-8008-c5a91188deb7) is headed “Button — inspect actual differences before approving parity”. It labels its context **FLUENT 2 REFERENCE × BLUENT LOCAL DRAFT / ISSUE #419**. The linked upstream Primary/Rest specimen (e31294c6-7c55-805f-8008-c5a92534126b) uses #0F6CBD; the Bluent Primary/Rest draft (e31294c6-7c55-805f-8008-c5a925451f7a, face e31294c6-7c55-805f-8008-c5a925451f7c) uses #1267B4. The board's decision note explicitly requires reviewing color/typography and state semantics before claiming Fluent parity.
+- Page **19 · Bluent Button native variants** labels its native states matrix **DRAFT**; the Primary/Rest face (e31294c6-7c55-805f-8008-c59076478c3a) is #1267B4.
+- Page **27 · v3 token architecture and themes · #418** says its semantic/component token names remain **PROPOSED** and shows Light #1267B4 / Dark #18599B. Page **08 · Brand inventory** explicitly states that the generated CSS brand backgrounds are current values, **not approved v3 semantics**.
+
+So Penpot records the divergence and the intended existing source values, but it does **not** resolve the design decision. We must not interpret the current draft as approval to preserve the existing palette or to overwrite it with Fluent values. The next decision gate is owner/designer review of the Primary Light/Dark colors and token rationale. During this read-only inspection, Light token sets were active and Dark token sets inactive; their literal Dark values were recorded, but no claim is made that switching/resolving the Penpot Dark theme was dynamically validated. Exact frame IDs and this caveat are included in the structured evidence JSON.
+
 ## Interpretation and handoff
 
 This establishes a source-token divergence relative to the pinned Fluent run. It does not establish whether the divergence is a defect: Bluent may have a deliberate brand palette, and changing tokens just to match the upstream reference would bypass design ownership.

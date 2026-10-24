@@ -64,6 +64,29 @@ class FluentButtonBrandTokenReconciliation(unittest.TestCase):
         self.assertFalse(self.record["productCssChanged"])
         self.assertTrue(any("intentional product-brand choice" in text for text in self.record["diagnosis"]["notEstablished"]))
 
+    def test_penpot_evidence_identifies_draft_comparison_and_proposed_tokens(self):
+        design = self.record["designHandoff"]
+        refs = {row["pageName"]: row for row in design["references"]}
+        parity_page = refs["22 · Button Fluent parity review"]
+        self.assertEqual("#0F6CBD", parity_page["upstreamPrimaryRest"]["fill"])
+        self.assertEqual("#1267B4", parity_page["bluentPrimaryRest"]["fill"])
+        self.assertIn("before claiming Fluent parity", parity_page["decision"])
+        native_page = refs["19 · Bluent Button native variants"]
+        self.assertEqual("explicitly draft", native_page["status"])
+        token_page = refs["27 · v3 token architecture and themes · #418"]
+        self.assertIn("PROPOSED", token_page["proposalNote"])
+        self.assertEqual("#18599B", token_page["darkPrimaryFill"])
+        inventory_page = refs["08 · Brand inventory"]
+        self.assertIn("not approved v3 semantics", inventory_page["sourceNote"])
+        self.assertFalse(design["penpotSessionMode"]["darkTokenSetsActive"])
+        self.assertIn("not design-approved", token_page["status"])
+
+    def test_report_does_not_conflate_current_palette_with_approval(self):
+        report = (ROOT / "docs/v3/quality/FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md").read_text(encoding="utf-8-sig")
+        self.assertIn("not yet approved design intent", report)
+        self.assertIn("token names remain **PROPOSED**", report)
+        self.assertIn("no claim is made that switching/resolving the Penpot Dark theme was dynamically validated", report)
+
     def test_report_links_the_evidence_and_preserves_design_gate(self):
         report = (ROOT / "docs/v3/quality/FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md").read_text(encoding="utf-8-sig")
         self.assertIn("FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json", report)

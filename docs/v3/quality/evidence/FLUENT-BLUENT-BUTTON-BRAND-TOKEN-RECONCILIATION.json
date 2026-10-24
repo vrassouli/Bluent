@@ -117,19 +117,84 @@
     "confirmed": [
       "The current default Bluent source palette differs from the observed pinned Fluent primary Button surface in both tested modes.",
       "The rendered Bluent background exactly matches the compiled default theme token, and that token maps to the recorded source brand palette value.",
-      "For this base primary state, the evidence points to a source-token value difference rather than an unintentional CSS cascade override."
+      "For this base primary state, the evidence points to a source-token value difference rather than an unintentional CSS cascade override.",
+      "The source-owned Penpot Button parity page explicitly labels the Bluent side as draft, shows upstream #0F6CBD versus Bluent #1267B4, and says color/typography/state differences require review before claiming parity.",
+      "The source-owned Button native matrix is explicitly marked DRAFT, the #418 token architecture says token names remain PROPOSED, and the brand inventory says existing CSS brand backgrounds are not approved v3 semantics."
     ],
     "notEstablished": [
       "Whether the current Bluent brand palette is an intentional product-brand choice or an unintended Fluent parity gap.",
       "Whether the current primary surface matches the owner-approved editable Bluent v3 Penpot component.",
-      "Parity for other appearances, states, browsers, operating systems, native high contrast, or assistive technology."
+      "Parity for other appearances, states, browsers, operating systems, native high contrast, or assistive technology.",
+      "Any owner/designer approval to retain the current default Light/Dark brand palette in v3."
     ]
   },
   "designHandoff": {
     "sourceOwnedDesignSystem": "Bluent v3 Design System",
     "penpotFileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
     "workflowReference": "docs/v3/design/BLUENT-V3-PENPOT.md",
-    "decision": "pending owner review against the editable primary Button appearance/state specimen and token rationale"
+    "decision": "The connected source-owned Penpot design confirms the color difference is documented in a draft comparison and that the current palette/token values are explicitly not approved v3 semantics. This is not an approved product-brand choice. The owner must review and decide whether parity requires adopting the upstream color or explicitly retaining a differentiated Bluent brand palette.",
+    "inspectionDate": "2026-10-24",
+    "inspectionType": "read-only inspection of the connected, source-owned Penpot file",
+    "references": [
+      {
+        "pageId": "e31294c6-7c55-805f-8008-c5a8fb268d03",
+        "pageName": "22 · Button Fluent parity review",
+        "boardId": "e31294c6-7c55-805f-8008-c5a91188deb7",
+        "boardName": "#419 · Linked Button reference comparison",
+        "heading": "Button — inspect actual differences before approving parity",
+        "eyebrow": "FLUENT 2 REFERENCE × BLUENT LOCAL DRAFT / ISSUE #419",
+        "decision": "Review required: normalize copy, label/icon content, padding, color/typography, and state semantics before claiming Fluent parity.",
+        "decisionDetail": "Original Fluent source is read-only; these variants are live linked instances. Geometry-only approval does not cover runtime focus, accessibility or CSS.",
+        "upstreamPrimaryRest": {
+          "shapeId": "e31294c6-7c55-805f-8008-c5a92534126b",
+          "fill": "#0F6CBD",
+          "size": "91×32px"
+        },
+        "bluentPrimaryRest": {
+          "shapeId": "e31294c6-7c55-805f-8008-c5a925451f7a",
+          "faceShapeId": "e31294c6-7c55-805f-8008-c5a925451f7c",
+          "fill": "#1267B4",
+          "boardSize": "174×58px",
+          "faceSize": "155×33px"
+        }
+      },
+      {
+        "pageId": "e31294c6-7c55-805f-8008-c58ffcf22e07",
+        "pageName": "19 · Bluent Button native variants",
+        "boardId": "e31294c6-7c55-805f-8008-c5907590b592",
+        "boardName": "#419 · Bluent Button native states matrix",
+        "eyebrow": "BLUENT DESIGN SYSTEM / NATIVE BUTTON · DRAFT",
+        "primaryRestShapeId": "e31294c6-7c55-805f-8008-c59076478c38",
+        "primaryRestFaceShapeId": "e31294c6-7c55-805f-8008-c59076478c3a",
+        "primaryRestFill": "#1267B4",
+        "status": "explicitly draft"
+      },
+      {
+        "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
+        "pageName": "27 · v3 token architecture and themes · #418",
+        "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
+        "boardName": "#418 · Source to semantic to component architecture",
+        "proposalNote": "48 new source-backed tokens in 6 Light/Dark sets. Each semantic/component value is a resolvable design-token alias; names remain PROPOSED.",
+        "lightPrimaryFill": "#1267B4",
+        "darkPrimaryFill": "#18599B",
+        "componentToken": "bluent.component.button.backgroundPrimary",
+        "status": "proposed; not design-approved"
+      },
+      {
+        "pageId": "07c521b9-e441-80bd-8008-c4b24ce7b0aa",
+        "pageName": "08 · Brand inventory",
+        "noteShapeId": "07c521b9-e441-80bd-8008-c4b368aca20c",
+        "sourceNote": "Brand backgrounds from generated theme-{brand}-{light,dark}.css. These are current values, not approved v3 semantics.",
+        "lightCurrentValue": "#1267B4",
+        "darkCurrentValue": "#18599B",
+        "boardId": "07c521b9-e441-80bd-8008-c4b3688e43c6"
+      }
+    ],
+    "penpotSessionMode": {
+      "lightTokenSetsActive": true,
+      "darkTokenSetsActive": false,
+      "darkResolutionCaveat": "Dark set literals were inspected, but current Penpot resolvedValue values for some inactive Dark sets still resolve to the active Light value. No Light/Dark toggle was performed, so dynamic Dark-token resolution is not claimed."
+    }
   },
   "parityAccepted": false,
   "designApproved": false,
