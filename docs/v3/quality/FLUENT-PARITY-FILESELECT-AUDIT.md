@@ -21,7 +21,7 @@ The actual evidence documents report 17/17 WebAssembly and 12/12 published-Serve
 
 - `behavior`: `audited_gaps` — the single-batch and cumulative `MaxFiles` violations are reproduced in both tested hosts.
 - `accessibility`: `audited_gaps` — the actual browser AX name is a non-semantic private-use glyph instead of contextual action text; native OS/AT remains pending.
-- `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — existing observations do not complete those acceptance dimensions.
+- `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps` — existing observations do not complete those acceptance dimensions.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Evidence sources

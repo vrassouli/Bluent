@@ -22,7 +22,7 @@ For both Checkbox and Switch:
 - `accessibility`: `audited_gaps` — Checkbox's visible mixed state lacks native/ARIA mixed semantics; Switch uses native checkbox semantics without an explicit switch role.
 - `visual`: `audited_gaps` — editable Fluent reference and Bluent draft matrices show incomplete state/style coverage; see [core-control design audit](FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md).
 - `designArtifact`: `audited_gaps` — editable reference/local frame IDs are recorded in the design audit; approval remains pending.
-- `feature`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, and `migrationDocs`: `not_reviewed`.
+- `feature`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, and `migrationDocs`: `audited_gaps`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Partial browser evidence (not full acceptance)

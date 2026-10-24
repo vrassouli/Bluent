@@ -98,6 +98,33 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         self.assertIn("not a public-API completeness certificate", report)
         self.assertIn("all 18 matrix families remain", report)
 
+    def test_family_reports_do_not_call_audited_matrix_dimensions_not_reviewed(self):
+        import re
+        tick = chr(96)
+        dimension_names = r"(?:visual|feature|behavior|accessibility|tokenTheme|responsiveRTL|BlazorExtensions|designArtifact|migrationDocs)"
+        for family in self.data["families"]:
+            report_path = QUALITY / Path(family["partialAuditReport"]).name
+            report = report_path.read_text(encoding="utf-8-sig")
+            for line in report.splitlines():
+                if re.search(dimension_names, line, re.IGNORECASE) and (tick + "not_reviewed" + tick) in line:
+                    self.fail(f"{family['family']} report conflicts with the canonical audited_gaps matrix: {report_path.name}: {line}")
+            for dimension, status in family["dimensions"].items():
+                self.assertEqual("audited_gaps", status, f"{family['family']} / {dimension}")
+
+    def test_markdown_summary_table_matches_canonical_matrix_status(self):
+        import re
+        markdown = (QUALITY / "FLUENT-PARITY-RETRO-AUDIT.md").read_text(encoding="utf-8-sig")
+        start = markdown.index("| # | Existing source family / product issue |")
+        end = markdown.index("## Frozen upstream reference baseline", start)
+        rows = [
+            line for line in markdown[start:end].splitlines()
+            if line.startswith("|") and "https://github.com/vrassouli/Bluent/issues/" in line
+        ]
+        self.assertEqual(18, len(rows))
+        for row in rows:
+            self.assertIsNone(re.search(r"(?i)\\bnot reviewed\\b", row), row)
+            self.assertIn("Audited gaps", row)
+
     def test_research_leads_are_real_files_not_accepted_evidence(self):
         refs = self.data["supplementalSourceAnalysis"]
         self.assertTrue(refs["interpretation"].startswith("Research leads only"))

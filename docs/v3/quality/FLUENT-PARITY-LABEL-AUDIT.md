@@ -22,7 +22,7 @@ The `/components/labels` demo was captured in Chrome and Edge in Light/LTR, Dark
 
 - `accessibility`: `audited_gaps` — browser AX names the Info action `This is a label`, inherited from the containing label rather than describing the action; native screen-reader output and field association across field families remain unverified.
 - `feature`: `audited_gaps` — 14 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); native `for`, Auto required inference, custom symbol and Info are extensions.
-- `visual`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed`.
+- `visual`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions

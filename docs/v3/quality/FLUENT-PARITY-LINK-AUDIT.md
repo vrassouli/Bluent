@@ -23,7 +23,7 @@ The `/components/links` demo was captured in Chrome and Edge in Light/LTR, Dark/
 - `behavior`: `audited_gaps` — source does not guard the click callback when disabled; browser confirms the disabled anchor remains focusable but loses link semantics. Real callback invocation/suppression remains untested.
 - `accessibility`: `audited_gaps` — disabled navigation is exposed as a focusable generic node without `href` or `aria-disabled`; native screen-reader output remains untested.
 - `feature`: `audited_gaps` — 12 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); href/appearance map, but anchor/button fallback and disabled semantics differ from `fluent-link`.
-- `visual`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed`.
+- `visual`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions

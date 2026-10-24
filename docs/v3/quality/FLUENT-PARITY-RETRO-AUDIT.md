@@ -33,26 +33,28 @@ Read the P0 known issues first: Button #428, Slider #442, RangeSlider #443, File
 
 The following ledger records audit progress, not parity acceptance. All 18 families have source/API reports, selected browser evidence and nine dimension-specific inventories with known gaps. Every dimension is audited_gaps; none is accepted. No family has a populated 2.x-to-v3 migration section (0/18). All design approvals and full evidence bundles remain pending. Source of truth: [machine-checkable matrix](FLUENT-PARITY-RETRO-AUDIT.json).
 
+Current summary-table statuses are synchronized to the canonical JSON: each summary dimension is audited_gaps, not accepted. Design approval remains pending for all families.
+
 | # | Existing source family / product issue | Priority | Wave | Visual | Feature | Behavior | A11y / design |
 | --: | --- | --- | --- | --- | --- | --- | --- |
-| 1 | [Button](https://github.com/vrassouli/Bluent/issues/428) (#428) | P0 | A | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 2 | [Icon](https://github.com/vrassouli/Bluent/issues/429) (#429) | P2 | A | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 3 | [Label](https://github.com/vrassouli/Bluent/issues/430) (#430) | P2 | A | Not reviewed | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 4 | [Link](https://github.com/vrassouli/Bluent/issues/431) (#431) | P2 | A | Not reviewed | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 5 | [Badge](https://github.com/vrassouli/Bluent/issues/445) (#445) | P2 | A | Not reviewed | **Audited gaps** | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 6 | [TextField](https://github.com/vrassouli/Bluent/issues/432) (#432) | P1 | B | **Audited gaps** | Not reviewed | Not reviewed | Not reviewed |
-| 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX confirms mixed-state gap; design: not reviewed** |
-| 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; browser AX role=checkbox; design: not reviewed** |
-| 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | Not reviewed |
-| 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | **Audited gaps** | Not reviewed | **Audited gaps; ArrowRight crosses groups in Chrome/Edge** | **A11y: group ignored in browser AX; design: not reviewed** |
-| 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | Not reviewed |
-| 12 | [DateField](https://github.com/vrassouli/Bluent/issues/438) (#438) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | Not reviewed |
-| 14 | [MaskedField](https://github.com/vrassouli/Bluent/issues/440) (#440) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | Not reviewed |
-| 15 | [OtpField](https://github.com/vrassouli/Bluent/issues/441) (#441) | P1 | C | **Audited gaps** | Not reviewed | Not reviewed | **A11y: audited gaps; design: not reviewed** |
-| 16 | [Slider](https://github.com/vrassouli/Bluent/issues/442) (#442) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
-| 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | **Audited gaps** | Not reviewed | **Audited gaps** | **A11y: audited gaps; design: not reviewed** |
+| 1 | [Button](https://github.com/vrassouli/Bluent/issues/428) (#428) | P0 | A | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 2 | [Icon](https://github.com/vrassouli/Bluent/issues/429) (#429) | P2 | A | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 3 | [Label](https://github.com/vrassouli/Bluent/issues/430) (#430) | P2 | A | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 4 | [Link](https://github.com/vrassouli/Bluent/issues/431) (#431) | P2 | A | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 5 | [Badge](https://github.com/vrassouli/Bluent/issues/445) (#445) | P2 | A | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 6 | [TextField](https://github.com/vrassouli/Bluent/issues/432) (#432) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | **Audited gaps** |
+| 7 | [Checkbox](https://github.com/vrassouli/Bluent/issues/434) (#434) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; browser AX confirms mixed-state gap; design: audited gaps; approval pending** |
+| 8 | [Switch](https://github.com/vrassouli/Bluent/issues/435) (#435) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; browser AX role=checkbox; design: audited gaps; approval pending** |
+| 9 | [NumericField](https://github.com/vrassouli/Bluent/issues/433) (#433) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | **Audited gaps** |
+| 10 | [RadioGroup](https://github.com/vrassouli/Bluent/issues/436) (#436) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps; ArrowRight crosses groups in Chrome/Edge** | **A11y: group ignored in browser AX; design: audited gaps; approval pending** |
+| 11 | [SelectField](https://github.com/vrassouli/Bluent/issues/437) (#437) | P1 | B | **Audited gaps** | **Audited gaps** | **Audited gaps** | **Audited gaps** |
+| 12 | [DateField](https://github.com/vrassouli/Bluent/issues/438) (#438) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 13 | [TimeField](https://github.com/vrassouli/Bluent/issues/439) (#439) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | **Audited gaps** |
+| 14 | [MaskedField](https://github.com/vrassouli/Bluent/issues/440) (#440) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | **Audited gaps** |
+| 15 | [OtpField](https://github.com/vrassouli/Bluent/issues/441) (#441) | P1 | C | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 16 | [Slider](https://github.com/vrassouli/Bluent/issues/442) (#442) | P0 | D | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 17 | [RangeSlider](https://github.com/vrassouli/Bluent/issues/443) (#443) | P0 | D | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
+| 18 | [FileSelect](https://github.com/vrassouli/Bluent/issues/444) (#444) | P0 | D | **Audited gaps** | **Audited gaps** | **Audited gaps** | **A11y: audited gaps; design: audited gaps; approval pending** |
 
 ## Frozen upstream reference baseline (2026-10-22)
 

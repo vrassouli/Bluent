@@ -36,7 +36,7 @@ The evidence documents report Chrome/Edge source observations, including 10/10 o
 - `visual`: `audited_gaps` — the Penpot comparison export omits headings and row/column labels; see [core-control design audit](FLUENT-PARITY-CORE-CONTROLS-DESIGN-AUDIT.md).
 - `feature`: `audited_gaps` — 30 API parameters are mapped in [Wave A API review](FLUENT-PARITY-WAVE-A-API-REVIEW.md); Danger is an extension and anchor/toggle/menu/Badge composition is not 1:1.
 - `designArtifact`: `audited_gaps` — editable reference/draft pair is linked in the core-control design audit; approval remains pending.
-- `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `migrationDocs`: `not_reviewed`.
+- `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `migrationDocs`: `audited_gaps`.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Next owner actions

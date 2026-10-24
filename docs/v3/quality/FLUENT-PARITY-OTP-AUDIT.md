@@ -23,7 +23,7 @@ The [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARI
 ## Canonical matrix disposition
 
 - `accessibility`: `audited_gaps` — group and per-digit names are fixed English strings, and non-positive `Length` can produce contradictory accessible labels.
-- `visual`, `feature`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — source inspection does not complete OTP runtime, design or upstream feature acceptance.
+- `visual`, `feature`, `behavior`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps` — source inspection does not complete OTP runtime, design or upstream feature acceptance.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions

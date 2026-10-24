@@ -19,7 +19,7 @@ The pinned Fluent Web Components 3.1.3 inventory and React semantic triage treat
 
 - `behavior`: `audited_gaps` — Chrome and Edge reproduce cross-group ArrowRight leakage when every radio has an empty native `name`; the tested options are separate Tab stops, and native form serialization has no field name.
 - `accessibility`: `audited_gaps` — the group wrapper is ignored by Chrome/Edge AX, has no computed name, and has no group label relationship, fieldset/legend, or explicit radiogroup role.
-- `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — no RadioGroup-specific live browser or normalized Fluent screenshot audit was performed in this step.
+- `visual`, `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps` — no RadioGroup-specific live browser or normalized Fluent screenshot audit was performed in this step.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions
