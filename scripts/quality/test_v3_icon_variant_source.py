@@ -110,6 +110,23 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         self.assertIn("Color SVG files", report)
         self.assertIn("not a Bluent API", report)
 
+    def test_canonical_icon_docs_preserve_custom_svg_trust_boundary(self):
+        docs = read("docs/components/icon.md")
+        migration = read("docs/compatibility/migration-and-upgrades.md")
+        component = read("src/Bluent.UI/Components/IconComponent/Icon.cs")
+        definition = read("src/Bluent.UI/Icons/IconDefinition.cs")
+        self.assertIn("Security boundary for custom SVG", docs)
+        self.assertIn("trusted, developer-controlled SVG", docs)
+        self.assertIn("Do not pass user-submitted", docs)
+        self.assertIn("does not promise to sanitize SVG", docs)
+        self.assertIn("Only use trusted developer-controlled SVG strings", migration)
+        self.assertIn("(MarkupString)source.Value", component)
+        self.assertIn("IconSource.Svg(regularSvg)", definition)
+        self.assertIn("IconSource.Svg(filledSvg)", definition)
+        prototype = read("docs/v3/quality/FLUENT-PARITY-ICON-SVG-PROTOTYPE.md")
+        self.assertIn("no sanitizer call", prototype)
+        self.assertIn("not a proof of exploitability", prototype)
+
     def test_report_does_not_invent_approval(self):
         report = read("docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md")
         for boundary in ("NOT Fluent parity", "not approved", "screen readers"):

@@ -127,7 +127,7 @@
       "productIssue": 429,
       "currentComponentDoc": "docs/components/icon.md",
       "currentDocExists": true,
-      "lineCount": 68,
+      "lineCount": 70,
       "headings": [
         "# Icon and IconDefinition",
         "## Package and namespaces",

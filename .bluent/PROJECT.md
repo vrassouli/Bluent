@@ -28,6 +28,9 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 **Latest #552 Icon upstream asset pin (2026-10-23):** Added exact npm-package/inventory provenance to [the Icon variant audit](../docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md) and [canonical matrix](../docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.json). Separately pinned `@fluentui/react-icons@2.0.344` and plain-SVG `@fluentui/svg-icons@1.1.344` by published SHA-512 integrity. Enumerated the exact SVG tarball: **21,732 SVGs, 2,991 unique base names, 890 Color and 214 light assets**. The exact package README marks Color deprecated; the tarball also contains 10/12/32-size and `light` filenames omitted from README's documented sizes/styles. Recorded that upstream mismatch explicitly as a package-inventory observation, not a Bluent public API promise. No upstream assets/dependency/product source were added; Color remains unapproved and all nine Icon parity dimensions remain `audited_gaps`. Focused package-inventory/source regression and full suite validation are tracked in the #552 task branch/PR #553.
 
 
+**Latest #552 Icon trust-boundary follow-up (2026-10-24):** Source review confirms `IconDefinition.FromSvg` passes the caller's SVG string through `IconSource.Svg` and `Icon.BuildRenderTree` emits it as `MarkupString`; the inspected path has no sanitizer/allow-list call. This is a trust-boundary finding only—not a demonstrated exploit—and no payload was executed. Added the trusted developer-controlled SVG warning to the canonical [Icon reference](../docs/components/icon.md), aligned the Icon audit, and added a regression test for the source/documentation boundary. No product runtime/security behavior was changed; do not pass untrusted SVG absent a separately reviewed sanitizer/allow-list and threat model.
+
+
 ## Current Phase
 
 **Phase:** AI readiness and consumer usability

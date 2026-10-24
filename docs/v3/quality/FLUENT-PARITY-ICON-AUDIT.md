@@ -18,6 +18,10 @@ The previous 2026-10-20 README read has now been supplemented by [an exact publi
 | Supported source types | `FromCss`, `FromSvg`, `FromImage`; renderer emits an `i`, a `span` containing supplied SVG `MarkupString`, or an `img`. `AdditionalAttributes` are forwarded. | Custom sources are supported. Raw SVG markup, sizing, accessible semantics, and caller-supplied attribute precedence need an explicit contract. |
 | Intrinsic accessibility | Renderer does not automatically set `aria-hidden`, `role`, `aria-label`, or image `alt`. | There is no universal decorative/informative policy. A standalone icon may be decorative or meaningful; icon-only actions must be named at the **control** level. |
 
+## Custom SVG security trust boundary
+
+`IconDefinition.FromSvg` stores the supplied string in `IconSource.Svg`, and `Icon.BuildRenderTree` emits that value as a `MarkupString`. The inspected rendering path has no SVG sanitizer/allow-list call. This is a **source-level trust-boundary observation**, not an exploitability finding: no attack payload was executed and this audit did not run a security exploit test. The migration guide already requires trusted developer-controlled SVG; the canonical [Icon reference](../../components/icon.md) now carries the same warning beside the factory/API documentation. Do not pass user-submitted or otherwise untrusted SVG without a separately reviewed sanitizer/allow-list and threat model. Do not treat CSS sizing as a security control. No sanitizer or product runtime behavior was changed by this audit-only PR.
+
 ## Reproduced visual and accessibility gaps
 
 | Finding | Actual Chrome/Edge observation | Boundary / owner |

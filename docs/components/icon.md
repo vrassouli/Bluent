@@ -51,6 +51,8 @@ Current `Icon` rendering is source-kind dependent:
 
 Unsupported source kinds throw `ArgumentOutOfRangeException`.
 
+**Security boundary for custom SVG:** `IconDefinition.FromSvg(...)` renders the supplied string as markup. Only pass trusted, developer-controlled SVG. Do not pass user-submitted, database-sourced, or otherwise untrusted SVG unless it has first passed a separately reviewed SVG sanitizer/allow-list appropriate to your threat model. This API does not promise to sanitize SVG. CSS sizing is not a security control.
+
 ## Consumer guidance
 
 Use the repository-provided typed icon catalog (for example `FluentIcons.Save`) where it contains the desired icon. Construct an `IconDefinition` directly only when integrating a custom CSS, SVG, or image icon source.
