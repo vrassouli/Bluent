@@ -51,6 +51,12 @@ This is a **diagnostic finding for Button owner #428**: confirm whether the meas
 
 **Interpretation limit:** a pixel counts changed if any RGB channel differs by at least 1; this is not a perceptual quality score or pass/fail threshold. The crop has the same host size and label but does not resolve whether the surface-token difference matches the approved Penpot brand decision. It excludes outside focus/box-shadow pixels and application scaffolding. This is diagnostic evidence for one Button appearance in two modes only—not parity approval, native OS high-contrast result or screen-reader acceptance. All 18 family dimensions remain `audited_gaps` and design approval remains pending.
 
+## Follow-up: Primary Button surface-token reconciliation (2026-10-24)
+
+The Release screenshot's remaining surface-color difference now has a source-backed token chain: Bluent Primary uses --colorBrandBackground, whose default Light/Dark values compile from $brand-default keys 80 / 70 to #1267B4 / #18599B; the actual Release browser computes the same values. The pinned Fluent run computes #0F6CBD / #115EA3. This confirms a default-source palette divergence, but whether that is an intentional Bluent brand choice or a Fluent parity gap remains a design-owner decision—not an automatic defect.
+
+See the [Button brand-token reconciliation](FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md) and [machine-readable evidence](evidence/FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json). Product CSS/API was not changed; editable Penpot review and all acceptance gates remain pending.
+
 ## Same-width Slider
 
 | Mode | Fluent WC Slider host | Bluent Slider host | Reproducible difference |

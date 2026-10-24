@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "issue": 552,
+  "audit": "Primary Button surface color source-token reconciliation",
+  "captureDate": "2026-10-24",
+  "status": "source_token_divergence_confirmed_design_intent_unresolved",
+  "reference": {
+    "package": "@fluentui/web-components@3.1.3",
+    "themePackage": "@fluentui/tokens@1.0.0-alpha.24",
+    "measurementSource": "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
+    "measurementType": "computed background color on actual rendered primary Button host"
+  },
+  "bluent": {
+    "repository": "vrassouli/Bluent",
+    "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+    "host": "published Blazor WebAssembly Release built from unchanged source",
+    "sourceMapping": [
+      {
+        "role": "primary appearance background",
+        "file": "src/Bluent.UI/Styles/Components/_button.scss",
+        "line": 189,
+        "expression": "background-color: var(--colorBrandBackground)"
+      },
+      {
+        "role": "default Light theme selects the default brand map",
+        "file": "src/Bluent.UI/Styles/Themes/theme-default-light.scss",
+        "line": 5,
+        "expression": "@include light-theme($brand-default)"
+      },
+      {
+        "role": "default Dark theme selects the default brand map",
+        "file": "src/Bluent.UI/Styles/Themes/theme-default-dark.scss",
+        "line": 5,
+        "expression": "@include dark-theme($brand-default)"
+      },
+      {
+        "role": "Light brand background mapping",
+        "file": "src/Bluent.UI/Styles/Themes/theme/light/brand-palette.scss",
+        "line": 108,
+        "expression": "--colorBrandBackground: map.get($brand, 80)"
+      },
+      {
+        "role": "Dark brand background mapping",
+        "file": "src/Bluent.UI/Styles/Themes/theme/dark/brand-palette.scss",
+        "line": 108,
+        "expression": "--colorBrandBackground: map.get($brand, 70)"
+      },
+      {
+        "role": "default brand color key 80",
+        "file": "src/Bluent.UI/Styles/Themes/_brand.scss",
+        "line": 9,
+        "expression": "80: #1267B4"
+      },
+      {
+        "role": "default brand color key 70",
+        "file": "src/Bluent.UI/Styles/Themes/_brand.scss",
+        "line": 8,
+        "expression": "70: #18599B"
+      },
+      {
+        "role": "compiled default Light theme token",
+        "file": "src/Bluent.UI/Styles/Themes/theme-default-light.css",
+        "line": 185,
+        "expression": "--colorBrandBackground: #1267B4"
+      },
+      {
+        "role": "compiled default Dark theme token",
+        "file": "src/Bluent.UI/Styles/Themes/theme-default-dark.css",
+        "line": 185,
+        "expression": "--colorBrandBackground: #18599B"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "mode": "LIGHT-LTR",
+      "fluentComputedBackground": "rgb(15, 108, 189)",
+      "fluentHex": "#0F6CBD",
+      "bluentComputedBackground": "rgb(18, 103, 180)",
+      "bluentHex": "#1267B4",
+      "bluentSourceToken": "--colorBrandBackground",
+      "bluentSourceMapKey": 80,
+      "signedRgbDeltaBluentMinusFluent": [
+        3,
+        -5,
+        -9
+      ],
+      "absoluteRgbDelta": [
+        3,
+        5,
+        9
+      ],
+      "computedValueMatchesCompiledToken": true
+    },
+    {
+      "mode": "DARK-RTL",
+      "fluentComputedBackground": "rgb(17, 94, 163)",
+      "fluentHex": "#115EA3",
+      "bluentComputedBackground": "rgb(24, 89, 155)",
+      "bluentHex": "#18599B",
+      "bluentSourceToken": "--colorBrandBackground",
+      "bluentSourceMapKey": 70,
+      "signedRgbDeltaBluentMinusFluent": [
+        7,
+        -5,
+        -8
+      ],
+      "absoluteRgbDelta": [
+        7,
+        5,
+        8
+      ],
+      "computedValueMatchesCompiledToken": true
+    }
+  ],
+  "diagnosis": {
+    "confirmed": [
+      "The current default Bluent source palette differs from the observed pinned Fluent primary Button surface in both tested modes.",
+      "The rendered Bluent background exactly matches the compiled default theme token, and that token maps to the recorded source brand palette value.",
+      "For this base primary state, the evidence points to a source-token value difference rather than an unintentional CSS cascade override."
+    ],
+    "notEstablished": [
+      "Whether the current Bluent brand palette is an intentional product-brand choice or an unintended Fluent parity gap.",
+      "Whether the current primary surface matches the owner-approved editable Bluent v3 Penpot component.",
+      "Parity for other appearances, states, browsers, operating systems, native high contrast, or assistive technology."
+    ]
+  },
+  "designHandoff": {
+    "sourceOwnedDesignSystem": "Bluent v3 Design System",
+    "penpotFileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "workflowReference": "docs/v3/design/BLUENT-V3-PENPOT.md",
+    "decision": "pending owner review against the editable primary Button appearance/state specimen and token rationale"
+  },
+  "parityAccepted": false,
+  "designApproved": false,
+  "productSourceChanged": false,
+  "productApiChanged": false,
+  "productCssChanged": false
+}

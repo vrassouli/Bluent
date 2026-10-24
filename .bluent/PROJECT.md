@@ -2,6 +2,8 @@
 
 This file is the current project-state entry point. Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
 
+**Latest #552 Button surface-token reconciliation (2026-10-24):** The remaining primary Button fill difference is now traced through the real Release-rendered source chain: the Primary selector uses --colorBrandBackground; default Light/Dark compile the $brand-default keys 80 / 70 to #1267B4 / #18599B, matching the browser's computed surfaces exactly. The pinned Fluent run computes #0F6CBD / #115EA3. This confirms source-token divergence rather than an unexplained cascade override, but whether it is an intentional Bluent brand choice or a parity gap remains unresolved pending review against the editable Bluent v3 Design System in Penpot. This evidence-only step changed no product source/API/CSS and did not approve parity. See [Button token reconciliation](../docs/v3/quality/FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md) and [structured evidence](../docs/v3/quality/evidence/FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json).
+
 ## Parallel v3 foundation (isolated development)
 
 **Epic:** [#416](https://github.com/vrassouli/Bluent/issues/416), all work in the protected `bluent-v3` integration branch and issue-specific task branches. **Stable `Dev`, NuGet and deployments remain untouched.**
