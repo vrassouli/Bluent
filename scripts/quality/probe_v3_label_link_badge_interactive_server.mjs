@@ -112,6 +112,23 @@ const axFor = async selector => {
   }));
 };
 
+const eventListenersFor = async selector => {
+  const found = await send("Runtime.evaluate", {
+    expression:"document.querySelector("+JSON.stringify(selector)+")",
+    returnByValue:false,
+  });
+  const objectId = found.result?.objectId;
+  if (!objectId) return {found:false,listeners:[]};
+  const result = await send("DOMDebugger.getEventListeners",{objectId});
+  return {
+    found:true,
+    listeners:(result.listeners||[]).map(item=>({
+      type:item.type,useCapture:!!item.useCapture,passive:!!item.passive,
+      once:!!item.once,scriptId:item.scriptId,lineNumber:item.lineNumber,columnNumber:item.columnNumber,
+    })),
+  };
+};
+
 const describe = async () => evaluate("(() => {" +
   "const infoButton=document.querySelector('#probe-label-section .bui-label button');" +
   "const disabledLink=document.querySelector('#probe-link-section .bui-link');" +
@@ -129,6 +146,17 @@ const describe = async () => evaluate("(() => {" +
   "disabledLink:style(disabledLink),staticBadge:style(badges[0]),animatedBadge:style(badges[1])," +
   "reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches,sentinelCount:sentinel?.textContent?.trim()||null," +
   "disabledLinkClickCount:disabledLinkClickCount?.textContent?.trim()||null};})()");
+
+const describePopover = async () => evaluate("(() => {" +
+  "const trigger=document.querySelector('#probe-label-section .bui-label button');" +
+  "const surface=trigger?.id ? document.getElementById(trigger.id+'_surface') : null;" +
+  "const surfaceStyle=surface ? getComputedStyle(surface) : null;" +
+  "const rect=e=>{if(!e)return null;const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,width:r.width,height:r.height,top:r.top,bottom:r.bottom};};" +
+  "return {triggerPresent:!!trigger,triggerId:trigger?.id||null,triggerAriaExpanded:trigger?.getAttribute('aria-expanded')??null," +
+  "triggerAriaHaspopup:trigger?.getAttribute('aria-haspopup')??null,triggerBox:rect(trigger)," +
+  "surfacePresent:!!surface,surface:surface ? {id:surface.id,className:surface.className,hiddenClass:surface.classList.contains('hidden')," +
+  "showClass:surface.classList.contains('show'),display:surfaceStyle.display,opacity:surfaceStyle.opacity," +
+  "text:(surface.innerText||surface.textContent||'').trim(),role:surface.getAttribute('role'),ariaLabel:surface.getAttribute('aria-label'),box:rect(surface)} : null};})()");
 
 const screenshot = async name => {
   const png = (await send("Page.captureScreenshot", {
@@ -352,13 +380,77 @@ const main = async () => {
   const reducedScreenshot = await screenshot("REDUCED-MOTION");
   cases.push({mode:{name:"REDUCED-MOTION",forced:false},state:reducedMotion,screenshot:reducedScreenshot});
 
+  // Label's Info action is a click-triggered Popover. Exercise the actual surface lifecycle
+  // after screenshots so these interactions do not alter the existing visual-mode captures.
+  await evaluate("document.querySelector('#probe-label-section .bui-label button').scrollIntoView({block:'center',inline:'center'})");
+  const popoverBefore = await describePopover();
+  await click(popoverBefore.triggerBox);
+  await wait(700);
+  const popoverDebug = await evaluate("(() => { const t=document.querySelector('#probe-label-section .bui-label button'); return {triggerId:t?.id||null,triggerHTML:t?.outerHTML||null,surfaces:[...document.querySelectorAll('.bui-popover-surface')].map(e=>({id:e.id,className:e.className,text:(e.innerText||e.textContent||'').trim(),display:getComputedStyle(e).display,opacity:getComputedStyle(e).opacity})),surfaceIds:[...document.querySelectorAll('[id$=\\\"_surface\\\"]')].map(e=>({id:e.id,tag:e.tagName,className:e.className}))}; })()");
+  const popoverOpen = await describePopover();
+  popoverDebug.triggerListeners = await eventListenersFor("#probe-label-section .bui-label button");
+  console.log(engine + " Popover debug " + JSON.stringify({popoverDebug,popoverOpen}));
+  const infoContentFound = popoverOpen.surface?.text.includes("This is example information for an InfoLabel.") === true;
+  const popoverObservation = {
+    before: popoverBefore,
+    afterTriggerClick: popoverOpen,
+    contentFound: infoContentFound,
+    insideClick: null,
+    afterOutsideClick: null,
+    outsideClickRoundTrip: null,
+  };
+  check("Label Info trigger click creates a visible Popover surface with the supplied info content",
+    popoverOpen.triggerPresent && popoverOpen.surfacePresent &&
+    !popoverOpen.surface.hiddenClass && popoverOpen.surface.showClass && infoContentFound,
+    popoverObservation);
+
+  if (popoverOpen.surfacePresent && !popoverOpen.surface.hiddenClass && popoverOpen.surface.showClass) {
+    await evaluate("document.getElementById(" + JSON.stringify(popoverOpen.surface.id) + ").scrollIntoView({block:'center',inline:'center'})");
+    const surfaceBeforeInsideClick = await describePopover();
+    await click(surfaceBeforeInsideClick.surface.box);
+    await wait(150);
+    const surfaceAfterInsideClick = await describePopover();
+    popoverObservation.insideClick = {before:surfaceBeforeInsideClick,after:surfaceAfterInsideClick};
+    check("Clicking inside the Label Info Popover keeps the surface visible",
+      surfaceAfterInsideClick.surfacePresent && !surfaceAfterInsideClick.surface.hiddenClass &&
+      surfaceAfterInsideClick.surface.showClass,
+      popoverObservation.insideClick);
+  } else {
+    popoverObservation.insideClick = {skipped:true,reason:"No visible Popover surface was observed after clicking the Info trigger.",debug:popoverDebug};
+    check("Clicking inside the Label Info Popover keeps the surface visible", false, popoverObservation.insideClick);
+  }
+
+  await evaluate("document.getElementById('server-interaction-sentinel').scrollIntoView({block:'center',inline:'center'})");
+  const beforeOutsideClick = await describe();
+  const outsideBox = await evaluate("(() => {const e=document.getElementById('server-interaction-sentinel');const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
+  await click(outsideBox);
+  await poll(async () => {
+    const state = await describePopover();
+    return !state.surfacePresent || state.surface.hiddenClass || state.surface.display === "none";
+  },15000);
+  const popoverAfterOutside = await describePopover();
+  const afterOutsideClick = await describe();
+  popoverObservation.afterOutsideClick = popoverAfterOutside;
+  popoverObservation.outsideClickRoundTrip = {
+    sentinelBefore:beforeOutsideClick.sentinelCount,
+    sentinelAfter:afterOutsideClick.sentinelCount,
+  };
+  const popoverWasVisible = popoverOpen.surfacePresent && !popoverOpen.surface.hiddenClass && popoverOpen.surface.showClass;
+  check("Clicking outside the Label Info Popover closes/removes the surface",
+    popoverWasVisible && (!popoverAfterOutside.surfacePresent || popoverAfterOutside.surface.hiddenClass ||
+    popoverAfterOutside.surface.display === "none"),
+    {popoverWasVisible,after:popoverObservation.afterOutsideClick});
+  check("Outside click still reaches the underlying InteractiveServer sentinel",
+    beforeOutsideClick.sentinelCount === "1" && afterOutsideClick.sentinelCount === "2",
+    popoverObservation.outsideClickRoundTrip);
+
   const output = {
     issue:552,owningIssues:{Label:430,Link:431,Badge:445},
     engine,renderer:"published Production Blazor InteractiveServer",
     host:"Bluent.UI.Demo.SSR Release publish with a QA-only route; temporary published output",
     route:pagePath,sourceRef:"7165a7671044b9c58b7d0c96cc93bf2b2b97fd52",
     scope:"Real Chromium DOM/AX/computed style and server event round-trip. Forced-colors and reduced-motion are emulated. Not native OS/screen-reader validation or Fluent parity acceptance.",
-    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,checks,cases,
+    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,checks,cases,
     summary:{checks:checks.length,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length,
       screenshots:cases.map(item=>item.screenshot)},
   };

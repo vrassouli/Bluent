@@ -304,11 +304,14 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
-      "notesForReview": "Required marks, Info, alignment, native for/focus association, accessible helper/validation copy.",
+      "notesForReview": "Required marks, Info action accessible naming, native for/focus association and helper/validation copy. Published Production InteractiveServer Chrome/Edge evidence confirms Info Popover opens with content, stays open on inside click, and closes on outside click when Containers is placed inside the same interactive circuit (2026-10-24). Trigger has no aria-expanded/haspopup; surface has no role/aria-label; review against design/native AT remains pending.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
-        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json"
+        "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.json",
+        "docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md",
+        "docs/v3/quality/evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME.json",
+        "docs/v3/quality/evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE.json"
       ],
       "partialAuditReport": "docs/v3/quality/FLUENT-PARITY-LABEL-AUDIT.md",
       "apiReviewReport": "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",

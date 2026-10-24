@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 QUALITY = ROOT / "docs/v3/quality"
 EVIDENCE = QUALITY / "evidence"
 SOURCE_REF = "7165a7671044b9c58b7d0c96cc93bf2b2b97fd52"
-EXPECTED_CHECKS = 19
+EXPECTED_CHECKS = 23
 EXPECTED_SCREENSHOTS = {
     "LIGHT-LTR", "DARK-RTL", "FORCED-COLORS", "REDUCED-MOTION",
 }
@@ -72,6 +72,43 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
                 self.assertEqual("0", check["actual"]["before"])
                 self.assertEqual("1", check["actual"]["after"])
 
+    def test_label_info_popover_lifecycle_is_exercised_inside_the_server_circuit(self):
+        for engine, run in self.runs.items():
+            with self.subTest(engine=engine):
+                popover = run["popoverObservation"]
+                self.assertFalse(popover["before"]["surfacePresent"])
+                opened = popover["afterTriggerClick"]
+                self.assertTrue(opened["surfacePresent"])
+                self.assertFalse(opened["surface"]["hiddenClass"])
+                self.assertTrue(opened["surface"]["showClass"])
+                self.assertEqual("block", opened["surface"]["display"])
+                self.assertEqual("1", opened["surface"]["opacity"])
+                self.assertIn("This is example information for an InfoLabel.", opened["surface"]["text"])
+                self.assertIn("Learn more", opened["surface"]["text"])
+                self.assertTrue(popover["contentFound"])
+
+                inside = popover["insideClick"]
+                self.assertFalse(inside["before"]["surface"]["hiddenClass"])
+                self.assertTrue(inside["before"]["surface"]["showClass"])
+                self.assertFalse(inside["after"]["surface"]["hiddenClass"])
+                self.assertTrue(inside["after"]["surface"]["showClass"])
+
+                closed = popover["afterOutsideClick"]
+                is_hidden = (
+                    not closed["surfacePresent"]
+                    or closed["surface"]["hiddenClass"]
+                    or closed["surface"]["display"] == "none"
+                )
+                self.assertTrue(is_hidden)
+                self.assertEqual("1", popover["outsideClickRoundTrip"]["sentinelBefore"])
+                self.assertEqual("2", popover["outsideClickRoundTrip"]["sentinelAfter"])
+
+                names = {item["name"]: item["pass"] for item in run["checks"]}
+                self.assertTrue(names["Label Info trigger click creates a visible Popover surface with the supplied info content"])
+                self.assertTrue(names["Clicking inside the Label Info Popover keeps the surface visible"])
+                self.assertTrue(names["Clicking outside the Label Info Popover closes/removes the surface"])
+                self.assertTrue(names["Outside click still reaches the underlying InteractiveServer sentinel"])
+
     def test_modes_and_screenshots_are_present_and_nonempty(self):
         for engine, run in self.runs.items():
             with self.subTest(engine=engine):
@@ -90,6 +127,8 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
         self.assertIn('OnClick="IncrementDisabledLinkCount"', self.route)
         self.assertIn('disabledLinkClickCount++', self.route)
         self.assertIn('QA-only instrumentation route', self.route)
+        self.assertIn('<Containers />', self.route)
+        self.assertIn('same InteractiveServer circuit', self.route)
         self.assertIn('cleanupOwnedBrowserProcesses', self.probe)
         self.assertIn('Contains($profile)', self.probe)
         self.assertNotIn('taskkill.exe /IM', self.probe)
@@ -97,9 +136,12 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
 
     def test_report_updates_pointer_evidence_without_overstating_native_at_or_parity(self):
         self.assertIn("Published Production InteractiveServer follow-up", self.report)
-        self.assertIn("19/19 checks pass", self.report)
-        self.assertIn("38/38 combined", self.report)
+        self.assertIn("23/23 checks pass", self.report)
+        self.assertIn("46/46 combined", self.report)
         self.assertIn("still invokes its supplied OnClick callback", self.report)
+        self.assertIn("Label Info Popover lifecycle", self.report)
+        self.assertIn("Clicking inside keeps it visible", self.report)
+        self.assertIn("the same outside click increments the server sentinel from 1 to 2", self.report)
         self.assertIn("focus moves directly to the server-interaction sentinel and skips the disabled Link", self.report)
         self.assertIn("Forced Colors and Reduced Motion above are browser emulation", self.report)
         self.assertIn("keyboard activation behavior", self.report)
