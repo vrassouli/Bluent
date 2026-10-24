@@ -18,7 +18,7 @@ Review date: 2026-10-23. Source baseline: 73155f02.
 | Family | Current component doc | Lines | Migration heading | V3 migration section | Gap |
 |---|---|---:|---|---|---|
 | Button | [button.md](../../../docs/components/button.md) | 143 | no | no | No family-specific 2.x-to-v3 migration section is present in the current component reference. |
-| Icon | [icon.md](../../../docs/components/icon.md) | 70 | no | no | No family-specific 2.x-to-v3 migration section is present in the current component reference. |
+| Icon | [icon.md](../../../docs/components/icon.md) | 78 | no | no | No family-specific 2.x-to-v3 migration section is present in the current component reference. |
 | Label | [label.md](../../../docs/components/label.md) | 50 | no | no | No family-specific 2.x-to-v3 migration section is present in the current component reference. |
 | Link | [link.md](../../../docs/components/link.md) | 47 | no | no | No family-specific 2.x-to-v3 migration section is present in the current component reference. |
 | Badge | [badge.md](../../../docs/components/badge.md) | 168 | no | no | No family-specific 2.x-to-v3 migration section is present in the current component reference. |
