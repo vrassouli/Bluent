@@ -119,13 +119,15 @@
       "The rendered Bluent background exactly matches the compiled default theme token, and that token maps to the recorded source brand palette value.",
       "For this base primary state, the evidence points to a source-token value difference rather than an unintentional CSS cascade override.",
       "The source-owned Penpot Button parity page explicitly labels the Bluent side as draft, shows upstream #0F6CBD versus Bluent #1267B4, and says color/typography/state differences require review before claiming parity.",
-      "The source-owned Button native matrix is explicitly marked DRAFT, the #418 token architecture says token names remain PROPOSED, and the brand inventory says existing CSS brand backgrounds are not approved v3 semantics."
+      "The source-owned Button native matrix is explicitly marked DRAFT, the #418 token architecture says token names remain PROPOSED, and the brand inventory says existing CSS brand backgrounds are not approved v3 semantics.",
+      "The #418 Light-mode Button note says text #242424, while the native Primary Button label, actual Release computed foreground, and semantic onBrand token are #FFFFFF. The draft annotation is internally inconsistent."
     ],
     "notEstablished": [
       "Whether the current Bluent brand palette is an intentional product-brand choice or an unintended Fluent parity gap.",
       "Whether the current primary surface matches the owner-approved editable Bluent v3 Penpot component.",
       "Parity for other appearances, states, browsers, operating systems, native high contrast, or assistive technology.",
-      "Any owner/designer approval to retain the current default Light/Dark brand palette in v3."
+      "Any owner/designer approval to retain the current default Light/Dark brand palette in v3.",
+      "Whether the #242424 annotation refers to another semantic role or is simply incorrect; the contradiction requires design-owner clarification."
     ]
   },
   "designHandoff": {
@@ -200,5 +202,86 @@
   "designApproved": false,
   "productSourceChanged": false,
   "productApiChanged": false,
-  "productCssChanged": false
+  "productCssChanged": false,
+  "foregroundTokenConflict": {
+    "status": "draft_design_annotation_conflicts_with_native_component_and_release_runtime",
+    "penpot": {
+      "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+      "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
+      "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
+      "noteShapeId": "acf5f619-7d81-80da-8008-c5cb93897aec",
+      "lightNoteText": "Primary Button fill #1267B4 · text #242424",
+      "nativeButtonPageId": "e31294c6-7c55-805f-8008-c58ffcf22e07",
+      "nativePrimaryRestLabelShapeId": "e31294c6-7c55-805f-8008-c59076478c3b",
+      "nativePrimaryRestLabelFill": "#FFFFFF"
+    },
+    "sourceTokenEvidence": {
+      "tokenSet": "bluent-v3/418/semantic/light",
+      "token": "bluent.semantic.action.onBrand",
+      "literalValue": "{bluent.source.onBrand}",
+      "resolvedValue": "#FFFFFF",
+      "lightTokenSetActiveInInspection": true
+    },
+    "releaseRuntime": {
+      "captureEvidence": "FLUENT-BLUENT-BUTTON-TYPOGRAPHY-CHROME.json",
+      "lightForeground": "rgb(255, 255, 255)",
+      "darkForeground": "rgb(255, 255, 255)"
+    },
+    "wcagContrastRatios": [
+      {
+        "background": "#1267B4",
+        "foreground": "#FFFFFF",
+        "ratio": 5.7933,
+        "meetsNormalTextMinimum45": true
+      },
+      {
+        "background": "#1267B4",
+        "foreground": "#242424",
+        "ratio": 2.6795,
+        "meetsNormalTextMinimum45": false
+      },
+      {
+        "background": "#0F6CBD",
+        "foreground": "#FFFFFF",
+        "ratio": 5.3844,
+        "meetsNormalTextMinimum45": true
+      },
+      {
+        "background": "#0F6CBD",
+        "foreground": "#242424",
+        "ratio": 2.8829,
+        "meetsNormalTextMinimum45": false
+      },
+      {
+        "background": "#18599B",
+        "foreground": "#FFFFFF",
+        "ratio": 7.1402,
+        "meetsNormalTextMinimum45": true
+      },
+      {
+        "background": "#18599B",
+        "foreground": "#242424",
+        "ratio": 2.174,
+        "meetsNormalTextMinimum45": false
+      },
+      {
+        "background": "#115EA3",
+        "foreground": "#FFFFFF",
+        "ratio": 6.6587,
+        "meetsNormalTextMinimum45": true
+      },
+      {
+        "background": "#115EA3",
+        "foreground": "#242424",
+        "ratio": 2.3312,
+        "meetsNormalTextMinimum45": false
+      }
+    ],
+    "standard": {
+      "name": "WCAG 2.2 SC 1.4.3 Contrast (Minimum)",
+      "minimumForNormalText": 4.5,
+      "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum"
+    },
+    "interpretation": "This is a contradiction in draft design annotation, not evidence that current Release runtime fails contrast. Runtime and native Button label are white on the primary fill and exceed 4.5:1. The draft #242424 foreground annotation would be below 4.5:1 on the measured fills for normal text and must not be adopted without design-owner correction and review."
+  }
 }

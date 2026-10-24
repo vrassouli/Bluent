@@ -87,6 +87,28 @@ class FluentButtonBrandTokenReconciliation(unittest.TestCase):
         self.assertIn("token names remain **PROPOSED**", report)
         self.assertIn("no claim is made that switching/resolving the Penpot Dark theme was dynamically validated", report)
 
+    def test_penpot_light_foreground_annotation_conflict_is_explicit(self):
+        conflict = self.record["foregroundTokenConflict"]
+        self.assertEqual("#242424", conflict["penpot"]["lightNoteText"].split("text ")[1])
+        self.assertEqual("#FFFFFF", conflict["penpot"]["nativePrimaryRestLabelFill"])
+        self.assertEqual("#FFFFFF", conflict["sourceTokenEvidence"]["resolvedValue"])
+        self.assertEqual("rgb(255, 255, 255)", conflict["releaseRuntime"]["lightForeground"])
+        self.assertEqual("rgb(255, 255, 255)", conflict["releaseRuntime"]["darkForeground"])
+        ratios = {(r["background"], r["foreground"]): r for r in conflict["wcagContrastRatios"]}
+        self.assertAlmostEqual(5.7933, ratios[("#1267B4", "#FFFFFF")]["ratio"], places=4)
+        self.assertTrue(ratios[("#1267B4", "#FFFFFF")]["meetsNormalTextMinimum45"])
+        self.assertAlmostEqual(2.6795, ratios[("#1267B4", "#242424")]["ratio"], places=4)
+        self.assertFalse(ratios[("#1267B4", "#242424")]["meetsNormalTextMinimum45"])
+        self.assertEqual(4.5, conflict["standard"]["minimumForNormalText"])
+
+    def test_report_warns_against_adopting_unreviewed_low_contrast_annotation(self):
+        report = (ROOT / "docs/v3/quality/FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md").read_text(encoding="utf-8-sig")
+        self.assertIn("draft annotation conflict", report)
+        self.assertIn("5.7933:1", report)
+        self.assertIn("2.6795:1", report)
+        self.assertIn("Do not implement the #242424 annotation", report)
+        self.assertIn("WCAG 2.2 SC 1.4.3", report)
+
     def test_report_links_the_evidence_and_preserves_design_gate(self):
         report = (ROOT / "docs/v3/quality/FLUENT-PARITY-BUTTON-BRAND-TOKEN-RECONCILIATION.md").read_text(encoding="utf-8-sig")
         self.assertIn("FLUENT-BLUENT-BUTTON-BRAND-TOKEN-RECONCILIATION.json", report)
