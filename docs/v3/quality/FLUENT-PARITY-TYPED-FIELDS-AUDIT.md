@@ -32,7 +32,7 @@ The runtime also verified sequential keyboard entry for DateField (20250115 -> 2
 - **DateField:** `feature=audited_gaps`, `behavior=audited_gaps`, `accessibility=audited_gaps` — `DateClass` no-op, typed `Min`/`Max` bypass, YearSelect mismatch and unnamed calendar trigger.
 - **TimeField:** `feature=audited_gaps`, `behavior=audited_gaps` — inherited event selector is not propagated; culture/format contract remains open.
 - **MaskedField:** `feature=audited_gaps`, `behavior=audited_gaps` — inherited event selector is ignored; mask/caret/IME runtime remains open.
-- Other dimensions remain `audited_gaps` in the canonical matrix; the evidence in this shared typed-field report is partial and does not constitute acceptance. All five families remain `researching`, design approval `pending`, full evidence bundle `null`, and `gapDisposition=known_gaps_open`.
+- Other dimensions remain `audited_gaps` in the canonical matrix; the observed typed-field coverage is partial and does not constitute acceptance. All five families remain `researching`, design approval `pending`, full evidence bundle `null`, and `gapDisposition=known_gaps_open`.
 
 ## Required owner actions
 

@@ -122,7 +122,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         ]
         self.assertEqual(18, len(rows))
         for row in rows:
-            self.assertIsNone(re.search(r"(?i)\\bnot reviewed\\b", row), row)
+            self.assertIsNone(re.search(r"(?i)\bnot reviewed\b", row), row)
             self.assertIn("Audited gaps", row)
 
     def test_research_leads_are_real_files_not_accepted_evidence(self):
