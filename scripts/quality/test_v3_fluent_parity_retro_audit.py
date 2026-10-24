@@ -1,5 +1,6 @@
 """Contract tests for the #552 18-family Fluent parity backfill matrix."""
 import json
+import re
 import subprocess
 import sys
 import unittest
@@ -9,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 QUALITY = ROOT / "docs/v3/quality"
 MATRIX = QUALITY / "FLUENT-PARITY-RETRO-AUDIT.json"
 REPORT = QUALITY / "FLUENT-PARITY-RETRO-AUDIT.md"
+STALE_REVIEW_STATUS_PATTERN = re.compile(r"\bnot reviewed\b", re.IGNORECASE)
 EXPECTED = {
     "Button": 428, "Icon": 429, "Label": 430, "Link": 431, "Badge": 445,
     "TextField": 432, "Checkbox": 434, "Switch": 435, "NumericField": 433,
@@ -111,8 +113,12 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             for dimension, status in family["dimensions"].items():
                 self.assertEqual("audited_gaps", status, f"{family['family']} / {dimension}")
 
+    def test_stale_review_status_detector_rejects_plain_language_phrase(self):
+        self.assertIsNotNone(STALE_REVIEW_STATUS_PATTERN.search("Visual: not reviewed"))
+        self.assertIsNotNone(STALE_REVIEW_STATUS_PATTERN.search("Feature disposition: NOT REVIEWED"))
+        self.assertIsNone(STALE_REVIEW_STATUS_PATTERN.search("Visual: audited_gaps"))
+
     def test_markdown_summary_table_matches_canonical_matrix_status(self):
-        import re
         markdown = (QUALITY / "FLUENT-PARITY-RETRO-AUDIT.md").read_text(encoding="utf-8-sig")
         start = markdown.index("| # | Existing source family / product issue |")
         end = markdown.index("## Frozen upstream reference baseline", start)
@@ -122,7 +128,7 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
         ]
         self.assertEqual(18, len(rows))
         for row in rows:
-            self.assertIsNone(re.search(r"(?i)\bnot reviewed\b", row), row)
+            self.assertIsNone(STALE_REVIEW_STATUS_PATTERN.search(row), row)
             self.assertIn("Audited gaps", row)
 
     def test_research_leads_are_real_files_not_accepted_evidence(self):
