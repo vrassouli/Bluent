@@ -1,6 +1,6 @@
 # Slider and RangeSlider design review handoff (#442–443)
 
-> Status: **editable Penpot design proposals created; review pending; not implementation approval**. Updated 2026-10-23.
+> Status: **editable Penpot design proposals created; review pending; not implementation approval**. Updated 2026-10-24; review remains pending.
 
 ## Authoritative design location
 
@@ -8,7 +8,7 @@
 - Page: `03 · Quality & migration`, ID `07c521b9-e441-80bd-8008-c4ad87df93c3`.
 - Slider board: `#442 · Slider design · REVIEW DRAFT`, ID `deabb4f4-bae0-800e-8008-d55884e4ac27`, 1440×1000, 39 child shapes.
 - RangeSlider board: `#443 · RangeSlider design · REVIEW DRAFT`, ID `deabb4f4-bae0-800e-8008-d5588803df4e`, 1440×1000, 49 child shapes.
-- Both boards were exported through Penpot and visually inspected on 2026-10-23. They are editable native boards/shapes, not flattened screenshots.
+- Both boards were exported through Penpot and visually inspected on 2026-10-23. They are editable native boards/shapes, not flattened screenshots. Their traceability is now included in the [#552 Slider addendum](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-SLIDER.json) and [RangeSlider addendum](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-RANGESLIDER.json); exact text-bound and board-containment metrics were not captured and remain unknown.
 
 ## Slider proposal (#442)
 

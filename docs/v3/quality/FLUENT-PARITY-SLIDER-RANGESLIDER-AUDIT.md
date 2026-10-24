@@ -1,6 +1,6 @@
 # #552 family audit — Slider (#442) and RangeSlider (#443)
 
-**Status: partial source/browser audit with confirmed gaps.** This is not a Fluent parity acceptance, design approval, product implementation, or native OS/assistive-technology sign-off. Existing Bluent source and prior real-browser evidence were reviewed; no product code was changed.
+**Status: partial source/browser audit with confirmed gaps.** This is not a Fluent parity acceptance, design approval, product implementation, or native OS/assistive-technology sign-off. Existing Bluent source and prior real-browser evidence were reviewed; no product code was changed. Updated 2026-10-24 to reconcile the family report with the canonical matrix and dated design-artifact inventory.
 
 ## Upstream comparison decision
 
@@ -24,6 +24,15 @@ The pinned Fluent Web Components 3.1.3 crosswalk contains a dedicated Slider com
 
 Both components expose generic numeric `Min`, `Max`, `Value`, `ValueChanged`, and optional `ThumbSize` parameters, use pointer-move/up infrastructure, and calculate their values from a DOM rail rectangle. Slider's `Orientation` and `Size` declarations are commented out in current source; the corresponding vertical calculation is also commented out. RangeSlider binds a `ValueRange<TValue>` and validates that `Max` is greater than `Min`, but it does not expose independent accessible contracts for its two thumb nodes. This is a source/API inventory, not yet a full per-feature upstream disposition.
 
+## Design-artifact traceability (2026-10-24)
+
+The consolidated #552 design inventory now includes additive records for the two existing review-draft boards in the project-owned Penpot file:
+
+- **Slider #442:** page `03 · Quality & migration` (`07c521b9-e441-80bd-8008-c4ad87df93c3`), board `#442 · Slider design · REVIEW DRAFT` (`deabb4f4-bae0-800e-8008-d55884e4ac27`), 39 editable child shapes. See the [dated Slider addendum](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-SLIDER.json).
+- **RangeSlider #443:** same page, board `#443 · RangeSlider design · REVIEW DRAFT` (`deabb4f4-bae0-800e-8008-d5588803df4e`), 49 editable child shapes. See the [dated RangeSlider addendum](evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-RANGESLIDER.json).
+
+Both remain review-only; neither is a complete reusable variant set or an approval. The original 2026-10-22 read-only snapshot remains unchanged. Text-node counts, invalid text bounds and out-of-board counts were not preserved in the existing evidence, so those metrics are recorded as `null` rather than inferred. The consolidated [design-artifact audit](FLUENT-PARITY-DESIGN-ARTIFACT-AUDIT.md) now classifies both family-specific design artifacts as `dedicated-review-board-incomplete-variant-coverage`.
+
 ## Disposition for the canonical nine-dimension matrix
 
 For both families:
@@ -31,7 +40,7 @@ For both families:
 - `visual`: `audited_gaps` — the forced-colors rail disappearance is evidenced; full visual/design acceptance remains incomplete.
 - `behavior`: `audited_gaps` — the coordinate mismatch is reproduced; the tested host does deliver events, so the defect is the coordinate model rather than universal Server event loss.
 - `accessibility`: `audited_gaps` — actual browser focus and source semantics demonstrate missing slider operability/announcements; native OS/AT is still pending.
-- `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `not_reviewed` — existing research does not complete these acceptance dimensions.
+- `feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps` in the canonical matrix — the cross-family inventories and dated design-artifact records identify gaps, but do not complete family-level acceptance. The Slider and RangeSlider boards are now traceable, but their state/interaction mapping is incomplete and design approval remains pending.
 - Family `auditStatus`: `researching`; `designApproval`: `pending`; `evidenceBundle`: `null`; `gapDisposition`: `known_gaps_open`.
 
 ## Required owner actions

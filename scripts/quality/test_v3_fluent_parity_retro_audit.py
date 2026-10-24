@@ -72,6 +72,22 @@ class RetrospectiveParityMatrixTests(unittest.TestCase):
             self.assertEqual("known_gaps_open", family["gapDisposition"], family_name)
             self.assertEqual("pending", family["designApproval"], family_name)
             self.assertIsNone(family["evidenceBundle"], family_name)
+
+    def test_slider_and_rangeslider_family_audit_matches_matrix_and_addenda(self):
+        path=QUALITY / "FLUENT-PARITY-SLIDER-RANGESLIDER-AUDIT.md"
+        report=path.read_text(encoding="utf-8-sig")
+        self.assertIn("Updated 2026-10-24", report)
+        self.assertIn("Design-artifact traceability (2026-10-24)", report)
+        self.assertIn("evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-SLIDER.json", report)
+        self.assertIn("evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-24-RANGESLIDER.json", report)
+        self.assertIn("`feature`, `tokenTheme`, `responsiveRTL`, `BlazorExtensions`, `designArtifact`, and `migrationDocs`: `audited_gaps`", report)
+        self.assertNotIn("`designArtifact`: `not_reviewed`", report)
+        for family in ("Slider", "RangeSlider"):
+            record=next(x for x in self.data["families"] if x["family"]==family)
+            self.assertEqual("audited_gaps", record["dimensions"]["designArtifact"])
+            self.assertEqual("pending", record["designApproval"])
+            self.assertIsNone(record["evidenceBundle"])
+
     def test_research_leads_are_real_files_not_accepted_evidence(self):
         refs = self.data["supplementalSourceAnalysis"]
         self.assertTrue(refs["interpretation"].startswith("Research leads only"))
