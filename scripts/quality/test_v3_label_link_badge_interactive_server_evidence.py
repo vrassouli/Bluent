@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 QUALITY = ROOT / "docs/v3/quality"
 EVIDENCE = QUALITY / "evidence"
 SOURCE_REF = "7165a7671044b9c58b7d0c96cc93bf2b2b97fd52"
-EXPECTED_CHECKS = 23
+EXPECTED_CHECKS = 25
 EXPECTED_SCREENSHOTS = {
     "LIGHT-LTR", "DARK-RTL", "FORCED-COLORS", "REDUCED-MOTION",
 }
@@ -87,6 +87,21 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
                 self.assertIn("Learn more", opened["surface"]["text"])
                 self.assertTrue(popover["contentFound"])
 
+                ax = popover["accessibilityTree"]
+                self.assertEqual("button", ax["trigger"][0]["role"])
+                self.assertEqual("This is a label", ax["trigger"][0]["name"])
+                self.assertEqual("generic", ax["surface"][0]["role"])
+                self.assertEqual("", ax["surface"][0]["name"])
+                self.assertEqual("link", ax["learnMore"][0]["role"])
+                self.assertEqual("Learn more", ax["learnMore"][0]["name"])
+
+                keyboard = popover["keyboard"]
+                self.assertEqual(opened["triggerId"], keyboard["focusBeforeTab"]["id"])
+                self.assertEqual("server-interaction-sentinel", keyboard["focusAfterTab"]["id"])
+                self.assertTrue(keyboard["surfaceAfterTab"]["surface"]["showClass"])
+                self.assertFalse(keyboard["escapeDismissed"])
+                self.assertTrue(keyboard["popoverAfterEscape"]["surface"]["showClass"])
+
                 inside = popover["insideClick"]
                 self.assertFalse(inside["before"]["surface"]["hiddenClass"])
                 self.assertTrue(inside["before"]["surface"]["showClass"])
@@ -136,12 +151,15 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
 
     def test_report_updates_pointer_evidence_without_overstating_native_at_or_parity(self):
         self.assertIn("Published Production InteractiveServer follow-up", self.report)
-        self.assertIn("23/23 checks pass", self.report)
-        self.assertIn("46/46 combined", self.report)
+        self.assertIn("25/25 checks pass", self.report)
+        self.assertIn("50/50 combined", self.report)
         self.assertIn("still invokes its supplied OnClick callback", self.report)
         self.assertIn("Label Info Popover lifecycle", self.report)
         self.assertIn("Clicking inside keeps it visible", self.report)
         self.assertIn("the same outside click increments the server sentinel from 1 to 2", self.report)
+        self.assertIn("when Tab starts at the Info trigger", self.report)
+        self.assertIn("Sending Escape also leaves the surface visible", self.report)
+        self.assertIn("browser AX tree reports the trigger", self.report)
         self.assertIn("focus moves directly to the server-interaction sentinel and skips the disabled Link", self.report)
         self.assertIn("Forced Colors and Reduced Motion above are browser emulation", self.report)
         self.assertIn("keyboard activation behavior", self.report)

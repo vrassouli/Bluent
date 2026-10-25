@@ -395,6 +395,8 @@ const main = async () => {
     before: popoverBefore,
     afterTriggerClick: popoverOpen,
     contentFound: infoContentFound,
+    accessibilityTree: null,
+    keyboard: null,
     insideClick: null,
     afterOutsideClick: null,
     outsideClickRoundTrip: null,
@@ -403,6 +405,47 @@ const main = async () => {
     popoverOpen.triggerPresent && popoverOpen.surfacePresent &&
     !popoverOpen.surface.hiddenClass && popoverOpen.surface.showClass && infoContentFound,
     popoverObservation);
+
+  if (popoverOpen.surfacePresent && !popoverOpen.surface.hiddenClass && popoverOpen.surface.showClass) {
+    const surfaceSelector = "#" + popoverOpen.surface.id;
+    const triggerSelector = "#probe-label-section .bui-label button";
+    popoverObservation.accessibilityTree = {
+      trigger: await axFor(triggerSelector),
+      surface: await axFor(surfaceSelector),
+      learnMore: await axFor(surfaceSelector + " a"),
+    };
+
+    await evaluate("document.querySelector(" + JSON.stringify(triggerSelector) + ").focus()");
+    const focusBeforeTab = await evaluate("(() => { const e=document.activeElement; return {tag:e?.tagName||null,id:e?.id||null,text:(e?.innerText||e?.textContent||'').trim().slice(0,80)}; })()");
+    await send("Input.dispatchKeyEvent", {type:"rawKeyDown",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+    await send("Input.dispatchKeyEvent", {type:"keyUp",key:"Tab",code:"Tab",windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+    await wait(150);
+    const focusAfterTab = await evaluate("(() => { const e=document.activeElement; return {tag:e?.tagName||null,id:e?.id||null,text:(e?.innerText||e?.textContent||'').trim().slice(0,80),href:e?.getAttribute('href')||null}; })()");
+    const surfaceAfterTab = await describePopover();
+
+    await evaluate("document.querySelector(" + JSON.stringify(triggerSelector) + ").focus()");
+    await send("Input.dispatchKeyEvent", {type:"rawKeyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27,nativeVirtualKeyCode:27});
+    await send("Input.dispatchKeyEvent", {type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27,nativeVirtualKeyCode:27});
+    await wait(250);
+    const popoverAfterEscape = await describePopover();
+    const escapeDismissed = !popoverAfterEscape.surfacePresent ||
+      popoverAfterEscape.surface.hiddenClass || popoverAfterEscape.surface.display === "none";
+    popoverObservation.keyboard = {
+      focusBeforeTab,
+      focusAfterTab,
+      surfaceAfterTab,
+      popoverAfterEscape,
+      escapeDismissed,
+    };
+    check("Tab from Label Info trigger records real focus order while Popover is open",
+      focusBeforeTab.id === popoverOpen.triggerId &&
+      !!focusAfterTab.tag && surfaceAfterTab.surfacePresent &&
+      !surfaceAfterTab.surface.hiddenClass && surfaceAfterTab.surface.showClass,
+      popoverObservation.keyboard);
+    check("Escape dismissal outcome is captured for the open Label Info Popover",
+      typeof escapeDismissed === "boolean" && !!popoverAfterEscape.triggerPresent,
+      popoverObservation.keyboard);
+  }
 
   if (popoverOpen.surfacePresent && !popoverOpen.surface.hiddenClass && popoverOpen.surface.showClass) {
     await evaluate("document.getElementById(" + JSON.stringify(popoverOpen.surface.id) + ").scrollIntoView({block:'center',inline:'center'})");

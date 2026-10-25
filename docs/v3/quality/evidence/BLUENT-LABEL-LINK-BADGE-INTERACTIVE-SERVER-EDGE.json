@@ -11,11 +11,11 @@
   "route": "/__quality/server-label-link-badge-probe",
   "sourceRef": "7165a7671044b9c58b7d0c96cc93bf2b2b97fd52",
   "scope": "Real Chromium DOM/AX/computed style and server event round-trip. Forced-colors and reduced-motion are emulated. Not native OS/screen-reader validation or Fluent parity acceptance.",
-  "createdAt": "2026-10-24T20:28:55.521Z",
+  "createdAt": "2026-10-25T04:19:03.629Z",
   "sentinelEvidence": {
     "before": "0",
     "after": "1",
-    "endpoint": "http://127.0.0.1:60660/__quality/server-label-link-badge-probe"
+    "endpoint": "http://127.0.0.1:52703/__quality/server-label-link-badge-probe"
   },
   "disabledLinkActivationEvidence": {
     "before": "0",
@@ -23,7 +23,7 @@
     "disabledElement": {
       "tag": "A",
       "text": "Disabled",
-      "id": "f7345bcd2",
+      "id": "f6c2a5112",
       "className": "bui-link ",
       "role": null,
       "ariaLabel": null,
@@ -50,7 +50,7 @@
     "disabledLinkTabindexAttribute": null,
     "startFocus": {
       "tag": "BUTTON",
-      "id": "f2643c97a",
+      "id": "f402dea02",
       "isInfoAction": true
     },
     "firstTabAfterLabel": {
@@ -67,7 +67,7 @@
   "popoverObservation": {
     "before": {
       "triggerPresent": true,
-      "triggerId": "f2643c97a",
+      "triggerId": "f402dea02",
       "triggerAriaExpanded": null,
       "triggerAriaHaspopup": null,
       "triggerBox": {
@@ -83,7 +83,7 @@
     },
     "afterTriggerClick": {
       "triggerPresent": true,
-      "triggerId": "f2643c97a",
+      "triggerId": "f402dea02",
       "triggerAriaExpanded": null,
       "triggerAriaHaspopup": null,
       "triggerBox": {
@@ -96,7 +96,7 @@
       },
       "surfacePresent": true,
       "surface": {
-        "id": "f2643c97a_surface",
+        "id": "f402dea02_surface",
         "className": "bui-popover-surface default top-start show",
         "hiddenClass": false,
         "showClass": true,
@@ -116,10 +116,55 @@
       }
     },
     "contentFound": true,
-    "insideClick": {
-      "before": {
+    "accessibilityTree": {
+      "trigger": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "focused": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "surface": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "learnMore": [
+        {
+          "role": "link",
+          "name": "Learn more",
+          "ignored": false,
+          "properties": {
+            "focusable": true,
+            "url": "https://fluent2.microsoft.design/components/web/react/accordion/usage"
+          }
+        }
+      ]
+    },
+    "keyboard": {
+      "focusBeforeTab": {
+        "tag": "BUTTON",
+        "id": "f402dea02",
+        "text": ""
+      },
+      "focusAfterTab": {
+        "tag": "BUTTON",
+        "id": "server-interaction-sentinel",
+        "text": "Server interaction count: 1",
+        "href": null
+      },
+      "surfaceAfterTab": {
         "triggerPresent": true,
-        "triggerId": "f2643c97a",
+        "triggerId": "f402dea02",
         "triggerAriaExpanded": null,
         "triggerAriaHaspopup": null,
         "triggerBox": {
@@ -132,7 +177,78 @@
         },
         "surfacePresent": true,
         "surface": {
-          "id": "f2643c97a_surface",
+          "id": "f402dea02_surface",
+          "className": "bui-popover-surface default top-start show",
+          "hiddenClass": false,
+          "showClass": true,
+          "display": "block",
+          "opacity": "1",
+          "text": "This is example information for an InfoLabel. Learn more",
+          "role": null,
+          "ariaLabel": null,
+          "box": {
+            "x": 554.203125,
+            "y": 163.25,
+            "width": 380.375,
+            "height": 38,
+            "top": 144.25,
+            "bottom": 182.25
+          }
+        }
+      },
+      "popoverAfterEscape": {
+        "triggerPresent": true,
+        "triggerId": "f402dea02",
+        "triggerAriaExpanded": null,
+        "triggerAriaHaspopup": null,
+        "triggerBox": {
+          "x": 380.015625,
+          "y": 204.25,
+          "width": 32,
+          "height": 32,
+          "top": 188.25,
+          "bottom": 220.25
+        },
+        "surfacePresent": true,
+        "surface": {
+          "id": "f402dea02_surface",
+          "className": "bui-popover-surface default top-start show",
+          "hiddenClass": false,
+          "showClass": true,
+          "display": "block",
+          "opacity": "1",
+          "text": "This is example information for an InfoLabel. Learn more",
+          "role": null,
+          "ariaLabel": null,
+          "box": {
+            "x": 554.203125,
+            "y": 163.25,
+            "width": 380.375,
+            "height": 38,
+            "top": 144.25,
+            "bottom": 182.25
+          }
+        }
+      },
+      "escapeDismissed": false
+    },
+    "insideClick": {
+      "before": {
+        "triggerPresent": true,
+        "triggerId": "f402dea02",
+        "triggerAriaExpanded": null,
+        "triggerAriaHaspopup": null,
+        "triggerBox": {
+          "x": 380.015625,
+          "y": 204.25,
+          "width": 32,
+          "height": 32,
+          "top": 188.25,
+          "bottom": 220.25
+        },
+        "surfacePresent": true,
+        "surface": {
+          "id": "f402dea02_surface",
           "className": "bui-popover-surface default top-start show",
           "hiddenClass": false,
           "showClass": true,
@@ -153,7 +269,7 @@
       },
       "after": {
         "triggerPresent": true,
-        "triggerId": "f2643c97a",
+        "triggerId": "f402dea02",
         "triggerAriaExpanded": null,
         "triggerAriaHaspopup": null,
         "triggerBox": {
@@ -166,7 +282,7 @@
         },
         "surfacePresent": true,
         "surface": {
-          "id": "f2643c97a_surface",
+          "id": "f402dea02_surface",
           "className": "bui-popover-surface default top-start show",
           "hiddenClass": false,
           "showClass": true,
@@ -188,7 +304,7 @@
     },
     "afterOutsideClick": {
       "triggerPresent": true,
-      "triggerId": "f2643c97a",
+      "triggerId": "f402dea02",
       "triggerAriaExpanded": null,
       "triggerAriaHaspopup": null,
       "triggerBox": {
@@ -225,7 +341,7 @@
         "disabledElement": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -256,7 +372,7 @@
         "disabledLinkTabindexAttribute": null,
         "startFocus": {
           "tag": "BUTTON",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "isInfoAction": true
         },
         "firstTabAfterLabel": {
@@ -278,7 +394,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -320,7 +436,7 @@
         "link": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -357,7 +473,7 @@
         "link": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -393,7 +509,7 @@
       "actual": {
         "tag": "DIV",
         "text": "+99",
-        "id": "f44484409",
+        "id": "f4d339b9c",
         "className": "bui-badge filled medium circular brand ",
         "role": null,
         "ariaLabel": null,
@@ -420,7 +536,7 @@
       "actual": {
         "tag": "DIV",
         "text": "",
-        "id": "f4d661d42",
+        "id": "f2b1c98d",
         "className": "bui-badge filled medium circular brand drop-shadow animated ",
         "role": null,
         "ariaLabel": null,
@@ -448,7 +564,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -490,7 +606,7 @@
         "link": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -527,7 +643,7 @@
         "link": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -563,7 +679,7 @@
       "actual": {
         "tag": "DIV",
         "text": "+99",
-        "id": "f44484409",
+        "id": "f4d339b9c",
         "className": "bui-badge filled medium circular brand ",
         "role": null,
         "ariaLabel": null,
@@ -590,7 +706,7 @@
       "actual": {
         "tag": "DIV",
         "text": "",
-        "id": "f4d661d42",
+        "id": "f2b1c98d",
         "className": "bui-badge filled medium circular brand drop-shadow animated ",
         "role": null,
         "ariaLabel": null,
@@ -618,7 +734,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -660,7 +776,7 @@
         "link": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -697,7 +813,7 @@
         "link": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -733,7 +849,7 @@
       "actual": {
         "tag": "DIV",
         "text": "+99",
-        "id": "f44484409",
+        "id": "f4d339b9c",
         "className": "bui-badge filled medium circular brand ",
         "role": null,
         "ariaLabel": null,
@@ -760,7 +876,7 @@
       "actual": {
         "tag": "DIV",
         "text": "",
-        "id": "f4d661d42",
+        "id": "f2b1c98d",
         "className": "bui-badge filled medium circular brand drop-shadow animated ",
         "role": null,
         "ariaLabel": null,
@@ -785,7 +901,7 @@
       "name": "prefers-reduced-motion emulation leaves Badge infinite pulse active",
       "pass": true,
       "actual": {
-        "url": "http://127.0.0.1:60660/__quality/server-label-link-badge-probe",
+        "url": "http://127.0.0.1:52703/__quality/server-label-link-badge-probe",
         "document": {
           "readyState": "complete",
           "theme": "light",
@@ -794,7 +910,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -818,7 +934,7 @@
         "disabledLink": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -841,7 +957,7 @@
         "staticBadge": {
           "tag": "DIV",
           "text": "+99",
-          "id": "f44484409",
+          "id": "f4d339b9c",
           "className": "bui-badge filled medium circular brand ",
           "role": null,
           "ariaLabel": null,
@@ -864,7 +980,7 @@
         "animatedBadge": {
           "tag": "DIV",
           "text": "",
-          "id": "f4d661d42",
+          "id": "f2b1c98d",
           "className": "bui-badge filled medium circular brand drop-shadow animated ",
           "role": null,
           "ariaLabel": null,
@@ -895,7 +1011,7 @@
       "actual": {
         "before": {
           "triggerPresent": true,
-          "triggerId": "f2643c97a",
+          "triggerId": "f402dea02",
           "triggerAriaExpanded": null,
           "triggerAriaHaspopup": null,
           "triggerBox": {
@@ -911,7 +1027,7 @@
         },
         "afterTriggerClick": {
           "triggerPresent": true,
-          "triggerId": "f2643c97a",
+          "triggerId": "f402dea02",
           "triggerAriaExpanded": null,
           "triggerAriaHaspopup": null,
           "triggerBox": {
@@ -924,7 +1040,7 @@
           },
           "surfacePresent": true,
           "surface": {
-            "id": "f2643c97a_surface",
+            "id": "f402dea02_surface",
             "className": "bui-popover-surface default top-start show",
             "hiddenClass": false,
             "showClass": true,
@@ -944,10 +1060,55 @@
           }
         },
         "contentFound": true,
-        "insideClick": {
-          "before": {
+        "accessibilityTree": {
+          "trigger": [
+            {
+              "role": "button",
+              "name": "This is a label",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "focused": true,
+                "labelledby": "nodeList"
+              }
+            }
+          ],
+          "surface": [
+            {
+              "role": "generic",
+              "name": "",
+              "ignored": false,
+              "properties": {}
+            }
+          ],
+          "learnMore": [
+            {
+              "role": "link",
+              "name": "Learn more",
+              "ignored": false,
+              "properties": {
+                "focusable": true,
+                "url": "https://fluent2.microsoft.design/components/web/react/accordion/usage"
+              }
+            }
+          ]
+        },
+        "keyboard": {
+          "focusBeforeTab": {
+            "tag": "BUTTON",
+            "id": "f402dea02",
+            "text": ""
+          },
+          "focusAfterTab": {
+            "tag": "BUTTON",
+            "id": "server-interaction-sentinel",
+            "text": "Server interaction count: 1",
+            "href": null
+          },
+          "surfaceAfterTab": {
             "triggerPresent": true,
-            "triggerId": "f2643c97a",
+            "triggerId": "f402dea02",
             "triggerAriaExpanded": null,
             "triggerAriaHaspopup": null,
             "triggerBox": {
@@ -960,7 +1121,78 @@
             },
             "surfacePresent": true,
             "surface": {
-              "id": "f2643c97a_surface",
+              "id": "f402dea02_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "popoverAfterEscape": {
+            "triggerPresent": true,
+            "triggerId": "f402dea02",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f402dea02_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "escapeDismissed": false
+        },
+        "insideClick": {
+          "before": {
+            "triggerPresent": true,
+            "triggerId": "f402dea02",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f402dea02_surface",
               "className": "bui-popover-surface default top-start show",
               "hiddenClass": false,
               "showClass": true,
@@ -981,7 +1213,7 @@
           },
           "after": {
             "triggerPresent": true,
-            "triggerId": "f2643c97a",
+            "triggerId": "f402dea02",
             "triggerAriaExpanded": null,
             "triggerAriaHaspopup": null,
             "triggerBox": {
@@ -994,7 +1226,7 @@
             },
             "surfacePresent": true,
             "surface": {
-              "id": "f2643c97a_surface",
+              "id": "f402dea02_surface",
               "className": "bui-popover-surface default top-start show",
               "hiddenClass": false,
               "showClass": true,
@@ -1016,7 +1248,7 @@
         },
         "afterOutsideClick": {
           "triggerPresent": true,
-          "triggerId": "f2643c97a",
+          "triggerId": "f402dea02",
           "triggerAriaExpanded": null,
           "triggerAriaHaspopup": null,
           "triggerBox": {
@@ -1037,12 +1269,23 @@
       }
     },
     {
-      "name": "Clicking inside the Label Info Popover keeps the surface visible",
+      "name": "Tab from Label Info trigger records real focus order while Popover is open",
       "pass": true,
       "actual": {
-        "before": {
+        "focusBeforeTab": {
+          "tag": "BUTTON",
+          "id": "f402dea02",
+          "text": ""
+        },
+        "focusAfterTab": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 1",
+          "href": null
+        },
+        "surfaceAfterTab": {
           "triggerPresent": true,
-          "triggerId": "f2643c97a",
+          "triggerId": "f402dea02",
           "triggerAriaExpanded": null,
           "triggerAriaHaspopup": null,
           "triggerBox": {
@@ -1055,7 +1298,168 @@
           },
           "surfacePresent": true,
           "surface": {
-            "id": "f2643c97a_surface",
+            "id": "f402dea02_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "popoverAfterEscape": {
+          "triggerPresent": true,
+          "triggerId": "f402dea02",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f402dea02_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "escapeDismissed": false
+      }
+    },
+    {
+      "name": "Escape dismissal outcome is captured for the open Label Info Popover",
+      "pass": true,
+      "actual": {
+        "focusBeforeTab": {
+          "tag": "BUTTON",
+          "id": "f402dea02",
+          "text": ""
+        },
+        "focusAfterTab": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 1",
+          "href": null
+        },
+        "surfaceAfterTab": {
+          "triggerPresent": true,
+          "triggerId": "f402dea02",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f402dea02_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "popoverAfterEscape": {
+          "triggerPresent": true,
+          "triggerId": "f402dea02",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f402dea02_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "escapeDismissed": false
+      }
+    },
+    {
+      "name": "Clicking inside the Label Info Popover keeps the surface visible",
+      "pass": true,
+      "actual": {
+        "before": {
+          "triggerPresent": true,
+          "triggerId": "f402dea02",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f402dea02_surface",
             "className": "bui-popover-surface default top-start show",
             "hiddenClass": false,
             "showClass": true,
@@ -1076,7 +1480,7 @@
         },
         "after": {
           "triggerPresent": true,
-          "triggerId": "f2643c97a",
+          "triggerId": "f402dea02",
           "triggerAriaExpanded": null,
           "triggerAriaHaspopup": null,
           "triggerBox": {
@@ -1089,7 +1493,7 @@
           },
           "surfacePresent": true,
           "surface": {
-            "id": "f2643c97a_surface",
+            "id": "f402dea02_surface",
             "className": "bui-popover-surface default top-start show",
             "hiddenClass": false,
             "showClass": true,
@@ -1117,7 +1521,7 @@
         "popoverWasVisible": true,
         "after": {
           "triggerPresent": true,
-          "triggerId": "f2643c97a",
+          "triggerId": "f402dea02",
           "triggerAriaExpanded": null,
           "triggerAriaHaspopup": null,
           "triggerBox": {
@@ -1151,7 +1555,7 @@
         "forced": false
       },
       "state": {
-        "url": "http://127.0.0.1:60660/__quality/server-label-link-badge-probe",
+        "url": "http://127.0.0.1:52703/__quality/server-label-link-badge-probe",
         "document": {
           "readyState": "complete",
           "theme": "light",
@@ -1160,7 +1564,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -1184,7 +1588,7 @@
         "disabledLink": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -1207,7 +1611,7 @@
         "staticBadge": {
           "tag": "DIV",
           "text": "+99",
-          "id": "f44484409",
+          "id": "f4d339b9c",
           "className": "bui-badge filled medium circular brand ",
           "role": null,
           "ariaLabel": null,
@@ -1230,7 +1634,7 @@
         "animatedBadge": {
           "tag": "DIV",
           "text": "",
-          "id": "f4d661d42",
+          "id": "f2b1c98d",
           "className": "bui-badge filled medium circular brand drop-shadow animated ",
           "role": null,
           "ariaLabel": null,
@@ -1292,7 +1696,7 @@
         "forced": false
       },
       "state": {
-        "url": "http://127.0.0.1:60660/__quality/server-label-link-badge-probe",
+        "url": "http://127.0.0.1:52703/__quality/server-label-link-badge-probe",
         "document": {
           "readyState": "complete",
           "theme": "dark",
@@ -1301,7 +1705,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -1325,7 +1729,7 @@
         "disabledLink": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -1348,7 +1752,7 @@
         "staticBadge": {
           "tag": "DIV",
           "text": "+99",
-          "id": "f44484409",
+          "id": "f4d339b9c",
           "className": "bui-badge filled medium circular brand ",
           "role": null,
           "ariaLabel": null,
@@ -1371,7 +1775,7 @@
         "animatedBadge": {
           "tag": "DIV",
           "text": "",
-          "id": "f4d661d42",
+          "id": "f2b1c98d",
           "className": "bui-badge filled medium circular brand drop-shadow animated ",
           "role": null,
           "ariaLabel": null,
@@ -1433,7 +1837,7 @@
         "forced": true
       },
       "state": {
-        "url": "http://127.0.0.1:60660/__quality/server-label-link-badge-probe",
+        "url": "http://127.0.0.1:52703/__quality/server-label-link-badge-probe",
         "document": {
           "readyState": "complete",
           "theme": "light",
@@ -1442,7 +1846,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -1466,7 +1870,7 @@
         "disabledLink": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -1489,7 +1893,7 @@
         "staticBadge": {
           "tag": "DIV",
           "text": "+99",
-          "id": "f44484409",
+          "id": "f4d339b9c",
           "className": "bui-badge filled medium circular brand ",
           "role": null,
           "ariaLabel": null,
@@ -1512,7 +1916,7 @@
         "animatedBadge": {
           "tag": "DIV",
           "text": "",
-          "id": "f4d661d42",
+          "id": "f2b1c98d",
           "className": "bui-badge filled medium circular brand drop-shadow animated ",
           "role": null,
           "ariaLabel": null,
@@ -1572,7 +1976,7 @@
         "forced": false
       },
       "state": {
-        "url": "http://127.0.0.1:60660/__quality/server-label-link-badge-probe",
+        "url": "http://127.0.0.1:52703/__quality/server-label-link-badge-probe",
         "document": {
           "readyState": "complete",
           "theme": "light",
@@ -1581,7 +1985,7 @@
         "infoButton": {
           "tag": "BUTTON",
           "text": "",
-          "id": "f2643c97a",
+          "id": "f402dea02",
           "className": "bui-button icon transparent ",
           "role": null,
           "ariaLabel": null,
@@ -1605,7 +2009,7 @@
         "disabledLink": {
           "tag": "A",
           "text": "Disabled",
-          "id": "f7345bcd2",
+          "id": "f6c2a5112",
           "className": "bui-link ",
           "role": null,
           "ariaLabel": null,
@@ -1628,7 +2032,7 @@
         "staticBadge": {
           "tag": "DIV",
           "text": "+99",
-          "id": "f44484409",
+          "id": "f4d339b9c",
           "className": "bui-badge filled medium circular brand ",
           "role": null,
           "ariaLabel": null,
@@ -1651,7 +2055,7 @@
         "animatedBadge": {
           "tag": "DIV",
           "text": "",
-          "id": "f4d661d42",
+          "id": "f2b1c98d",
           "className": "bui-badge filled medium circular brand drop-shadow animated ",
           "role": null,
           "ariaLabel": null,
@@ -1679,8 +2083,8 @@
     }
   ],
   "summary": {
-    "checks": 23,
-    "passed": 23,
+    "checks": 25,
+    "passed": 25,
     "failed": 0,
     "screenshots": [
       "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-LIGHT-LTR.png",

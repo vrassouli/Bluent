@@ -304,7 +304,7 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
-      "notesForReview": "Required marks, Info action accessible naming, native for/focus association and helper/validation copy. Published Production InteractiveServer Chrome/Edge evidence confirms Info Popover opens with content, stays open on inside click, and closes on outside click when Containers is placed inside the same interactive circuit (2026-10-24). Trigger has no aria-expanded/haspopup; surface has no role/aria-label; review against design/native AT remains pending.",
+      "notesForReview": "Required marks, Info action accessible naming, native for/focus association and helper/validation copy. Published Production InteractiveServer Chrome/Edge evidence confirms Info Popover opens with content, stays open on inside click, and closes on outside click when Containers is in the same circuit (2026-10-24). With Popover open, Tab from the trigger moves to the following page sentinel instead of its Learn more link; Escape leaves it open. AX tree reports trigger button name inherited from Label, surface generic/unnamed, and Learn more link named. Trigger has no aria-expanded/haspopup and surface no role/aria-label; compare interaction/design/AT against approved reference before assigning defects.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
         "docs/v3/quality/FLUENT-PARITY-WAVE-A-API-REVIEW.md",
