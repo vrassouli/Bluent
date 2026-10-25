@@ -18,6 +18,7 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
     def setUpClass(cls):
         cls.report = (QUALITY / "FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md").read_text(encoding="utf-8-sig")
         cls.link_report = (QUALITY / "FLUENT-PARITY-LINK-AUDIT.md").read_text(encoding="utf-8-sig")
+        cls.label_report = (QUALITY / "FLUENT-PARITY-LABEL-AUDIT.md").read_text(encoding="utf-8-sig")
         cls.badge_report = (QUALITY / "FLUENT-PARITY-BADGE-AUDIT.md").read_text(encoding="utf-8-sig")
         cls.project_status = (ROOT / ".bluent/PROJECT.md").read_text(encoding="utf-8-sig")
         cls.matrix = json.loads((QUALITY / "FLUENT-PARITY-RETRO-AUDIT.json").read_text(encoding="utf-8-sig"))
@@ -163,6 +164,26 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
                 self.assertTrue(names["Clicking inside the Label Info Popover keeps the surface visible"])
                 self.assertTrue(names["Clicking outside the Label Info Popover closes/removes the surface"])
                 self.assertTrue(names["Outside click still reaches the underlying InteractiveServer sentinel"])
+
+    def test_label_family_audit_mirrors_infolabel_keyboard_crosswalk_without_approving_parity(self):
+        for phrase in (
+            "Fluent InfoLabel keyboard-reference crosswalk (2026-10-25)",
+            "not a 1:1 Web Components contract",
+            "**Focus remains on the trigger**",
+            "Tab moves to the following page sentinel",
+            "Escape leaves the surface visible",
+            "Native screen-reader/OS validation and design approval remain unverified.",
+            "auditStatus",
+            "designApproval",
+            "evidenceBundle",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, self.label_report)
+        self.assertIn("Label remains `researching`", self.label_report)
+        self.assertIn("`designApproval` is `pending`", self.label_report)
+        self.assertIn("`evidenceBundle` is `null`", self.label_report)
+        self.assertIn("family-level [Label audit]", self.project_status)
+        self.assertIn("FLUENT-PARITY-LABEL-AUDIT.md#fluent-infolabel-keyboard-reference-crosswalk-2026-10-25", self.project_status)
 
     def test_modes_and_screenshots_are_present_and_nonempty(self):
         for engine, run in self.runs.items():
