@@ -1,0 +1,36 @@
+{
+  "recordedOn": "2026-10-24",
+  "kind": "post-snapshot-addendum",
+  "method": "Records the dedicated Penpot review-draft board created and visually inspected on 2026-10-23 after the 2026-10-22 read-only inventory; the original snapshot remains unchanged. Structural text-bound metrics are explicitly unknown when not recorded in source evidence.",
+  "file": {
+    "name": "Bluent v3 Design System",
+    "id": "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
+  },
+  "family": "RangeSlider",
+  "productIssue": 443,
+  "page": {
+    "name": "03 · Quality & migration",
+    "id": "07c521b9-e441-80bd-8008-c4ad87df93c3"
+  },
+  "board": {
+    "name": "#443 · RangeSlider design · REVIEW DRAFT",
+    "id": "deabb4f4-bae0-800e-8008-d5588803df4e",
+    "width": 1440,
+    "height": 1000,
+    "editableChildren": 49,
+    "textNodes": null,
+    "invalidTextBounds": null,
+    "childrenOutsideBoard": null
+  },
+  "scope": [
+    "two-thumb anatomy and endpoint values",
+    "independent thumb focus and keyboard semantics",
+    "disabled and forced-colors states",
+    "value ordering and bounds: Min ≤ LowerValue ≤ UpperValue ≤ Max"
+  ],
+  "variantSetComplete": false,
+  "reusableLocalLibraryComponentAdded": false,
+  "designApproval": "pending",
+  "evidenceBundle": null,
+  "acceptanceBoundary": "Review-draft two-thumb board exists; exact text-bound and out-of-board structural counts were not captured in the repo evidence. Crossing/clamping, keyboard/value announcements, complete state coverage, design owner approval, runtime remediation and native OS/AT validation remain open."
+}

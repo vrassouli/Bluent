@@ -1,0 +1,241 @@
+{
+  "auditIssue": 552,
+  "ownerIssue": 429,
+  "sourceRevision": "b6c9c3982d27b51e65104671fe7d4abdcac98053",
+  "engine": "edge",
+  "browserVersion": "Edg/155.0.4283.62",
+  "renderer": "wasm",
+  "route": "/__quality/icon-attribute-probe",
+  "urlPath": "/Bluent/__quality/icon-attribute-probe",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "host": "Bluent.UI.Demo real Release WebAssembly host",
+  "status": "actual browser DOM and interaction observation; not Fluent parity, native OS contrast, or assistive-technology sign-off",
+  "checks": [
+    {
+      "name": "expected renderer route is mounted",
+      "pass": true,
+      "actual": "wasm"
+    },
+    {
+      "name": "icon-probe-svg renders the expected root tag",
+      "pass": true,
+      "actual": "SPAN"
+    },
+    {
+      "name": "icon-probe-svg has one id, class, and style in the browser DOM",
+      "pass": true,
+      "actual": [
+        "data-probe-case",
+        "id",
+        "class",
+        "style"
+      ]
+    },
+    {
+      "name": "icon-probe-svg keeps the caller id and forwards its data attribute",
+      "pass": true,
+      "actual": {
+        "id": "icon-probe-svg",
+        "probe": "icon-probe-svg"
+      }
+    },
+    {
+      "name": "icon-probe-svg uses the explicit Class parameter",
+      "pass": true,
+      "actual": "bui-icon parameter-class"
+    },
+    {
+      "name": "icon-probe-svg uses the explicit Style parameter",
+      "pass": true,
+      "actual": {
+        "style": "width: 2em;",
+        "width": "2em",
+        "color": ""
+      }
+    },
+    {
+      "name": "icon-probe-image renders the expected root tag",
+      "pass": true,
+      "actual": "IMG"
+    },
+    {
+      "name": "icon-probe-image has one id, class, and style in the browser DOM",
+      "pass": true,
+      "actual": [
+        "data-probe-case",
+        "id",
+        "class",
+        "style",
+        "src"
+      ]
+    },
+    {
+      "name": "icon-probe-image keeps the caller id and forwards its data attribute",
+      "pass": true,
+      "actual": {
+        "id": "icon-probe-image",
+        "probe": "icon-probe-image"
+      }
+    },
+    {
+      "name": "icon-probe-image uses the explicit Class parameter",
+      "pass": true,
+      "actual": "bui-icon parameter-class"
+    },
+    {
+      "name": "icon-probe-image uses the explicit Style parameter",
+      "pass": true,
+      "actual": {
+        "style": "width: 2em;",
+        "width": "2em",
+        "color": ""
+      }
+    },
+    {
+      "name": "icon-probe-css renders the expected root tag",
+      "pass": true,
+      "actual": "I"
+    },
+    {
+      "name": "icon-probe-css has one id, class, and style in the browser DOM",
+      "pass": true,
+      "actual": [
+        "data-probe-case",
+        "id",
+        "class",
+        "style"
+      ]
+    },
+    {
+      "name": "icon-probe-css keeps the caller id and forwards its data attribute",
+      "pass": true,
+      "actual": {
+        "id": "icon-probe-css",
+        "probe": "icon-probe-css"
+      }
+    },
+    {
+      "name": "icon-probe-css uses the explicit Class parameter",
+      "pass": true,
+      "actual": "bui-icon font-source-class parameter-class"
+    },
+    {
+      "name": "icon-probe-css uses the explicit Style parameter",
+      "pass": true,
+      "actual": {
+        "style": "width: 2em;",
+        "width": "2em",
+        "color": ""
+      }
+    },
+    {
+      "name": "image Value src wins over the unmatched src and loads",
+      "pass": true,
+      "actual": {
+        "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='lime'/%3E%3C/svg%3E",
+        "complete": true,
+        "naturalWidth": 150
+      }
+    },
+    {
+      "name": "renderer event handler updates after a real browser click",
+      "pass": true,
+      "actual": 1
+    },
+    {
+      "name": "browser page reported no JavaScript errors",
+      "pass": true,
+      "actual": []
+    },
+    {
+      "name": "browser has no unexpected failed resources",
+      "pass": true,
+      "actual": []
+    }
+  ],
+  "observed": {
+    "renderer": "wasm",
+    "icons": [
+      {
+        "id": "icon-probe-svg",
+        "tag": "SPAN",
+        "attributeNames": [
+          "data-probe-case",
+          "id",
+          "class",
+          "style"
+        ],
+        "idValue": "icon-probe-svg",
+        "classValue": "bui-icon parameter-class",
+        "styleValue": "width: 2em;",
+        "styleWidth": "2em",
+        "styleColor": "",
+        "probeValue": "icon-probe-svg",
+        "src": null,
+        "imageComplete": null,
+        "imageNaturalWidth": null,
+        "expectedTag": "SPAN",
+        "expectedClassTokens": [
+          "bui-icon",
+          "parameter-class"
+        ]
+      },
+      {
+        "id": "icon-probe-image",
+        "tag": "IMG",
+        "attributeNames": [
+          "data-probe-case",
+          "id",
+          "class",
+          "style",
+          "src"
+        ],
+        "idValue": "icon-probe-image",
+        "classValue": "bui-icon parameter-class",
+        "styleValue": "width: 2em;",
+        "styleWidth": "2em",
+        "styleColor": "",
+        "probeValue": "icon-probe-image",
+        "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='lime'/%3E%3C/svg%3E",
+        "imageComplete": true,
+        "imageNaturalWidth": 150,
+        "expectedTag": "IMG",
+        "expectedClassTokens": [
+          "bui-icon",
+          "parameter-class"
+        ]
+      },
+      {
+        "id": "icon-probe-css",
+        "tag": "I",
+        "attributeNames": [
+          "data-probe-case",
+          "id",
+          "class",
+          "style"
+        ],
+        "idValue": "icon-probe-css",
+        "classValue": "bui-icon font-source-class parameter-class",
+        "styleValue": "width: 2em;",
+        "styleWidth": "2em",
+        "styleColor": "",
+        "probeValue": "icon-probe-css",
+        "src": null,
+        "imageComplete": null,
+        "imageNaturalWidth": null,
+        "expectedTag": "I",
+        "expectedClassTokens": [
+          "bui-icon",
+          "font-source-class",
+          "parameter-class"
+        ]
+      }
+    ],
+    "clickCount": 1
+  },
+  "consoleErrors": [],
+  "resourceFailures": []
+}

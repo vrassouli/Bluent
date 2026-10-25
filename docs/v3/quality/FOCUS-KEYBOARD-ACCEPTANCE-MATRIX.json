@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "audit_issue": 552,
+  "branch": "v3/issue-552-fluent-parity-audit",
+  "artifact_status": "proposal",
+  "validation_status": "not-executed",
+  "reference_source_commit": "b483ee6e6e5cf08000705cf6b940375b5ea4f936",
+  "cases": [
+    {
+      "id": "TABS-01",
+      "owner_issue": 465,
+      "scenario": "First Tab reachable from previous control; exactly one panel tab exposes tabindex zero.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "TABS-02",
+      "owner_issue": 465,
+      "scenario": "Horizontal LTR ArrowRight and ArrowLeft move roving focus between enabled panel tabs.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "TABS-03",
+      "owner_issue": 465,
+      "scenario": "Horizontal RTL arrow movement uses reviewed effective visual-order direction.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "TABS-04",
+      "owner_issue": 465,
+      "scenario": "Vertical ArrowUp and ArrowDown move tab focus without intercepting unrelated arrows.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "TABS-05",
+      "owner_issue": 465,
+      "scenario": "Manual activation keeps selected panel unchanged until Enter or Space on focused tab.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "TABS-06",
+      "owner_issue": 465,
+      "scenario": "Disabled hidden deferred and overflowed tab states preserve valid focus and selection.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "TABS-07",
+      "owner_issue": 465,
+      "scenario": "Tab and panel roles aria-selected aria-controls and aria-labelledby match actual DOM state.",
+      "tags": [
+        "tabs",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "NAV-01",
+      "owner_issue": 466,
+      "scenario": "Expandable NavItem exposes a meaningful named focusable disclosure trigger.",
+      "tags": [
+        "nav",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "NAV-02",
+      "owner_issue": 466,
+      "scenario": "Native Enter and Space toggle disclosure and aria-expanded matches child visibility.",
+      "tags": [
+        "nav",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "NAV-03",
+      "owner_issue": 466,
+      "scenario": "Nested route links stay separate from disclosure button and preserve correct href behavior.",
+      "tags": [
+        "nav",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "NAV-04",
+      "owner_issue": 466,
+      "scenario": "Collapsing a group with focused descendants restores focus to a surviving safe target.",
+      "tags": [
+        "nav",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "NAV-05",
+      "owner_issue": 466,
+      "scenario": "Current navigation route uses link semantics and aria-current not panel aria-selected.",
+      "tags": [
+        "nav",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "NAV-06",
+      "owner_issue": 466,
+      "scenario": "Mobile Drawer closing returns focus without trapping Tab or hijacking Drawer ownership.",
+      "tags": [
+        "nav",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "ACC-01",
+      "owner_issue": 469,
+      "scenario": "Header native button is in Tab order with correct heading association.",
+      "tags": [
+        "acc",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "ACC-02",
+      "owner_issue": 469,
+      "scenario": "Enter and Space toggle expansion with aria-expanded and aria-controls matching actual panel.",
+      "tags": [
+        "acc",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "ACC-03",
+      "owner_issue": 469,
+      "scenario": "Single/multiple Accordion rules remain correct after native keyboard activation.",
+      "tags": [
+        "acc",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "ACC-04",
+      "owner_issue": 469,
+      "scenario": "Independent HeaderAction buttons do not trigger the disclosure accidentally.",
+      "tags": [
+        "acc",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "ACC-05",
+      "owner_issue": 469,
+      "scenario": "Deferred-loading panel render and removal preserve safe focus and unique IDs.",
+      "tags": [
+        "acc",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "ACC-06",
+      "owner_issue": 469,
+      "scenario": "Header and optional panel region are named and do not create excessive landmarks.",
+      "tags": [
+        "acc",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-01",
+      "owner_issue": 517,
+      "scenario": "Menu trigger opens a named menu and transfers focus to intended first actionable row.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-02",
+      "owner_issue": 517,
+      "scenario": "ArrowUp ArrowDown Home and End navigate visible menu entries by documented boundaries.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-03",
+      "owner_issue": 517,
+      "scenario": "Disabled menu entry can receive focus if policy allows but cannot invoke any action.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-04",
+      "owner_issue": 517,
+      "scenario": "Enter and Space on enabled menu entry activate exactly once and close if appropriate.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-05",
+      "owner_issue": 517,
+      "scenario": "Escape and Tab exit with correct focus restoration to the trigger.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-06",
+      "owner_issue": 517,
+      "scenario": "Checked and radio rows expose menuitemcheckbox or menuitemradio with aria-checked.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "MENU-07",
+      "owner_issue": 517,
+      "scenario": "Nested submenu arrow open and close behavior respects effective RTL direction.",
+      "tags": [
+        "menu",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-01",
+      "owner_issue": 420,
+      "scenario": "Stable FocusId persists on reorder and recovers deterministically after item deletion.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-02",
+      "owner_issue": 420,
+      "scenario": "Exactly one eligible tablist roving tabindex zero exists or zero when no eligible items.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-03",
+      "owner_issue": 420,
+      "scenario": "FocusDisabledPolicy separates focus target eligibility from command activation.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-04",
+      "owner_issue": 420,
+      "scenario": "Hidden disposed or unmounted target does not receive post-render ElementReference focus.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-05",
+      "owner_issue": 420,
+      "scenario": "Caller AdditionalAttributes precedence for role and aria state is defined and tested.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-06",
+      "owner_issue": 420,
+      "scenario": "Focus-visible appearance remains clear under actual Windows Contrast Themes and RTL.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    },
+    {
+      "id": "CORE-07",
+      "owner_issue": 420,
+      "scenario": "Published WASM and InteractiveServer screen-reader and accepted Fluent reference evidence is captured.",
+      "tags": [
+        "core",
+        "keyboard",
+        "accessibility"
+      ],
+      "status": "planned",
+      "evidence": null,
+      "test_type": "live-browser-plus-AX"
+    }
+  ]
+}

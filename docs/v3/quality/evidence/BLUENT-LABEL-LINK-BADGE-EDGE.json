@@ -1,0 +1,1841 @@
+{
+  "issue": 552,
+  "sourceRef": "73155f02",
+  "engine": "edge",
+  "host": "Bluent.UI.Demo WebAssembly, built from current task branch source with Debug configuration",
+  "scope": "Actual Chromium CDP DOM/AX-tree observations for Label, Link and Badge; forced-colors and reduced-motion are emulated; no native screen-reader or OS contrast certification; not Fluent parity acceptance.",
+  "createdAt": "2026-10-22T18:47:05.375Z",
+  "checks": [
+    {
+      "name": "LIGHT-LTR labels real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR Label default and required examples are present",
+      "pass": true,
+      "observed": {
+        "labelSnapshot": {
+          "labels": [
+            {
+              "text": "This is a label",
+              "id": "f32c4e39c",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Small",
+              "id": "f16cd1357",
+              "for": "",
+              "className": "bui-label small ",
+              "disabled": false
+            },
+            {
+              "text": "Medium",
+              "id": "f7bb44c5b",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Large",
+              "id": "f2b0f583a",
+              "for": "",
+              "className": "bui-label large ",
+              "disabled": false
+            },
+            {
+              "text": "Required field*",
+              "id": "f3465dfd6",
+              "for": "RequiredProperty",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Disabled*",
+              "id": "f245b25aa",
+              "for": "",
+              "className": "bui-label disabled ",
+              "disabled": true
+            },
+            {
+              "text": "This is a label",
+              "id": "f449032ac",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            }
+          ],
+          "required": {
+            "text": "Required field*",
+            "for": "RequiredProperty",
+            "targetExists": false,
+            "className": "bui-label "
+          },
+          "infoButton": {
+            "tag": "BUTTON",
+            "ariaLabel": null,
+            "title": null,
+            "text": "",
+            "tabIndex": 0,
+            "type": "button",
+            "className": "bui-button icon transparent "
+          }
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR Label Info trigger inherits unrelated label text as accessible name (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "infoButton": {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "text": "",
+          "tabIndex": 0,
+          "type": "button",
+          "className": "bui-button icon transparent "
+        },
+        "infoAx": [
+          {
+            "role": "button",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR isolated Required label fixture has no matching target element",
+      "pass": true,
+      "observed": {
+        "text": "Required field*",
+        "for": "RequiredProperty",
+        "targetExists": false,
+        "className": "bui-label "
+      }
+    },
+    {
+      "name": "LIGHT-LTR links real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR default and subtle links expose native anchors with text",
+      "pass": true,
+      "observed": {
+        "linkSnapshot": {
+          "default": {
+            "tag": "A",
+            "text": "This is a label",
+            "hrefAttribute": "#",
+            "type": null,
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": false,
+            "tabIndex": 0,
+            "className": "bui-link ",
+            "rel": null,
+            "target": null
+          },
+          "subtle": {
+            "tag": "A",
+            "text": "Subtle link",
+            "hrefAttribute": "#",
+            "type": null,
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": false,
+            "tabIndex": 0,
+            "className": "bui-link subtle ",
+            "rel": null,
+            "target": null
+          },
+          "disabled": {
+            "tag": "A",
+            "text": "Disabled",
+            "hrefAttribute": null,
+            "type": "button",
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": true,
+            "tabIndex": 0,
+            "className": "bui-link ",
+            "rel": null,
+            "target": null
+          }
+        },
+        "defaultAx": [
+          {
+            "role": "link",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "focusable": true,
+              "url": "http://127.0.0.1:58108/#"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR disabled Link is a focusable generic anchor with ignored disabled attr and no aria-disabled (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "disabled": {
+          "tag": "A",
+          "text": "Disabled",
+          "hrefAttribute": null,
+          "type": "button",
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        },
+        "disabledAx": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR badges real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR Badge count and animated-shadow fixtures are present",
+      "pass": true,
+      "observed": {
+        "count": 42,
+        "emptyBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "countBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "prefersReducedMotion": true
+      }
+    },
+    {
+      "name": "LIGHT-LTR static count Badge is non-focusable and does not invent a role",
+      "pass": true,
+      "observed": {
+        "tag": "DIV",
+        "text": "+99",
+        "role": null,
+        "ariaLabel": null,
+        "ariaLive": null,
+        "tabIndex": -1,
+        "className": "bui-badge filled medium circular brand ",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationIterationCount": "1",
+        "backgroundColor": "rgb(18, 103, 180)",
+        "color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "Badge AnimateShadow remains animated under prefers-reduced-motion emulation (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "prefersReducedMotion": true,
+        "animationName": "badge-pulse-shadow",
+        "animationDuration": "1.5s",
+        "iterationCount": "infinite",
+        "className": "bui-badge filled medium circular brand drop-shadow animated "
+      }
+    },
+    {
+      "name": "DARK-RTL labels real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL Label default and required examples are present",
+      "pass": true,
+      "observed": {
+        "labelSnapshot": {
+          "labels": [
+            {
+              "text": "This is a label",
+              "id": "f2ddbe3e2",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Small",
+              "id": "f4548cbd1",
+              "for": "",
+              "className": "bui-label small ",
+              "disabled": false
+            },
+            {
+              "text": "Medium",
+              "id": "f1a5f21a5",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Large",
+              "id": "f75b3219f",
+              "for": "",
+              "className": "bui-label large ",
+              "disabled": false
+            },
+            {
+              "text": "Required field*",
+              "id": "f2a7f622b",
+              "for": "RequiredProperty",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Disabled*",
+              "id": "f148c6d18",
+              "for": "",
+              "className": "bui-label disabled ",
+              "disabled": true
+            },
+            {
+              "text": "This is a label",
+              "id": "fafc3d74",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            }
+          ],
+          "required": {
+            "text": "Required field*",
+            "for": "RequiredProperty",
+            "targetExists": false,
+            "className": "bui-label "
+          },
+          "infoButton": {
+            "tag": "BUTTON",
+            "ariaLabel": null,
+            "title": null,
+            "text": "",
+            "tabIndex": 0,
+            "type": "button",
+            "className": "bui-button icon transparent "
+          }
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL Label Info trigger inherits unrelated label text as accessible name (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "infoButton": {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "text": "",
+          "tabIndex": 0,
+          "type": "button",
+          "className": "bui-button icon transparent "
+        },
+        "infoAx": [
+          {
+            "role": "button",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL isolated Required label fixture has no matching target element",
+      "pass": true,
+      "observed": {
+        "text": "Required field*",
+        "for": "RequiredProperty",
+        "targetExists": false,
+        "className": "bui-label "
+      }
+    },
+    {
+      "name": "DARK-RTL links real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL default and subtle links expose native anchors with text",
+      "pass": true,
+      "observed": {
+        "linkSnapshot": {
+          "default": {
+            "tag": "A",
+            "text": "This is a label",
+            "hrefAttribute": "#",
+            "type": null,
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": false,
+            "tabIndex": 0,
+            "className": "bui-link ",
+            "rel": null,
+            "target": null
+          },
+          "subtle": {
+            "tag": "A",
+            "text": "Subtle link",
+            "hrefAttribute": "#",
+            "type": null,
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": false,
+            "tabIndex": 0,
+            "className": "bui-link subtle ",
+            "rel": null,
+            "target": null
+          },
+          "disabled": {
+            "tag": "A",
+            "text": "Disabled",
+            "hrefAttribute": null,
+            "type": "button",
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": true,
+            "tabIndex": 0,
+            "className": "bui-link ",
+            "rel": null,
+            "target": null
+          }
+        },
+        "defaultAx": [
+          {
+            "role": "link",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "focusable": true,
+              "url": "http://127.0.0.1:58108/#"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL disabled Link is a focusable generic anchor with ignored disabled attr and no aria-disabled (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "disabled": {
+          "tag": "A",
+          "text": "Disabled",
+          "hrefAttribute": null,
+          "type": "button",
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        },
+        "disabledAx": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL badges real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL Badge count and animated-shadow fixtures are present",
+      "pass": true,
+      "observed": {
+        "count": 42,
+        "emptyBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "countBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "prefersReducedMotion": true
+      }
+    },
+    {
+      "name": "DARK-RTL static count Badge is non-focusable and does not invent a role",
+      "pass": true,
+      "observed": {
+        "tag": "DIV",
+        "text": "+99",
+        "role": null,
+        "ariaLabel": null,
+        "ariaLive": null,
+        "tabIndex": -1,
+        "className": "bui-badge filled medium circular brand ",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationIterationCount": "1",
+        "backgroundColor": "rgb(24, 89, 155)",
+        "color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "FORCED-COLORS labels real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS Label default and required examples are present",
+      "pass": true,
+      "observed": {
+        "labelSnapshot": {
+          "labels": [
+            {
+              "text": "This is a label",
+              "id": "fccf001e",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Small",
+              "id": "f3d9d7a50",
+              "for": "",
+              "className": "bui-label small ",
+              "disabled": false
+            },
+            {
+              "text": "Medium",
+              "id": "f34528a93",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Large",
+              "id": "f2a9ded81",
+              "for": "",
+              "className": "bui-label large ",
+              "disabled": false
+            },
+            {
+              "text": "Required field*",
+              "id": "f5e0c4c4e",
+              "for": "RequiredProperty",
+              "className": "bui-label ",
+              "disabled": false
+            },
+            {
+              "text": "Disabled*",
+              "id": "f65997698",
+              "for": "",
+              "className": "bui-label disabled ",
+              "disabled": true
+            },
+            {
+              "text": "This is a label",
+              "id": "f55166b5b",
+              "for": "",
+              "className": "bui-label ",
+              "disabled": false
+            }
+          ],
+          "required": {
+            "text": "Required field*",
+            "for": "RequiredProperty",
+            "targetExists": false,
+            "className": "bui-label "
+          },
+          "infoButton": {
+            "tag": "BUTTON",
+            "ariaLabel": null,
+            "title": null,
+            "text": "",
+            "tabIndex": 0,
+            "type": "button",
+            "className": "bui-button icon transparent "
+          }
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS Label Info trigger inherits unrelated label text as accessible name (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "infoButton": {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "text": "",
+          "tabIndex": 0,
+          "type": "button",
+          "className": "bui-button icon transparent "
+        },
+        "infoAx": [
+          {
+            "role": "button",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS isolated Required label fixture has no matching target element",
+      "pass": true,
+      "observed": {
+        "text": "Required field*",
+        "for": "RequiredProperty",
+        "targetExists": false,
+        "className": "bui-label "
+      }
+    },
+    {
+      "name": "FORCED-COLORS links real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS default and subtle links expose native anchors with text",
+      "pass": true,
+      "observed": {
+        "linkSnapshot": {
+          "default": {
+            "tag": "A",
+            "text": "This is a label",
+            "hrefAttribute": "#",
+            "type": null,
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": false,
+            "tabIndex": 0,
+            "className": "bui-link ",
+            "rel": null,
+            "target": null
+          },
+          "subtle": {
+            "tag": "A",
+            "text": "Subtle link",
+            "hrefAttribute": "#",
+            "type": null,
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": false,
+            "tabIndex": 0,
+            "className": "bui-link subtle ",
+            "rel": null,
+            "target": null
+          },
+          "disabled": {
+            "tag": "A",
+            "text": "Disabled",
+            "hrefAttribute": null,
+            "type": "button",
+            "role": null,
+            "ariaDisabled": null,
+            "disabledAttribute": true,
+            "tabIndex": 0,
+            "className": "bui-link ",
+            "rel": null,
+            "target": null
+          }
+        },
+        "defaultAx": [
+          {
+            "role": "link",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "focusable": true,
+              "url": "http://127.0.0.1:58108/#"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS disabled Link is a focusable generic anchor with ignored disabled attr and no aria-disabled (gap reproduced)",
+      "pass": true,
+      "observed": {
+        "disabled": {
+          "tag": "A",
+          "text": "Disabled",
+          "hrefAttribute": null,
+          "type": "button",
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        },
+        "disabledAx": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS badges real header controls apply theme/direction and forced-colors media",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS Badge count and animated-shadow fixtures are present",
+      "pass": true,
+      "observed": {
+        "count": 42,
+        "emptyBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "countBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "prefersReducedMotion": true
+      }
+    },
+    {
+      "name": "FORCED-COLORS static count Badge is non-focusable and does not invent a role",
+      "pass": true,
+      "observed": {
+        "tag": "DIV",
+        "text": "+99",
+        "role": null,
+        "ariaLabel": null,
+        "ariaLive": null,
+        "tabIndex": -1,
+        "className": "bui-badge filled medium circular brand ",
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationIterationCount": "1",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "color": "rgb(255, 255, 255)"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "page": "labels",
+      "mode": "LIGHT-LTR",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "labelSnapshot": {
+        "labels": [
+          {
+            "text": "This is a label",
+            "id": "f32c4e39c",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Small",
+            "id": "f16cd1357",
+            "for": "",
+            "className": "bui-label small ",
+            "disabled": false
+          },
+          {
+            "text": "Medium",
+            "id": "f7bb44c5b",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Large",
+            "id": "f2b0f583a",
+            "for": "",
+            "className": "bui-label large ",
+            "disabled": false
+          },
+          {
+            "text": "Required field*",
+            "id": "f3465dfd6",
+            "for": "RequiredProperty",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Disabled*",
+            "id": "f245b25aa",
+            "for": "",
+            "className": "bui-label disabled ",
+            "disabled": true
+          },
+          {
+            "text": "This is a label",
+            "id": "f449032ac",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          }
+        ],
+        "required": {
+          "text": "Required field*",
+          "for": "RequiredProperty",
+          "targetExists": false,
+          "className": "bui-label "
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "text": "",
+          "tabIndex": 0,
+          "type": "button",
+          "className": "bui-button icon transparent "
+        }
+      },
+      "infoAx": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-LABEL-LIGHT-LTR.png"
+    },
+    {
+      "page": "links",
+      "mode": "LIGHT-LTR",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "linkSnapshot": {
+        "default": {
+          "tag": "A",
+          "text": "This is a label",
+          "hrefAttribute": "#",
+          "type": null,
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        },
+        "subtle": {
+          "tag": "A",
+          "text": "Subtle link",
+          "hrefAttribute": "#",
+          "type": null,
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "className": "bui-link subtle ",
+          "rel": null,
+          "target": null
+        },
+        "disabled": {
+          "tag": "A",
+          "text": "Disabled",
+          "hrefAttribute": null,
+          "type": "button",
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        }
+      },
+      "defaultAx": [
+        {
+          "role": "link",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "focusable": true,
+            "url": "http://127.0.0.1:58108/#"
+          }
+        }
+      ],
+      "disabledAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-LINK-LIGHT-LTR.png"
+    },
+    {
+      "page": "badges",
+      "mode": "LIGHT-LTR",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "badgeSnapshot": {
+        "count": 42,
+        "emptyBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "countBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "prefersReducedMotion": true
+      },
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-BADGE-LIGHT-LTR.png"
+    },
+    {
+      "page": "badges",
+      "mode": "REDUCED-MOTION",
+      "reducedMotion": {
+        "prefersReducedMotion": true,
+        "animationName": "badge-pulse-shadow",
+        "animationDuration": "1.5s",
+        "iterationCount": "infinite",
+        "className": "bui-badge filled medium circular brand drop-shadow animated "
+      }
+    },
+    {
+      "page": "labels",
+      "mode": "DARK-RTL",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "labelSnapshot": {
+        "labels": [
+          {
+            "text": "This is a label",
+            "id": "f2ddbe3e2",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Small",
+            "id": "f4548cbd1",
+            "for": "",
+            "className": "bui-label small ",
+            "disabled": false
+          },
+          {
+            "text": "Medium",
+            "id": "f1a5f21a5",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Large",
+            "id": "f75b3219f",
+            "for": "",
+            "className": "bui-label large ",
+            "disabled": false
+          },
+          {
+            "text": "Required field*",
+            "id": "f2a7f622b",
+            "for": "RequiredProperty",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Disabled*",
+            "id": "f148c6d18",
+            "for": "",
+            "className": "bui-label disabled ",
+            "disabled": true
+          },
+          {
+            "text": "This is a label",
+            "id": "fafc3d74",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          }
+        ],
+        "required": {
+          "text": "Required field*",
+          "for": "RequiredProperty",
+          "targetExists": false,
+          "className": "bui-label "
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "text": "",
+          "tabIndex": 0,
+          "type": "button",
+          "className": "bui-button icon transparent "
+        }
+      },
+      "infoAx": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-LABEL-DARK-RTL.png"
+    },
+    {
+      "page": "links",
+      "mode": "DARK-RTL",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "linkSnapshot": {
+        "default": {
+          "tag": "A",
+          "text": "This is a label",
+          "hrefAttribute": "#",
+          "type": null,
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        },
+        "subtle": {
+          "tag": "A",
+          "text": "Subtle link",
+          "hrefAttribute": "#",
+          "type": null,
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "className": "bui-link subtle ",
+          "rel": null,
+          "target": null
+        },
+        "disabled": {
+          "tag": "A",
+          "text": "Disabled",
+          "hrefAttribute": null,
+          "type": "button",
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        }
+      },
+      "defaultAx": [
+        {
+          "role": "link",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "focusable": true,
+            "url": "http://127.0.0.1:58108/#"
+          }
+        }
+      ],
+      "disabledAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-LINK-DARK-RTL.png"
+    },
+    {
+      "page": "badges",
+      "mode": "DARK-RTL",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false,
+        "themeBackground": "#292929",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": true
+          },
+          {
+            "id": "IsRtl",
+            "checked": true
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "badgeSnapshot": {
+        "count": 42,
+        "emptyBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "countBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "prefersReducedMotion": true
+      },
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-BADGE-DARK-RTL.png"
+    },
+    {
+      "page": "labels",
+      "mode": "FORCED-COLORS",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "labelSnapshot": {
+        "labels": [
+          {
+            "text": "This is a label",
+            "id": "fccf001e",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Small",
+            "id": "f3d9d7a50",
+            "for": "",
+            "className": "bui-label small ",
+            "disabled": false
+          },
+          {
+            "text": "Medium",
+            "id": "f34528a93",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Large",
+            "id": "f2a9ded81",
+            "for": "",
+            "className": "bui-label large ",
+            "disabled": false
+          },
+          {
+            "text": "Required field*",
+            "id": "f5e0c4c4e",
+            "for": "RequiredProperty",
+            "className": "bui-label ",
+            "disabled": false
+          },
+          {
+            "text": "Disabled*",
+            "id": "f65997698",
+            "for": "",
+            "className": "bui-label disabled ",
+            "disabled": true
+          },
+          {
+            "text": "This is a label",
+            "id": "f55166b5b",
+            "for": "",
+            "className": "bui-label ",
+            "disabled": false
+          }
+        ],
+        "required": {
+          "text": "Required field*",
+          "for": "RequiredProperty",
+          "targetExists": false,
+          "className": "bui-label "
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "text": "",
+          "tabIndex": 0,
+          "type": "button",
+          "className": "bui-button icon transparent "
+        }
+      },
+      "infoAx": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-LABEL-FORCED-COLORS.png"
+    },
+    {
+      "page": "links",
+      "mode": "FORCED-COLORS",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "linkSnapshot": {
+        "default": {
+          "tag": "A",
+          "text": "This is a label",
+          "hrefAttribute": "#",
+          "type": null,
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        },
+        "subtle": {
+          "tag": "A",
+          "text": "Subtle link",
+          "hrefAttribute": "#",
+          "type": null,
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "className": "bui-link subtle ",
+          "rel": null,
+          "target": null
+        },
+        "disabled": {
+          "tag": "A",
+          "text": "Disabled",
+          "hrefAttribute": null,
+          "type": "button",
+          "role": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "className": "bui-link ",
+          "rel": null,
+          "target": null
+        }
+      },
+      "defaultAx": [
+        {
+          "role": "link",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "focusable": true,
+            "url": "http://127.0.0.1:58108/#"
+          }
+        }
+      ],
+      "disabledAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-LINK-FORCED-COLORS.png"
+    },
+    {
+      "page": "badges",
+      "mode": "FORCED-COLORS",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true,
+        "themeBackground": "#fff",
+        "switches": [
+          {
+            "id": "IsDarkTheme",
+            "checked": false
+          },
+          {
+            "id": "IsRtl",
+            "checked": false
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 960
+        }
+      },
+      "badgeSnapshot": {
+        "count": 42,
+        "emptyBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "countBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand ",
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "role": null,
+          "ariaLabel": null,
+          "ariaLive": null,
+          "tabIndex": -1,
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "prefersReducedMotion": true
+      },
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-EDGE-BADGE-FORCED-COLORS.png"
+    }
+  ],
+  "summary": {
+    "checks": 31,
+    "passed": 31,
+    "failed": 0,
+    "screenshots": [
+      "BLUENT-LABEL-LINK-BADGE-EDGE-LABEL-LIGHT-LTR.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-LINK-LIGHT-LTR.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-BADGE-LIGHT-LTR.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-LABEL-DARK-RTL.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-LINK-DARK-RTL.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-BADGE-DARK-RTL.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-LABEL-FORCED-COLORS.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-LINK-FORCED-COLORS.png",
+      "BLUENT-LABEL-LINK-BADGE-EDGE-BADGE-FORCED-COLORS.png"
+    ]
+  }
+}

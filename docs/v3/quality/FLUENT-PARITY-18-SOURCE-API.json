@@ -1,0 +1,1501 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "status": "source_inventory_only",
+  "scope": "declared public Parameter/CascadingParameter metadata; inherited contracts unresolved",
+  "documentation": "Source-declared census only: no Fluent mapping, parity, public base API or runtime/AT claim.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "folder": "ButtonComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Button",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+            "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
+          ],
+          "declaredParameterCount": 22,
+          "parameters": [
+            {
+              "name": "Text",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 9,
+              "editorRequired": false
+            },
+            {
+              "name": "TextClass",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "SecondaryText",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "Icon",
+              "type": "IconDefinition?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 12,
+              "editorRequired": false
+            },
+            {
+              "name": "Toggled",
+              "type": "bool?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            },
+            {
+              "name": "Rotated",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            },
+            {
+              "name": "Orientation",
+              "type": "Orientation",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 15,
+              "editorRequired": false
+            },
+            {
+              "name": "ToggledChanged",
+              "type": "EventCallback<bool>",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 16,
+              "editorRequired": false
+            },
+            {
+              "name": "OnClick",
+              "type": "EventCallback",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 17,
+              "editorRequired": false
+            },
+            {
+              "name": "Shape",
+              "type": "ButtonShape",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 18,
+              "editorRequired": false
+            },
+            {
+              "name": "Appearance",
+              "type": "ButtonAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 19,
+              "editorRequired": false
+            },
+            {
+              "name": "Size",
+              "type": "ButtonSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 20,
+              "editorRequired": false
+            },
+            {
+              "name": "Href",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 21,
+              "editorRequired": false
+            },
+            {
+              "name": "Badge",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 22,
+              "editorRequired": false
+            },
+            {
+              "name": "BadgeHorizontalPosition",
+              "type": "HorizontalSides",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 23,
+              "editorRequired": false
+            },
+            {
+              "name": "BadgeVerticalPosition",
+              "type": "VerticalSides",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 24,
+              "editorRequired": false
+            },
+            {
+              "name": "Dropdown",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 25,
+              "editorRequired": false
+            },
+            {
+              "name": "ShowDropdownIndicator",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 26,
+              "editorRequired": false
+            },
+            {
+              "name": "Compact",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 27,
+              "editorRequired": false
+            },
+            {
+              "name": "DropdownPlacement",
+              "type": "Placement",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 28,
+              "editorRequired": false
+            },
+            {
+              "name": "ParentPopover",
+              "type": "Popover?",
+              "kind": "cascading",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 29,
+              "editorRequired": false
+            },
+            {
+              "name": "Overflow",
+              "type": "Overflow?",
+              "kind": "cascading",
+              "declaredAt": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "line": 30,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "folder": "IconComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Icon",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/IconComponent/Icon.cs"
+          ],
+          "declaredParameterCount": 2,
+          "parameters": [
+            {
+              "name": "Value",
+              "type": "IconDefinition?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+              "line": 9,
+              "editorRequired": true
+            },
+            {
+              "name": "Variant",
+              "type": "IconVariant",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+              "line": 10,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "folder": "LabelComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Label",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/LabelComponent/Label.razor",
+            "src/Bluent.UI/Components/LabelComponent/Label.razor.cs"
+          ],
+          "declaredParameterCount": 6,
+          "parameters": [
+            {
+              "name": "Text",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "ForExpression",
+              "type": "Expression<Func<object?>>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "RequiredSymbol",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "line": 12,
+              "editorRequired": false
+            },
+            {
+              "name": "Info",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            },
+            {
+              "name": "Size",
+              "type": "LabelSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            },
+            {
+              "name": "Required",
+              "type": "LabelRequiredState",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "line": 15,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "folder": "LinkComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Link",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/LinkComponent/Link.cs"
+          ],
+          "declaredParameterCount": 4,
+          "parameters": [
+            {
+              "name": "Text",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "line": 9,
+              "editorRequired": true
+            },
+            {
+              "name": "Href",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "Appearance",
+              "type": "LinkAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "OnClick",
+              "type": "EventCallback",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "line": 12,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "folder": "BadgeComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Badge",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/BadgeComponent/Badge.razor",
+            "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs"
+          ],
+          "declaredParameterCount": 8,
+          "parameters": [
+            {
+              "name": "Appearance",
+              "type": "BadgeAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 8,
+              "editorRequired": false
+            },
+            {
+              "name": "Size",
+              "type": "BadgeSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 9,
+              "editorRequired": false
+            },
+            {
+              "name": "Shape",
+              "type": "BadgeShape",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "Color",
+              "type": "BadgeColor",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "Icon",
+              "type": "IconDefinition?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 12,
+              "editorRequired": false
+            },
+            {
+              "name": "Text",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            },
+            {
+              "name": "DropShadow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            },
+            {
+              "name": "AnimateShadow",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "line": 15,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "folder": "TextFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "TextField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
+            "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs"
+          ],
+          "declaredParameterCount": 6,
+          "parameters": [
+            {
+              "name": "Rows",
+              "type": "int?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "line": 9,
+              "editorRequired": false
+            },
+            {
+              "name": "ResizeTextarea",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "GainFocus",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "DigitOnly",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "line": 12,
+              "editorRequired": false
+            },
+            {
+              "name": "AsciiDigits",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            },
+            {
+              "name": "ArabicToPersianConversion",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<string?>"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "folder": "NumericFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "NumericField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+            "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs"
+          ],
+          "declaredParameterCount": 11,
+          "parameters": [
+            {
+              "name": "ParsingErrorMessage",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 25,
+              "editorRequired": false
+            },
+            {
+              "name": "MinimumErrorMessage",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 28,
+              "editorRequired": false
+            },
+            {
+              "name": "MaximumErrorMessage",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 29,
+              "editorRequired": false
+            },
+            {
+              "name": "OverflowErrorMessage",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 30,
+              "editorRequired": false
+            },
+            {
+              "name": "GainFocus",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 31,
+              "editorRequired": false
+            },
+            {
+              "name": "Format",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 32,
+              "editorRequired": false
+            },
+            {
+              "name": "Min",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 33,
+              "editorRequired": false
+            },
+            {
+              "name": "Max",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 34,
+              "editorRequired": false
+            },
+            {
+              "name": "Step",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 35,
+              "editorRequired": false
+            },
+            {
+              "name": "OnBlur",
+              "type": "EventCallback",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 36,
+              "editorRequired": false
+            },
+            {
+              "name": "OnFocus",
+              "type": "EventCallback",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "line": 37,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<TValue>"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [
+            "@onblur",
+            "@onfocus"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "folder": "CheckBoxComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Checkbox",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor",
+            "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs"
+          ],
+          "declaredParameterCount": 7,
+          "parameters": [
+            {
+              "name": "Label",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "UncheckedLabel",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "IndeterminateLabel",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 12,
+              "editorRequired": false
+            },
+            {
+              "name": "Required",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            },
+            {
+              "name": "Circular",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            },
+            {
+              "name": "Size",
+              "type": "CheckboxSize",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 15,
+              "editorRequired": false
+            },
+            {
+              "name": "LabelPosition",
+              "type": "LabelPosition",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "line": 16,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentInputComponentBase<TValue>"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [
+            "@onchange",
+            "@onclick"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "folder": "SwitchComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Switch",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/SwitchComponent/Switch.razor",
+            "src/Bluent.UI/Components/SwitchComponent/Switch.razor.cs"
+          ],
+          "declaredParameterCount": 0,
+          "parameters": [],
+          "declaredBaseTypes": [
+            "Checkbox<bool>"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [
+            "@onchange",
+            "@onclick"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "folder": "RadioGroupComponent",
+      "componentCount": 2,
+      "components": [
+        {
+          "component": "RadioGroup",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor",
+            "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs"
+          ],
+          "declaredParameterCount": 4,
+          "parameters": [
+            {
+              "name": "ChildContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            },
+            {
+              "name": "Label",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "line": 11,
+              "editorRequired": false
+            },
+            {
+              "name": "ItemsLabelPosition",
+              "type": "LabelPosition",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "line": 12,
+              "editorRequired": false
+            },
+            {
+              "name": "Orientation",
+              "type": "Orientation",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentInputComponentBase<TValue?>"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        },
+        {
+          "component": "Radio",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+            "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs"
+          ],
+          "declaredParameterCount": 3,
+          "parameters": [
+            {
+              "name": "RadioGroup",
+              "type": "RadioGroup<TValue>",
+              "kind": "cascading",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+              "line": 7,
+              "editorRequired": false
+            },
+            {
+              "name": "Value",
+              "type": "TValue",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+              "line": 8,
+              "editorRequired": true
+            },
+            {
+              "name": "Label",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+              "line": 9,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [
+            "@onchange"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "folder": "SelectFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "SelectField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor",
+            "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs"
+          ],
+          "declaredParameterCount": 1,
+          "parameters": [
+            {
+              "name": "ChildContent",
+              "type": "RenderFragment?",
+              "kind": "slot",
+              "declaredAt": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs",
+              "line": 10,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<TValue>"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [
+            "@onchange"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "folder": "DateFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "DateField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/DateFieldComponent/DateField.razor",
+            "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs"
+          ],
+          "declaredParameterCount": 7,
+          "parameters": [
+            {
+              "name": "Culture",
+              "type": "CultureInfo",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 24,
+              "editorRequired": false
+            },
+            {
+              "name": "Mode",
+              "type": "CalendarMode",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 25,
+              "editorRequired": false
+            },
+            {
+              "name": "DateClass",
+              "type": "Func<DateTime, string>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 26,
+              "editorRequired": false
+            },
+            {
+              "name": "Max",
+              "type": "DateTime?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 27,
+              "editorRequired": false
+            },
+            {
+              "name": "Min",
+              "type": "DateTime?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 28,
+              "editorRequired": false
+            },
+            {
+              "name": "DisplayCalendar",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 29,
+              "editorRequired": false
+            },
+            {
+              "name": "ParsingErrorMessage",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "line": 35,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<TValue>"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "folder": "TimeFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "TimeField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor",
+            "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs"
+          ],
+          "declaredParameterCount": 3,
+          "parameters": [
+            {
+              "name": "ParsingErrorMessage",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs",
+              "line": 18,
+              "editorRequired": false
+            },
+            {
+              "name": "Seconds",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs",
+              "line": 19,
+              "editorRequired": false
+            },
+            {
+              "name": "Culture",
+              "type": "CultureInfo",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs",
+              "line": 20,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<TValue>"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "folder": "MaskedFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "MaskedField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor",
+            "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs"
+          ],
+          "declaredParameterCount": 3,
+          "parameters": [
+            {
+              "name": "Mask",
+              "type": "string",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+              "line": 16,
+              "editorRequired": true
+            },
+            {
+              "name": "AsciiDigits",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+              "line": 17,
+              "editorRequired": false
+            },
+            {
+              "name": "ArabicToPersianConversion",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+              "line": 18,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<string?>"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [
+            "@oninput",
+            "@onkeyup"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "folder": "OtpFieldComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "OtpField",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor",
+            "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs"
+          ],
+          "declaredParameterCount": 3,
+          "parameters": [
+            {
+              "name": "Length",
+              "type": "int",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs",
+              "line": 13,
+              "editorRequired": false
+            },
+            {
+              "name": "Password",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            },
+            {
+              "name": "AutoSubmit",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs",
+              "line": 15,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentFieldComponentBase<string?>",
+            "IAsyncDisposable"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "folder": "SliderComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "Slider",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/SliderComponent/Slider.razor",
+            "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs"
+          ],
+          "declaredParameterCount": 5,
+          "parameters": [
+            {
+              "name": "Min",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "line": 24,
+              "editorRequired": false
+            },
+            {
+              "name": "Max",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "line": 25,
+              "editorRequired": false
+            },
+            {
+              "name": "Value",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "line": 26,
+              "editorRequired": false
+            },
+            {
+              "name": "ValueChanged",
+              "type": "EventCallback<TValue?>",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "line": 28,
+              "editorRequired": false
+            },
+            {
+              "name": "ThumbSize",
+              "type": "int?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "line": 32,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase",
+            "IPointerMoveEventHandler, IPointerUpEventHandler"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [
+            "@onpointerdown"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "folder": "RangeSliderComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "RangeSlider",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor",
+            "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs"
+          ],
+          "declaredParameterCount": 5,
+          "parameters": [
+            {
+              "name": "Min",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "line": 21,
+              "editorRequired": false
+            },
+            {
+              "name": "Max",
+              "type": "TValue?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "line": 22,
+              "editorRequired": false
+            },
+            {
+              "name": "Value",
+              "type": "ValueRange<TValue>?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "line": 23,
+              "editorRequired": false
+            },
+            {
+              "name": "ValueChanged",
+              "type": "EventCallback<ValueRange<TValue>?>",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "line": 24,
+              "editorRequired": false
+            },
+            {
+              "name": "ThumbSize",
+              "type": "int?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "line": 25,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase",
+            "IPointerMoveEventHandler, IPointerUpEventHandler"
+          ],
+          "genericTypeParameters": [
+            "TValue"
+          ],
+          "razorDomEventSyntax": [
+            "@onpointerdown"
+          ],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "folder": "FileSelectComponent",
+      "componentCount": 1,
+      "components": [
+        {
+          "component": "FileSelect",
+          "sourceFiles": [
+            "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor",
+            "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs"
+          ],
+          "declaredParameterCount": 12,
+          "parameters": [
+            {
+              "name": "Text",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 14,
+              "editorRequired": false
+            },
+            {
+              "name": "Icon",
+              "type": "IconDefinition?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 15,
+              "editorRequired": false
+            },
+            {
+              "name": "Accept",
+              "type": "string?",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 16,
+              "editorRequired": false
+            },
+            {
+              "name": "ShowFileInfo",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 17,
+              "editorRequired": false
+            },
+            {
+              "name": "AllowRemove",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 18,
+              "editorRequired": false
+            },
+            {
+              "name": "Disabled",
+              "type": "bool",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 19,
+              "editorRequired": false
+            },
+            {
+              "name": "Appearance",
+              "type": "ButtonAppearance",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 20,
+              "editorRequired": false
+            },
+            {
+              "name": "Shape",
+              "type": "ButtonShape",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 21,
+              "editorRequired": false
+            },
+            {
+              "name": "OnChange",
+              "type": "EventCallback<IEnumerable<SelectedFile>>",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 22,
+              "editorRequired": false
+            },
+            {
+              "name": "OnFileSelected",
+              "type": "EventCallback<SelectedFile>",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 23,
+              "editorRequired": false
+            },
+            {
+              "name": "OnFileRemoved",
+              "type": "EventCallback<SelectedFile>",
+              "kind": "event",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 24,
+              "editorRequired": false
+            },
+            {
+              "name": "MaxFiles",
+              "type": "int",
+              "kind": "value",
+              "declaredAt": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "line": 25,
+              "editorRequired": false
+            }
+          ],
+          "declaredBaseTypes": [
+            "BluentUiComponentBase"
+          ],
+          "genericTypeParameters": [],
+          "razorDomEventSyntax": [],
+          "inheritedParameterStatus": "not_reviewed",
+          "renderedEventsAndSlotsStatus": "not_reviewed"
+        }
+      ],
+      "fluentParityStatus": "not_reviewed",
+      "officialUpstreamCounterpart": "not_verified",
+      "approvedComponentDesign": false,
+      "runtimeParityTests": 0,
+      "nativeOSTests": 0
+    }
+  ]
+}

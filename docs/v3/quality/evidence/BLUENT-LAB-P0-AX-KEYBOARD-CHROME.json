@@ -1,0 +1,1640 @@
+{
+  "auditIssue": 552,
+  "sourceBranch": "v3/issue-421-component-lab",
+  "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+  "mode": "real Chrome Blazor WebAssembly Debug Lab",
+  "scenario": "ax-keyboard",
+  "status": "Bluent_current_source_visual_baseline_NOT_fluent_parity",
+  "viewport": {
+    "width": 1240,
+    "height": 1140,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "accessibilityMode": {
+    "forcedColors": true,
+    "contrastMore": true,
+    "viewportWidth": 1240,
+    "viewportHeight": 1140,
+    "dpr": 1,
+    "documentScrollWidth": 1240,
+    "visualViewportScale": 1
+  },
+  "normalizedInScenario": {
+    "buttonWidth": 96,
+    "sliderWidth": "forced 260px",
+    "rtl": false,
+    "theme": "light",
+    "claim": "Chrome AX tree plus real key event and runtime-only CSS candidate; NOT OS/AT or design signoff"
+  },
+  "generatedAt": "2026-10-19T15:00:11.488Z",
+  "checks": [
+    {
+      "label": "Live source Lab hydrated",
+      "pass": true
+    },
+    {
+      "label": "Real Chromium forced-colors emulation matched",
+      "pass": true,
+      "details": {
+        "forcedColors": true,
+        "contrastMore": true,
+        "viewportWidth": 1240,
+        "viewportHeight": 1140,
+        "dpr": 1,
+        "documentScrollWidth": 1240,
+        "visualViewportScale": 1
+      }
+    },
+    {
+      "label": "Real Bluent theme/direction attributes set",
+      "pass": true,
+      "details": {
+        "theme": "light",
+        "dir": "ltr"
+      }
+    },
+    {
+      "label": "Button actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Button",
+        "issue": 428,
+        "elementTag": "BUTTON",
+        "cls": "bui-button primary ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 96,
+        "height": 32,
+        "left": 368,
+        "right": 464,
+        "parentRight": 1136,
+        "parentWidth": 768,
+        "background": "rgb(0, 0, 0)",
+        "borderRadius": "4px",
+        "rail": null,
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 352,
+          "y": 39.828125,
+          "width": 800,
+          "height": 732.28125
+        },
+        "accessibilityTree": [
+          {
+            "role": "button",
+            "name": "Toggle demo navigation",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Choose theme color",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Continue",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Secondary",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Unavailable",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Pin selection",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Copy source",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Button Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Icon Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Label Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Badge Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TextField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Checkbox Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Switch Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "NumericField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RadioGroup Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "SelectField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "DateField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TimeField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "FileSelect Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RangeSlider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Slider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "OtpField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "MaskedField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Link Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Notifications Recent activity 3",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "More actions ",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": " Vertical action",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": " Rotated action",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "View pilot",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Send now",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Send disabled",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "",
+            "value": null
+          }
+        ],
+        "buttonFocusProbe": {
+          "id": "f6ccc8f10",
+          "cls": "bui-button primary ",
+          "focused": true,
+          "tabIndex": 0,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "forcedColors": true
+        },
+        "buttonTabProbe": {
+          "tag": "BUTTON",
+          "id": "f1a2ffa2",
+          "cls": "bui-button outline "
+        },
+        "image": "BLUENT-LAB-BUTTON-AX-KEYBOARD-CHROME.png"
+      }
+    },
+    {
+      "label": "Native Bluent Button is focusable in actual Chromium",
+      "pass": true,
+      "details": {
+        "id": "f6ccc8f10",
+        "cls": "bui-button primary ",
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": true
+      }
+    },
+    {
+      "label": "Bluent Button real Tab advances focus",
+      "pass": true,
+      "details": {
+        "tag": "BUTTON",
+        "id": "f1a2ffa2",
+        "cls": "bui-button outline "
+      }
+    },
+    {
+      "label": "Slider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Slider",
+        "issue": 442,
+        "elementTag": "DIV",
+        "cls": "bui-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 260,
+        "height": 20,
+        "left": 370,
+        "right": 630,
+        "parentRight": 738.5,
+        "parentWidth": 385.5,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "width": 260,
+          "height": 4
+        },
+        "thumbCount": 1,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 337,
+          "y": 89.828125,
+          "width": 815,
+          "height": 212.453125
+        },
+        "accessibilityTree": [
+          {
+            "role": "button",
+            "name": "Toggle demo navigation",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Choose theme color",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Copy source",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Button Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Icon Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Label Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Badge Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TextField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Checkbox Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Switch Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "NumericField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RadioGroup Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "SelectField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "DateField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TimeField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "FileSelect Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RangeSlider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Slider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "OtpField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "MaskedField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Link Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "View pilot",
+            "value": null
+          }
+        ],
+        "experimentalTrackProposal": {
+          "before": {
+            "backgroundImage": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "afterBg": "rgba(0, 0, 0, 0)"
+          },
+          "after": {
+            "backgroundImage": "none",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "afterBg": "rgb(26, 235, 255)",
+            "afterWidth": "91px",
+            "afterContent": "\"\""
+          },
+          "claim": "runtime-only style injected into disposable browser; NOT product/design acceptance"
+        },
+        "keyboardFocusProbe": {
+          "rootFocused": false,
+          "rootTabIndex": -1,
+          "rootRole": null,
+          "thumbTabIndex": -1,
+          "thumbRole": null,
+          "thumbAriaValue": null,
+          "theme": "light",
+          "direction": "ltr"
+        },
+        "arrowRightProbe": {
+          "valueBefore": "Integer range -50 to 50\n\nValue: -15\n\nDouble range 0 to 10, large thumb\n\nValue: 4.0\n\nExisting pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442.",
+          "valueAfter": "Integer range -50 to 50\n\nValue: -15\n\nDouble range 0 to 10, large thumb\n\nValue: 4.0\n\nExisting pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442."
+        },
+        "image": "BLUENT-LAB-SLIDER-AX-KEYBOARD-CHROME.png"
+      }
+    },
+    {
+      "label": "Slider is absent from browser AX slider-role tree (current gap)",
+      "pass": true,
+      "details": []
+    },
+    {
+      "label": "Slider baseline forced-colors rail is transparent",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "afterBg": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "label": "Slider experimental CSS restores solid visible rail paint",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "afterBg": "rgb(26, 235, 255)",
+        "afterWidth": "91px",
+        "afterContent": "\"\""
+      }
+    },
+    {
+      "label": "Slider experimental CSS adds a visible highlighted progress segment",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "afterBg": "rgb(26, 235, 255)",
+        "afterWidth": "91px",
+        "afterContent": "\"\""
+      }
+    },
+    {
+      "label": "Existing Bluent Slider has no native keyboard focus target (confirmed GAP, not a11y approval)",
+      "pass": true,
+      "details": {
+        "rootFocused": false,
+        "rootTabIndex": -1,
+        "rootRole": null,
+        "thumbTabIndex": -1,
+        "thumbRole": null,
+        "thumbAriaValue": null,
+        "theme": "light",
+        "direction": "ltr"
+      }
+    },
+    {
+      "label": "Slider no native keyboard ArrowRight operation in current sample",
+      "pass": true,
+      "details": {
+        "valueBefore": "Integer range -50 to 50\n\nValue: -15\n\nDouble range 0 to 10, large thumb\n\nValue: 4.0\n\nExisting pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442.",
+        "valueAfter": "Integer range -50 to 50\n\nValue: -15\n\nDouble range 0 to 10, large thumb\n\nValue: 4.0\n\nExisting pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442."
+      }
+    },
+    {
+      "label": "RangeSlider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "RangeSlider",
+        "issue": 443,
+        "elementTag": "DIV",
+        "cls": "bui-range-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 260,
+        "height": 20,
+        "left": 370,
+        "right": 630,
+        "parentRight": 738.5,
+        "parentWidth": 385.5,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "width": 260,
+          "height": 4
+        },
+        "thumbCount": 2,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          },
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 337,
+          "y": 108.828125,
+          "width": 815,
+          "height": 194.046875
+        },
+        "accessibilityTree": [
+          {
+            "role": "button",
+            "name": "Toggle demo navigation",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Choose theme color",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Copy source",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Button Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Icon Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Label Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Badge Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TextField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Checkbox Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Switch Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "NumericField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RadioGroup Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "SelectField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "DateField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TimeField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "FileSelect Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RangeSlider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Slider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "OtpField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "MaskedField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Link Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "View pilot",
+            "value": null
+          }
+        ],
+        "experimentalTrackProposal": {
+          "before": {
+            "backgroundImage": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "afterBg": "rgba(0, 0, 0, 0)"
+          },
+          "after": {
+            "backgroundImage": "none",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "afterBg": "rgb(26, 235, 255)",
+            "afterWidth": "156px",
+            "afterContent": "\"\""
+          },
+          "claim": "runtime-only style injected into disposable browser; NOT product/design acceptance"
+        },
+        "arrowRightProbe": {
+          "valueBefore": "Integer handles 20–80 on 0–100\n\nRange: 20 to 80\n\nDecimal handles 1.5–7.5 on 0–10\n\nRange: 1.5 to 7.5\n\nCurrent source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work.",
+          "valueAfter": "Integer handles 20–80 on 0–100\n\nRange: 20 to 80\n\nDecimal handles 1.5–7.5 on 0–10\n\nRange: 1.5 to 7.5\n\nCurrent source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work."
+        },
+        "image": "BLUENT-LAB-RANGESLIDER-AX-KEYBOARD-CHROME.png"
+      }
+    },
+    {
+      "label": "RangeSlider is absent from browser AX slider-role tree (current gap)",
+      "pass": true,
+      "details": []
+    },
+    {
+      "label": "RangeSlider baseline forced-colors rail is transparent",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "afterBg": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "label": "RangeSlider experimental CSS restores solid visible rail paint",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "afterBg": "rgb(26, 235, 255)",
+        "afterWidth": "156px",
+        "afterContent": "\"\""
+      }
+    },
+    {
+      "label": "RangeSlider experimental CSS adds a visible highlighted progress segment",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "afterBg": "rgb(26, 235, 255)",
+        "afterWidth": "156px",
+        "afterContent": "\"\""
+      }
+    },
+    {
+      "label": "RangeSlider no native keyboard ArrowRight operation in current sample",
+      "pass": true,
+      "details": {
+        "valueBefore": "Integer handles 20–80 on 0–100\n\nRange: 20 to 80\n\nDecimal handles 1.5–7.5 on 0–10\n\nRange: 1.5 to 7.5\n\nCurrent source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work.",
+        "valueAfter": "Integer handles 20–80 on 0–100\n\nRange: 20 to 80\n\nDecimal handles 1.5–7.5 on 0–10\n\nRange: 1.5 to 7.5\n\nCurrent source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work."
+      }
+    },
+    {
+      "label": "FileSelect actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "FileSelect",
+        "issue": 444,
+        "elementTag": "DIV",
+        "cls": "bui-file-select ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 351.5,
+        "height": 32,
+        "left": 767.5,
+        "right": 1119,
+        "parentRight": 1136,
+        "parentWidth": 385.5,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": null,
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 337,
+          "y": 39.828125,
+          "width": 815,
+          "height": 321.6875
+        },
+        "accessibilityTree": [
+          {
+            "role": "button",
+            "name": "Toggle demo navigation",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Choose theme color",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Copy source",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Button Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Icon Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Label Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Badge Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TextField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Checkbox Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Switch Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "NumericField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RadioGroup Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "SelectField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "DateField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "TimeField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "FileSelect Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "RangeSlider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Slider Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "OtpField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "MaskedField Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Link Representative runnable scenario only",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "View pilot",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Choose text file",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "Choose up to two files",
+            "value": null
+          },
+          {
+            "role": "button",
+            "name": "File picker disabled",
+            "value": null
+          }
+        ],
+        "image": "BLUENT-LAB-FILESELECT-AX-KEYBOARD-CHROME.png"
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "elementTag": "BUTTON",
+      "cls": "bui-button primary ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 96,
+      "height": 32,
+      "left": 368,
+      "right": 464,
+      "parentRight": 1136,
+      "parentWidth": 768,
+      "background": "rgb(0, 0, 0)",
+      "borderRadius": "4px",
+      "rail": null,
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 352,
+        "y": 39.828125,
+        "width": 800,
+        "height": 732.28125
+      },
+      "accessibilityTree": [
+        {
+          "role": "button",
+          "name": "Toggle demo navigation",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Choose theme color",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Continue",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Secondary",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Unavailable",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Pin selection",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Copy source",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Button Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Icon Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Label Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Badge Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TextField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Checkbox Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Switch Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "NumericField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RadioGroup Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "SelectField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "DateField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TimeField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "FileSelect Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RangeSlider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Slider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "OtpField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "MaskedField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Link Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Notifications Recent activity 3",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "More actions ",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": " Vertical action",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": " Rotated action",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "View pilot",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Send now",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Send disabled",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "",
+          "value": null
+        }
+      ],
+      "buttonFocusProbe": {
+        "id": "f6ccc8f10",
+        "cls": "bui-button primary ",
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": true
+      },
+      "buttonTabProbe": {
+        "tag": "BUTTON",
+        "id": "f1a2ffa2",
+        "cls": "bui-button outline "
+      },
+      "image": "BLUENT-LAB-BUTTON-AX-KEYBOARD-CHROME.png"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "elementTag": "DIV",
+      "cls": "bui-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 260,
+      "height": 20,
+      "left": 370,
+      "right": 630,
+      "parentRight": 738.5,
+      "parentWidth": 385.5,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "width": 260,
+        "height": 4
+      },
+      "thumbCount": 1,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 337,
+        "y": 89.828125,
+        "width": 815,
+        "height": 212.453125
+      },
+      "accessibilityTree": [
+        {
+          "role": "button",
+          "name": "Toggle demo navigation",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Choose theme color",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Copy source",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Button Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Icon Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Label Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Badge Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TextField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Checkbox Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Switch Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "NumericField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RadioGroup Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "SelectField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "DateField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TimeField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "FileSelect Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RangeSlider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Slider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "OtpField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "MaskedField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Link Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "View pilot",
+          "value": null
+        }
+      ],
+      "experimentalTrackProposal": {
+        "before": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "afterBg": "rgba(0, 0, 0, 0)"
+        },
+        "after": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "afterBg": "rgb(26, 235, 255)",
+          "afterWidth": "91px",
+          "afterContent": "\"\""
+        },
+        "claim": "runtime-only style injected into disposable browser; NOT product/design acceptance"
+      },
+      "keyboardFocusProbe": {
+        "rootFocused": false,
+        "rootTabIndex": -1,
+        "rootRole": null,
+        "thumbTabIndex": -1,
+        "thumbRole": null,
+        "thumbAriaValue": null,
+        "theme": "light",
+        "direction": "ltr"
+      },
+      "arrowRightProbe": {
+        "valueBefore": "Integer range -50 to 50\n\nValue: -15\n\nDouble range 0 to 10, large thumb\n\nValue: 4.0\n\nExisting pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442.",
+        "valueAfter": "Integer range -50 to 50\n\nValue: -15\n\nDouble range 0 to 10, large thumb\n\nValue: 4.0\n\nExisting pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442."
+      },
+      "image": "BLUENT-LAB-SLIDER-AX-KEYBOARD-CHROME.png"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "elementTag": "DIV",
+      "cls": "bui-range-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 260,
+      "height": 20,
+      "left": 370,
+      "right": 630,
+      "parentRight": 738.5,
+      "parentWidth": 385.5,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "width": 260,
+        "height": 4
+      },
+      "thumbCount": 2,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        },
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 337,
+        "y": 108.828125,
+        "width": 815,
+        "height": 194.046875
+      },
+      "accessibilityTree": [
+        {
+          "role": "button",
+          "name": "Toggle demo navigation",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Choose theme color",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Copy source",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Button Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Icon Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Label Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Badge Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TextField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Checkbox Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Switch Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "NumericField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RadioGroup Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "SelectField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "DateField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TimeField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "FileSelect Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RangeSlider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Slider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "OtpField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "MaskedField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Link Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "View pilot",
+          "value": null
+        }
+      ],
+      "experimentalTrackProposal": {
+        "before": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "afterBg": "rgba(0, 0, 0, 0)"
+        },
+        "after": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "afterBg": "rgb(26, 235, 255)",
+          "afterWidth": "156px",
+          "afterContent": "\"\""
+        },
+        "claim": "runtime-only style injected into disposable browser; NOT product/design acceptance"
+      },
+      "arrowRightProbe": {
+        "valueBefore": "Integer handles 20–80 on 0–100\n\nRange: 20 to 80\n\nDecimal handles 1.5–7.5 on 0–10\n\nRange: 1.5 to 7.5\n\nCurrent source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work.",
+        "valueAfter": "Integer handles 20–80 on 0–100\n\nRange: 20 to 80\n\nDecimal handles 1.5–7.5 on 0–10\n\nRange: 1.5 to 7.5\n\nCurrent source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work."
+      },
+      "image": "BLUENT-LAB-RANGESLIDER-AX-KEYBOARD-CHROME.png"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "elementTag": "DIV",
+      "cls": "bui-file-select ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 351.5,
+      "height": 32,
+      "left": 767.5,
+      "right": 1119,
+      "parentRight": 1136,
+      "parentWidth": 385.5,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": null,
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 337,
+        "y": 39.828125,
+        "width": 815,
+        "height": 321.6875
+      },
+      "accessibilityTree": [
+        {
+          "role": "button",
+          "name": "Toggle demo navigation",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Choose theme color",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Copy source",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Button Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Icon Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Label Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Badge Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TextField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Checkbox Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Switch Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "NumericField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RadioGroup Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "SelectField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "DateField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "TimeField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "FileSelect Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "RangeSlider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Slider Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "OtpField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "MaskedField Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Link Representative runnable scenario only",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "View pilot",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Choose text file",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "Choose up to two files",
+          "value": null
+        },
+        {
+          "role": "button",
+          "name": "File picker disabled",
+          "value": null
+        }
+      ],
+      "image": "BLUENT-LAB-FILESELECT-AX-KEYBOARD-CHROME.png"
+    }
+  ]
+}

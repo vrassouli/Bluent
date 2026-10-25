@@ -1,0 +1,2231 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "reviewedOn": "2026-10-22",
+  "wave": "A",
+  "referenceBaseline": {
+    "webComponents": "@fluentui/web-components@3.1.3",
+    "reactFallback": "@fluentui/react-components@9.74.10 (exact crosswalk snapshot; latest tag 9.74.11)",
+    "iconAssets": "@fluentui/react-icons@2.0.344"
+  },
+  "sourceCandidatePath": "docs/v3/quality/FLUENT-WC-3.1.3-18-API-NAME-CANDIDATES.json",
+  "upstreamCrosswalkPath": "docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.json",
+  "classificationValues": [
+    "Supported",
+    "Missing",
+    "Bluent extension",
+    "N/A"
+  ],
+  "parameterOccurrenceCount": 82,
+  "note": "This is a separate manual-review ledger. The machine-generated source candidate file remains unchanged and still reports comparisonStatus=not_reviewed; Supported here means source/API mapping only, not visual, runtime, accessibility or parity acceptance.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "componentNames": [
+        "Button"
+      ],
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-button",
+        "fluent-toggle-button",
+        "fluent-compound-button",
+        "fluent-menu-button",
+        "fluent-anchor-button"
+      ],
+      "upstreamContracts": [
+        {
+          "tag": "fluent-button",
+          "attributes": [
+            "appearance",
+            "disabled",
+            "disabled-focusable",
+            "form",
+            "formaction",
+            "formenctype",
+            "formmethod",
+            "formnovalidate",
+            "formtarget",
+            "icon-only",
+            "name",
+            "shape",
+            "size",
+            "type",
+            "value"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        },
+        {
+          "tag": "fluent-toggle-button",
+          "attributes": [
+            "appearance",
+            "disabled",
+            "disabled-focusable",
+            "form",
+            "formaction",
+            "formenctype",
+            "formmethod",
+            "formnovalidate",
+            "formtarget",
+            "icon-only",
+            "mixed",
+            "name",
+            "pressed",
+            "shape",
+            "size",
+            "type",
+            "value"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        },
+        {
+          "tag": "fluent-compound-button",
+          "attributes": [
+            "appearance",
+            "disabled",
+            "disabled-focusable",
+            "form",
+            "formaction",
+            "formenctype",
+            "formmethod",
+            "formnovalidate",
+            "formtarget",
+            "icon-only",
+            "name",
+            "shape",
+            "size",
+            "type",
+            "value"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "description",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        },
+        {
+          "tag": "fluent-menu-button",
+          "attributes": [
+            "appearance",
+            "disabled",
+            "disabled-focusable",
+            "form",
+            "formaction",
+            "formenctype",
+            "formmethod",
+            "formnovalidate",
+            "formtarget",
+            "icon-only",
+            "name",
+            "shape",
+            "size",
+            "type",
+            "value"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        },
+        {
+          "tag": "fluent-anchor-button",
+          "attributes": [
+            "appearance",
+            "download",
+            "href",
+            "hreflang",
+            "icon-only",
+            "ping",
+            "referrerpolicy",
+            "rel",
+            "shape",
+            "size",
+            "target",
+            "type"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content",
+            "control"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        }
+      ],
+      "parameterCount": 30,
+      "reviewedParameterCount": 30,
+      "dispositionCounts": {
+        "Supported": 11,
+        "Missing": 0,
+        "Bluent extension": 19,
+        "N/A": 0
+      },
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "parameters": [
+        {
+          "component": "Button",
+          "name": "Text",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-button default slot",
+          "rationale": "Bluent Text is rendered as the button's content; the pinned tag exposes a default slot.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "TextClass",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent inner text wrapper class; WC exposes CSS part content",
+          "rationale": "A per-text class is not equivalent to styling the whole WC content part.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "SecondaryText",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-compound-button description slot (related tag)",
+          "rationale": "The equivalent concept exists on the separate compound-button tag, not as a property of fluent-button.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Icon",
+          "kind": "value",
+          "csharpType": "IconDefinition?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-button start slot; end slot for alternate placement",
+          "rationale": "The slot can host icon content; Bluent's paired regular/filled icon rendering and state CSS remain Bluent-specific.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Toggled",
+          "kind": "value",
+          "csharpType": "bool?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Related candidate: fluent-toggle-button.pressed",
+          "rationale": "Bluent currently renders a normal button with a toggled class; it does not adopt the toggle-button pressed/mixed or ARIA contract.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": "Verify aria-pressed and state-change behavior in the real browser."
+        },
+        {
+          "component": "Button",
+          "name": "Rotated",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 14,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent rotated CSS class",
+          "rationale": "No rotation attribute or state is documented for the pinned button tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Orientation",
+          "kind": "value",
+          "csharpType": "Orientation",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 15,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent vertical-orientation CSS class",
+          "rationale": "No orientation attribute is documented for the pinned button tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "ToggledChanged",
+          "kind": "event",
+          "csharpType": "EventCallback<bool>",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 16,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Blazor EventCallback<bool>; no custom event documented in the pinned toggle-button CEM",
+          "rationale": "The callback is paired with Bluent's Toggled parameter; a CEM event or runtime-equivalent callback contract is not established.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "OnClick",
+          "kind": "event",
+          "csharpType": "EventCallback",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 17,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Native DOM click event bridged to EventCallback",
+          "rationale": "Click is a standard DOM event, not a custom event listed in the CEM; disabled/navigation callback ordering still needs runtime evidence.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify pointer, keyboard activation, disabled and navigation ordering."
+        },
+        {
+          "component": "Button",
+          "name": "Shape",
+          "kind": "value",
+          "csharpType": "ButtonShape",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 18,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-button",
+              "memberKind": "attributes",
+              "member": "shape"
+            },
+            {
+              "tag": "fluent-toggle-button",
+              "memberKind": "attributes",
+              "member": "shape"
+            },
+            {
+              "tag": "fluent-compound-button",
+              "memberKind": "attributes",
+              "member": "shape"
+            },
+            {
+              "tag": "fluent-menu-button",
+              "memberKind": "attributes",
+              "member": "shape"
+            },
+            {
+              "tag": "fluent-anchor-button",
+              "memberKind": "attributes",
+              "member": "shape"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-button.shape",
+          "rationale": "Bluent Rounded/Circular/Square values match the pinned WC shape values.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Appearance",
+          "kind": "value",
+          "csharpType": "ButtonAppearance",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 19,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-button",
+              "memberKind": "attributes",
+              "member": "appearance"
+            },
+            {
+              "tag": "fluent-toggle-button",
+              "memberKind": "attributes",
+              "member": "appearance"
+            },
+            {
+              "tag": "fluent-compound-button",
+              "memberKind": "attributes",
+              "member": "appearance"
+            },
+            {
+              "tag": "fluent-menu-button",
+              "memberKind": "attributes",
+              "member": "appearance"
+            },
+            {
+              "tag": "fluent-anchor-button",
+              "memberKind": "attributes",
+              "member": "appearance"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-button.appearance",
+          "rationale": "Default maps by omitting the attribute; Primary/Outline/Subtle/Transparent match the pinned values. Danger is an extra Bluent appearance.",
+          "confidence": "high",
+          "valueDispositions": [
+            {
+              "value": "Default",
+              "disposition": "Supported",
+              "mapping": "omit appearance attribute"
+            },
+            {
+              "value": "Primary",
+              "disposition": "Supported",
+              "mapping": "appearance=primary"
+            },
+            {
+              "value": "Outline",
+              "disposition": "Supported",
+              "mapping": "appearance=outline"
+            },
+            {
+              "value": "Subtle",
+              "disposition": "Supported",
+              "mapping": "appearance=subtle"
+            },
+            {
+              "value": "Transparent",
+              "disposition": "Supported",
+              "mapping": "appearance=transparent"
+            },
+            {
+              "value": "Danger",
+              "disposition": "Bluent extension",
+              "mapping": "no matching appearance value in the pinned WC CEM"
+            }
+          ],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Size",
+          "kind": "value",
+          "csharpType": "ButtonSize",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 20,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-button",
+              "memberKind": "attributes",
+              "member": "size"
+            },
+            {
+              "tag": "fluent-toggle-button",
+              "memberKind": "attributes",
+              "member": "size"
+            },
+            {
+              "tag": "fluent-compound-button",
+              "memberKind": "attributes",
+              "member": "size"
+            },
+            {
+              "tag": "fluent-menu-button",
+              "memberKind": "attributes",
+              "member": "size"
+            },
+            {
+              "tag": "fluent-anchor-button",
+              "memberKind": "attributes",
+              "member": "size"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-button.size",
+          "rationale": "Small/Medium/Large match the pinned WC size values.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Href",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 21,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-anchor-button",
+              "memberKind": "attributes",
+              "member": "href"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-anchor-button.href (related tag; not fluent-button)",
+          "rationale": "Bluent switches to an anchor when Href is non-empty; this is a related-tag mapping, not a single fluent-button API. Disabled-link semantics are separately audited.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify href, disabled and keyboard behavior in the real browser."
+        },
+        {
+          "component": "Button",
+          "name": "Badge",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 22,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Positioned nested Badge; no dedicated button badge slot in the pinned CEM",
+          "rationale": "The button renders a positioned wrapper around a Badge; the WC button tags do not expose a badge slot or position API.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "BadgeHorizontalPosition",
+          "kind": "value",
+          "csharpType": "HorizontalSides",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 23,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent badge wrapper horizontal-position class",
+          "rationale": "No horizontal badge-position attribute exists on the pinned WC button tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "BadgeVerticalPosition",
+          "kind": "value",
+          "csharpType": "VerticalSides",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 24,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent badge wrapper vertical-position class",
+          "rationale": "No vertical badge-position attribute exists on the pinned WC button tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Dropdown",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 25,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Popover/Surface composition; fluent-menu-button is related only",
+          "rationale": "The pinned menu-button CEM does not document a dedicated menu/dropdown slot; Bluent composes a Popover and Surface.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "ShowDropdownIndicator",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 26,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent-generated caret icons",
+          "rationale": "The indicator is drawn by Bluent Icon instances; no matching WC attribute is documented.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Compact",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 27,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent compact CSS class",
+          "rationale": "No compact attribute exists on the pinned WC button tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "DropdownPlacement",
+          "kind": "value",
+          "csharpType": "Placement",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 28,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover Placement",
+          "rationale": "Dropdown placement belongs to the Bluent Popover composition, not the button tag API.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "ParentPopover",
+          "kind": "cascading",
+          "csharpType": "Popover?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 29,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Blazor CascadingParameter Popover context",
+          "rationale": "This is a Blazor composition contract, not a Fluent WC property.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Overflow",
+          "kind": "cascading",
+          "csharpType": "Overflow?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+          "sourceLine": 30,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Blazor CascadingParameter Overflow/Toolbar context",
+          "rationale": "This is a Blazor overflow composition contract, not a Fluent WC property.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Tooltip",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "BluentUiComponentBase TooltipService; no corresponding WC tooltip API",
+          "rationale": "Tooltip is registered against the generated/provided id with mouseenter/focus triggers and mouseleave/blur hides; native title is not equivalent.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "TooltipContent",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover RenderFragment",
+          "rationale": "Arbitrary tooltip content is a Bluent composition; no tooltip-content slot exists on the referenced WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "TooltipPlacement",
+          "kind": "value",
+          "csharpType": "Placement",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover Placement",
+          "rationale": "Placement is configured by the Bluent tooltip service, not by a referenced WC attribute.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "TooltipAppearance",
+          "kind": "value",
+          "csharpType": "PopoverAppearance",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent PopoverAppearance",
+          "rationale": "Popover styling is a Bluent API and has no direct attribute on these WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "DisplayTooltipArrow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent tooltip arrow configuration",
+          "rationale": "No matching tooltip component or arrow attribute exists in the pinned WC tag contracts.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "AdditionalAttributes",
+          "kind": "value",
+          "csharpType": "Dictionary<string, object>?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 8,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Blazor unmatched-attribute bridge to the root HTML element",
+          "rationale": "Source forwards arbitrary attributes; exact DOM, disabled and ARIA behavior remains a separate runtime/AT check.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify forwarded attributes on the real component in both Blazor render modes."
+        },
+        {
+          "component": "Button",
+          "name": "Class",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML class attribute merged with Bluent classes",
+          "rationale": "BluentComponentBase.GetComponentClass combines component classes with Class; a CSS part is not a direct replacement for this Blazor API.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Button",
+          "name": "Style",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML style attribute on the root element",
+          "rationale": "The component forwards Style to the rendered root; CSS token and theme equivalence remain separate review dimensions.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        }
+      ]
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "componentNames": [
+        "Icon"
+      ],
+      "counterpartKind": "no_dedicated_tag",
+      "referencedTags": [],
+      "upstreamContracts": [],
+      "parameterCount": 10,
+      "reviewedParameterCount": 10,
+      "dispositionCounts": {
+        "Supported": 4,
+        "Missing": 0,
+        "Bluent extension": 6,
+        "N/A": 0
+      },
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "parameters": [
+        {
+          "component": "Icon",
+          "name": "Value",
+          "kind": "value",
+          "csharpType": "IconDefinition?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "IconDefinition source abstraction; Fluent System Icons is asset-level reference only",
+          "rationale": "IconDefinition supports CSS-class, arbitrary SVG and image sources; the pinned WC package has no generic Icon tag and the React icon package is not a component-level counterpart.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "Variant",
+          "kind": "value",
+          "csharpType": "IconVariant",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Fluent System Icons Regular/Filled asset variants",
+          "rationale": "IconVariant exposes Regular/Filled and falls back to Regular when Filled is absent. No Color enum exists; exact Color asset coverage and requirement remain undecided.",
+          "confidence": "high",
+          "valueDispositions": [
+            {
+              "value": "Regular",
+              "disposition": "Supported",
+              "mapping": "regular asset/source"
+            },
+            {
+              "value": "Filled",
+              "disposition": "Supported",
+              "mapping": "filled asset/source, with Regular fallback when absent"
+            },
+            {
+              "value": "Color",
+              "disposition": "N/A",
+              "mapping": "not part of the current public enum; no feature requirement approved"
+            }
+          ],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "Tooltip",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "BluentUiComponentBase TooltipService; no corresponding WC tooltip API",
+          "rationale": "Tooltip is registered against the generated/provided id with mouseenter/focus triggers and mouseleave/blur hides; native title is not equivalent.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "TooltipContent",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover RenderFragment",
+          "rationale": "Arbitrary tooltip content is a Bluent composition; no tooltip-content slot exists on the referenced WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "TooltipPlacement",
+          "kind": "value",
+          "csharpType": "Placement",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover Placement",
+          "rationale": "Placement is configured by the Bluent tooltip service, not by a referenced WC attribute.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "TooltipAppearance",
+          "kind": "value",
+          "csharpType": "PopoverAppearance",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent PopoverAppearance",
+          "rationale": "Popover styling is a Bluent API and has no direct attribute on these WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "DisplayTooltipArrow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent tooltip arrow configuration",
+          "rationale": "No matching tooltip component or arrow attribute exists in the pinned WC tag contracts.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "AdditionalAttributes",
+          "kind": "value",
+          "csharpType": "Dictionary<string, object>?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 8,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Blazor unmatched-attribute bridge to the root HTML element",
+          "rationale": "Source forwards arbitrary attributes; exact DOM, disabled and ARIA behavior remains a separate runtime/AT check.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify forwarded attributes on the real component in both Blazor render modes."
+        },
+        {
+          "component": "Icon",
+          "name": "Class",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML class attribute merged with Bluent classes",
+          "rationale": "BluentComponentBase.GetComponentClass combines component classes with Class; a CSS part is not a direct replacement for this Blazor API.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Icon",
+          "name": "Style",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML style attribute on the root element",
+          "rationale": "The component forwards Style to the rendered root; CSS token and theme equivalence remain separate review dimensions.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        }
+      ]
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "componentNames": [
+        "Label"
+      ],
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-label"
+      ],
+      "upstreamContracts": [
+        {
+          "tag": "fluent-label",
+          "attributes": [
+            "disabled",
+            "required",
+            "size",
+            "weight"
+          ],
+          "events": [],
+          "slots": [
+            ""
+          ],
+          "cssParts": [
+            "asterisk"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        }
+      ],
+      "parameterCount": 14,
+      "reviewedParameterCount": 14,
+      "dispositionCounts": {
+        "Supported": 5,
+        "Missing": 0,
+        "Bluent extension": 9,
+        "N/A": 0
+      },
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "parameters": [
+        {
+          "component": "Label",
+          "name": "Text",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-label default slot",
+          "rationale": "Text is rendered as label content; the pinned tag exposes a default slot.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "ForExpression",
+          "kind": "value",
+          "csharpType": "Expression<Func<object?>>?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Native label-for association; no for attribute documented on fluent-label",
+          "rationale": "Bluent renders a native label with a derived for value. React v9 Label is a cross-platform reference for association only, not a 1:1 WC component mapping.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": "Verify associated-control behavior and id synchronization in the browser."
+        },
+        {
+          "component": "Label",
+          "name": "RequiredSymbol",
+          "kind": "value",
+          "csharpType": "string",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Custom required-symbol text; fluent-label has required boolean and asterisk CSS part",
+          "rationale": "The upstream component can show its required marker but does not expose a custom marker string.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "Info",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover plus icon-only Button composition",
+          "rationale": "No information/tooltip slot is documented on fluent-label; accessible naming of the icon-only trigger is a separate open gap.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "Size",
+          "kind": "value",
+          "csharpType": "LabelSize",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "sourceLine": 14,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-label",
+              "memberKind": "attributes",
+              "member": "size"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-label.size",
+          "rationale": "Small/Medium/Large match the pinned WC label size values.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "Required",
+          "kind": "value",
+          "csharpType": "LabelRequiredState",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+          "sourceLine": 15,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-label",
+              "memberKind": "attributes",
+              "member": "required"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "fluent-label.required boolean for explicit states; Auto uses Blazor validation inference",
+          "rationale": "Required/NotRequired map to a boolean, but Auto inspects ForExpression validation metadata and has no direct WC equivalent.",
+          "confidence": "high",
+          "valueDispositions": [
+            {
+              "value": "Required",
+              "disposition": "Supported",
+              "mapping": "required=true"
+            },
+            {
+              "value": "NotRequired",
+              "disposition": "Supported",
+              "mapping": "required=false"
+            },
+            {
+              "value": "Auto",
+              "disposition": "Bluent extension",
+              "mapping": "infer from ForExpression validation metadata"
+            }
+          ],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "Tooltip",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "BluentUiComponentBase TooltipService; no corresponding WC tooltip API",
+          "rationale": "Tooltip is registered against the generated/provided id with mouseenter/focus triggers and mouseleave/blur hides; native title is not equivalent.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "TooltipContent",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover RenderFragment",
+          "rationale": "Arbitrary tooltip content is a Bluent composition; no tooltip-content slot exists on the referenced WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "TooltipPlacement",
+          "kind": "value",
+          "csharpType": "Placement",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover Placement",
+          "rationale": "Placement is configured by the Bluent tooltip service, not by a referenced WC attribute.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "TooltipAppearance",
+          "kind": "value",
+          "csharpType": "PopoverAppearance",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent PopoverAppearance",
+          "rationale": "Popover styling is a Bluent API and has no direct attribute on these WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "DisplayTooltipArrow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent tooltip arrow configuration",
+          "rationale": "No matching tooltip component or arrow attribute exists in the pinned WC tag contracts.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "AdditionalAttributes",
+          "kind": "value",
+          "csharpType": "Dictionary<string, object>?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 8,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Blazor unmatched-attribute bridge to the root HTML element",
+          "rationale": "Source forwards arbitrary attributes; exact DOM, disabled and ARIA behavior remains a separate runtime/AT check.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify forwarded attributes on the real component in both Blazor render modes."
+        },
+        {
+          "component": "Label",
+          "name": "Class",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML class attribute merged with Bluent classes",
+          "rationale": "BluentComponentBase.GetComponentClass combines component classes with Class; a CSS part is not a direct replacement for this Blazor API.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Label",
+          "name": "Style",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML style attribute on the root element",
+          "rationale": "The component forwards Style to the rendered root; CSS token and theme equivalence remain separate review dimensions.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        }
+      ]
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "componentNames": [
+        "Link"
+      ],
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-link",
+        "fluent-anchor-button"
+      ],
+      "upstreamContracts": [
+        {
+          "tag": "fluent-link",
+          "attributes": [
+            "appearance",
+            "download",
+            "href",
+            "hreflang",
+            "inline",
+            "ping",
+            "referrerpolicy",
+            "rel",
+            "target",
+            "type"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content",
+            "control"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        },
+        {
+          "tag": "fluent-anchor-button",
+          "attributes": [
+            "appearance",
+            "download",
+            "href",
+            "hreflang",
+            "icon-only",
+            "ping",
+            "referrerpolicy",
+            "rel",
+            "shape",
+            "size",
+            "target",
+            "type"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [
+            "content",
+            "control"
+          ],
+          "cssProperties": [],
+          "cssStates": []
+        }
+      ],
+      "parameterCount": 12,
+      "reviewedParameterCount": 12,
+      "dispositionCounts": {
+        "Supported": 7,
+        "Missing": 0,
+        "Bluent extension": 5,
+        "N/A": 0
+      },
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "parameters": [
+        {
+          "component": "Link",
+          "name": "Text",
+          "kind": "value",
+          "csharpType": "string",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-link default slot",
+          "rationale": "Text is rendered as link content; the pinned tag exposes a default slot.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "Href",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-link",
+              "memberKind": "attributes",
+              "member": "href"
+            },
+            {
+              "tag": "fluent-anchor-button",
+              "memberKind": "attributes",
+              "member": "href"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-link.href",
+          "rationale": "The URL maps directly, but Bluent renders a button when Href is empty and renders an anchor without href when disabled; that composite behavior is not a fluent-link contract.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": "Verify disabled, keyboard focus and default navigation behavior."
+        },
+        {
+          "component": "Link",
+          "name": "Appearance",
+          "kind": "value",
+          "csharpType": "LinkAppearance",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-link",
+              "memberKind": "attributes",
+              "member": "appearance"
+            },
+            {
+              "tag": "fluent-anchor-button",
+              "memberKind": "attributes",
+              "member": "appearance"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-link.appearance",
+          "rationale": "Default maps by omitting the attribute; Subtle maps to the only documented appearance value.",
+          "confidence": "high",
+          "valueDispositions": [
+            {
+              "value": "Default",
+              "disposition": "Supported",
+              "mapping": "omit appearance attribute"
+            },
+            {
+              "value": "Subtle",
+              "disposition": "Supported",
+              "mapping": "appearance=subtle"
+            }
+          ],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "OnClick",
+          "kind": "event",
+          "csharpType": "EventCallback",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Native DOM click event bridged to EventCallback",
+          "rationale": "The pinned CEM documents no custom event; click is a standard DOM event. It does not by itself establish prevent-default or disabled semantics.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify pointer/keyboard activation and navigation/callback ordering."
+        },
+        {
+          "component": "Link",
+          "name": "Tooltip",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "BluentUiComponentBase TooltipService; no corresponding WC tooltip API",
+          "rationale": "Tooltip is registered against the generated/provided id with mouseenter/focus triggers and mouseleave/blur hides; native title is not equivalent.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "TooltipContent",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover RenderFragment",
+          "rationale": "Arbitrary tooltip content is a Bluent composition; no tooltip-content slot exists on the referenced WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "TooltipPlacement",
+          "kind": "value",
+          "csharpType": "Placement",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover Placement",
+          "rationale": "Placement is configured by the Bluent tooltip service, not by a referenced WC attribute.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "TooltipAppearance",
+          "kind": "value",
+          "csharpType": "PopoverAppearance",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent PopoverAppearance",
+          "rationale": "Popover styling is a Bluent API and has no direct attribute on these WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "DisplayTooltipArrow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent tooltip arrow configuration",
+          "rationale": "No matching tooltip component or arrow attribute exists in the pinned WC tag contracts.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "AdditionalAttributes",
+          "kind": "value",
+          "csharpType": "Dictionary<string, object>?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 8,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Blazor unmatched-attribute bridge to the root HTML element",
+          "rationale": "Source forwards arbitrary attributes; exact DOM, disabled and ARIA behavior remains a separate runtime/AT check.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify forwarded attributes on the real component in both Blazor render modes."
+        },
+        {
+          "component": "Link",
+          "name": "Class",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML class attribute merged with Bluent classes",
+          "rationale": "BluentComponentBase.GetComponentClass combines component classes with Class; a CSS part is not a direct replacement for this Blazor API.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Link",
+          "name": "Style",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML style attribute on the root element",
+          "rationale": "The component forwards Style to the rendered root; CSS token and theme equivalence remain separate review dimensions.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        }
+      ]
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "componentNames": [
+        "Badge"
+      ],
+      "counterpartKind": "tag_present",
+      "referencedTags": [
+        "fluent-badge",
+        "fluent-counter-badge"
+      ],
+      "upstreamContracts": [
+        {
+          "tag": "fluent-badge",
+          "attributes": [
+            "appearance",
+            "color",
+            "shape",
+            "size"
+          ],
+          "events": [],
+          "slots": [
+            "",
+            "end",
+            "start"
+          ],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": []
+        },
+        {
+          "tag": "fluent-counter-badge",
+          "attributes": [
+            "appearance",
+            "color",
+            "count",
+            "dot",
+            "overflow-count",
+            "shape",
+            "show-zero",
+            "size"
+          ],
+          "events": [],
+          "slots": [
+            "end",
+            "start"
+          ],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": []
+        }
+      ],
+      "parameterCount": 16,
+      "reviewedParameterCount": 16,
+      "dispositionCounts": {
+        "Supported": 9,
+        "Missing": 0,
+        "Bluent extension": 7,
+        "N/A": 0
+      },
+      "apiReviewStatus": "audited_gaps",
+      "designApproval": "pending",
+      "evidenceBundle": null,
+      "parameters": [
+        {
+          "component": "Badge",
+          "name": "Appearance",
+          "kind": "value",
+          "csharpType": "BadgeAppearance",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 8,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-badge",
+              "memberKind": "attributes",
+              "member": "appearance"
+            },
+            {
+              "tag": "fluent-counter-badge",
+              "memberKind": "attributes",
+              "member": "appearance"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-badge.appearance",
+          "rationale": "Filled/Ghost/Tint map directly; Outlined requires normalization to upstream outline and is currently represented by a Bluent outlined CSS class.",
+          "confidence": "medium",
+          "valueDispositions": [
+            {
+              "value": "Filled",
+              "disposition": "Supported",
+              "mapping": "appearance=filled"
+            },
+            {
+              "value": "Ghost",
+              "disposition": "Supported",
+              "mapping": "appearance=ghost"
+            },
+            {
+              "value": "Outlined",
+              "disposition": "Bluent extension",
+              "mapping": "translate to appearance=outline; current Bluent class spelling is outlined"
+            },
+            {
+              "value": "Tint",
+              "disposition": "Supported",
+              "mapping": "appearance=tint"
+            }
+          ],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Size",
+          "kind": "value",
+          "csharpType": "BadgeSize",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-badge",
+              "memberKind": "attributes",
+              "member": "size"
+            },
+            {
+              "tag": "fluent-counter-badge",
+              "memberKind": "attributes",
+              "member": "size"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-badge.size",
+          "rationale": "Tiny/ExtraSmall/Small/Medium/Large/ExtraLarge match the pinned WC size values.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Shape",
+          "kind": "value",
+          "csharpType": "BadgeShape",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-badge",
+              "memberKind": "attributes",
+              "member": "shape"
+            },
+            {
+              "tag": "fluent-counter-badge",
+              "memberKind": "attributes",
+              "member": "shape"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-badge.shape",
+          "rationale": "Square/Rounded/Circular match the pinned WC shape values.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Color",
+          "kind": "value",
+          "csharpType": "BadgeColor",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [
+            {
+              "tag": "fluent-badge",
+              "memberKind": "attributes",
+              "member": "color"
+            },
+            {
+              "tag": "fluent-counter-badge",
+              "memberKind": "attributes",
+              "member": "color"
+            }
+          ],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-badge.color",
+          "rationale": "Color semantics align except the Bluent enum value Sever emits the class sever; the pinned WC value is severe.",
+          "confidence": "medium",
+          "valueDispositions": [
+            {
+              "value": "Brand",
+              "disposition": "Supported",
+              "mapping": "color=brand"
+            },
+            {
+              "value": "Danger",
+              "disposition": "Supported",
+              "mapping": "color=danger"
+            },
+            {
+              "value": "Important",
+              "disposition": "Supported",
+              "mapping": "color=important"
+            },
+            {
+              "value": "Informative",
+              "disposition": "Supported",
+              "mapping": "color=informative"
+            },
+            {
+              "value": "Sever",
+              "disposition": "Missing",
+              "mapping": "upstream expects severe; source enum/class is sever"
+            },
+            {
+              "value": "Subtle",
+              "disposition": "Supported",
+              "mapping": "color=subtle"
+            },
+            {
+              "value": "Success",
+              "disposition": "Supported",
+              "mapping": "color=success"
+            },
+            {
+              "value": "Warning",
+              "disposition": "Supported",
+              "mapping": "color=warning"
+            }
+          ],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Icon",
+          "kind": "value",
+          "csharpType": "IconDefinition?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-badge start slot",
+          "rationale": "The Bluent Icon is rendered before the text, which maps conceptually to the start slot; no end-position property is exposed.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Text",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "fluent-badge default slot",
+          "rationale": "Text is rendered as badge content; the pinned tag exposes a default slot.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "DropShadow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 14,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent drop-shadow CSS class",
+          "rationale": "The pinned fluent-badge CEM exposes no corresponding attribute, CSS part or custom property.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "AnimateShadow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "declared",
+          "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+          "sourceLine": 15,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent animated-shadow CSS class",
+          "rationale": "The pinned fluent-badge CEM exposes no corresponding animation API; reduced-motion behavior is a separate confirmed gap.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Tooltip",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "BluentUiComponentBase TooltipService; no corresponding WC tooltip API",
+          "rationale": "Tooltip is registered against the generated/provided id with mouseenter/focus triggers and mouseleave/blur hides; native title is not equivalent.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "TooltipContent",
+          "kind": "slot",
+          "csharpType": "RenderFragment?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover RenderFragment",
+          "rationale": "Arbitrary tooltip content is a Bluent composition; no tooltip-content slot exists on the referenced WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "TooltipPlacement",
+          "kind": "value",
+          "csharpType": "Placement",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 11,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent Popover Placement",
+          "rationale": "Placement is configured by the Bluent tooltip service, not by a referenced WC attribute.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "TooltipAppearance",
+          "kind": "value",
+          "csharpType": "PopoverAppearance",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 12,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent PopoverAppearance",
+          "rationale": "Popover styling is a Bluent API and has no direct attribute on these WC tags.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "DisplayTooltipArrow",
+          "kind": "value",
+          "csharpType": "bool",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+          "sourceLine": 13,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Bluent extension",
+          "mapping": "Bluent tooltip arrow configuration",
+          "rationale": "No matching tooltip component or arrow attribute exists in the pinned WC tag contracts.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "AdditionalAttributes",
+          "kind": "value",
+          "csharpType": "Dictionary<string, object>?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 8,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "Blazor unmatched-attribute bridge to the root HTML element",
+          "rationale": "Source forwards arbitrary attributes; exact DOM, disabled and ARIA behavior remains a separate runtime/AT check.",
+          "confidence": "medium",
+          "valueDispositions": [],
+          "followUp": "Verify forwarded attributes on the real component in both Blazor render modes."
+        },
+        {
+          "component": "Badge",
+          "name": "Class",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 9,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML class attribute merged with Bluent classes",
+          "rationale": "BluentComponentBase.GetComponentClass combines component classes with Class; a CSS part is not a direct replacement for this Blazor API.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        },
+        {
+          "component": "Badge",
+          "name": "Style",
+          "kind": "value",
+          "csharpType": "string?",
+          "origin": "local_inherited",
+          "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+          "sourceLine": 10,
+          "spellingCandidates": [],
+          "sourceCandidateStatus": "not_reviewed",
+          "sourceFeatureSupport": "not_inferred",
+          "reviewDisposition": "Supported",
+          "mapping": "HTML style attribute on the root element",
+          "rationale": "The component forwards Style to the rendered root; CSS token and theme equivalence remain separate review dimensions.",
+          "confidence": "high",
+          "valueDispositions": [],
+          "followUp": null
+        }
+      ]
+    }
+  ],
+  "outOfBandPublicApi": [
+    {
+      "name": "Id",
+      "scope": "BluentComponentBase public API; not counted among the 82 [Parameter] occurrences",
+      "disposition": "Supported",
+      "mapping": "HTML id via AdditionalAttributes; generated identifier when none is supplied",
+      "rationale": "BluentComponentBase reads a caller id from AdditionalAttributes or creates one; TooltipService uses the resulting id."
+    },
+    {
+      "name": "Disabled",
+      "scope": "Attribute-based base behavior; not a typed [Parameter]",
+      "disposition": "Bluent extension",
+      "mapping": "AdditionalAttributes['disabled'] and IsDisabled",
+      "rationale": "IsDisabled recognizes only a boolean true value. Link/Button disabled navigation semantics differ from fluent-link/fluent-button and need explicit runtime evidence."
+    },
+    {
+      "name": "SetStateHasChanged",
+      "scope": "IBluentComponent/Blazor base method; not a component property",
+      "disposition": "N/A",
+      "mapping": "Blazor lifecycle helper",
+      "rationale": "Not a Fluent component feature."
+    },
+    {
+      "name": "IconVariant.Color",
+      "scope": "Potential future icon feature; not in current public enum",
+      "disposition": "N/A",
+      "requirementStatus": "not_decided",
+      "mapping": "No Color enum in the current Bluent IconVariant; do not add one without exact asset-release coverage, license/shipping, theme/forced-colors and design review.",
+      "rationale": "The pinned React icon package is an asset reference, not a generic Icon component; the local 20px font map has no Color entries."
+    }
+  ],
+  "parityAccepted": false
+}

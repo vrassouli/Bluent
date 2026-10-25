@@ -1,0 +1,2564 @@
+{
+  "issue": 552,
+  "owningIssues": {
+    "Label": 430,
+    "Link": 431,
+    "Badge": 445
+  },
+  "engine": "edge",
+  "renderer": "published Production Blazor InteractiveServer",
+  "host": "Bluent.UI.Demo.SSR Release publish with a QA-only route; temporary published output",
+  "route": "/__quality/server-label-link-badge-probe",
+  "sourceRef": "7165a7671044b9c58b7d0c96cc93bf2b2b97fd52",
+  "scope": "Real Chromium DOM/AX/computed style and server event round-trip. Forced-colors and reduced-motion are emulated. Not native OS/screen-reader validation or Fluent parity acceptance.",
+  "createdAt": "2026-10-25T05:43:49.260Z",
+  "sentinelEvidence": {
+    "before": "0",
+    "after": "1",
+    "endpoint": "http://127.0.0.1:59873/__quality/server-label-link-badge-probe"
+  },
+  "disabledLinkActivationEvidence": {
+    "before": "0",
+    "after": "1",
+    "disabledElement": {
+      "tag": "A",
+      "text": "Disabled",
+      "id": "f3095769b",
+      "className": "bui-link ",
+      "role": null,
+      "ariaLabel": null,
+      "ariaDisabled": null,
+      "disabledAttribute": true,
+      "tabIndex": 0,
+      "hrefAttribute": null,
+      "animationName": "none",
+      "animationDuration": "0s",
+      "animationIterationCount": "1",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(189, 189, 189)",
+      "box": {
+        "x": 308.734375,
+        "y": 282.5,
+        "width": 53.46875,
+        "height": 19
+      }
+    }
+  },
+  "keyboardProbeEvidence": {
+    "before": "1",
+    "disabledLinkTabindexProperty": 0,
+    "disabledLinkTabindexAttribute": null,
+    "startFocus": {
+      "tag": "BUTTON",
+      "id": "f4263d9a6",
+      "isInfoAction": true
+    },
+    "firstTabAfterLabel": {
+      "tag": "BUTTON",
+      "id": "server-interaction-sentinel",
+      "text": "Server interaction count: 1",
+      "isDisabledLink": false,
+      "className": null
+    },
+    "focusedViaTab": false,
+    "afterEnter": null,
+    "afterSpace": null
+  },
+  "popoverObservation": {
+    "before": {
+      "triggerPresent": true,
+      "triggerId": "f4263d9a6",
+      "triggerAriaExpanded": null,
+      "triggerAriaHaspopup": null,
+      "triggerBox": {
+        "x": 380.015625,
+        "y": 204.25,
+        "width": 32,
+        "height": 32,
+        "top": 188.25,
+        "bottom": 220.25
+      },
+      "surfacePresent": false,
+      "surface": null
+    },
+    "afterTriggerClick": {
+      "triggerPresent": true,
+      "triggerId": "f4263d9a6",
+      "triggerAriaExpanded": null,
+      "triggerAriaHaspopup": null,
+      "triggerBox": {
+        "x": 380.015625,
+        "y": 204.25,
+        "width": 32,
+        "height": 32,
+        "top": 188.25,
+        "bottom": 220.25
+      },
+      "surfacePresent": true,
+      "surface": {
+        "id": "f4263d9a6_surface",
+        "className": "bui-popover-surface default top-start show",
+        "hiddenClass": false,
+        "showClass": true,
+        "display": "block",
+        "opacity": "1",
+        "text": "This is example information for an InfoLabel. Learn more",
+        "role": null,
+        "ariaLabel": null,
+        "box": {
+          "x": 554.203125,
+          "y": 163.25,
+          "width": 380.375,
+          "height": 38,
+          "top": 144.25,
+          "bottom": 182.25
+        }
+      }
+    },
+    "contentFound": true,
+    "accessibilityTree": {
+      "trigger": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "focused": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "surface": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "learnMore": [
+        {
+          "role": "link",
+          "name": "Learn more",
+          "ignored": false,
+          "properties": {
+            "focusable": true,
+            "url": "https://fluent2.microsoft.design/components/web/react/accordion/usage"
+          }
+        }
+      ]
+    },
+    "keyboard": {
+      "focusBeforeTab": {
+        "tag": "BUTTON",
+        "id": "f4263d9a6",
+        "text": ""
+      },
+      "focusAfterTab": {
+        "tag": "BUTTON",
+        "id": "server-interaction-sentinel",
+        "text": "Server interaction count: 1",
+        "href": null
+      },
+      "surfaceAfterTab": {
+        "triggerPresent": true,
+        "triggerId": "f4263d9a6",
+        "triggerAriaExpanded": null,
+        "triggerAriaHaspopup": null,
+        "triggerBox": {
+          "x": 380.015625,
+          "y": 204.25,
+          "width": 32,
+          "height": 32,
+          "top": 188.25,
+          "bottom": 220.25
+        },
+        "surfacePresent": true,
+        "surface": {
+          "id": "f4263d9a6_surface",
+          "className": "bui-popover-surface default top-start show",
+          "hiddenClass": false,
+          "showClass": true,
+          "display": "block",
+          "opacity": "1",
+          "text": "This is example information for an InfoLabel. Learn more",
+          "role": null,
+          "ariaLabel": null,
+          "box": {
+            "x": 554.203125,
+            "y": 163.25,
+            "width": 380.375,
+            "height": 38,
+            "top": 144.25,
+            "bottom": 182.25
+          }
+        }
+      },
+      "popoverAfterEscape": {
+        "triggerPresent": true,
+        "triggerId": "f4263d9a6",
+        "triggerAriaExpanded": null,
+        "triggerAriaHaspopup": null,
+        "triggerBox": {
+          "x": 380.015625,
+          "y": 204.25,
+          "width": 32,
+          "height": 32,
+          "top": 188.25,
+          "bottom": 220.25
+        },
+        "surfacePresent": true,
+        "surface": {
+          "id": "f4263d9a6_surface",
+          "className": "bui-popover-surface default top-start show",
+          "hiddenClass": false,
+          "showClass": true,
+          "display": "block",
+          "opacity": "1",
+          "text": "This is example information for an InfoLabel. Learn more",
+          "role": null,
+          "ariaLabel": null,
+          "box": {
+            "x": 554.203125,
+            "y": 163.25,
+            "width": 380.375,
+            "height": 38,
+            "top": 144.25,
+            "bottom": 182.25
+          }
+        }
+      },
+      "escapeDismissed": false
+    },
+    "insideClick": {
+      "before": {
+        "triggerPresent": true,
+        "triggerId": "f4263d9a6",
+        "triggerAriaExpanded": null,
+        "triggerAriaHaspopup": null,
+        "triggerBox": {
+          "x": 380.015625,
+          "y": 204.25,
+          "width": 32,
+          "height": 32,
+          "top": 188.25,
+          "bottom": 220.25
+        },
+        "surfacePresent": true,
+        "surface": {
+          "id": "f4263d9a6_surface",
+          "className": "bui-popover-surface default top-start show",
+          "hiddenClass": false,
+          "showClass": true,
+          "display": "block",
+          "opacity": "1",
+          "text": "This is example information for an InfoLabel. Learn more",
+          "role": null,
+          "ariaLabel": null,
+          "box": {
+            "x": 554.203125,
+            "y": 163.25,
+            "width": 380.375,
+            "height": 38,
+            "top": 144.25,
+            "bottom": 182.25
+          }
+        }
+      },
+      "after": {
+        "triggerPresent": true,
+        "triggerId": "f4263d9a6",
+        "triggerAriaExpanded": null,
+        "triggerAriaHaspopup": null,
+        "triggerBox": {
+          "x": 380.015625,
+          "y": 204.25,
+          "width": 32,
+          "height": 32,
+          "top": 188.25,
+          "bottom": 220.25
+        },
+        "surfacePresent": true,
+        "surface": {
+          "id": "f4263d9a6_surface",
+          "className": "bui-popover-surface default top-start show",
+          "hiddenClass": false,
+          "showClass": true,
+          "display": "block",
+          "opacity": "1",
+          "text": "This is example information for an InfoLabel. Learn more",
+          "role": null,
+          "ariaLabel": null,
+          "box": {
+            "x": 554.203125,
+            "y": 163.25,
+            "width": 380.375,
+            "height": 38,
+            "top": 144.25,
+            "bottom": 182.25
+          }
+        }
+      }
+    },
+    "afterOutsideClick": {
+      "triggerPresent": true,
+      "triggerId": "f4263d9a6",
+      "triggerAriaExpanded": null,
+      "triggerAriaHaspopup": null,
+      "triggerBox": {
+        "x": 380.015625,
+        "y": 204.25,
+        "width": 32,
+        "height": 32,
+        "top": 188.25,
+        "bottom": 220.25
+      },
+      "surfacePresent": false,
+      "surface": null
+    },
+    "outsideClickRoundTrip": {
+      "sentinelBefore": "1",
+      "sentinelAfter": "2"
+    }
+  },
+  "fluentInfoLabelKeyboardReference": {
+    "url": "https://github.com/microsoft/fluentui/blob/master/packages/react-components/react-infolabel/library/docs/Spec.md",
+    "storybook": "https://storybooks.fluentui.dev/react/?path=/docs/components-infolabel--docs",
+    "comparisonKind": "Fluent React cross-platform fallback; not an assertion of 1:1 Web Components behavior or a pinned-version acceptance",
+    "referenceRequirements": {
+      "activation": "Enter or Space opens the Popover",
+      "focus": "Focus moves to the PopoverSurface; focusable descendants can be reached by Tab",
+      "escape": "Escape closes the Popover when focus is on the surface or its content",
+      "focusDeparture": "Moving focus away from the bubble dismisses it"
+    },
+    "observations": {
+      "Enter": {
+        "key": "Enter",
+        "focusBeforeActivation": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "opens": true,
+        "focusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "focusMovedIntoSurfaceOrContent": false,
+        "tabFocusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 2",
+          "isTrigger": false,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "remainsOpenAfterFocusMoves": true,
+        "escapeFromContent": {
+          "focusBeforeEscape": {
+            "tag": "A",
+            "id": "f39d7e39",
+            "text": "Learn more",
+            "isTrigger": false,
+            "isInsideSurface": true,
+            "isSurface": false
+          },
+          "surfaceAfterEscape": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "dismissed": false
+        }
+      },
+      "Space": {
+        "key": "Space",
+        "focusBeforeActivation": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "opens": true,
+        "focusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "focusMovedIntoSurfaceOrContent": false,
+        "tabFocusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 3",
+          "isTrigger": false,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "remainsOpenAfterFocusMoves": true,
+        "escapeFromContent": {
+          "focusBeforeEscape": {
+            "tag": "A",
+            "id": "f33cf0d42",
+            "text": "Learn more",
+            "isTrigger": false,
+            "isInsideSurface": true,
+            "isSurface": false
+          },
+          "surfaceAfterEscape": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "dismissed": false
+        }
+      },
+      "referenceComparison": {
+        "enterOpens": true,
+        "spaceOpens": true,
+        "enterFocusMovesIntoSurfaceOrContent": false,
+        "tabAfterEnterOpensSurface": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 2",
+          "isTrigger": false,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "focusDepartureKeepsSurfaceOpen": true,
+        "escapeFromContentDismisses": false
+      }
+    }
+  },
+  "fluentLinkReference": {
+    "designGuidanceUrl": "https://fluent2.microsoft.design/components/web/react/core/link/usage/",
+    "behaviorSpecUrl": "https://github.com/microsoft/fluentui/blob/master/specs/Link.md",
+    "pinnedWebComponentsStorybook": "https://storybooks.fluentui.dev/web-components/?path=/docs/components-link--docs",
+    "pinnedWebComponentsCrosswalk": "docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md",
+    "htmlDisabledReference": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/disabled",
+    "comparisonKind": "Fluent 2 design + unpinned React behavior spec + pinned Web Components 3.1.3 API census + native HTML semantics; not 1:1 parity acceptance",
+    "observedContract": {
+      "disabledPointerCallbackInvoked": true,
+      "callbackBefore": "0",
+      "callbackAfter": "1",
+      "sequentialTabSkipsAnchor": true,
+      "anchor": {
+        "tag": "A",
+        "disabledAttribute": true,
+        "hrefAttribute": null,
+        "ariaDisabled": null,
+        "tabindexAttribute": null,
+        "tabIndexProperty": 0
+      },
+      "pointerClickObservedInPublishedInteractiveServer": true,
+      "directEnterSpaceOnUnfocusableAnchorTested": false,
+      "nativeScreenReaderTested": false
+    },
+    "interpretation": {
+      "fluent2Use": "Links are for navigation; use a button for actions",
+      "fluentReactDisabled": "Current unpinned Link spec describes disabled as non-interactive and recommends aria-disabled when a disabled link is kept focusable",
+      "webComponents313": "fluent-link and fluent-anchor-button expose no disabled attribute in the pinned custom-elements.json",
+      "html": "The disabled attribute is not native on an anchor; an anchor needs href to be a hyperlink",
+      "ownerIssue": 431,
+      "auditOnly": true
+    }
+  },
+  "checks": [
+    {
+      "name": "Published Production InteractiveServer event round-trip updates Razor state",
+      "pass": true,
+      "actual": {
+        "initial": "0",
+        "after": "1"
+      }
+    },
+    {
+      "name": "Disabled Link still invokes its OnClick callback after a real pointer click",
+      "pass": true,
+      "actual": {
+        "before": "0",
+        "after": "1",
+        "disabledElement": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(189, 189, 189)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        }
+      }
+    },
+    {
+      "name": "Sequential Tab skips the disabled Link despite tabIndex property 0 and no tabindex attribute",
+      "pass": true,
+      "actual": {
+        "before": "1",
+        "disabledLinkTabindexProperty": 0,
+        "disabledLinkTabindexAttribute": null,
+        "startFocus": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "isInfoAction": true
+        },
+        "firstTabAfterLabel": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 1",
+          "isDisabledLink": false,
+          "className": null
+        },
+        "focusedViaTab": false,
+        "afterEnter": null,
+        "afterSpace": null
+      }
+    },
+    {
+      "name": "LIGHT-LTR Label Info action inherits surrounding Label text as accessible name",
+      "pass": true,
+      "actual": {
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(66, 66, 66)",
+          "box": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "ax": [
+          {
+            "role": "button",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR disabled Link remains an anchor without href and aria-disabled",
+      "pass": true,
+      "actual": {
+        "link": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(189, 189, 189)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR disabled Link is tabbable and exposed as generic unnamed AX node",
+      "pass": true,
+      "actual": {
+        "link": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(189, 189, 189)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "LIGHT-LTR static count Badge is non-focusable and has no component-imposed role",
+      "pass": true,
+      "actual": {
+        "tag": "DIV",
+        "text": "+99",
+        "id": "f7cdd34b8",
+        "className": "bui-badge filled medium circular brand ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaDisabled": null,
+        "disabledAttribute": false,
+        "tabIndex": -1,
+        "hrefAttribute": null,
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationIterationCount": "1",
+        "backgroundColor": "rgb(18, 103, 180)",
+        "color": "rgb(255, 255, 255)",
+        "box": {
+          "x": 299.8671875,
+          "y": 355.75,
+          "width": 35.734375,
+          "height": 20
+        }
+      }
+    },
+    {
+      "name": "LIGHT-LTR animated Badge uses infinite 1.5s pulse animation",
+      "pass": true,
+      "actual": {
+        "tag": "DIV",
+        "text": "",
+        "id": "f6319a3eb",
+        "className": "bui-badge filled medium circular brand drop-shadow animated ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaDisabled": null,
+        "disabledAttribute": false,
+        "tabIndex": -1,
+        "hrefAttribute": null,
+        "animationName": "badge-pulse-shadow",
+        "animationDuration": "1.5s",
+        "animationIterationCount": "infinite",
+        "backgroundColor": "rgb(18, 103, 180)",
+        "color": "rgb(255, 255, 255)",
+        "box": {
+          "x": 331.578125,
+          "y": 360.75,
+          "width": 20,
+          "height": 20
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL Label Info action inherits surrounding Label text as accessible name",
+      "pass": true,
+      "actual": {
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(214, 214, 214)",
+          "box": {
+            "x": 884.984375,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "ax": [
+          {
+            "role": "button",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL disabled Link remains an anchor without href and aria-disabled",
+      "pass": true,
+      "actual": {
+        "link": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(92, 92, 92)",
+          "box": {
+            "x": 944.875,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL disabled Link is tabbable and exposed as generic unnamed AX node",
+      "pass": true,
+      "actual": {
+        "link": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(92, 92, 92)",
+          "box": {
+            "x": 944.875,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "DARK-RTL static count Badge is non-focusable and has no component-imposed role",
+      "pass": true,
+      "actual": {
+        "tag": "DIV",
+        "text": "+99",
+        "id": "f7cdd34b8",
+        "className": "bui-badge filled medium circular brand ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaDisabled": null,
+        "disabledAttribute": false,
+        "tabIndex": -1,
+        "hrefAttribute": null,
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationIterationCount": "1",
+        "backgroundColor": "rgb(24, 89, 155)",
+        "color": "rgb(255, 255, 255)",
+        "box": {
+          "x": 965.125,
+          "y": 355.75,
+          "width": 35.75,
+          "height": 20
+        }
+      }
+    },
+    {
+      "name": "DARK-RTL animated Badge uses infinite 1.5s pulse animation",
+      "pass": true,
+      "actual": {
+        "tag": "DIV",
+        "text": "",
+        "id": "f6319a3eb",
+        "className": "bui-badge filled medium circular brand drop-shadow animated ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaDisabled": null,
+        "disabledAttribute": false,
+        "tabIndex": -1,
+        "hrefAttribute": null,
+        "animationName": "badge-pulse-shadow",
+        "animationDuration": "1.5s",
+        "animationIterationCount": "infinite",
+        "backgroundColor": "rgb(24, 89, 155)",
+        "color": "rgb(255, 255, 255)",
+        "box": {
+          "x": 933.40625,
+          "y": 360.75,
+          "width": 20,
+          "height": 20
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS Label Info action inherits surrounding Label text as accessible name",
+      "pass": true,
+      "actual": {
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "ax": [
+          {
+            "role": "button",
+            "name": "This is a label",
+            "ignored": false,
+            "properties": {
+              "invalid": "false",
+              "focusable": true,
+              "labelledby": "nodeList"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS disabled Link remains an anchor without href and aria-disabled",
+      "pass": true,
+      "actual": {
+        "link": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS disabled Link is tabbable and exposed as generic unnamed AX node",
+      "pass": true,
+      "actual": {
+        "link": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "FORCED-COLORS static count Badge is non-focusable and has no component-imposed role",
+      "pass": true,
+      "actual": {
+        "tag": "DIV",
+        "text": "+99",
+        "id": "f7cdd34b8",
+        "className": "bui-badge filled medium circular brand ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaDisabled": null,
+        "disabledAttribute": false,
+        "tabIndex": -1,
+        "hrefAttribute": null,
+        "animationName": "none",
+        "animationDuration": "0s",
+        "animationIterationCount": "1",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "box": {
+          "x": 299.8671875,
+          "y": 355.75,
+          "width": 35.734375,
+          "height": 20
+        }
+      }
+    },
+    {
+      "name": "FORCED-COLORS animated Badge uses infinite 1.5s pulse animation",
+      "pass": true,
+      "actual": {
+        "tag": "DIV",
+        "text": "",
+        "id": "f6319a3eb",
+        "className": "bui-badge filled medium circular brand drop-shadow animated ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaDisabled": null,
+        "disabledAttribute": false,
+        "tabIndex": -1,
+        "hrefAttribute": null,
+        "animationName": "badge-pulse-shadow",
+        "animationDuration": "1.5s",
+        "animationIterationCount": "infinite",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "box": {
+          "x": 331.578125,
+          "y": 360.75,
+          "width": 20,
+          "height": 20
+        }
+      }
+    },
+    {
+      "name": "prefers-reduced-motion emulation leaves Badge infinite pulse active",
+      "pass": true,
+      "actual": {
+        "url": "http://127.0.0.1:59873/__quality/server-label-link-badge-probe",
+        "document": {
+          "readyState": "complete",
+          "theme": "light",
+          "dir": "ltr"
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(66, 66, 66)",
+          "box": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "disabledLink": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(189, 189, 189)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "staticBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "id": "f7cdd34b8",
+          "className": "bui-badge filled medium circular brand ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 299.8671875,
+            "y": 355.75,
+            "width": 35.734375,
+            "height": 20
+          }
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "id": "f6319a3eb",
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 331.578125,
+            "y": 360.75,
+            "width": 20,
+            "height": 20
+          }
+        },
+        "reducedMotion": true,
+        "sentinelCount": "1",
+        "disabledLinkClickCount": "1"
+      }
+    },
+    {
+      "name": "Label Info trigger click creates a visible Popover surface with the supplied info content",
+      "pass": true,
+      "actual": {
+        "before": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": false,
+          "surface": null
+        },
+        "afterTriggerClick": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "contentFound": true,
+        "accessibilityTree": {
+          "trigger": [
+            {
+              "role": "button",
+              "name": "This is a label",
+              "ignored": false,
+              "properties": {
+                "invalid": "false",
+                "focusable": true,
+                "focused": true,
+                "labelledby": "nodeList"
+              }
+            }
+          ],
+          "surface": [
+            {
+              "role": "generic",
+              "name": "",
+              "ignored": false,
+              "properties": {}
+            }
+          ],
+          "learnMore": [
+            {
+              "role": "link",
+              "name": "Learn more",
+              "ignored": false,
+              "properties": {
+                "focusable": true,
+                "url": "https://fluent2.microsoft.design/components/web/react/accordion/usage"
+              }
+            }
+          ]
+        },
+        "keyboard": {
+          "focusBeforeTab": {
+            "tag": "BUTTON",
+            "id": "f4263d9a6",
+            "text": ""
+          },
+          "focusAfterTab": {
+            "tag": "BUTTON",
+            "id": "server-interaction-sentinel",
+            "text": "Server interaction count: 1",
+            "href": null
+          },
+          "surfaceAfterTab": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "popoverAfterEscape": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "escapeDismissed": false
+        },
+        "insideClick": {
+          "before": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "after": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          }
+        },
+        "afterOutsideClick": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": false,
+          "surface": null
+        },
+        "outsideClickRoundTrip": {
+          "sentinelBefore": "1",
+          "sentinelAfter": "2"
+        }
+      }
+    },
+    {
+      "name": "Tab from Label Info trigger records real focus order while Popover is open",
+      "pass": true,
+      "actual": {
+        "focusBeforeTab": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": ""
+        },
+        "focusAfterTab": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 1",
+          "href": null
+        },
+        "surfaceAfterTab": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "popoverAfterEscape": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "escapeDismissed": false
+      }
+    },
+    {
+      "name": "Escape dismissal outcome is captured for the open Label Info Popover",
+      "pass": true,
+      "actual": {
+        "focusBeforeTab": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": ""
+        },
+        "focusAfterTab": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 1",
+          "href": null
+        },
+        "surfaceAfterTab": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "popoverAfterEscape": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "escapeDismissed": false
+      }
+    },
+    {
+      "name": "Clicking inside the Label Info Popover keeps the surface visible",
+      "pass": true,
+      "actual": {
+        "before": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "after": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Clicking outside the Label Info Popover closes/removes the surface",
+      "pass": true,
+      "actual": {
+        "popoverWasVisible": true,
+        "after": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": false,
+          "surface": null
+        }
+      }
+    },
+    {
+      "name": "Outside click still reaches the underlying InteractiveServer sentinel",
+      "pass": true,
+      "actual": {
+        "sentinelBefore": "1",
+        "sentinelAfter": "2"
+      }
+    },
+    {
+      "name": "Enter keyboard activation trace is captured for the Fluent InfoLabel comparison",
+      "pass": true,
+      "actual": {
+        "key": "Enter",
+        "focusBeforeActivation": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "opens": true,
+        "focusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "focusMovedIntoSurfaceOrContent": false,
+        "tabFocusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 2",
+          "isTrigger": false,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "remainsOpenAfterFocusMoves": true,
+        "escapeFromContent": {
+          "focusBeforeEscape": {
+            "tag": "A",
+            "id": "f39d7e39",
+            "text": "Learn more",
+            "isTrigger": false,
+            "isInsideSurface": true,
+            "isSurface": false
+          },
+          "surfaceAfterEscape": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "dismissed": false
+        }
+      }
+    },
+    {
+      "name": "Escape-from-Popover-content outcome is captured against the Fluent InfoLabel reference",
+      "pass": true,
+      "actual": {
+        "focusBeforeEscape": {
+          "tag": "A",
+          "id": "f39d7e39",
+          "text": "Learn more",
+          "isTrigger": false,
+          "isInsideSurface": true,
+          "isSurface": false
+        },
+        "surfaceAfterEscape": {
+          "triggerPresent": true,
+          "triggerId": "f4263d9a6",
+          "triggerAriaExpanded": null,
+          "triggerAriaHaspopup": null,
+          "triggerBox": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32,
+            "top": 188.25,
+            "bottom": 220.25
+          },
+          "surfacePresent": true,
+          "surface": {
+            "id": "f4263d9a6_surface",
+            "className": "bui-popover-surface default top-start show",
+            "hiddenClass": false,
+            "showClass": true,
+            "display": "block",
+            "opacity": "1",
+            "text": "This is example information for an InfoLabel. Learn more",
+            "role": null,
+            "ariaLabel": null,
+            "box": {
+              "x": 554.203125,
+              "y": 163.25,
+              "width": 380.375,
+              "height": 38,
+              "top": 144.25,
+              "bottom": 182.25
+            }
+          }
+        },
+        "dismissed": false
+      }
+    },
+    {
+      "name": "Focus-departure dismissal outcome is captured against the Fluent InfoLabel reference",
+      "pass": true,
+      "actual": {
+        "tabFocusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 2",
+          "isTrigger": false,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "remainsOpenAfterFocusMoves": true
+      }
+    },
+    {
+      "name": "Space keyboard activation trace is captured for the Fluent InfoLabel comparison",
+      "pass": true,
+      "actual": {
+        "key": "Space",
+        "focusBeforeActivation": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "opens": true,
+        "focusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "f4263d9a6",
+          "text": "",
+          "isTrigger": true,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "focusMovedIntoSurfaceOrContent": false,
+        "tabFocusAfterOpen": {
+          "tag": "BUTTON",
+          "id": "server-interaction-sentinel",
+          "text": "Server interaction count: 3",
+          "isTrigger": false,
+          "isInsideSurface": false,
+          "isSurface": false
+        },
+        "remainsOpenAfterFocusMoves": true,
+        "escapeFromContent": {
+          "focusBeforeEscape": {
+            "tag": "A",
+            "id": "f33cf0d42",
+            "text": "Learn more",
+            "isTrigger": false,
+            "isInsideSurface": true,
+            "isSurface": false
+          },
+          "surfaceAfterEscape": {
+            "triggerPresent": true,
+            "triggerId": "f4263d9a6",
+            "triggerAriaExpanded": null,
+            "triggerAriaHaspopup": null,
+            "triggerBox": {
+              "x": 380.015625,
+              "y": 204.25,
+              "width": 32,
+              "height": 32,
+              "top": 188.25,
+              "bottom": 220.25
+            },
+            "surfacePresent": true,
+            "surface": {
+              "id": "f4263d9a6_surface",
+              "className": "bui-popover-surface default top-start show",
+              "hiddenClass": false,
+              "showClass": true,
+              "display": "block",
+              "opacity": "1",
+              "text": "This is example information for an InfoLabel. Learn more",
+              "role": null,
+              "ariaLabel": null,
+              "box": {
+                "x": 554.203125,
+                "y": 163.25,
+                "width": 380.375,
+                "height": 38,
+                "top": 144.25,
+                "bottom": 182.25
+              }
+            }
+          },
+          "dismissed": false
+        }
+      }
+    }
+  ],
+  "cases": [
+    {
+      "mode": {
+        "name": "LIGHT-LTR",
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "state": {
+        "url": "http://127.0.0.1:59873/__quality/server-label-link-badge-probe",
+        "document": {
+          "readyState": "complete",
+          "theme": "light",
+          "dir": "ltr"
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(66, 66, 66)",
+          "box": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "disabledLink": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(189, 189, 189)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "staticBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "id": "f7cdd34b8",
+          "className": "bui-badge filled medium circular brand ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 299.8671875,
+            "y": 355.75,
+            "width": 35.734375,
+            "height": 20
+          }
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "id": "f6319a3eb",
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 331.578125,
+            "y": 360.75,
+            "width": 20,
+            "height": 20
+          }
+        },
+        "reducedMotion": true,
+        "sentinelCount": "1",
+        "disabledLinkClickCount": "1"
+      },
+      "infoAx": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "linkAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "badgeAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-LIGHT-LTR.png"
+    },
+    {
+      "mode": {
+        "name": "DARK-RTL",
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "state": {
+        "url": "http://127.0.0.1:59873/__quality/server-label-link-badge-probe",
+        "document": {
+          "readyState": "complete",
+          "theme": "dark",
+          "dir": "rtl"
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(214, 214, 214)",
+          "box": {
+            "x": 884.984375,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "disabledLink": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(92, 92, 92)",
+          "box": {
+            "x": 944.875,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "staticBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "id": "f7cdd34b8",
+          "className": "bui-badge filled medium circular brand ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 965.125,
+            "y": 355.75,
+            "width": 35.75,
+            "height": 20
+          }
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "id": "f6319a3eb",
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(24, 89, 155)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 933.40625,
+            "y": 360.75,
+            "width": 20,
+            "height": 20
+          }
+        },
+        "reducedMotion": true,
+        "sentinelCount": "1",
+        "disabledLinkClickCount": "1"
+      },
+      "infoAx": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "linkAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "badgeAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-DARK-RTL.png"
+    },
+    {
+      "mode": {
+        "name": "FORCED-COLORS",
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "state": {
+        "url": "http://127.0.0.1:59873/__quality/server-label-link-badge-probe",
+        "document": {
+          "readyState": "complete",
+          "theme": "light",
+          "dir": "ltr"
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "disabledLink": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "staticBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "id": "f7cdd34b8",
+          "className": "bui-badge filled medium circular brand ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 299.8671875,
+            "y": 355.75,
+            "width": 35.734375,
+            "height": 20
+          }
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "id": "f6319a3eb",
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 331.578125,
+            "y": 360.75,
+            "width": 20,
+            "height": 20
+          }
+        },
+        "reducedMotion": true,
+        "sentinelCount": "1",
+        "disabledLinkClickCount": "1"
+      },
+      "infoAx": [
+        {
+          "role": "button",
+          "name": "This is a label",
+          "ignored": false,
+          "properties": {
+            "invalid": "false",
+            "focusable": true,
+            "labelledby": "nodeList"
+          }
+        }
+      ],
+      "linkAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "badgeAx": [
+        {
+          "role": "generic",
+          "name": "",
+          "ignored": false,
+          "properties": {}
+        }
+      ],
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-FORCED-COLORS.png"
+    },
+    {
+      "mode": {
+        "name": "REDUCED-MOTION",
+        "forced": false
+      },
+      "state": {
+        "url": "http://127.0.0.1:59873/__quality/server-label-link-badge-probe",
+        "document": {
+          "readyState": "complete",
+          "theme": "light",
+          "dir": "ltr"
+        },
+        "infoButton": {
+          "tag": "BUTTON",
+          "text": "",
+          "id": "f4263d9a6",
+          "className": "bui-button icon transparent ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(66, 66, 66)",
+          "box": {
+            "x": 380.015625,
+            "y": 204.25,
+            "width": 32,
+            "height": 32
+          }
+        },
+        "labelText": "This is a label",
+        "disabledLink": {
+          "tag": "A",
+          "text": "Disabled",
+          "id": "f3095769b",
+          "className": "bui-link ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": true,
+          "tabIndex": 0,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(189, 189, 189)",
+          "box": {
+            "x": 308.734375,
+            "y": 282.5,
+            "width": 53.46875,
+            "height": 19
+          }
+        },
+        "staticBadge": {
+          "tag": "DIV",
+          "text": "+99",
+          "id": "f7cdd34b8",
+          "className": "bui-badge filled medium circular brand ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "none",
+          "animationDuration": "0s",
+          "animationIterationCount": "1",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 299.8671875,
+            "y": 355.75,
+            "width": 35.734375,
+            "height": 20
+          }
+        },
+        "animatedBadge": {
+          "tag": "DIV",
+          "text": "",
+          "id": "f6319a3eb",
+          "className": "bui-badge filled medium circular brand drop-shadow animated ",
+          "role": null,
+          "ariaLabel": null,
+          "ariaDisabled": null,
+          "disabledAttribute": false,
+          "tabIndex": -1,
+          "hrefAttribute": null,
+          "animationName": "badge-pulse-shadow",
+          "animationDuration": "1.5s",
+          "animationIterationCount": "infinite",
+          "backgroundColor": "rgb(18, 103, 180)",
+          "color": "rgb(255, 255, 255)",
+          "box": {
+            "x": 331.578125,
+            "y": 360.75,
+            "width": 20,
+            "height": 20
+          }
+        },
+        "reducedMotion": true,
+        "sentinelCount": "1",
+        "disabledLinkClickCount": "1"
+      },
+      "screenshot": "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-REDUCED-MOTION.png"
+    }
+  ],
+  "summary": {
+    "checks": 29,
+    "passed": 29,
+    "failed": 0,
+    "screenshots": [
+      "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-LIGHT-LTR.png",
+      "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-DARK-RTL.png",
+      "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-FORCED-COLORS.png",
+      "BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE-REDUCED-MOTION.png"
+    ]
+  },
+  "fluentBadgeReference": {
+    "designGuidanceUrl": "https://fluent2.microsoft.design/components/web/react/core/badge/usage/",
+    "reactBadgeStorybookUrl": "https://storybooks.fluentui.dev/react/?path=/docs/components-badge-badge--docs",
+    "reactCounterBadgeStorybookUrl": "https://storybooks.fluentui.dev/react/?path=/docs/components-badge-counter-badge--default",
+    "webComponentsBadgeDocumentationUrl": "https://learn.microsoft.com/en-us/fluent-ui/web-components/components/badge",
+    "pinnedWebComponentsCrosswalk": "docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md",
+    "pinnedReactSemanticTriage": "docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
+    "reducedMotionReferenceUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using_for_accessibility",
+    "comparisonKind": "Fluent 2 Badge guidance + pinned Web Components 3.1.3 API census + pinned React v9.74.10 semantic triage; platform reduced-motion guidance for a Bluent-only animation extension; not 1:1 parity acceptance",
+    "observedContract": {
+      "staticBadge": {
+        "tag": "DIV",
+        "role": null,
+        "tabIndex": -1,
+        "nonFocusable": true
+      },
+      "reducedMotion": {
+        "preferenceMatches": true,
+        "animationName": "badge-pulse-shadow",
+        "animationDuration": "1.5s",
+        "animationIterationCount": "infinite",
+        "remainsInfiniteUnderReducedMotion": true
+      },
+      "nativeReducedMotionPreferenceTested": false,
+      "nativeScreenReaderTested": false
+    },
+    "interpretation": {
+      "fluentBadge": "A compact status/description indicator; not focusable by default. Icon-only use needs an accessible label; parent naming should convey badge meaning when associated.",
+      "fluentCounterBadge": "A distinct upstream component concept; the Bluent free-text +99 fixture does not establish numeric count, zero-display, overflow, or announcement parity.",
+      "pinnedWebComponents313": "The pinned crosswalk inventories separate fluent-badge and fluent-counter-badge elements; exact per-property/value comparison remains open.",
+      "reducedMotion": "MDN defines reduce as a user preference to remove, reduce, or replace non-essential motion. The observed infinite shadow pulse is a Bluent extension; no Fluent Badge-specific animation policy is inferred.",
+      "ownerIssue": 445,
+      "auditOnly": true
+    }
+  }
+}

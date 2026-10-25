@@ -1,0 +1,28 @@
+/* #552 research-only browser-injected proposal; NOT approved product CSS. */
+@media (forced-colors: active) {
+  .bui-slider > .rail,
+  .bui-range-slider > .rail {
+    position: relative;
+    background-image: none !important;
+    background-color: CanvasText !important;
+    forced-color-adjust: auto;
+  }
+  .bui-slider > .rail::after,
+  .bui-range-slider > .rail::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-image: none;
+    background-color: Highlight;
+  }
+  .bui-slider > .rail::after {
+    inset-inline-start: 0;
+    width: var(--progress, 0%);
+  }
+  .bui-range-slider > .rail::after {
+    inset-inline-start: var(--min-progress, 0%);
+    width: calc(var(--max-progress, 100%) - var(--min-progress, 0%));
+  }
+}

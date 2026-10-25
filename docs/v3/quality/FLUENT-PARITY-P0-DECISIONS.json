@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "recordType": "maintainer_approved_behavior_defaults",
+  "approvalDate": "2026-10-25",
+  "sourceDecision": {
+    "repository": "vrassouli/Bluent",
+    "branch": "v3/issue-420-interaction-primitives",
+    "commit": "a05b9c3be54e6c5403c4dd87eb5383ac63bb133f",
+    "adr": "docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md#maintainer-decision-2026-10-25-behavioral-defaults-only"
+  },
+  "penpotReviewMap": {
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "pageId": "ed5216bd-3d5b-8015-8008-cb247e27efb4",
+    "boardId": "1d92b6fb-c168-8047-8008-d7d1f38c5d2f",
+    "status": "review_required",
+    "maintainerVisualApproval": false
+  },
+  "decisionBoundary": {
+    "productImplementationAuthorizedByThisRecord": false,
+    "fluentParityAcceptance": false,
+    "nativeWindowsContrastAcceptance": "pending",
+    "assistiveTechnologyAcceptance": "pending",
+    "rule": "This record approves limited behavioral defaults only; each owner issue still requires its own Ready status, approved design, implementation evidence, review and acceptance."
+  },
+  "sourceGapCheckpoint": {
+    "file": "FLUENT-PARITY-P0-SEMANTICS.json",
+    "status": "observed_source_gaps_only",
+    "observedGapCount": 7,
+    "fluentAcceptance": false,
+    "modifiedByThisDecision": false
+  },
+  "decisions": [
+    {
+      "ownerIssue": 428,
+      "family": "Button",
+      "decisionId": "toggle_aria_pressed",
+      "status": "approved_behavioral_default_not_implementation",
+      "approvedDefault": "On the native button path, generate aria-pressed=true/false only when Toggled.HasValue; omit when null; preserve unrelated caller attributes.",
+      "openDetails": [
+        "Explicit caller-supplied aria-pressed precedence remains unresolved.",
+        "Do not change link/navigation semantics by inferring toggle semantics."
+      ],
+      "sourceObservationIds": [
+        "toggle_aria_pressed"
+      ]
+    },
+    {
+      "ownerIssue": 444,
+      "family": "FileSelect",
+      "decisionId": "maxfiles_over_capacity_policy",
+      "status": "approved_behavioral_default_not_implementation",
+      "approvedDefault": "For MaxFiles > 1, reject the entire new picker batch if it exceeds aggregate remaining capacity, preserve previously accepted files, and show localized accessible validation feedback.",
+      "openDetails": [
+        "MaxFiles <= 0 policy.",
+        "Callback behavior for rejected/no-change batches.",
+        "Filename-specific remove-button name and focus edge cases.",
+        "MaxFiles=1 is a compatibility expectation to verify, not a separately approved new policy."
+      ],
+      "sourceObservationIds": [
+        "maxfiles_vs_input_multiple",
+        "remove_action_accessible_name"
+      ]
+    },
+    {
+      "ownerIssue": 442,
+      "family": "Slider",
+      "decisionId": "pointer_coordinate_space",
+      "status": "approved_behavioral_default_not_implementation",
+      "approvedDefault": "Use PointerEventArgs.ClientX with the matching getBoundingClientRect().Left; adjust for half the thumb width, clamp normalized position to [0,1], and guard degenerate geometry.",
+      "openDetails": [
+        "RTL direction/value inversion.",
+        "Final keyboard and ARIA semantics.",
+        "Touch/pointer capture and lifecycle.",
+        "Accepted component design and native verification."
+      ],
+      "sourceObservationIds": [
+        "pointer_coordinate_space",
+        "slider_thumb_semantics"
+      ]
+    },
+    {
+      "ownerIssue": 443,
+      "family": "RangeSlider",
+      "decisionId": "two_thumb_non_crossing_default",
+      "status": "approved_behavioral_default_not_implementation",
+      "approvedDefault": "Use two independently accessible thumbs with stable non-crossing endpoints; classify this as a Bluent-specific two-thumb extension, not one-to-one Fluent Web Components parity.",
+      "openDetails": [
+        "Accessible names, keyboard order and dependent ARIA bounds.",
+        "RTL and touch/pointer capture.",
+        "Accepted component design and native verification."
+      ],
+      "sourceObservationIds": [
+        "two_thumb_semantics",
+        "pointer_coordinate_space"
+      ]
+    },
+    {
+      "ownerIssue": 418,
+      "family": "Forced Colors",
+      "decisionId": "forced_colors_fallback_direction",
+      "status": "approved_direction_only_not_token_approval",
+      "approvedDefault": "Use semantic track/selection roles and a solid system-color fallback that remains visible in forced-colors mode.",
+      "openDetails": [
+        "Exact token/system-color mapping.",
+        "Light/Dark/RTL and focus/disabled contrast.",
+        "Native Windows Contrast Themes and assistive-technology review."
+      ],
+      "sourceObservationIds": []
+    }
+  ]
+}
