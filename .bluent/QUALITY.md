@@ -53,7 +53,10 @@ For package-affecting work, also run Release packing for affected packable proje
 - Update `llms.txt` when canonical documentation is added, moved, or removed.
 - Update component inventory when public component coverage changes.
 
-## Issue #406 consumer-skill validation
+## Issue #406 consumer-skill validation (completed workstream; reuse only when revisiting it)
+
+Issue #406 is closed and PR #407 is merged. The checks below preserve its acceptance contract for future changes to the consumer Skill; they are not the active #418 task gate.
+
 
 The consumer skill has additional acceptance evidence beyond ordinary documentation changes:
 

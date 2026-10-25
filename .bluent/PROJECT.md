@@ -10,7 +10,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **#419 editable design library:** [Review PR #499](https://github.com/vrassouli/Bluent/pull/499) contains an independent project-owned `Bluent v3 Design System` Penpot file and verifiable linked Fluent source/library research. The imported `Microsoft Fluent 2 Web (Community)` remains read-only. [Working Penpot manifest](../docs/v3/design/penpot-workspace.manifest.json): 27 editable pages, 65 core native variants + 16 research fixtures and alignment/RTL/size stress evidence. Issue #419 remains **Review**, not Done; accept/merge only to `bluent-v3` following review.
 
-**#418 token system:** Next foundation task after acceptance of D1–D5. Must enter Ready only after design-first, source-to-token mapping and 10-brand Light/Dark/RTL/high-contrast acceptance goals are traceable. Token/brand decisions and implementation require a dedicated `v3/issue-418-...` branch and PR.
+**#418 token system:** Active v3 foundation work is tracked in [Issue #418](https://github.com/vrassouli/Bluent/issues/418) on `v3/issue-418-design-tokens`, with [PR #500](https://github.com/vrassouli/Bluent/pull/500) targeting `bluent-v3`. The latest reviewed head contains token-schema/preview work and research-only Forced Colors evidence. Exact final mappings are not approved; the candidate CSS remains opt-in and non-shipping. Last recorded Project #5 status is **Review**, but do not mark Done until the design and native accessibility gates below are accepted.
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
@@ -18,83 +18,70 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 ## Current Phase
 
-**Phase:** AI readiness and consumer usability
-**Current Work:** Issue #406 — canonical Bluent consumer skill
-**Status:** Implementation and acceptance evidence complete; PR review-readiness confirmation in progress
-**Working Branch:** `docs/issue-406-consumer-skill`
-**Pull Request:** [#407](https://github.com/vrassouli/Bluent/pull/407) — Draft pending final evidence-only CI
-**Tracking Issue:** [#406](https://github.com/vrassouli/Bluent/issues/406)
-**Product/API Gap Backlog:** [#411](https://github.com/vrassouli/Bluent/issues/411)
+**As of:** 2026-10-25
 
-## Current Outcome
+**Phase:** Bluent v3 foundations — token architecture, themes, and accessibility evidence (isolated from stable 2.x)
+**Current Work:** [Issue #418](https://github.com/vrassouli/Bluent/issues/418) — Fluent 2 token system and themes
+**Last recorded Project #5 status:** Review; verify the real Status field before any lifecycle transition
+**Working Branch:** `v3/issue-418-design-tokens`
+**Base Branch:** `bluent-v3`
+**Pull Request:** [#500](https://github.com/vrassouli/Bluent/pull/500) — open, non-draft, targeting `bluent-v3`
+**Reviewed head:** `52fa29a07f7565673ff9d8e0ce724d406302e31f`
 
-- `.agents/skills/bluent/` provides a portable, retrieval-oriented Bluent-first consumer skill.
-- Canonical documentation remains the API/behavior source of truth; the skill is a router rather than a duplicated encyclopedia.
-- The source-reconciled consumer inventory contains 65 retrieval families and all 65 are source verified:
-  - 57 `Bluent.UI` families;
-  - 2 Charts families;
-  - 2 Diagrams families;
-  - 4 Utilities families.
+Implementation and automated evidence have advanced, but #418 is **not complete**. The exact final semantic token mappings and accepted editable design-tool review remain open, as do native Windows Contrast Themes / assistive-technology checks. Forced Colors CSS for Slider/RangeSlider is research-only and is not a product fix. Keep all v3 work isolated from `Dev`, stable assets, published NuGet packages, and deployments.
+
+**Completed parallel workstream:** [Issue #406](https://github.com/vrassouli/Bluent/issues/406) is closed and [PR #407](https://github.com/vrassouli/Bluent/pull/407) is merged. Its canonical consumer Skill and 65-family retrieval inventory remain maintained deliverables, not the current active workstream.
+
+## Completed Consumer-Skill Workstream (#406)
+
+- `.agents/skills/bluent/SKILL.md` provides a compact Bluent-first, version-aware retrieval router; canonical docs remain authoritative rather than duplicating an API encyclopedia.
+- The source-reconciled consumer inventory contains 65/65 source-verified retrieval families: 57 main UI, 2 Charts, 2 Diagrams, and 4 Utilities families.
 - `docs/components/consumer-api-surface.md` classifies service/container/helper/configuration APIs separately from ordinary component families.
-- `scripts/quality/check_consumer_skill.py` deterministically checks main-UI source/inventory drift, required skill structure, and canonical index routes in Quality CI.
-- `samples/Bluent.TaskExamples` contains representative dogfood scenarios, including Tree selection/DnD contracts and Utilities busy-indicator registration/usage.
-- `docs/ai/bluent-consumer-skill-dogfood.md` records scenario coverage and runtime boundaries.
-- `docs/ai/issue-406-acceptance.md` maps #406 acceptance criteria to repository evidence.
-- Product/API/runtime/accessibility defects discovered during verification are tracked in #411 instead of being silently changed in #406.
+- `scripts/quality/check_consumer_skill.py` checks source/inventory/index drift in Quality CI.
+- `samples/Bluent.TaskExamples` and `docs/ai/bluent-consumer-skill-dogfood.md` preserve compiled consumer scenarios and their evidence boundaries.
+- PR #407 is merged and Issue #406 is closed. No NuGet package or release was published by this documentation workstream.
+- The former umbrella issue #411 is closed; future product defects should be tracked in their current component-specific issues (for example #428–#445) or the relevant v3 parity issue, not treated as an open #411 queue.
 
-## Validation State
+## Current Validation Evidence (#418)
 
-Quality run #199 and Release packages run #546 both passed on PR head `d6b8176e5e30ee96340344287baf6338e6a55dd0` after the complete implementation, inventory/link reconciliation, dogfood work, project-state refresh, and acceptance audit.
+Latest reviewed branch head: `52fa29a07f7565673ff9d8e0ce724d406302e31f`.
 
-Quality #199 verified:
+- Local Release solution build: `dotnet build Bluent.sln --configuration Release --no-restore --warnaserror` — **0 warnings, 0 errors**.
+- Local solution tests: `dotnet test Bluent.sln --configuration Release --no-build --no-restore` — **61/61 passed**.
+- Token preview generation check: `python scripts/quality/generate_v3_token_preview.py --check` — **PASS**, 20 brand/mode combinations, 35 logical tokens per combination; legacy variables unchanged and previews excluded from published bundles.
+- Demo CSS sync check: `python scripts/quality/sync_v3_token_demo_asset.py --check` — **PASS**, shipping CSS untouched.
+- Forced-colors contract tests: `python -m unittest discover -s scripts/quality -p test_v3_slider_hc_token_candidate.py -v` — **11/11 passed**.
+- The tracked Chrome and Edge Forced Colors matrices record **8,320/8,320 computed-style assertions passed** over 480 specimens per browser, covering ten source brands, Light/Dark app modes, two emulated system palettes, LTR/RTL, Slider/RangeSlider, and opt-in isolation. This is browser-emulation evidence, not native Windows or assistive-technology certification.
+- The current-head v3 CI runs passed for the real browser lab, token contract, documentation contract, local package boundary, public component census, and Button-focus contract: [browser lab](https://github.com/vrassouli/Bluent/actions/runs/39332963141), [token contract](https://github.com/vrassouli/Bluent/actions/runs/39332963186), [docs](https://github.com/vrassouli/Bluent/actions/runs/39332963230), [package boundary](https://github.com/vrassouli/Bluent/actions/runs/39332963177), [component census](https://github.com/vrassouli/Bluent/actions/runs/39332963251), [focus contract](https://github.com/vrassouli/Bluent/actions/runs/39332963140).
 
-- tool/solution restore;
-- zero-warning Release solution build;
-- canonical TaskExamples compilation and the DrawerContent collision negative control;
-- consumer-skill coverage/drift validation;
-- solution tests;
-- release-tool tests;
-- packing/validation of all five public packages;
-- local Markdown-link validation;
-- workflow YAML parsing;
-- focused rendered accessibility checks;
-- changed-line whitespace validation.
-
-Release packages #546 verified the exact-ref Release build/tests, all five packages, package metadata/dependencies, deterministic release notes, and artifact upload. NuGet publication and GitHub Release jobs remained skipped; no package, tag, or release was published.
-
-This commit only records the resulting evidence/state. One final CI pass on the evidence-only head is required before changing PR #407 from Draft to review-ready.
-
-Existing runtime evidence in `docs/compatibility/hosting-and-render-modes.md` verifies representative Drawer, Popover, Tooltip, Chart, Diagram, navigation, disposal, overlay, and DOM-measurement behavior in the named interactive modes. That evidence must not be generalized into component-wide/browser-wide accessibility guarantees.
+These checks do **not** establish approved token names, pixel-perfect Fluent parity, native Windows High Contrast, screen-reader behavior, or final design sign-off.
 
 ## Current Operational Files
 
-- `.bluent/HANDOFF.md` — immediate #406 continuation instructions.
-- `.bluent/QUALITY.md` — validation vocabulary, baseline policy, and #406-specific gate.
-- `docs/components/inventory.md` — current 65-family consumer retrieval ledger.
-- `.agents/skills/bluent/SKILL.md` — portable skill entry point.
-- `.agents/skills/bluent/COMPONENT-INDEX.md` — targeted family routing.
-- `docs/components/consumer-api-surface.md` — non-component consumer API classification.
-- `docs/ai/bluent-consumer-skill-dogfood.md` — dogfood scenario matrix.
-- `docs/ai/issue-406-acceptance.md` — acceptance evidence audit.
-- `docs/compatibility/hosting-and-render-modes.md` — runtime/render-mode evidence.
+- `.bluent/HANDOFF.md` — immediate #418 continuation instructions.
+- `.bluent/QUALITY.md` — validation vocabulary and repository quality policy; the #406 acceptance gate is retained only for that completed workstream.
+- `docs/v3/tokens/README.md` — token taxonomy, mapping, and preview entry point.
+- `docs/v3/tokens/SLIDER-FORCED-COLORS-BROWSER-RESEARCH.md` — current two-palette Chrome/Edge matrix and limitations.
+- `docs/v3/tokens/BLZ-RUNTIME-PORTAL-AUDIT.md` — Blazor runtime and detached portal evidence.
+- `scripts/quality/generate_v3_token_preview.py` — deterministic preview generator.
+- `scripts/quality/test_v3_slider_hc_token_candidate.py` — recorded evidence and negative-approval contract tests.
+- `docs/v3/ISSUE-WORKFLOW.md` and `docs/v3/BRANCHING.md` — mandatory v3 workflow and isolation rules.
 
-## Remaining #406 Work
+## Remaining #418 Work
 
-1. Confirm Quality and Release-package workflows on this evidence-only head.
-2. Refresh PR #407 with exact final-head workflow evidence and mark it review-ready if those checks pass.
-3. Keep runtime-sensitive limitations explicitly bounded where browser evidence is absent.
-4. Keep #411 open for product/API gaps found during or after the skill work.
-5. Do not merge PR #407 or close #406 as part of the implementation task.
+1. Complete design-first review in the authoritative Bluent v3 Penpot file (or an explicitly authorized, editable Figma fallback), record the real page/board/node IDs, and agree the exact token-to-role mapping. The Penpot plugin was unavailable/suspended in the latest session. A fallback Figma file was created, but Figma MCP reached its Starter-plan call limit before it could be populated; it is blank and is **not** design evidence: [Bluent v3 Token System — Issue #418 (Design Fallback)](https://www.figma.com/design/pUC3kEmDMHf44EWDiEFK0i).
+2. Verify the final semantic system-color and focus/disabled mapping with accepted Light/Dark/RTL designs, then perform native Windows Contrast Themes and assistive-technology checks. Emulated Chrome/Edge palettes cannot substitute for this gate.
+3. Keep production Slider/RangeSlider behavior, keyboard/ARIA, pointer-coordinate and related fixes in their owned component issues (#442/#443 and linked tasks). Do not silently convert the #418 research stylesheet into production CSS.
+4. Re-run the exact-head CI and review evidence after any follow-up commit. Keep PR #500 open until acceptance is complete; do not merge it to `Dev` or publish stable packages/releases.
 
 ## Working Agreement
 
-- Do not invent public APIs, support claims, render modes, assets, or accessibility behavior.
-- Keep canonical docs authoritative and the consumer skill retrieval-oriented.
-- Prefer Bluent components for user-facing interactive UI where Bluent has a suitable equivalent.
-- Preserve public API consistency; product/API fixes discovered while documenting #406 require separate approval/work.
-- Record validation at the evidence level actually exercised: source, build, test, pack, runtime, visual, or deployment.
-- Update this file, `.bluent/HANDOFF.md`, the tracking issue, and PR when active project status materially changes.
-- Do not merge, publish packages, tag/release, or close #406 unless separately instructed.
+- Do not invent public APIs, support claims, render modes, assets, token names, or accessibility behavior.
+- Preserve v2.x compatibility and the zero-warning Release baseline.
+- Distinguish source checks, build/tests, browser-emulated checks, Penpot/Figma review, native OS contrast, and assistive-technology tests.
+- Follow `Backlog → Ready → In progress → Review → Done` using the actual GitHub Project #5 Status field. Do not process or promote `Analysis` without the maintainer's explicit request.
+- Update this file, `.bluent/HANDOFF.md`, the active issue, and PR when project status materially changes.
+- Never merge v3 into `Dev`/stable branches or publish stable NuGet packages without separate explicit final approval.
 
 ## Historical Project Record
 
