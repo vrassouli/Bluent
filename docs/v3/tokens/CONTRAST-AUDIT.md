@@ -22,7 +22,7 @@ The existing CSS emitted by Bluent 2.x has `--colorStatusDangerForeground1` in b
 
 **Live evidence:** [Penpot read-only mode/tokens/board audit](../../../scripts/quality/penpot_v3_danger_contrast_audit.js) at design revision **216**, **12 checks / 0 errors**, restored Light draft theme after checking both modes. The board PNG was exported and visually inspected; both modes display original/candidate source values and ratios.
 
-**Source + generated CSS evidence:** [Python source contrast scanner](../../../scripts/quality/audit_v3_token_preview_contrast.py) now checks **20 palette/mode CSS files × 9 numeric pairs = 180 checks**: the original 80 core checks, 60 diagnostics for draft brand foreground roles, and 40 diagnostics for two measured fallback roles. It keeps the **10/10 Dark source-Danger values below 4.5** visible, confirms **0/20 proposed Danger text candidates below 4.5**, and reports the action/link foreground gap plus the measured alternatives. This remains opaque-color arithmetic, not full WCAG/AT verification or a test of gradients, alpha compositing, status-on-brand, or all component consumers.
+**Source + generated CSS evidence:** [Python source contrast scanner](../../../scripts/quality/audit_v3_token_preview_contrast.py) now checks **20 palette/mode CSS files × 15 numeric pairs = 300 checks**: 80 original core checks, 60 draft-role diagnostics, 40 initial fallback-role checks, and 120 additional diagnostics covering six source-backed roles. It keeps the **10/10 Dark source-Danger values below 4.5** visible, confirms **0/20 proposed Danger text candidates below 4.5**, and reports the Rest/action gap plus distinct Hover/Pressed link-state and neutral-role readings. This remains opaque-color arithmetic, not full WCAG/AT verification or a test of gradients, alpha compositing, status-on-brand, or all component consumers.
 
 ## Additive, nonbreaking Opt-in CSS prototype
 
@@ -57,7 +57,20 @@ A follow-up audit now measures the actual source CSS roles used by the draft tok
 | `--colorBrandForeground2Hover` | 0/10 | **6.172:1** (`stream/dark`) | Numeric contrast passes all 20 cases, but Hover is a state-specific source role, not a generic Rest decision |
 | `--colorNeutralForeground2` | 0/10 | **10.010:1** (`default/dark`) | High-contrast neutral fallback; loses brand coloration and is not a branded-action choice by itself |
 
-For all 10 Light themes, the first two tested roles meet 4.5:1 on the neutral surface. The measured gaps are reproducible from the source theme CSS through the quality scanner; the report includes 60 extra pair checks and explicit expected-gap patterns so a source change cannot silently remove or reclassify the finding.
+The follow-up keeps **state and hierarchy roles separate** rather than treating every numerically strong foreground as interchangeable:
+
+| Additional emitted source role on the neutral surface | Dark cases below 4.5:1 | Minimum across 20 pairs | Review interpretation |
+| --- | ---: | ---: | --- |
+| `--colorBrandForeground2Pressed` | 0/10 | **10.017:1** (`teams/dark`) | Pressed-state role; not a generic Rest/idle action mapping |
+| `--colorBrandForegroundLinkHover` | 8/10 | **4.294:1** (`office/dark`) | Hover is still below the target in eight Dark brands |
+| `--colorBrandForegroundLinkPressed` | 10/10 | **2.911:1** (`powerpoint/dark`) | Pressed-state contrast gap in every Dark brand |
+| `--colorNeutralForeground1` | 0/10 | **14.548:1** (all Dark themes) | Strong neutral foreground; not branded |
+| `--colorNeutralForeground2Link` | 0/10 | **10.010:1** (all Dark themes) | Neutral-link role; does not retain brand identity |
+| `--colorNeutralForeground3` | 0/10 | **6.193:1** (all Light themes) | Lower-emphasis neutral role; intended content hierarchy still needs review |
+
+These additions are diagnostic only. They guard the observed eight-brand Dark Hover gap and ten-brand Dark Pressed gap against silent source drift, and explicitly avoid promoting Pressed/Hover or neutral tokens to the generic branded Rest action role.
+
+For all 10 Light themes, the first two tested roles meet 4.5:1 on the neutral surface. The measured gaps are reproducible from the source theme CSS through the quality scanner; the 300-check report includes 60 draft-foreground diagnostics plus 160 candidate-role diagnostics and explicit expected-gap patterns, so a source change cannot silently remove or reclassify the findings.
 
 The current generated alias is defined in [the opt-in preview CSS](issue-418-opt-in.preview.css) as `--bui-v3-action-foreground: var(--colorBrandForeground1)`. A repository search did not find a component consuming that alias yet. Therefore this is **not being reported as a regression in a shipped component**, and no stable CSS, token value, or public API was changed. It is a token-contract/design acceptance gap: before any future consumer uses `action.foreground` for ordinary text or links, maintainers must decide its intended semantic role and select or define a mapping that satisfies that role across all supported brands/modes. Do not assume `colorBrandForeground2` fixes the gap: its value is below 4.5:1 in eight Dark brand themes. The same source scan found `--colorBrandForeground2Hover` and `--colorNeutralForeground2` above 4.5:1 in all 20 brand/mode cases; however, the former is explicitly a Hover-state role and the latter neutral, so neither is selected as generic `action.foreground` here. Fluent 2 documents BrandForeground2 and BrandForeground2Hover as distinct Rest/Hover aliases ([official alias token table](https://fluent2.microsoft.design/color-tokens2/)).
 

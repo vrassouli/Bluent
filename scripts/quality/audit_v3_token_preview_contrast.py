@@ -23,6 +23,12 @@ NAMES = (
     "--colorBrandForeground2Hover",
     "--colorNeutralForeground2",
     "--colorBrandForegroundLink",
+    "--colorBrandForeground2Pressed",
+    "--colorBrandForegroundLinkHover",
+    "--colorBrandForegroundLinkPressed",
+    "--colorNeutralForeground1",
+    "--colorNeutralForeground2Link",
+    "--colorNeutralForeground3",
 )
 EXPECTED_DARK_FOREGROUND2_GAPS = {
     "default",
@@ -33,6 +39,13 @@ EXPECTED_DARK_FOREGROUND2_GAPS = {
     "stream",
     "teams",
     "word",
+}
+EXPECTED_DARK_BRAND_LINK_HOVER_GAPS = {
+    "default", "office", "outlook", "powerapps", "powerpoint", "stream", "teams", "word",
+}
+EXPECTED_ALL_DARK_BRANDS = {
+    "default", "excel", "office", "outlook", "powerapps", "powerbi",
+    "powerpoint", "stream", "teams", "word",
 }
 
 
@@ -71,6 +84,13 @@ def main() -> int:
                 "brandForeground2": contrast(source["--colorBrandForeground2"], bg),
                 "brandForeground2Hover": contrast(source["--colorBrandForeground2Hover"], bg),
                 "neutralForeground2": contrast(source["--colorNeutralForeground2"], bg),
+                # Keep state-specific source roles independently measurable.
+                "brandForeground2Pressed": contrast(source["--colorBrandForeground2Pressed"], bg),
+                "brandLinkHover": contrast(source["--colorBrandForegroundLinkHover"], bg),
+                "brandLinkPressed": contrast(source["--colorBrandForegroundLinkPressed"], bg),
+                "neutralForeground1": contrast(source["--colorNeutralForeground1"], bg),
+                "neutralLinkForeground2": contrast(source["--colorNeutralForeground2Link"], bg),
+                "neutralForeground3": contrast(source["--colorNeutralForeground3"], bg),
             }
             for pair in ("primaryText", "onBrand", "proposedDanger"):
                 if ratios[pair] < 4.5:
@@ -89,9 +109,18 @@ def main() -> int:
                     issues.append(f"Brand foreground gap pattern drift for {pair}: {brand}/{mode}")
             if any(ratios[pair] < 3.0 for pair in ("actionForeground", "brandLinkForeground", "brandForeground2")):
                 issues.append(f"Brand foreground below 3.0 against neutral surface: {brand}/{mode}")
-            for pair in ("brandForeground2Hover", "neutralForeground2"):
+            for pair in (
+                "brandForeground2Hover", "neutralForeground2", "brandForeground2Pressed",
+                "neutralForeground1", "neutralLinkForeground2", "neutralForeground3",
+            ):
                 if ratios[pair] < 4.5:
-                    issues.append(f"Measured fallback role below 4.5 against neutral surface: {brand}/{mode}/{pair}")
+                    issues.append(f"Measured candidate role below 4.5 against neutral surface: {brand}/{mode}/{pair}")
+
+            # Link Hover and Link Pressed are distinct source states; guard their Dark gap patterns.
+            if mode == "light" and ratios["brandLinkHover"] < 4.5:
+                issues.append(f"Brand link hover unexpectedly below 4.5 in Light: {brand}")
+            if mode == "light" and ratios["brandLinkPressed"] < 4.5:
+                issues.append(f"Brand link pressed unexpectedly below 4.5 in Light: {brand}")
 
             rows.append({"brand": brand, "mode": mode, **ratios})
 
@@ -110,6 +139,25 @@ def main() -> int:
     if any(row["mode"] == "light" and row["brandForeground2"] < 4.5 for row in rows):
         issues.append("BrandForeground2 Light source unexpectedly fell below 4.5 against neutral surface")
 
+    observed_link_hover_gaps = {
+        row["brand"] for row in rows
+        if row["mode"] == "dark" and row["brandLinkHover"] < 4.5
+    }
+    if observed_link_hover_gaps != EXPECTED_DARK_BRAND_LINK_HOVER_GAPS:
+        issues.append(
+            "BrandForegroundLinkHover dark-mode contrast pattern drift: "
+            f"expected {sorted(EXPECTED_DARK_BRAND_LINK_HOVER_GAPS)}, got {sorted(observed_link_hover_gaps)}"
+        )
+    observed_link_pressed_gaps = {
+        row["brand"] for row in rows
+        if row["mode"] == "dark" and row["brandLinkPressed"] < 4.5
+    }
+    if observed_link_pressed_gaps != EXPECTED_ALL_DARK_BRANDS:
+        issues.append(
+            "BrandForegroundLinkPressed dark-mode contrast pattern drift: "
+            f"expected {sorted(EXPECTED_ALL_DARK_BRANDS)}, got {sorted(observed_link_pressed_gaps)}"
+        )
+
     minimum = {
         key: {
             "ratio": round(min(row[key] for row in rows), 3),
@@ -122,17 +170,20 @@ def main() -> int:
         for key in (
             "primaryText", "onBrand", "currentDanger", "proposedDanger",
             "actionForeground", "brandLinkForeground", "brandForeground2",
-            "brandForeground2Hover", "neutralForeground2",
+            "brandForeground2Hover", "neutralForeground2", "brandForeground2Pressed",
+            "brandLinkHover", "brandLinkPressed", "neutralForeground1", "neutralLinkForeground2",
+            "neutralForeground3",
         )
     }
     print(json.dumps({
         "pass": not issues,
         "classification": "Numerical contrast of selected opaque source-backed token colors; not full WCAG/AT",
         "brandModePairs": len(rows),
-        "checks": len(rows) * 9,
+        "checks": len(rows) * 15,
         "coreContrastPairs": len(rows) * 4,
         "draftForegroundDiagnosticPairs": len(rows) * 3,
         "candidateRoleDiagnosticPairs": len(rows) * 2,
+        "additionalCandidateRoleDiagnosticPairs": len(rows) * 6,
         "currentDangerBelow4_5": sum(row["currentDanger"] < 4.5 for row in rows),
         "suggestedDangerBelow4_5": sum(row["proposedDanger"] < 4.5 for row in rows),
         "actionForegroundBelow4_5": sum(row["actionForeground"] < 4.5 for row in rows),
@@ -140,6 +191,20 @@ def main() -> int:
         "brandForeground2Below4_5": sum(row["brandForeground2"] < 4.5 for row in rows),
         "brandForeground2HoverBelow4_5": sum(row["brandForeground2Hover"] < 4.5 for row in rows),
         "neutralForeground2Below4_5": sum(row["neutralForeground2"] < 4.5 for row in rows),
+        "brandForeground2PressedBelow4_5": sum(row["brandForeground2Pressed"] < 4.5 for row in rows),
+        "brandLinkHoverBelow4_5": sum(row["brandLinkHover"] < 4.5 for row in rows),
+        "brandLinkPressedBelow4_5": sum(row["brandLinkPressed"] < 4.5 for row in rows),
+        "neutralForeground1Below4_5": sum(row["neutralForeground1"] < 4.5 for row in rows),
+        "neutralLinkForeground2Below4_5": sum(row["neutralLinkForeground2"] < 4.5 for row in rows),
+        "neutralForeground3Below4_5": sum(row["neutralForeground3"] < 4.5 for row in rows),
+        "brandLinkHoverDarkGapBrands": sorted(observed_link_hover_gaps),
+        "brandLinkPressedDarkGapBrands": sorted(observed_link_pressed_gaps),
+        "brandForeground2PressedApprovedForGenericRest": False,
+        "brandLinkHoverApprovedForRest": False,
+        "brandLinkPressedApprovedForRest": False,
+        "neutralForeground1ApprovedAsBrandedAction": False,
+        "neutralLinkForeground2ApprovedAsBrandedAction": False,
+        "neutralForeground3ApprovedAsBrandedAction": False,
         "draftActionForegroundApprovedForOrdinaryText": False,
         "draftBrandLinkForegroundApprovedForOrdinaryText": False,
         "draftBrandForeground2UniversalTextCandidate": False,
@@ -157,6 +222,12 @@ def main() -> int:
             "The source --colorBrandForeground2 alternative remains below 4.5:1 in eight Dark brands.",
             "The source --colorBrandForeground2Hover is above 4.5:1 in all 20 pairs (minimum 6.172:1), but it is a state-specific Hover role, not approval for generic Rest text.",
             "The source --colorNeutralForeground2 is above 4.5:1 in all 20 pairs (minimum 10.010:1), but it removes brand coloration and still requires semantic review.",
+            "The source --colorBrandForeground2Pressed is above 4.5:1 in all 20 pairs (minimum 10.017:1), but Pressed is state-specific and not a generic Rest mapping.",
+            "The source --colorBrandForegroundLinkHover falls below 4.5:1 in eight Dark brands (minimum 4.294:1); it does not resolve the generic link contrast gap.",
+            "The source --colorBrandForegroundLinkPressed falls below 4.5:1 in all ten Dark brands (minimum 2.911:1); Pressed needs a separate reviewed treatment.",
+            "The source --colorNeutralForeground1 is above 4.5:1 in all 20 pairs (minimum 14.548:1), but it is neutral rather than branded.",
+            "The source --colorNeutralForeground2Link is above 4.5:1 in all 20 pairs (minimum 10.010:1), but it is a neutral link role, not a branded action role.",
+            "The source --colorNeutralForeground3 is above 4.5:1 in all 20 pairs (minimum 6.193:1), but it is a lower-emphasis neutral role and needs hierarchy review.",
             "Do not treat any candidate source role as the approved action.foreground mapping without a reviewed semantic decision.",
         ],
     }, indent=2))

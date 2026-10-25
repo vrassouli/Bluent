@@ -25,7 +25,8 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertEqual(self.report["coreContrastPairs"], 80)
         self.assertEqual(self.report["draftForegroundDiagnosticPairs"], 60)
         self.assertEqual(self.report["candidateRoleDiagnosticPairs"], 40)
-        self.assertEqual(self.report["checks"], 180)
+        self.assertEqual(self.report["additionalCandidateRoleDiagnosticPairs"], 120)
+        self.assertEqual(self.report["checks"], 300)
 
     def test_dark_action_and_link_foreground_gap_is_explicit(self) -> None:
         self.assertEqual(self.report["actionForegroundBelow4_5"], 10)
@@ -70,6 +71,36 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
             "The source --colorNeutralForeground2 is above 4.5:1 in all 20 pairs (minimum 10.010:1), but it removes brand coloration and still requires semantic review.",
             self.report["reviewNotes"],
         )
+
+    def test_link_hover_and_pressed_roles_keep_distinct_dark_gap_patterns(self) -> None:
+        self.assertEqual(self.report["brandLinkHoverBelow4_5"], 8)
+        self.assertEqual(self.report["minimum"]["brandLinkHover"]["ratio"], 4.294)
+        self.assertEqual(
+            self.report["brandLinkHoverDarkGapBrands"],
+            [
+                "default", "office", "outlook", "powerapps",
+                "powerpoint", "stream", "teams", "word",
+            ],
+        )
+        self.assertEqual(self.report["brandLinkPressedBelow4_5"], 10)
+        self.assertEqual(self.report["minimum"]["brandLinkPressed"]["ratio"], 2.911)
+        self.assertEqual(len(self.report["brandLinkPressedDarkGapBrands"]), 10)
+        self.assertEqual(self.report["brandForeground2PressedBelow4_5"], 0)
+        self.assertEqual(self.report["minimum"]["brandForeground2Pressed"]["ratio"], 10.017)
+        self.assertFalse(self.report["brandForeground2PressedApprovedForGenericRest"])
+        self.assertFalse(self.report["brandLinkHoverApprovedForRest"])
+        self.assertFalse(self.report["brandLinkPressedApprovedForRest"])
+
+    def test_neutral_roles_are_high_contrast_but_not_branded_action_semantics(self) -> None:
+        self.assertEqual(self.report["neutralForeground1Below4_5"], 0)
+        self.assertEqual(self.report["minimum"]["neutralForeground1"]["ratio"], 14.548)
+        self.assertEqual(self.report["neutralLinkForeground2Below4_5"], 0)
+        self.assertEqual(self.report["minimum"]["neutralLinkForeground2"]["ratio"], 10.010)
+        self.assertEqual(self.report["neutralForeground3Below4_5"], 0)
+        self.assertEqual(self.report["minimum"]["neutralForeground3"]["ratio"], 6.193)
+        self.assertFalse(self.report["neutralForeground1ApprovedAsBrandedAction"])
+        self.assertFalse(self.report["neutralLinkForeground2ApprovedAsBrandedAction"])
+        self.assertFalse(self.report["neutralForeground3ApprovedAsBrandedAction"])
 
 if __name__ == "__main__":
     unittest.main()
