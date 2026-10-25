@@ -11,6 +11,34 @@ class P0SemanticGapTests(unittest.TestCase):
         cls.text = source_texts()
         cls.expected = snapshot_from(cls.text)
 
+    def test_maintainer_approved_defaults_are_traceable_without_claiming_gap_closure(self):
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[2]
+        triage = (root/"docs/v3/quality/FLUENT-PARITY-P0-TRIAGE.md").read_text(encoding="utf-8-sig")
+        queue = (root/"docs/v3/quality/FLUENT-PARITY-P0-REMEDIATION-QUEUE.md").read_text(encoding="utf-8-sig")
+        project = (root/".bluent/PROJECT.md").read_text(encoding="utf-8-sig")
+        for phrase in (
+            "Maintainer-approved default policy crosswalk: 2026-10-25",
+            'generate aria-pressed="true" / "false" only when Toggled.HasValue',
+            "reject the entire batch, preserve previously accepted files",
+            "PointerEventArgs.ClientX with the matching getBoundingClientRect().Left",
+            "stable non-crossing endpoints",
+            "Exact token mappings",
+            "board 1d92b6fb-c168-8047-8008-d7d1f38c5d2f",
+            "REVIEW REQUIRED",
+            "do **not** erase any of the seven current source observations",
+            "Explicit caller aria-pressed precedence remains unresolved",
+            "MaxFiles <= 0",
+            "Native OS/assistive-technology acceptance",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, triage)
+        self.assertIn("Approved behavioral baseline from #420 (2026-10-25)", queue)
+        self.assertIn("The #552 source-gap JSON remains unchanged", queue)
+        self.assertIn("Latest #552 P0 decision crosswalk (2026-10-25)", project)
+        self.assertIn("The FLUENT-PARITY-P0-SEMANTICS.json seven-observation source checkpoint is intentionally unchanged", project)
+        self.assertIn("#552 stays In progress and PR #553 Draft", project)
+
     def test_seven_source_observations_are_present(self):
         self.assertEqual(7, len(self.expected["checks"]))
         self.assertTrue(all(c["observedSourceGap"] for c in self.expected["checks"]))
