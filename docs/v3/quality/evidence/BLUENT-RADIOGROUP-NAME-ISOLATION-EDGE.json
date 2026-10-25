@@ -1,0 +1,444 @@
+{
+  "issue": 552,
+  "sourceRef": "73155f02",
+  "engine": "edge",
+  "host": "Bluent.UI.Demo WebAssembly; current task-branch Debug build",
+  "createdAt": "2026-10-25T11:13:38.810Z",
+  "scope": "Actual rendered Default and Enum RadioGroup controls in the demo. The probe first records the missing native names, then injects distinct group names into the temporary browser DOM, uses real CDP pointer clicks on actual associated labels, and dispatches a real browser ArrowRight key event. This isolates the effect of native names only; it does not prove the Bluent public API offers a group name, does not mutate product source or send network requests, and is not native assistive-technology acceptance.",
+  "initial": {
+    "activeId": "",
+    "default": {
+      "heading": "Default",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "f29b88765",
+          "name": "",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "fe65397f",
+          "name": "",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    },
+    "enum": {
+      "heading": "Enum",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "fbdf25cc",
+          "name": "",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "f38ac5546",
+          "name": "",
+          "checked": true,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    }
+  },
+  "injected": {
+    "activeId": "",
+    "default": {
+      "heading": "Default",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "f29b88765",
+          "name": "__probe_default_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "fe65397f",
+          "name": "__probe_default_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    },
+    "enum": {
+      "heading": "Enum",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "fbdf25cc",
+          "name": "__probe_enum_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "f38ac5546",
+          "name": "__probe_enum_group",
+          "checked": true,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    }
+  },
+  "afterLabel": {
+    "activeId": "f29b88765",
+    "default": {
+      "heading": "Default",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "f29b88765",
+          "name": "__probe_default_group",
+          "checked": true,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "fe65397f",
+          "name": "__probe_default_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    },
+    "enum": {
+      "heading": "Enum",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "fbdf25cc",
+          "name": "__probe_enum_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "f38ac5546",
+          "name": "__probe_enum_group",
+          "checked": true,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    }
+  },
+  "beforeArrow": {
+    "activeId": "fe65397f",
+    "default": {
+      "heading": "Default",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "f29b88765",
+          "name": "__probe_default_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "fe65397f",
+          "name": "__probe_default_group",
+          "checked": true,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    },
+    "enum": {
+      "heading": "Enum",
+      "groupText": "Do you agree?",
+      "inputs": [
+        {
+          "id": "fbdf25cc",
+          "name": "__probe_enum_group",
+          "checked": false,
+          "disabled": false,
+          "label": ""
+        },
+        {
+          "id": "f38ac5546",
+          "name": "__probe_enum_group",
+          "checked": true,
+          "disabled": false,
+          "label": ""
+        }
+      ]
+    }
+  },
+  "afterArrow": {
+    "activeId": "f29b88765",
+    "groups": {
+      "activeId": "f29b88765",
+      "default": {
+        "heading": "Default",
+        "groupText": "Do you agree?",
+        "inputs": [
+          {
+            "id": "f29b88765",
+            "name": "__probe_default_group",
+            "checked": true,
+            "disabled": false,
+            "label": ""
+          },
+          {
+            "id": "fe65397f",
+            "name": "__probe_default_group",
+            "checked": false,
+            "disabled": false,
+            "label": ""
+          }
+        ]
+      },
+      "enum": {
+        "heading": "Enum",
+        "groupText": "Do you agree?",
+        "inputs": [
+          {
+            "id": "fbdf25cc",
+            "name": "__probe_enum_group",
+            "checked": false,
+            "disabled": false,
+            "label": ""
+          },
+          {
+            "id": "f38ac5546",
+            "name": "__probe_enum_group",
+            "checked": true,
+            "disabled": false,
+            "label": ""
+          }
+        ]
+      }
+    }
+  },
+  "summary": {
+    "checks": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "default-options-start-without-native-names",
+      "pass": true,
+      "observed": {
+        "heading": "Default",
+        "groupText": "Do you agree?",
+        "inputs": [
+          {
+            "id": "f29b88765",
+            "name": "",
+            "checked": false,
+            "disabled": false,
+            "label": ""
+          },
+          {
+            "id": "fe65397f",
+            "name": "",
+            "checked": false,
+            "disabled": false,
+            "label": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "adjacent-demo-groups-start-without-native-names",
+      "pass": true,
+      "observed": {
+        "heading": "Enum",
+        "groupText": "Do you agree?",
+        "inputs": [
+          {
+            "id": "fbdf25cc",
+            "name": "",
+            "checked": false,
+            "disabled": false,
+            "label": ""
+          },
+          {
+            "id": "f38ac5546",
+            "name": "",
+            "checked": true,
+            "disabled": false,
+            "label": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "temporary-distinct-name-per-group-is-applied",
+      "pass": true,
+      "observed": {
+        "activeId": "",
+        "default": {
+          "heading": "Default",
+          "groupText": "Do you agree?",
+          "inputs": [
+            {
+              "id": "f29b88765",
+              "name": "__probe_default_group",
+              "checked": false,
+              "disabled": false,
+              "label": ""
+            },
+            {
+              "id": "fe65397f",
+              "name": "__probe_default_group",
+              "checked": false,
+              "disabled": false,
+              "label": ""
+            }
+          ]
+        },
+        "enum": {
+          "heading": "Enum",
+          "groupText": "Do you agree?",
+          "inputs": [
+            {
+              "id": "fbdf25cc",
+              "name": "__probe_enum_group",
+              "checked": false,
+              "disabled": false,
+              "label": ""
+            },
+            {
+              "id": "f38ac5546",
+              "name": "__probe_enum_group",
+              "checked": true,
+              "disabled": false,
+              "label": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "label-activation-selects-and-focuses-first-radio",
+      "pass": true,
+      "observed": {
+        "activeId": "f29b88765",
+        "default": {
+          "heading": "Default",
+          "groupText": "Do you agree?",
+          "inputs": [
+            {
+              "id": "f29b88765",
+              "name": "__probe_default_group",
+              "checked": true,
+              "disabled": false,
+              "label": ""
+            },
+            {
+              "id": "fe65397f",
+              "name": "__probe_default_group",
+              "checked": false,
+              "disabled": false,
+              "label": ""
+            }
+          ]
+        },
+        "enum": {
+          "heading": "Enum",
+          "groupText": "Do you agree?",
+          "inputs": [
+            {
+              "id": "fbdf25cc",
+              "name": "__probe_enum_group",
+              "checked": false,
+              "disabled": false,
+              "label": ""
+            },
+            {
+              "id": "f38ac5546",
+              "name": "__probe_enum_group",
+              "checked": true,
+              "disabled": false,
+              "label": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "ArrowRight-wraps-within-the-named-default-group",
+      "pass": true,
+      "observed": {
+        "activeId": "f29b88765",
+        "groups": {
+          "activeId": "f29b88765",
+          "default": {
+            "heading": "Default",
+            "groupText": "Do you agree?",
+            "inputs": [
+              {
+                "id": "f29b88765",
+                "name": "__probe_default_group",
+                "checked": true,
+                "disabled": false,
+                "label": ""
+              },
+              {
+                "id": "fe65397f",
+                "name": "__probe_default_group",
+                "checked": false,
+                "disabled": false,
+                "label": ""
+              }
+            ]
+          },
+          "enum": {
+            "heading": "Enum",
+            "groupText": "Do you agree?",
+            "inputs": [
+              {
+                "id": "fbdf25cc",
+                "name": "__probe_enum_group",
+                "checked": false,
+                "disabled": false,
+                "label": ""
+              },
+              {
+                "id": "f38ac5546",
+                "name": "__probe_enum_group",
+                "checked": true,
+                "disabled": false,
+                "label": ""
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ArrowRight-does-not-select-or-focus-the-adjacent-enum-group",
+      "pass": true,
+      "observed": {
+        "enumBefore": [
+          false,
+          true
+        ],
+        "after": [
+          false,
+          true
+        ],
+        "activeId": "f29b88765",
+        "enumIds": [
+          "fbdf25cc",
+          "f38ac5546"
+        ]
+      }
+    }
+  ]
+}

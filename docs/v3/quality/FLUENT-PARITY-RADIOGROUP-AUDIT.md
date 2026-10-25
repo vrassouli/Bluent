@@ -15,7 +15,7 @@ The exact published `@fluentui/web-components@3.1.3` package was inspected from 
 | `fluent-radio-group` | `disabled`, `name`, `orientation`, `required`, `value` | `change`; default slot | Bluent declares `ChildContent`, `Label`, `ItemsLabelPosition`, `Orientation`; selected `Value` comes through the external Blazor `InputBase<TValue>` boundary. `Orientation` is a conceptual API match, not proof of keyboard parity. There is no explicit group-level `Name`, `Disabled`, or `Required` parameter, and the group markup emits no group name, ARIA radiogroup role, `fieldset`/`legend`, or programmatic label relationship. |
 | `fluent-radio` | `checked`, `disabled`, `form`, `name`, `required`, `value` | `change`, `input`, `disabled`; `checked-indicator` slot | Bluent declares `Value`, `Label`, and cascading `RadioGroup`. `Value` is compared to the parent selection to calculate `checked`, but the current markup does not bind `Value` to a native input `value` attribute. Unmatched attributes are splatted to the native input, so callers can pass per-option name, disabled, required and form attributes. However, the ordinary Razor value attribute name is captured by the component's own Value parameter, not by AdditionalAttributes; the current markup does not bind that component Value to the native input value. Supplying a separate native input value requires an explicit AdditionalAttributes map entry. That is distinct from the selected group Value binding and is not a group-managed form contract. |
 
-This API crosswalk **does not** mean the two implementations have equivalent behavior. In the existing browser fixture, the default path renders empty native radio names and reproduces cross-group ArrowRight leakage. Caller-supplied per-option attributes may alter the tested DOM and must be tested as their own case. The current source also does not prove actual form-submission results for the `Radio.Value` model; that remains open.
+This API crosswalk **does not** mean the two implementations have equivalent behavior. In the existing browser fixture, the default path renders empty native radio names and reproduces cross-group ArrowRight leakage. A separate DOM-only isolation experiment confirms that distinct test-injected names make ArrowRight wrap within the first group without changing the adjacent group; this is a counterfactual browser behavior check, not proof of a supported Bluent group-name API. Caller-supplied per-option attributes may alter the tested DOM and must be tested as their own case. The current source also does not prove actual form-submission results for the `Radio.Value` model; that remains open.
 
 ## Native form-data probe: Chrome and Edge (2026-10-25)
 
@@ -55,6 +55,23 @@ Evidence: [Chrome FormData JSON](evidence/BLUENT-RADIOGROUP-FORM-CHROME.json) an
 ## Partial browser evidence (not full acceptance)
 
 See the [consolidated Checkbox/Switch/RadioGroup/OtpField browser audit](FLUENT-PARITY-CONTROL-SEMANTICS-BROWSER-AUDIT.md) and the raw [Chrome evidence JSON](evidence/BLUENT-CONTROL-SEMANTICS-CHROME.json) / [Edge evidence JSON](evidence/BLUENT-CONTROL-SEMANTICS-EDGE.json). Both runs passed 56/56 instrumentation checks; the checks intentionally assert that the cross-group navigation bug is reproduced, not that the component passes parity.
+
+## Name-isolation follow-up: Chrome and Edge (2026-10-25)
+
+A separate experiment tested the effect of native radio names on the actual rendered Default and Enum groups. The original DOM had no native names on either group. The probe then injected distinct names into the temporary browser DOM, clicked the actual associated labels using CDP pointer events, and dispatched a real ArrowRight key event.
+
+| Observation | Chrome | Edge |
+| --- | --- | --- |
+| Default group initially has no native names | PASS | PASS |
+| Adjacent Enum group initially has no native names | PASS | PASS |
+| Temporary distinct name applied to each group | PASS | PASS |
+| Activating the first option label selects and focuses its radio | PASS | PASS |
+| ArrowRight from the second Default option wraps to the first option in Default | PASS | PASS |
+| The same ArrowRight action leaves Enum focus and selection unchanged | PASS | PASS |
+
+Evidence: [Chrome name-isolation JSON](evidence/BLUENT-RADIOGROUP-NAME-ISOLATION-CHROME.json) and [Edge name-isolation JSON](evidence/BLUENT-RADIOGROUP-NAME-ISOLATION-EDGE.json). Both runs passed 6/6 checks.
+
+**Interpretation boundary:** this demonstrates that native names isolate the browser's radio keyboard group in this rendered fixture, and that the existing option labels activate their associated inputs. The script injects names directly into the browser DOM; it does not prove that Bluent's public group API exposes a shared name or that Razor callers can configure this contract reliably. It does not change product source, perform HTTP submission, or constitute native screen-reader/AT acceptance. The currently rendered default groups still lack names until configured by the probe.
 
 ## Evidence sources
 
