@@ -11,7 +11,7 @@ Complete the remaining acceptance work for [Issue #418](https://github.com/vrass
 | Branch | `v3/issue-418-design-tokens` |
 | Base / PR target | `bluent-v3` |
 | Pull request | [#500](https://github.com/vrassouli/Bluent/pull/500) — open, non-draft |
-| Current verified head | `78e1bf3dc1c806202e2ec9fbc03d39f612ad5602` |
+| Current verified head | `dc80a0dcee5a510658cf0f34298725b5ae9cbe58` |
 | Last recorded Project #5 status | Review; verify the actual Status field before transitions |
 
 ## Read First
@@ -35,8 +35,9 @@ Complete the remaining acceptance work for [Issue #418](https://github.com/vrass
 - `python scripts/quality/sync_v3_token_demo_asset.py --check`: **PASS**, demo-only research CSS remains synced and shipping CSS is untouched.
 - `python -m unittest discover -s scripts/quality -p test_v3_slider_hc_token_candidate.py -v`: **11/11 passed**.
 - Current tracked Chrome/Edge Forced Colors reports record **8,320/8,320 computed-style checks passing** across 480 specimens per browser. They cover emulated OS palettes, not real Windows Contrast Themes or screen readers.
-- Exact current-head CI on `78e1bf3dc1c806202e2ec9fbc03d39f612ad5602`: all six required workflows succeeded — [real browser lab](https://github.com/vrassouli/Bluent/actions/runs/40191003458), [token contract](https://github.com/vrassouli/Bluent/actions/runs/40191003424), [v3 docs](https://github.com/vrassouli/Bluent/actions/runs/40191003381), [package boundary](https://github.com/vrassouli/Bluent/actions/runs/40191003386), [component census](https://github.com/vrassouli/Bluent/actions/runs/40191003432), [Button-focus contract](https://github.com/vrassouli/Bluent/actions/runs/40191003442).
+- Exact current-head CI on `dc80a0dcee5a510658cf0f34298725b5ae9cbe58`: all six required workflows succeeded — [real browser lab](https://github.com/vrassouli/Bluent/actions/runs/40193841678), [token contract](https://github.com/vrassouli/Bluent/actions/runs/40193841724), [v3 docs](https://github.com/vrassouli/Bluent/actions/runs/40193841687), [package boundary](https://github.com/vrassouli/Bluent/actions/runs/40193841688), [component census](https://github.com/vrassouli/Bluent/actions/runs/40193841679), [Button-focus contract](https://github.com/vrassouli/Bluent/actions/runs/40193841703).
 - Dev01 native-environment inventory (2026-10-25, Windows 11 Pro build 28000): `SystemParametersInfo(SPI_GETHIGHCONTRAST)` reported High Contrast **OFF**; Narrator is installed but was not running; NVDA was not installed. This is environment discovery, **not** native Contrast Themes or screen-reader acceptance evidence.
+- Native High Contrast attempt (2026-10-25): Windows SPI reported the native High Contrast active flag during a temporary test toggle, but the locally launched Release demo did **not hydrate**; `/_framework/blazor.boot.json` returned 404. This is a failed test harness, **not** a native accessibility pass or product failure. The active flag returned to OFF afterward and the original registry values (`Flags=126`, blank `High Contrast Scheme`/`Previous High Contrast Scheme MUI Value`) were restored. Narrator/NVDA behavior was not tested.
 - The Forced Colors candidate remains research-only and opt-in. It is not a shipped component fix, a public token decision, or a claim of Fluent/WCAG/AT parity.
 
 ## Remaining Gates
@@ -44,7 +45,7 @@ Complete the remaining acceptance work for [Issue #418](https://github.com/vrass
 1. **Editable design review:** design-first acceptance must happen in the authoritative Penpot file (ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`) or an authorized editable Figma fallback, and the real page/board/node IDs must be recorded. The Penpot plugin was unavailable/suspended in the latest session. A Figma fallback file was created at [this URL](https://www.figma.com/design/pUC3kEmDMHf44EWDiEFK0i), but Figma MCP hit its Starter-plan tool-call limit before authoring; the file is blank and is not evidence or sign-off.
 2. **Native accessibility:** obtain real Windows Contrast Themes and assistive-technology evidence. Emulated Chrome/Edge system palettes are not a substitute. Final system-color roles and focus/disabled mapping still require accepted Light/Dark/RTL design.
 3. **Component ownership:** production Slider and RangeSlider keyboard/ARIA, pointer-coordinate, and complete visual behavior remain owned by their dedicated issues (including #442/#443). Do not silently implement them in #418 or ship the research-only stylesheet.
-4. Keep the working tree safe: `scripts/quality/probe_v3_component_lab.mjs` is untracked in the current checkout. Do not delete, stage, or commit it unless explicitly reviewed and deliberately added. Always use an explicit file list when staging changes.
+4. The zero-byte, untracked `scripts/quality/probe_v3_component_lab.mjs` stub was removed from this #418 checkout on 2026-10-25. The real 152,137-byte script remains tracked on `v3/issue-421-component-lab` (history includes #421 pilot commits such as `34f71f06`); do not recreate a duplicate in #418 or alter the real #421 probe here.
 5. After any follow-up commit, run affected local checks and inspect current-head CI; keep PR #500 open until all acceptance criteria are met.
 
 ## Branch and Release Guardrails
