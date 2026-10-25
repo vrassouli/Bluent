@@ -26,7 +26,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 **Working Branch:** `v3/issue-418-design-tokens`
 **Base Branch:** `bluent-v3`
 **Pull Request:** [#500](https://github.com/vrassouli/Bluent/pull/500) — open, non-draft, targeting `bluent-v3`
-**Reviewed head:** `52fa29a07f7565673ff9d8e0ce724d406302e31f`
+**Current verified head:** `78e1bf3dc1c806202e2ec9fbc03d39f612ad5602`
 
 Implementation and automated evidence have advanced, but #418 is **not complete**. The exact final semantic token mappings and accepted editable design-tool review remain open, as do native Windows Contrast Themes / assistive-technology checks. Forced Colors CSS for Slider/RangeSlider is research-only and is not a product fix. Keep all v3 work isolated from `Dev`, stable assets, published NuGet packages, and deployments.
 
@@ -252,3 +252,5 @@ This draft does **not** approve the #417 styling ADR, implement the #418 CSS/tok
   GitHub CI must verify both production-published
   Server jobs and independent Windows browser jobs;
   no native OS/AT or Penpot acceptance inferred.
+
+- 2026-10-25 #418 exact-head verification on `78e1bf3dc1c806202e2ec9fbc03d39f612ad5602`: all six required GitHub Actions workflows passed (real browser lab, token contract, documentation contract, local package boundary, public component census, Button-focus design contract). Re-ran the current checkout: Release build with `--warnaserror` **0 warnings / 0 errors**, .NET tests **61/61**, token-preview generator check **PASS** (20 brand/mode combinations × 35 logical tokens), token-demo asset sync **PASS**, v3 docs contract **0 findings**, `git diff --check` **PASS**. PR #500 is open and non-draft, base `bluent-v3`; GitHub returned no submitted PR reviews or inline review threads. Dev01 Windows native-environment inventory: Windows 11 Pro build 28000, `SystemParametersInfo(SPI_GETHIGHCONTRAST)` says High Contrast is OFF; Narrator is installed but not running and NVDA is not installed. This is not native AT signoff. Authoritative Penpot plugin remains suspended and Figma MCP authoring is rate-limited; the existing Figma materials remain research-only until actual design review. Keep #418 at its last recorded Project #5 status Review and verify the real Status field before any transition. Remaining blockers: accepted editable design/token mapping and real native Windows Contrast Themes/AT evidence. Keep PR #500 open; no merge, stable release or package publishing.

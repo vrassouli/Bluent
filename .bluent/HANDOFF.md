@@ -11,7 +11,7 @@ Complete the remaining acceptance work for [Issue #418](https://github.com/vrass
 | Branch | `v3/issue-418-design-tokens` |
 | Base / PR target | `bluent-v3` |
 | Pull request | [#500](https://github.com/vrassouli/Bluent/pull/500) — open, non-draft |
-| Reviewed head | `52fa29a07f7565673ff9d8e0ce724d406302e31f` |
+| Current verified head | `78e1bf3dc1c806202e2ec9fbc03d39f612ad5602` |
 | Last recorded Project #5 status | Review; verify the actual Status field before transitions |
 
 ## Read First
@@ -35,7 +35,8 @@ Complete the remaining acceptance work for [Issue #418](https://github.com/vrass
 - `python scripts/quality/sync_v3_token_demo_asset.py --check`: **PASS**, demo-only research CSS remains synced and shipping CSS is untouched.
 - `python -m unittest discover -s scripts/quality -p test_v3_slider_hc_token_candidate.py -v`: **11/11 passed**.
 - Current tracked Chrome/Edge Forced Colors reports record **8,320/8,320 computed-style checks passing** across 480 specimens per browser. They cover emulated OS palettes, not real Windows Contrast Themes or screen readers.
-- Current-head CI runs passed: [real browser lab](https://github.com/vrassouli/Bluent/actions/runs/39332963141), [token contract](https://github.com/vrassouli/Bluent/actions/runs/39332963186), [v3 docs](https://github.com/vrassouli/Bluent/actions/runs/39332963230), [package boundary](https://github.com/vrassouli/Bluent/actions/runs/39332963177), [component census](https://github.com/vrassouli/Bluent/actions/runs/39332963251), [Button-focus contract](https://github.com/vrassouli/Bluent/actions/runs/39332963140).
+- Exact current-head CI on `78e1bf3dc1c806202e2ec9fbc03d39f612ad5602`: all six required workflows succeeded — [real browser lab](https://github.com/vrassouli/Bluent/actions/runs/40191003458), [token contract](https://github.com/vrassouli/Bluent/actions/runs/40191003424), [v3 docs](https://github.com/vrassouli/Bluent/actions/runs/40191003381), [package boundary](https://github.com/vrassouli/Bluent/actions/runs/40191003386), [component census](https://github.com/vrassouli/Bluent/actions/runs/40191003432), [Button-focus contract](https://github.com/vrassouli/Bluent/actions/runs/40191003442).
+- Dev01 native-environment inventory (2026-10-25, Windows 11 Pro build 28000): `SystemParametersInfo(SPI_GETHIGHCONTRAST)` reported High Contrast **OFF**; Narrator is installed but was not running; NVDA was not installed. This is environment discovery, **not** native Contrast Themes or screen-reader acceptance evidence.
 - The Forced Colors candidate remains research-only and opt-in. It is not a shipped component fix, a public token decision, or a claim of Fluent/WCAG/AT parity.
 
 ## Remaining Gates
