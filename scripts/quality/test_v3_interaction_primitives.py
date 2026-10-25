@@ -428,6 +428,8 @@ class InteropSourceContractTests(unittest.TestCase):
         for phrase in (
             "Limited behavioral defaults approved by the maintainer (2026-10-25)",
             "Maintainer decision 2026-10-25 (behavioral defaults only)",
+            "1d92b6fb-c168-8047-8008-d7d1f38c5d2f",
+            "REVIEW REQUIRED",
             'emit generated `aria-pressed="true"` / `aria-pressed="false"` only when `Toggled.HasValue`',
             "reject that entire new batch, preserve the previously accepted selection",
             "`PointerEventArgs.ClientX` and the matching `getBoundingClientRect().Left`",
