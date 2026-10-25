@@ -13,9 +13,21 @@ The exact published `@fluentui/web-components@3.1.3` package was inspected from 
 | Pinned custom element | CEM attributes | Events and slots | Bluent source contract and disposition |
 | --- | --- | --- | --- |
 | `fluent-radio-group` | `disabled`, `name`, `orientation`, `required`, `value` | `change`; default slot | Bluent declares `ChildContent`, `Label`, `ItemsLabelPosition`, `Orientation`; selected `Value` comes through the external Blazor `InputBase<TValue>` boundary. `Orientation` is a conceptual API match, not proof of keyboard parity. There is no explicit group-level `Name`, `Disabled`, or `Required` parameter, and the group markup emits no group name, ARIA radiogroup role, `fieldset`/`legend`, or programmatic label relationship. |
-| `fluent-radio` | `checked`, `disabled`, `form`, `name`, `required`, `value` | `change`, `input`, `disabled`; `checked-indicator` slot | Bluent declares `Value`, `Label`, and cascading `RadioGroup`. `Value` is compared to the parent selection to calculate `checked`, but the current markup does not bind `Value` to a native input `value` attribute. Unmatched attributes are splatted to the native input, so a caller can manually set per-option `name`, `disabled`, `required`, `form`, or `value`; this is not a group-managed shared-name/value contract. |
+| `fluent-radio` | `checked`, `disabled`, `form`, `name`, `required`, `value` | `change`, `input`, `disabled`; `checked-indicator` slot | Bluent declares `Value`, `Label`, and cascading `RadioGroup`. `Value` is compared to the parent selection to calculate `checked`, but the current markup does not bind `Value` to a native input `value` attribute. Unmatched attributes are splatted to the native input, so callers can pass per-option name, disabled, required and form attributes. However, the ordinary Razor value attribute name is captured by the component's own Value parameter, not by AdditionalAttributes; the current markup does not bind that component Value to the native input value. Supplying a separate native input value requires an explicit AdditionalAttributes map entry. That is distinct from the selected group Value binding and is not a group-managed form contract. |
 
 This API crosswalk **does not** mean the two implementations have equivalent behavior. In the existing browser fixture, the default path renders empty native radio names and reproduces cross-group ArrowRight leakage. Caller-supplied per-option attributes may alter the tested DOM and must be tested as their own case. The current source also does not prove actual form-submission results for the `Radio.Value` model; that remains open.
+
+## Native form-data probe: Chrome and Edge (2026-10-25)
+
+A focused browser probe was run against the actual rendered RadioGroup inputs in the WebAssembly demo. It temporarily associates those inputs with a synthetic native form by setting the HTML form attribute; the probe changes browser DOM only and does not alter the product source or submit an HTTP request.
+
+| Browser observation | Chrome | Edge |
+| --- | --- | --- |
+| Default rendered inputs have no native name; FormData contains no entry | PASS | PASS |
+| Test-only name=choice with no native value attribute serializes the selected radio as choice=on | PASS | PASS |
+| Test-only explicit native values serializes the selected option as choice=affirmative | PASS | PASS |
+
+Evidence: [Chrome FormData JSON](evidence/BLUENT-RADIOGROUP-FORM-CHROME.json) and [Edge FormData JSON](evidence/BLUENT-RADIOGROUP-FORM-EDGE.json). Each run contains 3/3 checks. This is evidence of native browser FormData semantics on the current rendered inputs, not a real HTTP submission, not verification of the Blazor validation/callback pipeline, not a proof that ordinary Razor value= reaches the native input, and not native screen-reader acceptance. The existing RadioGroup cross-group-arrow and ignored-group semantics evidence remains separate.
 
 ## Confirmed source gaps
 
