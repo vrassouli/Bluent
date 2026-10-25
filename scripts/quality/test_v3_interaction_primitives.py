@@ -420,5 +420,27 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("37/37",adr)
         self.assertIn("30 of 37",adr)
 
+    def test_issue552_component_specific_keyboard_gaps_do_not_become_generic_popover_rules(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        adr=(root/"docs/v3/architecture/ADR-0002-interaction-primitives.md").read_text(encoding="utf-8-sig")
+        project=(root/".bluent/PROJECT.md").read_text(encoding="utf-8-sig")
+        for phrase in (
+            "2026-10-25 #552 Label InfoLabel and disabled-Link ownership crosswalk",
+            "**not** proof that the v3 #420 Popover reproduces a defect",
+            "Fluent Web Components 3.1.3 has no comparable InfoLabel family",
+            "focus remains on the trigger",
+            "Escape from that focused link also leaves the surface visible",
+            "#430 owns the InfoLabel-specific action name",
+            "#431 owns the disabled Link contract",
+            "The consuming component owns domain-specific roles, accessible names and focus behavior",
+            "Native screen-reader/OS acceptance",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, adr)
+        self.assertIn("#552 interaction-owner boundary (audit only, 2026-10-25)", project)
+        self.assertIn("FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md", project)
+        self.assertIn("No v3 public API or component source change is authorized", adr)
+
 if __name__=="__main__":
     unittest.main()

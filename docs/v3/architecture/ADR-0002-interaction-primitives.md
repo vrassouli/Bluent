@@ -469,6 +469,7 @@ parity, native Windows Contrast Themes, named screen-reader AT or
 full design signoff. #420 remains In progress/PR Draft. No stable
 Dev/v2.x changes or NuGet release.
 
+
 ## 2026-10-17 — shared Overlay reduced-motion D5 regression
 
 Upstream accepted ADR-0001 D5 recorded that the actual
@@ -521,3 +522,16 @@ until human design acceptance and remaining gates.
   fade, all with real Overlay OnClick removal: 61/61.
   Other render modes and exact latest GitHub SHA remain
   separately verified, not inferred from this result.
+
+## 2026-10-25 #552 Label InfoLabel and disabled-Link ownership crosswalk (audit only)
+
+The latest [#552 Label/Link/Badge browser audit](https://github.com/vrassouli/Bluent/blob/v3/issue-552-fluent-parity-audit/docs/v3/quality/FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md) adds two findings relevant to the boundaries of shared interaction primitives. These observations come from the current existing Bluent components in a published Production InteractiveServer host; they are **not** proof that the v3 #420 Popover reproduces a defect, and they are not native screen-reader/OS acceptance.
+
+| Observed evidence in #552 | Owner-level interpretation | Boundary for #420 |
+| --- | --- | --- |
+| The Label Info trigger opens on Enter and Space, but focus remains on the trigger; Tab skips its inner `Learn more` link while the surface remains visible; Escape from that focused link also leaves the surface visible. The browser AX name is inherited as `This is a label`. | Fluent Web Components 3.1.3 has no comparable InfoLabel family in its catalog. The Fluent React InfoLabel specification is only a cross-platform behavioral fallback, and its own surface-role wording is inconsistent. The finding therefore needs a component-specific decision, not a made-up one-to-one contract. | Keep generic Popover behavior context-neutral. It must not assign a universal `tooltip`, `note`, `menu` or `dialog` role, nor force every consumer surface to take focus. #430 owns the InfoLabel-specific action name, focus/Tab/Escape policy and final role after its design/API gate. |
+| A Link marked disabled still invokes its `OnClick` on a real pointer click; sequential Tab skips the no-`href` anchor and Chromium AX exposes an empty-named generic node. | This is a reproduced current Link behavior gap, while the pinned Web Components catalog does not expose the same disabled attribute. The chosen disabled-navigation/action contract remains an owner decision. | #431 owns the disabled Link contract and its accessibility/focus behavior. Do not patch Link-specific policy in #420 or mutate native anchor semantics as a side effect of a generic interaction fix. |
+
+**Shared-primitive rule:** #420 owns reusable overlay lifecycle, per-owner Escape handling, cleanup and only the explicitly opted-in disclosure ARIA already defined for click-triggered Popovers. The consuming component owns domain-specific roles, accessible names and focus behavior when its semantics require them. This division preserves generic Popover use across consumer content, tooltips and other overlays without imposing InfoLabel behavior on every caller.
+
+**Status and acceptance boundary:** this is a documentation/test contract derived from the linked #552 evidence, not a design approval or a product fix. #430 and #431 were still Backlog in Project #5 when this boundary was recorded; implementation must wait for their workflow/design gates. Native screen-reader/OS acceptance and the canonical #420 Penpot board's maintainer review remain open. No v3 public API or component source change is authorized by these observations.
