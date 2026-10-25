@@ -72,6 +72,23 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
                 self.assertEqual("0", check["actual"]["before"])
                 self.assertEqual("1", check["actual"]["after"])
 
+                reference = run["fluentLinkReference"]
+                self.assertIn("web/react/core/link/usage", reference["designGuidanceUrl"])
+                self.assertIn("/specs/Link.md", reference["behaviorSpecUrl"])
+                self.assertIn("components-link", reference["pinnedWebComponentsStorybook"])
+                self.assertEqual(431, reference["interpretation"]["ownerIssue"])
+                observation = reference["observedContract"]
+                self.assertTrue(observation["disabledPointerCallbackInvoked"])
+                self.assertEqual("0", observation["callbackBefore"])
+                self.assertEqual("1", observation["callbackAfter"])
+                self.assertTrue(observation["sequentialTabSkipsAnchor"])
+                self.assertFalse(observation["directEnterSpaceOnUnfocusableAnchorTested"])
+                self.assertFalse(observation["nativeScreenReaderTested"])
+                self.assertEqual("A", observation["anchor"]["tag"])
+                self.assertIsNone(observation["anchor"]["hrefAttribute"])
+                self.assertIsNone(observation["anchor"]["ariaDisabled"])
+                self.assertTrue(reference["interpretation"]["auditOnly"])
+
     def test_label_info_popover_lifecycle_is_exercised_inside_the_server_circuit(self):
         for engine, run in self.runs.items():
             with self.subTest(engine=engine):
@@ -191,6 +208,12 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
         self.assertIn("native screen-reader behavior remains untested", self.report)
         self.assertIn("Pointer/runtime gap and sequential-focus gap reproduced", self.link_report)
         self.assertIn("Enter/Space on the anchor and native AT remain untested", self.link_report)
+        self.assertIn("Fluent Link disabled/navigation crosswalk (2026-10-25)", self.link_report)
+        self.assertIn("not a release-pinned 3.1.3 contract", self.link_report)
+        self.assertIn("Confirmed behavior gap", self.link_report)
+        self.assertIn("Do not rely on `disabled` on `a`", self.link_report)
+        self.assertIn("Fluent Link disabled/navigation crosswalk (2026-10-25)", self.report)
+        self.assertIn("not proof of 1:1 parity failure against the pinned Web Components 3.1.3 package", self.report)
 
     def test_link_remains_audited_gap_and_no_family_is_promoted(self):
         self.assertFalse(self.matrix["auditComplete"])

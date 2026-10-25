@@ -596,13 +596,48 @@ const main = async () => {
     escapeFromContentDismisses:fluentInfoLabelKeyboardReference.observations.Enter.escapeFromContent?.dismissed ?? null
   };
 
+  const fluentLinkReference = {
+    designGuidanceUrl:"https://fluent2.microsoft.design/components/web/react/core/link/usage/",
+    behaviorSpecUrl:"https://github.com/microsoft/fluentui/blob/master/specs/Link.md",
+    pinnedWebComponentsStorybook:"https://storybooks.fluentui.dev/web-components/?path=/docs/components-link--docs",
+    pinnedWebComponentsCrosswalk:"docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md",
+    htmlDisabledReference:"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/disabled",
+    comparisonKind:"Fluent 2 design + unpinned React behavior spec + pinned Web Components 3.1.3 API census + native HTML semantics; not 1:1 parity acceptance",
+    observedContract:{
+      disabledPointerCallbackInvoked:disabledLinkStateBefore.disabledLinkClickCount === "0" && disabledLinkStateAfter.disabledLinkClickCount === "1",
+      callbackBefore:disabledLinkStateBefore.disabledLinkClickCount,
+      callbackAfter:disabledLinkStateAfter.disabledLinkClickCount,
+      sequentialTabSkipsAnchor:!keyboardProbeEvidence.focusedViaTab &&
+        keyboardProbeEvidence.startFocus.isInfoAction &&
+        keyboardProbeEvidence.firstTabAfterLabel.id === "server-interaction-sentinel",
+      anchor: {
+        tag:disabledLinkStateAfter.disabledLink.tag,
+        disabledAttribute:disabledLinkStateAfter.disabledLink.disabledAttribute,
+        hrefAttribute:disabledLinkStateAfter.disabledLink.hrefAttribute,
+        ariaDisabled:disabledLinkStateAfter.disabledLink.ariaDisabled,
+        tabindexAttribute:keyboardProbeEvidence.disabledLinkTabindexAttribute,
+        tabIndexProperty:keyboardProbeEvidence.disabledLinkTabindexProperty
+      },
+      pointerClickObservedInPublishedInteractiveServer:true,
+      directEnterSpaceOnUnfocusableAnchorTested:false,
+      nativeScreenReaderTested:false
+    },
+    interpretation:{
+      fluent2Use:"Links are for navigation; use a button for actions",
+      fluentReactDisabled:"Current unpinned Link spec describes disabled as non-interactive and recommends aria-disabled when a disabled link is kept focusable",
+      webComponents313:"fluent-link and fluent-anchor-button expose no disabled attribute in the pinned custom-elements.json",
+      html:"The disabled attribute is not native on an anchor; an anchor needs href to be a hyperlink",
+      ownerIssue:431,
+      auditOnly:true
+    }
+  };
   const output = {
     issue:552,owningIssues:{Label:430,Link:431,Badge:445},
     engine,renderer:"published Production Blazor InteractiveServer",
     host:"Bluent.UI.Demo.SSR Release publish with a QA-only route; temporary published output",
     route:pagePath,sourceRef:"7165a7671044b9c58b7d0c96cc93bf2b2b97fd52",
     scope:"Real Chromium DOM/AX/computed style and server event round-trip. Forced-colors and reduced-motion are emulated. Not native OS/screen-reader validation or Fluent parity acceptance.",
-    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,fluentInfoLabelKeyboardReference,checks,cases,
+    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,fluentInfoLabelKeyboardReference,fluentLinkReference,checks,cases,
     summary:{checks:checks.length,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length,
       screenshots:cases.map(item=>item.screenshot)},
   };
