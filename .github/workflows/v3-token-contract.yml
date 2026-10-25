@@ -13,6 +13,7 @@ on:
       - "scripts/quality/test_v3_theme_css_parser.py"
       - "scripts/quality/test_v3_focus_alias_contract.py"
       - "scripts/quality/audit_v3_token_preview_contrast.py"
+      - "scripts/quality/test_v3_token_preview_contrast.py"
       - "scripts/quality/audit_v3_brand_focus_candidate.py"
       - "scripts/quality/test_v3_brand_focus_candidate.py"
       - "scripts/quality/penpot_v3_field_brand_focus_review_audit.js"
@@ -75,6 +76,7 @@ jobs:
           python scripts/quality/check_v3_typography_source_contract.py
           python -m unittest discover -s scripts/quality -p 'test_v3_system_font_continuity.py' -v
           python scripts/quality/audit_v3_system_font_continuity.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_token_preview_contrast.py' -v
           python scripts/quality/audit_v3_token_preview_contrast.py
           python -m unittest discover -s scripts/quality -p 'test_v3_brand_focus_candidate.py' -v
           python scripts/quality/audit_v3_brand_focus_candidate.py

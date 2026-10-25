@@ -10,7 +10,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **#419 editable design library:** [Review PR #499](https://github.com/vrassouli/Bluent/pull/499) contains an independent project-owned `Bluent v3 Design System` Penpot file and verifiable linked Fluent source/library research. The imported `Microsoft Fluent 2 Web (Community)` remains read-only. [Working Penpot manifest](../docs/v3/design/penpot-workspace.manifest.json): 27 editable pages, 65 core native variants + 16 research fixtures and alignment/RTL/size stress evidence. Issue #419 remains **Review**, not Done; accept/merge only to `bluent-v3` following review.
 
-**#418 token system:** Active v3 foundation work is tracked in [Issue #418](https://github.com/vrassouli/Bluent/issues/418) on `v3/issue-418-design-tokens`, with [PR #500](https://github.com/vrassouli/Bluent/pull/500) targeting `bluent-v3`. The latest reviewed head contains token-schema/preview work and research-only Forced Colors evidence. Exact final mappings are not approved; the candidate CSS remains opt-in and non-shipping. Last recorded Project #5 status is **Review**, but do not mark Done until the design and native accessibility gates below are accepted.
+**#418 token system:** Active v3 foundation work is tracked in [Issue #418](https://github.com/vrassouli/Bluent/issues/418) on `v3/issue-418-design-tokens`, with [PR #500](https://github.com/vrassouli/Bluent/pull/500) targeting `bluent-v3`. The token-schema and theme previews remain research-only and non-shipping. A source-backed audit now measures 140 contrast pairs across 10 brands × Light/Dark and exposes a dark-mode gap in the draft `action.foreground` mapping: `colorBrandForeground1` falls to 3.551:1 in `office/dark` and is below 4.5:1 in all 10 Dark themes; `colorBrandForegroundLink` has the same gap, while `colorBrandForeground2` is below 4.5:1 in 8 Dark themes. No shipped component consumes the draft alias and no product CSS changed. See [the contrast audit](../docs/v3/tokens/CONTRAST-AUDIT.md). Exact final semantic mappings still need maintainer design review. Last recorded Project #5 status is **Review**, but do not mark Done until design, native accessibility, and token-approval gates are accepted.
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
@@ -26,7 +26,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 **Working Branch:** `v3/issue-418-design-tokens`
 **Base Branch:** `bluent-v3`
 **Pull Request:** [#500](https://github.com/vrassouli/Bluent/pull/500) — open, non-draft, targeting `bluent-v3`
-**Last verified implementation head before this handoff-only update:** `e61c31381160ed099b073dcda735deb6ea552093` (docs-only follow-up pending its own CI)
+**Last verified implementation base before the contrast-audit follow-up:** `7b3d5853e42a6d97e084375dcb7ac964dd1c649a` (all six required CI workflows passed on this commit)
 
 Implementation and automated evidence have advanced, but #418 is **not complete**. The exact final semantic token mappings and accepted editable design-tool review remain open, as do native Windows Contrast Themes / assistive-technology checks. Forced Colors CSS for Slider/RangeSlider is research-only and is not a product fix. Keep all v3 work isolated from `Dev`, stable assets, published NuGet packages, and deployments.
 
@@ -42,9 +42,9 @@ Implementation and automated evidence have advanced, but #418 is **not complete*
 - PR #407 is merged and Issue #406 is closed. No NuGet package or release was published by this documentation workstream.
 - The former umbrella issue #411 is closed; future product defects should be tracked in their current component-specific issues (for example #428–#445) or the relevant v3 parity issue, not treated as an open #411 queue.
 
-## Current Validation Evidence (#418)
+## Earlier Local Validation Checkpoint (#418)
 
-Latest reviewed branch head: `52fa29a07f7565673ff9d8e0ce724d406302e31f`.
+The following build/test evidence was recorded at checkpoint `52fa29a07f7565673ff9d8e0ce724d406302e31f`; it is not the latest branch head.
 
 - Local Release solution build: `dotnet build Bluent.sln --configuration Release --no-restore --warnaserror` — **0 warnings, 0 errors**.
 - Local solution tests: `dotnet test Bluent.sln --configuration Release --no-build --no-restore` — **61/61 passed**.
@@ -70,7 +70,7 @@ These checks do **not** establish approved token names, pixel-perfect Fluent par
 ## Remaining #418 Work
 
 1. Complete design-first review in the authoritative Bluent v3 Penpot file (or an explicitly authorized, editable Figma fallback), record the real page/board/node IDs, and agree the exact token-to-role mapping. The Penpot plugin was unavailable/suspended in the latest session. A fallback Figma file was created, but Figma MCP reached its Starter-plan call limit before it could be populated; it is blank and is **not** design evidence: [Bluent v3 Token System — Issue #418 (Design Fallback)](https://www.figma.com/design/pUC3kEmDMHf44EWDiEFK0i).
-2. Verify the final semantic system-color and focus/disabled mapping with accepted Light/Dark/RTL designs, then perform native Windows Contrast Themes and assistive-technology checks. Emulated Chrome/Edge palettes cannot substitute for this gate.
+2. Focused native Windows High Contrast browser evidence is now recorded (6/6 assertions on 2026-10-25; actual OS setting, not DevTools emulation). Still required: dependable Narrator/NVDA announcement evidence and accepted final semantic system-color/focus/disabled mapping across Light/Dark/RTL. The attempted Narrator session could not maintain page focus reliably, so no screen-reader pass is claimed.
 3. Keep production Slider/RangeSlider behavior, keyboard/ARIA, pointer-coordinate and related fixes in their owned component issues (#442/#443 and linked tasks). Do not silently convert the #418 research stylesheet into production CSS.
 4. Re-run the exact-head CI and review evidence after any follow-up commit. Keep PR #500 open until acceptance is complete; do not merge it to `Dev` or publish stable packages/releases.
 
