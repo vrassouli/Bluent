@@ -18,6 +18,8 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
     def setUpClass(cls):
         cls.report = (QUALITY / "FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md").read_text(encoding="utf-8-sig")
         cls.link_report = (QUALITY / "FLUENT-PARITY-LINK-AUDIT.md").read_text(encoding="utf-8-sig")
+        cls.badge_report = (QUALITY / "FLUENT-PARITY-BADGE-AUDIT.md").read_text(encoding="utf-8-sig")
+        cls.project_status = (ROOT / ".bluent/PROJECT.md").read_text(encoding="utf-8-sig")
         cls.matrix = json.loads((QUALITY / "FLUENT-PARITY-RETRO-AUDIT.json").read_text(encoding="utf-8-sig"))
         cls.route = (ROOT / "src/Bluent.UI.Demo.SSR/Components/Pages/Issue552LabelLinkBadgeProbe.razor").read_text(encoding="utf-8-sig")
         cls.probe = (ROOT / "scripts/quality/probe_v3_label_link_badge_interactive_server.mjs").read_text(encoding="utf-8-sig")
@@ -214,6 +216,41 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
         self.assertIn("Do not rely on `disabled` on `a`", self.link_report)
         self.assertIn("Fluent Link disabled/navigation crosswalk (2026-10-25)", self.report)
         self.assertIn("not proof of 1:1 parity failure against the pinned Web Components 3.1.3 package", self.report)
+
+    def test_badge_reference_crosswalk_and_reduced_motion_observation_are_bounded(self):
+        for engine, run in self.runs.items():
+            with self.subTest(engine=engine):
+                reference = run["fluentBadgeReference"]
+                self.assertIn("web/react/core/badge/usage", reference["designGuidanceUrl"])
+                self.assertIn("components-badge-badge", reference["reactBadgeStorybookUrl"])
+                self.assertIn("counter-badge", reference["reactCounterBadgeStorybookUrl"])
+                self.assertIn("components/badge", reference["webComponentsBadgeDocumentationUrl"])
+                self.assertIn("FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md", reference["pinnedWebComponentsCrosswalk"])
+                self.assertIn("FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md", reference["pinnedReactSemanticTriage"])
+                self.assertIn("Using_for_accessibility", reference["reducedMotionReferenceUrl"])
+                self.assertEqual(445, reference["interpretation"]["ownerIssue"])
+                self.assertTrue(reference["interpretation"]["auditOnly"])
+                self.assertTrue(reference["observedContract"]["staticBadge"]["nonFocusable"])
+                self.assertEqual("DIV", reference["observedContract"]["staticBadge"]["tag"])
+                reduced = reference["observedContract"]["reducedMotion"]
+                self.assertTrue(reduced["preferenceMatches"])
+                self.assertEqual("badge-pulse-shadow", reduced["animationName"])
+                self.assertEqual("1.5s", reduced["animationDuration"])
+                self.assertEqual("infinite", reduced["animationIterationCount"])
+                self.assertTrue(reduced["remainsInfiniteUnderReducedMotion"])
+                self.assertFalse(reference["observedContract"]["nativeReducedMotionPreferenceTested"])
+                self.assertFalse(reference["observedContract"]["nativeScreenReaderTested"])
+
+        for content in (self.badge_report, self.report, self.project_status):
+            self.assertIn("Fluent Badge/CounterBadge and reduced-motion crosswalk (2026-10-25)", content)
+        self.assertIn("not a claim of 1:1 Web Components parity", self.badge_report)
+        self.assertIn("not 1:1 Fluent Web Components acceptance", self.report)
+        self.assertIn("or 1:1 parity acceptance", self.project_status)
+        self.assertIn("MDN", self.badge_report)
+        self.assertIn("no component-imposed role", self.badge_report)
+        self.assertIn("native screen-reader behavior remains untested", self.report.lower())
+        self.assertIn("auditComplete=false", self.report)
+        self.assertIn("noneApproved=true", self.report)
 
     def test_link_remains_audited_gap_and_no_family_is_promoted(self):
         self.assertFalse(self.matrix["auditComplete"])

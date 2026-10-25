@@ -45,3 +45,37 @@ The `/components/badges` demo was captured in Chrome and Edge in Light/LTR, Dark
 - [Badge owner issue #445](https://github.com/vrassouli/Bluent/issues/445)
 
 **Boundary:** this is a partial source/API audit, not proof of visual parity, native reduced-motion behavior, screen-reader acceptance, or design approval.
+## Fluent Badge/CounterBadge and reduced-motion crosswalk (2026-10-25)
+
+### Reference scope
+
+This is an evidence-only crosswalk, not a design or parity approval:
+
+- The official [Fluent 2 Badge usage guidance](https://fluent2.microsoft.design/components/web/react/core/badge/usage/) describes Badge as a visual indicator for status/description, says badges do not receive focus by default, and requires an accessible label when the badge is icon-only; when a badge is associated with another component, that component's accessible name should communicate the badge meaning where appropriate.
+- The pinned [Fluent Web Components 3.1.3 crosswalk](FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md) lists distinct `fluent-badge` and `fluent-counter-badge` elements. A free-text Bluent `Badge` containing `+99` is not evidence of equivalent count state, zero visibility, overflow, or announcement behavior. The element census establishes distinct concepts; complete property/value mapping is still open.
+- The pinned Fluent React v9.74.10 [semantic triage](FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md) likewise treats Badge and CounterBadge as separate candidates, and calls out icon-slot versus `IconDefinition` plus status/live-region semantics and numeric overflow for separate review. This is a cross-platform comparison, not a claim of 1:1 Web Components parity.
+- The official [Fluent React Badge Storybook](https://storybooks.fluentui.dev/react/?path=/docs/components-badge-badge--docs) and [Counter Badge Storybook](https://storybooks.fluentui.dev/react/?path=/docs/components-badge-counter-badge--default) are separate upstream examples. The [Fluent Web Components Badge documentation](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/badge) describes the element as highlighting an item or flagging status; the pinned custom-element manifest remains the API source of truth for this audit.
+
+### Observed Bluent behavior and disposition
+
+| Area | Confirmed observation | Disposition |
+| --- | --- | --- |
+| Static text Badge | In the existing Chrome/Edge probes, the `+99` fixture is a non-focusable `div` with no component-imposed role. | Consistent with the general non-interactive Badge model; not automatically an accessibility defect. The parent/control's name and whether the count changes live need use-case-specific review. |
+| Badge vs CounterBadge | Bluent currently exposes one free-text `Badge`; `+99` is only its text. | Parity remains unverified for CounterBadge-specific count/overflow/zero behavior. Map each supported, missing, intentional extension, or N/A value before redesign. Do not infer equivalent numeric behavior from typography alone. |
+| Reduced-motion preference | Chrome and Edge show `matchMedia('(prefers-reduced-motion: reduce)').matches === true` while `AnimateShadow` still computes to `badge-pulse-shadow`, `1.5s`, `infinite`. | Confirmed browser-computed gap in Bluent's optional, infinite animation extension. MDN explains that `reduce` expresses a preference to remove, reduce, or replace non-essential motion; the animated shadow has no recorded essential-information requirement. This is a platform reduced-motion finding, not a claim that Fluent defines an equivalent animation property or Badge-specific animation rule. |
+| Test boundary | Forced Colors and Reduced Motion are Chromium DevTools Protocol emulations. Native OS setting and assistive technology were not exercised. | Keep native OS/AT outcomes unverified. A passing probe means the observation was captured, not that the observed behavior passes the design contract. |
+
+### Owner decisions under #445
+
+1. Decide whether Bluent should retain one general Badge plus explicitly documented Bluent-only `AnimateShadow`, or whether count-specific behavior requires a separate public concept. Do not invent a v3 `CounterBadge` API or add a product component in #552.
+2. Specify the reduced-motion fallback for `AnimateShadow`; the default candidate is to stop/disable the non-essential infinite pulse when the user requests reduced motion, while preserving any static shadow only if design approves it. Test both the `DropShadow` gate and the reduced-motion preference in browser runtime after the owning issue's Ready/design gates.
+3. Reconcile the existing `IconDefinition?` source type against the `string?` in the canonical Badge docs, including a source/docs contract test. That independent documentation drift remains open.
+4. Compare exact props/defaults/enum domains, numeric count visibility/overflow, icon-only accessible naming, parent naming, status/live-region use cases, and combinations across Light/Dark, RTL, forced colors and narrow widths. Link the editable Bluent v3 design before claiming visual approval.
+
+### Evidence and status
+
+- [Chrome InteractiveServer JSON](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-CHROME.json) and [Edge InteractiveServer JSON](evidence/BLUENT-LABEL-LINK-BADGE-INTERACTIVE-SERVER-EDGE.json) retain the original per-browser runtime observations and now carry a machine-readable `fluentBadgeReference` describing the reference scope and the measured Reduced Motion state.
+- The new metadata is reference/crosswalk annotation over the previously captured observation; it does not claim a fresh browser run. Existing reports still have 29/29 observation checks per engine.
+- Family `auditStatus` remains `researching`; every matrix dimension remains `audited_gaps`; `designApproval` stays `pending`; `evidenceBundle` stays `null`; `gapDisposition` stays `known_gaps_open`. Overall `auditComplete=false` and `noneApproved=true` are unchanged.
+
+**Boundary:** no component source, public API, product CSS, canonical component documentation, design artifact, or workflow status was changed by this audit-only step. Product remediation stays on #445 after its own design/workflow gates.

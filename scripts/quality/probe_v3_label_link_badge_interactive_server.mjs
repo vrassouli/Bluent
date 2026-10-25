@@ -631,13 +631,47 @@ const main = async () => {
       auditOnly:true
     }
   };
+  const badgeLightState = cases.find(item=>item.mode.name === "LIGHT-LTR")?.state;
+  const badgeReducedMotionState = cases.find(item=>item.mode.name === "REDUCED-MOTION")?.state;
+  const staticBadgeObservation = badgeLightState?.staticBadge;
+  const reducedMotionBadgeObservation = badgeReducedMotionState?.animatedBadge;
+  const fluentBadgeReference = {
+    designGuidanceUrl:"https://fluent2.microsoft.design/components/web/react/core/badge/usage/",
+    reactBadgeStorybookUrl:"https://storybooks.fluentui.dev/react/?path=/docs/components-badge-badge--docs",
+    reactCounterBadgeStorybookUrl:"https://storybooks.fluentui.dev/react/?path=/docs/components-badge-counter-badge--default",
+    webComponentsBadgeDocumentationUrl:"https://learn.microsoft.com/en-us/fluent-ui/web-components/components/badge",
+    pinnedWebComponentsCrosswalk:"docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md",
+    pinnedReactSemanticTriage:"docs/v3/quality/FLUENT-REACT-9.74.10-SEMANTIC-TRIAGE.md",
+    reducedMotionReferenceUrl:"https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using_for_accessibility",
+    comparisonKind:"Fluent 2 Badge guidance + pinned Web Components 3.1.3 API census + pinned React v9.74.10 semantic triage; platform reduced-motion guidance for a Bluent-only animation extension; not 1:1 parity acceptance",
+    observedContract:{
+      staticBadge:{tag:staticBadgeObservation?.tag??null,role:staticBadgeObservation?.role??null,tabIndex:staticBadgeObservation?.tabIndex??null,nonFocusable:typeof staticBadgeObservation?.tabIndex === "number" && staticBadgeObservation.tabIndex < 0},
+      reducedMotion:{
+        preferenceMatches:badgeReducedMotionState?.reducedMotion??null,
+        animationName:reducedMotionBadgeObservation?.animationName??null,
+        animationDuration:reducedMotionBadgeObservation?.animationDuration??null,
+        animationIterationCount:reducedMotionBadgeObservation?.animationIterationCount??null,
+        remainsInfiniteUnderReducedMotion:badgeReducedMotionState?.reducedMotion === true && reducedMotionBadgeObservation?.animationName === "badge-pulse-shadow" && reducedMotionBadgeObservation?.animationDuration === "1.5s" && reducedMotionBadgeObservation?.animationIterationCount === "infinite"
+      },
+      nativeReducedMotionPreferenceTested:false,
+      nativeScreenReaderTested:false
+    },
+    interpretation:{
+      fluentBadge:"A compact status/description indicator; not focusable by default. Icon-only use needs an accessible label; parent naming should convey badge meaning when associated.",
+      fluentCounterBadge:"A distinct upstream component concept; the Bluent free-text +99 fixture does not establish numeric count, zero-display, overflow, or announcement parity.",
+      pinnedWebComponents313:"The pinned crosswalk inventories separate fluent-badge and fluent-counter-badge elements; exact per-property/value comparison remains open.",
+      reducedMotion:"MDN defines reduce as a user preference to remove, reduce, or replace non-essential motion. The observed infinite shadow pulse is a Bluent extension; no Fluent Badge-specific animation policy is inferred.",
+      ownerIssue:445,
+      auditOnly:true
+    }
+  };
   const output = {
     issue:552,owningIssues:{Label:430,Link:431,Badge:445},
     engine,renderer:"published Production Blazor InteractiveServer",
     host:"Bluent.UI.Demo.SSR Release publish with a QA-only route; temporary published output",
     route:pagePath,sourceRef:"7165a7671044b9c58b7d0c96cc93bf2b2b97fd52",
     scope:"Real Chromium DOM/AX/computed style and server event round-trip. Forced-colors and reduced-motion are emulated. Not native OS/screen-reader validation or Fluent parity acceptance.",
-    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,fluentInfoLabelKeyboardReference,fluentLinkReference,checks,cases,
+    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,fluentInfoLabelKeyboardReference,fluentLinkReference,fluentBadgeReference,checks,cases,
     summary:{checks:checks.length,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length,
       screenshots:cases.map(item=>item.screenshot)},
   };
