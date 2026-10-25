@@ -20,6 +20,8 @@ NAMES = (
     "--colorStatusDangerForeground1",
     "--colorBrandForeground1",
     "--colorBrandForeground2",
+    "--colorBrandForeground2Hover",
+    "--colorNeutralForeground2",
     "--colorBrandForegroundLink",
 )
 EXPECTED_DARK_FOREGROUND2_GAPS = {
@@ -67,6 +69,8 @@ def main() -> int:
                 "actionForeground": contrast(source["--colorBrandForeground1"], bg),
                 "brandLinkForeground": contrast(source["--colorBrandForegroundLink"], bg),
                 "brandForeground2": contrast(source["--colorBrandForeground2"], bg),
+                "brandForeground2Hover": contrast(source["--colorBrandForeground2Hover"], bg),
+                "neutralForeground2": contrast(source["--colorNeutralForeground2"], bg),
             }
             for pair in ("primaryText", "onBrand", "proposedDanger"):
                 if ratios[pair] < 4.5:
@@ -85,6 +89,9 @@ def main() -> int:
                     issues.append(f"Brand foreground gap pattern drift for {pair}: {brand}/{mode}")
             if any(ratios[pair] < 3.0 for pair in ("actionForeground", "brandLinkForeground", "brandForeground2")):
                 issues.append(f"Brand foreground below 3.0 against neutral surface: {brand}/{mode}")
+            for pair in ("brandForeground2Hover", "neutralForeground2"):
+                if ratios[pair] < 4.5:
+                    issues.append(f"Measured fallback role below 4.5 against neutral surface: {brand}/{mode}/{pair}")
 
             rows.append({"brand": brand, "mode": mode, **ratios})
 
@@ -115,23 +122,29 @@ def main() -> int:
         for key in (
             "primaryText", "onBrand", "currentDanger", "proposedDanger",
             "actionForeground", "brandLinkForeground", "brandForeground2",
+            "brandForeground2Hover", "neutralForeground2",
         )
     }
     print(json.dumps({
         "pass": not issues,
         "classification": "Numerical contrast of selected opaque source-backed token colors; not full WCAG/AT",
         "brandModePairs": len(rows),
-        "checks": len(rows) * 7,
+        "checks": len(rows) * 9,
         "coreContrastPairs": len(rows) * 4,
         "draftForegroundDiagnosticPairs": len(rows) * 3,
+        "candidateRoleDiagnosticPairs": len(rows) * 2,
         "currentDangerBelow4_5": sum(row["currentDanger"] < 4.5 for row in rows),
         "suggestedDangerBelow4_5": sum(row["proposedDanger"] < 4.5 for row in rows),
         "actionForegroundBelow4_5": sum(row["actionForeground"] < 4.5 for row in rows),
         "brandLinkForegroundBelow4_5": sum(row["brandLinkForeground"] < 4.5 for row in rows),
         "brandForeground2Below4_5": sum(row["brandForeground2"] < 4.5 for row in rows),
+        "brandForeground2HoverBelow4_5": sum(row["brandForeground2Hover"] < 4.5 for row in rows),
+        "neutralForeground2Below4_5": sum(row["neutralForeground2"] < 4.5 for row in rows),
         "draftActionForegroundApprovedForOrdinaryText": False,
         "draftBrandLinkForegroundApprovedForOrdinaryText": False,
         "draftBrandForeground2UniversalTextCandidate": False,
+        "draftBrandForeground2HoverApprovedForGenericRest": False,
+        "neutralForeground2ApprovedAsBrandedAction": False,
         "minimum": minimum,
         "issues": issues,
         "legacyCssModified": False,
@@ -142,7 +155,9 @@ def main() -> int:
             "All ten Dark brand action foreground pairs are below 4.5:1 on --colorNeutralBackground1.",
             "The source --colorBrandForegroundLink also falls below 4.5:1 in all ten Dark brands.",
             "The source --colorBrandForeground2 alternative remains below 4.5:1 in eight Dark brands.",
-            "Do not treat any of these source roles as approved normal-text tokens without a reviewed semantic mapping."
+            "The source --colorBrandForeground2Hover is above 4.5:1 in all 20 pairs (minimum 6.172:1), but it is a state-specific Hover role, not approval for generic Rest text.",
+            "The source --colorNeutralForeground2 is above 4.5:1 in all 20 pairs (minimum 10.010:1), but it removes brand coloration and still requires semantic review.",
+            "Do not treat any candidate source role as the approved action.foreground mapping without a reviewed semantic decision.",
         ],
     }, indent=2))
     return int(bool(issues))

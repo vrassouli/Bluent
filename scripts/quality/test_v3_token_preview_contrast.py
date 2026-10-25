@@ -24,7 +24,8 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertEqual(self.report["brandModePairs"], 20)
         self.assertEqual(self.report["coreContrastPairs"], 80)
         self.assertEqual(self.report["draftForegroundDiagnosticPairs"], 60)
-        self.assertEqual(self.report["checks"], 140)
+        self.assertEqual(self.report["candidateRoleDiagnosticPairs"], 40)
+        self.assertEqual(self.report["checks"], 180)
 
     def test_dark_action_and_link_foreground_gap_is_explicit(self) -> None:
         self.assertEqual(self.report["actionForegroundBelow4_5"], 10)
@@ -40,7 +41,7 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertEqual(self.report["minimum"]["brandForeground2"]["ratio"], 4.294)
         self.assertFalse(self.report["draftBrandForeground2UniversalTextCandidate"])
         self.assertIn(
-            "Do not treat any of these source roles as approved normal-text tokens without a reviewed semantic mapping.",
+            "Do not treat any candidate source role as the approved action.foreground mapping without a reviewed semantic decision.",
             self.report["reviewNotes"],
         )
 
@@ -51,6 +52,24 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertEqual(self.report["minimum"]["onBrand"]["ratio"], 5.552)
         self.assertFalse(self.report["legacyCssModified"])
 
+
+    def test_brand_hover_foreground_is_contrast_safe_but_state_specific(self) -> None:
+        self.assertEqual(self.report["brandForeground2HoverBelow4_5"], 0)
+        self.assertEqual(self.report["minimum"]["brandForeground2Hover"]["ratio"], 6.172)
+        self.assertFalse(self.report["draftBrandForeground2HoverApprovedForGenericRest"])
+        self.assertIn(
+            "The source --colorBrandForeground2Hover is above 4.5:1 in all 20 pairs (minimum 6.172:1), but it is a state-specific Hover role, not approval for generic Rest text.",
+            self.report["reviewNotes"],
+        )
+
+    def test_neutral_foreground_is_safe_baseline_but_not_branded(self) -> None:
+        self.assertEqual(self.report["neutralForeground2Below4_5"], 0)
+        self.assertEqual(self.report["minimum"]["neutralForeground2"]["ratio"], 10.010)
+        self.assertFalse(self.report["neutralForeground2ApprovedAsBrandedAction"])
+        self.assertIn(
+            "The source --colorNeutralForeground2 is above 4.5:1 in all 20 pairs (minimum 10.010:1), but it removes brand coloration and still requires semantic review.",
+            self.report["reviewNotes"],
+        )
 
 if __name__ == "__main__":
     unittest.main()
