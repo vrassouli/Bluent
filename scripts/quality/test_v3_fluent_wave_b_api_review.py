@@ -70,6 +70,38 @@ class WaveBApiReviewTests(unittest.TestCase):
         self.assertEqual("N/A", self.get_parameter("Switch", "Switch", "IndeterminateLabel")["reviewDisposition"])
         self.assertEqual("Missing", self.get_parameter("SelectField", "SelectField", "BindValueEvent")["reviewDisposition"])
 
+    def test_radio_group_exact_cem_and_source_contract_gaps_are_explicit(self):
+        import json
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[2]
+        crosswalk = json.loads((root/"docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.json").read_text(encoding="utf-8-sig"))
+        family = next(x for x in crosswalk["families"] if x["family"] == "RadioGroup")
+        self.assertEqual({"fluent-radio-group", "fluent-radio"}, set(family["referencedTags"]))
+        tags = {x["tag"]: x for x in crosswalk["referencedTagDetails"]}
+        group = tags["fluent-radio-group"]
+        radio = tags["fluent-radio"]
+        self.assertEqual({"disabled", "name", "orientation", "required", "value"}, set(group["attributes"]))
+        self.assertEqual({"checked", "disabled", "form", "name", "required", "value"}, set(radio["attributes"]))
+        self.assertIn("change", group["events"])
+        self.assertIn("checked-indicator", radio["slots"])
+        radio_audit = (root/"docs/v3/quality/FLUENT-PARITY-RADIOGROUP-AUDIT.md").read_text(encoding="utf-8-sig")
+        group_markup = (root/"src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor").read_text(encoding="utf-8-sig")
+        radio_markup = (root/"src/Bluent.UI/Components/RadioGroupComponent/Radio.razor").read_text(encoding="utf-8-sig")
+        radio_code = (root/"src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs").read_text(encoding="utf-8-sig")
+        self.assertIn("Pinned Fluent Web Components 3.1.3 API crosswalk", radio_audit)
+        self.assertIn("current markup does not bind", radio_audit)
+        self.assertIn("CEM SHA-256", radio_audit)
+        self.assertNotIn("role=", group_markup)
+        self.assertNotIn("fieldset", group_markup.lower())
+        self.assertNotIn("name=", group_markup.lower())
+        self.assertIn("@attributes=GetInputAdditionalAttributes()", radio_markup)
+        self.assertIn('checked="@IsChecked"', radio_markup)
+        self.assertNotIn('value="@Value"', radio_markup)
+        self.assertIn("RadioGroup.Value?.Equals(Value)", radio_code)
+        self.assertNotIn("[Parameter] public string? Name", radio_code)
+        self.assertNotIn("[Parameter] public bool Disabled", radio_code)
+        self.assertIn("Latest #552 RadioGroup exact-CEM crosswalk (2026-10-25)", (root/".bluent/PROJECT.md").read_text(encoding="utf-8-sig"))
+
     def test_radio_component_specific_duplicate_names_are_disambiguated(self):
         family = self.by_family["RadioGroup"]
         labels = [p for p in family["parameters"] if p["name"] == "Label"]

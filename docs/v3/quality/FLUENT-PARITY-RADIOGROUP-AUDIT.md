@@ -6,6 +6,17 @@
 
 The pinned Fluent Web Components 3.1.3 inventory and React semantic triage treat the radio-group container and individual radio option as related but distinct semantics. Bluent exposes `RadioGroup<TValue>` plus nested `Radio<TValue>`, but native radio grouping is defined by shared `name` values and a fieldset/legend or an equivalent accessible group—not by the Blazor cascading value alone.
 
+## Pinned Fluent Web Components 3.1.3 API crosswalk — 2026-10-25
+
+The exact published `@fluentui/web-components@3.1.3` package was inspected from the local npm cache during this audit. The repository's pinned crosswalk records CEM SHA-256 `e460a61de0cd6f99ec6caedc203db681d95ac16332d3b296b50484b79ad61329` and source baseline `2c37dbef516230606306549458721d6bda03a8ab`. The upstream documentation treats group and option as separate contracts; only `fluent-radio` and slotted `role=radio` children receive group keyboard support ([Microsoft Radio and Radio Group reference](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/radio-group)).
+
+| Pinned custom element | CEM attributes | Events and slots | Bluent source contract and disposition |
+| --- | --- | --- | --- |
+| `fluent-radio-group` | `disabled`, `name`, `orientation`, `required`, `value` | `change`; default slot | Bluent declares `ChildContent`, `Label`, `ItemsLabelPosition`, `Orientation`; selected `Value` comes through the external Blazor `InputBase<TValue>` boundary. `Orientation` is a conceptual API match, not proof of keyboard parity. There is no explicit group-level `Name`, `Disabled`, or `Required` parameter, and the group markup emits no group name, ARIA radiogroup role, `fieldset`/`legend`, or programmatic label relationship. |
+| `fluent-radio` | `checked`, `disabled`, `form`, `name`, `required`, `value` | `change`, `input`, `disabled`; `checked-indicator` slot | Bluent declares `Value`, `Label`, and cascading `RadioGroup`. `Value` is compared to the parent selection to calculate `checked`, but the current markup does not bind `Value` to a native input `value` attribute. Unmatched attributes are splatted to the native input, so a caller can manually set per-option `name`, `disabled`, `required`, `form`, or `value`; this is not a group-managed shared-name/value contract. |
+
+This API crosswalk **does not** mean the two implementations have equivalent behavior. In the existing browser fixture, the default path renders empty native radio names and reproduces cross-group ArrowRight leakage. Caller-supplied per-option attributes may alter the tested DOM and must be tested as their own case. The current source also does not prove actual form-submission results for the `Radio.Value` model; that remains open.
+
 ## Confirmed source gaps
 
 | Finding | Current source | Disposition |
