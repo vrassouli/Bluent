@@ -420,6 +420,32 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("37/37",adr)
         self.assertIn("30 of 37",adr)
 
+    def test_issue420_p0_defaults_record_maintainer_approval_and_preserve_open_gates(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        p0=(root/"docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md").read_text(encoding="utf-8-sig")
+        project=(root/".bluent/PROJECT.md").read_text(encoding="utf-8-sig")
+        for phrase in (
+            "Limited behavioral defaults approved by the maintainer (2026-10-25)",
+            "Maintainer decision 2026-10-25 (behavioral defaults only)",
+            'emit generated `aria-pressed="true"` / `aria-pressed="false"` only when `Toggled.HasValue`',
+            "reject that entire new batch, preserve the previously accepted selection",
+            "`PointerEventArgs.ClientX` and the matching `getBoundingClientRect().Left`",
+            "independently accessible thumbs and a bounded, non-crossing endpoint policy",
+            "Exact token mappings and values are **not** approved",
+            "precedence for an explicitly supplied caller `aria-pressed` remains **OPEN**",
+            "What `MaxFiles <= 0` means still needs an explicit public validation policy",
+            "RTL value direction/inversion remains open",
+            "touch/pointer capture still need detailed design",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase,p0)
+        self.assertIn("Compatibility expectation to verify (not a separately approved new policy)",p0)
+        self.assertIn("#420 P0 behavioral defaults (maintainer-approved 2026-10-25; design/implementation gates remain open)",project)
+        self.assertIn("#420 remains In progress",project)
+        self.assertIn("no product source/API/CSS was changed",project)
+        self.assertNotIn("Decisions to approve (all currently open)",p0)
+
     def test_issue552_component_specific_keyboard_gaps_do_not_become_generic_popover_rules(self):
         from pathlib import Path
         root=Path(__file__).resolve().parents[2]
