@@ -487,13 +487,122 @@ const main = async () => {
     beforeOutsideClick.sentinelCount === "1" && afterOutsideClick.sentinelCount === "2",
     popoverObservation.outsideClickRoundTrip);
 
+
+  // Fluent React InfoLabel is used as the explicit cross-platform fallback: the Fluent
+  // Web Components catalogue does not expose a corresponding InfoLabel component.
+  // These checks capture observed behavior for comparison; a passing capture is NOT parity acceptance.
+  const fluentInfoLabelKeyboardReference = {
+    url:"https://github.com/microsoft/fluentui/blob/master/packages/react-components/react-infolabel/library/docs/Spec.md",
+    storybook:"https://storybooks.fluentui.dev/react/?path=/docs/components-infolabel--docs",
+    comparisonKind:"Fluent React cross-platform fallback; not an assertion of 1:1 Web Components behavior or a pinned-version acceptance",
+    referenceRequirements:{
+      activation:"Enter or Space opens the Popover",
+      focus:"Focus moves to the PopoverSurface; focusable descendants can be reached by Tab",
+      escape:"Escape closes the Popover when focus is on the surface or its content",
+      focusDeparture:"Moving focus away from the bubble dismisses it"
+    },
+    observations:{}
+  };
+  const keyboardTriggerSelector = "#probe-label-section .bui-label button";
+  const keyboardSurfaceSelector = async () => {
+    const id = await evaluate("document.querySelector(" + JSON.stringify(keyboardTriggerSelector) + ")?.id || null");
+    return id ? "#" + id + "_surface" : null;
+  };
+  const sendKey = async (key, code, virtualKey) => {
+    await send("Input.dispatchKeyEvent", {
+      type:"keyDown",key,code,windowsVirtualKeyCode:virtualKey,nativeVirtualKeyCode:virtualKey,
+      ...(key === "Enter" ? {text:"\r",unmodifiedText:"\r"} : {}),
+    });
+    await send("Input.dispatchKeyEvent", {
+      type:"keyUp",key,code,windowsVirtualKeyCode:virtualKey,nativeVirtualKeyCode:virtualKey,
+    });
+  };
+  const keyboardFocus = async () => evaluate("(() => { const e=document.activeElement; const t=document.querySelector(" +
+    JSON.stringify(keyboardTriggerSelector) + "); const s=t?.id?document.getElementById(t.id+'_surface'):null; " +
+    "return {tag:e?.tagName||null,id:e?.id||null,text:(e?.innerText||e?.textContent||'').trim().slice(0,80)," +
+    "isTrigger:e===t,isInsideSurface:!!s&&s.contains(e),isSurface:e===s}; })()");
+  const captureKeyboardActivation = async (name, key, code, virtualKey) => {
+    await evaluate("document.querySelector(" + JSON.stringify(keyboardTriggerSelector) + ").focus()");
+    const focusBeforeActivation = await keyboardFocus();
+    await sendKey(key,code,virtualKey);
+    await wait(500);
+    const opened = await describePopover();
+    const focusAfterOpen = await keyboardFocus();
+    let tabFocusAfterOpen = null;
+    let remainsOpenAfterFocusMoves = null;
+    let escapeFromContent = null;
+    if (opened.surfacePresent && !opened.surface.hiddenClass && opened.surface.showClass) {
+      await sendKey("Tab","Tab",9);
+      await wait(150);
+      tabFocusAfterOpen = await keyboardFocus();
+      const afterTab = await describePopover();
+      remainsOpenAfterFocusMoves = afterTab.surfacePresent && !afterTab.surface.hiddenClass &&
+        afterTab.surface.showClass && tabFocusAfterOpen.isInsideSurface === false;
+      const linkSelector = (await keyboardSurfaceSelector() || "") + " a";
+      await evaluate("document.querySelector(" + JSON.stringify(linkSelector) + ")?.focus()");
+      const focusBeforeEscape = await keyboardFocus();
+      await sendKey("Escape","Escape",27);
+      await wait(250);
+      const afterEscape = await describePopover();
+      escapeFromContent = {
+        focusBeforeEscape,
+        surfaceAfterEscape:afterEscape,
+        dismissed:!afterEscape.surfacePresent || afterEscape.surface.hiddenClass ||
+          afterEscape.surface.display === "none"
+      };
+    }
+    const record = {
+      key:name,
+      focusBeforeActivation,
+      opens:opened.surfacePresent && !opened.surface.hiddenClass && opened.surface.showClass,
+      focusAfterOpen,
+      focusMovedIntoSurfaceOrContent:focusAfterOpen.isSurface || focusAfterOpen.isInsideSurface,
+      tabFocusAfterOpen,
+      remainsOpenAfterFocusMoves,
+      escapeFromContent
+    };
+    fluentInfoLabelKeyboardReference.observations[name] = record;
+    check(name + " keyboard activation trace is captured for the Fluent InfoLabel comparison",
+      focusBeforeActivation.isTrigger && typeof record.opens === "boolean" &&
+        typeof record.focusMovedIntoSurfaceOrContent === "boolean",
+      record);
+    console.log(engine + " Fluent InfoLabel " + name + " comparison " + JSON.stringify(record));
+    if (name === "Enter" && escapeFromContent) {
+      check("Escape-from-Popover-content outcome is captured against the Fluent InfoLabel reference",
+        typeof escapeFromContent.dismissed === "boolean" && !!escapeFromContent.focusBeforeEscape.isInsideSurface,
+        escapeFromContent);
+      check("Focus-departure dismissal outcome is captured against the Fluent InfoLabel reference",
+        typeof remainsOpenAfterFocusMoves === "boolean" && !!tabFocusAfterOpen.tag,
+        {tabFocusAfterOpen,remainsOpenAfterFocusMoves});
+    }
+    const isClosed = async () => {
+      const state = await describePopover();
+      return !state.surfacePresent || state.surface.hiddenClass || state.surface.display === "none";
+    };
+    if (!await isClosed()) {
+      const outside = await evaluate("(() => {const e=document.getElementById('server-interaction-sentinel');e.scrollIntoView({block:'center',inline:'center'});const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
+      await click(outside);
+      await poll(isClosed,15000);
+    }
+  };
+  await captureKeyboardActivation("Enter","Enter","Enter",13);
+  await captureKeyboardActivation("Space"," ","Space",32);
+  fluentInfoLabelKeyboardReference.observations.referenceComparison = {
+    enterOpens:fluentInfoLabelKeyboardReference.observations.Enter.opens,
+    spaceOpens:fluentInfoLabelKeyboardReference.observations.Space.opens,
+    enterFocusMovesIntoSurfaceOrContent:fluentInfoLabelKeyboardReference.observations.Enter.focusMovedIntoSurfaceOrContent,
+    tabAfterEnterOpensSurface:fluentInfoLabelKeyboardReference.observations.Enter.tabFocusAfterOpen,
+    focusDepartureKeepsSurfaceOpen:fluentInfoLabelKeyboardReference.observations.Enter.remainsOpenAfterFocusMoves,
+    escapeFromContentDismisses:fluentInfoLabelKeyboardReference.observations.Enter.escapeFromContent?.dismissed ?? null
+  };
+
   const output = {
     issue:552,owningIssues:{Label:430,Link:431,Badge:445},
     engine,renderer:"published Production Blazor InteractiveServer",
     host:"Bluent.UI.Demo.SSR Release publish with a QA-only route; temporary published output",
     route:pagePath,sourceRef:"7165a7671044b9c58b7d0c96cc93bf2b2b97fd52",
     scope:"Real Chromium DOM/AX/computed style and server event round-trip. Forced-colors and reduced-motion are emulated. Not native OS/screen-reader validation or Fluent parity acceptance.",
-    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,checks,cases,
+    createdAt:new Date().toISOString(),sentinelEvidence,disabledLinkActivationEvidence,keyboardProbeEvidence,popoverObservation,fluentInfoLabelKeyboardReference,checks,cases,
     summary:{checks:checks.length,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length,
       screenshots:cases.map(item=>item.screenshot)},
   };

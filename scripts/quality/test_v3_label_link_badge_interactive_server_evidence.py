@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 QUALITY = ROOT / "docs/v3/quality"
 EVIDENCE = QUALITY / "evidence"
 SOURCE_REF = "7165a7671044b9c58b7d0c96cc93bf2b2b97fd52"
-EXPECTED_CHECKS = 25
+EXPECTED_CHECKS = 29
 EXPECTED_SCREENSHOTS = {
     "LIGHT-LTR", "DARK-RTL", "FORCED-COLORS", "REDUCED-MOTION",
 }
@@ -118,6 +118,27 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
                 self.assertEqual("1", popover["outsideClickRoundTrip"]["sentinelBefore"])
                 self.assertEqual("2", popover["outsideClickRoundTrip"]["sentinelAfter"])
 
+                reference = run["fluentInfoLabelKeyboardReference"]
+                self.assertIn("/react-infolabel/library/docs/Spec.md", reference["url"])
+                self.assertIn("components-infolabel", reference["storybook"])
+                self.assertEqual("Fluent React cross-platform fallback; not an assertion of 1:1 Web Components behavior or a pinned-version acceptance", reference["comparisonKind"])
+                observations = reference["observations"]
+                for key in ("Enter", "Space"):
+                    self.assertTrue(observations[key]["opens"], key)
+                    self.assertTrue(observations[key]["focusBeforeActivation"]["isTrigger"], key)
+                    self.assertTrue(observations[key]["focusAfterOpen"]["isTrigger"], key)
+                    self.assertFalse(observations[key]["focusMovedIntoSurfaceOrContent"], key)
+                    self.assertEqual("server-interaction-sentinel", observations[key]["tabFocusAfterOpen"]["id"], key)
+                    self.assertTrue(observations[key]["remainsOpenAfterFocusMoves"], key)
+                    self.assertTrue(observations[key]["escapeFromContent"]["focusBeforeEscape"]["isInsideSurface"], key)
+                    self.assertFalse(observations[key]["escapeFromContent"]["dismissed"], key)
+                comparison = observations["referenceComparison"]
+                self.assertTrue(comparison["enterOpens"])
+                self.assertTrue(comparison["spaceOpens"])
+                self.assertFalse(comparison["enterFocusMovesIntoSurfaceOrContent"])
+                self.assertTrue(comparison["focusDepartureKeepsSurfaceOpen"])
+                self.assertFalse(comparison["escapeFromContentDismisses"])
+
                 names = {item["name"]: item["pass"] for item in run["checks"]}
                 self.assertTrue(names["Label Info trigger click creates a visible Popover surface with the supplied info content"])
                 self.assertTrue(names["Clicking inside the Label Info Popover keeps the surface visible"])
@@ -151,8 +172,8 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
 
     def test_report_updates_pointer_evidence_without_overstating_native_at_or_parity(self):
         self.assertIn("Published Production InteractiveServer follow-up", self.report)
-        self.assertIn("25/25 checks pass", self.report)
-        self.assertIn("50/50 combined", self.report)
+        self.assertIn("29/29 checks pass", self.report)
+        self.assertIn("58/58 combined", self.report)
         self.assertIn("still invokes its supplied OnClick callback", self.report)
         self.assertIn("Label Info Popover lifecycle", self.report)
         self.assertIn("Clicking inside keeps it visible", self.report)
@@ -162,7 +183,11 @@ class LabelLinkBadgeInteractiveServerEvidenceTests(unittest.TestCase):
         self.assertIn("browser AX tree reports the trigger", self.report)
         self.assertIn("focus moves directly to the server-interaction sentinel and skips the disabled Link", self.report)
         self.assertIn("Forced Colors and Reduced Motion above are browser emulation", self.report)
-        self.assertIn("keyboard activation behavior", self.report)
+        self.assertIn("Fluent InfoLabel keyboard-reference crosswalk", self.report)
+        self.assertIn("**Focus remains on the trigger**", self.report)
+        self.assertIn("Escape leaves the surface visible", self.report)
+        self.assertIn("not a 1:1 Web Components contract", self.report)
+        self.assertIn("React InfoLabel Spec", self.report)
         self.assertIn("native screen-reader behavior remains untested", self.report)
         self.assertIn("Pointer/runtime gap and sequential-focus gap reproduced", self.link_report)
         self.assertIn("Enter/Space on the anchor and native AT remain untested", self.link_report)
