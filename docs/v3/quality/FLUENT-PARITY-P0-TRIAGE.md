@@ -47,6 +47,8 @@ The [published Production InteractiveServer + WebAssembly cross-mode FileSelect 
 
 ## Maintainer-approved default policy crosswalk: 2026-10-25 (not remediation evidence)
 
+Machine-readable policy record: [FLUENT-PARITY-P0-DECISIONS.json](FLUENT-PARITY-P0-DECISIONS.json). It is intentionally separate from the seven-observation source snapshot.
+
 The limited P0 behavioral defaults were approved by the maintainer and are recorded in [ADR-0002 P0 contract options](https://github.com/vrassouli/Bluent/blob/v3/issue-420-interaction-primitives/docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md#maintainer-decision-2026-10-25-behavioral-defaults-only). The supplemental editable decision map is in the connected canonical Bluent v3 Penpot file b64f6665-c9ab-80b5-8008-c4ac99d9d000, page ed5216bd-3d5b-8015-8008-cb247e27efb4, board 1d92b6fb-c168-8047-8008-d7d1f38c5d2f. The map is explicitly **REVIEW REQUIRED**; implementer inspection is not maintainer design acceptance.
 
 | Owner | Approved default | Still open / acceptance boundary |

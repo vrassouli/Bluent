@@ -15,6 +15,8 @@ The #552 audit suite's green evidence tests are not defects and are not percenta
 
 ## Approved behavioral baseline from #420 (2026-10-25)
 
+Machine-readable policy record: [FLUENT-PARITY-P0-DECISIONS.json](FLUENT-PARITY-P0-DECISIONS.json). Status values explicitly distinguish approved behavior defaults from implementation and design acceptance.
+
 The limited defaults are recorded in [ADR-0002 P0 contract options](https://github.com/vrassouli/Bluent/blob/v3/issue-420-interaction-primitives/docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md#maintainer-decision-2026-10-25-behavioral-defaults-only). The editable Penpot decision map is board 1d92b6fb-c168-8047-8008-d7d1f38c5d2f in the canonical Bluent v3 file/page and remains review-required. This approval settles only the stated defaults, **not** all details or implementation acceptance. Caller aria-pressed precedence, FileSelect MaxFiles <= 0 and callback/focus edges, Slider RTL, RangeSlider ARIA/keyboard/touch details, and exact Forced Colors token mapping remain open. The #552 source-gap JSON remains unchanged until an owner product source is independently fixed and re-audited. No product implementation is authorized while its issue is Backlog or its design/dependency gates remain open.
 
 ## Actual blocking dependency gates (do not hide or bypass)

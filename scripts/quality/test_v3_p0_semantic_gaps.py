@@ -39,6 +39,33 @@ class P0SemanticGapTests(unittest.TestCase):
         self.assertIn("The FLUENT-PARITY-P0-SEMANTICS.json seven-observation source checkpoint is intentionally unchanged", project)
         self.assertIn("#552 stays In progress and PR #553 Draft", project)
 
+    def test_machine_readable_policy_record_separates_defaults_from_acceptance(self):
+        import json
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[2]
+        record = json.loads((root/"docs/v3/quality/FLUENT-PARITY-P0-DECISIONS.json").read_text(encoding="utf-8-sig"))
+        self.assertEqual(1, record["schemaVersion"])
+        self.assertEqual("maintainer_approved_behavior_defaults", record["recordType"])
+        self.assertEqual("a05b9c3be54e6c5403c4dd87eb5383ac63bb133f", record["sourceDecision"]["commit"])
+        self.assertFalse(record["decisionBoundary"]["productImplementationAuthorizedByThisRecord"])
+        self.assertFalse(record["decisionBoundary"]["fluentParityAcceptance"])
+        self.assertEqual("review_required", record["penpotReviewMap"]["status"])
+        self.assertFalse(record["penpotReviewMap"]["maintainerVisualApproval"])
+        self.assertFalse(record["sourceGapCheckpoint"]["modifiedByThisDecision"])
+        self.assertEqual("observed_source_gaps_only", record["sourceGapCheckpoint"]["status"])
+        self.assertEqual(7, record["sourceGapCheckpoint"]["observedGapCount"])
+        decisions = {item["ownerIssue"]: item for item in record["decisions"]}
+        self.assertEqual({418, 428, 442, 443, 444}, set(decisions))
+        self.assertEqual("approved_behavioral_default_not_implementation", decisions[428]["status"])
+        self.assertIn("Toggled.HasValue", decisions[428]["approvedDefault"])
+        self.assertIn("reject the entire new picker batch", decisions[444]["approvedDefault"])
+        self.assertIn("ClientX", decisions[442]["approvedDefault"])
+        self.assertIn("non-crossing endpoints", decisions[443]["approvedDefault"])
+        self.assertEqual("approved_direction_only_not_token_approval", decisions[418]["status"])
+        for item in record["decisions"]:
+            self.assertTrue(item["openDetails"])
+            self.assertFalse(item["status"] in {"implemented", "accepted", "fluent_approved"})
+
     def test_seven_source_observations_are_present(self):
         self.assertEqual(7, len(self.expected["checks"]))
         self.assertTrue(all(c["observedSourceGap"] for c in self.expected["checks"]))
