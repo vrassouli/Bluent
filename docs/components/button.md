@@ -88,7 +88,7 @@ Button has no built-in localized action text; the application supplies `Text` an
 
 ## Accessibility and keyboard interaction
 
-The simple action renders a native `<button type="button">` unless `Href` is non-empty, in which case it renders an `<a>` when enabled. Native button/link keyboard semantics therefore apply to the simple form. Icon-only buttons need an application-provided accessible name such as `aria-label` or meaningful tooltip/text context. Component-specific assistive-technology verification is not recorded.
+The simple action renders a native `<button type="button">` unless `Href` is non-empty, in which case it renders an `<a>` when enabled. When `Toggled` has a value, the native button exposes that current state through one component-owned `aria-pressed="true|false"`; this value overrides a conflicting caller-supplied `aria-pressed` attribute case-insensitively. When `Toggled` is `null`, the component does not generate toggle state and a caller-provided `aria-pressed` is preserved. Link mode does not generate `aria-pressed`, even if `Toggled` is set. Native button/link keyboard semantics apply to the simple form. Icon-only buttons need an application-provided accessible name such as `aria-label` or meaningful tooltip/text context. Chrome and Edge browser tests now cover the toggle semantics on published Production InteractiveServer and InteractiveWebAssembly; native Windows contrast-theme and screen-reader acceptance remain unverified.
 
 ## Hosting and render modes
 
@@ -96,9 +96,9 @@ See [Hosting models and render modes](../compatibility/hosting-and-render-modes.
 
 | Render mode | Status | Notes |
 | --- | --- | --- |
-| Standalone WebAssembly | Unverified | Showcase compiles; no Button-specific browser evidence recorded here. |
-| Interactive Server | Unverified | Interactive actions require an interactive mode; no Button-specific run recorded here. |
-| Interactive WebAssembly | Unverified | No Button-specific run recorded here. |
+| Standalone WebAssembly | Partially verified | Existing live Button browser probe passed 23/23 checks in Chrome and Edge; this is not full component parity. |
+| Interactive Server | Toggle semantics verified | Published Production route: 19/19 checks each in Chrome and Edge; callbacks and computed accessibility-tree state included. |
+| Interactive WebAssembly | Toggle semantics verified | Published Production route: 19/19 checks each in Chrome and Edge; confirms actual WebAssembly rendering. |
 | Interactive Auto | Unverified | No Button-specific run recorded here. |
 | Static SSR | Limited | Initial simple markup can render, but callbacks, toggle behavior, dropdowns, and tooltips require interactivity. |
 
@@ -123,7 +123,7 @@ Add an appropriate `aria-label`, visible text, or other accessible naming contex
 ## Known limitations
 
 - There is no generic `ChildContent` slot.
-- Button-specific browser, keyboard, RTL, and assistive-technology verification is not recorded by this page.
+- Full Button/Fluent visual and behavioral parity remains open; native Windows Contrast Themes and Narrator/NVDA/JAWS acceptance are not recorded. Complete Button-specific RTL visual parity and the full demo matrix remain open.
 - Dropdown/split behavior depends on the shared popover infrastructure.
 
 ## Related components
@@ -139,5 +139,6 @@ Add an appropriate `aria-label`, visible text, or other accessible naming contex
 - Public enums: `src/Bluent.UI/Components/ButtonComponent/`
 - Base tooltip behavior: `src/Bluent.UI/Components/BluentUiComponentBase.cs`
 - Compiled showcase: `src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor`
-- Source verified against PR branch base commit `73e5de61133ec7037934f232addf5ddbf646e766`
-- Verification date: 2026-08-29
+- Source rechecked on 2026-10-26 against the current Button markup, code-behind, inherited component API, and published browser evidence.
+- Verification date: 2026-10-26
+- Published interactive toggle evidence: [Button toggle semantic slice](../v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md), with the reproducible [Production render-mode probe](../../scripts/quality/probe_v3_button_toggle_interactive_server.mjs).
