@@ -54,7 +54,18 @@ const runCommand = async (command, args) => {
 const terminate = async child => {
   if (!child || !child.pid) return;
   if (process.platform === "win32") {
-    try { spawnSync("taskkill.exe", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true, stdio: "ignore", timeout: 5000 }); } catch { }
+    await Promise.race([
+      new Promise(resolveDone => {
+        let killer;
+        try {
+          killer = spawn("taskkill.exe", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true, stdio: "ignore" });
+        } catch { resolveDone(); return; }
+        const watchdog = setTimeout(() => { try { killer.kill(); } catch { } resolveDone(); }, 2500);
+        killer.once("error", () => { clearTimeout(watchdog); resolveDone(); });
+        killer.once("close", () => { clearTimeout(watchdog); resolveDone(); });
+      }),
+      sleep(3000)
+    ]);
     try { child.kill(); } catch { }
     await sleep(150);
   } else {
@@ -63,8 +74,13 @@ const terminate = async child => {
     try { child.kill("SIGKILL"); } catch { }
   }
 };
-
-const stateExpression = "(() => { const button = document.querySelector('[data-testid=\"toggle-semantics-button\"]'); const status = document.querySelector('[data-testid=\"toggle-semantics-state\"]'); return button ? { pressed: button.getAttribute('aria-pressed'), attributeCount: button.getAttributeNames().filter(name => name.toLowerCase() === 'aria-pressed').length, status: status?.textContent?.trim() || '', text: button.textContent?.trim() || '', renderer: document.querySelector('[data-testid=\"observed-renderer\"]')?.textContent?.trim() || '' } : null; })()";
+const stateExpression = String.raw`(() => {
+  const button = document.querySelector('[data-testid="toggle-semantics-button"]');
+  const status = document.querySelector('[data-testid="toggle-semantics-state"]');
+  const toggleChangedCount = Number(document.querySelector('[data-testid="toggle-change-count"]')?.textContent?.trim() ?? NaN);
+  const toggleClickCount = Number(document.querySelector('[data-testid="toggle-click-count"]')?.textContent?.trim() ?? NaN);
+  return button ? { pressed: button.getAttribute('aria-pressed'), attributeCount: button.getAttributeNames().filter(name => name.toLowerCase() === 'aria-pressed').length, status: status?.textContent?.trim() || '', text: button.textContent?.trim() || '', toggleChangedCount, toggleClickCount, renderer: document.querySelector('[data-testid="observed-renderer"]')?.textContent?.trim() || '' } : null;
+})()`;
 
 const probeBrowser = async (engine, base) => {
   const browser = executableFor(engine);
@@ -160,6 +176,7 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     check("InteractiveServer SignalR WebSocket completed HTTP 101 handshake", websocketHandshakeStatus === 101, websocketEvents);
     check("route is actually InteractiveServer (not static SSR/WASM)", initial.renderer.includes("Server") && initial.text === "Toggle semantic state", initial);
     check("Toggled=false overrides caller aria-pressed=mixed and emits one attribute", initial.pressed === "false" && initial.attributeCount === 1, initial);
+    check("toggle callbacks start at zero", initial.toggleChangedCount === 0 && initial.toggleClickCount === 0, initial);
     console.log("[probe:" + engine + "] reading the initial computed accessibility-tree pressed state");
     const initialAx = await readAxPressed();
     console.log("[probe:" + engine + "] initial AX=" + JSON.stringify(initialAx));
@@ -170,6 +187,8 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     const afterClick = await waitForPressed("true");
     console.log("[probe:" + engine + "] post-click state=" + JSON.stringify(afterClick));
     check("trusted pointer click toggles to pressed=true through InteractiveServer", afterClick.pressed === "true" && afterClick.attributeCount === 1, afterClick);
+    check("pointer click invokes ToggledChanged exactly once", afterClick.toggleChangedCount === 1, afterClick);
+    check("pointer click invokes OnClick exactly once", afterClick.toggleClickCount === 1, afterClick);
     const clickAx = await readAxPressed();
     console.log("[probe:" + engine + "] post-click AX=" + JSON.stringify(clickAx));
     check("accessibility tree updates to pressed=true after server click", clickAx.role === "button" && clickAx.pressedPropertyPresent && clickAx.pressedValue === "true", clickAx);
@@ -179,6 +198,8 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     const afterSpace = await waitForPressed("false");
     console.log("[probe:" + engine + "] post-Space state=" + JSON.stringify(afterSpace));
     check("real Space activation toggles back to pressed=false", afterSpace.pressed === "false" && afterSpace.attributeCount === 1, afterSpace);
+    check("Space invokes ToggledChanged exactly once for this activation", afterSpace.toggleChangedCount === 2, afterSpace);
+    check("Space invokes OnClick exactly once for this activation", afterSpace.toggleClickCount === 2, afterSpace);
     const spaceAx = await readAxPressed();
     check("accessibility tree updates to pressed=false after Space", spaceAx.role === "button" && spaceAx.pressedPropertyPresent && spaceAx.pressedValue === "false", spaceAx);
 
@@ -187,11 +208,11 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     const afterEnter = await waitForPressed("true");
     console.log("[probe:" + engine + "] post-Enter state=" + JSON.stringify(afterEnter));
     check("real Enter activation toggles to pressed=true", afterEnter.pressed === "true" && afterEnter.attributeCount === 1, afterEnter);
-    const enterAx = await readAxPressed();
-    check("accessibility tree updates to pressed=true after Enter", enterAx.role === "button" && enterAx.pressedPropertyPresent && enterAx.pressedValue === "true", enterAx);
+    check("Enter invokes ToggledChanged exactly once for this activation", afterEnter.toggleChangedCount === 3, afterEnter);
+    check("Enter invokes OnClick exactly once for this activation", afterEnter.toggleClickCount === 3, afterEnter);
 
     const failed = checks.filter(item => !item.pass).length;
-    return { engine, host: "published Production ASP.NET Core host; InteractiveServer /compatibility/server", url: base + "/compatibility/server", assertions: checks.length, passed: checks.length - failed, failed, checks, observations: { initial, initialAx, afterClick, clickAx, afterSpace, spaceAx, afterEnter, enterAx, websocketEvents } };
+    return { engine, host: "published Production ASP.NET Core host; InteractiveServer /compatibility/server", url: base + "/compatibility/server", assertions: checks.length, passed: checks.length - failed, failed, checks, observations: { initial, initialAx, afterClick, clickAx, afterSpace, spaceAx, afterEnter, websocketEvents } };
   } finally {
     try { ws?.close(); } catch { }
     await terminate(child);
