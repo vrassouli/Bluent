@@ -74,6 +74,17 @@ const terminate = async child => {
     try { child.kill("SIGKILL"); } catch { }
   }
 };
+const terminateProcessesUsingPath = async (path, processNames) => {
+  if (process.platform !== "win32") return;
+  const quote = value => "\u0027" + String(value).replace(/\u0027/g, "\u0027\u0027") + "\u0027";
+  const names = processNames.map(quote).join(",");
+  const script = `$needle=${quote(path)}; $names=@(${names}); Get-CimInstance Win32_Process | Where-Object { $_.Name -in $names -and $_.CommandLine -and $_.CommandLine.Contains($needle) } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`;
+  let cleaner;
+  try { cleaner = spawn("powershell.exe", ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", script], { windowsHide: true, stdio: "ignore" }); } catch { return; }
+  await Promise.race([new Promise(resolveDone => { cleaner.once("error", resolveDone); cleaner.once("close", resolveDone); }), sleep(5000)]);
+  try { cleaner.kill(); } catch { }
+};
+
 const stateExpression = String.raw`(() => {
   const button = document.querySelector('[data-testid="toggle-semantics-button"]');
   const status = document.querySelector('[data-testid="toggle-semantics-state"]');
@@ -82,7 +93,27 @@ const stateExpression = String.raw`(() => {
   return button ? { pressed: button.getAttribute('aria-pressed'), attributeCount: button.getAttributeNames().filter(name => name.toLowerCase() === 'aria-pressed').length, status: status?.textContent?.trim() || '', text: button.textContent?.trim() || '', toggleChangedCount, toggleClickCount, renderer: document.querySelector('[data-testid="observed-renderer"]')?.textContent?.trim() || '' } : null;
 })()`;
 
-const probeBrowser = async (engine, base) => {
+const secondaryCasesExpression = String.raw`(() => {
+  const read = selector => {
+    const element = document.querySelector(selector);
+    return element ? {
+      tagName: element.tagName,
+      href: element.getAttribute("href"),
+      pressed: element.getAttribute("aria-pressed"),
+      attributeCount: element.getAttributeNames().filter(name => name.toLowerCase() === "aria-pressed").length,
+      disabled: element.matches(":disabled")
+    } : null;
+  };
+  return {
+    ordinary: read('[data-testid="toggle-semantics-ordinary-button"]'),
+    link: read('[data-testid="toggle-semantics-link-button"]'),
+    disabled: read('[data-testid="toggle-semantics-disabled-button"]')
+  };
+})()`;
+
+const probeBrowser = async (engine, base, route) => {
+  const routePath = route === "server" ? "/compatibility/server" : "/compatibility/webassembly";
+  const modeLabel = route === "server" ? "Server" : "WebAssembly";
   const browser = executableFor(engine);
   await access(browser);
   const profile = await mkdtemp(join(tmpdir(), "bluent-v3-toggle-cdp-" + engine + "-"));
@@ -162,21 +193,29 @@ console.log("[probe:" + engine + "] DevTools port=" + debugPort);
     await send("Runtime.enable");
     await send("Network.enable");
     await send("Accessibility.enable");
-console.log("[probe:" + engine + "] CDP domains ready; navigating to compatibility/server");
-    await send("Page.navigate", { url: base + "/compatibility/server" });
+    console.log("[probe:" + engine + "] CDP domains ready; navigating to " + routePath);
+    await send("Page.navigate", { url: base + routePath });
 console.log("[probe:" + engine + "] waiting for initial rendered toggle state");
 
     const initial = await poll(async () => {
       const current = await evaluate(stateExpression);
-      return current && current.renderer.includes("Server") && current.pressed !== null ? current : null;
-    }, 60000, engine + " published InteractiveServer route");
+      return current && current.renderer.includes(modeLabel) && current.pressed !== null ? current : null;
+    }, 60000, engine + " published " + route + " route");
 console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
+    if (route === "server") {
     await poll(async () => websocketHandshakeStatus === 101, 25000, engine + " SignalR WebSocket handshake (HTTP 101)");
     console.log("[probe:" + engine + "] SignalR WebSocket HTTP 101 confirmed: " + JSON.stringify(websocketEvents));
     check("InteractiveServer SignalR WebSocket completed HTTP 101 handshake", websocketHandshakeStatus === 101, websocketEvents);
-    check("route is actually InteractiveServer (not static SSR/WASM)", initial.renderer.includes("Server") && initial.text === "Toggle semantic state", initial);
+    } else {
+      check("InteractiveWebAssembly route uses the client renderer without a SignalR handshake", initial.renderer.includes("WebAssembly") && websocketHandshakeStatus !== 101, { renderer: initial.renderer, websocketEvents });
+    }
+    check("route uses the expected interactive renderer", initial.renderer.includes(modeLabel) && initial.text === "Toggle semantic state", initial);
     check("Toggled=false overrides caller aria-pressed=mixed and emits one attribute", initial.pressed === "false" && initial.attributeCount === 1, initial);
     check("toggle callbacks start at zero", initial.toggleChangedCount === 0 && initial.toggleClickCount === 0, initial);
+    const semanticCases = await evaluate(secondaryCasesExpression);
+    check("ordinary Button without Toggled preserves caller aria-pressed=mixed", semanticCases.ordinary?.tagName === "BUTTON" && semanticCases.ordinary.pressed === "mixed" && semanticCases.ordinary.attributeCount === 1, semanticCases.ordinary);
+    check("navigation anchor with Toggled=true receives no generated aria-pressed", semanticCases.link?.tagName === "A" && semanticCases.link.href === "/compatibility/static" && semanticCases.link.pressed === null, semanticCases.link);
+    check("disabled toggle Button remains disabled with authoritative pressed=false", semanticCases.disabled?.tagName === "BUTTON" && semanticCases.disabled.disabled && semanticCases.disabled.pressed === "false" && semanticCases.disabled.attributeCount === 1, semanticCases.disabled);
     console.log("[probe:" + engine + "] reading the initial computed accessibility-tree pressed state");
     const initialAx = await readAxPressed();
     console.log("[probe:" + engine + "] initial AX=" + JSON.stringify(initialAx));
@@ -212,10 +251,11 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     check("Enter invokes OnClick exactly once for this activation", afterEnter.toggleClickCount === 3, afterEnter);
 
     const failed = checks.filter(item => !item.pass).length;
-    return { engine, host: "published Production ASP.NET Core host; InteractiveServer /compatibility/server", url: base + "/compatibility/server", assertions: checks.length, passed: checks.length - failed, failed, checks, observations: { initial, initialAx, afterClick, clickAx, afterSpace, spaceAx, afterEnter, websocketEvents } };
+    return { engine, mode: route, host: "published Production ASP.NET Core host; " + (route === "server" ? "InteractiveServer " : "InteractiveWebAssembly ") + routePath, url: base + routePath, assertions: checks.length, passed: checks.length - failed, failed, checks, observations: { initial, initialAx, semanticCases, afterClick, clickAx, afterSpace, spaceAx, afterEnter, websocketEvents } };
   } finally {
     try { ws?.close(); } catch { }
     await terminate(child);
+    await terminateProcessesUsingPath(profile, ["chrome.exe", "msedge.exe"]);
     await sleep(200);
     await rm(profile, { recursive: true, force: true, maxRetries: 6, retryDelay: 250 }).catch(() => {});
   }
@@ -241,14 +281,16 @@ try {
 
   const engines = requested === "both" ? ["chrome", "edge"] : [requested];
   const results = [];
-  for (const engine of engines) {
-    try { results.push(await probeBrowser(engine, base)); }
-    catch (error) {
-      console.error("[probe:" + engine + "] FAILED: " + (error?.stack || error));
-      results.push({ engine, assertions: 0, passed: 0, failed: 1, error: error?.stack || String(error), checks: [] });
+  for (const route of ["server", "webassembly"]) {
+    for (const engine of engines) {
+      try { results.push(await probeBrowser(engine, base, route)); }
+      catch (error) {
+        console.error("[probe:" + engine + "/" + route + "] FAILED: " + (error?.stack || error));
+        results.push({ engine, mode: route, assertions: 0, passed: 0, failed: 1, error: error?.stack || String(error), checks: [] });
+      }
     }
   }
-  const summary = { classification: "Published Production InteractiveServer; trusted browser pointer/keyboard events and computed accessibility-tree pressed state", base, results, assertions: results.reduce((sum, item) => sum + item.assertions, 0), passed: results.reduce((sum, item) => sum + item.passed, 0), failed: results.reduce((sum, item) => sum + item.failed, 0) };
+  const summary = { classification: "Published Production ASP.NET Core host; InteractiveServer and InteractiveWebAssembly; trusted browser pointer/keyboard events and computed accessibility-tree pressed state", base, results, assertions: results.reduce((sum, item) => sum + item.assertions, 0), passed: results.reduce((sum, item) => sum + item.passed, 0), failed: results.reduce((sum, item) => sum + item.failed, 0) };
   console.log(JSON.stringify(summary, null, 2));
   if (summary.failed) process.exitCode = 1;
 } catch (error) {
@@ -256,5 +298,6 @@ try {
   process.exitCode = 1;
 } finally {
   if (host) await terminate(host);
+  if (host) await terminateProcessesUsingPath(publishDir, ["dotnet.exe"]);
   await rm(output, { recursive: true, force: true, maxRetries: 6, retryDelay: 300 }).catch(error => console.error("Temporary publish cleanup failed: " + error.message));
 }

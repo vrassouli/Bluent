@@ -23,6 +23,9 @@
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <Button Text="Increment" OnClick="Increment" Appearance="ButtonAppearance.Primary" />
         <Button Text="Toggle semantic state" Toggled="@_toggleValue" ToggledChanged="OnToggleChanged" OnClick="OnToggleClick" aria-pressed="mixed" data-testid="toggle-semantics-button" />
+        <Button Text="Ordinary button custom state" aria-pressed="mixed" data-testid="toggle-semantics-ordinary-button" />
+        <Button Text="Link toggle state" Href="/compatibility/static" Toggled="true" data-testid="toggle-semantics-link-button" />
+        <Button Text="Disabled toggle false" Toggled="false" disabled="true" aria-pressed="mixed" data-testid="toggle-semantics-disabled-button" />
         <Button Text="Show toast" OnClick="ShowToast" />
         <Button Text="Show dialog" OnClick="ShowDialog" />
         <Button Text="Open drawer" OnClick="ShowDrawer" data-testid="drawer-trigger" />
