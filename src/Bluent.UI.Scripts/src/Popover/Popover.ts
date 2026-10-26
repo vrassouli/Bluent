@@ -6,9 +6,13 @@ export class Popover {
     private _triggerResizeObserver: ResizeObserver;
     private _surfaceResizeObserver: ResizeObserver;
     private _cleanupAutoUpdate: (() => void) | null;
+    private _activePopovers = new Map<string, PopoverSettings>();
+    private _documentClickHandlers = new Map<string, (event: MouseEvent) => void>();
+    private _documentKeyDownHandler: (event: KeyboardEvent) => void;
 
     constructor(dotNetRef: any) {
         this._dotNetRef = dotNetRef;
+        this._documentKeyDownHandler = this.onDocumentKeyDown.bind(this);
     }
 
     setPopover(settings: PopoverSettings) {
@@ -64,7 +68,9 @@ export class Popover {
 
         if (!surface.classList.contains('show'))
             surface.classList.add('show');
-        document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
+        this._activePopovers.set(settings.triggerId, settings);
+        document.addEventListener('keydown', this._documentKeyDownHandler);
+        this.registerDocumentClickHandler(settings);
 
         // Register automatic updates on scroll/resize/mutations for correct positioning
         const trigger = this.getTrigger(settings) as HTMLElement;
@@ -130,6 +136,7 @@ export class Popover {
                 mutationList.forEach(item => {
                     item.removedNodes.forEach(removedNode => {
                         if (removedNode == surface) {
+                            this.deactivatePopover(settings.triggerId);
                             // window.removeEventListener('scroll', this._scrollEventHandler);
 
                             this._surfaceResizeObserver.disconnect();
@@ -141,37 +148,64 @@ export class Popover {
         }
     }
 
-    private onDocumentClicked(settings: PopoverSettings, args: PointerEvent) {
-        var trigger = this.getTrigger(settings);
-        var surface = this.getSurface(settings);
+    private onDocumentClicked(settings: PopoverSettings, args: MouseEvent) {
+        const trigger = <HTMLElement>this.getTrigger(settings);
+        const surface = <HTMLElement>this.getSurface(settings);
 
-        if (trigger && surface) {
-            if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target) || args.defaultPrevented) {
-                document.addEventListener('click', this.onDocumentClicked.bind(this, settings), { once: true });
-            }
-            else {
-                this.hideSurface(settings);
-            }
+        if (!trigger || !surface || !surface.classList.contains('show')) {
+            this.deactivatePopover(settings.triggerId);
+            return;
         }
+
+        if (trigger.contains(<Node>args.target) || surface.contains(<Node>args.target) || args.defaultPrevented)
+            this.registerDocumentClickHandler(settings);
+        else
+            this.hideSurface(settings);
     }
 
     // private onDocumentScroll(settings: PopoverSettings) {
     //     this.updatePosition(settings);
     // }
 
-    private hideSurface(settings: PopoverSettings) {
+    private hideSurface(settings: PopoverSettings, restoreFocus = false) {
         const surface = <HTMLElement>this.getSurface(settings);
-        if (surface) {
-            surface.addEventListener("transitionend", (event) => {
-                this.doHideSurface(settings, surface);
-            }, { once: true });
+        this.deactivatePopover(settings.triggerId);
 
-            if (surface.classList.contains('show'))
-                surface.classList.remove('show');
-            else
+        if (restoreFocus)
+            this.restoreFocus(settings);
+
+        if (surface) {
+            if (!surface.classList.contains('show')) {
                 this.doHideSurface(settings, surface);
-        }
-        else {
+                return;
+            }
+
+            let finished = false;
+            let fallbackTimer: number | undefined;
+            let transitionHandler = (_event: TransitionEvent) => { };
+            const finish = (event?: TransitionEvent) => {
+                if (event && event.target !== surface)
+                    return;
+                if (finished)
+                    return;
+                finished = true;
+                surface.removeEventListener('transitionend', transitionHandler);
+                if (fallbackTimer !== undefined)
+                    window.clearTimeout(fallbackTimer);
+
+                if (!surface.classList.contains('show'))
+                    this.doHideSurface(settings, surface);
+            };
+            transitionHandler = (event: TransitionEvent) => finish(event);
+            surface.addEventListener('transitionend', transitionHandler);
+            surface.classList.remove('show');
+
+            const duration = this.getTransitionDurationMs(surface);
+            if (duration <= 0)
+                finish();
+            else
+                fallbackTimer = window.setTimeout(() => finish(), duration + 50);
+        } else {
             this.doHideSurface(settings, surface);
         }
     }
@@ -190,6 +224,87 @@ export class Popover {
             this._cleanupAutoUpdate();
             this._cleanupAutoUpdate = null;
         }
+    }
+
+    private onDocumentKeyDown(args: KeyboardEvent) {
+        if (args.key !== 'Escape')
+            return;
+
+        const activeElement = document.activeElement;
+        const candidates = Array.from(this._activePopovers.values()).reverse();
+        let target: PopoverSettings | null = null;
+
+        for (const settings of candidates) {
+            const surface = <HTMLElement>this.getSurface(settings);
+            if (!surface || !surface.classList.contains('show')) {
+                this.deactivatePopover(settings.triggerId);
+                continue;
+            }
+
+            const trigger = <HTMLElement>this.getTrigger(settings);
+            if (activeElement && ((trigger && (trigger === activeElement || trigger.contains(activeElement))) || surface.contains(activeElement))) {
+                target = settings;
+                break;
+            }
+        }
+
+        if (!target) {
+            target = Array.from(this._activePopovers.values()).reverse().find(settings => {
+                const surface = <HTMLElement>this.getSurface(settings);
+                return !!surface && surface.classList.contains('show');
+            }) ?? null;
+        }
+
+        if (!target)
+            return;
+
+        args.preventDefault();
+        args.stopPropagation();
+        this.hideSurface(target, true);
+    }
+
+    private registerDocumentClickHandler(settings: PopoverSettings) {
+        this.removeDocumentClickHandler(settings.triggerId);
+        const handler = (event: MouseEvent) => this.onDocumentClicked(settings, event);
+        this._documentClickHandlers.set(settings.triggerId, handler);
+        document.addEventListener('click', handler, { once: true });
+    }
+
+    private removeDocumentClickHandler(triggerId: string) {
+        const handler = this._documentClickHandlers.get(triggerId);
+        if (handler)
+            document.removeEventListener('click', handler);
+        this._documentClickHandlers.delete(triggerId);
+    }
+
+    private deactivatePopover(triggerId: string) {
+        this._activePopovers.delete(triggerId);
+        this.removeDocumentClickHandler(triggerId);
+        if (this._activePopovers.size === 0)
+            document.removeEventListener('keydown', this._documentKeyDownHandler);
+    }
+
+    private restoreFocus(settings: PopoverSettings) {
+        const trigger = <HTMLElement>this.getTrigger(settings);
+        if (!trigger || !trigger.isConnected || (trigger as HTMLButtonElement).disabled === true)
+            return;
+
+        trigger.focus({ preventScroll: true });
+    }
+
+    private getTransitionDurationMs(element: HTMLElement): number {
+        const style = window.getComputedStyle(element);
+        const toMilliseconds = (value: string) => value.split(',').map(part => {
+            const trimmed = part.trim();
+            const parsed = Number.parseFloat(trimmed);
+            if (!Number.isFinite(parsed))
+                return 0;
+            return trimmed.endsWith('ms') ? parsed : parsed * 1000;
+        });
+
+        const durations = toMilliseconds(style.transitionDuration);
+        const delays = toMilliseconds(style.transitionDelay);
+        return Math.max(0, ...durations.map((duration, index) => duration + (delays[index % delays.length] ?? 0)));
     }
 
     private getTrigger(settings: PopoverSettings) {

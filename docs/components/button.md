@@ -28,7 +28,7 @@ Follow [Getting Started](../getting-started/index.md) for `AddBluentUI()` and pa
         OnClick="SaveAsync" />
 ```
 
-The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe currently passes 92/92 assertions in both Chrome and Edge; native Windows contrast themes, screen-reader acceptance, and keyboard Escape dismissal/focus restoration remain open.
+The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe currently passes 97/97 assertions in both Chrome and Edge; keyboard Escape dismissal and focus restoration to the trigger are verified in Chrome and Edge. Native Windows contrast themes, screen-reader acceptance, and the remaining Button API/visual matrix remain open.
 
 ## Parameters
 
@@ -110,7 +110,7 @@ The compiled [Button showcase](../../src/Bluent.UI.Demo.Pages/Pages/Components/B
         }
     }
 
-The outer Badge element supplies the Button named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The live browser probe covers all twelve DropdownPlacement values: each menu opens, its physical side and logical Start/End alignment are checked, Copy selection closes the panel, and outside-click dismissal waits for the transition. If the requested side has less room than the popover requires, the probe accepts an opposite-side collision flip only when available space is insufficient and alignment remains correct. Keyboard Escape dismissal/focus restoration, the remaining Button API/visual matrix, native Windows contrast modes and assistive-technology acceptance remain open.
+The outer Badge element supplies the Button named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The live browser probe covers all twelve DropdownPlacement values: each menu opens, its physical side and logical Start/End alignment are checked, Copy selection closes the panel, and outside-click dismissal waits for the transition. If the requested side has less room than the popover requires, the probe accepts an opposite-side collision flip only when available space is insufficient and alignment remains correct. Escape dismissal and trigger-focus restoration are covered by the live Chrome/Edge probe; the remaining Button API/visual matrix, native Windows contrast modes and assistive-technology acceptance remain open.
 
 | BadgeHorizontalPosition | BadgeVerticalPosition | Live browser case |
 | --- | --- | --- |

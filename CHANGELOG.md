@@ -17,6 +17,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 ### Changed
 
 - [Bluent.UI, v3 development] Toggle Buttons with a populated Toggled value expose the current boolean state using aria-pressed. This is an additive accessibility/DOM change with no new public parameter; the isolated v3 PR and its migration/evidence notes are not a change to released 2.x packages.
+- [Bluent.UI, v3 development] Popovers now dismiss on Escape and restore focus to their trigger after keyboard dismissal. Active document click/key listeners are cleaned up when the surface closes; this remains unshipped v3 work and does not change released 2.x packages.
 - **Breaking:** [Bluent.UI, v3 development] Disabled Buttons that also specify `Href` render as native disabled buttons without `href`, and disabled click handling no longer invokes `ToggledChanged` or `OnClick`. DOM consumers must account for the anchor-to-button change. See [M14 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md). This change is unshipped v3 work; released 2.x packages are untouched.
 
 ### Deprecated

@@ -264,6 +264,21 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     const outsideClosed = await waitDropdownState(outsideTrigger.id, false);
     assert("Clicking outside an open dropdown dismisses its popover", !!headingPoint && !!outsideClosed?.hidden, {headingPoint,outsideClosed});
   }
+  const escapeTrigger = await inspectDropdownTrigger("Menu above");
+  assert("Escape dropdown trigger is available", !!escapeTrigger?.id, escapeTrigger);
+  if (escapeTrigger?.id) {
+    await send("Input.dispatchMouseEvent", {type:"mousePressed",x:escapeTrigger.x,y:escapeTrigger.y,button:"left",clickCount:1});
+    await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:escapeTrigger.x,y:escapeTrigger.y,button:"left",clickCount:1});
+    const escapeOpened = await waitDropdownState(escapeTrigger.id, true);
+    assert("Dropdown opens before Escape/focus test", !!escapeOpened?.visible, escapeOpened);
+    const focusedItem = await run("(()=>{const surface=document.getElementById(" + JSON.stringify(escapeTrigger.id + "_surface") + ");const item=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null;if(!surface||!item)return {surfaceFound:!!surface,itemFound:!!item,focused:false};item.setAttribute('tabindex','-1');item.focus();return {surfaceFound:true,itemFound:true,focused:surface.contains(document.activeElement),activeText:document.activeElement?.textContent?.trim()??''};})()");
+    assert("Focus is moved into the open dropdown before pressing Escape", focusedItem.surfaceFound && focusedItem.itemFound && focusedItem.focused && focusedItem.activeText.includes("Copy"), focusedItem);
+    await key("Escape","Escape",27);
+    const escapeClosed = await waitDropdownState(escapeTrigger.id, false);
+    assert("Escape closes the open dropdown", !!escapeClosed?.hidden, escapeClosed);
+    const escapeFocus = await run("(()=>{const trigger=document.getElementById(" + JSON.stringify(escapeTrigger.id) + "),surface=document.getElementById(" + JSON.stringify(escapeTrigger.id + "_surface") + ");return {triggerFound:!!trigger,triggerFocused:!!trigger&&document.activeElement===trigger,activeTag:document.activeElement?.tagName??null,activeText:document.activeElement?.textContent?.trim()??'',hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&surface.classList.contains('show')};})()");
+    assert("Escape restores focus to the dropdown trigger", escapeFocus.triggerFound && escapeFocus.triggerFocused && escapeFocus.hidden && !escapeFocus.visible, escapeFocus);
+  }
   const iconOnlySections = await run("(()=>{return [\"Icon\",\"Size\",\"Button Group\"].map(name=>{const h=[...document.querySelectorAll(\"h5\")].find(x=>x.textContent.trim()===name);const bs=[...h.parentElement.querySelectorAll(\"button.icon\")];return {name,count:bs.length,labels:bs.map(b=>b.getAttribute(\"aria-label\"))};});})()");
   assert("icon-only Button demos provide accessible names", iconOnlySections.every(section=>section.count>0 && section.labels.every(label=>!!label?.trim())), iconOnlySections);
   const shapeExamples = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Shapes\");const bs=[...h?.parentElement?.querySelectorAll(\"button\")||[]];return {count:bs.length,items:bs.map(b=>({text:b.textContent.trim(),classes:b.className,radius:getComputedStyle(b).borderTopLeftRadius,tag:b.tagName}))};})()");
