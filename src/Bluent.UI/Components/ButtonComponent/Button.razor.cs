@@ -80,6 +80,17 @@ public partial class Button
         base.OnAfterRender(firstRender);
     }
 
+    private IEnumerable<KeyValuePair<string, object>>? GetButtonAdditionalAttributes()
+    {
+        if (!Toggled.HasValue || IsLink || AdditionalAttributes is null)
+            return AdditionalAttributes;
+
+        // Toggled is the component state contract. Remove a conflicting caller state
+        // only when the component can emit its own authoritative aria-pressed value.
+        return AdditionalAttributes.Where(attribute =>
+            !string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase));
+    }
+
     private string GetButtonTag()
     {
         if (IsLink)

@@ -8,12 +8,14 @@
         __builder.AddAttribute(1, "href", Href);
     else
         __builder.AddAttribute(2, "type", "button");
-    __builder.AddMultipleAttributes(3, AdditionalAttributes);
+    __builder.AddMultipleAttributes(3, GetButtonAdditionalAttributes());
     __builder.AddAttribute(4, "id", Id);
     __builder.AddAttribute(5, "class", GetComponentClass());
     __builder.AddAttribute(6, "style", Style);
     __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    __builder.OpenRegion(8);
+    if (Toggled.HasValue && !IsLink)
+        __builder.AddAttribute(8, "aria-pressed", Toggled.Value ? "true" : "false");
+    __builder.OpenRegion(9);
 
     @if (Icon.HasValue)
     {

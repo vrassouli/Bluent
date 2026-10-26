@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Bluent v3 #501: real existing Button demo/CDP keyboard & focus-visible research.
+ * Bluent v3 #428/#501: real existing Button toggle semantics and focus-visible research.
  * Optional, browser-injected preview styles ONLY; no production styles or APIs.
  * Usage: node scripts/quality/probe_v3_button_focus_runtime.mjs [http://127.0.0.1:5080]
  */
@@ -22,6 +22,17 @@ const send=(method,params={})=>new Promise((resolve,reject)=>{
  ws.send(JSON.stringify({id:task,method,params}));
 });
 const run=async js=>{const r=await send('Runtime.evaluate',{expression:js,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error('JS: '+r.exceptionDetails.text+' / '+js.slice(0,140));return r.result?.value;};
+const toggleAx = async (buttonIndex) => {
+ const evaluated = await send('Runtime.evaluate', {expression:`(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');return h?.parentElement?.querySelectorAll('button')[${buttonIndex}]||null;})()`,returnByValue:false,awaitPromise:true});
+ const objectId=evaluated.result?.objectId;
+ if(!objectId) throw Error('Could not resolve the real Button DOM node for the AX check');
+ try {
+  const tree=await send('Accessibility.getPartialAXTree',{objectId,fetchRelatives:false});
+  const node=tree.nodes.find(n=>n.role?.value==='button')||tree.nodes[0];
+  const pressed=node?.properties?.find(p=>p.name==='pressed');
+  return {role:node?.role?.value||null,name:node?.name?.value||null,pressedPropertyPresent:!!pressed,pressedValue:pressed?.value?.value??null,pressedType:pressed?.value?.type||null};
+ } finally { await send('Runtime.releaseObject',{objectId}); }
+};
 const assert=(name,yes,detail)=>{results.push({name,pass:!!yes,...(detail?{detail}: {})});if(!yes)issues.push(name);};
 const key=async(name,code,vk,modifiers=0)=>{
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:name,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk,modifiers,...(name===' '?{text:' '}:name==='Enter'?{text:'\r'}:{})});
@@ -62,7 +73,7 @@ try{
  ws=new WebSocket(tab.webSocketDebuggerUrl);
  await new Promise((resolve,reject)=>{ws.addEventListener('open',resolve,{once:true});ws.addEventListener('error',reject,{once:true});});
  ws.addEventListener('message',e=>{const m=JSON.parse(e.data);if(m.id&&callbacks.has(m.id)){const c=callbacks.get(m.id);callbacks.delete(m.id);m.error?c.reject(Error(JSON.stringify(m.error))):c.resolve(m.result||{});}});
- await send('Page.enable');await send('Runtime.enable');
+ await send('Page.enable');await send('Runtime.enable');await send('DOM.enable');await send('Accessibility.enable');
  await send('Page.navigate',{url:base+'/components/buttons'});
  await poll(async()=>await run("(()=>document.readyState==='complete'&&[...document.querySelectorAll('h5')].some(h=>h.textContent.trim()==='Split button')&&document.querySelectorAll('.bui-button').length>25)()"));
  // The existing SSR /components/buttons endpoint is statically rendered. Do not
@@ -117,17 +128,23 @@ try{
  // Accessibility diagnostic: component toggle semantic gap must not be silently treated as passed.
  const toggle=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');const x=h.parentElement.querySelector('button');return {present:!!x,pressed:x?.getAttribute('aria-pressed')??null,cls:x?.className};})()");
  assert('existing toggle specimen is present',toggle.present,toggle);
+ assert('false Toggled renders aria-pressed=false',toggle.pressed==='false',toggle);
+ const initialToggleAx=await toggleAx(0);
+ assert('false Toggled exposes AX pressed=false',initialToggleAx.role==='button'&&initialToggleAx.pressedPropertyPresent&&initialToggleAx.pressedValue==='false'&&initialToggleAx.pressedType==='tristate',initialToggleAx);
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');h.parentElement.querySelector('button').focus();return true;})()");
  await key(' ','Space',32);
  const space=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');const b=h.parentElement.querySelector('button');return {toggled:b.classList.contains('toggled'),pressed:b.getAttribute('aria-pressed'),focusVisible:b.matches(':focus-visible')};})()");
  assert('native Space activates the existing Button toggle state',space.toggled,space);
+ assert('Space updates aria-pressed=true with component state',space.toggled&&space.pressed==='true',space);
+ const spaceAx=await toggleAx(0);
+ assert('Space updates the computed AX pressed state to true',spaceAx.role==='button'&&spaceAx.pressedPropertyPresent&&spaceAx.pressedValue==='true'&&spaceAx.pressedType==='tristate',spaceAx);
  assert('keyboard-toggled Button remains focus-visible',space.toggled&&space.focusVisible,space);
  // Danger is a real ButtonAppearance, not a mock in a Penpot-only sample.
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Appearance');h.parentElement.querySelectorAll('button')[1].focus();return true;})()");
  await key('Tab','Tab',9);
  const danger=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Appearance'),b=[...h.parentElement.querySelectorAll('button')].find(x=>x.classList.contains('danger')),s=b?getComputedStyle(b):null,r=b?.getBoundingClientRect();return {present:!!b,active:document.activeElement===b,visible:b?.matches(':focus-visible'),outline:s?.outlineStyle,outlineWidth:s?.outlineWidth,bounds:r?{w:r.width,h:r.height}:null};})()");
  assert('real Danger appearance receives keyboard focus-visible ring',danger.present&&danger.active&&danger.visible&&danger.outline==='solid'&&parseFloat(danger.outlineWidth)>=2,danger);
- const semanticGap=!space.pressed;
+  const ariaPressedGapResolved=toggle.pressed==='false'&&initialToggleAx.pressedPropertyPresent&&initialToggleAx.pressedValue==='false'&&space.pressed==='true'&&spaceAx.pressedPropertyPresent&&spaceAx.pressedValue==='true';
  // Enter on a separate primary toggle verifies native keyboard activation in the real host.
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');h.parentElement.querySelectorAll('button')[1].focus();return true;})()");
  await run("(()=>{window.__v3EnterTrace=[];const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle'),b=h.parentElement.querySelectorAll('button')[1];for(const type of ['click','keydown','keyup'])b.addEventListener(type,e=>window.__v3EnterTrace.push({type:e.type,key:e.key||null,trusted:e.isTrusted}),true);return true;})()");
@@ -136,13 +153,17 @@ try{
  await sleep(250);
  const enter=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');const b=h.parentElement.querySelectorAll('button')[1];return {toggled:b.classList.contains('toggled'),pressed:b.getAttribute('aria-pressed'),focused:document.activeElement===b,events:window.__v3EnterTrace,before:"+JSON.stringify(beforeEnter)+"};})()");
  assert('native Enter activates Button toggle state',enter.toggled,enter);
+ assert('Enter updates aria-pressed=true with component state',enter.toggled&&enter.pressed==='true',enter);
+ const enterAx=await toggleAx(1);
+ assert('Enter updates the computed AX pressed state to true',enterAx.role==='button'&&enterAx.pressedPropertyPresent&&enterAx.pressedValue==='true'&&enterAx.pressedType==='tristate',enterAx);
+  const allToggleSemanticsResolved=ariaPressedGapResolved&&enter.pressed==='true'&&enterAx.pressedPropertyPresent&&enterAx.pressedValue==='true';
  // High-contrast emulation exercises actual Windows color fallback selector.
  await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'}]});
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button');h.parentElement.querySelector('.bui-button-group > .bui-button:first-child').focus();return true;})()");
  await key('Tab','Tab',9);
  const forced=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button'),b=h.parentElement.querySelectorAll('.bui-button-group > .bui-button')[1],s=getComputedStyle(b);return {forced:matchMedia('(forced-colors: active)').matches,visible:b.matches(':focus-visible'),width:s.outlineWidth,style:s.outlineStyle,color:s.outlineColor,offset:s.outlineOffset};})()");
  assert('emulated forced-colors retains visible native Split keyboard outline',forced.forced&&forced.visible&&parseFloat(forced.width)>=2&&forced.style==='solid',forced);
- console.log(JSON.stringify({classification:'Real Chrome CDP on unmodified Bluent WASM demo; candidate style injected into transient browser tab only (#501)',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,knownAriaPressedGap:semanticGap},checks:results},null,2));
+ console.log(JSON.stringify({classification:'Real Chromium CDP ('+browser+') on live Bluent WASM demo route; focus candidate style injected into transient browser tab only (#501)',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,ariaPressedGapResolved:allToggleSemanticsResolved,ariaPressedAX:{initial:initialToggleAx,afterSpace:spaceAx,afterEnter:enterAx}},checks:results},null,2));
  process.exitCode=issues.length?1:0;
 }catch(e){console.error('probe_v3_button_focus_runtime: '+(e.stack||e));process.exitCode=1;}
 finally{try{ws?.close();}catch{}try{child?.kill();}catch{}await sleep(200);try{await rm(profile,{recursive:true,force:true,maxRetries:3,retryDelay:300});}catch{}}
