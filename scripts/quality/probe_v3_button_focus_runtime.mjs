@@ -153,6 +153,59 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
   assert("Badge examples render both positioned wrappers and accessible labels", badgeExamples.count === 2 && badgeExamples.badged.every(Boolean) && badgeExamples.wrappers === 2 && badgeExamples.labels.includes("3 unread notifications") && badgeExamples.labels.includes("New updates"), badgeExamples);
   const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
   assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
+  const inspectDropdownTrigger = async label => {
+    const expression = "(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes(" + JSON.stringify(label) + "));if(!b)return null;b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {id:b.id,x:r.left+r.width/2,y:r.top+r.height/2,bounds:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};})()";
+    return await run(expression);
+  };
+  const inspectDropdownSurface = async id => {
+    const expression = "(()=>{const trigger=document.getElementById(" + JSON.stringify(id) + "),surface=document.getElementById(" + JSON.stringify(id + "_surface") + ");if(!trigger)return {triggerFound:false,exists:!!surface,hidden:true,visible:false};const tr=trigger.getBoundingClientRect(),r=surface?.getBoundingClientRect(),copy=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null,cr=copy?.getBoundingClientRect();return {triggerFound:true,exists:!!surface,hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&!surface.classList.contains('hidden')&&surface.classList.contains('show'),placement:surface?['top','bottom','left','right'].find(x=>surface.classList.contains(x))??null:null,trigger:{left:tr.left,right:tr.right,top:tr.top,bottom:tr.bottom},surface:r?{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}:null,hasCopy:!!copy,copyPoint:cr?{x:cr.left+cr.width/2,y:cr.top+cr.height/2}:null,items:surface?[...surface.querySelectorAll('.menu-item')].map(x=>x.textContent.trim()):[]};})()";
+    return await run(expression);
+  };
+  const waitDropdownState = async (id, expectedVisible) => {
+    let state;
+    for (let attempt = 0; attempt < 50; attempt++) {
+      state = await inspectDropdownSurface(id);
+      if (expectedVisible ? state?.visible === true : state?.hidden === true) { await sleep(80); return await inspectDropdownSurface(id); }
+      await sleep(100);
+    }
+    return state;
+  };
+  for (const [label, expectedPlacement] of [["Menu above","top"],["Menu below","bottom"],["Menu right","right"],["Menu left","left"]]) {
+    const trigger = await inspectDropdownTrigger(label);
+    assert(label + " dropdown demo exposes its native trigger", !!trigger?.id, trigger);
+    if (!trigger?.id) continue;
+    await send("Input.dispatchMouseEvent", {type:"mousePressed",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
+    await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
+    const opened = await waitDropdownState(trigger.id, true);
+    const side = opened?.surface && opened?.trigger ? (
+      expectedPlacement === "top" ? opened.surface.bottom <= opened.trigger.top + 8 :
+      expectedPlacement === "bottom" ? opened.surface.top >= opened.trigger.bottom - 8 :
+      expectedPlacement === "right" ? opened.surface.left >= opened.trigger.right - 8 :
+      expectedPlacement === "left" ? opened.surface.right <= opened.trigger.left + 8 : false
+    ) : false;
+    assert(label + " opens a visible menu on its configured side with selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy, {expectedPlacement,opened,side});
+    if (opened?.copyPoint) {
+      await send("Input.dispatchMouseEvent", {type:"mousePressed",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});
+      await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});
+    }
+    const closed = await waitDropdownState(trigger.id, false);
+    assert(label + " selecting Copy closes its popover", !!opened?.copyPoint && closed?.hidden, {hadCopy:!!opened?.copyPoint,closed});
+  }
+  const outsideTrigger = await inspectDropdownTrigger("Menu above");
+  assert("Top dropdown trigger is available for outside-dismissal testing", !!outsideTrigger?.id, outsideTrigger);
+  if (outsideTrigger?.id) {
+    await send("Input.dispatchMouseEvent", {type:"mousePressed",x:outsideTrigger.x,y:outsideTrigger.y,button:"left",clickCount:1});
+    await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:outsideTrigger.x,y:outsideTrigger.y,button:"left",clickCount:1});
+    const outsideOpened = await waitDropdownState(outsideTrigger.id, true);
+    assert("Top dropdown reopens before outside-dismissal testing", !!outsideOpened?.visible, outsideOpened);
+    const headingPoint = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');if(!h)return null;const r=h.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
+    if (headingPoint) {
+      await send("Input.dispatchMouseEvent", {type:"mousePressed",x:headingPoint.x,y:headingPoint.y,button:"left",clickCount:1});
+      await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:headingPoint.x,y:headingPoint.y,button:"left",clickCount:1});
+    }
+    const outsideClosed = await waitDropdownState(outsideTrigger.id, false);
+    assert("Clicking outside an open dropdown dismisses its popover", !!headingPoint && !!outsideClosed?.hidden, {headingPoint,outsideClosed});
+  }
   const iconOnlySections = await run("(()=>{return [\"Icon\",\"Size\",\"Button Group\"].map(name=>{const h=[...document.querySelectorAll(\"h5\")].find(x=>x.textContent.trim()===name);const bs=[...h.parentElement.querySelectorAll(\"button.icon\")];return {name,count:bs.length,labels:bs.map(b=>b.getAttribute(\"aria-label\"))};});})()");
   assert("icon-only Button demos provide accessible names", iconOnlySections.every(section=>section.count>0 && section.labels.every(label=>!!label?.trim())), iconOnlySections);
   const saveTarget = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Click action\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Simulate save\"));if(!b)return null;b.scrollIntoView({block:\"center\"});const r=b.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,status:h.parentElement.querySelector(\"[role=status]\")?.textContent.trim()??\"\"};})()");

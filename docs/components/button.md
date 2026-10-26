@@ -106,7 +106,16 @@ The compiled [Button showcase](../../src/Bluent.UI.Demo.Pages/Pages/Components/B
         }
     }
 
-The outer Badge element supplies the Button's named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. Current Chrome/Edge browser evidence covers the simple toggle path in published Interactive Server and Interactive WebAssembly; the entire API matrix, dropdown dismissal/focus restoration, native high-contrast modes and assistive-technology acceptance remain separate open gates.
+The outer Badge element supplies the Button's named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The live demo exercises the four base dropdown directions (Top, Bottom, Left and Right); its browser probe opens each panel, verifies the actual placement and selects Copy to verify dismissal. Outside-click dismissal after the panel transition is covered by the live Chrome/Edge probe. Keyboard dismissal/focus restoration, the Start/End enum combinations, the full Button API matrix, native Windows contrast modes and assistive-technology acceptance remain open.
+
+| `DropdownPlacement` | Trigger indicator | Live browser evidence |
+|---|---|---|
+| `Placement.Top` | Up caret | Opens above; selecting Copy closes; outside click dismisses |
+| `Placement.Bottom` | Down caret | Opens below; selecting Copy closes |
+| `Placement.Right` | Right caret | Opens to the right; selecting Copy closes |
+| `Placement.Left` | Left caret | Opens to the left; selecting Copy closes |
+
+The four base directions are covered in the live probe. `TopStart`, `TopEnd`, `BottomStart`, `BottomEnd`, `LeftStart`, `LeftEnd`, `RightStart` and `RightEnd` remain public enum values but are not yet separate browser scenarios.
 ## Child content and composition
 
 `Button` does not expose generic `ChildContent`. Its named `Badge` and `Dropdown` fragments are the composition slots.
