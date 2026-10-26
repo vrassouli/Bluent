@@ -24,11 +24,12 @@ Observed local evidence on 2026-10-26:
 - Full Solution Release build and tests also completed; the build reports two pre-existing NU1903 high-severity advisories for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in the SSR demo. That unrelated dependency update is tracked in [#425 / PR #549](https://github.com/vrassouli/Bluent/pull/549) and was not duplicated in this Button change.
 - Release `Bluent.UI.Demo` build — **0 warnings / 0 errors**; Debug build also completed with 0 warnings / 0 errors for the live WebAssembly host.
 - Real Chromium DevTools Protocol browser probe on the unmodified live Bluent WebAssembly `/components/buttons` route — **Chrome 23/23 passed; Edge 23/23 passed**. Checks include native Space and Enter activation, the emitted `aria-pressed` state and computed accessibility-tree `pressed` property (`false` then `true`), split-button Tab/Shift+Tab, Disabled skipping, RTL adjacency and forced-colors media emulation.
+- Published Production `InteractiveServer` route `/compatibility/server` via `scripts/quality/probe_v3_button_toggle_interactive_server.mjs` — **Chrome 10/10; Edge 10/10** (20/20 total). Each run confirms a real SignalR WebSocket HTTP 101 handshake, one component-owned `aria-pressed` overriding conflicting caller `mixed`, and the computed accessibility-tree `pressed` property after initial render, trusted pointer click, Space, and Enter.
 - `node --check scripts/quality/probe_v3_button_focus_runtime.mjs` and `git diff --check` — passed.
 
 ## Evidence boundaries
 
-The focus-ring candidate used by the existing #501 probe is injected into a disposable browser tab only; it is not a product stylesheet change. Forced Colors was browser-emulated, not native Windows Contrast Themes. No Narrator/NVDA/JAWS acceptance is claimed. The new toggle-specific live evidence is WebAssembly; it does not establish InteractiveServer parity for this slice. Exact-head GitHub CI and reviewer acceptance remain pending until the branch is pushed.
+The focus-ring candidate used by the existing #501 probe is injected into a disposable browser tab only; it is not a product stylesheet change. Forced Colors was browser-emulated, not native Windows Contrast Themes. No Narrator/NVDA/JAWS acceptance is claimed. InteractiveServer parity for the toggle semantic slice is now demonstrated by the 20/20 Production browser checks above. Exact-head GitHub CI on the latest fixture/probe evidence commit and reviewer acceptance remain pending until that commit is pushed.
 
 ## Design provenance
 

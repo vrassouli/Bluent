@@ -17,8 +17,10 @@
     <TextField id="compatibility-input" @bind-Value="_value" BindValueEvent="oninput" />
     <p data-testid="bound-value">Bound value: @_value</p>
     <p role="status" data-testid="event-count">Event count: @_count</p>
+    <p role="status" data-testid="toggle-semantics-state">Toggle semantic state: @(_toggleValue == true ? "true" : "false")</p>
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <Button Text="Increment" OnClick="Increment" Appearance="ButtonAppearance.Primary" />
+        <Button Text="Toggle semantic state" Toggled="@_toggleValue" ToggledChanged="OnToggleChanged" aria-pressed="mixed" data-testid="toggle-semantics-button" />
         <Button Text="Show toast" OnClick="ShowToast" />
         <Button Text="Show dialog" OnClick="ShowDialog" />
         <Button Text="Open drawer" OnClick="ShowDrawer" data-testid="drawer-trigger" />
@@ -85,6 +87,7 @@
 
     private string _value = "ready";
     private int _count;
+    private bool? _toggleValue = false;
     private string _drawerResult = "not opened";
     private readonly string _observedRenderer =
         OperatingSystem.IsBrowser() ? "WebAssembly" : "Server";
@@ -94,6 +97,11 @@
         ["Second"] = 5,
         ["Third"] = 3
     };
+
+    private void OnToggleChanged(bool value)
+    {
+        _toggleValue = value;
+    }
 
     private void Increment()
     {
