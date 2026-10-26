@@ -95,6 +95,8 @@ The compiled [Button showcase](../../src/Bluent.UI.Demo.Pages/Pages/Components/B
         </Dropdown>
     </Button>
 
+    <Button Text="Styled action" Class="fw-semibold" Style="min-width: 8rem" data-demo-case="root-style" />
+
     <Button Text="Simulate save" OnClick="RecordSaveAction" />
 
     @code {
