@@ -46,7 +46,7 @@ The repository Button showcase compiles equivalent icon, appearance, size, disab
 | `Shape` | `ButtonShape` | `Rounded` | No | `Rounded`, `Circular`, or `Square`. |
 | `Appearance` | `ButtonAppearance` | `Default` | No | `Default`, `Primary`, `Danger`, `Outline`, `Subtle`, or `Transparent`. |
 | `Size` | `ButtonSize` | `Medium` | No | `Small`, `Medium`, or `Large`. |
-| `Href` | `string?` | `null` | No | When non-empty, the simple button renders as an anchor; disabled links do not receive `href`. |
+| `Href` | `string?` | `null` | No | When non-empty and enabled, the simple button renders as an anchor. If `disabled` is also true, it renders as a native disabled button instead and omits `href`. |
 | `Badge` | `RenderFragment?` | `null` | No | Badge/content overlay rendered in the badge wrapper. |
 | `BadgeHorizontalPosition` | `HorizontalSides` | `Start` | No | Horizontal badge position. |
 | `BadgeVerticalPosition` | `VerticalSides` | `Top` | No | Vertical badge position. |
@@ -60,7 +60,7 @@ The repository Button showcase compiles equivalent icon, appearance, size, disab
 
 ## Events and binding
 
-`OnClick` runs for a normal action. If `Toggled` is non-null, the click handler flips it, invokes `ToggledChanged`, and then invokes `OnClick`.
+`OnClick` runs for an enabled action. If `Toggled` is non-null, the click handler flips it and raises `ToggledChanged` before invoking `OnClick`. Disabled Buttons return before changing toggle state or invoking either callback.
 
 Two-way toggle binding is supported:
 
@@ -136,7 +136,7 @@ Button has no built-in localized action text; the application supplies `Text` an
 
 ## Accessibility and keyboard interaction
 
-The simple action renders a native `<button type="button">` unless `Href` is non-empty, in which case it renders an `<a>` when enabled. When `Toggled` has a value, the native button exposes that current state through one component-owned `aria-pressed="true|false"`; this value overrides a conflicting caller-supplied `aria-pressed` attribute case-insensitively. When `Toggled` is `null`, the component does not generate toggle state and a caller-provided `aria-pressed` is preserved. Link mode does not generate `aria-pressed`, even if `Toggled` is set. Native button/link keyboard semantics apply to the simple form. Icon-only buttons need an application-provided accessible name such as `aria-label` or meaningful tooltip/text context. Chrome and Edge browser tests now cover the toggle semantics on published Production InteractiveServer and InteractiveWebAssembly; native Windows contrast-theme and screen-reader acceptance remain unverified.
+The simple action renders a native `<button type="button">` unless `Href` is non-empty and enabled, in which case it renders an `<a>`. A Button with both `Href` and `disabled` renders a native disabled button without `href`; anchors do not implement native disabled semantics. The click handler exits before changing `Toggled` or invoking `ToggledChanged`/`OnClick` when disabled. When `Toggled` has a value, the native button exposes that current state through one component-owned `aria-pressed="true|false"`; this value overrides a conflicting caller-supplied `aria-pressed` attribute case-insensitively. When `Toggled` is `null`, the component does not generate toggle state and a caller-provided `aria-pressed` is preserved. Enabled link mode does not generate `aria-pressed`. A disabled `Href` renders as a native button; when `Toggled` has a value it follows the button toggle-state contract and exposes `aria-pressed`. Native button/link keyboard semantics apply to the simple form. Icon-only buttons need an application-provided accessible name such as `aria-label` or meaningful tooltip/text context. Chrome and Edge browser tests now cover the toggle semantics on published Production InteractiveServer and InteractiveWebAssembly; native Windows contrast-theme and screen-reader acceptance remain unverified.
 
 ## Hosting and render modes
 

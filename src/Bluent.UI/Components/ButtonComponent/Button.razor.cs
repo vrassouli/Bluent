@@ -82,7 +82,7 @@ public partial class Button
 
     private IEnumerable<KeyValuePair<string, object>>? GetButtonAdditionalAttributes()
     {
-        if (!Toggled.HasValue || IsLink || AdditionalAttributes is null)
+        if (!Toggled.HasValue || (IsLink && !IsDisabled) || AdditionalAttributes is null)
             return AdditionalAttributes;
 
         // Toggled is the component state contract. Remove a conflicting caller state
@@ -93,7 +93,7 @@ public partial class Button
 
     private string GetButtonTag()
     {
-        if (IsLink)
+        if (IsLink && !IsDisabled)
             return "a";
 
         return "button";
@@ -115,6 +115,9 @@ public partial class Button
 
     private void ClickHandler()
     {
+        if (IsDisabled)
+            return;
+
         if (Toggled != null)
         {
             Toggled = !Toggled.Value;

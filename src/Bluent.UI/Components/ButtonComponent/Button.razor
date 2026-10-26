@@ -13,7 +13,7 @@
     __builder.AddAttribute(5, "class", GetComponentClass());
     __builder.AddAttribute(6, "style", Style);
     __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    if (Toggled.HasValue && !IsLink)
+    if (Toggled.HasValue && (!IsLink || IsDisabled))
         __builder.AddAttribute(8, "aria-pressed", Toggled.Value ? "true" : "false");
     __builder.OpenRegion(9);
 

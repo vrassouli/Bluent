@@ -66,7 +66,8 @@
         <h5>Link</h5>
         <Button Text="Google" Href="https://google.com"/>
         <Button Text="Google" Href="https://google.com" Appearance="ButtonAppearance.Primary"/>
-        <Button Text="Google" Href="https://google.com" disabled/>
+        <Button Text="Google" Href="https://google.com" disabled OnClick="RecordDisabledLinkAction" />
+        <span role="status">Disabled link action count: @_disabledLinkActionCount</span>
     </div>
 
     <div>
@@ -266,8 +267,11 @@
 
 @code {
     private int _saveActionCount;
+    private int _disabledLinkActionCount;
 
     private void RecordSaveAction() => _saveActionCount++;
+
+    private void RecordDisabledLinkAction() => _disabledLinkActionCount++;
     private bool _toggleDefault;
     private bool _togglePrimary;
     private bool _toggleDanger;
