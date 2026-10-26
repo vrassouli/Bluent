@@ -82,13 +82,15 @@
 
     <div>
         <h5>Toggle</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Toggled="false" Text="Default" Icon="@FluentIcons.CursorClick"/>
-            <Button Toggled="false" Text="Primary" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary"/>
-            <Button Toggled="false" Text="Outline" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Outline"/>
-            <Button Toggled="false" Text="Subtle" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Subtle"/>
-            <Button Toggled="false" Text="Transparent" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Transparent"/>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button @bind-Toggled="_toggleDefault" Text="Default" Icon="@FluentIcons.CursorClick"/>
+            <Button @bind-Toggled="_togglePrimary" Text="Primary" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary"/>
+            <Button @bind-Toggled="_toggleDanger" Text="Danger" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Danger"/>
+            <Button @bind-Toggled="_toggleOutline" Text="Outline" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Outline"/>
+            <Button @bind-Toggled="_toggleSubtle" Text="Subtle" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Subtle"/>
+            <Button @bind-Toggled="_toggleTransparent" Text="Transparent" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Transparent"/>
         </div>
+        <p class="mb-3">Bound states — Default: @(_toggleDefault ? "On" : "Off"); Primary: @(_togglePrimary ? "On" : "Off"); Danger: @(_toggleDanger ? "On" : "Off"); Outline: @(_toggleOutline ? "On" : "Off"); Subtle: @(_toggleSubtle ? "On" : "Off"); Transparent: @(_toggleTransparent ? "On" : "Off")</p>
     </div>
 
     <div>
@@ -194,4 +196,10 @@
 </div>
 
 @code {
+    private bool _toggleDefault;
+    private bool _togglePrimary;
+    private bool _toggleDanger;
+    private bool _toggleOutline;
+    private bool _toggleSubtle;
+    private bool _toggleTransparent;
 }
