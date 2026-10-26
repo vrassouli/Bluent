@@ -12,7 +12,7 @@
                     Notes="Examples are interactive and inherit the active theme and direction. Use visible action text for primary workflows; icon-only actions need an accessible label or tooltip." />
     <div>
         <h5>Shapes</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Rounded"/>
             <Button Text="Circular" Shape="ButtonShape.Circular"/>
             <Button Text="Square" Shape="ButtonShape.Square"/>
@@ -21,7 +21,7 @@
 
     <div>
         <h5>Appearance</h5>
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 flex-wrap">
             @foreach (var appearance in Enum.GetValues<ButtonAppearance>())
             {
                 <Button Text="@appearance.ToString()"
@@ -34,25 +34,25 @@
     <div>
         <h5>Icon</h5>
         <Button Text="Default" Icon="@FluentIcons.CursorClick"/>
-        <Button Icon="@FluentIcons.CursorClick"/>
+        <Button Icon="@FluentIcons.CursorClick" aria-label="Open icon sample"/>
     </div>
 
     <div>
         <h5>Size</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Size="ButtonSize.Small" Text="Small"/>
             <Button Size="ButtonSize.Small" Text="Small with icon" Icon="@FluentIcons.CursorClick"/>
-            <Button Size="ButtonSize.Small" Icon="@FluentIcons.CursorClick"/>
+            <Button Size="ButtonSize.Small" Icon="@FluentIcons.CursorClick" aria-label="Small icon-only action"/>
         </div>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Medium"/>
             <Button Text="Medium with icon" Icon="@FluentIcons.CursorClick"/>
-            <Button Icon="@FluentIcons.CursorClick"/>
+            <Button Icon="@FluentIcons.CursorClick" aria-label="Medium icon-only action"/>
         </div>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Size="ButtonSize.Large" Text="Large"/>
             <Button Size="ButtonSize.Large" Text="Large with icon" Icon="@FluentIcons.CursorClick"/>
-            <Button Size="ButtonSize.Large" Icon="@FluentIcons.CursorClick"/>
+            <Button Size="ButtonSize.Large" Icon="@FluentIcons.CursorClick" aria-label="Large icon-only action"/>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
 
     <div>
         <h5>Compound</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Rounded" SecondaryText="Compound text" Icon="@FluentIcons.CursorClick"/>
             <Button Text="Circular" SecondaryText="Compound text" Shape="ButtonShape.Circular"
                     Icon="@FluentIcons.CursorClick"/>
@@ -94,8 +94,41 @@
     </div>
 
     <div>
-        <h5>Tootip</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <h5>Layout, orientation and density</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Compact action" TextClass="fw-semibold" Icon="@FluentIcons.CursorClick" Compact />
+            <Button Text="Vertical action" Icon="@FluentIcons.CursorClick" Orientation="Orientation.Vertical" />
+            <Button Text="Rotated action" Rotated />
+        </div>
+    </div>
+
+    <div>
+        <h5>Badge and notification</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Inbox" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.Start" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Top">
+                <Badge>
+                    <Badge Text="3" Color="BadgeColor.Danger" Shape="BadgeShape.Circular" aria-label="3 unread notifications" />
+                </Badge>
+            </Button>
+            <Button Text="Updates" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.End" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Bottom">
+                <Badge>
+                    <Badge Text="New" Color="BadgeColor.Informative" Shape="BadgeShape.Rounded" aria-label="New updates" />
+                </Badge>
+            </Button>
+        </div>
+    </div>
+
+    <div>
+        <h5>Click action</h5>
+        <div class="d-flex mb-2 gap-2 align-items-center flex-wrap">
+            <Button Text="Simulate save" TextClass="fw-semibold" Icon="@FluentIcons.CursorClick" OnClick="RecordSaveAction" />
+            <span role="status">Save action count: @_saveActionCount</span>
+        </div>
+    </div>
+
+    <div>
+        <h5>Tooltip</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Button with tooltip" Icon="@FluentIcons.CursorClick">
                 <TooltipContent>
                     This is a tooltip!
@@ -106,39 +139,39 @@
 
     <div>
         <h5>Button Group</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"/>
-                <Button Icon="@FluentIcons.Copy"/>
-                <Button Icon="@FluentIcons.ClipboardPaste"/>
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"/>
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Primary"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Primary"/>
-                <Button Icon="@FluentIcons.ClipboardPaste" Appearance="ButtonAppearance.Primary"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste" Appearance="ButtonAppearance.Primary"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Outline"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Outline"/>
-                <Button Icon="@FluentIcons.ClipboardPaste" Appearance="ButtonAppearance.Outline"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste" Appearance="ButtonAppearance.Outline"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Subtle"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Subtle"/>
-                <Button Icon="@FluentIcons.ClipboardPaste" Appearance="ButtonAppearance.Subtle"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste" Appearance="ButtonAppearance.Subtle"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Transparent"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Transparent"/>
-                <Button Icon="@FluentIcons.ClipboardPaste"
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste"
                         Appearance="ButtonAppearance.Transparent"/>
             </ButtonGroup>
         </div>
@@ -146,8 +179,8 @@
 
     <div>
         <h5>Dropdown button</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Text="Default" Icon="@FluentIcons.CursorClick">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Menu above" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.Top">
                 <Dropdown>
                     <MenuList>
                         <MenuItem Title="Cut" Icon="@FluentIcons.Cut" Checked/>
@@ -170,7 +203,7 @@
 
     <div>
         <h5>Split button</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Default" Icon="@FluentIcons.CursorClick"
                     OnClick="()=>{}">
                 <Dropdown>
@@ -196,6 +229,9 @@
 </div>
 
 @code {
+    private int _saveActionCount;
+
+    private void RecordSaveAction() => _saveActionCount++;
     private bool _toggleDefault;
     private bool _togglePrimary;
     private bool _toggleDanger;

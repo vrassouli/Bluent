@@ -131,6 +131,35 @@ try{
  assert('false Toggled renders aria-pressed=false',toggle.pressed==='false',toggle);
  const initialToggleAx=await toggleAx(0);
  assert('false Toggled exposes AX pressed=false',initialToggleAx.role==='button'&&initialToggleAx.pressedPropertyPresent&&initialToggleAx.pressedValue==='false'&&initialToggleAx.pressedType==='tristate',initialToggleAx);
+const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Toggle\");const bs=[...h.parentElement.querySelectorAll(\"button\")];return {count:bs.length,pressed:bs.map(b=>b.getAttribute(\"aria-pressed\")),state:h.parentElement.querySelector(\"p\")?.textContent??\"\",classes:bs.map(b=>b.className)};})()");
+  assert("demo exposes six initially unpressed bound toggle appearances", boundToggleMatrix.count === 6 && boundToggleMatrix.pressed.every(value => value === "false"), boundToggleMatrix);
+  assert("visible demo feedback starts Off for every appearance", ["Default: Off","Primary: Off","Danger: Off","Outline: Off","Subtle: Off","Transparent: Off"].every(value => boundToggleMatrix.state.includes(value)), boundToggleMatrix);
+  await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Toggle\");h.parentElement.querySelectorAll(\"button\")[3].focus();return true;})()");
+  await key(" ", "Space", 32);
+  await sleep(250);
+  const outlineBoundOn = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Toggle\");const b=h.parentElement.querySelectorAll(\"button\")[3];return {pressed:b.getAttribute(\"aria-pressed\"),toggled:b.classList.contains(\"toggled\"),state:h.parentElement.querySelector(\"p\")?.textContent??\"\"};})()");
+  assert("Space updates the bound Outline toggle and visible state", outlineBoundOn.pressed === "true" && outlineBoundOn.toggled && outlineBoundOn.state.includes("Outline: On"), outlineBoundOn);
+  await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Toggle\");h.parentElement.querySelectorAll(\"button\")[3].focus();return true;})()");
+  await key(" ", "Space", 32);
+  await sleep(250);
+  const outlineBoundOff = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Toggle\");const b=h.parentElement.querySelectorAll(\"button\")[3];return {pressed:b.getAttribute(\"aria-pressed\"),toggled:b.classList.contains(\"toggled\"),state:h.parentElement.querySelector(\"p\")?.textContent??\"\"};})()");
+  assert("second Space returns the bound Outline toggle to Off", outlineBoundOff.pressed === "false" && !outlineBoundOff.toggled && outlineBoundOff.state.includes("Outline: Off"), outlineBoundOff);
+
+  const layoutOptions = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Layout, orientation and density\");const bs=[...h.parentElement.querySelectorAll(\"button\")];return {count:bs.length,classes:bs.map(b=>b.className),labels:bs.map(b=>b.getAttribute(\"aria-label\"))};})()");
+  assert("Compact, Vertical and Rotated demo cases map to their current public properties", layoutOptions.count === 3 && layoutOptions.classes[0].includes("compact") && layoutOptions.classes[1].includes("vertical") && layoutOptions.classes[2].includes("rotated"), layoutOptions);
+  const badgeExamples = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Badge and notification\");const bs=[...h.parentElement.querySelectorAll(\"button\")];const labels=[...h.parentElement.querySelectorAll(\"[aria-label]\")].map(x=>x.getAttribute(\"aria-label\"));return {count:bs.length,badged:bs.map(b=>b.classList.contains(\"badged\")),wrappers:h.parentElement.querySelectorAll(\".badge-wrapper\").length,labels};})()");
+  assert("Badge examples render both positioned wrappers and accessible labels", badgeExamples.count === 2 && badgeExamples.badged.every(Boolean) && badgeExamples.wrappers === 2 && badgeExamples.labels.includes("3 unread notifications") && badgeExamples.labels.includes("New updates"), badgeExamples);
+  const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
+  assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
+  const iconOnlySections = await run("(()=>{return [\"Icon\",\"Size\",\"Button Group\"].map(name=>{const h=[...document.querySelectorAll(\"h5\")].find(x=>x.textContent.trim()===name);const bs=[...h.parentElement.querySelectorAll(\"button.icon\")];return {name,count:bs.length,labels:bs.map(b=>b.getAttribute(\"aria-label\"))};});})()");
+  assert("icon-only Button demos provide accessible names", iconOnlySections.every(section=>section.count>0 && section.labels.every(label=>!!label?.trim())), iconOnlySections);
+  const saveTarget = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Click action\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Simulate save\"));if(!b)return null;b.scrollIntoView({block:\"center\"});const r=b.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,status:h.parentElement.querySelector(\"[role=status]\")?.textContent.trim()??\"\"};})()");
+  assert("OnClick demo starts available and untriggered", !!saveTarget && saveTarget.status === "Save action count: 0", saveTarget);
+  await send("Input.dispatchMouseEvent", {type:"mousePressed",x:saveTarget.x,y:saveTarget.y,button:"left",clickCount:1});
+  await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:saveTarget.x,y:saveTarget.y,button:"left",clickCount:1});
+  await sleep(300);
+  const saveAfterClick = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Click action\");return {status:h.parentElement.querySelector(\"[role=status]\")?.textContent.trim()??\"\"};})()");
+  assert("trusted pointer click exercises the public OnClick binding", saveAfterClick.status === "Save action count: 1", saveAfterClick);
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');h.parentElement.querySelector('button').focus();return true;})()");
  await key(' ','Space',32);
  const space=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');const b=h.parentElement.querySelector('button');return {toggled:b.classList.contains('toggled'),pressed:b.getAttribute('aria-pressed'),focusVisible:b.matches(':focus-visible')};})()");
@@ -163,7 +192,23 @@ try{
  await key('Tab','Tab',9);
  const forced=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button'),b=h.parentElement.querySelectorAll('.bui-button-group > .bui-button')[1],s=getComputedStyle(b);return {forced:matchMedia('(forced-colors: active)').matches,visible:b.matches(':focus-visible'),width:s.outlineWidth,style:s.outlineStyle,color:s.outlineColor,offset:s.outlineOffset};})()");
  assert('emulated forced-colors retains visible native Split keyboard outline',forced.forced&&forced.visible&&parseFloat(forced.width)>=2&&forced.style==='solid',forced);
- console.log(JSON.stringify({classification:'Real Chromium CDP ('+browser+') on live Bluent WASM demo route; focus candidate style injected into transient browser tab only (#501)',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,ariaPressedGapResolved:allToggleSemanticsResolved,ariaPressedAX:{initial:initialToggleAx,afterSpace:spaceAx,afterEnter:enterAx}},checks:results},null,2));
+ console.log(JSON.stringify({classification:'Real Chromium CDP ('+browser+') on live Bluent WASM Button demo; API/demo checks plus #501 focus candidate injected into transient browser tab only',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,ariaPressedGapResolved:allToggleSemanticsResolved,ariaPressedAX:{initial:initialToggleAx,afterSpace:spaceAx,afterEnter:enterAx}},checks:results},null,2));
  process.exitCode=issues.length?1:0;
 }catch(e){console.error('probe_v3_button_focus_runtime: '+(e.stack||e));process.exitCode=1;}
-finally{try{ws?.close();}catch{}try{child?.kill();}catch{}await sleep(200);try{await rm(profile,{recursive:true,force:true,maxRetries:3,retryDelay:300});}catch{}}
+finally {
+  try { ws?.close(); } catch { }
+  if (process.platform === "win32") {
+    await new Promise(resolveDone => {
+      const quote = value => "\u0027" + String(value).replace(/\u0027/g, "\u0027\u0027") + "\u0027";
+      const script = `$needle=${quote(profile)}; $names=@(${["chrome.exe", "msedge.exe"].map(quote).join(",")}); Get-CimInstance Win32_Process | Where-Object { $_.Name -in $names -and $_.CommandLine -and $_.CommandLine.Contains($needle) } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`;
+      let cleaner;
+      try { cleaner = spawn("powershell.exe", ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", script], { windowsHide: true, stdio: "ignore" }); } catch { try { child?.kill(); } catch { } resolveDone(); return; }
+      const watchdog = setTimeout(() => { try { cleaner.kill(); } catch { } resolveDone(); }, 4000);
+      cleaner.once("error", () => { clearTimeout(watchdog); resolveDone(); });
+      cleaner.once("close", () => { clearTimeout(watchdog); resolveDone(); });
+    });
+    try { child?.kill(); } catch { }
+  } else { try { child?.kill("SIGTERM"); } catch { } }
+  await sleep(400);
+  try { await rm(profile, { recursive: true, force: true, maxRetries: 4, retryDelay: 300 }); } catch { }
+}

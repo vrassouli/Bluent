@@ -68,6 +68,43 @@ Two-way toggle binding is supported:
 <Button Text="Pin" @bind-Toggled="_pinned" />
 ```
 
+## Layout, badges and dropdowns
+
+The compiled [Button showcase](../../src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor) demonstrates the current public layout and content parameters, including two-way toggle binding and all six existing appearances.
+
+    <Button Text="Compact action" Compact Icon="@FluentIcons.CursorClick" />
+    <Button Text="Vertical action" Icon="@FluentIcons.CursorClick" Orientation="Orientation.Vertical" />
+    <Button Text="Rotated action" Rotated />
+
+    <Button Text="Inbox" Icon="@FluentIcons.CursorClick"
+            BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.Start"
+            BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Top">
+        <Badge>
+            <Badge Text="3" Color="BadgeColor.Danger" Shape="BadgeShape.Circular"
+                   aria-label="3 unread notifications" />
+        </Badge>
+    </Button>
+
+    <Button Text="Actions" Icon="@FluentIcons.CursorClick"
+            ShowDropdownIndicator="true" DropdownPlacement="Placement.Top">
+        <Dropdown>
+            <MenuList>
+                <MenuItem Title="Save" />
+                <MenuItem Title="Cancel" />
+            </MenuList>
+        </Dropdown>
+    </Button>
+
+    <Button Text="Simulate save" OnClick="RecordSaveAction" />
+
+    @code {
+        private void RecordSaveAction()
+        {
+            // Replace with the application's real action.
+        }
+    }
+
+The outer Badge element supplies the Button's named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. Current Chrome/Edge browser evidence covers the simple toggle path in published Interactive Server and Interactive WebAssembly; the entire API matrix, dropdown dismissal/focus restoration, native high-contrast modes and assistive-technology acceptance remain separate open gates.
 ## Child content and composition
 
 `Button` does not expose generic `ChildContent`. Its named `Badge` and `Dropdown` fragments are the composition slots.

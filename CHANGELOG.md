@@ -16,7 +16,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Changed
 
-- None.
+- [Bluent.UI, v3 development] Toggle Buttons with a populated Toggled value expose the current boolean state using aria-pressed. This is an additive accessibility/DOM change with no new public parameter; the isolated v3 PR and its migration/evidence notes are not a change to released 2.x packages.
 
 ### Deprecated
 
