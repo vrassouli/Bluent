@@ -150,7 +150,56 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
   const rootStyle = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Styling and native attributes\");const b=[...h?.parentElement?.querySelectorAll(\"button\")||[]].find(b=>b.getAttribute(\"data-demo-case\")===\"root-style\");const s=b?getComputedStyle(b):null;return {found:!!b,classApplied:b?.classList.contains(\"fw-semibold\")??false,inlineStyle:b?.getAttribute(\"style\")??\"\",minWidth:s?.minWidth??\"\",dataCase:b?.getAttribute(\"data-demo-case\")??\"\",attributeSibling:!!h?.parentElement?.querySelector(\"[data-demo-case=root-attributes]\")};})()");
   assert("Class, Style and data attributes are forwarded to the native Button", rootStyle.found && rootStyle.classApplied && rootStyle.minWidth === "128px" && rootStyle.dataCase === "root-style" && rootStyle.attributeSibling, rootStyle);
   const badgeExamples = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Badge and notification\");const bs=[...h.parentElement.querySelectorAll(\"button\")];const labels=[...h.parentElement.querySelectorAll(\"[aria-label]\")].map(x=>x.getAttribute(\"aria-label\"));return {count:bs.length,badged:bs.map(b=>b.classList.contains(\"badged\")),wrappers:h.parentElement.querySelectorAll(\".badge-wrapper\").length,labels};})()");
-  assert("Badge examples render both positioned wrappers and accessible labels", badgeExamples.count === 2 && badgeExamples.badged.every(Boolean) && badgeExamples.wrappers === 2 && badgeExamples.labels.includes("3 unread notifications") && badgeExamples.labels.includes("New updates"), badgeExamples);
+  assert("Badge examples render both positioned wrappers and accessible labels", badgeExamples.count === 4 && badgeExamples.badged.every(Boolean) && badgeExamples.wrappers === 4 && badgeExamples.labels.includes("3 unread notifications") && badgeExamples.labels.includes("New updates") && badgeExamples.labels.includes("Archive alert") && badgeExamples.labels.includes("4 open tasks"), badgeExamples);
+  const badgePositionMatrix = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Badge and notification');const bs=[...h.parentElement.querySelectorAll('button')];const wrappers=[...h.parentElement.querySelectorAll('.badge-wrapper')];return {buttonCount:bs.length,allBadged:bs.every(b=>b.classList.contains('badged')),positions:wrappers.map(w=>({classes:w.className,top:getComputedStyle(w).top,bottom:getComputedStyle(w).bottom,left:getComputedStyle(w).left,right:getComputedStyle(w).right})),labels:[...h.parentElement.querySelectorAll('[aria-label]')].map(x=>x.getAttribute('aria-label'))};})()");
+  assert("Badge placement covers Start/End crossed with Top/Bottom", badgePositionMatrix.buttonCount===4 && badgePositionMatrix.allBadged && badgePositionMatrix.positions.length===4 && [["top","start"],["bottom","end"],["bottom","start"],["top","end"]].every(expected=>badgePositionMatrix.positions.some(item=>expected.every(token=>item.classes.split(" ").includes(token)))) && ["3 unread notifications","New updates","Archive alert","4 open tasks"].every(label=>badgePositionMatrix.labels.includes(label)), badgePositionMatrix);
+  const inspectTooltipTrigger = async label => {
+    const expression = "(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Tooltip');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes(" + JSON.stringify(label) + "));if(!b)return null;b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {id:b.id,text:b.textContent.trim(),x:r.left+r.width/2,y:r.top+r.height/2,tag:b.tagName};})()";
+    return await run(expression);
+  };
+  const inspectTooltipSurface = async id => {
+    const expression = "(()=>{const trigger=document.getElementById(" + JSON.stringify(id) + "),surface=document.getElementById(" + JSON.stringify(id + "_surface") + ");return {triggerFound:!!trigger,exists:!!surface,hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&!surface.classList.contains('hidden')&&surface.classList.contains('show'),classes:surface?.className??'',text:surface?.innerText?.trim()??'',arrow:!!surface?.querySelector(':scope > .arrow'),rect:surface?(()=>{const r=surface.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};})():null};})()";
+    return await run(expression);
+  };
+  const waitTooltipState = async (id, expectedVisible) => {
+    let state;
+    for (let attempt=0;attempt<60;attempt++) {
+      state=await inspectTooltipSurface(id);
+      if (expectedVisible ? state.visible : state.hidden) { await sleep(80); state=await inspectTooltipSurface(id); if (expectedVisible ? state.visible : state.hidden) return state; }
+      await sleep(100);
+    }
+    return state;
+  };
+  const stringTooltip = await inspectTooltipTrigger("String tooltip");
+  assert("String Tooltip button has a real DOM trigger id", !!stringTooltip?.id && stringTooltip.tag==="BUTTON", stringTooltip);
+  if (stringTooltip?.id) {
+    await send("Input.dispatchMouseEvent",{type:"mouseMoved",x:stringTooltip.x,y:stringTooltip.y});
+    const shown=await waitTooltipState(stringTooltip.id,true);
+    assert("Tooltip string, Brand appearance, Right placement and arrow render on hover", shown.visible && shown.text.includes("String tooltip content") && shown.classes.includes("brand") && shown.classes.includes("right") && shown.arrow, shown);
+    await send("Input.dispatchMouseEvent",{type:"mouseMoved",x:8,y:8});
+    const hidden=await waitTooltipState(stringTooltip.id,false);
+    assert("String Tooltip hides when pointer leaves its trigger", hidden.hidden, hidden);
+  }
+  const defaultTooltip = await inspectTooltipTrigger("Button with tooltip");
+  assert("TooltipContent example has a real DOM trigger id", !!defaultTooltip?.id && defaultTooltip.tag==="BUTTON", defaultTooltip);
+  if (defaultTooltip?.id) {
+    await run("(()=>{const b=document.getElementById(" + JSON.stringify(defaultTooltip.id) + ");b.focus();return true;})()");
+    const shown=await waitTooltipState(defaultTooltip.id,true);
+    assert("TooltipContent fragment shows on keyboard focus with default appearance/Top placement", shown.visible && shown.text.includes("This is a tooltip!") && shown.classes.includes("default") && shown.classes.includes("top") && !shown.arrow, shown);
+    await run("(()=>{document.getElementById(" + JSON.stringify(defaultTooltip.id) + ").blur();return true;})()");
+    const hidden=await waitTooltipState(defaultTooltip.id,false);
+    assert("TooltipContent hides after its trigger blurs", hidden.hidden, hidden);
+  }
+  const invertedTooltip=await inspectTooltipTrigger("Inverted tooltip");
+  assert("Inverted TooltipContent example has a real DOM trigger id", !!invertedTooltip?.id && invertedTooltip.tag==="BUTTON", invertedTooltip);
+  if (invertedTooltip?.id) {
+    await run("(()=>{const b=document.getElementById(" + JSON.stringify(invertedTooltip.id) + ");b.focus();return true;})()");
+    const shown=await waitTooltipState(invertedTooltip.id,true);
+    assert("Inverted TooltipContent shows on focus with BottomEnd placement and arrow", shown.visible && shown.text.includes("Keyboard tooltip content") && shown.classes.includes("inverted") && shown.classes.includes("bottom-end") && shown.arrow, shown);
+    await run("(()=>{document.getElementById(" + JSON.stringify(invertedTooltip.id) + ").blur();return true;})()");
+    const hidden=await waitTooltipState(invertedTooltip.id,false);
+    assert("Inverted TooltipContent hides after blur", hidden.hidden, hidden);
+  }
   const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
   assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
   const inspectDropdownTrigger = async label => {
@@ -158,7 +207,7 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     return await run(expression);
   };
   const inspectDropdownSurface = async id => {
-    const expression = "(()=>{const trigger=document.getElementById(" + JSON.stringify(id) + "),surface=document.getElementById(" + JSON.stringify(id + "_surface") + ");if(!trigger)return {triggerFound:false,exists:!!surface,hidden:true,visible:false};const tr=trigger.getBoundingClientRect(),r=surface?.getBoundingClientRect(),copy=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null,cr=copy?.getBoundingClientRect();return {triggerFound:true,exists:!!surface,hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&!surface.classList.contains('hidden')&&surface.classList.contains('show'),placement:surface?['top','bottom','left','right'].find(x=>surface.classList.contains(x))??null:null,trigger:{left:tr.left,right:tr.right,top:tr.top,bottom:tr.bottom},surface:r?{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}:null,hasCopy:!!copy,copyPoint:cr?{x:cr.left+cr.width/2,y:cr.top+cr.height/2}:null,items:surface?[...surface.querySelectorAll('.menu-item')].map(x=>x.textContent.trim()):[]};})()";
+    const expression = "(()=>{const trigger=document.getElementById(" + JSON.stringify(id) + "),surface=document.getElementById(" + JSON.stringify(id + "_surface") + ");if(!trigger)return {triggerFound:false,exists:!!surface,hidden:true,visible:false};const tr=trigger.getBoundingClientRect(),r=surface?.getBoundingClientRect(),copy=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null,cr=copy?.getBoundingClientRect();return {triggerFound:true,exists:!!surface,hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&!surface.classList.contains('hidden')&&surface.classList.contains('show'),placement:surface?['top-start','top-end','bottom-start','bottom-end','left-start','left-end','right-start','right-end','top','bottom','left','right'].find(x=>surface.classList.contains(x))??null:null,viewport:{width:window.innerWidth,height:window.innerHeight},trigger:{left:tr.left,right:tr.right,top:tr.top,bottom:tr.bottom},surface:r?{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}:null,hasCopy:!!copy,copyPoint:cr?{x:cr.left+cr.width/2,y:cr.top+cr.height/2}:null,items:surface?[...surface.querySelectorAll('.menu-item')].map(x=>x.textContent.trim()):[]};})()";
     return await run(expression);
   };
   const waitDropdownState = async (id, expectedVisible) => {
@@ -170,20 +219,29 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     }
     return state;
   };
-  for (const [label, expectedPlacement] of [["Menu above","top"],["Menu below","bottom"],["Menu right","right"],["Menu left","left"]]) {
+  // The split-button probe above intentionally leaves RTL active. Restore LTR so Start/End alignment assertions have a defined direction.
+  await run("(()=>{document.documentElement.setAttribute(\"dir\",\"ltr\");document.body.classList.remove(\"rtl\");return true;})()");
+  for (const [label, expectedPlacement] of [[ "Menu above","top"],["Menu below","bottom"],["Menu right","right"],["Menu left","left"], ["Menu top-start","top-start"],["Menu top-end","top-end"], ["Menu bottom-start","bottom-start"],["Menu bottom-end","bottom-end"], ["Menu right-start","right-start"],["Menu right-end","right-end"], ["Menu left-start","left-start"],["Menu left-end","left-end"]]) {
     const trigger = await inspectDropdownTrigger(label);
     assert(label + " dropdown demo exposes its native trigger", !!trigger?.id, trigger);
     if (!trigger?.id) continue;
     await send("Input.dispatchMouseEvent", {type:"mousePressed",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
     await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
     const opened = await waitDropdownState(trigger.id, true);
-    const side = opened?.surface && opened?.trigger ? (
-      expectedPlacement === "top" ? opened.surface.bottom <= opened.trigger.top + 8 :
-      expectedPlacement === "bottom" ? opened.surface.top >= opened.trigger.bottom - 8 :
-      expectedPlacement === "right" ? opened.surface.left >= opened.trigger.right - 8 :
-      expectedPlacement === "left" ? opened.surface.right <= opened.trigger.left + 8 : false
-    ) : false;
-    assert(label + " opens a visible menu on its configured side with selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy, {expectedPlacement,opened,side});
+    const geometry = opened?.surface && opened?.trigger ? (() => {
+      const s=opened.surface,t=opened.trigger;
+      const isTop=expectedPlacement.startsWith("top"),isBottom=expectedPlacement.startsWith("bottom"),isLeft=expectedPlacement.startsWith("left"),isRight=expectedPlacement.startsWith("right");
+      const requestedSide=expectedPlacement.split("-")[0];
+      const actualSide=s.bottom<=t.top+8?"top":s.top>=t.bottom-8?"bottom":s.right<=t.left+8?"left":s.left>=t.right-8?"right":"overlap";
+      const available=requestedSide==="top"?t.top:requestedSide==="bottom"?opened.viewport.height-t.bottom:requestedSide==="left"?t.left:opened.viewport.width-t.right;
+      const required=(isTop||isBottom?s.height:s.width)+8;
+      const opposite={top:"bottom",bottom:"top",left:"right",right:"left"}[requestedSide];
+      const collisionFlipped=available<required&&actualSide===opposite;
+      const aligned=expectedPlacement.endsWith("-start")?((isTop||isBottom)?Math.abs(s.left-t.left)<12:Math.abs(s.top-t.top)<12):expectedPlacement.endsWith("-end")?((isTop||isBottom)?Math.abs(s.right-t.right)<12:Math.abs(s.bottom-t.bottom)<12):true;
+      return {ok:(actualSide===requestedSide||collisionFlipped)&&aligned,actualSide,requestedSide,available,required,collisionFlipped,aligned};
+    })() : {ok:false,actualSide:"missing",collisionFlipped:false,aligned:false};
+    const side=geometry.ok;
+    assert(label + " opens with configured placement/alignment or a justified collision flip and selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy, {expectedPlacement,opened,geometry});
     if (opened?.copyPoint) {
       await send("Input.dispatchMouseEvent", {type:"mousePressed",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});
       await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});

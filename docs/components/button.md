@@ -28,7 +28,7 @@ Follow [Getting Started](../getting-started/index.md) for `AddBluentUI()` and pa
         OnClick="SaveAsync" />
 ```
 
-The repository Button showcase compiles equivalent icon, appearance, size, disabled, link, toggle, group, dropdown, and split-button patterns. This page is source verified; no new browser run was performed for this documentation change.
+The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe currently passes 92/92 assertions in both Chrome and Edge; native Windows contrast themes, screen-reader acceptance, and keyboard Escape dismissal/focus restoration remain open.
 
 ## Parameters
 
@@ -54,7 +54,11 @@ The repository Button showcase compiles equivalent icon, appearance, size, disab
 | `ShowDropdownIndicator` | `bool` | `false` | No | Shows a placement-aware caret when the button is a popover trigger. |
 | `Compact` | `bool` | `false` | No | Enables compact visual treatment. |
 | `DropdownPlacement` | `Placement` | `Bottom` | No | Placement for the internally created dropdown popover. |
-| `Tooltip` / `TooltipContent` | inherited | `null` | No | Tooltip content inherited from `BluentUiComponentBase`. |
+| `Tooltip` | string? (inherited) | `null` | No | Plain-text tooltip content. |
+| `TooltipContent` | `RenderFragment?` (inherited) | `null` | No | Rich tooltip content; takes precedence when supplied. |
+| `TooltipPlacement` | `Placement` (inherited) | `Top` | No | Tooltip popover placement. |
+| `TooltipAppearance` | `PopoverAppearance` (inherited) | `Default` | No | `Default`, `Brand` or `Inverted`. |
+| `DisplayTooltipArrow` | `bool` (inherited) | `false` | No | Adds the tooltip arrow element. |
 | `Class` / `Style` | inherited | `null` | No | Application CSS class and inline style. |
 | Unmatched attributes | inherited | `null` | No | Applied to the rendered action element; use for `disabled`, `aria-*`, `data-*`, etc. |
 
@@ -106,16 +110,33 @@ The compiled [Button showcase](../../src/Bluent.UI.Demo.Pages/Pages/Components/B
         }
     }
 
-The outer Badge element supplies the Button's named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The live demo exercises the four base dropdown directions (Top, Bottom, Left and Right); its browser probe opens each panel, verifies the actual placement and selects Copy to verify dismissal. Outside-click dismissal after the panel transition is covered by the live Chrome/Edge probe. Keyboard dismissal/focus restoration, the Start/End enum combinations, the full Button API matrix, native Windows contrast modes and assistive-technology acceptance remain open.
+The outer Badge element supplies the Button named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The live browser probe covers all twelve DropdownPlacement values: each menu opens, its physical side and logical Start/End alignment are checked, Copy selection closes the panel, and outside-click dismissal waits for the transition. If the requested side has less room than the popover requires, the probe accepts an opposite-side collision flip only when available space is insufficient and alignment remains correct. Keyboard Escape dismissal/focus restoration, the remaining Button API/visual matrix, native Windows contrast modes and assistive-technology acceptance remain open.
+
+| BadgeHorizontalPosition | BadgeVerticalPosition | Live browser case |
+| --- | --- | --- |
+| Start | Top | Inbox badge |
+| End | Bottom | Updates badge |
+| Start | Bottom | Archive badge |
+| End | Top | Tasks badge |
+
+All four base position combinations are checked on the live WebAssembly Button demo, including the actual wrapper classes and accessible names.
 
 | `DropdownPlacement` | Trigger indicator | Live browser evidence |
 |---|---|---|
-| `Placement.Top` | Up caret | Opens above; selecting Copy closes; outside click dismisses |
-| `Placement.Bottom` | Down caret | Opens below; selecting Copy closes |
-| `Placement.Right` | Right caret | Opens to the right; selecting Copy closes |
-| `Placement.Left` | Left caret | Opens to the left; selecting Copy closes |
+| `Placement.Top` | Up caret | Opens above; Copy closes; outside click dismisses |
+| `Placement.TopStart` | Up caret | Opens above; Start edges align; Copy closes |
+| `Placement.TopEnd` | Up caret | Opens above; End edges align; Copy closes |
+| `Placement.Bottom` | Down caret | Opens below; Copy closes |
+| `Placement.BottomStart` | Down caret | Opens below; Start edges align; Copy closes |
+| `Placement.BottomEnd` | Down caret | Opens below; End edges align; Copy closes |
+| `Placement.Right` | Right caret | Opens right when room allows; Copy closes |
+| `Placement.RightStart` | Right caret | Opens right; Start edges align; Copy closes |
+| `Placement.RightEnd` | Right caret | Opens right when room allows; if insufficient, flips left and retains End alignment |
+| `Placement.Left` | Left caret | Opens left when room allows; Copy closes |
+| `Placement.LeftStart` | Left caret | Opens left; Start edges align; Copy closes |
+| `Placement.LeftEnd` | Left caret | Opens left; End edges align; Copy closes |
 
-The four base directions are covered in the live probe. `TopStart`, `TopEnd`, `BottomStart`, `BottomEnd`, `LeftStart`, `LeftEnd`, `RightStart` and `RightEnd` remain public enum values but are not yet separate browser scenarios.
+All twelve public dropdown placements are individual live browser scenarios. Edge-aligned cases verify the Start/End edge as well as the requested side; RightEnd flips left at the tested viewport when available right-side space is smaller than the popover width, while preserving End alignment.
 ## Child content and composition
 
 `Button` does not expose generic `ChildContent`. Its named `Badge` and `Dropdown` fragments are the composition slots.
@@ -125,6 +146,35 @@ A `Dropdown` with no `OnClick` becomes a dropdown-only button backed by `Popover
 ## Services and containers
 
 Use the normal `AddBluentUI()` setup. Dropdown and tooltip behavior depends on Bluent popover/tooltip services; include `<Containers />` once in the active interactive layout as described by Getting Started.
+
+## Tooltip behavior
+
+Button inherits five tooltip parameters from BluentUiComponentBase:
+
+| Parameter | Default | Behavior |
+| --- | --- | --- |
+| Tooltip | null | Plain-text tooltip content. |
+| TooltipContent | null | Rich RenderFragment content; takes precedence when supplied. |
+| TooltipPlacement | Placement.Top | Position enum for the tooltip popover. |
+| TooltipAppearance | PopoverAppearance.Default | Default, Brand, or Inverted. |
+| DisplayTooltipArrow | false | Adds the positioned arrow element. |
+
+Example with string content:
+
+    <Button Text="String tooltip" Tooltip="String tooltip content"
+            TooltipPlacement="Placement.Right"
+            TooltipAppearance="PopoverAppearance.Brand" DisplayTooltipArrow />
+
+Example with rich content:
+
+    <Button Text="Inverted tooltip" TooltipPlacement="Placement.BottomEnd"
+            TooltipAppearance="PopoverAppearance.Inverted" DisplayTooltipArrow>
+        <TooltipContent>
+            Keyboard tooltip content
+        </TooltipContent>
+    </Button>
+
+Tooltip wiring depends on the shared Containers host in an interactive layout. The live Button browser probe verifies string content appearing on pointer hover and hiding on mouseleave, and TooltipContent appearing on keyboard focus and hiding on blur. It also checks Brand/Right and Inverted/BottomEnd appearance/placement classes and arrow presence. Dropdown placement is separately covered for all twelve Placement values in a live LTR layout, including Start/End edge alignment and a justified collision flip when the requested side has insufficient room. The Tooltip-specific samples in this probe remain Top, Right and BottomEnd; the other Tooltip placement values do not yet have dedicated Tooltip runtime scenarios. Native assistive-technology behavior and Windows contrast themes remain unverified.
 
 ## Styling and theming
 

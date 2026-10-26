@@ -116,6 +116,16 @@
                     <Badge Text="New" Color="BadgeColor.Informative" Shape="BadgeShape.Rounded" aria-label="New updates" />
                 </Badge>
             </Button>
+            <Button Text="Archive" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.Start" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Bottom">
+                <Badge>
+                    <Badge Text="!" Color="BadgeColor.Danger" Shape="BadgeShape.Circular" aria-label="Archive alert" />
+                </Badge>
+            </Button>
+            <Button Text="Tasks" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.End" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Top">
+                <Badge>
+                    <Badge Text="4" Color="BadgeColor.Informative" Shape="BadgeShape.Circular" aria-label="4 open tasks" />
+                </Badge>
+            </Button>
         </div>
     </div>
 
@@ -139,9 +149,15 @@
     <div>
         <h5>Tooltip</h5>
         <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
-            <Button Text="Button with tooltip" Icon="@FluentIcons.CursorClick">
+            <Button Text="Button with tooltip" Icon="@FluentIcons.CursorClick" TooltipPlacement="Placement.Top">
                 <TooltipContent>
                     This is a tooltip!
+                </TooltipContent>
+            </Button>
+            <Button Text="String tooltip" Icon="@FluentIcons.CursorClick" Tooltip="String tooltip content" TooltipPlacement="Placement.Right" TooltipAppearance="PopoverAppearance.Brand" DisplayTooltipArrow />
+            <Button Text="Inverted tooltip" Icon="@FluentIcons.CursorClick" TooltipPlacement="Placement.BottomEnd" TooltipAppearance="PopoverAppearance.Inverted" DisplayTooltipArrow>
+                <TooltipContent>
+                    Keyboard tooltip content
                 </TooltipContent>
             </Button>
         </div>
@@ -218,6 +234,78 @@
                 </Dropdown>
             </Button>
             <Button Text="Menu left" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.Left">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu top-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.TopStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu top-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.TopEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu bottom-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.BottomStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu bottom-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.BottomEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu right-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.RightStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu right-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.RightEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu left-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.LeftStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu left-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.LeftEnd">
                 <Dropdown>
                     <MenuList>
                         <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
