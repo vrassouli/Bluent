@@ -111,3 +111,15 @@ The shared `CompatibilityProbe.razor` now contains paired Persian `ذخیره ت
 - Every route keeps Persian copy RTL in both LTR and RTL rows; the AX name is exactly `ذخیره تغییرات`; the icon is physically before text in LTR and after it in RTL.
 - The initial full run had one intermittent Chrome/Server click timeout; the isolated Chrome rerun passed 42/42 and the subsequent full fresh publish passed 84/84. No source behavior change was needed in response to that non-reproducible timeout.
 - This is actual Production publish/browser evidence, not deployment. It does not substitute for native OS contrast-theme and named screen-reader acceptance.
+
+
+## Published Production Button-managed Dropdown lifecycle - 2026-10-27
+
+The shared interactive compatibility fixture now includes a real Button-managed dropdown with the existing public `Dropdown`, `MenuList`, and `MenuItem` composition. It keeps an explicit command-selection counter so the browser probe can prove that a trusted click performs the expected action once rather than merely seeing a popup close. The published-host probe now checks the initial native Button/caret, stable `aria-controls` target and collapsed state, actual surface visibility with `aria-expanded=true`, keyboard Escape dismissal from the focused Copy command, focus restoration to the trigger, reopening, and exactly-once Copy selection followed by closure.
+
+The freshly published Production browser matrix passed **112/112 assertions, 0 failures** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly (**28 assertions per route/browser pair**). This is real browser interaction on the temporary published host; it is not a deployment. The new checks intentionally assert that `aria-haspopup` remains absent until the shared MenuList/MenuItem menu-role contract is approved and implemented. They do not claim arrow-key navigation or native assistive-technology acceptance.
+
+- Full Release solution build: **0 warnings / 0 errors**.
+- Published Production browser probe: **112/112 passed**.
+- This adds a demo fixture and cross-render regression coverage; it does not change Button public API, production CSS, token mapping, stable v2 assets, or deployment status.
+- Native Windows Contrast Themes, named Narrator/NVDA/JAWS acceptance, final #418 token approval, and complete Fluent visual parity remain open. Keep #428 In progress and PR #554 Draft.

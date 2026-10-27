@@ -125,6 +125,19 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('"src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"', workflow)
         self.assertIn('"scripts/quality/probe_v3_button_toggle_interactive_server.mjs"', workflow)
 
+    def test_button_managed_dropdown_lifecycle_is_verified_in_published_renderers(self):
+        fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
+        self.assertIn('data-testid="button-managed-dropdown-trigger"', fixture)
+        self.assertIn('data-testid="button-managed-dropdown-copy"', fixture)
+        self.assertIn("RecordManagedDropdownSelection", fixture)
+        self.assertIn("const managedDropdownExpression =", probe)
+        self.assertIn("Escape closes the managed Button dropdown and restores trigger focus", probe)
+        self.assertIn("activating Copy invokes the component callback once and closes the dropdown", probe)
+        self.assertIn('"src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"', workflow)
+        self.assertIn('"scripts/quality/probe_v3_button_toggle_interactive_server.mjs"', workflow)
+
     def test_button_badge_rtl_geometry_probe_stays_exhaustive(self):
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         self.assertIn('inspectBadgeDirection("ltr")', probe)

@@ -186,7 +186,7 @@ Use the packaged Bluent theme and component stylesheet. `Appearance`, `Shape`, `
 
 ## Localization and RTL
 
-Button has no built-in localized action text; the application supplies `Text` and `SecondaryText`. Dropdown caret direction is selected from popover placement. The inner text wrapper uses HTML `dir="auto"` so localized content determines its writing direction independently of the outer Button/icon layout. Live Chrome/Edge checks cover icon mirroring, real Badge Start/End edge geometry, and the Persian `ذخیره تغییرات` label retaining RTL direction and its Persian accessible name in both LTR and RTL contexts. A separate **published Production ASP.NET Core** probe now verifies that same direction, icon placement and computed accessibility name in both InteractiveServer and InteractiveWebAssembly: **84/84 assertions** across Chrome and Edge, with 21 checks per browser/renderer route. Full Persian typography, candidate font approval and native assistive-technology/Windows contrast acceptance remain open.
+Button has no built-in localized action text; the application supplies `Text` and `SecondaryText`. Dropdown caret direction is selected from popover placement. The inner text wrapper uses HTML `dir="auto"` so localized content determines its writing direction independently of the outer Button/icon layout. Live Chrome/Edge checks cover icon mirroring, real Badge Start/End edge geometry, and the Persian `ذخیره تغییرات` label retaining RTL direction and its Persian accessible name in both LTR and RTL contexts. A separate **published Production ASP.NET Core** probe now verifies that same direction, icon placement and computed accessibility name in both InteractiveServer and InteractiveWebAssembly: **112/112 assertions** across Chrome and Edge, with 28 checks per browser/renderer route. The expanded production probe also verifies the Button-managed dropdown open/closed lifecycle, persistent aria-controls target, Escape dismissal and trigger-focus restoration, and exactly-once Copy selection. Full Persian typography, candidate font approval and native assistive-technology/Windows contrast acceptance remain open.
 
 ## Accessibility and keyboard interaction
 
@@ -247,3 +247,10 @@ Add an appropriate `aria-label`, visible text, or other accessible naming contex
 - Source rechecked on 2026-10-27 against the current Button markup, code-behind, inherited component API, and published browser evidence.
 - Verification date: 2026-10-27
 - Published interactive toggle evidence: [Button toggle semantic slice](../v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md), with the reproducible [Production render-mode probe](../../scripts/quality/probe_v3_button_toggle_interactive_server.mjs).
+
+
+## Published Button-managed dropdown lifecycle verification - 2026-10-27
+
+The real published Production browser probe additionally exercises the Button-owned Dropdown in InteractiveServer and InteractiveWebAssembly, in Chrome and Edge. Across the four route/browser combinations, **112/112 assertions pass**: the native trigger and caret render, `aria-controls` points to its persistent surface, `aria-expanded` tracks the actual open/closed lifecycle, Escape closes the popup and restores focus to the trigger, and activating the real Copy MenuItem invokes its callback exactly once and closes the popup. The same fixture is compiled into both interactive modes.
+
+This intentionally does **not** claim that the shared menu is a complete ARIA menu: `aria-haspopup="menu"`, menu/menuitem roles, arrow-key navigation, and named assistive-technology acceptance remain outside the verified contract. The probe uses a temporary local Production publish, not a deployment; native Windows Contrast Themes and final approved #418 token/visual parity remain open.

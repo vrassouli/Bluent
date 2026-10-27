@@ -32,6 +32,27 @@
         <NavLink href="/compatibility/static">Navigate to static SSR probe</NavLink>
     </div>
     <p role="status" data-testid="drawer-result">Drawer result: @_drawerResult</p>
+
+</section>
+
+<section aria-labelledby="button-managed-dropdown-heading">
+    <h2 id="button-managed-dropdown-heading">Button-managed dropdown lifecycle</h2>
+    <p>Interactive Button fixture for verifying stable popup controls, Escape dismissal, focus return, and command selection in the active renderer.</p>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 0.5rem;">
+        <Button Text="Managed dropdown"
+                ShowDropdownIndicator="true"
+                data-testid="button-managed-dropdown-trigger">
+            <Dropdown>
+                <MenuList>
+                    <MenuItem Title="Copy"
+                              OnClick="RecordManagedDropdownSelection"
+                              data-testid="button-managed-dropdown-copy" />
+                    <MenuItem Title="Delete" />
+                </MenuList>
+            </Dropdown>
+        </Button>
+    </div>
+    <p role="status" data-testid="button-managed-dropdown-selection">Dropdown selection: @_managedDropdownSelection; count: @_managedDropdownSelectionCount</p>
 </section>
 
 <section aria-labelledby="localized-button-heading">
@@ -107,6 +128,8 @@
     private bool? _toggleValue = false;
     private int _toggleChangeCount;
     private int _toggleClickCount;
+    private string _managedDropdownSelection = "none";
+    private int _managedDropdownSelectionCount;
     private string _drawerResult = "not opened";
     private readonly string _observedRenderer =
         OperatingSystem.IsBrowser() ? "WebAssembly" : "Server";
@@ -126,6 +149,12 @@
     private void OnToggleClick()
     {
         _toggleClickCount++;
+    }
+
+    private void RecordManagedDropdownSelection()
+    {
+        _managedDropdownSelection = "Copy";
+        _managedDropdownSelectionCount++;
     }
 
     private void Increment()
