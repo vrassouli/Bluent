@@ -84,7 +84,7 @@ public partial class Button
     private IEnumerable<KeyValuePair<string, object>>? GetButtonAdditionalAttributes()
     {
         var ownsToggleState = Toggled.HasValue && (!IsLink || IsDisabled);
-        var ownsPopupState = IsButtonManagedMenuTrigger || (ParentPopover is not null && ShowDropdownIndicator);
+        var ownsPopupState = IsButtonManagedMenuTrigger;
 
         if ((!ownsToggleState && !ownsPopupState) || AdditionalAttributes is null)
             return AdditionalAttributes;
