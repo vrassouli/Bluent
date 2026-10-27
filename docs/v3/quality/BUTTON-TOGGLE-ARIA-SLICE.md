@@ -61,3 +61,14 @@ The interactive Button showcase now derives the entire matrix from the current e
 - Docs-contract unit tests: **11/11**. Node syntax check and `git diff --check` passed. After the tracking update, the full Release solution build passed with **0 warnings / 0 errors**, solution tests passed **29/29**, and the docs-contract suite passed **11/11**. The remaining docs/API/link/consumer-skill/focus-handoff/UTF-8/whitespace checks also passed. Exact-head CI is checked after pushing this checkpoint.
 
 This improves source-variant and responsive demo coverage only. It does not approve pending #418 tokens, prove Fluent 2 pixel parity, or replace native OS contrast/screen-reader acceptance.
+
+
+## Light/Dark theme and LTR/RTL matrix verification - 2026-10-27
+
+The live WebAssembly probe now changes the real root `data-bui-theme` between `light` and `dark`, waits 350ms for Button's background/border/text transitions to settle, then inspects all 54 variant controls' computed values. It verifies each variant still exists exactly once and has concrete resolved color/background/border values in both modes. The Default-Medium-Rounded sample changes from a white background/dark foreground in Light to a dark background/white foreground in Dark. A stable `data-demo-button-direction="icon-text"` case verifies the actual Button's icon is physically to the left of text under LTR and to the right under RTL without changing its accessible name. With Dark+RTL active at a simulated 390px viewport, the whole matrix remains 54 controls, all 18 rows wrap, and neither the document nor any row overflows. The probe restores Light+LTR in its disposable tab after checks.
+
+- Live WebAssembly browser probe: **Chrome 203/203 and Edge 203/203**, zero failures, including theme and RTL checks.
+- The initial Light/Dark color assertion was intentionally kept strict; the first run caught the CSS transition race. Splitting theme mutation and computed-style inspection with a transition-settle wait resolved it. This is a test synchronization fix, not a product visual-code change.
+- Debug demo build: **0 warnings / 0 errors**; full Release solution build: **0 warnings / 0 errors**; solution tests: **29/29**. Docs contract: **0 findings**; docs-contract tests: **11/11**; Button API baseline: **0 errors**; focus handoff tests: **7/7**; local Markdown links: **157 files**; consumer-skill mapping: **58 families / 67 routes**. Node syntax, UTF-8 validation and `git diff --check` passed. Exact-head GitHub Actions is checked after pushing this checkpoint.
+
+These checks exercise bundled theme variables and browser `dir` layout, not actual Windows Contrast Themes, physical zoom, assistive technologies or approved Fluent 2 pixel parity.

@@ -78,6 +78,15 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('buttonVariantShapes = ["Rounded", "Circular", "Square"]', probe)
         self.assertIn('buttonVariantMatrix.count===54', probe)
         self.assertIn('matrixRows===18', probe)
+        self.assertIn('data-demo-button-direction="icon-text"', demo)
+        self.assertIn('inspectButtonTheme("light")', probe)
+        self.assertIn('inspectButtonTheme("dark")', probe)
+        self.assertIn('rtlIconText.iconAfterText', probe)
+        self.assertIn('rtlNarrow.buttonCount===54', probe)
+        self.assertIn('data-bui-theme', probe)
+        self.assertIn('await sleep(350)', probe)
+        self.assertIn('rootToken:getComputedStyle(root).getPropertyValue("--colorNeutralBackground1").trim()', probe)
+        self.assertIn('rtlNarrow.direction==="rtl"', probe)
 
     def test_button_tooltip_placement_matrix_stays_exhaustive(self):
         demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
