@@ -81,3 +81,14 @@ The interactive Button showcase now has a separate direct `Toggled` + `ToggledCh
 - Live Debug WebAssembly probe: **Chrome 206/206 and Edge 206/206**, zero failures, including both callback assertions.
 - Debug demo build: **0 warnings / 0 errors**; the docs-contract test now has a separately named check for the direct callback specimen and probe.
 - No library runtime/API/CSS/token or stable v2 changes. This is browser evidence, not an assistive-technology acceptance claim.
+
+
+## Badge logical-edge geometry in LTR and RTL - 2026-10-27
+
+The live WebAssembly probe now measures each of the four existing Badge wrappers relative to the actual owning Button using `getBoundingClientRect()`. It asserts both horizontal and vertical centers against the edge expected from the logical `BadgeHorizontalPosition` and `BadgeVerticalPosition`, at less than 1.5px tolerance. Results are checked with root `dir=ltr` and `dir=rtl`: Start is on the physical left for LTR and physical right for RTL; End mirrors to the opposite edge; Top/Bottom keep their corresponding vertical edge. The probe uses `classList` for the logical values and restores LTR after the test so the subsequent tooltip/dropdown checks retain their expected direction.
+
+- Full live WASM suite: **Chrome 208/208 and Edge 208/208**, zero failures; the two added checks validate all four real Badge positions in both directions.
+- Debug demo build: **0 warnings / 0 errors**; docs-contract unit tests **13/13**; Node syntax and `git diff --check` passed at this checkpoint.
+- The first attempt exposed two defects in the test snippet itself (an unbound direction reference and class-name string parsing). They were corrected; the product CSS was not changed.
+
+This establishes logical Badge geometry in current browser rendering, not complete Persian typography, native Windows contrast or full Fluent 2 visual parity.

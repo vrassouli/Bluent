@@ -28,7 +28,7 @@ Follow [Getting Started](../getting-started/index.md) for `AddBluentUI()` and pa
         OnClick="SaveAsync" />
 ```
 
-The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe passes **206/206 assertions in Chrome and 206/206 in Edge** on 2026-10-27. It verifies stable accessible names, all twelve inherited TooltipPlacement values, all 54 Appearance × Size × Shape combinations and class mappings, computed Button styles in Light and Dark themes, icon/text mirroring in LTR and RTL, and responsive behavior at 390px in Dark+RTL. An explicit `ToggledChanged` example independently verifies exactly-once callbacks for trusted pointer activation and Space, synchronized `aria-pressed` and visible state, and a stable accessible name across state changes. Native Windows contrast themes, screen-reader acceptance, full menu-role/arrow-key behavior, and complete approved-design/visual parity remain open.
+The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe passes **208/208 assertions in Chrome and 208/208 in Edge** on 2026-10-27. It verifies stable accessible names, all twelve inherited TooltipPlacement values, all 54 Appearance × Size × Shape combinations and class mappings, computed Button styles in Light and Dark themes, icon/text mirroring in LTR and RTL, physical Badge placement in both directions, and responsive behavior at 390px in Dark+RTL. An explicit `ToggledChanged` example independently verifies exactly-once callbacks for trusted pointer activation and Space, synchronized `aria-pressed` and visible state, and a stable accessible name across state changes. Native Windows contrast themes, screen-reader acceptance, full menu-role/arrow-key behavior, and complete approved-design/visual parity remain open.
 
 ## Appearance, size and shape matrix
 
@@ -123,7 +123,7 @@ The outer Badge element supplies the Button named Badge render-fragment paramete
 | Start | Bottom | Archive badge |
 | End | Top | Tasks badge |
 
-All four base position combinations are checked on the live WebAssembly Button demo, including the actual wrapper classes and accessible names.
+All four base position combinations are checked on the live WebAssembly Button demo, including the actual wrapper classes and accessible names. A separate real-DOM geometry check measures each wrapper against its owning Button in both LTR and RTL: logical Start maps to physical left in LTR and physical right in RTL; End maps to the opposite edge, while Top and Bottom remain aligned to the corresponding vertical edges. Chrome and Edge validate all four combinations at sub-1.5px positional tolerance. This is a browser layout check, not approval of the remaining full Persian typography/Fluent visual matrix.
 
 | `DropdownPlacement` | Trigger indicator | Live browser evidence |
 |---|---|---|
@@ -186,7 +186,7 @@ Use the packaged Bluent theme and component stylesheet. `Appearance`, `Shape`, `
 
 ## Localization and RTL
 
-Button has no built-in localized action text; the application supplies `Text` and `SecondaryText`. Dropdown caret direction is selected from popover placement. Complete Button-specific RTL visual verification is not recorded.
+Button has no built-in localized action text; the application supplies `Text` and `SecondaryText`. Dropdown caret direction is selected from popover placement. Live browser checks now cover icon/text mirroring and Badge Start/End physical-edge geometry under LTR and RTL; complete Persian typography and full Button-specific RTL visual parity remain unverified.
 
 ## Accessibility and keyboard interaction
 

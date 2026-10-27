@@ -98,6 +98,15 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('trusted pointer invokes explicit ToggledChanged exactly once', probe)
         self.assertIn('native Space invokes explicit ToggledChanged once more', probe)
 
+    def test_button_badge_rtl_geometry_probe_stays_exhaustive(self):
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn('inspectBadgeDirection("ltr")', probe)
+        self.assertIn('inspectBadgeDirection("rtl")', probe)
+        self.assertIn('LTR Badge Start aligns to physical left and End to physical right', probe)
+        self.assertIn('RTL Badge Start mirrors to physical right and End to physical left', probe)
+        self.assertIn('horizontalError<1.5', probe)
+        self.assertIn('verticalError<1.5', probe)
+
     def test_button_tooltip_placement_matrix_stays_exhaustive(self):
         demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")

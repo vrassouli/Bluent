@@ -12,7 +12,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- [Bluent.UI.Demo, v3 development] The Button showcase includes an interactive matrix for all twelve inherited tooltip placements and all **54** current Appearance × Size × Shape combinations, plus a direct `Toggled`/`ToggledChanged` callback example with visible state/count feedback. Live WebAssembly probes in Chrome and Edge pass **206/206** assertions each, including runtime class mapping, Light/Dark computed token styles, LTR/RTL icon mirroring, exactly-once pointer/Space callbacks, and 390px wrapping without horizontal overflow in Dark+RTL. This is demo/test coverage, not approval of pending design tokens or full Button visual parity.
+- [Bluent.UI.Demo, v3 development] The Button showcase includes an interactive matrix for all twelve inherited tooltip placements and all **54** current Appearance × Size × Shape combinations, a direct `Toggled`/`ToggledChanged` callback example, and LTR/RTL Badge geometry verification. Live WebAssembly probes in Chrome and Edge pass **208/208** assertions each, including runtime class mapping, Light/Dark computed token styles, icon/Badge mirroring, exactly-once pointer/Space callbacks, and 390px wrapping without horizontal overflow in Dark+RTL. This is demo/test coverage, not approval of pending design tokens or full Button visual parity.
 
 ### Changed
 
