@@ -72,3 +72,12 @@ The live WebAssembly probe now changes the real root `data-bui-theme` between `l
 - Debug demo build: **0 warnings / 0 errors**; full Release solution build: **0 warnings / 0 errors**; solution tests: **29/29**. Docs contract: **0 findings**; docs-contract tests: **11/11**; Button API baseline: **0 errors**; focus handoff tests: **7/7**; local Markdown links: **157 files**; consumer-skill mapping: **58 families / 67 routes**. Node syntax, UTF-8 validation and `git diff --check` passed. Exact-head GitHub Actions is checked after pushing this checkpoint.
 
 These checks exercise bundled theme variables and browser `dir` layout, not actual Windows Contrast Themes, physical zoom, assistive technologies or approved Fluent 2 pixel parity.
+
+
+## Direct `ToggledChanged` callback demo - 2026-10-27
+
+The interactive Button showcase now has a separate direct `Toggled` + `ToggledChanged` example without `@bind-Toggled`. Its status text exposes both the current state and callback invocation count. The live browser probe starts from `Off`, `aria-pressed=false`, and zero callbacks; a **trusted pointer click** transitions to `On` with exactly one callback; a **native Space activation** transitions back to `Off` with exactly two calls total. The computed accessible name remains `Explicit callback toggle` throughout. This proves direct callback behavior independently from the existing six-appearance `@bind-Toggled` specimens.
+
+- Live Debug WebAssembly probe: **Chrome 206/206 and Edge 206/206**, zero failures, including both callback assertions.
+- Debug demo build: **0 warnings / 0 errors**; the docs-contract test now has a separately named check for the direct callback specimen and probe.
+- No library runtime/API/CSS/token or stable v2 changes. This is browser evidence, not an assistive-technology acceptance claim.

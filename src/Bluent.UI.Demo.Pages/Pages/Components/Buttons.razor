@@ -95,6 +95,17 @@
     </div>
 
     <div>
+        <h5>Explicit ToggledChanged callback</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Explicit callback toggle"
+                    Toggled="@_explicitToggle"
+                    ToggledChanged="RecordExplicitToggleChanged"
+                    data-demo-toggle-callback="true" />
+            <span role="status" data-demo-toggle-callback-status>Explicit toggle state: @(_explicitToggle ? "On" : "Off"); ToggledChanged calls: @_explicitToggleChangedCount</span>
+        </div>
+    </div>
+
+    <div>
         <h5>Layout, orientation and density</h5>
         <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Compact action" TextClass="fw-semibold" Icon="@FluentIcons.CursorClick" Compact />
@@ -404,6 +415,14 @@
 @code {
     private int _saveActionCount;
     private int _disabledLinkActionCount;
+    private bool _explicitToggle;
+    private int _explicitToggleChangedCount;
+
+    private void RecordExplicitToggleChanged(bool value)
+    {
+        _explicitToggle = value;
+        _explicitToggleChangedCount++;
+    }
 
     private void RecordSaveAction() => _saveActionCount++;
 

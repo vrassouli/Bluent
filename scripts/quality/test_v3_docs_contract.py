@@ -87,6 +87,16 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('await sleep(350)', probe)
         self.assertIn('rootToken:getComputedStyle(root).getPropertyValue("--colorNeutralBackground1").trim()', probe)
         self.assertIn('rtlNarrow.direction==="rtl"', probe)
+    def test_button_explicit_toggled_changed_callback_demo_and_probe(self):
+        demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn('ToggledChanged="RecordExplicitToggleChanged"', demo)
+        self.assertIn('data-demo-toggle-callback-status', demo)
+        self.assertIn('button[data-demo-toggle-callback=', probe)
+        self.assertIn('ToggledChanged calls: 1', probe)
+        self.assertIn('ToggledChanged calls: 2', probe)
+        self.assertIn('trusted pointer invokes explicit ToggledChanged exactly once', probe)
+        self.assertIn('native Space invokes explicit ToggledChanged once more', probe)
 
     def test_button_tooltip_placement_matrix_stays_exhaustive(self):
         demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
