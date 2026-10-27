@@ -28,7 +28,7 @@ Follow [Getting Started](../getting-started/index.md) for `AddBluentUI()` and pa
         OnClick="SaveAsync" />
 ```
 
-The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe passes 105/105 assertions in both Chrome and Edge; it also verifies stable accessible names with icon children hidden from the accessibility tree, preservation of caller-provided names on icon-only Buttons, the split-menu trigger name, Escape dismissal, focus restoration after Escape and menu-item selection, and the dropdown trigger-to-surface ARIA relationship. Native Windows contrast themes, screen-reader acceptance, full menu-role/arrow-key behavior, and the remaining Button API/visual matrix remain open.
+The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe passes 142/142 assertions in both Chrome and Edge on 2026-10-27. It verifies stable accessible names with decorative icon children hidden from the accessibility tree, caller-provided names on icon-only Buttons, the split-menu trigger name, Escape dismissal and focus restoration, the dropdown trigger-to-surface ARIA relationship, and interactive coverage for all twelve inherited TooltipPlacement values. Native Windows contrast themes, screen-reader acceptance, full menu-role/arrow-key behavior, and the remaining Button API/visual matrix remain open.
 
 ## Parameters
 
@@ -110,7 +110,7 @@ The compiled [Button showcase](../../src/Bluent.UI.Demo.Pages/Pages/Components/B
         }
     }
 
-The outer Badge element supplies the Button named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The live browser probe covers all twelve DropdownPlacement values: each menu opens, its physical side and logical Start/End alignment are checked, Copy selection closes the panel, and outside-click dismissal waits for the transition. If the requested side has less room than the popover requires, the probe accepts an opposite-side collision flip only when available space is insufficient and alignment remains correct. Escape dismissal and trigger-focus restoration are covered by the live Chrome/Edge probe; the remaining Button API/visual matrix, native Windows contrast modes and assistive-technology acceptance remain open.
+The outer Badge element supplies the Button named Badge render-fragment parameter; the inner Badge is the visible Badge component. ShowDropdownIndicator is demonstrated with a Button-managed dropdown so its parent popover can supply placement context. The dedicated Tooltip placement matrix now renders all twelve inherited Placement values. The live browser probe opens each tooltip, checks its requested placement class and arrow, and verifies that pointer exit hides the tooltip. A separate set of examples continues to cover string and RenderFragment content, Default/Brand/Inverted appearance, hover/focus activation, and arrow on/off. The live browser probe also covers all twelve DropdownPlacement values: each menu opens, its physical side and logical Start/End alignment are checked, Copy selection closes the panel, and outside-click dismissal waits for the transition. If the requested side has less room than the popover requires, the probe accepts an opposite-side collision flip only when available space is insufficient and alignment remains correct. Escape dismissal and trigger-focus restoration are covered by the live Chrome/Edge probe; the remaining Button API/visual matrix, native Windows contrast modes and assistive-technology acceptance remain open.
 
 | BadgeHorizontalPosition | BadgeVerticalPosition | Live browser case |
 | --- | --- | --- |
@@ -196,7 +196,7 @@ See [Hosting models and render modes](../compatibility/hosting-and-render-modes.
 
 | Render mode | Status | Notes |
 | --- | --- | --- |
-| Standalone WebAssembly | Partially verified | Expanded live Button browser probe passed 105/105 checks in Chrome and Edge on 2026-10-27; temporary focus research styling is injected only in the disposable browser tab. This is not full component parity. |
+| Standalone WebAssembly | Partially verified | Expanded live Button browser probe passed 142/142 checks in Chrome and Edge on 2026-10-27, including all twelve TooltipPlacement values; temporary focus research styling is injected only in the disposable browser tab. This is not full component parity. |
 | Interactive Server | Toggle semantics verified | Published Production route: 19/19 checks each in Chrome and Edge; callbacks and computed accessibility-tree state included. |
 | Interactive WebAssembly | Toggle semantics verified | Published Production route: 19/19 checks each in Chrome and Edge; confirms actual WebAssembly rendering. |
 | Interactive Auto | Unverified | No Button-specific run recorded here. |
@@ -225,6 +225,7 @@ Add an appropriate `aria-label`, visible text, or other accessible naming contex
 - There is no generic `ChildContent` slot.
 - Full Button/Fluent visual and behavioral parity remains open; native Windows Contrast Themes and Narrator/NVDA/JAWS acceptance are not recorded. Complete Button-specific RTL visual parity and the full demo matrix remain open.
 - Dropdown/split behavior depends on the shared popover infrastructure.
+- The shared Tooltip surface currently has no explicit `role="tooltip"` or trigger `aria-describedby` relation in its source markup. The live Button probe proves visual show/hide and placement only, not screen-reader announcement. Track the shared semantic contract in the Tooltip family issue (#456), rather than claiming Button AT support from hover/focus tests.
 
 ## Related components
 

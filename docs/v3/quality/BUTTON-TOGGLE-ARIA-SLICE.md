@@ -38,3 +38,15 @@ The focus-ring candidate used by the existing #501 probe is injected into a disp
 ## Design provenance
 
 Reuses the existing source-owned Bluent v3 Button appearance/state design and accepted native Focus Visible design (#501): Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 38 `535db143-a732-807e-8008-c64d2fb91b9a`. No design nodes or visual tokens were modified by this non-visual slice.
+
+
+## Latest live demo coverage extension - 2026-10-27
+
+The Button showcase now includes a separate **Tooltip placement matrix** generated from every current public `Placement` enum value: `Top`, `Bottom`, `Left`, `Right`, `TopStart`, `TopEnd`, `RightStart`, `RightEnd`, `BottomStart`, `BottomEnd`, `LeftStart`, and `LeftEnd`. This adds no public API. The live WebAssembly probe now checks that all twelve named controls render, each tooltip opens on hover with its requested placement class and arrow, and each closes when the pointer leaves. The pre-existing string/RenderFragment and Default/Brand/Inverted examples still cover hover/focus and arrow on/off.
+
+- `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore --nologo` - passed, **0 warnings / 0 errors**.
+- `node --check scripts/quality/probe_v3_button_focus_runtime.mjs` - passed.
+- Real Chromium DevTools Protocol run against `http://127.0.0.1:5080/components/buttons`: **Chrome 142/142** and **Edge 142/142**, with zero failed assertions. The expanded probe adds 37 Tooltip assertions to the previous 105-check suite; Chrome/Edge reports the Tooltip checks and the existing Button checks passing.
+- `git diff --check` - passed at the code/demo checkpoint. Full Release solution build/test and CI for the current HEAD remain to be run after the documentation/tracking updates.
+
+These are live WebAssembly browser results and do not close native Windows Contrast Themes, Narrator/NVDA/JAWS, complete menu-role/arrow-key, accepted #418 semantic-token, or full Button design-parity gates.

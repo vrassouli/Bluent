@@ -64,5 +64,20 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn("native windows contrast themes", slice_doc)
 
 
+    def test_button_tooltip_placement_matrix_stays_exhaustive(self):
+        demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn("Enum.GetValues<Placement>()", demo)
+        self.assertIn('TooltipPlacement="@tooltipPlacement"', demo)
+        self.assertIn('data-demo-tooltip-placement="@tooltipPlacement"', demo)
+        placements = ("Top", "Bottom", "Left", "Right", "TopStart", "TopEnd", "RightStart", "RightEnd", "BottomStart", "BottomEnd", "LeftStart", "LeftEnd")
+        for placement in placements:
+            self.assertIn(f'"{placement}"', probe, placement)
+        self.assertIn("tooltipPlacementNames.every", probe)
+        self.assertIn("waitTooltipState(trigger.id, true)", probe)
+        self.assertIn("waitTooltipState(trigger.id, false)", probe)
+        self.assertIn("shown.classes.split", probe)
+
+
 if __name__ == "__main__":
     unittest.main()

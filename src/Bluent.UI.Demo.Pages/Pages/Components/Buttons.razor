@@ -164,6 +164,22 @@
     </div>
 
     <div>
+        <h5>Tooltip placement matrix</h5>
+        <p class="text-muted">Each supported placement is interactive; hover or keyboard-focus a button to inspect its tooltip.</p>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            @foreach (var tooltipPlacement in Enum.GetValues<Placement>())
+            {
+                <Button Text="@($"Tooltip {tooltipPlacement}")"
+                        Icon="@FluentIcons.CursorClick"
+                        Tooltip="@($"Tooltip placement: {tooltipPlacement}")"
+                        TooltipPlacement="@tooltipPlacement"
+                        DisplayTooltipArrow
+                        data-demo-tooltip-placement="@tooltipPlacement" />
+            }
+        </div>
+    </div>
+
+    <div>
         <h5>Button Group</h5>
         <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <ButtonGroup>

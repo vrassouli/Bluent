@@ -12,7 +12,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- None.
+- [Bluent.UI.Demo, v3 development] The Button showcase adds an interactive matrix for all twelve inherited tooltip placements. Chrome and Edge browser probes verify opening, requested placement, arrow rendering, and dismissal on pointer exit. This is demo/test coverage, not a claim of full Button visual parity.
 
 ### Changed
 
@@ -31,7 +31,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
-- None.
+- [Bluent.UI, v3 development] Button-owned Regular/Filled and dropdown indicator icons are excluded from accessible-name computation, so icon-plus-text names remain stable across state changes. Icon-only Buttons need a meaningful caller label; the split-menu trigger is named `Open menu`. This additive accessibility correction introduces no public API and does not change released 2.x packages. See [M16 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md).
 
 ### Security
 

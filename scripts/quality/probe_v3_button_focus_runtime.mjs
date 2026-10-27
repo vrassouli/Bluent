@@ -200,6 +200,22 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     const hidden=await waitTooltipState(invertedTooltip.id,false);
     assert("Inverted TooltipContent hides after blur", hidden.hidden, hidden);
   }
+  const tooltipPlacementNames = ["Top", "Bottom", "Left", "Right", "TopStart", "TopEnd", "RightStart", "RightEnd", "BottomStart", "BottomEnd", "LeftStart", "LeftEnd"];
+  const tooltipPlacementMatrix = await run("(() => { const xs=[...document.querySelectorAll('button[data-demo-tooltip-placement]')]; return {count:xs.length,items:xs.map(b=>({placement:b.dataset.demoTooltipPlacement,text:b.textContent.trim(),id:b.id,hasIcon:[...b.querySelectorAll('.icon,.active-icon')].every(x=>x.getAttribute('aria-hidden')==='true')}))}; })()");
+  assert("Tooltip placement matrix exposes all twelve public Placement values with named controls", tooltipPlacementMatrix.count===tooltipPlacementNames.length && tooltipPlacementNames.every(p=>tooltipPlacementMatrix.items.some(x=>x.placement===p && x.text===`Tooltip ${p}` && !!x.id && x.hasIcon)), tooltipPlacementMatrix);
+  for (const placement of tooltipPlacementNames) {
+    const trigger = await run(`(() => { const b=[...document.querySelectorAll('button[data-demo-tooltip-placement]')].find(x=>x.dataset.demoTooltipPlacement===${JSON.stringify(placement)}); if(!b)return null; b.scrollIntoView({block:'center'}); const r=b.getBoundingClientRect(); return {id:b.id,text:b.textContent.trim(),x:r.left+r.width/2,y:r.top+r.height/2,tag:b.tagName}; })()`);
+    assert(`Tooltip ${placement} matrix trigger renders as a native Button`, !!trigger?.id && trigger.tag==="BUTTON" && trigger.text===`Tooltip ${placement}`, trigger);
+    if (!trigger?.id) continue;
+    await send("Input.dispatchMouseEvent", {type:"mouseMoved", x:trigger.x, y:trigger.y});
+    const shown = await waitTooltipState(trigger.id, true);
+    const expectedClass = placement.replace(/[A-Z]/g, letter=>`-${letter.toLowerCase()}`).replace(/^-/, "");
+    assert(`Tooltip ${placement} displays the matching placement and arrow on hover`, shown.visible && shown.text.includes(`Tooltip placement: ${placement}`) && shown.classes.split(/\s+/).includes(expectedClass) && shown.arrow, shown);
+    await send("Input.dispatchMouseEvent", {type:"mouseMoved", x:1, y:1});
+    const hidden = await waitTooltipState(trigger.id, false);
+    assert(`Tooltip ${placement} hides when the pointer leaves its trigger`, hidden.hidden, hidden);
+  }
+
   const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
   assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
   const noCaretSnapshot = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes('Menu without caret'));if(!b)return null;return {id:b.id,hasCaret:!!b.querySelector('.dropdown-icon'),hasPopup:b.getAttribute('aria-haspopup'),expanded:b.getAttribute('aria-expanded'),controls:b.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(b.getAttribute('aria-controls'))};})()");
