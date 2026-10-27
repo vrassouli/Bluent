@@ -180,6 +180,31 @@
     </div>
 
     <div>
+        <h5>Appearance / size / shape matrix</h5>
+        <p class="text-muted">Compare every supported combination. These controls use the current Button API and active theme; they do not imply that pending v3 visual-token decisions have been approved.</p>
+        @foreach (var matrixAppearance in Enum.GetValues<ButtonAppearance>())
+        {
+            <section class="mb-3" data-demo-button-appearance-row="@matrixAppearance">
+                <h6>@matrixAppearance</h6>
+                @foreach (var matrixSize in Enum.GetValues<ButtonSize>())
+                {
+                    <div class="d-flex mb-2 gap-2 align-items-center flex-wrap" data-demo-button-size-row="@($"{matrixAppearance}-{matrixSize}")">
+                        <span class="text-muted">@matrixSize</span>
+                        @foreach (var matrixShape in Enum.GetValues<ButtonShape>())
+                        {
+                            <Button Text="@($"{matrixSize} {matrixShape}")"
+                                    Appearance="@matrixAppearance"
+                                    Size="@matrixSize"
+                                    Shape="@matrixShape"
+                                    data-demo-button-variant="@($"{matrixAppearance}-{matrixSize}-{matrixShape}")" />
+                        }
+                    </div>
+                }
+            </section>
+        }
+    </div>
+
+    <div>
         <h5>Button Group</h5>
         <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <ButtonGroup>

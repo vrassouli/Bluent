@@ -28,7 +28,11 @@ Follow [Getting Started](../getting-started/index.md) for `AddBluentUI()` and pa
         OnClick="SaveAsync" />
 ```
 
-The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe passes 142/142 assertions in both Chrome and Edge on 2026-10-27. It verifies stable accessible names with decorative icon children hidden from the accessibility tree, caller-provided names on icon-only Buttons, the split-menu trigger name, Escape dismissal and focus restoration, the dropdown trigger-to-surface ARIA relationship, and interactive coverage for all twelve inherited TooltipPlacement values. Native Windows contrast themes, screen-reader acceptance, full menu-role/arrow-key behavior, and the remaining Button API/visual matrix remain open.
+The compiled repository Button showcase covers icon, appearance, size, disabled, link, toggle, group, dropdown, split-button, badge, and tooltip patterns. The expanded live WebAssembly browser probe passes **198/198 assertions in Chrome and 198/198 in Edge** on 2026-10-27. It verifies stable accessible names with decorative icons hidden from the accessibility tree, caller-provided names on icon-only Buttons, the split-menu trigger name, Escape dismissal and focus restoration, the dropdown trigger-to-surface ARIA relationship, all twelve inherited TooltipPlacement values, and all 54 supported Appearance × Size × Shape combinations with their runtime class mapping. The 54-case matrix wraps without horizontal overflow at a 390px viewport. Native Windows contrast themes, screen-reader acceptance, full menu-role/arrow-key behavior, and complete approved-design/visual parity remain open.
+
+## Appearance, size and shape matrix
+
+The interactive showcase enumerates the current public `ButtonAppearance` (Default, Primary, Danger, Outline, Subtle, Transparent), `ButtonSize` (Small, Medium, Large), and `ButtonShape` (Rounded, Circular, Square) enums and renders the full **6 × 3 × 3 = 54** combination matrix. The real Chrome/Edge WebAssembly probe verifies every combination appears exactly once and maps to the expected runtime classes. At a 390px viewport all 18 appearance/size rows wrap without horizontal overflow. This is current-source coverage, not approval of the pending v3 token mapping or a claim of pixel parity with Fluent 2.
 
 ## Parameters
 

@@ -50,3 +50,14 @@ The Button showcase now includes a separate **Tooltip placement matrix** generat
 - `git diff --check` - passed at the code/demo checkpoint. Full Release solution build/test and CI for the current HEAD remain to be run after the documentation/tracking updates.
 
 These are live WebAssembly browser results and do not close native Windows Contrast Themes, Narrator/NVDA/JAWS, complete menu-role/arrow-key, accepted #418 semantic-token, or full Button design-parity gates.
+
+
+## Appearance, size and shape matrix - 2026-10-27
+
+The interactive Button showcase now derives the entire matrix from the current enums: six `ButtonAppearance` values × three `ButtonSize` values × three `ButtonShape` values = **54 unique controls**. Each has a `data-demo-button-variant` key. The live browser probe verifies the controls render as native buttons, every expected key occurs exactly once, and each runtime CSS class matches the selected appearance/size/shape (including omitted default classes). At the 390px test viewport, all 18 appearance/size rows wrap and neither the page nor any matrix row overflows horizontally. A docs-contract regression test protects the enum-driven demo and browser probe, and CI path filters include both source inputs.
+
+- Debug WebAssembly demo build: **0 warnings / 0 errors**.
+- Live WASM probe: **Chrome 198/198; Edge 198/198**, zero failed assertions. This includes 54 separate variant mapping assertions per browser and narrow-viewport checks.
+- Docs-contract unit tests: **11/11**. Node syntax check and `git diff --check` passed. After the tracking update, the full Release solution build passed with **0 warnings / 0 errors**, solution tests passed **29/29**, and the docs-contract suite passed **11/11**. The remaining docs/API/link/consumer-skill/focus-handoff/UTF-8/whitespace checks also passed. Exact-head CI is checked after pushing this checkpoint.
+
+This improves source-variant and responsive demo coverage only. It does not approve pending #418 tokens, prove Fluent 2 pixel parity, or replace native OS contrast/screen-reader acceptance.

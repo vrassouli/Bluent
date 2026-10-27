@@ -216,6 +216,21 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     assert(`Tooltip ${placement} hides when the pointer leaves its trigger`, hidden.hidden, hidden);
   }
 
+  const buttonVariantAppearances = ["Default", "Primary", "Danger", "Outline", "Subtle", "Transparent"];
+  const buttonVariantSizes = ["Small", "Medium", "Large"];
+  const buttonVariantShapes = ["Rounded", "Circular", "Square"];
+  const expectedButtonVariants = buttonVariantAppearances.flatMap(appearance => buttonVariantSizes.flatMap(size => buttonVariantShapes.map(shape => ({appearance,size,shape,key:`${appearance}-${size}-${shape}`}))));
+  const buttonVariantMatrix = await run(String.raw`(()=>{const xs=[...document.querySelectorAll('button[data-demo-button-variant]')];return {count:xs.length,items:xs.map(b=>({key:b.dataset.demoButtonVariant,text:b.textContent.trim(),id:b.id,tag:b.tagName,classes:[...b.classList],height:b.getBoundingClientRect().height,visible:!!(b.offsetWidth||b.offsetHeight||b.getClientRects().length)}))};})()`);
+  const foundVariantKeys = buttonVariantMatrix.items.map(x=>x.key);
+  assert("Button appearance/size/shape matrix renders all 54 combinations exactly once", buttonVariantMatrix.count===54 && new Set(foundVariantKeys).size===54 && expectedButtonVariants.every(x=>buttonVariantMatrix.items.some(y=>y.key===x.key && y.id && y.tag==="BUTTON" && y.visible && y.text===`${x.size} ${x.shape}`)), {count:buttonVariantMatrix.count,expected:expectedButtonVariants.length,duplicates:foundVariantKeys.length-new Set(foundVariantKeys).size,missing:expectedButtonVariants.filter(x=>!foundVariantKeys.includes(x.key)).map(x=>x.key)});
+  for (const variant of expectedButtonVariants) {
+    const item = buttonVariantMatrix.items.find(x=>x.key===variant.key);
+    const appearanceClasses = ["primary","danger","outline","subtle","transparent"];
+    const sizeClasses = ["small","large"];
+    const shapeClasses = ["circular","square"];
+    const hasExpectedClasses = !!item && item.classes.includes("bui-button") && appearanceClasses.every(c=>item.classes.includes(c)===(c===variant.appearance.toLowerCase())) && sizeClasses.every(c=>item.classes.includes(c)===(c===variant.size.toLowerCase())) && shapeClasses.every(c=>item.classes.includes(c)===(c===variant.shape.toLowerCase()));
+    assert(`Button ${variant.key} maps to the expected runtime classes`, hasExpectedClasses, {variant:variant.key,classes:item?.classes});
+  }
   const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
   assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
   const noCaretSnapshot = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes('Menu without caret'));if(!b)return null;return {id:b.id,hasCaret:!!b.querySelector('.dropdown-icon'),hasPopup:b.getAttribute('aria-haspopup'),expanded:b.getAttribute('aria-expanded'),controls:b.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(b.getAttribute('aria-controls'))};})()");
@@ -381,8 +396,9 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
  assert('emulated forced-colors retains visible native Split keyboard outline',forced.forced&&forced.visible&&parseFloat(forced.width)>=2&&forced.style==='solid',forced);
   await send("Emulation.setEmulatedMedia", {features:[]});
   await send("Emulation.setDeviceMetricsOverride", {width:390,height:844,deviceScaleFactor:1,mobile:false});
-  const narrow = await run("(()=>({viewportWidth:window.innerWidth,clientWidth:document.documentElement.clientWidth,documentWidth:document.documentElement.scrollWidth,wrap:[...document.querySelectorAll(\"h5\")].filter(h=>[\"Layout, orientation and density\",\"Badge and notification\",\"Styling and native attributes\"].includes(h.textContent.trim())).map(h=>({heading:h.textContent.trim(),flexWrap:getComputedStyle(h.nextElementSibling).flexWrap})),overflow:document.documentElement.scrollWidth>window.innerWidth}))()");
+  const narrow = await run(String.raw`(()=>{const matrixRows=[...document.querySelectorAll("[data-demo-button-size-row]")].map(row=>({key:row.dataset.demoButtonSizeRow,flexWrap:getComputedStyle(row).flexWrap,overflow:row.scrollWidth>row.clientWidth}));return {viewportWidth:window.innerWidth,clientWidth:document.documentElement.clientWidth,documentWidth:document.documentElement.scrollWidth,wrap:[...document.querySelectorAll("h5")].filter(h=>["Layout, orientation and density","Badge and notification","Styling and native attributes"].includes(h.textContent.trim())).map(h=>({heading:h.textContent.trim(),flexWrap:getComputedStyle(h.nextElementSibling).flexWrap})),matrixRows:matrixRows.length,matrixRowsWrap:matrixRows.every(row=>row.flexWrap==="wrap"),matrixOverflowingRows:matrixRows.filter(row=>row.overflow).map(row=>row.key),overflow:document.documentElement.scrollWidth>window.innerWidth};})()`);
   assert("Button showcase fits a 390px viewport with wrapped demo rows", narrow.viewportWidth===390 && !narrow.overflow && narrow.wrap.every(row=>row.flexWrap==="wrap"), narrow);
+  assert("all 18 appearance/size rows wrap without horizontal overflow at 390px", narrow.matrixRows===18 && narrow.matrixRowsWrap && narrow.matrixOverflowingRows.length===0, narrow);
   await send("Emulation.clearDeviceMetricsOverride");
  console.log(JSON.stringify({classification:'Real Chromium CDP ('+browser+') on live Bluent WASM Button demo; API/demo checks plus #501 focus candidate injected into transient browser tab only',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,ariaPressedGapResolved:allToggleSemanticsResolved,ariaPressedAX:{initial:initialToggleAx,afterSpace:spaceAx,afterEnter:enterAx}},checks:results},null,2));
  process.exitCode=issues.length?1:0;

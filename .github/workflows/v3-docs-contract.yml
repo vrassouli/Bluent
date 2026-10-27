@@ -12,6 +12,8 @@ on:
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       - "src/Bluent.UI/Components/BluentUiComponentBase.cs"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor"
+      - "scripts/quality/probe_v3_button_focus_runtime.mjs"
       - "src/Bluent.Core/BluentComponentBase.cs"
       - "docs/v3/**"
       - "scripts/quality/check_v3_docs_contract.py"

@@ -12,7 +12,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- [Bluent.UI.Demo, v3 development] The Button showcase adds an interactive matrix for all twelve inherited tooltip placements. Chrome and Edge browser probes verify opening, requested placement, arrow rendering, and dismissal on pointer exit. This is demo/test coverage, not a claim of full Button visual parity.
+- [Bluent.UI.Demo, v3 development] The Button showcase now includes an interactive matrix for all twelve inherited tooltip placements and all **54** current Appearance × Size × Shape combinations. Live WebAssembly probes in Chrome and Edge pass **198/198** assertions each, including runtime class mapping and 390px wrapping without horizontal overflow. This is demo/test coverage, not approval of pending design tokens or a claim of full Button visual parity.
 
 ### Changed
 

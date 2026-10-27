@@ -50,6 +50,8 @@ class V3DocsContractTests(unittest.TestCase):
             self.assertIn(f'      - "{relative}"', workflow, relative)
         self.assertIn('      - "src/Bluent.UI/Components/ButtonComponent/Button.razor"', workflow)
         self.assertIn('      - "docs/components/button.md"', workflow)
+        self.assertIn('      - "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor"', workflow)
+        self.assertIn('      - "scripts/quality/probe_v3_button_focus_runtime.mjs"', workflow)
 
     def test_button_decorative_icon_and_accessible_name_contract_stays_documented(self):
         component_doc = docs.BUTTON_DOC.read_text(encoding="utf-8").lower()
@@ -63,6 +65,19 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn("explicit stable name", slice_doc)
         self.assertIn("native windows contrast themes", slice_doc)
 
+
+    def test_button_appearance_size_shape_matrix_stays_exhaustive(self):
+        demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn("Enum.GetValues<ButtonAppearance>()", demo)
+        self.assertIn("Enum.GetValues<ButtonSize>()", demo)
+        self.assertIn("Enum.GetValues<ButtonShape>()", demo)
+        self.assertIn('data-demo-button-variant="@($"{matrixAppearance}-{matrixSize}-{matrixShape}")"', demo)
+        self.assertIn('buttonVariantAppearances = ["Default", "Primary", "Danger", "Outline", "Subtle", "Transparent"]', probe)
+        self.assertIn('buttonVariantSizes = ["Small", "Medium", "Large"]', probe)
+        self.assertIn('buttonVariantShapes = ["Rounded", "Circular", "Square"]', probe)
+        self.assertIn('buttonVariantMatrix.count===54', probe)
+        self.assertIn('matrixRows===18', probe)
 
     def test_button_tooltip_placement_matrix_stays_exhaustive(self):
         demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
