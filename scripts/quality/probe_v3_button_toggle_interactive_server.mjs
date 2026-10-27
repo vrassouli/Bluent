@@ -111,6 +111,33 @@ const secondaryCasesExpression = String.raw`(() => {
   };
 })()`;
 
+const localizedDirectionExpression = String.raw`(() => {
+  const inspect = (direction) => {
+    const row = document.querySelector('[data-testid="localized-button-row-' + direction + '"]');
+    const button = document.querySelector('[data-testid="localized-button-' + direction + '"]');
+    const wrapper = button?.querySelector(".text");
+    const label = wrapper?.firstElementChild;
+    const icon = button?.querySelector(".icon");
+    const ir = icon?.getBoundingClientRect();
+    const tr = label?.getBoundingClientRect();
+    return {
+      direction,
+      rowDirection: row?.getAttribute("dir") ?? null,
+      buttonFound: !!button,
+      buttonDirection: button ? getComputedStyle(button).direction : null,
+      textDirectionAttribute: wrapper?.getAttribute("dir") ?? null,
+      wrapperDirection: wrapper ? getComputedStyle(wrapper).direction : null,
+      labelDirection: label ? getComputedStyle(label).direction : null,
+      text: label?.textContent?.trim() ?? "",
+      iconFound: !!icon,
+      iconBeforeText: !!ir && !!tr && ir.right <= tr.left + 2,
+      iconAfterText: !!ir && !!tr && ir.left >= tr.right - 2,
+      rowOverflow: !!row && row.scrollWidth > row.clientWidth
+    };
+  };
+  return [inspect("ltr"), inspect("rtl")];
+})()`;
+
 const probeBrowser = async (engine, base, route) => {
   const routePath = route === "server" ? "/compatibility/server" : "/compatibility/webassembly";
   const modeLabel = route === "server" ? "Server" : "WebAssembly";
@@ -146,6 +173,16 @@ const probeBrowser = async (engine, base, route) => {
       const node = tree.nodes.find(item => item.role?.value === "button") || tree.nodes[0];
       const pressed = node?.properties?.find(item => item.name === "pressed");
       return { role: node?.role?.value || null, name: node?.name?.value || null, pressedPropertyPresent: !!pressed, pressedValue: pressed?.value?.value ?? null, pressedType: pressed?.value?.type || null };
+    } finally { await send("Runtime.releaseObject", { objectId }); }
+  };
+  const readAxName = async selector => {
+    const result = await evaluate(`document.querySelector(${JSON.stringify(selector)})`, false);
+    const objectId = result?.objectId;
+    if (!objectId) throw Error(`Could not resolve Button for AX name inspection: ${selector}`);
+    try {
+      const tree = await send("Accessibility.getPartialAXTree", { objectId, fetchRelatives: false });
+      const node = tree.nodes.find(item => item.role?.value === "button") || tree.nodes[0];
+      return { role: node?.role?.value || null, name: node?.name?.value || null };
     } finally { await send("Runtime.releaseObject", { objectId }); }
   };
   const waitForPressed = expected => poll(async () => {
@@ -216,6 +253,11 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     check("ordinary Button without Toggled preserves caller aria-pressed=mixed", semanticCases.ordinary?.tagName === "BUTTON" && semanticCases.ordinary.pressed === "mixed" && semanticCases.ordinary.attributeCount === 1, semanticCases.ordinary);
     check("navigation anchor with Toggled=true receives no generated aria-pressed", semanticCases.link?.tagName === "A" && semanticCases.link.href === "/compatibility/static" && semanticCases.link.pressed === null, semanticCases.link);
     check("disabled toggle Button remains disabled with authoritative pressed=false", semanticCases.disabled?.tagName === "BUTTON" && semanticCases.disabled.disabled && semanticCases.disabled.pressed === "false" && semanticCases.disabled.attributeCount === 1, semanticCases.disabled);
+    const localizedDirections = await evaluate(localizedDirectionExpression);
+    check("localized Persian text stays RTL while the Button icon follows LTR/RTL layout in both interactive renderers", localizedDirections.length === 2 && localizedDirections.every(item => item.buttonFound && item.textDirectionAttribute === "auto" && item.wrapperDirection === "rtl" && item.labelDirection === "rtl" && item.text === "ذخیره تغییرات" && item.iconFound && !item.rowOverflow) && localizedDirections.some(item => item.direction === "ltr" && item.rowDirection === "ltr" && item.buttonDirection === "ltr" && item.iconBeforeText) && localizedDirections.some(item => item.direction === "rtl" && item.rowDirection === "rtl" && item.buttonDirection === "rtl" && item.iconAfterText), localizedDirections);
+    const localizedLtrAx = await readAxName('[data-testid="localized-button-ltr"]');
+    const localizedRtlAx = await readAxName('[data-testid="localized-button-rtl"]');
+    check("InteractiveServer and WebAssembly expose the exact Persian label as the AX name in LTR and RTL", localizedLtrAx.role === "button" && localizedLtrAx.name === "ذخیره تغییرات" && localizedRtlAx.role === "button" && localizedRtlAx.name === "ذخیره تغییرات", { ltr: localizedLtrAx, rtl: localizedRtlAx });
     console.log("[probe:" + engine + "] reading the initial computed accessibility-tree pressed state");
     const initialAx = await readAxPressed();
     console.log("[probe:" + engine + "] initial AX=" + JSON.stringify(initialAx));

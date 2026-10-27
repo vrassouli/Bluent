@@ -186,7 +186,7 @@ Use the packaged Bluent theme and component stylesheet. `Appearance`, `Shape`, `
 
 ## Localization and RTL
 
-Button has no built-in localized action text; the application supplies `Text` and `SecondaryText`. Dropdown caret direction is selected from popover placement. The inner text wrapper uses HTML `dir="auto"` so localized content determines its writing direction independently of the outer Button/icon layout. Live Chrome/Edge checks cover icon mirroring, real Badge Start/End edge geometry, and the Persian `ذخیره تغییرات` label retaining RTL direction and its Persian accessible name in both LTR and RTL contexts. Full Persian typography, candidate font approval and complete Button-specific RTL visual parity remain open.
+Button has no built-in localized action text; the application supplies `Text` and `SecondaryText`. Dropdown caret direction is selected from popover placement. The inner text wrapper uses HTML `dir="auto"` so localized content determines its writing direction independently of the outer Button/icon layout. Live Chrome/Edge checks cover icon mirroring, real Badge Start/End edge geometry, and the Persian `ذخیره تغییرات` label retaining RTL direction and its Persian accessible name in both LTR and RTL contexts. A separate **published Production ASP.NET Core** probe now verifies that same direction, icon placement and computed accessibility name in both InteractiveServer and InteractiveWebAssembly: **84/84 assertions** across Chrome and Edge, with 21 checks per browser/renderer route. Full Persian typography, candidate font approval and native assistive-technology/Windows contrast acceptance remain open.
 
 ## Accessibility and keyboard interaction
 

@@ -14,6 +14,8 @@ on:
       - "src/Bluent.UI/Components/BluentUiComponentBase.cs"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor"
       - "scripts/quality/probe_v3_button_focus_runtime.mjs"
+      - "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"
+      - "scripts/quality/probe_v3_button_toggle_interactive_server.mjs"
       - "src/Bluent.Core/BluentComponentBase.cs"
       - "docs/v3/**"
       - "scripts/quality/check_v3_docs_contract.py"

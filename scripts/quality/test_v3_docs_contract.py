@@ -52,6 +52,8 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('      - "docs/components/button.md"', workflow)
         self.assertIn('      - "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor"', workflow)
         self.assertIn('      - "scripts/quality/probe_v3_button_focus_runtime.mjs"', workflow)
+        self.assertIn('      - "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"', workflow)
+        self.assertIn('      - "scripts/quality/probe_v3_button_toggle_interactive_server.mjs"', workflow)
 
     def test_button_decorative_icon_and_accessible_name_contract_stays_documented(self):
         component_doc = docs.BUTTON_DOC.read_text(encoding="utf-8").lower()
@@ -108,6 +110,20 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('persianLtrAx.name==="ذخیره تغییرات"', probe)
         self.assertIn('persianRtlAx.name==="ذخیره تغییرات"', probe)
         self.assertIn('labelDirection==="rtl"', probe)
+
+    def test_button_persian_direction_is_verified_in_published_interactive_modes(self):
+        fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
+        self.assertIn('Text="ذخیره تغییرات"', fixture)
+        self.assertIn('data-testid="localized-button-ltr"', fixture)
+        self.assertIn('data-testid="localized-button-rtl"', fixture)
+        self.assertIn('localizedDirectionExpression', probe)
+        self.assertIn('item.textDirectionAttribute === "auto"', probe)
+        self.assertIn('localizedLtrAx.name === "ذخیره تغییرات"', probe)
+        self.assertIn('localizedRtlAx.name === "ذخیره تغییرات"', probe)
+        self.assertIn('"src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"', workflow)
+        self.assertIn('"scripts/quality/probe_v3_button_toggle_interactive_server.mjs"', workflow)
 
     def test_button_badge_rtl_geometry_probe_stays_exhaustive(self):
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")

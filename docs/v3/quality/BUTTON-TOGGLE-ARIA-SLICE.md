@@ -101,3 +101,13 @@ The source-owned #419 Persian Button design calls for the Persian `ذخیره ت
 - Renderer regression `ButtonTextWrapperUsesAutoDirectionForLocalizedLabels`: passed; verifies the generated attribute and Blazor's HTML-encoded Unicode output.
 - Live WebAssembly probe: **Chrome 211/211 and Edge 211/211**. It inspects computed direction, exact accessibility names, icon/text geometry and row overflow at 390px.
 - Debug demo and full Release solution build: **0 warnings / 0 errors**; product tests **30/30**; docs contract **0 findings**; docs-contract tests **14/14**; Button API baseline **0 errors**; focus handoff tests **7/7**; local Markdown links **157 files**; consumer-skill mapping **58 families / 67 routes**; Node syntax, UTF-8 validation and `git diff --check` all pass. This proves browser behavior; candidate font choice/pixel parity, native Windows contrast and named screen-reader acceptance remain open.
+
+
+## Published Production render-mode verification for Persian Button direction - 2026-10-27
+
+The shared `CompatibilityProbe.razor` now contains paired Persian `ذخیره تغییرات` Buttons in explicit LTR and RTL layout rows. The production browser probe publishes a temporary ASP.NET Core host and checks each row on both `/compatibility/server` and `/compatibility/webassembly`. The Server route's SignalR WebSocket is required to complete HTTP 101, so this is not Static SSR mislabeled as InteractiveServer. For both Chrome and Edge, the probe measures the inner `.text` wrapper's `dir="auto"`, the wrapper/label's computed `direction: rtl`, icon position relative to the text, row overflow, and the exact native AX button name.
+
+- **84/84 total assertions passed** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly (21 checks per route/browser), zero failed in the fresh full run.
+- Every route keeps Persian copy RTL in both LTR and RTL rows; the AX name is exactly `ذخیره تغییرات`; the icon is physically before text in LTR and after it in RTL.
+- The initial full run had one intermittent Chrome/Server click timeout; the isolated Chrome rerun passed 42/42 and the subsequent full fresh publish passed 84/84. No source behavior change was needed in response to that non-reproducible timeout.
+- This is actual Production publish/browser evidence, not deployment. It does not substitute for native OS contrast-theme and named screen-reader acceptance.

@@ -12,7 +12,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- [Bluent.UI.Demo, v3 development] The Button showcase includes all twelve inherited tooltip placements, all **54** Appearance × Size × Shape combinations, direct `ToggledChanged` callback feedback, LTR/RTL Badge geometry, and paired Persian LTR/RTL samples. Live WebAssembly probes in Chrome and Edge pass **211/211** assertions each, including Light/Dark styles, Persian RTL direction/accessibility names, icon/Badge mirroring, exactly-once pointer/Space callbacks, and 390px responsive checks. This is demo/test coverage, not approval of pending tokens or full Button visual parity.
+- [Bluent.UI.Demo, v3 development] The Button showcase includes all twelve inherited tooltip placements, all **54** Appearance × Size × Shape combinations, direct `ToggledChanged` callback feedback, LTR/RTL Badge geometry, and paired Persian LTR/RTL samples. The live WASM suite passes **211/211** in Chrome and Edge; the separate published Production probe passes **84/84** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly, including Persian RTL direction and AX-name checks in both renderers. This is runtime evidence, not approval of pending tokens or full Button visual parity.
 
 ### Changed
 
