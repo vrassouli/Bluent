@@ -27,6 +27,42 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertTrue(any("baseline has" in x for x in failures), failures)
         self.assertTrue(any("summary" in x for x in failures), failures)
 
+    def test_button_api_reference_covers_declared_and_inherited_parameters(self):
+        self.assertEqual(docs.validate_button_api_docs(), [])
+
+    def test_missing_button_parameter_is_detected(self):
+        body = docs.BUTTON_DOC.read_text(encoding="utf-8")
+        body = body.replace("| `Compact` |", "| `CompactDraft` |", 1)
+        failures = docs.validate_button_api_docs(body)
+        self.assertTrue(any("missing from docs" in item and "Compact" in item for item in failures), failures)
+        self.assertTrue(any("not declared" in item and "CompactDraft" in item for item in failures), failures)
+
+    def test_missing_inherited_parameter_is_detected(self):
+        body = docs.BUTTON_DOC.read_text(encoding="utf-8")
+        body = body.replace("| `TooltipContent` |", "| `TooltipContentDraft` |", 1)
+        failures = docs.validate_button_api_docs(body)
+        self.assertTrue(any("missing from docs" in item and "TooltipContent" in item for item in failures), failures)
+
+    def test_docs_contract_workflow_runs_when_button_api_sources_change(self):
+        workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
+        for source in docs.BUTTON_API_SOURCES:
+            relative = source.relative_to(docs.ROOT).as_posix()
+            self.assertIn(f'      - "{relative}"', workflow, relative)
+        self.assertIn('      - "src/Bluent.UI/Components/ButtonComponent/Button.razor"', workflow)
+        self.assertIn('      - "docs/components/button.md"', workflow)
+
+    def test_button_decorative_icon_and_accessible_name_contract_stays_documented(self):
+        component_doc = docs.BUTTON_DOC.read_text(encoding="utf-8").lower()
+        slice_doc = (docs.ROOT / "docs/v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md").read_text(encoding="utf-8").lower()
+        self.assertIn('aria-hidden="true"', component_doc)
+        self.assertIn("caller-provided attribute such as `aria-label`", component_doc)
+        self.assertIn("open menu", component_doc)
+        self.assertIn("#420", component_doc)
+        self.assertIn("#429", component_doc)
+        self.assertIn("105/105", slice_doc)
+        self.assertIn("explicit stable name", slice_doc)
+        self.assertIn("native windows contrast themes", slice_doc)
+
 
 if __name__ == "__main__":
     unittest.main()

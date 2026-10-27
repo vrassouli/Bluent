@@ -26,9 +26,9 @@
     {
         @if (Icon.Value.Filled.HasValue)
         {
-            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
+            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" aria-hidden="true" />
         }
-        <Icon Value="@Icon" Class="icon" />
+        <Icon Value="@Icon" Class="icon" aria-hidden="true" />
     }
     @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
     {
@@ -46,8 +46,8 @@
     @if (ParentPopover != null && ShowDropdownIndicator)
     {
         var dropdownIcon = GetDropdownIcon();
-        <Icon Value="@dropdownIcon" Variant="IconVariant.Filled" Class="dropdown-active-icon" />
-        <Icon Value="@dropdownIcon" Class="dropdown-icon" />
+        <Icon Value="@dropdownIcon" Variant="IconVariant.Filled" Class="dropdown-active-icon" aria-hidden="true" />
+        <Icon Value="@dropdownIcon" Class="dropdown-icon" aria-hidden="true" />
     }
 
     if (Badge != null)
@@ -112,6 +112,7 @@ else if (IsSplitButton)
                         Appearance="@Appearance"
                         Size="@Size"
                         ShowDropdownIndicator="true"
+                        aria-label="Open menu"
                         disabled="@IsDisabled" />
             </CascadingValue>
             </Trigger>

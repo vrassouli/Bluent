@@ -1,5 +1,6 @@
 using Bluent.UI.Components;
 using Bluent.UI.Extensions;
+using Bluent.UI.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -110,6 +111,42 @@ public class ButtonToggleSemanticsTests
             Assert.That(markup, Does.Contain("aria-pressed=\"mixed\""));
             Assert.That(markup, Does.Not.Contain("aria-pressed=\"true\""));
             Assert.That(markup, Does.Contain("data-qa=\"link\""));
+        });
+    }
+
+    [Test]
+    public async Task IconWithVisibleTextMarksRegularAndFilledGlyphsDecorative()
+    {
+        var markup = await RenderButtonAsync(new Dictionary<string, object?>
+        {
+            [nameof(Button.Text)] = "Default",
+            [nameof(Button.Icon)] = IconDefinition.FromCss("cursor-click", "cursor-click-filled"),
+        });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(markup, Does.Contain("active-icon"));
+            Assert.That(markup, Does.Contain("aria-hidden=\"true\""));
+            Assert.That(CountOccurrences(markup, "aria-hidden=\"true\""), Is.EqualTo(2));
+        });
+    }
+
+    [Test]
+    public async Task IconOnlyButtonPreservesCallerAccessibleNameWhileHidingGlyph()
+    {
+        var markup = await RenderButtonAsync(new Dictionary<string, object?>
+        {
+            [nameof(Button.Icon)] = IconDefinition.FromCss("cursor-click", "cursor-click-filled"),
+            [nameof(Button.AdditionalAttributes)] = new Dictionary<string, object>
+            {
+                ["aria-label"] = "Open icon sample",
+            },
+        });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(markup, Does.Contain("aria-label=\"Open icon sample\""));
+            Assert.That(CountOccurrences(markup, "aria-hidden=\"true\""), Is.EqualTo(2));
         });
     }
 

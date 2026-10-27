@@ -8,6 +8,11 @@ on:
     paths:
       - ".github/workflows/v3-docs-contract.yml"
       - "docs/components/inventory.md"
+      - "docs/components/button.md"
+      - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
+      - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
+      - "src/Bluent.UI/Components/BluentUiComponentBase.cs"
+      - "src/Bluent.Core/BluentComponentBase.cs"
       - "docs/v3/**"
       - "scripts/quality/check_v3_docs_contract.py"
       - "scripts/quality/test_v3_docs_contract.py"
