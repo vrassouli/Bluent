@@ -32,7 +32,7 @@
     }
     @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
     {
-        <div class="text @TextClass">
+        <div class="text @TextClass" dir="auto">
             @if (!string.IsNullOrEmpty(Text))
             {
                 <div>@Text</div>

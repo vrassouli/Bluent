@@ -92,3 +92,12 @@ The live WebAssembly probe now measures each of the four existing Badge wrappers
 - The first attempt exposed two defects in the test snippet itself (an unbound direction reference and class-name string parsing). They were corrected; the product CSS was not changed.
 
 This establishes logical Badge geometry in current browser rendering, not complete Persian typography, native Windows contrast or full Fluent 2 visual parity.
+
+
+## Persian text direction inside LTR/RTL Button layouts - 2026-10-27
+
+The source-owned #419 Persian Button design calls for the Persian `ذخیره تغییرات` label to retain RTL writing direction in both LTR and RTL layout specimens, while its icon moves from left to right with the Button layout direction. A focused renderer test reproduced the missing `dir` attribute on Button's inner `.text` wrapper. `Button.razor` now applies HTML `dir="auto"` to that wrapper, allowing localized copy to determine its writing direction without overriding the outer Button/icon layout. No public parameter is introduced. Paired LTR/RTL Persian specimens are part of the live showcase.
+
+- Renderer regression `ButtonTextWrapperUsesAutoDirectionForLocalizedLabels`: passed; verifies the generated attribute and Blazor's HTML-encoded Unicode output.
+- Live WebAssembly probe: **Chrome 211/211 and Edge 211/211**. It inspects computed direction, exact accessibility names, icon/text geometry and row overflow at 390px.
+- Debug demo and full Release solution build: **0 warnings / 0 errors**; product tests **30/30**; docs contract **0 findings**; docs-contract tests **14/14**; Button API baseline **0 errors**; focus handoff tests **7/7**; local Markdown links **157 files**; consumer-skill mapping **58 families / 67 routes**; Node syntax, UTF-8 validation and `git diff --check` all pass. This proves browser behavior; candidate font choice/pixel parity, native Windows contrast and named screen-reader acceptance remain open.

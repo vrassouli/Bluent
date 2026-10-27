@@ -43,6 +43,22 @@ public class ButtonToggleSemanticsTests
     }
 
     [Test]
+    public async Task ButtonTextWrapperUsesAutoDirectionForLocalizedLabels()
+    {
+        var markup = await RenderButtonAsync(new Dictionary<string, object?>
+        {
+            [nameof(Button.Text)] = "ذخیره تغییرات",
+            [nameof(Button.Icon)] = FluentIcons.Save,
+        });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(markup, Does.Contain("dir=\"auto\""));
+            Assert.That(markup, Does.Contain("&#x630;"));
+        });
+    }
+
+    [Test]
     public async Task ToggleStateOverrideMatchesCallerAttributeNameCaseInsensitively()
     {
         var markup = await RenderButtonAsync(new Dictionary<string, object?>

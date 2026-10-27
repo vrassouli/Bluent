@@ -98,6 +98,17 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('trusted pointer invokes explicit ToggledChanged exactly once', probe)
         self.assertIn('native Space invokes explicit ToggledChanged once more', probe)
 
+    def test_button_persian_text_direction_demo_and_ax_probe(self):
+        demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
+        self.assertIn('Text="ذخیره تغییرات"', demo)
+        self.assertIn('data-demo-button-persian="ltr"', demo)
+        self.assertIn('data-demo-button-persian="rtl"', demo)
+        self.assertIn('buttonAxBySelector', probe)
+        self.assertIn('persianLtrAx.name==="ذخیره تغییرات"', probe)
+        self.assertIn('persianRtlAx.name==="ذخیره تغییرات"', probe)
+        self.assertIn('labelDirection==="rtl"', probe)
+
     def test_button_badge_rtl_geometry_probe_stays_exhaustive(self):
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         self.assertIn('inspectBadgeDirection("ltr")', probe)
