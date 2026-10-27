@@ -102,7 +102,12 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     private void PopoverOnHideSurface(object? sender, HidePopoverSurfaceEventArgs args)
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
-        if (context != null)
+        if (context is null)
+            return;
+
+        if (context.Config.KeepSurface)
+            _interop?.HideSurface(context.Config.Settings, restoreFocus: true);
+        else
             HideSurface(context.Config.Settings);
     }
 

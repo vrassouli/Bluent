@@ -202,12 +202,14 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
   }
   const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
   assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
+  const noCaretSnapshot = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes('Menu without caret'));if(!b)return null;return {id:b.id,hasCaret:!!b.querySelector('.dropdown-icon'),hasPopup:b.getAttribute('aria-haspopup'),expanded:b.getAttribute('aria-expanded'),controls:b.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(b.getAttribute('aria-controls'))};})()");
+  assert("popup expansion semantics do not require a visible dropdown caret", !!noCaretSnapshot && !noCaretSnapshot.hasCaret && noCaretSnapshot.hasPopup===null && noCaretSnapshot.expanded==="false" && !!noCaretSnapshot.id && noCaretSnapshot.controls===noCaretSnapshot.id+"_surface" && noCaretSnapshot.controlsTargetExists, noCaretSnapshot);
   const inspectDropdownTrigger = async label => {
-    const expression = "(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes(" + JSON.stringify(label) + "));if(!b)return null;b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {id:b.id,x:r.left+r.width/2,y:r.top+r.height/2,bounds:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};})()";
+    const expression = "(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes(" + JSON.stringify(label) + "));if(!b)return null;b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {id:b.id,hasPopup:b.getAttribute('aria-haspopup'),expanded:b.getAttribute('aria-expanded'),controls:b.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(b.getAttribute('aria-controls')),x:r.left+r.width/2,y:r.top+r.height/2,bounds:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};})()";
     return await run(expression);
   };
   const inspectDropdownSurface = async id => {
-    const expression = "(()=>{const trigger=document.getElementById(" + JSON.stringify(id) + "),surface=document.getElementById(" + JSON.stringify(id + "_surface") + ");if(!trigger)return {triggerFound:false,exists:!!surface,hidden:true,visible:false};const tr=trigger.getBoundingClientRect(),r=surface?.getBoundingClientRect(),copy=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null,cr=copy?.getBoundingClientRect();return {triggerFound:true,exists:!!surface,hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&!surface.classList.contains('hidden')&&surface.classList.contains('show'),placement:surface?['top-start','top-end','bottom-start','bottom-end','left-start','left-end','right-start','right-end','top','bottom','left','right'].find(x=>surface.classList.contains(x))??null:null,viewport:{width:window.innerWidth,height:window.innerHeight},trigger:{left:tr.left,right:tr.right,top:tr.top,bottom:tr.bottom},surface:r?{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}:null,hasCopy:!!copy,copyPoint:cr?{x:cr.left+cr.width/2,y:cr.top+cr.height/2}:null,items:surface?[...surface.querySelectorAll('.menu-item')].map(x=>x.textContent.trim()):[]};})()";
+    const expression = "(()=>{const trigger=document.getElementById(" + JSON.stringify(id) + "),surface=document.getElementById(" + JSON.stringify(id + "_surface") + ");if(!trigger)return {triggerFound:false,exists:!!surface,hidden:true,visible:false};const tr=trigger.getBoundingClientRect(),r=surface?.getBoundingClientRect(),copy=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null,cr=copy?.getBoundingClientRect();return {triggerFound:true,triggerFocused:document.activeElement===trigger,exists:!!surface,hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&!surface.classList.contains('hidden')&&surface.classList.contains('show'),popup:{hasPopup:trigger.getAttribute('aria-haspopup'),expanded:trigger.getAttribute('aria-expanded'),controls:trigger.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(trigger.getAttribute('aria-controls'))},placement:surface?['top-start','top-end','bottom-start','bottom-end','left-start','left-end','right-start','right-end','top','bottom','left','right'].find(x=>surface.classList.contains(x))??null:null,viewport:{width:window.innerWidth,height:window.innerHeight},trigger:{left:tr.left,right:tr.right,top:tr.top,bottom:tr.bottom},surface:r?{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}:null,hasCopy:!!copy,copyPoint:cr?{x:cr.left+cr.width/2,y:cr.top+cr.height/2}:null,items:surface?[...surface.querySelectorAll('.menu-item')].map(x=>x.textContent.trim()):[]};})()";
     return await run(expression);
   };
   const waitDropdownState = async (id, expectedVisible) => {
@@ -219,11 +221,21 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     }
     return state;
   };
+  if (noCaretSnapshot?.id) {
+    const trigger = await inspectDropdownTrigger("Menu without caret");
+    await send("Input.dispatchMouseEvent", {type:"mousePressed",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
+    await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
+    const opened = await waitDropdownState(trigger.id, true);
+    assert("caretless dropdown opens with expanded popup semantics", !!opened?.visible && opened.popup?.hasPopup===null && opened.popup?.expanded==="true" && opened.popup?.controlsTargetExists, opened);
+    await key("Escape","Escape",27);
+    const closed = await waitDropdownState(trigger.id, false);
+    assert("caretless dropdown Escape closes, collapses, and restores focus", !!closed?.hidden && closed.popup?.expanded==="false" && closed.popup?.controlsTargetExists && closed.triggerFocused, closed);
+  }
   // The split-button probe above intentionally leaves RTL active. Restore LTR so Start/End alignment assertions have a defined direction.
   await run("(()=>{document.documentElement.setAttribute(\"dir\",\"ltr\");document.body.classList.remove(\"rtl\");return true;})()");
   for (const [label, expectedPlacement] of [[ "Menu above","top"],["Menu below","bottom"],["Menu right","right"],["Menu left","left"], ["Menu top-start","top-start"],["Menu top-end","top-end"], ["Menu bottom-start","bottom-start"],["Menu bottom-end","bottom-end"], ["Menu right-start","right-start"],["Menu right-end","right-end"], ["Menu left-start","left-start"],["Menu left-end","left-end"]]) {
     const trigger = await inspectDropdownTrigger(label);
-    assert(label + " dropdown demo exposes its native trigger", !!trigger?.id, trigger);
+    assert(label + " dropdown exposes expanded state and a stable controlled surface while collapsed", !!trigger?.id && trigger.hasPopup === null && trigger.expanded === "false" && trigger.controls === trigger.id + "_surface" && trigger.controlsTargetExists, trigger);
     if (!trigger?.id) continue;
     await send("Input.dispatchMouseEvent", {type:"mousePressed",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
     await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
@@ -241,13 +253,13 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
       return {ok:(actualSide===requestedSide||collisionFlipped)&&aligned,actualSide,requestedSide,available,required,collisionFlipped,aligned};
     })() : {ok:false,actualSide:"missing",collisionFlipped:false,aligned:false};
     const side=geometry.ok;
-    assert(label + " opens with configured placement/alignment or a justified collision flip and selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy, {expectedPlacement,opened,geometry});
+    assert(label + " opens with configured placement/alignment or a justified collision flip and selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy && opened.popup?.hasPopup === null && opened.popup?.expanded === "true" && opened.popup?.controls === trigger.id + "_surface" && opened.popup?.controlsTargetExists, {expectedPlacement,opened,geometry});
     if (opened?.copyPoint) {
       await send("Input.dispatchMouseEvent", {type:"mousePressed",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});
       await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});
     }
     const closed = await waitDropdownState(trigger.id, false);
-    assert(label + " selecting Copy closes its popover", !!opened?.copyPoint && closed?.hidden, {hadCopy:!!opened?.copyPoint,closed});
+    assert(label + " selecting Copy closes its popover and restores focus to the trigger", !!opened?.copyPoint && closed?.hidden && closed.popup?.expanded === "false" && closed.popup?.controlsTargetExists && closed.triggerFocused, {hadCopy:!!opened?.copyPoint,closed});
   }
   const outsideTrigger = await inspectDropdownTrigger("Menu above");
   assert("Top dropdown trigger is available for outside-dismissal testing", !!outsideTrigger?.id, outsideTrigger);
@@ -255,14 +267,14 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     await send("Input.dispatchMouseEvent", {type:"mousePressed",x:outsideTrigger.x,y:outsideTrigger.y,button:"left",clickCount:1});
     await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:outsideTrigger.x,y:outsideTrigger.y,button:"left",clickCount:1});
     const outsideOpened = await waitDropdownState(outsideTrigger.id, true);
-    assert("Top dropdown reopens before outside-dismissal testing", !!outsideOpened?.visible, outsideOpened);
+    assert("Top dropdown reopens and reports expanded before outside-dismissal testing", !!outsideOpened?.visible && outsideOpened.popup?.expanded === "true", outsideOpened);
     const headingPoint = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');if(!h)return null;const r=h.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()");
     if (headingPoint) {
       await send("Input.dispatchMouseEvent", {type:"mousePressed",x:headingPoint.x,y:headingPoint.y,button:"left",clickCount:1});
       await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:headingPoint.x,y:headingPoint.y,button:"left",clickCount:1});
     }
     const outsideClosed = await waitDropdownState(outsideTrigger.id, false);
-    assert("Clicking outside an open dropdown dismisses its popover", !!headingPoint && !!outsideClosed?.hidden, {headingPoint,outsideClosed});
+    assert("Clicking outside an open dropdown dismisses its popover", !!headingPoint && !!outsideClosed?.hidden && outsideClosed.popup?.expanded === "false" && outsideClosed.popup?.controlsTargetExists, {headingPoint,outsideClosed});
   }
   const escapeTrigger = await inspectDropdownTrigger("Menu above");
   assert("Escape dropdown trigger is available", !!escapeTrigger?.id, escapeTrigger);
@@ -270,14 +282,14 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     await send("Input.dispatchMouseEvent", {type:"mousePressed",x:escapeTrigger.x,y:escapeTrigger.y,button:"left",clickCount:1});
     await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:escapeTrigger.x,y:escapeTrigger.y,button:"left",clickCount:1});
     const escapeOpened = await waitDropdownState(escapeTrigger.id, true);
-    assert("Dropdown opens before Escape/focus test", !!escapeOpened?.visible, escapeOpened);
+    assert("Dropdown opens and reports expanded before Escape/focus test", !!escapeOpened?.visible && escapeOpened.popup?.expanded === "true", escapeOpened);
     const focusedItem = await run("(()=>{const surface=document.getElementById(" + JSON.stringify(escapeTrigger.id + "_surface") + ");const item=surface?[...surface.querySelectorAll('.menu-item')].find(x=>x.textContent.includes('Copy')):null;if(!surface||!item)return {surfaceFound:!!surface,itemFound:!!item,focused:false};item.setAttribute('tabindex','-1');item.focus();return {surfaceFound:true,itemFound:true,focused:surface.contains(document.activeElement),activeText:document.activeElement?.textContent?.trim()??''};})()");
     assert("Focus is moved into the open dropdown before pressing Escape", focusedItem.surfaceFound && focusedItem.itemFound && focusedItem.focused && focusedItem.activeText.includes("Copy"), focusedItem);
     await key("Escape","Escape",27);
     const escapeClosed = await waitDropdownState(escapeTrigger.id, false);
-    assert("Escape closes the open dropdown", !!escapeClosed?.hidden, escapeClosed);
-    const escapeFocus = await run("(()=>{const trigger=document.getElementById(" + JSON.stringify(escapeTrigger.id) + "),surface=document.getElementById(" + JSON.stringify(escapeTrigger.id + "_surface") + ");return {triggerFound:!!trigger,triggerFocused:!!trigger&&document.activeElement===trigger,activeTag:document.activeElement?.tagName??null,activeText:document.activeElement?.textContent?.trim()??'',hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&surface.classList.contains('show')};})()");
-    assert("Escape restores focus to the dropdown trigger", escapeFocus.triggerFound && escapeFocus.triggerFocused && escapeFocus.hidden && !escapeFocus.visible, escapeFocus);
+    assert("Escape closes the open dropdown and clears expanded state", !!escapeClosed?.hidden && escapeClosed.popup?.expanded === "false" && escapeClosed.popup?.controlsTargetExists, escapeClosed);
+    const escapeFocus = await run("(()=>{const trigger=document.getElementById(" + JSON.stringify(escapeTrigger.id) + "),surface=document.getElementById(" + JSON.stringify(escapeTrigger.id + "_surface") + ");return {triggerFound:!!trigger,triggerFocused:!!trigger&&document.activeElement===trigger,expanded:trigger?.getAttribute('aria-expanded')??null,activeTag:document.activeElement?.tagName??null,activeText:document.activeElement?.textContent?.trim()??'',hidden:!surface||surface.classList.contains('hidden'),visible:!!surface&&surface.classList.contains('show')};})()");
+    assert("Escape restores focus to the dropdown trigger", escapeFocus.triggerFound && escapeFocus.triggerFocused && escapeFocus.expanded === "false" && escapeFocus.hidden && !escapeFocus.visible, escapeFocus);
   }
   const iconOnlySections = await run("(()=>{return [\"Icon\",\"Size\",\"Button Group\"].map(name=>{const h=[...document.querySelectorAll(\"h5\")].find(x=>x.textContent.trim()===name);const bs=[...h.parentElement.querySelectorAll(\"button.icon\")];return {name,count:bs.length,labels:bs.map(b=>b.getAttribute(\"aria-label\"))};});})()");
   assert("icon-only Button demos provide accessible names", iconOnlySections.every(section=>section.count>0 && section.labels.every(label=>!!label?.trim())), iconOnlySections);

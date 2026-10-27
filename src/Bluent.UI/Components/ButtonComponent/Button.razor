@@ -15,7 +15,12 @@
     __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
     if (Toggled.HasValue && (!IsLink || IsDisabled))
         __builder.AddAttribute(8, "aria-pressed", Toggled.Value ? "true" : "false");
-    __builder.OpenRegion(9);
+    if (IsButtonManagedMenuTrigger || (ParentPopover != null && ShowDropdownIndicator))
+    {
+       __builder.AddAttribute(9, "aria-expanded", "false");
+        __builder.AddAttribute(10, "aria-controls", $"{Id}_surface");
+    }
+    __builder.OpenRegion(11);
 
     @if (Icon.HasValue)
     {
@@ -57,8 +62,9 @@
 }
 else if (IsDropdownButton)
 {
-    <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
+    <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false" KeepSurface="true">
         <Trigger>
+            <CascadingValue Name="BluentButtonManagedMenuTrigger" Value="true" IsFixed="true">
             <Button Text="@Text"
                     TextClass="@TextClass"
                     SecondaryText="@SecondaryText"
@@ -74,6 +80,7 @@ else if (IsDropdownButton)
                     Class="@Class"
                     Style="@Style"
                     AdditionalAttributes="@AdditionalAttributes" />
+            </CascadingValue>
         </Trigger>
         <Surface>
             @Dropdown
@@ -98,13 +105,15 @@ else if (IsSplitButton)
                 Class="@Class"
                 Style="@Style"
                 AdditionalAttributes="@AdditionalAttributes" />
-        <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
+        <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false" KeepSurface="true">
             <Trigger>
+            <CascadingValue Name="BluentButtonManagedMenuTrigger" Value="true" IsFixed="true">
                 <Button Shape="@Shape"
                         Appearance="@Appearance"
                         Size="@Size"
                         ShowDropdownIndicator="true"
                         disabled="@IsDisabled" />
+            </CascadingValue>
             </Trigger>
             <Surface>
                 @Dropdown

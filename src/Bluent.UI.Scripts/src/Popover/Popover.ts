@@ -68,6 +68,7 @@ export class Popover {
 
         if (!surface.classList.contains('show'))
             surface.classList.add('show');
+        this.setTriggerExpanded(settings, true);
         this._activePopovers.set(settings.triggerId, settings);
         document.addEventListener('keydown', this._documentKeyDownHandler);
         this.registerDocumentClickHandler(settings);
@@ -167,7 +168,7 @@ export class Popover {
     //     this.updatePosition(settings);
     // }
 
-    private hideSurface(settings: PopoverSettings, restoreFocus = false) {
+    public hideSurface(settings: PopoverSettings, restoreFocus = false) {
         const surface = <HTMLElement>this.getSurface(settings);
         this.deactivatePopover(settings.triggerId);
 
@@ -278,10 +279,19 @@ export class Popover {
     }
 
     private deactivatePopover(triggerId: string) {
+        const settings = this._activePopovers.get(triggerId);
+        if (settings)
+            this.setTriggerExpanded(settings, false);
         this._activePopovers.delete(triggerId);
         this.removeDocumentClickHandler(triggerId);
         if (this._activePopovers.size === 0)
             document.removeEventListener('keydown', this._documentKeyDownHandler);
+    }
+
+    private setTriggerExpanded(settings: PopoverSettings, expanded: boolean) {
+        const trigger = <HTMLElement>this.getTrigger(settings);
+        if (trigger?.hasAttribute('aria-expanded'))
+            trigger.setAttribute('aria-expanded', String(expanded));
     }
 
     private restoreFocus(settings: PopoverSettings) {

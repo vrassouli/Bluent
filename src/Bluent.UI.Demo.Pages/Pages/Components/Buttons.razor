@@ -1,4 +1,4 @@
-@page "/components/buttons"
+﻿@page "/components/buttons"
 @namespace Bluent.UI.Demo.Pages.Components
 <PageTitle>Buttons | Bluent</PageTitle>
 
@@ -320,6 +320,13 @@
                         <MenuItem Title="Cut" Icon="@FluentIcons.Cut" Checked/>
                         <MenuItem Title="Copy" Icon="@FluentIcons.Copy"/>
                         <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste"/>
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu without caret" Icon="@FluentIcons.CursorClick" DropdownPlacement="Placement.Bottom">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
                     </MenuList>
                 </Dropdown>
             </Button>

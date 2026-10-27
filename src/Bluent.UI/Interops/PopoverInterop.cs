@@ -67,6 +67,11 @@ internal class PopoverInterop : IAsyncDisposable
         await module.InvokeVoidAsync("showSurface", settings);
     }
 
+    public async void HideSurface(PopoverSettings settings, bool restoreFocus = false)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("hideSurface", settings, restoreFocus);
+    }
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)

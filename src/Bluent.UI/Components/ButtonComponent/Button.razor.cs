@@ -27,6 +27,7 @@ public partial class Button
     [Parameter] public bool Compact { get; set; }
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.Bottom;
     [CascadingParameter] public Popover? ParentPopover { get; set; }
+    [CascadingParameter(Name = "BluentButtonManagedMenuTrigger")] private bool IsButtonManagedMenuTrigger { get; set; }
     [CascadingParameter] public Overflow? Overflow { get; set; } = default!;
 
     private Popover? _popover;
@@ -82,15 +83,19 @@ public partial class Button
 
     private IEnumerable<KeyValuePair<string, object>>? GetButtonAdditionalAttributes()
     {
-        if (!Toggled.HasValue || (IsLink && !IsDisabled) || AdditionalAttributes is null)
+        var ownsToggleState = Toggled.HasValue && (!IsLink || IsDisabled);
+        var ownsPopupState = IsButtonManagedMenuTrigger || (ParentPopover is not null && ShowDropdownIndicator);
+
+        if ((!ownsToggleState && !ownsPopupState) || AdditionalAttributes is null)
             return AdditionalAttributes;
 
-        // Toggled is the component state contract. Remove a conflicting caller state
-        // only when the component can emit its own authoritative aria-pressed value.
+        // Component state takes precedence over conflicting caller attributes only when this Button owns that state.
         return AdditionalAttributes.Where(attribute =>
-            !string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase));
+            !(ownsToggleState && string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase)) &&
+            !(ownsPopupState && (
+                string.Equals(attribute.Key, "aria-expanded", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(attribute.Key, "aria-controls", StringComparison.OrdinalIgnoreCase))));
     }
-
     private string GetButtonTag()
     {
         if (IsLink && !IsDisabled)
