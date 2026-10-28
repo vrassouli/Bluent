@@ -59,6 +59,37 @@ public class ButtonToggleSemanticsTests
     }
 
     [Test]
+    public async Task ManagedDropdownOwnsPopupStateAndRejectsConflictingCallerAttributes()
+    {
+        var markup = await RenderButtonAsync(new Dictionary<string, object?>
+        {
+            [nameof(Button.Text)] = "Actions",
+            [nameof(Button.Dropdown)] = (RenderFragment)(builder => builder.AddContent(0, "Menu content")),
+            [nameof(Button.AdditionalAttributes)] = new Dictionary<string, object>
+            {
+                ["Aria-HasPopup"] = "dialog",
+                ["ARIA-EXPANDED"] = "true",
+                ["Aria-Controls"] = "caller-owned-surface",
+                ["data-qa"] = "managed-menu",
+            },
+        });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(markup, Does.Contain("aria-haspopup=\"menu\""));
+            Assert.That(markup, Does.Not.Contain("aria-haspopup=\"dialog\""));
+            Assert.That(CountOccurrences(markup, "aria-haspopup="), Is.EqualTo(1));
+            Assert.That(markup, Does.Contain("aria-expanded=\"false\""));
+            Assert.That(markup, Does.Not.Contain("aria-expanded=\"true\""));
+            Assert.That(CountOccurrences(markup, "aria-expanded="), Is.EqualTo(1));
+            Assert.That(markup, Does.Contain("aria-controls="));
+            Assert.That(markup, Does.Not.Contain("caller-owned-surface"));
+            Assert.That(CountOccurrences(markup, "aria-controls="), Is.EqualTo(1));
+            Assert.That(markup, Does.Contain("data-qa=\"managed-menu\""));
+        });
+    }
+
+    [Test]
     public async Task ToggleStateOverrideMatchesCallerAttributeNameCaseInsensitively()
     {
         var markup = await RenderButtonAsync(new Dictionary<string, object?>

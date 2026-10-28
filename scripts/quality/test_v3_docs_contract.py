@@ -271,6 +271,23 @@ class V3DocsContractTests(unittest.TestCase):
             "src/Bluent.UI.Scripts/src/Popover/Popover.ts",
         ):
             self.assertIn(f'      - "{source}"', workflow, source)
+    def test_button_managed_menu_popup_state_conflicts_are_runtime_probed_in_ci(self):
+        fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        workflow = (docs.ROOT / ".github/workflows/v3-button-runtime-contract.yml").read_text(encoding="utf-8")
+
+        self.assertIn('aria-haspopup="dialog"', fixture)
+        self.assertIn('aria-expanded="true"', fixture)
+        self.assertIn('aria-controls="caller-owned-surface"', fixture)
+        self.assertIn("popupAttributeCounts", probe)
+        self.assertIn('initialDropdown.popupAttributeCounts?.hasPopup === 1', probe)
+        self.assertIn('initialDropdown.popupAttributeCounts?.expanded === 1', probe)
+        self.assertIn('initialDropdown.popupAttributeCounts?.controls === 1', probe)
+        self.assertIn("branches: [bluent-v3]", workflow)
+        self.assertIn("node scripts/quality/probe_v3_button_toggle_interactive_server.mjs both", workflow)
+        self.assertIn("dotnet test Bluent.sln --configuration Release --no-restore --nologo", workflow)
+        self.assertIn("tests/RegexSampleGeneratorTest/ButtonToggleSemanticsTests.cs", workflow)
+
     def test_button_badge_rtl_geometry_probe_stays_exhaustive(self):
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         self.assertIn('inspectBadgeDirection("ltr")', probe)

@@ -41,6 +41,9 @@
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 0.5rem;">
         <Button Text="Managed dropdown"
                 ShowDropdownIndicator="true"
+                aria-haspopup="dialog"
+                aria-expanded="true"
+                aria-controls="caller-owned-surface"
                 data-testid="button-managed-dropdown-trigger">
             <Dropdown>
                 <MenuList aria-label="Managed actions">
