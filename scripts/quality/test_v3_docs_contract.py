@@ -184,6 +184,20 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('trigger.hasPopup === "menu"', focus_probe)
         self.assertIn('opened.popup?.hasPopup === "menu"', focus_probe)
 
+        button_doc = (docs.ROOT / "docs/components/button.md").read_text(encoding="utf-8")
+        toggle_slice = (docs.ROOT / "docs/v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md").read_text(encoding="utf-8")
+        menu_slice = (docs.ROOT / "docs/v3/quality/BUTTON-MENU-KEYBOARD-SLICE.md").read_text(encoding="utf-8")
+        self.assertIn('aria-haspopup="menu"', button_doc)
+        self.assertIn('role="menuitem"', button_doc)
+        self.assertIn("184/184 assertions", button_doc)
+        self.assertNotIn('does not generate aria-haspopup="menu" yet', button_doc)
+        self.assertNotIn("complete menu-role/arrow-key interaction contract", button_doc)
+        self.assertIn("Latest published Button-managed menu keyboard verification — 2026-10-28", button_doc)
+        self.assertIn("Superseding menu semantics checkpoint — 2026-10-28", toggle_slice)
+        self.assertIn("184/184 assertions", toggle_slice)
+        self.assertIn("BUTTON-MENU-KEYBOARD-SLICE.md", toggle_slice)
+        self.assertIn("184/184 assertions", menu_slice)
+
         for key in ('ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape', 'aria-disabled', 'typeahead'):
             self.assertIn(key, popover.lower() if key == 'typeahead' else popover, key)
 

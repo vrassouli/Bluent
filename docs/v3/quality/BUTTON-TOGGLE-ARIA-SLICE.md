@@ -122,4 +122,10 @@ The freshly published Production browser matrix passed **112/112 assertions, 0 f
 - Full Release solution build: **0 warnings / 0 errors**.
 - Published Production browser probe: **112/112 passed**.
 - This adds a demo fixture and cross-render regression coverage; it does not change Button public API, production CSS, token mapping, stable v2 assets, or deployment status.
-- Native Windows Contrast Themes, named Narrator/NVDA/JAWS acceptance, final #418 token approval, and complete Fluent visual parity remain open. Keep #428 In progress and PR #554 Draft.
+- Native Windows Contrast Themes, named Narrator/NVDA/JAWS acceptance, final #418 token approval, and complete Fluent visual parity remain open. The menu-role/keyboard browser gap was addressed in the later [Button-managed MenuList keyboard slice](BUTTON-MENU-KEYBOARD-SLICE.md). Keep #428 In progress and PR #554 Draft.
+
+## Superseding menu semantics checkpoint — 2026-10-28
+
+The 2026-10-27 entries above are historical checkpoints. At that time, the Button-managed dropdown probe did not yet assert `aria-haspopup="menu"`, `menu`/`menuitem` roles, or the full arrow-key contract. The follow-up implementation now owns that behavior; see [Button-managed MenuList keyboard and ARIA slice](BUTTON-MENU-KEYBOARD-SLICE.md).
+
+The fresh published Production host matrix passes **184/184 assertions** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly (**46 per browser/renderer combination**), covering menu and menuitem semantics, disabled-item skipping, Arrow/Home/End, type-ahead, exactly-once Enter/Space activation, submenu navigation, Escape focus restoration, and Tab dismissal. This updates the browser evidence only; native Windows Contrast Themes, named Narrator/NVDA/JAWS acceptance, final #418 token approval, and complete Fluent visual parity remain open. Issue #428 stays In progress and PR #554 stays Draft.
