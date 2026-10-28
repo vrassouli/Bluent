@@ -37,17 +37,32 @@
 
 <section aria-labelledby="button-managed-dropdown-heading">
     <h2 id="button-managed-dropdown-heading">Button-managed dropdown lifecycle</h2>
-    <p>Interactive Button fixture for verifying stable popup controls, Escape dismissal, focus return, and command selection in the active renderer.</p>
+    <p>Interactive Button fixture for verifying menu roles, keyboard navigation, nested menus, Escape dismissal, and selection callbacks in the active renderer.</p>
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 0.5rem;">
         <Button Text="Managed dropdown"
                 ShowDropdownIndicator="true"
                 data-testid="button-managed-dropdown-trigger">
             <Dropdown>
-                <MenuList>
+                <MenuList aria-label="Managed actions">
                     <MenuItem Title="Copy"
                               OnClick="RecordManagedDropdownSelection"
                               data-testid="button-managed-dropdown-copy" />
-                    <MenuItem Title="Delete" />
+                    <MenuItem Title="Rename"
+                              OnClick="RecordManagedDropdownRename"
+                              data-testid="button-managed-dropdown-rename" />
+                    <MenuItem Title="Disabled action"
+                              disabled
+                              data-testid="button-managed-dropdown-disabled" />
+                    <MenuItem Title="Delete"
+                              OnClick="RecordManagedDropdownDelete"
+                              data-testid="button-managed-dropdown-delete" />
+                    <MenuItem Title="More options" data-testid="button-managed-dropdown-submenu">
+                        <MenuList aria-label="More options">
+                            <MenuItem Title="Archive"
+                                      OnClick="RecordManagedDropdownArchive"
+                                      data-testid="button-managed-dropdown-archive" />
+                        </MenuList>
+                    </MenuItem>
                 </MenuList>
             </Dropdown>
         </Button>
@@ -153,7 +168,27 @@
 
     private void RecordManagedDropdownSelection()
     {
-        _managedDropdownSelection = "Copy";
+        RecordManagedDropdownAction("Copy");
+    }
+
+    private void RecordManagedDropdownRename()
+    {
+        RecordManagedDropdownAction("Rename");
+    }
+
+    private void RecordManagedDropdownDelete()
+    {
+        RecordManagedDropdownAction("Delete");
+    }
+
+    private void RecordManagedDropdownArchive()
+    {
+        RecordManagedDropdownAction("Archive");
+    }
+
+    private void RecordManagedDropdownAction(string action)
+    {
+        _managedDropdownSelection = action;
         _managedDropdownSelectionCount++;
     }
 

@@ -138,7 +138,7 @@ const localizedDirectionExpression = String.raw`(() => {
   return [inspect("ltr"), inspect("rtl")];
 })()`;
 
-const managedDropdownExpression = "(() => { const trigger = document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]'); const surface = trigger?.id ? document.getElementById(trigger.id + '_surface') : null; const copy = document.querySelector('[data-testid=\"button-managed-dropdown-copy\"]'); const selection = document.querySelector('[data-testid=\"button-managed-dropdown-selection\"]'); return { triggerFound: !!trigger, triggerId: trigger?.id || null, triggerTag: trigger?.tagName || null, hasCaret: !!trigger?.querySelector('.dropdown-icon'), hasPopup: trigger?.getAttribute('aria-haspopup') ?? null, expanded: trigger?.getAttribute('aria-expanded') ?? null, controls: trigger?.getAttribute('aria-controls') ?? null, controlsTargetExists: !!trigger && trigger.getAttribute('aria-controls') === trigger.id + '_surface' && !!document.getElementById(trigger.getAttribute('aria-controls')), surfaceFound: !!surface, hidden: !surface || surface.classList.contains('hidden'), visible: !!surface && !surface.classList.contains('hidden') && surface.classList.contains('show'), copyFound: !!copy, copyTag: copy?.tagName ?? null, copyText: copy?.textContent?.trim() ?? '', selectionText: selection?.textContent?.trim() ?? '', triggerFocused: !!trigger && document.activeElement === trigger, copyFocused: !!copy && document.activeElement === copy }; })()";
+const managedDropdownExpression = "(() => { const trigger = document.querySelector('[data-testid=button-managed-dropdown-trigger]'); const triggerRect = trigger?.getBoundingClientRect(); const hitTarget = triggerRect ? document.elementFromPoint(triggerRect.left + triggerRect.width / 2, triggerRect.top + triggerRect.height / 2) : null; const surface = trigger?.id ? document.getElementById(trigger.id + '_surface') : null; const menu = surface?.querySelector('[role=menu]') ?? null; const copy = document.querySelector('[data-testid=button-managed-dropdown-copy]'); const selection = document.querySelector('[data-testid=button-managed-dropdown-selection]'); const submenuTrigger = document.querySelector('[data-testid=button-managed-dropdown-submenu]'); const submenuSurface = submenuTrigger?.id ? document.getElementById(submenuTrigger.id + '_surface') : null; const items = menu ? [...menu.querySelectorAll('[role=menuitem]')].filter(item => item.closest('[role=menu]') === menu).map(item => ({ id: item.getAttribute('data-testid'), text: item.textContent?.trim() ?? '', role: item.getAttribute('role'), tabIndex: item.getAttribute('tabindex'), disabled: item.getAttribute('aria-disabled') })) : []; const active = document.activeElement; return { triggerFound: !!trigger, rect: triggerRect ? {x:triggerRect.x,y:triggerRect.y,width:triggerRect.width,height:triggerRect.height} : null, hitTarget: hitTarget ? {tag:hitTarget.tagName,testId:hitTarget.getAttribute('data-testid'),id:hitTarget.id,className:String(hitTarget.className)} : null, triggerId: trigger?.id || null, triggerTag: trigger?.tagName || null, hasCaret: !!trigger?.querySelector('.dropdown-icon'), hasPopup: trigger?.getAttribute('aria-haspopup') ?? null, expanded: trigger?.getAttribute('aria-expanded') ?? null, controls: trigger?.getAttribute('aria-controls') ?? null, controlsTargetExists: !!trigger && trigger.getAttribute('aria-controls') === trigger.id + '_surface' && !!document.getElementById(trigger.getAttribute('aria-controls')), surfaceFound: !!surface, hidden: !surface || surface.classList.contains('hidden'), visible: !!surface && !surface.classList.contains('hidden') && surface.classList.contains('show'), menuFound: !!menu, menuRole: menu?.getAttribute('role') ?? null, menuLabel: menu?.getAttribute('aria-label') ?? null, items, activeTestId: active?.getAttribute?.('data-testid') ?? null, activeText: active?.textContent?.trim() ?? '', focusWithinMenu: !!menu && !!active && menu.contains(active), triggerFocused: !!trigger && active === trigger, copyFound: !!copy, copyTag: copy?.tagName ?? null, copyText: copy?.textContent?.trim() ?? '', selectionText: selection?.textContent?.trim() ?? '', submenuTriggerFound: !!submenuTrigger, submenuHasPopup: submenuTrigger?.getAttribute('aria-haspopup') ?? null, submenuExpanded: submenuTrigger?.getAttribute('aria-expanded') ?? null, submenuControlsTargetExists: !!submenuTrigger && submenuTrigger.getAttribute('aria-controls') === submenuTrigger.id + '_surface' && !!submenuSurface, submenuVisible: !!submenuSurface && !submenuSurface.classList.contains('hidden') && submenuSurface.classList.contains('show'), submenuHidden: !submenuSurface || submenuSurface.classList.contains('hidden'), submenuMenuLabel: submenuSurface?.querySelector('[role=menu]')?.getAttribute('aria-label') ?? null }; })()";
 
 const probeBrowser = async (engine, base, route) => {
   const routePath = route === "server" ? "/compatibility/server" : "/compatibility/webassembly";
@@ -151,7 +151,12 @@ const probeBrowser = async (engine, base, route) => {
   let websocketHandshakeStatus = null;
   const websocketEvents = [];
   const checks = [];
-  const check = (name, pass, observed = undefined) => checks.push({ name, pass: !!pass, ...(observed === undefined ? {} : { observed }) });
+  const check = (name, pass, observed = undefined) => {
+    const item = { name, pass: !!pass, ...(observed === undefined ? {} : { observed }) };
+    checks.push(item);
+    if (!item.pass)
+      console.error("[probe:" + engine + "/" + route + "] ASSERTION FAILED: " + name + (observed === undefined ? "" : " observed=" + JSON.stringify(observed)));
+  };
   const send = (method, params = {}) => new Promise((resolveResult, rejectResult) => {
     const id = ++sequence;
     const timer = setTimeout(() => { pending.delete(id); rejectResult(Error("CDP timeout: " + method)); }, 15000);
@@ -212,11 +217,18 @@ const probeBrowser = async (engine, base, route) => {
     await send("Input.dispatchMouseEvent", { type: "mouseReleased", x: point.x, y: point.y, button: "left", clickCount: 1 });
     await sleep(180);
   };
-  const waitForManagedDropdown = (expanded, restoreFocus = false) => poll(async () => {
-    const state = await evaluate(managedDropdownExpression);
-    const visible = expanded ? state?.visible === true : state?.hidden === true;
-    return state && state.expanded === (expanded ? "true" : "false") && visible && (!restoreFocus || state.triggerFocused) ? state : null;
-  }, 15000, "managed Button dropdown " + (expanded ? "open" : "closed") + (restoreFocus ? " with trigger focus" : ""));
+  const waitForManagedDropdown = async (expanded, restoreFocus = false) => {
+    let lastState = null;
+    try {
+      return await poll(async () => {
+        lastState = await evaluate(managedDropdownExpression);
+        const visible = expanded ? lastState?.visible === true : lastState?.hidden === true;
+        return lastState && lastState.expanded === (expanded ? "true" : "false") && visible && (!restoreFocus || lastState.triggerFocused) ? lastState : null;
+      }, 15000, "managed Button dropdown " + (expanded ? "open" : "closed") + (restoreFocus ? " with trigger focus" : ""));
+    } catch (error) {
+      throw Error((error?.message || String(error)) + "; last DOM state=" + JSON.stringify(lastState));
+    }
+  };
 
   try {
     child = spawn(browser, ["--headless=new", "--no-sandbox", "--disable-gpu", "--disable-extensions", "--no-first-run", "--no-default-browser-check", "--remote-debugging-port=0", "--remote-allow-origins=*", "--user-data-dir=" + profile, "about:blank"], { windowsHide: true, stdio: "ignore" });
@@ -274,9 +286,14 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     const localizedLtrAx = await readAxName('[data-testid="localized-button-ltr"]');
     const localizedRtlAx = await readAxName('[data-testid="localized-button-rtl"]');
     check("InteractiveServer and WebAssembly expose the exact Persian label as the AX name in LTR and RTL", localizedLtrAx.role === "button" && localizedLtrAx.name === "ذخیره تغییرات" && localizedRtlAx.role === "button" && localizedRtlAx.name === "ذخیره تغییرات", { ltr: localizedLtrAx, rtl: localizedRtlAx });
-    const initialDropdown = await evaluate(managedDropdownExpression);
+    const initialDropdown = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.surfaceFound && state.menuFound && state.items.length === 5 ? state : null;
+    }, 15000, "initial managed dropdown surface is fully rendered before ARIA checks");
     check("managed Button dropdown renders a native button and visible caret", initialDropdown.triggerFound && initialDropdown.triggerTag === "BUTTON" && initialDropdown.hasCaret, initialDropdown);
-    check("collapsed Button dropdown exposes one stable controls target without claiming a menu role", initialDropdown.expanded === "false" && initialDropdown.controls === initialDropdown.triggerId + "_surface" && initialDropdown.controlsTargetExists && initialDropdown.hasPopup === null && initialDropdown.hidden, initialDropdown);
+    check("collapsed Button dropdown exposes menu semantics and a stable controls target", initialDropdown.expanded === "false" && initialDropdown.controls === initialDropdown.triggerId + "_surface" && initialDropdown.controlsTargetExists && initialDropdown.hasPopup === "menu" && initialDropdown.menuFound && initialDropdown.menuRole === "menu" && initialDropdown.menuLabel === "Managed actions" && initialDropdown.hidden, initialDropdown);
+    check("MenuList items expose menuitem role, roving-focus tabindex and disabled state", initialDropdown.items.length === 5 && initialDropdown.items.every(item => item.role === "menuitem" && item.tabIndex === "-1") && initialDropdown.items.find(item => item.id === "button-managed-dropdown-disabled")?.disabled === "true", initialDropdown.items);
+    check("submenu trigger exposes menu popup state and a stable surface relationship", initialDropdown.submenuTriggerFound && initialDropdown.submenuHasPopup === "menu" && initialDropdown.submenuExpanded === "false" && initialDropdown.submenuControlsTargetExists, initialDropdown);
 
     await clickSelector('[data-testid="button-managed-dropdown-trigger"]');
     const openedDropdown = await waitForManagedDropdown(true);
@@ -297,6 +314,106 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
       return state && state.selectionText.includes("Dropdown selection: Copy; count: 1") && state.expanded === "false" && state.hidden ? state : null;
     }, 15000, "managed Button dropdown command selection and close");
     check("activating Copy invokes the component callback once and closes the dropdown", selectedDropdown.selectionText.includes("Dropdown selection: Copy; count: 1") && selectedDropdown.expanded === "false" && selectedDropdown.hidden, selectedDropdown);
+
+    await evaluate("document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]').focus()");
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    const keyboardOpened = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.visible && state.expanded === "true" && state.activeTestId === "button-managed-dropdown-copy" ? state : null;
+    }, 15000, "ArrowDown opens menu and focuses first enabled menuitem");
+    check("ArrowDown on trigger opens menu and focuses its first enabled item", keyboardOpened.activeTestId === "button-managed-dropdown-copy" && keyboardOpened.focusWithinMenu, keyboardOpened);
+
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    const downToRename = await evaluate(managedDropdownExpression);
+    check("ArrowDown moves focus to the next enabled menuitem", downToRename.activeTestId === "button-managed-dropdown-rename", downToRename);
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    const skipDisabled = await evaluate(managedDropdownExpression);
+    check("ArrowDown skips aria-disabled menuitems", skipDisabled.activeTestId === "button-managed-dropdown-delete", skipDisabled);
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    const downToSubmenu = await evaluate(managedDropdownExpression);
+    check("ArrowDown includes the enabled submenu trigger in menu order", downToSubmenu.activeTestId === "button-managed-dropdown-submenu", downToSubmenu);
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    const wrapDown = await evaluate(managedDropdownExpression);
+    check("ArrowDown wraps from the last to first enabled item", wrapDown.activeTestId === "button-managed-dropdown-copy", wrapDown);
+    await dispatchKey("ArrowUp", "ArrowUp", 38);
+    const wrapUp = await evaluate(managedDropdownExpression);
+    check("ArrowUp wraps from the first to last enabled item", wrapUp.activeTestId === "button-managed-dropdown-submenu", wrapUp);
+    await dispatchKey("Home", "Home", 36);
+    const home = await evaluate(managedDropdownExpression);
+    check("Home focuses the first enabled menuitem", home.activeTestId === "button-managed-dropdown-copy", home);
+    await dispatchKey("End", "End", 35);
+    const end = await evaluate(managedDropdownExpression);
+    check("End focuses the last enabled menuitem", end.activeTestId === "button-managed-dropdown-submenu", end);
+    await dispatchKey("r", "KeyR", 82, "r");
+    const typeahead = await evaluate(managedDropdownExpression);
+    check("type-ahead finds the first item with a matching text prefix", typeahead.activeTestId === "button-managed-dropdown-rename", typeahead);
+
+    await dispatchKey("Enter", "Enter", 13, "\r");
+    let lastEnterState = null;
+    let enterSelection;
+    try {
+      enterSelection = await poll(async () => {
+        lastEnterState = await evaluate(managedDropdownExpression);
+        return lastEnterState?.selectionText.includes("Dropdown selection: Rename; count: 2") && lastEnterState.expanded === "false" && lastEnterState.hidden ? lastEnterState : null;
+      }, 15000, "Enter activates Rename once and closes menu");
+    } catch (error) {
+      throw Error((error?.message || String(error)) + "; last Enter state=" + JSON.stringify(lastEnterState));
+    }
+    check("Enter activates a focused menuitem exactly once and closes the menu", enterSelection.selectionText.includes("Dropdown selection: Rename; count: 2") && enterSelection.triggerFocused, enterSelection);
+
+    await evaluate("document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]').focus()");
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.visible && state.activeTestId === "button-managed-dropdown-copy" ? state : null;
+    }, 15000, "reopen menu for Space activation");
+    await dispatchKey(" ", "Space", 32, " ");
+    const spaceSelection = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.selectionText.includes("Dropdown selection: Copy; count: 3") && state.expanded === "false" && state.hidden ? state : null;
+    }, 15000, "Space activates Copy once and closes menu");
+    check("Space activates a focused menuitem exactly once and closes the menu", spaceSelection.selectionText.includes("Dropdown selection: Copy; count: 3") && spaceSelection.triggerFocused, spaceSelection);
+
+    await evaluate("document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]').focus()");
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.visible && state.activeTestId === "button-managed-dropdown-copy" ? state : null;
+    }, 15000, "open parent menu before testing submenu");
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    const submenuFocus = await evaluate(managedDropdownExpression);
+    check("parent navigation reaches submenu trigger after skipping disabled item", submenuFocus.activeTestId === "button-managed-dropdown-submenu", submenuFocus);
+    await dispatchKey("ArrowRight", "ArrowRight", 39);
+    const openedSubmenu = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.submenuVisible && state.submenuExpanded === "true" && state.activeTestId === "button-managed-dropdown-archive" ? state : null;
+    }, 15000, "ArrowRight opens submenu and focuses first nested item");
+    check("ArrowRight opens submenu and focuses its first enabled menuitem", openedSubmenu.submenuVisible && openedSubmenu.activeTestId === "button-managed-dropdown-archive", openedSubmenu);
+    await dispatchKey("ArrowLeft", "ArrowLeft", 37);
+    const submenuClosed = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.submenuHidden && state.submenuExpanded === "false" && state.activeTestId === "button-managed-dropdown-submenu" ? state : null;
+    }, 15000, "ArrowLeft closes submenu and restores parent item focus");
+    check("ArrowLeft closes submenu and restores focus to its parent item", submenuClosed.submenuHidden && submenuClosed.activeTestId === "button-managed-dropdown-submenu", submenuClosed);
+
+    await dispatchKey("Escape", "Escape", 27);
+    const escapedKeyboardMenu = await waitForManagedDropdown(false, true);
+    check("Escape closes the keyboard-opened menu and restores trigger focus", escapedKeyboardMenu.hidden && escapedKeyboardMenu.triggerFocused && escapedKeyboardMenu.expanded === "false", escapedKeyboardMenu);
+
+    await evaluate("document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]').focus()");
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.visible && state.activeTestId === "button-managed-dropdown-copy" ? state : null;
+    }, 15000, "open menu before Tab dismissal");
+    await dispatchKey("Tab", "Tab", 9);
+    const tabClosed = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu ? state : null;
+    }, 15000, "Tab closes menu without restoring trigger focus");
+    check("Tab closes menu without trapping focus or restoring the trigger", tabClosed.hidden && !tabClosed.triggerFocused && !tabClosed.focusWithinMenu, tabClosed);
 
     console.log("[probe:" + engine + "] reading the initial computed accessibility-tree pressed state");
     const initialAx = await readAxPressed();
@@ -363,7 +480,10 @@ try {
 
   const engines = requested === "both" ? ["chrome", "edge"] : [requested];
   const results = [];
-  for (const route of ["server", "webassembly"]) {
+  const requestedRoute = (process.env.BLUENT_TEST_ROUTE || "").toLowerCase();
+  const routes = requestedRoute ? [requestedRoute] : ["server", "webassembly"];
+  if (routes.some(route => !["server", "webassembly"].includes(route))) throw Error("BLUENT_TEST_ROUTE must be server or webassembly");
+  for (const route of routes) {
     for (const engine of engines) {
       try { results.push(await probeBrowser(engine, base, route)); }
       catch (error) {

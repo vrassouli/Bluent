@@ -1,4 +1,4 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentUiComponentBase
 
 @if (!IsDropdownButton && !IsSplitButton)
@@ -17,10 +17,11 @@
         __builder.AddAttribute(8, "aria-pressed", Toggled.Value ? "true" : "false");
     if (IsButtonManagedMenuTrigger)
     {
-       __builder.AddAttribute(9, "aria-expanded", "false");
-        __builder.AddAttribute(10, "aria-controls", $"{Id}_surface");
+        __builder.AddAttribute(9, "aria-haspopup", "menu");
+        __builder.AddAttribute(10, "aria-expanded", "false");
+        __builder.AddAttribute(11, "aria-controls", $"{Id}_surface");
     }
-    __builder.OpenRegion(11);
+    __builder.OpenRegion(12);
 
     @if (Icon.HasValue)
     {

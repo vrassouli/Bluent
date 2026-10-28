@@ -93,6 +93,7 @@ public partial class Button
         return AdditionalAttributes.Where(attribute =>
             !(ownsToggleState && string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase)) &&
             !(ownsPopupState && (
+                string.Equals(attribute.Key, "aria-haspopup", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(attribute.Key, "aria-expanded", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(attribute.Key, "aria-controls", StringComparison.OrdinalIgnoreCase))));
     }
@@ -118,18 +119,25 @@ public partial class Button
         };
     }
 
-    private void ClickHandler()
+    private async Task ClickHandler()
     {
         if (IsDisabled)
             return;
 
+        if (IsButtonManagedMenuTrigger)
+        {
+            if (ParentPopover is not null)
+                await ParentPopover.ShowAsync();
+            return;
+        }
+
         if (Toggled != null)
         {
             Toggled = !Toggled.Value;
-            InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));
+            await InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));
         }
 
-        InvokeAsync(OnClick.InvokeAsync);
+        await InvokeAsync(OnClick.InvokeAsync);
     }
 
     public void RefreshPopoverSurface()

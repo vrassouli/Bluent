@@ -138,6 +138,79 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('"src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"', workflow)
         self.assertIn('"scripts/quality/probe_v3_button_toggle_interactive_server.mjs"', workflow)
 
+    def test_button_menu_keyboard_and_aria_contract_stays_wired(self):
+        menu_list = (docs.ROOT / "src/Bluent.UI/Components/MenuListComponent/MenuList.razor").read_text(encoding="utf-8")
+        menu_list_cs = (docs.ROOT / "src/Bluent.UI/Components/MenuListComponent/MenuList.razor.cs").read_text(encoding="utf-8")
+        menu_item = (docs.ROOT / "src/Bluent.UI/Components/MenuListComponent/MenuItem.razor").read_text(encoding="utf-8")
+        menu_item_cs = (docs.ROOT / "src/Bluent.UI/Components/MenuListComponent/MenuItem.razor.cs").read_text(encoding="utf-8")
+        button_cs = (docs.ROOT / "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs").read_text(encoding="utf-8")
+        popover_component = (docs.ROOT / "src/Bluent.UI/Components/PopoverComponent/Popover.razor.cs").read_text(encoding="utf-8")
+        popover_container = (docs.ROOT / "src/Bluent.UI/Components/PopoverComponent/PopoverContainerBase.cs").read_text(encoding="utf-8")
+        popover_interop = (docs.ROOT / "src/Bluent.UI/Interops/PopoverInterop.cs").read_text(encoding="utf-8")
+        popover_service = (docs.ROOT / "src/Bluent.UI/Services/PopoverService.cs").read_text(encoding="utf-8")
+        popover = (docs.ROOT / "src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8")
+        fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
+        probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
+
+        self.assertIn('role="menu"', menu_list)
+        self.assertIn('aria-label', menu_list_cs)
+        self.assertIn('role="menuitem"', menu_item)
+        self.assertIn('"tabindex", "-1"', menu_item)
+        self.assertIn('"aria-disabled", "true"', menu_item)
+        self.assertIn('aria-haspopup="menu"', menu_item)
+        self.assertIn('aria-expanded="false"', menu_item)
+        self.assertIn('aria-controls=', menu_item)
+        self.assertIn('await OnClick.InvokeAsync()', menu_item_cs)
+        self.assertIn('HandleKeyDown', menu_item_cs)
+        self.assertIn('_subMenuPopover?.Show()', menu_item_cs)
+        self.assertIn("return Task.CompletedTask", menu_item_cs)
+        self.assertIn("internal Task CloseAsync()", popover_component)
+        self.assertIn("internal Task ShowAsync()", popover_component)
+        self.assertIn("await ParentPopover.ShowAsync()", button_cs)
+        self.assertIn("internal async Task ShowAsync(string triggerId)", popover_service)
+        self.assertIn("await _interop.ShowSurfaceAsync", popover_container)
+        self.assertIn("ShowSurfaceAsync(PopoverSettings", popover_interop)
+        self.assertIn("return service.CloseAsync", popover_component)
+        self.assertIn("internal async Task CloseAsync", popover_service)
+        self.assertIn("await _interop.HideSurfaceAsync", popover_container)
+        self.assertIn("HideSurfaceAsync(PopoverSettings", popover_interop)
+        self.assertIn("activeItem.click()", popover)
+        self.assertIn("this.hideSurface(menuSettings, true)", popover)
+
+        for key in ('ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape', 'aria-disabled', 'typeahead'):
+            self.assertIn(key, popover.lower() if key == 'typeahead' else popover, key)
+
+        for selector in ('button-managed-dropdown-disabled', 'button-managed-dropdown-submenu', 'button-managed-dropdown-archive'):
+            self.assertIn(f'data-testid="{selector}"', fixture, selector)
+
+        for assertion in (
+            "initial managed dropdown surface is fully rendered before ARIA checks",
+            "ArrowDown on trigger opens menu and focuses its first enabled item",
+            "ArrowDown skips aria-disabled menuitems",
+            "Home focuses the first enabled menuitem",
+            "End focuses the last enabled menuitem",
+            "type-ahead finds the first item with a matching text prefix",
+            "Enter activates a focused menuitem exactly once and closes the menu",
+            "Space activates a focused menuitem exactly once and closes the menu",
+            "ArrowRight opens submenu and focuses its first enabled menuitem",
+            "ArrowLeft closes submenu and restores focus to its parent item",
+            "Tab closes menu without trapping focus or restoring the trigger",
+        ):
+            self.assertIn(assertion, probe, assertion)
+
+        for source in (
+            "src/Bluent.UI/Components/MenuListComponent/MenuList.razor",
+            "src/Bluent.UI/Components/MenuListComponent/MenuList.razor.cs",
+            "src/Bluent.UI/Components/MenuListComponent/MenuItem.razor",
+            "src/Bluent.UI/Components/MenuListComponent/MenuItem.razor.cs",
+            "src/Bluent.UI/Components/PopoverComponent/Popover.razor.cs",
+            "src/Bluent.UI/Components/PopoverComponent/PopoverContainerBase.cs",
+            "src/Bluent.UI/Interops/PopoverInterop.cs",
+            "src/Bluent.UI/Services/PopoverService.cs",
+            "src/Bluent.UI.Scripts/src/Popover/Popover.ts",
+        ):
+            self.assertIn(f'      - "{source}"', workflow, source)
     def test_button_badge_rtl_geometry_probe_stays_exhaustive(self):
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         self.assertIn('inspectBadgeDirection("ltr")', probe)
