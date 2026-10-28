@@ -190,6 +190,7 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('aria-haspopup="menu"', button_doc)
         self.assertIn('role="menuitem"', button_doc)
         self.assertIn("184/184 assertions", button_doc)
+        self.assertIn("211/211 assertions in Chrome and 211/211 in Edge** on 2026-10-28", button_doc)
         self.assertNotIn('does not generate aria-haspopup="menu" yet', button_doc)
         self.assertNotIn("complete menu-role/arrow-key interaction contract", button_doc)
         self.assertIn("Latest published Button-managed menu keyboard verification — 2026-10-28", button_doc)
