@@ -284,6 +284,8 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('initialDropdown.popupAttributeCounts?.expanded === 1', probe)
         self.assertIn('initialDropdown.popupAttributeCounts?.controls === 1', probe)
         self.assertIn("branches: [bluent-v3]", workflow)
+        self.assertIn(r"CHROME_PATH: 'C:\Program Files\Google\Chrome\Application\chrome.exe'", workflow)
+        self.assertIn(r"EDGE_PATH: 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'", workflow)
         self.assertIn("node scripts/quality/probe_v3_button_toggle_interactive_server.mjs both", workflow)
         self.assertIn("dotnet test Bluent.sln --configuration Release --no-restore --nologo", workflow)
         self.assertIn("tests/RegexSampleGeneratorTest/ButtonToggleSemanticsTests.cs", workflow)

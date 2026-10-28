@@ -58,8 +58,8 @@ jobs:
       - name: Run published-host Chrome and Edge matrix
         shell: pwsh
         env:
-          CHROME_PATH: "C:\Program Files\Google\Chrome\Application\chrome.exe"
-          EDGE_PATH: "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+          CHROME_PATH: 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+          EDGE_PATH: 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
         run: |
           $ErrorActionPreference = "Stop"
           node scripts/quality/probe_v3_button_toggle_interactive_server.mjs both
