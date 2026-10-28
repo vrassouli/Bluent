@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """#422: negative controls for v3 inventory drift guards."""
+import re
 import unittest
 import check_v3_docs_contract as docs
 
@@ -26,6 +27,33 @@ class V3DocsContractTests(unittest.TestCase):
         failures = docs.validate_inventory(changed)
         self.assertTrue(any("baseline has" in x for x in failures), failures)
         self.assertTrue(any("summary" in x for x in failures), failures)
+
+    def test_button_showcase_exercises_every_public_parameter(self):
+        demo = (docs.ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor").read_text(encoding="utf-8")
+        markup = demo.split("@code {", 1)[0]
+        button_tags = re.findall(r"<Button\b[^>]*>", markup, flags=re.S)
+        self.assertTrue(button_tags, "Button showcase must include runnable Button examples")
+
+        declared = set()
+        for source in docs.BUTTON_API_SOURCES:
+            declared.update(docs.PARAMETER_DECLARATION.findall(source.read_text(encoding="utf-8")))
+
+        # Named RenderFragment slots and unmatched HTML attributes are not written
+        # as ordinary component parameters in Razor markup.
+        fragment_slots = {"Badge", "Dropdown", "TooltipContent"}
+        boolean_shorthand = {"Compact", "Rotated", "DisplayTooltipArrow"}
+        for parameter in sorted(declared):
+            if parameter == "Toggled":
+                covered = any(re.search(r"@bind-Toggled\s*=", tag) or re.search(r"\bToggled\s*=", tag) for tag in button_tags)
+            elif parameter in fragment_slots:
+                covered = bool(re.search(fr"<{parameter}\b", markup))
+            elif parameter == "AdditionalAttributes":
+                covered = bool(re.search(r"\bdata-demo-case\s*=", markup))
+            elif parameter in boolean_shorthand:
+                covered = any(re.search(fr"\b{parameter}(?=\s|/?>)", tag) for tag in button_tags)
+            else:
+                covered = any(re.search(fr"\b{parameter}\s*=", tag) for tag in button_tags)
+            self.assertTrue(covered, f"Button showcase has no runnable scenario for public parameter {parameter}")
 
     def test_button_api_reference_covers_declared_and_inherited_parameters(self):
         self.assertEqual(docs.validate_button_api_docs(), [])
