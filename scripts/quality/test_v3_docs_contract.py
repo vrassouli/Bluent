@@ -198,6 +198,16 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn("BUTTON-MENU-KEYBOARD-SLICE.md", toggle_slice)
         self.assertIn("184/184 assertions", menu_slice)
 
+        migration = (docs.ROOT / "docs/v3/design/MIGRATION-IMPACT-LEDGER.md").read_text(encoding="utf-8")
+        button_dropdown_migration = next(
+            (line for line in migration.splitlines() if line.startswith("| M15 — Button dropdown popup semantics/lifecycle |")),
+            "",
+        )
+        self.assertTrue(button_dropdown_migration, "Button dropdown migration-impact row must remain present")
+        self.assertIn("184/184 assertions", button_dropdown_migration)
+        self.assertIn("BUTTON-MENU-KEYBOARD-SLICE.md", button_dropdown_migration)
+        self.assertNotIn("aria-haspopup=\"menu\" remains deferred", button_dropdown_migration)
+
         for key in ('ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape', 'aria-disabled', 'typeahead'):
             self.assertIn(key, popover.lower() if key == 'typeahead' else popover, key)
 
