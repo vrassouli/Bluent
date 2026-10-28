@@ -267,7 +267,7 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
   const dropdownExample = await run("(()=>{const h=[...document.querySelectorAll(\"h5\")].find(h=>h.textContent.trim()===\"Dropdown button\");const b=[...h.parentElement.querySelectorAll(\"button\")].find(b=>b.textContent.includes(\"Menu above\"));return {found:!!b,text:b?.textContent.trim()??\"\",hasCaret:!!b?.querySelector(\".dropdown-icon\"),disabled:b?.disabled??null};})()");
   assert("top-placement Dropdown example renders a live caret trigger", dropdownExample.found && dropdownExample.hasCaret && !dropdownExample.disabled, dropdownExample);
   const noCaretSnapshot = await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes('Menu without caret'));if(!b)return null;return {id:b.id,hasCaret:!!b.querySelector('.dropdown-icon'),hasPopup:b.getAttribute('aria-haspopup'),expanded:b.getAttribute('aria-expanded'),controls:b.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(b.getAttribute('aria-controls'))};})()");
-  assert("popup expansion semantics do not require a visible dropdown caret", !!noCaretSnapshot && !noCaretSnapshot.hasCaret && noCaretSnapshot.hasPopup===null && noCaretSnapshot.expanded==="false" && !!noCaretSnapshot.id && noCaretSnapshot.controls===noCaretSnapshot.id+"_surface" && noCaretSnapshot.controlsTargetExists, noCaretSnapshot);
+  assert("popup expansion semantics do not require a visible dropdown caret", !!noCaretSnapshot && !noCaretSnapshot.hasCaret && noCaretSnapshot.hasPopup==="menu" && noCaretSnapshot.expanded==="false" && !!noCaretSnapshot.id && noCaretSnapshot.controls===noCaretSnapshot.id+"_surface" && noCaretSnapshot.controlsTargetExists, noCaretSnapshot);
   const inspectDropdownTrigger = async label => {
     const expression = "(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Dropdown button');const b=[...h?.parentElement?.querySelectorAll('button')||[]].find(b=>b.textContent.includes(" + JSON.stringify(label) + "));if(!b)return null;b.scrollIntoView({block:'center'});const r=b.getBoundingClientRect();return {id:b.id,hasPopup:b.getAttribute('aria-haspopup'),expanded:b.getAttribute('aria-expanded'),controls:b.getAttribute('aria-controls'),controlsTargetExists:!!document.getElementById(b.getAttribute('aria-controls')),x:r.left+r.width/2,y:r.top+r.height/2,bounds:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};})()";
     return await run(expression);
@@ -290,7 +290,7 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
     await send("Input.dispatchMouseEvent", {type:"mousePressed",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
     await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
     const opened = await waitDropdownState(trigger.id, true);
-    assert("caretless dropdown opens with expanded popup semantics", !!opened?.visible && opened.popup?.hasPopup===null && opened.popup?.expanded==="true" && opened.popup?.controlsTargetExists, opened);
+    assert("caretless dropdown opens with expanded popup semantics", !!opened?.visible && opened.popup?.hasPopup==="menu" && opened.popup?.expanded==="true" && opened.popup?.controlsTargetExists, opened);
     await key("Escape","Escape",27);
     const closed = await waitDropdownState(trigger.id, false);
     assert("caretless dropdown Escape closes, collapses, and restores focus", !!closed?.hidden && closed.popup?.expanded==="false" && closed.popup?.controlsTargetExists && closed.triggerFocused, closed);
@@ -299,7 +299,7 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
   await run("(()=>{document.documentElement.setAttribute(\"dir\",\"ltr\");document.body.classList.remove(\"rtl\");return true;})()");
   for (const [label, expectedPlacement] of [[ "Menu above","top"],["Menu below","bottom"],["Menu right","right"],["Menu left","left"], ["Menu top-start","top-start"],["Menu top-end","top-end"], ["Menu bottom-start","bottom-start"],["Menu bottom-end","bottom-end"], ["Menu right-start","right-start"],["Menu right-end","right-end"], ["Menu left-start","left-start"],["Menu left-end","left-end"]]) {
     const trigger = await inspectDropdownTrigger(label);
-    assert(label + " dropdown exposes expanded state and a stable controlled surface while collapsed", !!trigger?.id && trigger.hasPopup === null && trigger.expanded === "false" && trigger.controls === trigger.id + "_surface" && trigger.controlsTargetExists, trigger);
+    assert(label + " dropdown exposes expanded state and a stable controlled surface while collapsed", !!trigger?.id && trigger.hasPopup === "menu" && trigger.expanded === "false" && trigger.controls === trigger.id + "_surface" && trigger.controlsTargetExists, trigger);
     if (!trigger?.id) continue;
     await send("Input.dispatchMouseEvent", {type:"mousePressed",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
     await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:trigger.x,y:trigger.y,button:"left",clickCount:1});
@@ -317,7 +317,7 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
       return {ok:(actualSide===requestedSide||collisionFlipped)&&aligned,actualSide,requestedSide,available,required,collisionFlipped,aligned};
     })() : {ok:false,actualSide:"missing",collisionFlipped:false,aligned:false};
     const side=geometry.ok;
-    assert(label + " opens with configured placement/alignment or a justified collision flip and selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy && opened.popup?.hasPopup === null && opened.popup?.expanded === "true" && opened.popup?.controls === trigger.id + "_surface" && opened.popup?.controlsTargetExists, {expectedPlacement,opened,geometry});
+    assert(label + " opens with configured placement/alignment or a justified collision flip and selectable items", opened?.visible && opened.placement === expectedPlacement && side && opened.hasCopy && opened.popup?.hasPopup === "menu" && opened.popup?.expanded === "true" && opened.popup?.controls === trigger.id + "_surface" && opened.popup?.controlsTargetExists, {expectedPlacement,opened,geometry});
     if (opened?.copyPoint) {
       await send("Input.dispatchMouseEvent", {type:"mousePressed",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});
       await send("Input.dispatchMouseEvent", {type:"mouseReleased",x:opened.copyPoint.x,y:opened.copyPoint.y,button:"left",clickCount:1});

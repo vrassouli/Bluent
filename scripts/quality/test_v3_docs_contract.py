@@ -114,6 +114,7 @@ class V3DocsContractTests(unittest.TestCase):
     def test_button_persian_direction_is_verified_in_published_interactive_modes(self):
         fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        focus_probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
         self.assertIn('Text="ذخیره تغییرات"', fixture)
         self.assertIn('data-testid="localized-button-ltr"', fixture)
@@ -128,6 +129,7 @@ class V3DocsContractTests(unittest.TestCase):
     def test_button_managed_dropdown_lifecycle_is_verified_in_published_renderers(self):
         fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        focus_probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
         self.assertIn('data-testid="button-managed-dropdown-trigger"', fixture)
         self.assertIn('data-testid="button-managed-dropdown-copy"', fixture)
@@ -151,6 +153,7 @@ class V3DocsContractTests(unittest.TestCase):
         popover = (docs.ROOT / "src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8")
         fixture = (docs.ROOT / "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor").read_text(encoding="utf-8")
         probe = (docs.ROOT / "scripts/quality/probe_v3_button_toggle_interactive_server.mjs").read_text(encoding="utf-8")
+        focus_probe = (docs.ROOT / "scripts/quality/probe_v3_button_focus_runtime.mjs").read_text(encoding="utf-8")
         workflow = (docs.ROOT / ".github/workflows/v3-docs-contract.yml").read_text(encoding="utf-8")
 
         self.assertIn('role="menu"', menu_list)
@@ -177,6 +180,9 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn("HideSurfaceAsync(PopoverSettings", popover_interop)
         self.assertIn("activeItem.click()", popover)
         self.assertIn("this.hideSurface(menuSettings, true)", popover)
+        self.assertIn('noCaretSnapshot.hasPopup==="menu"', focus_probe)
+        self.assertIn('trigger.hasPopup === "menu"', focus_probe)
+        self.assertIn('opened.popup?.hasPopup === "menu"', focus_probe)
 
         for key in ('ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape', 'aria-disabled', 'typeahead'):
             self.assertIn(key, popover.lower() if key == 'typeahead' else popover, key)
