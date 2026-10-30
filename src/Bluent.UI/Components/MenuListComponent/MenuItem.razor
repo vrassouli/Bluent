@@ -1,4 +1,4 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentUiComponentBase
 
 @if (ChildContent == null)
@@ -11,27 +11,32 @@
     __builder.AddAttribute(3, "id", Id);
     __builder.AddAttribute(4, "class", GetComponentClass());
     __builder.AddAttribute(5, "style", Style);
-    __builder.AddAttribute(6, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    __builder.OpenRegion(7);
+    __builder.AddAttribute(6, "role", "menuitem");
+    __builder.AddAttribute(7, "tabindex", "-1");
+    if (IsDisabled)
+        __builder.AddAttribute(8, "aria-disabled", "true");
+    __builder.AddAttribute(9, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+    __builder.AddAttribute(10, "onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, HandleKeyDown));
+    __builder.OpenRegion(11);
 
     @if (MenuList.ShouldRenderCheckmarkBox)
     {
         @if (Checked)
         {
-            <Icon Value="@FluentIcons.Checkmark" Class="checked" />
+            <Icon Value="@FluentIcons.Checkmark" Class="checked" aria-hidden="true" />
         }
         else
         {
-            <i class="checked"></i>
+            <i class="checked" aria-hidden="true"></i>
         }
     }
     @if (MenuList.ShouldRenderIconBox)
     {
         @if (Icon.HasValue && Icon.Value.Filled.HasValue)
         {
-            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
+            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" aria-hidden="true" />
         }
-        <Icon Value="@Icon" Class="icon" />
+        <Icon Value="@Icon" Class="icon" aria-hidden="true" />
     }
     <div class="title">@Title</div>
 
@@ -40,31 +45,41 @@
 }
 else
 {
-    <Popover @ref=_subMenuPopover TriggerEvents="mouseenter, focus" DisplayArrow="false" Placement="Placement.RightStart">
+    <Popover @ref="_subMenuPopover" TriggerEvents="mouseenter" DisplayArrow="false" Placement="Placement.RightStart" KeepSurface="true">
         <Trigger>
-            <div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style" @onclick="ClickHandler">
+            <div @attributes="AdditionalAttributes"
+                 id="@Id"
+                 class="@GetComponentClass()"
+                 style="@Style"
+                 role="menuitem"
+                 tabindex="-1"
+                 aria-haspopup="menu"
+                 aria-expanded="false"
+                 aria-controls="@($"{Id}_surface")"
+                 @onclick="ClickHandler"
+                 @onkeydown="HandleKeyDown">
                 @if (MenuList.ShouldRenderCheckmarkBox)
                 {
                     @if (Checked)
                     {
-                        <Icon Value="@FluentIcons.Checkmark" Class="checked" />
+                        <Icon Value="@FluentIcons.Checkmark" Class="checked" aria-hidden="true" />
                     }
                     else
                     {
-                        <i class="checked"></i>
+                        <i class="checked" aria-hidden="true"></i>
                     }
                 }
                 @if (MenuList.ShouldRenderIconBox)
                 {
                     @if (Icon.HasValue && Icon.Value.Filled.HasValue)
                     {
-                        <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
+                        <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" aria-hidden="true" />
                     }
-                    <Icon Value="@Icon" Class="icon" />
+                    <Icon Value="@Icon" Class="icon" aria-hidden="true" />
                 }
                 <div class="title">@Title</div>
-                <div class="sub-menu-icon">
-                    <Icon Value="@FluentIcons.ChevronRight" />
+                <div class="sub-menu-icon" aria-hidden="true">
+                    <Icon Value="@FluentIcons.ChevronRight" aria-hidden="true" />
                 </div>
             </div>
         </Trigger>

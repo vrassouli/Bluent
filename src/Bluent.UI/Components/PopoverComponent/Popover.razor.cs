@@ -80,6 +80,18 @@ public partial class Popover : IDisposable
         PopoverService.Show(_settings.TriggerId);
     }
 
+    internal Task ShowAsync()
+    {
+        if (_settings is null)
+            throw new InvalidOperationException("Popover trigger is not set.");
+
+        if (PopoverService is Bluent.UI.Services.PopoverService service)
+            return service.ShowAsync(_settings.TriggerId);
+
+        PopoverService.Show(_settings.TriggerId);
+        return Task.CompletedTask;
+    }
+
     private RenderFragment GetSurfaceFragment()
     {
         return builder =>
@@ -96,6 +108,18 @@ public partial class Popover : IDisposable
     {
         if (_settings is not null)
             PopoverService.Close(_settings.TriggerId);
+    }
+
+    internal Task CloseAsync()
+    {
+        if (_settings is null)
+            return Task.CompletedTask;
+
+        if (PopoverService is Bluent.UI.Services.PopoverService service)
+            return service.CloseAsync(_settings.TriggerId);
+
+        PopoverService.Close(_settings.TriggerId);
+        return Task.CompletedTask;
     }
 
     public void RefreshSurface(bool updatePosition = false)

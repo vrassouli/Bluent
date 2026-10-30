@@ -1,0 +1,47 @@
+.button-focus-host-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.button-focus-host {
+    display: flex;
+    min-width: 12rem;
+    flex: 1 1 12rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: var(--borderRadiusMedium);
+    color: var(--colorNeutralForeground1);
+    background-color: var(--colorNeutralBackground1);
+}
+
+.button-focus-host.brand,
+.button-focus-host.brand-hover,
+.button-focus-host.danger {
+    --bui-button-focus-ring-color: var(--colorNeutralForegroundOnBrand);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+
+.button-focus-host.brand {
+    background-color: var(--colorBrandBackground);
+}
+
+.button-focus-host.brand-hover {
+    background-color: var(--colorBrandBackgroundHover);
+}
+
+.button-focus-host.danger {
+    background-color: var(--colorPaletteRedBackground3);
+}
+
+.button-focus-host.inverted {
+    background-color: var(--colorNeutralBackgroundInverted);
+    color: var(--colorNeutralForegroundInverted);
+    --bui-button-focus-ring-color: var(--colorNeutralForegroundOnBrand);
+}
+
+[data-bui-theme="dark"] .button-focus-host.inverted {
+    --bui-button-focus-ring-color: var(--colorBrandForeground2);
+}

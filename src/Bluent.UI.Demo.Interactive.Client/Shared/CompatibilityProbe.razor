@@ -17,14 +17,72 @@
     <TextField id="compatibility-input" @bind-Value="_value" BindValueEvent="oninput" />
     <p data-testid="bound-value">Bound value: @_value</p>
     <p role="status" data-testid="event-count">Event count: @_count</p>
+    <p role="status" data-testid="toggle-semantics-state">Toggle semantic state: @(_toggleValue == true ? "true" : "false")</p>
+    <p role="status">ToggledChanged callbacks: <span data-testid="toggle-change-count">@_toggleChangeCount</span></p>
+    <p role="status">OnClick callbacks: <span data-testid="toggle-click-count">@_toggleClickCount</span></p>
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <Button Text="Increment" OnClick="Increment" Appearance="ButtonAppearance.Primary" />
+        <Button Text="Toggle semantic state" Toggled="@_toggleValue" ToggledChanged="OnToggleChanged" OnClick="OnToggleClick" aria-pressed="mixed" data-testid="toggle-semantics-button" />
+        <Button Text="Ordinary button custom state" aria-pressed="mixed" data-testid="toggle-semantics-ordinary-button" />
+        <Button Text="Link toggle state" Href="/compatibility/static" Toggled="true" data-testid="toggle-semantics-link-button" />
+        <Button Text="Disabled toggle false" Toggled="false" disabled="true" aria-pressed="mixed" data-testid="toggle-semantics-disabled-button" />
         <Button Text="Show toast" OnClick="ShowToast" />
         <Button Text="Show dialog" OnClick="ShowDialog" />
         <Button Text="Open drawer" OnClick="ShowDrawer" data-testid="drawer-trigger" />
         <NavLink href="/compatibility/static">Navigate to static SSR probe</NavLink>
     </div>
     <p role="status" data-testid="drawer-result">Drawer result: @_drawerResult</p>
+
+</section>
+
+<section aria-labelledby="button-managed-dropdown-heading">
+    <h2 id="button-managed-dropdown-heading">Button-managed dropdown lifecycle</h2>
+    <p>Interactive Button fixture for verifying menu roles, keyboard navigation, nested menus, Escape dismissal, and selection callbacks in the active renderer.</p>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 0.5rem;">
+        <Button Text="Managed dropdown"
+                ShowDropdownIndicator="true"
+                aria-haspopup="dialog"
+                aria-expanded="true"
+                aria-controls="caller-owned-surface"
+                data-testid="button-managed-dropdown-trigger">
+            <Dropdown>
+                <MenuList aria-label="Managed actions">
+                    <MenuItem Title="Copy"
+                              OnClick="RecordManagedDropdownSelection"
+                              data-testid="button-managed-dropdown-copy" />
+                    <MenuItem Title="Rename"
+                              OnClick="RecordManagedDropdownRename"
+                              data-testid="button-managed-dropdown-rename" />
+                    <MenuItem Title="Disabled action"
+                              disabled
+                              data-testid="button-managed-dropdown-disabled" />
+                    <MenuItem Title="Delete"
+                              OnClick="RecordManagedDropdownDelete"
+                              data-testid="button-managed-dropdown-delete" />
+                    <MenuItem Title="More options" data-testid="button-managed-dropdown-submenu">
+                        <MenuList aria-label="More options">
+                            <MenuItem Title="Archive"
+                                      OnClick="RecordManagedDropdownArchive"
+                                      data-testid="button-managed-dropdown-archive" />
+                        </MenuList>
+                    </MenuItem>
+                </MenuList>
+            </Dropdown>
+        </Button>
+    </div>
+    <p role="status" data-testid="button-managed-dropdown-selection">Dropdown selection: @_managedDropdownSelection; count: @_managedDropdownSelectionCount</p>
+</section>
+
+<section aria-labelledby="localized-button-heading">
+    <h2 id="localized-button-heading">Localized Button direction</h2>
+    <div dir="ltr" data-testid="localized-button-row-ltr" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 0.5rem;">
+        <span>LTR layout</span>
+        <Button Text="ذخیره تغییرات" Icon="@FluentIcons.Save" data-testid="localized-button-ltr" />
+    </div>
+    <div dir="rtl" data-testid="localized-button-row-rtl" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-block: 0.5rem;">
+        <span>RTL layout</span>
+        <Button Text="ذخیره تغییرات" Icon="@FluentIcons.Save" data-testid="localized-button-rtl" />
+    </div>
 </section>
 
 <section aria-labelledby="overlay-heading">
@@ -85,6 +143,11 @@
 
     private string _value = "ready";
     private int _count;
+    private bool? _toggleValue = false;
+    private int _toggleChangeCount;
+    private int _toggleClickCount;
+    private string _managedDropdownSelection = "none";
+    private int _managedDropdownSelectionCount;
     private string _drawerResult = "not opened";
     private readonly string _observedRenderer =
         OperatingSystem.IsBrowser() ? "WebAssembly" : "Server";
@@ -94,6 +157,43 @@
         ["Second"] = 5,
         ["Third"] = 3
     };
+
+    private void OnToggleChanged(bool value)
+    {
+        _toggleValue = value;
+        _toggleChangeCount++;
+    }
+
+    private void OnToggleClick()
+    {
+        _toggleClickCount++;
+    }
+
+    private void RecordManagedDropdownSelection()
+    {
+        RecordManagedDropdownAction("Copy");
+    }
+
+    private void RecordManagedDropdownRename()
+    {
+        RecordManagedDropdownAction("Rename");
+    }
+
+    private void RecordManagedDropdownDelete()
+    {
+        RecordManagedDropdownAction("Delete");
+    }
+
+    private void RecordManagedDropdownArchive()
+    {
+        RecordManagedDropdownAction("Archive");
+    }
+
+    private void RecordManagedDropdownAction(string action)
+    {
+        _managedDropdownSelection = action;
+        _managedDropdownSelectionCount++;
+    }
 
     private void Increment()
     {

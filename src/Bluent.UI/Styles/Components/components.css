@@ -710,6 +710,11 @@
   color: var(--colorNeutralForeground1Pressed);
   outline-style: none;
 }
+.bui-button:focus-visible {
+  outline: 2px solid var(--bui-button-focus-ring-color, var(--colorBrandBackground));
+  outline-offset: 2px;
+}
+
 .bui-button.circular {
   border-radius: var(--borderRadiusCircular);
 }
@@ -733,9 +738,6 @@
   background-color: var(--colorBrandBackgroundPressed);
   color: var(--colorNeutralForegroundOnBrand);
 }
-.bui-button.primary:focus {
-  box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
-}
 .bui-button.danger {
   background-color: var(--colorPaletteRedBackground3);
   color: var(--colorNeutralForegroundOnBrand);
@@ -752,9 +754,6 @@
 .bui-button.danger:hover:active {
   background-color: var(--colorPaletteDarkRedForeground2);
   color: var(--colorNeutralForegroundOnBrand);
-}
-.bui-button.danger:focus {
-  box-shadow: var(--shadow2), 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset, 0 0 0 var(--strokeWidthThick) var(--colorNeutralForegroundOnBrand) inset;
 }
 .bui-button.outline {
   background-color: var(--colorTransparentBackground);
@@ -4713,6 +4712,27 @@
 }
 .rtl .bui-wizard > .content > .panels.backward > .step.current > .content, [dir=rtl] .bui-wizard > .content > .panels.backward > .step.current > .content {
   animation-name: slide-in-right, fade-in;
+}
+
+
+[data-bui-theme="dark"] .bui-button:focus-visible {
+  outline-color: var(--bui-button-focus-ring-color, var(--colorBrandForeground2));
+}
+
+.bui-button-group > .bui-button:focus-visible {
+  outline-offset: -3px;
+  z-index: 1;
+}
+
+@media (forced-colors: active) {
+  .bui-button:focus-visible {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+}
+
+.bui-button:disabled:focus-visible {
+  outline: none;
 }
 
 /*# sourceMappingURL=components.css.map */
