@@ -267,7 +267,7 @@ class V3DocsContractTests(unittest.TestCase):
             self.assertIn(f'data-testid="{selector}"', fixture, selector)
 
         for assertion in (
-            "initial managed dropdown surface is fully rendered before ARIA checks",
+            "parent and nested submenu surfaces are registered before initial ARIA checks",
             "ArrowDown on trigger opens menu and focuses its first enabled item",
             "ArrowDown skips aria-disabled menuitems",
             "Home focuses the first enabled menuitem",
