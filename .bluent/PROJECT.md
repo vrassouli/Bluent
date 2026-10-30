@@ -256,6 +256,48 @@ Fresh published Production test matrix completed successfully: **208/208** (0 fa
 The maintainer explicitly decided that no additional human visual-design or spoken screen-reader sign-off is required to close this component issue. Engineering evidence and green exact-head CI are the acceptance basis; any concern later observed by a human is to be filed and handled as a follow-up defect. This decision does not change test reporting: Narrator UI Automation semantics were inspected, but spoken Narrator output was not recorded/listened to.
 
 PR #554 is being merged only into the protected v3 integration branch bluent-v3 (never Dev/main/stable 2.x). After the squash merge, close #428 and set its real GitHub Project #5 Status to Done; update Epic #416 coverage. The Button work remains v3 integration content, not a NuGet publish or deployment.
+## Quality gates #425 — integration refresh after Button — 2026-10-30
+
+The #425 implementation from PR #549 is merged with current bluent-v3 (including Button #428 merge commit 550efb95) in this task branch. The only merge conflict was the append-only project log; the current integration-branch project log was preserved and this concise quality-gate checkpoint was appended. Runtime source, workflows and QA fixtures merged without textual conflicts.
+
+PR #549 head prior to integration: 96796bebd9648a8f6d2f17f82cfada05dae31520; previous exact-head GitHub checks were green across all four browser/render modes and the Release/package quality contract. This refresh must pass a new exact-head CI before merge. The branch owns:
+- path-unfiltered Release build/test, docs and Skills contracts, local package identity/version/SHA checks and SSR smoke (pack validation only; no package publish);
+- independent Chrome/Edge x InteractiveServer/WebAssembly runtime matrix;
+- accessibility-tree checks for named controls, RTL/LTR, responsive viewports and reduced/forced-colors browser-emulation evidence;
+- native site zoom 200%/400% checks with no settled horizontal overflow and retained screenshot/evidence artifacts.
+
+Evidence boundary: browser-emulated forced-colors and computed AX do not certify native Windows Contrast Themes or spoken assistive-technology output. The latter is not silently marked passed. The maintainer's component policy accepts automated evidence as sufficient for component closure; future observations remain follow-up defects. Do not claim full WCAG/AT certification from this CI.
+
+PR #549 continues to target bluent-v3 only. Existing Dev, 2.x, NuGet packages, tags and deployments remain untouched.
+
+## Quality gates #425 — unique contrast target and exact local matrix — 2026-10-30
+
+After refreshing PR #549 against current bluent-v3 (Button #428 included), the new exact-head GitHub run exposed a test-fixture selector defect, not a production theme regression. The contrast probe selected the first anchor with /compatibility/static, which was the Button's own link, rather than the intended NavLink specimen. The contrast threshold was correct and has not been relaxed.
+
+Fixed the QA fixture with a stable data-testid="compatibility-link" and changed the Chromium probe to measure that exact element. Added fail-closed source checks and two positive/negative regression tests so neither the fixture ID nor the precise selector can silently drift.
+
+Fresh local real-browser matrix against the merged code and actual published Production host:
+- Chrome / InteractiveServer: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Chrome / WebAssembly: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Edge / InteractiveServer: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Edge / WebAssembly: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Native site zoom checks in each mode: **200% 10/10** and **400% 10/10**, settled horizontal overflow 0; all screenshot/JSON artifacts retained locally.
+
+Final local validation after this fix: full Bluent.sln Release -warnaserror build **0 warnings / 0 errors**; Solution tests **31/31**; quality source gate PASS; Python fail-closed QA contract tests **48/48**; Node syntax and git diff --check PASS. This is local evidence only until GitHub exact-head Actions finish on the pushed commit.
+
+No Bluent runtime API, library theme tokens, production component CSS, stable Dev/v2.x assets, NuGet package, tag or deployment changed. PR #549 continues to target bluent-v3 only. Keep #425 in Review pending exact-head CI and maintainer acceptance; do not mark Done from local evidence alone.
+
+
+
+## #425 — .NET 10 Blazor debugger package security update — 2026-10-30
+
+The 2026-10-25 update to GHSA-g27p-qf6j-c96c establishes 10.0.14 as the fixed .NET 10 version for both `Microsoft.AspNetCore.Components.WebAssembly.Server` and `Microsoft.AspNetCore.Components.WebAssembly.DevServer`. On the isolated `v3/issue-425-quality-gates` branch, raised the SSR host package from 10.0.13 to 10.0.14 and all three active DevServer consumers (`Bluent.UI.Demo`, `Bluent.TaskExamples`, `Bluent.OrderDesk`) from 10.0.7 to 10.0.14. No Bluent library API, runtime component code, stable `Dev`/2.x project, package, tag or deployment was changed.
+
+The quality gate now enforces the 10.0.14 minimum on the SSR Server package and on every active `src/**` / `samples/**` DevServer project; added current-version and negative regression tests so 10.0.13 cannot silently pass. The previous 10.0.13-only server guard was insufficient after the Oct 25 advisory update.
+
+Local verification on 2026-10-30: forced `dotnet restore Bluent.sln` PASS; `dotnet list Bluent.sln package --vulnerable --include-transitive` reports **no vulnerable packages**; full `dotnet build Bluent.sln --configuration Release -warnaserror` **0 warnings / 0 errors**; full Release tests **31/31**; quality-gate source contract PASS; quality-gate regression tests **50/50**. Five-package pack/manifest validation and exact-head GitHub Actions are still pending. No NuGet package was published.
+
+The installed local .NET shared runtime on Dev01 is 10.0.12; this change updates the repository's vulnerable package references, not the machine-wide runtime. CI's `setup-dotnet` uses the latest `10.0.x`. Do not describe the host runtime itself as updated.
 
 - 2026-10-16 #421 Component Lab entered Ready then In progress in
   actual Project #5 at maintainer direction to begin component work.

@@ -4,7 +4,7 @@
 
 <PageTitle>@Mode compatibility | Bluent</PageTitle>
 
-<h1 data-testid="mode-heading">@Mode compatibility probe</h1>
+<h1 data-testid="mode-heading" style="line-height: 1.3; overflow-wrap: anywhere;">@Mode compatibility probe</h1>
 <p>
     This minimal consumer validates Bluent registration, component imports,
     styles, event callbacks, binding, overlays, charts, diagrams, and disposal.
@@ -29,7 +29,7 @@
         <Button Text="Show toast" OnClick="ShowToast" />
         <Button Text="Show dialog" OnClick="ShowDialog" />
         <Button Text="Open drawer" OnClick="ShowDrawer" data-testid="drawer-trigger" />
-        <NavLink href="/compatibility/static">Navigate to static SSR probe</NavLink>
+        <NavLink href="/compatibility/static" data-testid="compatibility-link" style="color: var(--colorNeutralForeground2Link);">Navigate to static SSR probe</NavLink>
     </div>
     <p role="status" data-testid="drawer-result">Drawer result: @_drawerResult</p>
 

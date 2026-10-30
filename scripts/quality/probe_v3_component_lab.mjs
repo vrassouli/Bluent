@@ -176,33 +176,38 @@ try {
   splitSource?.includes('private Task ChooseSplitPrimaryAsync()')&&
   splitSource?.includes('private Task ChooseSplitScheduleAsync()'),splitSource);
  // The same existing public Split API with HTML disabled must make
- // BOTH the primary and secondary native buttons inert. Do not fake
- // click/focus for assertions: CDP native Enter and hit-tested pointer.
+ // BOTH native actions inert. Start from a neutral, programmatically
+ // focusable sentinel: calling focus() on a disabled button intentionally
+ // leaves focus on the previously focused control, which otherwise makes
+ // Enter accidentally activate the preceding enabled Split disclosure.
  const disabledSplit=await js("(()=>{const root=document.querySelector('.lab-split-disabled'),buttons=[...root?.querySelectorAll('button.bui-button')||[]];return {count:buttons.length,disabled:buttons.map(b=>b.disabled),text:buttons[0]?.textContent?.trim()}})()");
  check('existing disabled Split Button disables both native primary and disclosure',
    disabledSplit.count===2&&disabledSplit.disabled.every(Boolean)&&disabledSplit.text==='Send disabled',disabledSplit);
+ const neutralFocus=await js("(()=>{let e=document.getElementById('lab-disabled-split-focus-sentinel');if(!e){e=document.createElement('span');e.id='lab-disabled-split-focus-sentinel';e.tabIndex=-1;e.setAttribute('aria-hidden','true');e.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;overflow:hidden';document.body.appendChild(e)}e.focus();return document.activeElement===e})()");
+ check('disabled Split keyboard probe starts from a neutral focus sentinel',neutralFocus);
  await js("document.querySelector('.lab-split-disabled button.bui-button')?.focus()");
- const disabledPrimaryFocus=await js("document.activeElement!==document.querySelector('.lab-split-disabled button.bui-button')");
+ const disabledPrimaryFocus=await js("document.activeElement?.id==='lab-disabled-split-focus-sentinel'");
  await pressEnter();
- check('native Enter cannot focus or activate disabled Split primary',disabledPrimaryFocus&&
-   await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1'"));
+ const disabledPrimaryInert=await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))");
+ check('native Enter cannot focus or activate disabled Split primary',disabledPrimaryFocus&&disabledPrimaryInert,{focusStayedOnSentinel:disabledPrimaryFocus,inert:disabledPrimaryInert});
  await js("document.querySelectorAll('.lab-split-disabled button.bui-button')[1]?.focus()");
- const disabledSecondaryFocus=await js("document.activeElement!==document.querySelectorAll('.lab-split-disabled button.bui-button')[1]");
+ const disabledSecondaryFocus=await js("document.activeElement?.id==='lab-disabled-split-focus-sentinel'");
  await pressEnter();
- check('native Enter cannot focus or open disabled Split disclosure',disabledSecondaryFocus&&
-   await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))"));
+ const disabledSecondaryInert=await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))");
+ check('native Enter cannot focus or open disabled Split disclosure',disabledSecondaryFocus&&disabledSecondaryInert,{focusStayedOnSentinel:disabledSecondaryFocus,inert:disabledSecondaryInert});
  const disabledNativeHits=[];
  for(const index of [0,1]){
-  await js("document.querySelectorAll('.lab-split-disabled button.bui-button')["+index+"]?.scrollIntoView({block:'center',behavior:'instant'})");
-  const target=await js("(()=>{const b=document.querySelectorAll('.lab-split-disabled button.bui-button')["+index+"];if(!b)return null;const r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('button')===b}})()");
+  const target=await js("(()=>{const root=document.querySelector('.lab-split-disabled'),b=root?.querySelectorAll('button.bui-button')["+index+"];if(!b)return null;const r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,hit=document.elementFromPoint(x,y);return {x,y,width:r.width,height:r.height,insideBounds:r.width>0&&r.height>0&&x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom,hitInsideDisabledGroup:!!hit&&root.contains(hit),hitTag:hit?.tagName||null,hitClass:typeof hit?.className==='string'?hit.className:null,hitIsEnabledInteractive:!!hit?.closest('button:not([disabled]),a,[role=button]')}})()");
   disabledNativeHits.push(target);
-  if(!target?.hit)break;
+  if(!target?.insideBounds||!target.hitInsideDisabledGroup||target.hitIsEnabledInteractive)break;
   await send('Input.dispatchMouseEvent',{type:'mousePressed',x:target.x,y:target.y,button:'left',clickCount:1});
   await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:target.x,y:target.y,button:'left',clickCount:1});
  }
- check('real CDP pointer hits both disabled Split buttons without activating either',
-   disabledNativeHits.length===2&&disabledNativeHits.every(t=>t?.hit) &&
-   await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))"),disabledNativeHits);
+ const disabledPointerInert=await js("document.querySelector('.lab-split-status')?.textContent?.trim()==='Sent: 1; scheduled: 1' && ![...document.querySelectorAll('.bui-popover-surface.show:not(.hidden)')].some(x=>x.textContent?.includes('Schedule disabled'))");
+ check('pointer clicks within both disabled Split button bounds remain inert',
+   disabledNativeHits.length===2&&disabledNativeHits.every(t=>t?.insideBounds&&t.hitInsideDisabledGroup&&!t.hitIsEnabledInteractive)&&disabledPointerInert,
+   {targets:disabledNativeHits,inert:disabledPointerInert});
+ await js("document.getElementById('lab-disabled-split-focus-sentinel')?.remove()");
  const disabledSplitSource=await js("document.querySelector('.lab-source pre code')?.textContent");
  check('copyable disabled Split Razor passes native disabled attribute to both actions',
    disabledSplitSource?.includes('Text="Send disabled"') &&
