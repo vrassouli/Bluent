@@ -27,6 +27,7 @@ public partial class Button
     [Parameter] public bool Compact { get; set; }
     [Parameter] public Placement DropdownPlacement { get; set; } = Placement.Bottom;
     [CascadingParameter] public Popover? ParentPopover { get; set; }
+    [CascadingParameter(Name = "BluentButtonManagedMenuTrigger")] private bool IsButtonManagedMenuTrigger { get; set; }
     [CascadingParameter] public Overflow? Overflow { get; set; } = default!;
 
     private Popover? _popover;
@@ -80,9 +81,25 @@ public partial class Button
         base.OnAfterRender(firstRender);
     }
 
+    private IEnumerable<KeyValuePair<string, object>>? GetButtonAdditionalAttributes()
+    {
+        var ownsToggleState = Toggled.HasValue && (!IsLink || IsDisabled);
+        var ownsPopupState = IsButtonManagedMenuTrigger;
+
+        if ((!ownsToggleState && !ownsPopupState) || AdditionalAttributes is null)
+            return AdditionalAttributes;
+
+        // Component state takes precedence over conflicting caller attributes only when this Button owns that state.
+        return AdditionalAttributes.Where(attribute =>
+            !(ownsToggleState && string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase)) &&
+            !(ownsPopupState && (
+                string.Equals(attribute.Key, "aria-haspopup", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(attribute.Key, "aria-expanded", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(attribute.Key, "aria-controls", StringComparison.OrdinalIgnoreCase))));
+    }
     private string GetButtonTag()
     {
-        if (IsLink)
+        if (IsLink && !IsDisabled)
             return "a";
 
         return "button";
@@ -102,15 +119,25 @@ public partial class Button
         };
     }
 
-    private void ClickHandler()
+    private async Task ClickHandler()
     {
+        if (IsDisabled)
+            return;
+
+        if (IsButtonManagedMenuTrigger)
+        {
+            if (ParentPopover is not null)
+                await ParentPopover.ShowAsync();
+            return;
+        }
+
         if (Toggled != null)
         {
             Toggled = !Toggled.Value;
-            InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));
+            await InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));
         }
 
-        InvokeAsync(OnClick.InvokeAsync);
+        await InvokeAsync(OnClick.InvokeAsync);
     }
 
     public void RefreshPopoverSurface()
