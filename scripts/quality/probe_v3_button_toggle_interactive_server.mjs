@@ -406,6 +406,36 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     }, 15000, "ArrowLeft closes submenu and restores parent item focus");
     check("ArrowLeft closes submenu and restores focus to its parent item", submenuClosed.submenuHidden && submenuClosed.activeTestId === "button-managed-dropdown-submenu", submenuClosed);
 
+    // Exercise direction-aware submenu keys in a real RTL document. This affects
+    // only the disposable browser profile and is restored before the LTR checks resume.
+    const rtlDirection = await evaluate("(() => { const root = document.documentElement; const previousDirection = root.getAttribute('dir'); root.setAttribute('dir', 'rtl'); const trigger = document.querySelector('[data-testid=\"button-managed-dropdown-submenu\"]'); return { previousDirection, documentDirection: getComputedStyle(root).direction, submenuTriggerDirection: trigger ? getComputedStyle(trigger).direction : null }; })()");
+    check("RTL document direction reaches the nested submenu trigger", rtlDirection.documentDirection === "rtl" && rtlDirection.submenuTriggerDirection === "rtl", rtlDirection);
+
+    await dispatchKey("ArrowRight", "ArrowRight", 39);
+    const rtlWrongOpenKey = await evaluate(managedDropdownExpression);
+    check("ArrowRight does not open an RTL submenu", rtlWrongOpenKey.submenuHidden && rtlWrongOpenKey.submenuExpanded === "false" && rtlWrongOpenKey.activeTestId === "button-managed-dropdown-submenu", rtlWrongOpenKey);
+
+    await dispatchKey("ArrowLeft", "ArrowLeft", 37);
+    const rtlOpenedSubmenu = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.submenuVisible && state.submenuExpanded === "true" && state.activeTestId === "button-managed-dropdown-archive" ? state : null;
+    }, 15000, "ArrowLeft opens RTL submenu and focuses first nested item");
+    check("ArrowLeft opens RTL submenu and focuses its first enabled menuitem", rtlOpenedSubmenu.submenuVisible && rtlOpenedSubmenu.activeTestId === "button-managed-dropdown-archive", rtlOpenedSubmenu);
+
+    await dispatchKey("ArrowLeft", "ArrowLeft", 37);
+    const rtlWrongCloseKey = await evaluate(managedDropdownExpression);
+    check("ArrowLeft leaves an open RTL submenu active", rtlWrongCloseKey.submenuVisible && rtlWrongCloseKey.submenuExpanded === "true" && rtlWrongCloseKey.activeTestId === "button-managed-dropdown-archive", rtlWrongCloseKey);
+
+    await dispatchKey("ArrowRight", "ArrowRight", 39);
+    const rtlClosedSubmenu = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.submenuHidden && state.submenuExpanded === "false" && state.activeTestId === "button-managed-dropdown-submenu" ? state : null;
+    }, 15000, "ArrowRight closes RTL submenu and restores parent item focus");
+    check("ArrowRight closes RTL submenu and restores focus to its parent item", rtlClosedSubmenu.submenuHidden && rtlClosedSubmenu.activeTestId === "button-managed-dropdown-submenu", rtlClosedSubmenu);
+
+    const restoreDirection = "(() => { const root = document.documentElement; const previousDirection = " + JSON.stringify(rtlDirection.previousDirection) + "; if (previousDirection === null) root.removeAttribute('dir'); else root.setAttribute('dir', previousDirection); return getComputedStyle(root).direction; })()";
+    await evaluate(restoreDirection);
+
     await dispatchKey("Escape", "Escape", 27);
     const escapedKeyboardMenu = await waitForManagedDropdown(false, true);
     check("Escape closes the keyboard-opened menu and restores trigger focus", escapedKeyboardMenu.hidden && escapedKeyboardMenu.triggerFocused && escapedKeyboardMenu.expanded === "false", escapedKeyboardMenu);

@@ -229,7 +229,7 @@ class V3DocsContractTests(unittest.TestCase):
 
         changelog = (docs.ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         self.assertIn('Button-managed dropdown triggers expose aria-haspopup="menu"', changelog)
-        self.assertIn("184/184 assertions", changelog)
+        self.assertIn("204/204 assertions", changelog)
         self.assertNotIn(chr(0xfffd), changelog)
         self.assertNotIn('does not generate aria-haspopup="menu" until', changelog)
 
@@ -239,16 +239,16 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertNotIn(chr(0xfffd), menu_slice)
         self.assertIn('aria-haspopup="menu"', button_doc)
         self.assertIn('role="menuitem"', button_doc)
-        self.assertIn("184/184 assertions", button_doc)
+        self.assertIn("204/204 assertions", button_doc)
         self.assertIn("The 112/112 figure above is the narrower 2026-10-27 checkpoint, not the current menu-semantics result.", button_doc)
         self.assertIn("211/211 assertions in Chrome and 211/211 in Edge** on 2026-10-28", button_doc)
         self.assertNotIn('does not generate aria-haspopup="menu" yet', button_doc)
         self.assertNotIn("complete menu-role/arrow-key interaction contract", button_doc)
-        self.assertIn("Latest published Button-managed menu keyboard verification — 2026-10-28", button_doc)
-        self.assertIn("Superseding menu semantics checkpoint — 2026-10-28", toggle_slice)
-        self.assertIn("184/184 assertions", toggle_slice)
+        self.assertIn("Latest published Button-managed menu keyboard verification — 2026-10-30", button_doc)
+        self.assertIn("Superseding menu semantics checkpoint — 2026-10-30", toggle_slice)
+        self.assertIn("204/204 assertions", toggle_slice)
         self.assertIn("BUTTON-MENU-KEYBOARD-SLICE.md", toggle_slice)
-        self.assertIn("184/184 assertions", menu_slice)
+        self.assertIn("204/204 assertions", menu_slice)
 
         migration = (docs.ROOT / "docs/v3/design/MIGRATION-IMPACT-LEDGER.md").read_text(encoding="utf-8")
         button_dropdown_migration = next(
@@ -256,7 +256,7 @@ class V3DocsContractTests(unittest.TestCase):
             "",
         )
         self.assertTrue(button_dropdown_migration, "Button dropdown migration-impact row must remain present")
-        self.assertIn("184/184 assertions", button_dropdown_migration)
+        self.assertIn("204/204 assertions", button_dropdown_migration)
         self.assertIn("BUTTON-MENU-KEYBOARD-SLICE.md", button_dropdown_migration)
         self.assertNotIn("aria-haspopup=\"menu\" remains deferred", button_dropdown_migration)
 
@@ -277,6 +277,11 @@ class V3DocsContractTests(unittest.TestCase):
             "Space activates a focused menuitem exactly once and closes the menu",
             "ArrowRight opens submenu and focuses its first enabled menuitem",
             "ArrowLeft closes submenu and restores focus to its parent item",
+            "RTL document direction reaches the nested submenu trigger",
+            "ArrowRight does not open an RTL submenu",
+            "ArrowLeft opens RTL submenu and focuses its first enabled menuitem",
+            "ArrowLeft leaves an open RTL submenu active",
+            "ArrowRight closes RTL submenu and restores focus to its parent item",
             "Tab closes menu without trapping focus or restoring the trigger",
         ):
             self.assertIn(assertion, probe, assertion)
