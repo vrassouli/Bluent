@@ -15,13 +15,13 @@
 
         <h3>Text field</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Label ForExpression="()=>_textField" Class="d-block mb-1" id="@_nullId"/>
-            <TextField @bind-Value="_textField"/>
+            <Label Text="Example text field" for="textFieldDefault" Class="d-block mb-1"/>
+            <TextField @bind-Value="_textField" id="textFieldDefault"/>
         </section>
 
         <h3>Addons</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <TextField @bind-Value="_textField" placeholder="Search..." accesskey="s">
+            <TextField @bind-Value="_textField" id="textFieldSearch" aria-label="Search" placeholder="Search..." accesskey="s">
                 <StartAddon>
                     <Icon Value="@FluentIcons.Search" />
                 </StartAddon>
@@ -44,15 +44,15 @@
 
         <h3>Size</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Label ForExpression="()=>_smallTextField" Class="d-block mb-1"/>
-            <TextField @bind-Value="_smallTextField">
+            <Label Text="Default size" for="smallTextFieldDefault" Class="d-block mb-1"/>
+            <TextField @bind-Value="_smallTextField" id="smallTextFieldDefault">
                 <StartAddon>
                     <Icon Value="@FluentIcons.People" />
                 </StartAddon>
             </TextField>
 
-            <Label ForExpression="()=>_smallTextField" Class="d-block mb-1"/>
-            <TextField @bind-Value="_smallTextField" Size="FieldSize.Small">
+            <Label Text="Small size" for="smallTextFieldCompact" Class="d-block mb-1"/>
+            <TextField @bind-Value="_smallTextField" id="smallTextFieldCompact" Size="FieldSize.Small">
                 <StartAddon>
                     <Icon Value="@FluentIcons.People" />
                 </StartAddon>
@@ -89,9 +89,10 @@
         <h3>Time field</h3>
         <section class="p-7 rounded-5 shadow-3">
             <EditForm Model="this">
-                <Label ForExpression="()=>_timeOnly" Class="d-block mb-1"/>
-                <TimeField @bind-Value="_timeOnly" Size="FieldSize.Small" autocomplete="off"/>
-                <TimeField @bind-Value="_timeOnly" Seconds Size="FieldSize.Small" autocomplete="off"/>
+                <Label Text="Time only" for="timeOnlyInput" Class="d-block mb-1"/>
+                <TimeField @bind-Value="_timeOnly" id="timeOnlyInput" Size="FieldSize.Small" autocomplete="off"/>
+                <Label Text="Time only with seconds" for="timeOnlySecondsInput" Class="d-block mb-1 mt-2"/>
+                <TimeField @bind-Value="_timeOnly" id="timeOnlySecondsInput" Seconds Size="FieldSize.Small" autocomplete="off"/>
                 <ValidationMessage For="() => _timeOnly"/>
             </EditForm>
             <pre>
@@ -99,8 +100,8 @@
             </pre>
 
             <EditForm Model="this">
-                <Label ForExpression="()=>_dateField" Class="d-block mb-1"/>
-                <TimeField @bind-Value="_dateField" Size="FieldSize.Small" autocomplete="off"/>
+                <Label Text="Date and time" for="dateTimeTimeField" Class="d-block mb-1"/>
+                <TimeField @bind-Value="_dateField" id="dateTimeTimeField" Size="FieldSize.Small" autocomplete="off"/>
                 <ValidationMessage For="() => _dateField"/>
             </EditForm>
             <pre>
@@ -108,9 +109,10 @@
             </pre>
 
             <EditForm Model="this">
-                <Label ForExpression="()=>_timeSpan" Class="d-block mb-1"/>
-                <TimeField @bind-Value="_timeSpan" Size="FieldSize.Small" autocomplete="off"/>
-                <TimeField @bind-Value="_timeSpan" Seconds Size="FieldSize.Small" autocomplete="off"/>
+                <Label Text="Time span" for="timeSpanInput" Class="d-block mb-1"/>
+                <TimeField @bind-Value="_timeSpan" id="timeSpanInput" Size="FieldSize.Small" autocomplete="off"/>
+                <Label Text="Time span with seconds" for="timeSpanSecondsInput" Class="d-block mb-1 mt-2"/>
+                <TimeField @bind-Value="_timeSpan" id="timeSpanSecondsInput" Seconds Size="FieldSize.Small" autocomplete="off"/>
                 <ValidationMessage For="() => _timeSpan"/>
             </EditForm>
             <pre>
@@ -124,8 +126,8 @@
             <DateField @bind-Value="_dateField" id="smallDateField" Size="FieldSize.Small" BindValueEvent="oninput"
                        autocomplete="off"/>
 
-            <Label ForExpression="()=>_dateField" Class="d-block mb-1 mt-4"/>
-            <DateField @bind-Value="_dateField" Size="FieldSize.Medium"/>
+            <Label Text="Medium date field" for="mediumDateField" Class="d-block mb-1 mt-4"/>
+            <DateField @bind-Value="_dateField" id="mediumDateField" Size="FieldSize.Medium"/>
 
             <Label for="largeDateField" Text="Large date field" Class="d-block mb-1 mt-4"/>
             <DateField @bind-Value="_dateField" id="largeDateField" Size="FieldSize.Large"/>
@@ -254,8 +256,8 @@
 
         <h3>Switch</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Switch @bind-Value="_switch" Label="Switch is On" UncheckedLabel="Switch is Off"/>
-            <Switch @bind-Value="_switch" Label="Switch is On" UncheckedLabel="Switch is Off"
+            <Switch @bind-Value="_switch" id="switchAfterLabel" Label="Switch is On" UncheckedLabel="Switch is Off"/>
+            <Switch @bind-Value="_switch" id="switchBeforeLabel" Label="Switch is On" UncheckedLabel="Switch is Off"
                     LabelPosition="LabelPosition.Before"/>
             <Switch @bind-Value="_disabledOffSwitch" Label="Switch is disabled and On"
                     UncheckedLabel="Switch is disabled and Off" disabled/>
@@ -279,7 +281,6 @@
 </div>
 
 @code {
-    private string? _nullId = null;
     [Display(Name = "Example text field")] private string? _otpToken;
 
     [Display(Name = "Example text field")] private string? _textField;
