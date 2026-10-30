@@ -264,7 +264,7 @@ try {
   await cdp.send("Emulation.setDeviceMetricsOverride",{width,height:820,deviceScaleFactor:1,mobile:false});
   const result=await cdp.js("(()=>{const h=document.documentElement;h.dataset.buiTheme='"+theme+"';h.dir='"+direction+"';"+
    "const title=document.querySelector('h1'),main=document.querySelector('main'),box=title?.getBoundingClientRect(),"+
-   "link=document.querySelector('a[href=\"/compatibility/static\"]'),range=document.createRange();"+
+   "link=document.querySelector('[data-testid=\"compatibility-link\"]'),range=document.createRange();"+
    "if(title)range.selectNodeContents(title);"+
    "const rows=title?[...range.getClientRects()].map(r=>({top:r.top,bottom:r.bottom})):[];"+
    "return {w:innerWidth,dir:h.dir,theme:h.dataset.buiTheme,heading:!!title,main:!!main,"+

@@ -95,6 +95,7 @@ def check_browser_contract(workflow:str, probe:str)->None:
                  "compatibility host foreground-to-surface contrast",
                  "ratio>=4.5","headingBox"):
         need(term in probe,"real theme host contrast and viewport geometry required: "+term)
+    need("compatibility-link" in probe, "link contrast must target the exact compatibility fixture link")
     for term in ("linkRatio>=4.5","compatibility link text to host contrast",
                  "multiline mobile heading does not overlap",
                  "rows.every((row,i)=>i===0||row.top>=rows[i-1].bottom-.8)",
@@ -172,6 +173,9 @@ def check_compatibility_probe_text(probe_source:str)->None:
                      "color: var(--colorNeutralForeground2Link)"):
         need(required in probe_source,
              "mobile RTL sample must protect heading/link readability: "+required)
+
+    need('data-testid="compatibility-link"' in probe_source,
+         "mobile RTL sample must expose a unique link selector for contrast checks")
 
 def check_compatibility_host_theme(layout_source:str)->None:
     # The host must paint a themed surface behind themed text; otherwise

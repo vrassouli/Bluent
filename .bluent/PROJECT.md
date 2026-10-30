@@ -269,3 +269,20 @@ PR #549 head prior to integration: 96796bebd9648a8f6d2f17f82cfada05dae31520; pre
 Evidence boundary: browser-emulated forced-colors and computed AX do not certify native Windows Contrast Themes or spoken assistive-technology output. The latter is not silently marked passed. The maintainer's component policy accepts automated evidence as sufficient for component closure; future observations remain follow-up defects. Do not claim full WCAG/AT certification from this CI.
 
 PR #549 continues to target bluent-v3 only. Existing Dev, 2.x, NuGet packages, tags and deployments remain untouched.
+
+## Quality gates #425 — unique contrast target and exact local matrix — 2026-10-30
+
+After refreshing PR #549 against current bluent-v3 (Button #428 included), the new exact-head GitHub run exposed a test-fixture selector defect, not a production theme regression. The contrast probe selected the first anchor with /compatibility/static, which was the Button's own link, rather than the intended NavLink specimen. The contrast threshold was correct and has not been relaxed.
+
+Fixed the QA fixture with a stable data-testid="compatibility-link" and changed the Chromium probe to measure that exact element. Added fail-closed source checks and two positive/negative regression tests so neither the fixture ID nor the precise selector can silently drift.
+
+Fresh local real-browser matrix against the merged code and actual published Production host:
+- Chrome / InteractiveServer: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Chrome / WebAssembly: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Edge / InteractiveServer: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Edge / WebAssembly: **72/72 PASS**, errors=[], owned browser cleanup remaining=0.
+- Native site zoom checks in each mode: **200% 10/10** and **400% 10/10**, settled horizontal overflow 0; all screenshot/JSON artifacts retained locally.
+
+Final local validation after this fix: full Bluent.sln Release -warnaserror build **0 warnings / 0 errors**; Solution tests **31/31**; quality source gate PASS; Python fail-closed QA contract tests **48/48**; Node syntax and git diff --check PASS. This is local evidence only until GitHub exact-head Actions finish on the pushed commit.
+
+No Bluent runtime API, library theme tokens, production component CSS, stable Dev/v2.x assets, NuGet package, tag or deployment changed. PR #549 continues to target bluent-v3 only. Keep #425 in Review pending exact-head CI and maintainer acceptance; do not mark Done from local evidence alone.

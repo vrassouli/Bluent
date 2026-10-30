@@ -166,6 +166,18 @@ class V3QualityContractTests(unittest.TestCase):
             check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
                 original.replace("linkRatio>=4.5","linkRatio>=0"))
 
+    def test_browser_link_contrast_targets_unique_fixture_link(self):
+        original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"link contrast must target"):
+            check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
+                original.replace("compatibility-link","wrong-link"))
+
+    def test_compatibility_link_has_unique_contrast_test_id(self):
+        original=COMPAT_PROBE.read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(QualityContractError,"unique link selector"):
+            check_compatibility_probe_text(original.replace(
+                'data-testid="compatibility-link"', 'data-testid="other-link"'))
+
     def test_browser_must_check_title_fragment_overlap(self):
         original=BROWSER_PROBE.read_text(encoding="utf-8-sig")
         with self.assertRaisesRegex(QualityContractError,"mobile RTL text/link"):
