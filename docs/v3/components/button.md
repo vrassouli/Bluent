@@ -49,7 +49,7 @@ The fresh 214-check probe reads the actual bundled product stylesheet; it does n
 - Native Windows Contrast Themes and named screen-reader testing have not been completed. Browser forced-colors emulation is not a substitute.
 - Penpot's host-context design is approved, but this implementation still needs final human visual review against the native designs and screenshots at the agreed zoom/viewport matrix.
 - The full-solution Release build currently encounters the two already-tracked NU1903 high-severity advisories for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in the SSR demo (#425). The targeted Debug WebAssembly build is clean; the advisories have not been suppressed.
-- PR #554 remains Draft and #428 remains In progress. This page does not claim component acceptance, merge, stable v3 API availability, or release readiness.
+- PR #554 is Ready for review and GitHub Project #5 status for #428 is Review. This page does not claim component acceptance, merge, stable v3 API availability, or release readiness.
 
 ## Reproducible commands
 

@@ -21,7 +21,7 @@ Use this Skill only when designing, implementing, reviewing or testing the **fut
 
 ## Implementation status on #428
 
-The implementation is on v3/issue-428-button-p0 and remains in Draft PR #554 targeting bluent-v3 only.
+The implementation is on v3/issue-428-button-p0 and PR #554 is Ready for review, targeting bluent-v3 only.
 
 - The actual production component stylesheet now renders :focus-visible. Ordinary buttons use a 2px outline with 2px offset; split segments use a 2px outline with -3px offset and relative stacking; forced-colors uses Highlight.
 - A host surface that needs an inverse ring explicitly inherits the CSS custom property --bui-button-focus-ring-color. This is a host-context CSS override, **not** a new Razor parameter, a public global token or a finalized #418 token alias. Do not guess a host type from the Button appearance.
@@ -54,7 +54,7 @@ See the branch-only implementation and verification record at docs/v3/components
 - Named screen-reader acceptance (NVDA, Narrator or VoiceOver) has not been completed.
 - The current production CSS implementation still needs final maintainer visual review against Penpot and screenshot evidence across agreed zoom/viewports, including edge cases outside the five approved host classes.
 - The full-solution Release build currently reports two high-severity NU1903 advisories for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in the SSR demo; #425 owns that dependency update. Do not suppress these warnings. The focused Debug WebAssembly build is clean.
-- PR #554 remains Draft and #428 remains In progress. The component is not accepted, merged or released; stable Bluent 2.x remains unchanged.
+- PR #554 is Ready for review and #428 is in Review. The component is not yet accepted, merged or released; stable Bluent 2.x remains unchanged.
 
 ## Historical design record
 
