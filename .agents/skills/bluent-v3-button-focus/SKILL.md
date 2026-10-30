@@ -31,7 +31,7 @@ Do not change Bluent brand tokens merely to match one pinned Fluent screenshot; 
 
 ## Implemented behavior on #428
 
-PR #554 is on v3/issue-428-button-p0, targeting bluent-v3 only. Current implementation:
+PR #554 was merged from v3/issue-428-button-p0 into bluent-v3 after all exact-head CI checks passed. Current implementation:
 
 - Native toggle state is exposed as aria-pressed only when Toggled has a value; component state wins over conflicting caller state only while it owns that state.
 - Button-owned Regular/Filled glyphs and dropdown indicators are decorative in the accessibility tree; icon-only Button still needs a caller-supplied contextual name.
@@ -48,7 +48,7 @@ PR #554 is on v3/issue-428-button-p0, targeting bluent-v3 only. Current implemen
 - Native Windows Contrast Themes: Desert was applied for the live test, forced-colors: active was observed, focus outline remained visible, then the system theme was restored to None and forced-colors returned to false.
 - Narrator was launched and the native UI Automation tree inspected: 154 page buttons, no empty button names, toggle state observed false → true → false. Actual spoken Narrator output was not captured/listened to; do not call this screen-reader speech acceptance.
 - Focus handoff unit tests: 7/7. Docs contract: 0 findings. Button API baseline: 0 errors.
-- Native screen-reader spoken output and maintainer visual/zoom sign-off against editable Penpot designs remain acceptance gates.
+- The maintainer explicitly waived additional human visual/zoom sign-off and spoken screen-reader sign-off as completion gates on 2026-10-30. Narrator speech was not recorded/listened to; future concerns should be filed as follow-up defects, not misreported as completed speech testing.
 - Two NU1903 advisories for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 remain tracked by #425; do not suppress them.
 
 ## Ownership and lifecycle
@@ -56,7 +56,7 @@ PR #554 is on v3/issue-428-button-p0, targeting bluent-v3 only. Current implemen
 - #418 owns global/semantic/component tokens and brand palette approval.
 - #501 owns editable focus-visible design and sign-off.
 - #428 owns Button runtime/API, accessible names and toggle state, menu composition, demo, migration evidence and cross-render-mode tests.
-- Use the real Status field in GitHub Project #5: Backlog → Ready → In progress → Review → Done. #428 is currently in Review; do not mark Done until the maintainer accepts the evidence and the PR is merged into bluent-v3.
+- Use the real Status field in GitHub Project #5: Backlog → Ready → In progress → Review → Done. #428 is Done after the maintainer accepted the engineering evidence and PR #554 was merged into bluent-v3.
 - Never merge this task into stable Dev, main, existing 2.x branches, NuGet or deployments.
 
 See docs/v3/components/button.md and docs/v3/quality/FLUENT2-BUTTON-COMPATIBILITY.md for the current implementation and complete member-by-member mapping.

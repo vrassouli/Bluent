@@ -251,3 +251,8 @@ Issue #428 remains **Review**, PR #554 remains **Ready for review**, and its bas
 ## Button #428 — final Production verification — 2026-10-30
 
 Fresh published Production test matrix completed successfully: **208/208** (0 failures) across Chrome and Edge × InteractiveServer and InteractiveWebAssembly, 52 assertions per combination. The two InteractiveServer runs completed real SignalR WebSocket HTTP 101 handshakes. The temporary published host was removed when the probe exited. Its publish step surfaced the two existing NU1903 advisories for WebAssembly.Server 10.0.7 (#425); no suppression or dependency change was made. Issue #428 and PR #554 remain in Review / Ready for review pending maintainer sign-off; no merge or release.
+## Button #428 — maintainer acceptance and closure — 2026-10-30
+
+The maintainer explicitly decided that no additional human visual-design or spoken screen-reader sign-off is required to close this component issue. Engineering evidence and green exact-head CI are the acceptance basis; any concern later observed by a human is to be filed and handled as a follow-up defect. This decision does not change test reporting: Narrator UI Automation semantics were inspected, but spoken Narrator output was not recorded/listened to.
+
+PR #554 is being merged only into the protected v3 integration branch bluent-v3 (never Dev/main/stable 2.x). After the squash merge, close #428 and set its real GitHub Project #5 Status to Done; update Epic #416 coverage. The Button work remains v3 integration content, not a NuGet publish or deployment.

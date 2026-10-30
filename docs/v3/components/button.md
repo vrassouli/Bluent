@@ -1,6 +1,6 @@
 # Bluent v3 Button — implementation record
 
-> **Status: implementation on an isolated task branch; not merged or released.** This page records what the current #428 branch implements and what is actually verified. It is not a NuGet consumer contract. The existing [Bluent 2.x Button reference](../../components/button.md) remains authoritative for released packages.
+> **Status: engineering implementation complete and accepted by the maintainer; merged into bluent-v3.** This page records what was implemented and what was actually verified. The maintainer explicitly chose not to require additional human visual or spoken screen-reader sign-off for task closure; any issues noticed later can be filed as follow-up defects. It is not a NuGet consumer contract. The existing [Bluent 2.x Button reference](../../components/button.md) remains authoritative for released packages.
 
 ## Identity
 
@@ -47,10 +47,10 @@ The fresh 215-check Chrome probe reads the actual bundled product stylesheet; it
 ## Known acceptance boundaries
 
 - Native Windows Contrast Themes were tested on the live demo with the Windows Desert contrast theme. The browser entered forced-colors: active, a focused Button retained its 2px outline, and the OS palette controlled its color. The Windows setting was restored to None and forced-colors returned to false.
-- Narrator was launched and the browser UI Automation tree was inspected: 154 page buttons were named, and the Button toggle state changed false → true → false. Spoken Narrator output was not captured/listened to; native screen-reader speech acceptance is still open.
-- The Penpot host-context focus treatment is approved, but the Button equal-content comparison and complete appearance/state review still need final maintainer visual sign-off against the editable Penpot designs and screenshots at the agreed zoom/viewport matrix. The export on page 22 omits comparison headings/labels, so it is not final sign-off evidence.
+- Narrator was launched and the browser UI Automation tree was inspected: 154 page buttons were named, and the Button toggle state changed false → true → false. Spoken Narrator output was not captured/listened to. Per the maintainer decision (2026-10-30), spoken-output review is optional follow-up, not a completion gate; report any later defects as separate issues.
+- The source-owned Penpot pages and the equal-content comparison fixture document the design baseline. The maintainer explicitly waived additional human visual/zoom sign-off as a completion gate on 2026-10-30. The page-22 export still omits comparison headings/labels; treat any future visual concerns as follow-up feedback, not as a claim of pixel-perfect approval.
 - The two existing NU1903 advisories for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in the SSR demo remain assigned to #425. They have not been suppressed.
-- PR #554 is Ready for review and GitHub Project #5 status for #428 is Review. This page does not claim component acceptance, merge, stable v3 API availability, or release readiness.
+- PR #554 is merged into bluent-v3 and GitHub Project #5 status for #428 is Done. This component is part of the v3 integration branch only; it is not a stable 2.x release or a published NuGet release.
 
 ## Reproducible commands
 
