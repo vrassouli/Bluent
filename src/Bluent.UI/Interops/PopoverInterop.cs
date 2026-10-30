@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
@@ -10,6 +10,7 @@ internal class PopoverInterop : IAsyncDisposable
     private readonly IPopoverEventHandler _handler;
     private IJSObjectReference? _module;
     private IJSObjectReference? _popoverReference;
+    private Task<IJSObjectReference>? _popoverReferenceTask;
     private DotNetObjectReference<IPopoverEventHandler>? _handlerReference;
 
     private DotNetObjectReference<IPopoverEventHandler> HandlerReference
@@ -67,14 +68,42 @@ internal class PopoverInterop : IAsyncDisposable
         await module.InvokeVoidAsync("showSurface", settings);
     }
 
+    public async Task ShowSurfaceAsync(PopoverSettings settings)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("showSurface", settings);
+    }
+
+    public async void HideSurface(PopoverSettings settings, bool restoreFocus = false)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("hideSurface", settings, restoreFocus);
+    }
+
+    public async Task HideSurfaceAsync(PopoverSettings settings, bool restoreFocus = false)
+    {
+        var module = await GetModuleAsync();
+        await module.InvokeVoidAsync("hideSurface", settings, restoreFocus);
+    }
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         if (_module == null)
             _module = await _moduleTask.Value;
 
-        if (_popoverReference == null)
-            _popoverReference = await _module.InvokeAsync<IJSObjectReference>("Popover.create", HandlerReference);
+        // These async-void handlers can arrive concurrently during the first render.
+        // Share the create task so SetPopover, ShowSurface and HideSurface use one JS instance.
+        if (_popoverReferenceTask == null)
+            _popoverReferenceTask = _module.InvokeAsync<IJSObjectReference>("Popover.create", HandlerReference).AsTask();
 
-        return _popoverReference;
+        try
+        {
+            _popoverReference = await _popoverReferenceTask;
+            return _popoverReference;
+        }
+        catch
+        {
+            _popoverReferenceTask = null;
+            throw;
+        }
     }
 }

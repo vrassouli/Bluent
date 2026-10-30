@@ -1,4 +1,4 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentUiComponentBase
 
 @if (!IsDropdownButton && !IsSplitButton)
@@ -8,24 +8,32 @@
         __builder.AddAttribute(1, "href", Href);
     else
         __builder.AddAttribute(2, "type", "button");
-    __builder.AddMultipleAttributes(3, AdditionalAttributes);
+    __builder.AddMultipleAttributes(3, GetButtonAdditionalAttributes());
     __builder.AddAttribute(4, "id", Id);
     __builder.AddAttribute(5, "class", GetComponentClass());
     __builder.AddAttribute(6, "style", Style);
     __builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-    __builder.OpenRegion(8);
+    if (Toggled.HasValue && (!IsLink || IsDisabled))
+        __builder.AddAttribute(8, "aria-pressed", Toggled.Value ? "true" : "false");
+    if (IsButtonManagedMenuTrigger)
+    {
+        __builder.AddAttribute(9, "aria-haspopup", "menu");
+        __builder.AddAttribute(10, "aria-expanded", "false");
+        __builder.AddAttribute(11, "aria-controls", $"{Id}_surface");
+    }
+    __builder.OpenRegion(12);
 
     @if (Icon.HasValue)
     {
         @if (Icon.Value.Filled.HasValue)
         {
-            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" />
+            <Icon Value="@Icon" Variant="IconVariant.Filled" Class="active-icon" aria-hidden="true" />
         }
-        <Icon Value="@Icon" Class="icon" />
+        <Icon Value="@Icon" Class="icon" aria-hidden="true" />
     }
     @if (!string.IsNullOrEmpty(Text) || !string.IsNullOrEmpty(SecondaryText))
     {
-        <div class="text @TextClass">
+        <div class="text @TextClass" dir="auto">
             @if (!string.IsNullOrEmpty(Text))
             {
                 <div>@Text</div>
@@ -39,8 +47,8 @@
     @if (ParentPopover != null && ShowDropdownIndicator)
     {
         var dropdownIcon = GetDropdownIcon();
-        <Icon Value="@dropdownIcon" Variant="IconVariant.Filled" Class="dropdown-active-icon" />
-        <Icon Value="@dropdownIcon" Class="dropdown-icon" />
+        <Icon Value="@dropdownIcon" Variant="IconVariant.Filled" Class="dropdown-active-icon" aria-hidden="true" />
+        <Icon Value="@dropdownIcon" Class="dropdown-icon" aria-hidden="true" />
     }
 
     if (Badge != null)
@@ -55,8 +63,9 @@
 }
 else if (IsDropdownButton)
 {
-    <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
+    <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false" KeepSurface="true">
         <Trigger>
+            <CascadingValue Name="BluentButtonManagedMenuTrigger" Value="true" IsFixed="true">
             <Button Text="@Text"
                     TextClass="@TextClass"
                     SecondaryText="@SecondaryText"
@@ -72,6 +81,7 @@ else if (IsDropdownButton)
                     Class="@Class"
                     Style="@Style"
                     AdditionalAttributes="@AdditionalAttributes" />
+            </CascadingValue>
         </Trigger>
         <Surface>
             @Dropdown
@@ -96,13 +106,16 @@ else if (IsSplitButton)
                 Class="@Class"
                 Style="@Style"
                 AdditionalAttributes="@AdditionalAttributes" />
-        <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false">
+        <Popover @ref=_popover Placement="@DropdownPlacement" DisplayArrow="false" KeepSurface="true">
             <Trigger>
+            <CascadingValue Name="BluentButtonManagedMenuTrigger" Value="true" IsFixed="true">
                 <Button Shape="@Shape"
                         Appearance="@Appearance"
                         Size="@Size"
                         ShowDropdownIndicator="true"
+                        aria-label="Open menu"
                         disabled="@IsDisabled" />
+            </CascadingValue>
             </Trigger>
             <Surface>
                 @Dropdown
