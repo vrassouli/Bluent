@@ -10,6 +10,7 @@ DOCUMENT=ROOT/"docs/v3/quality/EVIDENCE-AND-GATES.md"
 BROWSERS=ROOT/".github/workflows/v3-compatibility-browsers.yml"
 BROWSER_PROBE=ROOT/"scripts/quality/probe_v3_compatibility_runtime.mjs"
 SSR_PROJ=ROOT/"src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj"
+DEMO_PROJ=ROOT/"src/Bluent.UI.Demo/Bluent.UI.Demo.csproj"
 COMPAT_LAYOUT=ROOT/"src/Bluent.UI.Demo.Interactive.Client/Layout/CompatibilityLayout.razor"
 COMPAT_PROBE=ROOT/"src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"
 
@@ -195,13 +196,36 @@ def check_server_patch(project_xml:str)->None:
     need(re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+",version) is not None,
          "SSR package patch must use an explicit stable version")
     major,minor,patch=map(int,version.split("."))
-    need((major,minor)==(10,0) and patch>=13,
-         "SSR WebAssembly.Server must be at least patched 10.0.13 (two Oct 2026 advisories)")
+    need((major,minor)==(10,0) and patch>=14,
+         "SSR WebAssembly.Server must be at least patched 10.0.14 (Oct 25 2026 advisory update)")
+
+def check_devserver_patch(project_xml:str,project_label:str)->None:
+    root=ET.fromstring(project_xml)
+    reference=[p for p in root.findall(".//PackageReference")
+               if p.get("Include")=="Microsoft.AspNetCore.Components.WebAssembly.DevServer"]
+    need(len(reference)==1,f"{project_label} WebAssembly.DevServer reference missing/ambiguous")
+    version=reference[0].get("Version","")
+    need(re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+",version) is not None,
+         f"{project_label} DevServer patch must use an explicit stable version")
+    major,minor,patch=map(int,version.split("."))
+    need((major,minor)==(10,0) and patch>=14,
+         f"{project_label} WebAssembly.DevServer must be at least patched 10.0.14 (Oct 25 2026 advisory update)")
+
+def check_devserver_projects()->None:
+    projects=sorted((*ROOT.glob("src/**/*.csproj"),*ROOT.glob("samples/**/*.csproj")))
+    references=0
+    for project in projects:
+        content=project.read_text(encoding="utf-8-sig")
+        if "Microsoft.AspNetCore.Components.WebAssembly.DevServer" in content:
+            check_devserver_patch(content,str(project.relative_to(ROOT)))
+            references+=1
+    need(references>=3,"all active Blazor DevServer package references must be security-checked")
 
 def main()->None:
     check(QUALITY.read_text(encoding="utf-8-sig"),
           DOCUMENT.read_text(encoding="utf-8-sig"))
     check_server_patch(SSR_PROJ.read_text(encoding="utf-8-sig"))
+    check_devserver_projects()
     check_compatibility_host_theme(COMPAT_LAYOUT.read_text(encoding="utf-8-sig"))
     check_compatibility_probe_text(COMPAT_PROBE.read_text(encoding="utf-8-sig"))
     check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),BROWSER_PROBE.read_text(encoding="utf-8-sig"))

@@ -2,7 +2,7 @@
 from __future__ import annotations
 import unittest
 from pathlib import Path
-from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,BROWSERS,BROWSER_PROBE,COMPAT_LAYOUT,COMPAT_PROBE,check,check_server_patch,check_browser_contract,check_compatibility_host_theme,check_compatibility_probe_text,check_native_site_zoom_source,QualityContractError
+from check_v3_quality_gate_contract import QUALITY,DOCUMENT,SSR_PROJ,DEMO_PROJ,BROWSERS,BROWSER_PROBE,COMPAT_LAYOUT,COMPAT_PROBE,check,check_server_patch,check_devserver_patch,check_browser_contract,check_compatibility_host_theme,check_compatibility_probe_text,check_native_site_zoom_source,QualityContractError
 
 class V3QualityContractTests(unittest.TestCase):
     @classmethod
@@ -45,9 +45,21 @@ class V3QualityContractTests(unittest.TestCase):
 
     def test_reject_vulnerable_server_patch(self):
         original=SSR_PROJ.read_text(encoding="utf-8-sig")
-        self.assertIn('Version="10.0.13"',original)
+        self.assertIn('Version="10.0.14"',original)
         with self.assertRaisesRegex(QualityContractError,"at least patched"):
-            check_server_patch(original.replace('Version="10.0.13"','Version="10.0.12"'))
+            check_server_patch(original.replace('Version="10.0.14"','Version="10.0.13"'))
+
+    def test_current_devserver_dependencies_are_patched(self):
+        root=Path(__file__).resolve().parents[2]
+        paths=(DEMO_PROJ,root/"samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj",root/"samples/Bluent.OrderDesk/Bluent.OrderDesk.csproj")
+        for path in paths:
+            check_devserver_patch(path.read_text(encoding="utf-8-sig"),str(path))
+
+    def test_reject_vulnerable_devserver_patch(self):
+        original=DEMO_PROJ.read_text(encoding="utf-8-sig")
+        self.assertIn('Version="10.0.14"',original)
+        with self.assertRaisesRegex(QualityContractError,"at least patched"):
+            check_devserver_patch(original.replace('Version="10.0.14"','Version="10.0.13"'),str(DEMO_PROJ))
 
     def test_real_browser_matrix_contract(self):
         check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
