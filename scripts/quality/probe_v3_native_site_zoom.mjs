@@ -165,8 +165,12 @@ for(const factor of [2,4]){
   if(!keyboard.actualButton||!keyboard.focusVisible)throw Error("Native zoom keyboard traversal failed");
   const getCount=()=>cdp.js("Number(document.querySelector('[data-testid=event-count]')?.textContent?.match(/\\d+/)?.[0]??-1)");
   const prior=await getCount();
-  await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Enter",code:"Enter",text:"\r",unmodifiedText:"\r",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
-  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Enter",code:"Enter",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+  // CDP rawKeyDown + char + keyUp mirrors a physical Enter press more faithfully
+  // across Chromium engines than keyDown-with-text (Edge can drop activation at 200%).
+  const enterKey={key:"Enter",code:"Enter",windowsVirtualKeyCode:13,nativeVirtualKeyCode:13};
+  await cdp.send("Input.dispatchKeyEvent",{type:"rawKeyDown",...enterKey});
+  await cdp.send("Input.dispatchKeyEvent",{type:"char",...enterKey,text:"\r",unmodifiedText:"\r"});
+  await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",...enterKey});
   const actual=await until(async()=>{const n=await getCount();return n===prior+1?n:null;},"actual native Enter invokes one zoom Blazor callback",12000);
   await wait(140);
   const settled=await getCount();
