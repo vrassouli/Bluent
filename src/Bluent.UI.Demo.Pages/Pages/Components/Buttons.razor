@@ -78,6 +78,32 @@
     </div>
 
     <div>
+        <h5>Keyboard focus on different host surfaces</h5>
+        <p class="text-muted">Use Tab to focus each action. Focus remains independent from hover, pressed and toggle state. Colored hosts provide an explicit inherited ring color; no color is inferred from the Button appearance.</p>
+        <div class="button-focus-host-grid">
+            <div class="button-focus-host neutral" data-demo-button-focus-host="neutral">
+                <span>Neutral</span>
+                <Button Text="Neutral surface" data-demo-focus-host-button="neutral" />
+            </div>
+            <div class="button-focus-host brand" data-demo-button-focus-host="brand">
+                <span>Brand</span>
+                <Button Text="Brand surface" Appearance="ButtonAppearance.Primary" data-demo-focus-host-button="brand" />
+            </div>
+            <div class="button-focus-host brand-hover" data-demo-button-focus-host="brand-hover">
+                <span>Brand hover</span>
+                <Button Text="Brand hover surface" Appearance="ButtonAppearance.Primary" data-demo-focus-host-button="brand-hover" />
+            </div>
+            <div class="button-focus-host danger" data-demo-button-focus-host="danger">
+                <span>Danger</span>
+                <Button Text="Danger surface" Appearance="ButtonAppearance.Danger" data-demo-focus-host-button="danger" />
+            </div>
+            <div class="button-focus-host inverted" data-demo-button-focus-host="inverted">
+                <span>Inverted</span>
+                <Button Text="Inverted surface" data-demo-focus-host-button="inverted" />
+            </div>
+        </div>
+    </div>
+    <div>
         <h5>Link</h5>
         <Button Text="Google" Href="https://google.com"/>
         <Button Text="Google" Href="https://google.com" Appearance="ButtonAppearance.Primary"/>

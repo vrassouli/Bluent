@@ -16,6 +16,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Changed
 
+- [Bluent.UI, v3 development] Button now ships keyboard-only :focus-visible styling in the isolated v3 branch: a 2px brand/context-aware outline, an inset outline for split-button segments, and the system Highlight color under forced-colors. Explicitly colored host surfaces can inherit --bui-button-focus-ring-color; this is a CSS customization hook, not a new Razor parameter or a finalized global token. Live bundled-CSS checks pass Chrome 215/215 and Edge 215/215 in WebAssembly. Native Windows Contrast Themes and screen-reader acceptance remain open; released 2.x packages are unchanged.
+
 - [Bluent.UI, v3 development] Button text wrappers use HTML `dir="auto"` so localized copy determines its writing direction independently from surrounding icon layout. This improves Persian/RTL text alignment without a public API addition; the v3-only markup change is unshipped and released 2.x packages are unchanged. See [M17 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md).
 - [Bluent.UI, v3 development] Toggle Buttons with a populated Toggled value expose the current boolean state using aria-pressed. This is an additive accessibility/DOM change with no new public parameter; the isolated v3 PR and its migration/evidence notes are not a change to released 2.x packages.
 - [Bluent.UI, v3 development] Popovers now dismiss on Escape and restore focus to their trigger after keyboard dismissal. Active document click/key listeners are cleaned up when the surface closes; this remains unshipped v3 work and does not change released 2.x packages.

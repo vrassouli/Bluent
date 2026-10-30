@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Bluent v3 #428/#501: real existing Button toggle semantics and focus-visible research.
- * Optional, browser-injected preview styles ONLY; no production styles or APIs.
+ * Bluent v3 #428/#501: real Button toggle semantics and shipped focus-visible CSS.
+ * Focus checks read the actual compiled Bluent component stylesheet; no injected preview CSS.
  * Usage: node scripts/quality/probe_v3_button_focus_runtime.mjs [http://127.0.0.1:5080]
  */
 import { spawn } from 'node:child_process';
@@ -50,30 +50,7 @@ const buttonAxBySelector = async selector => {
  } finally { await send("Runtime.releaseObject",{objectId}); }
 };
 const jsSplit=String.raw`(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button');const group=h?.parentElement?.querySelector('.bui-button-group');return group?[...group.querySelectorAll(':scope > .bui-button')]:[];})()`;
-const splitState=String.raw`(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button');const g=h?.parentElement?.querySelector('.bui-button-group'),xs=[...g?.querySelectorAll(':scope > .bui-button')||[]];return {found:!!g,count:xs.length,items:xs.map((b,i)=>{const r=b.getBoundingClientRect(),s=getComputedStyle(b);return {index:i,active:document.activeElement===b,focusVisible:b.matches(':focus-visible'),disabled:b.disabled,outlineWidth:s.outlineWidth,outlineStyle:s.outlineStyle,outlineOffset:s.outlineOffset,boxShadow:s.boxShadow,width:r.width,height:r.height,x:r.x,y:r.y,radiusTL:s.borderTopLeftRadius,radiusTR:s.borderTopRightRadius};})};})()`;
-const previewCss=String.raw`
-/* #501 isolated browser-injected candidate. NOT shipping CSS or finalized #418 tokens. */
-body.v3-button-focus-research .bui-button:focus-visible {
-  outline: 2px solid var(--colorNeutralForeground1, #242424) !important;
-  outline-offset: 2px;
-}
-body.v3-button-focus-research .bui-button-group > .bui-button:focus-visible {
-  outline: 2px solid var(--colorNeutralForeground1, #242424) !important;
-  outline-offset: -3px !important;
-  box-shadow: inset 0 0 0 1px var(--colorNeutralBackground1, white) !important;
-  z-index: 1;
-}
-body.v3-button-focus-research .bui-button:disabled { outline: none !important; }
-@media (forced-colors: active) {
-  body.v3-button-focus-research .bui-button:focus-visible {
-    outline: 2px solid Highlight !important;
-    outline-offset: 2px;
-    box-shadow: none !important;
-  }
-  body.v3-button-focus-research .bui-button-group > .bui-button:focus-visible { outline-offset: -3px !important; }
-}
-`;
-
+const splitState=String.raw`(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button');const g=h?.parentElement?.querySelector('.bui-button-group'),xs=[...g?.querySelectorAll(':scope > .bui-button')||[]];return {found:!!g,count:xs.length,items:xs.map((b,i)=>{const r=b.getBoundingClientRect(),s=getComputedStyle(b);return {index:i,active:document.activeElement===b,focusVisible:b.matches(':focus-visible'),disabled:b.disabled,outlineWidth:s.outlineWidth,outlineStyle:s.outlineStyle,outlineOffset:s.outlineOffset,outlineColor:s.outlineColor,boxShadow:s.boxShadow,width:r.width,height:r.height,x:r.x,y:r.y,radiusTL:s.borderTopLeftRadius,radiusTR:s.borderTopRightRadius};})};})()`;
 try{
  child=spawn(browser,['--headless=new','--no-sandbox','--disable-gpu','--disable-extensions','--no-first-run','--no-default-browser-check','--remote-debugging-port=0','--remote-allow-origins=*','--user-data-dir='+profile,'about:blank'],{stdio:'ignore'});
  const port=await poll(async()=>{const p=await readFile(join(profile,'DevToolsActivePort'),'utf8');return p.trim().split(/\r?\n/)[0];});
@@ -100,15 +77,15 @@ try{
  await key('Tab','Tab',9);
  const disabledSkip=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Disabled'),a=[...h.parentElement.querySelectorAll('button')];return {disabledActive:document.activeElement===a[1],activeTag:document.activeElement?.tagName,disabledActual:a[1]?.disabled};})()");
  assert('Tab skips the native disabled button',disabledSkip.disabledActual&&!disabledSkip.disabledActive,disabledSkip);
- // Inject #501 candidate only in headless browser, never disk CSS or NuGet.
- await run("(()=>{document.body.classList.add('v3-button-focus-research');const s=document.createElement('style');s.id='v3-issue501-candidate';s.textContent="+JSON.stringify(previewCss)+";document.head.append(s);return true;})()");
+ const disabledFocus=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Disabled'),b=[...h.parentElement.querySelectorAll('button')][1];b.focus();const s=getComputedStyle(b);return {disabled:b.disabled,active:document.activeElement===b,focusVisible:b.matches(':focus-visible'),outlineStyle:s.outlineStyle,outlineWidth:s.outlineWidth};})()");
+ assert('disabled Button never receives a focus-visible ring',disabledFocus.disabled&&!disabledFocus.active&&!disabledFocus.focusVisible&&disabledFocus.outlineStyle==='none',disabledFocus);
  // Genuine CDP keyboard navigation from main to popup segment and backwards.
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Split button');h.parentElement.querySelector('.bui-button-group > .bui-button:first-child').focus();return true;})()");
  const first=await run(splitState);
  await key('Tab','Tab',9);
  const second=await run(splitState);
  assert('Tab moves from Split main to menu',first.items?.[0]?.active&&second.items?.[1]?.active,second);
- assert('Split menu shows focus-visible and >=2px outline',second.items?.[1]?.focusVisible&&parseFloat(second.items[1].outlineWidth)>=2,second);
+ assert('Split menu shows the production focus-visible ring with an inset outline',second.items?.[1]?.focusVisible&&second.items[1].outlineStyle==='solid'&&parseFloat(second.items[1].outlineWidth)>=2&&parseFloat(second.items[1].outlineOffset)<0,second);
  const stable=first.items.every((b,i)=>Math.abs(b.width-second.items[i].width)<0.1&&Math.abs(b.height-second.items[i].height)<0.1&&Math.abs(b.x-second.items[i].x)<0.1);
  assert('Split focus does not cause button layout shift',stable,{before:first.items,after:second.items});
  assert('Split focus outline is inset rather than covering adjacent action',parseFloat(second.items?.[1]?.outlineOffset)<0,second.items?.[1]);
@@ -407,7 +384,18 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Appearance');h.parentElement.querySelectorAll('button')[1].focus();return true;})()");
  await key('Tab','Tab',9);
  const danger=await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Appearance'),b=[...h.parentElement.querySelectorAll('button')].find(x=>x.classList.contains('danger')),s=b?getComputedStyle(b):null,r=b?.getBoundingClientRect();return {present:!!b,active:document.activeElement===b,visible:b?.matches(':focus-visible'),outline:s?.outlineStyle,outlineWidth:s?.outlineWidth,bounds:r?{w:r.width,h:r.height}:null};})()");
- assert('real Danger appearance receives keyboard focus-visible ring',danger.present&&danger.active&&danger.visible&&danger.outline==='solid'&&parseFloat(danger.outlineWidth)>=2,danger);
+ assert('real Danger appearance receives production keyboard focus-visible ring',danger.present&&danger.active&&danger.visible&&danger.outline==='solid'&&parseFloat(danger.outlineWidth)>=2&&danger.outlineWidth==='2px',danger);
+  const focusHostState = String.raw`(() => { const root=document.documentElement,theme=root.getAttribute('data-bui-theme')||'light',hosts=[...document.querySelectorAll('[data-demo-button-focus-host]')]; const expected={neutral:theme==='dark'?'--colorBrandForeground2':'--colorBrandBackground',brand:'--colorNeutralForegroundOnBrand','brand-hover':'--colorNeutralForegroundOnBrand',danger:'--colorNeutralForegroundOnBrand',inverted:theme==='dark'?'--colorBrandForeground2':'--colorNeutralForegroundOnBrand'}; return hosts.map(host=>{const kind=host.dataset.demoButtonFocusHost,button=host.querySelector('button'),token=expected[kind],probe=token?document.createElement('span'):null; if(probe){probe.style.color='var('+token+')';probe.style.position='absolute';document.body.append(probe);} const expectedColor=probe?getComputedStyle(probe).color:null;probe?.remove();button?.focus();const style=button&&getComputedStyle(button);return {kind,token,expectedColor,actualColor:style?.outlineColor,outlineWidth:style?.outlineWidth,outlineStyle:style?.outlineStyle,outlineOffset:style?.outlineOffset,focusVisible:button?.matches(':focus-visible'),ringVariable:getComputedStyle(button).getPropertyValue('--bui-button-focus-ring-color').trim()};}); })()`;
+  const focusHostNames=['neutral','brand','brand-hover','danger','inverted'];
+  const focusHostMatrix = await run(focusHostState);
+  assert('Button demo contains all five approved focus host types',focusHostMatrix.length===5&&focusHostNames.every(name=>focusHostMatrix.some(x=>x.kind===name)),focusHostMatrix);
+  assert('production focus ring resolves the approved host-aware token in Light',focusHostMatrix.every(x=>x.focusVisible&&x.outlineStyle==='solid'&&x.outlineWidth==='2px'&&x.actualColor===x.expectedColor&&x.outlineOffset==='2px'),focusHostMatrix);
+  await run("(()=>{document.documentElement.setAttribute('data-bui-theme','dark');return true;})()");
+  await sleep(350);
+  const darkFocusHostMatrix = await run(focusHostState);
+  assert('production focus ring resolves the approved host-aware token in Dark',darkFocusHostMatrix.length===5&&darkFocusHostMatrix.every(x=>x.focusVisible&&x.outlineStyle==='solid'&&x.outlineWidth==='2px'&&x.actualColor===x.expectedColor&&x.outlineOffset==='2px'),darkFocusHostMatrix);
+  await run("(()=>{document.documentElement.setAttribute('data-bui-theme','light');return true;})()");
+  await sleep(350);
   const ariaPressedGapResolved=toggle.pressed==='false'&&initialToggleAx.pressedPropertyPresent&&initialToggleAx.pressedValue==='false'&&space.pressed==='true'&&spaceAx.pressedPropertyPresent&&spaceAx.pressedValue==='true';
  // Enter on a separate primary toggle verifies native keyboard activation in the real host.
  await run("(()=>{const h=[...document.querySelectorAll('h5')].find(h=>h.textContent.trim()==='Toggle');h.parentElement.querySelectorAll('button')[1].focus();return true;})()");
@@ -452,7 +440,7 @@ const boundToggleMatrix = await run("(()=>{const h=[...document.querySelectorAll
   assert("Dark RTL Button matrix remains responsive at 390px without page or row overflow", rtlNarrow.theme==="dark" && rtlNarrow.direction==="rtl" && rtlNarrow.viewport===390 && rtlNarrow.clientWidth===390 && rtlNarrow.documentWidth===390 && rtlNarrow.buttonCount===54 && rtlNarrow.rowCount===18 && rtlNarrow.allWrap && rtlNarrow.overflowRows.length===0 && !rtlNarrow.pageOverflow, rtlNarrow);
   await run(`(()=>{document.documentElement.setAttribute("data-bui-theme","light");document.documentElement.setAttribute("dir","ltr");document.body.classList.remove("rtl");return true;})()`);
   await send("Emulation.clearDeviceMetricsOverride");
- console.log(JSON.stringify({classification:'Real Chromium CDP ('+browser+') on live Bluent WASM Button demo; API/demo checks plus #501 focus candidate injected into transient browser tab only',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,ariaPressedGapResolved:allToggleSemanticsResolved,ariaPressedAX:{initial:initialToggleAx,afterSpace:spaceAx,afterEnter:enterAx}},checks:results},null,2));
+ console.log(JSON.stringify({classification:'Real Chromium CDP ('+browser+') on live Bluent WASM Button demo; API/demo checks with shipped #501 focus-visible styles; no injected CSS',url:base+'/components/buttons',assertions:results.length,passed:results.length-issues.length,failed:issues.length,issues,observations:{initialSplit:initial,disabled,pointer:mouse,rtl,space,enter,forced,ariaPressedGapResolved:allToggleSemanticsResolved,ariaPressedAX:{initial:initialToggleAx,afterSpace:spaceAx,afterEnter:enterAx}},checks:results},null,2));
  process.exitCode=issues.length?1:0;
 }catch(e){console.error('probe_v3_button_focus_runtime: '+(e.stack||e));process.exitCode=1;}
 finally {
