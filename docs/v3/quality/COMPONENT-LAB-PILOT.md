@@ -183,9 +183,9 @@ zero warnings/errors; source/queue contract PASS.
 
 The covered public Button parameter-name set remains 20/20 plus the
 HTML disabled attribute; the split case adds a REAL behavior scenario
-rather than a twenty-first parameter. All 5 pilot family entries
-remain representative_only, the 66-family queue remains zero fully
-accepted, and #421 remains In progress. In particular, the icon-only
+rather than a twenty-first parameter. The original 5 pilot family entries
+remain representative_only, the expanded 66-family queue remains zero
+fully accepted, and #421 remains In progress. In particular, the icon-only
 secondary split trigger's accessible name, native screen reader and OS
 Contrast Theme interactions, focus cycling, Escape semantics, exact
 Fluent 2 visual parity, disabled/split forms, exhaustive state matrix
@@ -861,3 +861,9 @@ representative runnable live specimens, 53 without a lab scenario,
 ZERO finally accepted exhaustive v3 components.
 #421 In progress/PR Draft; #439 Backlog. No merge to protected
 bluent-v3 or stable Dev; no NuGet release.
+
+## 2026-10-30 — current 18-family Lab platform checkpoint
+
+The current source-linked catalog contains **18 live pilot specimens / 66 source families / 0 accepted families**. The Lab platform proposal is recorded in the canonical Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 42, board `fce13529-02e2-80e4-8008-de96e1fdaca3`. This platform-level acceptance proposal is deliberately separate from the per-family DoD; no pilot is promoted to complete by being present in the Lab.
+
+On Dev01, after restoring the #425 security package changes and building the full solution in Release with warnings-as-errors (0 warnings, 0 errors), the real Component Lab scenario was executed in all four modes: Chrome/WASM, Edge/WASM, Chrome/InteractiveServer and Edge/InteractiveServer. Each run completed successfully; the 18 pilot scenarios, live Razor/source mapping, 66-row queue, keyboard and pointer behavior, RTL 320px layouts, disabled controls, search, copy-source interop and browser cleanup were exercised. Known, explicitly reported InteractiveServer pointer-binding gaps remain for Slider #442 and RangeSlider #443; the Lab does not claim those family behaviors as accepted. CI on the merge commit initially failed before browser execution because the source contract still asserted the pre-fix disabled-Split pointer-test label; that guard now matches the corrected neutral-focus/bounds-based test. Re-run exact-head CI before promoting #421 to Review.

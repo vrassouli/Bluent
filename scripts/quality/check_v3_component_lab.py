@@ -647,7 +647,7 @@ def check() -> int:
         "existing disabled Split Button disables both native primary and disclosure",
         "native Enter cannot focus or activate disabled Split primary",
         "native Enter cannot focus or open disabled Split disclosure",
-        "real CDP pointer hits both disabled Split buttons without activating either",
+        "pointer clicks within both disabled Split button bounds remain inert",
         "copyable disabled Split Razor passes native disabled attribute to both actions",
     ):
         assert label in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(
