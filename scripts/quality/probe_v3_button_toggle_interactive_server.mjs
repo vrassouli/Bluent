@@ -288,8 +288,16 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     check("InteractiveServer and WebAssembly expose the exact Persian label as the AX name in LTR and RTL", localizedLtrAx.role === "button" && localizedLtrAx.name === "ذخیره تغییرات" && localizedRtlAx.role === "button" && localizedRtlAx.name === "ذخیره تغییرات", { ltr: localizedLtrAx, rtl: localizedRtlAx });
     const initialDropdown = await poll(async () => {
       const state = await evaluate(managedDropdownExpression);
-      return state?.surfaceFound && state.menuFound && state.items.length === 5 ? state : null;
-    }, 15000, "initial managed dropdown surface is fully rendered before ARIA checks");
+      // The parent menu surface can render one interactive turn before a nested
+      // MenuItem registers its KeepSurface popover from OnAfterRender. Wait for
+      // both persistent surfaces so the initial ARIA relationship is measured
+      // after the submenu's aria-controls target actually exists.
+      return state?.surfaceFound &&
+        state.menuFound &&
+        state.items.length === 5 &&
+        state.submenuTriggerFound &&
+        state.submenuControlsTargetExists ? state : null;
+    }, 15000, "parent and nested submenu surfaces are registered before initial ARIA checks");
     check("managed Button dropdown renders a native button and visible caret", initialDropdown.triggerFound && initialDropdown.triggerTag === "BUTTON" && initialDropdown.hasCaret, initialDropdown);
     check("collapsed Button dropdown exposes menu semantics and a stable controls target", initialDropdown.expanded === "false" && initialDropdown.controls === initialDropdown.triggerId + "_surface" && initialDropdown.controlsTargetExists && initialDropdown.hasPopup === "menu" && initialDropdown.popupAttributeCounts?.hasPopup === 1 && initialDropdown.popupAttributeCounts?.expanded === 1 && initialDropdown.popupAttributeCounts?.controls === 1 && initialDropdown.menuFound && initialDropdown.menuRole === "menu" && initialDropdown.menuLabel === "Managed actions" && initialDropdown.hidden, initialDropdown);
     check("MenuList items expose menuitem role, roving-focus tabindex and disabled state", initialDropdown.items.length === 5 && initialDropdown.items.every(item => item.role === "menuitem" && item.tabIndex === "-1") && initialDropdown.items.find(item => item.id === "button-managed-dropdown-disabled")?.disabled === "true", initialDropdown.items);
