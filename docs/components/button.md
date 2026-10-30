@@ -58,13 +58,13 @@ The interactive showcase enumerates the current public `ButtonAppearance` (Defau
 | `ShowDropdownIndicator` | `bool` | `false` | No | Shows a placement-aware caret when the button is a popover trigger. |
 | `Compact` | `bool` | `false` | No | Enables compact visual treatment. |
 | `DropdownPlacement` | `Placement` | `Bottom` | No | Placement for the internally created dropdown popover. |
-| `Tooltip` | string? (inherited) | `null` | No | Plain-text tooltip content. |
+| `Tooltip` | `string?` (inherited) | `null` | No | Plain-text tooltip content. |
 | `TooltipContent` | `RenderFragment?` (inherited) | `null` | No | Rich tooltip content; takes precedence when supplied. |
 | `TooltipPlacement` | `Placement` (inherited) | `Top` | No | Tooltip popover placement. |
 | `TooltipAppearance` | `PopoverAppearance` (inherited) | `Default` | No | `Default`, `Brand` or `Inverted`. |
 | `DisplayTooltipArrow` | `bool` (inherited) | `false` | No | Adds the tooltip arrow element. |
-| `Class` / `Style` | inherited | `null` | No | Application CSS class and inline style. |
-| Unmatched attributes | inherited | `null` | No | Applied to the rendered action element; use for `disabled`, `aria-*`, `data-*`, etc. |
+| `Class` / `Style` | `string?` (inherited) | `null` | No | Application CSS class and inline style. |
+| Unmatched attributes | `Dictionary<string, object>?` (inherited; captured) | `null` | No | Applied to the rendered action element; use for `disabled`, `aria-*`, `data-*`, etc. |
 
 ## Events and binding
 

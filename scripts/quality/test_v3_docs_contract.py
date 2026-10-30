@@ -58,6 +58,21 @@ class V3DocsContractTests(unittest.TestCase):
     def test_button_api_reference_covers_declared_and_inherited_parameters(self):
         self.assertEqual(docs.validate_button_api_docs(), [])
 
+    def test_button_api_reference_types_and_defaults_match_source(self):
+        self.assertEqual(docs.validate_button_api_metadata_docs(), [])
+
+    def test_button_parameter_type_drift_is_detected(self):
+        body = docs.BUTTON_DOC.read_text(encoding="utf-8")
+        body = body.replace("| `Compact` | `bool` | `false` |", "| `Compact` | `string` | `false` |", 1)
+        failures = docs.validate_button_api_metadata_docs(body)
+        self.assertTrue(any("Compact type mismatch" in item for item in failures), failures)
+
+    def test_button_parameter_default_drift_is_detected(self):
+        body = docs.BUTTON_DOC.read_text(encoding="utf-8")
+        body = body.replace("| `Orientation` | `Orientation` | `Horizontal` |", "| `Orientation` | `Orientation` | `Vertical` |", 1)
+        failures = docs.validate_button_api_metadata_docs(body)
+        self.assertTrue(any("Orientation default mismatch" in item for item in failures), failures)
+
     def test_missing_button_parameter_is_detected(self):
         body = docs.BUTTON_DOC.read_text(encoding="utf-8")
         body = body.replace("| `Compact` |", "| `CompactDraft` |", 1)
