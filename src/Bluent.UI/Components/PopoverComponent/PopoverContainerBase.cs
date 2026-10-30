@@ -53,7 +53,9 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
 
         service.OnSetTrigger += PopoverOnSet;
         service.OnShowSurface += PopoverOnShowSurface;
+        service.OnShowSurfaceAsync += PopoverOnShowSurfaceAsync;
         service.OnHideSurface += PopoverOnHideSurface;
+        service.OnHideSurfaceAsync += PopoverOnHideSurfaceAsync;
         service.OnDestroy += PopoverOnDestroy;
         service.OnRefreshSurface += PopoverOnRefreshSurface;
         base.OnInitialized();
@@ -97,7 +99,9 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
             {
                 service.OnSetTrigger -= PopoverOnSet;
                 service.OnShowSurface -= PopoverOnShowSurface;
+                service.OnShowSurfaceAsync -= PopoverOnShowSurfaceAsync;
                 service.OnHideSurface -= PopoverOnHideSurface;
+                service.OnHideSurfaceAsync -= PopoverOnHideSurfaceAsync;
                 service.OnDestroy -= PopoverOnDestroy;
                 service.OnRefreshSurface -= PopoverOnRefreshSurface;
             }
@@ -136,11 +140,49 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
         }
     }
 
+    private async Task PopoverOnShowSurfaceAsync(object? sender, ShowPopoverSurfaceEventArgs args)
+    {
+        if (_disposed || _interop is null)
+            return;
+
+        var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
+        if (context is null)
+            return;
+
+        if (context.Config.KeepSurface)
+            await _interop.ShowSurfaceAsync(context.Config.Settings);
+        else
+        {
+            context.Config.Visible = true;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
     private void PopoverOnHideSurface(object? sender, HidePopoverSurfaceEventArgs args)
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
         if (context != null)
             HideSurface(context.Config.Settings);
+    }
+
+    private async Task PopoverOnHideSurfaceAsync(object? sender, HidePopoverSurfaceEventArgs args)
+    {
+        if (_disposed)
+            return;
+
+        var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
+        if (context is null)
+            return;
+
+        if (context.Config.KeepSurface)
+        {
+            if (_interop is not null)
+                await _interop.HideSurfaceAsync(context.Config.Settings, restoreFocus: true);
+            return;
+        }
+
+        context.Config.Visible = false;
+        await InvokeAsync(StateHasChanged);
     }
 
     private void PopoverOnDestroy(object? sender, DestroyPopoverEventArgs args)

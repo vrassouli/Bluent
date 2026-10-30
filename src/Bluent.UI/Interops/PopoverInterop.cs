@@ -91,6 +91,14 @@ internal class PopoverInterop : IAsyncDisposable
         await module.InvokeVoidAsync("showSurface", settings);
     }
 
+    public async Task HideSurfaceAsync(PopoverSettings settings, bool restoreFocus = false)
+    {
+        // A KeepSurface popover already has a JS owner when it is visible.
+        // Do not create a new module merely to hide an uninitialized surface.
+        if (_popoverReference is not null)
+            await _popoverReference.InvokeVoidAsync("hideSurface", settings, restoreFocus);
+    }
+
     public async Task DestroyPopoverAsync(string triggerId)
     {
         // A child can be disposed before JS was ever instantiated.

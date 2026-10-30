@@ -22,8 +22,7 @@ export class Popover {
     // PopoverSettings type. This private, read-only compatibility guard
     // preserves the current #420 contract until the foundation lands.
     private isOptInDisclosure(settings: PopoverSettings): boolean {
-        return (settings as PopoverSettings & { accessibleTriggerState?: boolean })
-            .accessibleTriggerState === true;
+        return (settings as PopoverSettings & { accessibleTriggerState?: boolean }).accessibleTriggerState === true;
     }
     private bindDisclosure(settings: PopoverSettings, trigger: Element): void {
         if (!this.isOptInDisclosure(settings) && !settings.triggerEvents?.includes('click'))
@@ -54,6 +53,7 @@ export class Popover {
         }
     }
 
+    private readonly _menuTypeahead = new Map<HTMLElement, { value: string; timer: number }>();
     private readonly _documentClickHandlers = new Map<string, EventListener>();
     // CSS transitionend can be absent (0-duration/reduced motion) or arrive
     // after a new Show. Hide completions are owned/cancellable per surface.
@@ -62,7 +62,11 @@ export class Popover {
     }>();
     private _disposed = false;
     private readonly _onDocumentKeyDown = (event: KeyboardEvent): void => {
-        if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing || event.repeat)
+        if (event.defaultPrevented || event.isComposing || event.repeat)
+            return;
+        if (this.handleMenuKeyDown(event))
+            return;
+        if (event.key !== 'Escape')
             return;
 
         const current = this._openSurfaces[this._openSurfaces.length - 1];
@@ -84,8 +88,7 @@ export class Popover {
         }
         event.preventDefault();
         event.stopPropagation();
-        this.hideSurface(current);
-        (this.getTrigger(current) as HTMLElement | null)?.focus();
+        this.hideSurface(current, true);
     };
 
     constructor(dotNetRef: any) {
@@ -104,7 +107,12 @@ export class Popover {
             this.bindDisclosure(settings, trigger);
             if (settings.triggerEvents) {
                 settings.triggerEvents.forEach((triggerEvent) => {
-                    const listener: EventListener = () => {
+                    const listener: EventListener = (event: Event) => {
+                        // Button-managed menus are opened by the awaited Blazor callback.
+                        // Handling the same click here would race that callback and reopen
+                        // a menu after its command has already closed it.
+                        if (trigger.getAttribute('aria-haspopup') === 'menu' && event.type === 'click')
+                            return;
                         const surface = <HTMLElement>this.getSurface(settings);
                         if (surface) {
                             void this.showSurface(settings);
@@ -117,6 +125,10 @@ export class Popover {
                     handlers.push({ target: trigger, event: triggerEvent, listener });
                 });
             }
+
+            const keydown: EventListener = event => this.onTriggerKeyDown(settings, event as KeyboardEvent);
+            trigger.addEventListener('keydown', keydown);
+            handlers.push({ target: trigger, event: 'keydown', listener: keydown });
 
             if (settings.hideEvents) {
                 settings.hideEvents.forEach((hideEvent) => {
@@ -191,6 +203,8 @@ export class Popover {
         document.removeEventListener('keydown', this._onDocumentKeyDown);
         this._pendingHides.forEach((_pending, id) => this.cancelPendingHide(id));
         this._openSurfaces.length = 0;
+        this._menuTypeahead.forEach(entry => window.clearTimeout(entry.timer));
+        this._menuTypeahead.clear();
         // The library intentionally compiles TypeScript to ES5, so avoid
         // spreading Map iterators (which requires downlevelIteration).
         const geometryIds = new Set<string>();
@@ -239,6 +253,19 @@ export class Popover {
             document.addEventListener('keydown', this._onDocumentKeyDown);
         this._openSurfaces.push(settings);
 
+        // Pointer-opened Button menus move focus to their first enabled item
+        // after the surface is visible; keyboard-opened menus choose first/last
+        // explicitly in openMenu().
+        const menuTrigger = this.getTrigger(settings) as HTMLElement | null;
+        if (menuTrigger?.getAttribute('aria-haspopup') === 'menu' && document.activeElement === menuTrigger) {
+            window.requestAnimationFrame(() => {
+                const currentSurface = this.getSurface(settings) as HTMLElement | null;
+                const menu = currentSurface?.querySelector('[role="menu"]') as HTMLElement | null;
+                if (menu)
+                    this.focusMenuItem(menu, false);
+            });
+        }
+
         // Reopening replaces ONLY this trigger's updater, never the updater
         // for another concurrently visible Popover.
         const trigger = this.getTrigger(settings) as HTMLElement;
@@ -247,6 +274,169 @@ export class Popover {
             this._autoUpdates.set(settings.triggerId,
                 autoUpdate(trigger, surface, () => this.updatePosition(settings)));
         }
+    }
+
+    private handleMenuKeyDown(event: KeyboardEvent): boolean {
+        const activeElement = document.activeElement as HTMLElement | null;
+        if (!activeElement)
+            return false;
+
+        const menuSettings = this._openSurfaces.slice().reverse().find(settings => {
+            const surface = this.getSurface(settings) as HTMLElement | null;
+            const menu = surface?.querySelector('[role="menu"]');
+            const trigger = this.getTrigger(settings) as HTMLElement | null;
+            return !!menu && (menu.contains(activeElement) || (!!trigger &&
+                (trigger === activeElement || trigger.contains(activeElement))));
+        });
+        if (!menuSettings)
+            return false;
+
+        const surface = this.getSurface(menuSettings) as HTMLElement | null;
+        const menu = surface?.querySelector('[role="menu"]') as HTMLElement | null;
+        const trigger = this.getTrigger(menuSettings) as HTMLElement | null;
+        const activeItem = activeElement.closest('[role="menuitem"]') as HTMLElement | null;
+
+        if (event.key === 'Tab') {
+            this.hideSurface(menuSettings, false);
+            return true;
+        }
+
+        if (trigger?.getAttribute('role') === 'menuitem' && menu) {
+            const rtl = window.getComputedStyle(trigger).direction === 'rtl';
+            const closeKey = rtl ? 'ArrowRight' : 'ArrowLeft';
+            if (event.key === closeKey) {
+                event.preventDefault();
+                this.hideSurface(menuSettings, true);
+                return true;
+            }
+        }
+
+        if (menu && activeItem && menu.contains(activeItem)) {
+            const items = this.getEnabledMenuItems(menu);
+            const index = items.indexOf(activeItem);
+
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp' ||
+                event.key === 'Home' || event.key === 'End') {
+                if (items.length === 0)
+                    return true;
+                event.preventDefault();
+                let next = index;
+                if (event.key === 'Home')
+                    next = 0;
+                else if (event.key === 'End')
+                    next = items.length - 1;
+                else if (event.key === 'ArrowDown')
+                    next = index < 0 ? 0 : (index + 1) % items.length;
+                else
+                    next = index < 0 ? items.length - 1 : (index - 1 + items.length) % items.length;
+                items[next].focus({ preventScroll: true });
+                return true;
+            }
+
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                // A submenu's own Blazor callback opens its nested Popover.
+                if (activeItem.getAttribute('aria-haspopup') === 'menu' ||
+                    activeItem.getAttribute('aria-disabled') === 'true')
+                    return true;
+                activeItem.click();
+                this.hideSurface(menuSettings, true);
+                return true;
+            }
+
+            if (event.key.length === 1 && !event.altKey && !event.ctrlKey && !event.metaKey) {
+                const character = event.key.toLocaleLowerCase();
+                const wordCharacter = /^[a-z0-9]$/i.test(character) ||
+                    (character.length === 1 && character.charCodeAt(0) > 127 && !/\s/.test(character));
+                if (wordCharacter) {
+                    const previous = this._menuTypeahead.get(menu);
+                    let value = (previous?.value ?? '') + character;
+                    if (value.length > 1 && Array.from(value).every(ch => ch === value[0]))
+                        value = character;
+                    if (previous)
+                        window.clearTimeout(previous.timer);
+                    const timer = window.setTimeout(() => this._menuTypeahead.delete(menu), 700);
+                    this._menuTypeahead.set(menu, { value, timer });
+                    const rotated = items.slice(Math.max(0, index) + 1).concat(items.slice(0, Math.max(0, index) + 1));
+                    const match = rotated.find(item => (item.textContent ?? '').trim().toLocaleLowerCase().startsWith(value));
+                    if (match) {
+                        event.preventDefault();
+                        match.focus({ preventScroll: true });
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private onTriggerKeyDown(settings: PopoverSettings, event: KeyboardEvent): void {
+        const trigger = this.getTrigger(settings) as HTMLElement | null;
+        if (!trigger || trigger.getAttribute('aria-haspopup') !== 'menu')
+            return;
+        const submenu = trigger.getAttribute('role') === 'menuitem';
+        if (submenu) {
+            const rtl = window.getComputedStyle(trigger).direction === 'rtl';
+            const openKey = rtl ? 'ArrowLeft' : 'ArrowRight';
+            if (event.key === openKey) {
+                event.preventDefault();
+                void this.openMenu(settings, false);
+            }
+            return;
+        }
+        const surface = this.getSurface(settings) as HTMLElement | null;
+        if (!surface?.querySelector('[role="menu"]'))
+            return;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            void this.openMenu(settings, event.key === 'ArrowUp');
+        }
+    }
+
+    private async openMenu(settings: PopoverSettings, last: boolean): Promise<void> {
+        let surface = this.getSurface(settings) as HTMLElement | null;
+        if (!surface) {
+            await this.renderSurface(settings);
+            surface = await this.waitForSurface(settings);
+        }
+        if (!surface)
+            return;
+        if (!surface.classList.contains('show'))
+            await this.showSurface(settings);
+        await new Promise<void>(resolve => window.requestAnimationFrame(() => resolve()));
+        surface = this.getSurface(settings) as HTMLElement | null;
+        const menu = surface?.querySelector('[role="menu"]') as HTMLElement | null;
+        if (menu)
+            this.focusMenuItem(menu, last);
+    }
+
+    private async waitForSurface(settings: PopoverSettings): Promise<HTMLElement | null> {
+        for (let attempt = 0; attempt < 12; attempt++) {
+            const surface = this.getSurface(settings) as HTMLElement | null;
+            if (surface)
+                return surface;
+            await new Promise<void>(resolve => window.requestAnimationFrame(() => resolve()));
+        }
+        return this.getSurface(settings) as HTMLElement | null;
+    }
+
+    private getEnabledMenuItems(menu: HTMLElement): HTMLElement[] {
+        return Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]')).filter(item =>
+            item.closest('[role="menu"]') === menu &&
+            item.getAttribute('aria-disabled') !== 'true' &&
+            !item.hidden && window.getComputedStyle(item).display !== 'none');
+    }
+
+    private focusMenuItem(menu: HTMLElement, last: boolean): void {
+        const items = this.getEnabledMenuItems(menu);
+        (last ? items[items.length - 1] : items[0])?.focus({ preventScroll: true });
+    }
+
+    private restoreFocus(settings: PopoverSettings): void {
+        const trigger = this.getTrigger(settings) as HTMLElement | null;
+        if (!trigger || !trigger.isConnected || (trigger as HTMLButtonElement).disabled === true)
+            return;
+        trigger.focus({ preventScroll: true });
     }
 
     private updatePosition(settings: PopoverSettings) {
@@ -363,7 +553,7 @@ export class Popover {
         return maximum;
     }
 
-    private hideSurface(settings: PopoverSettings) {
+    public hideSurface(settings: PopoverSettings, restoreFocus = false) {
         const index = this._openSurfaces.findIndex(x => x.triggerId === settings.triggerId);
         if (index >= 0)
             this._openSurfaces.splice(index, 1);
@@ -371,6 +561,8 @@ export class Popover {
             document.removeEventListener('keydown', this._onDocumentKeyDown);
         this.unbindOutsideClick(settings.triggerId);
         this.setDisclosureExpanded(settings, false);
+        if (restoreFocus)
+            this.restoreFocus(settings);
 
         const surface = <HTMLElement>this.getSurface(settings);
         if (!surface) {
