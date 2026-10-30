@@ -470,5 +470,21 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md", project)
         self.assertIn("No v3 public API or component source change is authorized", adr)
 
+
+    def test_button_managed_menu_aria_state_is_distinguished_from_authored_popover_aria(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[2]
+        button=(root/"src/Bluent.UI/Components/ButtonComponent/Button.razor").read_text(encoding="utf-8-sig")
+        button_cs=(root/"src/Bluent.UI/Components/ButtonComponent/Button.razor.cs").read_text(encoding="utf-8-sig")
+        menu_item=(root/"src/Bluent.UI/Components/MenuListComponent/MenuItem.razor").read_text(encoding="utf-8-sig")
+        popover=(root/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        self.assertIn('data-bui-managed-menu-trigger',button)
+        self.assertIn('data-bui-managed-menu-trigger',button_cs)
+        self.assertIn('data-bui-managed-menu-trigger="true"',menu_item)
+        self.assertIn("trigger.getAttribute('data-bui-managed-menu-trigger') === 'true'",popover)
+        self.assertIn("const expanded = componentOwnsDisclosureState || !trigger.hasAttribute('aria-expanded')",popover)
+        self.assertIn("const controls = componentOwnsDisclosureState || !trigger.hasAttribute('aria-controls')",popover)
+        self.assertIn("const persistentControls = this.isOptInDisclosure(settings) || componentOwnsDisclosureState",popover)
+        self.assertIn("!settings.triggerEvents?.includes('click') && !componentOwnsDisclosureState",popover)
 if __name__=="__main__":
     unittest.main()

@@ -20,8 +20,9 @@
         __builder.AddAttribute(9, "aria-haspopup", "menu");
         __builder.AddAttribute(10, "aria-expanded", "false");
         __builder.AddAttribute(11, "aria-controls", $"{Id}_surface");
+        __builder.AddAttribute(12, "data-bui-managed-menu-trigger", "true");
     }
-    __builder.OpenRegion(12);
+    __builder.OpenRegion(13);
 
     @if (Icon.HasValue)
     {

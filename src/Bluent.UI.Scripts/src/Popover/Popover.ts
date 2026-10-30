@@ -25,16 +25,19 @@ export class Popover {
         return (settings as PopoverSettings & { accessibleTriggerState?: boolean }).accessibleTriggerState === true;
     }
     private bindDisclosure(settings: PopoverSettings, trigger: Element): void {
-        if (!this.isOptInDisclosure(settings) && !settings.triggerEvents?.includes('click'))
+        // Bluent Button and nested MenuItem triggers own their generated menu ARIA,
+        // including keyboard-opened submenus whose pointer trigger is hover-only.
+        const componentOwnsDisclosureState = trigger.getAttribute('data-bui-managed-menu-trigger') === 'true';
+        if (!this.isOptInDisclosure(settings) && !settings.triggerEvents?.includes('click') && !componentOwnsDisclosureState)
             return;
-        const expanded = !trigger.hasAttribute('aria-expanded');
-        const controls = !trigger.hasAttribute('aria-controls');
+        const expanded = componentOwnsDisclosureState || !trigger.hasAttribute('aria-expanded');
+        const controls = componentOwnsDisclosureState || !trigger.hasAttribute('aria-controls');
         if (expanded)
             trigger.setAttribute('aria-expanded', 'false');
         // Explicit #418 opt-in with mounted KeepSurface retains its IDREF
         // when collapsed. Ordinary #420 click disclosures expose controls
         // only while open, so no stale reference is left in the DOM.
-        const persistentControls = this.isOptInDisclosure(settings);
+        const persistentControls = this.isOptInDisclosure(settings) || componentOwnsDisclosureState;
         if (controls && persistentControls)
             trigger.setAttribute('aria-controls', settings.triggerId + '_surface');
         this._managedTriggerAria.set(settings.triggerId, { trigger, expanded, controls, persistentControls });
