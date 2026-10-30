@@ -212,9 +212,16 @@ class V3DocsContractTests(unittest.TestCase):
         self.assertIn('trigger.hasPopup === "menu"', focus_probe)
         self.assertIn('opened.popup?.hasPopup === "menu"', focus_probe)
 
+        changelog = (docs.ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn('Button-managed dropdown triggers expose aria-haspopup="menu"', changelog)
+        self.assertIn("184/184 assertions", changelog)
+        self.assertNotIn(chr(0xfffd), changelog)
+        self.assertNotIn('does not generate aria-haspopup="menu" until', changelog)
+
         button_doc = (docs.ROOT / "docs/components/button.md").read_text(encoding="utf-8")
         toggle_slice = (docs.ROOT / "docs/v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md").read_text(encoding="utf-8")
         menu_slice = (docs.ROOT / "docs/v3/quality/BUTTON-MENU-KEYBOARD-SLICE.md").read_text(encoding="utf-8")
+        self.assertNotIn(chr(0xfffd), menu_slice)
         self.assertIn('aria-haspopup="menu"', button_doc)
         self.assertIn('role="menuitem"', button_doc)
         self.assertIn("184/184 assertions", button_doc)
