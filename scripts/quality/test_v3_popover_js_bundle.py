@@ -101,6 +101,11 @@ class PopoverBundleGateTests(unittest.TestCase):
         with self.assertRaisesRegex(BundleContractError,"Escape/focus"):
             check_implementation_typescript(authored.replace("event.key !== 'Escape'","event.key !== 'Delete'"))
 
+    def test_escape_must_restore_focus_to_the_trigger(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"Escape/focus"):
+            check_implementation_typescript(authored.replace("this.restoreFocus(settings)","this.skipFocusRestore(settings)"))
+
     def test_no_motion_transition_completion_cannot_be_dropped(self):
         authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
         with self.assertRaisesRegex(BundleContractError,"transition|focus"):

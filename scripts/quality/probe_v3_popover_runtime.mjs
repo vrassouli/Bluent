@@ -72,7 +72,9 @@ async function triggerAxEvidence(cdp){
   controlsTargetIds:attr("controls")?.relatedNodes?.map(x=>x.idref)||[]};
 }
 try{
- if(!process.env.BLUENT_V3_POPOVER_URL){
+ // URL overrides select a free local port; they must not disable starting the Demo host.
+ // External-host mode is explicit and reserved for a separately managed QA server.
+ if(process.env.BLUENT_V3_POPOVER_EXTERNAL!=="true"){
   if(mode==="Server"){
    const published=join(work,"published-ssr");
    try {

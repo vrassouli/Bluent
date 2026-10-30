@@ -32,9 +32,9 @@ def same_generated_assets(dist:Path, shipped:Path)->None:
 def check_implementation_typescript(src:str)->None:
     required=("_openSurfaces: PopoverSettings[]",
               "event.key !== 'Escape'",
-              "this.hideSurface(current)",
-              "this.getTrigger(current)",
-              "?.focus()",
+              "this.hideSurface(current, true)",
+              "this.restoreFocus(settings)",
+              "trigger.focus({ preventScroll: true })",
               "document.addEventListener('keydown', this._onDocumentKeyDown)",
               "document.removeEventListener('keydown', this._onDocumentKeyDown)",
               "this._openSurfaces.splice(",

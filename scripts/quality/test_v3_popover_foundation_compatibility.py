@@ -1,8 +1,8 @@
 """#420 defensive integration contract for #418 optional ARIA disclosure.
 
-The #418 opt-in public attribute is not yet in this task branch; the tests
-pin the *private* JS compatibility contract without adding v3 C# API.
-Full end-to-end opt-in acceptance still requires merged foundation source.
+The #418 opt-in behavior is integrated privately into this task branch while
+keeping the #420 public PopoverSettings API unchanged. These tests pin the
+optional, author-preserving ARIA contract and its owner-scoped Escape handling.
 """
 from pathlib import Path
 import unittest
@@ -84,7 +84,9 @@ class FoundationInteropCompatibility(unittest.TestCase):
         self.assertIn("event.defaultPrevented || event.isComposing || event.repeat", self.ts)
         self.assertIn("if (this.isOptInDisclosure(current))", self.ts)
         self.assertIn("trigger?.contains(target) || surface.contains(target)", self.ts)
-        self.assertIn("this.hideSurface(current)", self.ts)
+        self.assertIn("this.hideSurface(current, true)", self.ts)
+        self.assertIn("this.restoreFocus(settings)", self.ts)
+        self.assertIn("trigger.focus({ preventScroll: true })", self.ts)
         self.assertIn("this.unbindTrigger(triggerId)", self.ts)
         self.assertIn("this.cancelPendingHide(triggerId)", self.ts)
 
