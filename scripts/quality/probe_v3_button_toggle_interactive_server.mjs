@@ -196,8 +196,8 @@ const probeBrowser = async (engine, base, route) => {
     const current = await evaluate(stateExpression);
     return current && current.pressed === expected && current.status.includes(expected) ? current : null;
   }, 15000, "InteractiveServer state " + expected);
-  const dispatchKey = async (keyName, code, vk, text = undefined) => {
-    const common = { key: keyName, code, windowsVirtualKeyCode: vk, nativeVirtualKeyCode: vk };
+  const dispatchKey = async (keyName, code, vk, text = undefined, modifiers = 0) => {
+    const common = { key: keyName, code, windowsVirtualKeyCode: vk, nativeVirtualKeyCode: vk, ...(modifiers ? { modifiers } : {}) };
     await send("Input.dispatchKeyEvent", { type: "keyDown", ...common, ...(text === undefined ? {} : { text }) });
     await send("Input.dispatchKeyEvent", { type: "keyUp", ...common });
     await sleep(350);
@@ -449,9 +449,24 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     await dispatchKey("Tab", "Tab", 9);
     const tabClosed = await poll(async () => {
       const state = await evaluate(managedDropdownExpression);
-      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu ? state : null;
-    }, 15000, "Tab closes menu without restoring trigger focus");
-    check("Tab closes menu without trapping focus or restoring the trigger", tabClosed.hidden && !tabClosed.triggerFocused && !tabClosed.focusWithinMenu, tabClosed);
+      const focus = await evaluate("(() => { const active = document.activeElement; const selector = 'a[href],area[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),iframe,[tabindex]:not([tabindex=\"-1\"]),[contenteditable=\"true\"]'; const owner = active?.closest(selector); return { tagName: active?.tagName ?? null, tabIndex: active?.tabIndex ?? null, focused: !!active && active.matches(':focus'), focusOwnerTag: owner?.tagName ?? null, focusOwnerId: owner?.id ?? null, focusOwnerTestId: owner?.getAttribute('data-testid') ?? null }; })()");
+      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu && focus.focused && !!focus.focusOwnerTag ? { ...state, nextFocus: focus } : null;
+    }, 15000, "Tab closes menu and moves focus to a focusable control");
+    check("Tab closes menu and moves focus to a real keyboard-focusable element without trapping or restoring trigger focus", tabClosed.hidden && !tabClosed.triggerFocused && !tabClosed.focusWithinMenu && !!tabClosed.nextFocus?.focusOwnerTag, tabClosed);
+
+    await evaluate("document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]').focus()");
+    await dispatchKey("ArrowDown", "ArrowDown", 40);
+    await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      return state?.visible && state.activeTestId === "button-managed-dropdown-copy" ? state : null;
+    }, 15000, "open menu before reverse Tab dismissal");
+    await dispatchKey("Tab", "Tab", 9, undefined, 8);
+    const shiftTabClosed = await poll(async () => {
+      const state = await evaluate(managedDropdownExpression);
+      const focus = await evaluate("(() => { const active = document.activeElement; const selector = 'a[href],area[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),iframe,[tabindex]:not([tabindex=\"-1\"]),[contenteditable=\"true\"]'; const owner = active?.closest(selector); return { tagName: active?.tagName ?? null, tabIndex: active?.tabIndex ?? null, focused: !!active && active.matches(':focus'), focusOwnerTag: owner?.tagName ?? null, focusOwnerId: owner?.id ?? null, focusOwnerTestId: owner?.getAttribute('data-testid') ?? null }; })()");
+      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu && focus.focused && !!focus.focusOwnerTag ? { ...state, previousFocus: focus } : null;
+    }, 15000, "Shift+Tab closes menu and moves focus to the previous focusable control");
+    check("Shift+Tab closes menu and moves focus to a real previous keyboard-focusable element without trapping or restoring trigger focus", shiftTabClosed.hidden && !shiftTabClosed.triggerFocused && !shiftTabClosed.focusWithinMenu && !!shiftTabClosed.previousFocus?.focusOwnerTag, shiftTabClosed);
 
     console.log("[probe:" + engine + "] reading the initial computed accessibility-tree pressed state");
     const initialAx = await readAxPressed();
