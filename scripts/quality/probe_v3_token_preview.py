@@ -30,8 +30,12 @@ border:1px solid var(--bui-v3-border-strong) }
 """
     text = f"""<!doctype html><html><meta charset="utf-8">
 <style>{original}</style><style>{preview}</style><style>{css_style}</style>
-<body data-bui-theme="{mode}" data-bui-v3-tokens>
+<body data-bui-theme="{mode}" data-bui-brand="{brand}" data-bui-v3-tokens>
 <button class="sample" id="sample">Source-aligned Brand</button>
+<span id="candidate-action" style="color:var(--bui-v3-action-foreground)">Action candidate</span>
+<span id="candidate-link-rest" style="color:var(--bui-v3-link-foreground)">Link Rest candidate</span>
+<span id="candidate-link-hover" style="color:var(--bui-v3-link-foreground-hover)">Link Hover candidate</span>
+<span id="candidate-link-pressed" style="color:var(--bui-v3-link-foreground-pressed)">Link Pressed candidate</span>
 <div id="disabled" class="disabled">Disabled</div>
 <div id="danger-candidate" class="danger-candidate">Danger text candidate</div>
 <button id="focus-candidate" class="focus-candidate">Focus candidate</button>
@@ -41,10 +45,15 @@ let s=getComputedStyle(document.getElementById('sample'));
 let d=getComputedStyle(document.getElementById('disabled'));
 let danger=getComputedStyle(document.getElementById('danger-candidate'));
 let focus=getComputedStyle(document.getElementById('focus-candidate'));
+let candidateAction=getComputedStyle(document.getElementById('candidate-action')).color;
+let candidateLinkRest=getComputedStyle(document.getElementById('candidate-link-rest')).color;
+let candidateLinkHover=getComputedStyle(document.getElementById('candidate-link-hover')).color;
+let candidateLinkPressed=getComputedStyle(document.getElementById('candidate-link-pressed')).color;
 document.getElementById('token-result').textContent=JSON.stringify({{
 bg:s.backgroundColor,fg:s.color,border:s.borderTopColor,
 disabledFg:d.color,disabledBg:d.backgroundColor,
-dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor,focusCandidateColor:focus.outlineColor,focusCandidateWidth:focus.outlineWidth,focusCandidateOffset:focus.outlineOffset
+dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor,focusCandidateColor:focus.outlineColor,focusCandidateWidth:focus.outlineWidth,focusCandidateOffset:focus.outlineOffset,
+candidateAction,candidateLinkRest,candidateLinkHover,candidateLinkPressed
 }});
 </script></body></html>"""
     file = directory / f"brand-{brand}-{mode}.html"
@@ -75,10 +84,18 @@ dangerCandidateFg:danger.color,dangerCandidateBg:danger.backgroundColor,focusCan
         "focusCandidateWidth":"2px",
         "focusCandidateOffset":"1px",
     }
+    if mode == "dark":
+        candidates = json.loads(MATRIX_OUT.read_text(encoding="utf-8"))["darkBrandForegroundCandidates"][brand]["roles"]
+        for role, key in (("action", "candidateAction"), ("linkRest", "candidateLinkRest"),
+                          ("linkHover", "candidateLinkHover"), ("linkPressed", "candidateLinkPressed")):
+            expect[key] = rgb(candidates[role]["candidate"])
     discrepancies = {k: {"expected":v,"observed":actual.get(k)}
                      for k, v in expect.items() if actual.get(k) != v}
     return {"brand":brand, "mode":mode, "checks":len(expect),
             "passed":len(expect)-len(discrepancies), "errors":discrepancies,
+            "darkForegroundCandidates": ({key: actual.get(key) for key in
+                ("candidateAction", "candidateLinkRest", "candidateLinkHover", "candidateLinkPressed")}
+                if mode == "dark" else None),
             "brandBackground":actual.get("bg")}
 
 

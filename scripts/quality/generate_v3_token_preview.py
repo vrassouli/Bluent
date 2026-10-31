@@ -20,6 +20,103 @@ SCHEMA = ROOT / "docs/v3/tokens/issue-418-token-schema.preview.json"
 CSS_OUT = ROOT / "docs/v3/tokens/issue-418-opt-in.preview.css"
 MATRIX_OUT = ROOT / "docs/v3/tokens/issue-418-brand-matrix.preview.json"
 THEME_DIR = ROOT / "src/Bluent.UI/Styles/Themes"
+
+def _hex_rgb(value: str) -> tuple[int, int, int]:
+    code = value.strip().lstrip("#")
+    if len(code) != 6:
+        raise ValueError(f"Expected opaque six-digit hex color, got {value!r}")
+    return tuple(int(code[index:index + 2], 16) for index in (0, 2, 4))
+
+def _linear_channel(channel: int) -> float:
+    value = channel / 255
+    return value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
+
+def _luminance(value: str) -> float:
+    red, green, blue = (_linear_channel(channel) for channel in _hex_rgb(value))
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue
+
+def _contrast_ratio(first: str, second: str) -> float:
+    one, two = sorted((_luminance(first), _luminance(second)), reverse=True)
+    return (one + 0.05) / (two + 0.05)
+
+def _mix_toward_white(value: str, amount: float) -> str:
+    rgb = _hex_rgb(value)
+    mixed = tuple(round(channel + (255 - channel) * amount) for channel in rgb)
+    return "#" + "".join(f"{channel:02X}" for channel in mixed)
+
+def _minimum_contrast_candidate(source: str, background: str, target: float) -> tuple[str, float, float]:
+    if _contrast_ratio(source, background) >= target:
+        return source.upper(), 0.0, _contrast_ratio(source, background)
+    low, high = 0.0, 1.0
+    for _ in range(48):
+        middle = (low + high) / 2
+        candidate = _mix_toward_white(source, middle)
+        if _contrast_ratio(candidate, background) >= target:
+            high = middle
+        else:
+            low = middle
+    candidate = _mix_toward_white(source, high)
+    ratio = _contrast_ratio(candidate, background)
+    if ratio < target:
+        raise ValueError(f"Rounded foreground candidate misses {target}:1: {source} -> {candidate} on {background} = {ratio:.4f}:1")
+    return candidate, high, ratio
+
+def build_dark_brand_foreground_candidates(manifest: dict) -> dict:
+    config = manifest.get("darkBrandForegroundPreview")
+    if not isinstance(config, dict):
+        raise ValueError("Missing maintainer-approved dark brand foreground preview contract")
+    if config.get("minimumContrastRatio") != 4.5 or config.get("targetContrastRatio") != 4.6:
+        raise ValueError("Dark brand foreground preview must preserve the 4.5:1 floor and 4.6:1 rounding buffer")
+    if config.get("brandAttribute") != "data-bui-brand" or config.get("themeAttribute") != "data-bui-theme":
+        raise ValueError("Dark brand foreground preview must use the existing PortalThemeScope brand/mode attributes")
+    if config.get("mixDirection") != "white":
+        raise ValueError("Only the reviewed brand-preserving lift toward white is supported")
+    roles = config.get("roles", {})
+    expected_roles = {
+        "action": ("--colorBrandForeground1", "--bui-v3-action-foreground"),
+        "linkRest": ("--colorBrandForegroundLink", "--bui-v3-link-foreground"),
+        "linkHover": ("--colorBrandForegroundLinkHover", "--bui-v3-link-foreground-hover"),
+        "linkPressed": ("--colorBrandForegroundLinkPressed", "--bui-v3-link-foreground-pressed"),
+    }
+    if set(roles) != set(expected_roles):
+        raise ValueError("Expected separate Action Rest, Link Rest, Link Hover and Link Pressed roles")
+    for role, (source_css, output_css) in expected_roles.items():
+        if roles[role].get("sourceCss") != source_css or roles[role].get("outputCss") != output_css:
+            raise ValueError(f"Unexpected source/output role mapping for {role}")
+    result = {
+        "status": config["status"],
+        "minimumContrastRatio": config["minimumContrastRatio"],
+        "targetContrastRatio": config["targetContrastRatio"],
+        "backgroundCss": config["backgroundCss"],
+        "brandAttribute": config["brandAttribute"],
+        "themeAttribute": config["themeAttribute"],
+        "mixDirection": config["mixDirection"],
+        "roles": {},
+    }
+    target = float(config["targetContrastRatio"])
+    for brand in manifest["supportedBrands"]:
+        path = THEME_DIR / f"theme-{brand}-dark.css"
+        variables = read_theme_variables(path, "dark")
+        background = variables.get(config["backgroundCss"])
+        if background is None:
+            raise ValueError(f"Missing dark neutral background in {path.name}")
+        brand_result = {"background": background, "roles": {}}
+        for role, (source_css, output_css) in expected_roles.items():
+            source = variables.get(source_css)
+            if source is None:
+                raise ValueError(f"Missing source role {source_css} in {path.name}")
+            candidate, mix_amount, ratio = _minimum_contrast_candidate(source, background, target)
+            brand_result["roles"][role] = {
+                "sourceCss": source_css,
+                "outputCss": output_css,
+                "source": source.upper(),
+                "candidate": candidate,
+                "whiteMix": round(mix_amount, 6),
+                "contrastRatio": round(ratio, 4),
+            }
+        result[brand] = brand_result
+    return result
+
 def load_source_tokens(path: Path, names: list[str]) -> dict[str, str]:
     mode = path.stem.rsplit("-", 1)[-1]
     values = read_theme_variables(path, mode)
@@ -79,6 +176,7 @@ def contract(manifest: dict) -> tuple[str, dict]:
                 "tokens": resolved,
             }
 
+    dark_foregrounds = build_dark_brand_foreground_candidates(manifest)
     css = [
         "/* AUTO-GENERATED #418 PREVIEW — source-backed token alias mapping.",
         "   Not part of Bluent 2.x bundle; no CSS is enabled without explicit opt-in.",
@@ -157,11 +255,62 @@ def contract(manifest: dict) -> tuple[str, dict]:
     css.append(f"    {focus_variable}: Highlight;")
     css.append("  }")
     css.append("}")
+
+    # Per-brand dark foreground values are opt-in and local to the existing
+    # PortalThemeScope/data-bui-brand host. They are derived from the matching
+    # Rest/Hover/Pressed source roles, never borrowed across interaction states.
+    css.append("/* MAINTAINER-APPROVED DIRECTION; exact values remain DRAFT candidates. */")
+    css.append("/* Per-brand dark foregrounds: own source hue, >=4.6:1 preview target on the neutral Dark surface. */")
+    foreground_config = manifest["darkBrandForegroundPreview"]
+    for brand in manifest["supportedBrands"]:
+        if brand == "default":
+            selectors = [
+                '[data-bui-v3-tokens][data-bui-theme="dark"]:not([data-bui-brand])',
+                '[data-bui-v3-tokens][data-bui-brand=""][data-bui-theme="dark"]',
+                '[data-bui-v3-tokens][data-bui-brand="default"][data-bui-theme="dark"]',
+                '[data-bui-v3-tokens] [data-bui-theme="dark"]:not([data-bui-brand])',
+                '[data-bui-v3-tokens] [data-bui-brand=""][data-bui-theme="dark"]',
+                '[data-bui-v3-tokens] [data-bui-brand="default"][data-bui-theme="dark"]',
+            ]
+        else:
+            selectors = [
+                f'[data-bui-v3-tokens][data-bui-brand="{brand}"][data-bui-theme="dark"]',
+                f'[data-bui-v3-tokens] [data-bui-brand="{brand}"][data-bui-theme="dark"]',
+            ]
+        css.extend(selector + ("," if index < len(selectors) - 1 else " {") for index, selector in enumerate(selectors))
+        for role, role_config in foreground_config["roles"].items():
+            candidate = dark_foregrounds[brand]["roles"][role]["candidate"]
+            css.append(f"  {role_config['outputCss']}: {candidate};")
+        css.append("}")
+
+    # Demo-only specimens make each semantic role inspectable in the real v3
+    # Styling Lab. These selectors are scoped to the opted-in preview host.
+    css.append("[data-bui-v3-tokens] .v3-brand-foreground-preview {")
+    css.append("  display: block;")
+    css.append("  margin-block: 1.5rem;")
+    css.append("  padding: 1rem;")
+    css.append("  border: 1px solid var(--colorNeutralStroke1);")
+    css.append("  border-radius: 8px;")
+    css.append("}")
+    css.append('[data-bui-v3-tokens][data-bui-theme="light"] .v3-brand-foreground-preview { display: none; }')
+    css.append("[data-bui-v3-tokens] .v3-brand-foreground-samples {")
+    css.append("  display: flex;")
+    css.append("  flex-wrap: wrap;")
+    css.append("  align-items: center;")
+    css.append("  gap: 1rem;")
+    css.append("}")
+    css.append("[data-bui-v3-tokens] .v3-brand-foreground-action { color: var(--bui-v3-action-foreground); }")
+    css.append("[data-bui-v3-tokens] .v3-brand-foreground-link { color: var(--bui-v3-link-foreground); }")
+    css.append("[data-bui-v3-tokens] .v3-brand-foreground-link:hover,")
+    css.append('[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="hover"] { color: var(--bui-v3-link-foreground-hover); }')
+    css.append('[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="pressed"] { color: var(--bui-v3-link-foreground-pressed); }')
+
     return "\n".join(css) + "\n", {
         "status": manifest["status"],
         "schema": "docs/v3/tokens/issue-418-token-schema.preview.json",
         "design": manifest["design"],
         "brands": matrix,
+        "darkBrandForegroundCandidates": dark_foregrounds,
     }
 
 
@@ -187,6 +336,8 @@ def main() -> int:
             "pass": True, "mode": "check" if args.check else "generate",
             "brandModeCombinations": sum(len(modes) for modes in matrix["brands"].values()),
             "logicalTokensPerCombination": len(schema["layers"]["source"]) + len(schema["layers"]["semantic"]) + len(schema["layers"]["component"]),
+            "darkBrandForegroundCandidatePairs": sum(len(entry["roles"]) for entry in matrix["darkBrandForegroundCandidates"].values() if isinstance(entry, dict) and "roles" in entry),
+            "darkBrandForegroundTargetRatio": schema["darkBrandForegroundPreview"]["targetContrastRatio"],
             "generated": [str(p.relative_to(ROOT)) for p in outputs],
             "legacyVariablesModified": False, "isIncludedInPublishedBundle": False,
         }, indent=2))

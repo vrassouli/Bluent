@@ -78,3 +78,98 @@
     --bui-v3-focus-host-ring-candidate: Highlight;
   }
 }
+/* MAINTAINER-APPROVED DIRECTION; exact values remain DRAFT candidates. */
+/* Per-brand dark foregrounds: own source hue, >=4.6:1 preview target on the neutral Dark surface. */
+[data-bui-v3-tokens][data-bui-theme="dark"]:not([data-bui-brand]),
+[data-bui-v3-tokens][data-bui-brand=""][data-bui-theme="dark"],
+[data-bui-v3-tokens][data-bui-brand="default"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-theme="dark"]:not([data-bui-brand]),
+[data-bui-v3-tokens] [data-bui-brand=""][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="default"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #6793CF;
+  --bui-v3-link-foreground: #6793CF;
+  --bui-v3-link-foreground-hover: #6A93D0;
+  --bui-v3-link-foreground-pressed: #6094D0;
+}
+[data-bui-v3-tokens][data-bui-brand="excel"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="excel"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #5B9F71;
+  --bui-v3-link-foreground: #5B9F71;
+  --bui-v3-link-foreground-hover: #60A072;
+  --bui-v3-link-foreground-pressed: #5A9F73;
+}
+[data-bui-v3-tokens][data-bui-brand="office"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="office"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #E56E46;
+  --bui-v3-link-foreground: #E56E46;
+  --bui-v3-link-foreground-hover: #E86C40;
+  --bui-v3-link-foreground-pressed: #DC744D;
+}
+[data-bui-v3-tokens][data-bui-brand="outlook"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="outlook"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #5394DD;
+  --bui-v3-link-foreground: #5394DD;
+  --bui-v3-link-foreground-hover: #5E92DE;
+  --bui-v3-link-foreground-pressed: #4197DB;
+}
+[data-bui-v3-tokens][data-bui-brand="powerapps"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerapps"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #B082AD;
+  --bui-v3-link-foreground: #B082AD;
+  --bui-v3-link-foreground-hover: #B082AD;
+  --bui-v3-link-foreground-pressed: #B082AE;
+}
+[data-bui-v3-tokens][data-bui-brand="powerbi"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerbi"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #A79036;
+  --bui-v3-link-foreground: #A79036;
+  --bui-v3-link-foreground-hover: #AC8F1A;
+  --bui-v3-link-foreground-pressed: #A3904A;
+}
+[data-bui-v3-tokens][data-bui-brand="powerpoint"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerpoint"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #D8765A;
+  --bui-v3-link-foreground: #D8765A;
+  --bui-v3-link-foreground-hover: #DA7555;
+  --bui-v3-link-foreground-pressed: #D6775E;
+}
+[data-bui-v3-tokens][data-bui-brand="stream"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="stream"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #D77382;
+  --bui-v3-link-foreground: #D77382;
+  --bui-v3-link-foreground-hover: #D9727F;
+  --bui-v3-link-foreground-pressed: #D67386;
+}
+[data-bui-v3-tokens][data-bui-brand="teams"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="teams"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #8A89D7;
+  --bui-v3-link-foreground: #8A89D7;
+  --bui-v3-link-foreground-hover: #8B89D8;
+  --bui-v3-link-foreground-pressed: #898AD6;
+}
+[data-bui-v3-tokens][data-bui-brand="word"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="word"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #788FD4;
+  --bui-v3-link-foreground: #788FD4;
+  --bui-v3-link-foreground-hover: #7A8ED4;
+  --bui-v3-link-foreground-pressed: #7490D4;
+}
+[data-bui-v3-tokens] .v3-brand-foreground-preview {
+  display: block;
+  margin-block: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: 8px;
+}
+[data-bui-v3-tokens][data-bui-theme="light"] .v3-brand-foreground-preview { display: none; }
+[data-bui-v3-tokens] .v3-brand-foreground-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+[data-bui-v3-tokens] .v3-brand-foreground-action { color: var(--bui-v3-action-foreground); }
+[data-bui-v3-tokens] .v3-brand-foreground-link { color: var(--bui-v3-link-foreground); }
+[data-bui-v3-tokens] .v3-brand-foreground-link:hover,
+[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="hover"] { color: var(--bui-v3-link-foreground-hover); }
+[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="pressed"] { color: var(--bui-v3-link-foreground-pressed); }

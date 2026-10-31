@@ -290,3 +290,9 @@ Latest Danger contrast progress: Penpot-audited Light/Dark readable selected sta
 ## 2026-10-14 maintainer-approved visual Focus host roles — opt-in token preview
 
 The [Focus host token crosswalk](FOCUS-HOST-TOKEN-CROSSWALK.md) maps the approved visual rule from the #501 source-owned Penpot page-38 board into #418's opt-in generator, **without finalizing a public API**. A host needs explicit surface kind and Light/Dark mode on the same element; provisional variable --bui-v3-focus-host-ring-candidate resolves to approved Fluent source role, or system Highlight under forced colors. The generator validates 100 source pair ratios, with five new contract tests and negative controls. The real browser lab checks actual mounted Blazor host cards and absence of non-opted-in leakage. No shipping CSS or stable NuGet changes.
+
+## 2026-10-31 — brand-preserving Dark foreground decision
+
+The maintainer approved the brand-preserving direction for #418: each of the ten brands receives independent Dark foreground candidates. The preview now derives four roles separately (Action Rest, Link Rest, Link Hover and Link Pressed) from their matching source CSS roles. The minimum normal-text floor remains 4.5:1; the generator targets 4.6:1 after 8-bit RGB rounding. The generated companion board and exact values are recorded in [CONTRAST-AUDIT.md](CONTRAST-AUDIT.md) and on the owned [Penpot page 45](https://design.penpot.app/#/workspace?file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=d0bcea67-3af4-8071-8008-d8e442b90ed1).
+
+This adds a separate per-brand preview candidate map and four scoped CSS aliases; it does **not** change the existing 35 logical-token inventory, stable 2.x theme files, published bundles or public API. The 40 candidate pairs all measure at least 4.6001:1 against the emitted Dark neutral surface. Exact color values and public naming remain under Review pending actual rendered Blazor, forced-colors and assistive-technology checks.

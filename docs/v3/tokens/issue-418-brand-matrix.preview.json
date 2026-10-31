@@ -875,5 +875,385 @@
         }
       }
     }
+  },
+  "darkBrandForegroundCandidates": {
+    "status": "Maintainer-approved direction; exact values are source-derived preview candidates, not final public tokens",
+    "minimumContrastRatio": 4.5,
+    "targetContrastRatio": 4.6,
+    "backgroundCss": "--colorNeutralBackground1",
+    "brandAttribute": "data-bui-brand",
+    "themeAttribute": "data-bui-theme",
+    "mixDirection": "white",
+    "roles": {},
+    "default": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#4F82C8",
+          "candidate": "#6793CF",
+          "whiteMix": 0.133523,
+          "contrastRatio": 4.6078
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#4F82C8",
+          "candidate": "#6793CF",
+          "whiteMix": 0.133523,
+          "contrastRatio": 4.6078
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#6790CF",
+          "candidate": "#6A93D0",
+          "whiteMix": 0.022523,
+          "contrastRatio": 4.6396
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#3174C2",
+          "candidate": "#6094D0",
+          "whiteMix": 0.226619,
+          "contrastRatio": 4.6029
+        }
+      }
+    },
+    "excel": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#489360",
+          "candidate": "#5B9F71",
+          "whiteMix": 0.106481,
+          "contrastRatio": 4.6018
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#489360",
+          "candidate": "#5B9F71",
+          "whiteMix": 0.106481,
+          "contrastRatio": 4.6018
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#60A072",
+          "candidate": "#60A072",
+          "whiteMix": 0.0,
+          "contrastRatio": 4.6891
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#2E864E",
+          "candidate": "#5A9F73",
+          "whiteMix": 0.208134,
+          "contrastRatio": 4.6011
+        }
+      }
+    },
+    "office": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#DE4B18",
+          "candidate": "#E56E46",
+          "whiteMix": 0.19697,
+          "contrastRatio": 4.6072
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#DE4B18",
+          "candidate": "#E56E46",
+          "whiteMix": 0.19697,
+          "contrastRatio": 4.6072
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#E66334",
+          "candidate": "#E86C40",
+          "whiteMix": 0.06,
+          "contrastRatio": 4.6071
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#CE3902",
+          "candidate": "#DC744D",
+          "whiteMix": 0.295455,
+          "contrastRatio": 4.6059
+        }
+      }
+    },
+    "outlook": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#3983D8",
+          "candidate": "#5394DD",
+          "whiteMix": 0.133065,
+          "contrastRatio": 4.6054
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#3983D8",
+          "candidate": "#5394DD",
+          "whiteMix": 0.133065,
+          "contrastRatio": 4.6054
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#5A90DD",
+          "candidate": "#5E92DE",
+          "whiteMix": 0.021212,
+          "contrastRatio": 4.6016
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#0475CF",
+          "candidate": "#4197DB",
+          "whiteMix": 0.242754,
+          "contrastRatio": 4.6238
+        }
+      }
+    },
+    "powerapps": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#A36EA0",
+          "candidate": "#B082AD",
+          "whiteMix": 0.13587,
+          "contrastRatio": 4.6017
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#A36EA0",
+          "candidate": "#B082AD",
+          "whiteMix": 0.13587,
+          "contrastRatio": 4.6017
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#AE7EAB",
+          "candidate": "#B082AD",
+          "whiteMix": 0.027132,
+          "contrastRatio": 4.6017
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#985D96",
+          "candidate": "#B082AE",
+          "whiteMix": 0.228155,
+          "contrastRatio": 4.6071
+        }
+      }
+    },
+    "powerbi": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#9B801A",
+          "candidate": "#A79036",
+          "whiteMix": 0.122047,
+          "contrastRatio": 4.6316
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#9B801A",
+          "candidate": "#A79036",
+          "whiteMix": 0.122047,
+          "contrastRatio": 4.6316
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#AC8E19",
+          "candidate": "#AC8F1A",
+          "whiteMix": 0.004425,
+          "contrastRatio": 4.6402
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#8A731A",
+          "candidate": "#A3904A",
+          "whiteMix": 0.209402,
+          "contrastRatio": 4.6038
+        }
+      }
+    },
+    "powerpoint": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#D05836",
+          "candidate": "#D8765A",
+          "whiteMix": 0.176647,
+          "contrastRatio": 4.613
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#D05836",
+          "candidate": "#D8765A",
+          "whiteMix": 0.176647,
+          "contrastRatio": 4.613
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#D86D4C",
+          "candidate": "#DA7555",
+          "whiteMix": 0.05137,
+          "contrastRatio": 4.6116
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#C64220",
+          "candidate": "#D6775E",
+          "whiteMix": 0.277778,
+          "contrastRatio": 4.6136
+        }
+      }
+    },
+    "stream": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#CF5568",
+          "candidate": "#D77382",
+          "whiteMix": 0.173529,
+          "contrastRatio": 4.6167
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#CF5568",
+          "candidate": "#D77382",
+          "whiteMix": 0.173529,
+          "contrastRatio": 4.6167
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#D76A78",
+          "candidate": "#D9727F",
+          "whiteMix": 0.050336,
+          "contrastRatio": 4.6164
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#C63D58",
+          "candidate": "#D67386",
+          "whiteMix": 0.275773,
+          "contrastRatio": 4.6109
+        }
+      }
+    },
+    "teams": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#7675D0",
+          "candidate": "#8A89D7",
+          "whiteMix": 0.142336,
+          "contrastRatio": 4.6001
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#7675D0",
+          "candidate": "#8A89D7",
+          "whiteMix": 0.142336,
+          "contrastRatio": 4.6001
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#8784D6",
+          "candidate": "#8B89D8",
+          "whiteMix": 0.036585,
+          "contrastRatio": 4.6191
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#6566CA",
+          "candidate": "#898AD6",
+          "whiteMix": 0.232026,
+          "contrastRatio": 4.6208
+        }
+      }
+    },
+    "word": {
+      "background": "#292929",
+      "roles": {
+        "action": {
+          "sourceCss": "--colorBrandForeground1",
+          "outputCss": "--bui-v3-action-foreground",
+          "source": "#627CCD",
+          "candidate": "#788FD4",
+          "whiteMix": 0.141221,
+          "contrastRatio": 4.6265
+        },
+        "linkRest": {
+          "sourceCss": "--colorBrandForegroundLink",
+          "outputCss": "--bui-v3-link-foreground",
+          "source": "#627CCD",
+          "candidate": "#788FD4",
+          "whiteMix": 0.141221,
+          "contrastRatio": 4.6265
+        },
+        "linkHover": {
+          "sourceCss": "--colorBrandForegroundLinkHover",
+          "outputCss": "--bui-v3-link-foreground-hover",
+          "source": "#768BD3",
+          "candidate": "#7A8ED4",
+          "whiteMix": 0.025547,
+          "contrastRatio": 4.6051
+        },
+        "linkPressed": {
+          "sourceCss": "--colorBrandForegroundLinkPressed",
+          "outputCss": "--bui-v3-link-foreground-pressed",
+          "source": "#4B6FC7",
+          "candidate": "#7490D4",
+          "whiteMix": 0.225694,
+          "contrastRatio": 4.6295
+        }
+      }
+    }
   }
 }

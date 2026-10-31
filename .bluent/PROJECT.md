@@ -278,3 +278,7 @@ After resolving the branch refresh with current bluent-v3, the following source 
 A full solution Release build was attempted twice and remains blocked by two NU1903 high-severity vulnerability findings on Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in Bluent.UI.Demo.SSR (GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4). These are not suppressed or changed as part of #418. All other projects reached compile in the no-restore attempt; the Demo and UI projects built independently with -warnaserror.
 
 A separate redundant forced-colors probe produced no output while stuck before its first diagnostic and was terminated; it is not counted as a passing run. The main real-browser probe above did complete its forced-colors computed-style assertions. This worktree refresh has no unmerged conflict paths, but is not complete until the merge commit is pushed and exact-head GitHub CI is green. #418 stays Review; no public-token approval is inferred from this engineering refresh.
+
+## 2026-10-31 #418 — approved direction, candidate values in review
+
+The maintainer approved brand-preserving Dark foregrounds. The #418 generator now creates ten per-brand sets × four distinct roles (40 pairs), targeting 4.6:1 after RGB rounding. The existing 35 logical token inventory and stable 2.x assets remain unchanged. Exact candidates are preview-only pending rendered consumer and accessibility acceptance. See docs/v3/tokens/CONTRAST-AUDIT.md and owned Penpot page 45.

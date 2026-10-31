@@ -31,6 +31,16 @@
              dir="@(_rtl ? "rtl" : "ltr")" aria-label="v3 opt-in token experiment">
         <h2>Real Button / TextField / Overlay</h2>
         <p>Use Tab and Shift+Tab to inspect focus. Switch Light/Dark and LTR/RTL to compare computed colors.</p>
+        <section class="v3-brand-foreground-preview" id="v3-link-preview" aria-label="Brand-preserving Dark foreground candidates" data-testid="v3-brand-foreground-preview">
+            <h3>Brand-preserving Dark foreground candidates</h3>
+            <p>Each brand keeps its own foreground hue. Rest, Hover and Pressed use separate source-matched candidates; this preview is opt-in and not a released token API.</p>
+            <div class="v3-brand-foreground-samples">
+                <strong class="v3-brand-foreground-action" data-testid="v3-brand-action-rest">Action · Rest</strong>
+                <a class="v3-brand-foreground-link" href="#v3-link-preview" data-testid="v3-brand-link-rest">Link · Rest</a>
+                <a class="v3-brand-foreground-link" href="#v3-link-preview" data-v3-link-state="hover" data-testid="v3-brand-link-hover">Link · Hover</a>
+                <a class="v3-brand-foreground-link" href="#v3-link-preview" data-v3-link-state="pressed" data-testid="v3-brand-link-pressed">Link · Pressed</a>
+            </div>
+        </section>
         <div class="v3-lab-actions">
             <Button id="v3-token-action" Text="Primary action" Appearance="ButtonAppearance.Primary" OnClick="Submit" />
             <Button id="v3-disabled-button" Text="Disabled" disabled />

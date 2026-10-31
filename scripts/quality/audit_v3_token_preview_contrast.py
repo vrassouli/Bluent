@@ -127,6 +127,60 @@ def main() -> int:
     if len(rows) != 20:
         issues.append(f"Expected 20 source brand/mode combinations; got {len(rows)}")
 
+    # User-approved direction: keep each source brand hue, derive separate
+    # Dark Rest/Hover/Pressed candidates from their corresponding source role.
+    # These are opt-in preview values, not public token/API acceptance.
+    dark_candidates = matrix.get("darkBrandForegroundCandidates", {})
+    candidate_pairs = []
+    expected_candidate_sources = {
+        "action": "--colorBrandForeground1",
+        "linkRest": "--colorBrandForegroundLink",
+        "linkHover": "--colorBrandForegroundLinkHover",
+        "linkPressed": "--colorBrandForegroundLinkPressed",
+    }
+    candidate_brands = {
+        key for key, value in dark_candidates.items()
+        if isinstance(value, dict) and "roles" in value
+    }
+    if candidate_brands != EXPECTED_ALL_DARK_BRANDS:
+        issues.append(
+            "Expected one generated dark foreground candidate set for every brand: "
+            f"got {sorted(candidate_brands)}"
+        )
+    for brand in sorted(EXPECTED_ALL_DARK_BRANDS):
+        entry = dark_candidates.get(brand, {})
+        background = entry.get("background")
+        if not background:
+            issues.append(f"Missing Dark candidate background for {brand}")
+            continue
+        if background.upper() != load_source_tokens(THEME_DIR / f"theme-{brand}-dark.css", ["--colorNeutralBackground1"])["--colorNeutralBackground1"].upper():
+            issues.append(f"Dark candidate background drift for {brand}")
+        role_values = entry.get("roles", {})
+        if set(role_values) != set(expected_candidate_sources):
+            issues.append(f"Expected four separate Rest/Hover/Pressed foreground roles for {brand}")
+            continue
+        source_values = load_source_tokens(
+            THEME_DIR / f"theme-{brand}-dark.css", list(expected_candidate_sources.values())
+        )
+        for role, source_name in expected_candidate_sources.items():
+            candidate = role_values[role]
+            if candidate.get("sourceCss") != source_name or candidate.get("outputCss") is None:
+                issues.append(f"Foreground role/source mapping drift for {brand}/{role}")
+                continue
+            if candidate.get("source", "").upper() != source_values[source_name].upper():
+                issues.append(f"Foreground source value mismatch for {brand}/{role}")
+            measured = contrast(candidate["candidate"], background)
+            candidate_pairs.append({"brand": brand, "role": role, "ratio": measured})
+            if measured < 4.5:
+                issues.append(f"Dark brand foreground below minimum 4.5:1: {brand}/{role}={measured:.4f}")
+            if measured < 4.6:
+                issues.append(f"Dark brand foreground missed preview buffer 4.6:1: {brand}/{role}={measured:.4f}")
+            if abs(measured - float(candidate.get("contrastRatio", -1))) > 0.0001:
+                issues.append(f"Stored/computed candidate contrast mismatch for {brand}/{role}")
+
+    if len(candidate_pairs) != 40:
+        issues.append(f"Expected 40 dark brand foreground candidate pairs; got {len(candidate_pairs)}")
+
     observed_foreground2_gaps = {
         row["brand"] for row in rows
         if row["mode"] == "dark" and row["brandForeground2"] < 4.5
@@ -177,9 +231,20 @@ def main() -> int:
     }
     print(json.dumps({
         "pass": not issues,
-        "classification": "Numerical contrast of selected opaque source-backed token colors; not full WCAG/AT",
+        "classification": "300 source-backed opaque-pair diagnostics plus 40 generated per-brand Dark foreground preview pairs; not full WCAG/AT",
         "brandModePairs": len(rows),
-        "checks": len(rows) * 15,
+        "checks": len(rows) * 15 + len(candidate_pairs),
+        "sourceDiagnosticChecks": len(rows) * 15,
+        "darkBrandForegroundCandidatePairs": len(candidate_pairs),
+        "darkBrandForegroundCandidatesBelow4_5": sum(item["ratio"] < 4.5 for item in candidate_pairs),
+        "darkBrandForegroundCandidatesBelow4_6": sum(item["ratio"] < 4.6 for item in candidate_pairs),
+        "darkBrandForegroundCandidateMinimum": round(min((item["ratio"] for item in candidate_pairs), default=0), 4),
+        "darkBrandForegroundCandidateMinimumByRole": {
+            role: round(min((item["ratio"] for item in candidate_pairs if item["role"] == role), default=0), 4)
+            for role in expected_candidate_sources
+        },
+        "darkBrandForegroundDirectionApproved": True,
+        "darkBrandForegroundValuesApprovedForProduction": False,
         "coreContrastPairs": len(rows) * 4,
         "draftForegroundDiagnosticPairs": len(rows) * 3,
         "candidateRoleDiagnosticPairs": len(rows) * 2,
@@ -216,7 +281,11 @@ def main() -> int:
         "sourceCandidate": "--colorPaletteRedForeground1",
         "reviewRequired": True,
         "reviewNotes": [
-            "The opt-in draft action.foreground alias currently resolves to --colorBrandForeground1.",
+            "The maintainer approved the brand-preserving direction: each brand keeps a dedicated Dark foreground derived from its own source hue.",
+            "The generated opt-in preview now contains 40 Dark candidate values: Action Rest, Link Rest, Link Hover and Link Pressed for all ten source brands; all meet the 4.6:1 preview target against the emitted neutral Dark surface.",
+            "Link Hover and Pressed candidates derive from their own corresponding state sources; no state value is substituted for Rest.",
+            "Exact values are design/review candidates, not approved public token names or shipped CSS; rendered Blazor, forced-colors and native AT review remain separate gates.",
+            "The opt-in draft action.foreground alias currently resolves to --colorBrandForeground1 in the base mapping; a per-brand Dark selector overrides it only inside the existing v3 token scope.",
             "All ten Dark brand action foreground pairs are below 4.5:1 on --colorNeutralBackground1.",
             "The source --colorBrandForegroundLink also falls below 4.5:1 in all ten Dark brands.",
             "The source --colorBrandForeground2 alternative remains below 4.5:1 in eight Dark brands.",
@@ -228,7 +297,7 @@ def main() -> int:
             "The source --colorNeutralForeground1 is above 4.5:1 in all 20 pairs (minimum 14.548:1), but it is neutral rather than branded.",
             "The source --colorNeutralForeground2Link is above 4.5:1 in all 20 pairs (minimum 10.010:1), but it is a neutral link role, not a branded action role.",
             "The source --colorNeutralForeground3 is above 4.5:1 in all 20 pairs (minimum 6.193:1), but it is a lower-emphasis neutral role and needs hierarchy review.",
-            "Do not treat any candidate source role as the approved action.foreground mapping without a reviewed semantic decision.",
+            "The brand-preserving direction is approved, but candidate color values and public token names remain gated on editable design review and rendered Blazor/forced-colors/AT evidence.",
         ],
     }, indent=2))
     return int(bool(issues))

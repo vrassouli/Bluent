@@ -319,5 +319,37 @@
       "inverted": "--colorBrandForeground2"
     },
     "modeAttribute": "data-bui-v3-focus-mode"
+  },
+  "darkBrandForegroundPreview": {
+    "status": "Maintainer-approved direction; exact values are source-derived preview candidates, not final public tokens",
+    "designFileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "designPageId": "d0bcea67-3af4-8071-8008-d8e442b90ed1",
+    "designBoardId": "fce13529-02e2-80e4-8008-df6f76b3b4ac",
+    "minimumContrastRatio": 4.5,
+    "targetContrastRatio": 4.6,
+    "backgroundCss": "--colorNeutralBackground1",
+    "brandAttribute": "data-bui-brand",
+    "themeAttribute": "data-bui-theme",
+    "mixDirection": "white",
+    "algorithm": "minimum per-role sRGB interpolation toward white, rounded to 8-bit RGB, then rechecked against the target ratio",
+    "roles": {
+      "action": {
+        "sourceCss": "--colorBrandForeground1",
+        "outputCss": "--bui-v3-action-foreground"
+      },
+      "linkRest": {
+        "sourceCss": "--colorBrandForegroundLink",
+        "outputCss": "--bui-v3-link-foreground"
+      },
+      "linkHover": {
+        "sourceCss": "--colorBrandForegroundLinkHover",
+        "outputCss": "--bui-v3-link-foreground-hover"
+      },
+      "linkPressed": {
+        "sourceCss": "--colorBrandForegroundLinkPressed",
+        "outputCss": "--bui-v3-link-foreground-pressed"
+      }
+    },
+    "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest."
   }
 }

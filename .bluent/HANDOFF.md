@@ -58,3 +58,7 @@ Complete the remaining acceptance work for [Issue #418](https://github.com/vrass
 ## Completed Parallel Work
 
 The v2.x consumer-skill workstream is complete: [Issue #406](https://github.com/vrassouli/Bluent/issues/406) is closed and [PR #407](https://github.com/vrassouli/Bluent/pull/407) is merged. The canonical Bluent-first consumer Skill and 65-family retrieval inventory remain maintained; they are not the active workstream for this checkout.
+
+## 2026-10-31 #418 — brand-preserving Dark foreground candidates
+
+Maintainer-approved direction: retain each of the ten brand hues with separate Dark Action Rest, Link Rest, Link Hover and Link Pressed foregrounds. Generated per-brand preview values use the minimum sRGB mix toward white to reach 4.6:1 against each emitted Dark neutral surface; the floor is 4.5:1. The 40 pair audit passes with minimum 4.6001:1. Exact candidate values remain draft, scoped to opt-in v3 token hosts, and are recorded in docs/v3/tokens/CONTRAST-AUDIT.md / Penpot page 45. No stable theme, public API or package changed. Rendered Blazor, forced-colors/native OS and AT acceptance remain separate gates.

@@ -77,3 +77,34 @@ For all 10 Light themes, the first two tested roles meet 4.5:1 on the neutral su
 The existing generated alias is defined in the [opt-in preview CSS](issue-418-opt-in.preview.css) as `--bui-v3-action-foreground: var(--colorBrandForeground1)`. A repository search did not find a component consuming that alias yet. Therefore this is **not being reported as a regression in a shipped component**, and no stable CSS, token value, or public API was changed. It is a token-contract/design acceptance gap: before any future consumer uses `action.foreground` for ordinary text or links, maintainers must decide its intended semantic role and select or define a mapping that satisfies that role across all supported brands/modes. Do not assume `colorBrandForeground2` fixes the gap: its value is below 4.5:1 in eight Dark brand themes. The same source scan found `--colorBrandForeground2Hover` and `--colorNeutralForeground2` above 4.5:1 in all 20 brand/mode cases; however, the former is explicitly a Hover-state role and the latter neutral, so neither is selected as generic `action.foreground` here. Fluent 2 documents BrandForeground2 and BrandForeground2Hover as distinct Rest/Hover aliases ([official alias token table](https://fluent2.microsoft.design/color-tokens2/)).
 
 The existing [Fluent 2 alias token reference](https://fluent2.microsoft.design/color-tokens/) distinguishes BrandForeground1, BrandForeground2, and BrandForegroundLink roles. Those source names do not by themselves prove that the current customized brand palettes meet a specific contrast target; measured values and the intended consumer role still need review.
+
+## 2026-10-31 — maintainer decision: preserve per-brand Dark foregrounds
+
+**Approved direction:** retain brand identity in Dark Mode by giving each of the ten source brands its own readable foreground. The ordinary Action/Link Rest value is not replaced with a neutral role, nor borrowed from Hover or Pressed. Each interaction role is derived independently from its corresponding brand source token.
+
+The actual editable Penpot decision page is [page 45 — semantic contrast decision review](https://design.penpot.app/#/workspace?file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=d0bcea67-3af4-8071-8008-d8e442b90ed1); the companion board is `#418 · Per-brand Dark foreground candidates · DRAFT` (board `fce13529-02e2-80e4-8008-df6f76b3b4ac`). The direction is approved by the maintainer; exact values remain draft candidates pending rendered consumer review.
+
+### Candidate generation rule
+
+- Background: each brand’s emitted `--colorNeutralBackground1` in Dark Mode (currently `#292929` for all ten).
+- Minimum normal-text contrast floor: **4.5:1**. The preview algorithm targets **4.6:1** to leave a small buffer for 8-bit RGB rounding.
+- Each source foreground is moved the minimum distance toward white in sRGB space, rounded to an opaque 8-bit hex value, then measured again. This preserves the brand hue family while improving lightness.
+- Four separate source roles are evaluated: `--colorBrandForeground1`, `--colorBrandForegroundLink`, `--colorBrandForegroundLinkHover`, and `--colorBrandForegroundLinkPressed`.
+- Preview CSS overrides only the corresponding variables inside the existing opt-in `data-bui-v3-tokens` / `data-bui-brand` / `data-bui-theme` scope. It is not included in the stable 2.x bundle and does not rename or change legacy CSS.
+
+| Brand | Action Rest | Link Rest | Link Hover | Link Pressed |
+| --- | --- | --- | --- | --- |
+| Default | `#6793CF` (4.608:1) | `#6793CF` (4.608:1) | `#6A93D0` (4.640:1) | `#6094D0` (4.603:1) |
+| Excel | `#5B9F71` (4.602:1) | `#5B9F71` (4.602:1) | `#60A072` (4.689:1) | `#5A9F73` (4.601:1) |
+| Office | `#E56E46` (4.607:1) | `#E56E46` (4.607:1) | `#E86C40` (4.607:1) | `#DC744D` (4.606:1) |
+| Outlook | `#5394DD` (4.605:1) | `#5394DD` (4.605:1) | `#5E92DE` (4.602:1) | `#4197DB` (4.624:1) |
+| Powerapps | `#B082AD` (4.602:1) | `#B082AD` (4.602:1) | `#B082AD` (4.602:1) | `#B082AE` (4.607:1) |
+| Powerbi | `#A79036` (4.632:1) | `#A79036` (4.632:1) | `#AC8F1A` (4.640:1) | `#A3904A` (4.604:1) |
+| Powerpoint | `#D8765A` (4.613:1) | `#D8765A` (4.613:1) | `#DA7555` (4.612:1) | `#D6775E` (4.614:1) |
+| Stream | `#D77382` (4.617:1) | `#D77382` (4.617:1) | `#D9727F` (4.616:1) | `#D67386` (4.611:1) |
+| Teams | `#8A89D7` (4.600:1) | `#8A89D7` (4.600:1) | `#8B89D8` (4.619:1) | `#898AD6` (4.621:1) |
+| Word | `#788FD4` (4.627:1) | `#788FD4` (4.627:1) | `#7A8ED4` (4.605:1) | `#7490D4` (4.630:1) |
+
+**Validation:** 40 generated opaque-color candidate pairs (10 brands × 4 roles); all 40 are at least **4.6001:1** against their corresponding emitted Dark neutral background. The existing 300 source-role diagnostics are intentionally preserved, including all ten Dark `BrandForeground1` / `BrandForegroundLink` gaps, eight Dark `BrandForegroundLinkHover` gaps, and ten Dark `BrandForegroundLinkPressed` gaps. The generator does not substitute a state role to hide any source finding.
+
+**Still not a full accessibility sign-off:** these results cover numerical contrast for opaque text/background pairs. They do not certify gradients, alpha compositing, forced-colors/native OS behavior, rendered component states, browser zoom/reflow or screen-reader output. Keep exact candidate colors and public semantic token names in Review until the actual Blazor consumer matrix and the remaining accessibility gates are satisfied.
