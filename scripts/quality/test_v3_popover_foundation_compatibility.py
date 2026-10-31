@@ -64,11 +64,12 @@ class FoundationInteropCompatibility(unittest.TestCase):
             "not-yet-integrated",
         )
 
-    def test_explicit_opt_in_only_preserves_collapsed_surface_idref(self):
+    def test_explicit_opt_in_preserves_collapsed_surface_idref_and_rebind_state(self):
         self.assertIn("persistentControls = this.isOptInDisclosure(settings)", self.ts)
         self.assertIn("if (controls && persistentControls)", self.ts)
         self.assertIn("if (visible || entry.persistentControls)", self.ts)
-        self.assertIn("trigger.setAttribute('aria-expanded', 'false')", self.ts)
+        self.assertIn("const initiallyVisible = this.getSurface(settings)?.classList.contains('show') === true", self.ts)
+        self.assertIn("trigger.setAttribute('aria-expanded', initiallyVisible ? 'true' : 'false')", self.ts)
         self.assertIn("if (entry.controls)", self.ts)
         self.assertIn("entry.trigger.removeAttribute('aria-controls')", self.ts)
         self.assertIn("trigger: Element; expanded: boolean; controls: boolean; persistentControls: boolean", self.ts)

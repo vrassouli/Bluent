@@ -166,6 +166,8 @@ class InteropSourceContractTests(unittest.TestCase):
             "new Popover({invokeMethodAsync:async()=>{}})",
             "explicit opt-in ARIA points to mounted surface initially",
             "explicit opt-in collapsed ARIA preserves mounted controls",
+            "explicit opt-in rebind preserves aria-expanded from the visible KeepSurface",
+            "explicit opt-in rebind restores aria-expanded=false for the collapsed KeepSurface",
             "nested opt-in Popover leaves outside Escape to parent Modal",
             "nested opt-in Popover consumes own Escape and restores trigger focus",
             "ordinary click trigger starts collapsed with no dangling controls",

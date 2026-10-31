@@ -317,6 +317,16 @@ try{
    result.optInOpen=pair.b.getAttribute('aria-expanded')==='true'&&pair.b.getAttribute('aria-controls')===id+'_surface';
    instance.setDisclosureExpanded(config,false);
    result.optInClosed=pair.b.getAttribute('aria-expanded')==='false'&&pair.b.getAttribute('aria-controls')===id+'_surface';
+   // Blazor may replace the trigger while KeepSurface remains mounted.
+   // Rebinding must reconstruct aria-expanded from the actual surface state.
+   pair.s.classList.add('show');pair.s.classList.remove('hidden');
+   const openReplacement=document.createElement('button');openReplacement.id=id;openReplacement.textContent=id;
+   pair.b.replaceWith(openReplacement);pair.b=openReplacement;instance.setPopover(config);
+   result.optInRebindWhileOpen=pair.b.getAttribute('aria-expanded')==='true'&&pair.b.getAttribute('aria-controls')===id+'_surface';
+   pair.s.classList.remove('show');pair.s.classList.add('hidden');
+   const closedReplacement=document.createElement('button');closedReplacement.id=id;closedReplacement.textContent=id;
+   pair.b.replaceWith(closedReplacement);pair.b=closedReplacement;instance.setPopover(config);
+   result.optInRebindWhileClosed=pair.b.getAttribute('aria-expanded')==='false'&&pair.b.getAttribute('aria-controls')===id+'_surface';
    const modalSibling=document.createElement('button');modalSibling.textContent='outside opt-in popover';host.append(modalSibling);
    pair.s.classList.add('show');pair.s.classList.remove('hidden');
    instance._openSurfaces.push(config);
@@ -350,6 +360,8 @@ try{
   ["explicit opt-in ARIA points to mounted surface initially",optinRuntime.optInInitial],
   ["explicit opt-in expanded ARIA uses stable live controls",optinRuntime.optInOpen],
   ["explicit opt-in collapsed ARIA preserves mounted controls",optinRuntime.optInClosed],
+  ["explicit opt-in rebind preserves aria-expanded from the visible KeepSurface",optinRuntime.optInRebindWhileOpen],
+  ["explicit opt-in rebind restores aria-expanded=false for the collapsed KeepSurface",optinRuntime.optInRebindWhileClosed],
   ["nested opt-in Popover leaves outside Escape to parent Modal",optinRuntime.optInEscapeOutside],
   ["nested opt-in Popover consumes own Escape and restores trigger focus",optinRuntime.optInEscapeInside],
   ["ordinary click trigger starts collapsed with no dangling controls",optinRuntime.regularInitial],
