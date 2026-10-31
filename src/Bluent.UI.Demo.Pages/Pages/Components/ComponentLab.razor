@@ -1,0 +1,1088 @@
+@page "/component-lab"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Enums
+@using Bluent.UI.Components.FileSelectComponent
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<PageTitle>Component Lab · Bluent v3</PageTitle>
+
+<main class="component-lab" data-lab-interactive="@(_interactive ? "true" : "false")">
+    <header class="lab-heading">
+        <div>
+            <span class="lab-eyebrow">Bluent v3 · Work in progress</span>
+            <h1>Component Lab</h1>
+            <p>Search existing Bluent families, experiment with live controls, and track evidence before a component is accepted for v3.</p>
+        </div>
+        <span class="lab-state">Pilot · not v3 acceptance</span>
+    </header>
+
+    <section class="lab-filter" aria-label="Component catalog search">
+        <label for="lab-search">Search components</label>
+        <input id="lab-search" type="search" @bind="_search" @bind:event="oninput"
+               placeholder="Button, Icon, Label..." autocomplete="off" />
+        <p role="status">@Filtered.Count available catalog entries. This is a pilot index, not the exhaustive 66-component coverage ledger.</p>
+        <div class="lab-catalog" aria-label="Pilot family choices">
+            @foreach (var family in Filtered)
+            {
+                <button type="button" class="lab-family @(_selected == family.Id ? "selected" : "")"
+                        aria-pressed="@(_selected == family.Id)"
+                        @onclick="() => Select(family.Id)">
+                    <span>@family.Title</span>
+                    <small>@family.Coverage</small>
+                </button>
+            }
+        </div>
+        @if (Filtered.Count == 0)
+        {
+            <p role="status">No matching family in this pilot catalog.</p>
+        }
+    </section>
+
+    <section class="lab-controls" aria-label="Live preview controls">
+        <div>
+            <label for="lab-direction">Direction</label>
+            <select id="lab-direction" @bind="_direction">
+                <option value="ltr">Left to right</option>
+                <option value="rtl">Right to left</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-viewport">Preview width</label>
+            <select id="lab-viewport" @bind="_viewport">
+                <option value="wide">Fluid</option>
+                <option value="narrow">Mobile (320px)</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-density">Spacing density</label>
+            <select id="lab-density" @bind="_density">
+                <option value="normal">Default</option>
+                <option value="compact">Compact</option>
+            </select>
+        </div>
+        <div>
+            <label for="lab-contrast">Canvas</label>
+            <select id="lab-contrast" @bind="_contrast">
+                <option value="light">Light backdrop</option>
+                <option value="dark">Dark backdrop</option>
+            </select>
+        </div>
+        <p class="lab-controls-note">Canvas changes affect only this sample backdrop; they do not switch Bluent's global theme or certify its token mapping.</p>
+    </section>
+
+    <section class="lab-stage" aria-label="Component live scenario">
+        <div class="lab-stage-heading">
+            <div>
+                <h2>@Selected.Title · @Selected.Scenario</h2>
+                <p>@Selected.Description</p>
+            </div>
+            <a href="@Selected.Href">Full existing demo <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="lab-canvas @(_viewport == "narrow" ? "narrow" : "") @(_density == "compact" ? "compact" : "")"
+             data-lab-canvas="@_contrast" dir="@_direction">
+            @if (_selected == "button")
+            {
+                <div class="lab-examples">
+                    <Button Text="Continue" Appearance="ButtonAppearance.Primary"
+                            OnClick="() => _clickCount++" />
+                    <Button Text="Secondary" Appearance="@_buttonAppearance"
+                            Size="@_buttonSize" Shape="@_buttonShape"
+                            OnClick="() => _clickCount++" />
+                    <Button Text="Unavailable" disabled />
+                    <Button Text="Pin selection" Toggled="@_buttonToggled"
+                            ToggledChanged="ButtonToggledAsync" />
+                    <Button Text="Open guide" Href="getting-started"
+                            Appearance="ButtonAppearance.Subtle" />
+                </div>
+                <p role="status" class="lab-toggle-status">Pinned: @(_buttonToggled ? "yes" : "no"); change callbacks: @_toggleEvents</p>
+                <div class="lab-advanced-actions" aria-label="Current Button advanced API examples">
+                    <div class="lab-advanced-group">
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Compound and Badge</span>
+                        <Button Text="Notifications" SecondaryText="Recent activity" Compact="true"
+                                BadgeHorizontalPosition="HorizontalSides.End"
+                                BadgeVerticalPosition="VerticalSides.Bottom">
+                            <Badge>
+                                <Badge Text="3" Size="BadgeSize.Small" />
+                            </Badge>
+                        </Button>
+                    </div>
+                    <div class="lab-advanced-group">
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Dropdown actions</span>
+                        <Button Text="More actions" ShowDropdownIndicator="true"
+                                DropdownPlacement="Placement.BottomEnd">
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Export report" OnClick="ChooseExportAsync" />
+                                    <MenuItem Title="Share summary" OnClick="ChooseShareAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p role="status" class="lab-menu-status" dir="ltr" lang="en">Menu choice: @_lastMenuChoice; callbacks: @_menuEvents</p>
+                    </div>
+
+                    <div class="lab-advanced-group lab-split-action" aria-label="Current Button split primary action and dropdown example">
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Split action · existing Button API</span>
+                        <Button Text="Send now" OnClick="ChooseSplitPrimaryAsync"
+                                Appearance="ButtonAppearance.Primary"
+                                DropdownPlacement="Placement.BottomEnd">
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Schedule send" OnClick="ChooseSplitScheduleAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p role="status" class="lab-split-status" dir="ltr" lang="en">Sent: @_splitPrimaryEvents; scheduled: @_splitScheduleEvents</p>
+                    </div>
+                    <div class="lab-advanced-group lab-split-disabled" aria-label="Current disabled Split Button real behavior specimen">
+                        <span class="lab-advanced-label" dir="ltr" lang="en">Disabled split · existing Button API</span>
+                        <Button Text="Send disabled" OnClick="ChooseSplitPrimaryAsync"
+                                Appearance="ButtonAppearance.Primary"
+                                DropdownPlacement="Placement.BottomEnd" disabled>
+                            <Dropdown>
+                                <MenuList>
+                                    <MenuItem Title="Schedule disabled" OnClick="ChooseSplitScheduleAsync" />
+                                </MenuList>
+                            </Dropdown>
+                        </Button>
+                        <p class="lab-split-disabled-help" dir="ltr" lang="en">Neither the primary action nor the menu should activate.</p>
+                    </div>
+                </div>
+                <div class="lab-orientation-examples" aria-label="Current Button Icon TextClass Orientation Rotated examples">
+                    <div class="lab-orientation-group">
+                        <span class="lab-advanced-label">Icon, TextClass and Vertical orientation</span>
+                        <Button id="lab-button-vertical" Text="Vertical action"
+                                Icon="@FluentIcons.Settings" TextClass="lab-custom-button-text"
+                                Orientation="Orientation.Vertical" />
+                    </div>
+                    <div class="lab-orientation-group">
+                        <span class="lab-advanced-label">Rotated direction, current API</span>
+                        <Button id="lab-button-rotated" Text="Rotated action"
+                                Icon="@FluentIcons.Search" Rotated="true" />
+                    </div>
+                </div>
+                <fieldset class="lab-button-variants" aria-label="Live Button variant explorer">
+                    <legend>Button public API variants · exploratory, not approved v3 parity</legend>
+                    <div>
+                        <label for="lab-button-appearance">Appearance</label>
+                        <select id="lab-button-appearance" @bind="_buttonAppearance">
+                            @foreach (var appearance in Enum.GetValues<ButtonAppearance>())
+                            {
+                                <option value="@appearance">@appearance</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lab-button-size">Size</label>
+                        <select id="lab-button-size" @bind="_buttonSize">
+                            @foreach (var size in Enum.GetValues<ButtonSize>())
+                            {
+                                <option value="@size">@size</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lab-button-shape">Shape</label>
+                        <select id="lab-button-shape" @bind="_buttonShape">
+                            @foreach (var shape in Enum.GetValues<ButtonShape>())
+                            {
+                                <option value="@shape">@shape</option>
+                            }
+                        </select>
+                    </div>
+                </fieldset>
+                <p role="status" class="lab-click-status">Completed clicks: @_clickCount</p>
+            }
+            else if (_selected == "icon")
+            {
+                <div class="lab-examples">
+                    <Icon Value="@FluentIcons.Settings" />
+                    <Icon Value="@FluentIcons.Save" />
+                    <Icon Value="@FluentIcons.Search" />
+                </div>
+                <div class="lab-api-demo" aria-label="Current Icon API selector">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-icon-value">Fluent Icon</label>
+                            <select id="lab-icon-value" @bind="_iconChoice">
+                                <option value="Settings">Settings</option>
+                                <option value="Search">Search</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-icon-variant">Variant</label>
+                            <select id="lab-icon-variant" @bind="_iconVariant">
+                                @foreach (var variant in Enum.GetValues<IconVariant>())
+                                {
+                                    <option value="@variant">@variant</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-icon-selected">
+                        <Icon Value="@(_iconChoice == "Search" ? FluentIcons.Search : FluentIcons.Settings)"
+                              Variant="@_iconVariant" Class="lab-selected-icon" Style="width:32px;height:32px;" />
+                        <span class="lab-icon-selection">Selected: @_iconChoice / @_iconVariant</span>
+                    </div>
+                    <div class="lab-color-research" aria-label="Opt-in official Fluent color asset research, not a public Color variant">
+                        <div class="lab-color-icons">
+                            <Icon Value="@ComponentLabColorApps.Preview" Class="lab-color-preview-icon" aria-hidden="true" />
+                            <Icon Value="@FluentIcons.Apps" Variant="IconVariant.Filled"
+                                  Class="lab-color-preview-monochrome" aria-hidden="true" />
+                        </div>
+                        <div>
+                            <strong>Apps 20 · Color SVG preview</strong>
+                            <p>Real official gradient asset. Forced colors uses Filled automatically.
+                                This uses the existing FromSvg API; public IconVariant.Color is proposed in #429, not implemented.</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (_selected == "label")
+            {
+                <div class="lab-examples">
+                    <Label Text="Customer name" />
+                </div>
+                <div class="lab-api-demo" aria-label="Current Label API selector">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-label-size">Size</label>
+                            <select id="lab-label-size" @bind="_labelSize">
+                                @foreach (var size in Enum.GetValues<LabelSize>())
+                                {
+                                    <option value="@size">@size</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-label-required">Required</label>
+                            <select id="lab-label-required" @bind="_labelRequired">
+                                @foreach (var state in Enum.GetValues<LabelRequiredState>())
+                                {
+                                    <option value="@state">@state</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-form-example">
+                        <Label Text="Contact email" ForExpression="() => LabEmail" Size="@_labelSize"
+                               Required="@_labelRequired" RequiredSymbol="!" />
+                        <input type="email" id="LabEmail" @bind="LabEmail" placeholder="email@example.com" />
+                    </div>
+                    <div class="lab-form-help">
+                        <Label Text="Email help">
+                            <Info>
+                                <span class="lab-help-copy">Use a work email for contact.</span>
+                            </Info>
+                        </Label>
+                    </div>
+                </div>
+            }
+            else if (_selected == "badge")
+            {
+                <div class="lab-api-demo" aria-label="Current Badge public API explorer">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-badge-appearance">Appearance</label>
+                            <select id="lab-badge-appearance" @bind="_badgeAppearance">
+                                @foreach (var value in Enum.GetValues<BadgeAppearance>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-size">Size</label>
+                            <select id="lab-badge-size" @bind="_badgeSize">
+                                @foreach (var value in Enum.GetValues<BadgeSize>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-shape">Shape</label>
+                            <select id="lab-badge-shape" @bind="_badgeShape">
+                                @foreach (var value in Enum.GetValues<BadgeShape>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-color">Color</label>
+                            <select id="lab-badge-color" @bind="_badgeColor">
+                                @foreach (var value in Enum.GetValues<BadgeColor>())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-badge-text">Text</label>
+                            <select id="lab-badge-text" @bind="_badgeText">
+                                <option value="3">3</option>
+                                <option value="Ready">Ready</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-badge-flags" aria-label="Optional Badge capabilities">
+                        <label><input id="lab-badge-icon" type="checkbox" @bind="_badgeHasIcon" /> Icon</label>
+                        <label><input id="lab-badge-shadow" type="checkbox" @bind="_badgeDropShadow" /> DropShadow</label>
+                        <label><input id="lab-badge-animate" type="checkbox" @bind="_badgeAnimateShadow" /> AnimateShadow</label>
+                    </div>
+                    <div class="lab-examples">
+                        <Badge Text="@_badgeText" Appearance="@_badgeAppearance" Size="@_badgeSize"
+                               Shape="@_badgeShape" Color="@_badgeColor"
+                               Icon="@(_badgeHasIcon ? FluentIcons.Settings : null)"
+                               DropShadow="@_badgeDropShadow" AnimateShadow="@_badgeAnimateShadow" />
+                    </div>
+                    <p class="lab-controls-note">Existing Badge public API specimen; visual/AT/forced-colors review for #445 is pending.</p>
+                </div>
+            }
+            else if (_selected == "textfield")
+            {
+                <div class="lab-textfield-grid" aria-label="Current TextField input textarea and disabled states">
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-input">Live text binding</label>
+                        <TextField id="lab-tf-input" @bind-Value="_labTextValue"
+                                   BindValueEvent="oninput" placeholder="Type a name" />
+                        <p role="status" class="lab-tf-value">Value: @_labTextValue</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-notes">Textarea (3 rows, no resize)</label>
+                        <TextField id="lab-tf-notes" @bind-Value="_labTextNotes"
+                                   Rows="3" ResizeTextarea="false" />
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-disabled">Disabled native input</label>
+                        <TextField id="lab-tf-disabled" Value="Read only sample" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing TextField API only. Focus, RTL, disabled contrast and field validation for #432 remain unapproved.</p>
+            }
+            else if (_selected == "checkbox")
+            {
+                <div class="lab-checkbox-grid" aria-label="Current Checkbox native states">
+                    <div class="lab-checkbox-card">
+                        <h3>Interactive checked state</h3>
+                        <Checkbox id="lab-cb-checked" @bind-Value="_labChecked" Label="Accept terms" />
+                        <p class="lab-cb-status" role="status">Checked: @_labChecked</p>
+                    </div>
+                    <div class="lab-checkbox-card">
+                        <h3>Nullable indeterminate state</h3>
+                        <Checkbox id="lab-cb-nullable" @bind-Value="_labNullableChecked"
+                                  Label="Permission" IndeterminateLabel="Not decided" />
+                        <p class="lab-cb-null-status" role="status">Value: @(_labNullableChecked?.ToString() ?? "Indeterminate")</p>
+                    </div>
+                    <div class="lab-checkbox-card">
+                        <h3>Disabled checked state</h3>
+                        <Checkbox id="lab-cb-disabled" Value="true" Label="Locked option" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current Checkbox API, not #434 Fluent v3 approval. Native disabled, pointer, keyboard and assistive-tech behavior require full acceptance.</p>
+            }
+            else if (_selected == "switch")
+            {
+                <div class="lab-switch-grid" aria-label="Current Switch on off and disabled specimens">
+                    <div class="lab-switch-card">
+                        <h3>Notifications</h3>
+                        <Switch id="lab-switch-primary" @bind-Value="_labSwitchOn"
+                                Label="Notifications on" UncheckedLabel="Notifications off" />
+                        <p class="lab-switch-status" role="status">Enabled: @_labSwitchOn</p>
+                    </div>
+                    <div class="lab-switch-card">
+                        <h3>Label before indicator</h3>
+                        <Switch id="lab-switch-before" @bind-Value="_labSwitchBefore"
+                                Label="Feature active" UncheckedLabel="Feature inactive"
+                                LabelPosition="LabelPosition.Before" />
+                    </div>
+                    <div class="lab-switch-card">
+                        <h3>Disabled switch</h3>
+                        <Switch id="lab-switch-disabled" Value="true" Label="Managed setting" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current Bluent Switch API. #435 redesign, accessible switch role and native OS/AT checks remain pending.</p>
+            }
+            else if (_selected == "numeric")
+            {
+                <div class="lab-numeric-grid" aria-label="Current numeric integer decimal and disabled inputs">
+                    <div class="lab-numeric-card">
+                        <label for="lab-numeric-live">Integer (1 to 99)</label>
+                        <NumericField id="lab-numeric-live" @bind-Value="_labInteger"
+                                      BindValueEvent="oninput" Min="1" Max="99"
+                                      OnFocus="NumericFocusedAsync" OnBlur="NumericBlurredAsync" />
+                        <p class="lab-numeric-status" role="status">Value: @_labInteger</p>
+                        <p class="lab-numeric-focus-status" role="status">Focus: @_numericFocusCount; blur: @_numericBlurCount</p>
+                    </div>
+                    <div class="lab-numeric-card">
+                        <label for="lab-numeric-decimal">Decimal formatted</label>
+                        <NumericField id="lab-numeric-decimal" @bind-Value="_labDecimal"
+                                      Format="G29" />
+                    </div>
+                    <div class="lab-numeric-card">
+                        <label for="lab-numeric-disabled">Disabled numeric input</label>
+                        <NumericField TValue="int" id="lab-numeric-disabled" Value="3" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing NumericField only. Full parsing, boundary errors, culture and v3 input accessibility still belong to #433.</p>
+            }
+            else if (_selected == "radio")
+            {
+                <div class="lab-radio-grid" aria-label="Existing public RadioGroup choice orientation and disabled states">
+                    <div class="lab-radio-card">
+                        <h3>Single choice</h3>
+                        <RadioGroup @bind-Value="_labRadioChoice" Label="Time preference">
+                            <Radio Id="lab-radio-am" Value="@("Morning")" Label="Morning" />
+                            <Radio Id="lab-radio-pm" Value="@("Afternoon")" Label="Afternoon" />
+                        </RadioGroup>
+                        <p class="lab-radio-status" role="status" lang="en" dir="ltr">Choice: @_labRadioChoice</p>
+                    </div>
+                    <div class="lab-radio-card">
+                        <h3>Vertical, label before</h3>
+                        <RadioGroup @bind-Value="_labRadioOrientation"
+                                    Label="Priority" Orientation="Orientation.Vertical"
+                                    ItemsLabelPosition="LabelPosition.Before">
+                            <Radio Id="lab-radio-high" Value="@("High")" Label="High" />
+                            <Radio Id="lab-radio-low" Value="@("Low")" Label="Low" />
+                        </RadioGroup>
+                        <p class="lab-radio-vertical-status" role="status" lang="en" dir="ltr">Priority: @_labRadioOrientation</p>
+                    </div>
+                    <div class="lab-radio-card">
+                        <h3>Unavailable option</h3>
+                        <RadioGroup @bind-Value="_labRadioRestricted" Label="Availability">
+                            <Radio Id="lab-radio-disabled" Value="@("Closed")" Label="Closed" disabled />
+                            <Radio Id="lab-radio-open" Value="@("Open")" Label="Open" />
+                        </RadioGroup>
+                        <p class="lab-radio-restricted-status" role="status" lang="en" dir="ltr">Availability: @_labRadioRestricted</p>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing RadioGroup/Radio API. Native fieldset/radiogroup semantics and arrow-key interaction are pending #436 acceptance.</p>
+            }
+            else if (_selected == "selectfield")
+            {
+                <div class="lab-select-grid" aria-label="Existing SelectField string int and disabled native selects">
+                    <div class="lab-select-card">
+                        <label for="lab-select-color">Live color selection</label>
+                        <SelectField id="lab-select-color" @bind-Value="_labSelectColor">
+                            <option value="Red">Red</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Green">Green</option>
+                        </SelectField>
+                        <p class="lab-select-color-status" role="status" lang="en" dir="ltr">Selected: @_labSelectColor</p>
+                    </div>
+                    <div class="lab-select-card">
+                        <label for="lab-select-priority">Integer value</label>
+                        <SelectField id="lab-select-priority" @bind-Value="_labSelectPriority">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </SelectField>
+                        <p class="lab-select-priority-status" role="status" lang="en" dir="ltr">Priority: @_labSelectPriority</p>
+                    </div>
+                    <div class="lab-select-card">
+                        <label for="lab-select-disabled">Disabled native select</label>
+                        <SelectField TValue="string" id="lab-select-disabled" Value="@_labSelectLocked" disabled>
+                            <option value="Locked">Locked</option>
+                            <option value="Other">Other</option>
+                        </SelectField>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing native SelectField API. Multi-value/culture/form validation, pointer and Fluent 2 accessibility for #437 remain pending.</p>
+            }
+            else if (_selected == "datefield")
+            {
+                <div class="lab-date-grid" aria-label="Current native masked DateField day month and disabled states">
+                    <div class="lab-date-card">
+                        <label for="lab-date-day">Date with calendar</label>
+                        <DateField id="lab-date-day" @bind-Value="_labDateDay"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                        <p class="lab-date-day-status" role="status" lang="en" dir="ltr">Day: @_labDateDay.ToString("yyyy/MM/dd")</p>
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-month">Month only (no popup)</label>
+                        <DateField id="lab-date-month" @bind-Value="_labDateMonth"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture"
+                                   Mode="CalendarMode.MonthSelect" DisplayCalendar="false" />
+                        <p class="lab-date-month-status" role="status" lang="en" dir="ltr">Month: @_labDateMonth.ToString("yyyy/MM")</p>
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-only">DateOnly (no popup)</label>
+                        <DateField id="lab-date-only" @bind-Value="_labDateOnly"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture"
+                                   DisplayCalendar="false" />
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-disabled">Disabled date</label>
+                        <DateField id="lab-date-disabled" Value="_labDateDisabled"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture"
+                                   DisplayCalendar="false" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing MaskedField-based DateField API. Culture parsing, calendar keyboard/pointer, validation and all Fluent 2 states remain #438 work.</p>
+            }
+            else if (_selected == "timefield")
+            {
+                <div class="lab-time-grid" aria-label="Existing masked TimeField TimeOnly seconds TimeSpan and disabled states">
+                    <div class="lab-time-card">
+                        <label for="lab-time-basic">TimeOnly hours/minutes</label>
+                        <TimeField id="lab-time-basic" @bind-Value="_labTimeBasic"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                        <p class="lab-time-basic-status" role="status" lang="en" dir="ltr">Time: @_labTimeBasic.ToString("HH:mm")</p>
+                    </div>
+                    <div class="lab-time-card">
+                        <label for="lab-time-seconds">TimeOnly with seconds</label>
+                        <TimeField id="lab-time-seconds" @bind-Value="_labTimeSeconds"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" Seconds />
+                    </div>
+                    <div class="lab-time-card">
+                        <label for="lab-time-span">TimeSpan duration</label>
+                        <TimeField id="lab-time-span" @bind-Value="_labTimeSpan"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                    </div>
+                    <div class="lab-time-card">
+                        <label for="lab-time-disabled">Disabled TimeOnly</label>
+                        <TimeField id="lab-time-disabled" Value="_labTimeDisabled"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing masked TimeField API. DateTime mode, validation, locales, native OS AT and Fluent2 parity remain #439 work.</p>
+            }
+            else if (_selected == "file")
+            {
+                <div class="lab-file-grid" aria-label="Current public FileSelect single multi and disabled specimens">
+                    <div class="lab-file-card">
+                        <span class="lab-file-label">Single .txt attachment</span>
+                        <FileSelect id="lab-file-single" Text="Choose text file" Accept=".txt" MaxFiles="1"
+                                    OnChange="OnLabSingleFilesChanged" />
+                        <p class="lab-file-single-status" role="status" lang="en" dir="ltr">Files: @_labSingleFileCount; names: @_labSingleFileNames</p>
+                    </div>
+                    <div class="lab-file-card">
+                        <span class="lab-file-label">Up to 2 text/markdown attachments</span>
+                        <FileSelect id="lab-file-multi" Text="Choose up to two files" Accept=".txt,.md" MaxFiles="2"
+                                    OnChange="OnLabMultipleFilesChanged" />
+                        <p class="lab-file-multi-status" role="status" lang="en" dir="ltr">Files: @_labMultiFileCount; names: @_labMultiFileNames</p>
+                    </div>
+                    <div class="lab-file-card">
+                        <span class="lab-file-label">Disabled button and hidden file info</span>
+                        <FileSelect id="lab-file-disabled" Text="File picker disabled" Accept=".png" Disabled
+                                    ShowFileInfo="false" AllowRemove="false" />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Accept is a browser chooser hint, not server-side file validation. Missing accessible remove names and exhaustive native picker cases remain #444.</p>
+            }
+            else if (_selected == "range")
+            {
+                <div class="lab-range-grid" aria-label="Actual source RangeSlider generic numeric specimens">
+                    <div class="lab-range-card">
+                        <span class="lab-range-title">Integer handles 20–80 on 0–100</span>
+                        <RangeSlider id="lab-range-int" @bind-Value="_labRangeInt" Min="0" Max="100" ThumbSize="20" />
+                        <p class="lab-range-int-status" role="status" lang="en" dir="ltr">Range: @_labRangeInt.Min to @_labRangeInt.Max</p>
+                    </div>
+                    <div class="lab-range-card">
+                        <span class="lab-range-title">Decimal handles 1.5–7.5 on 0–10</span>
+                        <RangeSlider id="lab-range-decimal" @bind-Value="_labRangeDecimal" Min="0" Max="10" ThumbSize="28" />
+                        <p class="lab-range-decimal-status" role="status" lang="en" dir="ltr">Range: @_labRangeDecimal.Min.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) to @_labRangeDecimal.Max.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)</p>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current source pointer API only. Range order, keyboard, ARIA, pointer geometry and Fluent 2 design remain #443 work.</p>
+            }
+            else if (_selected == "slider")
+            {
+                <div class="lab-slider-grid" aria-label="Existing public Slider numeric ranges and thumb sizes">
+                    <div class="lab-slider-card">
+                        <span class="lab-slider-label">Integer range -50 to 50</span>
+                        <Slider id="lab-slider-int" @bind-Value="_labSliderInt" Min="-50" Max="50" ThumbSize="20" />
+                        <p class="lab-slider-int-status" role="status" lang="en" dir="ltr">Value: @_labSliderInt</p>
+                    </div>
+                    <div class="lab-slider-card">
+                        <span class="lab-slider-label">Double range 0 to 10, large thumb</span>
+                        <Slider id="lab-slider-double" @bind-Value="_labSliderDouble" Min="0.0" Max="10.0" ThumbSize="28" />
+                        <p class="lab-slider-double-status" role="status" lang="en" dir="ltr">Value: @_labSliderDouble.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)</p>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing pointer-driven Slider API only. Native slider ARIA semantics, keyboard operation, RTL interaction policy and Fluent2 product design belong to #442.</p>
+            }
+            else if (_selected == "otp")
+            {
+                <div class="lab-otp-grid" aria-label="Existing public OtpField length password and auto-submit attributes">
+                    <div class="lab-otp-card">
+                        <label for="lab-otp-code">Four digit code</label>
+                        <OtpField id="lab-otp-code" @bind-Value="_labOtpCode"
+                                  BindValueEvent="oninput" Length="4" />
+                        <p class="lab-otp-code-status" role="status" dir="ltr" lang="en">Code: @_labOtpCode</p>
+                    </div>
+                    <div class="lab-otp-card">
+                        <label for="lab-otp-secret">Six digit password mode</label>
+                        <OtpField id="lab-otp-secret" @bind-Value="_labOtpSecret"
+                                  BindValueEvent="oninput" Length="6" Password />
+                        <p class="lab-otp-secret-status" role="status" dir="ltr" lang="en">Entered digits: @(_labOtpSecret?.Length ?? 0)</p>
+                    </div>
+                    <div class="lab-otp-card">
+                        <form class="lab-otp-autosubmit-form" @onsubmit="OnOtpSubmitted" @onsubmit:preventDefault>
+                            <label for="lab-otp-auto">Three digit auto-submit form</label>
+                            <OtpField id="lab-otp-auto" @bind-Value="_labOtpAuto"
+                                      BindValueEvent="oninput" Length="3" AutoSubmit />
+                            <p class="lab-otp-auto-status" role="status" dir="ltr" lang="en">Entered digits: @(_labOtpAuto?.Length ?? 0); submissions: @_labOtpSubmitCount</p>
+                        </form>
+                    </div>
+                </div>
+                <p class="lab-controls-note">Existing OtpField JavaScript interop and public options. Completing a real enclosing form, focus disposal, localization and native assistive-technology review remain #441 work.</p>
+            }
+            else if (_selected == "masked")
+            {
+                <div class="lab-masked-grid" aria-label="Existing public MaskedField fixed pattern Persian digits and disabled states">
+                    <div class="lab-masked-card">
+                        <label for="lab-mask-code">Masked code (###-##)</label>
+                        <MaskedField id="lab-mask-code" @bind-Value="_labMaskedCode"
+                                     Mask="^\d{3}-\d{2}$" />
+                        <p class="lab-masked-status" role="status" lang="en" dir="ltr">Code: @_labMaskedCode</p>
+                    </div>
+                    <div class="lab-masked-card">
+                        <label for="lab-mask-digits">Persian digits converted to ASCII</label>
+                        <MaskedField id="lab-mask-digits" @bind-Value="_labMaskedDigits"
+                                     Mask="^\d{3}$" AsciiDigits />
+                        <p class="lab-masked-digits-status" role="status" lang="en" dir="ltr">Digits: @_labMaskedDigits</p>
+                    </div>
+                    <div class="lab-masked-card">
+                        <label for="lab-mask-disabled">Disabled masked code</label>
+                        <MaskedField id="lab-mask-disabled" Value="@_labMaskedDisabled"
+                                     Mask="^\d{3}$" disabled />
+                    </div>
+                </div>
+                <p class="lab-controls-note">Current public MaskedField API. All regex/path edge cases, cultural conversions, OS assistive tech and Fluent2 approval belong to #440.</p>
+            }
+            else if (_selected == "link")
+            {
+                <div class="lab-api-demo" aria-label="Current Link public API explorer">
+                    <div class="lab-api-controls">
+                        <div>
+                            <label for="lab-link-appearance">Appearance</label>
+                            <select id="lab-link-appearance" @bind="_linkAppearance">
+                                @foreach (var appearance in Enum.GetValues<LinkAppearance>())
+                                {
+                                    <option value="@appearance">@appearance</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-link-mode">Navigation or action</label>
+                            <select id="lab-link-mode" @bind="_linkMode">
+                                <option value="navigation">Navigation (anchor)</option>
+                                <option value="action">Action (button)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lab-link-text">Text</label>
+                            <select id="lab-link-text" @bind="_linkText">
+                                <option value="Read documentation">Read documentation</option>
+                                <option value="Review plan">Review plan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lab-examples">
+                        @if (_linkMode == "navigation")
+                        {
+                            <Link Text="@_linkText" Href="getting-started" Appearance="@_linkAppearance" />
+                        }
+                        else
+                        {
+                            <Link Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
+                        }
+                    </div>
+                    <p role="status" class="lab-link-status">Action callbacks: @_linkEvents</p>
+                    <p class="lab-controls-note">Existing Link API, not final Fluent v3 design or disabled-link accessibility acceptance.</p>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="lab-source" aria-label="Razor example and evidence">
+        <div class="lab-source-heading">
+            <h2>Razor example</h2>
+            <button type="button" @onclick="CopySourceAsync">Copy source</button>
+        </div>
+        <pre tabindex="0"><code>@ActiveRazor</code></pre>
+        <p aria-live="polite">@_copyStatus</p>
+        <h3>Coverage classification</h3>
+        <p>@Selected.Coverage. This pilot checks a representative live scenario; it does not claim complete public API, themes, accessibility or render-mode coverage.</p>
+        <p>Existing API reference: <a href="@Selected.Href">@Selected.Title demo</a>. Source-owned matrix: <code>docs/v3/quality/COMPONENT-LAB-COVERAGE.json</code>.</p>
+    </section>
+
+    <section class="lab-queue" aria-label="Canonical component work queue">
+        <div class="lab-queue-heading">
+            <h2>Component implementation queue</h2>
+            <p><strong>66</strong> source candidates · <strong>14</strong> live pilot specimens ·
+               <strong>52</strong> not yet demonstrated</p>
+        </div>
+        <p>This is the source-family work queue, not proof that 66 components have migrated to Fluent 2.
+           “Live pilot” means one representative runnable sample only; public API and final design acceptance remain incomplete.</p>
+        <label for="lab-queue-search">Find a family or issue</label>
+        <input id="lab-queue-search" type="search" autocomplete="off" @bind="_queueSearch" @bind:event="oninput"
+               placeholder="TextField, Button, 432..." />
+        <p role="status" class="lab-queue-count">@FilteredQueue.Count of 66 source candidates shown</p>
+        <div class="lab-queue-list" aria-label="Families and implementation status">
+            @foreach (var item in FilteredQueue)
+            {
+                <div class="lab-queue-row">
+                    <strong>@item.Name</strong>
+                    <span>@(item.PilotId is null ? "Queued · no lab scenario" : "Live pilot · incomplete")</span>
+                    @if (item.PilotId is not null)
+                    {
+                        <button type="button" @onclick="() => Select(item.PilotId)">View pilot</button>
+                    }
+                    <a href="@($"https://github.com/vrassouli/Bluent/issues/{item.Issue}")"
+                       target="_blank" rel="noopener noreferrer">Issue #@item.Issue</a>
+                </div>
+            }
+        </div>
+    </section>
+</main>
+
+@code {
+    private sealed record Family(string Id, string Title, string Href, string Scenario,
+        string Description, string Razor, string Coverage);
+
+    private static readonly Family[] Families =
+    [
+        new("button", "Button", "components/buttons", "Actions and disabled state",
+            "The current public Button in a keyboard-operable action group.",
+            "<Button Text=\"Continue\" Appearance=\"ButtonAppearance.Primary\" />",
+            "Representative runnable scenario only"),
+        new("icon", "Icon", "components/icons", "Icons",
+            "Strongly typed existing Fluent icons.",
+            "<Icon Value=\"@FluentIcons.Settings\" />",
+            "Representative runnable scenario only"),
+        new("label", "Label", "components/labels", "Accessible label",
+            "The existing Label component, not the final v3 form-field accessibility audit.",
+            "<Label Text=\"Customer name\" />",
+            "Representative runnable scenario only"),
+        new("badge", "Badge", "components/badges", "Status indicators",
+            "The existing Badge variants and optional icon/shadow flags, not production Fluent v3 parity.",
+            "<Badge Text=\"3\" Color=\"BadgeColor.Brand\" />",
+            "Representative runnable scenario only"),
+        new("textfield", "TextField", "components/fields", "Native input and textarea",
+            "Existing TextField input binding, multiline, and native disabled states. Not a v3 field redesign.",
+            "<TextField @bind-Value=\"_labTextValue\" BindValueEvent=\"oninput\" />",
+            "Representative runnable scenario only"),
+        new("checkbox", "Checkbox", "components/checkboxes", "Checked and indeterminate",
+            "Existing bool/bool? Checkbox with dynamic labels and native disabled state. Not a Fluent v3 rewrite.",
+            "<Checkbox @bind-Value=\"_labChecked\" Label=\"Accept terms\" />",
+            "Representative runnable scenario only"),
+        new("switch", "Switch", "components/fields", "On off and managed states",
+            "Existing Switch renders a native checkbox with on/off labels and a managed disabled state.",
+            "<Switch @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />",
+            "Representative runnable scenario only"),
+        new("numeric", "NumericField", "components/fields", "Integers decimal and bounds",
+            "Current NumericField data binding, format, min/max, focus/blur and native disabled state.",
+            "<NumericField @bind-Value=\"_labInteger\" Min=\"1\" Max=\"99\" />",
+            "Representative runnable scenario only"),
+        new("radio", "RadioGroup", "components/radios", "Single choice and orientation",
+            "Current RadioGroup and Radio input with Value binding, Orientation, ItemsLabelPosition, and disabled option.",
+            "<RadioGroup @bind-Value=\"_labRadioChoice\"><Radio Value=\"@(\\\"Morning\\\")\" Label=\"Morning\" /></RadioGroup>",
+            "Representative runnable scenario only"),
+        new("selectfield", "SelectField", "components/fields", "Native keyboard choice",
+            "Current generic SelectField demonstrates string selection, integer choice, and truly disabled native select.",
+            "<SelectField @bind-Value=\"_labSelectColor\"><option value=\"Blue\">Blue</option></SelectField>",
+            "Representative runnable scenario only"),
+        new("datefield", "DateField", "components/fields", "Day month DateOnly and disabled",
+            "Existing masked DateField demonstrates DateTime, DateOnly, CalendarMode.MonthSelect and native disabled state.",
+            "<DateField @bind-Value=\"_labDateDay\" Culture=\"CultureInfo.InvariantCulture\" />",
+            "Representative runnable scenario only"),
+        new("timefield", "TimeField", "components/fields", "TimeOnly seconds and TimeSpan",
+            "Existing masked TimeField renders TimeOnly binding, Seconds, TimeSpan and native disabled input.",
+            "<TimeField @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />",
+            "Representative runnable scenario only"),
+        new("file", "FileSelect", "components/file-selects", "Real browser file input and collection",
+            "Current FileSelect with MaxFiles, Accept hint, real selection/remove callbacks and disabled button.",
+            "<FileSelect Text=\"Choose text file\" Accept=\".txt\" MaxFiles=\"1\" OnChange=\"OnLabSingleFilesChanged\" />",
+            "Representative runnable scenario only"),
+        new("range", "RangeSlider", "components/sliders", "Two-thumb generic numeric range",
+            "Current RangeSlider<T> with ValueRange<int>/ValueRange<decimal>, Min, Max and ThumbSize.",
+            "<RangeSlider @bind-Value=\"_labRangeInt\" Min=\"0\" Max=\"100\" ThumbSize=\"20\" />",
+            "Representative runnable scenario only"),
+        new("slider", "Slider", "components/sliders", "Pointer-driven numeric ranges",
+            "Current generic Slider with Value binding, Min/Max, and ThumbSize; not a native keyboard slider.",
+            "<Slider @bind-Value=\"_labSliderInt\" Min=\"-50\" Max=\"50\" ThumbSize=\"20\" />",
+            "Representative runnable scenario only"),
+        new("otp", "OtpField", "components/fields", "Four, six and auto-submit OTP configurations",
+            "Current public OtpField JS-backed code editing, Password and Length variants, plus AutoSubmit configuration.",
+            "<OtpField @bind-Value=\"_labOtpCode\" Length=\"4\" BindValueEvent=\"oninput\" />",
+            "Representative runnable scenario only"),
+        new("masked", "MaskedField", "components/fields", "Format-constrained native input",
+            "Current public MaskedField demonstrates fixed regex code, AsciiDigits and true disabled input.",
+            "<MaskedField @bind-Value=\"_labMaskedCode\" Mask=\"^\\d{3}-\\d{2}$\" />",
+            "Representative runnable scenario only"),
+        new("link", "Link", "components/links", "Navigation",
+            "The current public Link component in a normal navigation context.",
+            "<Link Text=\"Read documentation\" Href=\"getting-started\" />",
+            "Representative runnable scenario only")
+    ];
+
+    // A prerendered InteractiveServer page is NOT yet interactive.
+    // The real browser probe waits for OnAfterRender before clicking.
+    private bool _interactive;
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactive = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
+
+    private BadgeAppearance _badgeAppearance = BadgeAppearance.Filled;
+    private BadgeSize _badgeSize = BadgeSize.Medium;
+    private BadgeShape _badgeShape = BadgeShape.Circular;
+    private BadgeColor _badgeColor = BadgeColor.Brand;
+    private string _badgeText = "3";
+    private bool _badgeHasIcon;
+    private bool _badgeDropShadow;
+    private bool _badgeAnimateShadow;
+
+    private string? _labTextValue = "Ada";
+    private string? _labTextNotes = "Line one";
+    private string SelectedTextFieldRazor =>
+        "<TextField id=\"lab-tf-input\" @bind-Value=\"_labTextValue\" BindValueEvent=\"oninput\" />\n<TextField id=\"lab-tf-notes\" @bind-Value=\"_labTextNotes\" Rows=\"3\" ResizeTextarea=\"false\" />\n<TextField id=\"lab-tf-disabled\" Value=\"Read only sample\" disabled />\n@code { private string? _labTextValue = \"Ada\"; private string? _labTextNotes = \"Line one\"; }";
+
+    private bool _labChecked;
+    private bool? _labNullableChecked;
+    private string SelectedCheckboxRazor => "<Checkbox id=\"lab-cb-checked\" @bind-Value=\"_labChecked\" Label=\"Accept terms\" />\n<Checkbox id=\"lab-cb-nullable\" @bind-Value=\"_labNullableChecked\" Label=\"Permission\" IndeterminateLabel=\"Not decided\" />\n<Checkbox id=\"lab-cb-disabled\" Value=\"true\" Label=\"Locked option\" disabled />\n@code { private bool _labChecked; private bool? _labNullableChecked; }";
+
+    private bool _labSwitchOn;
+    private bool _labSwitchBefore;
+    private string SelectedSwitchRazor => "<Switch id=\"lab-switch-primary\" @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />\n<Switch id=\"lab-switch-before\" @bind-Value=\"_labSwitchBefore\" Label=\"Feature active\" UncheckedLabel=\"Feature inactive\" LabelPosition=\"LabelPosition.Before\" />\n<Switch id=\"lab-switch-disabled\" Value=\"true\" Label=\"Managed setting\" disabled />\n@code { private bool _labSwitchOn; private bool _labSwitchBefore; }";
+
+    private int _labInteger = 5;
+    private decimal _labDecimal = 12.5m;
+    private int _numericFocusCount;
+    private int _numericBlurCount;
+    private Task NumericFocusedAsync() { _numericFocusCount++; return Task.CompletedTask; }
+    private Task NumericBlurredAsync() { _numericBlurCount++; return Task.CompletedTask; }
+    private string SelectedNumericRazor => "<NumericField id=\"lab-numeric-live\" @bind-Value=\"_labInteger\" BindValueEvent=\"oninput\" Min=\"1\" Max=\"99\" OnFocus=\"NumericFocusedAsync\" OnBlur=\"NumericBlurredAsync\" />\n<NumericField id=\"lab-numeric-decimal\" @bind-Value=\"_labDecimal\" Format=\"G29\" />\n<NumericField TValue=\"int\" id=\"lab-numeric-disabled\" Value=\"3\" disabled />\n@code { private int _labInteger = 5; private decimal _labDecimal = 12.5m; private Task NumericFocusedAsync() => Task.CompletedTask; private Task NumericBlurredAsync() => Task.CompletedTask; }";
+
+    private string _labRadioChoice = "";
+    private string _labRadioOrientation = "High";
+    private string _labRadioRestricted = "";
+    private string SelectedRadioRazor => "<RadioGroup @bind-Value=\"_labRadioChoice\" Label=\"Time preference\">\n    <Radio Id=\"lab-radio-am\" Value=\"@(\"Morning\")\" Label=\"Morning\" />\n    <Radio Id=\"lab-radio-pm\" Value=\"@(\"Afternoon\")\" Label=\"Afternoon\" />\n</RadioGroup>\n<RadioGroup @bind-Value=\"_labRadioOrientation\" Label=\"Priority\" Orientation=\"Orientation.Vertical\" ItemsLabelPosition=\"LabelPosition.Before\">\n    <Radio Id=\"lab-radio-high\" Value=\"@(\"High\")\" Label=\"High\" />\n    <Radio Id=\"lab-radio-low\" Value=\"@(\"Low\")\" Label=\"Low\" />\n</RadioGroup>\n<RadioGroup @bind-Value=\"_labRadioRestricted\" Label=\"Availability\">\n    <Radio Id=\"lab-radio-disabled\" Value=\"@(\"Closed\")\" Label=\"Closed\" disabled />\n    <Radio Id=\"lab-radio-open\" Value=\"@(\"Open\")\" Label=\"Open\" />\n</RadioGroup>\n@code { private string _labRadioChoice = \"\"; private string _labRadioOrientation = \"High\"; private string _labRadioRestricted = \"\"; }";
+
+    private string _labSelectColor = "Blue";
+    private int _labSelectPriority = 2;
+    private string _labSelectLocked = "Locked";
+    private string SelectedSelectFieldRazor => "<SelectField id=\"lab-select-color\" @bind-Value=\"_labSelectColor\"><option value=\"Red\">Red</option><option value=\"Blue\">Blue</option><option value=\"Green\">Green</option></SelectField>\n<SelectField id=\"lab-select-priority\" @bind-Value=\"_labSelectPriority\"><option value=\"1\">One</option><option value=\"2\">Two</option><option value=\"3\">Three</option></SelectField>\n<SelectField TValue=\"string\" id=\"lab-select-disabled\" Value=\"@_labSelectLocked\" disabled><option value=\"Locked\">Locked</option><option value=\"Other\">Other</option></SelectField>\n@code { private string _labSelectColor = \"Blue\"; private int _labSelectPriority = 2; private string _labSelectLocked = \"Locked\"; }";
+
+    private DateTime _labDateDay = new(2026, 10, 18);
+    private DateTime _labDateMonth = new(2026, 10, 1);
+    private DateOnly _labDateOnly = new(2026, 10, 18);
+    private DateTime _labDateDisabled = new(2026, 10, 18);
+    private string SelectedDateFieldRazor => "<DateField id=\"lab-date-day\" @bind-Value=\"_labDateDay\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<DateField id=\"lab-date-month\" @bind-Value=\"_labDateMonth\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Mode=\"CalendarMode.MonthSelect\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-only\" @bind-Value=\"_labDateOnly\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-disabled\" Value=\"_labDateDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" disabled />\n@code { private DateTime _labDateDay = new(2026, 10, 18); private DateTime _labDateMonth = new(2026, 10, 1); private DateOnly _labDateOnly = new(2026, 10, 18); private DateTime _labDateDisabled = new(2026, 10, 18); }";
+
+    private TimeOnly _labTimeBasic = new(9, 30);
+    private TimeOnly _labTimeSeconds = new(14, 25, 6);
+    private TimeSpan _labTimeSpan = new(2, 15, 0);
+    private TimeOnly _labTimeDisabled = new(12, 40);
+    private string SelectedTimeFieldRazor => "<TimeField id=\"lab-time-basic\" @bind-Value=\"_labTimeBasic\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-seconds\" @bind-Value=\"_labTimeSeconds\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Seconds />\n<TimeField id=\"lab-time-span\" @bind-Value=\"_labTimeSpan\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<TimeField id=\"lab-time-disabled\" Value=\"_labTimeDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" disabled />\n@code { private TimeOnly _labTimeBasic = new(9, 30); private TimeOnly _labTimeSeconds = new(14, 25, 6); private TimeSpan _labTimeSpan = new(2, 15, 0); private TimeOnly _labTimeDisabled = new(12, 40); }";
+
+    private int _labSingleFileCount;
+    private int _labMultiFileCount;
+    private string _labSingleFileNames = "none";
+    private string _labMultiFileNames = "none";
+    private void OnLabSingleFilesChanged(IEnumerable<SelectedFile> files)
+    {
+        var items = files.ToArray();
+        _labSingleFileCount = items.Length;
+        _labSingleFileNames = items.Length == 0 ? "none" : string.Join(", ", items.Select(x => x.File.Name));
+    }
+    private void OnLabMultipleFilesChanged(IEnumerable<SelectedFile> files)
+    {
+        var items = files.ToArray();
+        _labMultiFileCount = items.Length;
+        _labMultiFileNames = items.Length == 0 ? "none" : string.Join(", ", items.Select(x => x.File.Name));
+    }
+    private string SelectedFileRazor => """
+        @using Bluent.UI.Components.FileSelectComponent
+        <FileSelect id="lab-file-single" Text="Choose text file" Accept=".txt" MaxFiles="1" OnChange="OnLabSingleFilesChanged" />
+        <FileSelect id="lab-file-multi" Text="Choose up to two files" Accept=".txt,.md" MaxFiles="2" OnChange="OnLabMultipleFilesChanged" />
+        <FileSelect id="lab-file-disabled" Text="File picker disabled" Accept=".png" Disabled ShowFileInfo="false" AllowRemove="false" />
+        @code {
+            private string _singleNames = "none", _multiNames = "none";
+            private void OnLabSingleFilesChanged(IEnumerable<SelectedFile> files) =>
+                _singleNames = string.Join(", ", files.Select(x => x.File.Name));
+            private void OnLabMultipleFilesChanged(IEnumerable<SelectedFile> files) =>
+                _multiNames = string.Join(", ", files.Select(x => x.File.Name));
+        }
+        """;
+
+    private ValueRange<int> _labRangeInt = new(20, 80);
+    private ValueRange<decimal> _labRangeDecimal = new(1.5m, 7.5m);
+    private string SelectedRangeRazor => """
+        <RangeSlider id="lab-range-int" @bind-Value="_labRangeInt" Min="0" Max="100" ThumbSize="20" />
+        <RangeSlider id="lab-range-decimal" @bind-Value="_labRangeDecimal" Min="0" Max="10" ThumbSize="28" />
+        @code {
+            private ValueRange<int> _labRangeInt = new(20, 80);
+            private ValueRange<decimal> _labRangeDecimal = new(1.5m, 7.5m);
+        }
+        """;
+
+    private int _labSliderInt = -15;
+    private double _labSliderDouble = 4.0;
+    private string SelectedSliderRazor => """
+        <Slider id="lab-slider-int" @bind-Value="_labSliderInt" Min="-50" Max="50" ThumbSize="20" />
+        <Slider id="lab-slider-double" @bind-Value="_labSliderDouble" Min="0.0" Max="10.0" ThumbSize="28" />
+        @code {
+            private int _labSliderInt = -15;
+            private double _labSliderDouble = 4.0;
+        }
+        """;
+
+    private string? _labOtpCode = "";
+    private string? _labOtpSecret = "";
+    private string? _labOtpAuto = "";
+    private int _labOtpSubmitCount;
+    private void OnOtpSubmitted() => _labOtpSubmitCount++;
+    private string SelectedOtpRazor => """
+        <OtpField id="lab-otp-code" @bind-Value="_labOtpCode" BindValueEvent="oninput" Length="4" />
+        <OtpField id="lab-otp-secret" @bind-Value="_labOtpSecret" BindValueEvent="oninput" Length="6" Password />
+        <form @onsubmit="OnOtpSubmitted" @onsubmit:preventDefault>
+            <OtpField id="lab-otp-auto" @bind-Value="_labOtpAuto" BindValueEvent="oninput" Length="3" AutoSubmit />
+        </form>
+        @code {
+            private string? _labOtpCode = "";
+            private string? _labOtpSecret = "";
+            private string? _labOtpAuto = "";
+            private int _labOtpSubmitCount;
+            private void OnOtpSubmitted() => _labOtpSubmitCount++;
+        }
+        """;
+
+    private string _labMaskedCode = "123-45";
+    private string _labMaskedDigits = "12";
+    private string _labMaskedDisabled = "888";
+    private string SelectedMaskedRazor => "<MaskedField id=\"lab-mask-code\" @bind-Value=\"_labMaskedCode\" Mask=\"^\\d{3}-\\d{2}$\" />\n<MaskedField id=\"lab-mask-digits\" @bind-Value=\"_labMaskedDigits\" Mask=\"^\\d{3}$\" AsciiDigits />\n<MaskedField id=\"lab-mask-disabled\" Value=\"@_labMaskedDisabled\" Mask=\"^\\d{3}$\" disabled />\n@code { private string _labMaskedCode = \"123-45\"; private string _labMaskedDigits = \"12\"; private string _labMaskedDisabled = \"888\"; }";
+
+    private string _linkMode = "navigation";
+    private string _linkText = "Read documentation";
+    private LinkAppearance _linkAppearance = LinkAppearance.Default;
+    private int _linkEvents;
+    private Task LinkClickedAsync() { _linkEvents++; return Task.CompletedTask; }
+
+    private string _iconChoice = "Settings";
+    private IconVariant _iconVariant = IconVariant.Regular;
+    private LabelSize _labelSize = LabelSize.Medium;
+    private LabelRequiredState _labelRequired = LabelRequiredState.Auto;
+    [Required] public string LabEmail { get; set; } = "";
+
+    private string _queueSearch = "";
+    private List<ComponentLabFamilyQueue.Item> FilteredQueue =>
+        ComponentLabFamilyQueue.All.Where(item =>
+            item.Name.Contains(_queueSearch, StringComparison.OrdinalIgnoreCase) ||
+            item.Issue.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                .Contains(_queueSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private string _lastMenuChoice = "none";
+    private int _menuEvents;
+    private Task ChooseExportAsync() { _lastMenuChoice = "Export report"; _menuEvents++; return Task.CompletedTask; }
+    private Task ChooseShareAsync() { _lastMenuChoice = "Share summary"; _menuEvents++; return Task.CompletedTask; }
+
+    private int _splitPrimaryEvents;
+    private int _splitScheduleEvents;
+    private Task ChooseSplitPrimaryAsync() { _splitPrimaryEvents++; return Task.CompletedTask; }
+    private Task ChooseSplitScheduleAsync() { _splitScheduleEvents++; return Task.CompletedTask; }
+
+    private bool _buttonToggled;
+    private int _toggleEvents;
+    private Task ButtonToggledAsync(bool toggled)
+    {
+        _buttonToggled = toggled;
+        _toggleEvents++;
+        return Task.CompletedTask;
+    }
+
+    private ButtonAppearance _buttonAppearance = ButtonAppearance.Outline;
+    private ButtonSize _buttonSize = ButtonSize.Medium;
+    private ButtonShape _buttonShape = ButtonShape.Rounded;
+
+    private string _search = "";
+    private string _selected = "button";
+    private string _direction = "ltr";
+    private string _viewport = "wide";
+    private string _density = "normal";
+    private string _contrast = "light";
+    private string _copyStatus = "";
+    private int _clickCount;
+
+    private List<Family> Filtered => Families.Where(x =>
+        x.Title.Contains(_search, StringComparison.OrdinalIgnoreCase) ||
+        x.Scenario.Contains(_search, StringComparison.OrdinalIgnoreCase)).ToList();
+    private Family Selected => Families.First(x => x.Id == _selected);
+    // The copied public-API sample includes the callback backing code.
+    // Its binding must stay dynamic (NOT a snapshot Toggled="false").
+    private string SelectedIconRazor =>
+        $"<Icon Value=\"@FluentIcons.{_iconChoice}\" Variant=\"IconVariant.{_iconVariant}\" Style=\"width:32px;height:32px;\" />";
+    private string SelectedLabelRazor =>
+        $"<Label Text=\"Contact email\" ForExpression=\"() => LabEmail\" Size=\"LabelSize.{_labelSize}\" Required=\"LabelRequiredState.{_labelRequired}\" RequiredSymbol=\"!\" />\n" +
+        "<input id=\"LabEmail\" type=\"email\" @bind=\"LabEmail\" />\n" +
+        "<Label Text=\"Email help\"><Info>Use a work email for contact.</Info></Label>\n" +
+        "@code {\n    [System.ComponentModel.DataAnnotations.Required]\n    public string LabEmail { get; set; } = \"\";\n}";
+
+    private string SelectedBadgeRazor =>
+        $"<Badge Text=\"{_badgeText}\" Appearance=\"BadgeAppearance.{_badgeAppearance}\" Size=\"BadgeSize.{_badgeSize}\" " +
+        $"Shape=\"BadgeShape.{_badgeShape}\" Color=\"BadgeColor.{_badgeColor}\"" +
+        (_badgeHasIcon ? " Icon=\"@FluentIcons.Settings\"" : "") +
+        $" DropShadow=\"{_badgeDropShadow.ToString().ToLowerInvariant()}\" AnimateShadow=\"{_badgeAnimateShadow.ToString().ToLowerInvariant()}\" />";
+
+    private string SelectedLinkRazor => _linkMode == "navigation"
+        ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
+        : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
+          "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
+
+    private string ActiveRazor => _selected == "file" ? SelectedFileRazor
+        : _selected == "range" ? SelectedRangeRazor
+        : _selected == "slider" ? SelectedSliderRazor
+        : _selected == "otp" ? SelectedOtpRazor
+        : _selected == "masked" ? SelectedMaskedRazor
+        : _selected == "timefield" ? SelectedTimeFieldRazor
+        : _selected == "datefield" ? SelectedDateFieldRazor
+        : _selected == "selectfield" ? SelectedSelectFieldRazor
+        : _selected == "radio" ? SelectedRadioRazor
+        : _selected == "numeric" ? SelectedNumericRazor
+        : _selected == "switch" ? SelectedSwitchRazor
+        : _selected == "checkbox" ? SelectedCheckboxRazor
+        : _selected == "textfield" ? SelectedTextFieldRazor
+        : _selected == "badge" ? SelectedBadgeRazor
+        : _selected == "icon" ? SelectedIconRazor
+        : _selected == "link" ? SelectedLinkRazor
+        : _selected == "label" ? SelectedLabelRazor
+        : _selected == "button"
+        ? $"<Button Text=\"Secondary\" Appearance=\"ButtonAppearance.{_buttonAppearance}\" Size=\"ButtonSize.{_buttonSize}\" Shape=\"ButtonShape.{_buttonShape}\" />\n" +
+          "<Button Text=\"Pin selection\" Toggled=\"@_buttonToggled\" ToggledChanged=\"ButtonToggledAsync\" />\n" +
+          "<Button Text=\"Open guide\" Href=\"getting-started\" Appearance=\"ButtonAppearance.Subtle\" />\n" +
+          "<Button Text=\"Notifications\" SecondaryText=\"Recent activity\" Compact=\"true\" BadgeHorizontalPosition=\"HorizontalSides.End\" BadgeVerticalPosition=\"VerticalSides.Bottom\"><Badge><Badge Text=\"3\" Size=\"BadgeSize.Small\" /></Badge></Button>\n" +
+          "<Button Text=\"More actions\" ShowDropdownIndicator=\"true\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Export report\" OnClick=\"ChooseExportAsync\" /><MenuItem Title=\"Share summary\" OnClick=\"ChooseShareAsync\" /></MenuList></Dropdown></Button>\n" +
+          "<Button Text=\"Send now\" Appearance=\"ButtonAppearance.Primary\" OnClick=\"ChooseSplitPrimaryAsync\" DropdownPlacement=\"Placement.BottomEnd\"><Dropdown><MenuList><MenuItem Title=\"Schedule send\" OnClick=\"ChooseSplitScheduleAsync\" /></MenuList></Dropdown></Button>\n" +
+          "<Button Text=\"Send disabled\" Appearance=\"ButtonAppearance.Primary\" OnClick=\"ChooseSplitPrimaryAsync\" DropdownPlacement=\"Placement.BottomEnd\" disabled><Dropdown><MenuList><MenuItem Title=\"Schedule disabled\" OnClick=\"ChooseSplitScheduleAsync\" /></MenuList></Dropdown></Button>\n" +
+          "<Button Text=\"Vertical action\" Icon=\"@FluentIcons.Settings\" TextClass=\"lab-custom-button-text\" Orientation=\"Orientation.Vertical\" />\n" +
+          "<Button Text=\"Rotated action\" Icon=\"@FluentIcons.Search\" Rotated=\"true\" />\n" +
+          "@code {\n    private int _splitPrimaryEvents;\n    private int _splitScheduleEvents;\n    private Task ChooseSplitPrimaryAsync() { _splitPrimaryEvents++; return Task.CompletedTask; }\n    private Task ChooseSplitScheduleAsync() { _splitScheduleEvents++; return Task.CompletedTask; }\n    private bool _buttonToggled;\n    private Task ButtonToggledAsync(bool toggled) { _buttonToggled = toggled; return Task.CompletedTask; }\n    private string _lastMenuChoice = \"none\";\n    private int _menuEvents;\n    private Task ChooseExportAsync() { _lastMenuChoice = \"Export report\"; _menuEvents++; return Task.CompletedTask; }\n    private Task ChooseShareAsync() { _lastMenuChoice = \"Share summary\"; _menuEvents++; return Task.CompletedTask; }\n}"
+        : Selected.Razor;
+    private void Select(string id)
+    {
+        _selected = id;
+        _copyStatus = "";
+    }
+
+    private async Task CopySourceAsync()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("navigator.clipboard.writeText", ActiveRazor);
+            _copyStatus = "Razor source copied.";
+        }
+        catch (JSException)
+        {
+            _copyStatus = "Clipboard unavailable. Select and copy the source from the code block.";
+        }
+    }
+}
