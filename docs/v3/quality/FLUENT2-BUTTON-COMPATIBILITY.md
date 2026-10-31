@@ -99,7 +99,7 @@ The separate focus handoff in docs/v3/design/BUTTON-FOCUS-ALIGNMENT-REPAIR.md an
 | Focus handoff tests | 7/7 passed. |
 | Documentation contract | 0 findings; focused docs contract suite passed. |
 | Targeted Debug and Release WebAssembly demo builds | 0 warnings / 0 errors in the earlier validated builds. |
-| Full solution Release build | Two existing NU1903 advisories for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 remain assigned to #425; they were not suppressed. |
+| Full solution Release build | The #425 task branch now pins the affected `WebAssembly.Server` and active `WebAssembly.DevServer` dependencies to 10.0.14; vulnerability audit reports no vulnerable solution packages and Release `-warnaserror` succeeds (branch-only, pending merge). |
 
 Reproduce from the repository root:
 
