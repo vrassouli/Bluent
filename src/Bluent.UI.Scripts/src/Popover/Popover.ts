@@ -23,6 +23,17 @@ export class Popover {
         if (!trigger)
             return;
 
+        // Only the explicit v3 opt-in owns its disclosure relationship.
+        // Legacy Popovers retain their existing caller-authored ARIA attributes.
+        if (settings.accessibleTriggerState) {
+            const surface = this.getSurface(settings) as HTMLElement | null;
+            trigger.setAttribute('aria-controls', settings.triggerId + '_surface');
+            const expanded = !!surface &&
+                surface.classList.contains('show') &&
+                !surface.classList.contains('hidden');
+            trigger.setAttribute('aria-expanded', String(expanded));
+        }
+
         this.cleanupTriggerHandlers(settings.triggerId);
         const handlers: Array<{ eventName: string; handler: EventListener }> = [];
 
@@ -519,6 +530,13 @@ export class Popover {
         this.removeDocumentClickHandler(triggerId);
         if (this._activePopovers.size === 0)
             document.removeEventListener('keydown', this._documentKeyDownHandler);
+    }
+
+    // Blazor owner teardown calls this for the opt-in disclosure contract.
+    // The shared stack owns one document keydown handler for all active surfaces;
+    // deactivating this trigger releases it when the last surface is removed.
+    public unregisterOptInEscapeByTriggerId(triggerId: string) {
+        this.deactivatePopover(triggerId);
     }
 
     private setTriggerExpanded(settings: PopoverSettings, expanded: boolean) {

@@ -1,0 +1,355 @@
+{
+  "status": "DRAFT - opt-in token bridge; not public v3 API",
+  "issue": 418,
+  "source": "src/Bluent.UI/Styles/Themes/theme-<brand>-<mode>.css",
+  "supportedBrands": [
+    "default",
+    "excel",
+    "office",
+    "outlook",
+    "powerapps",
+    "powerbi",
+    "powerpoint",
+    "stream",
+    "teams",
+    "word"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "design": {
+    "authoritativeFile": "Bluent v3 Design System",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
+    "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
+    "savedVersion": "Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11",
+    "observedRevision": 223,
+    "nativeTokensPerMode": 24,
+    "totalNativeTokens": 48,
+    "sourceAddedPerMode": 5,
+    "semanticPerMode": 11,
+    "componentPerMode": 8,
+    "brandPageId": "acf5f619-7d81-80da-8008-c5cce396e634",
+    "brandBoardId": "acf5f619-7d81-80da-8008-c5cce3bd4593",
+    "brandSnapshotChecks": 60,
+    "brandSnapshotErrors": 0,
+    "totalDesignPages": 33,
+    "brandThemeCount": 20,
+    "brandThemeSourceSets": 20,
+    "sharedBrandPreviewSets": 2,
+    "brandPreviewTokens": 88,
+    "combinedNativeTokens": 195,
+    "brandLivePageId": "acf5f619-7d81-80da-8008-c5d06084d4c6",
+    "brandLiveBoardId": "acf5f619-7d81-80da-8008-c5d0608ab738",
+    "liveBrandThemeSwitchChecks": 80,
+    "liveBrandThemeSwitchErrors": 0,
+    "brandThemeGroup": "Bluent v3 / Brand×Mode (Preview)",
+    "previewRequiresCoordinatedModeTheme": true,
+    "totalNativeSets": 38,
+    "dangerContrastPageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
+    "dangerContrastBoardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
+    "dangerContrastModes": 2,
+    "dangerContrastNativeTokenSets": 2,
+    "dangerContrastNativeTokens": 4,
+    "dangerContrastLiveChecks": 12,
+    "dangerContrastLiveErrors": 0,
+    "dangerContrastSourceChecks": 80,
+    "dangerContrastAffectedDarkBrands": 10,
+    "dangerContrastCandidateFailures": 0,
+    "dangerContrastCandidateApproved": false,
+    "foundationPageId": "acf5f619-7d81-80da-8008-c5e09d3a050f",
+    "foundationBoardId": "acf5f619-7d81-80da-8008-c5e0d7a2fbf9",
+    "foundationAliasTokenSetId": "acf5f619-7d81-80da-8008-c5e09d49cf8a",
+    "foundationAliasTokens": 6,
+    "foundationLiveChecks": 18,
+    "foundationLiveErrors": 0,
+    "accessibilityPolicyPageId": "acf5f619-7d81-80da-8008-c5ef1089ac94",
+    "accessibilityPolicyBoardId": "acf5f619-7d81-80da-8008-c5ef2f9a3158",
+    "nestedThemeBrowserChecks": 100,
+    "nestedThemeBrowserFailures": 0,
+    "forcedColorsRuntimeApproved": false,
+    "reducedMotionRuntimeApproved": false
+  },
+  "layers": {
+    "source": [
+      {
+        "name": "bluent.color.background1",
+        "css": "--colorNeutralBackground1",
+        "default": {
+          "light": "#FFFFFF",
+          "dark": "#292929"
+        }
+      },
+      {
+        "name": "bluent.color.foreground1",
+        "css": "--colorNeutralForeground1",
+        "default": {
+          "light": "#242424",
+          "dark": "#FFFFFF"
+        }
+      },
+      {
+        "name": "bluent.color.brandBackground",
+        "css": "--colorBrandBackground",
+        "default": {
+          "light": "#1267B4",
+          "dark": "#18599B"
+        }
+      },
+      {
+        "name": "bluent.color.stroke1",
+        "css": "--colorNeutralStroke1",
+        "default": {
+          "light": "#D1D1D1",
+          "dark": "#666666"
+        }
+      },
+      {
+        "name": "bluent.color.brandForeground1",
+        "css": "--colorBrandForeground1",
+        "default": {
+          "light": "#1267B4",
+          "dark": "#4F82C8"
+        }
+      },
+      {
+        "name": "bluent.source.onBrand",
+        "css": "--colorNeutralForegroundOnBrand",
+        "default": {
+          "light": "#FFFFFF",
+          "dark": "#FFFFFF"
+        }
+      },
+      {
+        "name": "bluent.source.strokeAccessible",
+        "css": "--colorNeutralStrokeAccessible",
+        "default": {
+          "light": "#616161",
+          "dark": "#ADADAD"
+        }
+      },
+      {
+        "name": "bluent.source.dangerForeground",
+        "css": "--colorStatusDangerForeground1",
+        "default": {
+          "light": "#B10E1C",
+          "dark": "#DC626D"
+        }
+      },
+      {
+        "name": "bluent.source.foregroundDisabled",
+        "css": "--colorNeutralForegroundDisabled",
+        "default": {
+          "light": "#BDBDBD",
+          "dark": "#5C5C5C"
+        }
+      },
+      {
+        "name": "bluent.source.backgroundDisabled",
+        "css": "--colorNeutralBackgroundDisabled",
+        "default": {
+          "light": "#F0F0F0",
+          "dark": "#141414"
+        }
+      },
+      {
+        "name": "bluent.source.paletteRedForeground1",
+        "css": "--colorPaletteRedForeground1",
+        "default": {
+          "light": "#BC2F32",
+          "dark": "#E37D80"
+        }
+      },
+      {
+        "name": "bluent.source.focusStroke2",
+        "css": "--colorStrokeFocus2",
+        "default": {
+          "light": "#000000",
+          "dark": "#FFFFFF"
+        }
+      }
+    ],
+    "semantic": [
+      {
+        "name": "bluent.semantic.surface.default",
+        "alias": "bluent.color.background1",
+        "css": "--bui-v3-surface-default"
+      },
+      {
+        "name": "bluent.semantic.text.primary",
+        "alias": "bluent.color.foreground1",
+        "css": "--bui-v3-text-primary"
+      },
+      {
+        "name": "bluent.semantic.action.background",
+        "alias": "bluent.color.brandBackground",
+        "css": "--bui-v3-action-background"
+      },
+      {
+        "name": "bluent.semantic.action.foreground",
+        "alias": "bluent.color.brandForeground1",
+        "css": "--bui-v3-action-foreground"
+      },
+      {
+        "name": "bluent.semantic.action.onBrand",
+        "alias": "bluent.source.onBrand",
+        "css": "--bui-v3-action-on-brand"
+      },
+      {
+        "name": "bluent.semantic.border.default",
+        "alias": "bluent.color.stroke1",
+        "css": "--bui-v3-border-default"
+      },
+      {
+        "name": "bluent.semantic.border.strong",
+        "alias": "bluent.source.strokeAccessible",
+        "css": "--bui-v3-border-strong"
+      },
+      {
+        "name": "bluent.semantic.status.danger",
+        "alias": "bluent.source.dangerForeground",
+        "css": "--bui-v3-status-danger"
+      },
+      {
+        "name": "bluent.semantic.text.disabled",
+        "alias": "bluent.source.foregroundDisabled",
+        "css": "--bui-v3-text-disabled"
+      },
+      {
+        "name": "bluent.semantic.surface.disabled",
+        "alias": "bluent.source.backgroundDisabled",
+        "css": "--bui-v3-surface-disabled"
+      },
+      {
+        "name": "bluent.semantic.border.focus",
+        "alias": "bluent.color.brandBackground",
+        "css": "--bui-v3-border-focus"
+      },
+      {
+        "name": "bluent.semantic.text.dangerAccessible",
+        "alias": "bluent.source.paletteRedForeground1",
+        "css": "--bui-v3-text-danger-accessible"
+      },
+      {
+        "name": "bluent.semantic.focusRing.strongCandidate",
+        "alias": "bluent.source.focusStroke2",
+        "css": "--bui-v3-focus-ring-strong-candidate"
+      }
+    ],
+    "component": [
+      {
+        "name": "bluent.component.button.backgroundPrimary",
+        "alias": "bluent.semantic.action.background",
+        "css": "--bui-v3-button-background-primary"
+      },
+      {
+        "name": "bluent.component.button.foregroundPrimary",
+        "alias": "bluent.semantic.action.onBrand",
+        "css": "--bui-v3-button-foreground-primary"
+      },
+      {
+        "name": "bluent.component.button.foregroundDefault",
+        "alias": "bluent.semantic.text.primary",
+        "css": "--bui-v3-button-foreground-default"
+      },
+      {
+        "name": "bluent.component.textField.background",
+        "alias": "bluent.semantic.surface.default",
+        "css": "--bui-v3-text-field-background"
+      },
+      {
+        "name": "bluent.component.textField.stroke",
+        "alias": "bluent.semantic.border.strong",
+        "css": "--bui-v3-text-field-stroke"
+      },
+      {
+        "name": "bluent.component.checkbox.checkedFill",
+        "alias": "bluent.semantic.action.background",
+        "css": "--bui-v3-checkbox-checked-fill"
+      },
+      {
+        "name": "bluent.component.switch.checkedTrack",
+        "alias": "bluent.semantic.action.background",
+        "css": "--bui-v3-switch-checked-track"
+      },
+      {
+        "name": "bluent.component.badge.dangerForeground",
+        "alias": "bluent.semantic.status.danger",
+        "css": "--bui-v3-badge-danger-foreground"
+      },
+      {
+        "name": "bluent.component.badge.dangerTextAccessible",
+        "alias": "bluent.semantic.text.dangerAccessible",
+        "css": "--bui-v3-badge-danger-text-accessible"
+      },
+      {
+        "name": "bluent.component.button.focusOuterCandidate",
+        "alias": "bluent.semantic.focusRing.strongCandidate",
+        "css": "--bui-v3-button-focus-outer-candidate"
+      }
+    ]
+  },
+  "scopeSelector": "[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme]",
+  "guardrails": [
+    "Do not redefine any legacy --color*, --spacing*, or --fui-* variable.",
+    "No stylesheet is added to the current global CSS bundle under this experimental issue phase.",
+    "The only approved architecture is ADR #417 D1-D5; exact token vocabulary is a draft.",
+    "The twenty native Brand×Mode preview themes are selectable and actually resolve source/semantic/component values; they use a separate preview namespace and require coordinated Light/Dark Mode selection, not production alias integration.",
+    "Danger text contrast candidate is additive/opt-in; legacy status-danger mappings and stable CSS are not changed, and text/AT acceptance remains required.",
+    "The extra Focus2 aliases are experimental and additive; legacy --bui-v3-border-focus is preserved for compatibility, with no default Button CSS change."
+  ],
+  "focusHostPreview": {
+    "status": "Maintainer-approved host-color choice; opt-in candidate CSS name, NOT final public Button API",
+    "penpotBoardId": "f4136a9a-101d-8004-8008-ca2956fe05f9",
+    "hostAttribute": "data-bui-v3-focus-host",
+    "outputCssVariable": "--bui-v3-focus-host-ring-candidate",
+    "light": {
+      "neutral": "--colorBrandBackground",
+      "brand": "--colorNeutralForegroundOnBrand",
+      "brandHover": "--colorNeutralForegroundOnBrand",
+      "danger": "--colorNeutralForegroundOnBrand",
+      "inverted": "--colorNeutralForegroundOnBrand"
+    },
+    "dark": {
+      "neutral": "--colorBrandForeground2",
+      "brand": "--colorNeutralForegroundOnBrand",
+      "brandHover": "--colorNeutralForegroundOnBrand",
+      "danger": "--colorNeutralForegroundOnBrand",
+      "inverted": "--colorBrandForeground2"
+    },
+    "modeAttribute": "data-bui-v3-focus-mode"
+  },
+  "darkBrandForegroundPreview": {
+    "status": "Maintainer-approved direction; exact values are source-derived preview candidates, not final public tokens",
+    "designFileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "designPageId": "d0bcea67-3af4-8071-8008-d8e442b90ed1",
+    "designBoardId": "fce13529-02e2-80e4-8008-df6f76b3b4ac",
+    "minimumContrastRatio": 4.5,
+    "targetContrastRatio": 4.6,
+    "backgroundCss": "--colorNeutralBackground1",
+    "brandAttribute": "data-bui-brand",
+    "themeAttribute": "data-bui-theme",
+    "mixDirection": "white",
+    "algorithm": "minimum per-role sRGB interpolation toward white, rounded to 8-bit RGB, then rechecked against the target ratio",
+    "roles": {
+      "action": {
+        "sourceCss": "--colorBrandForeground1",
+        "outputCss": "--bui-v3-action-foreground"
+      },
+      "linkRest": {
+        "sourceCss": "--colorBrandForegroundLink",
+        "outputCss": "--bui-v3-link-foreground"
+      },
+      "linkHover": {
+        "sourceCss": "--colorBrandForegroundLinkHover",
+        "outputCss": "--bui-v3-link-foreground-hover"
+      },
+      "linkPressed": {
+        "sourceCss": "--colorBrandForegroundLinkPressed",
+        "outputCss": "--bui-v3-link-foreground-pressed"
+      }
+    },
+    "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest."
+  }
+}

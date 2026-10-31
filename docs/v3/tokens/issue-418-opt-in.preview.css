@@ -1,0 +1,175 @@
+/* AUTO-GENERATED #418 PREVIEW — source-backed token alias mapping.
+   Not part of Bluent 2.x bundle; no CSS is enabled without explicit opt-in.
+   This is a v3 research preview, NOT an approved public token naming API.
+   Regenerate: python scripts/quality/generate_v3_token_preview.py */
+[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme] {
+  /* semantic: aliases only; legacy variables are never overwritten. */
+  --bui-v3-surface-default: var(--colorNeutralBackground1);
+  --bui-v3-text-primary: var(--colorNeutralForeground1);
+  --bui-v3-action-background: var(--colorBrandBackground);
+  --bui-v3-action-foreground: var(--colorBrandForeground1);
+  --bui-v3-action-on-brand: var(--colorNeutralForegroundOnBrand);
+  --bui-v3-border-default: var(--colorNeutralStroke1);
+  --bui-v3-border-strong: var(--colorNeutralStrokeAccessible);
+  --bui-v3-status-danger: var(--colorStatusDangerForeground1);
+  --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
+  --bui-v3-surface-disabled: var(--colorNeutralBackgroundDisabled);
+  --bui-v3-border-focus: var(--colorBrandBackground);
+  --bui-v3-text-danger-accessible: var(--colorPaletteRedForeground1);
+  --bui-v3-focus-ring-strong-candidate: var(--colorStrokeFocus2);
+  /* component: aliases only; legacy variables are never overwritten. */
+  --bui-v3-button-background-primary: var(--bui-v3-action-background);
+  --bui-v3-button-foreground-primary: var(--bui-v3-action-on-brand);
+  --bui-v3-button-foreground-default: var(--bui-v3-text-primary);
+  --bui-v3-text-field-background: var(--bui-v3-surface-default);
+  --bui-v3-text-field-stroke: var(--bui-v3-border-strong);
+  --bui-v3-checkbox-checked-fill: var(--bui-v3-action-background);
+  --bui-v3-switch-checked-track: var(--bui-v3-action-background);
+  --bui-v3-badge-danger-foreground: var(--bui-v3-status-danger);
+  --bui-v3-badge-danger-text-accessible: var(--bui-v3-text-danger-accessible);
+  --bui-v3-button-focus-outer-candidate: var(--bui-v3-focus-ring-strong-candidate);
+}
+/* APPROVED VISUAL host-role choice; candidate token ONLY in explicit v3 opt-in scopes.
+   data-bui-v3-focus-mode must be explicit on the host; inherited product theme is untouched.
+   Not a Button rule: consumers may bind outline-color separately after API review. */
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandBackground);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-v3-focus-mode][data-bui-v3-focus-host],
+  [data-bui-v3-tokens] [data-bui-v3-focus-mode][data-bui-v3-focus-host] {
+    --bui-v3-focus-host-ring-candidate: Highlight;
+  }
+}
+/* MAINTAINER-APPROVED DIRECTION; exact values remain DRAFT candidates. */
+/* Per-brand dark foregrounds: own source hue, >=4.6:1 preview target on the neutral Dark surface. */
+[data-bui-v3-tokens][data-bui-theme="dark"]:not([data-bui-brand]),
+[data-bui-v3-tokens][data-bui-brand=""][data-bui-theme="dark"],
+[data-bui-v3-tokens][data-bui-brand="default"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-theme="dark"]:not([data-bui-brand]),
+[data-bui-v3-tokens] [data-bui-brand=""][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="default"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #6793CF;
+  --bui-v3-link-foreground: #6793CF;
+  --bui-v3-link-foreground-hover: #6A93D0;
+  --bui-v3-link-foreground-pressed: #6094D0;
+}
+[data-bui-v3-tokens][data-bui-brand="excel"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="excel"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #5B9F71;
+  --bui-v3-link-foreground: #5B9F71;
+  --bui-v3-link-foreground-hover: #60A072;
+  --bui-v3-link-foreground-pressed: #5A9F73;
+}
+[data-bui-v3-tokens][data-bui-brand="office"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="office"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #E56E46;
+  --bui-v3-link-foreground: #E56E46;
+  --bui-v3-link-foreground-hover: #E86C40;
+  --bui-v3-link-foreground-pressed: #DC744D;
+}
+[data-bui-v3-tokens][data-bui-brand="outlook"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="outlook"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #5394DD;
+  --bui-v3-link-foreground: #5394DD;
+  --bui-v3-link-foreground-hover: #5E92DE;
+  --bui-v3-link-foreground-pressed: #4197DB;
+}
+[data-bui-v3-tokens][data-bui-brand="powerapps"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerapps"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #B082AD;
+  --bui-v3-link-foreground: #B082AD;
+  --bui-v3-link-foreground-hover: #B082AD;
+  --bui-v3-link-foreground-pressed: #B082AE;
+}
+[data-bui-v3-tokens][data-bui-brand="powerbi"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerbi"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #A79036;
+  --bui-v3-link-foreground: #A79036;
+  --bui-v3-link-foreground-hover: #AC8F1A;
+  --bui-v3-link-foreground-pressed: #A3904A;
+}
+[data-bui-v3-tokens][data-bui-brand="powerpoint"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerpoint"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #D8765A;
+  --bui-v3-link-foreground: #D8765A;
+  --bui-v3-link-foreground-hover: #DA7555;
+  --bui-v3-link-foreground-pressed: #D6775E;
+}
+[data-bui-v3-tokens][data-bui-brand="stream"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="stream"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #D77382;
+  --bui-v3-link-foreground: #D77382;
+  --bui-v3-link-foreground-hover: #D9727F;
+  --bui-v3-link-foreground-pressed: #D67386;
+}
+[data-bui-v3-tokens][data-bui-brand="teams"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="teams"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #8A89D7;
+  --bui-v3-link-foreground: #8A89D7;
+  --bui-v3-link-foreground-hover: #8B89D8;
+  --bui-v3-link-foreground-pressed: #898AD6;
+}
+[data-bui-v3-tokens][data-bui-brand="word"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="word"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #788FD4;
+  --bui-v3-link-foreground: #788FD4;
+  --bui-v3-link-foreground-hover: #7A8ED4;
+  --bui-v3-link-foreground-pressed: #7490D4;
+}
+[data-bui-v3-tokens] .v3-brand-foreground-preview {
+  display: block;
+  margin-block: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: 8px;
+}
+[data-bui-v3-tokens][data-bui-theme="light"] .v3-brand-foreground-preview { display: none; }
+[data-bui-v3-tokens] .v3-brand-foreground-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+[data-bui-v3-tokens] .v3-brand-foreground-action { color: var(--bui-v3-action-foreground); }
+[data-bui-v3-tokens] .v3-brand-foreground-link { color: var(--bui-v3-link-foreground); }
+[data-bui-v3-tokens] .v3-brand-foreground-link:hover,
+[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="hover"] { color: var(--bui-v3-link-foreground-hover); }
+[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="pressed"] { color: var(--bui-v3-link-foreground-pressed); }

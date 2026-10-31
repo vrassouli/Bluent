@@ -1,0 +1,1245 @@
+/* #418 DEMO-ONLY CSS. Generated from docs/v3/tokens sources; not the shipping Bluent.UI theme/asset contract. */
+
+/* AUTO-GENERATED #418 PREVIEW — source-backed token alias mapping.
+   Not part of Bluent 2.x bundle; no CSS is enabled without explicit opt-in.
+   This is a v3 research preview, NOT an approved public token naming API.
+   Regenerate: python scripts/quality/generate_v3_token_preview.py */
+[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme] {
+  /* semantic: aliases only; legacy variables are never overwritten. */
+  --bui-v3-surface-default: var(--colorNeutralBackground1);
+  --bui-v3-text-primary: var(--colorNeutralForeground1);
+  --bui-v3-action-background: var(--colorBrandBackground);
+  --bui-v3-action-foreground: var(--colorBrandForeground1);
+  --bui-v3-action-on-brand: var(--colorNeutralForegroundOnBrand);
+  --bui-v3-border-default: var(--colorNeutralStroke1);
+  --bui-v3-border-strong: var(--colorNeutralStrokeAccessible);
+  --bui-v3-status-danger: var(--colorStatusDangerForeground1);
+  --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
+  --bui-v3-surface-disabled: var(--colorNeutralBackgroundDisabled);
+  --bui-v3-border-focus: var(--colorBrandBackground);
+  --bui-v3-text-danger-accessible: var(--colorPaletteRedForeground1);
+  --bui-v3-focus-ring-strong-candidate: var(--colorStrokeFocus2);
+  /* component: aliases only; legacy variables are never overwritten. */
+  --bui-v3-button-background-primary: var(--bui-v3-action-background);
+  --bui-v3-button-foreground-primary: var(--bui-v3-action-on-brand);
+  --bui-v3-button-foreground-default: var(--bui-v3-text-primary);
+  --bui-v3-text-field-background: var(--bui-v3-surface-default);
+  --bui-v3-text-field-stroke: var(--bui-v3-border-strong);
+  --bui-v3-checkbox-checked-fill: var(--bui-v3-action-background);
+  --bui-v3-switch-checked-track: var(--bui-v3-action-background);
+  --bui-v3-badge-danger-foreground: var(--bui-v3-status-danger);
+  --bui-v3-badge-danger-text-accessible: var(--bui-v3-text-danger-accessible);
+  --bui-v3-button-focus-outer-candidate: var(--bui-v3-focus-ring-strong-candidate);
+}
+/* APPROVED VISUAL host-role choice; candidate token ONLY in explicit v3 opt-in scopes.
+   data-bui-v3-focus-mode must be explicit on the host; inherited product theme is untouched.
+   Not a Button rule: consumers may bind outline-color separately after API review. */
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandBackground);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="light"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="neutral"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="neutral"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brand"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brand"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brandHover"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="brandHover"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="danger"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="danger"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorNeutralForegroundOnBrand);
+}
+[data-bui-v3-tokens][data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="inverted"],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode="dark"][data-bui-v3-focus-host="inverted"] {
+  --bui-v3-focus-host-ring-candidate: var(--colorBrandForeground2);
+}
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-v3-focus-mode][data-bui-v3-focus-host],
+  [data-bui-v3-tokens] [data-bui-v3-focus-mode][data-bui-v3-focus-host] {
+    --bui-v3-focus-host-ring-candidate: Highlight;
+  }
+}
+/* MAINTAINER-APPROVED DIRECTION; exact values remain DRAFT candidates. */
+/* Per-brand dark foregrounds: own source hue, >=4.6:1 preview target on the neutral Dark surface. */
+[data-bui-v3-tokens][data-bui-theme="dark"]:not([data-bui-brand]),
+[data-bui-v3-tokens][data-bui-brand=""][data-bui-theme="dark"],
+[data-bui-v3-tokens][data-bui-brand="default"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-theme="dark"]:not([data-bui-brand]),
+[data-bui-v3-tokens] [data-bui-brand=""][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="default"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #6793CF;
+  --bui-v3-link-foreground: #6793CF;
+  --bui-v3-link-foreground-hover: #6A93D0;
+  --bui-v3-link-foreground-pressed: #6094D0;
+}
+[data-bui-v3-tokens][data-bui-brand="excel"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="excel"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #5B9F71;
+  --bui-v3-link-foreground: #5B9F71;
+  --bui-v3-link-foreground-hover: #60A072;
+  --bui-v3-link-foreground-pressed: #5A9F73;
+}
+[data-bui-v3-tokens][data-bui-brand="office"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="office"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #E56E46;
+  --bui-v3-link-foreground: #E56E46;
+  --bui-v3-link-foreground-hover: #E86C40;
+  --bui-v3-link-foreground-pressed: #DC744D;
+}
+[data-bui-v3-tokens][data-bui-brand="outlook"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="outlook"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #5394DD;
+  --bui-v3-link-foreground: #5394DD;
+  --bui-v3-link-foreground-hover: #5E92DE;
+  --bui-v3-link-foreground-pressed: #4197DB;
+}
+[data-bui-v3-tokens][data-bui-brand="powerapps"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerapps"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #B082AD;
+  --bui-v3-link-foreground: #B082AD;
+  --bui-v3-link-foreground-hover: #B082AD;
+  --bui-v3-link-foreground-pressed: #B082AE;
+}
+[data-bui-v3-tokens][data-bui-brand="powerbi"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerbi"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #A79036;
+  --bui-v3-link-foreground: #A79036;
+  --bui-v3-link-foreground-hover: #AC8F1A;
+  --bui-v3-link-foreground-pressed: #A3904A;
+}
+[data-bui-v3-tokens][data-bui-brand="powerpoint"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="powerpoint"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #D8765A;
+  --bui-v3-link-foreground: #D8765A;
+  --bui-v3-link-foreground-hover: #DA7555;
+  --bui-v3-link-foreground-pressed: #D6775E;
+}
+[data-bui-v3-tokens][data-bui-brand="stream"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="stream"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #D77382;
+  --bui-v3-link-foreground: #D77382;
+  --bui-v3-link-foreground-hover: #D9727F;
+  --bui-v3-link-foreground-pressed: #D67386;
+}
+[data-bui-v3-tokens][data-bui-brand="teams"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="teams"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #8A89D7;
+  --bui-v3-link-foreground: #8A89D7;
+  --bui-v3-link-foreground-hover: #8B89D8;
+  --bui-v3-link-foreground-pressed: #898AD6;
+}
+[data-bui-v3-tokens][data-bui-brand="word"][data-bui-theme="dark"],
+[data-bui-v3-tokens] [data-bui-brand="word"][data-bui-theme="dark"] {
+  --bui-v3-action-foreground: #788FD4;
+  --bui-v3-link-foreground: #788FD4;
+  --bui-v3-link-foreground-hover: #7A8ED4;
+  --bui-v3-link-foreground-pressed: #7490D4;
+}
+[data-bui-v3-tokens] .v3-brand-foreground-preview {
+  display: block;
+  margin-block: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: 8px;
+}
+[data-bui-v3-tokens][data-bui-theme="light"] .v3-brand-foreground-preview { display: none; }
+[data-bui-v3-tokens] .v3-brand-foreground-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+[data-bui-v3-tokens] .v3-brand-foreground-action { color: var(--bui-v3-action-foreground); }
+[data-bui-v3-tokens] .v3-brand-foreground-link { color: var(--bui-v3-link-foreground); }
+[data-bui-v3-tokens] .v3-brand-foreground-link:hover,
+[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="hover"] { color: var(--bui-v3-link-foreground-hover); }
+[data-bui-v3-tokens] .v3-brand-foreground-link[data-v3-link-state="pressed"] { color: var(--bui-v3-link-foreground-pressed); }
+
+/* #418 research-only opt-in accessibility overlay.
+   Design: Penpot Bluent v3 page 32, board acf5f619-7d81-80da-8008-c5ef2f9a3158.
+   Must be loaded AFTER issue-418-opt-in.preview.css. Not bundled or released.
+   This proposal is not a component accessibility certification. */
+[data-bui-v3-tokens][data-bui-theme],
+[data-bui-v3-tokens] [data-bui-theme] {
+  --bui-v3-motion-duration-fast: 150ms;
+}
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-theme],
+  [data-bui-v3-tokens] [data-bui-theme] {
+    --bui-v3-surface-default: Canvas;
+    --bui-v3-text-primary: CanvasText;
+    --bui-v3-action-background: ButtonFace;
+    --bui-v3-action-on-brand: ButtonText;
+    --bui-v3-border-strong: ButtonText;
+    --bui-v3-border-focus: Highlight;
+    --bui-v3-text-disabled: GrayText;
+    --bui-v3-surface-disabled: Canvas;
+    --bui-v3-text-danger-accessible: CanvasText;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-bui-v3-tokens][data-bui-theme],
+  [data-bui-v3-tokens] [data-bui-theme] {
+    --bui-v3-motion-duration-fast: 0ms;
+  }
+}
+
+/* #418 opt-in portal motion research; not shipped in Bluent.UI bundles.
+   Apply only to individually scoped global Dialog/Popover portals. */
+@media (prefers-reduced-motion: reduce) {
+  .dialog-wrapper[data-bui-v3-tokens] .bui-dialog,
+  .dialog-wrapper[data-bui-v3-tokens] > .bui-overlay {
+    animation-duration: 0s;
+    transition-duration: 0s;
+  }
+
+  .bui-popover-surface[data-bui-v3-tokens] {
+    transition-duration: 0s;
+  }
+}
+
+/* GENERATED #418 DEMO-ONLY experimental per-host brand variable bridge.
+   Source: src/Bluent.UI/Styles/Themes/theme-{brand}-{mode}.css
+   Not shipped in Bluent.UI, NuGet or the stable Dev branch.
+   Regenerate: python scripts/quality/generate_v3_scoped_brands.py */
+[data-bui-v3-tokens][data-bui-brand="default"][data-bui-theme="light"] {
+  --colorBrandBackground: #1267B4;
+  --colorBrandBackground2: #CDD8EF;
+  --colorBrandBackground2Hover: #BAC9E9;
+  --colorBrandBackground2Pressed: #92ACDC;
+  --colorBrandBackground3Static: #1B4C82;
+  --colorBrandBackground4Static: #193253;
+  --colorBrandBackgroundHover: #18599B;
+  --colorBrandBackgroundInvertedHover: #CDD8EF;
+  --colorBrandBackgroundInvertedPressed: #A6BAE2;
+  --colorBrandBackgroundInvertedSelected: #BAC9E9;
+  --colorBrandBackgroundPressed: #193253;
+  --colorBrandBackgroundSelected: #1B4C82;
+  --colorBrandBackgroundStatic: #1267B4;
+  --colorBrandForeground1: #1267B4;
+  --colorBrandForeground2: #18599B;
+  --colorBrandForeground2Hover: #1B4C82;
+  --colorBrandForeground2Pressed: #16263D;
+  --colorBrandForegroundInverted: #4F82C8;
+  --colorBrandForegroundInvertedHover: #6790CF;
+  --colorBrandForegroundInvertedPressed: #4F82C8;
+  --colorBrandForegroundLink: #18599B;
+  --colorBrandForegroundLinkHover: #1B4C82;
+  --colorBrandForegroundLinkPressed: #193253;
+  --colorBrandForegroundLinkSelected: #18599B;
+  --colorBrandForegroundOnLight: #1267B4;
+  --colorBrandForegroundOnLightHover: #18599B;
+  --colorBrandForegroundOnLightPressed: #1B3F6A;
+  --colorBrandForegroundOnLightSelected: #1B4C82;
+  --colorBrandStroke1: #1267B4;
+  --colorBrandStroke2: #A6BAE2;
+  --colorBrandStroke2Contrast: #A6BAE2;
+  --colorBrandStroke2Hover: #7D9ED5;
+  --colorBrandStroke2Pressed: #1267B4;
+  --colorCompoundBrandBackground: #1267B4;
+  --colorCompoundBrandBackgroundHover: #18599B;
+  --colorCompoundBrandBackgroundPressed: #1B4C82;
+  --colorCompoundBrandForeground1: #1267B4;
+  --colorCompoundBrandForeground1Hover: #18599B;
+  --colorCompoundBrandForeground1Pressed: #1B4C82;
+  --colorCompoundBrandStroke: #1267B4;
+  --colorCompoundBrandStrokeHover: #18599B;
+  --colorCompoundBrandStrokePressed: #1B4C82;
+  --colorNeutralForeground2BrandHover: #1267B4;
+  --colorNeutralForeground2BrandPressed: #18599B;
+  --colorNeutralForeground2BrandSelected: #1267B4;
+  --colorNeutralForeground3BrandHover: #1267B4;
+  --colorNeutralForeground3BrandPressed: #18599B;
+  --colorNeutralForeground3BrandSelected: #1267B4;
+  --colorNeutralStrokeAccessibleSelected: #1267B4;
+}
+[data-bui-v3-tokens][data-bui-brand="default"][data-bui-theme="dark"] {
+  --colorBrandBackground: #18599B;
+  --colorBrandBackground2: #111723;
+  --colorBrandBackground2Hover: #193253;
+  --colorBrandBackground2Pressed: #020305;
+  --colorBrandBackground3Static: #1B4C82;
+  --colorBrandBackground4Static: #193253;
+  --colorBrandBackgroundHover: #1267B4;
+  --colorBrandBackgroundInvertedHover: #CDD8EF;
+  --colorBrandBackgroundInvertedPressed: #A6BAE2;
+  --colorBrandBackgroundInvertedSelected: #BAC9E9;
+  --colorBrandBackgroundPressed: #193253;
+  --colorBrandBackgroundSelected: #1B4C82;
+  --colorBrandBackgroundStatic: #1267B4;
+  --colorBrandForeground1: #4F82C8;
+  --colorBrandForeground2: #6790CF;
+  --colorBrandForeground2Hover: #92ACDC;
+  --colorBrandForeground2Pressed: #CDD8EF;
+  --colorBrandForegroundInverted: #1267B4;
+  --colorBrandForegroundInvertedHover: #18599B;
+  --colorBrandForegroundInvertedPressed: #1B4C82;
+  --colorBrandForegroundLink: #4F82C8;
+  --colorBrandForegroundLinkHover: #6790CF;
+  --colorBrandForegroundLinkPressed: #3174C2;
+  --colorBrandForegroundLinkSelected: #4F82C8;
+  --colorBrandForegroundOnLight: #1267B4;
+  --colorBrandForegroundOnLightHover: #18599B;
+  --colorBrandForegroundOnLightPressed: #1B3F6A;
+  --colorBrandForegroundOnLightSelected: #1B4C82;
+  --colorBrandStroke1: #4F82C8;
+  --colorBrandStroke2: #1B3F6A;
+  --colorBrandStroke2Contrast: #1B3F6A;
+  --colorBrandStroke2Hover: #1B3F6A;
+  --colorBrandStroke2Pressed: #16263D;
+  --colorCompoundBrandBackground: #4F82C8;
+  --colorCompoundBrandBackgroundHover: #6790CF;
+  --colorCompoundBrandBackgroundPressed: #3174C2;
+  --colorCompoundBrandForeground1: #4F82C8;
+  --colorCompoundBrandForeground1Hover: #6790CF;
+  --colorCompoundBrandForeground1Pressed: #3174C2;
+  --colorCompoundBrandStroke: #4F82C8;
+  --colorCompoundBrandStrokeHover: #6790CF;
+  --colorCompoundBrandStrokePressed: #3174C2;
+  --colorNeutralForeground2BrandHover: #4F82C8;
+  --colorNeutralForeground2BrandPressed: #3174C2;
+  --colorNeutralForeground2BrandSelected: #4F82C8;
+  --colorNeutralForeground3BrandHover: #4F82C8;
+  --colorNeutralForeground3BrandPressed: #3174C2;
+  --colorNeutralForeground3BrandSelected: #4F82C8;
+  --colorNeutralStrokeAccessibleSelected: #4F82C8;
+}
+[data-bui-v3-tokens][data-bui-brand="excel"][data-bui-theme="light"] {
+  --colorBrandBackground: #11783F;
+  --colorBrandBackground2: #CEE2D2;
+  --colorBrandBackground2Hover: #B8D5BE;
+  --colorBrandBackground2Pressed: #8CBA98;
+  --colorBrandBackground3Static: #165A31;
+  --colorBrandBackground4Static: #153D23;
+  --colorBrandBackgroundHover: #146938;
+  --colorBrandBackgroundInvertedHover: #CEE2D2;
+  --colorBrandBackgroundInvertedPressed: #A2C7AB;
+  --colorBrandBackgroundInvertedSelected: #B8D5BE;
+  --colorBrandBackgroundPressed: #153D23;
+  --colorBrandBackgroundSelected: #165A31;
+  --colorBrandBackgroundStatic: #11783F;
+  --colorBrandForeground1: #11783F;
+  --colorBrandForeground2: #146938;
+  --colorBrandForeground2Hover: #165A31;
+  --colorBrandForeground2Pressed: #132F1C;
+  --colorBrandForegroundInverted: #489360;
+  --colorBrandForegroundInvertedHover: #60A072;
+  --colorBrandForegroundInvertedPressed: #489360;
+  --colorBrandForegroundLink: #146938;
+  --colorBrandForegroundLinkHover: #165A31;
+  --colorBrandForegroundLinkPressed: #153D23;
+  --colorBrandForegroundLinkSelected: #146938;
+  --colorBrandForegroundOnLight: #11783F;
+  --colorBrandForegroundOnLightHover: #146938;
+  --colorBrandForegroundOnLightPressed: #164B2A;
+  --colorBrandForegroundOnLightSelected: #165A31;
+  --colorBrandStroke1: #11783F;
+  --colorBrandStroke2: #A2C7AB;
+  --colorBrandStroke2Contrast: #A2C7AB;
+  --colorBrandStroke2Hover: #76AD85;
+  --colorBrandStroke2Pressed: #11783F;
+  --colorCompoundBrandBackground: #11783F;
+  --colorCompoundBrandBackgroundHover: #146938;
+  --colorCompoundBrandBackgroundPressed: #165A31;
+  --colorCompoundBrandForeground1: #11783F;
+  --colorCompoundBrandForeground1Hover: #146938;
+  --colorCompoundBrandForeground1Pressed: #165A31;
+  --colorCompoundBrandStroke: #11783F;
+  --colorCompoundBrandStrokeHover: #146938;
+  --colorCompoundBrandStrokePressed: #165A31;
+  --colorNeutralForeground2BrandHover: #11783F;
+  --colorNeutralForeground2BrandPressed: #146938;
+  --colorNeutralForeground2BrandSelected: #11783F;
+  --colorNeutralForeground3BrandHover: #11783F;
+  --colorNeutralForeground3BrandPressed: #146938;
+  --colorNeutralForeground3BrandSelected: #11783F;
+  --colorNeutralStrokeAccessibleSelected: #11783F;
+}
+[data-bui-v3-tokens][data-bui-brand="excel"][data-bui-theme="dark"] {
+  --colorBrandBackground: #146938;
+  --colorBrandBackground2: #0F1C12;
+  --colorBrandBackground2Hover: #153D23;
+  --colorBrandBackground2Pressed: #010402;
+  --colorBrandBackground3Static: #165A31;
+  --colorBrandBackground4Static: #153D23;
+  --colorBrandBackgroundHover: #11783F;
+  --colorBrandBackgroundInvertedHover: #CEE2D2;
+  --colorBrandBackgroundInvertedPressed: #A2C7AB;
+  --colorBrandBackgroundInvertedSelected: #B8D5BE;
+  --colorBrandBackgroundPressed: #153D23;
+  --colorBrandBackgroundSelected: #165A31;
+  --colorBrandBackgroundStatic: #11783F;
+  --colorBrandForeground1: #489360;
+  --colorBrandForeground2: #60A072;
+  --colorBrandForeground2Hover: #8CBA98;
+  --colorBrandForeground2Pressed: #CEE2D2;
+  --colorBrandForegroundInverted: #11783F;
+  --colorBrandForegroundInvertedHover: #146938;
+  --colorBrandForegroundInvertedPressed: #165A31;
+  --colorBrandForegroundLink: #489360;
+  --colorBrandForegroundLinkHover: #60A072;
+  --colorBrandForegroundLinkPressed: #2E864E;
+  --colorBrandForegroundLinkSelected: #489360;
+  --colorBrandForegroundOnLight: #11783F;
+  --colorBrandForegroundOnLightHover: #146938;
+  --colorBrandForegroundOnLightPressed: #164B2A;
+  --colorBrandForegroundOnLightSelected: #165A31;
+  --colorBrandStroke1: #489360;
+  --colorBrandStroke2: #164B2A;
+  --colorBrandStroke2Contrast: #164B2A;
+  --colorBrandStroke2Hover: #164B2A;
+  --colorBrandStroke2Pressed: #132F1C;
+  --colorCompoundBrandBackground: #489360;
+  --colorCompoundBrandBackgroundHover: #60A072;
+  --colorCompoundBrandBackgroundPressed: #2E864E;
+  --colorCompoundBrandForeground1: #489360;
+  --colorCompoundBrandForeground1Hover: #60A072;
+  --colorCompoundBrandForeground1Pressed: #2E864E;
+  --colorCompoundBrandStroke: #489360;
+  --colorCompoundBrandStrokeHover: #60A072;
+  --colorCompoundBrandStrokePressed: #2E864E;
+  --colorNeutralForeground2BrandHover: #489360;
+  --colorNeutralForeground2BrandPressed: #2E864E;
+  --colorNeutralForeground2BrandSelected: #489360;
+  --colorNeutralForeground3BrandHover: #489360;
+  --colorNeutralForeground3BrandPressed: #2E864E;
+  --colorNeutralForeground3BrandSelected: #489360;
+  --colorNeutralStrokeAccessibleSelected: #489360;
+}
+[data-bui-v3-tokens][data-bui-brand="office"][data-bui-theme="light"] {
+  --colorBrandBackground: #B53406;
+  --colorBrandBackground2: #FFCBB7;
+  --colorBrandBackground2Hover: #FDB79C;
+  --colorBrandBackground2Pressed: #F48E67;
+  --colorBrandBackground3Static: #842A0B;
+  --colorBrandBackground4Static: #561F0B;
+  --colorBrandBackgroundHover: #9C2F09;
+  --colorBrandBackgroundInvertedHover: #FFCBB7;
+  --colorBrandBackgroundInvertedPressed: #F9A381;
+  --colorBrandBackgroundInvertedSelected: #FDB79C;
+  --colorBrandBackgroundPressed: #561F0B;
+  --colorBrandBackgroundSelected: #842A0B;
+  --colorBrandBackgroundStatic: #B53406;
+  --colorBrandForeground1: #B53406;
+  --colorBrandForeground2: #9C2F09;
+  --colorBrandForeground2Hover: #842A0B;
+  --colorBrandForeground2Pressed: #401A09;
+  --colorBrandForegroundInverted: #DE4B18;
+  --colorBrandForegroundInvertedHover: #E66334;
+  --colorBrandForegroundInvertedPressed: #DE4B18;
+  --colorBrandForegroundLink: #9C2F09;
+  --colorBrandForegroundLinkHover: #842A0B;
+  --colorBrandForegroundLinkPressed: #561F0B;
+  --colorBrandForegroundLinkSelected: #9C2F09;
+  --colorBrandForegroundOnLight: #B53406;
+  --colorBrandForegroundOnLightHover: #9C2F09;
+  --colorBrandForegroundOnLightPressed: #6C250C;
+  --colorBrandForegroundOnLightSelected: #842A0B;
+  --colorBrandStroke1: #B53406;
+  --colorBrandStroke2: #F9A381;
+  --colorBrandStroke2Contrast: #F9A381;
+  --colorBrandStroke2Hover: #ED794E;
+  --colorBrandStroke2Pressed: #B53406;
+  --colorCompoundBrandBackground: #B53406;
+  --colorCompoundBrandBackgroundHover: #9C2F09;
+  --colorCompoundBrandBackgroundPressed: #842A0B;
+  --colorCompoundBrandForeground1: #B53406;
+  --colorCompoundBrandForeground1Hover: #9C2F09;
+  --colorCompoundBrandForeground1Pressed: #842A0B;
+  --colorCompoundBrandStroke: #B53406;
+  --colorCompoundBrandStrokeHover: #9C2F09;
+  --colorCompoundBrandStrokePressed: #842A0B;
+  --colorNeutralForeground2BrandHover: #B53406;
+  --colorNeutralForeground2BrandPressed: #9C2F09;
+  --colorNeutralForeground2BrandSelected: #B53406;
+  --colorNeutralForeground3BrandHover: #B53406;
+  --colorNeutralForeground3BrandPressed: #9C2F09;
+  --colorNeutralForeground3BrandSelected: #B53406;
+  --colorNeutralStrokeAccessibleSelected: #B53406;
+}
+[data-bui-v3-tokens][data-bui-brand="office"][data-bui-theme="dark"] {
+  --colorBrandBackground: #9C2F09;
+  --colorBrandBackground2: #261205;
+  --colorBrandBackground2Hover: #561F0B;
+  --colorBrandBackground2Pressed: #060200;
+  --colorBrandBackground3Static: #842A0B;
+  --colorBrandBackground4Static: #561F0B;
+  --colorBrandBackgroundHover: #B53406;
+  --colorBrandBackgroundInvertedHover: #FFCBB7;
+  --colorBrandBackgroundInvertedPressed: #F9A381;
+  --colorBrandBackgroundInvertedSelected: #FDB79C;
+  --colorBrandBackgroundPressed: #561F0B;
+  --colorBrandBackgroundSelected: #842A0B;
+  --colorBrandBackgroundStatic: #B53406;
+  --colorBrandForeground1: #DE4B18;
+  --colorBrandForeground2: #E66334;
+  --colorBrandForeground2Hover: #F48E67;
+  --colorBrandForeground2Pressed: #FFCBB7;
+  --colorBrandForegroundInverted: #B53406;
+  --colorBrandForegroundInvertedHover: #9C2F09;
+  --colorBrandForegroundInvertedPressed: #842A0B;
+  --colorBrandForegroundLink: #DE4B18;
+  --colorBrandForegroundLinkHover: #E66334;
+  --colorBrandForegroundLinkPressed: #CE3902;
+  --colorBrandForegroundLinkSelected: #DE4B18;
+  --colorBrandForegroundOnLight: #B53406;
+  --colorBrandForegroundOnLightHover: #9C2F09;
+  --colorBrandForegroundOnLightPressed: #6C250C;
+  --colorBrandForegroundOnLightSelected: #842A0B;
+  --colorBrandStroke1: #DE4B18;
+  --colorBrandStroke2: #6C250C;
+  --colorBrandStroke2Contrast: #6C250C;
+  --colorBrandStroke2Hover: #6C250C;
+  --colorBrandStroke2Pressed: #401A09;
+  --colorCompoundBrandBackground: #DE4B18;
+  --colorCompoundBrandBackgroundHover: #E66334;
+  --colorCompoundBrandBackgroundPressed: #CE3902;
+  --colorCompoundBrandForeground1: #DE4B18;
+  --colorCompoundBrandForeground1Hover: #E66334;
+  --colorCompoundBrandForeground1Pressed: #CE3902;
+  --colorCompoundBrandStroke: #DE4B18;
+  --colorCompoundBrandStrokeHover: #E66334;
+  --colorCompoundBrandStrokePressed: #CE3902;
+  --colorNeutralForeground2BrandHover: #DE4B18;
+  --colorNeutralForeground2BrandPressed: #CE3902;
+  --colorNeutralForeground2BrandSelected: #DE4B18;
+  --colorNeutralForeground3BrandHover: #DE4B18;
+  --colorNeutralForeground3BrandPressed: #CE3902;
+  --colorNeutralForeground3BrandSelected: #DE4B18;
+  --colorNeutralStrokeAccessibleSelected: #DE4B18;
+}
+[data-bui-v3-tokens][data-bui-brand="outlook"][data-bui-theme="light"] {
+  --colorBrandBackground: #1267B5;
+  --colorBrandBackground2: #CBD8F5;
+  --colorBrandBackground2Hover: #B7CAF0;
+  --colorBrandBackground2Pressed: #8BACE7;
+  --colorBrandBackground3Static: #1B4C83;
+  --colorBrandBackground4Static: #193254;
+  --colorBrandBackgroundHover: #18599C;
+  --colorBrandBackgroundInvertedHover: #CBD8F5;
+  --colorBrandBackgroundInvertedPressed: #A1BBEC;
+  --colorBrandBackgroundInvertedSelected: #B7CAF0;
+  --colorBrandBackgroundPressed: #193254;
+  --colorBrandBackgroundSelected: #1B4C83;
+  --colorBrandBackgroundStatic: #1267B5;
+  --colorBrandForeground1: #1267B5;
+  --colorBrandForeground2: #18599C;
+  --colorBrandForeground2Hover: #1B4C83;
+  --colorBrandForeground2Pressed: #17263E;
+  --colorBrandForegroundInverted: #3983D8;
+  --colorBrandForegroundInvertedHover: #5A90DD;
+  --colorBrandForegroundInvertedPressed: #3983D8;
+  --colorBrandForegroundLink: #18599C;
+  --colorBrandForegroundLinkHover: #1B4C83;
+  --colorBrandForegroundLinkPressed: #193254;
+  --colorBrandForegroundLinkSelected: #18599C;
+  --colorBrandForegroundOnLight: #1267B5;
+  --colorBrandForegroundOnLightHover: #18599C;
+  --colorBrandForegroundOnLightPressed: #1B3F6B;
+  --colorBrandForegroundOnLightSelected: #1B4C83;
+  --colorBrandStroke1: #1267B5;
+  --colorBrandStroke2: #A1BBEC;
+  --colorBrandStroke2Contrast: #A1BBEC;
+  --colorBrandStroke2Hover: #749EE2;
+  --colorBrandStroke2Pressed: #1267B5;
+  --colorCompoundBrandBackground: #1267B5;
+  --colorCompoundBrandBackgroundHover: #18599C;
+  --colorCompoundBrandBackgroundPressed: #1B4C83;
+  --colorCompoundBrandForeground1: #1267B5;
+  --colorCompoundBrandForeground1Hover: #18599C;
+  --colorCompoundBrandForeground1Pressed: #1B4C83;
+  --colorCompoundBrandStroke: #1267B5;
+  --colorCompoundBrandStrokeHover: #18599C;
+  --colorCompoundBrandStrokePressed: #1B4C83;
+  --colorNeutralForeground2BrandHover: #1267B5;
+  --colorNeutralForeground2BrandPressed: #18599C;
+  --colorNeutralForeground2BrandSelected: #1267B5;
+  --colorNeutralForeground3BrandHover: #1267B5;
+  --colorNeutralForeground3BrandPressed: #18599C;
+  --colorNeutralForeground3BrandSelected: #1267B5;
+  --colorNeutralStrokeAccessibleSelected: #1267B5;
+}
+[data-bui-v3-tokens][data-bui-brand="outlook"][data-bui-theme="dark"] {
+  --colorBrandBackground: #18599C;
+  --colorBrandBackground2: #111723;
+  --colorBrandBackground2Hover: #193254;
+  --colorBrandBackground2Pressed: #020305;
+  --colorBrandBackground3Static: #1B4C83;
+  --colorBrandBackground4Static: #193254;
+  --colorBrandBackgroundHover: #1267B5;
+  --colorBrandBackgroundInvertedHover: #CBD8F5;
+  --colorBrandBackgroundInvertedPressed: #A1BBEC;
+  --colorBrandBackgroundInvertedSelected: #B7CAF0;
+  --colorBrandBackgroundPressed: #193254;
+  --colorBrandBackgroundSelected: #1B4C83;
+  --colorBrandBackgroundStatic: #1267B5;
+  --colorBrandForeground1: #3983D8;
+  --colorBrandForeground2: #5A90DD;
+  --colorBrandForeground2Hover: #8BACE7;
+  --colorBrandForeground2Pressed: #CBD8F5;
+  --colorBrandForegroundInverted: #1267B5;
+  --colorBrandForegroundInvertedHover: #18599C;
+  --colorBrandForegroundInvertedPressed: #1B4C83;
+  --colorBrandForegroundLink: #3983D8;
+  --colorBrandForegroundLinkHover: #5A90DD;
+  --colorBrandForegroundLinkPressed: #0475CF;
+  --colorBrandForegroundLinkSelected: #3983D8;
+  --colorBrandForegroundOnLight: #1267B5;
+  --colorBrandForegroundOnLightHover: #18599C;
+  --colorBrandForegroundOnLightPressed: #1B3F6B;
+  --colorBrandForegroundOnLightSelected: #1B4C83;
+  --colorBrandStroke1: #3983D8;
+  --colorBrandStroke2: #1B3F6B;
+  --colorBrandStroke2Contrast: #1B3F6B;
+  --colorBrandStroke2Hover: #1B3F6B;
+  --colorBrandStroke2Pressed: #17263E;
+  --colorCompoundBrandBackground: #3983D8;
+  --colorCompoundBrandBackgroundHover: #5A90DD;
+  --colorCompoundBrandBackgroundPressed: #0475CF;
+  --colorCompoundBrandForeground1: #3983D8;
+  --colorCompoundBrandForeground1Hover: #5A90DD;
+  --colorCompoundBrandForeground1Pressed: #0475CF;
+  --colorCompoundBrandStroke: #3983D8;
+  --colorCompoundBrandStrokeHover: #5A90DD;
+  --colorCompoundBrandStrokePressed: #0475CF;
+  --colorNeutralForeground2BrandHover: #3983D8;
+  --colorNeutralForeground2BrandPressed: #0475CF;
+  --colorNeutralForeground2BrandSelected: #3983D8;
+  --colorNeutralForeground3BrandHover: #3983D8;
+  --colorNeutralForeground3BrandPressed: #0475CF;
+  --colorNeutralForeground3BrandSelected: #3983D8;
+  --colorNeutralStrokeAccessibleSelected: #3983D8;
+}
+[data-bui-v3-tokens][data-bui-brand="powerapps"][data-bui-theme="light"] {
+  --colorBrandBackground: #8D4D8B;
+  --colorBrandBackground2: #E4D3E3;
+  --colorBrandBackground2Hover: #D9C1D7;
+  --colorBrandBackground2Pressed: #C49FC1;
+  --colorBrandBackground3Static: #762B76;
+  --colorBrandBackground4Static: #4E1E4E;
+  --colorBrandBackgroundHover: #823C81;
+  --colorBrandBackgroundInvertedHover: #E4D3E3;
+  --colorBrandBackgroundInvertedPressed: #CFB0CC;
+  --colorBrandBackgroundInvertedSelected: #D9C1D7;
+  --colorBrandBackgroundPressed: #4E1E4E;
+  --colorBrandBackgroundSelected: #762B76;
+  --colorBrandBackgroundStatic: #8D4D8B;
+  --colorBrandForeground1: #8D4D8B;
+  --colorBrandForeground2: #823C81;
+  --colorBrandForeground2Hover: #762B76;
+  --colorBrandForeground2Pressed: #3A193A;
+  --colorBrandForegroundInverted: #A36EA0;
+  --colorBrandForegroundInvertedHover: #AE7EAB;
+  --colorBrandForegroundInvertedPressed: #A36EA0;
+  --colorBrandForegroundLink: #823C81;
+  --colorBrandForegroundLinkHover: #762B76;
+  --colorBrandForegroundLinkPressed: #4E1E4E;
+  --colorBrandForegroundLinkSelected: #823C81;
+  --colorBrandForegroundOnLight: #8D4D8B;
+  --colorBrandForegroundOnLightHover: #823C81;
+  --colorBrandForegroundOnLightPressed: #632363;
+  --colorBrandForegroundOnLightSelected: #762B76;
+  --colorBrandStroke1: #8D4D8B;
+  --colorBrandStroke2: #CFB0CC;
+  --colorBrandStroke2Contrast: #CFB0CC;
+  --colorBrandStroke2Hover: #B98FB6;
+  --colorBrandStroke2Pressed: #8D4D8B;
+  --colorCompoundBrandBackground: #8D4D8B;
+  --colorCompoundBrandBackgroundHover: #823C81;
+  --colorCompoundBrandBackgroundPressed: #762B76;
+  --colorCompoundBrandForeground1: #8D4D8B;
+  --colorCompoundBrandForeground1Hover: #823C81;
+  --colorCompoundBrandForeground1Pressed: #762B76;
+  --colorCompoundBrandStroke: #8D4D8B;
+  --colorCompoundBrandStrokeHover: #823C81;
+  --colorCompoundBrandStrokePressed: #762B76;
+  --colorNeutralForeground2BrandHover: #8D4D8B;
+  --colorNeutralForeground2BrandPressed: #823C81;
+  --colorNeutralForeground2BrandSelected: #8D4D8B;
+  --colorNeutralForeground3BrandHover: #8D4D8B;
+  --colorNeutralForeground3BrandPressed: #823C81;
+  --colorNeutralForeground3BrandSelected: #8D4D8B;
+  --colorNeutralStrokeAccessibleSelected: #8D4D8B;
+}
+[data-bui-v3-tokens][data-bui-brand="powerapps"][data-bui-theme="dark"] {
+  --colorBrandBackground: #823C81;
+  --colorBrandBackground2: #221221;
+  --colorBrandBackground2Hover: #4E1E4E;
+  --colorBrandBackground2Pressed: #050205;
+  --colorBrandBackground3Static: #762B76;
+  --colorBrandBackground4Static: #4E1E4E;
+  --colorBrandBackgroundHover: #8D4D8B;
+  --colorBrandBackgroundInvertedHover: #E4D3E3;
+  --colorBrandBackgroundInvertedPressed: #CFB0CC;
+  --colorBrandBackgroundInvertedSelected: #D9C1D7;
+  --colorBrandBackgroundPressed: #4E1E4E;
+  --colorBrandBackgroundSelected: #762B76;
+  --colorBrandBackgroundStatic: #8D4D8B;
+  --colorBrandForeground1: #A36EA0;
+  --colorBrandForeground2: #AE7EAB;
+  --colorBrandForeground2Hover: #C49FC1;
+  --colorBrandForeground2Pressed: #E4D3E3;
+  --colorBrandForegroundInverted: #8D4D8B;
+  --colorBrandForegroundInvertedHover: #823C81;
+  --colorBrandForegroundInvertedPressed: #762B76;
+  --colorBrandForegroundLink: #A36EA0;
+  --colorBrandForegroundLinkHover: #AE7EAB;
+  --colorBrandForegroundLinkPressed: #985D96;
+  --colorBrandForegroundLinkSelected: #A36EA0;
+  --colorBrandForegroundOnLight: #8D4D8B;
+  --colorBrandForegroundOnLightHover: #823C81;
+  --colorBrandForegroundOnLightPressed: #632363;
+  --colorBrandForegroundOnLightSelected: #762B76;
+  --colorBrandStroke1: #A36EA0;
+  --colorBrandStroke2: #632363;
+  --colorBrandStroke2Contrast: #632363;
+  --colorBrandStroke2Hover: #632363;
+  --colorBrandStroke2Pressed: #3A193A;
+  --colorCompoundBrandBackground: #A36EA0;
+  --colorCompoundBrandBackgroundHover: #AE7EAB;
+  --colorCompoundBrandBackgroundPressed: #985D96;
+  --colorCompoundBrandForeground1: #A36EA0;
+  --colorCompoundBrandForeground1Hover: #AE7EAB;
+  --colorCompoundBrandForeground1Pressed: #985D96;
+  --colorCompoundBrandStroke: #A36EA0;
+  --colorCompoundBrandStrokeHover: #AE7EAB;
+  --colorCompoundBrandStrokePressed: #985D96;
+  --colorNeutralForeground2BrandHover: #A36EA0;
+  --colorNeutralForeground2BrandPressed: #985D96;
+  --colorNeutralForeground2BrandSelected: #A36EA0;
+  --colorNeutralForeground3BrandHover: #A36EA0;
+  --colorNeutralForeground3BrandPressed: #985D96;
+  --colorNeutralForeground3BrandSelected: #A36EA0;
+  --colorNeutralStrokeAccessibleSelected: #A36EA0;
+}
+[data-bui-v3-tokens][data-bui-brand="powerbi"][data-bui-theme="light"] {
+  --colorBrandBackground: #7A6519;
+  --colorBrandBackground2: #FBD86B;
+  --colorBrandBackground2Hover: #F1C711;
+  --colorBrandBackground2Pressed: #CEAA17;
+  --colorBrandBackground3Static: #5B4C17;
+  --colorBrandBackground4Static: #3E3313;
+  --colorBrandBackgroundHover: #6B5818;
+  --colorBrandBackgroundInvertedHover: #FBD86B;
+  --colorBrandBackgroundInvertedPressed: #E0B915;
+  --colorBrandBackgroundInvertedSelected: #F1C711;
+  --colorBrandBackgroundPressed: #3E3313;
+  --colorBrandBackgroundSelected: #5B4C17;
+  --colorBrandBackgroundStatic: #7A6519;
+  --colorBrandForeground1: #7A6519;
+  --colorBrandForeground2: #6B5818;
+  --colorBrandForeground2Hover: #5B4C17;
+  --colorBrandForeground2Pressed: #302811;
+  --colorBrandForegroundInverted: #9B801A;
+  --colorBrandForegroundInvertedHover: #AC8E19;
+  --colorBrandForegroundInvertedPressed: #9B801A;
+  --colorBrandForegroundLink: #6B5818;
+  --colorBrandForegroundLinkHover: #5B4C17;
+  --colorBrandForegroundLinkPressed: #3E3313;
+  --colorBrandForegroundLinkSelected: #6B5818;
+  --colorBrandForegroundOnLight: #7A6519;
+  --colorBrandForegroundOnLightHover: #6B5818;
+  --colorBrandForegroundOnLightPressed: #4C3F15;
+  --colorBrandForegroundOnLightSelected: #5B4C17;
+  --colorBrandStroke1: #7A6519;
+  --colorBrandStroke2: #E0B915;
+  --colorBrandStroke2Contrast: #E0B915;
+  --colorBrandStroke2Hover: #BD9C19;
+  --colorBrandStroke2Pressed: #7A6519;
+  --colorCompoundBrandBackground: #7A6519;
+  --colorCompoundBrandBackgroundHover: #6B5818;
+  --colorCompoundBrandBackgroundPressed: #5B4C17;
+  --colorCompoundBrandForeground1: #7A6519;
+  --colorCompoundBrandForeground1Hover: #6B5818;
+  --colorCompoundBrandForeground1Pressed: #5B4C17;
+  --colorCompoundBrandStroke: #7A6519;
+  --colorCompoundBrandStrokeHover: #6B5818;
+  --colorCompoundBrandStrokePressed: #5B4C17;
+  --colorNeutralForeground2BrandHover: #7A6519;
+  --colorNeutralForeground2BrandPressed: #6B5818;
+  --colorNeutralForeground2BrandSelected: #7A6519;
+  --colorNeutralForeground3BrandHover: #7A6519;
+  --colorNeutralForeground3BrandPressed: #6B5818;
+  --colorNeutralForeground3BrandSelected: #7A6519;
+  --colorNeutralStrokeAccessibleSelected: #7A6519;
+}
+[data-bui-v3-tokens][data-bui-brand="powerbi"][data-bui-theme="dark"] {
+  --colorBrandBackground: #6B5818;
+  --colorBrandBackground2: #1D180B;
+  --colorBrandBackground2Hover: #3E3313;
+  --colorBrandBackground2Pressed: #040301;
+  --colorBrandBackground3Static: #5B4C17;
+  --colorBrandBackground4Static: #3E3313;
+  --colorBrandBackgroundHover: #7A6519;
+  --colorBrandBackgroundInvertedHover: #FBD86B;
+  --colorBrandBackgroundInvertedPressed: #E0B915;
+  --colorBrandBackgroundInvertedSelected: #F1C711;
+  --colorBrandBackgroundPressed: #3E3313;
+  --colorBrandBackgroundSelected: #5B4C17;
+  --colorBrandBackgroundStatic: #7A6519;
+  --colorBrandForeground1: #9B801A;
+  --colorBrandForeground2: #AC8E19;
+  --colorBrandForeground2Hover: #CEAA17;
+  --colorBrandForeground2Pressed: #FBD86B;
+  --colorBrandForegroundInverted: #7A6519;
+  --colorBrandForegroundInvertedHover: #6B5818;
+  --colorBrandForegroundInvertedPressed: #5B4C17;
+  --colorBrandForegroundLink: #9B801A;
+  --colorBrandForegroundLinkHover: #AC8E19;
+  --colorBrandForegroundLinkPressed: #8A731A;
+  --colorBrandForegroundLinkSelected: #9B801A;
+  --colorBrandForegroundOnLight: #7A6519;
+  --colorBrandForegroundOnLightHover: #6B5818;
+  --colorBrandForegroundOnLightPressed: #4C3F15;
+  --colorBrandForegroundOnLightSelected: #5B4C17;
+  --colorBrandStroke1: #9B801A;
+  --colorBrandStroke2: #4C3F15;
+  --colorBrandStroke2Contrast: #4C3F15;
+  --colorBrandStroke2Hover: #4C3F15;
+  --colorBrandStroke2Pressed: #302811;
+  --colorCompoundBrandBackground: #9B801A;
+  --colorCompoundBrandBackgroundHover: #AC8E19;
+  --colorCompoundBrandBackgroundPressed: #8A731A;
+  --colorCompoundBrandForeground1: #9B801A;
+  --colorCompoundBrandForeground1Hover: #AC8E19;
+  --colorCompoundBrandForeground1Pressed: #8A731A;
+  --colorCompoundBrandStroke: #9B801A;
+  --colorCompoundBrandStrokeHover: #AC8E19;
+  --colorCompoundBrandStrokePressed: #8A731A;
+  --colorNeutralForeground2BrandHover: #9B801A;
+  --colorNeutralForeground2BrandPressed: #8A731A;
+  --colorNeutralForeground2BrandSelected: #9B801A;
+  --colorNeutralForeground3BrandHover: #9B801A;
+  --colorNeutralForeground3BrandPressed: #8A731A;
+  --colorNeutralForeground3BrandSelected: #9B801A;
+  --colorNeutralStrokeAccessibleSelected: #9B801A;
+}
+[data-bui-v3-tokens][data-bui-brand="powerpoint"][data-bui-theme="light"] {
+  --colorBrandBackground: #B0391A;
+  --colorBrandBackground2: #F8CDBF;
+  --colorBrandBackground2Hover: #F4BAA7;
+  --colorBrandBackground2Pressed: #E89478;
+  --colorBrandBackground3Static: #802D16;
+  --colorBrandBackground4Static: #532112;
+  --colorBrandBackgroundHover: #983318;
+  --colorBrandBackgroundInvertedHover: #F8CDBF;
+  --colorBrandBackgroundInvertedPressed: #EEA78F;
+  --colorBrandBackgroundInvertedSelected: #F4BAA7;
+  --colorBrandBackgroundPressed: #532112;
+  --colorBrandBackgroundSelected: #802D16;
+  --colorBrandBackgroundStatic: #B0391A;
+  --colorBrandForeground1: #B0391A;
+  --colorBrandForeground2: #983318;
+  --colorBrandForeground2Hover: #802D16;
+  --colorBrandForeground2Pressed: #3E1A0F;
+  --colorBrandForegroundInverted: #D05836;
+  --colorBrandForegroundInvertedHover: #D86D4C;
+  --colorBrandForegroundInvertedPressed: #D05836;
+  --colorBrandForegroundLink: #983318;
+  --colorBrandForegroundLinkHover: #802D16;
+  --colorBrandForegroundLinkPressed: #532112;
+  --colorBrandForegroundLinkSelected: #983318;
+  --colorBrandForegroundOnLight: #B0391A;
+  --colorBrandForegroundOnLightHover: #983318;
+  --colorBrandForegroundOnLightPressed: #692714;
+  --colorBrandForegroundOnLightSelected: #802D16;
+  --colorBrandStroke1: #B0391A;
+  --colorBrandStroke2: #EEA78F;
+  --colorBrandStroke2Contrast: #EEA78F;
+  --colorBrandStroke2Hover: #E18062;
+  --colorBrandStroke2Pressed: #B0391A;
+  --colorCompoundBrandBackground: #B0391A;
+  --colorCompoundBrandBackgroundHover: #983318;
+  --colorCompoundBrandBackgroundPressed: #802D16;
+  --colorCompoundBrandForeground1: #B0391A;
+  --colorCompoundBrandForeground1Hover: #983318;
+  --colorCompoundBrandForeground1Pressed: #802D16;
+  --colorCompoundBrandStroke: #B0391A;
+  --colorCompoundBrandStrokeHover: #983318;
+  --colorCompoundBrandStrokePressed: #802D16;
+  --colorNeutralForeground2BrandHover: #B0391A;
+  --colorNeutralForeground2BrandPressed: #983318;
+  --colorNeutralForeground2BrandSelected: #B0391A;
+  --colorNeutralForeground3BrandHover: #B0391A;
+  --colorNeutralForeground3BrandPressed: #983318;
+  --colorNeutralForeground3BrandSelected: #B0391A;
+  --colorNeutralStrokeAccessibleSelected: #B0391A;
+}
+[data-bui-v3-tokens][data-bui-brand="powerpoint"][data-bui-theme="dark"] {
+  --colorBrandBackground: #983318;
+  --colorBrandBackground2: #251208;
+  --colorBrandBackground2Hover: #532112;
+  --colorBrandBackground2Pressed: #060200;
+  --colorBrandBackground3Static: #802D16;
+  --colorBrandBackground4Static: #532112;
+  --colorBrandBackgroundHover: #B0391A;
+  --colorBrandBackgroundInvertedHover: #F8CDBF;
+  --colorBrandBackgroundInvertedPressed: #EEA78F;
+  --colorBrandBackgroundInvertedSelected: #F4BAA7;
+  --colorBrandBackgroundPressed: #532112;
+  --colorBrandBackgroundSelected: #802D16;
+  --colorBrandBackgroundStatic: #B0391A;
+  --colorBrandForeground1: #D05836;
+  --colorBrandForeground2: #D86D4C;
+  --colorBrandForeground2Hover: #E89478;
+  --colorBrandForeground2Pressed: #F8CDBF;
+  --colorBrandForegroundInverted: #B0391A;
+  --colorBrandForegroundInvertedHover: #983318;
+  --colorBrandForegroundInvertedPressed: #802D16;
+  --colorBrandForegroundLink: #D05836;
+  --colorBrandForegroundLinkHover: #D86D4C;
+  --colorBrandForegroundLinkPressed: #C64220;
+  --colorBrandForegroundLinkSelected: #D05836;
+  --colorBrandForegroundOnLight: #B0391A;
+  --colorBrandForegroundOnLightHover: #983318;
+  --colorBrandForegroundOnLightPressed: #692714;
+  --colorBrandForegroundOnLightSelected: #802D16;
+  --colorBrandStroke1: #D05836;
+  --colorBrandStroke2: #692714;
+  --colorBrandStroke2Contrast: #692714;
+  --colorBrandStroke2Hover: #692714;
+  --colorBrandStroke2Pressed: #3E1A0F;
+  --colorCompoundBrandBackground: #D05836;
+  --colorCompoundBrandBackgroundHover: #D86D4C;
+  --colorCompoundBrandBackgroundPressed: #C64220;
+  --colorCompoundBrandForeground1: #D05836;
+  --colorCompoundBrandForeground1Hover: #D86D4C;
+  --colorCompoundBrandForeground1Pressed: #C64220;
+  --colorCompoundBrandStroke: #D05836;
+  --colorCompoundBrandStrokeHover: #D86D4C;
+  --colorCompoundBrandStrokePressed: #C64220;
+  --colorNeutralForeground2BrandHover: #D05836;
+  --colorNeutralForeground2BrandPressed: #C64220;
+  --colorNeutralForeground2BrandSelected: #D05836;
+  --colorNeutralForeground3BrandHover: #D05836;
+  --colorNeutralForeground3BrandPressed: #C64220;
+  --colorNeutralForeground3BrandSelected: #D05836;
+  --colorNeutralStrokeAccessibleSelected: #D05836;
+}
+[data-bui-v3-tokens][data-bui-brand="stream"][data-bui-theme="light"] {
+  --colorBrandBackground: #BD1D49;
+  --colorBrandBackground2: #F6CDCF;
+  --colorBrandBackground2Hover: #F1B9BD;
+  --colorBrandBackground2Pressed: #E5929A;
+  --colorBrandBackground3Static: #8A1C36;
+  --colorBrandBackground4Static: #591925;
+  --colorBrandBackgroundHover: #A41B3F;
+  --colorBrandBackgroundInvertedHover: #F6CDCF;
+  --colorBrandBackgroundInvertedPressed: #EBA6AB;
+  --colorBrandBackgroundInvertedSelected: #F1B9BD;
+  --colorBrandBackgroundPressed: #591925;
+  --colorBrandBackgroundSelected: #8A1C36;
+  --colorBrandBackgroundStatic: #BD1D49;
+  --colorBrandForeground1: #BD1D49;
+  --colorBrandForeground2: #A41B3F;
+  --colorBrandForeground2Hover: #8A1C36;
+  --colorBrandForeground2Pressed: #42161D;
+  --colorBrandForegroundInverted: #CF5568;
+  --colorBrandForegroundInvertedHover: #D76A78;
+  --colorBrandForegroundInvertedPressed: #CF5568;
+  --colorBrandForegroundLink: #A41B3F;
+  --colorBrandForegroundLinkHover: #8A1C36;
+  --colorBrandForegroundLinkPressed: #591925;
+  --colorBrandForegroundLinkSelected: #A41B3F;
+  --colorBrandForegroundOnLight: #BD1D49;
+  --colorBrandForegroundOnLightHover: #A41B3F;
+  --colorBrandForegroundOnLightPressed: #711B2E;
+  --colorBrandForegroundOnLightSelected: #8A1C36;
+  --colorBrandStroke1: #BD1D49;
+  --colorBrandStroke2: #EBA6AB;
+  --colorBrandStroke2Contrast: #EBA6AB;
+  --colorBrandStroke2Hover: #DE7E89;
+  --colorBrandStroke2Pressed: #BD1D49;
+  --colorCompoundBrandBackground: #BD1D49;
+  --colorCompoundBrandBackgroundHover: #A41B3F;
+  --colorCompoundBrandBackgroundPressed: #8A1C36;
+  --colorCompoundBrandForeground1: #BD1D49;
+  --colorCompoundBrandForeground1Hover: #A41B3F;
+  --colorCompoundBrandForeground1Pressed: #8A1C36;
+  --colorCompoundBrandStroke: #BD1D49;
+  --colorCompoundBrandStrokeHover: #A41B3F;
+  --colorCompoundBrandStrokePressed: #8A1C36;
+  --colorNeutralForeground2BrandHover: #BD1D49;
+  --colorNeutralForeground2BrandPressed: #A41B3F;
+  --colorNeutralForeground2BrandSelected: #BD1D49;
+  --colorNeutralForeground3BrandHover: #BD1D49;
+  --colorNeutralForeground3BrandPressed: #A41B3F;
+  --colorNeutralForeground3BrandSelected: #BD1D49;
+  --colorNeutralStrokeAccessibleSelected: #BD1D49;
+}
+[data-bui-v3-tokens][data-bui-brand="stream"][data-bui-theme="dark"] {
+  --colorBrandBackground: #A41B3F;
+  --colorBrandBackground2: #261012;
+  --colorBrandBackground2Hover: #591925;
+  --colorBrandBackground2Pressed: #060202;
+  --colorBrandBackground3Static: #8A1C36;
+  --colorBrandBackground4Static: #591925;
+  --colorBrandBackgroundHover: #BD1D49;
+  --colorBrandBackgroundInvertedHover: #F6CDCF;
+  --colorBrandBackgroundInvertedPressed: #EBA6AB;
+  --colorBrandBackgroundInvertedSelected: #F1B9BD;
+  --colorBrandBackgroundPressed: #591925;
+  --colorBrandBackgroundSelected: #8A1C36;
+  --colorBrandBackgroundStatic: #BD1D49;
+  --colorBrandForeground1: #CF5568;
+  --colorBrandForeground2: #D76A78;
+  --colorBrandForeground2Hover: #E5929A;
+  --colorBrandForeground2Pressed: #F6CDCF;
+  --colorBrandForegroundInverted: #BD1D49;
+  --colorBrandForegroundInvertedHover: #A41B3F;
+  --colorBrandForegroundInvertedPressed: #8A1C36;
+  --colorBrandForegroundLink: #CF5568;
+  --colorBrandForegroundLinkHover: #D76A78;
+  --colorBrandForegroundLinkPressed: #C63D58;
+  --colorBrandForegroundLinkSelected: #CF5568;
+  --colorBrandForegroundOnLight: #BD1D49;
+  --colorBrandForegroundOnLightHover: #A41B3F;
+  --colorBrandForegroundOnLightPressed: #711B2E;
+  --colorBrandForegroundOnLightSelected: #8A1C36;
+  --colorBrandStroke1: #CF5568;
+  --colorBrandStroke2: #711B2E;
+  --colorBrandStroke2Contrast: #711B2E;
+  --colorBrandStroke2Hover: #711B2E;
+  --colorBrandStroke2Pressed: #42161D;
+  --colorCompoundBrandBackground: #CF5568;
+  --colorCompoundBrandBackgroundHover: #D76A78;
+  --colorCompoundBrandBackgroundPressed: #C63D58;
+  --colorCompoundBrandForeground1: #CF5568;
+  --colorCompoundBrandForeground1Hover: #D76A78;
+  --colorCompoundBrandForeground1Pressed: #C63D58;
+  --colorCompoundBrandStroke: #CF5568;
+  --colorCompoundBrandStrokeHover: #D76A78;
+  --colorCompoundBrandStrokePressed: #C63D58;
+  --colorNeutralForeground2BrandHover: #CF5568;
+  --colorNeutralForeground2BrandPressed: #C63D58;
+  --colorNeutralForeground2BrandSelected: #CF5568;
+  --colorNeutralForeground3BrandHover: #CF5568;
+  --colorNeutralForeground3BrandPressed: #C63D58;
+  --colorNeutralForeground3BrandSelected: #CF5568;
+  --colorNeutralStrokeAccessibleSelected: #CF5568;
+}
+[data-bui-v3-tokens][data-bui-brand="teams"][data-bui-theme="light"] {
+  --colorBrandBackground: #5659BA;
+  --colorBrandBackground2: #D6D3F2;
+  --colorBrandBackground2Hover: #C7C2EC;
+  --colorBrandBackground2Pressed: #A8A2E1;
+  --colorBrandBackground3Static: #414286;
+  --colorBrandBackground4Static: #2C2C54;
+  --colorBrandBackgroundHover: #4B4D9F;
+  --colorBrandBackgroundInvertedHover: #D6D3F2;
+  --colorBrandBackgroundInvertedPressed: #B7B2E7;
+  --colorBrandBackgroundInvertedSelected: #C7C2EC;
+  --colorBrandBackgroundPressed: #2C2C54;
+  --colorBrandBackgroundSelected: #414286;
+  --colorBrandBackgroundStatic: #5659BA;
+  --colorBrandForeground1: #5659BA;
+  --colorBrandForeground2: #4B4D9F;
+  --colorBrandForeground2Hover: #414286;
+  --colorBrandForeground2Pressed: #22213D;
+  --colorBrandForegroundInverted: #7675D0;
+  --colorBrandForegroundInvertedHover: #8784D6;
+  --colorBrandForegroundInvertedPressed: #7675D0;
+  --colorBrandForegroundLink: #4B4D9F;
+  --colorBrandForegroundLinkHover: #414286;
+  --colorBrandForegroundLinkPressed: #2C2C54;
+  --colorBrandForegroundLinkSelected: #4B4D9F;
+  --colorBrandForegroundOnLight: #5659BA;
+  --colorBrandForegroundOnLightHover: #4B4D9F;
+  --colorBrandForegroundOnLightPressed: #37376D;
+  --colorBrandForegroundOnLightSelected: #414286;
+  --colorBrandStroke1: #5659BA;
+  --colorBrandStroke2: #B7B2E7;
+  --colorBrandStroke2Contrast: #B7B2E7;
+  --colorBrandStroke2Hover: #9893DC;
+  --colorBrandStroke2Pressed: #5659BA;
+  --colorCompoundBrandBackground: #5659BA;
+  --colorCompoundBrandBackgroundHover: #4B4D9F;
+  --colorCompoundBrandBackgroundPressed: #414286;
+  --colorCompoundBrandForeground1: #5659BA;
+  --colorCompoundBrandForeground1Hover: #4B4D9F;
+  --colorCompoundBrandForeground1Pressed: #414286;
+  --colorCompoundBrandStroke: #5659BA;
+  --colorCompoundBrandStrokeHover: #4B4D9F;
+  --colorCompoundBrandStrokePressed: #414286;
+  --colorNeutralForeground2BrandHover: #5659BA;
+  --colorNeutralForeground2BrandPressed: #4B4D9F;
+  --colorNeutralForeground2BrandSelected: #5659BA;
+  --colorNeutralForeground3BrandHover: #5659BA;
+  --colorNeutralForeground3BrandPressed: #4B4D9F;
+  --colorNeutralForeground3BrandSelected: #5659BA;
+  --colorNeutralStrokeAccessibleSelected: #5659BA;
+}
+[data-bui-v3-tokens][data-bui-brand="teams"][data-bui-theme="dark"] {
+  --colorBrandBackground: #4B4D9F;
+  --colorBrandBackground2: #161523;
+  --colorBrandBackground2Hover: #2C2C54;
+  --colorBrandBackground2Pressed: #030205;
+  --colorBrandBackground3Static: #414286;
+  --colorBrandBackground4Static: #2C2C54;
+  --colorBrandBackgroundHover: #5659BA;
+  --colorBrandBackgroundInvertedHover: #D6D3F2;
+  --colorBrandBackgroundInvertedPressed: #B7B2E7;
+  --colorBrandBackgroundInvertedSelected: #C7C2EC;
+  --colorBrandBackgroundPressed: #2C2C54;
+  --colorBrandBackgroundSelected: #414286;
+  --colorBrandBackgroundStatic: #5659BA;
+  --colorBrandForeground1: #7675D0;
+  --colorBrandForeground2: #8784D6;
+  --colorBrandForeground2Hover: #A8A2E1;
+  --colorBrandForeground2Pressed: #D6D3F2;
+  --colorBrandForegroundInverted: #5659BA;
+  --colorBrandForegroundInvertedHover: #4B4D9F;
+  --colorBrandForegroundInvertedPressed: #414286;
+  --colorBrandForegroundLink: #7675D0;
+  --colorBrandForegroundLinkHover: #8784D6;
+  --colorBrandForegroundLinkPressed: #6566CA;
+  --colorBrandForegroundLinkSelected: #7675D0;
+  --colorBrandForegroundOnLight: #5659BA;
+  --colorBrandForegroundOnLightHover: #4B4D9F;
+  --colorBrandForegroundOnLightPressed: #37376D;
+  --colorBrandForegroundOnLightSelected: #414286;
+  --colorBrandStroke1: #7675D0;
+  --colorBrandStroke2: #37376D;
+  --colorBrandStroke2Contrast: #37376D;
+  --colorBrandStroke2Hover: #37376D;
+  --colorBrandStroke2Pressed: #22213D;
+  --colorCompoundBrandBackground: #7675D0;
+  --colorCompoundBrandBackgroundHover: #8784D6;
+  --colorCompoundBrandBackgroundPressed: #6566CA;
+  --colorCompoundBrandForeground1: #7675D0;
+  --colorCompoundBrandForeground1Hover: #8784D6;
+  --colorCompoundBrandForeground1Pressed: #6566CA;
+  --colorCompoundBrandStroke: #7675D0;
+  --colorCompoundBrandStrokeHover: #8784D6;
+  --colorCompoundBrandStrokePressed: #6566CA;
+  --colorNeutralForeground2BrandHover: #7675D0;
+  --colorNeutralForeground2BrandPressed: #6566CA;
+  --colorNeutralForeground2BrandSelected: #7675D0;
+  --colorNeutralForeground3BrandHover: #7675D0;
+  --colorNeutralForeground3BrandPressed: #6566CA;
+  --colorNeutralForeground3BrandSelected: #7675D0;
+  --colorNeutralStrokeAccessibleSelected: #7675D0;
+}
+[data-bui-v3-tokens][data-bui-brand="word"][data-bui-theme="light"] {
+  --colorBrandBackground: #2F61C1;
+  --colorBrandBackground2: #D1D6F1;
+  --colorBrandBackground2Hover: #C0C6EB;
+  --colorBrandBackground2Pressed: #9CA8DF;
+  --colorBrandBackground3Static: #1D4794;
+  --colorBrandBackground4Static: #1C2F5D;
+  --colorBrandBackgroundHover: #1A54B0;
+  --colorBrandBackgroundInvertedHover: #D1D6F1;
+  --colorBrandBackgroundInvertedPressed: #AEB7E5;
+  --colorBrandBackgroundInvertedSelected: #C0C6EB;
+  --colorBrandBackgroundPressed: #1C2F5D;
+  --colorBrandBackgroundSelected: #1D4794;
+  --colorBrandBackgroundStatic: #2F61C1;
+  --colorBrandForeground1: #2F61C1;
+  --colorBrandForeground2: #1A54B0;
+  --colorBrandForeground2Hover: #1D4794;
+  --colorBrandForeground2Pressed: #182444;
+  --colorBrandForegroundInverted: #627CCD;
+  --colorBrandForegroundInvertedHover: #768BD3;
+  --colorBrandForegroundInvertedPressed: #627CCD;
+  --colorBrandForegroundLink: #1A54B0;
+  --colorBrandForegroundLinkHover: #1D4794;
+  --colorBrandForegroundLinkPressed: #1C2F5D;
+  --colorBrandForegroundLinkSelected: #1A54B0;
+  --colorBrandForegroundOnLight: #2F61C1;
+  --colorBrandForegroundOnLightHover: #1A54B0;
+  --colorBrandForegroundOnLightPressed: #1D3B78;
+  --colorBrandForegroundOnLightSelected: #1D4794;
+  --colorBrandStroke1: #2F61C1;
+  --colorBrandStroke2: #AEB7E5;
+  --colorBrandStroke2Contrast: #AEB7E5;
+  --colorBrandStroke2Hover: #8999D9;
+  --colorBrandStroke2Pressed: #2F61C1;
+  --colorCompoundBrandBackground: #2F61C1;
+  --colorCompoundBrandBackgroundHover: #1A54B0;
+  --colorCompoundBrandBackgroundPressed: #1D4794;
+  --colorCompoundBrandForeground1: #2F61C1;
+  --colorCompoundBrandForeground1Hover: #1A54B0;
+  --colorCompoundBrandForeground1Pressed: #1D4794;
+  --colorCompoundBrandStroke: #2F61C1;
+  --colorCompoundBrandStrokeHover: #1A54B0;
+  --colorCompoundBrandStrokePressed: #1D4794;
+  --colorNeutralForeground2BrandHover: #2F61C1;
+  --colorNeutralForeground2BrandPressed: #1A54B0;
+  --colorNeutralForeground2BrandSelected: #2F61C1;
+  --colorNeutralForeground3BrandHover: #2F61C1;
+  --colorNeutralForeground3BrandPressed: #1A54B0;
+  --colorNeutralForeground3BrandSelected: #2F61C1;
+  --colorNeutralStrokeAccessibleSelected: #2F61C1;
+}
+[data-bui-v3-tokens][data-bui-brand="word"][data-bui-theme="dark"] {
+  --colorBrandBackground: #1A54B0;
+  --colorBrandBackground2: #121626;
+  --colorBrandBackground2Hover: #1C2F5D;
+  --colorBrandBackground2Pressed: #020206;
+  --colorBrandBackground3Static: #1D4794;
+  --colorBrandBackground4Static: #1C2F5D;
+  --colorBrandBackgroundHover: #2F61C1;
+  --colorBrandBackgroundInvertedHover: #D1D6F1;
+  --colorBrandBackgroundInvertedPressed: #AEB7E5;
+  --colorBrandBackgroundInvertedSelected: #C0C6EB;
+  --colorBrandBackgroundPressed: #1C2F5D;
+  --colorBrandBackgroundSelected: #1D4794;
+  --colorBrandBackgroundStatic: #2F61C1;
+  --colorBrandForeground1: #627CCD;
+  --colorBrandForeground2: #768BD3;
+  --colorBrandForeground2Hover: #9CA8DF;
+  --colorBrandForeground2Pressed: #D1D6F1;
+  --colorBrandForegroundInverted: #2F61C1;
+  --colorBrandForegroundInvertedHover: #1A54B0;
+  --colorBrandForegroundInvertedPressed: #1D4794;
+  --colorBrandForegroundLink: #627CCD;
+  --colorBrandForegroundLinkHover: #768BD3;
+  --colorBrandForegroundLinkPressed: #4B6FC7;
+  --colorBrandForegroundLinkSelected: #627CCD;
+  --colorBrandForegroundOnLight: #2F61C1;
+  --colorBrandForegroundOnLightHover: #1A54B0;
+  --colorBrandForegroundOnLightPressed: #1D3B78;
+  --colorBrandForegroundOnLightSelected: #1D4794;
+  --colorBrandStroke1: #627CCD;
+  --colorBrandStroke2: #1D3B78;
+  --colorBrandStroke2Contrast: #1D3B78;
+  --colorBrandStroke2Hover: #1D3B78;
+  --colorBrandStroke2Pressed: #182444;
+  --colorCompoundBrandBackground: #627CCD;
+  --colorCompoundBrandBackgroundHover: #768BD3;
+  --colorCompoundBrandBackgroundPressed: #4B6FC7;
+  --colorCompoundBrandForeground1: #627CCD;
+  --colorCompoundBrandForeground1Hover: #768BD3;
+  --colorCompoundBrandForeground1Pressed: #4B6FC7;
+  --colorCompoundBrandStroke: #627CCD;
+  --colorCompoundBrandStrokeHover: #768BD3;
+  --colorCompoundBrandStrokePressed: #4B6FC7;
+  --colorNeutralForeground2BrandHover: #627CCD;
+  --colorNeutralForeground2BrandPressed: #4B6FC7;
+  --colorNeutralForeground2BrandSelected: #627CCD;
+  --colorNeutralForeground3BrandHover: #627CCD;
+  --colorNeutralForeground3BrandPressed: #4B6FC7;
+  --colorNeutralForeground3BrandSelected: #627CCD;
+  --colorNeutralStrokeAccessibleSelected: #627CCD;
+}

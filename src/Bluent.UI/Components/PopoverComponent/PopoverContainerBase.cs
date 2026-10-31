@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Extensions;
+using Bluent.UI.Extensions;
 using Bluent.UI.Interops.Abstractions;
 using Bluent.UI.Interops;
 using Bluent.UI.Services.Abstractions;
@@ -141,6 +141,8 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     private void PopoverOnDestroy(object? sender, DestroyPopoverEventArgs args)
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
+        if (context?.Config.Settings.AccessibleTriggerState == true && _interop != null)
+            _ = _interop.UnregisterOptInEscapeAsync(args.TriggerId);
         if (context != null)
             Contexts.Remove(context);
 
