@@ -1,0 +1,1348 @@
+{
+  "schemaVersion": 1,
+  "issue": 421,
+  "status": "source_family_queue_only_NOT_exhaustive_demo",
+  "sourceInventory": "docs/v3/inventory/public-component-sources.json",
+  "sourceManifestScope": "source-candidate-only; NOT public API/markup or runtime verified",
+  "familyCount": 66,
+  "familiesWithRepresentativeLabScenario": 18,
+  "familiesWithRealBrowserSpecimen": 16,
+  "apiCoverageComplete": false,
+  "note": "This is a complete 66-family WORK QUEUE sourced from the #494 census, NOT 66 tested interactive demos or accepted v3 components. Family source candidates are not an authoritative public API census.",
+  "families": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ButtonComponent/Button.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/button.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "button-actions",
+      "scenarioEvidence": "chrome_wasm_interaction_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Icon",
+      "issue": 429,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/IconComponent/Icon.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/icon.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "icon-basic",
+      "scenarioEvidence": "chrome_wasm_interaction_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Label",
+      "issue": 430,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/LabelComponent/Label.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/label.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "label-basic",
+      "scenarioEvidence": "chrome_wasm_native_markup_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Link",
+      "issue": 431,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/LinkComponent/Link.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/link.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "link-basic",
+      "scenarioEvidence": "chrome_wasm_native_markup_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "TextField",
+      "issue": 432,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/TextFieldComponent/TextField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/text-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "textfield-input-textarea-disabled",
+      "scenarioEvidence": "chrome_and_edge_wasm_server_native_text_input_binding_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "NumericField",
+      "issue": 433,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/numeric-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "numeric-integer-decimal-bounds-focus-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_numeric_native_input_focus_blur_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Checkbox",
+      "issue": 434,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/checkbox.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "checkbox-bool-nullable-disabled",
+      "scenarioEvidence": "chrome_and_edge_wasm_server_checkbox_native_checked_nullable_disabled_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Switch",
+      "issue": 435,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SwitchComponent/Switch.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/switch.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "switch-bool-label-before-disabled",
+      "scenarioEvidence": "chrome_and_edge_wasm_server_native_switch_on_off_disabled_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "RadioGroup",
+      "issue": 436,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor",
+        "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/radio-group.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/radio-group.md"
+      ],
+      "scenarioId": "radio-group-choice-orientation-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_radio_native_space_pointer_disabled_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "SelectField",
+      "issue": 437,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/select-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "select-field-string-int-native-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_selectfield_native_keyboard_string_int_binding_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DateField",
+      "issue": 438,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DateFieldComponent/DateField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/date-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "datefield-day-month-dateonly-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_datefield_masked_day_month_dateonly_disabled_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "TimeField",
+      "issue": 439,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/time-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "timefield-timeonly-seconds-timespan-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_timefield_native_timeonly_timespan_disabled_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "MaskedField",
+      "issue": 440,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/masked-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "maskedfield-regex-ascii-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_maskedfield_regex_ascii_disabled_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "OtpField",
+      "issue": 441,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/otp-field.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "otpfield-js-four-six-password-auto",
+      "scenarioEvidence": "chrome_edge_wasm_server_otp_native_js_keyboard_binding_autosubmit_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SliderComponent/Slider.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/slider.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "slider-pointer-int-double-thumb",
+      "scenarioEvidence": "chrome_edge_wasm_pointer_value_observed_server_layout_only_pointer_unverified",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/range-slider.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "rangeslider-int-decimal-twothumb",
+      "scenarioEvidence": "chrome_edge_wasm_rangeslider_int_decimal_pointer_verified_server_render_layout_only",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/file-select.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "fileselect-input-native-single-multi-disabled",
+      "scenarioEvidence": "chrome_edge_wasm_server_native_file_input_multi_remove_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Badge",
+      "issue": 445,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/BadgeComponent/Badge.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/badge.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": "badge-variants",
+      "scenarioEvidence": "chrome_wasm_native_markup_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Avatar",
+      "issue": 446,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/AvatarComponent/Avatar.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/avatar.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Tag",
+      "issue": 447,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/TagComponent/Tag.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/tag.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Spinner",
+      "issue": 448,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SpinnerComponent/Spinner.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/spinner.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "ProgressBar",
+      "issue": 449,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ProgressBarComponent/ProgressBar.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/progress-bar.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Skeleton",
+      "issue": 450,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SkeletonComponent/Skeleton.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/skeleton.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "ButtonGroup",
+      "issue": 451,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ButtonGroupComponent/ButtonGroup.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/button-group.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Card",
+      "issue": 452,
+      "candidateSourceCount": 6,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/CardComponent/Card.cs",
+        "src/Bluent.UI/Components/CardComponent/CardContent.razor",
+        "src/Bluent.UI/Components/CardComponent/CardFloatingAction.razor",
+        "src/Bluent.UI/Components/CardComponent/CardFooter.razor",
+        "src/Bluent.UI/Components/CardComponent/CardHeader.razor",
+        "src/Bluent.UI/Components/CardComponent/CardPreview.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/card.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Cards.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "ActionCard",
+      "issue": 453,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ActionCardComponent/ActionCard.razor",
+        "src/Bluent.UI/Components/ActionCardComponent/ActionCardGroup.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/action-card.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/ActionCards.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Spacer",
+      "issue": 454,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SpacerComponent/Spacer.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/spacer.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Stack",
+      "issue": 455,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/StackComponent/Stack.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/stack.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Tooltip",
+      "issue": 456,
+      "candidateSourceCount": 0,
+      "candidateSourceFiles": [],
+      "existingDocumentationFiles": [],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Popover",
+      "issue": 457,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/PopoverComponent/Popover.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/popover.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Overlay",
+      "issue": 458,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/OverlayComponent/Overlay.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/overlay.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Dialog",
+      "issue": 459,
+      "candidateSourceCount": 3,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ContainersComponent/Containers.razor",
+        "src/Bluent.UI/Components/DialogComponent/Dialog.razor",
+        "src/Bluent.UI/Components/MasterContainer/MasterContainer.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/dialog.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Layout/MainLayout.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Drawer",
+      "issue": 460,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DrawerComponent/Drawer.razor",
+        "src/Bluent.UI/Components/DrawerComponent/DrawerContent.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/drawer.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Drawers.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Menu",
+      "issue": 461,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/MenuComponent/Menu.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/menu.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "MenuList",
+      "issue": 462,
+      "candidateSourceCount": 4,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/MenuListComponent/MenuDivider.cs",
+        "src/Bluent.UI/Components/MenuListComponent/MenuItem.razor",
+        "src/Bluent.UI/Components/MenuListComponent/MenuItemGroup.razor",
+        "src/Bluent.UI/Components/MenuListComponent/MenuList.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/menu.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Buttons.razor",
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Menus.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DropdownSelect",
+      "issue": 463,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DropdownSelectComponent/DropdownSelect.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/dropdown-select.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DropdownList",
+      "issue": 464,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DropdownListComponent/DropdownList.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/dropdown-list.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "TabList",
+      "issue": 465,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/TabListComponent/Tab.cs",
+        "src/Bluent.UI/Components/TabListComponent/TabList.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/tab-list.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/tab-list.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "NavList",
+      "issue": 466,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/NavListComponent/NavItem.razor",
+        "src/Bluent.UI/Components/NavListComponent/NavList.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/nav-list.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/nav-list.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Breadcrumb",
+      "issue": 467,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/BreadcrumbComponent/Breadcrumb.razor",
+        "src/Bluent.UI/Components/BreadcrumbComponent/BreadcrumbItem.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/breadcrumb.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Breadcrumbs.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "List",
+      "issue": 468,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ListComponent/ItemsList.razor",
+        "src/Bluent.UI/Components/ListComponent/ListItem.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/list.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/list.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Accordion",
+      "issue": 469,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/AccordionComponent/Accordion.razor",
+        "src/Bluent.UI/Components/AccordionComponent/AccordionPanel.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/accordion.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Accordions.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Toast",
+      "issue": 470,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ToastComponent/Toast.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/toast.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "MessageBar",
+      "issue": 471,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/MessageBarComponent/MessageBar.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/message-bar.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Overflow",
+      "issue": 472,
+      "candidateSourceCount": 0,
+      "candidateSourceFiles": [],
+      "existingDocumentationFiles": [],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Toolbar",
+      "issue": 473,
+      "candidateSourceCount": 4,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/ToolbarComponent/Toolbar.razor",
+        "src/Bluent.UI/Components/ToolbarComponent/ToolbarButton.cs",
+        "src/Bluent.UI/Components/ToolbarComponent/ToolbarButtonItem.razor",
+        "src/Bluent.UI/Components/ToolbarComponent/ToolbarDivider.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/toolbar.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Diagrams.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DataGrid",
+      "issue": 474,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DataGridComponent/DataGrid.razor",
+        "src/Bluent.UI/Components/DataGridComponent/DataGridColumn.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/data-grid.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/data-grid.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DataList",
+      "issue": 475,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DataListComponent/DataList.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/data-list.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DataPager",
+      "issue": 476,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DataPagerComponent/DataPager.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/data-pager.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Tree",
+      "issue": 477,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/TreeComponent/Tree.razor",
+        "src/Bluent.UI/Components/TreeComponent/TreeItem.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/tree.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/tree.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Calendar",
+      "issue": 478,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/CalendarComponent/Calendar.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/calendar.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Wizard",
+      "issue": 479,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/WizardComponent/Wizard.razor",
+        "src/Bluent.UI/Components/WizardComponent/WizardStep.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/wizard.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/wizard.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "SplitPanel",
+      "issue": 480,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/SplitPanelComponent/SplitPanelContainer.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/split-panel.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "TileLayout",
+      "issue": 481,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/TileLayoutComponent/TileLayout.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/tile-layout.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "DockPanel",
+      "issue": 482,
+      "candidateSourceCount": 3,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/DockPanelComponent/DockBar.razor",
+        "src/Bluent.UI/Components/DockPanelComponent/DockContainer.razor",
+        "src/Bluent.UI/Components/DockPanelComponent/DockPanel.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/dock-panel.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/DockPanels.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "PropertyEditor",
+      "issue": 483,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/PropertyEditorComponent/PropertyEditor.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/property-editor.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "MediaQuery",
+      "issue": 484,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/MediaQueryComponent/MediaQuery.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/media-query.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "AudioCapture",
+      "issue": 485,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI/Components/AudioCaptureComponent/AudioCapture.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/audio-capture.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Chart",
+      "issue": 486,
+      "candidateSourceCount": 9,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Charts/Components/Chart.cs",
+        "src/Bluent.UI.Charts/Components/Colors.cs",
+        "src/Bluent.UI.Charts/Components/Dataset.cs",
+        "src/Bluent.UI.Charts/Components/Legend.cs",
+        "src/Bluent.UI.Charts/Components/Subtitle.cs",
+        "src/Bluent.UI.Charts/Components/Title.cs",
+        "src/Bluent.UI.Charts/Components/Tooltip.cs",
+        "src/Bluent.UI.Charts/Components/XScale.cs",
+        "src/Bluent.UI.Charts/Components/YScale.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/v3/inventory/README.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/chart.md",
+        "src/Bluent.UI.Demo.Pages/Pages/Components/Charts.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Gauge",
+      "issue": 487,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Charts/Components/Gauge.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/gauge.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Diagram",
+      "issue": 488,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Diagrams/Components/Diagram.cs",
+        "src/Bluent.UI.Diagrams/Components/DrawingCanvas.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/v3/inventory/README.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Components/DrawingCanvases.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Shapes",
+      "issue": 489,
+      "candidateSourceCount": 3,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Diagrams/Components/Circle.cs",
+        "src/Bluent.UI.Diagrams/Components/Line.cs",
+        "src/Bluent.UI.Diagrams/Components/Rect.cs"
+      ],
+      "existingDocumentationFiles": [
+        "docs/v3/inventory/README.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/diagram-shapes.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "AppBusyIndicator",
+      "issue": 490,
+      "candidateSourceCount": 1,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Utilities/AppBusyIndicator.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/app-busy-indicator.md"
+      ],
+      "existingConsumerExampleFiles": [],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "Hierarchy",
+      "issue": 491,
+      "candidateSourceCount": 2,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Utilities/Hierarchy/HierarchyItemBrowser.razor",
+        "src/Bluent.UI.Utilities/Hierarchy/HierarchyTreeBrowser.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/hierarchy-utilities.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/hierarchy-utilities.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "MdiTab",
+      "issue": 492,
+      "candidateSourceCount": 3,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Utilities/MdiTab/MdiTab.razor",
+        "src/Bluent.UI.Utilities/MdiTab/MdiTabList.razor",
+        "src/Bluent.UI.Utilities/MdiTab/MdiTabToolbarItem.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/mdi-tabs.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "src/Bluent.UI.Demo.Pages/Pages/Mdi/Index.razor"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    },
+    {
+      "family": "ToolbarButtons",
+      "issue": 493,
+      "candidateSourceCount": 3,
+      "candidateSourceFiles": [
+        "src/Bluent.UI.Utilities/ToolbarButtons/RedoToolbarButton.razor",
+        "src/Bluent.UI.Utilities/ToolbarButtons/SaveToolbarButton.razor",
+        "src/Bluent.UI.Utilities/ToolbarButtons/UndoToolbarButton.razor"
+      ],
+      "existingDocumentationFiles": [
+        "docs/components/toolbar-buttons.md"
+      ],
+      "existingConsumerExampleFiles": [
+        "docs/components/toolbar-buttons.md"
+      ],
+      "scenarioId": null,
+      "scenarioEvidence": "no_component_lab_scenario",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
+    }
+  ]
+}
