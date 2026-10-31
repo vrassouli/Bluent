@@ -389,3 +389,9 @@ The installed local .NET shared runtime on Dev01 is 10.0.12; this change updates
 ### #425 completion update — 2026-10-31
 
 PR [#549](https://github.com/vrassouli/Bluent/pull/549) merged exclusively into `bluent-v3` as `e278e202b6730ae91b4c287487d573e0ebb3a7a4`. Issue #425 is closed, Project #5 Status is Done, and Epic #416 checklist is checked. No stable 2.x branch, NuGet publication or deployment was changed.
+
+## #421 Component Lab platform acceptance boundary — 2026-10-30
+
+The canonical Penpot workspace is the source-owned Bluent v3 Design System file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 42 `e775e67c-d9da-804b-8008-cc7c2dd7ecf7`. Added editable board `#421 · Lab platform vs component DoD · REVIEW REQUIRED`, ID `fce13529-02e2-80e4-8008-de96e1fdaca3`, with 21 native editable shapes. It separates the reusable Lab platform acceptance (searchable family catalog, controlled live specimens, copyable Razor, machine-readable source/API coverage, evidence-state distinctions, four-mode browser gates, accessibility/failure-visible QA) from the per-family Definition of Done (approved family design, complete API/state/keyboard/ARIA, Light/Dark/RTL/forced-colors, responsive/browser/native evidence, docs/migration/Skill and maintainer acceptance). Live Penpot readback: 12/12 text shapes fit their text bounds; 0 overflow.
+
+This is a review proposal, not approval. The board requests maintainer acceptance of the Lab platform as a prerequisite to beginning a component while retaining full per-family coverage as each component's own DoD. Current coverage is **18 representative pilots / 66 source families / 0 accepted families**. Do not inflate the metric or mark #421 Done. The two existing page42 Desktop/Mobile designs remain drafts. No public component source/API/CSS was changed by this design step.
