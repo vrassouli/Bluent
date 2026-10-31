@@ -19,7 +19,7 @@
 - **Design:** [Owned Penpot file and IDs](design/BLUENT-V3-PENPOT.md), [reference/import fidelity](design/PENPOT-IMPORT-FIDELITY.md), [component anatomy matrices](design/COMPONENT-REFERENCE-MATRICES.md) and [design-to-Razor handoff](design/DESIGN-TO-RAZOR-HANDOFF.md).
 - **Components:** [Source-verified 2.x family inventory](../components/inventory.md), [family reference authoring contract](COMPONENT-REFERENCE-TEMPLATE.md), the [Button v3 implementation record](components/button.md), and its [Fluent 2 compatibility crosswalk](quality/FLUENT2-BUTTON-COMPATIBILITY.md) (branch-only, not accepted or released).
 - **Skills:** [Version-aware development router and authoring rules](skills/README.md), with no assumption that every existing 2.x family is migrated.
-- **Quality:** [Issue status and acceptance rules](ISSUE-WORKFLOW.md), [Penpot/Figma work rules](PENPOT-WORKFLOW.md) and the actual CI evidence linked from each component/foundation PR.
+- **Quality:** [#425 baseline evidence and CI contract](quality/EVIDENCE-AND-GATES.md), [Issue status and acceptance rules](ISSUE-WORKFLOW.md), [Penpot/Figma work rules](PENPOT-WORKFLOW.md) and the actual CI evidence linked from each component/foundation PR.
 - **Migration:** [2.x consumer impact ledger](design/MIGRATION-IMPACT-LEDGER.md) and [branch/release isolation rules](BRANCHING.md). API changes must remain proposals until accepted.
 
 ## Public packages and source of truth
