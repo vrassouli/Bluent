@@ -256,6 +256,94 @@ Fresh published Production test matrix completed successfully: **208/208** (0 fa
 The maintainer explicitly decided that no additional human visual-design or spoken screen-reader sign-off is required to close this component issue. Engineering evidence and green exact-head CI are the acceptance basis; any concern later observed by a human is to be filed and handled as a follow-up defect. This decision does not change test reporting: Narrator UI Automation semantics were inspected, but spoken Narrator output was not recorded/listened to.
 
 PR #554 is being merged only into the protected v3 integration branch bluent-v3 (never Dev/main/stable 2.x). After the squash merge, close #428 and set its real GitHub Project #5 Status to Done; update Epic #416 coverage. The Button work remains v3 integration content, not a NuGet publish or deployment.
+
+- 2026-10-16 #420 final real browser child removal: Chrome/Edge x
+  Server/WASM passed 33/33 each, total 132/132, zero failures.
+  Prior Edge WASM test failed because --no-build served stale Debug
+  Razor without Remove button; actual CDP DOM exposed it, fixed
+  harness to always build latest Debug. Compiled DLL fake JS 127
+  assertions, source Python 22+13. Owned-profile cleanup remaining
+  zero. Penpot page40 draft not yet approved; native Windows/AT
+  evidence pending. PR #550 Draft; issue In progress.
+
+- 2026-10-16 #420 promoted Popover browser accessibility
+  evidence beyond DOM-only: correct editable Penpot page40
+  board has 54th DRAFT research note; Chromium CDP AX tree
+  now checked before open, while expanded, and after Escape.
+  Actual accessible button role/name/focusable, true related
+  visible surface idrefList, and restored focused/closed
+  state verified in real Chrome/Server 36/36 (3 new AX checks).
+  2 additional Python source guards. Native Windows UIA/
+  Narrator/NVDA and approved Penpot parity remain OPEN.
+
+- 2026-10-16 #420 Calendar private async event debt:
+  Penpot page40 board revision402/55 editable DRAFT shapes.
+  Month/year selection handlers now Task instead of async void,
+  two unused ChangeEventArgs async void handlers removed.
+  No public API/CSS change; compiled interop + Calendar tests
+  total 139 real assertions, proving awaiting and exception
+  propagation with delayed callbacks for both modes. Actual
+  Blazor QA-only CalendarAsyncProbe and Server wrapper use
+  interactive hydration readiness; Chrome Server 46/46 after
+  fixing prerender QA premature-click race. UIA, OS AT, design
+  review and exact-head CI remain separately pending.
+
+- 2026-10-16 #420 Calendar MonthChanged Task ordering:
+  Penpot page40 board revision403 / 56 native editable DRAFT.
+  Old ViewDate setter scheduled MonthChanged with detached
+  InvokeAsync, unsafe for exceptions and ordering. Setter now
+  side-effect-free; date nav 7 actions await ChangeViewDateAsync,
+  selection handlers await it; external SelectedDate changes
+  notify once via OnParametersSetAsync, consumed before await.
+  No same-month double notification, public API unchanged.
+  Compiled real DLL 150 assertions, source Python 26/26,
+  Chrome/Server 54/54 and Edge/WASM 54/54 runtime tests PASS.
+  Exact new SHA CI and migration-timing acceptance pending;
+  Penpot visual/native OS AT approval still open.
+
+- 2026-10-16 #420 Penpot design readability defect repaired
+  on the REAL editable file/page40 board: overlapping/outside-
+  board appended notes organized under section05 as five
+  white-backed native editable cards. Penpot revision409,
+  shapeCount63, 14/14 true live geometry checks and direct
+  PNG export human review passed. No component visual parity
+  approval implied. Consumer timing-migration review added
+  at docs/v3/architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md;
+  actual M13-M17 row risks appended to source migration ledger.
+  Public parameter APIs unchanged but Calendar callback timing
+  and Popover ARIA/lifecycle observable behavior need consumer
+  review before v3 release. Exact prior implementation HEAD
+  ee798e95 and follow-up docs/design HEAD cca7aac0 both had
+  GitHub 9/9 successful checks. Finalized Penpot revision409
+  background repair is a separate docs-only follow-up whose
+  exact-head CI still requires independent verification.
+
+- 2026-10-16 #420 actual source-owned Penpot board page40 native textBounds follow-up: 63 real editable shapes, 37 text elements, **30 had 1-2px height deficit** despite previous 14/14 placement audit. Enlarged height only (<=3px), re-read **37/37 fitting**, no text beyond board. New repeatable read-only live Penpot audit scripts/quality/penpot_v3_420_textbounds_audit.js. Measurement fix, NOT visual reviewer approval or native AT. #420 In progress; PR #550 Draft; no public API/stable release.
+
+- 2026-10-17 #420 Popover RightEnd fix: public Placement.RightEnd was emitted as right-end but Sass missing dot yielded dead .bui-popover-surfaceright-end selector; corrected authored/compiled/published CSS (Sass 1.93.2), added real public demo, 3 browser interactions and 4 source negative/positive tests (17/17 PASS). Initial Chrome/Server 56/57 test-only display:none computed-transform blind spot corrected with a temporary display override and exact restoration. Real Chrome/published InteractiveServer 57/57 PASS zero failures. Exact new-head four-browser CI pending; no public API change or stable merge, source-owned Penpot #420 board remains DRAFT.
+
+- 2026-10-17 #420 Overlay reduced-motion D5 defect: real .bui-overlay had normal ~250ms fade under browser prefers-reduced-motion:reduce. Task-only Sass override zeros animation duration/delay only under reduced motion; compiled and minified assets synced with Sass 1.93.2. Added optional actual Blazor Overlay fixture and browser checks normal/reduced/restored plus click removal. Source contract with 21 positive/negative cases PASS. First Server browser run prematurely clicked SSR static markup and timed out; harness updated to retry until Blazor event handlers hydrate. New browser/CI evidence pending. No stable Dev/NuGet or public API changes.
+
+- 2026-10-17 final Dev01 local Chrome/Production-published
+  InteractiveServer browser probe **61/61 PASS**, failures=0.
+  First prematurely checked prerender static content before
+  interactivity (1/1 with timeout); retry on real Blazor
+  hydration yielded 60/61 with a first-paint normal
+  CSS/media baseline inconsistency; explicit Chromium
+  no-preference media baseline then proved normal fade,
+  Reduced Motion 0s duration/delay, and restored normal
+  fade, all with real Overlay OnClick removal: 61/61.
+  Other render modes and exact latest GitHub SHA remain
+  separately verified, not inferred from this result.
+
+## #420 P0 behavioral defaults (maintainer-approved 2026-10-25; design/implementation gates remain open)
+
+Maintainer decision 2026-10-25 (behavioral defaults only): the P0 behavioral defaults in `docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md` are approved as recorded; this does not approve token mappings, exact values, focus restoration, native AT, or the complete design board. Canonical Penpot board `1d92b6fb-c168-8047-8008-d7d1f38c5d2f` remains **REVIEW REQUIRED**. `#420 remains In progress`. This approval is a design/contract decision only; no product source/API/CSS was changed.
+
+## #552 interaction-owner boundary (audit only, 2026-10-25)
+
+The audit-only crosswalk in `FLUENT-PARITY-LABEL-LINK-BADGE-BROWSER-AUDIT.md` records the Label InfoLabel and disabled-Link browser observations for owner decisions #430 and #431. It does not authorize fixing either family inside generic Popover; the consuming component owns its domain-specific roles, accessible names and focus behavior. No v3 public API or component source change is authorized by this audit. Native screen-reader/OS acceptance remains open.
+
 ## Quality gates #425 — integration refresh after Button — 2026-10-30
 
 The #425 implementation from PR #549 is merged with current bluent-v3 (including Button #428 merge commit 550efb95) in this task branch. The only merge conflict was the append-only project log; the current integration-branch project log was preserved and this concise quality-gate checkpoint was appended. Runtime source, workflows and QA fixtures merged without textual conflicts.
@@ -298,122 +386,12 @@ The quality gate now enforces the 10.0.14 minimum on the SSR Server package and 
 Local verification on 2026-10-30: forced `dotnet restore Bluent.sln` PASS; `dotnet list Bluent.sln package --vulnerable --include-transitive` reports **no vulnerable packages**; full `dotnet build Bluent.sln --configuration Release -warnaserror` **0 warnings / 0 errors**; full Release tests **31/31**; quality-gate source contract PASS; quality-gate regression tests **50/50**. Five-package pack/manifest validation and exact-head GitHub Actions are still pending. No NuGet package was published.
 
 The installed local .NET shared runtime on Dev01 is 10.0.12; this change updates the repository's vulnerable package references, not the machine-wide runtime. CI's `setup-dotnet` uses the latest `10.0.x`. Do not describe the host runtime itself as updated.
+### #425 completion update — 2026-10-31
 
-- 2026-10-16 #421 Component Lab entered Ready then In progress in
-  actual Project #5 at maintainer direction to begin component work.
-  Dedicated v3/issue-421-component-lab worktree off bluent-v3
-  2c37dbef. Native Penpot page42 has desktop/mobile draft boards.
-  Actual Blazor searchable four-family pilot with Button/Icon/
-  Label/Link and real controls, Razor source + machine-readable
-  explicitly incomplete coverage file. Real Dev01 Chrome/WASM
-  9/9 passed, width320 scrollWidth320; QA Chrome cleanup remaining=0.
-  Release solution build 0 errors but 2 known NU1903 advisories in
-  existing WebAssembly.Server 10.0.7. #421 work remains partial;
-  #428 Button remains Backlog pending approved foundation gates.
-
-- 2026-10-16 #421 canonical 66-family tracking QUEUE added
-  at docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json,
-  generated from exact #494 candidate manifest (issue #428-#493).
-  Four pilot scenarios exist, two actual Chrome/WASM interaction
-  verified. All 66 families still need per-API full demos,
-  visual parity, browser-mode and native OS acceptance. The
-  queue is NOT complete component implementation or release
-  proof. Source paths/issue mapping now guarded by CI.
-
-
-- 2026-10-16 #421: canonical 66 source families now actually
-  integrated in the Component Lab screen. Machine-generated
-  C# queue mirrors #494 candidate sources; 4 representative
-  live pilots, 62 queued entries with real #428-#493 GitHub
-  issue links, searchable by family or issue number. Penpot
-  original page42 desktop/mobile boards include draft queue
-  cards; live Penpot 2/2 geometry check passed (rev426).
-  Chrome/WASM 17/17 and Edge/WASM 17/17 real UI browser tests
-  pass queue rendering, search #432 vs #428, pilot launch and
-  narrow 320px reflow; owned browser cleanups remaining zero.
-  Consumer/public API, all 66 complete demos, design approval,
-  Server render modes and native AT NOT accepted. Full
-  solution Release build 0 errors, existing two NU1903
-  advisories from WASM.Server 10.0.7. #421 PR remains Draft.
-
-- 2026-10-16 #421 render-mode QA follow-up: page42 desktop/mobile
-  native Penpot boards now describe the draft Server mode gate.
-  Component Lab OnAfterRenderAsync hydration marker added; real
-  Dev01 Chrome WebAssembly 17/17 passed again (66-family queue
-  and four real pilot specimens intact). Added QA-only SSR
-  shared-component wrapper and isolated Publish-mode runner.
-  Actual Dev01 SSR page HTTP200 but no interactivity; dev host
-  missing asset files, published host window.Blazor undefined,
-  data-lab-interactive=false, app.css HTTP404. Server is NOT
-  verified or added to accepted CI/coverage. Detailed evidence:
-  docs/v3/quality/COMPONENT-LAB-RENDER-MODES.md.
-  Existing NU1903 advisories not hidden.
-- 2026-10-16 #421 existing-API Button explorer: Penpot page42
-  desktop/mobile draft source shapes already cover the selector concept.
-  Actual Blazor Appearance/Size/Shape selectors and code example now
-  change dynamically. Dev01 Chrome/WASM 20/20 and Edge/WASM 20/20,
-  including queue and mobile checks; browser cleanup remaining 0.
-  The four families are PILOTS only; 62 others remain queued.
-  SSR Production Published still HTTP200 without interactivity:
-  window.Blazor undefined, app.css 404. Do not claim Server passed.
-  Existing NU1903 10.0.7 high-severity advisories unsuppressed.
-  Release build 0 errors/2 warnings, -warnaserror failed correctly.
-  PR #551 Draft, issue #421 In progress, Dev stable untouched.
-
-- 2026-10-16 #421 Component Lab pilot: local Dev01 actual Chrome/Edge x WebAssembly/published InteractiveServer = **22/22 per browser/mode** (88 live browser checks in four isolated runs). Production publish host bootstrap fixed by setting process working directory to published content root; nonexistent SSR app.css request removed; strengthened fail-closed runtime JS/CSS/exception checks. Automatic GitHub Actions matrix now requests four jobs (exact SHA result not yet asserted). Four representative live pilots / 66-family source queue, not API coverage or completed component acceptance. QA-owned Chromium remaining=0 all modes. Preexisting SSR 10.0.7 NU1903 high-severity advisories remain unsuppressed. PR #551 Draft to bluent-v3 only; stable Dev/NuGet unchanged.
-
-- 2026-10-16 follow-up #421: GitHub Actions previous aac0d057 exact-head runs 38946521658 and 38946530029 completed **8/8 passed**. Strengthened real Chrome/Edge x WebAssembly/published InteractiveServer Component Lab keyboard/clipboard/Button smoke from 22 to **27/27 per mode (108/108 local)**; CDP pointer target validation fixed a test-only animated-scroll sidebar misclick; native Enter includes carriage-return text and asserts exactly one callback; disabled is natively unfocusable; actual Clipboard write returns success. Correct source-owned Penpot page 42 desktop annotations updated without overflow. 4 representative live pilots / 66-family queue, status remains pilot_incomplete, design/AT/API acceptance not claimed. New SHA CI must pass independently; no stable release.
-
-- 2026-10-17 #421 existing-API Button Toggled/ToggledChanged and Href Lab specimens, native CDP Enter double-toggle with exact parent callback count and native A link semantics; fully copied Razor sample includes parent callback code. Real Chrome/Server 32/32 after fixing test-only ambiguous status selector, Edge/WASM 32/32 after runner was changed to build current WASM Razor instead of stale --no-build fixture. 2 current-source environments passed, remaining two exact new SHA CI pending. Existing toggled Button observed aria-pressed=null: preexisting semantic/AT debt for #428, no acceptance claim. Four pilots/66 families and Penpot design remain incomplete, no stable release.
-
-- 2026-10-17 #421 advanced existing public Button pilot: responsive Compound+Compact Notifications Badge End/Bottom and Dropdown BottomEnd with real Export/Share MenuItem callbacks. Native CDP Enter opens Popover, real hit-tested pointer selects actions and counts exact parent callbacks 1/2. Edge freshly built WASM 40/40 PASS, zero errors/browser remaining=0. Existing canonical Penpot Component Lab page42 board DRAFT reused; plugin unavailable, no source design mutation or human acceptance claimed. Coverage now samples 16 of 20 public Button Parameter properties plus disabled AdditionalAttributes; four pilots/66 source families, zero completed. Latest SHA CI and native AT/Fluent parity remain pending. Stable Dev/NuGet untouched.
-
-- 2026-10-17 #421 advanced Button Server renderer parity fix: first Chrome/Server test timed out opening Dropdown because compatibility server page lacked PopoverContainer (normal WASM layout had it). Added Bluent Containers only inside the Server interactive probe, not main app/product; added source guard. Fresh production-published Chrome/Server 40/40 PASS, zero errors/browsers remaining=0; local Edge/WASM also 40/40. Two other modes and exact-head CI still pending, no design/AT approval or stable merge.
-
-- 2026-10-17 #421 Icon/Label current public API explorers: Icon Value Settings/Search and Variant Regular/Filled source-backed dynamic DOM; Label Text/ForExpression/RequiredSymbol/Size/Required/Info six public params sampled using annotated LabEmail + native input association, Auto/NotRequired/Required switching and real Info Popover. Initial Edge/WASM test RED because assumed SVG innerHTML while current Icon renders CSS-class-backed native i, fixed harness to compare actual outerHTML; reran final Edge/WASM 53/53 and Chrome/production-published Server 53/53 PASS, zero errors or owned browser leftovers. Demo-only input focus underline, no full ring. Canonical Penpot page42 DRAFT remains unmodified due disconnected plugin, zero component acceptance; #429/#430 Backlog unaffected, exact four-mode GitHub CI pending; no stable Dev/NuGet.
-
-- 2026-10-17 #421 Color prototype only: audited official MIT @fluentui/svg-icons 1.1.344: 196 color SVGs at 20px, deprecated upstream HCM/dark contrast warnings; source-owned Figma fallback design board 26:3 with three REAL Apps20 vectors. Component Lab previews official Color SVG via existing FromSvg and CSS-only Filled forced-colors fallback. First Edge/WASM real test RED due scoped Blazor CSS isolation hiding neither; demo-only ::deep correction fixed it, **57/57 Edge/WASM real checks PASS**. #429 Backlog tracks future public IconVariant.Color; product/stable/NuGet untouched; new exact-head CI pending.
-
-- 2026-10-17 #421/#429 official Fluent Color Icon prototype decorative a11y: exact real Bluent Color SVG and Filled HCM fallback aria-hidden and natively untabbable, actual Chromium AX ignores visible Color vector, native CDP Tab skips both, emulated forced-colors visible Filled stays decorative with visible adjacent readable title. Four new fail-closed real browser QA checks; local Dev01 Edge/fresh WASM 61/61 and Chrome/published InteractiveServer 61/61 PASS, zero errors and scoped Chromium remaining=0. Public IconVariant.Color STILL NOT implemented, named OS AT and Penpot human visual acceptance pending, exact-head four-mode CI pending, stable Dev/NuGet untouched.
-
-- 2026-10-17 #421 representative Button 20/20 existing C# [Parameter] names now have a live Lab specimen (plus disabled HTML AdditionalAttribute), in four total pilot families of 66; ZERO completed. Added Icon/TextClass/Vertical and Rotated current API Bluent Buttons with computed geometry/class/font/writing mode, real native Tab focus-visible and copyable Razor. Four browser checks raise 61 to 65. Local Chrome/fresh WebAssembly 65/65 and Edge/published Server 65/65 PASS, QA browser cleanup zero. Initial test 64/65 red only due harness seven-vs-nine old count, fixed/retested. Source contract reads real Button.razor.cs [Parameter] set to fail closed on API drift. Existing Penpot page42 DRAFT not edited; #421 In progress/PR #551 Draft, #428 Backlog. No public API/stable Dev/NuGet. New-head GitHub CI pending.
-
-- 2026-10-17 #421 first exact-head browser CI concurrent cold Chrome/WASM run failed before CDP port appeared at hardcoded 20-second startup timeout (no Lab assertions executed); a separate Chrome/WASM plus Edge/WASM on same head each passed 65/65. Hardened only actual DevToolsActivePort launch wait to 60s, retained fail-closed real browser connection and all 65 checks, negative source guard added. Must independently revalidate new SHA; this is NOT a product Button failure or a license to skip failing CI, no stable Dev/NuGet changes.
-
-**#421 Split Button real Lab demo (2026-10-18):** Existing public
-OnClick plus Dropdown Split Button now has a current-API specimen
-and independent callbacks in /component-lab, copyable Razor,
-and five CDP keyboard/actual pointer behavior checks. Dev01 exact
-local source Chrome/Edge x WASM/published Server each 83/83,
-332/332 total; owned browser cleanup=0. 20/20 existing public Button
-parameter names remain representative-only, zero 66-family
-component acceptances, Penpot page42 DRAFT/AT unverified. #421
-In progress, PR #551 Draft; #428 Backlog. No stable release.
-**#421 RTL English sample copy legibility (2026-10-18):** English advanced
-Button specimen headings and status/help text now carry explicit LTR
-base direction without altering RTL control order. RTL text is
-right-aligned, LTR text left-aligned, margins normalized and wrapped
-inside spaced cards. Current source Chrome/WASM and Edge/published
-Server 92/92 each on real Dev01 browser, zero browser leftovers;
-[real current screenshot](../docs/v3/quality/evidence/component-lab-split-rtl-english-legibility-chrome-wasm.png).
-Still #421 In progress/PR Draft; #428 Backlog; 0/66 accepted.
-
+PR [#549](https://github.com/vrassouli/Bluent/pull/549) merged exclusively into `bluent-v3` as `e278e202b6730ae91b4c287487d573e0ebb3a7a4`. Issue #425 is closed, Project #5 Status is Done, and Epic #416 checklist is checked. No stable 2.x branch, NuGet publication or deployment was changed.
 
 ## #421 Component Lab platform acceptance boundary — 2026-10-30
 
 The canonical Penpot workspace is the source-owned Bluent v3 Design System file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 42 `e775e67c-d9da-804b-8008-cc7c2dd7ecf7`. Added editable board `#421 · Lab platform vs component DoD · REVIEW REQUIRED`, ID `fce13529-02e2-80e4-8008-de96e1fdaca3`, with 21 native editable shapes. It separates the reusable Lab platform acceptance (searchable family catalog, controlled live specimens, copyable Razor, machine-readable source/API coverage, evidence-state distinctions, four-mode browser gates, accessibility/failure-visible QA) from the per-family Definition of Done (approved family design, complete API/state/keyboard/ARIA, Light/Dark/RTL/forced-colors, responsive/browser/native evidence, docs/migration/Skill and maintainer acceptance). Live Penpot readback: 12/12 text shapes fit their text bounds; 0 overflow.
 
 This is a review proposal, not approval. The board requests maintainer acceptance of the Lab platform as a prerequisite to beginning a component while retaining full per-family coverage as each component's own DoD. Current coverage is **18 representative pilots / 66 source families / 0 accepted families**. Do not inflate the metric or mark #421 Done. The two existing page42 Desktop/Mobile designs remain drafts. No public component source/API/CSS was changed by this design step.
-
-## #425 — .NET 10 Blazor debugger package security update — 2026-10-30
-
-The 2026-10-25 update to GHSA-g27p-qf6j-c96c establishes 10.0.14 as the fixed .NET 10 version for both `Microsoft.AspNetCore.Components.WebAssembly.Server` and `Microsoft.AspNetCore.Components.WebAssembly.DevServer`. On the isolated `v3/issue-425-quality-gates` branch, raised the SSR host package from 10.0.13 to 10.0.14 and all three active DevServer consumers (`Bluent.UI.Demo`, `Bluent.TaskExamples`, `Bluent.OrderDesk`) from 10.0.7 to 10.0.14. No Bluent library API, runtime component code, stable `Dev`/2.x project, package, tag or deployment was changed.
-
-The quality gate now enforces the 10.0.14 minimum on the SSR Server package and on every active `src/**` / `samples/**` DevServer project; added current-version and negative regression tests so 10.0.13 cannot silently pass. The previous 10.0.13-only server guard was insufficient after the Oct 25 advisory update.
-
-Local verification on 2026-10-30: forced `dotnet restore Bluent.sln` PASS; `dotnet list Bluent.sln package --vulnerable --include-transitive` reports **no vulnerable packages**; full `dotnet build Bluent.sln --configuration Release -warnaserror` **0 warnings / 0 errors**; full Release tests **31/31**; quality-gate source contract PASS; quality-gate regression tests **50/50**. Five-package pack/manifest validation and exact-head GitHub Actions are still pending. No NuGet package was published.
-
-The installed local .NET shared runtime on Dev01 is 10.0.12; this change updates the repository's vulnerable package references, not the machine-wide runtime. CI's `setup-dotnet` uses the latest `10.0.x`. Do not describe the host runtime itself as updated.
-### #425 completion update — 2026-10-31
-
-PR [#549](https://github.com/vrassouli/Bluent/pull/549) merged exclusively into `bluent-v3` as `e278e202b6730ae91b4c287487d573e0ebb3a7a4`. Issue #425 is closed, Project #5 Status is Done, and Epic #416 checklist is checked. The four-mode QA gate is integrated; no stable 2.x branch, NuGet publication or deployment was changed.

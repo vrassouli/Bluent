@@ -26,6 +26,21 @@
 
 | M18 — Button production Focus Visible CSS | Existing Button already had browser focus behavior but the #428 branch previously verified its Penpot proposal only by injecting temporary test CSS. | Approved host-context treatment: brand foreground on neutral Light/Dark surfaces; on-brand foreground on Brand, BrandHover and Danger; Inverted maps to on-brand in Light and brand foreground in Dark. | Additive focus presentation and inherited CSS override; no Razor parameter, enum or global token is added. Split-button segments draw their ring inset to preserve the adjacent action. | Draft PR #554 now ships :focus-visible in the isolated branch stylesheet, with a 2px outline/2px offset, split inset -3px, forced-colors Highlight and inherited --bui-button-focus-ring-color for explicit hosts. Live bundled-CSS WASM probe passed Chrome 215/215 and Edge 215/215, including five host types in Light/Dark. Native Windows Contrast Themes, named AT and final visual acceptance remain open. Stable 2.x assets are unchanged. |
 
+## Actual issue #420 interaction changes (2026-10-16; DRAFT)
+
+Unlike the visual proposal rows above, these are observed task-branch
+behavior changes with no new public component API. Full consumer-facing
+examples, implementation links and exact acceptance limits appear in
+[the #420 migration review](../architecture/INTERACTION-CONSUMER-MIGRATION-REVIEW.md).
+
+| Ref | V3 task-branch behavior | Risk | Acceptance needed |
+| --- | --- | --- | --- |
+| M13 - Calendar selection | Awaitable Task handlers for MonthSelect/YearSelect; SelectedDateChanged public signature unchanged | Callback completion, async exception propagation | Controlled async consumer plus real browser |
+| M14 - Calendar month view | MonthChanged awaited in navigation and external SelectedDate parameter update; same-month duplicate suppressed | Behavioral timing, callback reentrancy | Slow callback and parent update integration |
+| M15 - Popover click ARIA | Managed expanded/controls only when attributes absent; Tooltip hover/focus excluded | Semantics for existing custom-ARIA consumers | Actual browser AX + named screen reader |
+| M16 - Popover child lifetime | Remove only destroyed child JS handles/observers/ARIA; sibling stays open | Fast unmount/remount and trigger reuse | Real sibling Escape/focus and resource cleanup |
+| M17 - Native acceptance | Forced-colors browser emulation and Chromium AX are measured, native Windows OS/AT not verified | Release evidence blocker, not breaking API | Windows Contrast Themes, UIA, Narrator/NVDA and accepted design |
+
 ## Non-breaking default proposal
 
 1. **No stable package change is approved by a Penpot design file.** Keep the existing `ButtonAppearance.Default` and `Danger`, all old enum values, parameter binding semantics, DOM behavior and source client layout until a later component issue proves a safe replacement.
