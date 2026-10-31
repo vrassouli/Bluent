@@ -484,6 +484,8 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("trigger.getAttribute('data-bui-managed-menu-trigger') === 'true'",popover)
         self.assertIn("const expanded = componentOwnsDisclosureState || !trigger.hasAttribute('aria-expanded')",popover)
         self.assertIn("const controls = componentOwnsDisclosureState || !trigger.hasAttribute('aria-controls')",popover)
+        self.assertIn("const initiallyVisible = this.getSurface(settings)?.classList.contains('show') === true",popover)
+        self.assertIn("trigger.setAttribute('aria-expanded', initiallyVisible ? 'true' : 'false')",popover)
         self.assertIn("const persistentControls = this.isOptInDisclosure(settings) || componentOwnsDisclosureState",popover)
         self.assertIn("!settings.triggerEvents?.includes('click') && !componentOwnsDisclosureState",popover)
 if __name__=="__main__":

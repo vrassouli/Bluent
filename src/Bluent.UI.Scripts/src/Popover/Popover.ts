@@ -32,8 +32,12 @@ export class Popover {
             return;
         const expanded = componentOwnsDisclosureState || !trigger.hasAttribute('aria-expanded');
         const controls = componentOwnsDisclosureState || !trigger.hasAttribute('aria-controls');
+        // Blazor may rebind a trigger while its KeepSurface is still open.
+        // Reconstruct the disclosure state from the live surface instead of
+        // resetting an already-open managed menu to aria-expanded=false.
+        const initiallyVisible = this.getSurface(settings)?.classList.contains('show') === true;
         if (expanded)
-            trigger.setAttribute('aria-expanded', 'false');
+            trigger.setAttribute('aria-expanded', initiallyVisible ? 'true' : 'false');
         // Explicit #418 opt-in with mounted KeepSurface retains its IDREF
         // when collapsed. Ordinary #420 click disclosures expose controls
         // only while open, so no stale reference is left in the DOM.
