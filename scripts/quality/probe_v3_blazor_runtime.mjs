@@ -150,7 +150,9 @@ try {
  // Load each real shipped brand stylesheet against the SAME Blazor Button and
  // TextField, switching both modes. This tests runtime computed styles rather
  // than synthetic CSS fixtures. It modifies only this temporary browser tab.
- const matrix=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-brand-matrix.preview.json"),"utf8")).brands;
+ const tokenPreview=JSON.parse(readFileSync(join(cwd,"docs/v3/tokens/issue-418-brand-matrix.preview.json"),"utf8"));
+ const matrix=tokenPreview.brands;
+ const darkBrandForegroundCandidates=tokenPreview.darkBrandForegroundCandidates;
  const hexRgb=v=>{const m=/^#([a-f0-9]{6})$/i.exec(v);if(!m)throw Error("Unexpected hex "+v);const x=m[1];return "rgb("+[0,2,4].map(i=>parseInt(x.slice(i,i+2),16)).join(", ")+")";};
  const hexToRgb=v=>{const full=/^#[a-f0-9]{3}$/i.test(v)?"#"+[...v.slice(1)].map(c=>c+c).join(""):v;return hexRgb(full);};
  // Compare the final painted Button CSS against the Fluent source roles.
@@ -164,6 +166,7 @@ try {
  const luminance=v=>{const [r,g,b]=rgbParts(v).map(n=>{const c=n/255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b;};
  const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);};
  const combos=[];
+ const darkBrandForegroundResults=[];
  for(const [brand,modes] of Object.entries(matrix)) {
    const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");
    if(swap!=="ok"){assert("brand asset "+brand,false,String(swap));continue;}
@@ -180,6 +183,36 @@ try {
      assert("brand "+brand+" "+mode+" on real Button",sample.button===expected,JSON.stringify(sample));
      assert("Word nested host independent of global stylesheet "+brand+" "+mode,sample.nestedWord===hexRgb(matrix.word.dark.tokens["bluent.color.brandBackground"]),sample.nestedWord);
      assert("primary Button text/source contrast "+brand+" "+mode,contrast(sample.button,sample.text)>=4.5,contrast(sample.button,sample.text).toFixed(3)+":1");
+
+      if(mode==="dark") {
+        // Validate the four candidate roles on the actual Blazor Button text
+        // node and real anchors. This runs after the correct brand stylesheet
+        // is loaded, so the contrast denominator is the real rendered surface.
+        const candidateSet=darkBrandForegroundCandidates[brand];
+        const originalScope=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');return {brand:h.getAttribute('data-bui-brand'),dir:h.getAttribute('dir')};})()");
+        for(const direction of ["ltr","rtl"]) {
+          const brandMutation=brand==="default"?"h.removeAttribute('data-bui-brand');":`h.setAttribute('data-bui-brand',${JSON.stringify(brand)});`;
+          await cdp.js(`(()=>{const h=document.querySelector('.v3-lab-surface');${brandMutation}h.setAttribute('dir',${JSON.stringify(direction)});return true;})()`);
+          await sleep(220);
+          const rendered=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),button=document.querySelector('[data-testid=\"v3-brand-action-rest\"]'),text=button?.querySelector('.v3-brand-foreground-action'),links={linkRest:document.querySelector('[data-testid=\"v3-brand-link-rest\"]'),linkHover:document.querySelector('[data-testid=\"v3-brand-link-hover\"]'),linkPressed:document.querySelector('[data-testid=\"v3-brand-link-pressed\"]')};return {brand:h.getAttribute('data-bui-brand')||'default',dir:h.getAttribute('dir'),surface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),buttonTag:button?.tagName,buttonName:button?.innerText?.trim(),buttonTextClass:!!text,linkTags:Object.fromEntries(Object.entries(links).map(([k,v])=>[k,v?.tagName||null])),rows:{action:text?getComputedStyle(text).color:null,linkRest:links.linkRest?getComputedStyle(links.linkRest).color:null,linkHover:links.linkHover?getComputedStyle(links.linkHover).color:null,linkPressed:links.linkPressed?getComputedStyle(links.linkPressed).color:null}};})()");
+          assert(`rendered Dark candidate surface matches source ${brand}/${direction}`,rendered.surface.toLowerCase()===candidateSet.background.toLowerCase(),JSON.stringify({expected:candidateSet.background,actual:rendered.surface}));
+          assert(`rendered Dark Action specimen is a real Bluent Button ${brand}/${direction}`,rendered.buttonTag==="BUTTON"&&rendered.buttonName==="Action · Rest"&&rendered.buttonTextClass,JSON.stringify(rendered));
+          assert(`rendered Dark link specimens are real anchors ${brand}/${direction}`,Object.values(rendered.linkTags).length===3&&Object.values(rendered.linkTags).every(tag=>tag==="A"),JSON.stringify(rendered.linkTags));
+          for(const [role,entry] of Object.entries(candidateSet.roles)) {
+            const actual=rendered.rows[role],expected=hexRgb(entry.candidate),ratio=contrast(actual,hexToRgb(rendered.surface));
+            darkBrandForegroundResults.push({brand,direction,role,expected,actual,ratio,exact:actual===expected});
+            assert(`rendered Dark ${role} exact candidate ${brand}/${direction}`,actual===expected,JSON.stringify({expected,actual}));
+            assert(`rendered Dark ${role} contrast >= 4.6:1 ${brand}/${direction}`,ratio>=4.6,ratio.toFixed(4)+":1");
+          }
+          if(brand==="default"&&direction==="ltr") {
+            const ax=await cdp.send("Accessibility.getFullAXTree",{}),nodes=ax.nodes||[];
+            const buttonName=nodes.some(n=>n.role?.value==="button"&&n.name?.value==="Action · Rest"&&!n.ignored);
+            const linkNames=["Link · Rest","Link · Hover","Link · Pressed"].map(name=>nodes.some(n=>n.role?.value==="link"&&n.name?.value===name&&!n.ignored));
+            assert("rendered Dark consumer exposes Action button and three named links in browser AX tree",buttonName&&linkNames.every(Boolean),JSON.stringify({buttonName,linkNames}));
+          }
+        }
+        await cdp.js(`(()=>{const h=document.querySelector('.v3-lab-surface');${originalScope.brand===null?"h.removeAttribute('data-bui-brand');":`h.setAttribute('data-bui-brand',${JSON.stringify(originalScope.brand)});`}${originalScope.dir===null?"h.removeAttribute('dir');":`h.setAttribute('dir',${JSON.stringify(originalScope.dir)});`}return true;})()`);
+      }
      const expectedBrandFocus=mode==="dark"?sample.sourceEnhanced:sample.sourceBrand;
      assert("brand-focus preview matches emitted source role "+brand+" "+mode,
        sample.brandCandidate.toLowerCase()===expectedBrandFocus.toLowerCase(),
@@ -1355,9 +1388,15 @@ try {
    assert("destination focus stays outside the disposed Modal",
      routeFocus.id==="v3-route-after-focus"&&!routeFocus.inside,JSON.stringify(routeFocus));
  }
+ assert("complete dark brand foreground runtime matrix",
+   darkBrandForegroundResults.length===Object.keys(matrix).length*2*4
+     &&darkBrandForegroundResults.every(x=>x.exact&&x.ratio>=4.6),
+   JSON.stringify({samples:darkBrandForegroundResults.length,
+     expected:Object.keys(matrix).length*2*4,
+     failures:darkBrandForegroundResults.filter(x=>!x.exact||x.ratio<4.6)}));
  const passCount=checks.filter(x=>x.pass).length;
  const browserLabel=/msedge|edge/i.test(chromePath)?"Edge":"Chrome";
- const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,doubleRingViewportSamples:doubleNarrowStress.length,doubleRingViewportFailures:doubleNarrowStress.filter(x=>!x.pass).length,paintedFocusSamples:paintSamples.length,paintedFocusFailures:paintSamples.filter(x=>!x.topMatches||!x.bottomMatches).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,persianFontEvidenceLevel:fontEvidence.evidenceLevel,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
+ const summary={classification:interactiveServer?"actual Blazor InteractiveServer "+browserLabel+"/CDP interaction":"actual Blazor WebAssembly "+browserLabel+"/CDP interaction",passed:passCount,total:checks.length,failed:errors.length,brandModeSamples:combos.length,darkBrandForegroundSamples:darkBrandForegroundResults.length,darkBrandForegroundFailures:darkBrandForegroundResults.filter(x=>!x.exact||x.ratio<4.6).length,darkBrandForegroundMinimum:Math.min(...darkBrandForegroundResults.map(x=>x.ratio)),focusZoomSamples:zoomStress.length,focusZoomFailures:zoomStress.filter(x=>!x.zoomApplied||!x.stable||!x.focus||!x.textInside||!x.iconInside||x.clipped||x.ratio<3).length,narrowViewportSamples:narrowStress.length,narrowViewportFailures:narrowStress.filter(x=>!x.passed).length,doubleRingViewportSamples:doubleNarrowStress.length,doubleRingViewportFailures:doubleNarrowStress.filter(x=>!x.pass).length,paintedFocusSamples:paintSamples.length,paintedFocusFailures:paintSamples.filter(x=>!x.topMatches||!x.bottomMatches).length,brands:Object.keys(matrix).length,primaryTextContrastMin:Math.min(...checks.filter(x=>x.name.startsWith("primary Button text/source contrast")).map(x=>Number(x.notes.split(":")[0]))),observedUnfixedAccessibilityGaps:openAccessibilityGaps,persianFontEvidenceLevel:fontEvidence.evidenceLevel,errors,limits:"computed-style and real Blazor interaction smoke only; NOT full WCAG, AT, cross-browser, auto-render-mode, all-host or native OS certification"};
  if(process.env.BLUENT_V3_PROBE_VERBOSE==="1")summary.checks=checks;
  console.log(JSON.stringify(summary,null,2));
  if(errors.length)process.exitCode=1;

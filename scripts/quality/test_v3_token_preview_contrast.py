@@ -114,6 +114,13 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
             r'<Button\b(?=[^>]*\bTextClass="v3-brand-foreground-action")(?=[^>]*data-testid="v3-brand-action-rest")[^>]*/>',
         )
         self.assertNotIn('<strong class="v3-brand-foreground-action"', demo)
+        browser = (root / "scripts/quality/probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8-sig")
+        self.assertIn("darkBrandForegroundCandidates", browser)
+        self.assertIn("rendered Dark candidate surface matches source", browser)
+        self.assertIn("darkBrandForegroundResults.length", browser)
+        self.assertIn("darkBrandForegroundFailures", browser)
+        self.assertIn("Accessibility.getFullAXTree", browser)
+        self.assertIn("complete dark brand foreground runtime matrix", browser)
 
     def test_primary_text_on_brand_and_proposed_danger_remain_covered(self) -> None:
         self.assertEqual(self.report["currentDangerBelow4_5"], 10)
