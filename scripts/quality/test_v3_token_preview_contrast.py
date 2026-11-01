@@ -108,6 +108,13 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         ):
             self.assertIn(test_id, demo)
 
+        # Action Rest must be a real Bluent Button; keep the foreground on its text node.
+        self.assertRegex(
+            demo,
+            r'<Button\b(?=[^>]*\bTextClass="v3-brand-foreground-action")(?=[^>]*data-testid="v3-brand-action-rest")[^>]*/>',
+        )
+        self.assertNotIn('<strong class="v3-brand-foreground-action"', demo)
+
     def test_primary_text_on_brand_and_proposed_danger_remain_covered(self) -> None:
         self.assertEqual(self.report["currentDangerBelow4_5"], 10)
         self.assertEqual(self.report["suggestedDangerBelow4_5"], 0)

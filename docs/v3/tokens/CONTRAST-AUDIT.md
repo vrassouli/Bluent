@@ -1,4 +1,4 @@
-# #418 — Source-backed Danger text contrast decision candidate
+﻿# #418 — Source-backed Danger text contrast decision candidate
 
 **Status:** DRAFT / not an approved public token contract; no Bluent 2.x stylesheet or published NuGet changed. The governing [ADR D1–D5](../architecture/ADR-0001-styling-boundaries.md) is Accepted. This is **numerical contrast evidence for specified opaque foreground/background pairs**, not WCAG component/AT/forced-color compliance.
 
@@ -108,3 +108,15 @@ The actual editable Penpot decision page is [page 45 — semantic contrast decis
 **Validation:** 40 generated opaque-color candidate pairs (10 brands × 4 roles); all 40 are at least **4.6001:1** against their corresponding emitted Dark neutral background. The existing 300 source-role diagnostics are intentionally preserved, including all ten Dark `BrandForeground1` / `BrandForegroundLink` gaps, eight Dark `BrandForegroundLinkHover` gaps, and ten Dark `BrandForegroundLinkPressed` gaps. The generator does not substitute a state role to hide any source finding.
 
 **Still not a full accessibility sign-off:** these results cover numerical contrast for opaque text/background pairs. They do not certify gradients, alpha compositing, forced-colors/native OS behavior, rendered component states, browser zoom/reflow or screen-reader output. Keep exact candidate colors and public semantic token names in Review until the actual Blazor consumer matrix and the remaining accessibility gates are satisfied.
+
+## 2026-11-01 — rendered Dark brand-foreground consumer evidence
+
+The source-owned Bluent Styling Lab now exercises **Action · Rest as a real `Bluent.UI.Components.Button`** instead of a bare text specimen. It uses the existing `TextClass` parameter so the candidate foreground is applied to the actual button's text node while the button face continues to use its neutral surface. The three link specimens remain real anchors. No public component API, production Button CSS, stable theme file or generated public bundle changed; this is a Demo.Pages-only, opt-in preview improvement.
+
+Published evidence was captured from the actual ASP.NET Core Blazor SSR Styling Lab on Windows 11 Pro / Microsoft Edge, using the exact source head `5b440e4dd2fe08ad4e5f9adc69eb9ceab8a4d2e6` plus the single uncommitted demo-only `TextClass` change. The new published `Bluent.UI.Demo.Pages.dll` SHA-256 was `0C166D36953D1FD5F29B4309CF100AFF9A0CD6AF086F8225F07DF39D47A6EDB5`. The browser loaded the real `issue-418.opt-in.preview.css` asset and read computed foregrounds from the rendered Button text node and link elements.
+
+**Rendered Dark matrix:** 10 brands × 2 directions × 4 roles (Action Rest, Link Rest, Link Hover, Link Pressed) = **80/80 exact computed-style matches**, zero failures. Minimum rendered foreground/surface contrast was **4.6001:1**. The default brand sample measured Action `#6793CF` at 4.6078:1; Link Rest `#6793CF` at 4.6078:1; Hover `#6A93D0` at 4.6396:1; Pressed `#6094D0` at 4.6029:1. The probe sets the existing root brand/theme/direction scope attributes to enumerate source combinations; this is a computed-style matrix, not an assertion that the lab UI has an interactive ten-brand selector.
+
+The browser Accessibility Tree independently exposed the actual Action sample as a named `button` (`Action · Rest`) and all three anchors as named `link` nodes. This is an accessibility-tree/name check, not spoken screen-reader acceptance. `forced-colors` was inactive for this run; the real Windows Desert Contrast Theme run is separately recorded in [the 2026-11-01 native HCM evidence](https://github.com/vrassouli/Bluent/issues/418#issuecomment-6553740359).
+
+The generator check remains 20 brand/mode combinations × 35 logical tokens, with 40 Dark candidate pairs and no legacy variable/bundle changes. The numeric source audit remains 340 checks, with all 40 candidate Dark pairs >=4.6001:1. **The values and public semantic token names remain draft/review candidates.** Rendered values passing arithmetic does not approve public token names, final role semantics, or production defaults; the page-45 Penpot decision record and issue acceptance remain in Review.

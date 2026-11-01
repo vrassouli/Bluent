@@ -1,4 +1,4 @@
-# #418 — Source → semantic → component token bridge, first design/implementation checkpoint
+﻿# #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
 **Status:** In progress · **2026-10-11** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
 
@@ -296,3 +296,7 @@ The [Focus host token crosswalk](FOCUS-HOST-TOKEN-CROSSWALK.md) maps the approve
 The maintainer approved the brand-preserving direction for #418: each of the ten brands receives independent Dark foreground candidates. The preview now derives four roles separately (Action Rest, Link Rest, Link Hover and Link Pressed) from their matching source CSS roles. The minimum normal-text floor remains 4.5:1; the generator targets 4.6:1 after 8-bit RGB rounding. The generated companion board and exact values are recorded in [CONTRAST-AUDIT.md](CONTRAST-AUDIT.md) and on the owned [Penpot page 45](https://design.penpot.app/#/workspace?file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=d0bcea67-3af4-8071-8008-d8e442b90ed1).
 
 This adds a separate per-brand preview candidate map and four scoped CSS aliases; it does **not** change the existing 35 logical-token inventory, stable 2.x theme files, published bundles or public API. The 40 candidate pairs all measure at least 4.6001:1 against the emitted Dark neutral surface. Exact color values and public naming remain under Review pending actual rendered Blazor, forced-colors and assistive-technology checks.
+
+### 2026-11-01 rendered consumer follow-up
+
+The Dark foreground preview now uses an actual Bluent `Button` for Action Rest and actual anchor elements for the three link states. A published Blazor SSR Styling Lab run on Edge passed **80/80 computed-style assertions** across 10 brands × LTR/RTL × four roles, with a **4.6001:1** minimum. The Button's accessible name and three link names were present in the browser Accessibility Tree. The test is documented in [CONTRAST-AUDIT.md](CONTRAST-AUDIT.md). It does not approve the draft values/names, does not claim spoken AT acceptance, and does not promote the opt-in CSS into a published component bundle.
