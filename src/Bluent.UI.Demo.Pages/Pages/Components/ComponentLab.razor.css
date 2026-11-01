@@ -1,0 +1,311 @@
+.component-lab { padding: clamp(1rem, 4vw, 3rem); max-width: 90rem; margin: 0 auto; display: grid; gap: 1.35rem; color: var(--colorNeutralForeground1, #263548); }
+.lab-heading { display:flex; justify-content:space-between; align-items:start; gap:1rem; flex-wrap:wrap; }
+.lab-heading h1 { margin: .2rem 0; }
+.lab-heading p { max-width: 52rem; }
+.lab-eyebrow, .lab-state { font-size:.85rem; color:var(--colorNeutralForeground3,#56667a); }
+.lab-filter, .lab-controls, .lab-stage, .lab-source { border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.8rem; padding:clamp(1rem,2vw,1.5rem); background:var(--colorNeutralBackground1,#fff); min-width:0; }
+.lab-filter label, .lab-controls label { display:block; font-weight:600; margin-bottom:.35rem; }
+.lab-filter input, .lab-controls select { width:100%; min-width:0; padding:.65rem .75rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:inherit; }
+.lab-catalog { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.8rem; }
+.lab-family { display:flex; flex-direction:column; gap:.25rem; text-align:start; border:1px solid var(--colorNeutralStroke2,#d5dce5); padding:.65rem .8rem; border-radius:.5rem; background:transparent; color:inherit; cursor:pointer; }
+.lab-family.selected { border-color:var(--colorBrandStroke1,#176aa3); background:var(--colorNeutralBackground3,#f1f4f8); }
+.lab-family small { font-size:.75rem; }
+.lab-family:focus-visible, .lab-source button:focus-visible { outline:2px solid var(--colorStrokeFocus2,#116bac); outline-offset:2px; }
+.lab-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }
+.lab-controls-note { grid-column:1 / -1; font-size:.82rem; margin:0; }
+.lab-stage-heading { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:start; }
+.lab-stage-heading h2 { margin-top:0; }
+.lab-canvas { margin-top:1rem; padding:1rem; border-radius:.5rem; background:var(--colorNeutralBackground2,#f8fafc); min-height:9rem; max-width:100%; box-sizing:border-box; overflow-wrap:anywhere; }
+.lab-canvas.narrow { max-width:320px; margin-inline:auto; }
+.lab-canvas.compact { padding:.45rem; }
+.lab-canvas[data-lab-canvas="dark"] { background:#282b32; color:#f7f7f7; }
+.lab-examples { display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; }
+.lab-canvas.compact .lab-examples { gap:.25rem; }
+/* A compact canvas must compact ALL specimen layouts, not only simple
+   actions; keep an 8px gutter so bordered cards never touch. */
+.lab-canvas.compact :is(.lab-advanced-actions,.lab-orientation-examples,.lab-api-controls) { gap:.5rem; }
+.lab-canvas.compact :is(.lab-advanced-group,.lab-orientation-group) { gap:.375rem; padding:.625rem; }
+.lab-canvas.compact .lab-api-demo { gap:.5rem; padding:.625rem; }
+.lab-source-heading { display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
+.lab-source-heading h2 { margin:0; }
+.lab-source button { padding:.5rem .75rem; border:1px solid var(--colorNeutralStroke1,#8c94a0); border-radius:.4rem; background:transparent; color:inherit; cursor:pointer; }
+.lab-source pre { overflow:auto; max-width:100%; padding:1rem; border-radius:.5rem; background:var(--colorNeutralBackground3,#f1f4f8); }
+@media(max-width:760px) { .lab-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:440px) { .lab-controls { grid-template-columns:minmax(0,1fr); } .lab-heading h1 { font-size:1.7rem; } .lab-family { width:100%; } }
+@media(prefers-reduced-motion:reduce) { .component-lab * { scroll-behavior:auto; transition:none; } }
+
+.lab-queue { padding:clamp(1rem,2vw,1.5rem); border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.8rem; background:var(--colorNeutralBackground1,#fff); min-width:0; }
+.lab-queue-heading { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:1rem; }
+.lab-queue-heading h2 { margin:0; }
+.lab-queue label { display:block; font-weight:600; margin-block:.8rem .35rem; }
+.lab-queue input { box-sizing:border-box; width:100%; min-width:0; padding:.65rem .75rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:inherit; }
+.lab-queue-count { font-size:.85rem; color:var(--colorNeutralForeground3,#56667a); }
+.lab-queue-list { display:grid; gap:.4rem; max-height:25rem; overflow-y:auto; padding-inline-end:.35rem; }
+.lab-queue-row { display:grid; grid-template-columns:minmax(6.5rem,1fr) minmax(10rem,1.1fr) auto auto; gap:.65rem; align-items:center; border:1px solid var(--colorNeutralStroke2,#d5dce5); padding:.7rem .8rem; border-radius:.5rem; }
+.lab-queue-row span { color:var(--colorNeutralForeground3,#526273); font-size:.85rem; }
+.lab-queue-row a, .lab-queue-row button { text-decoration:underline; text-underline-offset:.15rem; border:0; background:none; padding:.3rem .1rem; text-align:start; color:var(--colorBrandForegroundLink,#116bac); cursor:pointer; font:inherit; font-size:.88rem; }
+.lab-queue-row :is(a,button):focus-visible { outline:2px solid var(--colorStrokeFocus2,#116bac); outline-offset:2px; }
+@media(max-width:690px) { .lab-queue-row { grid-template-columns:1fr auto; } .lab-queue-row span { grid-column:1 / -1; grid-row:2; } }
+@media(max-width:380px) { .lab-queue-row { grid-template-columns:1fr; } .lab-queue-row span { grid-column:auto;grid-row:auto; } }
+
+
+/* Issue #421: existing Button public-API explorer, not Fluent 2 v3 acceptance. */
+.lab-button-variants { display:flex; align-items:end; gap:.75rem; flex-wrap:wrap; margin-top:1rem; padding:.7rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.45rem; }
+.lab-button-variants legend { font-size:.82rem; padding-inline:.4rem; }
+.lab-button-variants > div { flex:1 1 9rem; min-width:0; }
+.lab-button-variants label { display:block; margin-bottom:.25rem; font-size:.82rem; }
+.lab-button-variants select { width:100%; min-width:0; padding:.4rem .6rem; border-radius:.35rem; border:1px solid var(--colorNeutralStroke1,#8e99aa); background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+.lab-button-variants select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
+/* Existing Button advanced API specimens, source-linked pilot only. */
+.lab-advanced-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:1rem; }
+/* The Lab preview can be 320px wide inside a much larger browser. */
+.lab-canvas.narrow .lab-advanced-actions { grid-template-columns:minmax(0,1fr); }
+/* Match the actual preview canvas width, not merely browser width. */
+.lab-canvas.narrow .lab-orientation-examples,
+.lab-canvas.narrow .lab-api-controls { grid-template-columns:minmax(0,1fr); }
+.lab-advanced-group { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.55rem; padding:.8rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-advanced-label { font-size:.79rem; font-weight:600; color:var(--colorNeutralForeground3,#56667a); }
+.lab-menu-status { font-size:.82rem; margin:0; }
+/* The Lab canvas mirrors controls in RTL, but English specimen text
+   remains logically LTR so punctuation and word order do not flip. */
+.lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help) {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-width: 0;
+    margin: 0;
+    line-height: 1.45;
+    text-align: start;
+    overflow-wrap: break-word;
+}
+.lab-canvas[dir="rtl"] .lab-advanced-group > :is(.lab-advanced-label,.lab-menu-status,.lab-split-status,.lab-split-disabled-help) {
+    text-align: end;
+}
+.lab-advanced-group > :is(.lab-split-status,.lab-split-disabled-help) { font-size: .82rem; }
+@media(max-width:600px) { .lab-advanced-actions { grid-template-columns:minmax(0,1fr); } }/* #421 existing Icon and Label parameter explorer, no production component restyling. */
+.lab-api-demo { display:grid; gap:.75rem; margin-top:1rem; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; min-width:0; }
+.lab-api-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+.lab-api-controls label { display:block; font-size:.83rem; font-weight:600; margin-bottom:.3rem; }
+.lab-api-controls :is(select, input) { box-sizing:border-box; width:100%; min-width:0; padding:.5rem .65rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+.lab-api-controls select:focus-visible { outline:2px solid var(--colorBrandStroke1,#176aa3); outline-offset:2px; }
+.lab-form-example input:focus { outline:0; border-bottom:2px solid var(--colorBrandStroke1,#176aa3); }
+.lab-icon-selected { display:flex; align-items:center; gap:.85rem; }
+.lab-icon-selection { font-size:.82rem; color:var(--colorNeutralForeground3,#56667a); }
+.lab-form-example { display:grid; gap:.4rem; max-width:25rem; }
+.lab-form-example input { min-width:0; box-sizing:border-box; width:100%; padding:.6rem .7rem; border:1px solid var(--colorNeutralStroke1,#9099a8); border-radius:.4rem; background:var(--colorNeutralBackground1,#fff); color:var(--colorNeutralForeground1,#263548); }
+@media(max-width:440px) { .lab-api-controls { grid-template-columns:minmax(0,1fr); } }
+.lab-form-help { display:flex; align-items:center; }
+
+/* #421 non-public research specimen, real official Apps20 Color SVG.
+   Color is opt-in and deprecated upstream, so preserve a monochrome HCM fallback. */
+.lab-color-research { display:flex; align-items:center; gap:1rem; margin-top:.85rem; padding:.9rem; border:1px dashed var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; min-width:0; }
+.lab-color-icons { display:flex; width:72px; min-width:72px; height:72px; align-items:center; justify-content:center; border-radius:.6rem; background:var(--colorNeutralBackground1,#fff); }
+.lab-color-research ::deep .lab-color-preview-icon, .lab-color-research ::deep .lab-color-preview-monochrome { width:56px; height:56px; font-size:56px; }
+.lab-color-research ::deep .lab-color-preview-icon svg { display:block; width:56px; height:56px; }
+.lab-color-research ::deep .lab-color-preview-monochrome { display:none; }
+.lab-color-research strong { display:block; margin-bottom:.35rem; }
+.lab-color-research p { font-size:.83rem; margin:0; }
+@media (forced-colors: active) {
+ .lab-color-research ::deep .lab-color-preview-icon { display:none !important; }
+ .lab-color-research ::deep .lab-color-preview-monochrome { display:inline-flex !important; color:ButtonText; background:Canvas; }
+}
+
+/* #421: existing Button API Orientation/Rotated/Icon/TextClass pilot only,
+   not a new Bluent v3 Button design or production styling change. */
+.lab-orientation-examples {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+    margin-block: .75rem;
+    min-width: 0;
+}
+.lab-orientation-group {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .55rem;
+    border: 1px solid var(--colorNeutralStroke2, #d5dce5);
+    padding: .8rem;
+    border-radius: .5rem;
+}
+.lab-orientation-group ::deep #lab-button-vertical .lab-custom-button-text {
+    font-weight: 700;
+}
+.lab-orientation-group ::deep .bui-button {
+    max-width: 100%;
+}
+@media (max-width: 600px) {
+    .lab-orientation-examples { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* #421: existing Badge optional public flags, demo-only. */
+.lab-badge-flags { display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; }
+.lab-badge-flags label { display:inline-flex; align-items:center; gap:.35rem; }
+.lab-badge-flags input { width:1rem; height:1rem; margin:0; }
+/* Current public TextField Lab pilot only, NOT v3 production field styles. */
+.lab-textfield-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-textfield-card { display:grid; align-content:start; gap:.5rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-textfield-card label { font-size:.85rem; font-weight:600; }
+.lab-textfield-card .bui-text-field { min-width:0; max-width:100%; }
+.lab-textfield-card :is(input,textarea) { min-width:0; max-width:100%; }
+.lab-textfield-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-textfield-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-textfield-grid { gap:.5rem; }
+.lab-canvas.compact .lab-textfield-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-textfield-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 current API Checkbox specimen only; not #434 implementation. */
+.lab-checkbox-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-checkbox-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-checkbox-card h3 { font-size:.86rem; line-height:1.4; font-weight:600; margin:0; }
+.lab-checkbox-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-checkbox-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-checkbox-grid { gap:.5rem; }
+.lab-canvas.compact .lab-checkbox-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-checkbox-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 current public Switch specimen only, not #435 production CSS. */
+.lab-switch-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-switch-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-switch-card h3 { font-size:.86rem; line-height:1.4; margin:0; font-weight:600; }
+.lab-switch-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-switch-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-switch-grid { gap:.5rem; }
+.lab-canvas.compact .lab-switch-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-switch-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 NumericField original API pilot; not future #433 product CSS. */
+.lab-numeric-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-numeric-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-numeric-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-numeric-card .bui-numeric-field { min-width:0; max-width:100%; }
+.lab-numeric-card input { min-width:0; max-width:100%; }
+.lab-numeric-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas.narrow .lab-numeric-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-numeric-grid { gap:.5rem; }
+.lab-canvas.compact .lab-numeric-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-numeric-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 existing RadioGroup sample only; no #436 production style edits. */
+.lab-radio-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-radio-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-radio-card h3 { font-size:.86rem; line-height:1.4; font-weight:600; margin:0; }
+.lab-radio-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas[dir="rtl"] .lab-radio-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-radio-card p { text-align:left; }
+.lab-canvas.narrow .lab-radio-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-radio-grid { gap:.5rem; }
+.lab-canvas.compact .lab-radio-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-radio-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* Current #421 SelectField specimen only; no #437 production field redesign. */
+.lab-select-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-select-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-select-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-select-card :is(select,.bui-select-field) { min-width:0; max-width:100%; }
+.lab-select-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas[dir="rtl"] .lab-select-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-select-card p { text-align:left; }
+.lab-canvas.narrow .lab-select-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-select-grid { gap:.5rem; }
+.lab-canvas.compact .lab-select-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-select-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 current public masked DateField specimens only, not #438 rewrite. */
+.lab-date-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-date-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-date-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-date-card :is(.bui-date-field,.bui-masked-field,input) { min-width:0; max-width:100%; }
+.lab-date-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas[dir="rtl"] .lab-date-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-date-card p { text-align:left; }
+.lab-canvas.narrow .lab-date-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-date-grid { gap:.5rem; }
+.lab-canvas.compact .lab-date-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-date-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 source-owned current TimeField pilot only; no #439 product CSS. */
+.lab-time-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-time-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-time-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-time-card :is(.bui-time-field,.bui-masked-field,input) { min-width:0; max-width:100%; }
+.lab-time-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas[dir="rtl"] .lab-time-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-time-card p { text-align:left; }
+.lab-canvas.narrow .lab-time-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-time-grid { gap:.5rem; }
+.lab-canvas.compact .lab-time-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-time-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 current public MaskedField sample only; not #440 production styles. */
+.lab-masked-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-masked-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-masked-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-masked-card :is(.bui-masked-field,input) { min-width:0; max-width:100%; }
+.lab-masked-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-canvas[dir="rtl"] .lab-masked-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-masked-card p { text-align:left; }
+.lab-canvas.narrow .lab-masked-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-masked-grid { gap:.5rem; }
+.lab-canvas.compact .lab-masked-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-masked-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421: current public OtpField specimen only, not #441 production restyling. */
+.lab-otp-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-otp-card { display:grid; align-content:start; gap:.625rem; min-width:0; padding:.85rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-otp-card label { font-size:.86rem; line-height:1.4; font-weight:600; }
+.lab-otp-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-otp-card ::deep .bui-otp-field { max-width:100%; min-width:0; }
+.lab-otp-card ::deep .otp { display:flex; flex-wrap:wrap; max-width:100%; gap:.35rem; }
+.lab-otp-card ::deep .otp-cell { flex:0 0 auto; }
+.lab-otp-card ::deep .otp-cell-input { box-sizing:border-box; max-width:2.35rem; min-width:0; }
+.lab-canvas[dir="rtl"] .lab-otp-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-otp-card p { text-align:left; }
+.lab-canvas.narrow .lab-otp-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-otp-grid { gap:.5rem; }
+.lab-canvas.compact .lab-otp-card { padding:.625rem; gap:.375rem; }
+@media(max-width:600px) { .lab-otp-grid { grid-template-columns:minmax(0,1fr); } }
+.lab-otp-autosubmit-form { margin:0; display:grid; gap:.625rem; min-width:0; }
+
+/* #421 pointer-only source Slider pilot, not #442 production styling. */
+.lab-slider-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-slider-card { display:grid; align-content:start; gap:.8rem; min-width:0; padding:1rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-slider-label { font-size:.86rem; font-weight:600; line-height:1.4; }
+.lab-slider-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-slider-card ::deep .bui-slider { box-sizing:border-box; width:100%; min-width:0; }
+.lab-canvas[dir="rtl"] .lab-slider-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-slider-card p { text-align:left; }
+.lab-canvas.narrow .lab-slider-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-slider-grid { gap:.5rem; }
+.lab-canvas.compact .lab-slider-card { padding:.75rem; gap:.5rem; }
+@media(max-width:600px) { .lab-slider-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 demo-scoped current RangeSlider, no #443 production CSS. */
+.lab-range-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-range-card { display:grid; align-content:start; gap:.85rem; min-width:0; padding:1rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-range-title { font-size:.86rem; font-weight:600; line-height:1.4; }
+.lab-range-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-range-card ::deep .bui-range-slider { width:100%; min-width:0; box-sizing:border-box; }
+.lab-canvas[dir="rtl"] .lab-range-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-range-card p { text-align:left; }
+.lab-canvas.narrow .lab-range-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-range-grid { gap:.5rem; }
+.lab-canvas.compact .lab-range-card { padding:.75rem; gap:.5rem; }
+@media(max-width:600px) { .lab-range-grid { grid-template-columns:minmax(0,1fr); } }
+
+/* #421 demo-only actual FileSelect source API. Separate cards and inner file rows. */
+.lab-file-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:.85rem; }
+.lab-file-card { display:grid; align-content:start; gap:.7rem; min-width:0; padding:1rem; border:1px solid var(--colorNeutralStroke2,#d5dce5); border-radius:.5rem; }
+.lab-file-label { font-size:.86rem; font-weight:600; line-height:1.4; }
+.lab-file-card p { margin:0; font-size:.82rem; overflow-wrap:anywhere; }
+.lab-file-card ::deep .bui-file-select { min-width:0; max-width:100%; }
+.lab-file-card ::deep .files { display:grid; grid-template-columns:minmax(0,1fr); gap:.625rem; min-width:0; margin-top:.625rem; }
+/* Published InteractiveServer base FileSelect .files has a 6px competing gap; enforce the Lab spacing contract. */
+.lab-file-card ::deep .bui-file-select .files { row-gap:.625rem !important; column-gap:.625rem !important; }
+.lab-file-card ::deep .files > * { min-width:0; max-width:100%; }
+.lab-canvas[dir="rtl"] .lab-file-card p { text-align:right; }
+.lab-canvas[dir="ltr"] .lab-file-card p { text-align:left; }
+.lab-canvas.narrow .lab-file-grid { grid-template-columns:minmax(0,1fr); }
+.lab-canvas.compact .lab-file-grid { gap:.5rem; }
+.lab-canvas.compact .lab-file-card { padding:.75rem; gap:.5rem; }
+@media(max-width:600px) { .lab-file-grid { grid-template-columns:minmax(0,1fr); } }
