@@ -1,10 +1,21 @@
-﻿@page "/components/popovers"
+@page "/components/popovers"
 @using Bluent.UI.Demo.Pages.Pages.Components.PopoverComponents
 @namespace Bluent.UI.Demo.Pages.Components
 
 <div class="p-5 py-md-10 px-md-12">
     <div class="w-100 w-md-50 m-auto">
         <h1>Popover</h1>
+
+        @* #420 actual Blazor Overlay used for reduced-motion gate.
+           Hidden until requested, so it cannot occlude normal popover demos. *@
+        <h3>Overlay reduced-motion regression</h3>
+        <section class="p-7 rounded-5 shadow-3" data-overlay-probe-ready="@(_motionOverlayProbeReady ? "true" : "false")">
+            <Button Text="Open motion overlay" OnClick="() => _motionOverlayVisible = true" />
+            @if (_motionOverlayVisible)
+            {
+                <Overlay OnClick="() => _motionOverlayVisible = false" />
+            }
+        </section>
 
         <h3>Default</h3>
         <section class="p-7 rounded-5 shadow-3">
@@ -17,6 +28,20 @@
                     <div>
                         This is a sample content.
                     </div>
+                </Surface>
+            </Popover>
+        </section>
+
+        @* #420 RightEnd placement must retain the CSS entry transform
+           as well as the JS Floating UI placement, in both render modes. *@
+        <h3>RightEnd placement regression</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Popover Placement="Placement.RightEnd" KeepSurface="true">
+                <Trigger>
+                    <Button Text="RightEnd placement trigger" />
+                </Trigger>
+                <Surface>
+                    <p>RightEnd positioning surface</p>
                 </Surface>
             </Popover>
         </section>
@@ -106,6 +131,8 @@
 </div>
 
 @code {
+    private bool _motionOverlayVisible;
+    private bool _motionOverlayProbeReady;
     private string? _popoverCommand;
     private Popover? _manualPopover;
     private TextField? _cmdTextField;
@@ -115,6 +142,14 @@
         if (firstRender && _manualPopover != null && _cmdTextField != null)
         {
             _manualPopover.SetTrigger(_cmdTextField);
+        }
+
+        // First OnAfterRender occurs only once Blazor has actually hydrated
+        // the page and can dispatch its interactive component callbacks.
+        if (firstRender)
+        {
+            _motionOverlayProbeReady = true;
+            StateHasChanged();
         }
 
         base.OnAfterRender(firstRender);

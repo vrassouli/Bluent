@@ -1,0 +1,137 @@
+name: Bluent v3 Interaction Source Contract
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-interaction-contract.yml"
+      - "scripts/quality/check_v3_interaction_primitives.py"
+      - "scripts/quality/test_v3_interaction_primitives.py"
+      - "scripts/quality/test_v3_popover_foundation_compatibility.py"
+      - "scripts/quality/test_v3_interaction_sample.py"
+      - "scripts/quality/v3_interop_lifecycle/**"
+      - "scripts/quality/v3_p0_policy_prototype/**"
+      - "docs/v3/architecture/ADR-0002-P0-CONTRACT-OPTIONS.md"
+      - "scripts/quality/probe_v3_popover_runtime.mjs"
+      - "scripts/quality/check_v3_popover_js_bundle.py"
+      - "scripts/quality/test_v3_popover_js_bundle.py"
+      - "src/Bluent.UI.Scripts/src/Popover/**"
+      - "src/Bluent.UI.Scripts/dist/**"
+      - "src/Bluent.UI.Scripts/package-lock.json"
+      - "src/Bluent.UI/wwwroot/bluent.ui*.js*"
+      - "src/Bluent.UI/Styles/Components/_popover.scss"
+      - "src/Bluent.UI/Styles/Components/components.css"
+      - "src/Bluent.UI/wwwroot/bluent.ui.components.min.css"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/PopoverStackProbe.razor"
+      - "src/Bluent.UI.Demo.SSR/Components/Pages/PopoverStackInteractiveServerProbe.razor"
+      - "docs/v3/architecture/ADR-0002-interaction-primitives.md"
+      - "src/Bluent.UI/Interops/**"
+      - "src/Bluent.UI/Services/DomHelper.cs"
+      - "src/Bluent.UI/Components/**"
+      - "samples/Bluent.TaskExamples/**"
+permissions:
+  contents: read
+jobs:
+  source-and-consumer-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Source-only JS lifetime debt regression
+        run: |
+          python scripts/quality/check_v3_interaction_primitives.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_interaction_primitives.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_popover_foundation_compatibility.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_interaction_sample.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Rebuild tracked Popover Sass for reduced motion from source
+        run: |
+          npm --prefix src/Bluent.UI ci --ignore-scripts --no-audit --no-fund
+          npx --yes sass@1.93.2 --silence-deprecation=import,global-builtin,color-functions,legacy-js-api --no-source-map src/Bluent.UI/Styles/Components/components.scss src/Bluent.UI/Styles/Components/components.css
+          git diff --exit-code -- src/Bluent.UI/Styles/Components/components.css
+      - name: Verify reproducible TypeScript ESM/global bundles shipped by Bluent.UI
+        run: |
+          npm --prefix src/Bluent.UI.Scripts ci --ignore-scripts --no-audit --no-fund
+          npm --prefix src/Bluent.UI.Scripts run build
+          python scripts/quality/check_v3_popover_js_bundle.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_popover_js_bundle.py' -v
+          git diff --exit-code -- src/Bluent.UI.Scripts/dist/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Execute decision-pending P0 file, slider and toggle .NET QA options
+        run: |
+          dotnet restore scripts/quality/v3_p0_policy_prototype/V3P0PolicyPrototype.csproj
+          dotnet run --project scripts/quality/v3_p0_policy_prototype/V3P0PolicyPrototype.csproj --configuration Release --no-restore
+      - name: Compile current public binding and EditContext sample
+        run: |
+          dotnet restore samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj
+          dotnet build samples/Bluent.TaskExamples/Bluent.TaskExamples.csproj --configuration Release --no-restore -warnaserror
+      - name: Reject stale published minified Popover CSS
+        run: |
+          python scripts/quality/check_v3_popover_js_bundle.py
+          git diff --exit-code -- src/Bluent.UI/wwwroot/bluent.ui.components.min.css
+      - name: Actual compiled DLL mocked-JS lifecycle tests
+        run: |
+          dotnet restore scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj
+          dotnet run --project scripts/quality/v3_interop_lifecycle/V3InteropLifecycle.csproj --configuration Release --no-restore
+      - name: Evidence boundary
+        run: echo "Source + build + mocked JS .NET lifetime; browser checked in separate Windows jobs. Not native OS/AT."
+
+
+  real-popover-browser:
+    name: Real Popover / ${{ matrix.browser }} / ${{ matrix.render_mode }}
+    runs-on: windows-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        browser: [Chrome, Edge]
+        render_mode: [WASM, Server]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Restore both render-mode dependencies
+        run: dotnet restore Bluent.sln
+      - name: Build WebAssembly demo with localhost base href
+        if: matrix.render_mode == 'WASM'
+        run: dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore -warnaserror
+      # Server mode publishes SSR in Production inside the JS probe.
+      - name: Select real installed Chrome or Edge
+        shell: pwsh
+        run: |
+          if ("${{ matrix.browser }}" -eq "Chrome") {
+            $candidates = @('C:\Program Files\Google\Chrome\Application\chrome.exe','C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
+          } else {
+            $candidates = @('C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe','C:\Program Files\Microsoft\Edge\Application\msedge.exe')
+          }
+          $selected = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $selected) { throw "Browser missing: ${{ matrix.browser }}" }
+          "CHROME_PATH=$selected" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Real trigger, dynamic content, manual Show and Close
+        shell: pwsh
+        env:
+          BLUENT_V3_RENDER_MODE: ${{ matrix.render_mode }}
+          BLUENT_V3_BROWSER_NAME: ${{ matrix.browser }}
+          BLUENT_V3_EVIDENCE_DIR: ${{ runner.temp }}/v3-popover-evidence
+        run: node scripts/quality/probe_v3_popover_runtime.mjs
+      - name: Preserve screenshot and exact-commit JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-popover-${{ matrix.browser }}-${{ matrix.render_mode }}-${{ github.sha }}
+          path: ${{ runner.temp }}/v3-popover-evidence
+          if-no-files-found: error
+          retention-days: 7

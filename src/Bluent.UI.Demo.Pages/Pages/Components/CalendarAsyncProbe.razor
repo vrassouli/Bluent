@@ -1,0 +1,104 @@
+@page "/components/calendar-async-probe"
+@namespace Bluent.UI.Demo.Pages.Components
+
+@* #420 QA fixture only: prove real Razor-selected month/year callbacks
+   are awaited by Blazor, not hidden behind async void. *@
+<h1>Calendar async event probe</h1>
+<output data-calendar-probe-ready="@(_ready ? "true" : "false")">@(_ready ? "Ready" : "Preparing")</output>
+
+<section data-calendar-kind="month">
+    <h2>Month callback</h2>
+    <Calendar TValue="DateTime?" Mode="CalendarMode.MonthSelect"
+              SelectedDate="@_monthDate" SelectedDateChanged="MonthSelectedAsync" />
+    <output data-calendar-status="month">@_monthStatus</output>
+    <button type="button" @onclick="ReleaseMonth">Release month callback</button>
+</section>
+
+<section data-calendar-kind="year">
+    <h2>Year callback</h2>
+    <Calendar TValue="DateTime?" Mode="CalendarMode.YearSelect"
+              SelectedDate="@_yearDate" SelectedDateChanged="YearSelectedAsync" />
+    <output data-calendar-status="year">@_yearStatus</output>
+    <button type="button" @onclick="ReleaseYear">Release year callback</button>
+</section>
+
+<section data-calendar-kind="navigation">
+    <h2>Awaited month navigation</h2>
+    <Calendar TValue="DateTime?" SelectedDate="@_navigationSelected"
+              MonthChanged="NavigationMonthChangedAsync" />
+    <output data-calendar-status="navigation">@_navigationStatus</output>
+    <button type="button" @onclick="ReleaseNavigation">Release navigation callback</button>
+</section>
+
+<section data-calendar-kind="external">
+    <h2>Awaited external SelectedDate</h2>
+    <Calendar TValue="DateTime?" SelectedDate="@_externalSelected"
+              MonthChanged="ExternalMonthChangedAsync" />
+    <output data-calendar-status="external">@_externalStatus</output>
+    <button type="button" @onclick="MoveExternalDate">Change external SelectedDate</button>
+    <button type="button" @onclick="ReleaseExternal">Release external callback</button>
+</section>
+
+@code {
+    private bool _ready;
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _ready = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
+
+    private DateTime? _navigationSelected = DateTime.Today;
+    private DateTime? _externalSelected = DateTime.Today;
+    private string _navigationStatus = "idle";
+    private string _externalStatus = "idle";
+    private readonly TaskCompletionSource _navigationGate = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private readonly TaskCompletionSource _externalGate = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+    private async Task NavigationMonthChangedAsync(DateOnly _)
+    {
+        _navigationStatus = "pending";
+        await _navigationGate.Task;
+        _navigationStatus = "completed";
+    }
+
+    private async Task ExternalMonthChangedAsync(DateOnly _)
+    {
+        _externalStatus = "pending";
+        await _externalGate.Task;
+        _externalStatus = "completed";
+    }
+
+    private void MoveExternalDate() => _externalSelected = DateTime.Today.AddMonths(2);
+    private void ReleaseNavigation() => _navigationGate.TrySetResult();
+    private void ReleaseExternal() => _externalGate.TrySetResult();
+
+    private DateTime? _monthDate;
+    private DateTime? _yearDate;
+    private string _monthStatus = "idle";
+    private string _yearStatus = "idle";
+    private readonly TaskCompletionSource _monthGate = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private readonly TaskCompletionSource _yearGate = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+    private async Task MonthSelectedAsync(DateTime? date)
+    {
+        _monthStatus = "pending";
+        await _monthGate.Task;
+        _monthDate = date;
+        _monthStatus = date.HasValue ? "completed" : "missing selection";
+    }
+
+    private async Task YearSelectedAsync(DateTime? date)
+    {
+        _yearStatus = "pending";
+        await _yearGate.Task;
+        _yearDate = date;
+        _yearStatus = date.HasValue ? "completed" : "missing selection";
+    }
+
+    private void ReleaseMonth() => _monthGate.TrySetResult();
+    private void ReleaseYear() => _yearGate.TrySetResult();
+}
