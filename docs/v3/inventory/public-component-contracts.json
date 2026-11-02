@@ -1396,12 +1396,21 @@
       "BaseType": "Bluent.UI.Components.BluentUiComponentBase",
       "IsAbstract": false,
       "Properties": {
+        "AccessibleDescription": "String | get=True set=True | ParameterAttribute",
+        "AccessibleName": "String | get=True set=True | ParameterAttribute",
         "ChildContent": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "CloseButtonLabel": "String | get=True set=True | ParameterAttribute",
+        "EnableModalKeyboard": "Boolean | get=True set=True | ParameterAttribute",
+        "InitialFocusTargetId": "String | get=True set=True | ParameterAttribute",
+        "IsModal": "Boolean | get=True set=True | ParameterAttribute",
         "OnClose": "Microsoft.AspNetCore.Components.EventCallback\u00601\u003CObject\u003E | get=True set=True | ParameterAttribute",
-        "Size": "Bluent.UI.Components.DialogSize | get=True set=True | ParameterAttribute"
+        "Size": "Bluent.UI.Components.DialogSize | get=True set=True | ParameterAttribute",
+        "UseStandardTitleHeading": "Boolean | get=True set=True | ParameterAttribute"
       },
       "Methods": [
         "Close(Object):Void | generic=0",
+        "DismissOnEscape():Void | generic=0",
+        "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
         "GetClasses():System.Collections.Generic.IEnumerable\u00601\u003CString\u003E | generic=0"
       ],
       "Fields": {},
@@ -2124,6 +2133,7 @@
       "BaseType": "Microsoft.AspNetCore.Components.ComponentBase",
       "IsAbstract": false,
       "Properties": {
+        "AccessibleTriggerState": "Boolean | get=True set=True | ParameterAttribute",
         "Appearance": "Bluent.UI.Components.PopoverAppearance | get=True set=True | ParameterAttribute",
         "DisplayArrow": "Boolean | get=True set=True | ParameterAttribute",
         "HideEvents": "String | get=True set=True | ParameterAttribute",
@@ -2133,6 +2143,7 @@
         "Placement": "Bluent.UI.Components.Placement | get=True set=True | ParameterAttribute",
         "SameWidth": "Boolean | get=True set=True | ParameterAttribute",
         "Surface": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
+        "ThemeScope": "Bluent.UI.Components.PortalThemeScope | get=True set=True | CascadingParameterAttribute",
         "Trigger": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
         "TriggerEvents": "String | get=True set=True | ParameterAttribute"
       },

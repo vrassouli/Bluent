@@ -395,3 +395,28 @@ PR [#549](https://github.com/vrassouli/Bluent/pull/549) merged exclusively into 
 The canonical Penpot workspace is the source-owned Bluent v3 Design System file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 42 `e775e67c-d9da-804b-8008-cc7c2dd7ecf7`. Added editable board `#421 · Lab platform vs component DoD · REVIEW REQUIRED`, ID `fce13529-02e2-80e4-8008-de96e1fdaca3`, with 21 native editable shapes. It separates the reusable Lab platform acceptance (searchable family catalog, controlled live specimens, copyable Razor, machine-readable source/API coverage, evidence-state distinctions, four-mode browser gates, accessibility/failure-visible QA) from the per-family Definition of Done (approved family design, complete API/state/keyboard/ARIA, Light/Dark/RTL/forced-colors, responsive/browser/native evidence, docs/migration/Skill and maintainer acceptance). Live Penpot readback: 12/12 text shapes fit their text bounds; 0 overflow.
 
 This is a review proposal, not approval. The board requests maintainer acceptance of the Lab platform as a prerequisite to beginning a component while retaining full per-family coverage as each component's own DoD. Current coverage is **18 representative pilots / 66 source families / 0 accepted families**. Do not inflate the metric or mark #421 Done. The two existing page42 Desktop/Mobile designs remain drafts. No public component source/API/CSS was changed by this design step.
+
+## #418 integration refresh after Button #428 — 2026-10-30
+
+The token task branch is being refreshed against current bluent-v3, including the accepted Button #428 implementation. The source merge preserves the newer shared Popover lifecycle/keyboard manager and adds only the existing #418 AccessibleTriggerState opt-in: when enabled, the trigger receives a stable aria-controls relation and initial truthful aria-expanded state. Opening/closing continues through the shared active-Popover stack; owner teardown calls the trigger-scoped unregister entry point, which deactivates that Popover and releases the shared document listener when appropriate. The older per-trigger document Escape listener is not duplicated alongside the shared handler.
+
+The #418 token/brand/contrast proposals remain governed by their existing Penpot and owner-review artifacts. This merge refresh does not promote candidate aliases to approved public tokens and does not change stable Dev, v2.x assets, NuGet packages, tags or deployments. Exact-head build, tests and browser evidence must be regenerated after the merged TypeScript bundle is rebuilt. Issue #418 remains Review pending its exact-head CI and maintainer acceptance.
+
+
+## #418 refreshed against #428 — local validation snapshot — 2026-10-30
+
+After resolving the branch refresh with current bluent-v3, the following source checks passed:
+- Webpack build and TypeScript no-emit typecheck for Bluent.UI.Scripts.
+- Bluent.UI Release build with -warnaserror: 0 warnings / 0 errors.
+- Bluent.UI.Demo Debug build with -warnaserror: 0 warnings / 0 errors.
+- RegexSampleGeneratorTest: 72/72.
+- All #418 token/theme/focus/API contract scripts and audits: exit 0, including the 20 brand/mode matrix, source-backed token preview/contrast, typography/font continuity, scoped focus host matrix, forced-colors slider fixture contract and additive API ledger.
+- Real Blazor browser probe: Chrome/WASM 950/950; Edge/WASM 950/950; Chrome/InteractiveServer 949/949; Edge/InteractiveServer 949/949. All four runs reported zero failed assertions and included the shared/opt-in Popover lifecycle checks, legacy compatibility, 20 brand/mode combinations, 20 nested-host combinations, Button focus and computed forced-colors checks. This is browser computed-style/interaction evidence, not native assistive-technology certification.
+
+A full solution Release build was attempted twice and remains blocked by two NU1903 high-severity vulnerability findings on Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in Bluent.UI.Demo.SSR (GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4). These are not suppressed or changed as part of #418. All other projects reached compile in the no-restore attempt; the Demo and UI projects built independently with -warnaserror.
+
+A separate redundant forced-colors probe produced no output while stuck before its first diagnostic and was terminated; it is not counted as a passing run. The main real-browser probe above did complete its forced-colors computed-style assertions. This worktree refresh has no unmerged conflict paths, but is not complete until the merge commit is pushed and exact-head GitHub CI is green. #418 stays Review; no public-token approval is inferred from this engineering refresh.
+
+## 2026-10-31 #418 — approved direction, candidate values in review
+
+The maintainer approved brand-preserving Dark foregrounds. The #418 generator now creates ten per-brand sets × four distinct roles (40 pairs), targeting 4.6:1 after RGB rounding. The existing 35 logical token inventory and stable 2.x assets remain unchanged. Exact candidates are preview-only pending rendered consumer and accessibility acceptance. See docs/v3/tokens/CONTRAST-AUDIT.md and owned Penpot page 45.
