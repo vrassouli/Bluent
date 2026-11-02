@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops;
+using Bluent.UI.Interops;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,6 +10,7 @@ public abstract partial class Overflow
 {
     private OverflowInterop? _interop;
     private Popover? _overflowPopover;
+    private bool _checkOverflowOnNextRender;
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -23,14 +24,14 @@ public abstract partial class Overflow
 
     protected string GetOverflowId() => $"{Id}_overflow";
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (RendererInfo.IsInteractive)
         {
             if (firstRender)
             {
                 _interop = new OverflowInterop(JsRuntime);
-                _interop.Init(GetOverflowId());
+                await _interop.InitAsync(GetOverflowId());
             }
             else
             {
@@ -38,26 +39,36 @@ public abstract partial class Overflow
             }
         }
 
-        base.OnAfterRender(firstRender);
+        // The protected synchronous CheckOverflow() contract is preserved.
+        // Actual JS invocation is awaited during the interactive render cycle,
+        // after the DOM has its latest dimensions.
+        if (RendererInfo.IsInteractive && _checkOverflowOnNextRender && _interop is not null)
+        {
+            _checkOverflowOnNextRender = false;
+            await _interop.CheckOverflowAsync();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public override async ValueTask DisposeAsync()
     {
         try
         {
-            if (_interop != null)
+            if (_interop is not null)
                 await _interop.DisposeAsync();
         }
-        catch (JSDisconnectedException)
+        finally
         {
-            // swallow
+            // Base tooltip/UI resources must be released even if the JS proxy
+            // fails unexpectedly. The interop handles expected disconnections.
+            await base.DisposeAsync();
         }
-        
-        await base.DisposeAsync();
     }
 
     protected void CheckOverflow()
     {
-        _interop?.CheckOverflow();
+        _checkOverflowOnNextRender = true;
+        StateHasChanged();
     }
 }

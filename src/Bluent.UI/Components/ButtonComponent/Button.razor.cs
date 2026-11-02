@@ -86,11 +86,13 @@ public partial class Button
         var ownsToggleState = Toggled.HasValue && (!IsLink || IsDisabled);
         var ownsPopupState = IsButtonManagedMenuTrigger;
 
-        if ((!ownsToggleState && !ownsPopupState) || AdditionalAttributes is null)
-            return AdditionalAttributes;
+        if (AdditionalAttributes is null)
+            return null;
 
         // Component state takes precedence over conflicting caller attributes only when this Button owns that state.
+        // The private marker is reserved for Button-managed Popover triggers and is never caller-controlled.
         return AdditionalAttributes.Where(attribute =>
+            !string.Equals(attribute.Key, "data-bui-managed-menu-trigger", StringComparison.OrdinalIgnoreCase) &&
             !(ownsToggleState && string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase)) &&
             !(ownsPopupState && (
                 string.Equals(attribute.Key, "aria-haspopup", StringComparison.OrdinalIgnoreCase) ||

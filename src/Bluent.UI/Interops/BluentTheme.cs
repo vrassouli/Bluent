@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Interops.Abstractions;
+using Bluent.UI.Interops.Abstractions;
 using Microsoft.JSInterop;
 
 namespace Bluent.UI.Interops;
@@ -6,7 +6,7 @@ namespace Bluent.UI.Interops;
 internal class BluentTheme : IBluentTheme, IAsyncDisposable
 {
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
-        private IJSObjectReference? _module;
+    private IJSObjectReference? _module;
     public BluentTheme(IJSRuntime jsRuntime)
     {
         _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Bluent.UI/bluent.ui.js").AsTask());
@@ -15,12 +15,16 @@ internal class BluentTheme : IBluentTheme, IAsyncDisposable
     {
         try
         {
-            if (_module != null)
+            if (_module is not null)
                 await _module.DisposeAsync();
         }
-        catch (Exception)
+        catch (JSDisconnectedException)
         {
-            // swallow
+            // Expected if the Blazor circuit closes while the theme module is disposed.
+        }
+        finally
+        {
+            _module = null;
         }
     }
 

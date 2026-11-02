@@ -714,7 +714,6 @@
   outline: 2px solid var(--bui-button-focus-ring-color, var(--colorBrandBackground));
   outline-offset: 2px;
 }
-
 .bui-button.circular {
   border-radius: var(--borderRadiusCircular);
 }
@@ -885,6 +884,25 @@
   font-size: 22px;
   height: 22px;
   width: 22px;
+}
+
+[data-bui-theme=dark] .bui-button:focus-visible {
+  outline-color: var(--bui-button-focus-ring-color, var(--colorBrandForeground2));
+}
+
+.bui-button-group > .bui-button:focus-visible {
+  outline-offset: -3px;
+  z-index: 1;
+}
+
+@media (forced-colors: active) {
+  .bui-button:focus-visible {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+}
+.bui-button:disabled:focus-visible {
+  outline: none;
 }
 
 .ltr .bui-button-group, [dir=ltr] .bui-button-group {
@@ -2825,6 +2843,12 @@
   animation-fill-mode: both;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .bui-overlay {
+    animation-duration: 0s;
+    animation-delay: 0s;
+  }
+}
 .bui-popover {
   width: max-content;
 }
@@ -2850,9 +2874,17 @@
   transition-property: opacity, transform;
   transition-duration: var(--durationSlower);
   transition-timing-function: var(--curveDecelerateMid);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bui-popover-surface {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
+.bui-popover-surface {
   opacity: 0;
 }
-.bui-popover-surface.right, .bui-popover-surface.right-start, .bui-popover-surfaceright-end {
+.bui-popover-surface.right, .bui-popover-surface.right-start, .bui-popover-surface.right-end {
   transform: translateX(-10px);
 }
 .bui-popover-surface.left, .bui-popover-surface.left-start, .bui-popover-surface.left-end {
@@ -4713,26 +4745,3 @@
 .rtl .bui-wizard > .content > .panels.backward > .step.current > .content, [dir=rtl] .bui-wizard > .content > .panels.backward > .step.current > .content {
   animation-name: slide-in-right, fade-in;
 }
-
-
-[data-bui-theme="dark"] .bui-button:focus-visible {
-  outline-color: var(--bui-button-focus-ring-color, var(--colorBrandForeground2));
-}
-
-.bui-button-group > .bui-button:focus-visible {
-  outline-offset: -3px;
-  z-index: 1;
-}
-
-@media (forced-colors: active) {
-  .bui-button:focus-visible {
-    outline-color: Highlight;
-    box-shadow: none;
-  }
-}
-
-.bui-button:disabled:focus-visible {
-  outline: none;
-}
-
-/*# sourceMappingURL=components.css.map */

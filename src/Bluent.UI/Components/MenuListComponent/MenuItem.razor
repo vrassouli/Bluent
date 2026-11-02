@@ -48,6 +48,7 @@ else
     <Popover @ref="_subMenuPopover" TriggerEvents="mouseenter" DisplayArrow="false" Placement="Placement.RightStart" KeepSurface="true">
         <Trigger>
             <div @attributes="AdditionalAttributes"
+                 data-bui-managed-menu-trigger="true"
                  id="@Id"
                  class="@GetComponentClass()"
                  style="@Style"
