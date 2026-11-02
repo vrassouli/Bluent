@@ -14,6 +14,51 @@ LEDGER = ROOT / "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
 QUEUE = ROOT / "docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
 
 
+def validate_platform_gate(data: dict, queue: dict) -> None:
+    """Keep shared Lab platform evidence separate from per-family acceptance."""
+    gate = data.get("platformGate")
+    assert isinstance(gate, dict), "platform-vs-family acceptance gate is required"
+    assert gate.get("status") == "implemented_pending_maintainer_review"
+
+    engineering = gate["platformEngineering"]
+    assert engineering["status"] == "merged_into_bluent-v3"
+    assert engineering["pullRequest"] == 551
+    assert engineering["taskBranch"] == "v3/issue-421-component-lab"
+    assert engineering["validatedHead"] == "a6156adbf45f5a9d9679d2929b2026b37ff4efa3"
+    assert engineering["mergeCommit"] == "8c9f2bd1c02fded8a2ecf8b9375a59531e4c8ccc"
+    ci = engineering["exactHeadCi"]
+    assert ci["status"] == "success" and ci["reportedChecks"] == 13
+    expected_matrix = {
+        ("Chrome", "WebAssembly"), ("Edge", "WebAssembly"),
+        ("Chrome", "InteractiveServer"), ("Edge", "InteractiveServer"),
+    }
+    actual_matrix = {(x["browser"], x["renderMode"]) for x in ci["browserMatrix"]}
+    assert actual_matrix == expected_matrix, "all four exact-head browser/render-mode cells are required"
+    assert all(x["status"] == "success" for x in ci["browserMatrix"])
+
+    scope = gate["familyAcceptance"]
+    assert scope["status"] == "incomplete"
+    assert scope["sourceFamilyCount"] == queue["familyCount"] == 66
+    assert scope["representativePilotCount"] == queue["familiesWithRepresentativeLabScenario"] == 18
+    assert scope["familiesWithRealBrowserSpecimen"] == queue["familiesWithRealBrowserSpecimen"] == 16
+    assert scope["acceptedFamilyCount"] == 0
+    assert scope["perFamilyDefinitionOfDoneRequired"] is True
+    assert all(x["classification"] == "representative_only" for x in data["families"])
+    assert all(not x["apiPropertiesEventsMapped"] and not x["completeDemoAcceptance"]
+               and not x["componentDesignAccepted"] and not x["browserMatrixAccepted"]
+               for x in queue["families"]), "Lab platform evidence cannot auto-accept family issues"
+
+    design = gate["designReview"]
+    assert design["status"] == "pending"
+    assert design["platform"] == "Penpot"
+    assert design["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
+    assert design["pageId"] == "e775e67c-d9da-804b-8008-cc7c2dd7ecf7"
+    assert design["boardId"] == "fce13529-02e2-80e4-8008-de96e1fdaca3"
+    assert data["designSource"]["approval"] == "pending"
+    assert len(gate["knownPilotGaps"]) == 2
+    assert {x["issue"] for x in gate["knownPilotGaps"]} == {442, 443}
+
+
 def check() -> int:
     data = json.loads(LEDGER.read_text(encoding="utf-8"))
     source = LAB.read_text(encoding="utf-8-sig")
@@ -24,6 +69,8 @@ def check() -> int:
     assert data["designSource"]["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000"
     assert data["designSource"]["approval"] == "pending"
     assert len(data["families"]) == 18
+    queue_for_platform = json.loads(QUEUE.read_text(encoding="utf-8"))
+    validate_platform_gate(data, queue_for_platform)
     assert data["families"][1]["propertiesDemonstrated"] == ["Value", "Variant"]
     assert data["families"][2]["propertiesDemonstrated"] == [
         "Text", "ForExpression", "RequiredSymbol", "Size", "Required", "Info"
@@ -890,6 +937,7 @@ def check() -> int:
           "parity approvals remain independent of Component Lab runtime checks")
     print("Component Lab family QUEUE PASS: 66/66 source-mapped, 18 live pilot specimens, ZERO complete components")
     print("Component Lab PILOT contract PASS: 18/18 source-linked families; NOT exhaustive acceptance")
+    print("Component Lab platform gate PASS: PR #551 merged; 4 browser cells green; design review pending")
     return 0
 
 
