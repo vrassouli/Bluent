@@ -140,7 +140,7 @@
       "productIssue": 429,
       "currentComponentDoc": "docs/components/icon.md",
       "currentDocExists": true,
-      "lineCount": 78,
+      "lineCount": 84,
       "headings": [
         "# Icon and IconDefinition",
         "## Package and namespaces",
@@ -148,6 +148,7 @@
         "## Icon component API",
         "## SVG sizing and root attributes",
         "## IconDefinition",
+        "### Bundled FluentIcons catalog coverage",
         "## Rendering by source kind",
         "## Consumer guidance",
         "## Accessibility",

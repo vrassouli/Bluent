@@ -55,7 +55,21 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         self.assertIn('"_20_filled"', generator)
         self.assertIn('(?:regular|filled)', generator)
         self.assertIn("pair.Regular ?? pair.Filled", generator)
+        self.assertIn("var filled = pair.Regular is null ? null : pair.Filled;", generator)
         self.assertNotIn('"_20_color"', generator)
+
+    def test_asymmetric_catalog_entries_are_not_misrepresented_as_complete_pairs(self):
+        regular, filled = self.variants["regular"], self.variants["filled"]
+        self.assertEqual((2819, 8, 48), (
+            len(regular & filled),
+            len(regular - filled),
+            len(filled - regular),
+        ))
+        generator = read("src/Bluent.UI.IconGenerator/FluentIconsGenerator.cs")
+        # Filled-only names populate the required base source with the only existing asset;
+        # the generator intentionally does not invent a second Filled source.
+        self.assertIn("var regular = pair.Regular ?? pair.Filled;", generator)
+        self.assertIn("var filled = pair.Regular is null ? null : pair.Filled;", generator)
 
     def test_rendered_kinds_and_attribute_contract_are_not_auto_accessibility(self):
         component = read("src/Bluent.UI/Components/IconComponent/Icon.cs")
@@ -172,6 +186,8 @@ class IconSourceParityCheckpoint(unittest.TestCase):
         component = read("src/Bluent.UI/Components/IconComponent/Icon.cs")
         definition = read("src/Bluent.UI/Icons/IconDefinition.cs")
         self.assertIn("Security boundary for custom SVG", docs)
+        self.assertIn("48 are Filled-only", docs)
+        self.assertIn("both Regular and Filled requests render that same available Filled glyph", docs)
         self.assertIn("trusted, developer-controlled SVG", docs)
         self.assertIn("Do not pass user-submitted", docs)
         self.assertIn("does not promise to sanitize SVG", docs)

@@ -51,3 +51,17 @@ There are **890 Color SVG files** across the enumerated sizes. Crucially, the *s
 ## Subsequent actual browser checkpoint (2026-10-20)
 
 [Chrome + Edge live Icon render and AX observations](FLUENT-PARITY-ICON-BROWSER.md) now confirm a 377×377 SVG rendered from the existing 32×32 demo setting and an unnamed Image node in both engines, across Light/LTR, Dark/RTL and Chromium Forced Colors emulation. No product fix or Fluent parity approval is implied.
+
+## Asymmetric Regular/Filled source coverage — 2026-11-03
+
+A closer source-level read of `FluentIconsGenerator.Generate` distinguishes the two asymmetric inventory cases instead of treating all 2,875 names as true pairs:
+
+| Current 20px catalog shape | Count | Generated definition behavior | Requested variants |
+| --- | ---: | --- | --- |
+| Regular + Filled | 2,819 | Regular key is required base source; Filled key is supplied as the optional second source | Regular and Filled render their respective assets |
+| Regular only | 8 | Regular key is base source; optional Filled remains null | Filled falls back to Regular through `IconDefinition.GetSource` |
+| Filled only | 48 | Generator uses `pair.Regular ?? pair.Filled` for the required base source, and deliberately leaves the second Filled source null when `pair.Regular` is absent | Both Regular and Filled requests render the one available Filled glyph; no Regular outline is synthesized |
+
+This is existing generator behavior, not a proposed product change. It means “2,875 generated catalog names” must not be restated as “2,875 complete Regular/Filled pairs”. The catalog still contains 5,694 metadata keys (2,827 Regular + 2,867 Filled), zero Color keys, and only 20px assets. The [canonical consumer reference](../../components/icon.md#bundled-fluenticons-catalog-coverage) now documents this distinction.
+
+The source-only guard checks both generator branches and the exact inventory counts. It does not execute a compiled consumer example for each of the 48 Filled-only names or approve upstream parity; representative generated-output compilation and browser comparisons remain in the family DoD. No generator, public API, catalog, package or product runtime code was modified.

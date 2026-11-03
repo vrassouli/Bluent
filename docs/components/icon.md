@@ -49,6 +49,12 @@ IconDefinition.FromImage(regularSource, filledSource?)
 
 When `IconVariant.Filled` is requested but the definition has no filled source, `GetSource` falls back to the regular source.
 
+### Bundled FluentIcons catalog coverage
+
+The generated `FluentIcons` catalog is built from the repository-bundled 20px Regular/Filled font map. The current snapshot contains 2,875 names: 2,819 have both assets, 8 are Regular-only, and 48 are Filled-only. This is a source inventory, not a claim that every upstream Fluent icon or size is available.
+
+For a Regular-only name, the generated definition has no separate Filled source, so a Filled request uses the Regular asset through `GetSource` fallback. For a Filled-only name, the generator places the only available Filled class in the required base-source slot and does not create a second Filled source; consequently both Regular and Filled requests render that same available Filled glyph. The generated identifier still names the icon concept, not a promise that the source has both visual styles. This one-source mapping is intentional current generator behavior, not a new public variant or a synthesized glyph. Consumers needing a visually distinct Regular/ Filled pair must supply a definition whose two sources actually exist.
+
 ## Rendering by source kind
 
 Current `Icon` rendering is source-kind dependent:
