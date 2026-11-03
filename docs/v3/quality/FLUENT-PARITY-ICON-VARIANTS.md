@@ -2,6 +2,8 @@
 
 **Observed 2026-10-20. Status: source/API audit only, NOT Fluent parity, NOT #429 product acceptance.** Source checkout `v3/issue-552-fluent-parity-audit`, baseline from `bluent-v3`. This report does not change product code, package assets, component behavior, or the 18-family canonical acceptance matrix owned by #421.
 
+**Decision refresh — 2026-11-03:** the maintainer has since approved the Icon policy contract (1em SVG viewport, caller CSS/Style precedence, no public Size or Color variant, valid viewBox requirement, trusted app-owned SVG only, and consumer-owned decorative/informative semantics). The proposal section below is a historical checkpoint from 2026-10-20; its still-open design/API options are superseded where they conflict with the approved policy. The current canonical state and remaining gaps are in [the Icon family audit](FLUENT-PARITY-ICON-AUDIT.md). Policy approval does not mean implementation, design-master, Fluent parity or native AT acceptance.
+
 ## Actual Bluent public surface and source behavior
 
 | Capability | Observed source evidence | Disposition |
@@ -36,7 +38,7 @@ Exact tarball inventory: **21,732 SVG files**, **2,991 unique icon base names**,
 
 There are **890 Color SVG files** across the enumerated sizes. Crucially, the *same pinned tarball's own README* marks Color deprecated, warns it may be removed, states Color assets are not themeable like Regular/Filled, and cautions that only a subset of icons/sizes has Color. Existence therefore does not justify adding `IconVariant.Color`, shipping these assets, or claiming Dark/forced-colors/Fluent parity. No upstream asset was copied into Bluent.
 
-## Design-first #429 proposal (not approved)
+## Historical design-first #429 proposal (captured 2026-10-20; policy decisions superseded 2026-11-03)
 
 1. Keep the current `Regular` and `Filled` behavior/API and explicitly document fallback where Filled is absent. Retain the ability to supply a custom SVG (including multicolor markup) independently of a new variant.
 2. Do **not** add `Color` to the public enum based on Storybook pictures alone. Review feasibility of opt-in colorful assets versus their upstream deprecation, dependency size, version pinning, fallback selection and migration behavior.
