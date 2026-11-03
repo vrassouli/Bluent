@@ -21,29 +21,33 @@
     {
       "family": "Button",
       "issue": 428,
-      "status": "source_observed",
+      "status": "source_updated_review_pending",
       "upstreamReference": "https://storybooks.fluentui.dev/web-components/?path=/docs/components-button-button--docs",
       "designGuidance": "https://fluent2.microsoft.design/components/web/react/core/button/usage/",
       "referenceClassification": "Web Components Button exists; React guideline supplemental",
-      "risk": "toggle_state_not_exposed_as_aria_pressed",
+      "risk": "current source emits aria-pressed for native toggled buttons; historical browser/AX evidence predates the update; runtime, native AT and caller-attribute precedence re-verification remains open",
       "sources": [
         {
           "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
           "anchors": [
             "__builder.OpenElement(0, GetButtonTag());",
-            "__builder.AddMultipleAttributes(3, AdditionalAttributes);"
+            "__builder.AddMultipleAttributes(3, GetButtonAdditionalAttributes());",
+            "if (Toggled.HasValue && (!IsLink || IsDisabled))",
+            "__builder.AddAttribute(8, \"aria-pressed\", Toggled.Value ? \"true\" : \"false\");"
           ]
         },
         {
           "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
           "anchors": [
             "[Parameter] public bool? Toggled { get; set; }",
-            "if (Toggled != null)",
-            "InvokeAsync(() => ToggledChanged.InvokeAsync(Toggled.Value));"
+            "var ownsToggleState = Toggled.HasValue && (!IsLink || IsDisabled);",
+            "ToggledChanged.InvokeAsync(Toggled.Value)",
+            "string.Equals(attribute.Key, \"aria-pressed\", StringComparison.OrdinalIgnoreCase)"
           ]
         }
       ],
-      "verification": "source inspection only; runtime toggle, custom AdditionalAttributes and icon/text visual alignment not tested"
+      "verification": "Current source inspection only: aria-pressed is emitted when Toggled.HasValue on the native-button path; active links are excluded. Existing Chrome/AX snapshots are historical and have not been rerun against this source. No Fluent parity or native AT acceptance is claimed.",
+      "sourceReverificationPending": true
     },
     {
       "family": "Slider",

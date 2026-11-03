@@ -7,12 +7,12 @@
                     Purpose="Trigger clear business actions, offer alternative choices, and expose compact toolbar commands with consistent appearances and states."
                     Package="Bluent.UI"
                     Namespace="Bluent.UI.Components"
-                    ApiSummary="Text, Icon, Appearance, Size, Shape, disabled, Toggled, OnClick, and Href."
+                    ApiSummary="Text, SecondaryText, Icon, Appearance, Size, Shape, Toggled, ToggledChanged, OnClick, Href, Dropdown, Badge, Tooltip, and Bluent layout options."
                     SourcePath="Buttons.razor"
-                    Notes="Examples are interactive and inherit the active theme and direction. Use visible action text for primary workflows; icon-only actions need an accessible label or tooltip." />
+                    Notes="Fluent-aligned Button behavior with explicit Bluent extensions for Badge, Tooltip, Popover and layout. Examples inherit the active theme and direction. Icon-only actions require a meaningful accessible name." />
     <div>
         <h5>Shapes</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Rounded"/>
             <Button Text="Circular" Shape="ButtonShape.Circular"/>
             <Button Text="Square" Shape="ButtonShape.Square"/>
@@ -21,7 +21,7 @@
 
     <div>
         <h5>Appearance</h5>
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 flex-wrap">
             @foreach (var appearance in Enum.GetValues<ButtonAppearance>())
             {
                 <Button Text="@appearance.ToString()"
@@ -33,26 +33,41 @@
 
     <div>
         <h5>Icon</h5>
-        <Button Text="Default" Icon="@FluentIcons.CursorClick"/>
-        <Button Icon="@FluentIcons.CursorClick"/>
+        <Button Text="Default" Icon="@FluentIcons.CursorClick" data-demo-button-direction="icon-text"/>
+        <Button Icon="@FluentIcons.CursorClick" aria-label="Open icon sample"/>
+    </div>
+
+    <div>
+        <h5>Persian and RTL</h5>
+        <p class="text-muted">The action text remains right-to-left in both samples; the icon follows the surrounding layout direction.</p>
+        <div class="d-flex mb-3 gap-3 align-items-center flex-wrap">
+            <div dir="ltr" data-demo-persian-row="ltr" class="d-flex gap-2 align-items-center flex-wrap">
+                <span>LTR</span>
+                <Button Text="ذخیره تغییرات" Icon="@FluentIcons.Save" data-demo-button-persian="ltr" />
+            </div>
+            <div dir="rtl" data-demo-persian-row="rtl" class="d-flex gap-2 align-items-center flex-wrap">
+                <span>RTL</span>
+                <Button Text="ذخیره تغییرات" Icon="@FluentIcons.Save" data-demo-button-persian="rtl" />
+            </div>
+        </div>
     </div>
 
     <div>
         <h5>Size</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Size="ButtonSize.Small" Text="Small"/>
             <Button Size="ButtonSize.Small" Text="Small with icon" Icon="@FluentIcons.CursorClick"/>
-            <Button Size="ButtonSize.Small" Icon="@FluentIcons.CursorClick"/>
+            <Button Size="ButtonSize.Small" Icon="@FluentIcons.CursorClick" aria-label="Small icon-only action"/>
         </div>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Medium"/>
             <Button Text="Medium with icon" Icon="@FluentIcons.CursorClick"/>
-            <Button Icon="@FluentIcons.CursorClick"/>
+            <Button Icon="@FluentIcons.CursorClick" aria-label="Medium icon-only action"/>
         </div>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Size="ButtonSize.Large" Text="Large"/>
             <Button Size="ButtonSize.Large" Text="Large with icon" Icon="@FluentIcons.CursorClick"/>
-            <Button Size="ButtonSize.Large" Icon="@FluentIcons.CursorClick"/>
+            <Button Size="ButtonSize.Large" Icon="@FluentIcons.CursorClick" aria-label="Large icon-only action"/>
         </div>
     </div>
 
@@ -63,15 +78,42 @@
     </div>
 
     <div>
+        <h5>Keyboard focus on different host surfaces</h5>
+        <p class="text-muted">Use Tab to focus each action. Focus remains independent from hover, pressed and toggle state. Colored hosts provide an explicit inherited ring color; no color is inferred from the Button appearance.</p>
+        <div class="button-focus-host-grid">
+            <div class="button-focus-host neutral" data-demo-button-focus-host="neutral">
+                <span>Neutral</span>
+                <Button Text="Neutral surface" data-demo-focus-host-button="neutral" />
+            </div>
+            <div class="button-focus-host brand" data-demo-button-focus-host="brand">
+                <span>Brand</span>
+                <Button Text="Brand surface" Appearance="ButtonAppearance.Primary" data-demo-focus-host-button="brand" />
+            </div>
+            <div class="button-focus-host brand-hover" data-demo-button-focus-host="brand-hover">
+                <span>Brand hover</span>
+                <Button Text="Brand hover surface" Appearance="ButtonAppearance.Primary" data-demo-focus-host-button="brand-hover" />
+            </div>
+            <div class="button-focus-host danger" data-demo-button-focus-host="danger">
+                <span>Danger</span>
+                <Button Text="Danger surface" Appearance="ButtonAppearance.Danger" data-demo-focus-host-button="danger" />
+            </div>
+            <div class="button-focus-host inverted" data-demo-button-focus-host="inverted">
+                <span>Inverted</span>
+                <Button Text="Inverted surface" data-demo-focus-host-button="inverted" />
+            </div>
+        </div>
+    </div>
+    <div>
         <h5>Link</h5>
         <Button Text="Google" Href="https://google.com"/>
         <Button Text="Google" Href="https://google.com" Appearance="ButtonAppearance.Primary"/>
-        <Button Text="Google" Href="https://google.com" disabled/>
+        <Button Text="Google" Href="https://google.com" disabled OnClick="RecordDisabledLinkAction" />
+        <span role="status">Disabled link action count: @_disabledLinkActionCount</span>
     </div>
 
     <div>
         <h5>Compound</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Rounded" SecondaryText="Compound text" Icon="@FluentIcons.CursorClick"/>
             <Button Text="Circular" SecondaryText="Compound text" Shape="ButtonShape.Circular"
                     Icon="@FluentIcons.CursorClick"/>
@@ -82,61 +124,173 @@
 
     <div>
         <h5>Toggle</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Toggled="false" Text="Default" Icon="@FluentIcons.CursorClick"/>
-            <Button Toggled="false" Text="Primary" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary"/>
-            <Button Toggled="false" Text="Outline" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Outline"/>
-            <Button Toggled="false" Text="Subtle" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Subtle"/>
-            <Button Toggled="false" Text="Transparent" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Transparent"/>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button @bind-Toggled="_toggleDefault" Text="Default" Icon="@FluentIcons.CursorClick"/>
+            <Button @bind-Toggled="_togglePrimary" Text="Primary" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Primary"/>
+            <Button @bind-Toggled="_toggleDanger" Text="Danger" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Danger"/>
+            <Button @bind-Toggled="_toggleOutline" Text="Outline" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Outline"/>
+            <Button @bind-Toggled="_toggleSubtle" Text="Subtle" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Subtle"/>
+            <Button @bind-Toggled="_toggleTransparent" Text="Transparent" Icon="@FluentIcons.CursorClick" Appearance="ButtonAppearance.Transparent"/>
+        </div>
+        <p class="mb-3">Bound states — Default: @(_toggleDefault ? "On" : "Off"); Primary: @(_togglePrimary ? "On" : "Off"); Danger: @(_toggleDanger ? "On" : "Off"); Outline: @(_toggleOutline ? "On" : "Off"); Subtle: @(_toggleSubtle ? "On" : "Off"); Transparent: @(_toggleTransparent ? "On" : "Off")</p>
+    </div>
+
+    <div>
+        <h5>Explicit ToggledChanged callback</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Explicit callback toggle"
+                    Toggled="@_explicitToggle"
+                    ToggledChanged="RecordExplicitToggleChanged"
+                    data-demo-toggle-callback="true" />
+            <span role="status" data-demo-toggle-callback-status>Explicit toggle state: @(_explicitToggle ? "On" : "Off"); ToggledChanged calls: @_explicitToggleChangedCount</span>
         </div>
     </div>
 
     <div>
-        <h5>Tootip</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Text="Button with tooltip" Icon="@FluentIcons.CursorClick">
+        <h5>Layout, orientation and density</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Compact action" TextClass="fw-semibold" Icon="@FluentIcons.CursorClick" Compact />
+            <Button Text="Vertical action" Icon="@FluentIcons.CursorClick" Orientation="Orientation.Vertical" />
+            <Button Text="Rotated action" Rotated />
+        </div>
+    </div>
+
+    <div>
+        <h5>Badge and notification</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Inbox" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.Start" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Top">
+                <Badge>
+                    <Badge Text="3" Color="BadgeColor.Danger" Shape="BadgeShape.Circular" aria-label="3 unread notifications" />
+                </Badge>
+            </Button>
+            <Button Text="Updates" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.End" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Bottom">
+                <Badge>
+                    <Badge Text="New" Color="BadgeColor.Informative" Shape="BadgeShape.Rounded" aria-label="New updates" />
+                </Badge>
+            </Button>
+            <Button Text="Archive" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.Start" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Bottom">
+                <Badge>
+                    <Badge Text="!" Color="BadgeColor.Danger" Shape="BadgeShape.Circular" aria-label="Archive alert" />
+                </Badge>
+            </Button>
+            <Button Text="Tasks" Icon="@FluentIcons.CursorClick" BadgeHorizontalPosition="Bluent.UI.Enums.HorizontalSides.End" BadgeVerticalPosition="Bluent.UI.Enums.VerticalSides.Top">
+                <Badge>
+                    <Badge Text="4" Color="BadgeColor.Informative" Shape="BadgeShape.Circular" aria-label="4 open tasks" />
+                </Badge>
+            </Button>
+        </div>
+    </div>
+
+    <div>
+        <h5>Click action</h5>
+        <div class="d-flex mb-2 gap-2 align-items-center flex-wrap">
+            <Button Text="Simulate save" TextClass="fw-semibold" Icon="@FluentIcons.CursorClick" OnClick="RecordSaveAction" />
+            <span role="status">Save action count: @_saveActionCount</span>
+        </div>
+    </div>
+
+    <div>
+        <h5>Styling and native attributes</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Styled action" Class="fw-semibold" Style="min-width: 8rem" data-demo-case="root-style" />
+            <Button Text="Attribute passthrough" data-demo-case="root-attributes" />
+        </div>
+    </div>
+
+
+    <div>
+        <h5>Tooltip</h5>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Button with tooltip" Icon="@FluentIcons.CursorClick" TooltipPlacement="Placement.Top">
                 <TooltipContent>
                     This is a tooltip!
+                </TooltipContent>
+            </Button>
+            <Button Text="String tooltip" Icon="@FluentIcons.CursorClick" Tooltip="String tooltip content" TooltipPlacement="Placement.Right" TooltipAppearance="PopoverAppearance.Brand" DisplayTooltipArrow />
+            <Button Text="Inverted tooltip" Icon="@FluentIcons.CursorClick" TooltipPlacement="Placement.BottomEnd" TooltipAppearance="PopoverAppearance.Inverted" DisplayTooltipArrow>
+                <TooltipContent>
+                    Keyboard tooltip content
                 </TooltipContent>
             </Button>
         </div>
     </div>
 
     <div>
+        <h5>Tooltip placement matrix</h5>
+        <p class="text-muted">Each supported placement is interactive; hover or keyboard-focus a button to inspect its tooltip.</p>
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            @foreach (var tooltipPlacement in Enum.GetValues<Placement>())
+            {
+                <Button Text="@($"Tooltip {tooltipPlacement}")"
+                        Icon="@FluentIcons.CursorClick"
+                        Tooltip="@($"Tooltip placement: {tooltipPlacement}")"
+                        TooltipPlacement="@tooltipPlacement"
+                        DisplayTooltipArrow
+                        data-demo-tooltip-placement="@tooltipPlacement" />
+            }
+        </div>
+    </div>
+
+    <div>
+        <h5>Appearance / size / shape matrix</h5>
+        <p class="text-muted">Compare every supported combination. These controls use the current Button API and active theme; they do not imply that pending v3 visual-token decisions have been approved.</p>
+        @foreach (var matrixAppearance in Enum.GetValues<ButtonAppearance>())
+        {
+            <section class="mb-3" data-demo-button-appearance-row="@matrixAppearance">
+                <h6>@matrixAppearance</h6>
+                @foreach (var matrixSize in Enum.GetValues<ButtonSize>())
+                {
+                    <div class="d-flex mb-2 gap-2 align-items-center flex-wrap" data-demo-button-size-row="@($"{matrixAppearance}-{matrixSize}")">
+                        <span class="text-muted">@matrixSize</span>
+                        @foreach (var matrixShape in Enum.GetValues<ButtonShape>())
+                        {
+                            <Button Text="@($"{matrixSize} {matrixShape}")"
+                                    Appearance="@matrixAppearance"
+                                    Size="@matrixSize"
+                                    Shape="@matrixShape"
+                                    data-demo-button-variant="@($"{matrixAppearance}-{matrixSize}-{matrixShape}")" />
+                        }
+                    </div>
+                }
+            </section>
+        }
+    </div>
+
+    <div>
         <h5>Button Group</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"/>
-                <Button Icon="@FluentIcons.Copy"/>
-                <Button Icon="@FluentIcons.ClipboardPaste"/>
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"/>
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Primary"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Primary"/>
-                <Button Icon="@FluentIcons.ClipboardPaste" Appearance="ButtonAppearance.Primary"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste" Appearance="ButtonAppearance.Primary"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Outline"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Outline"/>
-                <Button Icon="@FluentIcons.ClipboardPaste" Appearance="ButtonAppearance.Outline"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste" Appearance="ButtonAppearance.Outline"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Subtle"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Subtle"/>
-                <Button Icon="@FluentIcons.ClipboardPaste" Appearance="ButtonAppearance.Subtle"/>
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste" Appearance="ButtonAppearance.Subtle"/>
             </ButtonGroup>
             <ButtonGroup>
-                <Button Icon="@FluentIcons.Cut"
+                <Button Icon="@FluentIcons.Cut" aria-label="Cut"
                         Appearance="ButtonAppearance.Transparent"/>
-                <Button Icon="@FluentIcons.Copy"
+                <Button Icon="@FluentIcons.Copy" aria-label="Copy"
                         Appearance="ButtonAppearance.Transparent"/>
-                <Button Icon="@FluentIcons.ClipboardPaste"
+                <Button Icon="@FluentIcons.ClipboardPaste" aria-label="Paste"
                         Appearance="ButtonAppearance.Transparent"/>
             </ButtonGroup>
         </div>
@@ -144,13 +298,112 @@
 
     <div>
         <h5>Dropdown button</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
-            <Button Text="Default" Icon="@FluentIcons.CursorClick">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
+            <Button Text="Menu above" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.Top">
                 <Dropdown>
                     <MenuList>
                         <MenuItem Title="Cut" Icon="@FluentIcons.Cut" Checked/>
                         <MenuItem Title="Copy" Icon="@FluentIcons.Copy"/>
                         <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste"/>
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu below" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.Bottom">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu right" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.Right">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu left" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.Left">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu top-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.TopStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu top-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.TopEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu bottom-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.BottomStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu bottom-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.BottomEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu right-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.RightStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu right-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.RightEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu left-start" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.LeftStart">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
+            <Button Text="Menu left-end" Icon="@FluentIcons.CursorClick" ShowDropdownIndicator="true" DropdownPlacement="Placement.LeftEnd">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Cut" Icon="@FluentIcons.Cut" />
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                        <MenuItem Title="Paste" Icon="@FluentIcons.ClipboardPaste" />
                     </MenuList>
                 </Dropdown>
             </Button>
@@ -163,12 +416,19 @@
                     </MenuList>
                 </Dropdown>
             </Button>
+            <Button Text="Menu without caret" Icon="@FluentIcons.CursorClick" DropdownPlacement="Placement.Bottom">
+                <Dropdown>
+                    <MenuList>
+                        <MenuItem Title="Copy" Icon="@FluentIcons.Copy" />
+                    </MenuList>
+                </Dropdown>
+            </Button>
         </div>
     </div>
 
     <div>
         <h5>Split button</h5>
-        <div class="d-flex mb-3 gap-2 align-items-center">
+        <div class="d-flex mb-3 gap-2 align-items-center flex-wrap">
             <Button Text="Default" Icon="@FluentIcons.CursorClick"
                     OnClick="()=>{}">
                 <Dropdown>
@@ -194,4 +454,24 @@
 </div>
 
 @code {
+    private int _saveActionCount;
+    private int _disabledLinkActionCount;
+    private bool _explicitToggle;
+    private int _explicitToggleChangedCount;
+
+    private void RecordExplicitToggleChanged(bool value)
+    {
+        _explicitToggle = value;
+        _explicitToggleChangedCount++;
+    }
+
+    private void RecordSaveAction() => _saveActionCount++;
+
+    private void RecordDisabledLinkAction() => _disabledLinkActionCount++;
+    private bool _toggleDefault;
+    private bool _togglePrimary;
+    private bool _toggleDanger;
+    private bool _toggleOutline;
+    private bool _toggleSubtle;
+    private bool _toggleTransparent;
 }

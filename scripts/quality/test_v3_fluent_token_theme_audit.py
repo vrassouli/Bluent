@@ -51,7 +51,7 @@ class TokenThemeAuditTests(unittest.TestCase):
         for f in self.ledger['families']:
             self.assertEqual(sorted(set(f['themeTokenRefs'])),f['themeTokenRefs'])
             self.assertEqual(sorted(set(f['localCustomProps'])),f['localCustomProps'])
-            self.assertEqual([],f['unresolvedLocalProps'],f['family'])
+            self.assertEqual(['--bui-button-focus-ring-color'] if f['family'] == 'Button' else [],f['unresolvedLocalProps'],f['family'])
 
     def test_family_styles_have_no_raw_color_literals_in_this_inventory(self):
         self.assertEqual(0,sum(len(f['rawColorDeclarations']) for f in self.ledger['families']))
@@ -60,7 +60,8 @@ class TokenThemeAuditTests(unittest.TestCase):
                 self.assertTrue((ROOT/raw['path']).is_file(),raw['path'])
 
     def test_component_specific_forced_colors_and_motion_gaps_are_recorded(self):
-        self.assertEqual(0,self.by_family['Button']['componentForcedColorsRuleLines'])
+        self.assertEqual(1,self.by_family['Button']['componentForcedColorsRuleLines'])
+        self.assertIn('--bui-button-focus-ring-color',self.by_family['Button']['unresolvedLocalProps'])
         self.assertEqual(0,self.by_family['Badge']['componentReducedMotionRuleLines'])
         self.assertIn('no component-specific reduced-motion rule',self.by_family['Badge']['sourceNote'])
         self.assertIn('forced-colors',self.report)

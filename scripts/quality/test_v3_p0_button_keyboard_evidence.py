@@ -1,6 +1,6 @@
 """#552 actual keyboard Enter/Space toggle Button comparison, WASM and Production Server.
 
-Snapshot tests protect both known working behavior and missing pressed semantic;
+Historical browser snapshots pin the pre-remediation pressed semantic; current source guards are checked separately;
 they DO NOT mean component Fluent visual, focus-visible or screen-reader approval.
 """
 import json
@@ -52,13 +52,17 @@ class ButtonKeyboardEvidence(unittest.TestCase):
             self.assertEqual("BUTTON",first["tag"])
             self.assertEqual(0,first["tabIndex"])
 
-    def test_source_exposes_toggled_but_does_not_assign_aria(self):
+    def test_current_source_emits_pressed_state_for_native_toggle_buttons_and_excludes_active_links(self):
         cs=(ROOT/"src/Bluent.UI/Components/ButtonComponent/Button.razor.cs").read_text(encoding="utf-8-sig")
         razor=(ROOT/"src/Bluent.UI/Components/ButtonComponent/Button.razor").read_text(encoding="utf-8-sig")
         self.assertIn("bool? Toggled",cs)
         self.assertIn("ToggledChanged.InvokeAsync",cs)
-        self.assertNotIn("aria-pressed",razor)
-        self.assertIn("AdditionalAttributes",razor)
+        self.assertIn("if (Toggled.HasValue && (!IsLink || IsDisabled))",razor)
+        self.assertIn('__builder.AddAttribute(8, "aria-pressed", Toggled.Value ? "true" : "false");',razor)
+        self.assertIn("GetButtonAdditionalAttributes()",razor)
+        # The component currently filters a conflicting caller aria-pressed while it owns toggle state.
+        self.assertIn('ownsToggleState && string.Equals(attribute.Key, "aria-pressed", StringComparison.OrdinalIgnoreCase)',cs)
+        self.assertIn("AdditionalAttributes",cs)
 
     def test_real_images_and_no_os_at_parity_approval(self):
         for _,(d,m) in self.data.items():

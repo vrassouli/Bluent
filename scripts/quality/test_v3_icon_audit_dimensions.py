@@ -58,7 +58,7 @@ class IconAuditDimensionTests(unittest.TestCase):
     def test_editable_penpot_draft_is_linked_but_not_misclassified_as_approval(self):
         location = self.family["editableDesignLocation"]
         self.assertEqual("b64f6665-c9ab-80b5-8008-c4ac99d9d000", location["fileId"])
-        self.assertEqual("2026-10-23", location["reviewDate"])
+        self.assertEqual("2026-11-03", location["reviewDate"])
         self.assertEqual("1d7e9dd6-b977-802e-8008-d5a718dd7655", location["bluentDraft"]["pageId"])
         self.assertEqual("1d7e9dd6-b977-802e-8008-d5a718e3f4a2", location["bluentDraft"]["nodeId"])
         self.assertEqual(129, location["bluentDraft"]["editableChildren"])

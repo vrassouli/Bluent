@@ -1,0 +1,68 @@
+@page "/components/popover-stack-probe"
+@namespace Bluent.UI.Demo.Pages.Components
+
+@* v3 #420 test-only scenario: two non-modal Popovers opened in one
+   render. Escape must dismiss only the topmost and return focus in LIFO order. *@
+<h1>Popover stack probe</h1>
+<output data-popover-probe-ready="@(_ready ? "true" : "false")">@(_ready ? "Ready" : "Preparing")</output>
+<Button Text="Open both popovers" OnClick="OpenBoth" />
+<section>
+    @if (_showFirst)
+    {
+    <Popover @ref="_first" KeepSurface="true" SameWidth="true" TriggerEvents="@(null)">
+        <Trigger>
+            <Button Text="First stack trigger" />
+        </Trigger>
+        <Surface>
+            <div>First stack surface</div>
+        </Surface>
+    </Popover>
+    }
+    <Popover @ref="_second" KeepSurface="true" SameWidth="true" TriggerEvents="@(null)">
+        <Trigger>
+            <Button Text="Second stack trigger" />
+        </Trigger>
+        <Surface>
+            <div>Second stack surface</div>
+            <Button Text="Remove first popover" OnClick="RemoveFirst" />
+        </Surface>
+    </Popover>
+    @* Optional arrow branch must position correctly without an arrow DOM node. *@
+    <Popover KeepSurface="true" DisplayArrow="false" Placement="Placement.RightStart">
+        <Trigger>
+            <Button Text="No-arrow trigger" />
+        </Trigger>
+        <Surface>
+            <div>No-arrow RTL surface</div>
+        </Surface>
+    </Popover>
+</section>
+
+@code {
+    private Popover? _first;
+    private Popover? _second;
+    private bool _ready;
+    private bool _showFirst = true;
+
+    private void RemoveFirst()
+    {
+        _showFirst = false;
+        _first = null;
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _ready = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
+
+    private void OpenBoth()
+    {
+        _first?.Show();
+        _second?.Show();
+    }
+}

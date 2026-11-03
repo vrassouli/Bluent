@@ -133,7 +133,7 @@ def build_inventory() -> dict:
     return {
         "schemaVersion": 1,
         "auditIssue": 552,
-        "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+        "sourceBaseline": "6ef9c892a82825b1e4c209670433d7fa7a846787",
         "status": "source_inventory_only",
         "scope": "declared public Parameter/CascadingParameter metadata; inherited contracts unresolved",
         "documentation": "Source-declared census only: no Fluent mapping, parity, public base API or runtime/AT claim.",

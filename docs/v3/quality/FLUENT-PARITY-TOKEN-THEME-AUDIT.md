@@ -12,7 +12,7 @@ This audit inventories token references and local CSS custom properties in the 1
 
 | Family | Style files | Theme token refs | Local custom props | Raw color declarations | Component forced-colors lines | Reduced-motion lines |
 |---|---|---:|---:|---:|---:|---:|
-| Button | 1 | 57 | 0 | 0 | 0 | 0 |
+| Button | 1 | 55 | 1 | 0 | 1 | 0 |
 | Icon | 0 | 0 | 0 | 0 | 0 | 0 |
 | Label | 1 | 12 | 0 | 0 | 0 | 0 |
 | Link | 1 | 10 | 0 | 0 | 0 | 0 |
@@ -50,15 +50,15 @@ This audit inventories token references and local CSS custom properties in the 1
 
 **Style files:** [_button.scss](../../../src/Bluent.UI/Styles/Components/_button.scss)
 
-**Theme tokens:** --borderRadiusCircular, --borderRadiusMedium, --borderRadiusNone, --colorBrandBackground, --colorBrandBackgroundHover, --colorBrandBackgroundPressed, --colorBrandBackgroundSelected, --colorNeutralBackground1, --colorNeutralBackground1Hover, --colorNeutralBackground1Pressed, --colorNeutralBackground1Selected, --colorNeutralBackgroundDisabled, --colorNeutralForeground1, --colorNeutralForeground1Hover, --colorNeutralForeground1Pressed, --colorNeutralForeground1Selected, --colorNeutralForeground2, --colorNeutralForeground2BrandHover
+**Theme tokens:** --borderRadiusCircular, --borderRadiusMedium, --borderRadiusNone, --colorBrandBackground, --colorBrandBackgroundHover, --colorBrandBackgroundPressed, --colorBrandBackgroundSelected, --colorBrandForeground2, --colorNeutralBackground1, --colorNeutralBackground1Hover, --colorNeutralBackground1Pressed, --colorNeutralBackground1Selected, --colorNeutralBackgroundDisabled, --colorNeutralForeground1, --colorNeutralForeground1Hover, --colorNeutralForeground1Pressed, --colorNeutralForeground1Selected, --colorNeutralForeground2
 
-**Local custom properties:** None found in the reviewed family style set.
+**Local custom properties:** --bui-button-focus-ring-color
 
-**Unresolved local property references:** None detected by repository-wide source search.
+**Unresolved local property references:** --bui-button-focus-ring-color
 
 **Raw color declarations:** None found in the reviewed family stylesheet set.
 
-**Component-specific forced-colors rule lines:** 0; **reduced-motion rule lines:** 0.
+**Component-specific forced-colors rule lines:** 1; **reduced-motion rule lines:** 0.
 
 **Browser evidence:** [BLUENT-BUTTON-STATE-CHROME.json](evidence/BLUENT-BUTTON-STATE-CHROME.json), [BLUENT-BLAZOR-FOCUS-CHROME.json](evidence/BLUENT-BLAZOR-FOCUS-CHROME.json)
 

@@ -31,7 +31,7 @@
     {
       "path": "docs/v3/design/MIGRATION-IMPACT-LEDGER.md",
       "exists": true,
-      "lineCount": 34,
+      "lineCount": 58,
       "mentionsV3Migration": false,
       "purpose": "Design/architecture migration-impact ledger; not a consumer-facing component migration guide."
     },
@@ -52,7 +52,7 @@
     {
       "path": "docs/v3/quality/FLUENT-PARITY-RETRO-AUDIT.md",
       "exists": true,
-      "lineCount": 267,
+      "lineCount": 275,
       "mentionsV3Migration": false,
       "purpose": "Retrospective parity audit and gap matrix; not consumer-facing migration guidance."
     },
@@ -77,16 +77,19 @@
       "productIssue": 428,
       "currentComponentDoc": "docs/components/button.md",
       "currentDocExists": true,
-      "lineCount": 143,
+      "lineCount": 260,
       "headings": [
         "# Button",
         "## When to use",
         "## Package and namespace",
         "## Minimal example",
+        "## Appearance, size and shape matrix",
         "## Parameters",
         "## Events and binding",
+        "## Layout, badges and dropdowns",
         "## Child content and composition",
         "## Services and containers",
+        "## Tooltip behavior",
         "## Styling and theming",
         "## Localization and RTL",
         "## Accessibility and keyboard interaction",
@@ -98,18 +101,28 @@
         "### Icon-only action has no accessible name",
         "## Known limitations",
         "## Related components",
-        "## Source and verification"
+        "## Source and verification",
+        "## Published Button-managed dropdown lifecycle verification - 2026-10-27",
+        "## Latest published Button-managed menu keyboard verification — 2026-10-30"
       ],
       "migrationHeadings": [],
       "v3MigrationHeadings": [],
       "migrationMarkers": [
         {
-          "line": 83,
+          "line": 185,
           "excerpt": "Use the packaged Bluent theme and component stylesheet. `Appearance`, `Shape`, `Size`, `Orientation`, `Compact`, `Rotated`, `Toggled`, and icon/text presence select component-defin"
         },
         {
-          "line": 95,
+          "line": 199,
           "excerpt": "See [Hosting models and render modes](../compatibility/hosting-and-render-modes.md)."
+        },
+        {
+          "line": 249,
+          "excerpt": "- Published interactive toggle evidence: [Button toggle semantic slice](../v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md), with the reproducible [Production render-mode probe](../../scrip"
+        },
+        {
+          "line": 260,
+          "excerpt": "The fresh published Production browser matrix passes **208/208 assertions, zero failures** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly (52 checks per browser/rend"
         }
       ],
       "hasFamilySpecificV3MigrationSection": false,

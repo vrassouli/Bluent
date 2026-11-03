@@ -30,8 +30,28 @@
         },
         {
           "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
-          "line": 105,
-          "excerpt": "disabled=\"@IsDisabled\" />"
+          "line": 16,
+          "excerpt": "if (Toggled.HasValue && (!IsLink || IsDisabled))"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 17,
+          "excerpt": "__builder.AddAttribute(8, \"aria-pressed\", Toggled.Value ? \"true\" : \"false\");"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 20,
+          "excerpt": "__builder.AddAttribute(9, \"aria-haspopup\", \"menu\");"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 21,
+          "excerpt": "__builder.AddAttribute(10, \"aria-expanded\", \"false\");"
+        },
+        {
+          "path": "src/Bluent.UI/Components/ButtonComponent/Button.razor",
+          "line": 22,
+          "excerpt": "__builder.AddAttribute(11, \"aria-controls\", $\"{Id}_surface\");"
         }
       ],
       "familyReport": "docs/v3/quality/FLUENT-PARITY-BUTTON-AUDIT.md",

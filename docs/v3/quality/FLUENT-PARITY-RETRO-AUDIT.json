@@ -193,7 +193,7 @@
         "webComponentsComponent": null,
         "reactFallbackComponent": null,
         "mappingKind": "icon-library-reference",
-        "mappingNotes": "Compare regular/filled/color asset variants and sizing against Fluent System Icons. The React icon wrappers are asset references, not a cross-platform 1:1 component.",
+        "mappingNotes": "Fluent System Icons is an asset-library reference, not a dedicated Web Components Icon component. Compare Regular/Filled assets and sizing; upstream Color assets are deprecated and do not imply a Bluent Color variant.",
         "referenceSnapshotDate": "2026-10-22",
         "storybookBuildPinnedToPackage": false,
         "webComponentsRelationship": "none",
@@ -227,13 +227,13 @@
           "childrenOutsideBoard": 0,
           "variantSetComplete": false
         },
-        "reviewDate": "2026-10-23",
+        "reviewDate": "2026-11-03",
         "fileRevision": "not exposed by current Penpot connector",
-        "designDecision": "review draft only; incomplete variant coverage; size/default, viewBox, trusted SVG boundary and decorative/informative semantics unresolved; maintainer approval pending"
+        "designDecision": "Maintainer policy contract approved 2026-11-03; review board remains draft and variantSetComplete=false. Full reusable Icon state/variant design, matched Fluent comparisons and visual approval remain pending."
       },
       "evidenceBundle": null,
       "gapDisposition": "known_gaps_open",
-      "notesForReview": "Review Regular/Filled variants and asset provenance; upstream Color is not a current public Bluent variant. Draft board covers SVG sizing, viewBox, semantics and owner decisions but does not define complete reusable variants. Resolve intrinsic size/default, no-viewBox contract, trusted-markup boundary and decorative/informative semantics.",
+      "notesForReview": "Maintainer policy approved 2026-11-03: default SVG viewport 1em; caller CSS/Style wins; no public Size parameter; Regular/Filled only with Filled-to-Regular fallback and no Color variant; valid viewBox required for predictable scaling; trusted developer-controlled app-owned SVG only; consumer chooses decorative (aria-hidden=true; image alt=\"\") versus informative naming at use site; parent interactive control owns its contextual action name. The Penpot board records this policy but remains REVIEW DRAFT and is not a complete reusable variant/state master. Complete Fluent asset/anatomy comparison, theme/RTL/forced-colors, browser and native AT acceptance, implementation, docs and migration remain open.",
       "researchLeadDocuments": [
         "docs/v3/quality/FLUENT-PARITY-ICON-VARIANTS.md",
         "docs/v3/quality/FLUENT-PARITY-ICON-BROWSER.md",
@@ -1277,7 +1277,7 @@
       "FileSelect #444"
     ]
   },
-  "lastUpdatedDate": "2026-10-22",
+  "lastUpdatedDate": "2026-11-03",
   "supplementalSourceAnalysis": {
     "webComponentsApiCandidateReport": "docs/v3/quality/FLUENT-WC-3.1.3-18-API-NAME-CANDIDATES.md",
     "webComponentsFamilyCrosswalk": "docs/v3/quality/FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "auditIssue": 552,
-  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "sourceBaseline": "6ef9c892a82825b1e4c209670433d7fa7a846787",
   "status": "local_inherited_source_only",
   "limitations": "Local class chain and declared attributes only; framework InputBase and component/rendered API not resolved or approved.",
   "families": [

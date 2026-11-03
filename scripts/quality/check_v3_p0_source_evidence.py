@@ -25,8 +25,11 @@ def audit(document, root=ROOT):
         problems.append("exact four P0 families required")
     for item in items:
         family = item.get("family", "?")
-        if item.get("issue") != EXPECTED.get(family) or item.get("status") != "source_observed":
+        allowed_status = "source_updated_review_pending" if family == "Button" else "source_observed"
+        if item.get("issue") != EXPECTED.get(family) or item.get("status") != allowed_status:
             problems.append(f"{family}: owning issue or evidence status changed without audit")
+        if family == "Button" and item.get("sourceReverificationPending") is not True:
+            problems.append("Button: source remediation must remain pending runtime/native AT re-verification")
         if not item.get("sources"):
             problems.append(f"{family}: no source anchors")
         for source in item.get("sources", []):

@@ -12,11 +12,17 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
-- None.
+- [Bluent.UI.Demo, v3 development] The Button showcase includes all twelve inherited tooltip placements, all **54** Appearance × Size × Shape combinations, direct `ToggledChanged` callback feedback, LTR/RTL Badge geometry, and paired Persian LTR/RTL samples. The live WASM suite passes **211/211** in Chrome and Edge; the separate published Production probe passes **84/84** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly, including Persian RTL direction and AX-name checks in both renderers. This is runtime evidence, not approval of pending tokens or full Button visual parity.
 
 ### Changed
 
-- None.
+- [Bluent.UI, v3 development] Button now ships keyboard-only :focus-visible styling in the isolated v3 branch: a 2px brand/context-aware outline, an inset outline for split-button segments, and the system Highlight color under forced-colors. Explicitly colored host surfaces can inherit --bui-button-focus-ring-color; this is a CSS customization hook, not a new Razor parameter or a finalized global token. Live bundled-CSS checks pass Chrome 215/215 and Edge 215/215 in WebAssembly. Native Windows Contrast Themes and screen-reader acceptance remain open; released 2.x packages are unchanged.
+
+- [Bluent.UI, v3 development] Button text wrappers use HTML `dir="auto"` so localized copy determines its writing direction independently from surrounding icon layout. This improves Persian/RTL text alignment without a public API addition; the v3-only markup change is unshipped and released 2.x packages are unchanged. See [M17 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md).
+- [Bluent.UI, v3 development] Toggle Buttons with a populated Toggled value expose the current boolean state using aria-pressed. This is an additive accessibility/DOM change with no new public parameter; the isolated v3 PR and its migration/evidence notes are not a change to released 2.x packages.
+- [Bluent.UI, v3 development] Popovers now dismiss on Escape and restore focus to their trigger after keyboard dismissal. Active document click/key listeners are cleaned up when the surface closes; this remains unshipped v3 work and does not change released 2.x packages.
+- [Bluent.UI, v3 development] Button-managed dropdown triggers expose aria-haspopup="menu", a live aria-expanded state, and a stable aria-controls relation. Their persistent popup surfaces use a named role="menu" with role="menuitem" entries, disabled-item skipping, Arrow/Home/End/type-ahead navigation, Enter/Space activation, Escape dismissal with focus restoration, Tab and Shift+Tab dismissal that moves focus to a real keyboard-focusable element without a focus trap, and nested submenus. Component-owned popup ARIA values take precedence over conflicting caller attributes while unrelated attributes still pass through. The published Chrome/Edge × InteractiveServer/InteractiveWebAssembly matrix passes 208/208 assertions, including RTL-aware submenu open/close arrows and opposite-direction key non-actions. Native Windows Contrast Themes and named screen-reader acceptance remain open. This is unshipped v3 work; released 2.x packages are unchanged. See [M15 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md).
+- **Breaking:** [Bluent.UI, v3 development] Disabled Buttons that also specify `Href` render as native disabled buttons without `href`, and disabled click handling no longer invokes `ToggledChanged` or `OnClick`. DOM consumers must account for the anchor-to-button change. See [M14 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md). This change is unshipped v3 work; released 2.x packages are untouched.
 
 ### Deprecated
 
@@ -28,7 +34,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Fixed
 
-- None.
+- [Bluent.UI, v3 development] Button-owned Regular/Filled and dropdown indicator icons are excluded from accessible-name computation, so icon-plus-text names remain stable across state changes. Icon-only Buttons need a meaningful caller label; the split-menu trigger is named `Open menu`. This additive accessibility correction introduces no public API and does not change released 2.x packages. See [M16 in the migration impact ledger](docs/v3/design/MIGRATION-IMPACT-LEDGER.md).
 
 ### Security
 

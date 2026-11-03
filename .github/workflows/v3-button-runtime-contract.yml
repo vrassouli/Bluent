@@ -1,0 +1,66 @@
+name: Bluent v3 Button Runtime Contract
+
+# Issue #428: executable Button ARIA/menu contracts in published interactive renderers.
+# This is test-only and never publishes/deploys the application.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-button-runtime-contract.yml"
+      - "src/Bluent.UI/Components/ButtonComponent/**"
+      - "src/Bluent.UI/Components/MenuListComponent/**"
+      - "src/Bluent.UI/Components/PopoverComponent/**"
+      - "src/Bluent.UI/Interops/PopoverInterop.cs"
+      - "src/Bluent.UI/Services/PopoverService.cs"
+      - "src/Bluent.UI.Scripts/src/Popover/Popover.ts"
+      - "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"
+      - "src/Bluent.UI.Demo.SSR/**"
+      - "tests/RegexSampleGeneratorTest/ButtonToggleSemanticsTests.cs"
+      - "scripts/quality/probe_v3_button_toggle_interactive_server.mjs"
+      - "docs/components/button.md"
+      - "docs/v3/quality/BUTTON-MENU-KEYBOARD-SLICE.md"
+      - "docs/v3/quality/BUTTON-TOGGLE-ARIA-SLICE.md"
+
+permissions:
+  contents: read
+
+jobs:
+  button-runtime:
+    name: Button runtime, ARIA and menu contract
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify browser probe syntax
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          node --check scripts/quality/probe_v3_button_toggle_interactive_server.mjs
+          if ($LASTEXITCODE -ne 0) { throw "Button runtime probe syntax check failed" }
+      - name: Restore and test the solution
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet restore Bluent.sln --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Solution restore failed" }
+          dotnet test Bluent.sln --configuration Release --no-restore --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Solution tests failed" }
+      - name: Run published-host Chrome and Edge matrix
+        shell: pwsh
+        env:
+          CHROME_PATH: 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+          EDGE_PATH: 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+        run: |
+          $ErrorActionPreference = "Stop"
+          node scripts/quality/probe_v3_button_toggle_interactive_server.mjs both
+          if ($LASTEXITCODE -ne 0) { throw "Published-host Button runtime/ARIA matrix failed" }

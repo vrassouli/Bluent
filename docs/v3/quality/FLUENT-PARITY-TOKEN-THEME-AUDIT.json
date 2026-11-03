@@ -55,6 +55,7 @@
         "--colorBrandBackgroundHover",
         "--colorBrandBackgroundPressed",
         "--colorBrandBackgroundSelected",
+        "--colorBrandForeground2",
         "--colorNeutralBackground1",
         "--colorNeutralBackground1Hover",
         "--colorNeutralBackground1Pressed",
@@ -85,7 +86,6 @@
         "--colorTransparentBackgroundHover",
         "--colorTransparentBackgroundPressed",
         "--colorTransparentBackgroundSelected",
-        "--colorTransparentStroke",
         "--curveEasyEase",
         "--durationFaster",
         "--fontFamilyBase",
@@ -97,20 +97,22 @@
         "--lineHeightBase200",
         "--lineHeightBase300",
         "--lineHeightBase400",
-        "--shadow2",
         "--spacingHorizontalL",
         "--spacingHorizontalM",
         "--spacingHorizontalS",
         "--spacingHorizontalSNudge",
-        "--strokeWidthThick",
         "--strokeWidthThicker",
         "--strokeWidthThin"
       ],
-      "localCustomProps": [],
-      "unresolvedLocalProps": [],
-      "tokenizedColorDeclarationCount": 70,
+      "localCustomProps": [
+        "--bui-button-focus-ring-color"
+      ],
+      "unresolvedLocalProps": [
+        "--bui-button-focus-ring-color"
+      ],
+      "tokenizedColorDeclarationCount": 67,
       "rawColorDeclarations": [],
-      "componentForcedColorsRuleLines": 0,
+      "componentForcedColorsRuleLines": 1,
       "componentReducedMotionRuleLines": 0,
       "sourceSnippets": [
         {

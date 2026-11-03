@@ -26,7 +26,11 @@ class P0SemanticGapTests(unittest.TestCase):
             "Exact token mappings",
             "board 1d92b6fb-c168-8047-8008-d7d1f38c5d2f",
             "REVIEW REQUIRED",
-            "do **not** erase any of the seven current source observations",
+            "The historic seven-observation #552 checkpoint is refreshed against that source",
+            "six source gaps remain open",
+            "source-remediated pending browser/AT re-verification",
+            "Existing 2-host browser evidence is pinned to an earlier source commit",
+            "native screen-reader behavior",
             "Explicit caller aria-pressed precedence remains unresolved",
             "MaxFiles <= 0",
             "Native OS/assistive-technology acceptance",
@@ -34,10 +38,20 @@ class P0SemanticGapTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, triage)
         self.assertIn("Approved behavioral baseline from #420 (2026-10-25)", queue)
-        self.assertIn("The #552 source-gap JSON remains unchanged", queue)
+        self.assertIn("The #552 source-gap checkpoint is refreshed against the current source baseline", queue)
         self.assertIn("Latest #552 P0 decision crosswalk (2026-10-25)", project)
         self.assertIn("The FLUENT-PARITY-P0-SEMANTICS.json seven-observation source checkpoint is intentionally unchanged", project)
         self.assertIn("#552 stays In progress and PR #553 Draft", project)
+
+    def test_button_source_remediation_is_not_browser_or_at_acceptance(self):
+        from pathlib import Path
+        import json
+        root = Path(__file__).resolve().parents[2]
+        item = next(x for x in json.loads((root/"docs/v3/quality/FLUENT-PARITY-P0-SOURCE.json").read_text(encoding="utf-8-sig"))["items"] if x["family"] == "Button")
+        self.assertEqual("source_updated_review_pending", item["status"])
+        self.assertTrue(item["sourceReverificationPending"])
+        self.assertIn("historical", item["verification"])
+        self.assertIn("not been rerun", item["verification"])
 
     def test_machine_readable_policy_record_separates_defaults_from_acceptance(self):
         import json
@@ -66,9 +80,14 @@ class P0SemanticGapTests(unittest.TestCase):
             self.assertTrue(item["openDetails"])
             self.assertFalse(item["status"] in {"implemented", "accepted", "fluent_approved"})
 
-    def test_seven_source_observations_are_present(self):
+    def test_source_checkpoint_separates_six_open_gaps_from_one_source_remediation(self):
         self.assertEqual(7, len(self.expected["checks"]))
-        self.assertTrue(all(c["observedSourceGap"] for c in self.expected["checks"]))
+        self.assertEqual(6, self.expected["remainingSourceGapCount"])
+        self.assertEqual(1, self.expected["sourceRemediatedPendingBrowserReverification"])
+        button = next(c for c in self.expected["checks"] if c["family"] == "Button")
+        self.assertFalse(button["observedSourceGap"])
+        self.assertEqual("source_remediated_pending_browser_reverification", button["sourceDisposition"])
+        self.assertTrue(all(c["observedSourceGap"] for c in self.expected["checks"] if c is not button))
 
     def test_slider_coordinate_fix_requires_reaudit(self):
         mutated = dict(self.text)
@@ -85,9 +104,11 @@ class P0SemanticGapTests(unittest.TestCase):
         bad["fluentAcceptance"] = True
         self.assertTrue(validate(bad, self.expected))
 
-    def test_false_observation_removal_fails(self):
+    def test_unapproved_source_observation_removal_fails(self):
         bad = copy.deepcopy(self.expected)
-        bad["checks"][0]["observedSourceGap"] = False
+        remaining = next(c for c in bad["checks"] if c["family"] == "Slider" and c["id"] == "slider_thumb_semantics")
+        remaining["observedSourceGap"] = False
+        remaining["sourceDisposition"] = "source_remediated_pending_browser_reverification"
         self.assertTrue(validate(bad, self.expected))
 
     def test_file_remove_label_fix_requires_reaudit(self):

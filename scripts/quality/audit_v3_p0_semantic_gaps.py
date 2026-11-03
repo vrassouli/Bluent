@@ -35,7 +35,7 @@ def collect(text):
     s, sc = text["slider_markup"], text["slider_code"]
     r, rc = text["range_markup"], text["range_code"]
     f, fc = text["file_markup"], text["file_code"]
-    return [
+    checks = [
         {
             "family": "Button", "issue": 428, "id": "toggle_aria_pressed",
             "observedSourceGap": (
@@ -43,7 +43,15 @@ def collect(text):
                 "ToggledChanged" in bc and
                 "aria-pressed" not in b and "aria-pressed" not in bc
             ),
-            "finding": "Toggled public state is represented by a CSS class and callbacks, but the component does not itself emit aria-pressed. Caller-supplied AdditionalAttributes could still provide it.",
+            "sourceDisposition": (
+                "gap_open" if "aria-pressed" not in b and "aria-pressed" not in bc
+                else "source_remediated_pending_browser_reverification"
+            ),
+            "finding": (
+                "The current Button source emits aria-pressed=true/false when Toggled.HasValue on its native-button path and omits component-managed pressed state for active links. The prior browser/AX evidence predates this source update; current DOM, caller-attribute precedence and native AT still require re-verification."
+                if "aria-pressed" in b else
+                "Toggled public state is represented by a CSS class and callbacks, but the component does not itself emit aria-pressed. Caller-supplied AdditionalAttributes could still provide it."
+            ),
             "requirement": "Toggle button needs an accessible pressed state if it functions as a toggle button.",
             "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
         },
@@ -118,17 +126,23 @@ def collect(text):
             "reference": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/accept",
         },
     ]
+    for check in checks:
+        check.setdefault("sourceDisposition", "gap_open")
+    return checks
 
 
 def snapshot_from(source):
     evidence = collect(source)
     return {
         "schemaVersion": 1, "auditIssue": 552,
-        "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
-        "status": "observed_source_gaps_only",
+        "sourceBaseline": "6ef9c892a82825b1e4c209670433d7fa7a846787",
+        "status": "source_observations_with_remediation_pending_reverification",
         "fluentAcceptance": False,
-        "realBrowserATResult": "not_tested_by_this_gate",
-        "note": "Observed omissions / inconsistencies in current pinned source; not a complete Fluent comparator or implemented fix.",
+        "realBrowserATResult": "not_reverified_after_current_source_update",
+        "historicalObservationCount": len(evidence),
+        "remainingSourceGapCount": sum(1 for item in evidence if item["observedSourceGap"]),
+        "sourceRemediatedPendingBrowserReverification": sum(1 for item in evidence if item["sourceDisposition"] != "gap_open"),
+        "note": "Source observations are refreshed against the current pinned bluent-v3 source. A source-side remediation is not browser, Fluent visual, caller-attribute precedence, or native assistive-technology acceptance.",
         "checks": evidence,
     }
 
@@ -138,8 +152,19 @@ def validate(record, expected):
     if record != expected:
         failures.append("P0 source observations or evidence disclaimers changed; re-review before refreshing snapshot")
     for check in record.get("checks", []):
+        disposition = check.get("sourceDisposition")
+        if check.get("observedSourceGap") and disposition != "gap_open":
+            failures.append(f"{check.get('family')}/{check.get('id')}: open gap has invalid disposition")
         if not check.get("observedSourceGap"):
-            failures.append(f"{check.get('family')}/{check.get('id')}: anchor no longer observed, re-audit fix")
+            if not (check.get("family") == "Button" and check.get("id") == "toggle_aria_pressed"
+                    and disposition == "source_remediated_pending_browser_reverification"):
+                failures.append(f"{check.get('family')}/{check.get('id')}: unapproved observation removal")
+    if record.get("historicalObservationCount") != len(record.get("checks", [])):
+        failures.append("historical observation denominator changed")
+    if record.get("remainingSourceGapCount") != sum(1 for x in record.get("checks", []) if x.get("observedSourceGap")):
+        failures.append("remaining source gap count does not match the evidence rows")
+    if record.get("sourceRemediatedPendingBrowserReverification") != 1:
+        failures.append("exactly one source-remediated observation must remain pending browser re-verification")
     if record.get("fluentAcceptance") is not False:
         failures.append("Source observation cannot approve Fluent parity")
     return failures
@@ -151,10 +176,11 @@ def main():
     args = parser.parse_args()
     expected = snapshot_from(source_texts())
     if args.write:
-        if any(not c["observedSourceGap"] for c in expected["checks"]):
-            raise SystemExit("ERROR: changed P0 source: re-audit before snapshot update")
+        findings = validate(expected, expected)
+        if findings:
+            raise SystemExit("ERROR: P0 source disposition requires review: " + "; ".join(findings))
         OUTPUT.write_text(json.dumps(expected, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print("WROTE P0 observed-source-semantic checkpoint, NOT component approval")
+        print("WROTE refreshed P0 source checkpoint: 6 open source gaps + 1 source remediation awaiting browser/AT re-verification; NOT component approval")
         return 0
     if not OUTPUT.exists():
         raise SystemExit(f"Snapshot missing: {OUTPUT}")

@@ -69,33 +69,38 @@
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 360,
+          "line": 351,
           "excerpt": "min-width: 64px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 364,
+          "line": 355,
           "excerpt": "max-width: 24px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 365,
+          "line": 356,
           "excerpt": "min-width: 24px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 383,
+          "line": 374,
           "excerpt": "min-width: 96px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 387,
+          "line": 378,
           "excerpt": "max-width: 40px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 388,
+          "line": 379,
           "excerpt": "min-width: 40px;"
+        },
+        {
+          "path": "src/Bluent.UI/Styles/Components/_button.scss",
+          "line": 399,
+          "excerpt": "@media (forced-colors: active) {"
         }
       ],
       "fixedDimensionRules": [
@@ -131,52 +136,52 @@
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 360,
+          "line": 351,
           "excerpt": "min-width: 64px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 364,
+          "line": 355,
           "excerpt": "max-width: 24px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 365,
+          "line": 356,
           "excerpt": "min-width: 24px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 371,
+          "line": 362,
           "excerpt": "height: 16px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 372,
+          "line": 363,
           "excerpt": "width: 16px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 383,
+          "line": 374,
           "excerpt": "min-width: 96px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 387,
+          "line": 378,
           "excerpt": "max-width: 40px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 388,
+          "line": 379,
           "excerpt": "min-width: 40px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 394,
+          "line": 385,
           "excerpt": "height: 22px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 395,
+          "line": 386,
           "excerpt": "width: 22px;"
         }
       ],
@@ -215,17 +220,17 @@
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 360,
+          "line": 351,
           "excerpt": "min-width: 64px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 364,
+          "line": 355,
           "excerpt": "max-width: 24px;"
         },
         {
           "path": "src/Bluent.UI/Styles/Components/_button.scss",
-          "line": 365,
+          "line": 356,
           "excerpt": "min-width: 24px;"
         }
       ],

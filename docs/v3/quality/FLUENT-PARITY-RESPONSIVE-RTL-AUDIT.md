@@ -12,7 +12,7 @@ This source/evidence inventory reviews physical versus logical directional CSS, 
 
 | Family | Physical directional declarations | Logical directional declarations | Breakpoint/reflow rules | Explicit RTL signals | RTL browser evidence | Narrow/zoom evidence |
 |---|---:|---:|---:|---:|---|---|
-| Button | 4 | 1 | 9 | 1 | yes | yes |
+| Button | 4 | 1 | 10 | 1 | yes | yes |
 | Icon | 0 | 0 | 0 | 0 | yes | yes |
 | Label | 0 | 1 | 0 | 0 | yes | no |
 | Link | 0 | 1 | 0 | 0 | yes | no |
@@ -37,7 +37,7 @@ This source/evidence inventory reviews physical versus logical directional CSS, 
 
 **Source finding:** 4 physical directional declaration(s) need review for intentionality/logical-property parity.
 
-**Logical declarations:** 1; **breakpoint/reflow rules:** 9; **fixed dimensions:** 16; **explicit RTL signals:** 1.
+**Logical declarations:** 1; **breakpoint/reflow rules:** 10; **fixed dimensions:** 16; **explicit RTL signals:** 1.
 
 **Follow-up:** Check icon/label order, focus ring clipping and wrapping at narrow RTL and layout-reflow proxy.
 

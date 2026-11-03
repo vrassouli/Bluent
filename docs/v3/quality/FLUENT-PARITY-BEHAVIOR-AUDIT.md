@@ -43,7 +43,7 @@ This audit consolidates source findings and selected browser observations for cl
 
 **Source files:** [Button.razor](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor), [Button.razor.cs](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor.cs)
 
-**Source anchors:** [Button.razor:L7](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor#L7), [Button.razor:L15](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor#L15), [Button.razor:L58](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor#L58)
+**Source anchors:** [Button.razor:L7](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor#L7), [Button.razor:L15](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor#L15), [Button.razor:L16](../../../src/Bluent.UI/Components/ButtonComponent/Button.razor#L16)
 
 **Browser evidence:** [BLUENT-BUTTON-STATE-CHROME.json](evidence/BLUENT-BUTTON-STATE-CHROME.json), [BLUENT-BLAZOR-FOCUS-CHROME.json](evidence/BLUENT-BLAZOR-FOCUS-CHROME.json), [BLUENT-LAB-P0-BUTTON-KEYBOARD-SERVER-CHROME.json](evidence/BLUENT-LAB-P0-BUTTON-KEYBOARD-SERVER-CHROME.json)
 

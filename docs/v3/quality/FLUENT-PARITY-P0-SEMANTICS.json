@@ -1,18 +1,22 @@
 {
   "schemaVersion": 1,
   "auditIssue": 552,
-  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
-  "status": "observed_source_gaps_only",
+  "sourceBaseline": "6ef9c892a82825b1e4c209670433d7fa7a846787",
+  "status": "source_observations_with_remediation_pending_reverification",
   "fluentAcceptance": false,
-  "realBrowserATResult": "not_tested_by_this_gate",
-  "note": "Observed omissions / inconsistencies in current pinned source; not a complete Fluent comparator or implemented fix.",
+  "realBrowserATResult": "not_reverified_after_current_source_update",
+  "historicalObservationCount": 7,
+  "remainingSourceGapCount": 6,
+  "sourceRemediatedPendingBrowserReverification": 1,
+  "note": "Source observations are refreshed against the current pinned bluent-v3 source. A source-side remediation is not browser, Fluent visual, caller-attribute precedence, or native assistive-technology acceptance.",
   "checks": [
     {
       "family": "Button",
       "issue": 428,
       "id": "toggle_aria_pressed",
-      "observedSourceGap": true,
-      "finding": "Toggled public state is represented by a CSS class and callbacks, but the component does not itself emit aria-pressed. Caller-supplied AdditionalAttributes could still provide it.",
+      "observedSourceGap": false,
+      "sourceDisposition": "source_remediated_pending_browser_reverification",
+      "finding": "The current Button source emits aria-pressed=true/false when Toggled.HasValue on its native-button path and omits component-managed pressed state for active links. The prior browser/AX evidence predates this source update; current DOM, caller-attribute precedence and native AT still require re-verification.",
       "requirement": "Toggle button needs an accessible pressed state if it functions as a toggle button.",
       "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/button/"
     },
@@ -23,7 +27,8 @@
       "observedSourceGap": true,
       "finding": "Current thumb is a div without intrinsic slider role, tabindex, or value ARIA. AdditionalAttributes on the OUTER host can add attributes, but does not make the thumb itself a documented operable slider.",
       "requirement": "An operable, labelled slider thumb must be keyboard focusable and expose current/range values.",
-      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/"
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/",
+      "sourceDisposition": "gap_open"
     },
     {
       "family": "RangeSlider",
@@ -32,7 +37,8 @@
       "observedSourceGap": true,
       "finding": "Both thumb divs lack independent role, focusability, accessible names and value/range semantics; external host attributes cannot label both thumb nodes independently.",
       "requirement": "Two separately focusable, named slider thumbs with constant Tab order and dependent ARIA bounds.",
-      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/"
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/",
+      "sourceDisposition": "gap_open"
     },
     {
       "family": "Slider",
@@ -41,7 +47,8 @@
       "observedSourceGap": true,
       "finding": "ScreenX screen coordinates are subtracted from getBoundingClientRect() viewport coordinates; scroll/window position can introduce offset error.",
       "requirement": "Use a consistent coordinate space (e.g., ClientX with viewport rect), and verify with real pointer measurements.",
-      "reference": "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX"
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX",
+      "sourceDisposition": "gap_open"
     },
     {
       "family": "RangeSlider",
@@ -50,7 +57,8 @@
       "observedSourceGap": true,
       "finding": "Same mixed coordinate space as Slider, compounded by dependent bounds and thumb selection.",
       "requirement": "Use a consistent coordinate space; test crossing, overlap, RTL, Server binding and viewport scroll.",
-      "reference": "https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect"
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect",
+      "sourceDisposition": "gap_open"
     },
     {
       "family": "FileSelect",
@@ -59,7 +67,8 @@
       "observedSourceGap": true,
       "finding": "Source creates icon-only remove Button with no explicit accessible name. Needs per-file meaningful accessible naming; no native OS/AT confirmation claimed.",
       "requirement": "Icon-only delete buttons must have a programmatic accessible name.",
-      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/button/"
+      "reference": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+      "sourceDisposition": "gap_open"
     },
     {
       "family": "FileSelect",
@@ -68,7 +77,8 @@
       "observedSourceGap": true,
       "finding": "MaxFiles drives the chooser multiple attribute; accept is a browser chooser hint, not server-side validation. Runtime enforcement requires independent investigation.",
       "requirement": "Document public MaxFiles; validate count/type/size/authorization on server.",
-      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/accept"
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/accept",
+      "sourceDisposition": "gap_open"
     }
   ]
 }

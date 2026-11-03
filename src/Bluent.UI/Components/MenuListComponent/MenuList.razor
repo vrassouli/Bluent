@@ -1,9 +1,8 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentUiComponentBase
 
-<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
+<div @attributes="GetMenuListAttributes()" id="@Id" class="@GetComponentClass()" style="@Style" role="menu">
     <CascadingValue Value="this" IsFixed>
         @ChildContent
     </CascadingValue>
 </div>
-

@@ -1,0 +1,59 @@
+{
+  "classification": "historical-local-runtime-evidence-only",
+  "not_certified": [
+    "native OS high-contrast, Windows Text Size, named screen reader AT (NVDA/JAWS/Narrator)",
+    "human approved Penpot/Figma parity, WCAG certification",
+    "final protected-branch integration or real NuGet release",
+    "historical intermittent host loss or Dialog focus permanently fixed"
+  ],
+  "task_heads": {
+    "418": "30b2f84162658c57855e15a0eacba511eaec046b",
+    "420": "6a3c677b1a9c0b9075520df094c8a630b194bc26",
+    "425": "e647dbc7c5c725afbbb1a133717ea677c0306fa7",
+    "421": "3b28935ac090aa0ffef85b5cdd108f81526ae07f"
+  },
+  "passed": 3798,
+  "total": 3798,
+  "modes": [
+    {
+      "mode": "chrome_wasm",
+      "classification": "actual Blazor WebAssembly Chrome/CDP interaction",
+      "passed": 950,
+      "total": 950,
+      "failed": 0,
+      "origin_port": 50863,
+      "log_basename": "bluent-v3-current-chrome-wasm-isolated-fdf5c3b55b36405897b1fd5ca1467eaf.log",
+      "log_sha256": "39c150ef20483772450c321947ba13dc6d4e922dc82012461ddb7e348f0ff599"
+    },
+    {
+      "mode": "chrome_server",
+      "classification": "actual Blazor InteractiveServer Chrome/CDP interaction",
+      "passed": 949,
+      "total": 949,
+      "failed": 0,
+      "origin_port": 54182,
+      "log_basename": "bluent418420isolation-server-22c2424bd1a244b993b77bd71fb78cc7.log",
+      "log_sha256": "34e4855b500ec930fbbfefb367ae396d78efbd4db64ac6b5bb5b4e57af165333"
+    },
+    {
+      "mode": "edge_wasm",
+      "classification": "actual Blazor WebAssembly Edge/CDP interaction",
+      "passed": 950,
+      "total": 950,
+      "failed": 0,
+      "origin_port": 51515,
+      "log_basename": "bluent-v3-current-edge-wasm-81a28d7b3a47488e8281fab0ac1916bb.log",
+      "log_sha256": "ab7129f499e7251323e9d19e7eb508e2641412cf4c8c87389ab99c1ff3029a7d"
+    },
+    {
+      "mode": "edge_server",
+      "classification": "actual Blazor InteractiveServer Edge/CDP interaction",
+      "passed": 949,
+      "total": 949,
+      "failed": 0,
+      "origin_port": 54431,
+      "log_basename": "bluent-v3-current-edge-server-78f8eedb10994599bafde69220e37395.log",
+      "log_sha256": "253b2085c898609fd177383b860518669938833cc9ebe5f75418bb2dda307d9f"
+    }
+  ]
+}

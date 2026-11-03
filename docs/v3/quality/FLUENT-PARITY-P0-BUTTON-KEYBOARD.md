@@ -41,3 +41,7 @@ The minimal proposed behavioral contract under **#428**: native Button with `Tog
 ## Button icon accessibility follow-up (2026-10-20)
 
 Real original Buttons demo Chrome/Edge samples for Small/Medium/Large show icon/text flex-box center-Y difference of 0px, but icon-only Button AX names are **private-use glyphs** and text-labeled Button names are prefixed by the glyph. Browser-only aria-hidden and explicit Button aria-label restore meaningful names; see [#552 paired source and semantic-policy research](FLUENT-PARITY-BUTTON-ICON-AX.md). This is not product repair or native screen-reader certification.
+
+## Historical runtime evidence boundary — 2026-11-03
+
+The browser/AX snapshots in this report are pinned to source commit `b9952aa93e89fd569de54080a7fdd06037b53a41`. A later `bluent-v3` source update now emits `aria-pressed` for `Toggled.HasValue` on native toggle buttons and filters conflicting caller `aria-pressed` while the component owns toggle state. The historical browser measurements above remain valid for their recorded source; they are **not** evidence of current DOM/AX behavior after that update. Re-run current WASM and published Server probes, including active-link and caller-attribute cases, before any current runtime or accessibility acceptance. Native AT remains unverified.

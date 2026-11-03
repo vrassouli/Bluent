@@ -32,6 +32,18 @@ class P0SourceEvidenceTests(unittest.TestCase):
     def test_all_four_p0_issues_owned(self):
         self.assertEqual(EXPECTED, {x["family"]: x["issue"] for x in self.data["items"]})
 
+    def test_button_source_update_stays_pending_runtime_reverification(self):
+        button = next(x for x in self.data["items"] if x["family"] == "Button")
+        self.assertEqual("source_updated_review_pending", button["status"])
+        self.assertTrue(button["sourceReverificationPending"])
+        self.assertTrue(audit(self.data, ROOT) == [])
+
+    def test_other_families_cannot_claim_source_updated_status(self):
+        data = copy.deepcopy(self.data)
+        slider = next(x for x in data["items"] if x["family"] == "Slider")
+        slider["status"] = "source_updated_review_pending"
+        self.assertTrue(audit(data, ROOT))
+
 
 if __name__ == "__main__":
     unittest.main()
