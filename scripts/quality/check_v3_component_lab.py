@@ -856,8 +856,11 @@ def check() -> int:
     assert retro["rules"]["changesOnlyTo"] == "bluent-v3"
     assert retro_doc.is_file()
     doc_text = retro_doc.read_text(encoding="utf-8")
-    assert "18/18 not reviewed" in doc_text
+    # The 18-family retrospective is no longer an unstarted plan: all 18 have
+    # partial source/API reports and evidence inventories. None is Fluent-approved.
+    assert "All 18 families now have partial source/API audit reports" in doc_text
     assert "0/18 Fluent-approved" in doc_text
+    assert "All nine dimensions have now been inventoried across all 18 families. Each family records audited_gaps" in doc_text
     dimensions = {
         "visual", "feature", "behavior", "accessibility", "tokenTheme",
         "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"

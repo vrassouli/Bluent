@@ -58,4 +58,3 @@ The evidence documents report Chrome/Edge source observations, including 10/10 o
 - [Button owning issue #428](https://github.com/vrassouli/Bluent/issues/428)
 
 **Boundary:** source and browser evidence supports a partial audit with open gaps. It does not mean the Button is Fluent-equivalent, design-approved, implemented, or Done.
-

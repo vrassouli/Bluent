@@ -288,10 +288,10 @@
           "sourceFeatureSupport": "not_inferred",
           "reviewDisposition": "Bluent extension",
           "mapping": "Related candidate: fluent-toggle-button.pressed",
-          "rationale": "Bluent currently renders a normal button with a toggled class; it does not adopt the toggle-button pressed/mixed or ARIA contract.",
+          "rationale": "Current bluent-v3 source emits aria-pressed=true/false when Toggled.HasValue on the native-button path and excludes active links. This is a source-level remediation only: the historical browser/AX evidence predates the change, mixed-state behavior is not represented by bool?, and complete Fluent state/event equivalence is not established.",
           "confidence": "high",
           "valueDispositions": [],
-          "followUp": "Verify aria-pressed and state-change behavior in the real browser."
+          "followUp": "Re-run current WASM and published Server DOM/AX for null/false/true, active and disabled links, caller aria-pressed precedence, keyboard and native AT before changing this disposition."
         },
         {
           "component": "Button",
@@ -703,7 +703,7 @@
           "csharpType": "Overflow?",
           "origin": "declared",
           "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
-          "sourceLine": 30,
+          "sourceLine": 31,
           "spellingCandidates": [],
           "sourceCandidateStatus": "not_reviewed",
           "sourceFeatureSupport": "not_inferred",
@@ -912,7 +912,7 @@
           "sourceFeatureSupport": "not_inferred",
           "reviewDisposition": "Supported",
           "mapping": "Fluent System Icons Regular/Filled asset variants",
-          "rationale": "IconVariant exposes Regular/Filled and falls back to Regular when Filled is absent. No Color enum exists; exact Color asset coverage and requirement remain undecided.",
+          "rationale": "IconVariant exposes Regular/Filled and falls back to Regular when Filled is absent. The maintainer explicitly approved no public Color variant on 2026-11-03; Color is outside the current Icon API contract.",
           "confidence": "high",
           "valueDispositions": [
             {
@@ -928,7 +928,7 @@
             {
               "value": "Color",
               "disposition": "N/A",
-              "mapping": "not part of the current public enum; no feature requirement approved"
+              "mapping": "explicitly excluded by the 2026-11-03 maintainer contract; no public enum value or Color requirement"
             }
           ],
           "followUp": null

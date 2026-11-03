@@ -34,4 +34,3 @@ The actual evidence documents report 17/17 WebAssembly and 12/12 published-Serve
 - [FileSelect owner issue #444](https://github.com/vrassouli/Bluent/issues/444)
 
 **Boundary:** browser evidence proves the observed overflow and weak accessible name in the tested scenarios. It does not establish upload security, full Fluent equivalence, design approval, native OS/AT acceptance, or permission to implement in #552.
-

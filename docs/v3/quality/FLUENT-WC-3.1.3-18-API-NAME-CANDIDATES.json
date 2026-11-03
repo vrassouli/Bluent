@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "auditIssue": 552,
-  "sourceBaseline": "2c37dbef516230606306549458721d6bda03a8ab",
+  "sourceBaseline": "6ef9c892a82825b1e4c209670433d7fa7a846787",
   "upstreamNpm": "@fluentui/web-components@3.1.3",
   "upstreamCemSha256": "e460a61de0cd6f99ec6caedc203db681d95ac16332d3b296b50484b79ad61329",
   "scope": "Source direct + locally inherited parameter name matches against pinned CEM attributes/events/slots only; exact names are NOT feature or parity claims.",
@@ -369,7 +369,7 @@
               "csharpType": "Overflow?",
               "origin": "declared",
               "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
-              "sourceLine": 30,
+              "sourceLine": 31,
               "normalizedName": "overflow",
               "spellingCandidates": [],
               "comparisonStatus": "not_reviewed",
