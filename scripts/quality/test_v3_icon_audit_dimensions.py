@@ -69,7 +69,7 @@ class IconAuditDimensionTests(unittest.TestCase):
         self.assertEqual("pending", self.family["designApproval"])
         self.assertIsNone(self.family["evidenceBundle"])
         self.assertIn("Editable Icon review draft (2026-10-23)", self.report)
-        self.assertIn("not a complete reusable Icon variant set", self.report)
+        self.assertIn("not a complete reusable Icon variant/state master", self.report)
         self.assertIn("PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json", self.report)
         self.assertTrue((QUALITY / "evidence/PENPOT-ISSUE-552-DESIGN-ARTIFACT-ADDENDUM-2026-10-23.json").is_file())
         self.assertIn("Penpot review board now exists", (QUALITY / "FLUENT-PARITY-ICON-VARIANTS.md").read_text(encoding="utf-8-sig"))
@@ -78,7 +78,7 @@ class IconAuditDimensionTests(unittest.TestCase):
         for phrase in (
             "SVG sizing defect",
             "native assistive-technology sign-off",
-            "component design approval remains pending",
+            "design acceptance remains pending",
             "no family-specific 2.x-to-v3 migration section",
         ):
             with self.subTest(phrase=phrase):
@@ -99,7 +99,7 @@ class IconAuditDimensionTests(unittest.TestCase):
             "Do not add `IconVariant.Color`",
             "valid `viewBox`",
             "trusted developer-controlled, app-owned markup only",
-            "`FromSvg` is not a sanitizer",
+            "It is not a sanitizer",
             "`aria-hidden=true`",
             "image `alt=\"\"`",
             "parent interactive control always owns its contextual action name",

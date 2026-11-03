@@ -2,7 +2,7 @@
 
 **Observed 2026-10-20. Status: source/API audit only, NOT Fluent parity, NOT #429 product acceptance.** Source checkout `v3/issue-552-fluent-parity-audit`, baseline from `bluent-v3`. This report does not change product code, package assets, component behavior, or the 18-family canonical acceptance matrix owned by #421.
 
-**Decision refresh — 2026-11-03:** the maintainer has since approved the Icon policy contract (1em SVG viewport, caller CSS/Style precedence, no public Size or Color variant, valid viewBox requirement, trusted app-owned SVG only, and consumer-owned decorative/informative semantics). The proposal section below is a historical checkpoint from 2026-10-20; its still-open design/API options are superseded where they conflict with the approved policy. The current canonical state and remaining gaps are in [the Icon family audit](FLUENT-PARITY-ICON-AUDIT.md). Policy approval does not mean implementation, design-master, Fluent parity or native AT acceptance.
+**Decision refresh — 2026-11-03:** the maintainer has since approved the Icon policy contract (1em SVG viewport, caller CSS/Style precedence, no public Size or Color variant, valid viewBox requirement, trusted app-owned SVG only, and consumer-owned decorative/informative semantics). The proposal section below is a historical checkpoint from 2026-10-20; its still-open design/API options are superseded where they conflict with the approved policy. The current canonical state and remaining gaps are in [the Icon family audit](FLUENT-PARITY-ICON-AUDIT.md). The historical proposal itself was **not approved as a complete component or Fluent-parity design**; only the separate 2026-11-03 component policy contract was approved. Policy approval does not mean implementation, design-master, Fluent parity or native AT acceptance.
 
 ## Actual Bluent public surface and source behavior
 
@@ -10,10 +10,10 @@
 | --- | --- | --- |
 | Standalone `Icon.Value` | `Icon.cs` requires an `IconDefinition?` via `[Parameter, EditorRequired]`; absent source renders nothing | Bluent supported; runtime empty/fallback states not measured |
 | `Icon.Variant` | Public enum is exactly `Regular`, `Filled`; default `Regular` | Two variants supported; **Color is missing from the enum**, not a silently supported variant |
-| `IconDefinition` | `Regular` required, optional `Filled`; `GetSource(Filled)` falls back to Regular when absent | Deliberate current fallback, needs product policy and consumer docs |
+| `IconDefinition` | `Regular` required, optional `Filled`; `GetSource(Filled)` falls back to Regular when absent | Deliberate current fallback, retained by the owner-approved contract; consumer-facing v3 docs remain a deliverable |
 | Source types | `FromCss`, `FromSvg`, `FromImage`; component emits `i`, `span` containing supplied SVG markup, or `img` respectively | Custom sources supported, **not** proof of first-party Fluent Color catalog |
 | Generated `FluentIcons` | `FluentIconsGenerator.cs` extracts only `ic_fluent_*_20_(regular\|filled)` from bundled resizable font map | Currently a **20px-font-asset registry**, not all upstream sizes/styles |
-| Accessibility | The `Icon` renderer forwards `AdditionalAttributes` and sets class/id/style; it does not intrinsically set `aria-hidden`, `role`, `aria-label`, or image `alt` | Decorativeness, nonvisual label, meaningful image `alt`, and consumer delegation need explicit #429/#420 policies and real AT checks |
+| Accessibility | The `Icon` renderer forwards `AdditionalAttributes` and sets class/id/style; it does not intrinsically set `aria-hidden`, `role`, `aria-label`, or image `alt` | Consumer-owned decorative/informative semantics and parent-control action naming are approved by #429 (2026-11-03); real native AT checks and implemented examples remain open |
 
 Actual `FluentSystemIcons-Resizable.json` source snapshot: **5,694 entries**; **2,827 regular** and **2,867 filled** 20px named entries; **2,875 unique names**, comprising **8 regular-only** and **48 filled-only** names; **0 color entries**. These are *font-map keys*, not independently tested visible glyphs or entire upstream icon availability. Generator selects regular if available, otherwise filled; if both exist it includes both. Bundled assets `woff2`, `woff`, `ttf`, CSS and JSON are local input data; no claim of upstream freshness.
 
