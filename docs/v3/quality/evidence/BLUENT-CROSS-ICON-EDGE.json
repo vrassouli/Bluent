@@ -1,0 +1,2408 @@
+{
+  "issue": 552,
+  "sourceRef": "fdd77bca",
+  "engine": "edge",
+  "host": "original unchanged Bluent WebAssembly Demo with real Chromium CDP",
+  "status": "Actual DOM/AX observation, NOT Fluent visual parity or OS screen-reader acceptance",
+  "checks": [
+    {
+      "name": "light-ltr menu actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab native pointer selection changes source selected class",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab native pointer reselect restores first tab",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav group click expands despite generic AX role",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion native pointer expands parent despite absent header ARIA",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab native pointer selection changes source selected class",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab native pointer reselect restores first tab",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav group click expands despite generic AX role",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion native pointer expands parent despite absent header ARIA",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab native pointer selection changes source selected class",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab native pointer reselect restores first tab",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav group click expands despite generic AX role",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion native pointer expands parent despite absent header ARIA",
+      "pass": true
+    }
+  ],
+  "cases": [
+    {
+      "kind": "menu",
+      "mode": "light-ltr",
+      "page": "menus",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "menu",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f73d4c853\" class=\"menu-item disabled \"><!--!--><i id=\"f2908594\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f31de38c3\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "menu",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f73d4c853\" class=\"menu-item disabled \"><!--!--><i id=\"f2908594\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f31de38c3\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-LIGHT-LTR-MENU.png"
+    },
+    {
+      "kind": "tab",
+      "mode": "light-ltr",
+      "page": "tablists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f42b8e021\" class=\"tab-item selected\"><!--!--><i id=\"f23febbaf\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f67ed616b\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f42b8e021\" class=\"tab-item selected\"><!--!--><i id=\"f23febbaf\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f67ed616b\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f42b8e021\" class=\"tab-item selected\"><!--!--><i id=\"f23febbaf\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f67ed616b\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": {
+        "deselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f42b8e021\" class=\"tab-item \"><!--!--><i id=\"f23febbaf\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f67ed616b\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 90.5625,
+            "height": 32,
+            "x": 608.78125,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        },
+        "reselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f42b8e021\" class=\"tab-item selected \"><!--!--><i id=\"f23febbaf\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f67ed616b\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 99.359375,
+            "height": 32,
+            "x": 613.1796875,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        }
+      },
+      "image": "BLUENT-CROSS-ICON-EDGE-LIGHT-LTR-TAB.png"
+    },
+    {
+      "kind": "nav",
+      "mode": "light-ltr",
+      "page": "nav-lists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f4b2fe935\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5609e8e6\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f2afa6319\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f27608c79\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f2efff7e2\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f78a65d5\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f6778bfa4\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f6a005499\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f63833c6f\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4ab0ac1\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f4b2fe935\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5609e8e6\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f2afa6319\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f27608c79\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f2efff7e2\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f78a65d5\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f6778bfa4\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f6a005499\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f63833c6f\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4ab0ac1\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable expanded ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f4b2fe935\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f5609e8e6\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f2afa6319\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f27608c79\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f2efff7e2\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f78a65d5\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f6778bfa4\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f6a005499\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f63833c6f\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4ab0ac1\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 108,
+          "x": 752,
+          "y": 930.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-LIGHT-LTR-NAV.png"
+    },
+    {
+      "kind": "accordion",
+      "mode": "light-ltr",
+      "page": "accordions",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f56ccb530\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f52dbebdf\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f56ccb530\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f52dbebdf\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel expanded ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f56ccb530\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f52dbebdf\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-LIGHT-LTR-ACCORDION.png"
+    },
+    {
+      "kind": "menu",
+      "mode": "dark-rtl",
+      "page": "menus",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "menu",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f57459001\" class=\"menu-item disabled \"><!--!--><i id=\"f6162891e\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f1c376041\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 548.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 612.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "menu",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f57459001\" class=\"menu-item disabled \"><!--!--><i id=\"f6162891e\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f1c376041\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 548.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 612.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-DARK-RTL-MENU.png"
+    },
+    {
+      "kind": "tab",
+      "mode": "dark-rtl",
+      "page": "tablists",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f7f331769\" class=\"tab-item selected\"><!--!--><i id=\"f66a3f611\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2559a0e1\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 577.140625,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 626.8203125,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f7f331769\" class=\"tab-item selected\"><!--!--><i id=\"f66a3f611\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2559a0e1\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 577.140625,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 626.8203125,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f7f331769\" class=\"tab-item selected\"><!--!--><i id=\"f66a3f611\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2559a0e1\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 577.140625,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 626.8203125,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": {
+        "deselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f7f331769\" class=\"tab-item \"><!--!--><i id=\"f66a3f611\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2559a0e1\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 585.9375,
+            "top": 483.53125,
+            "width": 90.5625,
+            "height": 32,
+            "x": 631.21875,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        },
+        "reselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f7f331769\" class=\"tab-item selected \"><!--!--><i id=\"f66a3f611\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2559a0e1\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 577.140625,
+            "top": 483.53125,
+            "width": 99.359375,
+            "height": 32,
+            "x": 626.8203125,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        }
+      },
+      "image": "BLUENT-CROSS-ICON-EDGE-DARK-RTL-TAB.png"
+    },
+    {
+      "kind": "nav",
+      "mode": "dark-rtl",
+      "page": "nav-lists",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f5f5a2fbc\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4a58fe4\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"fe2c4ecc\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f37c10d77\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f42b4b01e\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f69106980\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f7847b122\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f72aee988\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f66785146\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f31db60cc\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 299.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 488,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f5f5a2fbc\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4a58fe4\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"fe2c4ecc\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f37c10d77\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f42b4b01e\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f69106980\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f7847b122\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f72aee988\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f66785146\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f31db60cc\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 299.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 488,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable expanded ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f5f5a2fbc\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4a58fe4\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"fe2c4ecc\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f37c10d77\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f42b4b01e\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f69106980\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f7847b122\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f72aee988\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f66785146\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f31db60cc\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 299.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 108,
+          "x": 488,
+          "y": 930.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-DARK-RTL-NAV.png"
+    },
+    {
+      "kind": "accordion",
+      "mode": "dark-rtl",
+      "page": "accordions",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6e80f140\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f46fd44ce\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 299.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 488,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6e80f140\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f46fd44ce\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 299.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 488,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel expanded ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f6e80f140\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f46fd44ce\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 299.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 488,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-DARK-RTL-ACCORDION.png"
+    },
+    {
+      "kind": "menu",
+      "mode": "forced-colors",
+      "page": "menus",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "menu",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f766ba024\" class=\"menu-item disabled \"><!--!--><i id=\"f2ccbbd26\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f7ecdebc7\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "menu",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f766ba024\" class=\"menu-item disabled \"><!--!--><i id=\"f2ccbbd26\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f7ecdebc7\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-FORCED-COLORS-MENU.png"
+    },
+    {
+      "kind": "tab",
+      "mode": "forced-colors",
+      "page": "tablists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f756d0e5d\" class=\"tab-item selected\"><!--!--><i id=\"f507e70f0\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2fee0214\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f756d0e5d\" class=\"tab-item selected\"><!--!--><i id=\"f507e70f0\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2fee0214\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f756d0e5d\" class=\"tab-item selected\"><!--!--><i id=\"f507e70f0\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2fee0214\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": {
+        "deselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f756d0e5d\" class=\"tab-item \"><!--!--><i id=\"f507e70f0\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2fee0214\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 90.5625,
+            "height": 32,
+            "x": 608.78125,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        },
+        "reselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f756d0e5d\" class=\"tab-item selected \"><!--!--><i id=\"f507e70f0\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f2fee0214\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 99.359375,
+            "height": 32,
+            "x": 613.1796875,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        }
+      },
+      "image": "BLUENT-CROSS-ICON-EDGE-FORCED-COLORS-TAB.png"
+    },
+    {
+      "kind": "nav",
+      "mode": "forced-colors",
+      "page": "nav-lists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f1a750f87\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f25e26a28\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f41679297\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3ab33776\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f2f3fee03\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3f6abb25\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2b31b437\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f5b84c6a4\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f79930bdc\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4babe1b6\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f1a750f87\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f25e26a28\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f41679297\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3ab33776\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f2f3fee03\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3f6abb25\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2b31b437\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f5b84c6a4\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f79930bdc\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4babe1b6\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable expanded ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f1a750f87\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f25e26a28\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f41679297\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3ab33776\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f2f3fee03\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3f6abb25\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2b31b437\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f5b84c6a4\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f79930bdc\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4babe1b6\" class=\"bui-icon icon-ic_fluent_grid_20_regul",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 108,
+          "x": 752,
+          "y": 930.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-FORCED-COLORS-NAV.png"
+    },
+    {
+      "kind": "accordion",
+      "mode": "forced-colors",
+      "page": "accordions",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f71d0989d\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f5fb3f92a\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "hovered": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f71d0989d\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f5fb3f92a\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel expanded ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f71d0989d\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f5fb3f92a\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-CROSS-ICON-EDGE-FORCED-COLORS-ACCORDION.png"
+    }
+  ]
+}

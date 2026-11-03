@@ -1,0 +1,3113 @@
+{
+  "auditIssue": 552,
+  "ownerIssue": 428,
+  "relatedIssue": 429,
+  "sourceRef": "0da72322",
+  "engine": "chrome",
+  "semanticCandidate": true,
+  "host": "original unmodified Bluent WebAssembly Debug /components/buttons, actual browser",
+  "status": "Source component geometry and Chrome/Edge CDP accessibility observations; NOT Fluent parity or native OS AT approval",
+  "checks": [
+    {
+      "label": "light-ltr actual three Size rows and three Button variants",
+      "pass": true
+    },
+    {
+      "label": "light-ltr document theme/RTL/media setup",
+      "pass": true
+    },
+    {
+      "label": "light-ltr original font icons load with visible SVG-free native Button DOM",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Small temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Small decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Small icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Small source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Medium temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Medium decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Medium icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Medium source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Large temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Large decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Large icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "light-ltr Large source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl actual three Size rows and three Button variants",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl document theme/RTL/media setup",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl original font icons load with visible SVG-free native Button DOM",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Small temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Small decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Small icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Small source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Medium temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Medium decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Medium icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Medium source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Large temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Large decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Large icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "dark-rtl Large source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "forced-colors actual three Size rows and three Button variants",
+      "pass": true
+    },
+    {
+      "label": "forced-colors document theme/RTL/media setup",
+      "pass": true
+    },
+    {
+      "label": "forced-colors original font icons load with visible SVG-free native Button DOM",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Small temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Small decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Small icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Small source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Medium temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Medium decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Medium icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Medium source AX state restored after browser experiment",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Large temporary semantic candidate injected",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Large decorative glyph removed from accessible text-button name",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Large icon-only action has contextual accessible name",
+      "pass": true
+    },
+    {
+      "label": "forced-colors Large source AX state restored after browser experiment",
+      "pass": true
+    }
+  ],
+  "modes": [
+    {
+      "rows": [
+        {
+          "size": "Small",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button small ",
+                "top": 920.78,
+                "bottom": 944.78,
+                "left": 343,
+                "right": 439,
+                "width": 96,
+                "height": 24,
+                "centerX": 391,
+                "centerY": 932.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 924.78,
+                "bottom": 940.78,
+                "left": 352,
+                "right": 430,
+                "width": 78,
+                "height": 16,
+                "centerX": 391,
+                "centerY": 932.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 924.78,
+                "bottom": 940.78,
+                "left": 352,
+                "right": 430,
+                "width": 78,
+                "height": 16,
+                "centerX": 391,
+                "centerY": 932.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Small",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f41c0748f\" class=\"bui-button small \"><div class=\"text \"><div>Small</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button small ",
+                "top": 920.78,
+                "bottom": 944.78,
+                "left": 443,
+                "right": 562.95,
+                "width": 119.95,
+                "height": 24,
+                "centerX": 502.98,
+                "centerY": 932.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 924.78,
+                "bottom": 940.78,
+                "left": 452,
+                "right": 468,
+                "width": 16,
+                "height": 16,
+                "centerX": 460,
+                "centerY": 932.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 924.78,
+                "bottom": 940.78,
+                "left": 474,
+                "right": 553.95,
+                "width": 79.95,
+                "height": 16,
+                "centerX": 513.98,
+                "centerY": 932.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 924.78,
+                "bottom": 940.78,
+                "left": 474,
+                "right": 553.95,
+                "width": 79.95,
+                "height": 16,
+                "centerX": 513.98,
+                "centerY": 932.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Small with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f274c4dc1\" class=\"bui-button small \"><!--!--><i id=\"f6ee7aaf8\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f6f31ebc7\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Small with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon small ",
+                "top": 920.78,
+                "bottom": 944.78,
+                "left": 566.95,
+                "right": 590.95,
+                "width": 24,
+                "height": 24,
+                "centerX": 578.95,
+                "centerY": 932.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 924.78,
+                "bottom": 940.78,
+                "left": 570.95,
+                "right": 586.95,
+                "width": 16,
+                "height": 16,
+                "centerX": 578.95,
+                "centerY": 932.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f2170b09a\" class=\"bui-button icon small \"><!--!--><i id=\"f742a563e\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f36f08738\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        },
+        {
+          "size": "Medium",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button ",
+                "top": 950.78,
+                "bottom": 982.78,
+                "left": 343,
+                "right": 439,
+                "width": 96,
+                "height": 32,
+                "centerX": 391,
+                "centerY": 966.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 956.78,
+                "bottom": 976.78,
+                "left": 356,
+                "right": 426,
+                "width": 70,
+                "height": 20,
+                "centerX": 391,
+                "centerY": 966.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 956.78,
+                "bottom": 976.78,
+                "left": 356,
+                "right": 426,
+                "width": 70,
+                "height": 20,
+                "centerX": 391,
+                "centerY": 966.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Medium",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f60f783ea\" class=\"bui-button \"><div class=\"text \"><div>Medium</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button ",
+                "top": 950.78,
+                "bottom": 982.78,
+                "left": 443,
+                "right": 620.05,
+                "width": 177.05,
+                "height": 32,
+                "centerX": 531.52,
+                "centerY": 966.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 956.78,
+                "bottom": 976.78,
+                "left": 456,
+                "right": 476,
+                "width": 20,
+                "height": 20,
+                "centerX": 466,
+                "centerY": 966.78,
+                "display": "block",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 956.78,
+                "bottom": 976.78,
+                "left": 482,
+                "right": 607.05,
+                "width": 125.05,
+                "height": 20,
+                "centerX": 544.52,
+                "centerY": 966.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 956.78,
+                "bottom": 976.78,
+                "left": 482,
+                "right": 607.05,
+                "width": 125.05,
+                "height": 20,
+                "centerX": 544.52,
+                "centerY": 966.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Medium with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f6b7c6b06\" class=\"bui-button \"><!--!--><i id=\"f17aaac51\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f16f47a63\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Medium with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon ",
+                "top": 950.78,
+                "bottom": 982.78,
+                "left": 624.05,
+                "right": 656.05,
+                "width": 32,
+                "height": 32,
+                "centerX": 640.05,
+                "centerY": 966.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 956.78,
+                "bottom": 976.78,
+                "left": 630.05,
+                "right": 650.05,
+                "width": 20,
+                "height": 20,
+                "centerX": 640.05,
+                "centerY": 966.78,
+                "display": "block",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f5758a728\" class=\"bui-button icon \"><!--!--><i id=\"f40b8f82c\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f2ac15825\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        },
+        {
+          "size": "Large",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button large ",
+                "top": 988.78,
+                "bottom": 1028.78,
+                "left": 343,
+                "right": 439,
+                "width": 96,
+                "height": 40,
+                "centerX": 391,
+                "centerY": 1008.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 997.78,
+                "bottom": 1019.78,
+                "left": 360,
+                "right": 422,
+                "width": 62,
+                "height": 22,
+                "centerX": 391,
+                "centerY": 1008.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 997.78,
+                "bottom": 1019.78,
+                "left": 360,
+                "right": 422,
+                "width": 62,
+                "height": 22,
+                "centerX": 391,
+                "centerY": 1008.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Large",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f3d388f47\" class=\"bui-button large \"><div class=\"text \"><div>Large</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button large ",
+                "top": 988.78,
+                "bottom": 1028.78,
+                "left": 443,
+                "right": 628.95,
+                "width": 185.95,
+                "height": 40,
+                "centerX": 535.98,
+                "centerY": 1008.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 997.78,
+                "bottom": 1019.78,
+                "left": 460,
+                "right": 482,
+                "width": 22,
+                "height": 22,
+                "centerX": 471,
+                "centerY": 1008.78,
+                "display": "block",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 997.78,
+                "bottom": 1019.78,
+                "left": 488,
+                "right": 611.95,
+                "width": 123.95,
+                "height": 22,
+                "centerX": 549.98,
+                "centerY": 1008.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 997.78,
+                "bottom": 1019.78,
+                "left": 488,
+                "right": 611.95,
+                "width": 123.95,
+                "height": 22,
+                "centerX": 549.98,
+                "centerY": 1008.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Large with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f5489e2a2\" class=\"bui-button large \"><!--!--><i id=\"f2835177f\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f5316facf\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Large with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon large ",
+                "top": 988.78,
+                "bottom": 1028.78,
+                "left": 632.95,
+                "right": 672.95,
+                "width": 40,
+                "height": 40,
+                "centerX": 652.95,
+                "centerY": 1008.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 997.78,
+                "bottom": 1019.78,
+                "left": 641.95,
+                "right": 663.95,
+                "width": 22,
+                "height": 22,
+                "centerX": 652.95,
+                "centerY": 1008.78,
+                "display": "block",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f3214eb0d\" class=\"bui-button icon large \"><!--!--><i id=\"f6e1946ad\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f281e3a3f\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        }
+      ],
+      "iconSection": [
+        {
+          "button": {
+            "tag": "BUTTON",
+            "cls": "bui-button ",
+            "top": 830,
+            "bottom": 862,
+            "left": 343,
+            "right": 446.66,
+            "width": 103.66,
+            "height": 32,
+            "centerX": 394.83,
+            "centerY": 846,
+            "display": "inline-flex",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "verticalAlign": "middle"
+          },
+          "text": "Default",
+          "ariaLabel": null,
+          "html": "<button type=\"button\" id=\"f593462e4\" class=\"bui-button \"><!--!--><i id=\"f39a1b34\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f7c381d30\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Default</div></div></button>"
+        },
+        {
+          "button": {
+            "tag": "BUTTON",
+            "cls": "bui-button icon ",
+            "top": 830,
+            "bottom": 862,
+            "left": 450.55,
+            "right": 482.55,
+            "width": 32,
+            "height": 32,
+            "centerX": 466.55,
+            "centerY": 846,
+            "display": "inline-flex",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "verticalAlign": "middle"
+          },
+          "text": "",
+          "ariaLabel": null,
+          "html": "<button type=\"button\" id=\"f1648eeab\" class=\"bui-button icon \"><!--!--><i id=\"f131d8723\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f62506d5e\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>"
+        }
+      ],
+      "viewport": {
+        "width": 1240,
+        "documentWidth": 1240
+      },
+      "theme": "light",
+      "direction": "ltr",
+      "forcedColors": false,
+      "mode": "light-ltr",
+      "ax": {
+        "Small": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Small",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Medium": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Medium",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Large": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Large",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        }
+      },
+      "semanticExperiment": {
+        "Small": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Small",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Small with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Medium": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Medium",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Medium with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Large": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Large",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Large with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        }
+      },
+      "screenshot": "BLUENT-BUTTON-ICON-ALIGN-CHROME-SEMANTIC-CANDIDATE-LIGHT-LTR.png"
+    },
+    {
+      "rows": [
+        {
+          "size": "Small",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button small ",
+                "top": 79.78,
+                "bottom": 103.78,
+                "left": 801,
+                "right": 897,
+                "width": 96,
+                "height": 24,
+                "centerX": 849,
+                "centerY": 91.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 810,
+                "right": 888,
+                "width": 78,
+                "height": 16,
+                "centerX": 849,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 810,
+                "right": 888,
+                "width": 78,
+                "height": 16,
+                "centerX": 849,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Small",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f41c0748f\" class=\"bui-button small \"><div class=\"text \"><div>Small</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button small ",
+                "top": 79.78,
+                "bottom": 103.78,
+                "left": 677.05,
+                "right": 797,
+                "width": 119.95,
+                "height": 24,
+                "centerX": 737.02,
+                "centerY": 91.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 772,
+                "right": 788,
+                "width": 16,
+                "height": 16,
+                "centerX": 780,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 686.05,
+                "right": 766,
+                "width": 79.95,
+                "height": 16,
+                "centerX": 726.02,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 686.05,
+                "right": 766,
+                "width": 79.95,
+                "height": 16,
+                "centerX": 726.02,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Small with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f274c4dc1\" class=\"bui-button small \"><!--!--><i id=\"f6ee7aaf8\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f6f31ebc7\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Small with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon small ",
+                "top": 79.78,
+                "bottom": 103.78,
+                "left": 649.05,
+                "right": 673.05,
+                "width": 24,
+                "height": 24,
+                "centerX": 661.05,
+                "centerY": 91.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 653.05,
+                "right": 669.05,
+                "width": 16,
+                "height": 16,
+                "centerX": 661.05,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f2170b09a\" class=\"bui-button icon small \"><!--!--><i id=\"f742a563e\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f36f08738\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        },
+        {
+          "size": "Medium",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button ",
+                "top": 109.78,
+                "bottom": 141.78,
+                "left": 801,
+                "right": 897,
+                "width": 96,
+                "height": 32,
+                "centerX": 849,
+                "centerY": 125.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 814,
+                "right": 884,
+                "width": 70,
+                "height": 20,
+                "centerX": 849,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 814,
+                "right": 884,
+                "width": 70,
+                "height": 20,
+                "centerX": 849,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Medium",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f60f783ea\" class=\"bui-button \"><div class=\"text \"><div>Medium</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button ",
+                "top": 109.78,
+                "bottom": 141.78,
+                "left": 619.95,
+                "right": 797,
+                "width": 177.05,
+                "height": 32,
+                "centerX": 708.48,
+                "centerY": 125.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 764,
+                "right": 784,
+                "width": 20,
+                "height": 20,
+                "centerX": 774,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 632.95,
+                "right": 758,
+                "width": 125.05,
+                "height": 20,
+                "centerX": 695.48,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 632.95,
+                "right": 758,
+                "width": 125.05,
+                "height": 20,
+                "centerX": 695.48,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Medium with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f6b7c6b06\" class=\"bui-button \"><!--!--><i id=\"f17aaac51\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f16f47a63\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Medium with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon ",
+                "top": 109.78,
+                "bottom": 141.78,
+                "left": 583.95,
+                "right": 615.95,
+                "width": 32,
+                "height": 32,
+                "centerX": 599.95,
+                "centerY": 125.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 589.95,
+                "right": 609.95,
+                "width": 20,
+                "height": 20,
+                "centerX": 599.95,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f5758a728\" class=\"bui-button icon \"><!--!--><i id=\"f40b8f82c\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f2ac15825\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        },
+        {
+          "size": "Large",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button large ",
+                "top": 147.78,
+                "bottom": 187.78,
+                "left": 801,
+                "right": 897,
+                "width": 96,
+                "height": 40,
+                "centerX": 849,
+                "centerY": 167.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 818,
+                "right": 880,
+                "width": 62,
+                "height": 22,
+                "centerX": 849,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 818,
+                "right": 880,
+                "width": 62,
+                "height": 22,
+                "centerX": 849,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Large",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f3d388f47\" class=\"bui-button large \"><div class=\"text \"><div>Large</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button large ",
+                "top": 147.78,
+                "bottom": 187.78,
+                "left": 611.05,
+                "right": 797,
+                "width": 185.95,
+                "height": 40,
+                "centerX": 704.02,
+                "centerY": 167.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 758,
+                "right": 780,
+                "width": 22,
+                "height": 22,
+                "centerX": 769,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 628.05,
+                "right": 752,
+                "width": 123.95,
+                "height": 22,
+                "centerX": 690.02,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 628.05,
+                "right": 752,
+                "width": 123.95,
+                "height": 22,
+                "centerX": 690.02,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Large with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f5489e2a2\" class=\"bui-button large \"><!--!--><i id=\"f2835177f\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f5316facf\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Large with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon large ",
+                "top": 147.78,
+                "bottom": 187.78,
+                "left": 567.05,
+                "right": 607.05,
+                "width": 40,
+                "height": 40,
+                "centerX": 587.05,
+                "centerY": 167.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 576.05,
+                "right": 598.05,
+                "width": 22,
+                "height": 22,
+                "centerX": 587.05,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f3214eb0d\" class=\"bui-button icon large \"><!--!--><i id=\"f6e1946ad\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f281e3a3f\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        }
+      ],
+      "iconSection": [
+        {
+          "button": {
+            "tag": "BUTTON",
+            "cls": "bui-button ",
+            "top": -11,
+            "bottom": 21,
+            "left": 793.34,
+            "right": 897,
+            "width": 103.66,
+            "height": 32,
+            "centerX": 845.17,
+            "centerY": 5,
+            "display": "inline-flex",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "verticalAlign": "middle"
+          },
+          "text": "Default",
+          "ariaLabel": null,
+          "html": "<button type=\"button\" id=\"f593462e4\" class=\"bui-button \"><!--!--><i id=\"f39a1b34\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f7c381d30\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Default</div></div></button>"
+        },
+        {
+          "button": {
+            "tag": "BUTTON",
+            "cls": "bui-button icon ",
+            "top": -11,
+            "bottom": 21,
+            "left": 757.45,
+            "right": 789.45,
+            "width": 32,
+            "height": 32,
+            "centerX": 773.45,
+            "centerY": 5,
+            "display": "inline-flex",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "verticalAlign": "middle"
+          },
+          "text": "",
+          "ariaLabel": null,
+          "html": "<button type=\"button\" id=\"f1648eeab\" class=\"bui-button icon \"><!--!--><i id=\"f131d8723\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f62506d5e\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>"
+        }
+      ],
+      "viewport": {
+        "width": 1240,
+        "documentWidth": 1240
+      },
+      "theme": "dark",
+      "direction": "rtl",
+      "forcedColors": false,
+      "mode": "dark-rtl",
+      "ax": {
+        "Small": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Small",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Medium": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Medium",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Large": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Large",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        }
+      },
+      "semanticExperiment": {
+        "Small": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Small",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Small with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Medium": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Medium",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Medium with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Large": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Large",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Large with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        }
+      },
+      "screenshot": "BLUENT-BUTTON-ICON-ALIGN-CHROME-SEMANTIC-CANDIDATE-DARK-RTL.png"
+    },
+    {
+      "rows": [
+        {
+          "size": "Small",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button small ",
+                "top": 79.78,
+                "bottom": 103.78,
+                "left": 343,
+                "right": 439,
+                "width": 96,
+                "height": 24,
+                "centerX": 391,
+                "centerY": 91.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 352,
+                "right": 430,
+                "width": 78,
+                "height": 16,
+                "centerX": 391,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 352,
+                "right": 430,
+                "width": 78,
+                "height": 16,
+                "centerX": 391,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Small",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f41c0748f\" class=\"bui-button small \"><div class=\"text \"><div>Small</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button small ",
+                "top": 79.78,
+                "bottom": 103.78,
+                "left": 443,
+                "right": 562.95,
+                "width": 119.95,
+                "height": 24,
+                "centerX": 502.98,
+                "centerY": 91.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 452,
+                "right": 468,
+                "width": 16,
+                "height": 16,
+                "centerX": 460,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 474,
+                "right": 553.95,
+                "width": 79.95,
+                "height": 16,
+                "centerX": 513.98,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 474,
+                "right": 553.95,
+                "width": 79.95,
+                "height": 16,
+                "centerX": 513.98,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Small with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f274c4dc1\" class=\"bui-button small \"><!--!--><i id=\"f6ee7aaf8\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f6f31ebc7\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Small with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon small ",
+                "top": 79.78,
+                "bottom": 103.78,
+                "left": 566.95,
+                "right": 590.95,
+                "width": 24,
+                "height": 24,
+                "centerX": 578.95,
+                "centerY": 91.78,
+                "display": "flex",
+                "fontSize": "12px",
+                "lineHeight": "16px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 83.78,
+                "bottom": 99.78,
+                "left": 570.95,
+                "right": 586.95,
+                "width": 16,
+                "height": 16,
+                "centerX": 578.95,
+                "centerY": 91.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "16px",
+                "lineHeight": "16px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f2170b09a\" class=\"bui-button icon small \"><!--!--><i id=\"f742a563e\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f36f08738\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        },
+        {
+          "size": "Medium",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button ",
+                "top": 109.78,
+                "bottom": 141.78,
+                "left": 343,
+                "right": 439,
+                "width": 96,
+                "height": 32,
+                "centerX": 391,
+                "centerY": 125.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 356,
+                "right": 426,
+                "width": 70,
+                "height": 20,
+                "centerX": 391,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 356,
+                "right": 426,
+                "width": 70,
+                "height": 20,
+                "centerX": 391,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Medium",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f60f783ea\" class=\"bui-button \"><div class=\"text \"><div>Medium</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button ",
+                "top": 109.78,
+                "bottom": 141.78,
+                "left": 443,
+                "right": 620.05,
+                "width": 177.05,
+                "height": 32,
+                "centerX": 531.52,
+                "centerY": 125.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 456,
+                "right": 476,
+                "width": 20,
+                "height": 20,
+                "centerX": 466,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 482,
+                "right": 607.05,
+                "width": 125.05,
+                "height": 20,
+                "centerX": 544.52,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 482,
+                "right": 607.05,
+                "width": 125.05,
+                "height": 20,
+                "centerX": 544.52,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Medium with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f6b7c6b06\" class=\"bui-button \"><!--!--><i id=\"f17aaac51\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f16f47a63\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Medium with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon ",
+                "top": 109.78,
+                "bottom": 141.78,
+                "left": 624.05,
+                "right": 656.05,
+                "width": 32,
+                "height": 32,
+                "centerX": 640.05,
+                "centerY": 125.78,
+                "display": "flex",
+                "fontSize": "14px",
+                "lineHeight": "20px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 115.78,
+                "bottom": 135.78,
+                "left": 630.05,
+                "right": 650.05,
+                "width": 20,
+                "height": 20,
+                "centerX": 640.05,
+                "centerY": 125.78,
+                "display": "block",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "20px",
+                "lineHeight": "20px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f5758a728\" class=\"bui-button icon \"><!--!--><i id=\"f40b8f82c\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f2ac15825\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        },
+        {
+          "size": "Large",
+          "buttons": [
+            {
+              "kind": "text-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button large ",
+                "top": 147.78,
+                "bottom": 187.78,
+                "left": 343,
+                "right": 439,
+                "width": 96,
+                "height": 40,
+                "centerX": 391,
+                "centerY": 167.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": null,
+              "filled": null,
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 360,
+                "right": 422,
+                "width": 62,
+                "height": 22,
+                "centerX": 391,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 360,
+                "right": 422,
+                "width": 62,
+                "height": 22,
+                "centerX": 391,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Large",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f3d388f47\" class=\"bui-button large \"><div class=\"text \"><div>Large</div></div></button>",
+              "deltaIconText": null,
+              "deltaIconButton": null,
+              "deltaTextButton": 0,
+              "glyph": null
+            },
+            {
+              "kind": "icon-with-text",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button large ",
+                "top": 147.78,
+                "bottom": 187.78,
+                "left": 443,
+                "right": 628.95,
+                "width": 185.95,
+                "height": 40,
+                "centerX": 535.98,
+                "centerY": 167.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 460,
+                "right": 482,
+                "width": 22,
+                "height": 22,
+                "centerX": 471,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "text": {
+                "tag": "DIV",
+                "cls": "text ",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 488,
+                "right": 611.95,
+                "width": 123.95,
+                "height": 22,
+                "centerX": 549.98,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "label": {
+                "tag": "DIV",
+                "cls": "",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 488,
+                "right": 611.95,
+                "width": 123.95,
+                "height": 22,
+                "centerX": 549.98,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "visibleText": "Large with icon",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f5489e2a2\" class=\"bui-button large \"><!--!--><i id=\"f2835177f\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f5316facf\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Large with icon</div></div></button>",
+              "deltaIconText": 0,
+              "deltaIconButton": 0,
+              "deltaTextButton": 0,
+              "glyph": "\"\""
+            },
+            {
+              "kind": "icon-only",
+              "button": {
+                "tag": "BUTTON",
+                "cls": "bui-button icon large ",
+                "top": 147.78,
+                "bottom": 187.78,
+                "left": 632.95,
+                "right": 672.95,
+                "width": 40,
+                "height": 40,
+                "centerX": 652.95,
+                "centerY": 167.78,
+                "display": "flex",
+                "fontSize": "16px",
+                "lineHeight": "22px",
+                "verticalAlign": "middle"
+              },
+              "icon": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+                "top": 156.78,
+                "bottom": 178.78,
+                "left": 641.95,
+                "right": 663.95,
+                "width": 22,
+                "height": 22,
+                "centerX": 652.95,
+                "centerY": 167.78,
+                "display": "block",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "filled": {
+                "tag": "I",
+                "cls": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0,
+                "width": 0,
+                "height": 0,
+                "centerX": 0,
+                "centerY": 0,
+                "display": "none",
+                "fontSize": "22px",
+                "lineHeight": "22px",
+                "verticalAlign": "baseline"
+              },
+              "text": null,
+              "label": null,
+              "visibleText": "",
+              "ariaLabel": null,
+              "title": null,
+              "html": "<button type=\"button\" id=\"f3214eb0d\" class=\"bui-button icon large \"><!--!--><i id=\"f6e1946ad\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f281e3a3f\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>",
+              "deltaIconText": null,
+              "deltaIconButton": 0,
+              "deltaTextButton": null,
+              "glyph": "\"\""
+            }
+          ]
+        }
+      ],
+      "iconSection": [
+        {
+          "button": {
+            "tag": "BUTTON",
+            "cls": "bui-button ",
+            "top": -11,
+            "bottom": 21,
+            "left": 343,
+            "right": 446.66,
+            "width": 103.66,
+            "height": 32,
+            "centerX": 394.83,
+            "centerY": 5,
+            "display": "inline-flex",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "verticalAlign": "middle"
+          },
+          "text": "Default",
+          "ariaLabel": null,
+          "html": "<button type=\"button\" id=\"f593462e4\" class=\"bui-button \"><!--!--><i id=\"f39a1b34\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f7c381d30\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i><div class=\"text \"><div>Default</div></div></button>"
+        },
+        {
+          "button": {
+            "tag": "BUTTON",
+            "cls": "bui-button icon ",
+            "top": -11,
+            "bottom": 21,
+            "left": 450.55,
+            "right": 482.55,
+            "width": 32,
+            "height": 32,
+            "centerX": 466.55,
+            "centerY": 5,
+            "display": "inline-flex",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "verticalAlign": "middle"
+          },
+          "text": "",
+          "ariaLabel": null,
+          "html": "<button type=\"button\" id=\"f1648eeab\" class=\"bui-button icon \"><!--!--><i id=\"f131d8723\" class=\"bui-icon icon-ic_fluent_cursor_click_20_filled active-icon\"></i><!--!--><i id=\"f62506d5e\" class=\"bui-icon icon-ic_fluent_cursor_click_20_regular icon\"></i></button>"
+        }
+      ],
+      "viewport": {
+        "width": 1240,
+        "documentWidth": 1240
+      },
+      "theme": "light",
+      "direction": "ltr",
+      "forcedColors": true,
+      "mode": "forced-colors",
+      "ax": {
+        "Small": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Small",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Medium": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Medium",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Large": {
+          "text-only": [
+            {
+              "role": "button",
+              "name": "Large",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-with-text": [
+            {
+              "role": "button",
+              "name": " Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "icon-only": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        }
+      },
+      "semanticExperiment": {
+        "Small": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Small",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Small with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Small with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Medium": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Medium",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Medium with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Medium with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        },
+        "Large": {
+          "before": {
+            "text-only": [
+              {
+                "role": "button",
+                "name": "Large",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-with-text": [
+              {
+                "role": "button",
+                "name": " Large with icon",
+                "ignored": false,
+                "disabled": false
+              }
+            ],
+            "icon-only": [
+              {
+                "role": "button",
+                "name": "",
+                "ignored": false,
+                "disabled": false
+              }
+            ]
+          },
+          "textAfter": [
+            {
+              "role": "button",
+              "name": "Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "iconOnlyAfter": [
+            {
+              "role": "button",
+              "name": "Cursor-click example",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredText": [
+            {
+              "role": "button",
+              "name": " Large with icon",
+              "ignored": false,
+              "disabled": false
+            }
+          ],
+          "restoredOnly": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false,
+              "disabled": false
+            }
+          ]
+        }
+      },
+      "screenshot": "BLUENT-BUTTON-ICON-ALIGN-CHROME-SEMANTIC-CANDIDATE-FORCED-COLORS.png"
+    }
+  ]
+}

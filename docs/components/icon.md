@@ -27,6 +27,14 @@ Package: `Bluent.UI`
 
 The component inherits common Bluent `Class`, `Style`, `Id`, tooltip, and unmatched-attribute support.
 
+## SVG sizing and root attributes
+
+The Icon component has no Size parameter. FromSvg stores the supplied non-whitespace SVG string, and the renderer places that markup inside its outer span without parsing or normalizing the SVG root. It does not add or validate viewBox, width, height, or preserveAspectRatio. SVG sizing therefore depends on the supplied markup and surrounding CSS; the current source does not promise a normalized intrinsic size.
+
+Class is emitted on the source-kind host together with the component's generated classes. Style is emitted as supplied on that host; Icon does not merge generated size styles. AdditionalAttributes are forwarded to the outer span, img, or i element. For an image source, src is emitted after the common attributes. A static HtmlRenderer regression check covers SVG, image, and CSS roots: it observes one id/class/style each, preserves the caller's id, combines generated classes with the Class parameter, and uses the Class and Style parameters to replace their matching unmatched attributes. This check is serialized Blazor output, not browser DOM or published InteractiveServer evidence.
+
+No title or accessibility attributes are synthesized. Caller-supplied title, role, and aria attributes are forwarded to the host; an SVG title element must be present in the supplied SVG markup. The inherited Tooltip parameter uses Bluent's popover service and is not an automatic HTML title or accessible name. Exact browser and assistive-technology naming behavior depends on the markup and remains outside this source-only contract.
+
 ## IconDefinition
 
 `IconDefinition` is a readonly record struct containing a required regular `IconSource` and optional filled `IconSource`.
@@ -41,6 +49,12 @@ IconDefinition.FromImage(regularSource, filledSource?)
 
 When `IconVariant.Filled` is requested but the definition has no filled source, `GetSource` falls back to the regular source.
 
+### Bundled FluentIcons catalog coverage
+
+The generated `FluentIcons` catalog is built from the repository-bundled 20px Regular/Filled font map. The current snapshot contains 2,875 names: 2,819 have both assets, 8 are Regular-only, and 48 are Filled-only. This is a source inventory, not a claim that every upstream Fluent icon or size is available.
+
+For a Regular-only name, the generated definition has no separate Filled source, so a Filled request uses the Regular asset through `GetSource` fallback. For a Filled-only name, the generator places the only available Filled class in the required base-source slot and does not create a second Filled source; consequently both Regular and Filled requests render that same available Filled glyph. The generated identifier still names the icon concept, not a promise that the source has both visual styles. This one-source mapping is intentional current generator behavior, not a new public variant or a synthesized glyph. Consumers needing a visually distinct Regular/ Filled pair must supply a definition whose two sources actually exist.
+
 ## Rendering by source kind
 
 Current `Icon` rendering is source-kind dependent:
@@ -50,6 +64,8 @@ Current `Icon` rendering is source-kind dependent:
 - CSS-class source => `<i>` with the icon CSS class added to the component classes.
 
 Unsupported source kinds throw `ArgumentOutOfRangeException`.
+
+**Security boundary for custom SVG:** `IconDefinition.FromSvg(...)` renders the supplied string as markup. Only pass trusted, developer-controlled SVG. Do not pass user-submitted, database-sourced, or otherwise untrusted SVG unless it has first passed a separately reviewed SVG sanitizer/allow-list appropriate to your threat model. This API does not promise to sanitize SVG. CSS sizing is not a security control.
 
 ## Consumer guidance
 

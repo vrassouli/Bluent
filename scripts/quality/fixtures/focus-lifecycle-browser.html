@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>#552 Focus lifecycle independent browser experiment</title>
+<style>
+:root{font-family:Segoe UI, sans-serif;color-scheme:light dark}
+body{max-width:920px;margin:32px auto;padding:0 24px}
+button{margin:8px 6px;padding:10px 16px;font:inherit;border:1px solid #888;border-radius:5px;background:Canvas;color:CanvasText}
+[role="tablist"]{display:flex;gap:8px;padding:14px;border:1px solid #888;margin:12px 0}
+[role="tab"][aria-selected="true"]{font-weight:700;border-bottom:3px solid Highlight}
+:focus-visible{outline:3px solid Highlight;outline-offset:3px}
+#popup{padding:12px;border:1px solid #888;max-width:250px}
+</style></head><body>
+<h1>Independent Focus Lifecycle Research</h1>
+<p>This is not the Bluent product, not Fluent visual parity and not native assistive-technology validation.</p>
+<button id="before">Before</button>
+<div id="tabs" role="tablist" aria-label="Research tabs">
+<button role="tab" id="tab-a" aria-selected="true" tabindex="0">Selected A</button>
+<button role="tab" id="tab-b" aria-selected="false" tabindex="-1">Tab B</button>
+</div>
+<button id="after">After</button>
+<button id="trigger">Open research popup</button>
+<div id="popup" hidden><button id="menu-a">Menu action</button></div>
+<button id="outside">Outside button</button>
+<script>
+const root=document.getElementById('tabs'),popup=document.getElementById('popup'),trigger=document.getElementById('trigger');
+window.focusTrace=[];let selected='tab-a',menuOpen=false;
+const trace=(event,data={})=>window.focusTrace.push({event,active:document.activeElement?.id||null,...data});
+document.addEventListener('focusin',e=>trace('focusin',{target:e.target?.id||null,related:e.relatedTarget?.id||null}),true);
+document.addEventListener('focusout',e=>trace('focusout',{target:e.target?.id||null,related:e.relatedTarget?.id||null}),true);
+const entries=()=>[...root.querySelectorAll('button[role="tab"]')].filter(e=>e.isConnected&&!e.disabled&&!e.hidden);
+function rove(id){for(const e of entries())e.tabIndex=e.id===id?0:-1}
+root.addEventListener('focusin',e=>{if(e.target.matches('button[role="tab"]'))rove(e.target.id)});
+root.addEventListener('focusout',e=>{
+ if(e.relatedTarget&&root.contains(e.relatedTarget))return;
+ queueMicrotask(()=>{if(!root.contains(document.activeElement))rove(entries().some(e=>e.id===selected)?selected:entries()[0]?.id)});
+});
+root.addEventListener('keydown',e=>{
+ if(!['ArrowLeft','ArrowRight'].includes(e.key)||!e.target.matches('button[role="tab"]'))return;
+ e.preventDefault();const x=entries(),i=x.indexOf(e.target),rtl=getComputedStyle(root).direction==='rtl';
+ const d=e.key==='ArrowRight'?(rtl?-1:1):(rtl?1:-1);
+ x[(i+d+x.length)%x.length]?.focus();
+});
+root.addEventListener('click',e=>{
+ if(!e.target.matches('button[role="tab"]'))return;
+ selected=e.target.id;
+ for(const b of entries())b.setAttribute('aria-selected',String(b.id===selected));
+});
+window.removeFocusedTab=()=>{
+ document.getElementById('tab-b')?.remove();
+ queueMicrotask(()=>{if(!root.contains(document.activeElement))rove(entries().some(e=>e.id===selected)?selected:entries()[0]?.id)});
+};
+trigger.addEventListener('click',()=>{
+ menuOpen=true;popup.hidden=false;document.getElementById('menu-a').focus();trace('popup-open',{target:'menu-a'});
+});
+window.closeResearchPopup=()=>{
+ if(!menuOpen)return;
+ const inside=popup.contains(document.activeElement);menuOpen=false;popup.hidden=true;
+ if(inside&&trigger.isConnected){trigger.focus();trace('proposed-restore',{target:'trigger'})}
+ else trace('restore-rejected',{target:document.activeElement?.id||null});
+};
+popup.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();window.closeResearchPopup()}});
+window.researchState=()=>({
+ focus:document.activeElement?.id||null,selected,
+ roving:entries().map(e=>({id:e.id,tabIndex:e.tabIndex,selected:e.getAttribute('aria-selected')})),
+ dir:getComputedStyle(root).direction,forced:matchMedia('(forced-colors: active)').matches,
+ menuOpen,popupHidden:popup.hidden,trace:[...window.focusTrace]
+});
+</script></body></html>

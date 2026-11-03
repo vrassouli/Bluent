@@ -1,0 +1,4484 @@
+{
+  "schemaVersion": 1,
+  "auditIssue": 552,
+  "fluentReactPackage": "@fluentui/react-components",
+  "fluentReactVersion": "9.74.10",
+  "fluentReactIntegrity": "sha512-Guhlej7Rs7OdxiSn6DWHP8p4Elle+QIgmsIlXAruV9/ek1u+YnZFxW5EIeSYpyq/zXd+ujJ/PtQvi6g2oc4TLQ==",
+  "sourcePackageVersions": {
+    "@fluentui/react-badge": {
+      "name": "@fluentui/react-badge",
+      "version": "9.5.7",
+      "integrity": "sha512-f8enc5/aTjSZtfrZeDX+Tkcge2m8u4a/XI9eE15ow2HUiqn5vPqaU77jGW9h64yN1Bur+3eMHO31l+SifVhnpg==",
+      "umbrellaDeclaredRange": "^9.5.7"
+    },
+    "@fluentui/react-button": {
+      "name": "@fluentui/react-button",
+      "version": "9.11.2",
+      "integrity": "sha512-3kl5FnHagEQTM8b/nM4GlXVeqS5f+8ZNrs/C6K4jxQ9htzyPwfe4z1WZyhO9KPNqKueqRG1ym6FjyPf04Ms+Pw==",
+      "umbrellaDeclaredRange": "^9.11.2"
+    },
+    "@fluentui/react-checkbox": {
+      "name": "@fluentui/react-checkbox",
+      "version": "9.6.6",
+      "integrity": "sha512-VeJ6uSJR3g06Z6HH+kkGwOTQk7Pq8ZV4dT7P8cYAilqUGYuTmlpg591rz0koDc1n2Q9fYbZzc1D3SwS+8/Nnow==",
+      "umbrellaDeclaredRange": "^9.6.6"
+    },
+    "@fluentui/react-combobox": {
+      "name": "@fluentui/react-combobox",
+      "version": "9.17.8",
+      "integrity": "sha512-TyM+UwE7b5iFDcD89nEQX0Cghw+Ljs/1XKK8YKyhwGTJhqB4+KCN0/zJrBi0qupQvRYurlrp3wtPwwVeTLBGFw==",
+      "umbrellaDeclaredRange": "^9.17.8"
+    },
+    "@fluentui/react-field": {
+      "name": "@fluentui/react-field",
+      "version": "9.5.6",
+      "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+      "umbrellaDeclaredRange": "^9.5.6"
+    },
+    "@fluentui/react-icons": {
+      "name": "@fluentui/react-icons",
+      "version": "2.0.344",
+      "integrity": "sha512-pvEVFOUrrtmIglqdfhDVX6XT80a5z9kX+Tso6NAzgmkko8nlURhOzNwvZZlsCK4yQseH/4NQdYoN8ijO7IHdNw==",
+      "umbrellaDeclaredRange": null
+    },
+    "@fluentui/react-input": {
+      "name": "@fluentui/react-input",
+      "version": "9.8.8",
+      "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+      "umbrellaDeclaredRange": "^9.8.8"
+    },
+    "@fluentui/react-label": {
+      "name": "@fluentui/react-label",
+      "version": "9.4.6",
+      "integrity": "sha512-vbndaSBnG5N/uJ+hU081e9uXyo9VVjOq7nEEyLUq2UxbaYOm5VCYgw1CURwzWzD8nQrGwJ92mueHJp76HZevQw==",
+      "umbrellaDeclaredRange": "^9.4.6"
+    },
+    "@fluentui/react-link": {
+      "name": "@fluentui/react-link",
+      "version": "9.8.6",
+      "integrity": "sha512-xQAdO+If/1+X0UqMhrSteh5rBEsA+iIFBSSGOeee3W/wH8eOllsfzCLrdeUqYcyAainz9sk9xqiU4a2w18K5xg==",
+      "umbrellaDeclaredRange": "^9.8.6"
+    },
+    "@fluentui/react-radio": {
+      "name": "@fluentui/react-radio",
+      "version": "9.6.7",
+      "integrity": "sha512-7qRn2+P1fUVubzINAdvTd/fY0K+Cz1OmmN+pgYdwCxbdNck2hPOeQgFV6fyEdaN2MQmMYOTefs/nXW6k4l4Qhg==",
+      "umbrellaDeclaredRange": "^9.6.7"
+    },
+    "@fluentui/react-select": {
+      "name": "@fluentui/react-select",
+      "version": "9.5.7",
+      "integrity": "sha512-N2Nrn/x2fvJDJYa22J8hDxhpazhgIV4UxwrviKZJYeuK9KKHM88olvpu+131/KrGJobWUUGfgMf+UDHvEAiUTQ==",
+      "umbrellaDeclaredRange": "^9.5.7"
+    },
+    "@fluentui/react-slider": {
+      "name": "@fluentui/react-slider",
+      "version": "9.6.7",
+      "integrity": "sha512-/2pF4riy2wb+BmdEUZC0HaC1rMkSOAenIuRab0sSOI4cVqHUCzJkN9kllIYrvfdhhgWW1Ezqxzt6ZRChhYVTeA==",
+      "umbrellaDeclaredRange": "^9.6.7"
+    },
+    "@fluentui/react-spinbutton": {
+      "name": "@fluentui/react-spinbutton",
+      "version": "9.6.8",
+      "integrity": "sha512-X3KIii6nTIq6zFlPhX2gc47+bRvxq7QkcDavlv2/dRDnX+TO69ocR1rCMgILBAzf/Lg7g31ByjjPRLx4ofKwvA==",
+      "umbrellaDeclaredRange": "^9.6.8"
+    },
+    "@fluentui/react-switch": {
+      "name": "@fluentui/react-switch",
+      "version": "9.7.7",
+      "integrity": "sha512-JRXfA1VgObKlaDcpQWvu0EeCPi8Ik0KAjqDYHwvOh/8WIFaFC6wRt/+UaW0JLBrRSjnNJhTxY5k43eYjGk/qzQ==",
+      "umbrellaDeclaredRange": "^9.7.7"
+    }
+  },
+  "scope": "Explicit component Props/Slots names compared with Bluent direct + locally inherited C# parameter occurrences. Native HTML/React inherited props and external Bluent base-class members are not fully expanded. Exact names are not semantic/API equivalence.",
+  "families": [
+    {
+      "family": "Button",
+      "productIssue": 428,
+      "components": [
+        {
+          "name": "Button",
+          "sourceDirectCount": 22,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Button",
+              "package": "@fluentui/react-button",
+              "version": "9.11.2",
+              "integrity": "sha512-3kl5FnHagEQTM8b/nM4GlXVeqS5f+8ZNrs/C6K4jxQ9htzyPwfe4z1WZyhO9KPNqKueqRG1ym6FjyPf04Ms+Pw==",
+              "propsType": "ButtonProps",
+              "explicitPropNames": [
+                "appearance",
+                "disabled",
+                "disabledFocusable",
+                "iconPosition",
+                "shape",
+                "size"
+              ],
+              "slotsType": "ButtonSlots",
+              "explicitSlotNames": [
+                "icon",
+                "root"
+              ]
+            },
+            {
+              "component": "ToggleButton",
+              "package": "@fluentui/react-button",
+              "version": "9.11.2",
+              "integrity": "sha512-3kl5FnHagEQTM8b/nM4GlXVeqS5f+8ZNrs/C6K4jxQ9htzyPwfe4z1WZyhO9KPNqKueqRG1ym6FjyPf04Ms+Pw==",
+              "propsType": "ToggleButtonProps",
+              "explicitPropNames": [
+                "checked",
+                "defaultChecked",
+                "isAccessible"
+              ],
+              "slotsType": null,
+              "explicitSlotNames": []
+            },
+            {
+              "component": "SplitButton",
+              "package": "@fluentui/react-button",
+              "version": "9.11.2",
+              "integrity": "sha512-3kl5FnHagEQTM8b/nM4GlXVeqS5f+8ZNrs/C6K4jxQ9htzyPwfe4z1WZyhO9KPNqKueqRG1ym6FjyPf04Ms+Pw==",
+              "propsType": "SplitButtonProps",
+              "explicitPropNames": [],
+              "slotsType": "SplitButtonSlots",
+              "explicitSlotNames": [
+                "menuButton",
+                "primaryActionButton",
+                "root"
+              ]
+            },
+            {
+              "component": "CompoundButton",
+              "package": "@fluentui/react-button",
+              "version": "9.11.2",
+              "integrity": "sha512-3kl5FnHagEQTM8b/nM4GlXVeqS5f+8ZNrs/C6K4jxQ9htzyPwfe4z1WZyhO9KPNqKueqRG1ym6FjyPf04Ms+Pw==",
+              "propsType": "CompoundButtonProps",
+              "explicitPropNames": [],
+              "slotsType": "CompoundButtonSlots",
+              "explicitSlotNames": [
+                "contentContainer",
+                "secondaryContent"
+              ]
+            },
+            {
+              "component": "MenuButton",
+              "package": "@fluentui/react-button",
+              "version": "9.11.2",
+              "integrity": "sha512-3kl5FnHagEQTM8b/nM4GlXVeqS5f+8ZNrs/C6K4jxQ9htzyPwfe4z1WZyhO9KPNqKueqRG1ym6FjyPf04Ms+Pw==",
+              "propsType": "MenuButtonProps",
+              "explicitPropNames": [],
+              "slotsType": "MenuButtonSlots",
+              "explicitSlotNames": [
+                "menuIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Text",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 9,
+              "normalizedName": "text",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TextClass",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "textClass",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "SecondaryText",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "secondaryText",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Icon",
+              "kind": "value",
+              "csharpType": "IconDefinition?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "icon",
+              "spellingCandidates": [
+                {
+                  "name": "icon",
+                  "component": "Button",
+                  "package": "@fluentui/react-button",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Toggled",
+              "kind": "value",
+              "csharpType": "bool?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "toggled",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Rotated",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "rotated",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Orientation",
+              "kind": "value",
+              "csharpType": "Orientation",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "orientation",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ToggledChanged",
+              "kind": "event",
+              "csharpType": "EventCallback<bool>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 16,
+              "normalizedName": "toggledChanged",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnClick",
+              "kind": "event",
+              "csharpType": "EventCallback",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 17,
+              "normalizedName": "onClick",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Shape",
+              "kind": "value",
+              "csharpType": "ButtonShape",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 18,
+              "normalizedName": "shape",
+              "spellingCandidates": [
+                {
+                  "name": "shape",
+                  "component": "Button",
+                  "package": "@fluentui/react-button",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Appearance",
+              "kind": "value",
+              "csharpType": "ButtonAppearance",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 19,
+              "normalizedName": "appearance",
+              "spellingCandidates": [
+                {
+                  "name": "appearance",
+                  "component": "Button",
+                  "package": "@fluentui/react-button",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "ButtonSize",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 20,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Button",
+                  "package": "@fluentui/react-button",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Href",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 21,
+              "normalizedName": "href",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Badge",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 22,
+              "normalizedName": "badge",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BadgeHorizontalPosition",
+              "kind": "value",
+              "csharpType": "HorizontalSides",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 23,
+              "normalizedName": "badgeHorizontalPosition",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BadgeVerticalPosition",
+              "kind": "value",
+              "csharpType": "VerticalSides",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 24,
+              "normalizedName": "badgeVerticalPosition",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Dropdown",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 25,
+              "normalizedName": "dropdown",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ShowDropdownIndicator",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 26,
+              "normalizedName": "showDropdownIndicator",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Compact",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 27,
+              "normalizedName": "compact",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DropdownPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 28,
+              "normalizedName": "dropdownPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ParentPopover",
+              "kind": "cascading",
+              "csharpType": "Popover?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 29,
+              "normalizedName": "parentPopover",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Overflow",
+              "kind": "cascading",
+              "csharpType": "Overflow?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs",
+              "sourceLine": 30,
+              "normalizedName": "overflow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Separate Button, ToggleButton, SplitButton, CompoundButton and MenuButton are alternatives, not a one-to-one class mapping.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Icon",
+      "productIssue": 429,
+      "components": [
+        {
+          "name": "Icon",
+          "sourceDirectCount": 2,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [],
+          "parameters": [
+            {
+              "name": "Value",
+              "kind": "value",
+              "csharpType": "IconDefinition?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+              "sourceLine": 9,
+              "normalizedName": "value",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Variant",
+              "kind": "value",
+              "csharpType": "IconVariant",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/IconComponent/Icon.cs",
+              "sourceLine": 10,
+              "normalizedName": "variant",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Fluent React Icons is a named-icon catalogue, not a generic Icon(Value, Variant) wrapper.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Label",
+      "productIssue": 430,
+      "components": [
+        {
+          "name": "Label",
+          "sourceDirectCount": 6,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Label",
+              "package": "@fluentui/react-label",
+              "version": "9.4.6",
+              "integrity": "sha512-vbndaSBnG5N/uJ+hU081e9uXyo9VVjOq7nEEyLUq2UxbaYOm5VCYgw1CURwzWzD8nQrGwJ92mueHJp76HZevQw==",
+              "propsType": "LabelProps",
+              "explicitPropNames": [
+                "disabled",
+                "required",
+                "size",
+                "weight"
+              ],
+              "slotsType": "LabelSlots",
+              "explicitSlotNames": [
+                "required",
+                "root"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Text",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "text",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ForExpression",
+              "kind": "value",
+              "csharpType": "Expression<Func<object?>>?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "forExpression",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "RequiredSymbol",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "requiredSymbol",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Info",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "info",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "LabelSize",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Label",
+                  "package": "@fluentui/react-label",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Required",
+              "kind": "value",
+              "csharpType": "LabelRequiredState",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LabelComponent/Label.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "required",
+              "spellingCandidates": [
+                {
+                  "name": "required",
+                  "component": "Label",
+                  "package": "@fluentui/react-label",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "required",
+                  "component": "Label",
+                  "package": "@fluentui/react-label",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Name candidates only; semantic and behavioral review is pending.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Link",
+      "productIssue": 431,
+      "components": [
+        {
+          "name": "Link",
+          "sourceDirectCount": 4,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Link",
+              "package": "@fluentui/react-link",
+              "version": "9.8.6",
+              "integrity": "sha512-xQAdO+If/1+X0UqMhrSteh5rBEsA+iIFBSSGOeee3W/wH8eOllsfzCLrdeUqYcyAainz9sk9xqiU4a2w18K5xg==",
+              "propsType": "LinkProps",
+              "explicitPropNames": [
+                "appearance",
+                "disabled",
+                "disabledFocusable",
+                "inline"
+              ],
+              "slotsType": "LinkSlots",
+              "explicitSlotNames": [
+                "root"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Text",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "sourceLine": 9,
+              "normalizedName": "text",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Href",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "sourceLine": 10,
+              "normalizedName": "href",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Appearance",
+              "kind": "value",
+              "csharpType": "LinkAppearance",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "sourceLine": 11,
+              "normalizedName": "appearance",
+              "spellingCandidates": [
+                {
+                  "name": "appearance",
+                  "component": "Link",
+                  "package": "@fluentui/react-link",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnClick",
+              "kind": "event",
+              "csharpType": "EventCallback",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/LinkComponent/Link.cs",
+              "sourceLine": 12,
+              "normalizedName": "onClick",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Name candidates only; semantic and behavioral review is pending.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Badge",
+      "productIssue": 445,
+      "components": [
+        {
+          "name": "Badge",
+          "sourceDirectCount": 8,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Badge",
+              "package": "@fluentui/react-badge",
+              "version": "9.5.7",
+              "integrity": "sha512-f8enc5/aTjSZtfrZeDX+Tkcge2m8u4a/XI9eE15ow2HUiqn5vPqaU77jGW9h64yN1Bur+3eMHO31l+SifVhnpg==",
+              "propsType": "BadgeProps",
+              "explicitPropNames": [
+                "appearance",
+                "color",
+                "iconPosition",
+                "shape",
+                "size"
+              ],
+              "slotsType": "BadgeSlots",
+              "explicitSlotNames": [
+                "icon",
+                "root"
+              ]
+            },
+            {
+              "component": "CounterBadge",
+              "package": "@fluentui/react-badge",
+              "version": "9.5.7",
+              "integrity": "sha512-f8enc5/aTjSZtfrZeDX+Tkcge2m8u4a/XI9eE15ow2HUiqn5vPqaU77jGW9h64yN1Bur+3eMHO31l+SifVhnpg==",
+              "propsType": "CounterBadgeProps",
+              "explicitPropNames": [
+                "appearance",
+                "color",
+                "count",
+                "dot",
+                "overflowCount",
+                "shape",
+                "showZero"
+              ],
+              "slotsType": null,
+              "explicitSlotNames": []
+            },
+            {
+              "component": "PresenceBadge",
+              "package": "@fluentui/react-badge",
+              "version": "9.5.7",
+              "integrity": "sha512-f8enc5/aTjSZtfrZeDX+Tkcge2m8u4a/XI9eE15ow2HUiqn5vPqaU77jGW9h64yN1Bur+3eMHO31l+SifVhnpg==",
+              "propsType": "PresenceBadgeProps",
+              "explicitPropNames": [
+                "outOfOffice",
+                "status"
+              ],
+              "slotsType": null,
+              "explicitSlotNames": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Appearance",
+              "kind": "value",
+              "csharpType": "BadgeAppearance",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 8,
+              "normalizedName": "appearance",
+              "spellingCandidates": [
+                {
+                  "name": "appearance",
+                  "component": "Badge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "appearance",
+                  "component": "CounterBadge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "BadgeSize",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 9,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Badge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Shape",
+              "kind": "value",
+              "csharpType": "BadgeShape",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "shape",
+              "spellingCandidates": [
+                {
+                  "name": "shape",
+                  "component": "Badge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "shape",
+                  "component": "CounterBadge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Color",
+              "kind": "value",
+              "csharpType": "BadgeColor",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "color",
+              "spellingCandidates": [
+                {
+                  "name": "color",
+                  "component": "Badge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "color",
+                  "component": "CounterBadge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Icon",
+              "kind": "value",
+              "csharpType": "IconDefinition?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "icon",
+              "spellingCandidates": [
+                {
+                  "name": "icon",
+                  "component": "Badge",
+                  "package": "@fluentui/react-badge",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Text",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "text",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DropShadow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "dropShadow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AnimateShadow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/BadgeComponent/Badge.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "animateShadow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Name candidates only; semantic and behavioral review is pending.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "TextField",
+      "productIssue": 432,
+      "components": [
+        {
+          "name": "TextField",
+          "sourceDirectCount": 6,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Input",
+              "package": "@fluentui/react-input",
+              "version": "9.8.8",
+              "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+              "propsType": "InputProps",
+              "explicitPropNames": [
+                "appearance",
+                "children",
+                "defaultValue",
+                "onChange",
+                "size",
+                "type",
+                "value"
+              ],
+              "slotsType": "InputSlots",
+              "explicitSlotNames": [
+                "contentAfter",
+                "contentBefore",
+                "input",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Rows",
+              "kind": "value",
+              "csharpType": "int?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "sourceLine": 9,
+              "normalizedName": "rows",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ResizeTextarea",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "resizeTextarea",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "GainFocus",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "gainFocus",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DigitOnly",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "digitOnly",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AsciiDigits",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "asciiDigits",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ArabicToPersianConversion",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TextFieldComponent/TextField.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "arabicToPersianConversion",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Input is a primitive; Field is a separate label/validation wrapper.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "NumericField",
+      "productIssue": 433,
+      "components": [
+        {
+          "name": "NumericField",
+          "sourceDirectCount": 11,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "SpinButton",
+              "package": "@fluentui/react-spinbutton",
+              "version": "9.6.8",
+              "integrity": "sha512-X3KIii6nTIq6zFlPhX2gc47+bRvxq7QkcDavlv2/dRDnX+TO69ocR1rCMgILBAzf/Lg7g31ByjjPRLx4ofKwvA==",
+              "propsType": "SpinButtonProps",
+              "explicitPropNames": [
+                "appearance",
+                "defaultValue",
+                "displayValue",
+                "max",
+                "min",
+                "onChange",
+                "precision",
+                "size",
+                "step",
+                "stepPage",
+                "value"
+              ],
+              "slotsType": "SpinButtonSlots",
+              "explicitSlotNames": [
+                "decrementButton",
+                "incrementButton",
+                "input",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "ParsingErrorMessage",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 25,
+              "normalizedName": "parsingErrorMessage",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "MinimumErrorMessage",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 28,
+              "normalizedName": "minimumErrorMessage",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "MaximumErrorMessage",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 29,
+              "normalizedName": "maximumErrorMessage",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OverflowErrorMessage",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 30,
+              "normalizedName": "overflowErrorMessage",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "GainFocus",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 31,
+              "normalizedName": "gainFocus",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Format",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 32,
+              "normalizedName": "format",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Min",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 33,
+              "normalizedName": "min",
+              "spellingCandidates": [
+                {
+                  "name": "min",
+                  "component": "SpinButton",
+                  "package": "@fluentui/react-spinbutton",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Max",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 34,
+              "normalizedName": "max",
+              "spellingCandidates": [
+                {
+                  "name": "max",
+                  "component": "SpinButton",
+                  "package": "@fluentui/react-spinbutton",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Step",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 35,
+              "normalizedName": "step",
+              "spellingCandidates": [
+                {
+                  "name": "step",
+                  "component": "SpinButton",
+                  "package": "@fluentui/react-spinbutton",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnBlur",
+              "kind": "event",
+              "csharpType": "EventCallback",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 36,
+              "normalizedName": "onBlur",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnFocus",
+              "kind": "event",
+              "csharpType": "EventCallback",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+              "sourceLine": 37,
+              "normalizedName": "onFocus",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "SpinButton",
+                  "package": "@fluentui/react-spinbutton",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "SpinButton is the closest numeric control; Field is a separate wrapper.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Checkbox",
+      "productIssue": 434,
+      "components": [
+        {
+          "name": "Checkbox",
+          "sourceDirectCount": 7,
+          "sourceLocalInheritedCount": 2,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Checkbox",
+              "package": "@fluentui/react-checkbox",
+              "version": "9.6.6",
+              "integrity": "sha512-VeJ6uSJR3g06Z6HH+kkGwOTQk7Pq8ZV4dT7P8cYAilqUGYuTmlpg591rz0koDc1n2Q9fYbZzc1D3SwS+8/Nnow==",
+              "propsType": "CheckboxProps",
+              "explicitPropNames": [
+                "checked",
+                "children",
+                "defaultChecked",
+                "labelPosition",
+                "onChange",
+                "shape",
+                "size"
+              ],
+              "slotsType": "CheckboxSlots",
+              "explicitSlotNames": [
+                "indicator",
+                "input",
+                "label",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Label",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "label",
+              "spellingCandidates": [
+                {
+                  "name": "label",
+                  "component": "Checkbox",
+                  "package": "@fluentui/react-checkbox",
+                  "memberKind": "slot"
+                },
+                {
+                  "name": "label",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "UncheckedLabel",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "uncheckedLabel",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "IndeterminateLabel",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "indeterminateLabel",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Required",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "required",
+              "spellingCandidates": [
+                {
+                  "name": "required",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Circular",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "circular",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "CheckboxSize",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Checkbox",
+                  "package": "@fluentui/react-checkbox",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "LabelPosition",
+              "kind": "value",
+              "csharpType": "LabelPosition",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 16,
+              "normalizedName": "labelPosition",
+              "spellingCandidates": [
+                {
+                  "name": "labelPosition",
+                  "component": "Checkbox",
+                  "package": "@fluentui/react-checkbox",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Name candidates only; semantic and behavioral review is pending.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Switch",
+      "productIssue": 435,
+      "components": [
+        {
+          "name": "Switch",
+          "sourceDirectCount": 0,
+          "sourceLocalInheritedCount": 9,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Switch",
+              "package": "@fluentui/react-switch",
+              "version": "9.7.7",
+              "integrity": "sha512-JRXfA1VgObKlaDcpQWvu0EeCPi8Ik0KAjqDYHwvOh/8WIFaFC6wRt/+UaW0JLBrRSjnNJhTxY5k43eYjGk/qzQ==",
+              "propsType": "SwitchProps",
+              "explicitPropNames": [
+                "checked",
+                "defaultChecked",
+                "disabledFocusable",
+                "labelPosition",
+                "onChange",
+                "size"
+              ],
+              "slotsType": "SwitchSlots",
+              "explicitSlotNames": [
+                "indicator",
+                "input",
+                "label",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Label",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "label",
+              "spellingCandidates": [
+                {
+                  "name": "label",
+                  "component": "Switch",
+                  "package": "@fluentui/react-switch",
+                  "memberKind": "slot"
+                },
+                {
+                  "name": "label",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "UncheckedLabel",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "uncheckedLabel",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "IndeterminateLabel",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "indeterminateLabel",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Required",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "required",
+              "spellingCandidates": [
+                {
+                  "name": "required",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Circular",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "circular",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "CheckboxSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Switch",
+                  "package": "@fluentui/react-switch",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "LabelPosition",
+              "kind": "value",
+              "csharpType": "LabelPosition",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/CheckBoxComponent/Checkbox.razor.cs",
+              "sourceLine": 16,
+              "normalizedName": "labelPosition",
+              "spellingCandidates": [
+                {
+                  "name": "labelPosition",
+                  "component": "Switch",
+                  "package": "@fluentui/react-switch",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Name candidates only; semantic and behavioral review is pending.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "RadioGroup",
+      "productIssue": 436,
+      "components": [
+        {
+          "name": "RadioGroup",
+          "sourceDirectCount": 4,
+          "sourceLocalInheritedCount": 2,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "RadioGroup",
+              "package": "@fluentui/react-radio",
+              "version": "9.6.7",
+              "integrity": "sha512-7qRn2+P1fUVubzINAdvTd/fY0K+Cz1OmmN+pgYdwCxbdNck2hPOeQgFV6fyEdaN2MQmMYOTefs/nXW6k4l4Qhg==",
+              "propsType": "RadioGroupProps",
+              "explicitPropNames": [
+                "defaultValue",
+                "disabled",
+                "layout",
+                "name",
+                "onChange",
+                "required",
+                "value"
+              ],
+              "slotsType": "RadioGroupSlots",
+              "explicitSlotNames": [
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "ChildContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "childContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Label",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "sourceLine": 11,
+              "normalizedName": "label",
+              "spellingCandidates": [
+                {
+                  "name": "label",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ItemsLabelPosition",
+              "kind": "value",
+              "csharpType": "LabelPosition",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "sourceLine": 12,
+              "normalizedName": "itemsLabelPosition",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Orientation",
+              "kind": "value",
+              "csharpType": "Orientation",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "orientation",
+              "spellingCandidates": [
+                {
+                  "name": "orientation",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        },
+        {
+          "name": "Radio",
+          "sourceDirectCount": 3,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Radio",
+              "package": "@fluentui/react-radio",
+              "version": "9.6.7",
+              "integrity": "sha512-7qRn2+P1fUVubzINAdvTd/fY0K+Cz1OmmN+pgYdwCxbdNck2hPOeQgFV6fyEdaN2MQmMYOTefs/nXW6k4l4Qhg==",
+              "propsType": "RadioProps",
+              "explicitPropNames": [
+                "disabled",
+                "labelPosition",
+                "onChange",
+                "value"
+              ],
+              "slotsType": "RadioSlots",
+              "explicitSlotNames": [
+                "indicator",
+                "input",
+                "label",
+                "root"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "RadioGroup",
+              "kind": "cascading",
+              "csharpType": "RadioGroup<TValue>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+              "sourceLine": 7,
+              "normalizedName": "radioGroup",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Value",
+              "kind": "value",
+              "csharpType": "TValue",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+              "sourceLine": 8,
+              "normalizedName": "value",
+              "spellingCandidates": [
+                {
+                  "name": "value",
+                  "component": "Radio",
+                  "package": "@fluentui/react-radio",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Label",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RadioGroupComponent/Radio.razor.cs",
+              "sourceLine": 9,
+              "normalizedName": "label",
+              "spellingCandidates": [
+                {
+                  "name": "label",
+                  "component": "Radio",
+                  "package": "@fluentui/react-radio",
+                  "memberKind": "slot"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "RadioGroup and Radio are separate components.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "SelectField",
+      "productIssue": 437,
+      "components": [
+        {
+          "name": "SelectField",
+          "sourceDirectCount": 1,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Select",
+              "package": "@fluentui/react-select",
+              "version": "9.5.7",
+              "integrity": "sha512-N2Nrn/x2fvJDJYa22J8hDxhpazhgIV4UxwrviKZJYeuK9KKHM88olvpu+131/KrGJobWUUGfgMf+UDHvEAiUTQ==",
+              "propsType": "SelectProps",
+              "explicitPropNames": [
+                "appearance",
+                "onChange",
+                "size"
+              ],
+              "slotsType": "SelectSlots",
+              "explicitSlotNames": [
+                "icon",
+                "root",
+                "select"
+              ]
+            },
+            {
+              "component": "Dropdown",
+              "package": "@fluentui/react-combobox",
+              "version": "9.17.8",
+              "integrity": "sha512-TyM+UwE7b5iFDcD89nEQX0Cghw+Ljs/1XKK8YKyhwGTJhqB4+KCN0/zJrBi0qupQvRYurlrp3wtPwwVeTLBGFw==",
+              "propsType": "DropdownProps",
+              "explicitPropNames": [],
+              "slotsType": "DropdownSlots",
+              "explicitSlotNames": [
+                "button",
+                "clearButton",
+                "expandIcon",
+                "listbox",
+                "root"
+              ]
+            },
+            {
+              "component": "Combobox",
+              "package": "@fluentui/react-combobox",
+              "version": "9.17.8",
+              "integrity": "sha512-TyM+UwE7b5iFDcD89nEQX0Cghw+Ljs/1XKK8YKyhwGTJhqB4+KCN0/zJrBi0qupQvRYurlrp3wtPwwVeTLBGFw==",
+              "propsType": "ComboboxProps",
+              "explicitPropNames": [
+                "children",
+                "freeform"
+              ],
+              "slotsType": "ComboboxSlots",
+              "explicitSlotNames": [
+                "clearIcon",
+                "expandIcon",
+                "input",
+                "listbox",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "ChildContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor.cs",
+              "sourceLine": 10,
+              "normalizedName": "childContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Select",
+                  "package": "@fluentui/react-select",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Select, Dropdown and Combobox have distinct interaction models.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "DateField",
+      "productIssue": 438,
+      "components": [
+        {
+          "name": "DateField",
+          "sourceDirectCount": 7,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Input",
+              "package": "@fluentui/react-input",
+              "version": "9.8.8",
+              "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+              "propsType": "InputProps",
+              "explicitPropNames": [
+                "appearance",
+                "children",
+                "defaultValue",
+                "onChange",
+                "size",
+                "type",
+                "value"
+              ],
+              "slotsType": "InputSlots",
+              "explicitSlotNames": [
+                "contentAfter",
+                "contentBefore",
+                "input",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Culture",
+              "kind": "value",
+              "csharpType": "CultureInfo",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 24,
+              "normalizedName": "culture",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Mode",
+              "kind": "value",
+              "csharpType": "CalendarMode",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 25,
+              "normalizedName": "mode",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DateClass",
+              "kind": "value",
+              "csharpType": "Func<DateTime, string>?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 26,
+              "normalizedName": "dateClass",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Max",
+              "kind": "value",
+              "csharpType": "DateTime?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 27,
+              "normalizedName": "max",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Min",
+              "kind": "value",
+              "csharpType": "DateTime?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 28,
+              "normalizedName": "min",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayCalendar",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 29,
+              "normalizedName": "displayCalendar",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ParsingErrorMessage",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/DateFieldComponent/DateField.razor.cs",
+              "sourceLine": 35,
+              "normalizedName": "parsingErrorMessage",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "No dedicated DatePicker export in this pinned umbrella; Input and Field are primitives only.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "TimeField",
+      "productIssue": 439,
+      "components": [
+        {
+          "name": "TimeField",
+          "sourceDirectCount": 3,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Input",
+              "package": "@fluentui/react-input",
+              "version": "9.8.8",
+              "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+              "propsType": "InputProps",
+              "explicitPropNames": [
+                "appearance",
+                "children",
+                "defaultValue",
+                "onChange",
+                "size",
+                "type",
+                "value"
+              ],
+              "slotsType": "InputSlots",
+              "explicitSlotNames": [
+                "contentAfter",
+                "contentBefore",
+                "input",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "ParsingErrorMessage",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs",
+              "sourceLine": 18,
+              "normalizedName": "parsingErrorMessage",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Seconds",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs",
+              "sourceLine": 19,
+              "normalizedName": "seconds",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Culture",
+              "kind": "value",
+              "csharpType": "CultureInfo",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/TimeFieldComponent/TimeField.razor.cs",
+              "sourceLine": 20,
+              "normalizedName": "culture",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                },
+                {
+                  "name": "size",
+                  "component": "Field",
+                  "package": "@fluentui/react-field",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "No dedicated TimePicker export in this pinned umbrella; Input and Field are primitives only.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "MaskedField",
+      "productIssue": 440,
+      "components": [
+        {
+          "name": "MaskedField",
+          "sourceDirectCount": 3,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Input",
+              "package": "@fluentui/react-input",
+              "version": "9.8.8",
+              "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+              "propsType": "InputProps",
+              "explicitPropNames": [
+                "appearance",
+                "children",
+                "defaultValue",
+                "onChange",
+                "size",
+                "type",
+                "value"
+              ],
+              "slotsType": "InputSlots",
+              "explicitSlotNames": [
+                "contentAfter",
+                "contentBefore",
+                "input",
+                "root"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Mask",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+              "sourceLine": 16,
+              "normalizedName": "mask",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AsciiDigits",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+              "sourceLine": 17,
+              "normalizedName": "asciiDigits",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ArabicToPersianConversion",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/MaskedFieldComponent/MaskedField.razor.cs",
+              "sourceLine": 18,
+              "normalizedName": "arabicToPersianConversion",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "No dedicated masked-input export in this pinned umbrella; Input is a primitive only.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "OtpField",
+      "productIssue": 441,
+      "components": [
+        {
+          "name": "OtpField",
+          "sourceDirectCount": 3,
+          "sourceLocalInheritedCount": 6,
+          "externalFrameworkBoundary": [
+            "InputBase<TValue>"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Input",
+              "package": "@fluentui/react-input",
+              "version": "9.8.8",
+              "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+              "propsType": "InputProps",
+              "explicitPropNames": [
+                "appearance",
+                "children",
+                "defaultValue",
+                "onChange",
+                "size",
+                "type",
+                "value"
+              ],
+              "slotsType": "InputSlots",
+              "explicitSlotNames": [
+                "contentAfter",
+                "contentBefore",
+                "input",
+                "root"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Length",
+              "kind": "value",
+              "csharpType": "int",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs",
+              "sourceLine": 13,
+              "normalizedName": "length",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Password",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "password",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AutoSubmit",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/OtpFieldComponent/OtpField.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "autoSubmit",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "StartAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "startAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "EndAddon",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "endAddon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Size",
+              "kind": "value",
+              "csharpType": "FieldSize",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "size",
+              "spellingCandidates": [
+                {
+                  "name": "size",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "BindValueEvent",
+              "kind": "value",
+              "csharpType": "string",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "bindValueEvent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 16,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+              "sourceLine": 17,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "No dedicated OTP export in this pinned umbrella; Input is a primitive only.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "Slider",
+      "productIssue": 442,
+      "components": [
+        {
+          "name": "Slider",
+          "sourceDirectCount": 5,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Slider",
+              "package": "@fluentui/react-slider",
+              "version": "9.6.7",
+              "integrity": "sha512-/2pF4riy2wb+BmdEUZC0HaC1rMkSOAenIuRab0sSOI4cVqHUCzJkN9kllIYrvfdhhgWW1Ezqxzt6ZRChhYVTeA==",
+              "propsType": "SliderProps",
+              "explicitPropNames": [
+                "defaultValue",
+                "disabled",
+                "max",
+                "min",
+                "onChange",
+                "size",
+                "step",
+                "value",
+                "vertical"
+              ],
+              "slotsType": "SliderSlots",
+              "explicitSlotNames": [
+                "input",
+                "rail",
+                "root",
+                "thumb"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Min",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "sourceLine": 24,
+              "normalizedName": "min",
+              "spellingCandidates": [
+                {
+                  "name": "min",
+                  "component": "Slider",
+                  "package": "@fluentui/react-slider",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Max",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "sourceLine": 25,
+              "normalizedName": "max",
+              "spellingCandidates": [
+                {
+                  "name": "max",
+                  "component": "Slider",
+                  "package": "@fluentui/react-slider",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Value",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "sourceLine": 26,
+              "normalizedName": "value",
+              "spellingCandidates": [
+                {
+                  "name": "value",
+                  "component": "Slider",
+                  "package": "@fluentui/react-slider",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ValueChanged",
+              "kind": "event",
+              "csharpType": "EventCallback<TValue?>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "sourceLine": 28,
+              "normalizedName": "valueChanged",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ThumbSize",
+              "kind": "value",
+              "csharpType": "int?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/SliderComponent/Slider.razor.cs",
+              "sourceLine": 32,
+              "normalizedName": "thumbSize",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "Name candidates only; semantic and behavioral review is pending.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "RangeSlider",
+      "productIssue": 443,
+      "components": [
+        {
+          "name": "RangeSlider",
+          "sourceDirectCount": 5,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Slider",
+              "package": "@fluentui/react-slider",
+              "version": "9.6.7",
+              "integrity": "sha512-/2pF4riy2wb+BmdEUZC0HaC1rMkSOAenIuRab0sSOI4cVqHUCzJkN9kllIYrvfdhhgWW1Ezqxzt6ZRChhYVTeA==",
+              "propsType": "SliderProps",
+              "explicitPropNames": [
+                "defaultValue",
+                "disabled",
+                "max",
+                "min",
+                "onChange",
+                "size",
+                "step",
+                "value",
+                "vertical"
+              ],
+              "slotsType": "SliderSlots",
+              "explicitSlotNames": [
+                "input",
+                "rail",
+                "root",
+                "thumb"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Min",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "sourceLine": 21,
+              "normalizedName": "min",
+              "spellingCandidates": [
+                {
+                  "name": "min",
+                  "component": "Slider",
+                  "package": "@fluentui/react-slider",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Max",
+              "kind": "value",
+              "csharpType": "TValue?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "sourceLine": 22,
+              "normalizedName": "max",
+              "spellingCandidates": [
+                {
+                  "name": "max",
+                  "component": "Slider",
+                  "package": "@fluentui/react-slider",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Value",
+              "kind": "value",
+              "csharpType": "ValueRange<TValue>?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "sourceLine": 23,
+              "normalizedName": "value",
+              "spellingCandidates": [
+                {
+                  "name": "value",
+                  "component": "Slider",
+                  "package": "@fluentui/react-slider",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ValueChanged",
+              "kind": "event",
+              "csharpType": "EventCallback<ValueRange<TValue>?>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "sourceLine": 24,
+              "normalizedName": "valueChanged",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ThumbSize",
+              "kind": "value",
+              "csharpType": "int?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/RangeSliderComponent/RangeSlider.razor.cs",
+              "sourceLine": 25,
+              "normalizedName": "thumbSize",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "No dedicated dual-thumb RangeSlider export; single Slider is not equivalent.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    },
+    {
+      "family": "FileSelect",
+      "productIssue": 444,
+      "components": [
+        {
+          "name": "FileSelect",
+          "sourceDirectCount": 12,
+          "sourceLocalInheritedCount": 8,
+          "externalFrameworkBoundary": [
+            "ComponentBase"
+          ],
+          "upstreamComparators": [
+            {
+              "component": "Input",
+              "package": "@fluentui/react-input",
+              "version": "9.8.8",
+              "integrity": "sha512-yzjYbx769CIY3jtqZ0cLSNf9MKqgR9OmBl1YRov3Sr7afx871aFx4OMbF0obCFvfn5g0yXPZYy1XIc0fRVJQ0Q==",
+              "propsType": "InputProps",
+              "explicitPropNames": [
+                "appearance",
+                "children",
+                "defaultValue",
+                "onChange",
+                "size",
+                "type",
+                "value"
+              ],
+              "slotsType": "InputSlots",
+              "explicitSlotNames": [
+                "contentAfter",
+                "contentBefore",
+                "input",
+                "root"
+              ]
+            },
+            {
+              "component": "Field",
+              "package": "@fluentui/react-field",
+              "version": "9.5.6",
+              "integrity": "sha512-UcjhJXdjlEBBkX6vQk4zmdStyLojcWGuYY8YXiwYpeZOgs3Y2eYq+QDov/1pAWUCUIFaJz+ql4QZb+J3rx5UZw==",
+              "propsType": "FieldProps",
+              "explicitPropNames": [
+                "children",
+                "orientation",
+                "required",
+                "size",
+                "validationState"
+              ],
+              "slotsType": "FieldSlots",
+              "explicitSlotNames": [
+                "hint",
+                "label",
+                "root",
+                "validationMessage",
+                "validationMessageIcon"
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "Text",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 14,
+              "normalizedName": "text",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Icon",
+              "kind": "value",
+              "csharpType": "IconDefinition?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 15,
+              "normalizedName": "icon",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Accept",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 16,
+              "normalizedName": "accept",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "ShowFileInfo",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 17,
+              "normalizedName": "showFileInfo",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AllowRemove",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 18,
+              "normalizedName": "allowRemove",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Disabled",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 19,
+              "normalizedName": "disabled",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Appearance",
+              "kind": "value",
+              "csharpType": "ButtonAppearance",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 20,
+              "normalizedName": "appearance",
+              "spellingCandidates": [
+                {
+                  "name": "appearance",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Shape",
+              "kind": "value",
+              "csharpType": "ButtonShape",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 21,
+              "normalizedName": "shape",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnChange",
+              "kind": "event",
+              "csharpType": "EventCallback<IEnumerable<SelectedFile>>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 22,
+              "normalizedName": "onChange",
+              "spellingCandidates": [
+                {
+                  "name": "onChange",
+                  "component": "Input",
+                  "package": "@fluentui/react-input",
+                  "memberKind": "prop"
+                }
+              ],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnFileSelected",
+              "kind": "event",
+              "csharpType": "EventCallback<SelectedFile>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 23,
+              "normalizedName": "onFileSelected",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "OnFileRemoved",
+              "kind": "event",
+              "csharpType": "EventCallback<SelectedFile>",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 24,
+              "normalizedName": "onFileRemoved",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "MaxFiles",
+              "kind": "value",
+              "csharpType": "int",
+              "origin": "declared",
+              "sourceFile": "src/Bluent.UI/Components/FileSelectComponent/FileSelect.razor.cs",
+              "sourceLine": 25,
+              "normalizedName": "maxFiles",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Tooltip",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "tooltip",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipContent",
+              "kind": "slot",
+              "csharpType": "RenderFragment?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "tooltipContent",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipPlacement",
+              "kind": "value",
+              "csharpType": "Placement",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 11,
+              "normalizedName": "tooltipPlacement",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "TooltipAppearance",
+              "kind": "value",
+              "csharpType": "PopoverAppearance",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 12,
+              "normalizedName": "tooltipAppearance",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "DisplayTooltipArrow",
+              "kind": "value",
+              "csharpType": "bool",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.UI/Components/BluentUiComponentBase.cs",
+              "sourceLine": 13,
+              "normalizedName": "displayTooltipArrow",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "AdditionalAttributes",
+              "kind": "value",
+              "csharpType": "Dictionary<string, object>?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 8,
+              "normalizedName": "additionalAttributes",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Class",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 9,
+              "normalizedName": "class",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            },
+            {
+              "name": "Style",
+              "kind": "value",
+              "csharpType": "string?",
+              "origin": "local_inherited",
+              "sourceFile": "src/Bluent.Core/BluentComponentBase.cs",
+              "sourceLine": 10,
+              "normalizedName": "style",
+              "spellingCandidates": [],
+              "comparisonStatus": "not_reviewed",
+              "featureSupport": "not_inferred"
+            }
+          ]
+        }
+      ],
+      "note": "No dedicated file-upload/FileSelect export; native Input type=file is a primitive only.",
+      "apiEquivalence": "not_reviewed",
+      "designApproval": "pending",
+      "parityAccepted": false
+    }
+  ],
+  "totals": {
+    "families": 18,
+    "components": 19,
+    "sourceParameterOccurrences": 239,
+    "parametersWithAtLeastOneNameCandidate": 42,
+    "parametersWithoutNameCandidate": 197,
+    "approvedMappings": 0
+  },
+  "parityAccepted": false,
+  "snapshotSha256": "cc2ce26fa92bf3a873cf051cd5019b2ab80abc8497b59cfe046473400cdff0a4"
+}

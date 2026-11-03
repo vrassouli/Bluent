@@ -1,0 +1,3836 @@
+{
+  "issue": 552,
+  "sourceRef": "8141cd77",
+  "engine": "chrome",
+  "host": "original unchanged Bluent WebAssembly Demo with Chrome/Edge native CDP key events",
+  "status": "Actual Tab/Arrow/Enter/Space browser observations; NOT Fluent parity, OS screen reader or design approval",
+  "checks": [
+    {
+      "name": "light-ltr tab actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab native focus is available",
+      "pass": true
+    },
+    {
+      "name": "light-ltr native Enter selects second and Space restores first",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab native pointer selection changes source selected class",
+      "pass": true
+    },
+    {
+      "name": "light-ltr tab native pointer reselect restores first tab",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "light-ltr nav group click expands despite generic AX role",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "light-ltr accordion native pointer expands parent despite absent header ARIA",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-disabled actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-disabled real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-disabled real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-disabled original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-enabled actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-enabled real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-enabled real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "light-ltr menu-enabled original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab native focus is available",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl native Enter selects second and Space restores first",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab native pointer selection changes source selected class",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl tab native pointer reselect restores first tab",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl nav group click expands despite generic AX role",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl accordion native pointer expands parent despite absent header ARIA",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-disabled actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-disabled real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-disabled real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-disabled original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-enabled actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-enabled real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-enabled real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl menu-enabled original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab native focus is available",
+      "pass": true
+    },
+    {
+      "name": "forced-colors native Enter selects second and Space restores first",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab native pointer selection changes source selected class",
+      "pass": true
+    },
+    {
+      "name": "forced-colors tab native pointer reselect restores first tab",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "forced-colors nav group click expands despite generic AX role",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "forced-colors accordion native pointer expands parent despite absent header ARIA",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-disabled actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-disabled real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-disabled real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-disabled original DIV has no native focus",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-enabled actual source DOM and media",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-enabled real nested icon and title",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-enabled real native keyboard sequence recorded",
+      "pass": true
+    },
+    {
+      "name": "forced-colors menu-enabled original DIV has no native focus",
+      "pass": true
+    }
+  ],
+  "cases": [
+    {
+      "kind": "tab",
+      "mode": "light-ltr",
+      "page": "tablists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f4c06f771\" class=\"tab-item selected\"><!--!--><i id=\"f4ad3c78b\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f6591fb4e\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "BUTTON",
+          "priorText": "",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon transparent overflow-button align-self-center",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "direct": true,
+        "afterFocus": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "arrowRight": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "arrowLeft": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "secondBeforeEnter": {
+          "focused": true,
+          "selected": false,
+          "text": "Second Tab"
+        },
+        "enter": {
+          "focused": false,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected ",
+          "activeText": "Second Tab",
+          "isActiveInTarget": false
+        },
+        "space": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected ",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "skippedNonFocusableKeyActivation": false
+      },
+      "hovered": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected ",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f4c06f771\" class=\"tab-item selected \"><!--!--><i id=\"f4ad3c78b\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f6591fb4e\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected ",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f4c06f771\" class=\"tab-item selected \"><!--!--><i id=\"f4ad3c78b\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f6591fb4e\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": {
+        "deselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f4c06f771\" class=\"tab-item \"><!--!--><i id=\"f4ad3c78b\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f6591fb4e\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 90.5625,
+            "height": 32,
+            "x": 608.78125,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        },
+        "reselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f4c06f771\" class=\"tab-item selected \"><!--!--><i id=\"f4ad3c78b\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f6591fb4e\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 99.359375,
+            "height": 32,
+            "x": 613.1796875,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        }
+      },
+      "image": "BLUENT-KEYBOARD-CHROME-LIGHT-LTR-TAB.png"
+    },
+    {
+      "kind": "nav",
+      "mode": "light-ltr",
+      "page": "nav-lists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f30fde524\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3f468af7\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f587623f7\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f30fefff3\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f65696b13\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3c62496c\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f67402906\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f7a980163\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f293fc9da\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f61fc0cda\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Getting started",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Getting started",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Buttons",
+          "isActiveInTarget": true
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Buttons",
+          "isActiveInTarget": true
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f30fde524\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3f468af7\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f587623f7\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f30fefff3\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f65696b13\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3c62496c\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f67402906\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f7a980163\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f293fc9da\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f61fc0cda\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\">",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable expanded ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f30fde524\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3f468af7\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f587623f7\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f30fefff3\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f65696b13\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f3c62496c\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f67402906\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f7a980163\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f293fc9da\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f61fc0cda\" class=\"bui-icon icon-ic_fluent_grid_20_regul",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 108,
+          "x": 752,
+          "y": 930.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-LIGHT-LTR-NAV.png"
+    },
+    {
+      "kind": "accordion",
+      "mode": "light-ltr",
+      "page": "accordions",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1e0ab156\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f8348625\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Drawing",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "tab-item vertical",
+          "activeText": "Drawing",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon ",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon ",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1e0ab156\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f8348625\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel expanded ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1e0ab156\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f8348625\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-LIGHT-LTR-ACCORDION.png"
+    },
+    {
+      "kind": "menu-disabled",
+      "mode": "light-ltr",
+      "page": "menus",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "menu-disabled",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f60994066\" class=\"menu-item disabled \"><!--!--><i id=\"f7ffa7ba4\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f2f178964\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Help",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "menu-disabled",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f60994066\" class=\"menu-item disabled \"><!--!--><i id=\"f7ffa7ba4\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f2f178964\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-LIGHT-LTR-MENU-DISABLED.png"
+    },
+    {
+      "kind": "menu-enabled",
+      "mode": "light-ltr",
+      "page": "menus",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "before": {
+        "kind": "menu-enabled",
+        "tag": "DIV",
+        "classes": "menu-item ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f1149ed5b\" class=\"menu-item \"><!--!--><i id=\"f7dd8eaab\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"fc97b935\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "text": "Paste",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Help",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "menu-enabled",
+        "tag": "DIV",
+        "classes": "menu-item ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f1149ed5b\" class=\"menu-item \"><!--!--><i id=\"f7dd8eaab\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"fc97b935\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "text": "Paste",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-LIGHT-LTR-MENU-ENABLED.png"
+    },
+    {
+      "kind": "tab",
+      "mode": "dark-rtl",
+      "page": "tablists",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f13da0420\" class=\"tab-item selected\"><!--!--><i id=\"f1f787bdd\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f134a1f09\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 577.140625,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 626.8203125,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "BUTTON",
+          "priorText": "",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon transparent overflow-button align-self-center",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "direct": true,
+        "afterFocus": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "arrowRight": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "arrowLeft": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "secondBeforeEnter": {
+          "focused": true,
+          "selected": false,
+          "text": "Second Tab"
+        },
+        "enter": {
+          "focused": false,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected ",
+          "activeText": "Second Tab",
+          "isActiveInTarget": false
+        },
+        "space": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected ",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "skippedNonFocusableKeyActivation": false
+      },
+      "hovered": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected ",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f13da0420\" class=\"tab-item selected \"><!--!--><i id=\"f1f787bdd\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f134a1f09\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 577.140625,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 626.8203125,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected ",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f13da0420\" class=\"tab-item selected \"><!--!--><i id=\"f1f787bdd\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f134a1f09\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 577.140625,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 626.8203125,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": {
+        "deselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f13da0420\" class=\"tab-item \"><!--!--><i id=\"f1f787bdd\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f134a1f09\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 585.9375,
+            "top": 483.53125,
+            "width": 90.5625,
+            "height": 32,
+            "x": 631.21875,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        },
+        "reselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f13da0420\" class=\"tab-item selected \"><!--!--><i id=\"f1f787bdd\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f134a1f09\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 577.140625,
+            "top": 483.53125,
+            "width": 99.359375,
+            "height": 32,
+            "x": 626.8203125,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        }
+      },
+      "image": "BLUENT-KEYBOARD-CHROME-DARK-RTL-TAB.png"
+    },
+    {
+      "kind": "nav",
+      "mode": "dark-rtl",
+      "page": "nav-lists",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"fa415291\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f2c6a8d3a\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f2cbcc588\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f5b7d2ffb\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f1b4351a3\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6696ffe1\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f332720ee\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f68896792\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f720c479\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f7d1aeae3\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 299.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 488,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Getting started",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Getting started",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Buttons",
+          "isActiveInTarget": true
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Buttons",
+          "isActiveInTarget": true
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"fa415291\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f2c6a8d3a\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f2cbcc588\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f5b7d2ffb\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f1b4351a3\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6696ffe1\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f332720ee\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f68896792\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f720c479\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f7d1aeae3\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 299.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 488,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable expanded ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"fa415291\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f2c6a8d3a\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f2cbcc588\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f5b7d2ffb\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f1b4351a3\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6696ffe1\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f332720ee\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f68896792\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f720c479\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f7d1aeae3\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 299.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 108,
+          "x": 488,
+          "y": 930.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-DARK-RTL-NAV.png"
+    },
+    {
+      "kind": "accordion",
+      "mode": "dark-rtl",
+      "page": "accordions",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1c2d2604\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f5cde30a4\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 298.80780029296875,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 487.30780029296875,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Drawing",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "tab-item vertical",
+          "activeText": "Drawing",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon ",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon ",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1c2d2604\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f5cde30a4\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 299.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 488,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel expanded ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f1c2d2604\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f5cde30a4\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 299.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 488,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-DARK-RTL-ACCORDION.png"
+    },
+    {
+      "kind": "menu-disabled",
+      "mode": "dark-rtl",
+      "page": "menus",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "menu-disabled",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f379d3ccb\" class=\"menu-item disabled \"><!--!--><i id=\"f5d352a4d\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f35c652d3\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 548.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 612.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Help",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "menu-disabled",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f379d3ccb\" class=\"menu-item disabled \"><!--!--><i id=\"f5d352a4d\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f35c652d3\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 548.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 612.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-DARK-RTL-MENU-DISABLED.png"
+    },
+    {
+      "kind": "menu-enabled",
+      "mode": "dark-rtl",
+      "page": "menus",
+      "setup": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "before": {
+        "kind": "menu-enabled",
+        "tag": "DIV",
+        "classes": "menu-item ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f523c87ad\" class=\"menu-item \"><!--!--><i id=\"f571e358b\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f6dd0e614\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "text": "Paste",
+        "box": {
+          "left": 548.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 612.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Help",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "menu-enabled",
+        "tag": "DIV",
+        "classes": "menu-item ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f523c87ad\" class=\"menu-item \"><!--!--><i id=\"f571e358b\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f6dd0e614\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "text": "Paste",
+        "box": {
+          "left": 548.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 612.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-DARK-RTL-MENU-ENABLED.png"
+    },
+    {
+      "kind": "tab",
+      "mode": "forced-colors",
+      "page": "tablists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f5969391b\" class=\"tab-item selected\"><!--!--><i id=\"f378ef091\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f5680ee23\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "BUTTON",
+          "priorText": "",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon transparent overflow-button align-self-center",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "direct": true,
+        "afterFocus": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "arrowRight": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "arrowLeft": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "secondBeforeEnter": {
+          "focused": true,
+          "selected": false,
+          "text": "Second Tab"
+        },
+        "enter": {
+          "focused": false,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected ",
+          "activeText": "Second Tab",
+          "isActiveInTarget": false
+        },
+        "space": {
+          "focused": true,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "selected": true,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "tab-item selected ",
+          "activeText": "First Tab",
+          "isActiveInTarget": true
+        },
+        "skippedNonFocusableKeyActivation": false
+      },
+      "hovered": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected ",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f5969391b\" class=\"tab-item selected \"><!--!--><i id=\"f378ef091\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f5680ee23\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "tab",
+        "tag": "BUTTON",
+        "classes": "tab-item selected ",
+        "ancestorClasses": "bui-overflow horizontal",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<button type=\"button\" id=\"f5969391b\" class=\"tab-item selected \"><!--!--><i id=\"f378ef091\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f5680ee23\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+        "text": "First Tab",
+        "box": {
+          "left": 563.5,
+          "top": 483.53125,
+          "width": 99.359375,
+          "height": 32,
+          "x": 613.1796875,
+          "y": 499.53125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " First Tab",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": {
+        "deselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f5969391b\" class=\"tab-item \"><!--!--><i id=\"f378ef091\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f5680ee23\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 90.5625,
+            "height": 32,
+            "x": 608.78125,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        },
+        "reselected": {
+          "kind": "tab",
+          "tag": "BUTTON",
+          "classes": "tab-item selected ",
+          "ancestorClasses": "bui-overflow horizontal",
+          "role": null,
+          "ariaLabel": null,
+          "ariaExpanded": null,
+          "ariaSelected": null,
+          "ariaDisabled": null,
+          "disabled": false,
+          "tabindex": null,
+          "html": "<button type=\"button\" id=\"f5969391b\" class=\"tab-item selected \"><!--!--><i id=\"f378ef091\" class=\"bui-icon icon-ic_fluent_icons_20_filled active-icon\"></i><!--!--><i id=\"f5680ee23\" class=\"bui-icon icon-ic_fluent_icons_20_regular icon\"></i><span>First Tab</span></button>",
+          "text": "First Tab",
+          "box": {
+            "left": 563.5,
+            "top": 483.53125,
+            "width": 99.359375,
+            "height": 32,
+            "x": 613.1796875,
+            "y": 499.53125
+          },
+          "icons": [
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_filled active-icon",
+              "hidden": null,
+              "display": "flex",
+              "content": "\"\""
+            },
+            {
+              "class": "bui-icon icon-ic_fluent_icons_20_regular icon",
+              "hidden": null,
+              "display": "none",
+              "content": "\"\""
+            }
+          ],
+          "ax": [
+            {
+              "role": "button",
+              "name": " First Tab",
+              "ignored": false,
+              "selected": [],
+              "disabled": [],
+              "expanded": []
+            }
+          ]
+        }
+      },
+      "image": "BLUENT-KEYBOARD-CHROME-FORCED-COLORS-TAB.png"
+    },
+    {
+      "kind": "nav",
+      "mode": "forced-colors",
+      "page": "nav-lists",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f54ee0570\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f1d5afc76\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f55c3dda\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3187d9d3\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f66312094\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6e3cdc8\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2e9cf985\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2fdb0f9d\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4ee51b0b\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4945dee8\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Getting started",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Getting started",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Buttons",
+          "isActiveInTarget": true
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "bui-nav-item expandable ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "bui-nav-item ",
+          "activeText": "Buttons",
+          "isActiveInTarget": true
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f54ee0570\" class=\"bui-nav-item expandable \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f1d5afc76\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f55c3dda\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3187d9d3\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f66312094\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6e3cdc8\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2e9cf985\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2fdb0f9d\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4ee51b0b\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4945dee8\" class=\"bui-icon icon-ic_fluent_grid_20_regular icon\"></",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 36,
+          "x": 752,
+          "y": 894.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "nav",
+        "tag": "DIV",
+        "classes": "bui-nav-item expandable expanded ",
+        "ancestorClasses": "bui-nav-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f54ee0570\" class=\"bui-nav-item expandable expanded \"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f1d5afc76\" class=\"bui-icon icon-ic_fluent_apps_20_filled active-icon\"></i><!--!--><i id=\"f55c3dda\" class=\"bui-icon icon-ic_fluent_apps_20_regular icon\"></i><div class=\"text\"><div>Components</div></div><!--!--><i id=\"f3187d9d3\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular expander\"></i></div></div><div class=\"sub-items\"><!--!--><a id=\"f66312094\" class=\"bui-nav-item \" href=\"components/buttons\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f6e3cdc8\" class=\"bui-icon icon-ic_fluent_button_20_filled active-icon\"></i><!--!--><i id=\"f2e9cf985\" class=\"bui-icon icon-ic_fluent_button_20_regular icon\"></i><div class=\"text\"><div>Buttons</div></div></div></div></a><!--!-->\n                    <!--!--><a id=\"f2fdb0f9d\" class=\"bui-nav-item \" href=\"components/data-grids\"><div class=\"item\"><div class=\"content\"><!--!--><i id=\"f4ee51b0b\" class=\"bui-icon icon-ic_fluent_grid_20_filled active-icon\"></i><!--!--><i id=\"f4945dee8\" class=\"bui-icon icon-ic_fluent_grid_20_regular",
+        "text": "ComponentsButtons\n                    Data grids",
+        "box": {
+          "left": 563.5,
+          "top": 876.203125,
+          "width": 377,
+          "height": 108,
+          "x": 752,
+          "y": 930.203125
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_filled active-icon",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_apps_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular expander",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_button_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_grid_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-FORCED-COLORS-NAV.png"
+    },
+    {
+      "kind": "accordion",
+      "mode": "forced-colors",
+      "page": "accordions",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f7f9537ba\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f2cbcbeb9\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Drawing",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "tab-item vertical",
+          "activeText": "Drawing",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon ",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "header",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "BUTTON",
+          "activeClasses": "bui-button icon ",
+          "activeText": "",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f7f9537ba\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f2cbcbeb9\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": {
+        "kind": "accordion",
+        "tag": "DIV",
+        "classes": "header",
+        "ancestorClasses": "accordion-panel expanded ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div class=\"header\"><div class=\"expander\"><!--!--><i id=\"f7f9537ba\" class=\"bui-icon icon-ic_fluent_chevron_right_20_regular \"></i></div><!--!--><i id=\"f2cbcbeb9\" class=\"bui-icon icon-ic_fluent_rocket_20_regular icon\"></i><div class=\"title\"><span>Accordion header 1</span></div></div>",
+        "text": "Accordion header 1",
+        "box": {
+          "left": 563.5,
+          "top": 181.875,
+          "width": 377,
+          "height": 44,
+          "x": 752,
+          "y": 203.875
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_chevron_right_20_regular ",
+            "hidden": null,
+            "display": "block",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_rocket_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-FORCED-COLORS-ACCORDION.png"
+    },
+    {
+      "kind": "menu-disabled",
+      "mode": "forced-colors",
+      "page": "menus",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "menu-disabled",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f7d58a854\" class=\"menu-item disabled \"><!--!--><i id=\"f5bd62dd0\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f5c6580e9\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Help",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item disabled ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "menu-disabled",
+        "tag": "DIV",
+        "classes": "menu-item disabled ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": true,
+        "tabindex": null,
+        "html": "<div disabled=\"\" id=\"f7d58a854\" class=\"menu-item disabled \"><!--!--><i id=\"f5bd62dd0\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon\"></i><!--!--><i id=\"f5c6580e9\" class=\"bui-icon icon-ic_fluent_arrow_undo_20_regular icon\"></i><div class=\"title\">Undo</div></div>",
+        "text": "Undo",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_arrow_undo_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-FORCED-COLORS-MENU-DISABLED.png"
+    },
+    {
+      "kind": "menu-enabled",
+      "mode": "forced-colors",
+      "page": "menus",
+      "setup": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "before": {
+        "kind": "menu-enabled",
+        "tag": "DIV",
+        "classes": "menu-item ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f6fb51b53\" class=\"menu-item \"><!--!--><i id=\"f75052760\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f5022a321\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "text": "Paste",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_filled active-icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_regular icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "keyboard": {
+        "setup": {
+          "prior": "A",
+          "priorText": "Help",
+          "priorFocused": true
+        },
+        "beforeTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "afterTab": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "direct": false,
+        "afterFocus": {
+          "focused": false,
+          "tabIndex": -1,
+          "tag": "DIV",
+          "classes": "menu-item ",
+          "selected": false,
+          "ariaSelected": null,
+          "expanded": null,
+          "activeTag": "A",
+          "activeClasses": "menu-item ",
+          "activeText": "Help",
+          "isActiveInTarget": false
+        },
+        "arrowRight": null,
+        "arrowLeft": null,
+        "secondBeforeEnter": null,
+        "enter": null,
+        "space": null,
+        "skippedNonFocusableKeyActivation": true
+      },
+      "hovered": {
+        "kind": "menu-enabled",
+        "tag": "DIV",
+        "classes": "menu-item ",
+        "ancestorClasses": "bui-menu-list ",
+        "role": null,
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaDisabled": null,
+        "disabled": false,
+        "tabindex": null,
+        "html": "<div id=\"f6fb51b53\" class=\"menu-item \"><!--!--><i id=\"f75052760\" class=\"bui-icon icon-ic_fluent_copy_20_filled active-icon\"></i><!--!--><i id=\"f5022a321\" class=\"bui-icon icon-ic_fluent_copy_20_regular icon\"></i><div class=\"title\">Paste</div></div>",
+        "text": "Paste",
+        "box": {
+          "left": 563.5,
+          "top": 484,
+          "width": 128,
+          "height": 32,
+          "x": 627.5,
+          "y": 500
+        },
+        "icons": [
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_filled active-icon",
+            "hidden": null,
+            "display": "flex",
+            "content": "\"\""
+          },
+          {
+            "class": "bui-icon icon-ic_fluent_copy_20_regular icon",
+            "hidden": null,
+            "display": "none",
+            "content": "\"\""
+          }
+        ],
+        "ax": [
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false,
+            "selected": [],
+            "disabled": [],
+            "expanded": []
+          }
+        ]
+      },
+      "selected": null,
+      "tabTransition": null,
+      "image": "BLUENT-KEYBOARD-CHROME-FORCED-COLORS-MENU-ENABLED.png"
+    }
+  ]
+}

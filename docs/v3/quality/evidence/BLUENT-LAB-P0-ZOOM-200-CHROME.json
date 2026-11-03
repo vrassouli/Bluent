@@ -1,0 +1,377 @@
+{
+  "auditIssue": 552,
+  "sourceBranch": "v3/issue-421-component-lab",
+  "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+  "mode": "real Chrome Blazor WebAssembly Debug Lab",
+  "scenario": "zoom-200",
+  "status": "Bluent_current_source_visual_baseline_NOT_fluent_parity",
+  "viewport": {
+    "width": 620,
+    "height": 570,
+    "deviceScaleFactor": 2,
+    "mobile": false
+  },
+  "accessibilityMode": {
+    "forcedColors": false,
+    "contrastMore": false,
+    "viewportWidth": 620,
+    "viewportHeight": 570,
+    "dpr": 2,
+    "documentScrollWidth": 620,
+    "visualViewportScale": 1
+  },
+  "normalizedInScenario": {
+    "buttonWidth": 96,
+    "sliderWidth": "natural intrinsic responsive width",
+    "rtl": false,
+    "theme": "light",
+    "claim": "620 CSSpx DPR2 reflow proxy with natural Slider width, no native browser zoom or parity"
+  },
+  "generatedAt": "2026-10-19T14:23:37.784Z",
+  "checks": [
+    {
+      "label": "Live source Lab hydrated",
+      "pass": true
+    },
+    {
+      "label": "200 percent layout reflow proxy (not native browser zoom)",
+      "pass": true,
+      "details": {
+        "forcedColors": false,
+        "contrastMore": false,
+        "viewportWidth": 620,
+        "viewportHeight": 570,
+        "dpr": 2,
+        "documentScrollWidth": 620,
+        "visualViewportScale": 1
+      }
+    },
+    {
+      "label": "Real Bluent theme/direction attributes set",
+      "pass": true,
+      "details": {
+        "theme": "light",
+        "dir": "ltr"
+      }
+    },
+    {
+      "label": "Button actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Button",
+        "issue": 428,
+        "elementTag": "BUTTON",
+        "cls": "bui-button primary ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 96,
+        "height": 32,
+        "left": 57.8,
+        "right": 153.8,
+        "parentRight": 547.2,
+        "parentWidth": 489.41,
+        "background": "rgb(18, 103, 180)",
+        "borderRadius": "4px",
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 41.796875,
+          "y": 40.34375,
+          "width": 521.40625,
+          "height": 793.703125
+        },
+        "buttonFocusProbe": {
+          "focused": true,
+          "tabIndex": 0,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "forcedColors": false
+        },
+        "image": "BLUENT-LAB-BUTTON-ZOOM-200-CHROME.png"
+      }
+    },
+    {
+      "label": "Native Bluent Button is focusable in actual Chromium",
+      "pass": true,
+      "details": {
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": false
+      }
+    },
+    {
+      "label": "Slider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Slider",
+        "issue": 442,
+        "elementTag": "DIV",
+        "cls": "bui-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 204.7,
+        "height": 20,
+        "left": 74.8,
+        "right": 279.5,
+        "parentRight": 296.5,
+        "parentWidth": 238.7,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "thumbCount": 1,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 41.796875,
+          "y": 40.34375,
+          "width": 521.40625,
+          "height": 231.71875
+        },
+        "keyboardFocusProbe": {
+          "rootFocused": false,
+          "rootTabIndex": -1,
+          "rootRole": null,
+          "thumbTabIndex": -1,
+          "thumbRole": null,
+          "thumbAriaValue": null,
+          "theme": "light",
+          "direction": "ltr"
+        },
+        "image": "BLUENT-LAB-SLIDER-ZOOM-200-CHROME.png"
+      }
+    },
+    {
+      "label": "Existing Bluent Slider has no native keyboard focus target (confirmed GAP, not a11y approval)",
+      "pass": true,
+      "details": {
+        "rootFocused": false,
+        "rootTabIndex": -1,
+        "rootRole": null,
+        "thumbTabIndex": -1,
+        "thumbRole": null,
+        "thumbAriaValue": null,
+        "theme": "light",
+        "direction": "ltr"
+      }
+    },
+    {
+      "label": "RangeSlider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "RangeSlider",
+        "issue": 443,
+        "elementTag": "DIV",
+        "cls": "bui-range-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 204.7,
+        "height": 20,
+        "left": 74.8,
+        "right": 279.5,
+        "parentRight": 296.5,
+        "parentWidth": 238.7,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "thumbCount": 2,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          },
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 41.796875,
+          "y": 40.34375,
+          "width": 521.40625,
+          "height": 233.3125
+        },
+        "image": "BLUENT-LAB-RANGESLIDER-ZOOM-200-CHROME.png"
+      }
+    },
+    {
+      "label": "FileSelect actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "FileSelect",
+        "issue": 444,
+        "elementTag": "DIV",
+        "cls": "bui-file-select ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 204.7,
+        "height": 32,
+        "left": 325.5,
+        "right": 530.2,
+        "parentRight": 547.2,
+        "parentWidth": 238.7,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 41.796875,
+          "y": 40.34375,
+          "width": 521.40625,
+          "height": 360.21875
+        },
+        "image": "BLUENT-LAB-FILESELECT-ZOOM-200-CHROME.png"
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "elementTag": "BUTTON",
+      "cls": "bui-button primary ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 96,
+      "height": 32,
+      "left": 57.8,
+      "right": 153.8,
+      "parentRight": 547.2,
+      "parentWidth": 489.41,
+      "background": "rgb(18, 103, 180)",
+      "borderRadius": "4px",
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 41.796875,
+        "y": 40.34375,
+        "width": 521.40625,
+        "height": 793.703125
+      },
+      "buttonFocusProbe": {
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": false
+      },
+      "image": "BLUENT-LAB-BUTTON-ZOOM-200-CHROME.png"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "elementTag": "DIV",
+      "cls": "bui-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 204.7,
+      "height": 20,
+      "left": 74.8,
+      "right": 279.5,
+      "parentRight": 296.5,
+      "parentWidth": 238.7,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "thumbCount": 1,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 41.796875,
+        "y": 40.34375,
+        "width": 521.40625,
+        "height": 231.71875
+      },
+      "keyboardFocusProbe": {
+        "rootFocused": false,
+        "rootTabIndex": -1,
+        "rootRole": null,
+        "thumbTabIndex": -1,
+        "thumbRole": null,
+        "thumbAriaValue": null,
+        "theme": "light",
+        "direction": "ltr"
+      },
+      "image": "BLUENT-LAB-SLIDER-ZOOM-200-CHROME.png"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "elementTag": "DIV",
+      "cls": "bui-range-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 204.7,
+      "height": 20,
+      "left": 74.8,
+      "right": 279.5,
+      "parentRight": 296.5,
+      "parentWidth": 238.7,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "thumbCount": 2,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        },
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 41.796875,
+        "y": 40.34375,
+        "width": 521.40625,
+        "height": 233.3125
+      },
+      "image": "BLUENT-LAB-RANGESLIDER-ZOOM-200-CHROME.png"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "elementTag": "DIV",
+      "cls": "bui-file-select ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 204.7,
+      "height": 32,
+      "left": 325.5,
+      "right": 530.2,
+      "parentRight": 547.2,
+      "parentWidth": 238.7,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 41.796875,
+        "y": 40.34375,
+        "width": 521.40625,
+        "height": 360.21875
+      },
+      "image": "BLUENT-LAB-FILESELECT-ZOOM-200-CHROME.png"
+    }
+  ]
+}

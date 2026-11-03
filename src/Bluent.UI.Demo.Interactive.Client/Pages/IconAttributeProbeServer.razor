@@ -1,0 +1,50 @@
+@page "/__quality/server-icon-attribute-probe"
+@rendermode InteractiveServer
+@using Bluent.UI.Icons
+
+<PageTitle>Icon attribute probe (Interactive Server)</PageTitle>
+
+<main id="icon-attribute-probe" data-renderer="interactive-server">
+    <h1>Icon attribute probe</h1>
+    <p>This intentionally unlinked route records Icon root-attribute behavior for quality review.</p>
+
+    <Icon Value="@SvgIcon" @attributes="SvgAttributes" Class="parameter-class" Style="width: 2em;" />
+    <Icon Value="@ImageIcon" @attributes="ImageAttributes" Class="parameter-class" Style="width: 2em;" />
+    <Icon Value="@CssIcon" @attributes="CssAttributes" Class="parameter-class" Style="width: 2em;" />
+
+    <button id="icon-probe-click" type="button" @onclick="Increment">Click probe</button>
+    <output id="icon-probe-count">@_clickCount</output>
+</main>
+
+@code {
+    private const string ValidImageSource =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='lime'/%3E%3C/svg%3E";
+
+    private static readonly IconDefinition SvgIcon =
+        IconDefinition.FromSvg("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\"><path d=\"M0 0h1v1H0z\" /></svg>");
+    private static readonly IconDefinition ImageIcon = IconDefinition.FromImage(ValidImageSource);
+    private static readonly IconDefinition CssIcon = IconDefinition.FromCss("font-source-class");
+
+    private readonly Dictionary<string, object> SvgAttributes = CollisionAttributes("icon-probe-svg");
+    private readonly Dictionary<string, object> ImageAttributes = CollisionAttributes("icon-probe-image", includeSource: true);
+    private readonly Dictionary<string, object> CssAttributes = CollisionAttributes("icon-probe-css");
+    private int _clickCount;
+
+    private static Dictionary<string, object> CollisionAttributes(string id, bool includeSource = false)
+    {
+        var attributes = new Dictionary<string, object>
+        {
+            ["id"] = id,
+            ["class"] = "attribute-class",
+            ["style"] = "color: red;",
+            ["data-probe-case"] = id,
+        };
+
+        if (includeSource)
+            attributes["src"] = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='red'/%3E%3C/svg%3E";
+
+        return attributes;
+    }
+
+    private void Increment() => _clickCount++;
+}

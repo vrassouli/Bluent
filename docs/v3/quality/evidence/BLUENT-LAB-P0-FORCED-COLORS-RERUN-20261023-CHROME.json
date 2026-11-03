@@ -1,0 +1,432 @@
+{
+  "auditIssue": 552,
+  "hostingMode": "WebAssembly",
+  "sourceBranch": "v3/issue-421-component-lab",
+  "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+  "mode": "real Chrome Blazor WebAssembly Debug Lab",
+  "scenario": "forced-colors",
+  "status": "Bluent_current_source_visual_baseline_NOT_fluent_parity",
+  "viewport": {
+    "width": 1240,
+    "height": 1140,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "accessibilityMode": {
+    "forcedColors": true,
+    "contrastMore": true,
+    "viewportWidth": 1240,
+    "viewportHeight": 1140,
+    "dpr": 1,
+    "documentScrollWidth": 1240,
+    "visualViewportScale": 1
+  },
+  "normalizedInScenario": {
+    "buttonWidth": 96,
+    "sliderWidth": "forced 260px",
+    "rtl": false,
+    "theme": "light",
+    "claim": "Real Chromium forced-colors CSS emulation only, no native OS HC or parity"
+  },
+  "generatedAt": "2026-10-23T10:22:14.86Z",
+  "checks": [
+    {
+      "label": "Live source Lab hydrated",
+      "pass": true
+    },
+    {
+      "label": "Real Chromium forced-colors emulation matched",
+      "pass": true,
+      "details": {
+        "forcedColors": true,
+        "contrastMore": true,
+        "viewportWidth": 1240,
+        "viewportHeight": 1140,
+        "dpr": 1,
+        "documentScrollWidth": 1240,
+        "visualViewportScale": 1
+      }
+    },
+    {
+      "label": "Real Bluent theme/direction attributes set",
+      "pass": true,
+      "details": {
+        "theme": "light",
+        "dir": "ltr"
+      }
+    },
+    {
+      "label": "Button actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Button",
+        "issue": 428,
+        "elementTag": "BUTTON",
+        "cls": "bui-button primary ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 96,
+        "height": 32,
+        "left": 368,
+        "right": 464,
+        "parentRight": 1136,
+        "parentWidth": 768,
+        "background": "rgb(0, 0, 0)",
+        "borderRadius": "4px",
+        "rail": null,
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 352,
+          "y": 39.828125,
+          "width": 800,
+          "height": 732.28125
+        },
+        "buttonFocusProbe": {
+          "id": "f4f1b157a",
+          "cls": "bui-button primary ",
+          "focused": true,
+          "tabIndex": 0,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "forcedColors": true
+        },
+        "image": "BLUENT-LAB-BUTTON-FORCED-COLORS-RERUN-20261023-CHROME.png"
+      }
+    },
+    {
+      "label": "Native Bluent Button is focusable in actual Chromium",
+      "pass": true,
+      "details": {
+        "id": "f4f1b157a",
+        "cls": "bui-button primary ",
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": true
+      }
+    },
+    {
+      "label": "Slider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "Slider",
+        "issue": 442,
+        "elementTag": "DIV",
+        "cls": "bui-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 260,
+        "height": 20,
+        "left": 370,
+        "right": 630,
+        "parentRight": 738.5,
+        "parentWidth": 385.5,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "width": 260,
+          "height": 4
+        },
+        "thumbCount": 1,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 337,
+          "y": 89.828125,
+          "width": 815,
+          "height": 212.453125
+        },
+        "keyboardFocusProbe": {
+          "rootFocused": false,
+          "rootTabIndex": -1,
+          "rootRole": null,
+          "thumbTabIndex": -1,
+          "thumbRole": null,
+          "thumbAriaValue": null,
+          "theme": "light",
+          "direction": "ltr"
+        },
+        "image": "BLUENT-LAB-SLIDER-FORCED-COLORS-RERUN-20261023-CHROME.png"
+      }
+    },
+    {
+      "label": "Known forced-colors gradient-only rail becomes unpainted (a gap, not parity)",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "width": 260,
+        "height": 4
+      }
+    },
+    {
+      "label": "Existing Bluent Slider has no native keyboard focus target (confirmed GAP, not a11y approval)",
+      "pass": true,
+      "details": {
+        "rootFocused": false,
+        "rootTabIndex": -1,
+        "rootRole": null,
+        "thumbTabIndex": -1,
+        "thumbRole": null,
+        "thumbAriaValue": null,
+        "theme": "light",
+        "direction": "ltr"
+      }
+    },
+    {
+      "label": "RangeSlider actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "RangeSlider",
+        "issue": 443,
+        "elementTag": "DIV",
+        "cls": "bui-range-slider ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 260,
+        "height": 20,
+        "left": 370,
+        "right": 630,
+        "parentRight": 738.5,
+        "parentWidth": 385.5,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": {
+          "backgroundImage": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "width": 260,
+          "height": 4
+        },
+        "thumbCount": 2,
+        "thumbs": [
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          },
+          {
+            "role": null,
+            "tabIndex": null,
+            "ariaValueNow": null
+          }
+        ],
+        "canvas": {
+          "x": 337,
+          "y": 108.828125,
+          "width": 815,
+          "height": 194.046875
+        },
+        "image": "BLUENT-LAB-RANGESLIDER-FORCED-COLORS-RERUN-20261023-CHROME.png"
+      }
+    },
+    {
+      "label": "Known forced-colors gradient-only rail becomes unpainted (a gap, not parity)",
+      "pass": true,
+      "details": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "width": 260,
+        "height": 4
+      }
+    },
+    {
+      "label": "FileSelect actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "FileSelect",
+        "issue": 444,
+        "elementTag": "DIV",
+        "cls": "bui-file-select ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 351.5,
+        "height": 32,
+        "left": 767.5,
+        "right": 1119,
+        "parentRight": 1136,
+        "parentWidth": 385.5,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": null,
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 337,
+          "y": 39.828125,
+          "width": 815,
+          "height": 321.6875
+        },
+        "image": "BLUENT-LAB-FILESELECT-FORCED-COLORS-RERUN-20261023-CHROME.png"
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "family": "Button",
+      "issue": 428,
+      "elementTag": "BUTTON",
+      "cls": "bui-button primary ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 96,
+      "height": 32,
+      "left": 368,
+      "right": 464,
+      "parentRight": 1136,
+      "parentWidth": 768,
+      "background": "rgb(0, 0, 0)",
+      "borderRadius": "4px",
+      "rail": null,
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 352,
+        "y": 39.828125,
+        "width": 800,
+        "height": 732.28125
+      },
+      "buttonFocusProbe": {
+        "id": "f4f1b157a",
+        "cls": "bui-button primary ",
+        "focused": true,
+        "tabIndex": 0,
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "forcedColors": true
+      },
+      "image": "BLUENT-LAB-BUTTON-FORCED-COLORS-RERUN-20261023-CHROME.png"
+    },
+    {
+      "family": "Slider",
+      "issue": 442,
+      "elementTag": "DIV",
+      "cls": "bui-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 260,
+      "height": 20,
+      "left": 370,
+      "right": 630,
+      "parentRight": 738.5,
+      "parentWidth": 385.5,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "width": 260,
+        "height": 4
+      },
+      "thumbCount": 1,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 337,
+        "y": 89.828125,
+        "width": 815,
+        "height": 212.453125
+      },
+      "keyboardFocusProbe": {
+        "rootFocused": false,
+        "rootTabIndex": -1,
+        "rootRole": null,
+        "thumbTabIndex": -1,
+        "thumbRole": null,
+        "thumbAriaValue": null,
+        "theme": "light",
+        "direction": "ltr"
+      },
+      "image": "BLUENT-LAB-SLIDER-FORCED-COLORS-RERUN-20261023-CHROME.png"
+    },
+    {
+      "family": "RangeSlider",
+      "issue": 443,
+      "elementTag": "DIV",
+      "cls": "bui-range-slider ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 260,
+      "height": 20,
+      "left": 370,
+      "right": 630,
+      "parentRight": 738.5,
+      "parentWidth": 385.5,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": {
+        "backgroundImage": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "width": 260,
+        "height": 4
+      },
+      "thumbCount": 2,
+      "thumbs": [
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        },
+        {
+          "role": null,
+          "tabIndex": null,
+          "ariaValueNow": null
+        }
+      ],
+      "canvas": {
+        "x": 337,
+        "y": 108.828125,
+        "width": 815,
+        "height": 194.046875
+      },
+      "image": "BLUENT-LAB-RANGESLIDER-FORCED-COLORS-RERUN-20261023-CHROME.png"
+    },
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "elementTag": "DIV",
+      "cls": "bui-file-select ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 351.5,
+      "height": 32,
+      "left": 767.5,
+      "right": 1119,
+      "parentRight": 1136,
+      "parentWidth": 385.5,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": null,
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 337,
+        "y": 39.828125,
+        "width": 815,
+        "height": 321.6875
+      },
+      "image": "BLUENT-LAB-FILESELECT-FORCED-COLORS-RERUN-20261023-CHROME.png"
+    }
+  ]
+}

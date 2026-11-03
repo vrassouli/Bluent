@@ -1,0 +1,1535 @@
+{
+  "issue": 552,
+  "buttonIssue": 428,
+  "iconIssue": 429,
+  "branch": "v3/issue-552-fluent-parity-audit",
+  "sourceRef": "0eb2afdd",
+  "engine": "edge",
+  "host": "original .NET 10 Blazor WebAssembly Debug Buttons demo (no Bluent source mutation)",
+  "claim": "Real Chrome/Edge hover and mouse clicks, AX partial-tree, not Fluent parity, native OS AT or approved design",
+  "checks": [
+    {
+      "name": "light-ltr toggle initial regular icon visible",
+      "pass": true
+    },
+    {
+      "name": "light-ltr original Button aria-pressed absent",
+      "pass": true
+    },
+    {
+      "name": "light-ltr temporary aria-pressed=false exposes clean accessible name",
+      "pass": true
+    },
+    {
+      "name": "light-ltr hover does not mutate accessible name in semantic candidate",
+      "pass": true
+    },
+    {
+      "name": "light-ltr unselected state browser experiment restores original AX",
+      "pass": true
+    },
+    {
+      "name": "light-ltr hover activates filled glyph while hiding regular",
+      "pass": true
+    },
+    {
+      "name": "light-ltr native click toggles persistent Filled icon after mouse leaves",
+      "pass": true
+    },
+    {
+      "name": "light-ltr original toggle stays unnamed by state and has PUA accessible name",
+      "pass": true
+    },
+    {
+      "name": "light-ltr temporary aria-pressed reflects current toggle with clean accessible name",
+      "pass": true
+    },
+    {
+      "name": "light-ltr temporary semantic experiment exactly restores original state",
+      "pass": true
+    },
+    {
+      "name": "light-ltr second native click resets toggle source state",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl toggle initial regular icon visible",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl original Button aria-pressed absent",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl temporary aria-pressed=false exposes clean accessible name",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl hover does not mutate accessible name in semantic candidate",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl unselected state browser experiment restores original AX",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl hover activates filled glyph while hiding regular",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl native click toggles persistent Filled icon after mouse leaves",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl original toggle stays unnamed by state and has PUA accessible name",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl temporary aria-pressed reflects current toggle with clean accessible name",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl temporary semantic experiment exactly restores original state",
+      "pass": true
+    },
+    {
+      "name": "dark-rtl second native click resets toggle source state",
+      "pass": true
+    },
+    {
+      "name": "forced-colors toggle initial regular icon visible",
+      "pass": true
+    },
+    {
+      "name": "forced-colors original Button aria-pressed absent",
+      "pass": true
+    },
+    {
+      "name": "forced-colors temporary aria-pressed=false exposes clean accessible name",
+      "pass": true
+    },
+    {
+      "name": "forced-colors hover does not mutate accessible name in semantic candidate",
+      "pass": true
+    },
+    {
+      "name": "forced-colors unselected state browser experiment restores original AX",
+      "pass": true
+    },
+    {
+      "name": "forced-colors hover activates filled glyph while hiding regular",
+      "pass": true
+    },
+    {
+      "name": "forced-colors native click toggles persistent Filled icon after mouse leaves",
+      "pass": true
+    },
+    {
+      "name": "forced-colors original toggle stays unnamed by state and has PUA accessible name",
+      "pass": true
+    },
+    {
+      "name": "forced-colors temporary aria-pressed reflects current toggle with clean accessible name",
+      "pass": true
+    },
+    {
+      "name": "forced-colors temporary semantic experiment exactly restores original state",
+      "pass": true
+    },
+    {
+      "name": "forced-colors second native click resets toggle source state",
+      "pass": true
+    }
+  ],
+  "cases": [
+    {
+      "scenario": "light-ltr",
+      "theme": "light",
+      "direction": "ltr",
+      "forcedColors": false,
+      "start": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "falseCandidate": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "false",
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "false"
+            ]
+          }
+        ]
+      },
+      "falseCandidateHovered": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "false",
+        "hovered": true,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "false"
+            ]
+          }
+        ]
+      },
+      "falseRestored": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "hover": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": true,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "clicked": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": true,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "toggled": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "candidate": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "true",
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "true"
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "reset": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "image": "BLUENT-BUTTON-STATE-EDGE-LIGHT-LTR-TOGGLED.png"
+    },
+    {
+      "scenario": "dark-rtl",
+      "theme": "dark",
+      "direction": "rtl",
+      "forcedColors": false,
+      "start": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "falseCandidate": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "false",
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "false"
+            ]
+          }
+        ]
+      },
+      "falseCandidateHovered": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "false",
+        "hovered": true,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "false"
+            ]
+          }
+        ]
+      },
+      "falseRestored": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "hover": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": true,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "clicked": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": true,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "toggled": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "candidate": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "true",
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "true"
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "reset": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 793.34375,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 845.171875,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "image": "BLUENT-BUTTON-STATE-EDGE-DARK-RTL-TOGGLED.png"
+    },
+    {
+      "scenario": "forced-colors",
+      "theme": "light",
+      "direction": "ltr",
+      "forcedColors": true,
+      "start": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "falseCandidate": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "false",
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "false"
+            ]
+          }
+        ]
+      },
+      "falseCandidateHovered": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "false",
+        "hovered": true,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "false"
+            ]
+          }
+        ]
+      },
+      "falseRestored": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "hover": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": true,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "clicked": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": true,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "toggled": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "candidate": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": "true",
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": "true",
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": "Default",
+            "ignored": false,
+            "pressed": [
+              "true"
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button toggled ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "reset": {
+        "kind": "toggle",
+        "buttonClasses": "bui-button ",
+        "text": "Default",
+        "title": null,
+        "ariaLabel": null,
+        "ariaPressed": null,
+        "hovered": false,
+        "box": {
+          "left": 343,
+          "top": 526.90625,
+          "width": 103.65625,
+          "height": 32,
+          "x": 394.828125,
+          "y": 542.90625
+        },
+        "icons": [
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_filled active-icon",
+            "display": "none",
+            "width": 0,
+            "height": 0,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          },
+          {
+            "classes": "bui-icon icon-ic_fluent_cursor_click_20_regular icon",
+            "display": "block",
+            "width": 20,
+            "height": 20,
+            "glyph": "\"\"",
+            "ariaHidden": null,
+            "fontFamily": "FluentSystemIcons-Resizable"
+          }
+        ],
+        "ax": [
+          {
+            "role": "button",
+            "name": " Default",
+            "ignored": false,
+            "pressed": []
+          }
+        ]
+      },
+      "image": "BLUENT-BUTTON-STATE-EDGE-FORCED-COLORS-TOGGLED.png"
+    }
+  ]
+}

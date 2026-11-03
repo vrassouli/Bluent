@@ -1,0 +1,743 @@
+{
+  "auditIssue": 552,
+  "hostingMode": "Server",
+  "sourceBranch": "v3/issue-421-component-lab",
+  "sourceRef": "b9952aa93e89fd569de54080a7fdd06037b53a41",
+  "mode": "real Chrome published Production Blazor InteractiveServer",
+  "scenario": "file-upload",
+  "status": "Bluent_current_source_visual_baseline_NOT_fluent_parity",
+  "viewport": {
+    "width": 1240,
+    "height": 1140,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "accessibilityMode": {
+    "forcedColors": false,
+    "contrastMore": false,
+    "viewportWidth": 1240,
+    "viewportHeight": 1140,
+    "dpr": 1,
+    "documentScrollWidth": 1225,
+    "visualViewportScale": 1
+  },
+  "normalizedInScenario": {
+    "buttonWidth": 96,
+    "sliderWidth": "forced 260px",
+    "rtl": false,
+    "theme": "light",
+    "claim": "same nominal width and theme mode only; independent layouts, no pixel parity"
+  },
+  "generatedAt": "2026-10-19T17:49:19.093Z",
+  "checks": [
+    {
+      "label": "Live source Lab hydrated",
+      "pass": true
+    },
+    {
+      "label": "Real Bluent theme/direction attributes set",
+      "pass": true,
+      "details": {
+        "theme": "light",
+        "dir": "ltr"
+      }
+    },
+    {
+      "label": "FileSelect actual Bluent specimen located",
+      "pass": true,
+      "details": {
+        "family": "FileSelect",
+        "issue": 444,
+        "elementTag": "DIV",
+        "cls": "bui-file-select ",
+        "role": null,
+        "ariaValueNow": null,
+        "tabIndex": null,
+        "width": 415,
+        "height": 32,
+        "left": 635.5,
+        "right": 1050.5,
+        "parentRight": 1067.5,
+        "parentWidth": 449,
+        "background": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "rail": null,
+        "thumbCount": 0,
+        "thumbs": [],
+        "canvas": {
+          "x": 141.5,
+          "y": 1044.828125,
+          "width": 942,
+          "height": 301.6875
+        },
+        "uploadEvidence": {
+          "syntheticFileNames": [
+            "alpha.txt",
+            "beta.md",
+            "gamma.txt",
+            "delta.md",
+            "single-replacement.txt"
+          ],
+          "testedMaxFiles": 2,
+          "stages": [
+            {
+              "name": "initial",
+              "single": {
+                "accept": ".txt",
+                "multiple": false,
+                "chooseVisible": true,
+                "removeButtons": [],
+                "cardCount": 0
+              },
+              "multi": {
+                "accept": ".txt,.md",
+                "multiple": true,
+                "chooseVisible": true,
+                "removeButtons": [],
+                "cardCount": 0
+              },
+              "disabledButton": true,
+              "statusSingle": "Files: 0; names: none",
+              "statusMulti": "Files: 0; names: none"
+            },
+            {
+              "name": "single-first",
+              "single": {
+                "accept": ".txt",
+                "multiple": false,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 1
+              },
+              "multi": {
+                "accept": ".txt,.md",
+                "multiple": true,
+                "chooseVisible": true,
+                "removeButtons": [],
+                "cardCount": 0
+              },
+              "disabledButton": true,
+              "statusSingle": "Files: 1; names: alpha.txt",
+              "statusMulti": "Files: 0; names: none"
+            },
+            {
+              "name": "single-replaced",
+              "single": {
+                "accept": ".txt",
+                "multiple": false,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 1
+              },
+              "multi": {
+                "accept": ".txt,.md",
+                "multiple": true,
+                "chooseVisible": true,
+                "removeButtons": [],
+                "cardCount": 0
+              },
+              "disabledButton": true,
+              "statusSingle": "Files: 1; names: single-replacement.txt",
+              "statusMulti": "Files: 0; names: none"
+            },
+            {
+              "name": "multi-two",
+              "single": {
+                "accept": ".txt",
+                "multiple": false,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 1
+              },
+              "multi": {
+                "accept": ".txt,.md",
+                "multiple": true,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  },
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 2
+              },
+              "disabledButton": true,
+              "statusSingle": "Files: 1; names: single-replacement.txt",
+              "statusMulti": "Files: 2; names: alpha.txt, beta.md"
+            },
+            {
+              "name": "after-remove",
+              "single": {
+                "accept": ".txt",
+                "multiple": false,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 1
+              },
+              "multi": {
+                "accept": ".txt,.md",
+                "multiple": true,
+                "chooseVisible": true,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 1
+              },
+              "disabledButton": true,
+              "statusSingle": "Files: 1; names: single-replacement.txt",
+              "statusMulti": "Files: 1; names: beta.md"
+            },
+            {
+              "name": "cumulative-overflow",
+              "single": {
+                "accept": ".txt",
+                "multiple": false,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 1
+              },
+              "multi": {
+                "accept": ".txt,.md",
+                "multiple": true,
+                "chooseVisible": false,
+                "removeButtons": [
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  },
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  },
+                  {
+                    "ariaLabel": null,
+                    "title": null,
+                    "text": "",
+                    "tabIndex": 0
+                  }
+                ],
+                "cardCount": 3
+              },
+              "disabledButton": true,
+              "statusSingle": "Files: 1; names: single-replacement.txt",
+              "statusMulti": "Files: 3; names: beta.md, gamma.txt, delta.md"
+            }
+          ],
+          "removeAX": [
+            {
+              "role": "button",
+              "name": "",
+              "ignored": false
+            }
+          ],
+          "limitations": "Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance.",
+          "singleBatchOverflow": {
+            "maxFiles": 2,
+            "status": "Files: 3; names: alpha.txt, beta.md, gamma.txt",
+            "cards": 3,
+            "removeButtons": 3,
+            "nativeMultiple": true,
+            "pickerVisible": false
+          },
+          "singleBatchImage": "BLUENT-LAB-FILESELECT-ONE-BATCH-SERVER-CHROME.png"
+        },
+        "image": "BLUENT-LAB-FILESELECT-FILE-UPLOAD-SERVER-CHROME.png"
+      }
+    },
+    {
+      "label": "FileSelect native multiple and accept DOM contract observed",
+      "pass": true,
+      "details": {
+        "name": "initial",
+        "single": {
+          "accept": ".txt",
+          "multiple": false,
+          "chooseVisible": true,
+          "removeButtons": [],
+          "cardCount": 0
+        },
+        "multi": {
+          "accept": ".txt,.md",
+          "multiple": true,
+          "chooseVisible": true,
+          "removeButtons": [],
+          "cardCount": 0
+        },
+        "disabledButton": true,
+        "statusSingle": "Files: 0; names: none",
+        "statusMulti": "Files: 0; names: none"
+      }
+    },
+    {
+      "label": "Disabled FileSelect demo button disabled",
+      "pass": true
+    },
+    {
+      "label": "Single FileSelect actual browser upload propagates callback name",
+      "pass": true
+    },
+    {
+      "label": "Subsequent single selection replaces prior file",
+      "pass": true
+    },
+    {
+      "label": "Two files selected and picker hidden at MaxFiles=2",
+      "pass": true,
+      "details": {
+        "name": "multi-two",
+        "single": {
+          "accept": ".txt",
+          "multiple": false,
+          "chooseVisible": false,
+          "removeButtons": [
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            }
+          ],
+          "cardCount": 1
+        },
+        "multi": {
+          "accept": ".txt,.md",
+          "multiple": true,
+          "chooseVisible": false,
+          "removeButtons": [
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            },
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            }
+          ],
+          "cardCount": 2
+        },
+        "disabledButton": true,
+        "statusSingle": "Files: 1; names: single-replacement.txt",
+        "statusMulti": "Files: 2; names: alpha.txt, beta.md"
+      }
+    },
+    {
+      "label": "FileSelect remove action exposes icon-font glyph instead of meaningful accessible name (known gap)",
+      "pass": true,
+      "details": [
+        {
+          "role": "button",
+          "name": "",
+          "ignored": false
+        }
+      ]
+    },
+    {
+      "label": "Removing selected file restores picker",
+      "pass": true,
+      "details": {
+        "name": "after-remove",
+        "single": {
+          "accept": ".txt",
+          "multiple": false,
+          "chooseVisible": false,
+          "removeButtons": [
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            }
+          ],
+          "cardCount": 1
+        },
+        "multi": {
+          "accept": ".txt,.md",
+          "multiple": true,
+          "chooseVisible": true,
+          "removeButtons": [
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            }
+          ],
+          "cardCount": 1
+        },
+        "disabledButton": true,
+        "statusSingle": "Files: 1; names: single-replacement.txt",
+        "statusMulti": "Files: 1; names: beta.md"
+      }
+    },
+    {
+      "label": "Actual re-selection exceeds MaxFiles=2; existing cumulative limit gap",
+      "pass": true,
+      "details": {
+        "name": "cumulative-overflow",
+        "single": {
+          "accept": ".txt",
+          "multiple": false,
+          "chooseVisible": false,
+          "removeButtons": [
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            }
+          ],
+          "cardCount": 1
+        },
+        "multi": {
+          "accept": ".txt,.md",
+          "multiple": true,
+          "chooseVisible": false,
+          "removeButtons": [
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            },
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            },
+            {
+              "ariaLabel": null,
+              "title": null,
+              "text": "",
+              "tabIndex": 0
+            }
+          ],
+          "cardCount": 3
+        },
+        "disabledButton": true,
+        "statusSingle": "Files: 1; names: single-replacement.txt",
+        "statusMulti": "Files: 3; names: beta.md, gamma.txt, delta.md"
+      }
+    },
+    {
+      "label": "One native batch of three files exceeds MaxFiles=2 (independent gap)",
+      "pass": true,
+      "details": {
+        "maxFiles": 2,
+        "status": "Files: 3; names: alpha.txt, beta.md, gamma.txt",
+        "cards": 3,
+        "removeButtons": 3,
+        "nativeMultiple": true,
+        "pickerVisible": false
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "family": "FileSelect",
+      "issue": 444,
+      "elementTag": "DIV",
+      "cls": "bui-file-select ",
+      "role": null,
+      "ariaValueNow": null,
+      "tabIndex": null,
+      "width": 415,
+      "height": 32,
+      "left": 635.5,
+      "right": 1050.5,
+      "parentRight": 1067.5,
+      "parentWidth": 449,
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "rail": null,
+      "thumbCount": 0,
+      "thumbs": [],
+      "canvas": {
+        "x": 141.5,
+        "y": 1044.828125,
+        "width": 942,
+        "height": 301.6875
+      },
+      "uploadEvidence": {
+        "syntheticFileNames": [
+          "alpha.txt",
+          "beta.md",
+          "gamma.txt",
+          "delta.md",
+          "single-replacement.txt"
+        ],
+        "testedMaxFiles": 2,
+        "stages": [
+          {
+            "name": "initial",
+            "single": {
+              "accept": ".txt",
+              "multiple": false,
+              "chooseVisible": true,
+              "removeButtons": [],
+              "cardCount": 0
+            },
+            "multi": {
+              "accept": ".txt,.md",
+              "multiple": true,
+              "chooseVisible": true,
+              "removeButtons": [],
+              "cardCount": 0
+            },
+            "disabledButton": true,
+            "statusSingle": "Files: 0; names: none",
+            "statusMulti": "Files: 0; names: none"
+          },
+          {
+            "name": "single-first",
+            "single": {
+              "accept": ".txt",
+              "multiple": false,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 1
+            },
+            "multi": {
+              "accept": ".txt,.md",
+              "multiple": true,
+              "chooseVisible": true,
+              "removeButtons": [],
+              "cardCount": 0
+            },
+            "disabledButton": true,
+            "statusSingle": "Files: 1; names: alpha.txt",
+            "statusMulti": "Files: 0; names: none"
+          },
+          {
+            "name": "single-replaced",
+            "single": {
+              "accept": ".txt",
+              "multiple": false,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 1
+            },
+            "multi": {
+              "accept": ".txt,.md",
+              "multiple": true,
+              "chooseVisible": true,
+              "removeButtons": [],
+              "cardCount": 0
+            },
+            "disabledButton": true,
+            "statusSingle": "Files: 1; names: single-replacement.txt",
+            "statusMulti": "Files: 0; names: none"
+          },
+          {
+            "name": "multi-two",
+            "single": {
+              "accept": ".txt",
+              "multiple": false,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 1
+            },
+            "multi": {
+              "accept": ".txt,.md",
+              "multiple": true,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                },
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 2
+            },
+            "disabledButton": true,
+            "statusSingle": "Files: 1; names: single-replacement.txt",
+            "statusMulti": "Files: 2; names: alpha.txt, beta.md"
+          },
+          {
+            "name": "after-remove",
+            "single": {
+              "accept": ".txt",
+              "multiple": false,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 1
+            },
+            "multi": {
+              "accept": ".txt,.md",
+              "multiple": true,
+              "chooseVisible": true,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 1
+            },
+            "disabledButton": true,
+            "statusSingle": "Files: 1; names: single-replacement.txt",
+            "statusMulti": "Files: 1; names: beta.md"
+          },
+          {
+            "name": "cumulative-overflow",
+            "single": {
+              "accept": ".txt",
+              "multiple": false,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 1
+            },
+            "multi": {
+              "accept": ".txt,.md",
+              "multiple": true,
+              "chooseVisible": false,
+              "removeButtons": [
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                },
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                },
+                {
+                  "ariaLabel": null,
+                  "title": null,
+                  "text": "",
+                  "tabIndex": 0
+                }
+              ],
+              "cardCount": 3
+            },
+            "disabledButton": true,
+            "statusSingle": "Files: 1; names: single-replacement.txt",
+            "statusMulti": "Files: 3; names: beta.md, gamma.txt, delta.md"
+          }
+        ],
+        "removeAX": [
+          {
+            "role": "button",
+            "name": "",
+            "ignored": false
+          }
+        ],
+        "limitations": "Real Chrome DOM.setFileInputFiles on hydrated Blazor WASM. Accept is a chooser hint, no server validation, real OS picker or native AT. Existing bug snapshot, NOT product acceptance.",
+        "singleBatchOverflow": {
+          "maxFiles": 2,
+          "status": "Files: 3; names: alpha.txt, beta.md, gamma.txt",
+          "cards": 3,
+          "removeButtons": 3,
+          "nativeMultiple": true,
+          "pickerVisible": false
+        },
+        "singleBatchImage": "BLUENT-LAB-FILESELECT-ONE-BATCH-SERVER-CHROME.png"
+      },
+      "image": "BLUENT-LAB-FILESELECT-FILE-UPLOAD-SERVER-CHROME.png"
+    }
+  ]
+}

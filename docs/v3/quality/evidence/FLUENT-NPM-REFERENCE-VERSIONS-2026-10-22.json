@@ -1,0 +1,56 @@
+{
+  "capturedOn": "2026-10-22",
+  "captureMethod": "npm view package@version version dist.integrity --json; npm view package dist-tags --json",
+  "packages": {
+    "@fluentui/web-components": {
+      "selectedVersion": "3.1.3",
+      "selectedVersionIntegrity": "sha512-1jl4CHoFFSfevkr8l7F+dKNJzyMWBZqwQfB/khNZtwyY0rv87799mpDWSVu0QeiZAFEbqCtnAOnXWsxJ/kek+Q==",
+      "distTags": {
+        "alpha": "3.0.0-alpha.31",
+        "beta": "3.0.0-beta.133",
+        "rc": "3.0.0-rc.31",
+        "latest": "3.1.3"
+      },
+      "selectionRationale": "Matches the checked-in FLUENT-WC-3.1.3-18-FAMILY-CROSSWALK.md component inventory and the latest tag captured on the review date.",
+      "npm": "https://www.npmjs.com/package/@fluentui/web-components"
+    },
+    "@fluentui/react-components": {
+      "selectedVersion": "9.74.10",
+      "selectedVersionIntegrity": "sha512-Guhlej7Rs7OdxiSn6DWHP8p4Elle+QIgmsIlXAruV9/ek1u+YnZFxW5EIeSYpyq/zXd+ujJ/PtQvi6g2oc4TLQ==",
+      "distTags": {
+        "alpha": "9.0.0-alpha.124",
+        "beta": "9.0.0-beta.5",
+        "rc": "9.0.0-rc.15",
+        "experimental": "9.74.9-experimental.menu-disable-autofocus.20261008-e9914a95c6.0",
+        "latest": "9.74.11",
+        "nightly": "0.0.0-nightly-20261022-0404.1"
+      },
+      "selectionRationale": "Retain the exact 9.74.10 npm tarball and integrity already pinned by the checked-in FLUENT-REACT-9.74.10-18-API-CANDIDATES.json. Latest is 9.74.11; do not silently change the audit baseline mid-review.",
+      "npm": "https://www.npmjs.com/package/@fluentui/react-components"
+    },
+    "@fluentui/react-icons": {
+      "selectedVersion": "2.0.344",
+      "selectedVersionIntegrity": "sha512-pvEVFOUrrtmIglqdfhDVX6XT80a5z9kX+BTso6NAzgmkko8nlURhOzNwvZZlsCK4yQseH/4NQdYoN8ijO7IHdNw==",
+      "distTags": {
+        "beta": "2.0.166-rc.3",
+        "rc": "2.0.173-rc.9",
+        "lts-7": "0.4.11",
+        "prerelease": "2.0.333-alpha.0",
+        "latest": "2.0.344"
+      },
+      "selectionRationale": "Matches the latest tag captured on the review date and the Fluent System Icons reference.",
+      "npm": "https://www.npmjs.com/package/@fluentui/react-icons"
+    }
+  },
+  "referenceUrls": {
+    "fluent2DesignSystem": "https://fluent2.microsoft.design/",
+    "webComponentsStorybook": "https://storybooks.fluentui.dev/web-components/",
+    "reactStorybook": "https://storybooks.fluentui.dev/react/"
+  },
+  "notes": [
+    "Storybook deployments are live references and are not assumed to be release-pinned to the package versions above.",
+    "React v9 is a cross-platform fallback only where the pinned Web Components catalog lacks a comparable reference; it is not asserted to be a DOM/API 1:1.",
+    "No React v8 compatibility component is used as a React v9 reference.",
+    "A versioned package match does not imply Fluent parity acceptance."
+  ]
+}

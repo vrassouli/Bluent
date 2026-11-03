@@ -1,0 +1,215 @@
+{
+  "capturedOn": "2026-10-23",
+  "captureMethod": "npm view package@version version dist.integrity license --json and dist-tags; npm pack @fluentui/svg-icons@1.1.344; extract and enumerate every SVG filename in that exact published tarball.",
+  "purpose": "Exact upstream asset-library provenance and inventory for Icon #429. This is research evidence only, not a Bluent design/API/dependency/shipping decision.",
+  "packages": {
+    "@fluentui/react-icons": {
+      "version": "2.0.344",
+      "latestDistTag": "2.0.344",
+      "distIntegrity": "sha512-pvEVFOUrrtmIglqdfhDVX6XT80a5z9kX+BTso6NAzgmkko8nlURhOzNwvZZlsCK4yQseH/4NQdYoN8ijO7IHdNw==",
+      "license": "MIT",
+      "npm": "https://www.npmjs.com/package/@fluentui/react-icons",
+      "role": "React component wrappers and named Fluent icon catalogue; reference only, not a generic Web Components Icon element.",
+      "upstreamCaveat": "Keep pinned to the exact version and integrity. This package family can remove/rename icon exports or include breaking changes in patch releases. No asset was imported into Bluent."
+    },
+    "@fluentui/svg-icons": {
+      "version": "1.1.344",
+      "latestDistTag": "1.1.344",
+      "distIntegrity": "sha512-rasjaq4hBXzRS25pSY9gaqwY7NdvZJCz7G/rtpwF6mCmg2R+9TnySLhHbR+sOpkMP/IDDG28XvxRcNEQ/lJYoQ==",
+      "tarballShasum": "ffae3689ff3a0e1e830976b89328b09c7e251f97",
+      "tarballBytes": 2794338,
+      "unpackedBytes": 12822512,
+      "license": "MIT",
+      "npm": "https://www.npmjs.com/package/@fluentui/svg-icons",
+      "repository": "https://github.com/microsoft/fluentui-system-icons",
+      "publishedTarballInventory": {
+        "svgFiles": 21732,
+        "filenamePatternMatches": 21732,
+        "unparsedSvgFilenames": 0,
+        "uniqueIconBaseNames": 2991,
+        "sizesObserved": [
+          10,
+          12,
+          16,
+          20,
+          24,
+          28,
+          32,
+          48
+        ],
+        "stylesObserved": [
+          "color",
+          "filled",
+          "light",
+          "regular"
+        ],
+        "bySizeStyle": [
+          {
+            "size": 10,
+            "style": "regular",
+            "count": 8
+          },
+          {
+            "size": 10,
+            "style": "filled",
+            "count": 4
+          },
+          {
+            "size": 12,
+            "style": "regular",
+            "count": 211
+          },
+          {
+            "size": 12,
+            "style": "filled",
+            "count": 207
+          },
+          {
+            "size": 16,
+            "style": "regular",
+            "count": 1829
+          },
+          {
+            "size": 16,
+            "style": "filled",
+            "count": 1865
+          },
+          {
+            "size": 16,
+            "style": "color",
+            "count": 157
+          },
+          {
+            "size": 20,
+            "style": "regular",
+            "count": 2971
+          },
+          {
+            "size": 20,
+            "style": "filled",
+            "count": 3011
+          },
+          {
+            "size": 20,
+            "style": "color",
+            "count": 196
+          },
+          {
+            "size": 24,
+            "style": "regular",
+            "count": 2622
+          },
+          {
+            "size": 24,
+            "style": "filled",
+            "count": 2658
+          },
+          {
+            "size": 24,
+            "style": "color",
+            "count": 196
+          },
+          {
+            "size": 24,
+            "style": "light",
+            "count": 2
+          },
+          {
+            "size": 28,
+            "style": "regular",
+            "count": 1036
+          },
+          {
+            "size": 28,
+            "style": "filled",
+            "count": 1043
+          },
+          {
+            "size": 28,
+            "style": "color",
+            "count": 106
+          },
+          {
+            "size": 28,
+            "style": "light",
+            "count": 2
+          },
+          {
+            "size": 32,
+            "style": "regular",
+            "count": 861
+          },
+          {
+            "size": 32,
+            "style": "filled",
+            "count": 872
+          },
+          {
+            "size": 32,
+            "style": "color",
+            "count": 143
+          },
+          {
+            "size": 32,
+            "style": "light",
+            "count": 208
+          },
+          {
+            "size": 48,
+            "style": "regular",
+            "count": 713
+          },
+          {
+            "size": 48,
+            "style": "filled",
+            "count": 717
+          },
+          {
+            "size": 48,
+            "style": "color",
+            "count": 92
+          },
+          {
+            "size": 48,
+            "style": "light",
+            "count": 2
+          }
+        ],
+        "colorFiles": 890,
+        "lightFiles": 214,
+        "filesAtSizesNotListedInReadme": 2514,
+        "filesUsingStylesNotListedInReadme": [
+          "light"
+        ]
+      },
+      "packedReadme": {
+        "declaredSizes": [
+          16,
+          20,
+          24,
+          28,
+          48
+        ],
+        "declaredStyles": [
+          "regular",
+          "filled",
+          "color"
+        ],
+        "statesColorDeprecated": true,
+        "warnsColorMayBeRemoved": true,
+        "statesColorIsNotThemeableLikeRegularFilled": true,
+        "warnsNotEveryIconOrSizeHasColor": true,
+        "observedMismatch": "The published tarball also contains filenames for sizes 10, 12 and 32 and a light style absent from the README size/style list. This is an upstream package README-to-tarball inventory discrepancy, not proof that every such asset is intended as a public stable contract."
+      },
+      "role": "Plain optimized SVG asset library, distinct from React wrappers and from a Web Components Icon element.",
+      "boundary": "Color assets exist in the exact tarball but the exact packed README marks Color deprecated and says it may be removed. Do not infer a Color API, dependency/shipping decision, forced-colors safety, parity or a Bluent feature decision from presence alone. No tarball assets were copied into Bluent."
+    }
+  },
+  "decisionStatus": {
+    "bluentIconVariantColor": "not approved; current Bluent enum remains Regular/Filled",
+    "newDependencyOrProductAssetShipping": "not approved",
+    "matchedFluentParity": "not tested/accepted by this package inventory",
+    "nativeOSAssistiveTechnology": "not tested",
+    "designApproval": "pending"
+  }
+}

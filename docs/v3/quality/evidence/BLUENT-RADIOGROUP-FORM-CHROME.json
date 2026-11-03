@@ -1,0 +1,126 @@
+{
+  "issue": 552,
+  "sourceRef": "73155f02",
+  "engine": "chrome",
+  "host": "Bluent.UI.Demo WebAssembly, current task-branch build",
+  "createdAt": "2026-10-25T10:17:53.700Z",
+  "formId": "__radio-form-probe-1792923473697",
+  "groupText": "Do you agree?",
+  "checks": [
+    {
+      "name": "default-name-omission",
+      "pass": true,
+      "observed": {
+        "inputs": [
+          {
+            "index": 0,
+            "id": "f3e7a3adf",
+            "nameAttribute": null,
+            "nameProperty": "",
+            "valueAttribute": null,
+            "valueProperty": "on",
+            "checked": true,
+            "disabled": false,
+            "formAttribute": "__radio-form-probe-1792923473697",
+            "associatedForm": "__radio-form-probe-1792923473697"
+          },
+          {
+            "index": 1,
+            "id": "f4363f583",
+            "nameAttribute": null,
+            "nameProperty": "",
+            "valueAttribute": null,
+            "valueProperty": "on",
+            "checked": false,
+            "disabled": false,
+            "formAttribute": "__radio-form-probe-1792923473697",
+            "associatedForm": "__radio-form-probe-1792923473697"
+          }
+        ],
+        "formData": []
+      }
+    },
+    {
+      "name": "native-default-value-when-only-name-is-present",
+      "pass": true,
+      "observed": {
+        "inputs": [
+          {
+            "index": 0,
+            "id": "f3e7a3adf",
+            "nameAttribute": "choice",
+            "nameProperty": "choice",
+            "valueAttribute": null,
+            "valueProperty": "on",
+            "checked": true,
+            "disabled": false,
+            "formAttribute": "__radio-form-probe-1792923473697",
+            "associatedForm": "__radio-form-probe-1792923473697"
+          },
+          {
+            "index": 1,
+            "id": "f4363f583",
+            "nameAttribute": "choice",
+            "nameProperty": "choice",
+            "valueAttribute": null,
+            "valueProperty": "on",
+            "checked": false,
+            "disabled": false,
+            "formAttribute": "__radio-form-probe-1792923473697",
+            "associatedForm": "__radio-form-probe-1792923473697"
+          }
+        ],
+        "formData": [
+          [
+            "choice",
+            "on"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "native-explicit-value-participates-in-FormData",
+      "pass": true,
+      "observed": {
+        "inputs": [
+          {
+            "index": 0,
+            "id": "f3e7a3adf",
+            "nameAttribute": "choice",
+            "nameProperty": "choice",
+            "valueAttribute": "affirmative",
+            "valueProperty": "affirmative",
+            "checked": true,
+            "disabled": false,
+            "formAttribute": "__radio-form-probe-1792923473697",
+            "associatedForm": "__radio-form-probe-1792923473697"
+          },
+          {
+            "index": 1,
+            "id": "f4363f583",
+            "nameAttribute": "choice",
+            "nameProperty": "choice",
+            "valueAttribute": "negative",
+            "valueProperty": "negative",
+            "checked": false,
+            "disabled": false,
+            "formAttribute": "__radio-form-probe-1792923473697",
+            "associatedForm": "__radio-form-probe-1792923473697"
+          }
+        ],
+        "formData": [
+          [
+            "choice",
+            "affirmative"
+          ]
+        ]
+      }
+    }
+  ],
+  "scope": "Browser FormData constructed from the actual rendered RadioGroup inputs, temporarily associated with a synthetic form through the native form attribute. The probe mutates only browser DOM attributes; it does not submit an HTTP request, prove a Blazor callback/validation pipeline, or provide native AT acceptance.",
+  "summary": {
+    "checks": 3,
+    "passed": 3,
+    "failed": 0
+  }
+}
