@@ -87,5 +87,30 @@ class IconAuditDimensionTests(unittest.TestCase):
         self.assertNotIn("Fluent-approved", section)
 
 
+    def test_2026_11_03_maintainer_contract_is_recorded_without_falsely_accepting_the_family(self):
+        contract = self.report.split("## Maintainer-approved Icon contract (2026-11-03)", 1)
+        self.assertEqual(2, len(contract))
+        section = contract[1].split("## Canonical matrix disposition", 1)[0]
+        for phrase in (
+            "`1em`",
+            "explicit caller CSS / Bluent `Style` takes precedence",
+            "No public Icon `Size` parameter",
+            "`Regular` and `Filled` only",
+            "Do not add `IconVariant.Color`",
+            "valid `viewBox`",
+            "trusted developer-controlled, app-owned markup only",
+            "`FromSvg` is not a sanitizer",
+            "`aria-hidden=true`",
+            "image `alt=\"\"`",
+            "parent interactive control always owns its contextual action name",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, section)
+        self.assertEqual("pending", self.family["designApproval"])
+        self.assertIsNone(self.family["evidenceBundle"])
+        self.assertEqual("researching", self.family["auditStatus"])
+        self.assertTrue(all(value == "audited_gaps" for value in self.family["dimensions"].values()))
+
+
 if __name__ == "__main__":
     unittest.main()
