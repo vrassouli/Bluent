@@ -2,6 +2,8 @@
 
 **Research-only; not product code, approved design, or Fluent parity.** This complements [live original Chrome/Edge observations](FLUENT-PARITY-ICON-BROWSER.md).
 
+**Decision refresh — 2026-11-03:** the owner approved the policy items that were still options when this research note was written (1em default with caller CSS/Style precedence; no public Size or Color variant; valid viewBox; trusted app-owned SVG; consumer-owned decorative/informative intent and parent-control action naming). See [the current canonical Icon audit](FLUENT-PARITY-ICON-AUDIT.md). The isolated CSS, browser results, and all remaining design/platform acceptance gates below remain research-only; no product implementation is implied.
+
 ## Design-tool access and approval boundary
 
 **Historical access note (2026-10-20):** Penpot was then connected to an unrelated **PuyaStudio Runner** file (ID b64f6665-c9ab-80b5-8008-c44ed391c0c4); Figma read-only inspection in owned working file JfxkDgSbNr8W0ppUZPQPHc hit the Starter plan tool-call limit. No unrelated asset was touched.
@@ -37,7 +39,7 @@
 - #429 needs an editable **Bluent v3 Penpot/Figma** component and review of 16/20/24/28 sizes, intrinsic 1em default, supplied SVG with/without viewBox, CSS :has support, all themes, RTL, native AT and keyboard, Windows Contrast Themes, real zoom, published InteractiveServer, and security of supplied SVG markup.
 - #418/#420 decide token/size semantics and accessible-attribute policy. Only then make product changes on owner #429 branch and rerun before/after acceptance.
 
-**Current lifecycle:** #552 In progress / PR #553 Draft; #429 Backlog. Stable 2.x Dev untouched. Positive observation guards do not mean the underlying defect is repaired.
+**Current lifecycle:** #552 In progress / PR #553 Draft; #429 Blocked on shared gates. Stable 2.x Dev untouched. Positive observation guards do not mean the underlying defect is repaired.
 
 ## Same-branch candidate revalidation and 320px Dark/RTL follow-up (2026-10-23)
 
@@ -57,7 +59,7 @@ In the current source path, `IconDefinition.FromSvg(regularSvg, ...)` forwards s
 
 This remains injected CSS in temporary browser processes only. It does not validate CSS `:has()` support outside the tested Chrome/Edge versions, native browser zoom, Windows Contrast Themes, native assistive technology, security of arbitrary SVG markup, or design parity. **No product component/CSS/API was changed; #429 remains Backlog and PR #553 remains Draft.**
 
-## #429 design-first decision checklist — ready for review, not pre-approved
+## Historical #429 design-first checklist (2026-10-23; policy decisions superseded 2026-11-03)
 
 The current Penpot source file is `Bluent v3 Design System` (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`). The editable Icon review board now exists at page `43 · Icon anatomy & contract · #429 DRAFT` (page ID `1d7e9dd6-b977-802e-8008-d5a718dd7655`) and board `#429 · Icon SVG sizing & semantics · REVIEW DRAFT` (node ID `1d7e9dd6-b977-802e-8008-d5a718e3f4a2`). It contains the 16/20/24/28/32px sizing matrix, the measured viewBox boundary, decorative-vs-informative options, dark/RTL context, owner decisions and a truthful acceptance matrix. Structural check: 129 editable children, 68/68 text nodes have valid text bounds, and zero children extend beyond the 1600×2320 board. One exported PNG was visually inspected after correcting the text line-height ratio. **This is a review draft, not an approved Fluent parity design, component master, or maintainer sign-off.**
 
@@ -72,4 +74,4 @@ Before an owner branch can begin implementation, #429/#420 and the maintainer sh
 | **Image and SVG accessibility** | The actual demo image has no `alt` and appears as an unnamed image in browser partial AX. Temporary empty-alt vs meaningful-alt values produced distinct AX outcomes. | Define decorative vs informative intent, attribute forwarding/precedence (including `AdditionalAttributes`), and document that interactive controls need their own accessible names. Confirm with native assistive technology before sign-off. |
 | **Visual and platform acceptance** | The sizing candidate is a browser-only CSS injection; forced-colors is emulation, not physical Windows Contrast Themes. | Add approved same-state Fluent reference anatomy, Light/Dark/RTL, 320px, real zoom, native OS/AT, published InteractiveServer, security and focus/keyboard results. A green candidate matrix alone does not satisfy any design/AT gate. |
 
-**Ownership/lifecycle boundary:** #429 remains Backlog until design-first prerequisites move it to Ready through the normal issue workflow. Keep #552 In progress and PR #553 Draft. Do not merge the experiment, import the candidate stylesheet into production, change public API, or touch stable v2.x while any decision remains unapproved.
+**Ownership/lifecycle boundary:** #429 remains Blocked until its shared prerequisites, complete reusable design master and normal Ready gate are satisfied. Keep #552 In progress and PR #553 Draft. Do not merge the experiment, import the candidate stylesheet into production, change public API, or touch stable v2.x.
