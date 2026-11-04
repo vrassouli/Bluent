@@ -54,7 +54,7 @@ The pinned `@fluentui/web-components@3.1.3` Storybook has no generic Icon Web Co
 - Dedicated InteractiveServer wrapper: `/compatibility/icons-server`
 - Release tests on task branch: Icon HtmlRenderer **7/7**, full solution **38/38**, full Release build **0 warnings / 0 errors**.
 - Four local real-browser sessions: Edge/InteractiveServer **234/234**, Edge/WebAssembly **237/237**, Chrome/InteractiveServer **234/234**, Chrome/WebAssembly **237/237**; all Icon-specific route/source-kind/accessibility/sizing/variant/fallback/Style/parent-name/mobile assertions passed. Both Server runs established a fresh SignalR `_blazor` HTTP 101 handshake.
-- Latest exact-head GitHub Actions passed **18/18 checks across 7/7 workflows** on `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814`, including the final Chrome/Edge × InteractiveServer/WebAssembly matrix. The earlier **19/19** result on `ba410d89` is historical and is not the current PR head.
+- Latest exact-head GitHub Actions passed **18/18 checks across 7/7 workflows** on `29beb238b09984fd8eec10bde6fa3150805cae43`, including the final Chrome/Edge × InteractiveServer/WebAssembly matrix. The first Edge/WebAssembly attempt reported a whole-page 6px canvas overflow associated with existing Issue #486; its single-job rerun passed. The final exact-head suite has zero failed checks and no Icon-specific failure. The earlier **19/19** result on `ba410d89` is historical.
 - Detailed limits and evidence links: [Icon v3 implementation record](../../../docs/v3/components/icon.md) and [machine-readable browser evidence](../../../docs/v3/quality/evidence/BLUENT-ICON-EDGE-WASM.json).
 
 ## Acceptance boundaries
