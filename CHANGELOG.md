@@ -12,6 +12,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+- [Bluent.UI, v3 development] Icon roots now receive a low-specificity 1em viewport for CSS-font, trusted inline SVG and image sources. Inherited font size controls the default dimensions; caller CSS and Style remain authoritative. The Icon showcase now demonstrates source kinds, Regular/Filled fallback, caller sizing, parent-owned action naming and decorative/informative usage. No public Size or Color API was added; released 2.x assets are unchanged.
+
 - [Bluent.UI.Demo, v3 development] The Button showcase includes all twelve inherited tooltip placements, all **54** Appearance × Size × Shape combinations, direct `ToggledChanged` callback feedback, LTR/RTL Badge geometry, and paired Persian LTR/RTL samples. The live WASM suite passes **211/211** in Chrome and Edge; the separate published Production probe passes **84/84** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly, including Persian RTL direction and AX-name checks in both renderers. This is runtime evidence, not approval of pending tokens or full Button visual parity.
 
 ### Changed

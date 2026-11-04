@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "issue": 429,
+  "component": "Icon",
+  "branch": "v3/issue-429-icon",
+  "base": "bluent-v3",
+  "verifiedOn": "2026-11-03",
+  "runtime": {
+    "browser": "Microsoft Edge 156.0.4314.58",
+    "renderer": "Published Blazor WebAssembly",
+    "route": "/components/icons",
+    "host": "temporary local static host using the exact Release publish output; only the copied base href was changed from /Bluent/ to /",
+    "failedResources": [],
+    "iconRootsObservedAcrossPage": {
+      "total": 223,
+      "cssFont": 219,
+      "svg": 2,
+      "image": 2
+    },
+    "sourceKindExamples": {
+      "cssFontRoot": "i.bui-icon",
+      "svgRoot": "span.bui-icon",
+      "imageRoot": "img.bui-icon"
+    },
+    "inheritedFontSize": {
+      "requestedCssPixels": [
+        16,
+        20,
+        24,
+        32,
+        40
+      ],
+      "computedRootWidthHeight": [
+        "16px",
+        "20px",
+        "24px",
+        "32px",
+        "40px"
+      ],
+      "result": "pass"
+    },
+    "variantSelection": {
+      "regular": "CSS glyph classes resolve to Regular source",
+      "filled": "changing the control to Filled updates the three catalog glyph classes to Filled",
+      "result": "pass"
+    },
+    "regularOnlyFallback": {
+      "requested": "Filled",
+      "observedRootClasses": [
+        "bui-icon icon-ic_fluent_settings_20_regular",
+        "bui-icon icon-ic_fluent_settings_20_regular"
+      ],
+      "result": "pass"
+    },
+    "callerStylePrecedence": {
+      "style": "width:40px;height:40px;color:rebeccapurple",
+      "computedWidth": "40px",
+      "computedHeight": "40px",
+      "computedColor": "rgb(102, 51, 153)",
+      "result": "pass"
+    },
+    "svg": {
+      "root": "span",
+      "viewBox": "0 0 24 24",
+      "fill": "currentColor",
+      "result": "pass"
+    },
+    "images": {
+      "root": "img",
+      "allComplete": true,
+      "allNaturalWidthPositive": true,
+      "naturalWidth": 150,
+      "informativeAlt": "PowerPoint file type",
+      "decorativeAlt": "",
+      "decorativeAriaHidden": "true",
+      "result": "pass"
+    },
+    "accessibility": {
+      "informativeSvg": {
+        "role": "img",
+        "ariaLabel": "Information"
+      },
+      "informativeCssGlyph": {
+        "role": "img",
+        "ariaLabel": "Settings"
+      },
+      "decorativeFontGlyphs": "aria-hidden=true",
+      "parentButton": {
+        "visibleText": "Save document",
+        "childIconAriaHidden": "true"
+      },
+      "result": "pass"
+    },
+    "networkAndConsoleNotes": {
+      "failedNetworkRequests": 0,
+      "httpResponsesAtOrAbove400": 0,
+      "javascriptRuntimeExceptions": 0,
+      "console": "One generic 'Failed to load resource: 404 (File not found)' message was observed. It could not be mapped to a failed Network request or Performance resource, so its source remains unidentified; it is not claimed as a clean console."
+    }
+  },
+  "automatedValidation": {
+    "iconHtmlRendererTests": "6/6 passed (Release)",
+    "demoPagesReleaseBuild": "passed; 0 warnings; 0 errors",
+    "demoHostReleasePublish": "passed",
+    "v3DocsContract": "passed; 0 findings",
+    "markdownLocalLinks": "167 files passed",
+    "gitDiffCheck": "passed",
+    "fullReleaseSolutionBuild": "passed; 0 warnings; 0 errors",
+    "fullReleaseTestSuite": "37/37 passed"
+  },
+  "limits": [
+    "This is one published Edge/WebAssembly runtime matrix, not the complete Chrome/Edge x WebAssembly/InteractiveServer family parity matrix.",
+    "No native screen-reader speech/assistive-technology sign-off is claimed.",
+    "The three source glyph advances of 19.04px at 20px remain intrinsic font metrics, not CSS normalization defects.",
+    "Penpot page 47 boards remain REVIEW DRAFT pending maintainer visual/design acceptance.",
+    "This evidence does not accept any of the other 17 Component Lab pilot families."
+  ],
+  "automatedValidationOn": "2026-11-04"
+}
