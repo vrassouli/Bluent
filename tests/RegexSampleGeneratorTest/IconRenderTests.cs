@@ -152,6 +152,50 @@ public class IconRenderTests
     }
 
     [Test]
+    public async Task GeneratedCatalogHandlesRegularOnlyAndFilledOnlyAssets()
+    {
+        var regularOnlyDefinition = FluentIcons.PresenceOffline;
+        var filledOnlyDefinition = FluentIcons.BookDefault;
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(regularOnlyDefinition.Regular.Value, Is.EqualTo("icon-ic_fluent_presence_offline_20_regular"));
+            Assert.That(regularOnlyDefinition.Filled, Is.Null);
+            Assert.That(filledOnlyDefinition.Regular.Value, Is.EqualTo("icon-ic_fluent_book_default_20_filled"));
+            Assert.That(filledOnlyDefinition.Filled, Is.Null);
+        });
+
+        var regularOnlyFilledMarkup = await RenderIconAsync(new Dictionary<string, object?>
+        {
+            [nameof(Icon.Value)] = regularOnlyDefinition,
+            [nameof(Icon.Variant)] = IconVariant.Filled,
+        });
+        var filledOnlyRegularMarkup = await RenderIconAsync(new Dictionary<string, object?>
+        {
+            [nameof(Icon.Value)] = filledOnlyDefinition,
+            [nameof(Icon.Variant)] = IconVariant.Regular,
+        });
+        var filledOnlyFilledMarkup = await RenderIconAsync(new Dictionary<string, object?>
+        {
+            [nameof(Icon.Value)] = filledOnlyDefinition,
+            [nameof(Icon.Variant)] = IconVariant.Filled,
+        });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(regularOnlyFilledMarkup, Does.Contain("icon-ic_fluent_presence_offline_20_regular"));
+
+            var filledOnlyRegularClass = System.Text.RegularExpressions.Regex.Match(
+                filledOnlyRegularMarkup, @"class=""([^""]*)""").Groups[1].Value.Trim();
+            var filledOnlyFilledClass = System.Text.RegularExpressions.Regex.Match(
+                filledOnlyFilledMarkup, @"class=""([^""]*)""").Groups[1].Value.Trim();
+
+            Assert.That(filledOnlyRegularClass, Does.Contain("icon-ic_fluent_book_default_20_filled"));
+            Assert.That(filledOnlyFilledClass, Is.EqualTo(filledOnlyRegularClass));
+        });
+    }
+
+    [Test]
     public void PublicContractKeepsOnlyRegularAndFilledWithoutSizeOrColorParameters()
     {
         Assert.That(Enum.GetNames<IconVariant>(), Is.EqualTo(new[] { "Regular", "Filled" }));
