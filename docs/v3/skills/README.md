@@ -4,7 +4,7 @@ The canonical v3 development router is [`.agents/skills/bluent-v3/SKILL.md`](../
 
 The [component router](../../../.agents/skills/bluent-v3/COMPONENT-ROUTER.md) defines routing by the actual GitHub Project status. The [family Skill template](../../../.agents/skills/bluent-v3/FAMILY-SKILL-TEMPLATE.md) describes the source/demo/a11y/migration evidence required before any individual component-specific Skill is accepted.
 
-The [Icon implementation handoff](../../../.agents/skills/bluent-v3-icon/SKILL.md) is a **task-branch draft** for #429, not an accepted family Skill or released API. It routes v3 Icon implementers to the source-backed record while preserving the 2.x consumer route.
+The [Icon implementation handoff](../../../.agents/skills/bluent-v3-icon/SKILL.md) is a **task-branch review handoff** for #429: its visual design is maintainer-approved and PR #558 is Ready for review, but the Skill is not yet an accepted family Skill and the API is not released. It routes v3 Icon implementers to the source-backed record while preserving the 2.x consumer route.
 
 These Skills are deliberately short retrieval guides. Detailed and versioned API facts belong in [canonical v3 docs](../README.md) and the [component reference template](../COMPONENT-REFERENCE-TEMPLATE.md); current 2.x APIs remain in [the existing consumer Skill](../../../.agents/skills/bluent/SKILL.md) and [inventory](../../components/inventory.md).
 

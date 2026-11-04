@@ -1,6 +1,6 @@
 # Bluent v3 Icon — implementation record (design accepted; implementation review pending)
 
-`Icon` visual design direction was explicitly accepted by the maintainer on 2026-11-04. The source-backed implementation remains on the isolated `bluent-v3` task branch and is now a review candidate; it is not yet merged, an accepted released v3 API, or a stable NuGet consumer reference. The existing [Bluent 2.x Icon reference](../../components/icon.md) remains authoritative for released packages.
+`Icon` visual design direction was explicitly accepted by the maintainer on 2026-11-04. The typed `Icon` component and its source-definition API were already present in the `bluent-v3` base branch; PR #558 adds the source-kind viewport styling, showcase, Server fixture, catalog regression coverage and evidence handoff. The PR is ready for independent implementation review but is not merged or a released v3 API. The existing [Bluent 2.x Icon reference](../../components/icon.md) remains authoritative for released packages.
 
 ## Package and namespaces
 
@@ -73,7 +73,12 @@ Source verified from `Icon.cs` and `Bluent.UI.Icons.IconDefinition`. Do not inve
 |---|---|
 | Issue / PR | [#429](https://github.com/vrassouli/Bluent/issues/429) / [#558](https://github.com/vrassouli/Bluent/pull/558) |
 | Task branch | `v3/issue-429-icon` → `bluent-v3` |
-| Implementation source baseline | `7bf36a54fa699d7e840c762dcaad22372876658a` |`r`n| Catalog regression test | `ba410d89de5460752e5078d4c8991e43955fed72` |`r`n| Evidence metadata snapshot | `40ca74f96b64d9c84691332853ef2bcf61d8a333` |`r`n| Documentation / Skill / parity-ledger handoff | `d961d209b6a465c96a1fd0dc082c7febb7724f90` |
+| Existing typed source lineage (already in base) | `Icon.cs` `755ffaf8`; `IconDefinition.cs` `0c9f4a5e` |
+| Task demo / browser-probe baseline | `7bf36a54fa699d7e840c762dcaad22372876658a` |
+| Catalog regression test | `ba410d89de5460752e5078d4c8991e43955fed72` |
+| Evidence metadata snapshot | `40ca74f96b64d9c84691332853ef2bcf61d8a333` |
+| Documentation / Skill / parity-ledger handoff | `d961d209b6a465c96a1fd0dc082c7febb7724f90` |
+| Design-approval record / current PR head | `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814` |
 | Implementation state | Maintainer design accepted 2026-11-04; implementation PR review pending; not merged or released |
 | Demo | `/components/icons`; dedicated InteractiveServer fixture `/compatibility/icons-server` |
 | Design | Penpot page 47, three editable boards; maintainer visual direction accepted 2026-11-04 and page/board status labels synchronized to DESIGN APPROVED. |
@@ -137,7 +142,7 @@ Following the decision, the Penpot page title and all three board names were upd
 
 - Focused Icon HtmlRenderer tests: **7/7 passed (Release)**.
 - Full Release solution tests: **38/38 passed**; full solution Release build: **0 warnings / 0 errors**.
-- Exact-head GitHub Actions on `ba410d89de5460752e5078d4c8991e43955fed72`: **19/19 checks passed**. Later evidence / documentation commits trigger new exact-head CI runs; verify the current PR head rather than inheriting the earlier green result.
+- Earlier exact-head GitHub Actions on `ba410d89`: **19/19 checks passed**. Latest exact-head GitHub Actions on `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814`: **18/18 checks passed across 7/7 workflows**, including Chrome/Edge × InteractiveServer/WebAssembly. Report the current SHA, not the historical check count.
 - Local four-mode live matrix for the Component Lab plus the dedicated Icon page: Edge/InteractiveServer **234/234**, Edge/WebAssembly **237/237**, Chrome/InteractiveServer **234/234**, Chrome/WebAssembly **237/237**. All eight Icon-specific assertions passed in each mode, including CSS/SVG/image roots, accessibility intent, inherited sizing, variant switching, fallback, caller Style, parent Button naming and 390px reflow. Both Server cases established a fresh SignalR `_blazor` WebSocket handshake (HTTP 101).
 - Published Edge/WebAssembly Icon report observes 223 Icon roots (219 CSS font, 2 SVG, 2 image); 0 failed network requests, 0 HTTP responses >=400 and 0 JavaScript exceptions. One generic console 404 message could not be mapped to a Network/Performance resource, so it is not described as a clean console.
 - The broader Component Lab reports existing unrelated InteractiveServer pointer-value gaps for Slider #442 and RangeSlider #443; they are not Icon failures.
@@ -145,11 +150,11 @@ Following the decision, the Penpot page title and all three board names were upd
 
 ## Known acceptance limits
 
-- Penpot page and board names/status copy are synchronized to the maintainer design approval recorded on 2026-11-04; the three-board geometry audit remains 0 out of bounds.
+- The Penpot page and three board status labels mirror the maintainer-approved design direction recorded on 2026-11-04; the three-board geometry audit remains 0 out of bounds. This is not exhaustive matched-state pixel parity.
 - This is not a 5,694-glyph pixel comparison or exhaustive same-state Fluent parity review. The pinned upstream has no generic Icon Web Component; the comparison is asset/source based.
 - Native OS Contrast Themes, native screen-reader speech and other OS-level assistive-technology sign-off have **not** been performed for Icon. Browser DOM/AX checks are not native AT acceptance.
 - Full cross-browser evidence above is scoped to the dedicated showcase and Component Lab, not acceptance of the other 17 audit families.
-- The broader #418 token/theme work and #552 18-family retrospective audit remain separate and In progress. The Icon row in #552 must remain explicitly partial until upstream mappings, design, visual parity, native accessibility and review gaps are dispositioned.
+- The broader #418 token/theme work and #552 18-family retrospective audit remain separate and In progress. The Icon row in #552 must remain explicitly partial until matched-state pixel parity, native OS/assistive-technology testing and remaining Fluent gap dispositions are independently reviewed; the design-direction decision itself is already recorded.
 - Stable Bluent 2.x documentation, assets, NuGet packages, tags and deployments must remain unchanged. This is isolated `bluent-v3` work only.
 
 ## Reproduction

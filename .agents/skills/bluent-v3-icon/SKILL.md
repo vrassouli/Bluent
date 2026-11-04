@@ -8,7 +8,8 @@
 - Review PR: [#558](https://github.com/vrassouli/Bluent/pull/558), targeting `bluent-v3` only
 - Task branch: `v3/issue-429-icon`
 - Current working reference: [v3 Icon implementation record](../../../docs/v3/components/icon.md)
-- Source implementation baseline: 7bf36a54fa699d7e840c762dcaad22372876658a; catalog regression test: a410d89de5460752e5078d4c8991e43955fed72; evidence snapshot: 40ca74f96b64d9c84691332853ef2bcf61d8a333; v3 docs/Skill/ledger handoff: d961d209b6a465c96a1fd0dc082c7febb7724f90.
+- Existing typed source/API is inherited from the `bluent-v3` base: `Icon.cs` lineage `755ffaf8` and `IconDefinition.cs` lineage `0c9f4a5e`. These source files are not edits in PR #558.
+- Task-specific demo/browser-probe baseline: `7bf36a54fa699d7e840c762dcaad22372876658a`; catalog regression test: `ba410d89de5460752e5078d4c8991e43955fed72`; evidence snapshot: `40ca74f96b64d9c84691332853ef2bcf61d8a333`; v3 docs/Skill/ledger handoff: `d961d209b6a465c96a1fd0dc082c7febb7724f90`; design-approval documentation: `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814`.
 - Source-owned Penpot file: **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 47. Boards: visual master `63d7b719-8065-801f-8008-e345641fc17f`, contextual states/catalog `63d7b719-8065-801f-8008-e38a3d009b0d`, pinned asset comparison `63d7b719-8065-801f-8008-e38bdc4a0b01`.
 - Maintainer design approval was recorded on 2026-11-04 for the visual direction and all three page-47 boards. The Penpot page title and all three board names/status labels are now synchronized to `DESIGN APPROVED` (the comparison board is explicitly scoped); see the PR decision record. This design approval does not imply exhaustive glyph pixel parity or native OS/AT acceptance.
 
@@ -53,12 +54,12 @@ The pinned `@fluentui/web-components@3.1.3` Storybook has no generic Icon Web Co
 - Dedicated InteractiveServer wrapper: `/compatibility/icons-server`
 - Release tests on task branch: Icon HtmlRenderer **7/7**, full solution **38/38**, full Release build **0 warnings / 0 errors**.
 - Four local real-browser sessions: Edge/InteractiveServer **234/234**, Edge/WebAssembly **237/237**, Chrome/InteractiveServer **234/234**, Chrome/WebAssembly **237/237**; all Icon-specific route/source-kind/accessibility/sizing/variant/fallback/Style/parent-name/mobile assertions passed. Both Server runs established a fresh SignalR `_blazor` HTTP 101 handshake.
-- Exact-head GitHub CI passed **19/19** on `ba410d89`. Later evidence/ledger/documentation updates trigger independent exact-head runs; do not inherit the earlier green result when reporting the latest PR head.
+- Latest exact-head GitHub Actions passed **18/18 checks across 7/7 workflows** on `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814`, including the final Chrome/Edge × InteractiveServer/WebAssembly matrix. The earlier **19/19** result on `ba410d89` is historical and is not the current PR head.
 - Detailed limits and evidence links: [Icon v3 implementation record](../../../docs/v3/components/icon.md) and [machine-readable browser evidence](../../../docs/v3/quality/evidence/BLUENT-ICON-EDGE-WASM.json).
 
 ## Acceptance boundaries
 
-This family is not Done. The visual design direction is maintainer-approved (2026-11-04), while final implementation PR review and any agreed follow-up disposition remain open. Native OS Contrast Themes and native screen-reader speech/AT acceptance have not been performed for Icon. Browser DOM/AX evidence is not native AT sign-off. The 18-family retrospective parity audit #552 and shared #418 token/theme work remain independent. Keep the #552 Icon row partial until matched-state pixel parity, native accessibility and final Fluent gap disposition are reviewed. After the approved design and evidence are recorded and exact-head CI passes, Issue #429 may move to Review for independent PR review. Do not mark it Done or this Skill accepted until the PR is accepted and merged into `bluent-v3`.
+This family is not Done. The visual design direction is maintainer-approved (2026-11-04); PR #558 is Ready for independent implementation review, and no submitted review is recorded yet. Native OS Contrast Themes and native screen-reader speech/AT acceptance have not been performed for Icon. Browser DOM/AX evidence is not native AT sign-off. The 18-family retrospective parity audit #552 and shared #418 token/theme work remain independent. Keep the #552 Icon row partial until matched-state pixel parity, native accessibility and final Fluent gap disposition are reviewed. Issue #429 is currently in Review and PR #558 is ready for independent implementation review. If review requests changes, move it back to In progress and update the task PR. Do not mark it Done or this Skill accepted until the PR is accepted and merged into `bluent-v3`.
 
 ## Release isolation
 
