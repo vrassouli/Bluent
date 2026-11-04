@@ -1,0 +1,24 @@
+/*
+ * Icon root contract:
+ * - The component owns only a relative 1em viewport.
+ * - Consumers own the actual size through Style / CSS.
+ * - The root inherits color; source artwork decides whether it uses currentColor.
+ * Keep selectors deliberately low-specificity so caller CSS can override them.
+ */
+:where(.bui-icon) {
+  display: inline-block;
+  inline-size: 1em;
+  block-size: 1em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+:where(.bui-icon) > svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+:where(img.bui-icon) {
+  object-fit: contain;
+}
