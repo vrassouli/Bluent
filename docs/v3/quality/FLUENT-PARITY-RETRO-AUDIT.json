@@ -29,7 +29,12 @@
     "nativeOSAssistiveTechnologyCannotBeInferredFromCDP": true,
     "separatePilotAndFluentParity": true,
     "changesOnlyTo": "bluent-v3",
-    "stable2xProtected": true
+    "stable2xProtected": true,
+    "allowedFluentParityApprovals": [
+      "pending",
+      "approved"
+    ],
+    "designApprovalIsSeparateFromFluentParityApproval": true
   },
   "waves": [
     {
@@ -108,7 +113,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Focus style and text/icon alignment; user-approved brand focus ring retained for buttons. Inspect toggle/split/accessible semantics."
+      "notesForReview": "Focus style and text/icon alignment; user-approved brand focus ring retained for buttons. Inspect toggle/split/accessible semantics.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "Icon",
@@ -128,18 +134,18 @@
         "matchedUpstreamComponent": "none: pinned @fluentui/web-components@3.1.3 has no generic Icon element; asset comparison uses @fluentui/svg-icons@1.1.344 and the repository bundled font"
       },
       "dimensions": {
-        "visual": "audited_gaps; seven SVG/font silhouette pairs are review specimens, not full browser pixel parity; page-47 boards remain REVIEW DRAFT",
+        "visual": "design_approved; maintainer approved the page-47 visual direction on 2026-11-04; all three Penpot board labels now synchronized; exhaustive same-state browser pixel parity and 5,694-glyph review remain unclaimed",
         "feature": "audited_gaps; source/API census recorded for Value, Variant, source types/factories, inherited Tooltip/base parameters and lifecycle; no generic Fluent Icon element",
         "behavior": "verification_in_progress; Release HtmlRenderer 7/7, solution tests 38/38, four live browser cells with Icon assertions",
         "accessibility": "verification_in_progress; DOM/AX and consumer intent covered in browser; native OS/AT speech not tested",
         "tokenTheme": "audited_gaps; 1em/currentColor context and caller CSS precedence implemented; no Icon-specific token; full theme/forced-colors acceptance remains open",
         "responsiveRTL": "verification_in_progress; 390px reflow and direction-specific glyph context exercised; full 320px/zoom/native HCM acceptance remains open",
         "BlazorExtensions": "audited_gaps; no upstream generic Icon Web Component; Bluent source-kind roots and inherited tooltip lifecycle recorded",
-        "designArtifact": "audited_gaps; page-47 boards geometry-audited and exported; maintainer design acceptance pending",
+        "designArtifact": "design_approved; page-47 boards geometry-audited and exported; explicit maintainer approval recorded 2026-11-04; page title and all three board names/status labels synchronized to DESIGN APPROVED (comparison scoped)",
         "migrationDocs": "verification_in_progress; M19 and v3-specific record/Skill drafted; no stable consumer migration or package released"
       },
-      "designApproval": "pending",
-      "editableDesignLocation": "Bluent v3 Design System file b64f6665-c9ab-80b5-8008-c4ac99d9d000; page 47 63d7b719-8065-801f-8008-e345640ccf9c; boards 63d7b719-8065-801f-8008-e345641fc17f, 63d7b719-8065-801f-8008-e38a3d009b0d, 63d7b719-8065-801f-8008-e38bdc4a0b01; REVIEW DRAFT",
+      "designApproval": "approved",
+      "editableDesignLocation": "Bluent v3 Design System file b64f6665-c9ab-80b5-8008-c4ac99d9d000; page 47 63d7b719-8065-801f-8008-e345640ccf9c; boards 63d7b719-8065-801f-8008-e345641fc17f, 63d7b719-8065-801f-8008-e38a3d009b0d, 63d7b719-8065-801f-8008-e38bdc4a0b01; maintainer design approval recorded 2026-11-04; Penpot page and all board status labels synchronized",
       "evidenceBundle": {
         "status": "partial; task implementation/runtime evidence only; not Fluent parity acceptance",
         "issue": "https://github.com/vrassouli/Bluent/issues/429",
@@ -198,8 +204,8 @@
               "name": "Pinned Fluent asset comparison"
             }
           ],
-          "reviewState": "REVIEW DRAFT",
-          "maintainerApproval": "pending"
+          "reviewState": "DESIGN APPROVED 2026-11-04; page title and all three board labels synchronized; comparison board explicitly scoped",
+          "maintainerApproval": "approved_design_direction_2026-11-04"
         },
         "upstream": {
           "pinnedWebComponents": "@fluentui/web-components@3.1.3; no generic Icon element",
@@ -208,14 +214,26 @@
         },
         "notClaimed": [
           "full 5,694-glyph pixel comparison",
-          "maintainer visual/design acceptance",
           "native OS Contrast Themes acceptance",
           "native screen-reader speech or assistive-technology acceptance",
-          "overall 18-family Fluent parity audit completion"
+          "overall 18-family Fluent parity audit completion",
+          "exhaustive 5,694-glyph pixel parity or matched-state browser visual parity"
         ]
       },
       "gapDisposition": "audited_gaps",
-      "notesForReview": "The pinned Fluent Web Components package has no generic Icon element; compare asset/rendering behavior, not a nonexistent tag. Current repository font catalog: 2,819 paired names, 8 Regular-only, 48 Filled-only; Color is not a Bluent public variant. Source/API, regression, demo and four-mode browser evidence are captured in the partial bundle. Remaining: maintainer design acceptance, matched-state browser pixel review, native OS/AT, final Fluent gap disposition and PR acceptance."
+      "notesForReview": "The pinned Fluent Web Components package has no generic Icon element; compare asset/rendering behavior, not a nonexistent tag. Current repository font catalog: 2,819 paired names, 8 Regular-only, 48 Filled-only; Color is not a Bluent public variant. Source/API, regression, demo and four-mode browser evidence are captured in the partial bundle. Maintainer approved the visual design direction on 2026-11-04. Remaining: matched-state browser pixel review, native OS/AT, final Fluent gap disposition and PR acceptance.",
+      "fluentParityApproval": "pending",
+      "designApprovalRecord": {
+        "approvedBy": "repository maintainer",
+        "approvedOn": "2026-11-04",
+        "scope": "Visual design direction and three editable Icon boards on Penpot page 47",
+        "decisionSource": "Explicit maintainer approval recorded in PR #558 review discussion",
+        "exclusions": [
+          "Exhaustive 5,694-glyph pixel parity",
+          "Native OS Contrast Themes acceptance",
+          "Native screen-reader speech / assistive-technology acceptance"
+        ]
+      }
     },
     {
       "family": "Label",
@@ -249,7 +267,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Required marks, Info, alignment, native for/focus association, accessible helper/validation copy."
+      "notesForReview": "Required marks, Info, alignment, native for/focus association, accessible helper/validation copy.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "Link",
@@ -283,7 +302,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Native hyperlink vs action semantics, keyboard and disabled/unsafe URL handling."
+      "notesForReview": "Native hyperlink vs action semantics, keyboard and disabled/unsafe URL handling.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "Badge",
@@ -317,7 +337,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Shape, Size, appearance, placement and contrast with Fluent reference."
+      "notesForReview": "Shape, Size, appearance, placement and contrast with Fluent reference.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "TextField",
@@ -351,7 +372,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Existing preferred focus underline; no generic surrounding rectangular focus ring. Check validation/placeholder/multiline."
+      "notesForReview": "Existing preferred focus underline; no generic surrounding rectangular focus ring. Check validation/placeholder/multiline.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "Checkbox",
@@ -385,7 +407,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Indeterminate state, group semantics, disabled and focus."
+      "notesForReview": "Indeterminate state, group semantics, disabled and focus.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "Switch",
@@ -419,7 +442,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Role=switch, label/order and keyboard/announced state."
+      "notesForReview": "Role=switch, label/order and keyboard/announced state.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "NumericField",
@@ -453,7 +477,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Min/Max, culture, invalid and overflow, decimal values and keyboard handling."
+      "notesForReview": "Min/Max, culture, invalid and overflow, decimal values and keyboard handling.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "RadioGroup",
@@ -487,7 +512,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Arrow-key roving focus, labeled radiogroup and disabled radios."
+      "notesForReview": "Arrow-key roving focus, labeled radiogroup and disabled radios.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "SelectField",
@@ -521,7 +547,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Single vs multiple, keyboard select, options, focus and value binding."
+      "notesForReview": "Single vs multiple, keyboard select, options, focus and value binding.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "DateField",
@@ -555,7 +582,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "DateOnly/DateTime, calendar interactions, localization and parsing."
+      "notesForReview": "DateOnly/DateTime, calendar interactions, localization and parsing.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "TimeField",
@@ -589,7 +617,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "TimeOnly/TimeSpan/DateTime, seconds and culture."
+      "notesForReview": "TimeOnly/TimeSpan/DateTime, seconds and culture.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "MaskedField",
@@ -623,7 +652,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Regex/normalization input rules, cursor and IME, document intentional Bluent extension."
+      "notesForReview": "Regex/normalization input rules, cursor and IME, document intentional Bluent extension.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "OtpField",
@@ -657,7 +687,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Digit group a11y, paste, backspace, keyboard and AutoSubmit; likely custom pattern requiring explicit mapping."
+      "notesForReview": "Digit group a11y, paste, backspace, keyboard and AutoSubmit; likely custom pattern requiring explicit mapping.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "Slider",
@@ -691,7 +722,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Verified defect: ScreenX vs getBoundingClientRect viewport; pointer click no change in published InteractiveServer. #442."
+      "notesForReview": "Verified defect: ScreenX vs getBoundingClientRect viewport; pointer click no change in published InteractiveServer. #442.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "RangeSlider",
@@ -725,7 +757,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "Two thumb geometry/order/crossing, pointer coordinate and Server interaction unverified; #443."
+      "notesForReview": "Two thumb geometry/order/crossing, pointer coordinate and Server interaction unverified; #443.",
+      "fluentParityApproval": "pending"
     },
     {
       "family": "FileSelect",
@@ -759,7 +792,8 @@
       "editableDesignLocation": null,
       "evidenceBundle": null,
       "gapDisposition": "untriaged",
-      "notesForReview": "MaxFiles is current API (legacy demo Multiple drift); accessible remove button; Accept not server validation; card gap restored in Lab."
+      "notesForReview": "MaxFiles is current API (legacy demo Multiple drift); accessible remove button; Accept not server validation; card gap restored in Lab.",
+      "fluentParityApproval": "pending"
     }
   ],
   "executionDecision": {
@@ -775,5 +809,6 @@
       "RangeSlider #443",
       "FileSelect #444"
     ]
-  }
+  },
+  "noneFluentParityApproved": true
 }

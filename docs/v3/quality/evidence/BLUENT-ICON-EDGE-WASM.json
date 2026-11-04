@@ -124,7 +124,7 @@
     "Four-mode matrix covers the Component Lab and this Icon showcase, not the full exhaustive Fluent parity or visual-snapshot matrix.",
     "No native screen-reader speech or OS-level assistive-technology sign-off is claimed.",
     "The three source glyph advances of 19.04px at 20px remain intrinsic font metrics, not CSS normalization defects.",
-    "Penpot page-47 boards remain REVIEW DRAFT pending maintainer visual/design acceptance.",
+    "Penpot page title and all three board status labels were synchronized to the 2026-11-04 maintainer design approval; exhaustive pixel parity and native OS/AT remain separate.",
     "This evidence does not accept any of the other 17 Component Lab pilot families.",
     "Existing InteractiveServer Slider #442 and RangeSlider #443 pointer-value gaps are unrelated and remain explicitly tracked."
   ],
@@ -205,5 +205,16 @@
     },
     "result": "pass",
     "interactiveServerAdditionalAssertion": "A fresh SignalR _blazor WebSocket handshake returns HTTP 101 after navigating to the dedicated Icon page."
+  },
+  "designApproval": {
+    "status": "approved",
+    "approvedOn": "2026-11-04",
+    "scope": "Visual design direction and three page-47 Icon boards",
+    "source": "Maintainer explicit approval recorded in PR #558 discussion",
+    "notIncluded": [
+      "Exhaustive glyph pixel parity",
+      "Native OS Contrast Themes",
+      "Native screen-reader speech / OS assistive technology"
+    ]
   }
 }

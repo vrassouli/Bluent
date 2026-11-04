@@ -1,16 +1,16 @@
-# Bluent v3 Icon — implementation handoff (Draft)
+# Bluent v3 Icon — implementation handoff (design accepted; implementation review pending)
 
-> **Task-branch only; not accepted and not released.** This Skill records the current source-backed Icon implementation under `v3/issue-429-icon`. It is not the 2.x consumer Skill and must not be used to imply a stable v3 package/API. For released consumers, use the existing [Bluent consumer Skill](../bluent/SKILL.md) and [2.x Icon reference](../../../docs/components/icon.md).
+> **Task-branch only; design accepted by the maintainer on 2026-11-04; implementation not merged or released.** This Skill records the current source-backed Icon implementation under `v3/issue-429-icon`. It is not the 2.x consumer Skill and must not be used to imply a stable v3 package/API. For released consumers, use the existing [Bluent consumer Skill](../bluent/SKILL.md) and [2.x Icon reference](../../../docs/components/icon.md).
 
 ## Ownership and provenance
 
 - Product issue: [#429 — Icon](https://github.com/vrassouli/Bluent/issues/429)
-- Draft PR: [#558](https://github.com/vrassouli/Bluent/pull/558), targeting `bluent-v3` only
+- Review PR: [#558](https://github.com/vrassouli/Bluent/pull/558), targeting `bluent-v3` only
 - Task branch: `v3/issue-429-icon`
 - Current working reference: [v3 Icon implementation record](../../../docs/v3/components/icon.md)
 - Source implementation baseline: 7bf36a54fa699d7e840c762dcaad22372876658a; catalog regression test: a410d89de5460752e5078d4c8991e43955fed72; evidence snapshot: 40ca74f96b64d9c84691332853ef2bcf61d8a333; v3 docs/Skill/ledger handoff: d961d209b6a465c96a1fd0dc082c7febb7724f90.
 - Source-owned Penpot file: **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 47. Boards: visual master `63d7b719-8065-801f-8008-e345641fc17f`, contextual states/catalog `63d7b719-8065-801f-8008-e38a3d009b0d`, pinned asset comparison `63d7b719-8065-801f-8008-e38bdc4a0b01`.
-- All three boards remain `REVIEW DRAFT`; this Skill does not claim visual/design acceptance.
+- Maintainer design approval was recorded on 2026-11-04 for the visual direction and all three page-47 boards. The Penpot page title and all three board names/status labels are now synchronized to `DESIGN APPROVED` (the comparison board is explicitly scoped); see the PR decision record. This design approval does not imply exhaustive glyph pixel parity or native OS/AT acceptance.
 
 ## Source-backed API contract
 
@@ -58,7 +58,7 @@ The pinned `@fluentui/web-components@3.1.3` Storybook has no generic Icon Web Co
 
 ## Acceptance boundaries
 
-This family is not Done. The three Penpot boards still need maintainer visual/design acceptance; native OS Contrast Themes and native screen-reader speech/AT acceptance have not been performed for Icon. Browser DOM/AX evidence is not native AT sign-off. The 18-family retrospective parity audit #552 and shared #418 token/theme work remain independent. Keep the #552 Icon row partial until upstream mapping, visual/design, native accessibility and gap disposition are reviewed. Do not promote Issue #429 to Review/Done or mark this Skill accepted solely because CI is green.
+This family is not Done. The visual design direction is maintainer-approved (2026-11-04), while final implementation PR review and any agreed follow-up disposition remain open. Native OS Contrast Themes and native screen-reader speech/AT acceptance have not been performed for Icon. Browser DOM/AX evidence is not native AT sign-off. The 18-family retrospective parity audit #552 and shared #418 token/theme work remain independent. Keep the #552 Icon row partial until matched-state pixel parity, native accessibility and final Fluent gap disposition are reviewed. After the approved design and evidence are recorded and exact-head CI passes, Issue #429 may move to Review for independent PR review. Do not mark it Done or this Skill accepted until the PR is accepted and merged into `bluent-v3`.
 
 ## Release isolation
 

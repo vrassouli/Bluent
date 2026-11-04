@@ -868,10 +868,12 @@ def check() -> int:
     doc_text = retro_doc.read_text(encoding="utf-8")
     not_reviewed_count = sum(entry["auditStatus"] == "not_reviewed" for entry in retro["families"])
     in_progress_count = sum(entry["auditStatus"] == "verification_in_progress" for entry in retro["families"])
-    fluent_approved_count = sum(entry["designApproval"] == "approved" for entry in retro["families"])
+    design_approved_count = sum(entry["designApproval"] == "approved" for entry in retro["families"])
+    fluent_approved_count = sum(entry["fluentParityApproval"] == "approved" for entry in retro["families"])
     assert f"{not_reviewed_count}/18 not reviewed" in doc_text
     if in_progress_count:
         assert f"{in_progress_count}/18 verification in progress" in doc_text
+    assert f"{design_approved_count}/18 maintainer design-approved" in doc_text
     assert f"{fluent_approved_count}/18 Fluent-approved" in doc_text
     dimensions = {
         "visual", "feature", "behavior", "accessibility", "tokenTheme",
@@ -888,15 +890,21 @@ def check() -> int:
         assert entry["existingPilotStatus"].startswith("representative_only")
         assert set(entry["dimensions"]) == dimensions
         assert entry["auditStatus"] in retro["rules"]["allowedAuditStatuses"]
+        assert entry["fluentParityApproval"] in retro["rules"]["allowedFluentParityApprovals"]
         if entry["auditStatus"] == "verified":
             assert entry["designApproval"] == "approved"
+            assert entry["fluentParityApproval"] == "approved"
             assert entry["editableDesignLocation"] and entry["evidenceBundle"]
             assert entry["fluentReference"]["matchedUpstreamComponent"] != "unverified"
             assert all(v != "not_reviewed" for v in entry["dimensions"].values())
         if entry["designApproval"] == "approved":
             assert entry["editableDesignLocation"]
+            assert entry.get("designApprovalRecord", {}).get("approvedOn")
+        if entry["fluentParityApproval"] == "approved":
+            assert entry["designApproval"] == "approved"
             actually_approved += 1
     assert retro["noneApproved"] == (actually_approved == 0)
+    assert retro["noneFluentParityApproved"] == (actually_approved == 0)
     assert retro["auditComplete"] is False or (
         all(x["auditStatus"] == "verified" for x in retro["families"])
         and not retro["noneApproved"]

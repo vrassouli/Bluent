@@ -121,7 +121,7 @@
         "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
         "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "The dedicated v3 Icon showcase now covers CSS-font, trusted SVG and image roots; inherited 1em sizing and explicit Style override; Regular/Filled switching and missing-variant fallback; decorative/informative intent; parent Button action naming; and direction-specific RTL glyph use. Local four-mode Icon route/browser evidence is recorded in BLUENT-ICON-EDGE-WASM.json. This Component Lab row remains representative_only and is not exhaustive API permutation, full Fluent visual parity, native OS/AT acceptance or family approval. Remaining: maintainer design approval, same-state pixel review, native assistive technology, and review/disposition of all source/catalog gaps.",
+      "remaining": "The dedicated v3 Icon showcase now covers CSS-font, trusted SVG and image roots; inherited 1em sizing and explicit Style override; Regular/Filled switching and missing-variant fallback; decorative/informative intent; parent Button action naming; and direction-specific RTL glyph use. Local four-mode Icon route/browser evidence is recorded in BLUENT-ICON-EDGE-WASM.json. This Component Lab row remains representative_only and is not exhaustive API permutation, full Fluent visual parity, native OS/AT acceptance or family approval. Maintainer design direction approved 2026-11-04 and synchronized to Penpot page 47. Remaining: matched-state pixel review, native assistive technology, and review/disposition of all source/catalog gaps.",
       "incremental20261017Evidence": {
         "classification": "existing-current-API-live-pilot; NOT Fluent2 design approval",
         "local": "Final source current Dev01 Edge/fresh WebAssembly 53/53 and Chrome/production-published InteractiveServer 53/53 browser checks, zero errors, QA-owned Chromium remaining=0. Exact-head GitHub four-mode CI still pending.",
@@ -165,11 +165,17 @@
           "Chrome/WebAssembly": "237/237"
         },
         "limitations": [
-          "Penpot boards remain REVIEW DRAFT",
+          "Maintainer-approved visual direction; exhaustive pixel parity and native OS/AT acceptance remain separate.",
           "Native OS/AT acceptance pending",
           "not full 5,694-glyph pixel parity",
           "Component Lab classification remains representative_only"
-        ]
+        ],
+        "designApproval": {
+          "status": "approved",
+          "date": "2026-11-04",
+          "source": "Maintainer approval recorded in PR #558 and Penpot page 47",
+          "scope": "Visual design direction and three boards; comparison board explicitly scoped"
+        }
       }
     },
     {

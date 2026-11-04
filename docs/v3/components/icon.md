@@ -1,6 +1,6 @@
-# Bluent v3 Icon — implementation record (Draft)
+# Bluent v3 Icon — implementation record (design accepted; implementation review pending)
 
-`Icon` is being implemented on the isolated `bluent-v3` branch. This page records the current source-backed implementation and evidence; it is not an accepted v3 API or a stable NuGet consumer reference. The existing [Bluent 2.x Icon reference](../../components/icon.md) remains authoritative for released packages.
+`Icon` visual design direction was explicitly accepted by the maintainer on 2026-11-04. The source-backed implementation remains on the isolated `bluent-v3` task branch and is now a review candidate; it is not yet merged, an accepted released v3 API, or a stable NuGet consumer reference. The existing [Bluent 2.x Icon reference](../../components/icon.md) remains authoritative for released packages.
 
 ## Package and namespaces
 
@@ -74,9 +74,9 @@ Source verified from `Icon.cs` and `Bluent.UI.Icons.IconDefinition`. Do not inve
 | Issue / PR | [#429](https://github.com/vrassouli/Bluent/issues/429) / [#558](https://github.com/vrassouli/Bluent/pull/558) |
 | Task branch | `v3/issue-429-icon` → `bluent-v3` |
 | Implementation source baseline | `7bf36a54fa699d7e840c762dcaad22372876658a` |`r`n| Catalog regression test | `ba410d89de5460752e5078d4c8991e43955fed72` |`r`n| Evidence metadata snapshot | `40ca74f96b64d9c84691332853ef2bcf61d8a333` |`r`n| Documentation / Skill / parity-ledger handoff | `d961d209b6a465c96a1fd0dc082c7febb7724f90` |
-| Implementation state | Draft implementation; not accepted, not released |
+| Implementation state | Maintainer design accepted 2026-11-04; implementation PR review pending; not merged or released |
 | Demo | `/components/icons`; dedicated InteractiveServer fixture `/compatibility/icons-server` |
-| Design | Penpot page 47, three editable review boards; all remain `REVIEW DRAFT` |
+| Design | Penpot page 47, three editable boards; maintainer visual direction accepted 2026-11-04 and page/board status labels synchronized to DESIGN APPROVED. |
 
 The component code changes are additive layout behavior: a low-specificity `:where(.bui-icon)` viewport gives every source root a relative `1em` inline/block size, line-height 1 and inline-block alignment. SVG children fill that viewport and image roots use `object-fit: contain`. Consumer CSS and `Style` remain authoritative. No public parameter, enum value, source factory or Color variant has been added.
 
@@ -125,7 +125,13 @@ Source-owned Penpot file: **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-
 | Contextual states & catalog inventory | `63d7b719-8065-801f-8008-e38a3d009b0d` | 98 descendants; 0 out of bounds |
 | Pinned Fluent asset comparison | `63d7b719-8065-801f-8008-e38bdc4a0b01` | 153 descendants; 0 out of bounds |
 
-Two boards had direct-child coordinates corrected relative to their parent boards; nested descendants were left untouched. All three boards were exported after correction. The geometry repair is not design acceptance: all three boards remain `REVIEW DRAFT`, with maintainer visual/design sign-off pending.
+Two boards had direct-child coordinates corrected relative to their parent boards; nested descendants were left untouched. All three boards were exported after correction.
+
+### Maintainer design decision — 2026-11-04
+
+The maintainer accepted the visual design direction and the three page-47 Icon boards for the current implementation scope. This approves the component design direction, anatomy, contextual-state presentation and selected asset comparison as shown; it does **not** claim exhaustive 5,694-glyph pixel parity or native OS/assistive-technology acceptance.
+
+Following the decision, the Penpot page title and all three board names were updated. The visual master and contextual-state boards now display `DESIGN APPROVED`; the pinned upstream asset comparison is marked `DESIGN APPROVED (SCOPED)`. Embedded status copy was also corrected to keep exhaustive pixel parity, OS contrast and native AT as separate outstanding checks. A post-edit geometry audit retained the original 250/98/153 descendant counts with **0 out-of-bounds descendants** on every board.
 
 ## Verification evidence on 2026-11-04
 
@@ -139,7 +145,7 @@ Two boards had direct-child coordinates corrected relative to their parent board
 
 ## Known acceptance limits
 
-- The three Penpot boards remain `REVIEW DRAFT`; final maintainer visual/design approval is not recorded.
+- Penpot page and board names/status copy are synchronized to the maintainer design approval recorded on 2026-11-04; the three-board geometry audit remains 0 out of bounds.
 - This is not a 5,694-glyph pixel comparison or exhaustive same-state Fluent parity review. The pinned upstream has no generic Icon Web Component; the comparison is asset/source based.
 - Native OS Contrast Themes, native screen-reader speech and other OS-level assistive-technology sign-off have **not** been performed for Icon. Browser DOM/AX checks are not native AT acceptance.
 - Full cross-browser evidence above is scoped to the dedicated showcase and Component Lab, not acceptance of the other 17 audit families.
