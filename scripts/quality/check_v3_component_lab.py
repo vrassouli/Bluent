@@ -866,8 +866,13 @@ def check() -> int:
     assert retro["rules"]["changesOnlyTo"] == "bluent-v3"
     assert retro_doc.is_file()
     doc_text = retro_doc.read_text(encoding="utf-8")
-    assert "18/18 not reviewed" in doc_text
-    assert "0/18 Fluent-approved" in doc_text
+    not_reviewed_count = sum(entry["auditStatus"] == "not_reviewed" for entry in retro["families"])
+    in_progress_count = sum(entry["auditStatus"] == "verification_in_progress" for entry in retro["families"])
+    fluent_approved_count = sum(entry["designApproval"] == "approved" for entry in retro["families"])
+    assert f"{not_reviewed_count}/18 not reviewed" in doc_text
+    if in_progress_count:
+        assert f"{in_progress_count}/18 verification in progress" in doc_text
+    assert f"{fluent_approved_count}/18 Fluent-approved" in doc_text
     dimensions = {
         "visual", "feature", "behavior", "accessibility", "tokenTheme",
         "responsiveRTL", "BlazorExtensions", "designArtifact", "migrationDocs"

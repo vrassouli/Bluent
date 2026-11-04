@@ -1,6 +1,6 @@
 # Retrospective Fluent 2 parity review: first 18 Component Lab pilots
 
-> **Plan only; NOT a Fluent audit result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **18/18 not reviewed; 0/18 Fluent-approved**. Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
+> **Plan only; NOT a Fluent audit result.** Tracking issue [#552](https://github.com/vrassouli/Bluent/issues/552); Epic [#416](https://github.com/vrassouli/Bluent/issues/416), Lab [#421](https://github.com/vrassouli/Bluent/issues/421), quality [#425](https://github.com/vrassouli/Bluent/issues/425). **17/18 not reviewed; 1/18 verification in progress; 0/18 Fluent-approved**. Green Chrome/Edge pilot tests prove only particular Bluent source behavior. None of these product issues are Done or newly design-approved.
 
 ## Maintainer decision — debt first (2026-10-19)
 
@@ -36,7 +36,7 @@ The following are planned audits, not parity results. Source of truth: [machine-
 | # | Existing source family / product issue | Priority | Wave | Visual | Feature | Behavior | A11y / design |
 | --: | --- | --- | --- | --- | --- | --- | --- |
 | 1 | [Button](https://github.com/vrassouli/Bluent/issues/428) (#428) | P0 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
-| 2 | [Icon](https://github.com/vrassouli/Bluent/issues/429) (#429) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
+| 2 | [Icon](https://github.com/vrassouli/Bluent/issues/429) (#429) | P2 | A | Asset silhouettes reviewed; pixel parity/design approval pending | Source API + asset mapping documented; no generic Fluent Icon element | HtmlRenderer 7/7; four-mode dedicated route assertions pass | Browser DOM/AX evidence; native OS/AT pending |
 | 3 | [Label](https://github.com/vrassouli/Bluent/issues/430) (#430) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 4 | [Link](https://github.com/vrassouli/Bluent/issues/431) (#431) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
 | 5 | [Badge](https://github.com/vrassouli/Bluent/issues/445) (#445) | P2 | A | Not reviewed | Not reviewed | Not reviewed | Not reviewed |
@@ -67,7 +67,7 @@ The following are planned audits, not parity results. Source of truth: [machine-
 
 ### Status discipline
 
-All **nine** machine-readable dimensions begin **not_reviewed**, approvals are pending, matched upstream counterpart remains unverified. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
+The machine-readable matrix records **17/18 not reviewed** and **1/18 verification in progress**. The Icon row has a partial source/build/browser evidence bundle, but `designApproval` remains `pending`, its upstream Web Components counterpart is explicitly recorded as **no generic Icon element**, and the other 17 families remain untouched. No family is Fluent-approved. Existing 18 Lab entries stay representative-only; they are not automatically comparable Fluent implementations. Use auditable denominators, mark N/A with evidence, and count neither skipped nor unverified cases as passing. **Audited gaps** is not **Design approved**, which is not **Implementation verified**. Closure of tracker #552 requires all 18 reviewed matrices and gap dispositions, **not** the automatic closure of 18 product issues.
 
 ### Specific known gaps already uncovered by the existing pilot tests
 

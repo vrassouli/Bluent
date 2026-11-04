@@ -119,30 +119,103 @@
       "priority": "P2",
       "currentDemoRoute": "/components/icons",
       "labRoute": "/component-lab",
-      "existingPilotStatus": "representative_only; targeted browser assertions are not parity acceptance",
-      "auditStatus": "not_reviewed",
+      "existingPilotStatus": "representative_only; legacy Lab pilot is not parity acceptance; separate Icon v3 showcase and evidence bundle added",
+      "auditStatus": "verification_in_progress",
       "fluentReference": {
         "designSystem": "https://fluent2.microsoft.design/",
         "webComponentsCatalog": "https://storybooks.fluentui.dev/web-components/",
         "reactFallback": "https://storybooks.fluentui.dev/react/",
-        "matchedUpstreamComponent": "unverified"
+        "matchedUpstreamComponent": "none: pinned @fluentui/web-components@3.1.3 has no generic Icon element; asset comparison uses @fluentui/svg-icons@1.1.344 and the repository bundled font"
       },
       "dimensions": {
-        "visual": "not_reviewed",
-        "feature": "not_reviewed",
-        "behavior": "not_reviewed",
-        "accessibility": "not_reviewed",
-        "tokenTheme": "not_reviewed",
-        "responsiveRTL": "not_reviewed",
-        "BlazorExtensions": "not_reviewed",
-        "designArtifact": "not_reviewed",
-        "migrationDocs": "not_reviewed"
+        "visual": "audited_gaps; seven SVG/font silhouette pairs are review specimens, not full browser pixel parity; page-47 boards remain REVIEW DRAFT",
+        "feature": "audited_gaps; source/API census recorded for Value, Variant, source types/factories, inherited Tooltip/base parameters and lifecycle; no generic Fluent Icon element",
+        "behavior": "verification_in_progress; Release HtmlRenderer 7/7, solution tests 38/38, four live browser cells with Icon assertions",
+        "accessibility": "verification_in_progress; DOM/AX and consumer intent covered in browser; native OS/AT speech not tested",
+        "tokenTheme": "audited_gaps; 1em/currentColor context and caller CSS precedence implemented; no Icon-specific token; full theme/forced-colors acceptance remains open",
+        "responsiveRTL": "verification_in_progress; 390px reflow and direction-specific glyph context exercised; full 320px/zoom/native HCM acceptance remains open",
+        "BlazorExtensions": "audited_gaps; no upstream generic Icon Web Component; Bluent source-kind roots and inherited tooltip lifecycle recorded",
+        "designArtifact": "audited_gaps; page-47 boards geometry-audited and exported; maintainer design acceptance pending",
+        "migrationDocs": "verification_in_progress; M19 and v3-specific record/Skill drafted; no stable consumer migration or package released"
       },
       "designApproval": "pending",
-      "editableDesignLocation": null,
-      "evidenceBundle": null,
-      "gapDisposition": "untriaged",
-      "notesForReview": "Check Regular/Filled/Color independently; do not call upstream Color a current public Bluent variant."
+      "editableDesignLocation": "Bluent v3 Design System file b64f6665-c9ab-80b5-8008-c4ac99d9d000; page 47 63d7b719-8065-801f-8008-e345640ccf9c; boards 63d7b719-8065-801f-8008-e345641fc17f, 63d7b719-8065-801f-8008-e38a3d009b0d, 63d7b719-8065-801f-8008-e38bdc4a0b01; REVIEW DRAFT",
+      "evidenceBundle": {
+        "status": "partial; task implementation/runtime evidence only; not Fluent parity acceptance",
+        "issue": "https://github.com/vrassouli/Bluent/issues/429",
+        "pullRequest": "https://github.com/vrassouli/Bluent/pull/558",
+        "branch": "v3/issue-429-icon",
+        "commits": [
+          "ba410d89de5460752e5078d4c8991e43955fed72",
+          "40ca74f96b64d9c84691332853ef2bcf61d8a333"
+        ],
+        "sourceApi": "docs/v3/components/icon.md; src/Bluent.UI/Components/IconComponent/Icon.cs; src/Bluent.UI/Icons/",
+        "tests": {
+          "iconHtmlRenderer": "7/7 Release",
+          "solution": "38/38 Release",
+          "build": "0 warnings; 0 errors",
+          "catalogRegression": "PresenceOffline Regular-only fallback; BookDefault Filled-only source resolution"
+        },
+        "liveBrowserMatrix": {
+          "Edge/InteractiveServer": "234/234",
+          "Edge/WebAssembly": "237/237",
+          "Chrome/InteractiveServer": "234/234",
+          "Chrome/WebAssembly": "237/237",
+          "iconSpecificAssertions": "8 per cell",
+          "serverHandshake": "HTTP 101 _blazor on both Server sessions"
+        },
+        "publishedWasm": {
+          "iconRoots": 223,
+          "cssFont": 219,
+          "svg": 2,
+          "image": 2,
+          "failedNetwork": 0,
+          "httpStatusAtLeast400": 0,
+          "javascriptExceptions": 0,
+          "unmappedConsole404": "one generic console 404 was not mapped to a Network/Performance resource"
+        },
+        "penpot": {
+          "file": "Bluent v3 Design System",
+          "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+          "pageId": "63d7b719-8065-801f-8008-e345640ccf9c",
+          "boards": [
+            {
+              "id": "63d7b719-8065-801f-8008-e345641fc17f",
+              "descendants": 250,
+              "outOfBounds": 0,
+              "name": "Icon visual master"
+            },
+            {
+              "id": "63d7b719-8065-801f-8008-e38a3d009b0d",
+              "descendants": 98,
+              "outOfBounds": 0,
+              "name": "Contextual states and catalog inventory"
+            },
+            {
+              "id": "63d7b719-8065-801f-8008-e38bdc4a0b01",
+              "descendants": 153,
+              "outOfBounds": 0,
+              "name": "Pinned Fluent asset comparison"
+            }
+          ],
+          "reviewState": "REVIEW DRAFT",
+          "maintainerApproval": "pending"
+        },
+        "upstream": {
+          "pinnedWebComponents": "@fluentui/web-components@3.1.3; no generic Icon element",
+          "assetPackage": "@fluentui/svg-icons@1.1.344",
+          "color": "deprecated upstream SVG color assets; no public IconVariant.Color"
+        },
+        "notClaimed": [
+          "full 5,694-glyph pixel comparison",
+          "maintainer visual/design acceptance",
+          "native OS Contrast Themes acceptance",
+          "native screen-reader speech or assistive-technology acceptance",
+          "overall 18-family Fluent parity audit completion"
+        ]
+      },
+      "gapDisposition": "audited_gaps",
+      "notesForReview": "The pinned Fluent Web Components package has no generic Icon element; compare asset/rendering behavior, not a nonexistent tag. Current repository font catalog: 2,819 paired names, 8 Regular-only, 48 Filled-only; Color is not a Bluent public variant. Source/API, regression, demo and four-mode browser evidence are captured in the partial bundle. Remaining: maintainer design acceptance, matched-state browser pixel review, native OS/AT, final Fluent gap disposition and PR acceptance."
     },
     {
       "family": "Label",

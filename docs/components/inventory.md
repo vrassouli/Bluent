@@ -54,7 +54,7 @@ Namespace: `Bluent.UI.Components`
 | [DropdownList](dropdown-list.md) | `Bluent.UI` | `src/Bluent.UI/Components/DropdownListComponent/` | Source verified | Verify | Runtime/virtualization still required |
 | [DropdownSelect](dropdown-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/DropdownSelectComponent/` | Source verified | Verify | Not validated |
 | [FileSelect](file-select.md) | `Bluent.UI` | `src/Bluent.UI/Components/FileSelectComponent/` | Source verified | Verify | Not validated |
-| [Icon](icon.md) | `Bluent.UI` | `src/Bluent.UI/Components/IconComponent/` | Source verified | Compiled interactive showcase | HtmlRenderer 6/6; Edge published WASM runtime passed; design review pending |
+| [Icon](icon.md) | `Bluent.UI` | `src/Bluent.UI/Components/IconComponent/` | Source verified | Typed icon usage | Source only |
 | [Label](label.md) | `Bluent.UI` | `src/Bluent.UI/Components/LabelComponent/` | Source verified | Verify | Source only |
 | [Link](link.md) | `Bluent.UI` | `src/Bluent.UI/Components/LinkComponent/` | Source verified | Verify | Source only |
 | [List](list.md) | `Bluent.UI` | `src/Bluent.UI/Components/ListComponent/` | Source verified | Verify | Runtime/keyboard still required |
