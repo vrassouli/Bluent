@@ -78,7 +78,7 @@ Source verified from `Icon.cs` and `Bluent.UI.Icons.IconDefinition`. Do not inve
 | Catalog regression test | `ba410d89de5460752e5078d4c8991e43955fed72` |
 | Evidence metadata snapshot | `40ca74f96b64d9c84691332853ef2bcf61d8a333` |
 | Documentation / Skill / parity-ledger handoff | `d961d209b6a465c96a1fd0dc082c7febb7724f90` |
-| Design-approval record / current PR head | `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814` |
+| Design-approval record | `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814` |
 | Implementation state | Maintainer design accepted 2026-11-04; implementation PR review pending; not merged or released |
 | Demo | `/components/icons`; dedicated InteractiveServer fixture `/compatibility/icons-server` |
 | Design | Penpot page 47, three editable boards; maintainer visual direction accepted 2026-11-04 and page/board status labels synchronized to DESIGN APPROVED. |
@@ -142,7 +142,7 @@ Following the decision, the Penpot page title and all three board names were upd
 
 - Focused Icon HtmlRenderer tests: **7/7 passed (Release)**.
 - Full Release solution tests: **38/38 passed**; full solution Release build: **0 warnings / 0 errors**.
-- Earlier exact-head GitHub Actions on `ba410d89`: **19/19 checks passed**. Latest exact-head GitHub Actions on `8c587d76db6dc35a6a861d9d4e8db74fd9bc9814`: **18/18 checks passed across 7/7 workflows**, including Chrome/Edge × InteractiveServer/WebAssembly. Report the current SHA, not the historical check count.
+- Earlier exact-head GitHub Actions on `ba410d89`: **19/19 checks passed**. Latest exact-head GitHub Actions on `29beb238b09984fd8eec10bde6fa3150805cae43`: **18/18 checks passed across 7/7 workflows**, including Chrome/Edge × InteractiveServer/WebAssembly. The first Edge/WebAssembly attempt had a whole-page 6px canvas-overflow failure associated with existing Issue #486; its single-job rerun passed, leaving 18/18 successful checks and no Icon-specific failure.
 - Local four-mode live matrix for the Component Lab plus the dedicated Icon page: Edge/InteractiveServer **234/234**, Edge/WebAssembly **237/237**, Chrome/InteractiveServer **234/234**, Chrome/WebAssembly **237/237**. All eight Icon-specific assertions passed in each mode, including CSS/SVG/image roots, accessibility intent, inherited sizing, variant switching, fallback, caller Style, parent Button naming and 390px reflow. Both Server cases established a fresh SignalR `_blazor` WebSocket handshake (HTTP 101).
 - Published Edge/WebAssembly Icon report observes 223 Icon roots (219 CSS font, 2 SVG, 2 image); 0 failed network requests, 0 HTTP responses >=400 and 0 JavaScript exceptions. One generic console 404 message could not be mapped to a Network/Performance resource, so it is not described as a clean console.
 - The broader Component Lab reports existing unrelated InteractiveServer pointer-value gaps for Slider #442 and RangeSlider #443; they are not Icon failures.
