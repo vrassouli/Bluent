@@ -106,14 +106,102 @@
     "markdownLocalLinks": "167 files passed",
     "gitDiffCheck": "passed",
     "fullReleaseSolutionBuild": "passed; 0 warnings; 0 errors",
-    "fullReleaseTestSuite": "37/37 passed"
+    "fullReleaseTestSuite": "37/37 passed",
+    "componentLabStaticContract": "passed; 18/18 source-linked pilots; 66/66 queue rows remain coverage metadata, not family acceptance",
+    "probePythonSyntax": "passed",
+    "probeJavaScriptSyntax": "passed",
+    "fourModeLiveMatrix": "passed; Chrome/Edge x InteractiveServer/WebAssembly; all four sessions exit code 0",
+    "currentFullReleaseSolutionBuild": "passed; 0 warnings; 0 errors",
+    "currentFullReleaseTestSuite": "37/37 passed",
+    "currentV3DocsContract": "passed; 0 findings",
+    "currentMarkdownLocalLinks": "167 files passed",
+    "currentGitDiffCheck": "passed"
   },
   "limits": [
-    "This is one published Edge/WebAssembly runtime matrix, not the complete Chrome/Edge x WebAssembly/InteractiveServer family parity matrix.",
-    "No native screen-reader speech/assistive-technology sign-off is claimed.",
+    "The original Published Edge/WebAssembly report above is separate from the four-mode live Component Lab matrix.",
+    "Four-mode matrix covers the Component Lab and this Icon showcase, not the full exhaustive Fluent parity or visual-snapshot matrix.",
+    "No native screen-reader speech or OS-level assistive-technology sign-off is claimed.",
     "The three source glyph advances of 19.04px at 20px remain intrinsic font metrics, not CSS normalization defects.",
-    "Penpot page 47 boards remain REVIEW DRAFT pending maintainer visual/design acceptance.",
-    "This evidence does not accept any of the other 17 Component Lab pilot families."
+    "Penpot page-47 boards remain REVIEW DRAFT pending maintainer visual/design acceptance.",
+    "This evidence does not accept any of the other 17 Component Lab pilot families.",
+    "Existing InteractiveServer Slider #442 and RangeSlider #443 pointer-value gaps are unrelated and remain explicitly tracked."
   ],
-  "automatedValidationOn": "2026-11-04"
+  "automatedValidationOn": "2026-11-04",
+  "liveComponentLabMatrix": {
+    "verifiedOn": "2026-11-04",
+    "description": "Separate live local browser runs of the real Component Lab plus the dedicated Icon showcase route. Server mode uses the SSR host's explicit InteractiveServer wrapper around the same shared Icons page; WebAssembly uses /components/icons.",
+    "results": [
+      {
+        "browser": "Microsoft Edge",
+        "renderMode": "InteractiveServer",
+        "passed": 234,
+        "total": 234,
+        "exitCode": 0,
+        "iconShowcaseAssertions": 8,
+        "serverCircuit": "fresh SignalR _blazor WebSocket handshake HTTP 101",
+        "route": "/compatibility/icons-server",
+        "additionalAssertions": 1
+      },
+      {
+        "browser": "Microsoft Edge",
+        "renderMode": "WebAssembly",
+        "passed": 237,
+        "total": 237,
+        "exitCode": 0,
+        "iconShowcaseAssertions": 8,
+        "route": "/components/icons"
+      },
+      {
+        "browser": "Google Chrome",
+        "renderMode": "InteractiveServer",
+        "passed": 234,
+        "total": 234,
+        "exitCode": 0,
+        "iconShowcaseAssertions": 8,
+        "serverCircuit": "fresh SignalR _blazor WebSocket handshake HTTP 101",
+        "route": "/compatibility/icons-server",
+        "additionalAssertions": 1
+      },
+      {
+        "browser": "Google Chrome",
+        "renderMode": "WebAssembly",
+        "passed": 237,
+        "total": 237,
+        "exitCode": 0,
+        "iconShowcaseAssertions": 8,
+        "route": "/components/icons"
+      }
+    ],
+    "iconAssertions": [
+      "Dedicated shared Icon showcase route renders and hydrates",
+      "CSS font, trusted SVG and image roots render with valid viewBox/currentColor, loaded image, and informative/decorative accessibility semantics",
+      "Inherited 1em viewport updates to 40px through the live control",
+      "Regular/Filled selector updates the actual source glyph",
+      "Filled-to-Regular fallback uses the actual Regular catalog glyph without synthetic glyph generation",
+      "Consumer Style overrides viewport size and color",
+      "Parent Button keeps its contextual action name and hides its decorative child Icon",
+      "390px viewport has no horizontal overflow"
+    ],
+    "sharedImageAsset": {
+      "source": "src/Bluent.UI.Demo/wwwroot/assets/icons/powerpoint.svg",
+      "sharedCopy": "src/Bluent.UI.Demo.Pages/wwwroot/assets/icons/powerpoint.svg",
+      "url": "/_content/Bluent.UI.Demo.Pages/assets/icons/powerpoint.svg",
+      "sha256": "EA962516CEB32B8CC100983264576014C9F8D4B8B9E9B28226473A3DD56204C0",
+      "edgeServerNaturalWidth": 150,
+      "result": "pass"
+    },
+    "runtimeSignals": {
+      "failedFrameworkOrStylesheetRequests": 0,
+      "httpResponsesAtOrAbove400": 0,
+      "unhandledJavaScriptExceptions": 0,
+      "temporaryBrowserProfilesCleaned": true
+    },
+    "knownUnrelatedGaps": {
+      "slider442": "InteractiveServer pointer ValueChanged is not asserted; existing probe notes the bound value remained unchanged.",
+      "rangeSlider443": "InteractiveServer pointer ValueChanged is not asserted.",
+      "scope": "These are pre-existing, unrelated lab pilot gaps; the Icon-specific Server and WebAssembly assertions all passed."
+    },
+    "result": "pass",
+    "interactiveServerAdditionalAssertion": "A fresh SignalR _blazor WebSocket handshake returns HTTP 101 after navigating to the dedicated Icon page."
+  }
 }

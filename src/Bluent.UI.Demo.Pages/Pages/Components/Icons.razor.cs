@@ -14,7 +14,7 @@ public partial class Icons
     private IconVariant _selectedVariant = IconVariant.Regular;
 
     public IconDefinition CustomSvgIcon { get; } = IconDefinition.FromSvg(CustomSvg);
-    public IconDefinition PowerPointIcon { get; } = IconDefinition.FromImage("/assets/icons/powerpoint.svg");
+    public IconDefinition PowerPointIcon { get; } = IconDefinition.FromImage("/_content/Bluent.UI.Demo.Pages/assets/icons/powerpoint.svg");
     public IconDefinition RegularOnlyIcon { get; } = IconDefinition.FromCss(FluentIcons.Settings.Regular.Value);
 
     private string InheritedSizeStyle => $"font-size:{_size}px;";

@@ -820,6 +820,16 @@ def check() -> int:
         "Label public Info renders a focusable native Popover trigger",
         "native keyboard Enter opens actual Label Info Popover content",
         "Label copyable Razor includes nested Info content",
+        "dedicated Icon showcase route hydrates in ",
+        "dedicated Icon showcase establishes a live InteractiveServer circuit",
+        "Network.webSocketHandshakeResponseReceived",
+        "showcase covers CSS, trusted SVG and image roots with native accessible intent",
+        "showcase size binding updates the inherited 1em viewport to 40px",
+        "showcase variant binding switches the real CSS font glyph to Filled",
+        "showcase proves Filled-to-Regular fallback without synthetic glyph",
+        "showcase caller Style overrides the 1em default viewport",
+        "showcase keeps parent Button action name separate from its decorative Icon",
+        "dedicated Icon showcase has no horizontal overflow at 390px",
     ):
         assert required_gate in probe, "missing real browser Icon/Label contract: "+required_gate
     # The prototype Color SVG and monochrome HCM alternate are both purely

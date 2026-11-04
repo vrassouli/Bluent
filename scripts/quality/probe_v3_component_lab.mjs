@@ -49,6 +49,7 @@ try {
  if(!tab)throw Error('Missing temporary Chrome page');
  ws=new WebSocket(tab.webSocketDebuggerUrl);
  await new Promise((res,rej)=>{ws.addEventListener('open',res,{once:true});ws.addEventListener('error',rej,{once:true})});
+ const webSocketUrls=new Map();
  ws.addEventListener('message',e=>{
   const m=JSON.parse(e.data),p=pending.get(m.id);
   if(p){pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result||{});}
@@ -60,6 +61,10 @@ try {
   if(m.method==='Network.responseReceived'&&m.params?.response?.status>=400)
     runtimeSignals.push({type:'HTTP',status:m.params.response.status,url:m.params.response.url});
   if(m.method==='Network.loadingFailed')runtimeSignals.push({type:'Network',detail:m.params?.errorText});
+  if(m.method==='Network.webSocketCreated')
+    webSocketUrls.set(m.params.requestId,m.params.url);
+  if(m.method==='Network.webSocketHandshakeResponseReceived')
+    runtimeSignals.push({type:'WebSocketHandshake',url:webSocketUrls.get(m.params.requestId)||'',status:m.params.response?.status});
  });
  await send('Page.enable');await send('Runtime.enable');await send('Network.enable');
  await send('Page.navigate',{url:base+labRoute});console.log('QA: page navigation initiated');
@@ -1077,6 +1082,60 @@ try {
  check('full 66-family queue reflows without document overflow at 320px',
   queuedMobile.width<=321&&queuedMobile.rows===66,queuedMobile);
  await send('Emulation.clearDeviceMetricsOverride');
+
+ // Exercise the dedicated Icon showcase route in the same real-browser
+ // matrix as the Component Lab: Chrome/Edge x WebAssembly/InteractiveServer.
+ // This proves the page's own Blazor bindings and CSS viewport, not only the
+ // Icon specimens embedded in the Lab.
+ const priorIconCircuitHandshakes=runtimeSignals.filter(x=>x.type==='WebSocketHandshake'&&x.status===101&&x.url.includes('/_blazor')).length;
+ const iconShowcaseRoute=renderMode==='Server'?'/compatibility/icons-server':'/components/icons';
+ await send('Page.navigate',{url:base+iconShowcaseRoute});
+ const iconRouteReady=await poll(()=>
+   js("!!document.querySelector('.icon-page') && !!document.querySelector('#icon-size') && !!document.querySelector('#icon-variant')"),
+   renderMode==='Server'?55000:25000);
+ check('dedicated Icon showcase route hydrates in '+renderMode,!!iconRouteReady);
+ if(renderMode==='Server'){
+  const iconServerCircuit=await poll(()=>
+   runtimeSignals.filter(x=>x.type==='WebSocketHandshake'&&x.status===101&&x.url.includes('/_blazor')).length>priorIconCircuitHandshakes,20000);
+  check('dedicated Icon showcase establishes a live InteractiveServer circuit',!!iconServerCircuit,
+   runtimeSignals.filter(x=>x.type==='WebSocketHandshake'&&x.url.includes('/_blazor')));
+ }
+
+ const iconSourceRoots=await js("(()=>{const grids=[...document.querySelectorAll('.icon-source-grid')];const cards=[...grids[0]?.querySelectorAll('.icon-demo-card')||[]];return {title:document.querySelector('.icon-page h1')?.textContent,css:cards[0]?.querySelectorAll('.icon-stage .bui-icon').length||0,svg:cards[1]?.querySelectorAll('.icon-stage .bui-icon').length||0,image:cards[2]?.querySelectorAll('.icon-stage .bui-icon').length||0,svgViewBox:cards[1]?.querySelector('svg')?.getAttribute('viewBox'),svgFill:cards[1]?.querySelector('svg')?.getAttribute('fill'),imageComplete:cards[2]?.querySelector('img')?.complete,imageNaturalWidth:cards[2]?.querySelector('img')?.naturalWidth,informativeSvgRole:cards[1]?.querySelector('[role=img]')?.getAttribute('role'),informativeSvgName:cards[1]?.querySelector('[role=img]')?.getAttribute('aria-label'),decorativeSvgHidden:cards[1]?.querySelector('[aria-hidden=true]')?.getAttribute('aria-hidden'),informativeImageAlt:cards[2]?.querySelector('img:not([aria-hidden=true])')?.getAttribute('alt'),decorativeImageAlt:cards[2]?.querySelector('img[aria-hidden=true]')?.getAttribute('alt')}})()");
+ check('showcase covers CSS, trusted SVG and image roots with native accessible intent',
+   iconSourceRoots.title==='Icons' && iconSourceRoots.css===3 && iconSourceRoots.svg===2 &&
+   iconSourceRoots.image===2 && iconSourceRoots.svgViewBox==='0 0 24 24' &&
+   iconSourceRoots.svgFill==='currentColor' && iconSourceRoots.imageComplete &&
+   iconSourceRoots.imageNaturalWidth>0 && iconSourceRoots.informativeSvgRole==='img' &&
+   iconSourceRoots.informativeSvgName==='Information' && iconSourceRoots.decorativeSvgHidden==='true' &&
+   iconSourceRoots.informativeImageAlt==='PowerPoint file type' && iconSourceRoots.decorativeImageAlt==='',iconSourceRoots);
+
+ const chooseSelect=async(id,value)=>js("(()=>{const s=document.getElementById("+JSON.stringify(id)+");if(!s)return false;Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value').set.call(s,"+JSON.stringify(value)+");s.dispatchEvent(new Event('change',{bubbles:true}));return true})()");
+ await chooseSelect('icon-size','40');
+ const iconSize40=await poll(()=>js("(()=>{const p=document.querySelector('.icon-source-grid');const x=p?.querySelector('.icon-demo-card .icon-stage .bui-icon');const c=x&&getComputedStyle(x);return c?.width==='40px'&&c?.height==='40px'&&document.querySelector('#icon-size')?.value==='40'})()"),12000);
+ check('showcase size binding updates the inherited 1em viewport to 40px',iconSize40);
+
+ await chooseSelect('icon-size','24');
+ await chooseSelect('icon-variant','Filled');
+ const filledVariant=await poll(()=>js("(()=>{const p=document.querySelector('.icon-source-grid');const x=p?.querySelector('.icon-demo-card .icon-stage .bui-icon');return document.querySelector('#icon-variant')?.value==='Filled'&&!!x?.className.includes('filled')})()"),12000);
+ check('showcase variant binding switches the real CSS font glyph to Filled',filledVariant);
+ const fallbackPair=await js("(()=>{const xs=[...document.querySelectorAll('.icon-fallback-card .bui-icon')];return {count:xs.length,classes:xs.map(x=>x.className),same:xs.length===2&&xs[0].className===xs[1].className}})()");
+ check('showcase proves Filled-to-Regular fallback without synthetic glyph',fallbackPair.count===2&&fallbackPair.same,fallbackPair);
+
+ const styleOverride=await js("(()=>{const x=document.querySelector('.icon-style-stage .bui-icon');const c=x&&getComputedStyle(x);return {width:c?.width,height:c?.height,color:c?.color,style:x?.getAttribute('style')}})()");
+ check('showcase caller Style overrides the 1em default viewport',
+   styleOverride.width==='40px'&&styleOverride.height==='40px'&&styleOverride.color==='rgb(102, 51, 153)',styleOverride);
+
+ const parentAction=await js("(()=>{const b=[...document.querySelectorAll('button.bui-button')].find(x=>x.textContent.includes('Save document'));const i=b?.querySelector('.bui-icon');return {button:!!b,text:b?.textContent.trim(),iconHidden:i?.getAttribute('aria-hidden')}})()");
+ check('showcase keeps parent Button action name separate from its decorative Icon',
+   parentAction.button&&parentAction.text.includes('Save document')&&parentAction.iconHidden==='true',parentAction);
+
+ await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+ const iconMobile=await js("(()=>({viewport:innerWidth,documentWidth:document.documentElement.scrollWidth,pageWidth:document.querySelector('.icon-page')?.getBoundingClientRect().width}))()");
+ check('dedicated Icon showcase has no horizontal overflow at 390px',
+   iconMobile.documentWidth<=iconMobile.viewport,iconMobile);
+ await send('Emulation.clearDeviceMetricsOverride');
+
  const missingRequiredAssets=runtimeSignals.filter(x=>x.type==='HTTP' && x.status>=400 &&
    /\/_framework\/|\/_content\/|\.(?:css|js)(?:[?#]|$)/i.test(x.url||''));
  check('framework JavaScript and stylesheet requests have no HTTP failures',
