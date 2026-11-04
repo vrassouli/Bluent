@@ -8,6 +8,7 @@
 - Draft PR: [#558](https://github.com/vrassouli/Bluent/pull/558), targeting `bluent-v3` only
 - Task branch: `v3/issue-429-icon`
 - Current working reference: [v3 Icon implementation record](../../../docs/v3/components/icon.md)
+- Source implementation baseline: 7bf36a54fa699d7e840c762dcaad22372876658a; catalog regression test: a410d89de5460752e5078d4c8991e43955fed72; evidence snapshot: 40ca74f96b64d9c84691332853ef2bcf61d8a333; v3 docs/Skill/ledger handoff: d961d209b6a465c96a1fd0dc082c7febb7724f90.
 - Source-owned Penpot file: **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 47. Boards: visual master `63d7b719-8065-801f-8008-e345641fc17f`, contextual states/catalog `63d7b719-8065-801f-8008-e38a3d009b0d`, pinned asset comparison `63d7b719-8065-801f-8008-e38bdc4a0b01`.
 - All three boards remain `REVIEW DRAFT`; this Skill does not claim visual/design acceptance.
 
@@ -52,7 +53,7 @@ The pinned `@fluentui/web-components@3.1.3` Storybook has no generic Icon Web Co
 - Dedicated InteractiveServer wrapper: `/compatibility/icons-server`
 - Release tests on task branch: Icon HtmlRenderer **7/7**, full solution **38/38**, full Release build **0 warnings / 0 errors**.
 - Four local real-browser sessions: Edge/InteractiveServer **234/234**, Edge/WebAssembly **237/237**, Chrome/InteractiveServer **234/234**, Chrome/WebAssembly **237/237**; all Icon-specific route/source-kind/accessibility/sizing/variant/fallback/Style/parent-name/mobile assertions passed. Both Server runs established a fresh SignalR `_blazor` HTTP 101 handshake.
-- Exact-head GitHub CI previously passed **19/19** on `ba410d89`; the evidence-only update commit `40ca74f` triggers a new run and must be checked independently before reporting current-head CI success.
+- Exact-head GitHub CI passed **19/19** on `ba410d89`. Later evidence/ledger/documentation updates trigger independent exact-head runs; do not inherit the earlier green result when reporting the latest PR head.
 - Detailed limits and evidence links: [Icon v3 implementation record](../../../docs/v3/components/icon.md) and [machine-readable browser evidence](../../../docs/v3/quality/evidence/BLUENT-ICON-EDGE-WASM.json).
 
 ## Acceptance boundaries

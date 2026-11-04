@@ -9,7 +9,7 @@
 @using Bluent.UI.Icons
 ```
 
-Package: `Bluent.UI`
+Source project / assembly: `Bluent.UI` (branch-local; not a released NuGet package)
 
 ## Basic usage
 
@@ -73,7 +73,7 @@ Source verified from `Icon.cs` and `Bluent.UI.Icons.IconDefinition`. Do not inve
 |---|---|
 | Issue / PR | [#429](https://github.com/vrassouli/Bluent/issues/429) / [#558](https://github.com/vrassouli/Bluent/pull/558) |
 | Task branch | `v3/issue-429-icon` → `bluent-v3` |
-| Source head | `40ca74f96b64d9c84691332853ef2bcf61d8a333` (evidence update; latest PR head must be checked separately) |
+| Implementation source baseline | `7bf36a54fa699d7e840c762dcaad22372876658a` |`r`n| Catalog regression test | `ba410d89de5460752e5078d4c8991e43955fed72` |`r`n| Evidence metadata snapshot | `40ca74f96b64d9c84691332853ef2bcf61d8a333` |`r`n| Documentation / Skill / parity-ledger handoff | `d961d209b6a465c96a1fd0dc082c7febb7724f90` |
 | Implementation state | Draft implementation; not accepted, not released |
 | Demo | `/components/icons`; dedicated InteractiveServer fixture `/compatibility/icons-server` |
 | Design | Penpot page 47, three editable review boards; all remain `REVIEW DRAFT` |
@@ -131,7 +131,7 @@ Two boards had direct-child coordinates corrected relative to their parent board
 
 - Focused Icon HtmlRenderer tests: **7/7 passed (Release)**.
 - Full Release solution tests: **38/38 passed**; full solution Release build: **0 warnings / 0 errors**.
-- Exact-head GitHub Actions on `ba410d89de5460752e5078d4c8991e43955fed72`: **19/19 checks passed**. This head preceded the latest evidence-only JSON update commit; CI was started again for `40ca74f96b64d9c84691332853ef2bcf61d8a333` and must be rechecked before calling that head green.
+- Exact-head GitHub Actions on `ba410d89de5460752e5078d4c8991e43955fed72`: **19/19 checks passed**. Later evidence / documentation commits trigger new exact-head CI runs; verify the current PR head rather than inheriting the earlier green result.
 - Local four-mode live matrix for the Component Lab plus the dedicated Icon page: Edge/InteractiveServer **234/234**, Edge/WebAssembly **237/237**, Chrome/InteractiveServer **234/234**, Chrome/WebAssembly **237/237**. All eight Icon-specific assertions passed in each mode, including CSS/SVG/image roots, accessibility intent, inherited sizing, variant switching, fallback, caller Style, parent Button naming and 390px reflow. Both Server cases established a fresh SignalR `_blazor` WebSocket handshake (HTTP 101).
 - Published Edge/WebAssembly Icon report observes 223 Icon roots (219 CSS font, 2 SVG, 2 image); 0 failed network requests, 0 HTTP responses >=400 and 0 JavaScript exceptions. One generic console 404 message could not be mapped to a Network/Performance resource, so it is not described as a clean console.
 - The broader Component Lab reports existing unrelated InteractiveServer pointer-value gaps for Slider #442 and RangeSlider #443; they are not Icon failures.
