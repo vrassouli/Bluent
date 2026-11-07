@@ -1,0 +1,100 @@
+.icon-page {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 70rem;
+  margin-inline: auto;
+}
+
+.icon-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  align-items: end;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: 0.75rem;
+}
+
+.icon-controls label {
+  display: block;
+  margin-block-end: 0.35rem;
+  font-weight: 600;
+}
+
+.icon-controls select {
+  min-width: 8rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: 0.35rem;
+  background: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+}
+
+.icon-control-note {
+  margin: 0;
+  color: var(--colorNeutralForeground2);
+  font-size: 0.875rem;
+}
+
+.icon-source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1rem;
+}
+
+.icon-demo-card {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: 0.75rem;
+  background: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+}
+
+.icon-demo-card h3 {
+  margin-block: 0 1rem;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.icon-demo-card p {
+  margin-block: 1rem 0;
+  color: var(--colorNeutralForeground2);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.icon-stage {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 3.5rem;
+  color: var(--colorBrandForeground1);
+}
+
+.icon-stage-large {
+  font-size: 2rem;
+}
+
+.icon-style-stage {
+  font-size: 1rem;
+  min-height: 3.5rem;
+}
+
+.icon-fallback-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.icon-fallback-card p {
+  flex: 1 1 22rem;
+  margin: 0;
+}
+
+@media (max-width: 36rem) {
+  .icon-controls {
+    grid-template-columns: 1fr;
+  }
+}

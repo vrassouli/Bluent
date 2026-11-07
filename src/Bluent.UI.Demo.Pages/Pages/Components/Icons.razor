@@ -1,40 +1,105 @@
 ﻿@page "/components/icons"
 @namespace Bluent.UI.Demo.Pages.Components
+@using Bluent.UI.Icons
 <PageTitle>Icons</PageTitle>
 
 <div class="p-5 py-md-10 px-md-12">
-    <div class="w-100 w-md-50 m-auto">
+    <div class="icon-page">
         <h1>Icons</h1>
+        <p class="text-secondary">Render a catalog glyph, trusted inline SVG, or an image through the same 1em viewport. The caller owns the size and accessible meaning.</p>
 
-        <h3>Strongly typed Fluent icons</h3>
-        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
+        <section class="icon-controls">
             <div>
-                <h4>Default</h4>
-                <Icon Value="@FluentIcons.Settings" Class="fs-6" />
+                <label for="icon-size">Inherited font size</label>
+                <select id="icon-size" @bind="_size">
+                    <option value="16">16 px</option>
+                    <option value="20">20 px</option>
+                    <option value="24">24 px</option>
+                    <option value="32">32 px</option>
+                    <option value="40">40 px</option>
+                </select>
             </div>
-
             <div>
-                <h4>Filled variant</h4>
-                <Icon Value="@FluentIcons.Settings" Variant="IconVariant.Filled" Class="fs-6" />
+                <label for="icon-variant">Glyph variant</label>
+                <select id="icon-variant" @bind="_selectedVariant">
+                    <option value="@IconVariant.Regular">Regular</option>
+                    <option value="@IconVariant.Filled">Filled</option>
+                </select>
             </div>
-
-            <div>
-                <h4>Stateful component</h4>
-                <Button Text="Save" Icon="@FluentIcons.Save" />
-            </div>
+            <p class="icon-control-note">The selected size changes the parent font size. The Icon itself has no Size parameter.</p>
         </section>
 
-        <h3 class="mt-7">Custom sources</h3>
-        <section class="p-7 rounded-5 shadow-3 d-flex flex-column gap-4">
-            <div>
-                <h4>SVG</h4>
-                <Icon Value="@CustomSvgIcon" Style="width: 32px; height: 32px;" />
-            </div>
+        <h2>Source kinds</h2>
+        <div class="icon-source-grid" style="@InheritedSizeStyle">
+            <article class="icon-demo-card">
+                <h3>CSS font glyph</h3>
+                <div class="icon-stage">
+                    <Icon Value="@FluentIcons.Settings" Variant="@_selectedVariant" aria-hidden="true" />
+                    <Icon Value="@FluentIcons.Search" Variant="@_selectedVariant" aria-hidden="true" />
+                    <Icon Value="@FluentIcons.Save" Variant="@_selectedVariant" aria-hidden="true" />
+                </div>
+                <p>Root: <code>&lt;i&gt;</code>. The glyph uses the bundled Fluent font and inherits <code>currentColor</code>.</p>
+            </article>
 
-            <div>
-                <h4>Image</h4>
-                <Icon Value="@PowerPointIcon" Style="width: 32px; height: 32px;" />
+            <article class="icon-demo-card">
+                <h3>Trusted inline SVG</h3>
+                <div class="icon-stage">
+                    <Icon Value="@CustomSvgIcon" role="img" aria-label="Information" />
+                    <Icon Value="@CustomSvgIcon" aria-hidden="true" />
+                </div>
+                <p>Root: <code>&lt;span&gt;</code>. The SVG has a valid <code>viewBox</code> and uses <code>currentColor</code>. A meaningful name is supplied at the usage site.</p>
+            </article>
+
+            <article class="icon-demo-card">
+                <h3>Image source</h3>
+                <div class="icon-stage">
+                    <Icon Value="@PowerPointIcon" alt="PowerPoint file type" />
+                    <Icon Value="@PowerPointIcon" alt="" aria-hidden="true" />
+                </div>
+                <p>Root: <code>&lt;img&gt;</code>. Informative images receive <code>alt</code>; decorative images use an empty alternative text and are hidden from assistive technology.</p>
+            </article>
+        </div>
+
+        <h2>Variant fallback</h2>
+        <section class="icon-demo-card icon-fallback-card">
+            <div class="icon-stage icon-stage-large">
+                <Icon Value="@RegularOnlyIcon" Variant="@IconVariant.Regular" aria-hidden="true" />
+                <Icon Value="@RegularOnlyIcon" Variant="@IconVariant.Filled" aria-hidden="true" />
             </div>
+            <p>This definition contains only a Regular source. Requesting Filled deliberately falls back to Regular; no synthetic Filled glyph is generated.</p>
+        </section>
+
+        <h2>Caller-controlled viewport</h2>
+        <section class="icon-demo-card">
+            <div class="icon-stage icon-style-stage">
+                <Icon Value="@FluentIcons.Settings" Style="width:40px;height:40px;color:rebeccapurple;" aria-hidden="true" />
+            </div>
+            <p>The explicit inline <code>Style</code> overrides the default <code>1em</code> viewport. Ordinary CSS classes can also set the rendered size.</p>
+        </section>
+
+        <h2>Accessibility and parent actions</h2>
+        <div class="icon-source-grid">
+            <article class="icon-demo-card">
+                <h3>Decorative action icon</h3>
+                <Button Text="Save document" Icon="@FluentIcons.Save" />
+                <p>The parent Button owns the action name. Its icon is decorative and must not repeat the accessible name.</p>
+            </article>
+            <article class="icon-demo-card">
+                <h3>Informative standalone icon</h3>
+                <div class="icon-stage icon-stage-large">
+                    <Icon Value="@FluentIcons.Settings" role="img" aria-label="Settings" />
+                </div>
+                <p>Standalone informative glyphs need a name supplied by the consuming page.</p>
+            </article>
+        </div>
+
+        <h2>RTL context</h2>
+        <section class="icon-demo-card" dir="rtl" lang="fa">
+            <div class="icon-stage icon-stage-large">
+                <Icon Value="@FluentIcons.ArrowRight" aria-hidden="true" />
+                <Icon Value="@FluentIcons.ArrowLeft" aria-hidden="true" />
+            </div>
+            <p>آیکون به‌صورت خودکار در RTL وارونه نمی‌شود. منبع جهت‌دار مناسب را انتخاب کنید؛ فقط glyphهایی که متادیتای منبع اجازه می‌دهد باید mirror شوند.</p>
         </section>
     </div>
 </div>
