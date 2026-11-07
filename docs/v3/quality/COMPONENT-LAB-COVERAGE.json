@@ -121,7 +121,7 @@
         "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root",
         "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); interactive controls observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "The two native public Icon parameters (Value, Variant) are demonstrated through the current Settings/Search source-backed combobox and Regular/Filled. Still incomplete: all icon definitions and source kinds SVG/image/CSS, size/color via Style/Class, RTL, fallback variant behavior, meaningful accessibility labels and associated native AT checks, design/visual parity and migration.",
+      "remaining": "The dedicated v3 Icon showcase now covers CSS-font, trusted SVG and image roots; inherited 1em sizing and explicit Style override; Regular/Filled switching and missing-variant fallback; decorative/informative intent; parent Button action naming; and direction-specific RTL glyph use. Local four-mode Icon route/browser evidence is recorded in BLUENT-ICON-EDGE-WASM.json. This Component Lab row remains representative_only and is not exhaustive API permutation, full Fluent visual parity, native OS/AT acceptance or family approval. Maintainer design direction approved 2026-11-04 and synchronized to Penpot page 47. Remaining: matched-state pixel review, native assistive technology, and review/disposition of all source/catalog gaps.",
       "incremental20261017Evidence": {
         "classification": "existing-current-API-live-pilot; NOT Fluent2 design approval",
         "local": "Final source current Dev01 Edge/fresh WebAssembly 53/53 and Chrome/production-published InteractiveServer 53/53 browser checks, zero errors, QA-owned Chromium remaining=0. Exact-head GitHub four-mode CI still pending.",
@@ -143,6 +143,38 @@
           "Chrome/Server": "61/61 actual Dev01 production-published InteractiveServer browser assertions, errors=[], owned Chromium cleanup remaining=0",
           "CI": "Exact new SHA GitHub Actions four browser modes pending",
           "remaining": "Native Windows Contrast Themes/NVDA/Narrator, public color variant API and complete Fluent parity are NOT approved; #429 Backlog"
+        }
+      },
+      "dedicatedShowcase20261104": {
+        "route": "/components/icons",
+        "serverRoute": "/compatibility/icons-server",
+        "sourceKinds": [
+          "CSS font",
+          "trusted inline SVG",
+          "image"
+        ],
+        "variants": [
+          "Regular",
+          "Filled"
+        ],
+        "fallback": "Regular-only PresenceOffline and Filled-only BookDefault covered by regression test",
+        "localBrowserMatrix": {
+          "Edge/InteractiveServer": "234/234",
+          "Edge/WebAssembly": "237/237",
+          "Chrome/InteractiveServer": "234/234",
+          "Chrome/WebAssembly": "237/237"
+        },
+        "limitations": [
+          "Maintainer-approved visual direction; exhaustive pixel parity and native OS/AT acceptance remain separate.",
+          "Native OS/AT acceptance pending",
+          "not full 5,694-glyph pixel parity",
+          "Component Lab classification remains representative_only"
+        ],
+        "designApproval": {
+          "status": "approved",
+          "date": "2026-11-04",
+          "source": "Maintainer approval recorded in PR #558 and Penpot page 47",
+          "scope": "Visual design direction and three boards; comparison board explicitly scoped"
         }
       }
     },

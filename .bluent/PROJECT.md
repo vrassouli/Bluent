@@ -420,3 +420,27 @@ A separate redundant forced-colors probe produced no output while stuck before i
 ## 2026-10-31 #418 — approved direction, candidate values in review
 
 The maintainer approved brand-preserving Dark foregrounds. The #418 generator now creates ten per-brand sets × four distinct roles (40 pairs), targeting 4.6:1 after RGB rounding. The existing 35 logical token inventory and stable 2.x assets remain unchanged. Exact candidates are preview-only pending rendered consumer and accessibility acceptance. See docs/v3/tokens/CONTRAST-AUDIT.md and owned Penpot page 45.
+## Icon #429 implementation closeout — 2026-11-04
+
+The Icon implementation was delivered on `v3/issue-429-icon` and accepted into the protected v3 integration branch through [PR #558](https://github.com/vrassouli/Bluent/pull/558), squash-merged as `0f1df06f2e0e3dd14cefef33349fa22184f2ff71`. The merged source head was `98256eee490eddf48cfb2a52ca79c19f0dac4ed6`.
+
+- Source-specific Icon roots (CSS font i, trusted SVG span, image img) receive a low-specificity 1em viewport; caller CSS and Style can override it.
+- Regular/Filled and Filled-to-Regular fallback remain unchanged; no public Size or Color parameter/variant was added.
+- The shared interactive `/components/icons` page covers font/SVG/image sources, inherited sizing, variant switching, fallback, explicit style override, decorative/informative semantics, parent-owned action name and RTL direction-specific glyphs.
+- Canonical Icon reference, inventory, changelog and migration row M19 are updated. The SSR host provides a dedicated InteractiveServer wrapper for the shared Icon page.
+- Four local browser runs passed: Edge/InteractiveServer 234/234, Edge/WebAssembly 237/237, Chrome/InteractiveServer 234/234, Chrome/WebAssembly 237/237. Both Server runs observed a SignalR _blazor HTTP 101 handshake.
+- Exact-head GitHub Actions on `98256eee`: **7/7 workflows succeeded** — Button Runtime, Real Compatibility Browsers, Skill Routing, Documentation Contract, Baseline Quality Gate, Interaction Source Contract and Component Lab Pilot.
+- Local verification: full Release solution tests 38/38; Release build 0 warnings / 0 errors; v3 Docs contract 0 findings; v3 Skills contract 0 errors; Docs contract tests 22/22; Skills contract tests 5/5; `git diff --check` passed.
+- The four-mode probe records existing unrelated InteractiveServer pointer-value gaps for Slider #442 and RangeSlider #443; they are not Icon failures.
+- The source-owned Penpot page 47 and three boards were accepted by the maintainer as DESIGN APPROVED; geometry readback retained 250 / 98 / 153 descendants with zero out-of-bounds elements on each board.
+- GitHub Project #5 Status for #429 is **Done** and Issue #429 is closed as completed. The maintainer authorized the owner-side merge after all exact-head CI workflows passed; an independent review submission is not claimed.
+
+**Follow-up boundary:** #552 remains In progress for its broader 18-family Fluent parity audit. The Icon row is implementation-merged and design-approved but remains partial for exhaustive 5,694-glyph matched-state pixel parity, native OS Contrast Themes, native screen-reader speech/AT acceptance and final Fluent gap disposition. No other family is accepted by this closeout. The existing #418 token/theme work also remains independent. Stable `Dev`/2.x, NuGet packages and deployments were not changed; no package was published and no deployment was made.
+
+## Fields showcase repeated-bound ID and label fix — 2026-10-30
+
+Follow-up to the whole-page duplicate-ID finding in [Issue #552](https://github.com/vrassouli/Bluent/issues/552). The original comment highlighted `_timeOnly`, `_timeSpan` and `_dateField`; inspection of the structured Chrome/Edge audit evidence found three additional repeated-binding groups in the same `Fields.razor` page (`_textField`, `_smallTextField`, `_switch`). Fixed the demo composition only: all six repeated-bound groups now use explicit, distinct input IDs; each visible label points to its matching ID; the search-addon field has an explicit accessible name. Removed the now-unused `_nullId` field. No Bluent library component, public API, token or CSS was changed.
+
+Validation on 2026-10-30: `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug -warnaserror` succeeded with **0 warnings / 0 errors**. The new focused live Chromium CDP regression probe passed **Chrome 10/10** and **Edge 10/10**: whole-page ID uniqueness, all 12 affected controls with unique IDs and valid visible-label/ARIA names, and applied Light/LTR, Dark/RTL and emulated forced-colors modes. A 390×844 mobile viewport reported `scrollWidth === innerWidth` in both browsers. Detailed evidence: `docs/v3/quality/evidence/BLUENT-FIELDS-DEMO-ASSOCIATIONS-CHROME.json` and `...-EDGE.json`; repeatable test: `scripts/quality/probe_v3_fields_demo_associations.mjs`. Forced-colors is browser-emulated, not native OS Contrast Themes; no screen-reader certification is claimed. `node --check` and `git diff --check` pass.
+
+This is a demo-composition correction, not evidence that the six underlying component families meet full Fluent 2 parity. Keep the work isolated on `v3/issue-552-fields-demo-ids`, target `bluent-v3`, and retain #552 as In progress until exact-head CI and maintainer review. Stable `Dev`, v2.x, package publication, tags and deployments remain untouched.
