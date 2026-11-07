@@ -1,0 +1,1821 @@
+{
+  "issue": 552,
+  "route": "/components/fields",
+  "engine": "chrome",
+  "viewport": {
+    "desktop": "1280x960",
+    "mobile": "390x844"
+  },
+  "modes": [
+    {
+      "mode": "LIGHT-LTR",
+      "ui": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      },
+      "duplicates": {},
+      "targets": [
+        {
+          "id": "textFieldDefault",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Example text field",
+              "htmlFor": "textFieldDefault"
+            }
+          ]
+        },
+        {
+          "id": "textFieldSearch",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": "Search",
+          "labels": []
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Default size",
+              "htmlFor": "smallTextFieldDefault"
+            }
+          ]
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Small size",
+              "htmlFor": "smallTextFieldCompact"
+            }
+          ]
+        },
+        {
+          "id": "timeOnlyInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time only",
+              "htmlFor": "timeOnlyInput"
+            }
+          ]
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time only with seconds",
+              "htmlFor": "timeOnlySecondsInput"
+            }
+          ]
+        },
+        {
+          "id": "dateTimeTimeField",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Date and time",
+              "htmlFor": "dateTimeTimeField"
+            }
+          ]
+        },
+        {
+          "id": "timeSpanInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time span",
+              "htmlFor": "timeSpanInput"
+            }
+          ]
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time span with seconds",
+              "htmlFor": "timeSpanSecondsInput"
+            }
+          ]
+        },
+        {
+          "id": "mediumDateField",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Medium date field",
+              "htmlFor": "mediumDateField"
+            }
+          ]
+        },
+        {
+          "id": "switchAfterLabel",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Switch is Off",
+              "htmlFor": "switchAfterLabel"
+            }
+          ]
+        },
+        {
+          "id": "switchBeforeLabel",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Switch is Off",
+              "htmlFor": "switchBeforeLabel"
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "id": "textFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Example text field",
+                "htmlFor": "textFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "textFieldSearch",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldSearch",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": "Search",
+            "labels": []
+          }
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Default size",
+                "htmlFor": "smallTextFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldCompact",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Small size",
+                "htmlFor": "smallTextFieldCompact"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlyInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlyInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only",
+                "htmlFor": "timeOnlyInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlySecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only with seconds",
+                "htmlFor": "timeOnlySecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "dateTimeTimeField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "dateTimeTimeField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Date and time",
+                "htmlFor": "dateTimeTimeField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span",
+                "htmlFor": "timeSpanInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanSecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span with seconds",
+                "htmlFor": "timeSpanSecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mediumDateField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "mediumDateField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Medium date field",
+                "htmlFor": "mediumDateField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchAfterLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchAfterLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchAfterLabel"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchBeforeLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchBeforeLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchBeforeLabel"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mode": "DARK-RTL",
+      "ui": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      },
+      "duplicates": {},
+      "targets": [
+        {
+          "id": "textFieldDefault",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Example text field",
+              "htmlFor": "textFieldDefault"
+            }
+          ]
+        },
+        {
+          "id": "textFieldSearch",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": "Search",
+          "labels": []
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Default size",
+              "htmlFor": "smallTextFieldDefault"
+            }
+          ]
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Small size",
+              "htmlFor": "smallTextFieldCompact"
+            }
+          ]
+        },
+        {
+          "id": "timeOnlyInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time only",
+              "htmlFor": "timeOnlyInput"
+            }
+          ]
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time only with seconds",
+              "htmlFor": "timeOnlySecondsInput"
+            }
+          ]
+        },
+        {
+          "id": "dateTimeTimeField",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Date and time",
+              "htmlFor": "dateTimeTimeField"
+            }
+          ]
+        },
+        {
+          "id": "timeSpanInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time span",
+              "htmlFor": "timeSpanInput"
+            }
+          ]
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time span with seconds",
+              "htmlFor": "timeSpanSecondsInput"
+            }
+          ]
+        },
+        {
+          "id": "mediumDateField",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Medium date field",
+              "htmlFor": "mediumDateField"
+            }
+          ]
+        },
+        {
+          "id": "switchAfterLabel",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Switch is Off",
+              "htmlFor": "switchAfterLabel"
+            }
+          ]
+        },
+        {
+          "id": "switchBeforeLabel",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Switch is Off",
+              "htmlFor": "switchBeforeLabel"
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "id": "textFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Example text field",
+                "htmlFor": "textFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "textFieldSearch",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldSearch",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": "Search",
+            "labels": []
+          }
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Default size",
+                "htmlFor": "smallTextFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldCompact",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Small size",
+                "htmlFor": "smallTextFieldCompact"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlyInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlyInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only",
+                "htmlFor": "timeOnlyInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlySecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only with seconds",
+                "htmlFor": "timeOnlySecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "dateTimeTimeField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "dateTimeTimeField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Date and time",
+                "htmlFor": "dateTimeTimeField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span",
+                "htmlFor": "timeSpanInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanSecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span with seconds",
+                "htmlFor": "timeSpanSecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mediumDateField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "mediumDateField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Medium date field",
+                "htmlFor": "mediumDateField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchAfterLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchAfterLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchAfterLabel"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchBeforeLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchBeforeLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchBeforeLabel"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mode": "FORCED-COLORS",
+      "ui": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      },
+      "duplicates": {},
+      "targets": [
+        {
+          "id": "textFieldDefault",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Example text field",
+              "htmlFor": "textFieldDefault"
+            }
+          ]
+        },
+        {
+          "id": "textFieldSearch",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": "Search",
+          "labels": []
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Default size",
+              "htmlFor": "smallTextFieldDefault"
+            }
+          ]
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Small size",
+              "htmlFor": "smallTextFieldCompact"
+            }
+          ]
+        },
+        {
+          "id": "timeOnlyInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time only",
+              "htmlFor": "timeOnlyInput"
+            }
+          ]
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time only with seconds",
+              "htmlFor": "timeOnlySecondsInput"
+            }
+          ]
+        },
+        {
+          "id": "dateTimeTimeField",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Date and time",
+              "htmlFor": "dateTimeTimeField"
+            }
+          ]
+        },
+        {
+          "id": "timeSpanInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time span",
+              "htmlFor": "timeSpanInput"
+            }
+          ]
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Time span with seconds",
+              "htmlFor": "timeSpanSecondsInput"
+            }
+          ]
+        },
+        {
+          "id": "mediumDateField",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Medium date field",
+              "htmlFor": "mediumDateField"
+            }
+          ]
+        },
+        {
+          "id": "switchAfterLabel",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Switch is Off",
+              "htmlFor": "switchAfterLabel"
+            }
+          ]
+        },
+        {
+          "id": "switchBeforeLabel",
+          "tag": "input",
+          "count": 1,
+          "ariaLabel": null,
+          "labels": [
+            {
+              "text": "Switch is Off",
+              "htmlFor": "switchBeforeLabel"
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "id": "textFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Example text field",
+                "htmlFor": "textFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "textFieldSearch",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldSearch",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": "Search",
+            "labels": []
+          }
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Default size",
+                "htmlFor": "smallTextFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldCompact",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Small size",
+                "htmlFor": "smallTextFieldCompact"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlyInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlyInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only",
+                "htmlFor": "timeOnlyInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlySecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only with seconds",
+                "htmlFor": "timeOnlySecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "dateTimeTimeField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "dateTimeTimeField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Date and time",
+                "htmlFor": "dateTimeTimeField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span",
+                "htmlFor": "timeSpanInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanSecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span with seconds",
+                "htmlFor": "timeSpanSecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mediumDateField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "mediumDateField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Medium date field",
+                "htmlFor": "mediumDateField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchAfterLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchAfterLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchAfterLabel"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchBeforeLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchBeforeLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchBeforeLabel"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390,
+    "viewportHeight": 844,
+    "pageHeight": 844
+  },
+  "checks": [
+    {
+      "name": "LIGHT-LTR all document IDs are unique",
+      "pass": true,
+      "observed": {}
+    },
+    {
+      "name": "LIGHT-LTR all repeated-bound controls have unique IDs and associated names",
+      "pass": true,
+      "observed": [
+        {
+          "id": "textFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Example text field",
+                "htmlFor": "textFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "textFieldSearch",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldSearch",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": "Search",
+            "labels": []
+          }
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Default size",
+                "htmlFor": "smallTextFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldCompact",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Small size",
+                "htmlFor": "smallTextFieldCompact"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlyInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlyInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only",
+                "htmlFor": "timeOnlyInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlySecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only with seconds",
+                "htmlFor": "timeOnlySecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "dateTimeTimeField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "dateTimeTimeField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Date and time",
+                "htmlFor": "dateTimeTimeField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span",
+                "htmlFor": "timeSpanInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanSecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span with seconds",
+                "htmlFor": "timeSpanSecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mediumDateField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "mediumDateField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Medium date field",
+                "htmlFor": "mediumDateField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchAfterLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchAfterLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchAfterLabel"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchBeforeLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchBeforeLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchBeforeLabel"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "LIGHT-LTR live theme, direction and forced-colors state applied",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": false
+      }
+    },
+    {
+      "name": "DARK-RTL all document IDs are unique",
+      "pass": true,
+      "observed": {}
+    },
+    {
+      "name": "DARK-RTL all repeated-bound controls have unique IDs and associated names",
+      "pass": true,
+      "observed": [
+        {
+          "id": "textFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Example text field",
+                "htmlFor": "textFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "textFieldSearch",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldSearch",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": "Search",
+            "labels": []
+          }
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Default size",
+                "htmlFor": "smallTextFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldCompact",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Small size",
+                "htmlFor": "smallTextFieldCompact"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlyInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlyInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only",
+                "htmlFor": "timeOnlyInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlySecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only with seconds",
+                "htmlFor": "timeOnlySecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "dateTimeTimeField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "dateTimeTimeField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Date and time",
+                "htmlFor": "dateTimeTimeField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span",
+                "htmlFor": "timeSpanInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanSecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span with seconds",
+                "htmlFor": "timeSpanSecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mediumDateField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "mediumDateField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Medium date field",
+                "htmlFor": "mediumDateField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchAfterLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchAfterLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchAfterLabel"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchBeforeLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchBeforeLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchBeforeLabel"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "DARK-RTL live theme, direction and forced-colors state applied",
+      "pass": true,
+      "observed": {
+        "theme": "dark",
+        "dir": "rtl",
+        "forced": false
+      }
+    },
+    {
+      "name": "FORCED-COLORS all document IDs are unique",
+      "pass": true,
+      "observed": {}
+    },
+    {
+      "name": "FORCED-COLORS all repeated-bound controls have unique IDs and associated names",
+      "pass": true,
+      "observed": [
+        {
+          "id": "textFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Example text field",
+                "htmlFor": "textFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "textFieldSearch",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "textFieldSearch",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": "Search",
+            "labels": []
+          }
+        },
+        {
+          "id": "smallTextFieldDefault",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldDefault",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Default size",
+                "htmlFor": "smallTextFieldDefault"
+              }
+            ]
+          }
+        },
+        {
+          "id": "smallTextFieldCompact",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "smallTextFieldCompact",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Small size",
+                "htmlFor": "smallTextFieldCompact"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlyInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlyInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only",
+                "htmlFor": "timeOnlyInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeOnlySecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeOnlySecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time only with seconds",
+                "htmlFor": "timeOnlySecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "dateTimeTimeField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "dateTimeTimeField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Date and time",
+                "htmlFor": "dateTimeTimeField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span",
+                "htmlFor": "timeSpanInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "timeSpanSecondsInput",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "timeSpanSecondsInput",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Time span with seconds",
+                "htmlFor": "timeSpanSecondsInput"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mediumDateField",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "mediumDateField",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Medium date field",
+                "htmlFor": "mediumDateField"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchAfterLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchAfterLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchAfterLabel"
+              }
+            ]
+          }
+        },
+        {
+          "id": "switchBeforeLabel",
+          "found": true,
+          "count": 1,
+          "labelValid": true,
+          "observed": {
+            "id": "switchBeforeLabel",
+            "tag": "input",
+            "count": 1,
+            "ariaLabel": null,
+            "labels": [
+              {
+                "text": "Switch is Off",
+                "htmlFor": "switchBeforeLabel"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "FORCED-COLORS live theme, direction and forced-colors state applied",
+      "pass": true,
+      "observed": {
+        "theme": "light",
+        "dir": "ltr",
+        "forced": true
+      }
+    },
+    {
+      "name": "MOBILE viewport does not overflow horizontally",
+      "pass": true,
+      "observed": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewportHeight": 844,
+        "pageHeight": 844
+      }
+    }
+  ],
+  "summary": {
+    "checks": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "limits": [
+    "Headless Chromium CDP evidence only.",
+    "forced-colors is emulated, not native OS contrast.",
+    "No screen-reader or manual visual acceptance is claimed."
+  ]
+}
