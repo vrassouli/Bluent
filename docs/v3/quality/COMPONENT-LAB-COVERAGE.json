@@ -598,5 +598,73 @@
       ],
       "remaining": "Real native Blazor InputFile synthetic fixtures and callback/remove verified in four modes; Accept is browser chooser hint, not security validation. Complete server upload/type/size/access authorization, accessible remove Button name, keyboard/native OS file picker/AT and Fluent 2 Penpot parity remain product #444. Source old demo <FileSelect Multiple/> is not public API; current multi selection is MaxFiles>1. SSR build emits two NU1903 warnings for Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7."
     }
-  ]
+  ],
+  "platformGate": {
+    "status": "implemented_pending_maintainer_review",
+    "platformEngineering": {
+      "status": "merged_into_bluent-v3",
+      "pullRequest": 551,
+      "taskBranch": "v3/issue-421-component-lab",
+      "validatedHead": "a6156adbf45f5a9d9679d2929b2026b37ff4efa3",
+      "mergeCommit": "8c9f2bd1c02fded8a2ecf8b9375a59531e4c8ccc",
+      "mergedAt": "2026-10-31T14:53:13Z",
+      "exactHeadCi": {
+        "status": "success",
+        "reportedChecks": 13,
+        "browserMatrix": [
+          {
+            "browser": "Chrome",
+            "renderMode": "WebAssembly",
+            "status": "success"
+          },
+          {
+            "browser": "Edge",
+            "renderMode": "WebAssembly",
+            "status": "success"
+          },
+          {
+            "browser": "Chrome",
+            "renderMode": "InteractiveServer",
+            "status": "success"
+          },
+          {
+            "browser": "Edge",
+            "renderMode": "InteractiveServer",
+            "status": "success"
+          }
+        ]
+      }
+    },
+    "familyAcceptance": {
+      "status": "incomplete",
+      "sourceFamilyCount": 66,
+      "representativePilotCount": 18,
+      "familiesWithRealBrowserSpecimen": 16,
+      "acceptedFamilyCount": 0,
+      "perFamilyDefinitionOfDoneRequired": true,
+      "pilotClassification": "representative_only",
+      "note": "A merged Lab platform and successful shared browser matrix do not complete or approve any individual Fluent v3 component family."
+    },
+    "designReview": {
+      "status": "pending",
+      "platform": "Penpot",
+      "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+      "pageId": "e775e67c-d9da-804b-8008-cc7c2dd7ecf7",
+      "boardId": "fce13529-02e2-80e4-8008-de96e1fdaca3",
+      "boardTitle": "#421 · Lab platform vs component DoD · REVIEW REQUIRED",
+      "approvalEvidence": "No maintainer design approval is recorded. The board remains review-required; source code and browser checks are not design sign-off."
+    },
+    "knownPilotGaps": [
+      {
+        "issue": 442,
+        "family": "Slider",
+        "gap": "InteractiveServer pointer-driven ValueChanged remains unverified; do not describe the shared Lab matrix as Slider pointer acceptance."
+      },
+      {
+        "issue": 443,
+        "family": "RangeSlider",
+        "gap": "InteractiveServer pointer-driven ValueRange changes remain unverified; do not describe the shared Lab matrix as RangeSlider pointer acceptance."
+      }
+    ]
+  }
 }
