@@ -383,7 +383,7 @@ try {
    check('Label copyable Razor includes actual ForExpression Size Required and model annotation',
      labelSource?.includes('ForExpression="() => LabEmail"')&&labelSource?.includes('LabelSize.Large')&&
      labelSource?.includes('LabelRequiredState.Required')&&labelSource?.includes('System.ComponentModel.DataAnnotations.Required'),labelSource);
-   const helpTrigger=await js("(()=>{const b=document.querySelector('.lab-form-help .bui-label button.bui-button');b?.focus();return {nativeButton:b?.tagName==='BUTTON',focused:document.activeElement===b}})()");
+   const helpTrigger=await js("(()=>{const b=document.querySelector('.lab-form-help .bui-label-with-info button.bui-button');b?.focus();return {nativeButton:b?.tagName==='BUTTON',focused:document.activeElement===b}})()");
    check('Label public Info renders a focusable native Popover trigger',
      helpTrigger.nativeButton&&helpTrigger.focused,helpTrigger);
    await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});

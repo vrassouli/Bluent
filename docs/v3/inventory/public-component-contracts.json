@@ -1736,6 +1736,7 @@
       "Properties": {
         "ForExpression": "System.Linq.Expressions.Expression\u00601\u003CSystem.Func\u00601\u003CObject\u003E\u003E | get=True set=True | ParameterAttribute",
         "Info": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | ParameterAttribute",
+        "InfoButtonAriaLabel": "String | get=True set=True | ParameterAttribute",
         "Required": "Bluent.UI.Components.LabelRequiredState | get=True set=True | ParameterAttribute",
         "RequiredSymbol": "String | get=True set=True | ParameterAttribute",
         "Size": "Bluent.UI.Components.LabelSize | get=True set=True | ParameterAttribute",
