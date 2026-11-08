@@ -450,3 +450,8 @@ The lifecycle review found that owner-level focus-leave listeners were removed w
 ### #430 exact-head CI compatibility fix — 2026-11-08
 
 The first PR run exposed one stale #420 source assertion: it assumed only Button-managed menus could own generated `aria-expanded`/`aria-controls`. Label Info is a separate, explicit disclosure owner, not a Button menu. Updated the shared regression to distinguish Button menu, opt-in disclosure and Label Info ownership while asserting Label does not use the Button-menu marker. The #420 source-only lifetime debt gate passes, and all **35/35** interaction primitive tests pass locally. This is a test-contract correction; no runtime behavior was loosened. A follow-up commit is being pushed so exact-head GitHub CI reruns.
+
+
+### #430 nested-dialog Escape compatibility regression — 2026-11-08
+
+Exact reproduction of the full CI step found the remaining failure in the second suite, `test_v3_popover_foundation_compatibility.py`: its nested-dialog Escape assertion expected only `isOptInDisclosure`. Updated the regression to verify the two distinct scoped disclosure owners (Foundation opt-in and Label Info), while retaining the requirement that unrelated Escape events reach the parent dialog. The complete workflow's three suites now pass locally: **35 + 5 + 3 = 43 tests**, plus the source-only lifetime debt audit.

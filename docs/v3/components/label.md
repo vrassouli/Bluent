@@ -105,7 +105,7 @@ The boards are existing editable design references. Their status stamps were not
 | Full Solution Release tests | 38/38 passed | Existing .NET test suite; the focused Label regression gates are separate. |
 | Label contract gate | 10/10 passed | Static source/resource/demo/CSS invariants; not a browser accessibility tree. |
 | Popover JS bundle contract | 26/26 passed | Source/bundle invariants, including focus-leave cleanup on owner hide, child destroy and full manager dispose; not native OS/AT. |
-| Shared interaction primitive contract | **35/35 passed** | Preserves Button-managed menu semantics while recognizing the separate Label Info disclosure owner. |
+| Shared interaction primitive contracts | **43/43 passed** | 35 interop lifetime/ownership tests, 5 Foundation opt-in compatibility tests, and 3 consumer interaction sample tests; scoped Escape ownership includes Label Info. |
 | Sass / emitted CSS | Passed | Compiled and published stylesheet contains all three aliases with fallbacks. |
 | TypeScript ESM/global build | Passed | Rebuilt from source and synchronized to the Bluent.UI assets. |
 | Chrome / en-US | **18/18 passed** | Headless Chrome, Debug WebAssembly; pointer/keyboard, desktop and 390px viewport. [Evidence](../quality/evidence/BLUENT-LABEL-CHROME.json). |
