@@ -445,3 +445,8 @@ After extending the live CDP probe with a trusted Enter click, Space activation,
 ### #430 Label Popover terminal-dispose cleanup — 2026-11-08
 
 The lifecycle review found that owner-level focus-leave listeners were removed when an individual Info Popover closed or was destroyed, but were not explicitly removed if the entire shared Popover manager was disposed while a surface remained open. `Popover.dispose()` now enumerates the remaining focus-leave owners and unbinds every capture-phase listener before finishing manager cleanup. The Popover source/bundle contract now has **26/26** regression tests, including a negative mutation for full-manager disposal cleanup. ESM/global bundles were regenerated and source/dist/published assets match.
+
+
+### #430 exact-head CI compatibility fix — 2026-11-08
+
+The first PR run exposed one stale #420 source assertion: it assumed only Button-managed menus could own generated `aria-expanded`/`aria-controls`. Label Info is a separate, explicit disclosure owner, not a Button menu. Updated the shared regression to distinguish Button menu, opt-in disclosure and Label Info ownership while asserting Label does not use the Button-menu marker. The #420 source-only lifetime debt gate passes, and all **35/35** interaction primitive tests pass locally. This is a test-contract correction; no runtime behavior was loosened. A follow-up commit is being pushed so exact-head GitHub CI reruns.
