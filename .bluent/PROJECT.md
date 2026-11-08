@@ -420,3 +420,28 @@ Follow-up to the whole-page duplicate-ID finding in [Issue #552](https://github.
 Validation on 2026-10-30: `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug -warnaserror` succeeded with **0 warnings / 0 errors**. The new focused live Chromium CDP regression probe passed **Chrome 10/10** and **Edge 10/10**: whole-page ID uniqueness, all 12 affected controls with unique IDs and valid visible-label/ARIA names, and applied Light/LTR, Dark/RTL and emulated forced-colors modes. A 390×844 mobile viewport reported `scrollWidth === innerWidth` in both browsers. Detailed evidence: `docs/v3/quality/evidence/BLUENT-FIELDS-DEMO-ASSOCIATIONS-CHROME.json` and `...-EDGE.json`; repeatable test: `scripts/quality/probe_v3_fields_demo_associations.mjs`. Forced-colors is browser-emulated, not native OS Contrast Themes; no screen-reader certification is claimed. `node --check` and `git diff --check` pass.
 
 This is a demo-composition correction, not evidence that the six underlying component families meet full Fluent 2 parity. Keep the work isolated on `v3/issue-552-fields-demo-ids`, target `bluent-v3`, and retain #552 as In progress until exact-head CI and maintainer review. Stable `Dev`, v2.x, package publication, tags and deployments remain untouched.
+
+
+## #430 Label implementation checkpoint — 2026-11-07
+
+Started the isolated `v3/issue-430-label` task branch from current `bluent-v3` after the maintainer approved Label's three semantic text roles. The native `<label>` association is preserved; the Info Button is a sibling, named by a localized default with an optional `InfoButtonAriaLabel` override, and uses the shared Popover for Escape/focus restoration/focus-leave cleanup. Required/Disabled remain visual-only states and the required marker is decorative to AT. The three approved roles use source-token fallbacks; no component-only token namespace is introduced. Demo, English/Persian resources, canonical v3 reference, dedicated task Skill, migration M20, additive CLR API snapshot and source regression contracts are recorded. Local Release build is 0 warnings/0 errors and the existing .NET suite is 38/38; focused Label/Popover contracts are 10/10 and 25/25. Real browser Label runtime and native AT evidence remain pending; #430 stays In progress, not Review/Done. No merge/release/stable 2.x change is made.
+
+
+### #430 Label live-browser checkpoint — 2026-11-07
+
+Real Chrome and Edge headless CDP runs against the Debug Blazor WebAssembly demo route `/components/labels` each passed **14/14** assertions. Both engines verified native `for`/input association, Info Button sibling placement and accessible name, truthful collapsed/expanded disclosure state, required marker hidden from AT, RTL logical gap, focus transfer into Info, keyboard Escape restore, Tab to an in-surface link, Tab/focusout dismissal without focus theft, and 1280px/390px no-overflow geometry. Chrome and Edge JSON evidence is stored in `docs/v3/quality/evidence/BLUENT-LABEL-{CHROME,EDGE}.json`. The shared Popover focus-leave fix uses owner-scoped capture-phase `focusout` and is covered by the 25-test Popover bundle contract. Chromium AX-tree observations are not native screen-reader speech; native OS Contrast Themes and spoken AT remain unperformed. PR browser workflow now runs the Label probe in both real browsers. #430 remains In progress pending exact-head CI and review.
+
+
+### #430 Label follow-up — complete live-browser matrix, 2026-11-07
+
+The Label Info accessible-name probe was extended to cover both the explicit `InfoButtonAriaLabel` override and the default name generated from the visible Label text plus the active localized resource suffix. Updated live Chrome and Edge runs both passed **14/14**. The default name in these runs used the demo/browser's active English resource with Persian visible text; the `fa-IR` resource is compiled into the library satellite assembly and is also protected by the resource contract, but a browser run with the application UI culture explicitly forced to `fa-IR` has not been claimed. The PR browser matrix now skips the Label-specific job on unrelated PRs that do not contain the Label probe/source, and uploads the corresponding browser evidence when it runs.
+
+
+### #430 Label 2×2 browser/culture matrix — 2026-11-08
+
+After extending the live CDP probe with a trusted Enter click, Space activation, outside-pointer dismissal and strict culture assertions, all four local runs passed **18/18**: Chrome/en-US, Edge/en-US, Chrome/fa-IR and Edge/fa-IR. The Persian runs verify `navigator.language=fa-ir` and the rendered default Info accessible name `نشانی صورت‌حساب، اطلاعات بیشتر`. Evidence is in `docs/v3/quality/evidence/BLUENT-LABEL-{CHROME,EDGE}[-FA-IR].json`. The probe now honors the exact browser executable supplied by `CHROME_PATH`, matching the PR workflow's selection. Native screen-reader speech and OS Contrast Themes remain untested.
+
+
+### #430 Label Popover terminal-dispose cleanup — 2026-11-08
+
+The lifecycle review found that owner-level focus-leave listeners were removed when an individual Info Popover closed or was destroyed, but were not explicitly removed if the entire shared Popover manager was disposed while a surface remained open. `Popover.dispose()` now enumerates the remaining focus-leave owners and unbinds every capture-phase listener before finishing manager cleanup. The Popover source/bundle contract now has **26/26** regression tests, including a negative mutation for full-manager disposal cleanup. ESM/global bundles were regenerated and source/dist/published assets match.

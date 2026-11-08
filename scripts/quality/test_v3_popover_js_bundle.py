@@ -137,6 +137,34 @@ class PopoverBundleGateTests(unittest.TestCase):
                 "this._managedTriggerAria.delete(triggerId)",
                 "this._managedTriggerAria.clear()"))
 
+    def test_label_info_focus_leave_dismissal_is_owner_scoped(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "this.hideSurface(settings, false)",
+                "this.hideSurface(settings, true)"))
+
+    def test_label_info_focus_leave_handler_is_removed_on_owner_cleanup(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "document.removeEventListener('focusout', listener, true)",
+                "document.removeEventListener('focusout', listener, false)"))
+
+    def test_label_info_surface_receives_focus_without_a_focus_trap(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "this.focusLabelInfoSurface(settings)",
+                "this.skipLabelInfoSurfaceFocus(settings)"))
+
+    def test_global_dispose_releases_every_label_focus_leave_listener(self):
+        authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
+        with self.assertRaisesRegex(BundleContractError,"popover Escape/focus"):
+            check_implementation_typescript(authored.replace(
+                "this.unbindFocusLeave(id)",
+                "this._focusLeaveHandlers.clear()",1))
+
     def test_popover_single_child_cleanup_cannot_be_replaced_with_global_dispose(self):
         authored=(ROOT/"src/Bluent.UI.Scripts/src/Popover/Popover.ts").read_text(encoding="utf-8-sig")
         changed=authored.replace("public destroyPopover(triggerId: string)",

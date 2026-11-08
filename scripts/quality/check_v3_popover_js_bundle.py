@@ -41,6 +41,8 @@ def check_implementation_typescript(src:str)->None:
               "public dispose(): void",
               "this.unbindTrigger(id)",
               "this.unbindOutsideClick(id)",
+              "for (const id of Array.from(this._focusLeaveHandlers.keys()))",
+              "this.unbindFocusLeave(id)",
               "this._autoUpdates.get(triggerId)?.()",
               "this._triggerResizeObservers.get(triggerId)?.disconnect()",
               "this._surfaceResizeObservers.get(triggerId)?.disconnect()",
@@ -59,7 +61,16 @@ def check_implementation_typescript(src:str)->None:
               "this._managedTriggerAria.delete(triggerId)",
               "public destroyPopover(triggerId: string)",
               "this.cleanupGeometry(triggerId, true)",
-              "this.unbindTrigger(triggerId)")
+              "this.unbindTrigger(triggerId)",
+              "private readonly _focusLeaveHandlers = new Map<string, EventListener>()",
+              "this.isLabelInfoTrigger(trigger)",
+              "data-bui-label-info-trigger",
+              "this.installFocusLeave(settings)",
+              "this.focusLabelInfoSurface(settings)",
+              "document.addEventListener('focusout', listener, true)",
+              "document.removeEventListener('focusout', listener, true)",
+              "this.hideSurface(settings, false)",
+              "this.unbindFocusLeave(triggerId)")
     for term in required:
         if term not in src:
             raise BundleContractError("Missing popover Escape/focus contract: "+term)

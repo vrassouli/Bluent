@@ -24,14 +24,18 @@ export class Popover {
     private isOptInDisclosure(settings: PopoverSettings): boolean {
         return (settings as PopoverSettings & { accessibleTriggerState?: boolean }).accessibleTriggerState === true;
     }
+    private isLabelInfoTrigger(trigger: Element | null): boolean {
+        return trigger?.getAttribute('data-bui-label-info-trigger') === 'true';
+    }
     private bindDisclosure(settings: PopoverSettings, trigger: Element): void {
         // Bluent Button and nested MenuItem triggers own their generated menu ARIA,
         // including keyboard-opened submenus whose pointer trigger is hover-only.
         const componentOwnsDisclosureState = trigger.getAttribute('data-bui-managed-menu-trigger') === 'true';
-        if (!this.isOptInDisclosure(settings) && !settings.triggerEvents?.includes('click') && !componentOwnsDisclosureState)
+        const labelInfoTrigger = this.isLabelInfoTrigger(trigger);
+        if (!this.isOptInDisclosure(settings) && !settings.triggerEvents?.includes('click') && !componentOwnsDisclosureState && !labelInfoTrigger)
             return;
-        const expanded = componentOwnsDisclosureState || !trigger.hasAttribute('aria-expanded');
-        const controls = componentOwnsDisclosureState || !trigger.hasAttribute('aria-controls');
+        const expanded = componentOwnsDisclosureState || labelInfoTrigger || !trigger.hasAttribute('aria-expanded');
+        const controls = componentOwnsDisclosureState || labelInfoTrigger || !trigger.hasAttribute('aria-controls');
         // Blazor may rebind a trigger while its KeepSurface is still open.
         // Reconstruct the disclosure state from the live surface instead of
         // resetting an already-open managed menu to aria-expanded=false.
@@ -41,7 +45,7 @@ export class Popover {
         // Explicit #418 opt-in with mounted KeepSurface retains its IDREF
         // when collapsed. Ordinary #420 click disclosures expose controls
         // only while open, so no stale reference is left in the DOM.
-        const persistentControls = this.isOptInDisclosure(settings) || componentOwnsDisclosureState;
+        const persistentControls = this.isOptInDisclosure(settings) || componentOwnsDisclosureState || labelInfoTrigger;
         if (controls && persistentControls)
             trigger.setAttribute('aria-controls', settings.triggerId + '_surface');
         this._managedTriggerAria.set(settings.triggerId, { trigger, expanded, controls, persistentControls });
@@ -62,6 +66,8 @@ export class Popover {
 
     private readonly _menuTypeahead = new Map<HTMLElement, { value: string; timer: number }>();
     private readonly _documentClickHandlers = new Map<string, EventListener>();
+    // Label Info uses the shared Popover owner to dismiss when focus leaves its surface.
+    private readonly _focusLeaveHandlers = new Map<string, EventListener>();
     // CSS transitionend can be absent (0-duration/reduced motion) or arrive
     // after a new Show. Hide completions are owned/cancellable per surface.
     private readonly _pendingHides = new Map<string, {
@@ -87,8 +93,8 @@ export class Popover {
         // When an opt-in Popover is hosted inside an owning Modal,
         // unrelated Escape events must reach that Modal. A focused
         // child trigger or its active surface still dismisses first.
-        if (this.isOptInDisclosure(current)) {
-            const trigger = this.getTrigger(current);
+        const trigger = this.getTrigger(current);
+        if (this.isOptInDisclosure(current) || this.isLabelInfoTrigger(trigger)) {
             const target = event.target as Node | null;
             if (!target || !(trigger?.contains(target) || surface.contains(target)))
                 return;
@@ -153,6 +159,7 @@ export class Popover {
         for (const { target, event, listener } of handlers)
             target.removeEventListener(event, listener);
         this._triggerHandlers.delete(triggerId);
+        this.unbindFocusLeave(triggerId);
         const managed = this._managedTriggerAria.get(triggerId);
         if (managed) {
             if (managed.expanded && ['true', 'false'].includes(
@@ -180,6 +187,50 @@ export class Popover {
         this._documentClickHandlers.delete(triggerId);
     }
 
+    private installFocusLeave(settings: PopoverSettings): void {
+        if (!this.isLabelInfoTrigger(this.getTrigger(settings)))
+            return;
+
+        this.unbindFocusLeave(settings.triggerId);
+        const listener: EventListener = (rawEvent: Event) => {
+            if (this._disposed)
+                return;
+            const event = rawEvent as FocusEvent;
+            const surface = this.getSurface(settings);
+            const previous = event.target as Node | null;
+            const next = event.relatedTarget as Node | null;
+            // Only react when focus leaves this surface. `relatedTarget` is
+            // sometimes BODY (or null) when Tab exits the final focusable
+            // descendant; focusin alone misses that browser transition.
+            if (previous && surface?.contains(previous) && (!next || !surface.contains(next)))
+                this.hideSurface(settings, false);
+        };
+        this._focusLeaveHandlers.set(settings.triggerId, listener);
+        document.addEventListener('focusout', listener, true);
+    }
+
+    private unbindFocusLeave(triggerId: string): void {
+        const listener = this._focusLeaveHandlers.get(triggerId);
+        if (listener)
+            document.removeEventListener('focusout', listener, true);
+        this._focusLeaveHandlers.delete(triggerId);
+    }
+
+    private focusLabelInfoSurface(settings: PopoverSettings): void {
+        if (!this.isLabelInfoTrigger(this.getTrigger(settings)))
+            return;
+
+        window.requestAnimationFrame(() => {
+            if (this._disposed)
+                return;
+            const surface = this.getSurface(settings) as HTMLElement | null;
+            if (!surface?.classList.contains('show'))
+                return;
+            const focusTarget = surface.querySelector('[data-bui-label-info-surface]') as HTMLElement | null;
+            focusTarget?.focus({ preventScroll: true });
+        });
+    }
+
     // A single Blazor child Popover may be destroyed while the shared
     // container and sibling surfaces remain alive. This is NOT dispose().
     public destroyPopover(triggerId: string): void {
@@ -192,6 +243,7 @@ export class Popover {
             document.removeEventListener('keydown', this._onDocumentKeyDown);
         this.cancelPendingHide(triggerId);
         this.unbindOutsideClick(triggerId);
+        this.unbindFocusLeave(triggerId);
         const surface = document.getElementById(triggerId + '_surface');
         surface?.classList.remove('show');
         surface?.classList.add('hidden');
@@ -207,6 +259,8 @@ export class Popover {
             this.unbindTrigger(id);
         for (const id of Array.from(this._documentClickHandlers.keys()))
             this.unbindOutsideClick(id);
+        for (const id of Array.from(this._focusLeaveHandlers.keys()))
+            this.unbindFocusLeave(id);
         document.removeEventListener('keydown', this._onDocumentKeyDown);
         this._pendingHides.forEach((_pending, id) => this.cancelPendingHide(id));
         this._openSurfaces.length = 0;
@@ -259,6 +313,8 @@ export class Popover {
         if (this._openSurfaces.length === 0)
             document.addEventListener('keydown', this._onDocumentKeyDown);
         this._openSurfaces.push(settings);
+        this.installFocusLeave(settings);
+        this.focusLabelInfoSurface(settings);
 
         // Pointer-opened Button menus move focus to their first enabled item
         // after the surface is visible; keyboard-opened menus choose first/last
@@ -567,6 +623,7 @@ export class Popover {
         if (this._openSurfaces.length === 0)
             document.removeEventListener('keydown', this._onDocumentKeyDown);
         this.unbindOutsideClick(settings.triggerId);
+        this.unbindFocusLeave(settings.triggerId);
         this.setDisclosureExpanded(settings, false);
         if (restoreFocus)
             this.restoreFocus(settings);
