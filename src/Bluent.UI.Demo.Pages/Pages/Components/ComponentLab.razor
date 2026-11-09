@@ -1049,7 +1049,6 @@
     private string SelectedLinkRazor => _linkMode == "navigation"
         ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
-          "<Link Text=\"Archived destination\" Href=\"getting-started\" disabled />\n" +
           "<Link Text=\"Unavailable action\" disabled />\n" +
           "@code {\n    private int _events;\n    private Task LinkClickedAsync() { _events++; return Task.CompletedTask; }\n}";
 
