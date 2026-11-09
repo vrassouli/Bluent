@@ -1,27 +1,93 @@
-﻿@page "/components/links"
+@page "/components/links"
 @namespace Bluent.UI.Demo.Pages.Components
 
 <div class="p-5 py-md-10 px-md-12">
     <div class="w-100 w-md-50 m-auto">
         <h1>Link</h1>
+        <p>Use Link for inline navigation. For action-only controls, prefer Button in new interfaces; the no-Href Link action fallback remains for compatibility.</p>
 
-        <h3>Default</h3>
+        <h2>Navigation</h2>
         <section class="p-7 rounded-5 shadow-3">
-            <Link Text="This is a label" Href="#"/>
+            <p>Default appearance keeps an underline at rest.</p>
+            <Link data-testid="link-nav-default"
+                  Text="Read the documentation"
+                  Href="#link-navigation-target"
+                  OnClick="NavigationClickedAsync" />
+
+            <p class="mt-4">Subtle appearance uses an underline on hover and keyboard focus.</p>
+            <Link data-testid="link-nav-subtle"
+                  Text="More information"
+                  Href="#link-navigation-target"
+                  Appearance="LinkAppearance.Subtle" />
+            <p id="link-navigation-target" class="mt-4" role="status">
+                Navigation callbacks: @_navigationCallbacks
+            </p>
         </section>
 
-        <h3>Subtle</h3>
+        <h2 class="mt-6">Action fallback</h2>
         <section class="p-7 rounded-5 shadow-3">
-            <Link Text="Subtle link" Appearance="LinkAppearance.Subtle" href="#"/>
+            <p>When Href is null, empty or whitespace, Link renders a native button.</p>
+            <Link data-testid="link-action"
+                  Text="Refresh sample"
+                  OnClick="ActionClickedAsync" />
+            <p role="status" class="mt-3">Action callbacks: @_actionCallbacks</p>
         </section>
 
-        <h3>Disable</h3>
+        <h2 class="mt-6">Disabled behavior</h2>
         <section class="p-7 rounded-5 shadow-3">
-            <Link Text="Disabled" disabled Href="#"/>
+            <div class="mb-4">
+                <p>Disabled navigation remains discoverable in sequential keyboard focus, but has no destination and cannot activate.</p>
+                <Link data-testid="link-disabled-navigation"
+                      Text="Archived destination"
+                      Href="/archive"
+                      disabled
+                      OnClick="DisabledLinkClickedAsync" />
+            </div>
+            <div>
+                <p>Disabled action uses a native disabled button.</p>
+                <Link data-testid="link-disabled-action"
+                      Text="Unavailable action"
+                      disabled
+                      OnClick="DisabledLinkClickedAsync" />
+            </div>
+            <p data-testid="link-disabled-callbacks" role="status" class="mt-3">
+                Disabled callback attempts: @_disabledCallbacks (expected 0)
+            </p>
         </section>
 
+        <h2 class="mt-6">Persian and RTL</h2>
+        <section class="p-7 rounded-5 shadow-3" dir="rtl" lang="fa">
+            <p>برای مشاهدهٔ مستندات و اطلاعات بیشتر:</p>
+            <Link Text="مشاهدهٔ مستندات" Href="#link-navigation-target" />
+        </section>
+
+        <p class="mt-6">
+            Use Tab to inspect the focus-visible ring. Disabled navigation is intentionally focusable;
+            the disabled action is not.
+        </p>
     </div>
 </div>
 
 @code {
+    private int _navigationCallbacks;
+    private int _actionCallbacks;
+    private int _disabledCallbacks;
+
+    private Task NavigationClickedAsync()
+    {
+        _navigationCallbacks++;
+        return Task.CompletedTask;
+    }
+
+    private Task ActionClickedAsync()
+    {
+        _actionCallbacks++;
+        return Task.CompletedTask;
+    }
+
+    private Task DisabledLinkClickedAsync()
+    {
+        _disabledCallbacks++;
+        return Task.CompletedTask;
+    }
 }

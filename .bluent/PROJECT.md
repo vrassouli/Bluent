@@ -455,3 +455,7 @@ The first PR run exposed one stale #420 source assertion: it assumed only Button
 ### #430 nested-dialog Escape compatibility regression — 2026-11-08
 
 Exact reproduction of the full CI step found the remaining failure in the second suite, `test_v3_popover_foundation_compatibility.py`: its nested-dialog Escape assertion expected only `isOptInDisclosure`. Updated the regression to verify the two distinct scoped disclosure owners (Foundation opt-in and Label Info), while retaining the requirement that unrelated Escape events reach the parent dialog. The complete workflow's three suites now pass locally: **35 + 5 + 3 = 43 tests**, plus the source-only lifetime debt audit.
+
+## #431 Link implementation — 2026-11-09
+
+Started v3/issue-431-link from the latest origin/bluent-v3 commit (b2e2f67d), preserving unrelated dirty state in the original checkout. The implementation retains the existing public API, normalizes null/empty/whitespace destinations once, preserves native anchor navigation and additive callbacks, suppresses callbacks in both disabled modes, applies the approved disabled-navigation ARIA/focus contract, and adds a visible focus ring with forced-colors support. Focused HtmlRenderer tests, an expanded Link showcase and Component Lab samples are included. Penpot page 50 behavior and state/theme/layout boards are linked from #431; their current status remains DRAFT and #418 still owns final token decisions. This is a task-branch engineering checkpoint, not a claim of family acceptance or release.

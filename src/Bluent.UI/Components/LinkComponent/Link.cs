@@ -1,4 +1,4 @@
-﻿using Humanizer;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -21,52 +21,94 @@ public class Link : BluentUiComponentBase
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, GetLinkTag());
-        if (string.IsNullOrEmpty(Href) || IsDisabled)
-            builder.AddAttribute(1, "type", "button");
-        else
-            builder.AddAttribute(2, "href", Href);
+        // Resolve the destination once so null, empty and whitespace-only values
+        // consistently select the native action fallback.
+        var href = string.IsNullOrWhiteSpace(Href) ? null : Href;
+        var isNavigation = href is not null;
+        var isDisabled = IsLinkDisabled;
 
-        builder.AddMultipleAttributes(3, GetAdditionalAttributes());
-        builder.AddAttribute(4, "id", Id);
-        builder.AddAttribute(5, "class", GetComponentClass());
-        builder.AddAttribute(6, "style", Style);
-        builder.AddAttribute(7, "onclick", EventCallback.Factory.Create(this, ClickHandler));
-        builder.AddContent(8, Text);
+        builder.OpenElement(0, isNavigation ? "a" : "button");
+        builder.AddMultipleAttributes(1, GetAdditionalAttributes(isDisabled));
+
+        if (isNavigation)
+        {
+            if (isDisabled)
+            {
+                // An anchor without href is not natively focusable or exposed as a
+                // link by every browser. Preserve its discoverability and name.
+                builder.AddAttribute(2, "role", "link");
+                builder.AddAttribute(3, "aria-disabled", "true");
+                builder.AddAttribute(4, "tabindex", "0");
+            }
+            else
+            {
+                builder.AddAttribute(5, "href", href);
+            }
+        }
+        else
+        {
+            builder.AddAttribute(6, "type", "button");
+            if (isDisabled)
+                builder.AddAttribute(7, "disabled", true);
+        }
+
+        builder.AddAttribute(8, "id", Id);
+        builder.AddAttribute(9, "class", GetComponentClass());
+        builder.AddAttribute(10, "style", Style);
+        builder.AddAttribute(11, "onclick", EventCallback.Factory.Create(this, ClickHandler));
+        builder.AddContent(12, Text);
         builder.CloseElement();
     }
 
-    private string GetLinkTag()
-    {
-        if (string.IsNullOrWhiteSpace(Href))
-            return "button";
+    private bool IsLinkDisabled =>
+        AdditionalAttributes?.Any(attribute =>
+            string.Equals(attribute.Key, "disabled", StringComparison.OrdinalIgnoreCase) &&
+            attribute.Value is not null &&
+            attribute.Value is not false) == true;
 
-        return "a";
-    }
-
-    private Dictionary<string, object>? GetAdditionalAttributes()
+    private IEnumerable<KeyValuePair<string, object>>? GetAdditionalAttributes(bool isDisabled)
     {
-        if (AdditionalAttributes == null)
-        {
+        if (AdditionalAttributes is null)
             return null;
-        }
-        else
-        {
-            var dic = new Dictionary<string, object>();
-            foreach (var item in AdditionalAttributes)
-            {
-                if (item.Key.Equals("href", StringComparison.InvariantCultureIgnoreCase) && IsDisabled)
-                    continue;
 
-                dic.Add(item.Key, item.Value);
+        return AdditionalAttributes.Where(attribute =>
+        {
+            var name = attribute.Key;
+
+            // Link owns destination, native action type, disabled state and click
+            // handling. Filter case-insensitively to avoid duplicate/conflicting
+            // HTML attributes supplied through @attributes.
+            if (IsAttribute(name, "href") ||
+                IsAttribute(name, "type") ||
+                IsAttribute(name, "disabled") ||
+                IsAttribute(name, "onclick"))
+            {
+                return false;
             }
 
-            return dic;
-        }
+            // Disabled semantics and keyboard discoverability are component-owned.
+            if (isDisabled &&
+                (IsAttribute(name, "role") ||
+                 IsAttribute(name, "aria-disabled") ||
+                 IsAttribute(name, "tabindex")))
+            {
+                return false;
+            }
+
+            return true;
+        });
     }
 
-    private void ClickHandler()
+    private static bool IsAttribute(string name, string expected) =>
+        string.Equals(name, expected, StringComparison.OrdinalIgnoreCase);
+
+    private Task ClickHandler()
     {
-        InvokeAsync(OnClick.InvokeAsync);
+        if (IsLinkDisabled)
+            return Task.CompletedTask;
+
+        // Do not call preventDefault: enabled anchors retain native browser
+        // navigation, while the optional callback remains additive.
+        return InvokeAsync(OnClick.InvokeAsync);
     }
 }

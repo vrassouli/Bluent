@@ -1,13 +1,13 @@
-﻿.bui-link {
+.bui-link {
     user-select: text;
     text-overflow: inherit;
     text-decoration-thickness: var(--strokeWidthThin);
     color: var(--colorBrandForegroundLink);
     background-color: transparent;
-    text-decoration-line: none;
+    text-decoration-line: underline;
     box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     cursor: pointer;
     display: inline;
     font-weight: var(--fontWeightRegular);
@@ -17,6 +17,7 @@
 
     &.subtle {
         color: var(--colorNeutralForeground2);
+        text-decoration-line: none;
     }
 
     &:hover {
@@ -38,15 +39,37 @@
     }
 
     &:focus-visible {
-        outline-style: none;
+        outline: 2px solid var(--colorBrandBackground);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 1px var(--colorNeutralBackground1);
     }
 
-    &[disabled] {
+    &.subtle:focus-visible {
+        text-decoration-line: underline;
+    }
+
+    &[disabled],
+    &[aria-disabled="true"] {
         cursor: not-allowed;
         color: var(--colorNeutralForegroundDisabled);
+        text-decoration-line: none;
 
-        &:hover {
+        &:hover,
+        &:active {
+            color: var(--colorNeutralForegroundDisabled);
             text-decoration-line: none;
         }
+    }
+}
+
+@media (forced-colors: active) {
+    .bui-link:focus-visible {
+        outline-color: Highlight;
+        box-shadow: none;
+    }
+
+    .bui-link[disabled],
+    .bui-link[aria-disabled="true"] {
+        color: GrayText;
     }
 }

@@ -684,14 +684,25 @@
                     <div class="lab-examples">
                         @if (_linkMode == "navigation")
                         {
-                            <Link Text="@_linkText" Href="getting-started" Appearance="@_linkAppearance" />
+                            <Link data-testid="lab-link-navigation" Text="@_linkText" Href="getting-started" Appearance="@_linkAppearance" />
                         }
                         else
                         {
-                            <Link Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
+                            <Link data-testid="lab-link-action" Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
                         }
                     </div>
                     <p role="status" class="lab-link-status">Action callbacks: @_linkEvents</p>
+                    <div class="lab-link-disabled-examples" aria-label="Disabled Link behavior examples">
+                        <div>
+                            <span>Disabled navigation</span>
+                            <Link data-testid="lab-link-disabled-navigation" Text="Archived destination" Href="getting-started" disabled OnClick="DisabledLinkClickedAsync" />
+                        </div>
+                        <div>
+                            <span>Disabled action</span>
+                            <Link data-testid="lab-link-disabled-action" Text="Unavailable action" disabled OnClick="DisabledLinkClickedAsync" />
+                        </div>
+                    </div>
+                    <p role="status" data-testid="lab-link-disabled-callbacks">Disabled callback attempts: @_disabledLinkEvents (expected 0)</p>
                     <p class="lab-controls-note">Existing Link API, not final Fluent v3 design or disabled-link accessibility acceptance.</p>
                 </div>
             }
@@ -966,7 +977,9 @@
     private string _linkText = "Read documentation";
     private LinkAppearance _linkAppearance = LinkAppearance.Default;
     private int _linkEvents;
+    private int _disabledLinkEvents;
     private Task LinkClickedAsync() { _linkEvents++; return Task.CompletedTask; }
+    private Task DisabledLinkClickedAsync() { _disabledLinkEvents++; return Task.CompletedTask; }
 
     private string _iconChoice = "Settings";
     private IconVariant _iconVariant = IconVariant.Regular;
@@ -1036,7 +1049,9 @@
     private string SelectedLinkRazor => _linkMode == "navigation"
         ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
-          "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
+          "<Link Text=\"Archived destination\" Href=\"getting-started\" disabled />\n" +
+          "<Link Text=\"Unavailable action\" disabled />\n" +
+          "@code {\n    private int _events;\n    private Task LinkClickedAsync() { _events++; return Task.CompletedTask; }\n}";
 
     private string ActiveRazor => _selected == "file" ? SelectedFileRazor
         : _selected == "range" ? SelectedRangeRazor

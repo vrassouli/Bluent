@@ -228,7 +228,7 @@
         "Chrome/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root",
         "Edge/Server Dev01: Component Lab shared browser smoke 27/27 (2026-10-16); native rendered markup observed; published InteractiveServer with corrected content root"
       ],
-      "remaining": "All four declared Link parameters sampled: native anchor, dynamic Appearance/Text, native action button with keyboard OnClick. Still incomplete: disabled anchor, external target/rel, OS AT, state permutations, RTL, Fluent 2 visual parity, migration and reviewer signoff.",
+      "remaining": "The Lab now includes enabled navigation/action plus disabled-navigation and disabled-action samples with a dedicated disabled-callback counter. Link task tests cover null/empty/whitespace destinations, native anchor/action selection, disabled ARIA/focus semantics, attribute precedence and appearance. Family remains representative_only pending fresh Chrome/Edge x WebAssembly/InteractiveServer behavior matrix, visual parity, native OS contrast/assistive-technology evidence and maintainer design/implementation acceptance.",
       "browserEvidence20261017": {
         "Chrome/WebAssembly": "Dev01 freshly built Blazor WASM; 72/72 actual CDP checks passed; browser errors=[]; owned Chromium remaining=0",
         "Edge/InteractiveServer": "Dev01 production-published InteractiveServer; 72/72 actual CDP checks passed; browser errors=[]; owned Chromium remaining=0",
