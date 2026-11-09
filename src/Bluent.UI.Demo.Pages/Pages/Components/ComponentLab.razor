@@ -684,15 +684,32 @@
                     <div class="lab-examples">
                         @if (_linkMode == "navigation")
                         {
-                            <Link Text="@_linkText" Href="getting-started" Appearance="@_linkAppearance" />
+                            <Link data-testid="lab-link-navigation" Text="@_linkText" Href="#lab-link-navigation-target" target="lab-link-navigation-frame" Appearance="@_linkAppearance" OnClick="LinkNavigationClickedAsync" />
                         }
                         else
                         {
-                            <Link Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
+                            <Link data-testid="lab-link-action" Text="@_linkText" Appearance="@_linkAppearance" OnClick="LinkClickedAsync" />
                         }
                     </div>
+                    <p id="lab-link-navigation-target" role="status" class="lab-link-navigation-status">Navigation callbacks: @_linkNavigationEvents</p>
+                    <iframe name="lab-link-navigation-frame" title="Link native navigation target" hidden></iframe>
                     <p role="status" class="lab-link-status">Action callbacks: @_linkEvents</p>
-                    <p class="lab-controls-note">Existing Link API, not final Fluent v3 design or disabled-link accessibility acceptance.</p>
+                    <div class="lab-link-disabled-examples" aria-label="Disabled Link behavior examples">
+                        <div>
+                            <span>Disabled navigation</span>
+                            <Link data-testid="lab-link-disabled-navigation" Text="Archived destination" Href="getting-started" disabled OnClick="DisabledLinkClickedAsync" />
+                        </div>
+                        <div>
+                            <span>Disabled action</span>
+                            <Link data-testid="lab-link-disabled-action" Text="Unavailable action" disabled OnClick="DisabledLinkClickedAsync" />
+                        </div>
+                    </div>
+                    <p role="status" data-testid="lab-link-disabled-callbacks">Disabled callback attempts: @_disabledLinkEvents (expected 0)</p>
+                    <div class="lab-link-rtl-example" dir="rtl" lang="fa" aria-label="Persian RTL Link example">
+                        <span>برای مطالعهٔ بیشتر:</span>
+                        <Link data-testid="lab-link-rtl" Text="مشاهده مستندات" Href="#lab-link-navigation-target" Appearance="LinkAppearance.Subtle" />
+                    </div>
+                    <p class="lab-controls-note">Link inherits host direction and wrapping. Disabled navigation remains a named, focusable role=link with aria-disabled=true and no href; disabled action is a native disabled button. Neither invokes OnClick.</p>
                 </div>
             }
         </div>
@@ -965,8 +982,12 @@
     private string _linkMode = "navigation";
     private string _linkText = "Read documentation";
     private LinkAppearance _linkAppearance = LinkAppearance.Default;
+    private int _linkNavigationEvents;
     private int _linkEvents;
+    private int _disabledLinkEvents;
+    private Task LinkNavigationClickedAsync() { _linkNavigationEvents++; return Task.CompletedTask; }
     private Task LinkClickedAsync() { _linkEvents++; return Task.CompletedTask; }
+    private Task DisabledLinkClickedAsync() { _disabledLinkEvents++; return Task.CompletedTask; }
 
     private string _iconChoice = "Settings";
     private IconVariant _iconVariant = IconVariant.Regular;
@@ -1034,10 +1055,12 @@
         $" DropShadow=\"{_badgeDropShadow.ToString().ToLowerInvariant()}\" AnimateShadow=\"{_badgeAnimateShadow.ToString().ToLowerInvariant()}\" />";
 
     private string SelectedLinkRazor => _linkMode == "navigation"
-        ? $"<Link Text=\"{_linkText}\" Href=\"getting-started\" Appearance=\"LinkAppearance.{_linkAppearance}\" />"
+        ? $"<Link Text=\"{_linkText}\" Href=\"#lab-link-navigation-target\" target=\"lab-link-navigation-frame\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkNavigationClickedAsync\" />\n" +
+          "<Link Text=\"Archived destination\" Href=\"/archive\" disabled OnClick=\"DisabledLinkClickedAsync\" />\n" +
+          "@code {\n    private int _navigationEvents;\n    private int _disabledEvents;\n    private Task LinkNavigationClickedAsync() { _navigationEvents++; return Task.CompletedTask; }\n    private Task DisabledLinkClickedAsync() { _disabledEvents++; return Task.CompletedTask; }\n}"
         : $"<Link Text=\"{_linkText}\" Appearance=\"LinkAppearance.{_linkAppearance}\" OnClick=\"LinkClickedAsync\" />\n" +
-          "@code {\n    private Task LinkClickedAsync() => Task.CompletedTask;\n}";
-
+          "<Link Text=\"Unavailable action\" disabled OnClick=\"DisabledLinkClickedAsync\" />\n" +
+          "@code {\n    private int _events;\n    private int _disabledEvents;\n    private Task LinkClickedAsync() { _events++; return Task.CompletedTask; }\n    private Task DisabledLinkClickedAsync() { _disabledEvents++; return Task.CompletedTask; }\n}";
     private string ActiveRazor => _selected == "file" ? SelectedFileRazor
         : _selected == "range" ? SelectedRangeRazor
         : _selected == "slider" ? SelectedSliderRazor

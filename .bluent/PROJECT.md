@@ -455,3 +455,15 @@ The first PR run exposed one stale #420 source assertion: it assumed only Button
 ### #430 nested-dialog Escape compatibility regression — 2026-11-08
 
 Exact reproduction of the full CI step found the remaining failure in the second suite, `test_v3_popover_foundation_compatibility.py`: its nested-dialog Escape assertion expected only `isOptInDisclosure`. Updated the regression to verify the two distinct scoped disclosure owners (Foundation opt-in and Label Info), while retaining the requirement that unrelated Escape events reach the parent dialog. The complete workflow's three suites now pass locally: **35 + 5 + 3 = 43 tests**, plus the source-only lifetime debt audit.
+
+## #431 Link implementation — 2026-11-09
+
+Started v3/issue-431-link from the latest origin/bluent-v3 commit (b2e2f67d), preserving unrelated dirty state in the original checkout. The implementation retains the existing public API, normalizes null/empty/whitespace destinations once, preserves native anchor navigation and additive callbacks, suppresses callbacks in both disabled modes, applies the approved disabled-navigation ARIA/focus contract, and adds a visible focus ring with forced-colors support. Focused HtmlRenderer tests, an expanded Link showcase and Component Lab samples are included. Penpot page 50 behavior and state/theme/layout boards are linked from #431; their current status remains DRAFT and #418 still owns final token decisions. This is a task-branch engineering checkpoint, not a claim of family acceptance or release.
+
+### #431 Link acceptance evidence — 2026-11-09
+
+The Component Lab was extended with a native anchor target that preserves the live host for callback measurement, a real additive navigation callback counter, explicit RTL sample and disabled action/navigation callback specimen. The browser probe now asserts navigation, target passthrough, Subtle hover/active underline, disabled pointer/Enter/Space suppression, AX role/name, Tab order, focus-visible and forced-colors behavior.
+
+Actual Dev01 browser matrix: Chrome/WebAssembly **255/255**, Edge/WebAssembly **255/255**, Chrome/Published InteractiveServer **252/252**, Edge/Published InteractiveServer **252/252**. Both Server runs established SignalR WebSocket HTTP 101. Evidence: docs/v3/quality/evidence/link-browser-matrix-20261109.json. The shared Component Lab coverage ledger records the four runs but retains representative_only, because its classification describes the 66-family platform ledger rather than the family issue's acceptance.
+
+The canonical Link reference now inventories all direct and inherited public parameters/attributes, defaults and inherited tooltip lifecycle. Design decisions are traced to Penpot page 50, both board IDs and maintainer-approved behavior contract comments on #431. The Penpot page remains labeled DRAFT; no #418 global token values or aliases were approved by this work. Browser forced-colors emulation and browser AX-tree inspection are not presented as native Windows Contrast Themes or spoken screen-reader acceptance.
