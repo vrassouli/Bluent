@@ -360,7 +360,7 @@ try {
   check('actual Bluent '+family+' specimen emits native accessible markup',
    family==='Label'
     ? markup.tag==='label'&&markup.text==='Customer name'
-    : markup.tag==='a'&&markup.text==='Read documentation'&&markup.href==='getting-started',
+    : markup.tag==='a'&&markup.text==='Read documentation'&&markup.href==='#lab-link-navigation-target',
    markup);
   if(family==='Label'){
    const labelBase=await js("(()=>{const x=document.querySelector('.lab-form-example label'),input=document.getElementById('LabEmail');return {tag:x?.tagName,forId:x?.getAttribute('for'),text:x?.textContent?.trim(),required:x?.querySelector('.required')?.textContent?.trim(),input:input?.tagName,mode:document.getElementById('lab-label-required')?.value}})()");
@@ -400,11 +400,11 @@ try {
    check('Link explorer starts with navigation anchor and source-backed defaults',
      defaults.appearance==='Default'&&defaults.mode==='navigation'&&defaults.text==='Read documentation',defaults);
    await js("(()=>{for(const [id,value] of [['lab-link-appearance','Subtle'],['lab-link-text','Review plan']]){const e=document.getElementById(id);e.value=value;e.dispatchEvent(new Event('change',{bubbles:true}));}})()");
-   const changed=await poll(()=>js("(()=>{const a=document.querySelector('.lab-canvas a.bui-link');return a?.textContent?.trim()==='Review plan'&&a.classList.contains('subtle')&&a.getAttribute('href')==='getting-started'})()"),12000);
+   const changed=await poll(()=>js("(()=>{const a=document.querySelector('.lab-canvas a.bui-link');return a?.textContent?.trim()==='Review plan'&&a.classList.contains('subtle')&&a.getAttribute('href')==='#lab-link-navigation-target'})()"),12000);
    check('Link real appearance and text public parameters update native anchor',changed);
    const navSource=await js("document.querySelector('.lab-source pre code')?.textContent");
    check('Link navigation Razor sample reflects live Appearance/Text/Href',
-     navSource?.includes('Text=\"Review plan\"')&&navSource?.includes('LinkAppearance.Subtle')&&navSource?.includes('Href=\"getting-started\"'),navSource);
+     navSource?.includes('Text=\"Review plan\"')&&navSource?.includes('LinkAppearance.Subtle')&&navSource?.includes('Href=\"#lab-link-navigation-target\"'),navSource);
    await js("(()=>{const e=document.getElementById('lab-link-mode');e.value='action';e.dispatchEvent(new Event('change',{bubbles:true}));})()");
    const button=await poll(()=>js("(()=>{const b=document.querySelector('.lab-canvas button.bui-link');return b?.tagName==='BUTTON'&&b.getAttribute('type')==='button'&&!b.hasAttribute('href')&&b.textContent?.trim()==='Review plan'})()"),12000);
    check('Link without Href emits semantic type=button instead of fake navigation',button);
@@ -417,7 +417,80 @@ try {
    const actionSource=await js("document.querySelector('.lab-source pre code')?.textContent");
    check('Link action copyable Razor includes real OnClick and handler body, without navigation Href',
      actionSource?.includes('OnClick=\"LinkClickedAsync\"')&&actionSource?.includes('private Task LinkClickedAsync()')&&!actionSource?.includes('Href='),actionSource);
-  }
+    await js("(()=>{const e=document.getElementById('lab-link-mode');e.value='navigation';e.dispatchEvent(new Event('change',{bubbles:true}));})()");
+    await poll(()=>js("!!document.querySelector('a[data-testid=lab-link-navigation]')"),12000);
+    const navPoint=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-navigation]');a?.scrollIntoView({block:'center',behavior:'instant'});const r=a.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('a[data-testid=lab-link-navigation]')===a}})()");
+    check('CDP pointer targets the real Link navigation anchor',navPoint.hit,navPoint);
+    await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:navPoint.x,y:navPoint.y});
+    const subtleHover=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-navigation]');return a?.matches(':hover')&&getComputedStyle(a).textDecorationLine.includes('underline')})()");
+    check('Subtle Link hover state restores the underline',subtleHover);
+    await send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',x:navPoint.x,y:navPoint.y,clickCount:1});
+    const subtleActive=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-navigation]');return a?.matches(':active')&&getComputedStyle(a).textDecorationLine.includes('underline')})()");
+    check('Subtle Link active state retains the underline',subtleActive);
+    await send('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',x:navPoint.x,y:navPoint.y,clickCount:1});
+    const nativeNavigation=await poll(()=>js("document.querySelector('iframe[name=lab-link-navigation-frame]')?.contentWindow?.location.hash==='#lab-link-navigation-target'"),5000);
+    check('Pointer activation preserves native hash navigation',nativeNavigation);
+    const nativeTarget=await js("document.querySelector('a[data-testid=lab-link-navigation]')?.getAttribute('target')");
+    check('Link passes native target through to the named iframe',nativeTarget==='lab-link-navigation-frame',nativeTarget);
+    await wait(250);
+    const navigationCallbackEvidence=await js("document.querySelector('.lab-link-navigation-status')?.textContent?.trim()||'missing navigation status'");
+    const navigationCallback=navigationCallbackEvidence.includes('Navigation callbacks: 1');
+    check('Native anchor activation invokes additive OnClick exactly once',navigationCallback,navigationCallbackEvidence);
+
+    await js("(()=>{const e=document.getElementById('lab-link-mode');e.value='navigation';e.dispatchEvent(new Event('change',{bubbles:true}));})()");
+    await poll(()=>js("!!document.querySelector('a[data-testid=lab-link-navigation]')"),12000);
+    const disabledState=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-disabled-navigation]'),b=document.querySelector('button[data-testid=lab-link-disabled-action]');return {nav:{tag:a?.tagName,href:a?.getAttribute('href'),role:a?.getAttribute('role'),aria:a?.getAttribute('aria-disabled'),tabindex:a?.getAttribute('tabindex'),disabled:a?.hasAttribute('disabled'),text:a?.textContent?.trim()},action:{tag:b?.tagName,type:b?.getAttribute('type'),href:b?.getAttribute('href'),disabled:b?.disabled,disabledAttribute:b?.hasAttribute('disabled'),text:b?.textContent?.trim()}}})()");
+    check('Disabled navigation is a named, focusable link with no destination',disabledState.nav.tag==='A'&&disabledState.nav.href===null&&disabledState.nav.role==='link'&&disabledState.nav.aria==='true'&&disabledState.nav.tabindex==='0'&&!disabledState.nav.disabled&&disabledState.nav.text==='Archived destination',disabledState.nav);
+    check('Disabled action is a native disabled button',disabledState.action.tag==='BUTTON'&&disabledState.action.type==='button'&&disabledState.action.href===null&&disabledState.action.disabled&&disabledState.action.disabledAttribute&&disabledState.action.text==='Unavailable action',disabledState.action);
+
+    await send('DOM.enable');await send('Accessibility.enable');
+    const doc=await send('DOM.getDocument',{depth:-1,pierce:true});
+    const disabledNode=await send('DOM.querySelector',{nodeId:doc.root.nodeId,selector:'a[data-testid="lab-link-disabled-navigation"]'});
+    const disabledAx=await send('Accessibility.getPartialAXTree',{nodeId:disabledNode.nodeId,fetchRelatives:false});
+    const disabledAxNode=disabledAx.nodes?.find(n=>n.role?.value==='link')||disabledAx.nodes?.[0];
+    const disabledAxName=disabledAxNode?.name?.value||'';
+    check('Disabled navigation exposes AX role=link and accessible name from Text',disabledAxNode?.role?.value==='link'&&disabledAxName==='Archived destination',{role:disabledAxNode?.role?.value,name:disabledAxName});
+
+    await js("document.querySelector('a[data-testid=lab-link-navigation]')?.focus()");
+    await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+    await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+    const disabledTab=await poll(()=>js("document.activeElement?.getAttribute('data-testid')==='lab-link-disabled-navigation'"),8000);
+    check('Tab order reaches disabled navigation for discoverability',disabledTab);
+    const focusRing=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-disabled-navigation]'),s=getComputedStyle(a);return {visible:a?.matches(':focus-visible'),outline:s.outlineStyle,width:s.outlineWidth}})()");
+    check('Disabled navigation keeps a visible keyboard focus ring',focusRing.visible&&focusRing.outline==='solid'&&parseFloat(focusRing.width)>=2,focusRing);
+
+    const pressKey=async(key,code,text,vk)=>{
+      await send('Input.dispatchKeyEvent',{type:'keyDown',key,code,text,unmodifiedText:text,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk});
+      await send('Input.dispatchKeyEvent',{type:'keyUp',key,code,windowsVirtualKeyCode:vk,nativeVirtualKeyCode:vk});
+    };
+    await pressKey('Enter','Enter','\\r',13);
+    await pressKey(' ','Space',' ',32);
+    const disabledNavPoint=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-disabled-navigation]');a?.scrollIntoView({block:'center',behavior:'instant'});const r=a.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('a[data-testid=lab-link-disabled-navigation]')===a}})()");
+    check('CDP pointer targets the disabled navigation specimen',disabledNavPoint.hit,disabledNavPoint);
+    await send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',x:disabledNavPoint.x,y:disabledNavPoint.y,clickCount:1});
+    await send('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',x:disabledNavPoint.x,y:disabledNavPoint.y,clickCount:1});
+    const disabledNavSuppressed=await js("document.querySelector('[data-testid=lab-link-disabled-callbacks]')?.textContent?.includes('Disabled callback attempts: 0')");
+    check('Disabled navigation suppresses pointer, Enter and Space callbacks',disabledNavSuppressed);
+
+    await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+    await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+    const tabSkipsDisabledAction=await js("document.activeElement?.getAttribute('data-testid')==='lab-link-rtl'");
+    check('Tab skips the native disabled action and reaches the following RTL Link',tabSkipsDisabledAction);
+    const disabledActionPoint=await js("(()=>{const b=document.querySelector('button[data-testid=lab-link-disabled-action]');b?.scrollIntoView({block:'center',behavior:'instant'});const r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:document.elementFromPoint(x,y)?.closest('button[data-testid=lab-link-disabled-action]')===b}})()");
+    check('CDP pointer targets the disabled native action specimen',disabledActionPoint.hit,disabledActionPoint);
+    await send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',x:disabledActionPoint.x,y:disabledActionPoint.y,clickCount:1});
+    await send('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',x:disabledActionPoint.x,y:disabledActionPoint.y,clickCount:1});
+    const disabledAllSuppressed=await js("document.querySelector('[data-testid=lab-link-disabled-callbacks]')?.textContent?.includes('Disabled callback attempts: 0')");
+    check('Disabled action suppresses pointer callback and remains outside Tab order',disabledAllSuppressed);
+
+    const rtl=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-rtl]');return {text:a?.textContent?.trim(),direction:getComputedStyle(a).direction,host:a?.closest('[dir]')?.getAttribute('dir')}})()");
+    check('Link inherits Persian RTL direction from host',rtl.text==='مشاهده مستندات'&&rtl.direction==='rtl'&&rtl.host==='rtl',rtl);
+    await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'active'}]});
+    await js("document.querySelector('a[data-testid=lab-link-disabled-navigation]')?.focus()");
+    const forcedColors=await js("(()=>{const a=document.querySelector('a[data-testid=lab-link-disabled-navigation]'),s=getComputedStyle(a);return {active:matchMedia('(forced-colors: active)').matches,focused:a?.matches(':focus-visible'),outline:s.outlineStyle,width:s.outlineWidth}})()");
+    check('Forced-colors mode keeps a visible focus outline',forcedColors.active&&forcedColors.focused&&forcedColors.outline==='solid'&&parseFloat(forcedColors.width)>=2,forcedColors);
+    await send('Emulation.setEmulatedMedia',{features:[{name:'forced-colors',value:'none'}]});
+    await js("(()=>{const a=document.getElementById('lab-link-appearance'),m=document.getElementById('lab-link-mode'),t=document.getElementById('lab-link-text');a.value='Default';a.dispatchEvent(new Event('change',{bubbles:true}));m.value='navigation';m.dispatchEvent(new Event('change',{bubbles:true}));t.value='Read documentation';t.dispatchEvent(new Event('change',{bubbles:true}));history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);})()");  }
  }
  // Sixth CURRENT-API family: actual Bluent TextField, not a future v3
  // component. The plain input must bind on native input; multiline and

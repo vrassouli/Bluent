@@ -36,7 +36,33 @@ Use Button for new action-only UI. Link's no-Href action fallback is retained fo
 | Appearance | LinkAppearance | Default | Default or Subtle. |
 | OnClick | EventCallback | empty | Optional callback. On enabled navigation it is additive and does not cancel native browser navigation. |
 
-Inherited Bluent parameters/attributes remain available, including Id, Class, Style, tooltip parameters and unmatched HTML attributes. No public Disabled parameter is added; use the inherited HTML disabled attribute.
+### Complete inherited API surface
+
+| Origin | Name | Type | Default | Link behavior |
+| --- | --- | --- | --- | --- |
+| Link | Text | string | required | Text content and default accessible name. Link does not expose ChildContent. |
+| Link | Href | string? | null | Non-blank destination selects the native anchor; null/empty/whitespace selects the native action button. |
+| Link | Appearance | LinkAppearance | Default | Default or Subtle; controls rest/hover/active/focus styling. |
+| Link | OnClick | EventCallback | empty | Optional additive callback; native navigation is not cancelled. |
+| BluentUiComponentBase | Tooltip | string? | null | Optional plain-text tooltip. |
+| BluentUiComponentBase | TooltipContent | RenderFragment? | null | Optional rich tooltip content; takes precedence over Tooltip when supplied. |
+| BluentUiComponentBase | TooltipPlacement | Placement | Top | Tooltip placement; enum values are listed below. |
+| BluentUiComponentBase | TooltipAppearance | PopoverAppearance | Default | Tooltip surface appearance: Default, Brand or Inverted. |
+| BluentUiComponentBase | DisplayTooltipArrow | bool | false | Shows the tooltip arrow when true. |
+| BluentComponentBase | Class | string? | null | Additional CSS classes appended to bui-link and the appearance class. |
+| BluentComponentBase | Style | string? | null | Consumer inline styles. |
+| BluentComponentBase | AdditionalAttributes | Dictionary<string, object>? | null | Captures unmatched HTML attributes including id, disabled, aria-*, data-*, target, rel and title. Link filters conflicting attributes it owns. |
+| BluentComponentBase | Id | string (derived property, not a Parameter) | generated | Uses an unmatched id when supplied; otherwise generates an identifier used by the component and tooltip service. |
+
+The inherited tooltip lifecycle is service-backed: BluentUiComponentBase registers the tooltip after the first render when tooltip content/text is supplied, and destroys the registration when the component is disposed. Link does not implement a separate tooltip API or custom JavaScript interop.
+
+Enum values accepted by the inherited API:
+
+- LinkAppearance: Default, Subtle.
+- Placement: Top, Bottom, Left, Right, TopStart, TopEnd, RightStart, RightEnd, BottomStart, BottomEnd, LeftStart, LeftEnd.
+- PopoverAppearance: Default, Brand, Inverted.
+
+The following are intentionally not part of the Link API: a Disabled Razor parameter, ChildContent, a generic type parameter, Size/Density, a direction parameter, a separate Target/Rel parameter, or a typed EventCallback<T>. Use unmatched HTML attributes for native target, rel and ARIA attributes. Text is the accessible name unless the consumer deliberately overrides it with an accessible-name attribute such as aria-label or aria-labelledby.
 
 ## Navigation and action semantics
 
@@ -68,10 +94,24 @@ Styles use existing Bluent theme variables. No unapproved #418 token candidate i
 - [Link anatomy and behavior](https://pixa.akbaramd.ir/#/workspace?team-id=b64f6665-c9ab-80b5-8008-c3c17dfc1705&file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=f9b86891-93a1-8056-8008-e9c9617213c3&layout=layers&board-id=9ad04949-7c85-8079-8008-e9cba76f0478)
 - [Link state, theme and layout matrix](https://pixa.akbaramd.ir/#/workspace?team-id=b64f6665-c9ab-80b5-8008-c3c17dfc1705&file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=f9b86891-93a1-8056-8008-e9c9617213c3&layout=layers&board-id=a70c3eb4-6569-806a-8008-eb3f748a5872)
 
-The source-owned page is still DRAFT. Light/Dark and focus-token candidates remain owned by #418. Design-to-code parity and final visual review are not yet accepted.
+The source-owned page remains marked DRAFT in Penpot. Issue #431 design comment #6738154524 (2026-11-09) identifies both boards above and records that they were exported and visually inspected. The issue-scoped design contract is accepted for this implementation: native anchor/action structure, Default/Subtle states, disabled-navigation semantics, focus-visible treatment, inline wrapping and inherited RTL. This does not change the page status or approve global Light/Dark token values and aliases owned by #418. Link uses only existing published theme variables and introduces no candidate token names.
 
 ## Verification
 
 Focused HtmlRenderer tests live in tests/RegexSampleGeneratorTest/LinkRenderSemanticsTests.cs. They cover null/empty/whitespace Href, enabled anchor attributes, disabled navigation role/name/focus and href suppression, disabled native action, case-insensitive conflicts, explicit false disabled and Subtle appearance.
 
-The interactive demo exposes enabled navigation/action and disabled navigation/action, callback counters and a Persian RTL sample. Do not infer native screen-reader acceptance from markup or browser AX. Source/build/unit-test, real-browser, visual, OS contrast and assistive-technology evidence must be reported separately.
+The interactive demo exposes enabled navigation/action and disabled navigation/action, separate callback counters, a native internal-hash navigation target and a Persian RTL sample.
+
+The Link-specific real-browser probe exercises the actual Component Lab specimen and records:
+- Default and Subtle appearance/text changes and underline rest/hover/active behavior;
+- native pointer navigation plus additive OnClick;
+- no-Href button type=button action and Enter/Space activation;
+- disabled navigation and disabled action DOM semantics;
+- disabled-navigation accessibility role/name from the browser accessibility tree;
+- Tab discovery of disabled navigation, omission of native disabled action from the Tab order, and visible focus-visible outline;
+- Pointer/Enter/Space callback suppression on both disabled paths;
+- inherited Persian RTL direction and emulated forced-colors focus visibility.
+
+The browser probe runs on Chrome and Edge for WebAssembly and InteractiveServer. It is separate from the local HtmlRenderer tests and the Release/five-package build gate.
+
+Evidence boundaries: browser forced-colors emulation is not a native Windows Contrast Themes test; browser accessibility-tree role/name inspection is not spoken screen-reader acceptance. Native OS contrast themes and spoken screen-reader output are not claimed by this Link acceptance record. The design board and browser screenshots are evidence for their respective scope; neither is a substitute for the other.
