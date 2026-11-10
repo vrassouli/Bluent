@@ -14,12 +14,58 @@
 | Full state matrix | Page 17 · TextField full matrix, page 343383cb-23d3-80b8-8008-ec421a657594; board 343383cb-23d3-80b8-8008-ec424306af65 |
 | Anatomy / size / RTL | Page 18 · TextField anatomy, sizing & RTL, page 343383cb-23d3-80b8-8008-ec43be230d2d; board 343383cb-23d3-80b8-8008-ec43be3b98e5 |
 | Keyboard / forced-colors / reflow | Page 19 · TextField keyboard, contrast & reflow, page 343383cb-23d3-80b8-8008-ec440d228749; board 343383cb-23d3-80b8-8008-ec440d2d8ed7 |
+| Fluent crosswalk / composite state precedence | Page 20 · Fluent crosswalk & state precedence, page 343383cb-23d3-80b8-8008-ec45d2946dbd; board 343383cb-23d3-80b8-8008-ec45d29ff553 |
 
-The Microsoft Fluent file is a read-only reference. The owned Penpot file is the editable working source. Neither imported artwork nor a design board proves Blazor behavior or lossless upstream parity.
+The Microsoft Fluent files are read-only references. The owned Penpot file is the editable working source. Keep Fluent Web Components and Fluent React Input as separate reference layers. Neither imported artwork nor a design board proves Blazor behavior or lossless upstream parity.
 
+### Fluent source crosswalk — keep the two upstream APIs distinct
+
+The four-appearance board is **not** a one-to-one reproduction of the Fluent Web Components `fluent-text-field` API. The repository parity hierarchy in #552 is authoritative: use Fluent Web Components as the primary API/DOM/keyboard target; use Fluent React v9 only as a clearly marked cross-platform reference where Web Components has no comparable pattern.
+
+| Fluent reference | Verified scope | TextField disposition |
+| --- | --- | --- |
+| Fluent Web Components Text Field | Its official component page documents two appearances: Outline (default) and Filled. | Primary API/behavior target for Web Components comparison. Do not claim separate WC Underline, Filled lighter or Filled darker props. |
+| Fluent React v9 Input | Documents Outline, Underline, Filled lighter and Filled darker; Small/Medium/Large; contentBefore/contentAfter; native input/Field integration. | Cross-platform visual/accessibility reference for the four-appearance design matrix; clearly label these extra variants as not a one-to-one WC component contract. |
+| Bluent v3 TextField | Native Blazor TextField preserving Bluent's existing InputBase contract, addons, textarea mode and Persian digit/character helpers. | Keep deliberate Bluent extensions separate from parity claims; final public v3 API still needs review. |
+
+Appearance disposition:
+- **Outline:** shared by Web Components and React Input.
+- **Filled:** the Web Components page documents one Filled appearance; do not silently map it to React's lighter or darker variant without an explicit design decision.
+- **Filled lighter / Filled darker:** distinct React Input appearances; no separate matching appearance names are documented for the Web Components Text Field.
+- **Underline:** documented by React Input; not a distinct Web Components Text Field appearance. Treat it as a cross-platform visual model / proposed Bluent extension relative to the WC component.
+
+Source references (checked 2026-11-10):
+- [Fluent Web Components — Text Field](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/text-field).
+- [Fluent React v9 — Input](https://fluentuipr.z22.web.core.windows.net/pull/36784/docs/react/components/input).
+- [Fluent React v9 — Input accessibility](https://fluentuipr.z22.web.core.windows.net/pull/36784/docs/react/guide/accessibility/components/input).
+- [Fluent React Input style implementation](https://github.com/microsoft/fluentui/blob/master/packages/react-components/react-input/library/src/components/Input/useInputStyles.styles.ts).
+
+The Penpot page 20 crosswalk board records this distinction. This avoids reporting four React visual appearances as four supported Fluent Web Components appearances.
+
+### Composite state rules — seven rows are not seven mutually exclusive flags
+
+The 28 linked appearance/state variants are base visual specimens, not the full cartesian product of independent native states. The React Input reference composes aria-invalid, focus, disabled and appearance rules. The v3 test/demo matrix must add at least these overlapping cases:
+
+| Combined condition | Upstream behavior to verify / preserve |
+| --- | --- |
+| Invalid + unfocused | aria-invalid=true drives the invalid border; the associated validation message must remain readable and described. |
+| Invalid + focused | The React Input invalid border rule is limited to :not(:focus-within); focus underline remains the active border cue while aria-invalid and its message remain present. Do not stack a second generic danger/focus rectangle. |
+| Disabled | Native disabled removes the control from the tab order; the focus pseudo-element is suppressed. In forced-colors, disabled border uses system GrayText. |
+| ReadOnly + focused | Native readonly remains focusable and allows selection/copy while preventing edits; it is not Disabled. |
+| Action addon | An interactive addon is a separate focusable control with its own accessible name; disabling the field does not automatically disable an action button inside its slot. |
+
+Other visual/semantic constraints from the React reference:
+- Input uses a native HTML input; the browser retains caret, selection, IME composition, autofill and password behavior. Use native textarea semantics for the Bluent multiline mode.
+- Labels are not inferred from placeholder text. A visible Label must be programmatically associated; Field-style composition wires IDs, aria-labelledby, aria-describedby, aria-invalid and native required where supported.
+- An aria-invalid state without a readable associated reason is incomplete validation feedback.
+- A visible input boundary must meet at least **3:1** against its immediate host surface. Outline and Underline use a sufficiently contrasting bottom stroke; Filled lighter/darker rely on the field surface contrasting with the surface behind it. The Penpot matrix now places both Filled samples on a contrasting dark host surface; a real consumer surface still needs browser contrast verification.
+- filled-lighter-shadow and filled-darker-shadow are deprecated upstream and are intentionally excluded.
+- React's focus underline is a 2px ::after border driven by :focus-within; the source also has reduced-motion handling. Verify the chosen keyboard focus treatment in actual forced-colors and assistive-technology environments rather than copying a transparent outline blindly.
+
+The new Penpot page 20 board is a review aid for the crosswalk and composite rules; it is not runtime, contrast certification or maintainer approval.
 ### State and appearance coverage
 
-The native variant set contains **28 unique linked variants**:
+The native variant set contains **28 unique linked variants**. The four-appearance axis is based on Fluent React Input plus proposed Bluent coverage; it is not a claim that Fluent Web Components Text Field exposes all four appearance props:
 
 - Appearances: Outline, Filled lighter, Filled darker, Underline.
 - States: Rest, Hover, Pressed, Focus, Error, Disabled, ReadOnly.
